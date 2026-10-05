@@ -90,7 +90,27 @@ function App() {
   );
 }
 
+// 静的HTMLの書き出し用(preview-build/prerender.py)。URLに ?static=1 があると、タブなどの中身もすべて展開して描画する
+window.__DSP_STATIC__ = new URLSearchParams(window.location.search).has("static");
 ReactDOM.createRoot(document.getElementById("app-root")).render(<App />);
+// 静的HTMLの書き出し時は、1回の読み込みの中で全ページを順に表示し、描画後のHTMLを集めて隠し要素に書き出す
+// (preview-build/prerender.py がこの要素を読み取る。ページごとに読み込み直すと時間がかかるため)
+if (window.__DSP_STATIC__) {
+  (async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    await wait(500);
+    const out = {};
+    for (const p of PAGES) {
+      window.location.hash = p.path;
+      await wait(400);
+      out[p.path] = document.getElementById("app-root").innerHTML;
+    }
+    const ta = document.createElement("textarea");
+    ta.id = "dsp-static-dump";
+    ta.textContent = JSON.stringify(out);
+    document.body.appendChild(ta);
+  })();
+}
 </script>
 
 </body></html>

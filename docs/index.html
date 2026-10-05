@@ -745,10 +745,135 @@ const SYNTHESIS = {
   ],
 };
 
-function ActionsButtonPage() {
-  const [tabId, setTabId] = useState("a11y");
+/* タブ1つ分の中身。通常は選んだタブだけを表示し、静的HTMLの書き出し時(window.__DSP_STATIC__)は全タブを並べる */
+function ButtonTabContent({ tabId }) {
   const tab = TABS.find((t) => t.id === tabId) || TABS[0];
   const SOURCES = tab.data;
+  return (
+    <>
+    <div style={styles.synthesisBox}>
+      <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+      {SYNTHESIS[tabId].map((node, i) => (<p key={i} style={styles.synthesisText}>{node}</p>))}
+    </div>
+
+    <div className="dsp-mobile-only" style={styles.sourceList}>
+      {SOURCES.map((s) => (
+        <div key={s.key} style={styles.sourceCard}>
+          <div style={styles.sourceHeadRow}>
+            <div>
+              <div style={styles.sourceName}>{s.name}</div>
+              <div style={styles.sourceDoc}>{s.doc}</div>
+            </div>
+            {tab.hasScale && (
+              <div style={styles.sourceValueWrap}>
+                <span style={styles.sourceValue}>{s.value}</span>
+                <span style={styles.sourceUnit}>{s.unit}</span>
+              </div>
+            )}
+          </div>
+          {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
+          <p style={styles.sourceStance}>{s.stance}</p>
+          <div style={styles.exceptionBox}>
+            <span style={styles.exceptionLabel}>例外・許容ケース</span>
+            <p style={styles.exceptionText}>{s.exceptions}</p>
+          </div>
+          {!tab.hasScale && s.illustration && (
+            <div style={styles.illustrationBox}>{s.illustration()}</div>
+          )}
+          {tab.hasScale && (
+            <div style={{ maxWidth: 220 }}>
+              <RangeScale scale={s.scale} />
+            </div>
+          )}
+          <div style={styles.pourBox}>
+            <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
+            <p style={styles.exceptionText}>{s.pourDetail}</p>
+          </div>
+          <div style={styles.sourceFootRow}>
+            <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+            <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div className="dsp-desktop-only">
+      <h2 style={styles.diagramTitle}>ボタンデザインシステム比較 ― {tab.label}</h2>
+      <div style={styles.matrixScroll}>
+        <div style={styles.matrixGrid}>
+          <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
+          {SOURCES.map((s) => (
+            <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
+              <div style={styles.sourceName}>{s.name}</div>
+              <div style={styles.sourceDoc}>{s.doc}</div>
+            </div>
+          ))}
+          {tab.hasScale ? (
+            <>
+              <div style={styles.labelCell}>基準値</div>
+              {SOURCES.map((s) => (
+                <div key={s.key} style={styles.cell}>
+                  <span style={styles.value}>{s.value}</span>
+                  <span style={styles.unit}>{s.unit}</span>
+                </div>
+              ))}
+              <div style={styles.labelCell}>許容レンジ</div>
+              {SOURCES.map((s) => (<div key={s.key} style={styles.cell}><div style={{ width: "100%", maxWidth: 170 }}><RangeScale scale={s.scale} /></div></div>))}
+            </>
+          ) : (
+            <>
+              <div style={styles.labelCell}>位置づけ</div>
+              {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
+              <div style={styles.labelCell}>見た目イメージ</div>
+              {SOURCES.map((s) => (<div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>))}
+            </>
+          )}
+          <div style={styles.labelCell}>基本方針</div>
+          {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
+          <div style={styles.labelCell}>例外・許容ケース</div>
+          {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+          <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
+          {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
+          <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+          {SOURCES.map((s) => (
+            <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
+              <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+              <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {tabId === "a11y" && (
+      <>
+        <div style={styles.diagramCard}>
+          <h2 style={styles.diagramTitle}>参考: 四サイト比較図(実寸オーバーレイ)</h2>
+          <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
+            <rect x="8" y="6" width="70" height="70" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
+            <rect x="8" y="15" width="61" height="61" fill="none" stroke="#C2542A" strokeWidth="1.6" />
+            <rect x="10" y="17" width="61" height="61" fill="none" stroke="#A3821F" strokeWidth="1.2" strokeDasharray="4 3" />
+            <rect x="8" y="29" width="47" height="47" fill="#7A4F7E" fillOpacity="0.08" stroke="#7A4F7E" strokeWidth="1.6" />
+            <text x="92" y="14" fontSize="9.5" fill="#2F7D6E" fontFamily="IBM Plex Mono" fontWeight="600">Material 48dp</text>
+            <text x="92" y="30" fontSize="9.5" fill="#C2542A" fontFamily="IBM Plex Mono" fontWeight="600">HIG 44pt</text>
+            <text x="92" y="46" fontSize="9.5" fill="#A3821F" fontFamily="IBM Plex Mono" fontWeight="600">WCAG AAA 44px</text>
+            <text x="92" y="62" fontSize="9.5" fill="#7A4F7E" fontFamily="IBM Plex Mono" fontWeight="600">NN 約1cm(目安)</text>
+          </svg>
+        </div>
+        <div style={styles.legendRow}>
+          <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ok.fill, borderColor: BAND_COLOR.ok.stroke }} />推奨</span>
+          <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.caution.fill, borderColor: BAND_COLOR.caution.stroke }} />条件付き</span>
+          <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ng.fill, borderColor: BAND_COLOR.ng.stroke }} />非推奨</span>
+        </div>
+      </>
+    )}
+    </>
+  );
+}
+
+function ActionsButtonPage() {
+  const [tabId, setTabId] = useState("a11y");
+  const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
 
   return (
     <div className="dsp-page" style={styles.page}>
@@ -778,7 +903,7 @@ function ActionsButtonPage() {
             <p style={styles.swatchNote}>優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。</p>
           </div>
 
-          <div style={styles.segmented} role="tablist" aria-label="比較する項目">
+          {!isStatic && <div style={styles.segmented} role="tablist" aria-label="比較する項目">
             {TABS.map((t) => (
               <button
                 key={t.id}
@@ -790,123 +915,17 @@ function ActionsButtonPage() {
                 {t.label}
               </button>
             ))}
-          </div>
+          </div>}
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            {SYNTHESIS[tabId].map((node, i) => (<p key={i} style={styles.synthesisText}>{node}</p>))}
-          </div>
-
-          <div className="dsp-mobile-only" style={styles.sourceList}>
-            {SOURCES.map((s) => (
-              <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceHeadRow}>
-                  <div>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                  {tab.hasScale && (
-                    <div style={styles.sourceValueWrap}>
-                      <span style={styles.sourceValue}>{s.value}</span>
-                      <span style={styles.sourceUnit}>{s.unit}</span>
-                    </div>
-                  )}
-                </div>
-                {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
-                <p style={styles.sourceStance}>{s.stance}</p>
-                <div style={styles.exceptionBox}>
-                  <span style={styles.exceptionLabel}>例外・許容ケース</span>
-                  <p style={styles.exceptionText}>{s.exceptions}</p>
-                </div>
-                {!tab.hasScale && s.illustration && (
-                  <div style={styles.illustrationBox}>{s.illustration()}</div>
-                )}
-                {tab.hasScale && (
-                  <div style={{ maxWidth: 220 }}>
-                    <RangeScale scale={s.scale} />
-                  </div>
-                )}
-                <div style={styles.pourBox}>
-                  <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
-                  <p style={styles.exceptionText}>{s.pourDetail}</p>
-                </div>
-                <div style={styles.sourceFootRow}>
-                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>ボタンデザインシステム比較 ― {tab.label}</h2>
-            <div style={styles.matrixScroll}>
-              <div style={styles.matrixGrid}>
-                <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                ))}
-                {tab.hasScale ? (
-                  <>
-                    <div style={styles.labelCell}>基準値</div>
-                    {SOURCES.map((s) => (
-                      <div key={s.key} style={styles.cell}>
-                        <span style={styles.value}>{s.value}</span>
-                        <span style={styles.unit}>{s.unit}</span>
-                      </div>
-                    ))}
-                    <div style={styles.labelCell}>許容レンジ</div>
-                    {SOURCES.map((s) => (<div key={s.key} style={styles.cell}><div style={{ width: "100%", maxWidth: 170 }}><RangeScale scale={s.scale} /></div></div>))}
-                  </>
-                ) : (
-                  <>
-                    <div style={styles.labelCell}>位置づけ</div>
-                    {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                    <div style={styles.labelCell}>見た目イメージ</div>
-                    {SOURCES.map((s) => (<div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>))}
-                  </>
-                )}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {tabId === "a11y" && (
-            <>
-              <div style={styles.diagramCard}>
-                <h2 style={styles.diagramTitle}>参考: 四サイト比較図(実寸オーバーレイ)</h2>
-                <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
-                  <rect x="8" y="6" width="70" height="70" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
-                  <rect x="8" y="15" width="61" height="61" fill="none" stroke="#C2542A" strokeWidth="1.6" />
-                  <rect x="10" y="17" width="61" height="61" fill="none" stroke="#A3821F" strokeWidth="1.2" strokeDasharray="4 3" />
-                  <rect x="8" y="29" width="47" height="47" fill="#7A4F7E" fillOpacity="0.08" stroke="#7A4F7E" strokeWidth="1.6" />
-                  <text x="92" y="14" fontSize="9.5" fill="#2F7D6E" fontFamily="IBM Plex Mono" fontWeight="600">Material 48dp</text>
-                  <text x="92" y="30" fontSize="9.5" fill="#C2542A" fontFamily="IBM Plex Mono" fontWeight="600">HIG 44pt</text>
-                  <text x="92" y="46" fontSize="9.5" fill="#A3821F" fontFamily="IBM Plex Mono" fontWeight="600">WCAG AAA 44px</text>
-                  <text x="92" y="62" fontSize="9.5" fill="#7A4F7E" fontFamily="IBM Plex Mono" fontWeight="600">NN 約1cm(目安)</text>
-                </svg>
-              </div>
-              <div style={styles.legendRow}>
-                <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ok.fill, borderColor: BAND_COLOR.ok.stroke }} />推奨</span>
-                <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.caution.fill, borderColor: BAND_COLOR.caution.stroke }} />条件付き</span>
-                <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ng.fill, borderColor: BAND_COLOR.ng.stroke }} />非推奨</span>
-              </div>
-            </>
+          {isStatic ? (
+            TABS.map((t) => (
+              <section key={t.id} style={{ marginBottom: 28 }}>
+                <h2 style={styles.staticTabTitle}>{t.label}</h2>
+                <ButtonTabContent tabId={t.id} />
+              </section>
+            ))
+          ) : (
+            <ButtonTabContent tabId={tabId} />
           )}
 
           <div style={styles.tagsRow}>
@@ -918,7 +937,7 @@ function ActionsButtonPage() {
             <span>最終確認: 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              「状態」タブは、将来作成予定のトークンレイヤー「インタラクション状態」ページと内容が一部重複する見込みです。ページが増えた時点で、どちらか適切な方へ統合・整理する予定です。
+              状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の数値の詳しい比較は「入力方法・ジェスチャー」ページも参照してください。
             </span>
           </div>
         </div>
@@ -944,6 +963,7 @@ const styles = {
   swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
+  staticTabTitle: { fontSize: 17, fontWeight: 700, color: "#171B36", margin: "8px 0 12px", paddingTop: 12, borderTop: "2px solid #171B36" },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "12px 16px", marginBottom: 14, maxWidth: 420 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 10px", color: "#171B36" },
@@ -33831,7 +33851,27 @@ function App() {
   );
 }
 
+// 静的HTMLの書き出し用(preview-build/prerender.py)。URLに ?static=1 があると、タブなどの中身もすべて展開して描画する
+window.__DSP_STATIC__ = new URLSearchParams(window.location.search).has("static");
 ReactDOM.createRoot(document.getElementById("app-root")).render(<App />);
+// 静的HTMLの書き出し時は、1回の読み込みの中で全ページを順に表示し、描画後のHTMLを集めて隠し要素に書き出す
+// (preview-build/prerender.py がこの要素を読み取る。ページごとに読み込み直すと時間がかかるため)
+if (window.__DSP_STATIC__) {
+  (async () => {
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    await wait(500);
+    const out = {};
+    for (const p of PAGES) {
+      window.location.hash = p.path;
+      await wait(400);
+      out[p.path] = document.getElementById("app-root").innerHTML;
+    }
+    const ta = document.createElement("textarea");
+    ta.id = "dsp-static-dump";
+    ta.textContent = JSON.stringify(out);
+    document.body.appendChild(ta);
+  })();
+}
 </script>
 
 </body></html>

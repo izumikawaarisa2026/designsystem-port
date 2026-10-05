@@ -2,7 +2,8 @@
 
 Apple(Human Interface Guidelines)・Google(Material Design)・W3C(WCAG)・Nielsen Norman Groupの4つの指針を、UIの部品・基礎ルールごとに比較し、AIによる統合見解(AI解釈)を添えたサイトです。
 
-- 公開URL(GitHub Pages): https://izumikawaarisa2026.github.io/designsystem-port/
+- 公開URL(GitHub Pages): https://izumikawaarisa2026.github.io/designsystem-port/ (通常版)
+- 静的版(AIのレビュー用。本文がHTMLに直接入っている): https://izumikawaarisa2026.github.io/designsystem-port/pages/
 - 状態: **レビュー中(正式リリース前・v0.x)**。正式リリースはv1.0.0です。レビュー期間中は検索エンジンに載せない設定(noindex)にしています。
 
 > 各公式サイトの文章は転載せず、要約・言い換えのみを掲載し、必ず公式ページへのリンクを添えています。数値などの最終判断は、リンク先の一次情報を確認してください。
@@ -17,7 +18,8 @@ Apple(Human Interface Guidelines)・Google(Material Design)・W3C(WCAG)・Nielse
 | `requestDetails/dev-changelog.md` | 制作中の細かい変更の記録 |
 | `requestDetails/sidebar-nav.jsx` | 全ページ共通のサイドバー(ページの一覧と並び順もここで決まる) |
 | `preview-build/` | 全ページを1つのHTMLに束ねるビルドの仕組み |
-| `docs/index.html` | ビルドしたサイト(GitHub Pagesで公開する版)。**手で編集しない** |
+| `docs/index.html` | ビルドしたサイト(通常版。GitHub Pagesで公開)。**手で編集しない** |
+| `docs/pages/` | 各ページを1ページ1ファイルの静的HTMLに書き出したもの(JavaScriptなしで本文が読める版)。**手で編集しない** |
 | `reviews/` | レビューの進め方とレビュー表のひな形 |
 | `CHANGELOG.md` | 版(バージョン)ごとの変更内容 |
 
@@ -30,7 +32,7 @@ Apple(Human Interface Guidelines)・Google(Material Design)・W3C(WCAG)・Nielse
    python3 preview-build/build_preview.py
    ```
 
-   `docs/index.html` が作り直されます(圧縮しないので、出力を見ても修正箇所を追えます)。
+   `docs/index.html`(通常版)と `docs/pages/`(静的版。Chromeで各ページを描画して書き出す)が作り直されます。どちらも圧縮しないので、出力を見ても修正箇所を追えます。
 3. コミットしてpushすると、数分でGitHub Pagesに反映されます。
 
 新しいページの追加方法は `preview-build/README.md` と `requestDetails/CLAUDE.md` を参照してください。

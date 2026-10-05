@@ -76,3 +76,10 @@ if len(sys.argv) <= 2:
     os.makedirs(os.path.dirname(PAGES_OUT), exist_ok=True)
     open(PAGES_OUT, "w", encoding="utf8").write(html)
 print(f"{len(pages)} pages ({sum(p['fixed'] for p in pages)} done / {sum(not p['fixed'] for p in pages)} review)")
+
+# 公開版の各ページを、JavaScriptなしで本文が読める静的HTMLにも書き出す(docs/pages/)。省略するときは --no-static
+if len(sys.argv) <= 2 or "--no-static" not in sys.argv:
+    if "--no-static" not in sys.argv and len([a for a in sys.argv[1:] if not a.startswith("--")]) == 0:
+        sys.path.insert(0, HERE)
+        import prerender
+        prerender.main()
