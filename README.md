@@ -42,6 +42,7 @@ Apple(Human Interface Guidelines)・Google(Material Design)・W3C(WCAG)・Nielse
 | 版 | 内容 |
 |---|---|
 | v0.1.0 | レビュー開始版(全62ページ+トップ) |
+| v0.1.1〜v0.1.2 | 静的版(AIのレビュー用。`docs/pages/`)の追加と表示の修正。①のAIレビューはこの最新版で行う |
 | v0.2.0 | ① AIレビュー(1回目・Claude・ChatGPT・Gemini)の修正を反映 |
 | v0.3.0 | ③ 本人レビュー(1回目)の修正を反映 |
 | v0.4.0 | ⑤ AIレビュー(2回目)の修正を反映 |
