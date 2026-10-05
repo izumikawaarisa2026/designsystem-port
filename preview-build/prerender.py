@@ -93,6 +93,14 @@ def main():
 <style>{shell_css}
   .dsp-static-note {{ font-family: 'Jost', 'Noto Sans JP', sans-serif; font-size: 12px; color: #454C78; background: #F3F6FA; border-bottom: 1px solid #E1E3F0; padding: 8px 16px; }}
   .dsp-static-note a {{ color: #3A4FCF; }}
+  /* 静的版はJavaScriptが動かずハンバーガーメニューを開けないため、スマホ幅では固定のバーを隠し、
+     サイドバー(<details>で開閉できる)を本文の上に全幅で表示する */
+  @container dsp (max-width: 859px) {{
+    .page-frame .sbn-toggle {{ display: none !important; }}
+    .page-frame .dsp-page {{ padding-top: 0 !important; }}
+    .page-frame .dsp-page > div {{ flex-direction: column !important; }}
+    .page-frame .sbn-desktop {{ display: block !important; width: 100% !important; height: auto !important; position: static !important; border-bottom: 1px solid #E1E3F0; }}
+  }}
 </style>
 </head>
 <body>
