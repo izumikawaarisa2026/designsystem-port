@@ -10943,52 +10943,65 @@ function CategoryGrid({ sel, onSelect }) {
   );
 }
 
-/* タグを選ぶと、そのタグを持つページを層ごとに並べる */
-function TagExplorer() {
-  const [sel, setSel] = useState(CATEGORIES[5].tag);
+/* 選んだタグを持つページを層ごとに並べる */
+function TagResult({ sel }) {
   const isPrinciple = principleCounts.some(([t]) => t === sel);
   const hits = tagged.filter((p) => (isPrinciple ? p.principles : p.processes).includes(sel));
   const byLayer = ["思想レイヤー", "トークン / ファウンデーション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
+  return (
+    <div style={styles.resultBox} aria-live="polite">
+      <div style={styles.resultHead}>
+        <span style={isPrinciple ? styles.tagPrinciple : styles.tagProcess}>{sel}</span>
+        <span style={styles.resultCount}>{hits.length}ページ</span>
+      </div>
+      {byLayer.map((x) => (
+        <div key={x.layer} style={styles.resultLayer}>
+          <div style={styles.resultLayerName}>{x.layer}</div>
+          <div style={styles.resultList}>
+            {x.pages.map((p) => (
+              <a key={p.path} href={p.path} style={styles.resultCard}>
+                <span style={styles.resultGroup}>{p.group}</span>
+                <span style={styles.resultTitle}>{p.label}</span>
+                <span style={styles.resultTags}>
+                  {[...p.principles, ...p.processes].filter((t) => t !== sel).map((t) => (
+                    <span key={t} style={p.principles.includes(t) ? styles.miniPrinciple : styles.miniProcess}>{t}</span>
+                  ))}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* タグを選ぶと、そのタグを持つページを層ごとに並べる */
+function TagExplorer() {
+  const [sel, setSel] = useState(CATEGORIES[5].tag);
+  const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
   const chip = ([t, n], principle) => (
-    <button key={t} type="button" onClick={() => setSel(t)} aria-pressed={sel === t}
-      style={{ ...styles.chip, ...(principle ? styles.chipPrinciple : {}), ...(sel === t ? (principle ? styles.chipPrincipleOn : styles.chipOn) : {}) }}>
+    <button key={t} type="button" onClick={() => setSel(t)} aria-pressed={!isStatic && sel === t}
+      style={{ ...styles.chip, ...(principle ? styles.chipPrinciple : {}), ...(!isStatic && sel === t ? (principle ? styles.chipPrincipleOn : styles.chipOn) : {}) }}>
       {t}<span style={styles.chipCount}>{n}</span>
     </button>
   );
   return (
     <div>
       <div style={styles.chipGroupLabel}>プロセスタグ(12のくくり)― 作業や場面から探す</div>
-      <CategoryGrid sel={sel} onSelect={setSel} />
+      <CategoryGrid sel={isStatic ? null : sel} onSelect={setSel} />
       <div style={styles.chipGroupLabel}>原則タグ ― WCAGのPOURから探す</div>
       <div style={styles.chipRow}>{POUR_TAGS.map((t) => chip([t, pourCount(t)], true))}{otherPrinciples.map((c) => chip(c, true))}</div>
       {undefinedTags.length > 0 && (
         <p style={styles.warnNote}>12のくくりにない未定義のタグ: {undefinedTags.map(([t, n]) => `${t}(${n})`).join("・")}。各ページのタグを12のくくりから選び直してください。</p>
       )}
 
-      <div style={styles.resultBox} aria-live="polite">
-        <div style={styles.resultHead}>
-          <span style={isPrinciple ? styles.tagPrinciple : styles.tagProcess}>{sel}</span>
-          <span style={styles.resultCount}>{hits.length}ページ</span>
-        </div>
-        {byLayer.map((x) => (
-          <div key={x.layer} style={styles.resultLayer}>
-            <div style={styles.resultLayerName}>{x.layer}</div>
-            <div style={styles.resultList}>
-              {x.pages.map((p) => (
-                <a key={p.path} href={p.path} style={styles.resultCard}>
-                  <span style={styles.resultGroup}>{p.group}</span>
-                  <span style={styles.resultTitle}>{p.label}</span>
-                  <span style={styles.resultTags}>
-                    {[...p.principles, ...p.processes].filter((t) => t !== sel).map((t) => (
-                      <span key={t} style={p.principles.includes(t) ? styles.miniPrinciple : styles.miniProcess}>{t}</span>
-                    ))}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
+      {isStatic ? (
+        // 静的HTMLの書き出し時は、すべてのタグの結果を並べる(押して切り替えられないため)
+        [...CATEGORIES.map((c) => c.tag), ...POUR_TAGS, ...otherPrinciples.map(([t]) => t)].map((t) => <TagResult key={t} sel={t} />)
+      ) : (
+        <TagResult sel={sel} />
+      )}
     </div>
   );
 }
@@ -10996,7 +11009,7 @@ function TagExplorer() {
 /* 全ページのタグ一覧(折りたたみ) */
 function AllPagesTable() {
   return (
-    <details style={styles.fold}>
+    <details style={styles.fold} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
       <summary style={styles.foldSummary}>全ページのタグ一覧を開く({tagged.length}ページ)</summary>
       <div style={styles.foldBody}>
         {groups.map((g) => {

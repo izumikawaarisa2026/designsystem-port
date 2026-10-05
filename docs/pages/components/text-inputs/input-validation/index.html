@@ -52,7 +52,8 @@
   @container dsp (max-width: 859px) {
     .page-frame .sbn-toggle { display: none !important; }
     .page-frame .dsp-page { padding-top: 0 !important; }
-    .page-frame .dsp-page > div { flex-direction: column !important; }
+    .page-frame .dsp-page > div { flex-direction: column !important; align-items: stretch !important; }
+    .page-frame .dsp-page > div > * { min-width: 0; max-width: 100%; }
     .page-frame .sbn-desktop { display: block !important; width: 100% !important; height: auto !important; position: static !important; border-bottom: 1px solid #E1E3F0; }
   }
 </style>
