@@ -1,0 +1,17 @@
+# OS・エディタ
+.DS_Store
+.claude/
+
+# Python
+__pycache__/
+*.pyc
+
+# プレビュー用の出力(Claudeのアーティファクト公開用。公開版は docs/index.html)
+preview-build/preview.html
+
+# 公式サイトの文章をそのまま写した資料(著作権のため公開しない。CLAUDE.md「著作権への配慮」)
+MD3_text/
+requestDetails/_m3-research-notes.md
+
+# レビューの作業ファイル(管理はGoogleドライブのスプレッドシートで行う)
+reviews/inbox/

@@ -1,0 +1,96 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>DesignSystem Port</title>
+<!-- レビュー期間中(v1.0.0の正式リリースまで)は検索エンジンに載せない。正式リリース時にこの行を削除する -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+  :root {
+    --ink: #171B36; --text: #2E3457; --muted: #7E86AC; --faint: #9EA4C4;
+    --border: #E1E3F0; --canvas: #EEF1FA;
+    --grad1: #3730A3; --grad2: #2F6FED;
+    --chip-bg: #F3F6FA; --chip-active-bg: #171B36; --chip-active-text: #FFFFFF;
+    --focus: #2F6FED;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #EAEDFB; --text: #C3C9EA; --muted: #8B93C2; --faint: #666E9C;
+      --border: #313866; --canvas: #0E1026;
+      --grad1: #6C6BFF; --grad2: #5B9CFF;
+      --chip-bg: #1E2246; --chip-active-bg: #EAEDFB; --chip-active-text: #12142A;
+      --focus: #8C9BFF;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #EAEDFB; --text: #C3C9EA; --muted: #8B93C2; --faint: #666E9C;
+    --border: #313866; --canvas: #0E1026;
+    --grad1: #6C6BFF; --grad2: #5B9CFF;
+    --chip-bg: #1E2246; --chip-active-bg: #EAEDFB; --chip-active-text: #12142A;
+    --focus: #8C9BFF;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--canvas); color: var(--text); font-family: 'Jost', 'Noto Sans JP', sans-serif; }
+
+  /*
+   * 各ページ自身が「自分が画面全体である」前提(サイドバーのheight:100vh・
+   * position:stickyなど)で作られているため、プレビューの外枠は設けず、
+   * ページをそのまま流し込む。ページの移動はサイドバー(SPはハンバーガーメニュー)で行う。
+   */
+  .page-frame { container-type: inline-size; container-name: dsp; background: #FFFFFF; }
+  /* SP用/PC用ブロックの出し分け。インラインstyleのdisplayに勝つよう、隠す側だけ!importantにする */
+  @container dsp (max-width: 859px) { .dsp-desktop-only { display: none !important; } }
+  @container dsp (min-width: 860px) { .dsp-mobile-only { display: none !important; } }
+</style>
+
+<div id="app-root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.25.6/babel.min.js"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+
+/*
+ * このプレビューは requestDetails/*.jsx を build_preview.py で束ねたもの。
+ * 各ページの @media はビルド時に @container dsp(...) に置き換えており、
+ * ページ枠(.page-frame)の幅に応じて、実機と同じレイアウト分岐(860px未満でSP表示)になる。
+ */
+
+/*__PAGES_SOURCE__*/
+
+/* ================= App shell (preview chrome) ================= */
+/*__PAGES_LIST__*/
+
+function App() {
+  // 表示するページはURLの #/パス で決まる(例: #/tokens/color)。なければトップ
+  const pageOfHash = () => PAGES.find((p) => p.path === decodeURIComponent(window.location.hash.slice(1)));
+  const [current, setCurrent] = useState(() => pageOfHash() || PAGES[0]);
+  useEffect(() => {
+    // ページ内の見出しへのリンク(#elv-rules など)ではページを切り替えない
+    const onHash = () => { const p = pageOfHash(); if (p) setCurrent(p); else if (!window.location.hash) setCurrent(PAGES[0]); };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+  useEffect(() => { window.scrollTo(0, 0); }, [current]);
+  // ページ内のサイト内リンク(サイドバー・関連ページカード等)を、プレビュー内のページ切り替えに置き換える
+  const onFrameClick = (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    const href = a.getAttribute("href");
+    if (!href || !href.startsWith("/")) return;
+    e.preventDefault();
+    const p = PAGES.find((pg) => pg.path === href.split("#")[0]);
+    if (p) window.location.hash = p.path;
+  };
+  const Current = current.Component;
+  return (
+    <div className="page-frame" onClick={onFrameClick}>
+      <Current key={current.id} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("app-root")).render(<App />);
+</script>
+
+</body></html>
