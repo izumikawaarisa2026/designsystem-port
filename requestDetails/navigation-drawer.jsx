@@ -91,8 +91,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-drawer/guidelines",
-    urlSecondary: [{ label: "関連: Navigation rail", url: "https://m3.material.io/components/navigation-rail/guidelines" }],
-    confirmedNote: "使用法・Standard/Modalの区分・配置(ブレークポイント別)・シート/スクリム・区切り線・アクティブインジケーター・ラベル/アイコン・レスポンシブレイアウト・インタラクションとスタイル・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文を直接確認済み(MD3_text/navigationDrawer.docx)。ドロワー幅などのspecs数値は未確認。",
+    urlSecondary: [
+      { label: "関連: Navigation rail", url: "https://m3.material.io/components/navigation-rail/guidelines" },
+      { label: "MDC Android: Navigation drawer(非推奨化の注記)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationDrawer.md" },
+    ],
+    confirmedNote: "使用法・Standard/Modalの区分・配置(ブレークポイント別)・シート/スクリム・区切り線・アクティブインジケーター・ラベル/アイコン・レスポンシブレイアウト・インタラクションとスタイル・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文(m3.material.io「Navigation drawer」のガイドライン)を確認済み。ドロワー幅などのspecs数値は未確認。",
     illustration: () => (
       <svg width="90" height="60" viewBox="0 0 90 60">
         <rect x="0" y="0" width="90" height="60" fill="#171B36" opacity="0.25" />
@@ -111,7 +114,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "「ドロワー」専用のARIAパターンは存在せず、モーダルか常時表示かで適用すべきパターンが変わる",
     size:
-      "ドロワー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます。",
+      "ドロワー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、閉じるボタンや選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
@@ -152,7 +155,7 @@ const SOURCES = [
     doc: "Hamburger Menus and Hidden Navigation Hurt UX Metrics",
     color: "#7A4F7E",
     position: "隠れたナビゲーション(ドロワー)は発見性・作業速度・満足度の指標を悪化させるという、調査データに基づく指針",
-    size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしています。5個を超える場合はやむを得ず隠す形になりますが、その場合も重要な情報へのページ内リンクを併設すべきとしています。",
+    size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしています。5個以上(4個を超える)の場合はやむを得ず隠す形になりますが、その場合も重要な情報へのページ内リンクを併設すべきとしています。",
     colorInfo: "色についての数値基準はありません。",
     stance:
       "調査によれば、メインナビゲーションを隠すとコンテンツの発見性はほぼ半分に低下し、デスクトップでは作業時間が39%以上、モバイルでは15%遅くなるとしています。隠れたナビゲーションは常時表示・併用型と比べて21%難しいと感じられ、実際の利用率も低い(デスクトップで27% vs 常時表示/併用型の48〜50%)としています。原因として、アイコンの視認性の低さ・中身が予測できないこと・展開の手間・実装の不統一・パターンとしての不慣れさの5点を挙げています。",
@@ -251,6 +254,13 @@ export default function NavigationDrawerPage() {
           <h1 style={styles.title}>ドロワー/サイドナビ</h1>
           <p style={styles.subtitle}>4つのガイドラインが、画面の脇に現れるナビゲーションをどう定めているかを比較します</p>
 
+          <div style={styles.warningBox}>
+            <div style={styles.warningLabel}>⚠ 重要な注記(2026-10、Google/Material Design 3)</div>
+            <p style={styles.warningText}>
+              Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)によると、<strong>ナビゲーションドロワーはM3 Expressiveのアップデートで非推奨になりつつあり、代わりに「展開ナビゲーションレール(expanded navigation rail)」を使う</strong>とされています。このページのGoogle欄は、それ以前のM3の本文に基づく内容です。<strong>新しく作る場合は、展開ナビゲーションレールを検討</strong>してください(下記Google欄の「MDC Android: Navigation drawer」リンクを参照)。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+            </p>
+          </div>
+
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(常時表示型の例)</span>
             <DrawerSwatch />
@@ -260,16 +270,19 @@ export default function NavigationDrawerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              このページで最も重要な訂正は、<strong>Googleの「Navigation drawer」がM3で非推奨になったという、以前の間接確認に基づく記載が誤りだった</strong>ことです。公式ページ本文を直接確認したところ、拡張/大/特大のブレークポイントではStandard、コンパクト/中サイズではModalを使うという、現役の詳細なガイドラインが存在することが分かりました。
+              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面では常に表示し、狭い画面で項目が多いときだけ隠す</strong>ことです。Nielsen Norman Groupはモバイルでも、トップレベルのリンクが4個以下なら見える形で表示するよう勧めています。
             </p>
             <p style={styles.synthesisText}>
               一方でAppleは、<strong>iOS向けに「隠れたドロワー」の概念自体を持たず</strong>、iPadOS/macOS向けの常時表示サイドバーのみを提供します。Googleとは異なる形ですが、両社とも一時的に「隠す」タイプのナビゲーションには慎重、という点では共通しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは調査データで<strong>「隠れたナビゲーションは発見性をほぼ半減させ、作業時間を最大39%遅くする」</strong>と指摘しています。Googleが現役でNavigation drawerを提供している以上、これは特定ベンダーの動向というより、<strong>「隠す」設計そのものに内在するリスク</strong>として捉えるべき指摘です。
+              Nielsen Norman Groupは調査データで<strong>隠れたナビゲーションは見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告しています。これは特定ベンダーの動向というより、<strong>「隠す」設計そのものに内在するリスク</strong>として捉えるべき指摘です。
             </p>
             <p style={styles.synthesisText}>
               W3Cは、<strong>「ドロワー」という単一のARIAパターンを持たず、モーダルか常時表示かで適用すべきパターンが変わる</strong>としています。Googleの「Modal(コンパクト/中サイズ)/Standard(拡張/大/特大)」という2区分は、この「モーダルか常時表示か」というアクセシビリティ上の分岐とほぼ対応しており、実装判断の軸として実務上参考になります。
+            </p>
+            <p style={styles.synthesisText}>
+              Googleの扱いについての経緯: 以前、このページに「Navigation drawerはM3で非推奨」と書き、その後M3の公式ページ本文(Expressive以前の版と考えられる)に現役のガイドラインがあったため「誤りだった」と訂正しました。しかし、<strong>Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)には、ナビゲーションドロワーはM3 Expressiveで非推奨になりつつあり、代わりに展開ナビゲーションレールを使う、と書かれています</strong>。そのため、M3の本文にある使い分け(拡張/大/特大のブレークポイントではStandard、コンパクト/中サイズではModal)は残しつつ、ページ冒頭の注記のとおり、新しく作る場合は展開ナビゲーションレールを検討してください(「ナビゲーションバー」ページの代替案(モーダル展開ナビゲーションレール)とも一致します)。
             </p>
           </div>
 
@@ -432,5 +445,8 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
+  warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
+  warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
+  warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

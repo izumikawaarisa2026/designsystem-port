@@ -138,7 +138,7 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Grid (Interactive Tabular Data) Pattern(「日付・タイムピッカー」ページのDate Picker Dialog例と同じ基盤)",
     color: "#A3821F",
     position: "カレンダーグリッド専用のパターンではなく、Date Picker Dialog例が使う汎用のGridパターンがそのまま基盤になる。複数の予定を持つスケジュール/アジェンダ向けの完成された実例はない",
-    size: "カレンダー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は各日・各予定のセルにも適用されます。",
+    size: "カレンダー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各日・各予定のセルにも適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択中のセルや予定を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
       { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。「日付・タイムピッカー」ページのDate Picker Dialog例と同じ仕組みで、矢印キーでセル間を移動できる。" },
@@ -174,7 +174,7 @@ const SOURCES = [
     doc: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)",
     color: "#7A4F7E",
     position: "「カレンダー」単体を論じた記事はないが、この記事内でカレンダーピッカー(グリッドUI)の使いどころを具体的に論じている。日付入力の文脈であり、複数の予定を並べるスケジュール/アジェンダ表示について論じたものではない",
-    size: "数値基準としては、選択肢が10個未満の場合のみドロップダウンを検討すべきとしています。カレンダーグリッド専用の寸法基準はありません。",
+    size: "寸法の基準はありません。",
     colorInfo: "色についての数値基準はありません。",
     stance:
       "「日付・タイムピッカー」ページで確認した通り、この記事はカレンダーピッカーを「現在に近い(1年未満程度の)日付」や「日付の範囲選択」に向くとしています。誕生日のような遠い日付ではフリーテキスト入力を推奨しており、カレンダーグリッドUIは万能ではなく用途を選ぶという立場です。",
@@ -276,18 +276,18 @@ export default function TextInputsCalendarPage() {
           </div>
 
           <h1 style={styles.title}>カレンダー(スケジュール/予定表)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、月表示のカレンダーグリッドUIをどう定めているかを比較します(いずれも「日付ピッカー」の1バリエーションとして提供されます。詳しい入力コントロールとしての比較は「日付・タイムピッカー」ページを参照)</p>
+          <p style={styles.subtitle}>先に結論: 予定表そのもの(スケジュール/アジェンダの画面)の指針は、4系列ともありません。日付を選ぶためのカレンダーは「日付/タイムピッカー」ページを参照してください。このページでは、月表示のカレンダーグリッドUIを4系列がどう扱っているかを比較します</p>
 
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(月表示の例)</span>
             <CalendarSwatch />
-            <p style={styles.swatchNote}>4系列とも、この形のカレンダーグリッドを持ちますが、いずれも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションとして提供されており、単一の日付(または範囲)を選ぶためのものです。</p>
+            <p style={styles.swatchNote}>部品としてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションです。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っています。</p>
           </div>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              このページの一番の発見は、<strong>4系列とも「カレンダー」という名前の独立コンポーネントこそ持たないものの、いずれも実質的なカレンダーグリッド(月表示)のUIを「日付ピッカー」の1バリエーションとして持っている</strong>ことです。Appleは<strong>UIDatePickerの.inline/.compactスタイル</strong>で、十分なスペースがあればモーダルの手間なくフルサイズのカレンダーを直接表示します。Googleは<strong>Date pickersのModalバリアント</strong>で、月をまたぐ横スワイプ・年をまたぐ縦スクロールという具体的な操作を持つカレンダーグリッドを提供しています。
+              このページの一番の発見は、<strong>「カレンダー」という名前の独立コンポーネントは4系列のどれにもなく、部品として月表示のカレンダーを持つのはAppleとGoogleで、どちらも「日付ピッカー」の1バリエーション</strong>だということです。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っています。Appleは<strong>UIDatePickerの.inline/.compactスタイル</strong>で、十分なスペースがあればモーダルの手間なくフルサイズのカレンダーを直接表示します。Googleは<strong>Date pickersのModalバリアント</strong>で、月をまたぐ横スワイプ・年をまたぐ縦スクロールという具体的な操作を持つカレンダーグリッドを提供しています。
             </p>
             <p style={styles.synthesisText}>
               W3Cは、<strong>「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ汎用Grid (Interactive Tabular Data) Pattern</strong>がそのまま基盤になります。Nielsen Norman Groupも、同じ記事「Date-Input Form Fields」の中でカレンダーピッカー(グリッドUI)の使いどころを論じており、<strong>近い将来の日付・範囲選択には向くが、誕生日のような遠い日付にはフリーテキスト入力を推奨</strong>しています。

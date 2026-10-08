@@ -87,7 +87,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/snackbar/guidelines",
     urlSecondary: [{ label: "Android Developers: Toasts overview(Snackbarとの使い分け)", url: "https://developer.android.com/guide/topics/ui/notifiers/toasts" }],
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/snackbar.docx)により、使用法・M2からの変更点・容器・アクション・配置・レスポンシブレイアウト・行動・Web上のアクセシビリティ要件の各セクションを2026-09に直接確認・反映。コンテナの高さ以外の具体的なdp数値は未確認。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Snackbar」のガイドライン)で、使用法・M2からの変更点・容器・アクション・配置・レスポンシブレイアウト・行動・Web上のアクセシビリティ要件の各セクションを2026-09に直接確認・反映。コンテナの高さ以外の具体的なdp数値は未確認。",
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
         <rect x="1" y="1" width="138" height="28" rx="6" fill="#2F7D6E" />
@@ -100,10 +100,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
+    doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
     color: "#A3821F",
-    position: "緊急度に応じて、控えめな通知にはrole=\"status\"、即時に伝えるべき警告にはrole=\"alert\"を使い分ける",
-    size: "スナックバー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)はアクションボタンに適用されます。",
+    position: "見た目ではなく内容の緊急度に応じて、控えめな通知にはrole=\"status\"、即時に伝えるべき警告にはrole=\"alert\"を使い分ける。操作を持つなら時間で消さない(2.2.1)",
+    size: "スナックバー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアクションボタンに適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどの視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
       { term: "role=\"status\"", desc: "aria-live=\"polite\"相当の暗黙のライブリージョン。スクリーンリーダーは現在読み上げ中の内容を終えてから新しいテキストを読み上げる。確認メッセージなど緊急性の低い通知に向く。" },
@@ -114,19 +114,26 @@ const SOURCES = [
       "ユーザーが即座に気づく必要のある重大なエラーにrole=\"alert\"を使いたい時(多用は避ける)",
     ],
     stance:
-      "スナックバーのような一時的な通知は、緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分けるべきだとしています。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求めます。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分けます(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいます。2.2.1(時間制限の調整・レベルA)により、時間で消さないか、延長・解除できるようにします。",
     exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしています。",
+      "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしています。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要があります(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― ライブリージョンによる自動読み上げ(4.1.3 Status Messages)が中心的な基準です。ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)も関わります。",
+      "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― ライブリージョンによる自動読み上げ(4.1.3 Status Messages)が中心的な基準です。時間で消える操作の扱い(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」に関わります。",
     useCases: [
       "確認・処理完了などの通知にはrole=\"status\"を使う",
       "即座の対応が必要な重大なエラーにはrole=\"alert\"を使う",
       "role=\"alert\"の多用を避け、読み上げの割り込みを最小限にする",
+      "「元に戻す」などの操作を持つなら、時間で消さないか、延長・解除できるようにする(2.2.1)",
+      "操作ボタンを含む場合は、キーボードや支援技術でボタンにたどり着けるようにする",
     ],
-    searchHint: "polite",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role",
-    urlSecondary: [{ label: "role=\"alert\"", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role" }],
+    searchHint: "without receiving focus",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
+    urlSecondary: [
+      { label: "2.2.1 Timing Adjustable", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+      { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
+      { label: "WAI-ARIA: alertロール", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
+      { label: "解説(MDN): statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="30" viewBox="0 0 140 30">
@@ -255,7 +262,7 @@ export default function CommunicationSnackbarPage() {
               このページは「スナックバー」に絞った内容です。当初は「トースト」と一体で扱っていましたが、Androidの実装としては<strong>別のAPI</strong>(Snackbar=アクションを持てる、Toast=操作不要のOS標準ポップアップ)であり、Google公式も用途を明確に分けているため、専用ページ「トースト」に切り出しました(末尾のリンクを参照)。スナックバーの一番の特徴は<strong>取り消し可能な操作(Undo)を1つだけ持てる</strong>点で、受動的な通知でありながら操作の余地を残す中間的な性質を持ちます。
             </p>
             <p style={styles.synthesisText}>
-              Android Developers公式ページを直接確認したところ、Googleは<strong>「アプリが前面表示中はSnackbar、背面にある場合はNotification」</strong>と明確に使い分けを案内していることが分かりました。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っています。
+              Android Developers公式ページを直接確認したところ、Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内していることが分かりました。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけています。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではありません</strong>(重要な確認には「ダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>role="status"(控えめ)とrole="alert"(即時)を使い分けるべき</strong>としており、スナックバーの多くはrole="status"に該当します。
@@ -373,7 +380,7 @@ export default function CommunicationSnackbarPage() {
             <span>最終確認: 2026-09(NN group・Googleは本文確認済み。W3CはMDN解説記事による確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。WCAGはMDNのstatus role解説ページ(alert roleも併記)、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
+              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
             </span>
           </div>
         </div>

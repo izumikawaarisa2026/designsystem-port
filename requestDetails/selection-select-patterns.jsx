@@ -11,15 +11,15 @@ import SidebarNav from "./sidebar-nav";
  * まとめた補助的なページ(新しい一次情報の要約というより、既存ページ+個別調査の統合)。
  *
  * ドラムロール/ホイールピッカーはApple公式ページ(Pickers)の本文を直接取得して
- * 確認済み(2026-09)。リストボックス・コンボボックスはWAI-ARIA Authoring Practices
+ * 確認済み(2026-09)。リストボックス・コンボボックスはWAI-ARIA Authoring Practices(2026-10にCombobox本文を再確認)
  * および「セレクト(プルダウン)」ページで確認済みの内容を再構成したもの。
  */
 
 const PATTERNS = [
   {
     name: "プルダウン(ドロップダウン)",
-    system: "Apple(Pop-up/Pull-downボタン)・Google(Exposed dropdown menu)",
-    desc: "普段は折りたたまれており、タップすると選択肢が現れる最も一般的な単一選択パターン。省スペースだが、開くまで選択肢が見えないという弱点がある。",
+    system: "Apple(Pop-upボタン)・Google(Exposed dropdown menu)",
+    desc: "普段は折りたたまれており、タップすると選択肢が現れる最も一般的な単一選択パターン。省スペースだが、開くまで選択肢が見えないという弱点がある。なお、AppleのPull-downボタンは操作(命令)のメニューで、値の選択には使わない(HIG Pull-down buttonsは、操作ではない選択肢の一覧にはPop-upボタンを使うとしている)。",
     when: "選択肢が多く、常に全部を見せる必要がない場面",
     link: "/components/selection/select",
     linkLabel: "詳細ページ(4系列比較)へ",
@@ -51,7 +51,8 @@ const PATTERNS = [
     name: "リストボックス(常時展開)",
     system: "WAI-ARIA(Listboxパターン)",
     desc: "選択肢を折りたたまず、常に一覧として表示するパターン。単一選択・複数選択のどちらにも対応できる。Nielsen Norman Groupは、ドロップダウンが「クリックしないと選択肢が見えない」のに対し、リストボックスは「選択肢がすぐに見える」点で区別している。",
-    when: "選択肢を見比べながら選ばせたい場面、画面スペースに余裕がある場面",
+    when: "選択肢が多く、スクロールする一覧にしたい場面(選択肢が少なく常に見せたいなら、まずラジオボタン)",
+    refs: [{ label: "NN group: Listboxes vs. Dropdown Lists ↗", url: "https://www.nngroup.com/articles/listbox-dropdown/" }],
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/",
     linkLabel: "WAI-ARIA公式ページへ ↗",
     illustration: () => (
@@ -67,7 +68,7 @@ const PATTERNS = [
   {
     name: "コンボボックス(入力+絞り込み)",
     system: "Google(Exposed dropdown menuの入力対応版)・WAI-ARIA(Comboboxパターン)",
-    desc: "テキストフィールドに文字を入力すると、一致する選択肢だけに絞り込まれるパターン。「スピナー」とも呼ばれ、選択肢が非常に多い場合にプルダウンより素早く目的の項目へたどり着ける。",
+    desc: "入力部と、それに対応するポップアップ(選択肢の一覧)を組み合わせた部品。文字を入力できる型(editable)と入力できない型(select-only)があり、入力に応じて候補を絞り込む実装もできる(APGのComboboxパターンには、絞り込まない型の例もある)。選択肢が非常に多い場合は、入力で絞り込めるとプルダウンより素早く目的の項目へたどり着ける。",
     when: "選択肢の数が多く、都道府県・国名のようにユーザーがタイピングで絞り込める場面",
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
     linkLabel: "WAI-ARIA公式ページへ ↗",
@@ -92,6 +93,7 @@ function PatternCards() {
           <p style={styles.cardDesc}>{p.desc}</p>
           <div style={styles.cardWhenLabel}>向いている場面</div>
           <p style={styles.cardWhen}>{p.when}</p>
+          {p.refs && p.refs.map((r) => (<a key={r.url} href={r.url} target="_blank" rel="noreferrer" style={{ ...styles.cardLink, display: "block", marginBottom: 4 }}>{r.label}</a>))}
           <a href={p.link} target={p.link.startsWith("http") ? "_blank" : undefined} rel={p.link.startsWith("http") ? "noreferrer" : undefined} style={styles.cardLink}>{p.linkLabel}</a>
         </div>
       ))}
@@ -128,7 +130,7 @@ export default function SelectionSelectPatternsPage() {
               「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンでしたが、単一選択を実現する方法はそれだけではありません。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられます。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンです。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されています。
+              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンです。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にあります。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されています。
             </p>
             <p style={styles.synthesisText}>
               選択肢が非常に多い場合は、<strong>タイピングで絞り込める「コンボボックス」がプルダウンより素早い</strong>という点も、実務上重要な判断材料です。

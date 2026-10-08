@@ -127,7 +127,7 @@ const SOURCES = [
     summary: "構造化されたデザインシステムではなく記事・調査ベースのため、固定の「Foundations」カテゴリを持たない",
     stance:
       "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体です。「Foundations」に相当する固定のカテゴリ構造や網羅的な索引は持たず、トピックごとに独立した記事が随時公開される形式です。",
-    structuralNote: "本サイトの各トークン項目についても、NN groupは対応する記事が見つかる場合とそもそも記事自体が存在しない場合が混在すると予想される(個別トピックページ作成時に都度確認が必要)。",
+    structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
     url: "https://www.nngroup.com/articles/",
     confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではありません。",
@@ -326,6 +326,9 @@ export default function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
+              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの15項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
+            </p>
+            <p style={styles.synthesisText}>
               最大の発見は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
             </p>
             <p style={styles.synthesisText}>
@@ -333,9 +336,6 @@ export default function TokensOverviewPage() {
             </p>
             <p style={styles.synthesisText}>
               W3C(WCAG)は「Foundations」という概念自体を持たず、<strong>最も近い構造的な等価物は知覚可能・操作可能・理解可能・堅牢というPOURの4原則</strong>です。Nielsen Norman Groupは構造化されたデザインシステムではないため、対応する固定カテゴリを持ちません。<strong>この2系列は「Foundations」という枠組みそのものに当てはめようとすること自体が、そもそも無理があります。</strong>
-            </p>
-            <p style={styles.synthesisText}>
-              したがって、以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です。この比較サイトの15項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
             </p>
           </div>
 
@@ -433,8 +433,7 @@ export default function TokensOverviewPage() {
           </section>
 
           <div style={styles.tagsRow}>
-            {["堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+                        {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>

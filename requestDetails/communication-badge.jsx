@@ -4,7 +4,7 @@ import SidebarNav from "./sidebar-nav";
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
  * アイコンやタブなどの上に重ねて表示し、通知の有無(ドット)や件数(数字)を
- * 示す小さな装飾要素の4系列比較。4ページの中で最も「独立した専用ページ」を
+ * 示す小さな装飾要素の4系列比較。Communicationのページの中で最も「独立した専用ページ」を
  * 持つ系列が少なく、各系列とも他コンポーネント(通知・タブ・アイコン)の
  * 一部として説明されている点が特徴。
  *
@@ -118,7 +118,7 @@ const SOURCES = [
     noDedicatedComponent: true,
     position: "「バッジ」自体に対応する専用のARIAロールは存在しない。装飾的な視覚要素として扱い、件数などの意味は親要素(アイコンボタン等)のアクセシブルネームに含める、というARIA14のaria-label手法を援用するのが一般的",
     size: "専用の数値基準はありません。",
-    colorInfo: "達成基準1.4.1(色の使用)により、色(赤いドットなど)だけで意味を伝えてはならず、数字や文言など色以外の手段も併用すべきだとしています。",
+    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 文字のコントラスト)が必要です。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の使用)の違反にはなりません。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝えます。",
     glossary: [
       { term: "ARIA14 / aria-label", desc: "視覚的なラベルを置けない要素に対し、aria-label属性でアクセシブルネームを与える手法。バッジ付きのアイコンボタンでは、装飾的なバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")がこの技法の応用として紹介される。" },
     ],
@@ -128,17 +128,18 @@ const SOURCES = [
       "可視のラベル文字列がすでに存在する場合は、WCAG 2.5.3(Label in Name)により、aria-labelにもその可視文字列を含める必要があるとされています(バッジ専用の例外規定ではなく、ラベル全般に共通する規定)。",
     scenarios: [
       "アイコンに重ねた件数バッジの意味を支援技術に伝えたい時",
-      "ドットのみのバッジで、色だけに意味を持たせてしまうのを避けたい時",
+      "ドットのバッジで、色の違いだけで状態を分けてしまうのを避けたい時",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値がプログラム的に決定できること(4.1.2)、色だけに頼らないこと(1.4.1)が関わります。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値がプログラム的に決定できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)が関わります。",
     useCases: [
       "装飾的なバッジ要素にはaria-hidden=\"true\"を設定する",
       "件数などの意味は親要素(アイコンボタン等)のaria-labelに含める",
-      "色(赤いドット等)だけで状態を伝えず、数字や文言を併用する",
+      "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
+      "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
     ],
     searchHint: "aria-label",
-    url: "https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA14",
-    urlSecondary: [{ label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html" }],
+    url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14",
+    urlSecondary: [{ label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
     confirmedNote: "ARIA14・4.1.2解説ページとも本文を直接確認しました(2026-09)。いずれもバッジ専用の一次文書ではなく、一般的なラベリング手法・達成基準をバッジに適用した間接的な整理です。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -159,7 +160,7 @@ const SOURCES = [
     size: "数値基準は明言していません。",
     colorInfo: "色についての基準はありません。",
     stance:
-      "UI Elements Glossaryは、バッジを「通知(usually as a dot=主にドットで表現)またはアイテム数(usually as a number=主に数字で表現)を示し、ショッピングカートやメッセージなどのアイコンの上に重ねて表示される」小さな要素として定義しています。用語集の1項目としての簡潔な定義に留まり、頻度や配色、乱用を避けるための具体的な設計ガイドラインまでは踏み込んでいません。",
+      "UI Elements Glossaryは、バッジを、ショッピングカートやメッセージなどのアイコンに重ねて、通知の有無(多くはドット)や件数(多くは数字)を示す小さな要素として定義しています。用語集の1項目としての簡潔な定義に留まり、頻度や配色、乱用を避けるための具体的な設計ガイドラインまでは踏み込んでいません。",
     exceptions:
       "この項目は用語の定義のみで、使用シーンの許容・非許容を示す詳細な基準は記載されていません。",
     scenarios: [
@@ -279,16 +280,16 @@ export default function CommunicationBadgePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4ページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントです。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義しています。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散しています。
+              Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントです。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義しています。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散しています。
             </p>
             <p style={styles.synthesisText}>
               W3Cには<strong>バッジ専用のARIAロールがそもそも存在しません</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものです。これは「バッジのための一次情報」ではなく「一般的なラベリング手法の転用」である点を正直に記載しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まります。4系列すべてに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまります。
+              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まります。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていません)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまります。
             </p>
             <p style={styles.synthesisText}>
-              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより「他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素」</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴です。
+              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴です。
             </p>
           </div>
 

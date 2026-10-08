@@ -84,7 +84,7 @@ const SOURCES = [
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
     color: "#A3821F",
     position: "OSのメニューのように振る舞う「選択肢の一覧」の部品について、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に表示されるmenubarを扱う",
-    size: "メニュー専用の数値基準はありません。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル)が当てはまります。",
+    size: "メニュー専用の数値基準はありません。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)が当てはまります。",
     colorInfo: "メニューが開いたら最初の項目にフォーカスを置きます。上下の矢印キーで項目の間を移動し(メニューバーでは左右)、Enterで実行して閉じます。Escで閉じて、開いたボタンにフォーカスを戻します。Home・Endで最初・最後へ、文字キーでその文字で始まる項目へ移れるようにもできます。Tab・Shift+Tabは項目の間を移動せず、メニューの外へ出てすべて閉じます。",
     glossary: [
       { term: "menu・menuitem", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目はmenuitemcheckbox、1つだけ選ぶ項目はmenuitemradioを使う。" },
@@ -94,7 +94,7 @@ const SOURCES = [
     stance:
       "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にします。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使います。メニューは項目をまとめた1つの部品として扱うため、中の移動はTabではなく矢印キーで行います。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介しています(APGの本文を直接確認、2026-10)。",
     exceptions:
-      "使えない項目はフォーカスできるが実行はできない、としています(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしません。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまいません。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしています。",
+      "使えない項目はフォーカスできるが実行はできない、としています(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしません。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまいません。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしています。なお、このパターンはアプリの命令メニュー向けで、menuの中ではTabキーで項目間を移動しません。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作る方が合うことが多いと考えられます(AI解釈)。",
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― 矢印・Enter・Escでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わります。",
     useCases: [
@@ -107,6 +107,7 @@ const SOURCES = [
     urlSecondary: [
       { label: "APG: Menu and Menubar ― 役割と属性", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#roles_states_properties" },
       { label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+      { label: "APG: Disclosure Navigation Menuの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" },
     ],
     confirmedNote: "APGのMenu and Menubar Pattern・Menu Button Patternの本文を直接取得して確認済み(2026-10)。",
   },
@@ -232,7 +233,7 @@ const MENU_ROWS = [
     ],
   },
   {
-    label: "破壊的な項目",
+    label: "破壊的な項目(取り消せない、またはデータを失う操作。削除など)",
     cells: [
       { mark: "◯", note: "最後に置き、赤い文字。プルダウンでは確認も" },
       { mark: "―", note: "" },
@@ -423,7 +424,7 @@ export default function SelectionMenuPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列がそろって一致しているのは、<strong>よく使う項目を上に置き、関係する項目は区切り線でまとめ、サブメニューは1階層まで</strong>という並べ方です。Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満とし、Googleは項目の高さ48dp・幅112〜280dpという寸法を決めています。
+              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めています(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めています。W3Cは並べ方ではなく、キーボード操作を定めています。
             </p>
             <p style={styles.synthesisText}>
               一方で、<strong>2点ではっきり意見が分かれます</strong>。1つは使えない項目の扱いで、Appleは<strong>コンテキストメニューでは隠す</strong>とし、NN groupは<strong>隠さず薄く表示する</strong>よう勧め、W3Cは<strong>使えない項目もフォーカスできるように</strong>します。もう1つはキーボードショートカットで、Appleは<strong>コンテキストメニューには表示しない</strong>、NN groupは<strong>表示して覚えてもらう</strong>としています(下の「意見が分かれる2点」を参照)。
@@ -432,7 +433,7 @@ export default function SelectionMenuPage() {
               W3Cは見た目ではなく、<strong>開いたら最初の項目にフォーカス・矢印で移動・Enterで実行・Escで閉じてボタンへ戻る</strong>というキーボード操作と、<strong>aria-haspopup・aria-expanded</strong>で開閉を伝えることを定めています。
             </p>
             <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方と寸法を4系列の共通点でそろえ、キーボード操作はW3Cの通りに作り、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
+              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、キーボード操作はW3Cの通りに作り、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
 

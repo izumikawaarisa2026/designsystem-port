@@ -116,37 +116,45 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― role=\"alert\"(ライブリージョン、role=\"alertdialog\"との対比)",
+    doc: "WAI-ARIA ― alert / status / alertdialog の使い分け、WCAG 4.1.3",
     color: "#A3821F",
-    position: "背景操作をブロックしない「role=\"alert\"」と、操作をブロックするモーダルの「role=\"alertdialog\"」(ダイアログページ参照)を区別する",
-    size: "アラート/バナー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)はボタン等の操作要素に適用されます。",
+    position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけalert、緊急でない更新はstatus、最初から表示されているバナーは見出しやラベル付きの領域、モーダルで確認を求めるならalertdialog",
+    size: "アラート/バナー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタン等の操作要素に適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどの視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
-      { term: "role=\"alert\" / role=\"alertdialog\"", desc: "role=\"alert\"は背景操作をブロックしない、即座に読み上げるべき重要な情報を示すライブリージョン。role=\"alertdialog\"はフォーカスを閉じ込め背景操作をブロックする、ダイアログ相当のロール(「ダイアログ」ページのAlerts/Dialogsに対応)。前者はインラインに留まり続けられるが、後者はモーダルとして扱われる点が本質的な違い。" },
+      { term: "role=\"alert\" / role=\"status\" / role=\"alertdialog\"", desc: "role=\"alert\"は、新しく出たら読み上げ中の内容を中断してでもすぐ読み上げられる(aria-live=\"assertive\"相当)ライブリージョン。role=\"status\"は、読み上げ中の内容を終えてから読み上げられる(polite相当)。role=\"alertdialog\"はフォーカスを閉じ込め、応答を求めるモーダルのダイアログ(「ダイアログ」ページ参照)。" },
     ],
     stance:
-      "本ページが対象とする、背景操作をブロックせずインラインに表示され続けるアラート/バナーには role=\"alert\"(aria-live=\"assertive\"相当のライブリージョン)が適切だとしています。一方、操作を完全にブロックするモーダルな警告には role=\"alertdialog\" を使うべきで、「ダイアログ」ページで比較した基本ダイアログの実装に対応します。両者は見た目が似ていても、支援技術への伝わり方・操作のブロックの有無が根本的に異なります。",
+      "アラート/バナーは、ひとまとめにrole=\"alert\"にするのではなく、条件で分けます。①操作の結果として新しく出た、緊急の警告だけをrole=\"alert\"にします(新しく出たときに読み上げられる)。②緊急でない更新(「保存しました」など)はrole=\"status\"にします(4.1.3のステータスメッセージ)。③ページを開いたときから表示されているバナーは、ライブリージョンにする必要はなく、見出しやラベル付きの領域として読めるようにします。④モーダルで確認を求めるならrole=\"alertdialog\"にします(「ダイアログ」ページ参照)。",
     exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため、重大な内容に限定して使うべきで、多用すると過剰な割り込みになるとしています。緊急性が低い場合はrole=\"status\"(「スナックバー」「トースト」の各ページ参照)を検討すべきとしています。",
+      "role=\"alert\"は読み上げ中の内容を中断するため、重大な内容に限定して使うべきで、多用すると過剰な割り込みになるとしています。alertは、操作のあとなどに動的に表示される内容のためのもので、ページを開いたときからある内容には使いません(ライブリージョンは、内容が変わったときにだけ読み上げられるため。MDNの解説)。",
     scenarios: [
-      "背景操作をブロックしないインラインの警告を実装したい時にrole=\"alert\"を使う",
-      "操作を完全にブロックするモーダルな警告を実装したい時はrole=\"alertdialog\"を使う(「ダイアログ」ページ参照)",
+      "操作の結果として新しく出た、緊急の警告を伝えたい時にrole=\"alert\"を使う",
+      "緊急でない更新を伝えたい時はrole=\"status\"を使う",
+      "最初から表示されているバナーは、見出しやラベル付きの領域として読めるようにする",
+      "モーダルで確認を求めたい時はrole=\"alertdialog\"を使う(「ダイアログ」ページ参照)",
     ],
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― ライブリージョンによる自動読み上げ、非テキストのコントラスト(1.4.11)、ターゲットサイズ(2.5)が関わります。role=\"alert\"かrole=\"alertdialog\"かで、フォーカス管理の要件が大きく変わる点に注意が必要です。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― ライブリージョンによる読み上げ(4.1.3)、非テキストのコントラスト(1.4.11)、ターゲットサイズ(2.5)が関わります。alertかalertdialogかで、フォーカス管理の要件が大きく変わる点に注意が必要です。",
     useCases: [
-      "インラインに留まり背景操作をブロックしない警告にはrole=\"alert\"を使う",
-      "操作を完全にブロックするモーダルな警告にはrole=\"alertdialog\"を使う(「ダイアログ」ページ参照)",
-      "緊急性が低い通知にはrole=\"status\"を検討する(「スナックバー」「トースト」の各ページ参照)",
+      "新しく出た緊急の警告だけrole=\"alert\"にする",
+      "緊急でない更新はrole=\"status\"にする(4.1.3)",
+      "最初から表示されているバナーは、見出しやラベル付きの領域にする(ライブリージョンにしない)",
+      "モーダルで確認を求める警告はrole=\"alertdialog\"にする",
     ],
     searchHint: "assertive",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role",
-    urlSecondary: [{ label: "role=\"alertdialog\"", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alertdialog_role" }],
+    url: "https://www.w3.org/TR/wai-aria-1.2/#alert",
+    urlSecondary: [
+      { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
+      { label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" },
+      { label: "4.1.3 Status Messages", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { label: "解説(MDN): alertロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="160" height="30" viewBox="0 0 160 30">
           <rect x="1" y="1" width="158" height="28" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="80" y="19" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="alert"(非ブロック)</text>
+          <text x="80" y="19" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">alert / status / 領域</text>
         </svg>
       </div>
     ),
@@ -313,10 +321,10 @@ export default function CommunicationAlertPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(本ページ)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。
+              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。ただし、インラインのバナーをすべてrole="alert"にするわけではありません。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にします(W3C欄を参照)。
             </p>
             <p style={styles.synthesisText}>
-              最大の発見は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。セグメントボタンやナビゲーションドロワーの非推奨化と同様、M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます。
+              最大の発見は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます(未確定。検索結果による確認の段階で、公式の記述は確認できていません)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>に当てはめると、本ページのアラート/バナーは前者、「スナックバー」「トースト」の各ページの対象は後者に位置づけられます。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。

@@ -15,7 +15,7 @@ import SidebarNav from "./sidebar-nav";
  * 複数選択にも公式に対応していることが判明し、この点をページに反映した(従来は単一選択の
  * コンポーネントとしてのみ記載していた)。メニュー全体のdp数値やカラートークン名などの
  * specs数値は未確認。
- * W3CはWCAG本文に加え、WAI-ARIA Authoring Practices(Listboxパターン)を直接取得して確認済み。
+ * W3CはWCAG本文に加え、WAI-ARIA Authoring Practices(Combobox・Listboxパターン)を直接取得して確認済み。
  */
 
 const SOURCES = [
@@ -26,7 +26,7 @@ const SOURCES = [
     color: "#C2542A",
     position: "相互排他的な選択肢を示す「Pop-upボタン」と、関連する操作をまとめる「Pull-downボタン」に分かれる",
     size:
-      "数値によるサイズ規定は見当たりません。ネイティブコントロールとしてシステムが自動的に描画するため、一般的なタップ領域の基準(44×44pt)がボタンとして適用されると考えられます。",
+      "Pop-up buttonsのページには、サイズの規定がありません(ネイティブコントロールとしてシステムが自動的に描画します)。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
     colorInfo: "色についての明確な規定は確認できていません。",
     stance:
       "Pop-upボタンは、相互排他的な選択肢のフラットなリストを提示し、選択済みの内容を反映するようラベルを更新できるコントロールと定義されています。一方Pull-downボタンは、そのボタンの目的に直接関連する操作のメニューを表示するもので、選択というより操作の実行に近い位置づけです。",
@@ -92,11 +92,11 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1(WAI-ARIA Listboxパターン) / 3.2.1 / 3.2.2",
+    doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1 / 3.2.1 / 3.2.2、APG Comboboxパターン(Select-Only)",
     color: "#A3821F",
     position: "標準select要素かカスタム実装かで対応が変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
     size:
-      "セレクト専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます。",
+      "セレクト専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
@@ -105,20 +105,23 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "標準的なHTMLのselect要素であれば、ブラウザが自動的に名前・役割・状態を支援技術に伝えます。独自にデザインしたカスタム実装の場合は、WAI-ARIAのListboxパターンに沿って、role=\"listbox\"/role=\"option\"、aria-selected、矢印キーによるフォーカス移動などを自前で実装する必要があるとしています。また、選択肢を選んだだけで別のページへ移動したりフォームを送信したりすると、利用者が予期しない文脈の変化になります。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示しています。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求めており、キーボードで選択肢の上を移動しているだけではページを移動させないようにします。",
+      "標準的なHTMLのselect要素であれば、ブラウザが自動的に名前・役割・状態を支援技術に伝えます。WCAGの要件は、部品の名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)です。独自にデザインしたカスタム実装の作り方は、W3CのAPG(実装の参考例。適合の要件ではない)が示しています。折りたたみ式のプルダウンの型は、Comboboxパターンの「Select-Only Combobox」(select要素と同じ働きをする例)です。Listboxは、常に表示する一覧や、開いたポップアップの中身に使う型です。また、選択肢を選んだだけで別のページへ移動したりフォームを送信したりすると、利用者が予期しない文脈の変化になります。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示しています。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求めており、キーボードで選択肢の上を移動しているだけではページを移動させないようにします。",
     exceptions:
-      "選択肢名が長すぎたり、同じ単語・フレーズで始まる選択肢が並ぶと、スクリーンリーダー利用者にとって理解性が大きく損なわれるため避けるべきとしています。7個を超える選択肢がある場合は、先頭文字を入力してジャンプできる機能(タイプアヘッド)を用意すべきとしています。",
+      "APGは実装の勧めとして、選択肢名が長すぎたり、同じ単語・フレーズで始まる選択肢が並ぶと、スクリーンリーダー利用者にとって分かりにくくなるため避けるよう勧めています。7個を超える選択肢がある場合は、先頭文字を入力してジャンプできる機能(タイプアヘッド)を用意するよう勧めています(どちらもWCAGの要件ではありません)。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、矢印キー・Home/Endキー・タイプアヘッドなどのキーボード操作性(2.1.1)が関わります。3.2.1・3.2.2は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
     useCases: [
       "標準のselect要素を使い、ブラウザ標準のアクセシビリティに任せる",
-      "カスタム実装の場合はrole=\"listbox\"/\"option\"とaria-selectedを使う",
-      "7個を超える選択肢にはタイプアヘッドでのジャンプ機能を用意する",
+      "カスタム実装の場合は、APGのSelect-Only Comboboxの例を参考にする(開いた一覧はrole=\"listbox\"/\"option\"とaria-selected)",
+      "7個を超える選択肢には、タイプアヘッドでのジャンプ機能を用意する(APGの勧め)",
       "選んだだけでページの移動や送信をせず、「移動」「送信」ボタンで実行する(3.2.2)",
     ],
     searchHint: "aria-selected",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/",
+    url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
     urlSecondary: [
+      { label: "APG: Select-Only Comboboxの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+      { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { label: "3.2.2 On Input", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
       { label: "3.2.1 On Focus", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
     ],
@@ -127,7 +130,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="90" height="26" viewBox="0 0 90 26">
           <rect x="1" y="1" width="88" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="10" y="17" fontSize="9.5" fill="#A3821F" fontFamily="Jost, Noto Sans JP">role="listbox"</text>
+          <text x="10" y="17" fontSize="9.5" fill="#A3821F" fontFamily="Jost, Noto Sans JP">role="combobox"</text>
         </svg>
         <span style={{ fontSize: 9, color: "#9EA4C4" }}>視覚デザインの規定はなく、役割の考え方を図示</span>
       </div>
@@ -153,7 +156,7 @@ const SOURCES = [
       "選択肢が少なく1階層に収まるコマンド/ナビゲーションメニュー",
       "都道府県・国名などタイピングの方が速い場面では避ける",
     ],
-    searchHint: "steering law",
+    searchHint: "typing may be faster",
     url: "https://www.nngroup.com/articles/drop-down-menus/",
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
@@ -282,7 +285,7 @@ export default function SelectionSelectPage() {
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要です。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応する</strong>一方、カスタム実装する場合はWAI-ARIAのListboxパターン(role・aria-selected・矢印キー操作・7個超でのタイプアヘッド)に沿う必要がある、という実装上の分岐点をW3Cが明確に示しています。
+              アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応します</strong>。HTMLの標準のselect要素を使うと、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われます(見た目や操作は端末・ブラウザによって異なります)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全です。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例です(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
 
@@ -386,7 +389,7 @@ export default function SelectionSelectPage() {
             <span>最終確認: 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPop-up buttons本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Listboxパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Menus)へリンクしており、本文は確認済みですが、specsページ本文(dp数値など)はまだ確認できていません。
+              リンクについて: AppleはPop-up buttons本体へのリンクです。W3CはAPGのComboboxパターン(実装の参考)を主リンクに、Select-Only Comboboxの例・Listboxパターン・WCAGの各Understandingページを併記、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Menus)へリンクしており、本文は確認済みですが、specsページ本文(dp数値など)はまだ確認できていません。
             </span>
           </div>
         </div>

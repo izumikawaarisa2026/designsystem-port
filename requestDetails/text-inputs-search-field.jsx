@@ -97,7 +97,7 @@ const SOURCES = [
       { term: "全画面/ドッキング", desc: "全画面は、候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは、検索バーの下にリストを出し、残りの画面を幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      "検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされています。入り口は、特定の画面の中を検索する「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つから選びます。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(ユーザー提供の公式ドキュメントとMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      "検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされています。入り口は、特定の画面の中を検索する「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つから選びます。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。",
     exceptions:
       "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要があります。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置けます。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしています。",
     accessibility:
@@ -113,7 +113,7 @@ const SOURCES = [
       { label: "Search overview", url: "https://m3.material.io/components/search/overview" },
       { label: "MDC Android: Search(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Search.md" },
     ],
-    confirmedNote: "ユーザー提供のMaterial Design 3公式ドキュメント(MD3_text/検索フィールド.docx、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。m3.material.io本文はSPAのため直接取得はできていません。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Search」のガイドライン、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。m3.material.io本文はSPAのため直接取得はできていません。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="12" fill="#E3EDE9" />
@@ -132,7 +132,7 @@ const SOURCES = [
     doc: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5",
     color: "#A3821F",
     position: "role=\"search\"(またはHTMLのsearch要素)で検索機能一式をランドマークとして示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
-    size: "検索フィールド専用の数値基準はありませんが、一般的なターゲットサイズ基準(2.5.8/2.5.5)は検索ボタンなどの操作要素にも適用されます。",
+    size: "検索フィールド専用の数値基準はありませんが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は検索ボタンなどの操作要素にも適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、検索アイコンや入力欄の境界線が部品を見分ける唯一の手がかりである場合は、3:1以上のコントラスト比が必要です。",
     glossary: [
       { term: "コンボボックス(combobox)", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせた部品。検索欄で「以前の検索や似た検索を候補に出す」のが代表的な用途としてAPGに挙げられている。" },
@@ -150,12 +150,13 @@ const SOURCES = [
       "ナビゲーションに加えてサイト内検索を置き、ページへの行き方を2つ以上にする(2.4.5)",
     ],
     searchHint: "",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#search",
     urlSecondary: [
+      { label: "解説(MDN): searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
       { label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
       { label: "2.4.5 Multiple Ways", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
     ],
-    confirmedNote: "MDNのsearchロールの解説と、W3CのAPG Combobox Patternの本文を直接取得して確認済み(2026-09)。w3.orgのWAI-ARIA仕様そのものは直接取得していません。2.4.5はUnderstandingページの本文を直接取得して確認(2026-10追記)。",
+    confirmedNote: "MDNのsearchロールの解説と、W3CのAPG Combobox Patternの本文を直接取得して確認済み(2026-09)。WAI-ARIA仕様のsearchロールの節は2026-10に確認。2.4.5はUnderstandingページの本文を直接取得して確認(2026-10追記)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="26" viewBox="0 0 140 26">
@@ -215,7 +216,7 @@ const ICON_NOTES = [
     name: "Google",
     position: "先頭には、ナビゲーション用アイコンボタン(メニュー・戻る)か、押しても動作しない検索アイコンのどちらかを置く。フォーカスすると先頭は戻る矢印になり、M3 Expressiveではバーが横に広がる(画面端の余白24dp→12dp)",
     text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成されます。検索アイコンは、先頭に置く場合は押しても動作しない目印として、末尾に置く場合は装飾として扱えます。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻ります。",
-    confirmedNote: "ユーザー提供のMaterial Design 3公式ドキュメント(2026-09)とMaterial Components for Androidのドキュメントで確認。",
+    confirmedNote: "M3の公式ページ本文(2026-09)とMaterial Components for Androidのドキュメントで確認。",
     url: "https://m3.material.io/components/search/guidelines",
   },
   {
@@ -223,14 +224,15 @@ const ICON_NOTES = [
     name: "W3C",
     position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
     text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はありません。アイコンをボタンとして実装する場合は、他の操作可能な要素と同様にフォーカス可能にし、役割・名前を適切に伝える必要があります。",
-    confirmedNote: "MDNのsearchロールの解説本文を直接確認(2026-09)。",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role",
+    confirmedNote: "WAI-ARIA仕様のsearchロールと、MDNの解説本文を確認(2026-09、仕様は2026-10)。",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#search",
+    urlSecondary: [{ label: "解説(MDN)", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     position: "アイコン自体の左右位置ではなく、検索ボックス全体をページの右上に置くことを推奨。アイコンはクリックで送信されるボタンとして機能させ、1回のクリックで入力欄にカーソルが入るようにすべきとしている",
-    text: "記事本文を直接確認したところ、「検索ツールは、人々が最初に探す場所である右上に置く」ことを推奨しています。アイコンの役割については「多くのユーザーは今も検索ボタンをクリックしてクエリを送信する習慣があるため、虫眼鏡アイコンのクリックでクエリが送信されることが重要」だとし、「アイコンを1回クリックしたら入力欄にカーソルが入り、すぐに入力できる状態にすべきで、理想的にはホバー時に検索欄を展開しカーソルを入力可能にすべき」だとしています。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていません。",
+    text: "記事本文を直接確認したところ、検索の入り口は、人が最初に探す場所である右上に置くよう勧めています。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしています。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としています。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていません。",
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/",
   },
@@ -408,6 +410,7 @@ function IconNotes() {
             <p style={styles.sourceStance}>{s.text}</p>
             <p style={styles.confirmedNote}>{s.confirmedNote}</p>
             <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+            {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, marginLeft: 8 }}>{sl.label} ↗</a>))}
           </div>
         ))}
       </div>
@@ -433,6 +436,7 @@ function IconNotes() {
             {ICON_NOTES.map((s) => (
               <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>
                 <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.link, display: "block" }}>{sl.label} ↗</a>))}
               </div>
             ))}
           </div>
@@ -838,7 +842,7 @@ export default function TextInputsSearchFieldPage() {
               4系列を合わせると、<strong>入力前は最近の検索、入力中は予測候補、実行後は関連順の結果</strong>という流れが共通の型です。候補はAppleとGoogleがそろって勧めていますが、NN groupの調査では<strong>実際に候補が選ばれたのは23%</strong>にとどまり、候補は「選ばせるもの」だけでなく、綴りや品ぞろえを確かめる手がかりとしても役立つとしています。
             </p>
             <p style={styles.synthesisText}>
-              絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めています。どれも<strong>既定は広い範囲で検索し、必要に応じて狭める</strong>という点で一致しています。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届きます。
+              絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めています。<strong>既定を広い範囲にするよう明記しているのはApple</strong>です(スコープバーの既定)。ほかの系列も、絞り込みを後から加える形をとっており、この考え方と矛盾しません。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届きます。
             </p>
           </div>
 
@@ -852,10 +856,10 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。Googleはユーザー提供の公式ドキュメントとMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はユーザー提供の公式ドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
+              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3の公式ページ本文の写しで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
             </span>
           </div>
         </div>

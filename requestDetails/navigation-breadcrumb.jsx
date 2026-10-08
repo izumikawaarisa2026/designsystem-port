@@ -22,9 +22,10 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "該当コンポーネントなし",
+    doc: "該当コンポーネントなし(近い部品: macOSのPath controls)",
     color: "#C2542A",
     notApplicable: true,
+    urlSecondary: [{ label: "参考: Path controls(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/path-controls" }],
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
@@ -33,7 +34,7 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たりません。iOS/macOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられます(検索による間接確認、2026-09)。",
+    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たりません。iOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられます(検索による間接確認、2026-09)。近い部品として、macOSには「Path controls」があります。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えません。HIGのページを2026-10に確認)。",
   },
   {
     key: "material",
@@ -58,21 +59,21 @@ const SOURCES = [
     doc: "WAI-ARIA Breadcrumbパターン",
     color: "#A3821F",
     position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
-    size: "パンくず専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は個々のリンクにも適用されます。",
-    colorInfo: "パンくず専用の色基準はありませんが、1.4.11(非テキストのコントラスト)は区切り記号などの視覚的要素に適用され得ます。",
+    size: "パンくず専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用されます。",
+    colorInfo: "パンくず専用の色基準はありません。リンクの文字には1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかります。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外です。",
     glossary: [
-      { term: "aria-current", desc: "一連の項目の中で「現在の項目」を示すARIA属性。パンくずリストでは、現在のページを表す最後の項目に aria-current=\"page\" を設定する。現在のページがリンクでない(クリック不可)場合、この属性の設定は必須ではないとされる。" },
+      { term: "aria-current", desc: "一連の項目の中で「現在の項目」を示すARIA属性。パンくずリストでは、現在のページへのリンクに aria-current=\"page\" を付ける。現在のページがリンクでない場合、この属性は任意とされる。" },
     ],
     stance:
       "パンくずリストは、現在ページの親ページへのリンクを階層順に並べたリストと定義されています。ナビゲーションのランドマーク領域(nav要素、aria-labelまたはaria-labelledbyでラベル付け)として実装し、リンクの並びは順序リスト(ol)で構成すべきとしています。多くの場合、ページ本文の直前に水平に配置されます。",
     exceptions:
-      "現在ページを表す最後の項目はリンクにしないことが前提のため、キーボード操作は「適用なし(Not applicable)」とされています。パンくずリスト自体は独自のキーボード操作パターンを持たない、単純なリンクの集合という位置づけです。",
+      "APGは、現在のページをリンクにする作りも、リンクにしない作りも認めています(リンクにするならaria-current=\"page\"を付け、リンクでなければaria-currentは任意)。現在のページをリンクにしないのは、NN groupの推奨です。キーボード操作が「適用なし(Not applicable)」とされているのは、パンくずリストが普通のリンクの並びで、特別なキー操作がいらないためです。",
     accessibility:
       "堅牢(Robust)・知覚可能(Perceivable) ― nav要素によるランドマーク(支援技術がページ内を移動しやすくする)、aria-current=\"page\"による現在位置の明示が中心です。区切り記号(> や / など)は装飾であり、支援技術に読み上げさせる必要がない点にも注意が必要です。",
     useCases: [
       "nav要素(aria-label付き)でパンくずリスト全体を囲む",
       "リンクの並びを順序リスト(ol)で構成する",
-      "現在ページ(最後の項目)にはaria-current=\"page\"を設定し、リンクにしない",
+      "現在ページへのリンクにはaria-current=\"page\"を付ける(リンクにしない場合、aria-currentは任意)",
     ],
     searchHint: "Not applicable",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
@@ -197,7 +198,7 @@ export default function NavigationBreadcrumbPage() {
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
             <BreadcrumbSwatch />
-            <p style={styles.swatchNote}>現在ページの親ページへのリンクを階層順に並べる。現在ページ(最後の項目)はリンクにしない。</p>
+            <p style={styles.swatchNote}>現在ページの親ページへのリンクを階層順に並べる。この例では、NN groupの推奨どおり現在ページ(最後の項目)をリンクにしていない。</p>
           </div>
 
           <div style={styles.synthesisBox}>
@@ -206,7 +207,7 @@ export default function NavigationBreadcrumbPage() {
               パンくずリストは、4系列のうち<strong>実質的にW3C(WAI-ARIA)とNielsen Norman Groupの2系列だけが専用の内容を持つ</strong>、やや特殊なコンポーネントです。Appleは「パンくずリスト」という名称の専用ガイドラインページを持たず、階層は<strong>戻るボタンによるナビゲーションスタック</strong>で扱うのが基本という設計思想と考えられます。Googleも、検索した限りでは専用コンポーネントページが見当たりませんでした(ただしSPAのため断定はできず、pending扱いとしています)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupが示す最も重要な原則は、<strong>「ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき」</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
+              Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
             </p>
             <p style={styles.synthesisText}>
               W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せません。画面幅に応じてどちらを優先するかは、実装側の判断が必要になります。
@@ -292,7 +293,12 @@ export default function NavigationBreadcrumbPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     {s.notApplicable ? (
-                      <span style={styles.mutedText}>該当なし</span>
+                      <>
+                        <span style={styles.mutedText}>該当なし</span>
+                        {s.urlSecondary && s.urlSecondary.map((sl) => (
+                          <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
+                        ))}
+                      </>
                     ) : (
                       <>
                         <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
@@ -319,7 +325,7 @@ export default function NavigationBreadcrumbPage() {
             <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、それぞれのトップページへのリンクとしています。
+              リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。
             </span>
           </div>
         </div>

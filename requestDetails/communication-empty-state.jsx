@@ -34,27 +34,26 @@ const SOURCES = [
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「空状態」「ローディング状態」という単独コンポーネントはなく、コンテンツ読み込み中の体験に関する指針(Loadingページ)と、空状態の文言に関する指針(Writingページ)に分かれて記載されている",
-    size: "具体的な数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: "数値の基準はありません。",
+    colorInfo: "色についての規定はありません。",
     stance:
-      "最良の読み込み体験は、ユーザーが読み込みに気づく前に終わっているものだとしています。可能な限り早くコンテンツを表示し、まだ用意できていない部分にはプレースホルダーのテキスト・グラフィック・アニメーションを表示して、読み込み完了とともに実際のコンテンツに差し替えるべきだとしています。可能であればアニメーション再生中やメニュー操作中など、バックグラウンドで先読みしておくことも勧めています。空状態については、完了済みのToDoリストや空のブックマークフォルダのような場面を、ユーザーを歓迎したりアプリの世界観を伝えたりする好機として捉えるべきだとしています。文言はVoiceOverでの読み上げを想定し、翻訳されにくい言い回しや、文化によって伝わらない慣用句を避けるべきだとしています。",
+      "Loadingのページは、できるだけ早く何かを表示するよう求めています。何も出さずに読み込みの完了を待たせると、アプリの不具合だと受け取られかねないため、読み込み中はプレースホルダーの文字・画像・アニメーションを出し、内容が用意できたら差し替えるとしています。待っている間にほかの操作ができるようにし、どうしても時間がかかるなら、ヒントや新機能の紹介など見ていて楽しいものを出すよう勧めています。読み込みが一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの時間の見込みを伝えます(時間が分かるなら確定的、分からないなら不確定のインジケーター)。空状態については、Writingのページで、完了済みのToDoリストや空のブックマークフォルダのような空の画面を、歓迎の気持ちを伝えたりアプリの使い方を伝えたりする機会にでき、次にできる操作を案内し、可能ならそのためのボタンやリンクを置くよう勧めています。",
     exceptions:
-      "空状態は基本的に一時的なものなので、消えてしまう可能性のある重要な情報をそこに置くべきではないとしています。また、あるセクションが空だからといってタブバーのボタン自体を無効化・非表示にすべきではなく(ボタンの出没はインターフェースが不安定に見える)、タブは表示したまま、その中身として空状態を説明すべきだとしています。",
+      "空状態は基本的に一時的なものなので、消えてしまう可能性のある重要な情報をそこに置くべきではないとしています(Writingのページ)。watchOSでは、できるだけ読み込み中の表示を出さずにすぐ内容を見せ、1〜2秒かかるなら空白の画面よりはインジケーターを出すほうがよいとしています(Loadingのページ)。なお、Tab barsのページは、機能が一時的に使えないときもタブを消したり無効にしたりしないよう求めています。",
     scenarios: [
       "コンテンツの読み込みが一瞬で終わらない時に、プレースホルダー表示で体感速度を保ちたい時",
-      "ToDoリストや保存済みアイテムが1件もない画面で、ユーザーを歓迎したり次の行動を案内したりしたい時",
+      "ToDoリストや保存済みアイテムが1件もない画面で、次にできる操作を案内したい時",
     ],
-    accessibility: "VoiceOverでの読み上げを想定した文言配慮(翻訳されにくい表現・特定の文化圏でしか伝わらない慣用句を避ける)が、Writingページの原則として述べられています。",
+    accessibility: "―(Loading・Writingのページにはアクセシビリティの専用の記載はありません)。Writingのページは、誰にでも伝わるように、平易な言葉でアクセシビリティとローカライズを意識して書くよう勧めています。",
     useCases: [
-      "空だからといってタブやボタンを消さず、表示したまま中身で状態を説明する",
-      "空状態の文言はVoiceOverでの読み上げを想定し、慣用句や翻訳しにくい表現を避ける",
       "読み込み中はプレースホルダーを表示し、完了後に実際のコンテンツへ差し替える",
+      "時間がかかる読み込みは、プログレスインジケーターで進み具合を伝える",
+      "空の画面では次にできる操作を案内し、可能ならそのボタンやリンクを置く",
     ],
-    searchHint: "",
+    searchHint: "Show something as soon as possible",
     url: "https://developer.apple.com/design/human-interface-guidelines/loading",
     urlSecondary: [{ label: "Writing(空状態の文言指針)", url: "https://developer.apple.com/design/human-interface-guidelines/writing" }],
-    confirmedNote: "両ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「空状態」という単独コンポーネントページが存在しないこと自体も検索結果による確認です。",
-    pending: true,
+    confirmedNote: "HIGのページデータ(Loading・WritingのJSON)を直接取得して本文を確認(2026-10)。「空状態」という単独のコンポーネントページはありません。",
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -113,7 +112,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WAI-ARIA ― aria-busy属性(ライブリージョンの更新中を示す)",
     color: "#A3821F",
-    position: "「空状態」「ローディング状態」自体に専用ロールはないが、コンテンツが更新中であることを支援技術に伝えるaria-busy属性と、ライブリージョン(aria-live)の組み合わせが実装上の指針となる",
+    position: "「空状態」「ローディング状態」自体に専用ロールはないが、コンテンツが更新中であることを支援技術に伝えるaria-busy属性と、結果を伝えるステータスメッセージ(role=\"status\"、4.1.3)が実装上の指針となる",
     size: "専用の数値基準はありません。",
     colorInfo: "色についての専用基準はありません。",
     glossary: [
@@ -122,7 +121,7 @@ const SOURCES = [
     stance:
       "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしています。trueに設定すると、ライブリージョン内で複数の変更が発生する間、更新が完了するまで読み上げを遅らせることができ、フィード(feed)のようなロールでも、rendering(描画中)の変更が読み上げから除外されるとしています。更新が完了したらfalseに戻すという使い方が基本パターンとして示されています。",
     exceptions:
-      "aria-busyだけでは自動的に何かが読み上げられるわけではなく、aria-live(読み上げのタイミング・割り込み方)と組み合わせて初めて機能する点に注意が必要だとしています。",
+      "aria-busyは単独でも、要素が更新中であることを支援技術に示せます。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もあります。結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝えます(4.1.3)。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる読み込み中の領域を扱いたい時",
       "更新途中の不完全な状態を支援技術に読み上げさせたくない時",
@@ -131,11 +130,16 @@ const SOURCES = [
     useCases: [
       "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
       "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
-      "aria-liveと組み合わせ、読み上げのタイミングを制御する",
+      "ライブリージョン(aria-live)に付けて、更新の通知を完了までまとめる(任意)",
+      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)",
     ],
     searchHint: "aria-busy",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy",
-    confirmedNote: "MDNのaria-busy属性解説ページ本文を直接確認しました(2026-09)。",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
+    urlSecondary: [
+      { label: "4.1.3 Status Messages", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { label: "解説(MDN): aria-busy", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy" },
+    ],
+    confirmedNote: "WAI-ARIA仕様のaria-busy(2026-10)と、MDNの解説本文を確認しました(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="180" height="24" viewBox="0 0 180 24">
@@ -291,7 +295,7 @@ export default function CommunicationEmptyStatePage() {
               Nielsen Norman Groupは両テーマとも独立記事を持ち、最も具体的です。空状態には<strong>「状況の伝達・学習機会・タスクへの導線」という3原則</strong>を、スケルトン画面には<strong>「プログレスインジケーター」ページと同じ1秒/10秒という時間の目安</strong>を示しており、この秒数基準は2ページを横断する共通の物差しとして機能します。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの貢献はここでも技術的なもので、<strong>aria-busy属性</strong>により「このコンテンツは今まさに書き換わっている最中なので、不完全な状態を読み上げないでほしい」という意図を支援技術に伝える仕組みを提供します。これは視覚的なスケルトン画面の裏側で、スクリーンリーダー利用者が中途半端な内容を読まされないようにするための、見落とされがちな実装上のポイントです。
+              W3Cの貢献はここでも技術的なもので、<strong>aria-busy属性</strong>によりこのコンテンツは今まさに書き換わっている最中なので、不完全な状態を読み上げないでほしい、という意図を支援技術に伝える仕組みを提供します。これは視覚的なスケルトン画面の裏側で、スクリーンリーダー利用者が中途半端な内容を読まされないようにするための、見落とされがちな実装上のポイントです。
             </p>
           </div>
 
@@ -414,7 +418,7 @@ export default function CommunicationEmptyStatePage() {
             <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはLoadingページ(補助的にWritingページ)、GoogleはM3のLoading indicatorページ(補助的にM1のEmpty statesページ、現行M3ではない参考情報)、WCAGはMDNのaria-busy属性解説ページ、NN groupは空状態記事(補助的にSkeleton Screens 101記事)へのリンクです。
+              リンクについて: AppleはLoadingページ(補助的にWritingページ)、GoogleはM3のLoading indicatorページ(補助的にM1のEmpty statesページ、現行M3ではない参考情報)、W3CはWAI-ARIA仕様のaria-busy(4.1.3とMDNの解説を併記)、NN groupは空状態記事(補助的にSkeleton Screens 101記事)へのリンクです。
             </span>
           </div>
         </div>

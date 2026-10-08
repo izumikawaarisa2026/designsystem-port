@@ -84,7 +84,7 @@ const SOURCES = [
     exceptions:
       "ボトムシートの必須要素はコンテナのみで、項目一覧(オプション)、メディア(オプション: サムネイル・画像・動画)を含められるとしています。ボタン/オーバーフローアイコンのタップで表示され、項目のタップ・画面のタップ・下スワイプ・アプリバーの閉じる機能のいずれかで非表示にできるとしています(全画面表示のモーダルボトムシートには閉じるボタンを表示すべきとしています)。折りたたみ/展開を切り替える拡張オプションがあり、ドラッグハンドルのドラッグまたは選択で高さを変更できるとしています。ドラッグハンドルを選択するとプリセット高さの切り替えまたはシートを閉じる動作になり、スクリムを選択すると常にシートを閉じるとしています。複数のプリセット高さがありドラッグハンドルを使用できない場合は、高さ変更のための単一ポインターによる代替手段を必ず含めるべきだとしています。レスポンシブレイアウトとしては、コンパクトなブレークポイントでは画面幅いっぱいに広がる一方、中〜拡張ブレークポイントでは既定で最大幅が設定される(上書き可能)としており、複雑なタスクにはフローティングシートなど非一時的なサーフェスの使用を検討すべきだとしています。Androidの「予測戻る」ジェスチャーにも対応するとしています。",
     accessibility:
-      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしています。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしています。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしています。",
+      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしています。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしています。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしています(W3Cの2.5.7・ドラッグ操作に対応する考え方です)。",
     useCases: [
       "メインコンテンツと同時に操作したい補助機能には標準ボトムシートを使う(例: 音楽プレーヤー)",
       "選択や確認が完了するまで背景操作をブロックしたい場合はモーダルボトムシートを使う(モバイルアプリのみ)",
@@ -92,7 +92,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/bottom-sheets/guidelines",
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/bottomsheets.docx)により、使用法・構成要素(アナトミー)・可視性・表示/非表示のトリガー・レスポンシブレイアウト・行動(拡張・カスタムポジショニング・予測戻る)・アクセシビリティの各セクションを2026-09に直接確認・反映。具体的なコンテナ幅などのdp数値は文書内に記載がなく未確認。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Bottom sheets」のガイドライン)で、使用法・構成要素(アナトミー)・可視性・表示/非表示のトリガー・レスポンシブレイアウト・行動(拡張・カスタムポジショニング・予測戻る)・アクセシビリティの各セクションを2026-09に直接確認・反映。具体的なコンテナ幅などのdp数値は文書内に記載がなく未確認。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#2F7D6E" strokeWidth="1.2" strokeDasharray="2 2" />
@@ -106,28 +106,29 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし)",
+    doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
     color: "#A3821F",
     position: "ボトムシート専用のロール・パターンは存在せず、モーダル/非モーダルのどちらとして実装するかで適用すべき考え方が変わる",
-    size: "ボトムシート専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は閉じるボタンなどの操作要素に適用されます。",
+    size: "ボトムシート専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用されます。",
     colorInfo: "色の基準はありませんが、1.4.11(非テキストのコントラスト)がグラバーや境界線に適用され得ます。",
     stance:
-      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされます。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしています。",
+      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされます。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしています。また、2.5.7(ドラッグ操作・レベルAA)により、グラバーをドラッグしないと高さを変えられない作りにはせず、グラバーをタップすると高さが切り替わる、などドラッグ以外の方法も用意します。",
     scenarios: [
       "背景の操作を完全に遮断したいモーダルなボトムシートを実装する時",
       "背景コンテンツを操作可能なまま残したい非モーダルなボトムシート(Googleの「標準」に相当)を実装する時",
     ],
     exceptions:
-      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしています。グラバーハンドルのみに閉じる操作を依存させず、明確な閉じるボタンも併設すべきという実装上の注意点もあります(下記NN groupの指摘と一致)。",
+      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしています。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合は背景操作を妨げない実装が関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合は背景操作を妨げない実装が関わります。ドラッグ以外の操作方法(2.5.7)も「操作可能」の基準です。",
     useCases: [
       "背景を完全にブロックするボトムシートにはrole=\"dialog\"+aria-modal=\"true\"を使う",
       "背景操作を許すボトムシートではaria-modalを設定しない",
-      "グラバーだけに頼らず、明確な閉じるボタンも用意する",
+      "ドラッグしなくても高さを変えられるようにする(グラバーのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    urlSecondary: [{ label: "2.5.7 Dragging Movements", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" }],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
@@ -247,7 +248,7 @@ export default function ContainmentBottomSheetPage() {
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
             <BottomSheetSwatch />
-            <p style={styles.swatchNote}>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「モーダルポップアップ」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</p>
+            <p style={styles.swatchNote}>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</p>
           </div>
 
           <div style={styles.synthesisBox}>
@@ -259,7 +260,7 @@ export default function ContainmentBottomSheetPage() {
               4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別です。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げています。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現します。
             </p>
             <p style={styles.synthesisText}>
-              公式ドキュメントを確認したところ、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動が判明しました。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>「グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき」</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示しています。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールです。
+              公式ドキュメントを確認したところ、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動が判明しました。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示しています。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールです。
             </p>
           </div>
 
@@ -292,6 +293,7 @@ export default function ContainmentBottomSheetPage() {
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
                   <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
                 </div>
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -336,6 +338,7 @@ export default function ContainmentBottomSheetPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
@@ -362,7 +365,7 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleはユーザー提供の公式ドキュメントで確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
+            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSheetsページへのリンクです。GoogleはBottom sheetsページへのリンクです。WCAGはWAI-ARIA Dialog (Modal) Patternのページ、NN groupは記事ページ単位です。

@@ -30,7 +30,7 @@ const SOURCES = [
     colorCue: { mark: "○", note: "推奨(下線やアイコンなど視覚的な手がかりを追加)" },
     wordingCue: { mark: "○", note: "推奨(具体的な行き先を示す文言。数値基準はなし)" },
     visitedCue: { mark: "―", note: "明記なし" },
-    tapArea: { mark: "○", note: "44×44pt(全インタラクティブ要素に適用される一般原則。リンク専用の記載はない)" },
+    tapArea: { mark: "○", note: "既定44×44pt・最小28×28pt(iOS/iPadOS。全インタラクティブ要素に適用される一般原則で、リンク専用の記載はない。ボタンのページと同じ)" },
     illustration: () => (
       <span style={{ color: "#2F6FED", fontWeight: 600, fontSize: 12 }}>詳しく見る</span>
     ),
@@ -46,8 +46,8 @@ const SOURCES = [
     exceptions: "「Text button」はあくまでボタン(操作)の一種であり、文中に埋め込む本来のハイパーリンクとは位置づけが異なる。この点を踏まえ、厳密な意味での「リンク」の独立ガイダンスは見当たらない、という理解が正確。",
     pourDetail: "―(リンク単体を対象にしたアクセシビリティ言及は確認できていない)",
     searchHint: "text-only buttons",
-    url: "https://m1.material.io/components/buttons.html",
-    urlSecondary: [{ label: "M3 Buttons(最新版)", url: "https://m3.material.io/components/buttons/guidelines" }],
+    url: "https://m3.material.io/components/buttons/guidelines",
+    urlSecondary: [{ label: "参考: M1 Buttons(Text buttonの由来)", url: "https://m1.material.io/components/buttons.html" }],
     colorCue: { mark: "―", note: "独立した記載なし" },
     wordingCue: { mark: "―", note: "独立した記載なし" },
     visitedCue: { mark: "―", note: "独立した記載なし" },
@@ -64,11 +64,11 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.4.4 / 2.4.9 / 1.4.1 / 3.2.4",
     color: "#A3821F",
-    position: "レベルA〜AAAにまたがる3つの達成基準",
+    position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
       "2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求めます。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本です。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められます。",
     exceptions:
-      "2.4.4には適用除外がある: リンクの目的がユーザー一般にとって曖昧でない場合は、周囲の文脈への依存も許容される。1.4.1は、色以外の視覚的な手がかり(下線・太字・アイコンなど)を追加すれば、色を使うこと自体は問題ないとする設計。",
+      "2.4.4は、リンクの文言だけで、または同じ文・段落などの文脈と合わせて目的が分かればよい。例外は、ページ上の情報だけでは誰にとっても目的が分からないリンク(その場合は求められない)。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が必要になる(テクニックG183)。いちばん確実なのは下線を付けること。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」の中のナビゲーションに関する達成基準として分類される。 3.2.4は「理解可能」の予測可能性(3.2)に分類される。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
@@ -78,10 +78,10 @@ const SOURCES = [
       { label: "3.2.4 Consistent Identification", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
-    colorCue: { mark: "○", note: "必須: 色に加えて下線など2つ目の手がかりを追加する(色のみでの区別は不可)" },
+    colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字と3:1以上の明度差が必要(G183)。いちばん確実なのは下線" },
     wordingCue: { mark: "△", note: "AA=周囲の文脈込みでOK / AAA=リンク単体で目的が分かる文言が必須" },
     visitedCue: { mark: "―", note: "直接の基準なし" },
-    tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。ただし文中に埋め込まれたインラインリンクは適用除外" },
+    tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。ただし文中に埋め込まれたインラインリンクは例外(ほかにも例外あり。ボタンのページを参照)" },
     illustration: () => (
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
@@ -102,13 +102,13 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "色+下線による視認性(数値基準ではなく原則としての言及)",
     stance:
-      "リンクだと分かる「見た目上の手がかり」を最大化するには、リンクテキストに色と下線の両方を付けるべきとしている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。",
+      "記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、リンクテキストに色と下線の両方を付けるとよいとしている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。",
     exceptions:
-      "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年の編注では、近年は下線なしでも色や配置だけでリンクと認識できるデザインが増えている点にも触れている。",
+      "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年3月の編注では、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)と補足し、記事の見た目の推奨は出発点として扱うよう書いている。なお、現在のW3CのG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版にあった条件。",
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色のみによる区別の禁止)を関連基準として明示的に引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
-    colorCue: { mark: "○", note: "推奨: 色+下線の組み合わせ(ナビゲーション領域に限り下線省略可)" },
+    colorCue: { mark: "○", note: "出発点は色+下線(ナビゲーション領域は下線省略可)。編注: 下線は必須ではなく、コントラスト+ホバー/フォーカスの手がかりでもよい" },
     wordingCue: { mark: "―", note: "本記事では直接扱わない" },
     visitedCue: { mark: "○", note: "推奨: 訪問済みは彩度を落とした同系色にする" },
     tapArea: { mark: "―", note: "リンク専用の数値記載なし。一般的なタップ領域の目安は約1cm四方(別記事)" },
@@ -209,7 +209,7 @@ export default function ActionsLinkPage() {
               Googleには独立した「Link」コンポーネントはなく、<strong>「Text button」(ラベルのみ・枠なしの低優先度ボタン)が最も近い相当物</strong>です。厳密なハイパーリンクとは別物ですが、見た目の軽さという点では近い存在と言えます。
             </p>
             <p style={styles.synthesisText}>
-              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、無難な着地点です。これはWCAG 1.4.1(必須)とNielsen Norman Groupの経験則のどちらも満たせます。
+              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点です。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要です(G183)。Nielsen Norman Groupも2026年の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足しています。
             </p>
           </div>
 
@@ -339,7 +339,7 @@ export default function ActionsLinkPage() {
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Appleは「Writing」ページ内のBest practicesセクションへのアンカー付きリンクです。WCAGは達成基準ごとのUnderstandingページ(いずれもページ単位で、これ以上細かいアンカーはありません)。NN
-              groupは記事ページ単位です。Googleは独立した「Link」ページがないため、最も近い相当物である「Text button」の公式ページ(m1.material.ioの旧仕様・m3.material.ioの最新仕様)へリンクしています。
+              groupは記事ページ単位です。Googleは独立した「Link」ページがないため、最も近い相当物である「Text button」の公式ページ(主リンクはm3.material.ioの最新仕様のButtons。m1.material.ioの旧仕様は、Text buttonの由来を見る参考リンク)へリンクしています。
             </span>
           </div>
         </div>

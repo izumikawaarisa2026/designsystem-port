@@ -84,7 +84,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/app-bars/guidelines",
     urlSecondary: [{ label: "Specs(最新版)", url: "https://m3.material.io/components/app-bars/specs" }],
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/appbar.docx)により、名称変更の経緯・バリエーション・色・容器・先頭ボタン・見出し・末尾アイコン・アダプティブデザイン・スクロール挙動・アクセシビリティの各セクションを2026-09に直接確認・反映(M3 Expressive 2025年5月アップデート時点の内容)。具体的な高さのdp数値はドキュメント内に記載がなく未確認です。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「App bars」のガイドライン)で、名称変更の経緯・バリエーション・色・容器・先頭ボタン・見出し・末尾アイコン・アダプティブデザイン・スクロール挙動・アクセシビリティの各セクションを2026-09に直接確認・反映(M3 Expressive 2025年5月アップデート時点の内容)。具体的な高さのdp数値はドキュメント内に記載がなく未確認です。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -102,7 +102,7 @@ const SOURCES = [
     doc: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6",
     color: "#A3821F",
     position: "role=\"banner\"(またはheader要素)で識別する、サイト全体で共通するグローバルヘッダー領域のランドマーク",
-    size: "上部バー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は個々のアイコン・リンクにも適用されます。",
+    size: "上部バー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のアイコン・リンクにも適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、アイコンや区切り線などの視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出てくるナビゲーションを、毎回同じ相対的な順番で並べることを求める基準。利用者が自分で並びを変えた場合は除く。" },
@@ -121,8 +121,10 @@ const SOURCES = [
       "ヘッダーのヘルプ(問い合わせ・FAQ等)は、どのページでも同じ位置に置く(3.2.6)",
     ],
     searchHint: "",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/banner_role",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#banner",
     urlSecondary: [
+      { label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { label: "解説(MDN): bannerロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/banner_role" },
       { label: "3.2.3 Consistent Navigation", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
       { label: "3.2.6 Consistent Help", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html" },
     ],
@@ -144,7 +146,7 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "常時表示させる価値があるかを費用対効果で判断すべき、常設ヘッダー(数値基準ではなく判断基準)",
     size: "モバイルのタップ領域は約1×1cm、テキストは約16ptを目安とし、それ以上の余白は最小限にすべきとしています。",
-    colorInfo: "半透明の背景は下のコンテンツと重なって読みにくくなるため、不透明な背景を使うべきとしています。",
+    colorInfo: "常設ヘッダーは、内容の背景と違う不透明な色にすべきとしています。半透明の背景は下のコンテンツと重なって読みにくくなるためです(Googleの「透明にしてボタンを浮かせる」手法とは考え方が異なります)。",
     stance:
       "常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしています。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの費用対効果分析を行うべきとしています。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしています。",
     exceptions:
@@ -260,7 +262,7 @@ function SearchAppBarSection() {
         ))}
       </div>
       <p style={styles.searchSectionNote}>
-        出典: ユーザー提供の公式ドキュメント(MD3_text/appbar.docx)による2026-09時点のMaterial Design 3公式情報。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照してください。
+        出典: m3.material.io「App bars」のガイドラインの本文による2026-09時点のMaterial Design 3公式情報。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照してください。
       </p>
     </div>
   );
@@ -314,10 +316,13 @@ export default function NavigationAppBarPage() {
               Nielsen Norman Groupにも「上部バー」という名前の専用記事はありませんが、<strong>常設ヘッダー全般の費用対効果を問う「Sticky Headers」</strong>が関連する実務的知見を提供しています。<strong>「コンテンツとchromeの比率」</strong>(良い例で13:1、悪い例で2:1)という具体的な目安は、Apple・Googleどちらのアプリバーにも当てはまる、実装時の判断材料です。
             </p>
             <p style={styles.synthesisText}>
+              背景の透明度では意見が分かれます。<strong>NN groupは常設ヘッダーを、内容と違う不透明な色にすべき</strong>としている一方、<strong>Googleはスクロール時にコンテナを透明にしてボタンを内容の上に浮かせる手法も選べる</strong>としています。透明・半透明にするなら、<strong>上に載る文字やアイコンが、下の内容と重なっても読めるかを確かめる</strong>のが判断の目安です(AI解釈)。
+            </p>
+            <p style={styles.synthesisText}>
               Googleのアプリバーには、検索ビューへの入り口となる<strong>「検索アプリバー」</strong>というバリエーションもありますが、他3系列に直接対応する概念がないため、4系列比較には含めず、ページ末尾にGoogle単独の専用セクションとしてまとめています。
             </p>
             <p style={styles.synthesisText}>
-              このページと「ナビゲーションバー」ページを合わせて読むと、<strong>Appleは1つの名前(Tab Bars/Toolbars)でGoogleの2つの概念(Navigation bar/アプリバー)にそれぞれ対応するコンポーネントを持つ</strong>、という4系列比較全体の構造が見えてきます。
+              このページと「ナビゲーションバー」ページを合わせて読むと、<strong>AppleのTab BarsはGoogleのNavigation barに、ToolbarsはGoogleのアプリバーに対応する</strong>、という4系列比較全体の構造が見えてきます。
             </p>
           </div>
 
@@ -429,10 +434,10 @@ export default function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Googleはユーザー提供の公式ドキュメントで確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。WCAGはMDNのbannerロール解説ページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
+              リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
             </span>
           </div>
         </div>

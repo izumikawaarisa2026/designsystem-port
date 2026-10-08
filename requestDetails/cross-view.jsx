@@ -17,11 +17,11 @@ import SidebarNav from "./sidebar-nav";
 const TAG_INDEX = [
   {"group": "思想レイヤー", "label": "原則比較", "path": "/principles/comparison", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["設計の原則・使い分け"]},
   {"group": "思想レイヤー", "label": "アクセシビリティ", "path": "/principles/accessibility", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["設計の原則・使い分け"]},
-  {"group": "トークン / ファウンデーション", "label": "ファウンデーションの思想比較", "path": "/tokens/overview", "principles": ["堅牢(POUR)"], "processes": ["設計の原則・使い分け", "デザインの基礎"]},
+  {"group": "トークン / ファウンデーション", "label": "ファウンデーションの思想比較", "path": "/tokens/overview", "principles": [], "processes": ["設計の原則・使い分け", "デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "カラー", "path": "/tokens/color", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "タイポグラフィ", "path": "/tokens/typography", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "文章・UXライティング", "path": "/tokens/writing", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["デザインの基礎", "エラー・確認", "入力・フォーム"]},
-  {"group": "トークン / ファウンデーション", "label": "アイコン", "path": "/tokens/icon", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "トークン / ファウンデーション", "label": "アイコン", "path": "/tokens/icon", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "レイアウト・スペーシング", "path": "/tokens/layout-spacing", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "情報の整理・一覧"]},
   {"group": "トークン / ファウンデーション", "label": "シェイプ・コーナーラジウス", "path": "/tokens/shape", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "見つけやすさ・初めての案内"]},
   {"group": "トークン / ファウンデーション", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
@@ -45,10 +45,10 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
-  {"group": "Text inputs", "label": "テキストフィールド", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["入力・フォーム"]},
+  {"group": "Text inputs", "label": "テキストフィールド", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "検索フィールド", "path": "/components/text-inputs/search-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["検索・絞り込み", "見つけやすさ・初めての案内"]},
   {"group": "Text inputs", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
-  {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
+  {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Navigation", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "セグメントコントロール", "path": "/components/navigation/segmented-control", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "ナビゲーション"]},
@@ -59,7 +59,7 @@ const TAG_INDEX = [
   {"group": "Navigation", "label": "ページネーション", "path": "/components/navigation/pagination", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "情報の整理・一覧"]},
   {"group": "Containment", "label": "ダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
   {"group": "Containment", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
-  {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
+  {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Containment", "label": "カード", "path": "/components/containment/card", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
@@ -70,7 +70,7 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
   {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
+  {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "アラート/バナー", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
@@ -259,7 +259,7 @@ function TagExplorer() {
 function AllPagesTable() {
   return (
     <details style={styles.fold} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
-      <summary style={styles.foldSummary}>全ページのタグ一覧を開く({tagged.length}ページ)</summary>
+      <summary style={styles.foldSummary}>全ページのタグ一覧を開く({tagged.length}ページ。このページを除く)</summary>
       <div style={styles.foldBody}>
         {groups.map((g) => {
           const pages = tagged.filter((p) => p.group === g);
@@ -294,7 +294,7 @@ function TrendSummary() {
     <div style={styles.synthesisBox}>
       <div style={styles.synthesisLabel}>AI解釈 ― タグから見える傾向</div>
       <p style={styles.synthesisText}>
-        全{TAG_INDEX.length}ページに、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けています。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトが部品を「どんな作業で使うか」の単位で比べていることが分かります。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}です。
+        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けています。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトが部品を「どんな作業で使うか」の単位で比べていることが分かります。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}です。
       </p>
       <p style={styles.synthesisText}>
         原則タグで最も多いのは<strong>「{top.short}」({pourCount(top.tag)}ページ)</strong>、最も少ないのは<strong>「{low.short}」({pourCount(low.tag)}ページ)</strong>です。比較の中心は、見え方や操作のしやすさ、支援技術への伝わり方に関わる基準です。

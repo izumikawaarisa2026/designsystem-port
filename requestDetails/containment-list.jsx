@@ -22,27 +22,26 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and Tables",
     color: "#C2542A",
-    position: "行(row)・セルの形で、データを1列以上に並べて提示するコンテナ。単純なテキストリストから並べ替え可能な列を持つテーブルまで対応",
-    size: "具体的なpt数値は確認できていません。各行には他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられます。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    position: "グループや階層に分かれたデータを、行の形で並べて見せる部品。選択・追加・削除・並べ替えにも対応できる",
+    size: "リスト固有の数値(pt)は、Lists and tablesのページにはありません。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
+    colorInfo: "色についての規定はありません。macOSには、行の背景色を交互に変えて大きな表を使いやすくする枠付きのスタイルがあるとしています。",
     stance:
-      "リストとテーブルは、データを1列以上の行として提示するとしています。複雑なデータ集合を、明確で一覧性の高い表示に変換し、必要な情報をすぐに見つけられるようにする役割を持つとしています。各行・セルはコンテナとして機能し、単純なテキストリストから画像・操作を含むリッチなプレビューまで、様々なデータ種別・ユーザー操作に対応しつつ一貫した提示を行うとしています。テーブルはこのパターンを拡張したもので、並べ替え可能な列や階層データにも対応するとしています。",
+      "リストやテーブルは、グループや階層に分かれたデータを表せる部品で、選択・追加・削除・並べ替えといった操作にも対応できるとしています。行の形は文字を読みやすく、ざっと見るのに向くため、文字はリストやテーブルで見せるのがよいとしています(大きさがばらばらの項目や、画像を多く見せるならコレクションを検討)。選んだときのフィードバックは、選ぶと別の画面に進むのか、項目の状態が切り替わるのかで変え、階層を進むリストでは選んだ行を強調し続けるとしています。項目の文字は短く簡潔にし、長い内容はタイトルだけを並べて詳細の画面で見せることも勧めています。",
     exceptions:
-      "テーブルは、スクロールする単一列の行のリストとして、セクションやグループに分けて表示できるとしています。大量・少量どちらの情報も、リスト形式で簡潔かつ効率的に表示するために使うべきだとしています。",
+      "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る必要があるとしています。並べ替えだけでもできると喜ばれる、としています。iOS・iPadOS・visionOSでは、情報ボタン(行の中では詳細開示ボタン)は行の内容の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使うとしています。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けないよう勧めています(どちらも末尾にあり、誤って操作しやすいため)。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。標準のリスト/テーブルコントロールを使えば、支援技術には自動的に構造が伝わると考えられます。",
+      "―(Lists and tablesのページにはアクセシビリティの専用の記載はありません)。標準のリスト/テーブルを使えば、支援技術には自動的に構造が伝わると考えられます(AI解釈)。",
     scenarios: [
-      "データを1列以上の行として一覧表示し、素早く見つけられるようにしたい場面",
-      "単純なテキストリストから、画像・操作を含むリッチなプレビューまで内容に応じて使い分ける場面",
-      "大量のデータにはセクション・グループ分けや並べ替え可能な列を持つテーブルを使う場面",
+      "文字の項目を、ざっと見やすい行の形で一覧表示したい場面",
+      "階層をたどって設定などを選ばせたい場面(iOSの設定アプリのように)",
+      "大きさがばらばらの項目や画像が多い場合は、コレクションを検討する",
     ],
     useCases: [
-      "―(支援技術に関する専用のユースケース記載は確認できていません)",
+      "―(支援技術に関する専用のユースケース記載はありません)",
     ],
-    searchHint: "",
+    searchHint: "Provide appropriate feedback",
     url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables",
-    confirmedNote: "「Lists and Tables」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
+    confirmedNote: "HIGのページデータ(Lists and tablesのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -85,7 +84,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/lists/guidelines",
-    confirmedNote: "使用法・バリエーション(表現力豊かなリスト/ベースライン)・スロット構造・適応型デザイン・行動(選択モード・スワイプ・展開折りたたみ)・インタラクションとスタイル・ユースケースの各セクションは、ユーザー提供の公式ドキュメント(list.docx)により2026-09に直接確認・反映済み。",
+    confirmedNote: "使用法・バリエーション(表現力豊かなリスト/ベースライン)・スロット構造・適応型デザイン・行動(選択モード・スワイプ・展開折りたたみ)・インタラクションとスタイル・ユースケースの各セクションは、M3の公式ページ本文(m3.material.io「Lists」のガイドライン)で2026-09に直接確認・反映済み。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -102,27 +101,34 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― list role / listitem role",
+    doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
     color: "#A3821F",
     position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で識別する、非対話的な項目の集合",
-    size: "リスト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は各項目内の操作要素に適用されます。",
+    size: "リスト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各項目内の操作要素に適用されます。",
     colorInfo: "リスト専用の色基準はありませんが、1.4.11(非テキストのコントラスト)が区切り線などの視覚的要素に適用され得ます。",
     stance:
       "listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしています。可能な限りHTMLのセマンティック要素(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしています。",
     scenarios: [
       "支援技術にリスト構造を明示的に伝えたい場面(特にHTMLを直接制御できない場合)",
+      "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
     ],
     exceptions:
       "ARIAのlistロールは順序付き/順序なしを区別しないため、順序が意味を持つ場合はHTMLのol要素を使うべきだとしています。リストがタブとして機能する場合は、list/listitemではなくtablist/tab/tabpanelロールを使うべきだとしています。",
     accessibility:
-      "堅牢(Robust) ― セマンティックHTML(ul/ol/li)を優先することで、支援技術に構造が自動的に伝わるとしています。ARIA属性はHTMLを直接制御できない場合の代替手段という位置づけです。",
+      "知覚可能(Perceivable) ― 見た目で伝わる一覧の構造を、支援技術にも伝えること(1.3.1 情報及び関係性)が中心です。セマンティックHTML(ul/ol/li)を優先すれば、構造が自動的に伝わります。ARIA属性はHTMLを直接制御できない場合の代替手段という位置づけです。",
     useCases: [
       "可能な限りHTMLのul/ol + liを使い、ARIAのlist/listitemはHTMLを制御できない場合の代替とする",
       "順序が意味を持つ場合はul(順序なし)ではなくol(順序あり)を使う",
       "タブとして機能するリストにはlist/listitemではなくtablist/tab/tabpanelを使う",
+      "項目を選べるリストはAPGのListboxパターン(role=\"listbox\"/\"option\")で作る。list/listitem(ul/ol/li)は読むだけの一覧用",
     ],
     searchHint: "listitem",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#list",
+    urlSecondary: [
+      { label: "1.3.1 Info and Relationships", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
+      { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+      { label: "解説(MDN): listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
@@ -254,7 +260,7 @@ export default function ContainmentListPage() {
               Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通しています。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なります。
             </p>
             <p style={styles.synthesisText}>
-              W3Cが強調する<strong>「可能な限りARIAのlist/listitemロールではなくHTMLのul/ol+liを使うべき」</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点です。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されています。
+              W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点です。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されています。
             </p>
           </div>
 
@@ -287,6 +293,7 @@ export default function ContainmentListPage() {
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
                   <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
                 </div>
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -331,6 +338,7 @@ export default function ContainmentListPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
@@ -356,7 +364,7 @@ export default function ContainmentListPage() {
             <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。WCAGはMDNのlist role解説ページ、NN groupは動画ページ単位です。
+              リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。W3CはWAI-ARIA仕様のlistロールを主リンクに、1.3.1・APGのListboxパターン・MDNの解説を併記しています。NN groupは動画ページ単位です。
             </span>
           </div>
         </div>
