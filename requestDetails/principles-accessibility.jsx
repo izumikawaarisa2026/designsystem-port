@@ -61,7 +61,7 @@ const FRAMEWORKS = [
         url: "https://www.w3.org/TR/WCAG22/#operable",
         sub: [
           { name: "2.1 Keyboard Accessible", desc: "すべての機能をキーボードだけで利用できるべきという指針。" },
-          { name: "2.2 Enough Time", desc: "読み書きに十分な時間を与えるべきという指針。" },
+          { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。" },
           { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。" },
           { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。" },
           { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。" },
@@ -169,6 +169,24 @@ export default function PrinciplesAccessibilityPage() {
               <span>検証可能な規格</span>
             </div>
             <p style={styles.diagramNote}>左右は「規格としての厳密さ」の度合いのイメージです。厳密さの高低は優劣を意味しません。詳しい内容は下の「各サイトの詳細」を参照してください。</p>
+          </div>
+
+          {/* WCAGの番号とレベルの読み方(各ページで繰り返し出てくるため、ここで一度説明する) */}
+          <div style={styles.diagramCard}>
+            <h2 style={styles.diagramTitle}>WCAGの番号とレベルの読み方</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+              {[
+                { lv: "原則", n: "4つ", ex: "2 = 操作可能(Operable)", w: "100%" },
+                { lv: "ガイドライン", n: "13", ex: "2.5 = 入力方法(Input Modalities)", w: "86%" },
+                { lv: "達成基準", n: "番号付き", ex: "2.5.8 = ターゲットのサイズ(最低限)", w: "72%" },
+              ].map((r) => (
+                <div key={r.lv} style={{ width: r.w, background: "#FBF6E6", borderLeft: "3px solid #A3821F", padding: "6px 10px", borderRadius: "0 3px 3px 0" }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>{r.lv}<span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#7E86AC", marginLeft: 8 }}>{r.n}</span></div>
+                  <div style={{ fontSize: 11.5, color: "#454C78", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" }}>例: {r.ex}</div>
+                </div>
+              ))}
+            </div>
+            <p style={styles.diagramNote}>番号の先頭の数字が原則を表します(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。各達成基準には適合レベルがあり、<strong>A=最低限</strong>、<strong>AA=実務で一般的な目標</strong>(法令や社内基準の多くがAAを求めます)、<strong>AAA=より高い水準</strong>(すべてのページで満たすことは求められていません)です。なお、W3CのAPG(ARIA Authoring Practices Guide)は実装の参考例で、適合の基準ではありません。</p>
           </div>
 
           {/* 各サイトの詳細: mobile card stack */}

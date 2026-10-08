@@ -58,7 +58,7 @@ const SOURCES = [
     accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
     useCases: [
       "1行のテキストを入力・編集させる",
-      "プレースホルダーテキストで入力例や短い説明を示す(ラベルの代わりにはしない)",
+      "プレースホルダーテキストで入力例や短い説明を示す(ラベルの代わりにはしない、はAIの補足)",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
@@ -87,9 +87,9 @@ const SOURCES = [
     stance:
       "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされています。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされています。フローティングラベルは入力欄と揃って配置され、常に表示され続け、フォーカス時や入力時に浮き上がるとされています(検索結果による確認、2026-09)。",
     exceptions:
-      "サポートテキストとエラーテキストの両方を表示する場合、アクセシビリティ上はサポートテキストを先に、エラーテキストを後に読み上げる構成にすべきとされています。エラーメッセージには「alert」ロールを与えるべきとされています。",
+      "サポートテキストとエラーテキストの両方を表示する場合、アクセシビリティ上はサポートテキストを先に、エラーテキストを後に読み上げる構成にすべきとされています。エラーメッセージの読み上げ方(alertロールを使うかなど)は、公式本文では未確認です。",
     accessibility:
-      "操作可能(Operable) ― 一般的なタッチターゲット基準(48×48dp)が適用されると考えられます(直接確認はできていません)。エラーメッセージには「alert」ロールを与えるべきとされています。",
+      "操作可能(Operable) ― 一般的なタッチターゲット基準(48×48dp)が適用されると考えられます(直接確認はできていません)。",
     useCases: [
       "周囲で目立たせたい単独のフィールドにはFilledを使う",
       "フォームなど多数のフィールドを並べる場合はOutlinedを使う",
@@ -113,17 +113,17 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 3.3.2 Labels or Instructions / 1.3.5 / 4.1.2",
+    doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
     color: "#A3821F",
     position: "入力を求めるコンテンツには、目に見えるラベルまたは説明を提供することを要求(レベルA)",
-    size: "テキストフィールド専用の数値基準はありませんが、一般的なターゲットサイズ基準(2.5.8/2.5.5)は関連する操作要素(送信ボタンなど)に適用されます。",
+    size: "テキストフィールド専用の数値基準はありませんが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は関連する操作要素(送信ボタンなど)に適用されます。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、入力欄の境界線やフォーカス状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     stance:
       "入力を求めるコンテンツには、必須かどうかを問わず、目に見えるラベルまたは説明を提供しなければならないとしています。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視しています。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されています。",
     exceptions:
       "プレースホルダーテキストやARIAだけによるラベル付けは、この基準を満たすには不十分だとしています。目的は、ユーザーが過度な混乱なくタスクを完了できるだけの情報を提供することで、データ形式・入力例・必須項目の明示などが必要に応じて求められます。",
     accessibility:
-      "知覚可能(Perceivable) ― 3.3.2はPOUR原則のうち「知覚可能」に対応します。1.3.1(情報と関係性)・4.1.2(名前・役割・値)と合わせて、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしています。",
+      "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2はガイドライン3.3「入力支援」に属し、POUR原則のうち「理解可能」に対応します。1.3.1(情報と関係性)は「知覚可能」、4.1.2(名前・役割・値)は「堅牢」の基準です。3つは別々の原則に属し、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしています。",
     useCases: [
       "全ての入力欄に目に見えるラベルを付ける(必須・任意を問わない)",
       "プレースホルダーやARIAラベルだけに頼らない",
@@ -150,19 +150,18 @@ const SOURCES = [
     size: "数値基準は明言していません。",
     colorInfo: "色についての数値基準はありません。",
     stance:
-      "ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべきだとしています。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしています(検索結果による確認、2026-09、記事本文の直接取得は未実施)。",
+      "ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべきだとしています。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしています。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としています。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしています(記事本文を直接確認、2026-10)。",
     exceptions:
       "長いフォームで入力中にヒントを忘れると、書いた内容を消して確認しないと元のヒントが見えないという記憶の負担が生じるとしています。ラベルなしでは、入力済みかどうかを確認するために各欄を1つずつ消して確認する必要が生じるとしています。アイトラッキング調査では、ユーザーの視線は空欄に引き寄せられるとしています。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ調査(記憶負荷・確認のしやすさ・視線)に基づく指針です。",
     useCases: [
-      "ラベルは入力欄の外に常時表示し、補足情報だけをプレースホルダーに置く",
+      "最良はラベルもヒントも入力欄の外に常に表示する形。ラベル+プレースホルダーのヒントは「より良い」止まりで、入力に欠かせない説明は欄の外に置く",
       "長いフォームほどラベル常時表示の効果が大きい",
       "入力済み内容を確認しやすい設計にする",
     ],
     searchHint: "",
     url: "https://www.nngroup.com/articles/form-design-placeholders/",
-    confirmedNote: "検索結果の要約による間接確認(2026-09)。記事本文の直接取得は未実施。",
-    pending: true,
+    confirmedNote: "記事本文を直接取得して確認(2026-10)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <text x="0" y="10" fontSize="9" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">メールアドレス</text>
@@ -196,7 +195,8 @@ const TEXTAREA_NOTES = [
     position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
     text: "MDNのaria-multiline解説を直接確認したところ、この属性はカスタムのrole=\"textbox\"ウィジェットが複数行入力を受け付けるかを支援技術に伝えるためのもので、ARIAは要素の既定の動作自体は変えないため、ネイティブの<textarea>要素にはそもそも不要だとされています。高さを固定して内容を隠してしまう実装は、達成基準1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に抵触し得る点にも注意が必要です(この2つはテキストエリア専用の基準ではなく一般的な達成基準です)。",
     confirmedNote: "aria-multiline属性の解説はMDN本文を直接確認済み(2026-09)。",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline",
+    url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline",
+    urlSecondary: [{ label: "解説(MDN): aria-multiline", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline" }],
   },
   {
     key: "nn",
@@ -219,6 +219,7 @@ function TextareaNotes() {
             <p style={styles.sourceStance}>{s.text}</p>
             <p style={styles.confirmedNote}>{s.confirmedNote}</p>
             <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+            {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, marginLeft: 8 }}>{sl.label} ↗</a>))}
           </div>
         ))}
       </div>
@@ -242,6 +243,7 @@ function TextareaNotes() {
             {TEXTAREA_NOTES.map((s) => (
               <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>
                 <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.link, display: "block" }}>{sl.label} ↗</a>))}
               </div>
             ))}
           </div>
@@ -357,10 +359,10 @@ export default function TextInputsTextFieldPage() {
               このページで最も重要な発見は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることです。W3Cは適合基準(3.3.2)として「目に見えるラベルまたは説明」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしています。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言えます。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっています。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫です。
+              Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっています。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫です。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としています。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>「ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある」</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かります。
+              W3Cは<strong>ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かります。
             </p>
           </div>
 
@@ -458,10 +460,10 @@ export default function TextInputsTextFieldPage() {
           <h2 style={styles.diagramTitle}>② テキストエリア(複数行)</h2>
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較です(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
-          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なります。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、W3Cの技術要件(aria-multiline)は追加対応なしで満たされる点が実務上重要です。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要です。</p>
+          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なります。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要です。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要です。</p>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 

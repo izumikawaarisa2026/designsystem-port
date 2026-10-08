@@ -21,7 +21,7 @@ const SOURCES = [
     position: "iOS/iPadOSには無いが、visionOSには近い概念がある",
     size: "visionOS: Mini(28pt)/Small(32pt)/Regular(44pt)/Large(52pt)/Extra large(64pt)の5段階。※visionOS固有の概念であり、MaterialのFABと同一の概念ではない点に注意(参考情報として掲載)。",
     stance:
-      "iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSには「ボタンが空間に浮かんで見える場合はglassマテリアルを背景に使う」という明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。",
+      "iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。",
     exceptions:
       "5段階のサイズは円形・カプセル型・角丸長方形すべてに共通する一般的なボタンサイズの規定であり、「浮かせる」ときだけの専用サイズではない。また、ボタン同士は中心間で60pt以上離すべきという配置の指針もある。なお、macOSにある「Image button(画像ボタン)」は名称が紛らわしいが、これは単なる画像アイコンのボタンでiOS向けではなく、FABの浮遊感・主役性とは異なる概念。",
     pourDetail: "―(FABという分類自体がHIGに存在しないため、POUR上の分類も定義されていない)",
@@ -44,15 +44,15 @@ const SOURCES = [
     doc: "Material Design 3 ― FAB(3サイズ)",
     color: "#2F7D6E",
     position: "3サイズ(FAB 56dp / Medium 80dp / Large 96dp)",
-    size: "FAB 56dp / Medium FAB 80dp(最も推奨) / Large FAB 96dp。アイコンサイズはいずれも24dpで共通。",
+    size: "FAB 56dp / Medium FAB 80dp(最も推奨) / Large FAB 96dp。アイコンの大きさは、MDC Androidでは FAB 24dp・Medium FAB 28dp・Large FAB 36dp。",
     stance:
       "画面上で最も重要な操作に使うボタンで、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。",
     exceptions:
-      "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。",
+      "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。なお、アイコンに文字のラベルを添えたい場合は、「Extended FAB」という別の部品が用意されている。",
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して最低3:1のコントラスト比を確保すべきとされており、知覚可能性に関わる。フォーカス順序で優先的に扱うべきという点は操作可能性に関わる。",
     searchHint: "FAB container height",
     url: "https://m3.material.io/components/floating-action-button/specs",
-    confirmedNote: "56dp/24dpは公式ページの本文で直接確認済み。80dp/96dpは複数の二次情報による(2026-09)。",
+    confirmedNote: "56dp/80dp/96dpとアイコンの大きさは、GoogleのMDC Androidのドキュメントで確認(2026-10)。",
     illustration: () => (
       <svg width="40" height="40" viewBox="0 0 40 40">
         <circle cx="20" cy="20" r="18" fill="#2F7D6E" />
@@ -69,9 +69,9 @@ const SOURCES = [
     position: "ボタンページと同一の一般基準を適用",
     size: "―(FAB固有のサイズ規定はない。一般的なタップ領域基準は下記アクセシビリティ欄を参照)",
     stance:
-      "WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める(詳細は「ボタン」ページ参照)。",
+      "WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める(どちらも例外あり。詳細は「ボタン」ページ参照)。",
     exceptions:
-      "「ボタン」ページと同じ4つの適合ルートが適用される: ①周囲24px以上の余白、②同機能の代替ターゲット、③文中インラインリンク、④ユーザーエージェント側の制御。FAB特有の追加規定はない。",
+      "「ボタン」ページと同じく、2.5.8(AA)には5つの例外がある: ①間隔(24px未満なら、中心に直径24pxの円を描いて隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の追加規定はない。",
     pourDetail: "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、入力方法(2.5)の達成基準。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
@@ -118,7 +118,7 @@ const RANGE_SCALE = {
     { at: 24, label: "24" },
     { at: 44, label: "44" },
   ],
-  caption: "WCAGの一般基準(24px=レベルAA条件付き / 44px=レベルAAA無条件)。FAB専用の基準ではなく、タップ可能要素全般に適用される。",
+  caption: "WCAGの一般基準(24px=レベルAA / 44px=レベルAAA。どちらも例外あり)。FAB専用の基準ではなく、タップ可能要素全般に適用される。",
 };
 
 const BAND_COLOR = {
@@ -217,10 +217,10 @@ export default function ActionsFabPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              FABは<strong>iOS/iPadOSには対応する概念がありません</strong>が、Appleの中でも<strong>visionOSには近い概念が存在します</strong>。空間に浮かぶ円形ボタンにglassマテリアルを使うという指針で、「浮かせる」「主役の操作を目立たせる」という発想はMaterialのFABと共通しています。
+              <strong>役割としてのFAB(画面で最も重要な1つの操作を担うボタン)は、Appleにはありません</strong>。visionOSには空間に浮かぶ円形ボタンにglassマテリアルを使う指針がありますが、これは<strong>「空間に浮かべる見た目」が近いだけ</strong>で、主役の操作という役割までは定めていません。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px)</strong>がそのまま当てはまります。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるでしょう。
+              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまります。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるでしょう。
             </p>
           </div>
 
@@ -309,11 +309,11 @@ export default function ActionsFabPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Material Design 3のみ本文未確認)</span>
+            <span>最終確認: 2026-09(Googleのサイズ・アイコンの大きさは、2026-10にMDC Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはButtonsページ内のvisionOSセクションへのアンカー付きリンクです。WCAGはボタンページと同一のUnderstandingページ。NN
-              groupは用語集内の実アンカー(#Floating-Button)。Material Design 3はSpecsページ(公式サイトがJS描画のSPAのため、正確な数値は目視確認待ち)。
+              groupは用語集内の実アンカー(#Floating-Button)。Material Design 3はSpecsページ。サイズ・アイコンの大きさ・「Medium FAB (most recommended)」は、補足の<a href="https://github.com/material-components/material-components-android/blob/master/docs/components/FloatingActionButton.md" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>MDC AndroidのFABのドキュメント ↗</a>で確認できます。アイコンの大きさは実装によって少し違い、Jetpack ComposeではLarge FABが32dpです。
             </span>
           </div>
         </div>

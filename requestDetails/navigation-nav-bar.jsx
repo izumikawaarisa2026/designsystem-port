@@ -11,7 +11,7 @@ import SidebarNav from "./sidebar-nav";
  * 「永続的な主要セクション切り替えバー」― を指していることに気づいた。この対象に
  * 対応するAppleの本当の等価コンポーネントは「Tab Bars」(画面下部の主要なタブ)であり、
  * 「タブ」ページのApple欄と同じ一次情報を指す。Appleは1つのコンポーネント(Tab Bars)で
- * Googleの2つの概念(Tabsページで比較した「Tabs」と、このページで比較する「Navigation
+ * (2026-10訂正: AppleのTab BarsはGoogleのNavigation barに対応し、画面内のTabsに当たる部品はAppleにない)Googleの2つの概念(Tabsページで比較した「Tabs」と、このページで比較する「Navigation
  * bar」)の両方を兼ねている、という点自体が興味深い非対称性のため、四系列比較はTab Bars
  * を軸に組み直した。
  *
@@ -100,7 +100,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/navigation-bar/guidelines",
     urlSecondary: [{ label: "アプリバー", url: "https://m3.material.io/components/app-bars/guidelines" }],
-    confirmedNote: "使用法・バリエーション(ベースライン/フレキシブル)・配置・状態の保持/リセット・インタラクションとスタイル・アクセシビリティ(ラベル要件・テキスト拡大)の各セクションは2026-09時点で公式ページ本文を直接確認済み(MD3_text/navber.docx)。具体的な高さなどのspecs数値は未確認。",
+    confirmedNote: "使用法・バリエーション(ベースライン/フレキシブル)・配置・状態の保持/リセット・インタラクションとスタイル・アクセシビリティ(ラベル要件・テキスト拡大)の各セクションは2026-09時点で公式ページ本文(m3.material.io「Navigation bar」のガイドライン)を確認済み。具体的な高さなどのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -118,7 +118,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "role=\"navigation\"(またはnav要素)で識別する、ページ内のナビゲーション用リンク群を示すランドマーク",
     size:
-      "ナビゲーションバー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます。",
+      "ナビゲーションバー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中の項目を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
     glossary: [
@@ -161,7 +161,7 @@ const SOURCES = [
     size: "数値基準は明言していませんが、選択肢が5個を超えると、バーに収めながら十分なタップ領域を保つのが難しくなるとしています。",
     colorInfo: "色についての数値基準はありません。",
     stance:
-      "上部ナビゲーションバーは、選択肢が比較的少ない場合にのみ機能し、画面上部の貴重な領域(fold上)を占有するとしています。常時表示され続けるタブバー的な配置(プラットフォームの慣習に従う)は利点になるとしつつ、いずれのパターンも選択肢が少ないサイト・アプリに適しているとしています。",
+      "上部ナビゲーションバーは、選択肢が比較的少ない場合にしかうまく働かず、画面上部の貴重な領域(fold上)を取るとしています。タブバーは上部ナビゲーションバーの近い仲間で同じ欠点を持ち、違いはスクロールしても常に表示される点だとしています。いずれのパターンも選択肢が少ないサイト・アプリに適しているとしています。",
     exceptions:
       "選択肢が5個を超える場合、バーに収めながら十分なタップ領域サイズを保つことが難しくなるとしています。ロゴ・検索・アカウントリンクなど他のUI要素と併用する場合、ナビゲーションの視認性とコンテンツの優先度のどちらを取るかのトレードオフが生じるとしています。",
     accessibility:
@@ -285,7 +285,7 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              W3C(navigationランドマーク)・Nielsen Norman Group(選択肢の少ない常設バー)・Google(Navigation bar)の3系列は、実は<strong>同じ対象「永続的な主要セクション切り替えバー」</strong>を指しています。これに対応するAppleの本当の等価コンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)で、Appleは1つのコンポーネントでGoogleの2つの概念(Tabs・Navigation bar)を兼ねている、という非対称性がこのページの核心です。
+              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っています(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleの部品は<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)です。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用の部品は、Appleにはありません。<strong>W3Cは見た目の部品ではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めています。
             </p>
             <p style={styles.synthesisText}>
               公式ページ本文を確認したところ、<strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持つことが判明しました。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけですが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的です。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点です。
@@ -294,7 +294,7 @@ export default function NavigationNavBarPage() {
               ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することです。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出しました(末尾のリンクを参照)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの<strong>「ナビゲーションバーは選択肢が少ない場合にのみ機能し、画面上の貴重な領域を占有する」</strong>という指摘は、AppleのTab Bars・GoogleのNavigation barどちらにも当てはまる実務的な制約です。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できました(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新です)。
+              Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げています。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしています。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じです。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できました(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新です)。
             </p>
             <p style={styles.synthesisText}>
               W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てています。特に、1ページに複数のnavigationランドマークがある場合は一意のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点です。

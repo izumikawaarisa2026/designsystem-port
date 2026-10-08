@@ -52,7 +52,7 @@ const FRAMEWORKS = [
       },
       {
         name: "第2世代(2021〜、Material You)",
-        desc: "「好みの感じ方は人それぞれ」という前提のもと、3つの指針を示した。",
+        desc: "「好みの感じ方は人それぞれ」という前提のもと、重視するテーマを打ち出した(方向性は公式で確認、下の3語の名称は報道による)。公式で確認済みの原則とは同じ数え方で比べない。",
         sub: [
           { name: "Personal", desc: "自分の端末だと感じられる心地よさを目指す指針。壁紙から配色を抽出するダイナミックカラーが代表例。" },
           { name: "Adaptive", desc: "スマートフォンから折りたたみ端末・大画面まで、一貫した体験を提供する指針。" },
@@ -110,10 +110,10 @@ const FRAMEWORKS = [
 ];
 
 const OVERLAP_ROWS = [
-  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: "Bold, Graphic, Intentional(近い観点)", wcag: "(Understandableに関連する考え方だが、直接対応する項目はない)", nn: "システムと実世界の一致 / 一貫性と標準" },
-  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: "Personal(近い観点)", wcag: "(Operableに関連する考え方だが、直接対応する項目はない)", nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
-  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive", wcag: "(直接対応する項目はない)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
-  { theme: "アクセシビリティを前提とする発想", hig: "Responsibility(関連する考え方だが、直接対応する項目ではない)", material: "Accessible", wcag: "(POUR全体がこの発想の規格化)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
+  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: "―(直接対応する項目なし)", wcag: "(Understandableに関連する考え方だが、直接対応する項目はない)", nn: "システムと実世界の一致 / 一貫性と標準" },
+  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: "―(直接対応する項目なし)", wcag: "(Operableに関連する考え方だが、直接対応する項目はない)", nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: "(直接対応する項目はない)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
+  { theme: "アクセシビリティを前提とする発想", hig: "Responsibility(関連する考え方だが、直接対応する項目ではない)", material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "(POUR全体がこの発想の規格化)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
 ];
 
 function CountDots({ count, color, label }) {
@@ -168,6 +168,9 @@ export default function PrinciplesComparisonPage() {
             </p>
             <p style={styles.synthesisText}>
               Apple HIGの原則は<strong>2026年6月に刷新されたばかり</strong>です。かつての「明瞭性・敬意・奥行き」という3本柱は、現在の公式ページにはもう見当たりません。一次情報は定点観測しないと、古い理解のまま止まってしまうことがよく分かる例です。
+            </p>
+            <p style={styles.synthesisText}>
+              実務では、原則は<strong>チェックリストとして使うと効果を発揮します</strong>。たとえばデザインレビューで、Nielsen Norman Groupの10ヒューリスティックを1項目ずつ当てはめて画面を確かめると、抜けている観点を見つけやすくなります。
             </p>
           </div>
 

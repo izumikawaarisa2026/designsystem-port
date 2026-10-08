@@ -9,6 +9,9 @@
 - 出力は圧縮しない(各ページの style 属性・<style> をそのまま残す)。
 - サイト内リンク(/tokens/color など)は、静的版どうしの完全なURL(https://…/designsystem-port/pages/tokens/color/)に張り替える。
 - Chromeは1回だけ起動し、同じ読み込みの中で全ページを順に表示して集める(shell.html の __DSP_STATIC__ の処理)。
+- 各ページはスマホ用のカード(.dsp-mobile-only)とPC用の比較表(.dsp-desktop-only)を両方持つため、そのまま書き出すと
+  文字だけで読むAIには同じ内容が2回見える。そこで、比較表の文字のほぼすべて(90%以上)がカード側にもある比較表は書き出さず、
+  カードをどの幅でも表示する(dedupe_views)。カード側にない内容を持つ比較表は残す。
 """
 import html
 import os
@@ -45,6 +48,50 @@ def render_all(n_pages):
     return json.loads(html.unescape(m.group(1)))
 
 
+VOID_TAGS = {"br", "img", "hr", "input", "meta", "link", "source", "area", "col", "wbr"}
+
+
+def find_elements(s, cls):
+    """class に cls を含む要素の (開始位置, 終了位置) の一覧。同じタグの入れ子を数えて閉じタグを探す"""
+    out = []
+    for m in re.finditer(r'<(\w+)\b[^>]*\bclass="[^"]*\b' + cls + r'\b[^"]*"[^>]*>', s):
+        tag, depth, pos = m.group(1), 1, m.end()
+        for t in re.finditer(r"<(/?)(\w+)\b[^>]*?(/?)>", s[pos:]):
+            if t.group(2) != tag or tag in VOID_TAGS:
+                continue
+            depth += -1 if t.group(1) else (0 if t.group(3) else 1)
+            if depth == 0:
+                out.append((m.start(), pos + t.end()))
+                break
+    return out
+
+
+def text_chunks(fragment):
+    """要素の中の文字のかたまり(SVGの図の中の文字は除く)"""
+    t = re.sub(r"<svg\b.*?</svg>", "", fragment, flags=re.S)
+    return [c for c in (html.unescape(x).strip() for x in re.split(r"<[^>]+>", t)) if c]
+
+
+def dedupe_views(body):
+    """カードと内容が重なる比較表を外し、カードをどの幅でも表示する。外した数を返す"""
+    mobile = find_elements(body, "dsp-mobile-only")
+    desktop = find_elements(body, "dsp-desktop-only")
+    if not mobile or not desktop:
+        return body, 0
+    mobile_text = " ".join(" ".join(text_chunks(body[a:b])) for a, b in mobile)
+    drop = []
+    for a, b in desktop:
+        chunks = text_chunks(body[a:b])
+        total = sum(len(c) for c in chunks)
+        if total and sum(len(c) for c in chunks if c in mobile_text) / total >= 0.9:
+            drop.append((a, b))
+    for a, b in sorted(drop, reverse=True):
+        body = body[:a] + body[b:]
+    if drop:
+        body = re.sub(r'\bclass="([^"]*)\bdsp-mobile-only\b', r'class="\1dsp-static-cards', body)
+    return body, len(drop)
+
+
 def main():
     src = open(INDEX, encoding="utf8").read()
     pages = re.findall(r'\{ id: "[^"]+", label: "([^"]+)", spec: "[^"]*", Component: \w+, path: "([^"]+)"', src)
@@ -74,6 +121,7 @@ def main():
                 return 'href="' + static_href(base) + ("#" + anchor if anchor else "") + '"'
             return mm.group(0)
         body = re.sub(r'href="(/[^"]*)"', fix, body)
+        body, _ = dedupe_views(body)
         h1 = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S)
         title = re.sub(r"<[^>]+>", "", h1.group(1)).strip() if h1 else label
         sub = re.search(r"<h1[^>]*>.*?</h1>\s*<p[^>]*>(.*?)</p>", body, re.S)

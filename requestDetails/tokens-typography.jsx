@@ -33,7 +33,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Typography",
     color: "#C2542A",
     position: "Large Title〜Caption 2の11段階の「テキストスタイル」にサイズ・行送りを定義し、Dynamic Type(ユーザーの文字サイズ設定)で全体が連動して拡大縮小する方式",
-    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定に応じてxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズ最大(AX5)の53ptまで変化します。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
+    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定に応じてxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズ最大(AX5)の53ptまで変化します。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
     colorInfo: "テキストスタイルごとに行送り(leading)を指定。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定サイズでの行送りの比率は約1.18〜1.39倍の範囲です。字間(tracking)はシステムフォントがサイズごとに自動調整するため、通常は指定不要としています。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べますが、3行以上のテキストでは詰めた行送りを避けるよう勧めています。",
     stance:
       "Appleは固定のフォントサイズではなく、システムが用意したテキストスタイルを使うことを勧めています。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、ユーザーが文字サイズを変えると全体が比例して拡大縮小します。文字を大きくしたときにはレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめるよう求めています。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避けるべきとしています(ページ本文を直接確認、2026-09)。",
@@ -333,7 +333,7 @@ function ScaleTable({ k, title, unit, color, note }) {
 function TypeScaleUsage() {
   return (
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
-      <ScaleTable k="hig" title="Apple ― テキストスタイル(全11段階)" unit="pt" color="#C2542A" note="iOS/iPadOSの既定の文字サイズ設定(Large)での値(HIGの表)。基準=HIGが示す既定サイズ(Default size)。コントラストは段階ごとの指定ではなく、HIG(Accessibility)の「17pt以下は4.5:1、18pt以上または太字は3:1」を各段階に当てはめた値。字間はシステムフォントがサイズに応じて自動で調整する" />
+      <ScaleTable k="hig" title="Apple ― テキストスタイル(全11段階)" unit="pt" color="#C2542A" note="iOS/iPadOSの既定の文字サイズ設定(Large)での値(HIGの表)。基準=HIGが示す既定サイズ(Default size)。コントラストは段階ごとの指定ではなく、HIG(Accessibility)の「17pt以下は4.5:1、18pt以上または太字は3:1」を各段階に当てはめた値(Appleの表の値。WCAGでは小さい太字は3:1の対象外)。字間はシステムフォントがサイズに応じて自動で調整する" />
       <ScaleTable k="material" title="Google ― タイプスケール(全15段階)" unit="sp" color="#2F7D6E" note="基準=Jetpack ComposeのMaterialThemeが文字の既定スタイルに使う段階。太さ・行送り・字間はJetpack Composeのトークン定義(TypeScaleTokens)の値、使用例は標準部品のトークン定義から。コントラスト比は文字の段階には指定がなく、組み合わせる色のロールで決まる(本文のOn Surfaceは7:1、補助のOn Surface Variantは4.5:1)" />
     </div>
   );
@@ -491,7 +491,7 @@ export default function TokensTypographyPage() {
               最小サイズと文字色の濃さを並べると、<strong>数値で下限を決めているのはApple・Google(サイズと濃さの両方)とW3C(濃さのみ)</strong>です。Appleは17pt以下の文字に4.5:1、Googleは本文の文字色に7:1・補助の文字に4.5:1を求め、Googleの本文はWCAGのAA(4.5:1)より一段濃い水準です。W3Cは文字サイズの最小値を持たず、NN groupは8pt・10ptといった目安を示すものの、コントラスト比の数値は示していません。
             </p>
             <p style={styles.synthesisText}>
-              違いが出るのは行送りです。Appleの本文は17ptに対して22pt(約1.29倍)、GoogleのBody Largeは16spに対して24sp(1.5倍)です。どちらも<strong>大きい文字ほど行送りの比率を小さくする</strong>点は共通しています。
+              違いが出るのは行送りです。Appleの本文は17ptに対して22pt(約1.29倍)、GoogleのBody Largeは16spに対して24sp(1.5倍)です。どちらも<strong>大きい文字ほど行送りの比率を小さくする</strong>点は共通しています。ただし、これらはラテン文字のシステムフォントを前提にした値です。<strong>日本語の長い文章では行送りを広めに取り、実際の文章で確かめる</strong>のが安全です(W3Cの「日本語組版処理の要件」も参考になります)。
             </p>
             <p style={styles.synthesisText}>
               ここで誤解しやすいのがW3Cの数値です。1.4.12の「行の高さ1.5倍」などは、<strong>デザインの初期値として守るべき値ではなく、ユーザーがその値に変えても表示が壊れないことを確かめる耐性テストの値</strong>です(基準の注記に「コンテンツがこの値を使う必要はない」と明記されています)。そのため、Appleの約1.29倍という初期値もWCAGに反しているわけではありません。WCAGは文字サイズの最小値も定めておらず、代わりに「200%まで拡大できること」を求めています。

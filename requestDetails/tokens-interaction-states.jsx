@@ -69,6 +69,7 @@ const SOURCES = [
     useCases: [
       "ホバー・フォーカス・プレスは、文字色と同じ色を半透明で重ねて表す",
       "無効状態は、文字・アイコン38%、容器10%の不透明度にする",
+      "Webの実装(Material Web)では、フォーカスを重ね色に加えて太さ3px・外側2pxの輪郭線(フォーカスリング)でも示す",
       "状態が重なるときも、選択などの表示は消さずに残す",
     ],
     searchHint: "",
@@ -76,35 +77,38 @@ const SOURCES = [
     urlSecondary: [
       { label: "M2: States", url: "https://m2.material.io/design/interaction/states.html" },
       { label: "Jetpack Compose: StateTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/StateTokens.kt" },
+      { label: "Material Web: フォーカスリングのトークン(GitHub)", url: "https://github.com/material-components/material-web/blob/main/tokens/_md-comp-focus-ring.scss" },
     ],
     confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。不透明度はJetpack Composeのトークン定義(v0_210)で、状態の原則・種類はM2のページデータで直接確認(2026-09)。",
   },
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 1.4.11 Non-text Contrast / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
+    doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: "状態の種類や見た目は定めず、「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」を求める",
-    size: "状態を見分けるのに必要な視覚情報は、隣接する色に対して3:1以上(1.4.11・レベルAA)。キーボードフォーカスの表示は、フォーカスしていない部品の周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
-    visual: "見た目の作り方は自由です。ただし、選択・オン/オフ・フォーカスなどの状態を色の違いで示す場合、その違いが3:1を満たす必要があります。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)を求めています。",
+    size: "部品やその状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下などの状態どうしの差をすべて3:1にすることまでは求めていません。フォーカスは別の基準で、実務の目標(AA)はフォーカスが見えること(2.4.7)と、フォーカスした部品が他の内容に隠れないこと(2.4.11)。さらに厳しいレベルAAAの2.4.13では、フォーカスの表示が、フォーカスしていない部品の周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
+    visual: "見た目の作り方は自由です。ただし、選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする必要があります。隣り合って表示されない状態どうしの色の変化は、3:1でなくてもかまわないとしています(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)を求めています。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UI部品とその状態を見分けるための視覚情報、意味のある図形に、隣接する色との3:1以上のコントラストを求める基準。" },
-      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "フォーカス表示の大きさ(2 CSSピクセルの外周相当以上)と、表示前後の変化(3:1以上)を求める基準。" },
+      { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボードで操作するとき、どこにフォーカスがあるかが見えることを求める基準。実務の目標(AA)になる。" },
+      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくした基準。大きさは2 CSSピクセルの外周相当以上、表示前後の変化は3:1以上。" },
       { term: "4.1.2 Name, Role, Value・レベルA", desc: "UI部品の名前・役割と、状態・値をプログラムで判別でき、変化が支援技術に通知されることを求める基準。" },
     ],
     stance:
-      "中程度のロービジョンの人でも部品とその状態を見分けられるよう、大きな文字と同じ3:1を求めています。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしています(Understandingページの本文を直接確認、2026-09)。キーボードの移動順序と、フォーカスが見えること自体(2.4.3・2.4.7)は「キーボードナビゲーション」ページで扱う予定です。",
+      "中程度のロービジョンの人でも部品とその状態を見分けられるよう、大きな文字と同じ3:1を求めています。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしています(Understandingページの本文を直接確認、2026-09)。キーボードの移動順序と、フォーカスが見えること自体(2.4.3・2.4.7)の詳しい比較は「キーボードナビゲーション」ページ(サイドバーの「トークン / インタラクション」にあります)を参照してください。",
     exceptions:
       "無効(inactive)な部品は、コントラストの要件の対象外です。ブラウザ標準の見た目を作者が変更していない部品も対象外です。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAAです。",
-    accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.13は「操作可能」、4.1.2は「堅牢」に属します。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められます。",
+    accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」に属します。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められます。",
     useCases: [
       "選択・オン/オフの見た目の違いを、3:1以上にする",
-      "フォーカス表示は2px相当以上の太さで、3:1以上の変化をつける",
+      "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
       "aria-pressed・aria-expandedなどで、状態を支援技術に伝える",
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
     urlSecondary: [
+      { label: "2.4.7 Focus Visible", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
       { label: "2.4.13 Focus Appearance", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
       { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
     ],
@@ -184,9 +188,9 @@ function StateSwatch() {
 const STATE_ROWS = [
   { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "◯", note: "visionOS: Idle/tvOS: Unfocused" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "部品を見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
   { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "visionOS: 視線でハイライト/iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
-  { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "◯", note: "2 CSS px相当の外周以上・前後の変化3:1以上(2.4.13・AAA)" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
+  { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる。Webの実装(Material Web)では太さ3pxの輪郭線(フォーカスリング)も出す" }, { mark: "◯", note: "フォーカスが見えること(2.4.7・AA)。AAAの2.4.13は2 CSS px相当の外周以上・前後の変化3:1以上とさらに厳しい" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
   { key: "press", label: "プレス", num: "+10%", cells: [{ mark: "◯", note: "独自ボタンにも必須(tvOS: Highlighted)" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "100〜150ms以内に反応を表示" }] },
-  { key: "selected", label: "選択", num: "オン/オフ", cells: [{ mark: "◯", note: "Selected(tvOS・visionOS)" }, { mark: "△", note: "M2で定義(Selected・Activated)。選択とホバーが重なれば両方を示す" }, { mark: "◯", note: "見た目の違い3:1+状態を支援技術へ(4.1.2)" }, { mark: "△", note: "ボタンではなく、チェックボックス・ラジオの状態" }] },
+  { key: "selected", label: "選択", num: "オン/オフ", cells: [{ mark: "◯", note: "Selected(tvOS・visionOS)" }, { mark: "△", note: "M2で定義(Selected・Activated)。選択とホバーが重なれば両方を示す" }, { mark: "◯", note: "状態を示す印や枠は隣の色と3:1(1.4.11)+状態を支援技術へ(4.1.2)" }, { mark: "△", note: "ボタンではなく、チェックボックス・ラジオの状態" }] },
   { key: "drag", label: "ドラッグ", num: "+16%・影", cells: [{ mark: "―", note: "" }, { mark: "◯", note: "文字色を16%重ねる(影と組み合わせることも)" }, { mark: "―", note: "" }, { mark: "―", note: "" }] },
   { key: "disabled", label: "無効", num: "文字38%・容器10%", cells: [{ mark: "◯", note: "Unavailable" }, { mark: "◯", note: "文字・アイコン38%、塗りの容器10%の不透明度" }, { mark: "△", note: "コントラストの要件の対象外" }, { mark: "◯", note: "彩度を落とした低コントラスト(読める程度)+aria-disabled" }] },
   { key: "loading", label: "読み込み中", num: "スピナー", cells: [{ mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "◯", note: "ラベルの左にスピナー" }] },
@@ -432,10 +436,10 @@ export default function TokensInteractionStatesPage() {
               見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としています。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めています。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは状態の種類を定めず、<strong>状態の違いを3:1以上のコントラストで見分けられること</strong>と、<strong>状態を支援技術にも伝えること</strong>を求めます。無効な部品はコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しません。
+              W3Cは状態の種類を定めず、<strong>部品や状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではありません)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求めます。無効な部品はコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しません。
             </p>
             <p style={styles.synthesisText}>
-              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点です。これはW3Cの2.4.13(2px相当の太さ・3:1の変化)とも一致します。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論です。
+              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点です。これはW3Cの2.4.7(フォーカスが見えること・AA)を確実に満たす方法で、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づきます。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出します。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論です。
             </p>
           </div>
 

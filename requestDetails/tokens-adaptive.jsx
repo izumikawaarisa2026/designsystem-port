@@ -402,7 +402,7 @@ export default function TokensAdaptivePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列に共通するのは、<strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方です。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めています。
+              <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示しています。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めています。
             </p>
             <p style={styles.synthesisText}>
               組み替え方を最も具体的に決めているのはGoogleです。<strong>Compactではナビゲーションバー、それより広ければナビゲーションレール</strong>に自動で切り替え、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示しています。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもあります。

@@ -23,23 +23,23 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Disclosure Controls",
     color: "#C2542A",
-    position: "特定のコントロール・ビューに関連する情報や機能を表示・非表示するコントロール",
-    size: "具体的なpt数値は確認できていません。他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられます。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    position: "ビューやリストに関連する情報・機能を表示・非表示する部品。開示三角形と開示ボタンの2種類",
+    size: "Disclosure controlsのページには、サイズの規定がありません。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
+    colorInfo: "色についての規定はありません。",
     stance:
-      "開示コントロールは、特定のコントロールやビューに関連する情報・機能を表示・非表示にするものだとしています。段階的開示(プログレッシブディスクロージャー)という、必要になった時点で情報を見せることでアプリを学びやすくし、誤操作を減らすという設計原則に関連するとしています。",
+      "開示コントロールは、詳細を必要になるまで隠しておくために使うとしています。よく使うコントロールを階層の上に置いて常に見えるようにし、高度な機能は既定で隠すことで、たくさんの選択肢に圧倒されずに大事な情報を見つけられるとしています。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にする部品で、隠れているときは内側を、見えているときは下を向きます。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付けるよう勧めています。",
     exceptions:
-      "見出しの書き方や複数セクションの同時展開の可否など、詳細な使用基準は公式ページ本文で未確認です。",
+      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする部品(macOSの保存シートなど)で、隠れているときは下を、見えているときは上を向きます。開示ボタンは、表示・非表示にする内容の近くに置き、1つのビューに1つまでにするよう勧めています(複数あると複雑で分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えません。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。標準の開示コントロールを使えば、支援技術には自動的に状態が伝わると考えられます。",
+      "―(Disclosure controlsのページにはアクセシビリティの専用の記載はありません)。標準の開示コントロールを使えば、支援技術には自動的に状態が伝わると考えられます(AI解釈)。",
     useCases: [
-      "特定のコントロール・ビューに関連する追加情報・機能を、必要な時だけ表示する",
-      "複雑な機能を隠すことで初期表示をシンプルに保つ",
+      "詳細や高度な機能を、必要になるまで隠しておく",
+      "何が表示・非表示になるかが分かるラベルを付ける",
+      "開示ボタンは内容の近くに置き、1つのビューに1つまでにする",
     ],
-    searchHint: "",
+    searchHint: "descriptive label",
     url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls",
-    confirmedNote: "「Disclosure Controls」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
+    confirmedNote: "HIGのページデータ(Disclosure controlsのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="60" viewBox="0 0 120 60">
         <rect x="1" y="1" width="118" height="16" rx="3" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -70,27 +70,29 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Disclosure (Show/Hide) Pattern",
+    doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
     color: "#A3821F",
-    position: "開示ボタン + 表示制御されるコンテンツの2要素で構成する、表示/非表示切り替えウィジェット。複数組み合わせたものがアコーディオンに相当する",
-    size: "アコーディオン専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は開示ボタンに適用されます。",
-    colorInfo: "色の基準はありませんが、非表示時は右向き矢印、表示時は下向き矢印などのスタイルで状態を示すとしています。",
+    position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
+    size: "アコーディオン専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は見出しのボタンに適用されます。",
+    colorInfo: "色の基準はありませんが、非表示時は右向き矢印、表示時は下向き矢印などのスタイルで状態を示す例があります。",
     glossary: [
-      { term: "aria-expanded", desc: "開示ボタンの状態を示す属性。コンテンツ表示時はtrue、非表示時はfalseを設定する。パターン中で最も重要な属性とされる。" },
+      { term: "aria-expanded", desc: "見出しのボタンの状態を示す属性。パネルが見えているときはtrue、隠れているときはfalseを設定する。" },
+      { term: "aria-controls", desc: "ボタンが、どのパネルを開閉するかを示す属性。値はパネルのIDにする。" },
     ],
     stance:
-      "コンテンツの表示/非表示を切り替えるウィジェットで、「開示ボタン」と「表示制御されるコンテンツセクション」の2要素で構成されるとしています。ボタンにはrole=\"button\"、状態を示すaria-expanded(表示時true、非表示時false)を設定すべきとしています。ボタンが制御するコンテンツ要素との関連付けには、任意でaria-controlsを使えるとしています。",
+      "アコーディオンは、縦に並んだ見出しで、それぞれが対応する内容のセクション(パネル)を表示・非表示にする部品だとしています(APGのAccordion Pattern)。各見出しの文字は、見出し要素(h2など、ページの構成に合ったレベル)の中に置いたbutton要素(またはbuttonの役割を持つ要素)にし、見出しの中にはそのボタンだけを入れます。パネルが見えているときはaria-expanded=\"true\"、隠れているときは\"false\"にし、aria-controlsでパネルのIDを指します。ネイティブの<button>要素を使うなら、role=\"button\"を足す必要はありません。",
     exceptions:
-      "本文には複数の開示パターンを組み合わせた「アコーディオン」への直接的な言及はありませんが、個々の開示ボタン+コンテンツの組を複数並べた構造がアコーディオンに相当すると考えられます。",
+      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンにaria-disabled=\"true\"を付けるとしています。パネルにregionの役割を付けてもよいが、同時に開けるパネルが6個程度を超えるなら、ランドマークが増えすぎるため避けるよう勧めています。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になります。",
     accessibility:
-      "操作可能(Operable) ― フォーカスが開示ボタンにある状態で、Enterキー・Spaceキーのいずれでも開閉を切り替えられるようにすべきとしています。",
+      "操作可能(Operable)・堅牢(Robust) ― 見出しのボタンにフォーカスがあるとき、Enterキー・Spaceキーで開閉できるようにします。開閉の状態は、aria-expandedで支援技術に伝えます(4.1.2)。",
     useCases: [
-      "開示ボタンにrole=\"button\"とaria-expandedを設定し、状態(true/false)を反映する",
-      "ボタンが制御するコンテンツ要素とはaria-controlsで関連付ける(任意)",
+      "見出し要素(h2など)の中にbutton要素を置き、そのボタンで開閉する",
+      "ボタンにaria-expanded(true/false)とaria-controls(パネルのID)を付ける",
       "Enter/Spaceキーのいずれでも開閉を切り替えられるようにする",
     ],
     searchHint: "aria-expanded",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/",
+    url: "https://www.w3.org/WAI/ARIA/apg/patterns/accordion/",
+    urlSecondary: [{ label: "APG: Disclosure (Show/Hide) Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/" }],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="60" viewBox="0 0 120 60">
@@ -216,10 +218,10 @@ export default function ContainmentAccordionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupです。<strong>「FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合」に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っています。
+              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupです。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っています。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>aria-expanded属性(表示時true/非表示時false)</strong>を軸にした技術的な実装パターンを明確に定めています。「開示ボタン+コンテンツ」という最小単位の組み合わせを複数並べたものがアコーディオンに相当する、という捉え方は、Apple・Googleが単一コンポーネントとして説明するのに対し、より構成要素に分解した視点です。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>があります。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点です。
             </p>
             <p style={styles.synthesisText}>
               <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがありません。</strong>M1時代には「Expansion panel」という独立コンポーネントが存在しましたが、検索結果によれば現行のM3では見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされています。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情です。
@@ -255,6 +257,7 @@ export default function ContainmentAccordionPage() {
                       <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                     )}
                     <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
                   </div>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
@@ -302,6 +305,7 @@ export default function ContainmentAccordionPage() {
                     ) : (
                       <>
                         <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
                         {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                       </>
                     )}
@@ -322,7 +326,7 @@ export default function ContainmentAccordionPage() {
             <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。WCAGはWAI-ARIA APGのDisclosure(Show/Hide)パターン、NN groupは記事ページ単位です。
+              リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
             </span>
           </div>
         </div>

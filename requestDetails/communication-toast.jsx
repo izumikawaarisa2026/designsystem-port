@@ -92,7 +92,7 @@ const SOURCES = [
     exceptions:
       "カスタムToastビュー(独自レイアウト)はAPI30で非推奨となり、標準のテキストのみのToastかSnackbarへの置き換えが案内されています。表示テキストの行の長さは画面サイズによって変わるため、できるだけ短い文言にすべきとしています。",
     accessibility:
-      "―(Android公式ページ本文には専用のアクセシビリティ記載は確認できていません。既知の実装上の課題はW3C欄を参照)。",
+      "―(Android公式ページ本文には専用のアクセシビリティ記載は確認できていません)。自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全です(AI解釈)。Androidのスクリーンリーダー(TalkBack)での読み上げの扱いは、公式の文書では確認できていません。",
     useCases: [
       "makeText()メソッドで標準的なテキストのみのToastを作成する",
       "独自レイアウトが必要な場合はカスタムToastビュー(非推奨)ではなくSnackbarを使う",
@@ -113,35 +113,38 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― role=\"status\"(一般原則)/ Android実装固有の既知の課題",
+    doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
     color: "#A3821F",
-    position: "role=\"status\"の一般原則は適用されるが、Android標準のToastはこの仕組みに乗っておらず、支援技術に伝わらないという実装上の既知の課題がある",
-    size: "トースト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は操作可能な要素に適用されます(Toast自体は操作不可のため直接の対象にはなりにくい)。",
+    position: "フォーカスを移さずに出る状態の知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
+    size: "トースト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は操作可能な要素に適用されます(Toast自体は操作不可のため直接の対象にはなりにくい)。",
     colorInfo: "1.4.11(非テキストのコントラスト)は、Toast内にアイコン等の視覚的要素がある場合に適用され得ます。",
     scenarios: [
-      "role=\"status\"の一般原則を、Toastに相当するWeb実装(トースト風通知)に適用したい時",
-      "Android実装でToastを使う場合、TalkBack等で内容が読み上げられるよう追加対応(android:screenReaderFocusable等)が必要か検討したい時",
+      "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3、role=\"status\")",
+      "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "一時的な通知全般には、緊急度に応じてrole=\"status\"(ポライト)を使うべきという原則が適用されます(「スナックバー」ページと同一の一般原則)。ただしAndroid標準のToastは、TalkBack等のスクリーンリーダーへ通知するためのAccessibilityEventを標準では発行せず、内容が支援技術に伝わらないという実装上の既知の課題が、Android開発者コミュニティ・アクセシビリティ専門家によって指摘されています。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求めます。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本です(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使いません。",
     exceptions:
-      "android:screenReaderFocusable(Android P以降)などの追加対応をしない限り、TalkBackはToastの内容を読み上げないとされています。また、表示時間を延長する手段がない自動消去型の通知は、WCAG 2.2.1(Timing Adjustable)の観点でも注意が必要だと指摘されています。これらはW3Cの一次文書そのものではなく、検索結果(コミュニティ・専門家の記事)による間接確認です。",
+      "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準です。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書きます。",
     accessibility:
-      "堅牢(Robust) ― 4.1.3(Status Messages)の原則は適用されるべきですが、Android標準のToast実装はこの原則を満たさない既知の課題を持ちます。操作の猶予時間という観点では2.2.1(Timing Adjustable)にも関わり得ます。",
+      "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠です。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得ます。",
     useCases: [
       "Web実装でトースト風の通知を作る場合はrole=\"status\"を使う",
-      "AndroidでToastを使う場合、TalkBackに伝わるよう追加対応を検討する",
-      "自動消去までの時間を延長する手段がないことを踏まえ、重要な情報の伝達には使わない",
+      "自動で消えるため、読み上げが間に合わないことがある。重要な情報の伝達には使わない",
     ],
-    searchHint: "implicit aria-live value of polite",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role",
-    confirmedNote: "role=\"status\"の一般原則はMDN解説記事による確認(「スナックバー」ページと同一)。Android Toast特有のTalkBack非対応・WCAG 2.2.1との関連は、W3Cの一次文書ではなく検索結果(コミュニティ・専門家記事)による間接確認です(2026-09)。",
-    pending: true,
+    searchHint: "without receiving focus",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
+    urlSecondary: [
+      { label: "2.2.1 Timing Adjustable", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+      { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
+      { label: "解説(MDN): statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
+    ],
+    confirmedNote: "4.1.3・2.2.1のUnderstandingページと、WAI-ARIA仕様のstatusロールを確認(2026-10)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="26" viewBox="0 0 140 26">
           <rect x="1" y="1" width="138" height="24" rx="6" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="status"(未対応の場合あり)</text>
+          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="status"(4.1.3)</text>
         </svg>
       </div>
     ),
@@ -251,13 +254,13 @@ export default function CommunicationToastPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>です(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからです。Android Developers公式ページを直接確認したところ、Toastは<strong>「メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能」</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっていることが分かりました。
+              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>です(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからです。Android Developers公式ページを直接確認したところ、Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっていることが分かりました。
             </p>
             <p style={styles.synthesisText}>
               興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点です。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言えます。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティ面では見過ごせない発見がありました。Android標準のToastは<strong>TalkBack等のスクリーンリーダーへ通知するための仕組みに標準では乗っておらず</strong>、内容が伝わらないという実装上の課題が、開発者コミュニティ・アクセシビリティ専門家によって指摘されています。この点はW3Cの一次文書そのものの記載ではなく検索結果による間接確認ですが、<strong>「操作不要で自動的に消える」という性質が、支援技術との相性の悪さと表裏一体</strong>であることを示す実務上重要な注意点です。
+              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要です。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るならrole="status"が基本です。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点です。
             </p>
             <p style={styles.synthesisText}>
               Google公式は、<strong>前面表示中の軽いフィードバックはToast、アクションを持たせたい場合はSnackbar、背面でユーザーに対応を求めたい場合はNotification</strong>という3段階の使い分けを案内しています。この「アクションの有無」という軸は、「情報伝達の使い分け」ページで整理した判断軸とも一致します。M3のコンポーネントとして同じ役割を再現したい場合は、<strong>Snackbarでアクションボタンを設定しない構成</strong>が事実上の後継に相当し、Toastという名前のコンポーネントが消えても、その機能自体は失われていません。Appleも同様に「トースト」という専用コンポーネントは持たず、この点は「スナックバー」ページのApple欄と同一の一次情報です。
@@ -380,10 +383,10 @@ export default function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Google・NN groupは本文確認済み。W3CはAndroid実装固有の課題について検索結果による間接確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。WCAGはMDNのstatus role解説ページ、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
+              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
             </span>
           </div>
         </div>

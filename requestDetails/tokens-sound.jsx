@@ -9,7 +9,7 @@ import SidebarNav from "./sidebar-nav";
  * 対応するページがない。Appleは音の作り方よりも「消音モード・音量・出力先の設定に従う」という
  * 鳴らし方のルールを詳しく定める。W3Cは「自動で3秒を超えて鳴る音を止められること」、
  * NN groupは「効果音は意味が伝わりにくいので控えめに使い、言葉と組み合わせる」とする。
- * 4系列とも「音は補助で、音だけに頼らない・止められるようにする」点で一致している。
+ * Apple・W3C・NN groupは「音は補助で、音だけに頼らない・止められるようにする」点で一致している(Google(M2)は音の作り方が中心)。
  *
  * Apple(HIG Playing audio・Accessibility・Playing haptics)はHIGのページデータ(JSON)を直接取得して
  * 確認済み(2026-09)。Google(Material Design 2 Sound)はm2.material.ioのページデータ(JSON)を
@@ -523,7 +523,7 @@ export default function TokensSoundPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列がそろって一致しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点です。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めています。
+              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点です(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たりません)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めています。
             </p>
             <p style={styles.synthesisText}>
               違いが大きいのは、指針の重心です。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れません。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめていますが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがありません</strong>。

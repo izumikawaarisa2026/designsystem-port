@@ -59,14 +59,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Dark theme / Color roles",
     color: "#2F7D6E",
     position: "同じカラーロールに、ライトとダークで異なるトーン(明るさ)を割り当てる方式。端末の設定に合わせて自動で切り替わるDayNightテーマを基本にする",
-    size: "コントラスト比の数値基準は確認できていません。基準の配色では、ロールごとにトーン(0=黒〜100=白)を入れ替えます。例: primary 40→80、on primary 白→20、surface 98→6、on surface 10→90(いずれもライト→ダーク)。",
+    size: "Google公式の配色生成ライブラリ(material-color-utilities)は、標準のコントラスト設定で本文の文字(on surface)7:1・補助の文字4.5:1・枠線(outline)3:1を目標に色を生成し、この目標はライト・ダークのどちらでも同じです(「カラー」ページと同じ)。基準の配色では、ロールごとにトーン(0=黒〜100=白)を入れ替えます。例: primary 40→80、on primary 白→20、surface 98→6、on surface 10→90(いずれもライト→ダーク)。",
     colorInfo: "ダークテーマの背景と面は、真っ黒ではなく濃いグレー(neutral 6)です。影を見えやすくし、明るい文字による目の負担を減らすためとしています。ブランドの色も、ダークテーマ用に調整された既定値が用意されています。Android 12以降では、壁紙から生成されたシステムの配色(ダイナミックカラー)を使うこともできます。",
     stance:
       "ダークテーマの利点として、有機ELの画面での電池の節約、目の負担の軽減、暗い場所での見やすさを挙げています。Android 10以降は端末全体のダークテーマ設定があり、DayNightテーマを使えば、1つのテーマ定義でライトとダークを切り替えられるとしています(Material Components for Androidのドキュメントで直接確認、2026-09)。",
     exceptions:
       "ライトとダークを別々のテーマとして定義することもできます(固定のダークテーマ)。ダークテーマでブランドの色をどう調整するかの詳しい指針は、Material Designの仕様ページ側にあるとしています。",
     accessibility:
-      "知覚可能(Perceivable) ― ロールの組み合わせ(例: primaryとon primary)は、ライト・ダークのどちらでもトーンの差が大きく取られており、文字と背景のコントラストを保つ設計です。ただし具体的なコントラスト比の保証内容は確認できていません。",
+      "知覚可能(Perceivable) ― ロールの組み合わせ(例: primaryとon primary)は、ライト・ダークのどちらでもトーンの差が大きく取られており、文字と背景のコントラストを保つ設計です。目標値は本文7:1・補助4.5:1・枠線3:1で、ライト・ダークとも同じです。",
     useCases: [
       "色は固定値ではなくカラーロールで指定し、ライト/ダークはテーマで切り替える",
       "ダークテーマの背景は真っ黒ではなく、濃いグレーのsurfaceを使う",
@@ -470,7 +470,7 @@ export default function TokensDarkModePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列がそろって一致しているのは、<strong>ダークモードは端末の設定に従う</strong>という点です。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告しています。
+              <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>ダークモードは端末の設定に従う</strong>という点です(W3Cはダークモードについて定めておらず、どちらの見た目にも同じ基準を当てます)。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告しています。
             </p>
             <p style={styles.synthesisText}>
               配色の作り方も共通しています。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てます。どちらも背景は真っ黒ではなく、Googleは影を見えやすくするため濃いグレーを使います。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通しています(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。

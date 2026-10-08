@@ -252,7 +252,7 @@ export default function TokensLayoutSpacingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、<strong>「端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える」</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
+              AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
             </p>
             <p style={styles.synthesisText}>
               違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、4dp刻み・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。

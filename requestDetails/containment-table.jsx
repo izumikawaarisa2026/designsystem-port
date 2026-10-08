@@ -407,7 +407,7 @@ export default function ContainmentTablePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列に共通するのは、<strong>表は「比べる」ための形</strong>だという位置づけです。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしています。
+              <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通しています。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしています。
             </p>
             <p style={styles.synthesisText}>
               違いは決めている層です。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めています。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求めます。並べ替えの操作は、AppleとGoogleでほぼ同じです。

@@ -35,7 +35,7 @@ const TAB_ACCESSIBILITY = [
     stance:
       "インタラクティブな要素は最小48×48dpのタッチターゲットを満たすことを基準とする。密度(density)を上げる場合でも、この最小値を下回らないよう明記している。",
     exceptions:
-      "アイコン自体の可視サイズ(24dpなど)を小さくすることは認めているが、タップ判定領域そのものを48×48dp未満に縮めることは推奨していない。'ベストプラクティスとして48×48pxを下回らない'という表現を繰り返し使っている。",
+      "アイコン自体の可視サイズ(24dpなど)を小さくすることは認めているが、タップ判定領域そのものを48×48dp未満に縮めることは推奨していない。押せる範囲は48×48を下回らないのが望ましい、という考え方をとっている。",
     scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 48, type: "caution" }, { from: 48, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 48, label: "48" }], caption: "24dp=可視アイコンの下限 / 48dp=タップ判定領域の下限(この2つは別管理)。" },
     pourDetail: "操作可能(Operable) ― WCAGのPOUR原則のうち「操作可能」に対応する項目、という分類。",
     searchHint: "touch target",
@@ -48,11 +48,11 @@ const TAB_ACCESSIBILITY = [
     value: "24〜44",
     unit: "CSS px",
     stance:
-      "レベルAA(2.5.8)は24×24px以上、または隣接要素との間隔確保を最低条件とする。より厳格なレベルAAA(2.5.5)では44×44pxを求める、と段階的に基準を分けている。",
+      "レベルAA(2.5.8)は24×24px以上を基本とし、足りない場合は周りの間隔で補えるとする。より厳しいレベルAAA(2.5.5)では44×44pxを求める、と段階的に基準を分けている。",
     exceptions:
-      "AA基準には4つの適合ルートがある: ①周囲24px以上の余白を確保、②同機能の十分な大きさの代替ターゲットが別途ある、③文中インラインリンクである、④ブラウザなどユーザーエージェント側がサイズを制御している。いずれかを満たせば24px未満でも適合と見なす、という条件分岐が他の3系列にはない特徴。",
-    scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }], caption: "24px=レベルAA(条件付き) / 44px=レベルAAA(無条件)。" },
-    pourDetail: "操作可能(Operable) ― POUR原則そのものを定義している一次情報。他の3系列が従う分類の出どころ。",
+      "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、ターゲットの中心に直径24pxの円を描き、隣のターゲットや隣の円と重ならない)、②同じ機能を持つ十分な大きさのターゲットが同じページに別にある、③文中のリンクなど、文章の行の中にある、④ブラウザなどユーザーエージェントが大きさを決めていて作り手が変えていない、⑤その大きさや配置そのものに意味があり欠かせない(地図のピンなど)。どれかに当てはまれば24px未満でも適合する。2.5.5(AAA)の44pxにも、②〜⑤と同じ種類の例外がある。こうした条件分岐は他の3系列にはない特徴。",
+    scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }], caption: "24px=レベルAA(例外あり) / 44px=レベルAAA(例外あり)。" },
+    pourDetail: "操作可能(Operable) ― POUR原則(WCAGの4原則: 知覚可能・操作可能・理解可能・堅牢)そのものを定義している一次情報。他の3系列が従う分類の出どころ。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
   },
@@ -108,7 +108,7 @@ const TAB_STYLES = [
     doc: "Material Design 3 ― 5種類のボタン",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      "①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を、優先度の高い順に公式ガイドラインの図解で並べて定義しています。番号は公式ページの図に付された順序です。",
+      "①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義しています。番号は公式の並び順です(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明しています)。見た目で最も目立つのはFilledです。",
     exceptions: "Elevatedは実質的にFilled tonalに影を加えたものと位置づけられており、背景と視覚的に分離する必要がある場合に限って使うべきとしています(影の使いすぎを避けるため)。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
@@ -137,7 +137,7 @@ const TAB_STYLES = [
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
       "ボタンの視覚的な「種類」を分類する基準は持っていません。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わります。",
-    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、この基準の対象になりにくいという整理です。",
+    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理です。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかります。",
     pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準です。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
@@ -241,7 +241,7 @@ const TAB_STATES = [
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
       "Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態を、押せるかどうかをユーザーに正しく伝えるための仕組みとして整理しています。Enabled状態は背景と文字の高いコントラスト、はっきり読めるラベルを特徴とするとしています。",
-    exceptions: "この記事では「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促しています。",
+    exceptions: "この5つのほかに、処理中を示すLoadingと、選ばれていることを示すSelectedの状態にも触れています。また「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促しています。",
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠です。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
@@ -308,7 +308,7 @@ const SYNTHESIS = {
   a11y: [
     <>Appleも2025年3月の改訂で、既定44pt・<strong>最小28pt</strong>の2段階を示すようになり、W3Cの「24px以上か、足りなければ周りの間隔で補う」と同じく、<strong>大きさが足りない分を間隔で補う</strong>考え方(枠のある要素のまわりに約12pt)が4系列で近づいた。</>,
     <>数値の下限には24〜48pxという幅があるが、これは<strong>「絶対最低ライン」(WCAG AA)</strong>と<strong>「快適に押せる目安」(HIG・Material・NN)</strong>という異なる問いに答えているために生じる差にすぎない。</>,
-    <>実務では<strong>主要なアクションボタンは44〜48px前後を基準</strong>にし、密なUIでやむを得ず縮める場合のみ、WCAG AAの24pxかつ周囲24pxの余白確保を最終防衛ラインとして扱うのが現実的な着地点。</>,
+    <>実務では<strong>主要なアクションボタンは44〜48px前後を基準</strong>にし、密なUIでやむを得ず縮める場合のみ、WCAG AAの<strong>24px以上</strong>を最終防衛ラインとし、どうしてもそれより小さくする場合だけ<strong>間隔で補う</strong>(中心の直径24pxの円が隣と重ならない)のが現実的な着地点。</>,
   ],
   styles: [
     <>ボタンを「種類」で分ける発想はAppleとGoogleに共通しているが、<strong>分け方の軸が違う</strong>。Appleは「何のための操作か」という意味(Role)、Googleは「どれだけ目立たせるか」という優先度(emphasis)で分類している。</>,

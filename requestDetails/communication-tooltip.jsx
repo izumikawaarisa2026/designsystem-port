@@ -105,7 +105,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/tooltips/guidelines",
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/tooltips.docx)により、プレーン/リッチの使い分け・配置(4dp/8dpの距離、画面端での8dp調整)・行動(1.5秒での自動消去、永続的なリッチツールチップの条件)・アクセシビリティ要件を2026-09に直接確認・反映。カラートークンの具体的な数値、最大幅の正確なdp数値は本文中の表形式部分が今回のテキスト抽出で再現できず未確認。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Tooltips」のガイドライン)で、プレーン/リッチの使い分け・配置(4dp/8dpの距離、画面端での8dp調整)・行動(1.5秒での自動消去、永続的なリッチツールチップの条件)・アクセシビリティ要件を2026-09に直接確認・反映。カラートークンの具体的な数値、最大幅の正確なdp数値は本文中の表形式部分が今回のテキスト抽出で再現できず未確認。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -121,31 +121,35 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Tooltip Pattern",
+    doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
     color: "#A3821F",
-    position: "role=\"tooltip\"で識別する、フォーカスまたはホバーで表示される非対話的な補足情報",
-    size: "ツールチップ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)はトリガーとなる要素自体に適用されます。",
+    position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
+    size: "ツールチップ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はトリガーとなる要素自体に適用されます。",
     colorInfo: "ツールチップ専用の色基準はありませんが、1.4.11(非テキストのコントラスト)がツールチップの境界線等に適用され得ます。",
     glossary: [
+      { term: "1.4.13 Content on Hover or Focus・レベルAA", desc: "ホバーやフォーカスで現れる内容について、ポインターを動かさずに消せる(Escなど)、内容の上にポインターを移しても消えない、利用者が離れるか消すまで勝手に消えない、の3点を求める基準。" },
       { term: "role=\"tooltip\"", desc: "ツールチップ要素に付与するARIAロール。ツールチップ自体はフォーカスを受け取らず、トリガー要素からaria-describedbyで参照される。" },
     ],
     stance:
-      "ツールチップはキーボードフォーカスまたはマウスホバーで表示され、通常は短い遅延の後に現れるとしています。Escapeキーでツールチップを閉じられるようにすべきで、フォーカスは常にトリガー要素側に留まるべきだとしています。フォーカスで表示された場合はフォーカスが外れると消え、ホバーで表示された場合はポインターがトリガーまたはツールチップ自体の上にある間は表示され続けるべきとしています。",
+      "主な根拠は1.4.13(ホバー又はフォーカスで表示されるコンテンツ・レベルAA)です。ホバーやフォーカスで現れるツールチップは、①ポインターを動かさずに消せる(Escキーなど)、②ツールチップの上にポインターを移しても消えない、③利用者がホバーやフォーカスを外すか消すまで、勝手に消えない、の3点を満たす必要があります。実装の参考としては、APGのTooltipパターン(まだ検討中のパターン)が、role=\"tooltip\"とaria-describedbyでの関連付け、Escで閉じること、フォーカスはトリガー側に留めることを示しています。",
     exceptions:
       "ツールチップ自体はフォーカスを受け取らないとしています。リンクやボタンなど対話的な内容を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきだとしています。このパターン自体は、ワーキンググループ内でまだ完全な合意が得られていない検討中のパターンだとも明記されています。",
     scenarios: [
+      "ホバーやフォーカスで補足を表示し、1.4.13の3点(消せる・上に移っても消えない・勝手に消えない)を満たしたい時",
       "キーボードフォーカスまたはマウスホバーで、短い遅延の後に補足を表示したい時",
       "対話的な内容(リンク・ボタン等)を含めたい場合は非モーダルダイアログを検討する",
     ],
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― フォーカス・ホバー両方でのトリガー、Escapeキーでの終了、aria-describedbyによるトリガーとの関連付けが中心的な基準です。",
+      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 1.4.13は「知覚可能」の基準です。フォーカス・ホバー両方でのトリガーとEscapeキーでの終了は「操作可能」、aria-describedbyによるトリガーとの関連付けは「堅牢」に関わります。",
     useCases: [
-      "role=\"tooltip\"を使い、トリガー要素からaria-describedbyで参照する",
+      "ポインターを動かさずに消せる(Escなど)・ツールチップの上にポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13)",
+      "role=\"tooltip\"を使い、トリガー要素からaria-describedbyで参照する(APG)",
       "キーボードフォーカスとマウスホバーの両方でトリガーできるようにする",
       "対話的な内容(リンク・ボタン等)を含めたい場合は非モーダルダイアログを検討する",
     ],
-    searchHint: "Escape",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/",
+    searchHint: "dismissible",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
+    urlSecondary: [{ label: "APG: Tooltip Pattern(検討中)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" }],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -354,13 +358,13 @@ export default function CommunicationTooltipPage() {
               ツールチップは、「スナックバー・トースト」「アラート」などの他の通知系コンポーネントと違い、<strong>ユーザーの操作(ホバー/フォーカス)によって出現し、操作をやめると消える</strong>という点が本質的な特徴です。クリックやタップで開くものではなく、ユーザーが求めたときにだけ現れる「オンデマンドの補足情報」だという理解で、Nielsen Norman GroupとW3Cの見解が一致しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「タスク完了に不可欠な情報をツールチップだけに頼るべきではない」</strong>と明確に警告しています。ツールチップは消えてしまう性質上、内容を作業記憶に留めて後から実行する必要がある指示には不向きで、<strong>マイクロコンテンツ(短い自己完結型のテキスト)</strong>としての役割に徹するべきだとしています。
+              Nielsen Norman Groupは<strong>タスク完了に不可欠な情報をツールチップだけに頼るべきではない</strong>と明確に警告しています。ツールチップは消えてしまう性質上、内容を作業記憶に留めて後から実行する必要がある指示には不向きで、<strong>マイクロコンテンツ(短い自己完結型のテキスト)</strong>としての役割に徹するべきだとしています。
             </p>
             <p style={styles.synthesisText}>
               Googleは<strong>「プレーン(アイコンのラベル代わり)」「リッチ(小見出し・リンク・ボタンを含む詳しい説明)」の2種類</strong>を定義しており、W3Cが指摘する「対話的な内容を含めたい場合は非モーダルダイアログを使うべき」という論点とは、リッチツールチップがクリックで<strong>「永続的な表示」に切り替わる仕組み</strong>によって折り合いをつけていると解釈できます。ホバーだけの一時的な表示から、クリックで消えない状態に変わる点が、この2つの考え方をつなぐ鍵です。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>マウスホバーだけでなくキーボードフォーカスでも表示できるようにすべき</strong>という点で、W3C・Nielsen Norman Groupの見解が完全に一致しています。Appleの「ヘルプタグ」はポインター操作の環境(Mac等)を前提とした機能で、タッチのみの環境では利用できない点も、この「入力方法への配慮」という論点に関わってきます。
+              アクセシビリティ面では、<strong>マウスホバーだけでなくキーボードフォーカスでも表示できるようにすべき</strong>という点で、W3C・Nielsen Norman Groupの見解が完全に一致しています。WCAGの1.4.13は、ホバーやフォーカスで出た内容を<strong>勝手に消さない</strong>ことも求めているため、Googleのリッチツールチップは「対象領域から離れて1.5秒後に消える」としており、離れた後に消える点では1.4.13と矛盾しません。Webで作るときも、ホバーやフォーカスが続いている間は消さないようにします(AI解釈)。Appleの「ヘルプタグ」はポインター操作の環境(Mac等)を前提とした機能で、タッチのみの環境では利用できない点も、この「入力方法への配慮」という論点に関わってきます。
             </p>
             <p style={styles.synthesisText}>
               Appleにも「リッチ」に相当する概念があり、<strong>TipKitという独立フレームワークのTip</strong>がそれにあたります。ただしGoogleのように同一コンポーネントの拡張版ではなく、<strong>別フレームワークとして実装が分かれている</strong>点が特徴で、用途も「機能の値を説明する」よりは<strong>「気づかれていない新機能を紹介する」</strong>ことに寄っています。一方でW3CとNielsen Norman Groupは、どちらも独自の「リッチツールチップ」概念を持たず、<strong>複雑・対話的な内容はツールチップという枠自体に持ち込むべきではない</strong>という立場で一致しており、GoogleとAppleの「拡張路線」とは対照的です。
@@ -462,7 +466,7 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 

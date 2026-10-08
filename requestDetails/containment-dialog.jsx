@@ -34,10 +34,9 @@ const SOURCES = [
     size: "具体的なpt数値は確認できていません。ボタンには他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられます。",
     colorInfo: "色についての明確な規定は確認できていません。危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていません。",
     stance:
-      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしています。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしています。",
+      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしています。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしています。ボタンのラベルは、選んだ結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)にするとしています。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
-      "選択結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)のボタンラベルにしたい時",
     ],
     exceptions:
       "よく選ばれる(最も可能性の高い)ボタンは右側に、キャンセルボタンは常に左側に置くべきとしています。メッセージは必須ではなく、必要な場合にのみ表示すべきだとしています。",
@@ -81,9 +80,9 @@ const SOURCES = [
       "単一タスクの完了に関わる重要な判断を求めたい時",
     ],
     exceptions:
-      "ダイアログには最大2つのアクションを含めるべきで、単一のアクションを提供する場合は確認アクションでなければならず、2つの場合は一方が確認、もう一方が却下アクションでなければならないとしています。確認ボタンは末尾(後端)に配置し、選択が行われるまで無効化する一方、閉じる操作は決して無効化しないとしています。否定的な行動を肯定的な行動の右側(末尾側)に配置してはならないとしています。「詳細を見る」のような3つ目のアクションは、タスクが未完了のままユーザーがダイアログを離れてしまうため推奨されず、代わりにインライン展開で追加情報を示すべきとしています。確認アクションのラベルは「送信」「作成」など次に何が起こるか明確に示す語にし、「完了」「OK」「閉じる」のような曖昧な表現は避けるべきとしています。",
+      "ダイアログには最大2つのアクションを含めるべきで、単一のアクションを提供する場合は確認アクションでなければならず、2つの場合は一方が確認、もう一方が却下アクションでなければならないとしています。確認ボタンは末尾(後端)に配置します。ダイアログの中で選択肢を選ばせる場合は、選ぶまで確認ボタンを押せなくする一方、閉じる操作は決して無効化しないとしています(「削除しますか?」のような単純な確認では、確認ボタンを無効にしません)。否定的な行動を肯定的な行動の右側(末尾側)に配置してはならないとしています。「詳細を見る」のような3つ目のアクションは、タスクが未完了のままユーザーがダイアログを離れてしまうため推奨されず、代わりにインライン展開で追加情報を示すべきとしています。確認アクションのラベルは「送信」「作成」など次に何が起こるか明確に示す語にし、「完了」「OK」「閉じる」のような曖昧な表現は避けるべきとしています。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― ダイアログが表示されると、フォーカスは自動的にダイアログ内の最初のインタラクティブ要素に移動すべきだとしています。Tabキーで次の要素へ、Shift+Tabで逆方向へフォーカスが移動し、Space/Enterキーでフォーカス中の要素が操作されるとしています。ダイアログのアクセシビリティラベルは通常タイトル・見出しと同じで、Web上の基本ダイアログにはalertdialogロールを与えるべきだとしています。テキストサイズを200%に拡大しても見出しが4行以内に収まるよう簡潔にすべきとしています。",
+      "操作可能(Operable)・理解可能(Understandable) ― ダイアログが表示されると、フォーカスは自動的にダイアログ内の最初のインタラクティブ要素に移動すべきだとしています。Tabキーで次の要素へ、Shift+Tabで逆方向へフォーカスが移動し、Space/Enterキーでフォーカス中の要素が操作されるとしています。ダイアログのアクセシビリティラベルは通常タイトル・見出しと同じで、Web上の基本ダイアログにはalertdialogロールを与えるべきだとしています(W3Cの区別では、削除の確認のようにすぐに応答を求める警告がalertdialog、それ以外はdialog。W3C欄を参照)。テキストサイズを200%に拡大しても見出しが4行以内に収まるよう簡潔にすべきとしています。",
     useCases: [
       "重要な情報の伝達・判断・単一タスクの確認には基本ダイアログを使う(優先度の低い情報にはスナックバーを使う)",
       "アクションは最大2つ(確認+却下、または確認のみ)にし、確認ボタンを末尾に配置する",
@@ -91,7 +90,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/dialogs/guidelines",
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/daialog.docx)により、M2→M3の変更点・コンテナとスクリム・見出し・ボタンの配置ルール・エラーメッセージ・登場/位置/スクロールの挙動・アクセシビリティ(初期フォーカス・ラベル要素)の各セクションを2026-09に直接確認・反映。具体的なdp数値は文書内に記載がなく未確認。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Dialogs」のガイドライン)で、M2→M3の変更点・コンテナとスクリム・見出し・ボタンの配置ルール・エラーメッセージ・登場/位置/スクロールの挙動・アクセシビリティ(初期フォーカス・ラベル要素)の各セクションを2026-09に直接確認・反映。具体的なdp数値は文書内に記載がなく未確認。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -108,13 +107,13 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域",
-    size: "ダイアログ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)はボタンなどの操作要素に適用されます。",
+    size: "ダイアログ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用されます。",
     colorInfo: "ダイアログ専用の色基準はありませんが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターやボタンの境界線などに適用され得ます。",
     glossary: [
       { term: "aria-modal", desc: "視覚的な隠蔽(スクリム等)と操作防止の両方が実装されている場合にのみtrueを設定すべき属性。ダイアログの外側にあるコンテンツをスクリーンリーダーからも隠す効果を持つ。" },
     ],
     stance:
-      "モーダルダイアログは、背後のコンテンツを操作不能にする、重ねて表示される領域だとしています。実装には role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyまたはaria-labelによるラベル付けが必須だとしています。フォーカスはダイアログ内に閉じ込め、Tabキーで循環させるべきとしています。",
+      "モーダルダイアログは、背後のコンテンツを操作不能にする、重ねて表示される領域だとしています。実装には role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyまたはaria-labelによるラベル付けが必須だとしています。フォーカスはダイアログ内に閉じ込め、Tabキーで循環させるべきとしています。なお、削除の確認のように、すぐに応答を求める警告にはalertdialog(APGのAlert Dialogパターン)を使い、それ以外はdialogを使う、という区別があります。",
     scenarios: [
       "視覚的な隠蔽と操作防止の両方を実装したい時にaria-modal=\"true\"を設定する",
       "リストや表など複雑なコンテンツを含むダイアログの初期フォーカス位置を検討する時",
@@ -130,6 +129,7 @@ const SOURCES = [
     ],
     searchHint: "Escape",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    urlSecondary: [{ label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" }],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
@@ -262,13 +262,13 @@ export default function ContainmentDialogPage() {
               このページは、<strong>スクリム上に乗る「基本ダイアログ」中心の内容に絞ったもの</strong>です。画面全体を占め、一連のタスク完了(カレンダー予定の作成など)に使う「フルスクリーンダイアログ」とは、用途もブレークポイントによる使い分けも異なるため、モーダルポップアップ→サイドシート/ボトムシートの分割と同じ考え方でページを分けました。
             </p>
             <p style={styles.synthesisText}>
-              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢です。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告しています。Googleも「優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべき」としており、方向性が一致しています。
+              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢です。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告しています。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致しています。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは右、キャンセルは常に左」</strong>という明快な基準を示し、Googleも<strong>「確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う」</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
+              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは右、キャンセルは常に左」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの「初期フォーカスは最初のインタラクティブ要素に自動的に移動する」という挙動と実装レベルで一致しています。
+              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致しています。
             </p>
           </div>
 
@@ -301,6 +301,7 @@ export default function ContainmentDialogPage() {
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
                   <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
                 </div>
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -345,6 +346,7 @@ export default function ContainmentDialogPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
@@ -371,7 +373,7 @@ export default function ContainmentDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleはユーザー提供の公式ドキュメントで確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはAlertsページ、GoogleはDialogsページへのリンクです。WCAGはWAI-ARIA APGのDialog(Modal)パターン、NN groupは記事ページ単位です。

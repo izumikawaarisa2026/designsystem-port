@@ -41,7 +41,7 @@ const CARDS = [
     key: "toggle", name: "トグルスイッチ", path: "/components/selection/toggle", built: true,
     oneLiner: "単一設定を送信ボタンなしで即座にオン/オフする。",
     doText: "単一設定を送信なしで即座に反映したい時",
-    dontText: "既存のチェックボックスを置き換える時",
+    dontText: "保存・送信ボタンで確定するフォームの項目(→チェックボックス)",
     icon: () => (<svg width="38" height="22" viewBox="0 0 38 22"><rect x="1" y="1" width="36" height="20" rx="10" fill="#3A4FCF" /><circle cx="27" cy="11" r="7.5" fill="#FFFFFF" /></svg>),
   },
   {
@@ -60,7 +60,7 @@ const CARDS = [
   },
   {
     key: "select", name: "プルダウン(セレクト)", path: "/components/selection/select", built: true,
-    oneLiner: "選択肢を折りたたみ、省スペースで1つだけ選ぶ。",
+    oneLiner: "選択肢を折りたたみ、省スペースで選ぶ。基本は1つを選ぶ(Googleのメニューは複数選択にも対応)。",
     doText: "選択肢が多く省スペースにしたい時",
     dontText: "選択肢が少ない・2〜5個程度の時(→ラジオボタン)",
     icon: () => (
@@ -140,8 +140,8 @@ function PartCards() {
 
 /* ================= 判断フロー(ユーザー行動ベースの分岐ツリー) =================
  * 「ユーザーが今何をしたいか」を起点に、ひし形(分岐)を辿るツリー構造。
- * 1本の直線ではなく、途中2箇所(複数選びたい場合/1つだけ選びたい場合)で
- * さらに枝分かれし、最終的に6つの結果(角丸の四角形)に至る。
+ * 1本の直線ではなく、途中3箇所(複数選びたい場合/オン/オフの場合/1つだけ選びたい場合)で
+ * さらに枝分かれし、最終的に7つの結果(角丸の四角形)に至る。2026-10、1つの項目のオン/オフを「すぐ反映されるか」で分ける分岐を追加。
  * 図の見た目(ひし形=分岐、角丸=開始/結果、ラベル付き矢印)は、
  * ユーザー提供の参考画像(トレードオフ判断のフローチャート)の型を踏襲している。
  */
@@ -155,9 +155,10 @@ function Diamond({ cx, cy, hw, hh, lines }) {
   );
 }
 function ResultBox({ cx, cy, label }) {
+  const w = Math.max(130, label.length * 12.5 + 24);
   return (
     <g>
-      <rect x={cx - 65} y={cy - 20} width="130" height="40" rx="10" fill="#3A4FCF" />
+      <rect x={cx - w / 2} y={cy - 20} width={w} height="40" rx="10" fill="#3A4FCF" />
       <text x={cx} y={cy + 5} fontSize="12" fontWeight="700" fill="#FFFFFF" textAnchor="middle">{label}</text>
     </g>
   );
@@ -188,28 +189,34 @@ function DecisionTree() {
         <Diamond cx={720} cy={36} hw={115} hh={36} lines={["ユーザーが今", "したいことは?"]} />
 
         {/* ルート -> 4方向 */}
-        <FlowEdge x1={720} y1={72} x2={120} y2={276} label="感覚的な値の調整" lx={120} ly={251} />
-        <FlowEdge x1={720} y1={72} x2={360} y2={276} label="設定を今すぐオン/オフ" lx={360} ly={251} />
-        <FlowEdge x1={720} y1={72} x2={720} y2={136} label="複数の項目を選ぶ" lx={720} ly={101} />
-        <FlowEdge x1={720} y1={72} x2={1200} y2={136} label="1つだけ選ぶ" lx={1116} ly={94} />
+        <FlowEdge x1={720} y1={72} x2={120} y2={146} label="感覚的な値の調整" lx={300} ly={124} />
+        <FlowEdge x1={720} y1={72} x2={430} y2={136} label="複数の項目を選ぶ" lx={540} ly={110} />
+        <FlowEdge x1={720} y1={72} x2={850} y2={136} label="1つの項目をオン/オフ" lx={800} ly={104} />
+        <FlowEdge x1={720} y1={72} x2={1275} y2={136} label="1つだけ選ぶ" lx={1100} ly={100} />
 
-        {/* 直接の結果(スライダー・トグル) */}
-        <ResultBox cx={120} cy={296} label="スライダー" />
-        <ResultBox cx={360} cy={296} label="トグルスイッチ" />
+        {/* 直接の結果(スライダー) */}
+        <ResultBox cx={120} cy={166} label="スライダー" />
 
         {/* サブ分岐B: 複数選ぶ場合、どう見せたいか */}
-        <Diamond cx={720} cy={166} hw={80} hh={30} lines={["選んだ結果を", "どう見せたい?"]} />
-        <FlowEdge x1={720} y1={196} x2={600} y2={276} label="タグとして見せる" lx={600} ly={251} />
-        <FlowEdge x1={720} y1={196} x2={840} y2={276} label="一覧として見せる" lx={840} ly={251} />
-        <ResultBox cx={600} cy={296} label="チップ" />
-        <ResultBox cx={840} cy={296} label="チェックボックス" />
+        <Diamond cx={430} cy={166} hw={80} hh={30} lines={["選んだ結果を", "どう見せたい?"]} />
+        <FlowEdge x1={430} y1={196} x2={330} y2={276} label="タグとして見せる" lx={330} ly={251} />
+        <FlowEdge x1={430} y1={196} x2={530} y2={276} label="一覧として見せる" lx={530} ly={251} />
+        <ResultBox cx={330} cy={296} label="チップ" />
+        <ResultBox cx={530} cy={296} label="チェックボックス" />
+
+        {/* サブ分岐C: 1つの項目のオン/オフは、すぐ反映されるか */}
+        <Diamond cx={850} cy={166} hw={80} hh={30} lines={["すぐに", "反映される?"]} />
+        <FlowEdge x1={850} y1={196} x2={750} y2={276} label="すぐ反映" lx={750} ly={251} />
+        <FlowEdge x1={850} y1={196} x2={950} y2={276} label="送信で確定" lx={950} ly={251} />
+        <ResultBox cx={750} cy={296} label="トグルスイッチ" />
+        <ResultBox cx={950} cy={296} label="単独のチェックボックス" />
 
         {/* サブ分岐D: 1つだけ選ぶ場合、見せ方は */}
-        <Diamond cx={1200} cy={166} hw={80} hh={30} lines={["選択肢の", "見せ方は?"]} />
-        <FlowEdge x1={1200} y1={196} x2={1080} y2={276} label="全部見比べる" lx={1080} ly={251} />
-        <FlowEdge x1={1200} y1={196} x2={1320} y2={276} label="省スペースにする" lx={1320} ly={251} />
-        <ResultBox cx={1080} cy={296} label="ラジオボタン" />
-        <ResultBox cx={1320} cy={296} label="プルダウン" />
+        <Diamond cx={1275} cy={166} hw={80} hh={30} lines={["選択肢の", "見せ方は?"]} />
+        <FlowEdge x1={1275} y1={196} x2={1170} y2={276} label="全部見比べる" lx={1170} ly={251} />
+        <FlowEdge x1={1275} y1={196} x2={1380} y2={276} label="省スペースにする" lx={1380} ly={251} />
+        <ResultBox cx={1170} cy={296} label="ラジオボタン" />
+        <ResultBox cx={1380} cy={296} label="プルダウン" />
       </svg>
     </div>
   );
@@ -241,17 +248,16 @@ export default function SelectionOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              6つのパーツは、コンポーネントの性質(連続値かどうか、複数選択かどうかなど)からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の判断フローは「感覚的な値を調整したい」「複数の項目を選びたい」「設定をすぐ切り替えたい」「1つだけ選びたい」という4つの行動を起点にした分岐ツリーです。
+              6つのパーツは、コンポーネントの性質(連続値かどうか、複数選択かどうかなど)からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の判断フローは「感覚的な値を調整したい」「複数の項目を選びたい」「1つの項目をオン/オフしたい」「1つだけ選びたい」という4つの行動を起点にした分岐ツリーです。1つの項目のオン/オフは、<strong>すぐ反映されるならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれます(Nielsen Norman Groupのトグルスイッチの記事の整理)。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>チェックボックスとラジオボタンの取り違え</strong>、<strong>チェックボックスとトグルスイッチの取り違え</strong>は、Apple・Nielsen Norman
-              Groupの双方が典型的な誤用として明確に指摘している、業界で広く定着した注意点です。
+              特に<strong>チェックボックスとラジオボタンの取り違え</strong>、<strong>チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点と言えます。Nielsen Norman Groupはトグルスイッチを送信が必要なフォームに使わないよう勧めており、Appleは(macOSで)チェックボックスをスイッチに置き換えないよう勧めています(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
             </p>
             <p style={styles.synthesisText}>
               <strong>チップは「複数選べる」という行動でチェックボックスと重なります</strong>が、「選んだ結果をコンパクトなタグでどう見せるか」という表示形式の違いが決め手です。判断フローでは、複数選択の後にこの見せ方の分岐を置いています。
             </p>
             <p style={styles.synthesisText}>
-              <strong>プルダウンはラジオボタンと同じ「1つだけ選ぶ」行動</strong>ですが、Googleがラジオボタンのページで明示している通り、選択肢を折りたたんで省スペースにしたいかどうかが分かれ目です。全選択肢を常に見せておきたいならラジオボタン、表示スペースを節約したいならプルダウン、という使い分けです。
+              <strong>プルダウンは基本的にラジオボタンと同じ「1つだけ選ぶ」行動</strong>ですが(Googleのメニューは複数選択にも対応)、Googleがラジオボタンのページで明示している通り、選択肢を折りたたんで省スペースにしたいかどうかが分かれ目です。全選択肢を常に見せておきたいならラジオボタン、表示スペースを節約したいならプルダウン、という使い分けと言えます。
             </p>
           </div>
 
@@ -260,7 +266,7 @@ export default function SelectionOverviewPage() {
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>判断フロー(ユーザーの行動から)</h2>
           <DecisionTree />
-          <p style={styles.diagramNote}>ひし形が分岐、角丸の四角形が開始・結果です。矢印のラベルは「ユーザーが今したいこと」を表し、1本の直線ではなく途中2箇所(複数選びたい場合/1つだけ選びたい場合)でさらに枝分かれします。この判断フローは、各パーツのページのAI解釈を統合した独自の整理です。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
+          <p style={styles.diagramNote}>ひし形が分岐、角丸の四角形が開始・結果です。矢印のラベルは「ユーザーが今したいこと」を表し、1本の直線ではなく途中3箇所(複数選びたい場合/1つの項目をオン/オフする場合/1つだけ選びたい場合)でさらに枝分かれします。「選んだ結果をどう見せたい?」は、たとえば、その場で一覧を絞り込むならフィルタチップ、送信して確定するフォームの複数選択ならチェックボックス、という目安です。この判断フローは、各パーツのページのAI解釈を統合した独自の整理です。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>このカテゴリのほかのページ</h2>
           <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>判断フローの6パーツとは役割が少し違う、Selectionのページです。</p>

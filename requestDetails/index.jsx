@@ -10,12 +10,12 @@ import SidebarNav from "./sidebar-nav";
 /*
  * 公開ページの更新履歴は、サイトリリース後の運用分から記載する。
  * リリース前の制作・改訂の記録は dev-changelog.md に移した。
- * リリース日が決まったら、下の仮の日付(2026.xx.x)を差し替える。
+ * 正式リリース(v1.0.0)までは、公開前(レビュー中)であることだけを表示する。
  */
 const CHANGELOG = [
   {
-    date: "2026.xx.x",
-    entries: ["X サイトリリース"],
+    date: "公開前(レビュー中)",
+    entries: ["正式リリース(v1.0.0)の前に、AIと本人によるレビューと修正を進めています。"],
   },
 ];
 
@@ -35,7 +35,7 @@ export default function IndexPage() {
           <div style={styles.inner}>
             <div style={styles.metaRow}>
               <span>INDEX</span>
-              <span>最終更新: 2026-08</span>
+              <span>最終更新: 2026-10</span>
             </div>
             <h1 style={styles.title}>DesignSystem Port</h1>
             <p style={styles.tagline}>(サイト名は仮称です)</p>
@@ -80,6 +80,20 @@ export default function IndexPage() {
                   </div>
                 ))}
               </div>
+              <h3 style={styles.h3}>用語メモ</h3>
+              <div style={styles.guideGrid}>
+                {[
+                  ["単位(pt・dp・CSS px)", "pt(Apple)・dp(Google)・CSS px(Web)は、それぞれのプラットフォームで使う論理的な単位で、画面の密度に左右されない。ただし、違うプラットフォームの数値を1:1で同じ物理的な大きさとして比べることはできない。44pt・48dp・24pxなどは、各系列の基準値として並べて示している。"],
+                  ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
+                  ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=実務で一般的な目標(多くの場合はAAを目指す)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
+                  ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、部品の作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
+                ].map(([term, desc]) => (
+                  <div key={term} style={styles.guideItem}>
+                    <div style={styles.guideTerm}>{term}</div>
+                    <div style={styles.guideDesc}>{desc}</div>
+                  </div>
+                ))}
+              </div>
             </section>
 
             {/* 対象4系列 */}
@@ -89,7 +103,7 @@ export default function IndexPage() {
                 {[
                   ["Apple", "Human Interface Guidelines", "iOS/iPadOS/macOSなどApple製品の公式デザインガイドライン。"],
                   ["Google", "Material Design 3", "Android/Webを中心としたGoogleの公式デザインシステム。M3に該当ページがない項目は、旧版のMaterial Design 2やAndroid Developersの公式ドキュメントで比較する。"],
-                  ["W3C", "WCAG", "Webアクセシビリティの国際標準規格。数値基準の一次情報として扱う。"],
+                  ["W3C", "WCAG・WAI-ARIA(APG)", "Webアクセシビリティの国際標準規格(WCAG)と、支援技術に部品の役割を伝える仕様(WAI-ARIA)。数値基準の一次情報として扱う。APGは実装の参考例。"],
                   ["Nielsen Norman Group", "UXリサーチ", "特定製品に属さない、独立系のユーザビリティ研究機関。"],
                 ].map(([name, doc, desc]) => (
                   <div key={name} style={styles.sourceCard}>
@@ -119,10 +133,10 @@ export default function IndexPage() {
                 内容の更新は<strong>完全自動では行いません</strong>。著作権・正確性の観点から、必ず人の承認を挟みます。
               </p>
               <ol style={styles.ol}>
-                <li>年1回程度、各ページのデータと公式URLを再確認する</li>
+                <li>年1回程度、各ページのデータと公式URLを再確認する(M3 Expressiveのような大きな更新の発表があったときは、臨時に確認する)</li>
                 <li>変更点があれば、その項目だけ書き換えを提案する(変更箇所を明示)</li>
-                <li>プレビュー環境(例: Netlifyのブランチプレビュー)で目視確認する</li>
-                <li>「確認しました」と明示的な返答があってから、本番に反映する</li>
+                <li>GitHubの修正用ブランチで直し、プレビューで目視確認する</li>
+                <li>「確認しました」と明示的な返答があってから、本番(GitHub Pages)に反映する</li>
               </ol>
               <p style={styles.p}>この更新作業では、レイアウトやコンポーネント構造は変更せず、数値・文章などデータ部分のみを対象とします。</p>
             </section>
@@ -175,6 +189,7 @@ const styles = {
   tagline: { fontSize: 11, color: "#7E86AC", margin: "0 0 10px" },
   subtitle: { fontSize: 14, lineHeight: 1.8, color: "#2E3457", margin: "0 0 32px" },
   section: { marginBottom: 34 },
+  h3: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 14, fontWeight: 700, margin: "18px 0 10px" },
   h2: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 18, fontWeight: 700, margin: "0 0 12px" },
   p: { fontSize: 13.5, lineHeight: 1.85, color: "#2E3457", margin: "0 0 10px" },
   ul: { margin: 0, paddingLeft: 20, fontSize: 13.5, lineHeight: 1.85, color: "#2E3457" },

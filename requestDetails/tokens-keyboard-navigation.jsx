@@ -78,16 +78,17 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 2.1.1 / 2.1.2 / 2.4.1 / 2.4.3 / 2.4.7、APG Developing a Keyboard Interface",
+    doc: "WCAG 2.1.1 / 2.1.2 / 2.4.1 / 2.4.3 / 2.4.7 / 2.4.11、APG Developing a Keyboard Interface",
     color: "#A3821F",
     position: "すべての機能をキーボードで使えること・閉じ込めないこと・意味の通る順番・フォーカスが見えること・繰り返しを飛ばせることを、それぞれ独立した基準で求める",
-    size: "2.1.1(レベルA): すべての機能を、キーを押す間隔の指定なしにキーボードで操作できること。2.1.2(レベルA): フォーカスが入った部品から、キーボードだけで抜け出せること(Tabや矢印以外の方法が必要なら、その方法を知らせる)。2.4.3(レベルA): 意味や操作に影響するなら、意味と操作性を保つ順番でフォーカスを受けること。2.4.7(レベルAA): フォーカスの表示が見える状態があること。2.4.1(レベルA): 複数のページで繰り返す内容を飛ばす手段があること。",
+    size: "2.1.1(レベルA): すべての機能を、キーを押す間隔の指定なしにキーボードで操作できること。2.1.2(レベルA): フォーカスが入った部品から、キーボードだけで抜け出せること(Tabや矢印以外の方法が必要なら、その方法を知らせる)。2.4.3(レベルA): 意味や操作に影響するなら、意味と操作性を保つ順番でフォーカスを受けること。2.4.7(レベルAA): フォーカスの表示が見える状態があること。2.4.11(レベルAA): フォーカスした部品が、作者が置いた他の内容に完全には隠れないこと。2.4.1(レベルA): 複数のページで繰り返す内容を飛ばす手段があること。",
     colorInfo: "W3CのAPG(ARIAの実装ガイド)は、Tab・Shift+Tabで部品から部品へ、矢印キーで複数の要素を持つ部品(ラジオグループ・タブ・メニュー・グリッド)の中を移動する、という役割分担を全プラットフォーム共通の慣習として示しています。部品の中の移動は、Tabの順番に1つだけを入れる「ロービングtabindex」か、aria-activedescendantで実装します。",
     glossary: [
       { term: "2.1.1 Keyboard・レベルA", desc: "すべての機能をキーボードで操作できることを求める基準。手書きのように、なぞる軌跡そのものが必要な機能は例外。" },
       { term: "2.1.2 No Keyboard Trap・レベルA", desc: "キーボードでフォーカスを入れた部品から、キーボードだけで抜け出せることを求める基準。" },
       { term: "2.4.3 Focus Order・レベルA", desc: "フォーカスの移動順が、意味と操作性を保つ順番であることを求める基準。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボードで操作できる画面で、フォーカスの位置が見えることを求める基準。" },
+      { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスした部品が、固定ヘッダーなど作者が置いた他の内容に完全には隠れないことを求める基準。" },
       { term: "ロービングtabindex", desc: "部品の中で今アクティブな1つだけをTabの順番に入れ(tabindex=0)、他は外して(tabindex=-1)、矢印キーで切り替える実装方法。" },
     ],
     stance:
@@ -145,7 +146,7 @@ function TabSequenceSwatch() {
     </g>
   );
   return (
-    <svg viewBox="0 0 440 190" width="100%" style={{ maxWidth: 520, display: "block", margin: "0 auto" }} role="img" aria-label="Tabキーで区画の間を、矢印キーで区画の中を移動する図">
+    <svg viewBox="0 0 440 190" width="100%" style={{ maxWidth: 520, display: "block", margin: "0 auto" }} role="img" aria-label="Tabキーで部品の間とリンクを1つずつ、矢印キーでグリッドの中を移動する図">
       <rect x="10" y="8" width="420" height="160" rx="8" fill="#FFFFFF" stroke="#9EA4C4" />
       <rect x="22" y="18" width="80" height="16" rx="3" fill="#3A4FCF" opacity="0.15" stroke="#3A4FCF" strokeDasharray="3 2" />
       <text x="62" y="29" fontSize="8.5" fill="#3A4FCF" textAnchor="middle" fontFamily={font}>本文へスキップ</text>
@@ -153,7 +154,7 @@ function TabSequenceSwatch() {
       <rect x="22" y="44" width="90" height="112" rx="4" fill="#F3F6FA" />
       {[0, 1, 2, 3].map((i) => <rect key={i} x="30" y={52 + i * 24} width="74" height="16" rx="3" fill={i === 1 ? "#D9E4F2" : "#FFFFFF"} stroke={i === 1 ? "#3C5A73" : "#E1E3F0"} strokeWidth={i === 1 ? 1.6 : 1} />)}
       {badge(22, 44, 2)}
-      <text x="112" y="104" fontSize="11" fill="#5A9629" fontFamily={font}>↕</text>
+      <text x="67" y="152" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily={font}>リンクはTabで1つずつ</text>
       <rect x="126" y="44" width="200" height="112" rx="4" fill="#F8F9FD" />
       {[0, 1, 2].map((r) => [0, 1, 2].map((c) => <rect key={`${r}${c}`} x={136 + c * 62} y={52 + r * 34} width="54" height="26" rx="3" fill={r === 0 && c === 1 ? "#D9E4F2" : "#FFFFFF"} stroke={r === 0 && c === 1 ? "#3C5A73" : "#E1E3F0"} strokeWidth={r === 0 && c === 1 ? 1.6 : 1} />))}
       {badge(126, 44, 3)}
@@ -162,7 +163,7 @@ function TabSequenceSwatch() {
       <text x="378" y="61" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>保存</text>
       {badge(338, 44, 4)}
       <path d="M112 34 q-40 14 -82 10 M30 48 q90 -30 96 -4 M222 46 q60 -30 116 0" stroke="#A3821F" strokeWidth="1.4" fill="none" strokeDasharray="3 2" />
-      <text x="378" y="186" fontSize="9.5" fill="#A3821F" textAnchor="middle" fontFamily={font}>Tabで ①→②→③→④</text>
+      <text x="330" y="186" fontSize="9.5" fill="#A3821F" textAnchor="middle" fontFamily={font}>Tabで ①→②(リンクごと)→③→④</text>
     </svg>
   );
 }
@@ -172,6 +173,7 @@ const KEY_ROWS = [
   { keys: ["Tab"], name: "次へ", hig: "フォーカスグループの間を移動(iPadOS)", material: "見た目の順で次へ。最後から最初へ折り返す", wcag: "部品から部品へ(APG)。順番は意味と操作性を保つ(2.4.3)", nn: "レイアウトどおり左→右、上→下の順に" },
   { keys: ["Shift", "Tab"], name: "前へ", hig: "逆順に移動(macOSの標準ショートカット)", material: "見た目の順で前へ", wcag: "部品から部品へ逆順(APG)", nn: "1つ前へ戻る" },
   { keys: ["↑", "↓", "←", "→"], name: "まとまりの中", hig: "同じフォーカスグループの中を方向で移動。tvOSは方向操作で全要素へ", material: "位置関係で、押した方向の最も近い要素へ。折り返さない", wcag: "ラジオ・タブ・メニュー・グリッドの中を移動(APG)", nn: "ドロップダウンでは選択肢の間を移動(すぐ選択しない)" },
+  { keys: ["スペース"], name: "実行・切り替え", hig: "―(システムの標準の動きに任せる)", material: "メディアアプリでは再生・一時停止", wcag: "ボタンの実行・チェックボックスの切り替え(APG)。リンクはEnterのみで、スペースではページがスクロールする", nn: "―" },
   { keys: ["Enter"], name: "決定", hig: "―(フォーカスした項目の選択はシステムに任せる)", material: "入力の確定(大画面のキーボード対応)", wcag: "―(2.1.1で全機能をキーボードで)", nn: "フォーカスしたリンクを開く・選択肢を決める" },
   { keys: ["Esc"], name: "取り消し・閉じる", hig: "今の操作・処理を取り消す", material: "―", wcag: "閉じ込めない。抜け方が特殊なら知らせる(2.1.2)", nn: "ポップアップから抜けて閉じられること" },
   { keys: ["スキップ"], name: "繰り返しを飛ばす", hig: "Control-F2(メニューバー)・F5(ツールバー)など、区画へ直接移動", material: "―", wcag: "繰り返す内容を飛ばす手段(2.4.1)", nn: "Tabで現れる「本文へスキップ」リンク" },
@@ -349,15 +351,15 @@ export default function TokensKeyboardNavigationPage() {
           <p style={styles.subtitle}>4つのガイドラインが、キーボードでの移動の仕方・フォーカスの順番と見せ方・ショートカットをどう定めているかを比較します</p>
 
           <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>Tabで区画の間を、矢印キーで区画の中を移動する(概念図)</span>
+            <span style={styles.swatchLabel}>Tabで部品の間を、矢印キーで複合的な部品の中を移動する(概念図)</span>
             <TabSequenceSwatch />
-            <p style={styles.swatchNote}>Tabは「本文へスキップ」→ サイドバー → グリッド → 保存ボタンの順に、区画から区画へ進みます。サイドバーやグリッドの中の項目は、矢印キーで移動します。こうするとTabを押す回数が減り、どこにいるかも分かりやすくなります。</p>
+            <p style={styles.swatchNote}>Tabは「本文へスキップ」→ サイドバーのリンク(1つずつ)→ グリッド → 保存ボタンの順に進みます。矢印キーで中を移動するのは、グリッドのように、タブ・メニュー・ラジオグループ・グリッドなどAPGで定義された複合的な部品(ウィジェット)の中だけです。グリッドの中を矢印キーで動かすと、Tabを押す回数が減り、どこにいるかも分かりやすくなります。普通のリンクの並び(Webのサイドバーなど)は、Tabで1つずつ移動するのが基本です。</p>
           </div>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
-              4系列がそろって一致しているのは、<strong>Tab(Shift+Tab)で部品やまとまりの間を、矢印キーでまとまりの中を移動する</strong>という役割分担です。Appleはこれを「フォーカスグループ」、Googleは「Tab=1次元・矢印=2次元」と呼び、W3CのAPGは全プラットフォーム共通の慣習として示しています。<strong>順番は読む順(上から下、行の始まりから終わり)</strong>が基本です。
+              Apple・Google・W3C(APG)の3系列がそろって示しているのは、<strong>Tab(Shift+Tab)で部品やまとまりの間を、矢印キーでまとまりの中を移動する</strong>という役割分担です(NN groupも、レイアウトどおりの順番で移動できるよう勧めています)。Appleはこれを「フォーカスグループ」、Googleは「Tab=1次元・矢印=2次元」と呼び、W3CのAPGは全プラットフォーム共通の慣習として示しています。ただしWebでは、<strong>矢印キーで中を移動するのは、タブ・メニュー・ラジオグループ・グリッドなどの複合的な部品(ウィジェット)の中</strong>で、普通のリンクの並び(サイドバーのリンクなど)はTabで1つずつ移動するのが基本です(APGの「Developing a Keyboard Interface」)。<strong>順番は読む順(上から下、行の始まりから終わり)</strong>が基本です。
             </p>
             <p style={styles.synthesisText}>
               W3Cは、この上に<strong>すべての機能をキーボードで使える(2.1.1)・閉じ込めない(2.1.2)・意味の通る順番(2.4.3)・フォーカスが見える(2.4.7)・繰り返しを飛ばせる(2.4.1)</strong>という基準を重ねています。NN groupも同じく<strong>「フォーカスが見える・すべてに届く・ナビゲーションを飛ばせる」</strong>の3点を挙げ、<strong>フォーカス表示を見た目の理由で消すのは致命的</strong>だとしています。

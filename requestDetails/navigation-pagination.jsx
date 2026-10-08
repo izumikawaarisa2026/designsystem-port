@@ -24,6 +24,7 @@ const SOURCES = [
     doc: "該当コンポーネントなし(番号付きページネーションとしては)",
     color: "#C2542A",
     notApplicable: true,
+    urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
@@ -58,13 +59,13 @@ const SOURCES = [
     doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
     color: "#A3821F",
     position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
-    size: "ページネーション専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は各ページ番号のリンク/ボタンにも適用されます。",
+    size: "ページネーション専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用されます。",
     colorInfo: "ページネーション専用の色基準はありませんが、1.4.11(非テキストのコントラスト)は現在ページを示す枠線・背景色などの視覚的要素に適用され得ます。",
     glossary: [
-      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要な部品(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装すべきとされている。" },
+      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要な部品(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装するのが一般的(AI解釈)。" },
     ],
     stance:
-      "ページネーションには専用のARIAロールやパターンは定義されていません。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装すべきとされています(複数の信頼できる解説記事による間接確認)。",
+      "ページネーションには専用のARIAロールやパターンは定義されていません。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的です(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になります。",
     exceptions:
       "現在のページ番号は、リンクではなく単なるテキスト(span等)として実装し、その要素にaria-current=\"page\"を設定することが多いとされています。単一ページアプリで画面遷移せずにコンテンツだけを切り替える場合は、切り替えをライブリージョンなどで支援技術に通知する配慮も必要です。",
     accessibility:
@@ -75,9 +76,13 @@ const SOURCES = [
       "現在のページにはaria-current=\"page\"を設定する(リンクにしない場合が多い)",
     ],
     searchHint: "",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current",
-    confirmedNote: "「role=\"pagination\"は存在しない」という点、およびnav+aria-currentの組み合わせ実装は、複数の信頼できるアクセシビリティ解説記事による確認(2026-09)。w3.org本体のWAI-ARIA仕様書内で「ページネーション」という名称のパターンページとして直接確認したものではありません。",
-    pending: true,
+    url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
+    urlSecondary: [
+      { label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { label: "2.4.4 Link Purpose (In Context)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
+      { label: "解説(MDN): aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
+    ],
+    confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはありません(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存の部品を組み合わせる一般的な作り方です(AI解釈)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="24" viewBox="0 0 120 24">
@@ -265,10 +270,10 @@ export default function NavigationPaginationPage() {
               「ページネーション」という言葉は、実は<strong>2つの異なる場面</strong>を指しています。1つはAppleのPage Controls(オンボーディングのような、少数の固定画面をドットで送る形)、もう1つは検索結果一覧のような可変長のリストを番号で分割する「番号付きページネーション」です。<strong>この2つを混同すると、系列間の比較がずれてしまう</strong>ため、このページでは両方を分けて扱っています。
             </p>
             <p style={styles.synthesisText}>
-              番号付きページネーションについては、<strong>Google(M3)にも専用コンポーネントが見当たらず</strong>、W3C(WAI-ARIA)にも<strong>専用のロール(role="pagination")は存在しません</strong>。どちらも「既存の部品(nav要素・リスト・リンク・aria-current)を組み合わせて実装する」という考え方で、ページネーションが多くの系列にとって「独立した部品」ではなく「実装パターン」として扱われていることがわかります。
+              番号付きページネーションについては、<strong>Google(M3)にも専用コンポーネントが見当たらず</strong>、W3C(WAI-ARIA)にも<strong>専用のロール(role="pagination")は存在しません</strong>。どちらも既存の部品(nav要素・リスト・リンク・aria-current)を組み合わせて実装するという考え方で、ページネーションが多くの系列にとって「独立した部品」ではなく「実装パターン」として扱われていることがわかります。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討」</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
+              Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
             </p>
           </div>
 
@@ -353,7 +358,12 @@ export default function NavigationPaginationPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     {s.notApplicable ? (
-                      <span style={styles.mutedText}>該当なし</span>
+                      <>
+                        <span style={styles.mutedText}>該当なし</span>
+                        {s.urlSecondary && s.urlSecondary.map((sl) => (
+                          <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
+                        ))}
+                      </>
                     ) : (
                       <>
                         <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
@@ -380,7 +390,7 @@ export default function NavigationPaginationPage() {
             <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPage Controls本体へのリンクです。WCAGはaria-current属性のMDN解説ページ(w3.org本体にページネーション専用パターンが存在しないため)、NN groupは記事ページ単位です。Googleは専用コンポーネントページが見当たらなかったため、コンポーネント一覧トップへのリンクとしています。
+              リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。
             </span>
           </div>
         </div>

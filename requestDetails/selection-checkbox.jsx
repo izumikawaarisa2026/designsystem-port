@@ -16,7 +16,7 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Toggles内「Checkboxes」",
+    doc: "Human Interface Guidelines ― Toggles内「Checkboxes」(macOS)",
     color: "#C2542A",
     position: "3状態(オン・オフ・不定)を形状の違いで示す、AppKit提供のネイティブな正方形ボタン",
     size:
@@ -24,7 +24,7 @@ const SOURCES = [
     colorInfo:
       "色を切り替えて状態を伝える設計ではなく、空(未選択)/チェックマーク(選択)/ダッシュ(不定)という形状の違いで状態を区別することを基本にしています。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていません。",
     stance:
-      "チェックボックスは、オフのとき空、オンのときチェックマーク、状態が不定(mixed)のときダッシュを表示する正方形のボタンと定義されています。階層を持つ設定項目を示したいときは、スイッチよりチェックボックスを使うべきとしています。",
+      "チェックボックスはmacOS向けの部品で、iOS/iPadOSには標準のチェックボックスがありません(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されています)。チェックボックスは、オフのとき空、オンのときチェックマーク、状態が不定(mixed)のときダッシュを表示する正方形のボタンと定義されています。階層を持つ設定項目を示したいときは、スイッチよりチェックボックスを使うべきとしています。",
     exceptions:
       "2つ以上の選択肢から1つだけを選ばせたい場合は、チェックボックスではなくラジオボタンを使うべきとしています。また、上位のチェックボックスが複数の下位項目を一括でオン・オフする場合、下位項目の状態が揃っていなければ「不定(mixed)」状態で表示すべきとしています。",
     accessibility:
@@ -56,7 +56,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "複数選択・親子階層(不定状態)を持つ正方形ボタン。隣接するテキストラベルからも選択可能",
     size:
-      "チェックボックスに既定で高密度設定を適用すべきではないとしており、推奨タップ領域は48×48 CSSピクセル。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしています。正方形本体自体の見た目サイズ(dp単位)はこのテキストに含まれておらず未確認です。",
+      "チェックボックスに既定で高密度設定を適用すべきではないとしており、推奨タップ領域は48×48 CSSピクセル(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしています。正方形本体自体の見た目サイズ(dp単位)はこのテキストに含まれておらず未確認です。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンを通じて実装されます。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしています。",
     glossary: [
@@ -76,7 +76,11 @@ const SOURCES = [
       "類似オプションを視覚的にグループ化する",
     ],
     searchHint: "",
-    url: "https://m3.material.io/components/checkbox/specs",
+    url: "https://m3.material.io/components/checkbox/guidelines",
+    urlSecondary: [
+      { label: "Accessibility", url: "https://m3.material.io/components/checkbox/accessibility" },
+      { label: "Specs(数値)", url: "https://m3.material.io/components/checkbox/specs" },
+    ],
     confirmedNote: "使用法・行動・ユースケース・インタラクションとスタイル・アクセシビリティラベルの各セクションは2026-09時点で確認済み。正方形の見た目サイズ(dp)やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="26" height="26" viewBox="0 0 26 26">
@@ -93,7 +97,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "形状を問わず、名前・役割・状態・タップ領域を支援技術/操作性の観点から要求する適合基準の集合",
     size:
-      "チェックボックス専用の数値基準はありませんが、WCAG 2.2で追加された一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセルを求めます。いずれもタップ可能な要素全般に適用される基準で、チェックボックス固有の規定ではありません。",
+      "チェックボックス専用の数値基準はありませんが、WCAG 2.2で追加された一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページを参照)。いずれもタップ可能な要素全般に適用される基準で、チェックボックス固有の規定ではありません。",
     colorInfo:
       "1.4.11(非テキストのコントラスト、レベルAA)により、チェックボックスの境界線や状態を示す視覚的要素は、隣接する色との間で3:1以上のコントラスト比を確保すべきとしています。1.4.1(色の使用、レベルA)により、色だけで選択状態を示すことも避けるべきとしています。",
     stance:
@@ -235,7 +239,7 @@ function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
     { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
-    { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)" },
+    { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(隣接ラベルも含めクリック領域にする指針)" },
   ];
   return (
@@ -293,14 +297,17 @@ export default function SelectionCheckboxPage() {
             <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
             <p style={styles.synthesisText}>
               チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>しています。Apple・Nielsen Norman
-              Groupは共通して、ラジオボタン(単一選択)との取り違えを典型的な誤用として挙げており、この使い分けは業界で広く定着した考え方と言えます。
+              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言えます。
             </p>
             <p style={styles.synthesisText}>
               もう一つの共通点は<strong>「オン・オフ」だけでなく「不定(indeterminate / mixed)」という第3の状態</strong>です。Apple・Google・Nielsen Norman
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われます。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleが「既定で48×48 CSSピクセルを下回らせない」という具体的な数値を持つ</strong>のに対し、Appleはネイティブコントロールとして描画されるため、HIG自体には設計者向けの数値基準がありません(実際の見た目サイズはシステムが自動決定するもので、「サイズが無い」わけではない点に注意)。WCAGはコンポーネントの種類を問わない一般基準として、24×24px(AA)/44×44px(AAA)のターゲットサイズを求めています。色についても、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3C・NNは「色だけに依存せず形状やコントラストで状態を伝える」という考え方で共通しています。
+              サイズについては、<strong>Googleが「既定で48×48 CSSピクセルを下回らせない」という具体的な数値を持つ</strong>のに対し、Appleはネイティブコントロールとして描画されるため、HIG自体には設計者向けの数値基準がありません(実際の見た目サイズはシステムが自動決定するもので、「サイズが無い」わけではない点に注意)。WCAGはコンポーネントの種類を問わない一般基準として、24×24px(AA)/44×44px(AAA)のターゲットサイズを求めています(どちらも例外あり)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがありません。
+            </p>
+            <p style={styles.synthesisText}>
+              色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3C・NNは「色だけに依存せず形状やコントラストで状態を伝える」という考え方で共通しています。
             </p>
           </div>
 
@@ -334,6 +341,7 @@ export default function SelectionCheckboxPage() {
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
                   <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
                 </div>
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -376,6 +384,7 @@ export default function SelectionCheckboxPage() {
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
                     <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

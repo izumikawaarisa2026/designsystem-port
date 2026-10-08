@@ -28,13 +28,13 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Popovers",
+    doc: "Human Interface Guidelines ― Popovers(サイドシートに当たる専用の部品はなく、役割が近いものを参考として掲載)",
     color: "#C2542A",
     position: "コントロールをタップ/クリックした際に、出現元を示す矢印とともに現れる一時的なビュー(主にiPad向け)",
     size: "具体的なpt数値は確認できていません。",
     colorInfo: "色についての明確な規定は確認できていません。",
     stance:
-      "ポップオーバーは、コントロールや対話可能な領域をタップ・クリックした際に他のコンテンツの上に現れる一時的なビューで、通常は出現元を指す矢印を持つとしています。ユーザー視点で捉えると、ポップオーバーは軽量・非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間に位置する性質を持つと言えます。コントロールから吹き出すように出現し、範囲外のタップで自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的です。",
+      "サイドシートに当たる専用の部品はAppleにはありません。役割が近いポップオーバーを参考として載せています(形も閉じ方も別物です)。ポップオーバーは、コントロールや対話可能な領域をタップ・クリックした際に他のコンテンツの上に現れる一時的なビューで、通常は出現元を指す矢印を持つとしています。ユーザー視点で捉えると、ポップオーバーは軽量・非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間に位置する性質を持つと言えます。コントロールから吹き出すように出現し、範囲外のタップで自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的です。",
     scenarios: [
       "画面上のコンテンツに関連する選択肢や情報を示したい時(例: 共有オプションの表示)",
       "軽量で一時的な操作パネルを、対象コントロールの近くに表示したい時",
@@ -68,7 +68,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "画面側面に固定表示する副次的コンテンツ。標準(メイン領域と共存)とモーダル(背景操作を無効化)の2種類",
     size:
-      "幅は固定で、通常は画面の高さと同じ幅になるとしています。画面端(通常は右側。左端にあるナビゲーションコンポーネントとの干渉を避けるため)に配置し、16dp程度内側にずらすことは許容されるとしています。画面端からの推奨マージンを超えて内側に配置しないよう注意しており、シートの位置・スクロール挙動が分かりにくくなり、メインコンテンツも隠れてしまうためだとしています。具体的なdp数値は文書内に記載がなく確認できていません。",
+      "幅は固定で(既定の幅があり、レイアウトに応じてサイズを変えられる)、画面端(通常は右側。左端にあるナビゲーションコンポーネントとの干渉を避けるため)に配置し、16dp程度内側にずらすことは許容されるとしています。画面端からの推奨マージンを超えて内側に配置しないよう注意しており、シートの位置・スクロール挙動が分かりにくくなり、メインコンテンツも隠れてしまうためだとしています。具体的なdp数値は文書内に記載がなく確認できていません。",
     colorInfo: "色の値はデザイントークンを通して実装されるとしています。具体的なカラートークン名は確認できていません。",
     glossary: [
       { term: "標準 / モーダルサイドシート", desc: "標準サイドシートはメイン領域と共存し、ユーザーがメインコンテンツを操作している間も表示され続ける。モーダルサイドシートはコンパクトな画面向けで、下にあるコンテンツを操作するには閉じる必要がある。" },
@@ -91,7 +91,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/side-sheets/guidelines",
-    confirmedNote: "ユーザー提供の公式ドキュメント(MD3_text/SIDESHEET.docx)により、使用法・構成要素(アナトミー)・配置・適応型デザイン・行動(スクロール・予測戻るジェスチャー)・アクセシビリティの各セクションを2026-09に直接確認・反映。具体的な幅などのdp数値は文書内に記載がなく未確認。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Side sheets」のガイドライン)で、使用法・構成要素(アナトミー)・配置・適応型デザイン・行動(スクロール・予測戻るジェスチャー)・アクセシビリティの各セクションを2026-09に直接確認・反映。具体的な幅などのdp数値は文書内に記載がなく未確認。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#2F7D6E" strokeWidth="1.2" strokeDasharray="2 2" />
@@ -106,36 +106,42 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― aria-haspopup属性",
+    doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
     color: "#A3821F",
-    position: "aria-haspopup属性で、トリガー要素がどの種類のポップアップ(menu/listbox/tree/grid/dialog)を開くかを示す。背景操作を許す場合はaria-modalを設定しない(非モーダル)",
-    size: "サイドシート専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5)は閉じるボタンなどの操作要素に適用されます。",
+    position: "シート本体はdialogとして作り、ラベルとフォーカスの移動を設計する。背景を操作できないようにするときだけaria-modal=\"true\"",
+    size: "サイドシート専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用されます。",
     colorInfo: "色の基準はありませんが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターや境界線に適用され得ます。",
     glossary: [
-      { term: "aria-haspopup", desc: "要素がトリガーできるポップアップの存在と種類(menu/listbox/tree/grid/dialog)を支援技術に伝える属性。値はポップアップ側のroleと一致させる必要がある。" },
+      { term: "aria-modal", desc: "ダイアログが表示されている間、背景の内容を操作できないことを支援技術に伝える属性。背景を操作できる(非モーダルの)シートには付けない。" },
+      { term: "aria-haspopup", desc: "シートを開く側のボタンに付けて、どの種類のポップアップ(menu/listbox/tree/grid/dialog)を開くかを支援技術に伝える属性。シート本体の作り方ではない。" },
     ],
     stance:
-      "aria-haspopup属性は、要素がトリガーできるポップアップの存在と種類を支援技術に伝える属性だとしています。値はポップアップ側のroleと一致させるべきで、ARIA属性だけでは機能を提供しないため、キーボードでの起動・フォーカス管理はJavaScript側で実装する必要があるとしています。",
+      "W3Cはサイドシートという部品を定めていないため、シート本体は、APGのDialogパターンを参考にdialogとして作るのが基本です(AI解釈)。role=\"dialog\"とaria-labelledby(またはaria-label)で名前を付け、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻します。背景を操作できないようにする(モーダルの)シートだけにaria-modal=\"true\"を付けます。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)です。開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けることもできます(開く側の属性で、シート本体の作り方ではありません)。",
     scenarios: [
-      "トリガー要素がメニュー・リストボックス・ツリー・グリッド・ダイアログのどれを開くか明示したい時",
-      "背景コンテンツを操作可能なまま残したい時は、aria-modalを設定しない非モーダルとして扱う",
+      "シート本体をdialogとして作り、名前とフォーカスの移動を設計したい時",
+      "背景コンテンツを操作可能なまま残したい時は、aria-modalを付けない非モーダルとして扱う",
     ],
-    exceptions: "tooltipロールはインタラクティブではないため、aria-haspopupの対象外だとしています。",
+    exceptions: "APGの例は考え方を示すもので、そのまま本番には使わないよう注意書きがあります。ARIAの属性を付けるだけでは動きは付かないため、キーボードでの開閉・フォーカスの移動はJavaScriptで実装する必要があります。",
     accessibility:
-      "知覚可能(Perceivable)・操作可能(Operable) ― aria-haspopupの値とポップアップ側のroleを一致させること、要素をフォーカス可能にしてキーボードで開けるようにすることが求められます。",
+      "堅牢(Robust) ― 名前・役割・状態を支援技術に伝えること(4.1.2)が中心です。フォーカスの移動やキーボードでの開閉は「操作可能」(2.1.1・2.4.3)にも関わります。",
     useCases: [
-      "トリガー要素にaria-haspopupを設定し、値をポップアップ側のroleと一致させる",
-      "背景コンテンツを操作可能なままにしたい場合はaria-modalを設定しない(非モーダル)",
-      "キーボードでの起動・フォーカス管理はJavaScriptで実装する(ARIA属性だけでは動作しない)",
+      "シート本体にrole=\"dialog\"と名前(aria-labelledbyなど)を付ける",
+      "開いたらシートの中へ、閉じたら開いたボタンへフォーカスを移す",
+      "背景を操作できないモーダルのシートだけにaria-modal=\"true\"を付ける",
+      "開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けてもよい",
     ],
-    searchHint: "aria-haspopup",
-    url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup",
+    searchHint: "aria-modal",
+    url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    urlSecondary: [
+      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { label: "解説(MDN): aria-haspopup", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-haspopup</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">="dialog"</text>
+          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">+ 名前・フォーカス</text>
         </svg>
       </div>
     ),
@@ -268,7 +274,7 @@ export default function ContainmentSideSheetPage() {
               Nielsen Norman Groupの用語集は、<strong>「Popup(Popover)」「Overlay」「Side Sheet」を独立した用語として整理</strong>しており、Side Sheetは「ドロワー/サイドナビ」ページで比較したナビゲーション専用の「Drawer Menu」より広い概念(副次コンテンツ全般)だと定義しています。この整理は、Google側の「サイドシート」の位置づけを理解する助けになります。
             </p>
             <p style={styles.synthesisText}>
-              実務上の注意点として、Appleは<strong>「閉じる専用のボタンは基本的に置くべきではなく、不要になれば自動的に閉じるべき」</strong>としている一方、Googleは<strong>「閉じるアイコンボタンの設置を強く推奨する」</strong>としており、開閉フローの明確さを重視する姿勢が対照的です。W3Cの<strong>aria-haspopup</strong>は「ARIA属性だけでは機能を提供しない(キーボード操作・フォーカス管理はJavaScript側の実装が必須)」という技術的な注意点を補っています。
+              実務上の注意点として、<strong>サイドシートに当たる専用の部品はAppleにはなく</strong>、ここで並べたポップオーバーは役割が近い参考の部品です。ポップオーバーは不要になれば自動的に閉じ、閉じる専用のボタンは基本的に置かないとされる一方、Googleのサイドシートは<strong>閉じるアイコンボタンの設置を強く勧めています</strong>。部品の性質が違うため、どちらが正しいかではなく、<strong>サイドシートを作るならGoogleの勧めに沿って閉じるボタンを置く</strong>のが安全です。W3Cはサイドシートを定めていないため、シート本体は<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>のが基本です(ARIAの属性を付けるだけでは動きは付かず、キーボード操作・フォーカス管理はJavaScriptで実装します)。
             </p>
           </div>
 
@@ -376,15 +382,15 @@ export default function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleはユーザー提供の公式ドキュメントで確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。WCAGはMDNのaria-haspopup属性解説ページ、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。
+              リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。W3CはAPGのDialogパターンを主リンクに、4.1.2とMDNのaria-haspopup解説を併記、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。
             </span>
           </div>
         </div>
