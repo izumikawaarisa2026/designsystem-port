@@ -655,7 +655,7 @@ export default function TokensSoundPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Playing audioページの「Best practices」見出しへのアンカー付きリンクで、AccessibilityページのHearingとPlaying hapticsも併記しています。GoogleはM2の「Applying sound to UI」ページ(アンカーなし)と、関連するM2のページ・Androidの触覚の指針です。WCAGは1.4.2・1.4.7の各Understandingページの基準本文です。NN groupはイヤコン(言葉を使わない音)の節と、マルチメディアの指針の記事です。

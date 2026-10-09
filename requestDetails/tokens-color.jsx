@@ -74,7 +74,7 @@ const SOURCES = [
     size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成します。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられます(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラーから、HCT(Hue, Chroma, Tone)という知覚基準の色空間を使ってprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを導出し、それぞれ0(黒)〜100(白)の13段階のトーンパレットを生成。カラーロールはこのパレットから固定のトーンを割り当てる。errorロールは、ダイナミックカラーが有効な場合でも変化しない静的な色として扱われる。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineという6つのグループにまとめられた26のカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされています。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
+      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされています。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
     exceptions:
       "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意しています。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がありません。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっています。",
     accessibility:
@@ -643,7 +643,7 @@ export default function TokensColorPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Colorページの「Best practices」見出しへのアンカー付きリンクで、数値が書かれたDark Modeページの見出しも併記しています。WCAGは1.4.3 Understandingページを基本リンクとし、1.4.11・1.4.1のUnderstandingページも併記しています。GoogleはM3のColor rolesページに加え、数値を確認したGitHub上の公式ドキュメント・ソースを併記しています。NN groupはUsing Color to Enhance Your Designの記事ページです。リンク色の比較はNN groupのGuidelines for Visualizing Links、WCAGの達成方法G183、薄い文字についてはNN groupのLow-Contrast Text Is Not the Answerの記事も参照しています。

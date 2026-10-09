@@ -204,7 +204,7 @@ const CARDS = [
   },
   {
     key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
-    oneLiner: "操作完了を知らせ、自動的に消える。Undoなど1つの操作を持てる。",
+    oneLiner: "操作完了を知らせる。基本は自動で消えるが、Undoなど1つの操作を持つなら自動で消さないのが安全。",
     doText: "取り消し可能な操作の完了を知らせたい時(例: 削除しました→元に戻す)",
     dontText: "取り消し操作を持たせる必要がない、ただの通知で十分な時(→トースト)",
     icon: () => (
@@ -513,7 +513,7 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>このページは既存ページ(サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・アラート/バナー・アコーディオン)の統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>

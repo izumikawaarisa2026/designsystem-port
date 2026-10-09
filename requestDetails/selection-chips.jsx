@@ -490,12 +490,12 @@ export default function SelectionChipsPage() {
           <SizeInfographic />
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["選択・切り替え", "検索・絞り込み"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToken Fieldsページへの直接リンクです。WCAGはUnderstandingページ、NN

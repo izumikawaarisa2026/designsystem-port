@@ -84,7 +84,7 @@ const SOURCES = [
     useCases: [
       "フォーム入力などキーボード入力が必要な一連のタスクに使う(コンパクトブレークポイントのみ)",
       "閉じる際に未保存の変更があれば、基本ダイアログで破棄確認を表示する",
-      "ナビゲーションは閉じる「×」アイコンのみにする(確認操作で閉じさせない)",
+      "ナビゲーションは閉じる「×」アイコンのみにする。保存を押したら確認を挟まずに閉じ、×などで閉じようとして未保存の変更があるときだけ破棄の確認を出す",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/dialogs/guidelines",
@@ -382,7 +382,7 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはModalityページへのリンクです(検索結果による間接確認)。GoogleはDialogsページへのリンクです。WCAGは「ダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。

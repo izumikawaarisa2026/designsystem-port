@@ -434,7 +434,7 @@ export default function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。

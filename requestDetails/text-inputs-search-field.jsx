@@ -603,7 +603,7 @@ function SceneTable() {
   );
 }
 
-/* Google(M3): スタイル2種 × レイアウト2種 の組み合わせ(ユーザー提供の公式ドキュメントの図を元にした概念図) */
+/* Google(M3): スタイル2種 × レイアウト2種 の組み合わせ(M3のSearchのページの図を元にした概念図) */
 function M3SearchVariants() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const phone = (x, contained, docked, label) => {
@@ -712,7 +712,7 @@ export default function TextInputsSearchFieldPage() {
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
             <SearchFieldSwatch />
-            <p style={styles.swatchNote}>虫眼鏡アイコン+テキスト入力欄の組み合わせが、4系列に共通する基本形。</p>
+            <p style={styles.swatchNote}>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</p>
           </div>
 
           <div style={styles.synthesisBox}>
@@ -828,13 +828,13 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>使用シーンごとのコンポーネント比較</h2>
-          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れです。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較します。下の画面イメージは、4系列に共通する流れを描いた概念図です。</p>
+          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れです。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較します。下の画面イメージは、各系列の内容をもとに検索の流れを描いた概念図です(AI解釈)。</p>
           <SceneStrip />
           <SceneTable />
           <div style={styles.sceneNoteBox}>
             <div style={styles.sceneNoteTitle}>Google(M3)の補足 ― アクティブ時の見た目は「スタイル2種 × レイアウト2種」</div>
             <M3SearchVariants />
-            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されています。分割(Divided)は区切り線で分ける従来のスタイルです。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆います。図はユーザー提供の公式ドキュメントの図を元にした概念図です。</p>
+            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されています。分割(Divided)は区切り線で分ける従来のスタイルです。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆います。図はM3のSearchのページの図を元にした概念図です。</p>
           </div>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 使用シーンから見た実務の結論</div>
@@ -856,10 +856,10 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3の公式ページ本文の写しで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
+              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
             </span>
           </div>
         </div>

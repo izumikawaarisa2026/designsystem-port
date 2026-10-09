@@ -468,7 +468,7 @@ export default function TextInputsTextFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、本文はまだ直接確認できていません。

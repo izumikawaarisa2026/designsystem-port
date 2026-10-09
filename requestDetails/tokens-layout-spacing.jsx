@@ -354,7 +354,7 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Size classes」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のブレークポイント(Breakpoints)の概要ページに加え、数値を確認したAndroid Developersのページとソースを併記しています。WCAGは1.4.10 Understandingページの達成基準の箇所を基本リンクとし、2.5.8(間隔の例外の節)・1.3.1も併記しています。NN groupはProximity Principle in Visual Designの記事です。

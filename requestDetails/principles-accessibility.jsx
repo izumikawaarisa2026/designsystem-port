@@ -283,7 +283,7 @@ export default function PrinciplesAccessibilityPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Apple・WCAGは各項目に対応する実アンカーを確認済みです。Google・NN groupは、個別の見出しアンカーが確認できていないため、ページ単位のリンクに留めています。

@@ -361,7 +361,7 @@ export default function ContainmentListPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(Apple・W3C・NN group・Googleとも本文確認済み)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。W3CはWAI-ARIA仕様のlistロールを主リンクに、1.3.1・APGのListboxパターン・MDNの解説を併記しています。NN groupは動画ページ単位です。

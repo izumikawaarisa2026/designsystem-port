@@ -398,7 +398,7 @@ export default function NavigationNavBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認。「アプリバー」ページで扱うApple「Toolbars」は間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認。「アプリバー」ページで扱うApple「Toolbars」は間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTab Barsページへのリンクです(「タブ」ページと同じ一次情報)。WCAGはWAI-ARIA Landmark Regionsの実践ガイド、NN groupは記事ページ単位です。Googleは下部Navigation barの最新版(M3)公式ページへリンクしており本文は確認済みですが、高さなどのspecs数値はまだ確認できていません。上部アプリバーおよびAppleのToolbarsページへのリンクは「アプリバー」ページに記載しています。

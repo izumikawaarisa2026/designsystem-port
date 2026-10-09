@@ -322,7 +322,7 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。

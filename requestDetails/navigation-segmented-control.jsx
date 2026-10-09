@@ -365,7 +365,7 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのセグメント幅などのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのセグメント幅などのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSegmented Controls本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Radio Group / Tabsパターン)、NN groupは関連記事(チェックボックス vs ラジオボタン)です。Googleは最新版(M3)の公式ページ(Segmented buttons)へリンクしており本文は確認済みですが、specsページ本文(セグメント幅などのdp数値)はまだ確認できていません。後継の「接続ボタングループ」へのリンクも併記しています。

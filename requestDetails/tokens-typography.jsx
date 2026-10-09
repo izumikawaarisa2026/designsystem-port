@@ -604,7 +604,7 @@ export default function TokensTypographyPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のソース・ドキュメントで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のソース・ドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Typographyページの該当見出しへのアンカー付きリンクです。WCAGは1.4.12 Understandingページの達成基準の箇所を基本リンクとし、1.4.4・1.4.8も併記しています。GoogleはM3のType scale tokensページに加え、数値を確認したGitHub上の公式ソースを併記しています。NN groupはLegibility, Readability, and Comprehensionの記事を基本リンクとし、書体の調査記事と2002年の文字サイズの記事を併記しています。
