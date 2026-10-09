@@ -471,7 +471,7 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。

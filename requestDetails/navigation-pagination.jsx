@@ -387,7 +387,7 @@ export default function NavigationPaginationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。

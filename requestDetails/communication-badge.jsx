@@ -409,7 +409,7 @@ export default function CommunicationBadgePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページ(補助的にTab Barsページ)、GoogleはM3のBadgesページ、WCAGはARIA14解説ページ(補助的に4.1.2解説ページ、いずれもバッジ専用の一次文書ではない一般的な技法・達成基準)、NN groupはUI Elements Glossaryの記事(「Badge」項目)へのリンクです。

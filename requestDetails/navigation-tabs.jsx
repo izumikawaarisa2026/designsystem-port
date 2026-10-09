@@ -365,7 +365,7 @@ export default function NavigationTabsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTab Bars本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Tabs)へリンクしており本文は確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。

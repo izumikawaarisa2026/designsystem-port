@@ -35,7 +35,7 @@ const COMPARE_ROWS = [
 const EXAMPLES = [
   { good: true, label: "タブが適切な例", text: "ニュースアプリの「おすすめ/フォロー中/話題」のように、それぞれ別のコンテンツ一覧に切り替わる場合" },
   { good: false, label: "セグメントが適切な例", text: "地図アプリの「マップ/交通機関/航空写真」のように、同じ地図データの見え方だけが変わる場合" },
-  { good: true, label: "タブが適切な例", text: "設定画面の「アカウント/通知/プライバシー」のように、それぞれ独立したページに移動する場合" },
+  { good: true, label: "タブが適切な例", text: "設定画面の「アカウント/通知/プライバシー」のように、内容のまとまり(別のセクション)を同じページの中で切り替える場合" },
   { good: false, label: "セグメントが適切な例", text: "並べ替えの「新着順/人気順」のように、同じ一覧の表示順だけが変わる場合" },
 ];
 
@@ -318,7 +318,7 @@ export default function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
             <span>このページは主に「タブ」「セグメントコントロール」両ページの内容を統合した独自の整理です。Nielsen Norman Groupの用語定義のみ新規に直接確認して追加しました。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>

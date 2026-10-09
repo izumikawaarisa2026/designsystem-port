@@ -932,7 +932,7 @@ export default function TokensMotionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・トークン定義で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・トークン定義で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Motionページの「Best practices」見出しへのアンカー付きリンクで、Reduce Motionを扱うAccessibilityページの「Cognitive」見出しも併記しています。GoogleはM3のトークンのページに加え、数値を確認したGitHub上の公式ドキュメント・トークン定義を併記しています。WCAGは2.3.3・2.2.2・2.3.1の各Understandingページの基準本文です。NN groupは時間の目安の節と、繰り返しの頻度の節です。

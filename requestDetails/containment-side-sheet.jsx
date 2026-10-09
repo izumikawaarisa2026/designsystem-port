@@ -387,7 +387,7 @@ export default function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。W3CはAPGのDialogパターンを主リンクに、4.1.2とMDNのaria-haspopup解説を併記、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。

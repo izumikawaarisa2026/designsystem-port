@@ -934,10 +934,10 @@ function ActionsButtonPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の数値の詳しい比較は「入力方法・ジェスチャー」ページも参照してください。
+              状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の間隔(2.5.8の直径24pxの円)の図は「レイアウト・スペーシング」ページも参照してください。
             </span>
           </div>
         </div>
@@ -1314,7 +1314,7 @@ function ActionsFabPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleのサイズ・アイコンの大きさは、2026-10にMDC Androidのドキュメントで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleのサイズ・アイコンの大きさは、2026-10にMDC Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはButtonsページ内のvisionOSセクションへのアンカー付きリンクです。WCAGはボタンページと同一のUnderstandingページ。NN
@@ -1709,12 +1709,12 @@ function ActionsLinkPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Appleは「Writing」ページ内のBest practicesセクションへのアンカー付きリンクです。WCAGは達成基準ごとのUnderstandingページ(いずれもページ単位で、これ以上細かいアンカーはありません)。NN
@@ -1953,11 +1953,11 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)",
     color: "#7A4F7E",
-    position: "「アクション必須」通知に位置づけられる、ユーザーの対応を必要とする永続的な通知(数値基準ではなく分類による指針)",
+    position: "通知を「アクション必須」と「パッシブ」に分ける分類で、対応の必要性を判断する指針(数値基準ではない)",
     size: "数値基準は明言していません。",
     colorInfo: "色についての数値基準はありません。",
     stance:
-      "通知全般を「アクション必須(Action-required)」と「パッシブ(Passive)」の2種類に分類しており、本ページで比較するアラート/バナーは、ユーザーが対応する(または明示的に閉じる)まで残り続ける点で、パッシブ通知に分類される「スナックバー」「トースト」の各ページの対象とは異なり、アクション必須通知に近い性質を持つとしています。アクション必須通知は、ユーザーがタスクを進めるために対応が必要な情報を伝えるものだとしています。",
+      "通知全般を「アクション必須(Action-required)」と「パッシブ(Passive)」の2種類に分類しており、この分類は「利用者の対応が必要か」の軸で、表示がどれだけ続くかとは別の軸です。画面に残り続けるアラート/バナーでも、必ず対応が必要とは限らず、対応が必要なものだけがアクション必須通知に当たります(AI解釈。「情報伝達の使い分け」ページと同じ整理)。アクション必須通知は、ユーザーがタスクを進めるために対応が必要な情報を伝えるものだとしています。",
     exceptions:
       "アクション必須通知は、パッシブ通知と異なり見落とされることを許容できないため、消えずに残り続ける・視覚的に目立つ、といった設計が必要になるとしています。一方で頻度が高すぎたり不必要に使われたりすると、ユーザーの信頼を損なうとも指摘しています。",
     scenarios: [
@@ -1980,7 +1980,7 @@ const SOURCES = [
         <text x="140" y="22" fontSize="7.5" fontWeight="700" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">更新</text>
       </svg>
     ),
-    illustrationNote: "アクション必須通知としてのアラート/バナー(概念図・系列識別色)",
+    illustrationNote: "対応を求めるアラート/バナーの例(概念図・系列識別色)",
   },
 ];
 
@@ -2111,7 +2111,7 @@ function CommunicationAlertPage() {
               最大の発見は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます(未確定。検索結果による確認の段階で、公式の記述は確認できていません)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>に当てはめると、本ページのアラート/バナーは前者、「スナックバー」「トースト」の各ページの対象は後者に位置づけられます。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
+              Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸です。対応を求めるアラート/バナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たります。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限りません</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
             </p>
             <p style={styles.synthesisText}>
               Appleには、この「ユーザーが閉じるまで残り続けるインライン通知」に厳密に対応する専用コンポーネントが見当たりません。「スナックバー」「トースト」の各ページのApple欄と同じ「バナー通知」を参考として挙げていますが、これは自動的に消える点で本ページの対象とは性質が異なり、正確な対応物がないという結論になります。
@@ -2247,7 +2247,7 @@ function CommunicationAlertPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認。Googleは旧Banner非推奨の可能性も検索で確認。重要度別4分類のセクションは、いずれのソースも「4分類」自体は公式に定義していないため、各系列の対応状況を検索結果ベースで注記)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認。Googleは旧Banner非推奨の可能性も検索で確認。重要度別4分類のセクションは、いずれのソースも「4分類」自体は公式に定義していないため、各系列の対応状況を検索結果ベースで注記)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。
@@ -2741,7 +2741,7 @@ function CommunicationBadgePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページ(補助的にTab Barsページ)、GoogleはM3のBadgesページ、WCAGはARIA14解説ページ(補助的に4.1.2解説ページ、いずれもバッジ専用の一次文書ではない一般的な技法・達成基準)、NN groupはUI Elements Glossaryの記事(「Badge」項目)へのリンクです。
@@ -3229,7 +3229,7 @@ function CommunicationEmptyStatePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはLoadingページ(補助的にWritingページ)、GoogleはM3のLoading indicatorページ(補助的にM1のEmpty statesページ、現行M3ではない参考情報)、W3CはWAI-ARIA仕様のaria-busy(4.1.3とMDNの解説を併記)、NN groupは空状態記事(補助的にSkeleton Screens 101記事)へのリンクです。
@@ -3510,7 +3510,7 @@ const CARDS = [
   },
   {
     key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
-    oneLiner: "操作完了を知らせ、自動的に消える。Undoなど1つの操作を持てる。",
+    oneLiner: "操作完了を知らせる。基本は自動で消えるが、Undoなど1つの操作を持つなら自動で消さないのが安全。",
     doText: "取り消し可能な操作の完了を知らせたい時(例: 削除しました→元に戻す)",
     dontText: "取り消し操作を持たせる必要がない、ただの通知で十分な時(→トースト)",
     icon: () => (
@@ -3819,7 +3819,7 @@ function CommunicationOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>このページは既存ページ(サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・アラート/バナー・アコーディオン)の統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>
@@ -4222,7 +4222,7 @@ function CommunicationProgressPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはProgress indicatorsページ(補助的にLoadingページ)、GoogleはM3のProgress indicatorsページ(補助的に新設のLoading indicatorページ)、W3CはWAI-ARIA仕様のprogressbarロール(4.1.3とMDNの解説を併記)、NN groupは「Progress Indicators Make a Slow System Less Insufferable」記事へのリンクです。
@@ -4667,12 +4667,12 @@ function CommunicationSnackbarPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["通知・状態表示", "エラー・確認"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・Googleは本文確認済み。W3CはMDN解説記事による確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・Googleは本文確認済み。W3Cは2026-10にWCAG 4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
@@ -5127,7 +5127,7 @@ function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
@@ -5670,7 +5670,7 @@ function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。
@@ -6701,7 +6701,7 @@ function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
@@ -7135,7 +7135,7 @@ function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSheetsページへのリンクです。GoogleはBottom sheetsページへのリンクです。WCAGはWAI-ARIA Dialog (Modal) Patternのページ、NN groupは記事ページ単位です。
@@ -7297,7 +7297,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#EAF3F1" />
       </svg>
     ),
-    illustrationNote: "影で背景から分離するElevated cardの例(概念図・系列識別色)",
+    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図・系列識別色)",
   },
   {
     key: "wcag",
@@ -7547,7 +7547,7 @@ function ContainmentCardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはBoxesページ(「カード」に完全一致する専用コンポーネントは見当たらないため近似概念)、GoogleはCardsページへのリンクです。WCAGはWAI-ARIA仕様のarticleロール定義、NN groupは記事ページ単位です。
@@ -8764,7 +8764,7 @@ function ContainmentDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはAlertsページ、GoogleはDialogsページへのリンクです。WCAGはWAI-ARIA APGのDialog(Modal)パターン、NN groupは記事ページ単位です。
@@ -8923,7 +8923,7 @@ const SOURCES = [
     useCases: [
       "フォーム入力などキーボード入力が必要な一連のタスクに使う(コンパクトブレークポイントのみ)",
       "閉じる際に未保存の変更があれば、基本ダイアログで破棄確認を表示する",
-      "ナビゲーションは閉じる「×」アイコンのみにする(確認操作で閉じさせない)",
+      "ナビゲーションは閉じる「×」アイコンのみにする。保存を押したら確認を挟まずに閉じ、×などで閉じようとして未保存の変更があるときだけ破棄の確認を出す",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/dialogs/guidelines",
@@ -9217,7 +9217,7 @@ function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはModalityページへのリンクです(検索結果による間接確認)。GoogleはDialogsページへのリンクです。WCAGは「ダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
@@ -9650,7 +9650,7 @@ function ContainmentListPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(Apple・W3C・NN group・Googleとも本文確認済み)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。W3CはWAI-ARIA仕様のlistロールを主リンクに、1.3.1・APGのListboxパターン・MDNの解説を併記しています。NN groupは動画ページ単位です。
@@ -10108,7 +10108,7 @@ function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。W3CはAPGのDialogパターンを主リンクに、4.1.2とMDNのaria-haspopup解説を併記、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。
@@ -10838,13 +10838,13 @@ const TAG_INDEX = [
   {"group": "トークン / インタラクション", "label": "キーボードナビゲーション", "path": "/tokens/keyboard-navigation", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "ナビゲーション"]},
   {"group": "Actions", "label": "ボタン", "path": "/components/actions/button", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "フローティングアクションボタン", "path": "/components/actions/fab", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
-  {"group": "Actions", "label": "リンク", "path": "/components/actions/link", "principles": ["知覚可能(POUR)", "理解可能(POUR)"], "processes": ["ナビゲーション"]},
+  {"group": "Actions", "label": "リンク", "path": "/components/actions/link", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Selection", "label": "Selectionの選び方", "path": "/components/selection/overview", "principles": [], "processes": ["設計の原則・使い分け", "選択・切り替え"]},
   {"group": "Selection", "label": "チェックボックス", "path": "/components/selection/checkbox", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "ラジオボタン", "path": "/components/selection/radio", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "トグルスイッチ", "path": "/components/selection/toggle", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "スライダー", "path": "/components/selection/slider", "principles": ["操作可能(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
-  {"group": "Selection", "label": "チップ(Chips)", "path": "/components/selection/chips", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "検索・絞り込み"]},
+  {"group": "Selection", "label": "チップ(Chips)", "path": "/components/selection/chips", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "検索・絞り込み"]},
   {"group": "Selection", "label": "セレクト(プルダウン)", "path": "/components/selection/select", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
@@ -10872,7 +10872,7 @@ const TAG_INDEX = [
   {"group": "Containment", "label": "カルーセル", "path": "/components/containment/carousel", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "見つけやすさ・初めての案内"]},
   {"group": "Containment", "label": "アコーディオン(表示コントロール)", "path": "/components/containment/accordion", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["情報の整理・一覧", "段階的に見せる"]},
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
-  {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
+  {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
@@ -11888,7 +11888,7 @@ function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
@@ -12293,7 +12293,7 @@ function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。
@@ -12744,7 +12744,7 @@ function NavigationDrawerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleとも本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleとも本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSidebarsページへのリンクです。WCAGはWAI-ARIA Authoring Practices(Dialog Modalパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Navigation drawer)へリンクしており本文は確認済みですが、ドロワー幅などのspecs数値はまだ確認できていません。関連コンポーネント「Navigation rail」へのリンクも併記しています。
@@ -13213,7 +13213,7 @@ function NavigationNavBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認。「アプリバー」ページで扱うApple「Toolbars」は間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認。「アプリバー」ページで扱うApple「Toolbars」は間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTab Barsページへのリンクです(「タブ」ページと同じ一次情報)。WCAGはWAI-ARIA Landmark Regionsの実践ガイド、NN groupは記事ページ単位です。Googleは下部Navigation barの最新版(M3)公式ページへリンクしており本文は確認済みですが、高さなどのspecs数値はまだ確認できていません。上部アプリバーおよびAppleのToolbarsページへのリンクは「アプリバー」ページに記載しています。
@@ -13676,7 +13676,7 @@ function NavigationPaginationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。
@@ -14118,7 +14118,7 @@ function NavigationSegmentedControlPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのセグメント幅などのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのセグメント幅などのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSegmented Controls本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Radio Group / Tabsパターン)、NN groupは関連記事(チェックボックス vs ラジオボタン)です。Googleは最新版(M3)の公式ページ(Segmented buttons)へリンクしており本文は確認済みですが、specsページ本文(セグメント幅などのdp数値)はまだ確認できていません。後継の「接続ボタングループ」へのリンクも併記しています。
@@ -14228,7 +14228,7 @@ const COMPARE_ROWS = [
 const EXAMPLES = [
   { good: true, label: "タブが適切な例", text: "ニュースアプリの「おすすめ/フォロー中/話題」のように、それぞれ別のコンテンツ一覧に切り替わる場合" },
   { good: false, label: "セグメントが適切な例", text: "地図アプリの「マップ/交通機関/航空写真」のように、同じ地図データの見え方だけが変わる場合" },
-  { good: true, label: "タブが適切な例", text: "設定画面の「アカウント/通知/プライバシー」のように、それぞれ独立したページに移動する場合" },
+  { good: true, label: "タブが適切な例", text: "設定画面の「アカウント/通知/プライバシー」のように、内容のまとまり(別のセクション)を同じページの中で切り替える場合" },
   { good: false, label: "セグメントが適切な例", text: "並べ替えの「新着順/人気順」のように、同じ一覧の表示順だけが変わる場合" },
 ];
 
@@ -14511,7 +14511,7 @@ function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
             <span>このページは主に「タブ」「セグメントコントロール」両ページの内容を統合した独自の整理です。Nielsen Norman Groupの用語定義のみ新規に直接確認して追加しました。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>
@@ -14931,7 +14931,7 @@ function NavigationTabsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTab Bars本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Tabs)へリンクしており本文は確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。
@@ -15282,7 +15282,7 @@ function PrinciplesAccessibilityPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Apple・WCAGは各項目に対応する実アンカーを確認済みです。Google・NN groupは、個別の見出しアンカーが確認できていないため、ページ単位のリンクに留めています。
@@ -15669,7 +15669,7 @@ function PrinciplesComparisonPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Apple HIG・W3C WCAG・NN groupは各原則に対応する実アンカーを確認済みです。Googleは第1世代(m1.material.io)・第3世代(design.google)は公式ページの本文を確認済み、第2世代のみ報道ベースの情報を含みます(詳細は該当箇所に記載)。
@@ -16134,7 +16134,7 @@ function SelectionCheckboxPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToggleページ内のCheckboxesセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN
@@ -16698,12 +16698,12 @@ function SelectionChipsPage() {
           <SizeInfographic />
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
             {["選択・切り替え", "検索・絞り込み"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToken Fieldsページへの直接リンクです。WCAGはUnderstandingページ、NN
@@ -16852,7 +16852,7 @@ const SOURCES = [
       { label: "Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/pickers#Best-practices" },
       { label: "macOS(テキスト形式/グラフィカル形式)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS" },
     ],
-    confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-09)。ホイールの具体的なpt数値のみ、HIGの内容を再構成した第三者リファレンス経由の情報です。",
+    confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-09)。",
     illustration: () => (
       <svg width="90" height="46" viewBox="0 0 90 46">
         <rect x="1" y="1" width="88" height="44" rx="4" fill="#F8F9FD" stroke="#E1E3F0" strokeWidth="1" />
@@ -17432,7 +17432,7 @@ function SelectionDateTimePickerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認、「生年月日にはモーダルを使わない」の指針のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認、「生年月日にはモーダルを使わない」の指針のみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPickersページの「iOS, iPadOS」見出しへのアンカー付きリンクで、Best practices・macOSの見出しも併記しています。WCAGはWAI-ARIA APGのDate Picker Dialog実例、NN groupは記事ページ単位です。GoogleはDate pickersの最新版(M3)公式ページに加え、Time pickersと、内容を確認したMaterial Components for Androidのドキュメントを併記しています。
@@ -18864,7 +18864,7 @@ function SelectionRadioPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTogglesページ内のRadio buttonsセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(見た目サイズの数値など)はまだ確認できていません。
@@ -19087,7 +19087,7 @@ function SelectionSelectPatternsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(ドラムロール/ホイールピッカーはApple公式ページ本文を直接確認。リストボックス・コンボボックスはWAI-ARIA公式仕様を確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(ドラムロール/ホイールピッカーはApple公式ページ本文を直接確認。リストボックス・コンボボックスはWAI-ARIA公式仕様を確認)</span>
             <span>このページは4系列横断の比較表ではなく、代表的なパターンをまとめたギャラリー的な補助ページです。プルダウンの4系列比較は「セレクト(プルダウン)」ページを参照してください。</span>
           </div>
         </div>
@@ -19190,7 +19190,7 @@ const SOURCES = [
       { term: "単一選択メニュー / 複数選択メニュー", desc: "メニューは単一選択・複数選択のどちらにも対応する。単一選択メニューは新しい項目を選ぶと以前の選択が自動的に解除されるのに対し、複数選択メニューは複数の項目を選択したままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。" },
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開けます。Exposed dropdown menu(「スピナー」「コンボボックス」とも呼ばれる)は、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしています。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されています。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されますが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられます。",
+      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開けます。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしています。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されています。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されますが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられます。",
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしています。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしています(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
@@ -19507,7 +19507,7 @@ function SelectionSelectPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPop-up buttons本体へのリンクです。W3CはAPGのComboboxパターン(実装の参考)を主リンクに、Select-Only Comboboxの例・Listboxパターン・WCAGの各Understandingページを併記、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Menus)へリンクしており、本文は確認済みですが、specsページ本文(dp数値など)はまだ確認できていません。
@@ -20139,7 +20139,7 @@ function SelectionSliderPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSlidersページ本体へのリンクです(セクション単位の実アンカーは未確認)。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(各サイズのdp数値など)はまだ確認できていません。
@@ -20626,7 +20626,7 @@ function SelectionTogglePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTogglesページ内のSwitchesセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(見た目サイズの数値など)はまだ確認できていません。
@@ -21098,7 +21098,7 @@ function TextInputsCalendarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleはカレンダーグリッドの挙動について検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleはカレンダーグリッドの挙動について検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIDatePickerStyle.inlineの技術文書、GoogleはDate pickersページ(「日付・タイムピッカー」ページと同一URL)へのリンクです。WCAGはWAI-ARIA APGのGrid (Interactive Tabular Data) Patternのページ、NN groupは「日付・タイムピッカー」ページと同じ記事です。
@@ -21791,7 +21791,7 @@ function TextInputsInputValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはText fieldsページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
@@ -22492,7 +22492,7 @@ function SceneTable() {
   );
 }
 
-/* Google(M3): スタイル2種 × レイアウト2種 の組み合わせ(ユーザー提供の公式ドキュメントの図を元にした概念図) */
+/* Google(M3): スタイル2種 × レイアウト2種 の組み合わせ(M3のSearchのページの図を元にした概念図) */
 function M3SearchVariants() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const phone = (x, contained, docked, label) => {
@@ -22597,7 +22597,7 @@ function TextInputsSearchFieldPage() {
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
             <SearchFieldSwatch />
-            <p style={styles.swatchNote}>虫眼鏡アイコン+テキスト入力欄の組み合わせが、4系列に共通する基本形。</p>
+            <p style={styles.swatchNote}>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</p>
           </div>
 
           <div style={styles.synthesisBox}>
@@ -22713,13 +22713,13 @@ function TextInputsSearchFieldPage() {
           </div>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>使用シーンごとのコンポーネント比較</h2>
-          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れです。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較します。下の画面イメージは、4系列に共通する流れを描いた概念図です。</p>
+          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れです。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較します。下の画面イメージは、各系列の内容をもとに検索の流れを描いた概念図です(AI解釈)。</p>
           <SceneStrip />
           <SceneTable />
           <div style={styles.sceneNoteBox}>
             <div style={styles.sceneNoteTitle}>Google(M3)の補足 ― アクティブ時の見た目は「スタイル2種 × レイアウト2種」</div>
             <M3SearchVariants />
-            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されています。分割(Divided)は区切り線で分ける従来のスタイルです。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆います。図はユーザー提供の公式ドキュメントの図を元にした概念図です。</p>
+            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されています。分割(Divided)は区切り線で分ける従来のスタイルです。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆います。図はM3のSearchのページの図を元にした概念図です。</p>
           </div>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 使用シーンから見た実務の結論</div>
@@ -22741,10 +22741,10 @@ function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3の公式ページ本文の写しで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
+              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
             </span>
           </div>
         </div>
@@ -23295,7 +23295,7 @@ function TextInputsTextFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、本文はまだ直接確認できていません。
@@ -23735,7 +23735,7 @@ function TextInputsValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはText fieldsページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。Googleは最新版(M3)のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
@@ -24501,7 +24501,7 @@ const SOURCES = [
     size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成します。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられます(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラーから、HCT(Hue, Chroma, Tone)という知覚基準の色空間を使ってprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを導出し、それぞれ0(黒)〜100(白)の13段階のトーンパレットを生成。カラーロールはこのパレットから固定のトーンを割り当てる。errorロールは、ダイナミックカラーが有効な場合でも変化しない静的な色として扱われる。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineという6つのグループにまとめられた26のカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされています。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
+      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされています。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
     exceptions:
       "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意しています。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がありません。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっています。",
     accessibility:
@@ -25066,7 +25066,7 @@ function TokensColorPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Colorページの「Best practices」見出しへのアンカー付きリンクで、数値が書かれたDark Modeページの見出しも併記しています。WCAGは1.4.3 Understandingページを基本リンクとし、1.4.11・1.4.1のUnderstandingページも併記しています。GoogleはM3のColor rolesページに加え、数値を確認したGitHub上の公式ドキュメント・ソースを併記しています。NN groupはUsing Color to Enhance Your Designの記事ページです。リンク色の比較はNN groupのGuidelines for Visualizing Links、WCAGの達成方法G183、薄い文字についてはNN groupのLow-Contrast Text Is Not the Answerの記事も参照しています。
@@ -26743,7 +26743,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
-    position: "意味を持つアイコンには代替テキストを(レベルA)、アイコンのみの操作要素には programmatic な名前を(レベルA)、UI部品として機能するアイコンには3:1のコントラストを(レベルAA)要求する3つの基準",
+    position: "意味を持つアイコンには代替テキストを(レベルA)、アイコンのみの操作要素には programmatic な名前を(レベルA)、UI部品として機能するアイコンには3:1のコントラストを(レベルAA)要求する、などの主な基準",
     size: "アイコン専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアイコンをタップ領域として使う場合に適用されます。",
     colorInfo: "1.4.11により、UIコンポーネントの識別に必要な視覚情報(境界線・フォーカス表示・選択状態など)、および情報伝達に必要なグラフィックの一部(アイコン・図表の線など)は、隣接色に対して3:1以上のコントラスト比を確保しなければならないとしています(無効化された要素は除外)。ロゴ・旗・写真など、特定の見た目自体が意味を持つ場合は例外です。",
     glossary: [
@@ -27153,7 +27153,7 @@ function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。
@@ -27884,7 +27884,7 @@ const SOURCES = [
       "無効(inactive)な部品は、コントラストの要件の対象外です。ブラウザ標準の見た目を作者が変更していない部品も対象外です。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAAです。",
     accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」に属します。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められます。",
     useCases: [
-      "選択・オン/オフの見た目の違いを、3:1以上にする",
+      "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
       "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
       "aria-pressed・aria-expandedなどで、状態を支援技術に伝える",
     ],
@@ -28317,7 +28317,7 @@ function TokensInteractionStatesPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Focus and selectionページの「Best practices」見出しへのアンカー付きリンクで、Buttons(押した状態)・tvOSの5状態・iPadOSのポインタ効果の各見出しも併記しています。GoogleはM3のState layersページに加え、M2のStatesページと、数値を確認したGitHub上のトークン定義を併記しています。WCAGは1.4.11・2.4.13・4.1.2の各Understandingページの基準本文です。NN groupはボタンの状態の解説の節と、読み込み中・選択の節です。
@@ -29321,7 +29321,7 @@ function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Size classes」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のブレークポイント(Breakpoints)の概要ページに加え、数値を確認したAndroid Developersのページとソースを併記しています。WCAGは1.4.10 Understandingページの達成基準の箇所を基本リンクとし、2.5.8(間隔の例外の節)・1.3.1も併記しています。NN groupはProximity Principle in Visual Designの記事です。
@@ -30322,7 +30322,7 @@ function TokensMotionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・トークン定義で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・トークン定義で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Motionページの「Best practices」見出しへのアンカー付きリンクで、Reduce Motionを扱うAccessibilityページの「Cognitive」見出しも併記しています。GoogleはM3のトークンのページに加え、数値を確認したGitHub上の公式ドキュメント・トークン定義を併記しています。WCAGは2.3.3・2.2.2・2.3.1の各Understandingページの基準本文です。NN groupは時間の目安の節と、繰り返しの頻度の節です。
@@ -30885,7 +30885,7 @@ function TokensOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧ページへのリンクです。
@@ -32354,7 +32354,7 @@ function TokensSoundPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Playing audioページの「Best practices」見出しへのアンカー付きリンクで、AccessibilityページのHearingとPlaying hapticsも併記しています。GoogleはM2の「Applying sound to UI」ページ(アンカーなし)と、関連するM2のページ・Androidの触覚の指針です。WCAGは1.4.2・1.4.7の各Understandingページの基準本文です。NN groupはイヤコン(言葉を使わない音)の節と、マルチメディアの指針の記事です。
@@ -33070,7 +33070,7 @@ function TokensTypographyPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のソース・ドキュメントで確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のソース・ドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Typographyページの該当見出しへのアンカー付きリンクです。WCAGは1.4.12 Understandingページの達成基準の箇所を基本リンクとし、1.4.4・1.4.8も併記しています。GoogleはM3のType scale tokensページに加え、数値を確認したGitHub上の公式ソースを併記しています。NN groupはLegibility, Readability, and Comprehensionの記事を基本リンクとし、書体の調査記事と2002年の文字サイズの記事を併記しています。

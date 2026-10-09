@@ -325,7 +325,7 @@ export default function PrinciplesComparisonPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Apple HIG・W3C WCAG・NN groupは各原則に対応する実アンカーを確認済みです。Googleは第1世代(m1.material.io)・第3世代(design.google)は公式ページの本文を確認済み、第2世代のみ報道ベースの情報を含みます(詳細は該当箇所に記載)。

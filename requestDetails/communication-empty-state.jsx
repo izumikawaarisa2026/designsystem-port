@@ -415,7 +415,7 @@ export default function CommunicationEmptyStatePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはLoadingページ(補助的にWritingページ)、GoogleはM3のLoading indicatorページ(補助的にM1のEmpty statesページ、現行M3ではない参考情報)、W3CはWAI-ARIA仕様のaria-busy(4.1.3とMDNの解説を併記)、NN groupは空状態記事(補助的にSkeleton Screens 101記事)へのリンクです。

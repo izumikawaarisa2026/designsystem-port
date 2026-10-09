@@ -437,7 +437,7 @@ export default function TokensOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧ページへのリンクです。

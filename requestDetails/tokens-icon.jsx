@@ -102,7 +102,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
-    position: "意味を持つアイコンには代替テキストを(レベルA)、アイコンのみの操作要素には programmatic な名前を(レベルA)、UI部品として機能するアイコンには3:1のコントラストを(レベルAA)要求する3つの基準",
+    position: "意味を持つアイコンには代替テキストを(レベルA)、アイコンのみの操作要素には programmatic な名前を(レベルA)、UI部品として機能するアイコンには3:1のコントラストを(レベルAA)要求する、などの主な基準",
     size: "アイコン専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアイコンをタップ領域として使う場合に適用されます。",
     colorInfo: "1.4.11により、UIコンポーネントの識別に必要な視覚情報(境界線・フォーカス表示・選択状態など)、および情報伝達に必要なグラフィックの一部(アイコン・図表の線など)は、隣接色に対して3:1以上のコントラスト比を確保しなければならないとしています(無効化された要素は除外)。ロゴ・旗・写真など、特定の見た目自体が意味を持つ場合は例外です。",
     glossary: [
@@ -516,7 +516,7 @@ export default function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。

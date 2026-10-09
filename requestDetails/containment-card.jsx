@@ -87,7 +87,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#EAF3F1" />
       </svg>
     ),
-    illustrationNote: "影で背景から分離するElevated cardの例(概念図・系列識別色)",
+    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図・系列識別色)",
   },
   {
     key: "wcag",
@@ -341,7 +341,7 @@ export default function ContainmentCardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはBoxesページ(「カード」に完全一致する専用コンポーネントは見当たらないため近似概念)、GoogleはCardsページへのリンクです。WCAGはWAI-ARIA仕様のarticleロール定義、NN groupは記事ページ単位です。

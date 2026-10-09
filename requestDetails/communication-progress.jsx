@@ -393,7 +393,7 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはProgress indicatorsページ(補助的にLoadingページ)、GoogleはM3のProgress indicatorsページ(補助的に新設のLoading indicatorページ)、W3CはWAI-ARIA仕様のprogressbarロール(4.1.3とMDNの解説を併記)、NN groupは「Progress Indicators Make a Slow System Less Insufferable」記事へのリンクです。
