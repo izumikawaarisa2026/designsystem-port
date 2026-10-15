@@ -15,3 +15,6 @@ requestDetails/_m3-research-notes.md
 
 # レビューの作業ファイル(管理はGoogleドライブのスプレッドシートで行う)
 reviews/inbox/
+
+# 会話ログ(公式サイトの文章の写しやメールアドレスを含むため、公開リポジトリには上げない。手元のみ)
+logs/

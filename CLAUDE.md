@@ -4,6 +4,10 @@
 
 @requestDetails/CLAUDE.md
 
+## 再開時に最初に読むもの(2026-10-15 休止前に追記)
+
+再開時はまず HANDOVER.md と REVIEW.md を読むこと。REVIEW.md の修正メモをもとに全ページの修正を行う予定。過去の経緯は logs/ を参照すること(logs/ は公式の文章の写しを含むため手元のみに置き、GitHubには上げていない)。
+
 ## このリポジトリでの作業ルール
 
 - ページを修正したら、必ず `python3 preview-build/build_preview.py` を実行して `docs/index.html`(通常版)と `docs/pages/`(静的版)を作り直し、ソースと一緒にコミットする。どちらも手で編集しない。静的版の書き出しにはGoogle Chromeが必要。
