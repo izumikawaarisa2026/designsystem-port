@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -44,7 +45,7 @@ const SOURCES = [
     stance:
       "独立した「Link」コンポーネントはない。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。",
     exceptions: "「Text button」はあくまでボタン(操作)の一種であり、文中に埋め込む本来のハイパーリンクとは位置づけが異なる。この点を踏まえ、厳密な意味での「リンク」の独立ガイダンスは見当たらない、という理解が正確。",
-    pourDetail: "―(リンク単体を対象にしたアクセシビリティ言及は確認できていない)",
+    pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
     urlSecondary: [{ label: "参考: M1 Buttons(Text buttonの由来)", url: "https://m1.material.io/components/buttons.html" }],
@@ -66,7 +67,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
-      "2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求めます。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本です。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められます。",
+      "2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。",
     exceptions:
       "2.4.4は、リンクの文言だけで、または同じ文・段落などの文脈と合わせて目的が分かればよい。例外は、ページ上の情報だけでは誰にとっても目的が分からないリンク(その場合は求められない)。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が必要になる(テクニックG183)。いちばん確実なのは下線を付けること。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」の中のナビゲーションに関する達成基準として分類される。 3.2.4は「理解可能」の予測可能性(3.2)に分類される。",
@@ -167,6 +168,14 @@ function CriteriaMark({ cell }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すと別のページや同じページの別の場所へ移動する、文字の部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "移動先を文字で示し、押すとそこへ移動させる" },
+  { k: "よく使われる場面", v: "本文中の参照先、ヘッダー・フッターのページ一覧、「詳しくはこちら」の案内" },
+  { k: "似た部品との違い", v: <>その場で処理を実行する(保存・送信など)なら<PageLink to="/components/actions/button">ボタン</PageLink>。リンクは「移動」に使う</> },
+];
+
 export default function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -192,16 +201,20 @@ export default function ActionsLinkPage() {
           </div>
 
           <h1 style={styles.title}>リンク</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、リンクの「見分けやすさ」と「文言」に何を求めているかを比較する</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ"
+            image={<><LinkSwatch /></>}
+            imageNote={<>色+下線(濃い青=未訪問)と、彩度を落とした色(訪問済み)の組み合わせ例。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ</span>
-            <LinkSwatch />
-            <p style={styles.swatchNote}>色+下線(濃い青=未訪問)と、彩度を落とした色(訪問済み)の組み合わせ例。</p>
-          </div>
 
+
+          {/* mobile: unified card stack (position + criteria + stance + exceptions + a11y + links, all in one card) */}
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               リンクには、ボタンのような<strong>数値の基準がありません</strong>。代わりにApple・WCAG・NN groupは、「色だけに頼らず見分けられるか」と「文言だけで目的が伝わるか」という2つの観点で考え方を示しています。
             </p>
@@ -212,8 +225,6 @@ export default function ActionsLinkPage() {
               実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点です。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要です(G183)。Nielsen Norman Groupも2026年の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足しています。
             </p>
           </div>
-
-          {/* mobile: unified card stack (position + criteria + stance + exceptions + a11y + links, all in one card) */}
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -223,8 +234,8 @@ export default function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
@@ -267,7 +278,6 @@ export default function ActionsLinkPage() {
 
           {/* desktop: single unified matrix (position + criteria + stance + exceptions + a11y + links) */}
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -277,16 +287,16 @@ export default function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>リンクのイメージ</div>
+                {SOURCES.map((s) => (
+                  <div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>
+                ))}
 
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>
                 ))}
 
-                <div style={styles.labelCell}>リンクのイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>
-                ))}
 
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (
@@ -295,7 +305,7 @@ export default function ActionsLinkPage() {
 
                 <div style={styles.labelCell}>例外・許容ケース</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>
                 ))}
 
                 {CRITERIA_ROWS.map((row) => (
@@ -352,7 +362,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -368,7 +378,7 @@ const styles = {
   criteriaCell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, display: "flex", alignItems: "center" },
   criteriaHeaderCell: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 12.5, background: "#F8F9FD" },
   criteriaLabelCell: { color: "#2E3457", lineHeight: 1.5 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -388,7 +398,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -398,7 +408,7 @@ const styles = {
   exceptionCell: { background: "#F8F9FD" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

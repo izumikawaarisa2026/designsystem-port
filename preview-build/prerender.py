@@ -127,7 +127,9 @@ def main():
         body, _ = mark_duplicate_views(body)
         h1 = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S)
         title = re.sub(r"<[^>]+>", "", h1.group(1)).strip() if h1 else label
-        sub = re.search(r"<h1[^>]*>.*?</h1>\s*<p[^>]*>(.*?)</p>", body, re.S)
+        # ページの説明: サマリーの1文(class="dsp-lead")、なければタイトル直後の段落
+        sub = (re.search(r'<p[^>]*class="dsp-lead"[^>]*>(.*?)</p>', body, re.S)
+               or re.search(r"<h1[^>]*>.*?</h1>\s*<p[^>]*>(.*?)</p>", body, re.S))
         desc = html.unescape(re.sub(r"<[^>]+>", "", sub.group(1))).strip() if sub else ""
         full_title = title if title == "DesignSystem Port" else title + " | DesignSystem Port"
         interactive = SITE + ("" if path == "/" else "#" + path)

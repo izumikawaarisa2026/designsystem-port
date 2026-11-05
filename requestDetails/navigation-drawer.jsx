@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ドロワー/サイドナビ」ページ(旧カテゴリ: Navigation)。
@@ -37,13 +38,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Sidebars(iPadOS/macOS)",
     color: "#C2542A",
     position: "常時表示・折りたたみ可能な、アプリの主要領域へのナビゲーション(iPadOS/macOS向け。iOS向けの「ドロワー」概念は見当たらない)",
-    size: "具体的な幅などの数値は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。macOSでは選択中の項目のハイライトに角丸のスタイルを使うとしています。",
+    size: "具体的な幅などの数値は確認できていない。",
+    colorInfo: <span><NoData>記載なし。</NoData>macOSでは選択中の項目のハイライトに角丸のスタイルを使うとしている。</span>,
     stance:
-      "サイドバーは、アプリ内のナビゲーションを可能にし、アプリの主要な領域・コレクションへの素早いアクセスを提供するもので、ほぼ常にスプリットビューの1次(プライマリ)ペインに表示されるとしています。サイドバーで項目を選ぶと、2次(セカンダリ)ペインにその項目の詳細が表示されます。iPadOSではタブバーの代わりにサイドバーの使用を検討すべきとしており、多くの項目を表示できるためナビゲーションを効率化できるとしています。項目のカスタマイズや、サイドバー自体を隠してコンテンツ領域を広げる操作も許可すべきとしています。macOSでは、サイドバー(ソースリストとも呼ばれる)はウィンドウの全高に及ぶとしています。",
+      "サイドバーは、アプリ内のナビゲーションを可能にし、アプリの主要な領域・コレクションへの素早いアクセスを提供するもので、ほぼ常にスプリットビューの1次(プライマリ)ペインに表示されるとしている。サイドバーで項目を選ぶと、2次(セカンダリ)ペインにその項目の詳細が表示される。iPadOSではタブバーの代わりにサイドバーの使用を検討すべきとしており、多くの項目を表示できるためナビゲーションを効率化できるとしている。項目のカスタマイズや、サイドバー自体を隠してコンテンツ領域を広げる操作も許可すべきとしている。macOSでは、サイドバー(ソースリストとも呼ばれる)はウィンドウの全高に及ぶとしている。",
     exceptions:
-      "iOS(iPhone)向けの明確なサイドバー/ドロワーガイダンスは見当たりません。AppleのHIGは、いわゆる「ハンバーガーメニュー」型の隠れたドロワーそのものを積極的に推奨しておらず、iPadOS/macOSでは常時表示または折りたたみ可能な、モーダルではない永続的なサイドバーという形を基本としています。",
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
+      "iOS(iPhone)向けの明確なサイドバー/ドロワーガイダンスは見当たらない。AppleのHIGは、いわゆる「ハンバーガーメニュー」型の隠れたドロワーそのものを積極的に推奨しておらず、iPadOS/macOSでは常時表示または折りたたみ可能な、モーダルではない永続的なサイドバーという形を基本としている。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "iPad/Macで、多くの項目を持つ主要なナビゲーションに使う",
       "iPadOSではタブバーの代わりに検討する",
@@ -71,19 +72,19 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "5つ以上の主要な行き先、または2階層を超える場合に使う。Standard(常時表示)とModal(一時表示)の2種類",
     size:
-      "コンパクト/中サイズのブレークポイントではModal(またはNavigation bar/レールへの置き換え)、拡張/大/特大のブレークポイントではStandardを使うとしています。Web上では画面幅が320 CSSピクセル未満の場合、アクセシビリティ確保のためドロワーをNavigation barに置き換えるべきとしています。ドロワー自体の幅の具体的なdp数値は確認できていません。",
+      "コンパクト/中サイズのブレークポイントではModal(またはNavigation bar/レールへの置き換え)、拡張/大/特大のブレークポイントではStandardを使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、アクセシビリティ確保のためドロワーをNavigation barに置き換えるべきとしている。ドロワー自体の幅の具体的なdp数値は確認できていない。",
     colorInfo:
-      "色の値はデザイントークンを通して実装されます。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしています。具体的なカラートークン名は確認できていません。",
+      <span>色の値はデザイントークンを通して実装される。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしている。<NoData>カラートークンは未確認。</NoData></span>,
     glossary: [
       { term: "Standard / Modal(ドロワー)", desc: "Standardは拡張/大/特大のブレークポイント向けの常時表示(または開閉可能な)ドロワー。Modalはコンパクト/中サイズのブレークポイント向けで、スクリムで背後のコンテンツとの操作を遮断し、画面のレイアウトグリッドには影響を与えない、一時的なドロワー。" },
       { term: "アクティブインジケーター", desc: "現在表示中のページを示す背景図形。選択された行き先には塗りつぶしアイコン、非選択には枠線アイコンを使うことで視覚的に区別する。" },
     ],
     stance:
-      "ナビゲーションドロワーは、大型デバイスでUIビューを切り替えるためのコンポーネントで、目的の画面やアプリの機能(アカウント切り替えなど)へのアクセスを提供します。常時表示することも、ナビゲーションメニューアイコンで開閉することもできるとしています。常に1つの行き先がアクティブになっているとしています。最も頻繁に訪れる行き先を上位に表示し、関連する行き先はグループ化すべきとしています。5つ以上の主要な行き先、2階層を超えるナビゲーション階層、関連性のない行き先間を素早く移動したい場合、または大型画面でのナビゲーションレール/ナビゲーションバーの置き換えとして推奨されるとしています。",
+      "ナビゲーションドロワーは、大型デバイスでUIビューを切り替えるためのコンポーネントで、目的の画面やアプリの機能(アカウント切り替えなど)へのアクセスを提供する。常時表示することも、ナビゲーションメニューアイコンで開閉することもできるとしている。常に1つの行き先がアクティブになっているとしている。最も頻繁に訪れる行き先を上位に表示し、関連する行き先はグループ化すべきとしている。5つ以上の主要な行き先、2階層を超えるナビゲーション階層、関連性のない行き先間を素早く移動したい場合、または大型画面でのナビゲーションレール/ナビゲーションバーの置き換えとして推奨されるとしている。",
     exceptions:
-      "ナビゲーションドロワーは、ナビゲーションバーなど他の主要なナビゲーションコンポーネントと併用すべきではなく、製品要件とブレークポイントに応じて単一のナビゲーションコンポーネントを選ぶべきとしています(コンパクト→Navigation bar、中/拡張→Navigation rail、拡張/大/特大→Standardドロワー)。アイコンは全ての行き先に適用するか、全く適用しないかのどちらかにすべきで、一部の行き先にだけ適用するのは避けるべきとしています。",
+      "ナビゲーションドロワーは、ナビゲーションバーなど他の主要なナビゲーションコンポーネントと併用すべきではなく、製品要件とブレークポイントに応じて単一のナビゲーションコンポーネントを選ぶべきとしている(コンパクト→Navigation bar、中/拡張→Navigation rail、拡張/大/特大→Standardドロワー)。アイコンは全ての行き先に適用するか、全く適用しないかのどちらかにすべきで、一部の行き先にだけ適用するのは避けるべきとしている。",
     accessibility:
-      "操作可能(Operable) ― ナビゲーション項目のアクセシビリティラベルは通常、行き先名と同じで、UIテキストが正しくリンクされていれば支援技術がUIテキストに続けて役割を読み上げるとしています。Android Views(MDC-Android)では、より詳細なアクセシビリティラベルの設定や役割の読み上げに対応していないとしています。表示テキストが曖昧な場合(例:「最近使用した項目」)は、アクセシビリティラベルに補足情報を加えるべきとしています。",
+      "操作可能(Operable) ― ナビゲーション項目のアクセシビリティラベルは通常、行き先名と同じで、UIテキストが正しくリンクされていれば支援技術がUIテキストに続けて役割を読み上げるとしている。Android Views(MDC-Android)では、より詳細なアクセシビリティラベルの設定や役割の読み上げに対応していないとしている。表示テキストが曖昧な場合(例:「最近使用した項目」)は、アクセシビリティラベルに補足情報を加えるべきとしている。",
     useCases: [
       "5つ以上の主要な行き先、または2階層を超えるナビゲーション階層を持つ製品で使う",
       "コンパクト/中サイズはModal、拡張/大/特大サイズはStandardを使う(他のナビゲーションコンポーネントと併用しない)",
@@ -114,18 +115,18 @@ const SOURCES = [
     color: "#A3821F",
     position: "「ドロワー」専用のARIAパターンは存在せず、モーダルか常時表示かで適用すべきパターンが変わる",
     size:
-      "ドロワー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
+      "ドロワー専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、閉じるボタンや選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、閉じるボタンや選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出てくるナビゲーションを、毎回同じ相対的な順番で並べることを求める基準。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "背後の操作を完全に遮断するモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが適切とされています。role=\"dialog\"を持ち、Tab/Shift+Tabでドロワー外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにし、aria-labelledbyまたはaria-labelでラベル付けし、閲覧可能な閉じるボタン(role=\"button\")を持つべきとしています。aria-modal=\"true\"は、背後のコンテンツへの操作を完全に遮断し、視覚的にも覆っている場合にのみ設定すべきとしています。一方、Appleのサイドバーのような常時表示・非モーダルな実装であれば、Dialogパターンではなくnavigationランドマークとして扱うのが適切と考えられます。ドロワーの中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ相対的な順番で並べる必要があります(利用者が自分で並びを変えた場合を除く)。",
+      "背後の操作を完全に遮断するモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが適切とされている。role=\"dialog\"を持ち、Tab/Shift+Tabでドロワー外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにし、aria-labelledbyまたはaria-labelでラベル付けし、閲覧可能な閉じるボタン(role=\"button\")を持つべきとしている。aria-modal=\"true\"は、背後のコンテンツへの操作を完全に遮断し、視覚的にも覆っている場合にのみ設定すべきとしている。一方、Appleのサイドバーのような常時表示・非モーダルな実装であれば、Dialogパターンではなくnavigationランドマークとして扱うのが適切と考えられる。ドロワーの中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ相対的な順番で並べる必要がある(利用者が自分で並びを変えた場合を除く)。",
     exceptions:
-      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしています。",
+      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしている。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合はランドマークとしての識別が関わります。3.2.3は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合はランドマークとしての識別が関わる。3.2.3は「理解可能(Understandable)」の予測可能性(3.2)に関わる。",
     useCases: [
       "モーダル(背後を遮断する)ドロワーにはDialog(Modal)パターンを使う",
       "常時表示の非モーダルなサイドバーにはnavigationランドマークを使う",
@@ -155,13 +156,13 @@ const SOURCES = [
     doc: "Hamburger Menus and Hidden Navigation Hurt UX Metrics",
     color: "#7A4F7E",
     position: "隠れたナビゲーション(ドロワー)は発見性・作業速度・満足度の指標を悪化させるという、調査データに基づく指針",
-    size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしています。5個以上(4個を超える)の場合はやむを得ず隠す形になりますが、その場合も重要な情報へのページ内リンクを併設すべきとしています。",
-    colorInfo: "色についての数値基準はありません。",
+    size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしている。5個以上(4個を超える)の場合はやむを得ず隠す形になるが、その場合も重要な情報へのページ内リンクを併設すべきとしている。",
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "調査によれば、メインナビゲーションを隠すとコンテンツの発見性はほぼ半分に低下し、デスクトップでは作業時間が39%以上、モバイルでは15%遅くなるとしています。隠れたナビゲーションは常時表示・併用型と比べて21%難しいと感じられ、実際の利用率も低い(デスクトップで27% vs 常時表示/併用型の48〜50%)としています。原因として、アイコンの視認性の低さ・中身が予測できないこと・展開の手間・実装の不統一・パターンとしての不慣れさの5点を挙げています。",
+      "調査によれば、メインナビゲーションを隠すとコンテンツの発見性はほぼ半分に低下し、デスクトップでは作業時間が39%以上、モバイルでは15%遅くなるとしている。隠れたナビゲーションは常時表示・併用型と比べて21%難しいと感じられ、実際の利用率も低い(デスクトップで27% vs 常時表示/併用型の48〜50%)としている。原因として、アイコンの視認性の低さ・中身が予測できないこと・展開の手間・実装の不統一・パターンとしての不慣れさの5点を挙げている。",
     exceptions:
-      "デスクトップのUIでは、ハンバーガーアイコンのような隠れたナビゲーションを使うべきではないとし、主要な選択肢は常に見える形で表示すべきとしています。モバイルでは項目が4個以下なら見える形にすべきですが、4個を超える場合はやむを得ず隠す形も許容され、その際は重要な情報へのページ内リンクを補うべきとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の利用データ(発見性・作業時間・満足度)に基づく調査結果です。",
+      "デスクトップのUIでは、ハンバーガーアイコンのような隠れたナビゲーションを使うべきではないとし、主要な選択肢は常に見える形で表示すべきとしている。モバイルでは項目が4個以下なら見える形にすべきが、4個を超える場合はやむを得ず隠す形も許容され、その際は重要な情報へのページ内リンクを補うべきとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の利用データ(発見性・作業時間・満足度)に基づく調査結果。",
     useCases: [
       "デスクトップでは隠れたナビゲーションを避け、主要な選択肢を常に見える形にする",
       "モバイルで項目が4個以下なら見える形にする",
@@ -203,7 +204,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -226,6 +227,14 @@ function DrawerSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の横に、アプリの行き先の一覧を出すナビゲーションです。";
+const ABOUT = [
+  { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて移動できるようにする" },
+  { k: "よく使われる場面", v: "メールアプリのフォルダ一覧、管理画面の左のメニュー" },
+  { k: "似た部品との違い", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+];
 
 export default function NavigationDrawerPage() {
   return (
@@ -252,7 +261,13 @@ export default function NavigationDrawerPage() {
           </div>
 
           <h1 style={styles.title}>ドロワー/サイドナビ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、画面の脇に現れるナビゲーションをどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ(常時表示型の例)"
+            image={<><DrawerSwatch /></>}
+            imageNote={<>画面の脇に、主要なナビゲーション項目を並べた領域。常時表示する形と、一時的に開閉するモーダル形の2系統がある。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-10、Google/Material Design 3)</div>
@@ -261,14 +276,11 @@ export default function NavigationDrawerPage() {
             </p>
           </div>
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(常時表示型の例)</span>
-            <DrawerSwatch />
-            <p style={styles.swatchNote}>画面の脇に、主要なナビゲーション項目を並べた領域。常時表示する形と、一時的に開閉するモーダル形の2系統がある。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面では常に表示し、狭い画面で項目が多いときだけ隠す</strong>ことです。Nielsen Norman Groupはモバイルでも、トップレベルのリンクが4個以下なら見える形で表示するよう勧めています。
             </p>
@@ -282,10 +294,9 @@ export default function NavigationDrawerPage() {
               W3Cは、<strong>「ドロワー」という単一のARIAパターンを持たず、モーダルか常時表示かで適用すべきパターンが変わる</strong>としています。Googleの「Modal(コンパクト/中サイズ)/Standard(拡張/大/特大)」という2区分は、この「モーダルか常時表示か」というアクセシビリティ上の分岐とほぼ対応しており、実装判断の軸として実務上参考になります。
             </p>
             <p style={styles.synthesisText}>
-              Googleの扱いについての経緯: 以前、このページに「Navigation drawerはM3で非推奨」と書き、その後M3の公式ページ本文(Expressive以前の版と考えられる)に現役のガイドラインがあったため「誤りだった」と訂正しました。しかし、<strong>Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)には、ナビゲーションドロワーはM3 Expressiveで非推奨になりつつあり、代わりに展開ナビゲーションレールを使う、と書かれています</strong>。そのため、M3の本文にある使い分け(拡張/大/特大のブレークポイントではStandard、コンパクト/中サイズではModal)は残しつつ、ページ冒頭の注記のとおり、新しく作る場合は展開ナビゲーションレールを検討してください(「ナビゲーションバー」ページの代替案(モーダル展開ナビゲーションレール)とも一致します)。
+              <strong>Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)には、ナビゲーションドロワーはM3 Expressiveで非推奨になりつつあり、代わりに展開ナビゲーションレールを使う、と書かれています</strong>。そのため、M3の本文にある使い分け(拡張/大/特大のブレークポイントではStandard、コンパクト/中サイズではModal)は残しつつ、ページ冒頭の注記のとおり、新しく作る場合は展開ナビゲーションレールを検討してください(「ナビゲーションバー」ページの代替案(モーダル展開ナビゲーションレール)とも一致します)。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -295,13 +306,13 @@ export default function NavigationDrawerPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -328,7 +339,6 @@ export default function NavigationDrawerPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -338,8 +348,6 @@ export default function NavigationDrawerPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -347,14 +355,16 @@ export default function NavigationDrawerPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -369,8 +379,8 @@ export default function NavigationDrawerPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -397,7 +407,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -406,7 +416,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -431,7 +441,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -442,7 +452,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },

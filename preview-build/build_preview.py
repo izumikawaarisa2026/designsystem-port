@@ -34,13 +34,23 @@ if os.path.exists(os.path.join(SRC, "cross-view.jsx")):
     from gen_tag_index import write_index
     write_index(SRC)
 
+def convert_parts(fname, src):
+    """共通部品のファイル(page-parts.jsx)。export した名前を、全ページから使えるようにする"""
+    names = re.findall(r"^export (?:function|const) (\w+)", src, flags=re.M)
+    src = re.sub(r'^import .*?;\s*$', "", src, flags=re.M)
+    src = re.sub(r"^export (function|const) ", r"\1 ", src, flags=re.M)
+    exported = ", ".join(names)
+    return f"/* ================= {fname} ================= */\nconst {{ {exported} }} = (function () {{\n{src}\nreturn {{ {exported} }};\n}})();\n"
+
+SHARED = {"sidebar-nav.jsx", "page-parts.jsx"}
 files = sorted(f for f in os.listdir(SRC) if f.endswith(".jsx") and f not in SKIP)
 blocks, comp_of_path = [], {}
 sidebar_src = open(os.path.join(SRC, "sidebar-nav.jsx"), encoding="utf8").read()
 _, sb = convert("sidebar-nav.jsx", sidebar_src)
 blocks.append(sb)
+blocks.append(convert_parts("page-parts.jsx", open(os.path.join(SRC, "page-parts.jsx"), encoding="utf8").read()))
 for f in files:
-    if f == "sidebar-nav.jsx":
+    if f in SHARED:
         continue
     s = open(os.path.join(SRC, f), encoding="utf8").read()
     name, b = convert(f, s)

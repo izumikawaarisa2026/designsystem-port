@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / パンくずリスト」ページ。
@@ -34,7 +35,7 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たりません。iOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられます(検索による間接確認、2026-09)。近い部品として、macOSには「Path controls」があります。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えません。HIGのページを2026-10に確認)。",
+    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられる(検索による間接確認、2026-09)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
   },
   {
     key: "material",
@@ -50,7 +51,7 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Breadcrumbs」という名称の専用コンポーネントページは見当たりません(検索による間接確認。m3.material.ioはSPAのため断定はできません、2026-09)。",
+    confirmedNote: "※「Breadcrumbs」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。",
     pending: true,
   },
   {
@@ -59,17 +60,17 @@ const SOURCES = [
     doc: "WAI-ARIA Breadcrumbパターン",
     color: "#A3821F",
     position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
-    size: "パンくず専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用されます。",
-    colorInfo: "パンくず専用の色基準はありません。リンクの文字には1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかります。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外です。",
+    size: "パンくず専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用される。",
+    colorInfo: "パンくず専用の色基準はない。リンクの文字には1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
     glossary: [
       { term: "aria-current", desc: "一連の項目の中で「現在の項目」を示すARIA属性。パンくずリストでは、現在のページへのリンクに aria-current=\"page\" を付ける。現在のページがリンクでない場合、この属性は任意とされる。" },
     ],
     stance:
-      "パンくずリストは、現在ページの親ページへのリンクを階層順に並べたリストと定義されています。ナビゲーションのランドマーク領域(nav要素、aria-labelまたはaria-labelledbyでラベル付け)として実装し、リンクの並びは順序リスト(ol)で構成すべきとしています。多くの場合、ページ本文の直前に水平に配置されます。",
+      "パンくずリストは、現在ページの親ページへのリンクを階層順に並べたリストと定義されている。ナビゲーションのランドマーク領域(nav要素、aria-labelまたはaria-labelledbyでラベル付け)として実装し、リンクの並びは順序リスト(ol)で構成すべきとしている。多くの場合、ページ本文の直前に水平に配置される。",
     exceptions:
-      "APGは、現在のページをリンクにする作りも、リンクにしない作りも認めています(リンクにするならaria-current=\"page\"を付け、リンクでなければaria-currentは任意)。現在のページをリンクにしないのは、NN groupの推奨です。キーボード操作が「適用なし(Not applicable)」とされているのは、パンくずリストが普通のリンクの並びで、特別なキー操作がいらないためです。",
+      "APGは、現在のページをリンクにする作りも、リンクにしない作りも認めている(リンクにするならaria-current=\"page\"を付け、リンクでなければaria-currentは任意)。現在のページをリンクにしないのは、NN groupの推奨。キーボード操作が「適用なし(Not applicable)」とされているのは、パンくずリストが普通のリンクの並びで、特別なキー操作がいらないため。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― nav要素によるランドマーク(支援技術がページ内を移動しやすくする)、aria-current=\"page\"による現在位置の明示が中心です。区切り記号(> や / など)は装飾であり、支援技術に読み上げさせる必要がない点にも注意が必要です。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― nav要素によるランドマーク(支援技術がページ内を移動しやすくする)、aria-current=\"page\"による現在位置の明示が中心。区切り記号(> や / など)は装飾であり、支援技術に読み上げさせる必要がない点にも注意が必要。",
     useCases: [
       "nav要素(aria-label付き)でパンくずリスト全体を囲む",
       "リンクの並びを順序リスト(ol)で構成する",
@@ -93,14 +94,14 @@ const SOURCES = [
     doc: "Breadcrumbs: 11 Design Guidelines for Desktop and Mobile",
     color: "#7A4F7E",
     position: "グローバルナビ・ローカルナビを補完する補助的な要素(数値基準ではなく使い分けの指針)",
-    size: "数値基準としては、モバイルのタップ領域について一般的な目安(約1×1cm)に言及していますが、パンくず専用の数値ではありません。",
-    colorInfo: "色についての数値基準はありません。区切り記号は「>」を推奨していますが、「/」との間に機能的な違いはないとしています。",
+    size: "数値基準としては、モバイルのタップ領域について一般的な目安(約1×1cm)に言及しているが、パンくず専用の数値ではない。",
+    colorInfo: <span><NoData>数値基準なし。</NoData>区切り記号は「&gt;」を推奨しているが、「/」との間に機能的な違いはないとしている。</span>,
     stance:
-      "パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしています。最も重要な原則は、ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべきという点です。",
+      "パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしている。最も重要な原則は、ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべきという点。",
     exceptions:
-      "1〜2階層しかない「浅い」サイト構造ではパンくずリストは不要としています。複数の親を持つページ(ポリヒエラルキー)では、1つの代表的な経路だけを示すべきとしています。モバイルでは複数行に折り返してはならず、タップ領域が小さすぎたり項目が密集しすぎたりしないよう注意すべきとしています。画面が狭い場合は末尾の階層だけを表示する短縮も検討できますが、これは「常にホームページへのリンクから始めるべき」という原則とは緊張関係にある点に注意が必要です。",
+      "1〜2階層しかない「浅い」サイト構造ではパンくずリストは不要としている。複数の親を持つページ(ポリヒエラルキー)では、1つの代表的な経路だけを示すべきとしている。モバイルでは複数行に折り返してはならず、タップ領域が小さすぎたり項目が密集しすぎたりしないよう注意すべきとしている。画面が狭い場合は末尾の階層だけを表示する短縮も検討できるが、これは「常にホームページへのリンクから始めるべき」という原則とは緊張関係にある点に注意が必要。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、サイト構造の理解を助けるという使い分けの指針です。ただしモバイルでのタップ領域(約1×1cm)は、他のコンポーネントと共通するアクセシビリティ上の目安として関わります。",
+      "根拠となる原則 ― POURのような適合区分ではなく、サイト構造の理解を助けるという使い分けの指針。ただしモバイルでのタップ領域(約1×1cm)は、他のコンポーネントと共通するアクセシビリティ上の目安として関わる。",
     useCases: [
       "ユーザーの履歴ではなく、サイトの階層構造を表示する(位置ベース、履歴ベースにしない)",
       "現在ページは最後の項目として表示し、リンクにはしない",
@@ -142,7 +143,7 @@ function UseCaseList({ items, muted }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -167,6 +168,14 @@ function BreadcrumbSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びです。";
+const ABOUT = [
+  { k: "目的・役割", v: "今の場所を示し、上の階層へ1回で戻れるようにする" },
+  { k: "よく使われる場面", v: "ネットショップの「ホーム > 家電 > 冷蔵庫」、ヘルプサイトの記事の上部" },
+  { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>。パンくずは補助の案内</> },
+];
 
 export default function NavigationBreadcrumbPage() {
   return (
@@ -193,18 +202,20 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <h1 style={styles.title}>パンくずリスト</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、サイト階層内の現在位置を示す補助的なナビゲーションをどう扱っているかを比較します</p>
+          <SummaryCard
+            image={<><BreadcrumbSwatch /></>}
+            imageNote={<>現在ページの親ページへのリンクを階層順に並べる。この例では、NN groupの推奨どおり現在ページ(最後の項目)をリンクにしていない。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <BreadcrumbSwatch />
-            <p style={styles.swatchNote}>現在ページの親ページへのリンクを階層順に並べる。この例では、NN groupの推奨どおり現在ページ(最後の項目)をリンクにしていない。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              パンくずリストは、4系列のうち<strong>実質的にW3C(WAI-ARIA)とNielsen Norman Groupの2系列だけが専用の内容を持つ</strong>、やや特殊なコンポーネントです。Appleは「パンくずリスト」という名称の専用ガイドラインページを持たず、階層は<strong>戻るボタンによるナビゲーションスタック</strong>で扱うのが基本という設計思想と考えられます。Googleも、検索した限りでは専用コンポーネントページが見当たりませんでした(ただしSPAのため断定はできず、pending扱いとしています)。
+              パンくずリストは、4系列のうち<strong>実質的にW3C(WAI-ARIA)とNielsen Norman Groupの2系列だけが専用の内容を持つ</strong>、やや特殊なコンポーネントです。Appleは「パンくずリスト」という名称の専用ガイドラインページを持たず、階層は<strong>戻るボタンによるナビゲーションスタック</strong>で扱うのが基本という設計思想と考えられます。Googleにも、専用のコンポーネントページは見当たりません。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
@@ -213,7 +224,6 @@ export default function NavigationBreadcrumbPage() {
               W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せません。画面幅に応じてどちらを優先するかは、実装側の判断が必要になります。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -223,13 +233,13 @@ export default function NavigationBreadcrumbPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
@@ -258,7 +268,6 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -268,8 +277,6 @@ export default function NavigationBreadcrumbPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -277,14 +284,16 @@ export default function NavigationBreadcrumbPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -310,8 +319,8 @@ export default function NavigationBreadcrumbPage() {
                     )}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -338,7 +347,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -347,7 +356,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -374,7 +383,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -385,7 +394,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

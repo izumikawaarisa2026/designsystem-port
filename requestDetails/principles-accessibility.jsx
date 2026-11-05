@@ -132,7 +132,7 @@ export default function PrinciplesAccessibilityPage() {
           <p style={styles.subtitle}>4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なります。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義しています。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っています。
             </p>

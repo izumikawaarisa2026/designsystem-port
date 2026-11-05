@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / トグルスイッチ」ページ。
@@ -22,15 +23,15 @@ const SOURCES = [
     color: "#C2542A",
     position: "チェックボックスより視覚的な重みが大きい、単一設定のオン・オフ用ネイティブコントロール",
     size:
-      "数値によるサイズ規定は見当たりません。ネイティブコントロールとしてシステムが自動的に描画します。行の高さを他のコントロールと揃えたい場合は「ミニスイッチ」という小型バリエーションも案内していますが、具体的な数値は示されていません。",
+      <span><NoData>数値基準なし。</NoData>ネイティブコントロールとしてシステムが自動的に描画する。行の高さを他のコントロールと揃えたい場合は「ミニスイッチ」という小型バリエーションも案内しているが、具体的な数値は示されていない。</span>,
     colorInfo:
-      "オン・オフの状態を、トラックの塗りの有無とつまみの位置の違いで示すことを基本にしています。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていません。",
+      "オン・オフの状態を、トラックの塗りの有無とつまみの位置の違いで示すことを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。",
     stance:
-      "以下はmacOSでの使い分けです。iOS/iPadOSでは、スイッチはリストの行の中でだけ使うとしています(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしています。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしています。",
+      "以下はmacOSでの使い分け。iOS/iPadOSでは、スイッチはリストの行の中でだけ使うとしている(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしている。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしている。",
     exceptions:
-      "グループ化されたフォーム内では、行の高さを他のコントロールと揃えるために「ミニスイッチ」を使うことも案内しています。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではないとしています(macOSの節)。",
+      "グループ化されたフォーム内では、行の高さを他のコントロールと揃えるために「ミニスイッチ」を使うことも案内している。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではないとしている(macOSの節)。",
     accessibility:
-      "理解可能(Understandable) ― オン・オフの状態を見た目で正確に伝えるべきという点は、理解可能性に関わります。標準のスイッチコントロールを使えば、支援技術に状態が自動的に伝わります。",
+      "理解可能(Understandable) ― オン・オフの状態を見た目で正確に伝えるべきという点は、理解可能性に関わる。標準のスイッチコントロールを使えば、支援技術に状態が自動的に伝わる。",
     useCases: [
       "単一の設定項目のオン・オフを即座に切り替える",
       "チェックボックスより大きな機能範囲を制御する場面",
@@ -57,19 +58,19 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定を即座にオン/オフするための推奨コントロール(月額/年額のような相反する2つの選択肢の切り替えには使わない)",
     size:
-      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしています(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしています。トラック・つまみの見た目サイズ(dp単位)はこのテキストに含まれておらず未確認です。",
+      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしている(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。トラック・つまみの見た目サイズ(dp単位)はこのテキストに含まれておらず未確認。",
     colorInfo:
-      "色の値はカラーロールに対応するデザイントークンを通じて実装されます。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしています。",
+      "色の値はカラーロールに対応するデザイントークンを通じて実装される。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしている。",
     glossary: [
       { term: "デザイントークン", desc: "色・サイズ・角丸などの具体的な値に、意味のある名前を付けて管理する仕組み。実際の値(例: #3A4FCF)を各所に直接書く代わりに「primary」のような名前を参照させることで、値を1箇所変更するだけで全体に反映できる。" },
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられています。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は保存操作なしに即座に反映されるべきとしています。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしています。",
+      "設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられている。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は保存操作なしに即座に反映されるべきとしている。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしている。",
     exceptions:
-      "スイッチは、ほかの設定と独立した1つの設定のオン/オフを制御するためのもので、月額/年額のような相反する2つの選択肢を切り替えるためのものではないとしています。リスト表示/マップ表示の切り替えのように、複数の選択肢から1つだけを選ぶ場面では、スイッチではなく接続されたボタングループを使うべきとしています。またスイッチはボタンの代替にはならず(人はボタンに行動喚起を期待する)、保存操作を要する複数選択にスイッチを使うことも避けるべきで、その場合はチェックボックスを使うべきとしています。",
+      "スイッチは、ほかの設定と独立した1つの設定のオン/オフを制御するためのもので、月額/年額のような相反する2つの選択肢を切り替えるためのものではないとしている。リスト表示/マップ表示の切り替えのように、複数の選択肢から1つだけを選ぶ場面では、スイッチではなく接続されたボタングループを使うべきとしている。またスイッチはボタンの代替にはならず(人はボタンに行動喚起を期待する)、保存操作を要する複数選択にスイッチを使うことも避けるべきで、その場合はチェックボックスを使うべきとしている。",
     accessibility:
-      "操作可能(Operable) ― キーボードまたはスイッチ入力で移動・切り替えできるべきとしています。ハンドルは操作時にサイズが変化してフィードバックを与えます(タッチ時の拡大、カーソルホバー時のホバー領域拡大など)。ラベルテキストをスイッチ本体に直接載せることは避け(文字が小さくなりすぎるため)、意味の明確なアイコンを使うべきとしています。",
+      "操作可能(Operable) ― キーボードまたはスイッチ入力で移動・切り替えできるべきとしている。ハンドルは操作時にサイズが変化してフィードバックを与える(タッチ時の拡大、カーソルホバー時のホバー領域拡大など)。ラベルテキストをスイッチ本体に直接載せることは避け(文字が小さくなりすぎるため)、意味の明確なアイコンを使うべきとしている。",
     useCases: [
       "単一項目のオン/オフを即座に切り替える(保存操作なし)",
       "ほかと独立した1つの設定のオン/オフを調整する",
@@ -94,19 +95,19 @@ const SOURCES = [
     color: "#A3821F",
     position: "形状を問わず状態を支援技術に正しく伝えることを要求",
     size:
-      "スイッチ専用のサイズ規定はありませんが、WCAG 2.2の一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページを参照)。",
+      "スイッチ専用のサイズ規定はないが、WCAG 2.2の一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページを参照)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界・状態は、周囲との間で3:1以上のコントラスト比を確保すべきとしています。1.4.1により、色だけで状態(オン・オフ)を示すことも避けるべきです。",
+      "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界・状態は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1により、色だけで状態(オン・オフ)を示すことも避けるべき。",
     glossary: [
       { term: "3.2.2 On Input・レベルA", desc: "部品の設定(選択・チェック・入力)を変えただけで、事前の説明なしに文脈の変化を起こさないことを求める基準。リンクやボタンを押すことは「設定の変更」ではない。" },
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしています。見た目上はボタンやチェックボックスと異なりますが、WCAGは形状を問わず同じ基準を適用します。スイッチの切り替えは「設定の変更」にあたるため、3.2.2(レベルA)により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要があります。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではありません。",
+      "スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしている。見た目上はボタンやチェックボックスと異なるが、WCAGは形状を問わず同じ基準を適用する。スイッチの切り替えは「設定の変更」にあたるため、3.2.2(レベルA)により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要がある。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではない。",
     exceptions:
-      "HTMLには広く使える標準のスイッチ部品がないため、Webのスイッチの多くは独自の実装になります。その場合は、role=\"switch\"とaria-checkedなどで、スイッチであることと状態(オン・オフ)を支援技術に伝える必要があります。",
+      "HTMLには広く使える標準のスイッチ部品がないため、Webのスイッチの多くは独自の実装になる。その場合は、role=\"switch\"とaria-checkedなどで、スイッチであることと状態(オン・オフ)を支援技術に伝える必要がある。",
     accessibility:
-      "堅牢(Robust) ― POUR原則のうち「堅牢」に対応する、互換性(4.1)の達成基準です。加えて操作可能(Operable)の観点からターゲットサイズ(2.5)、知覚可能(Perceivable)の観点から非テキストのコントラスト(1.4.11)も関わります。3.2.2は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
+      "堅牢(Robust) ― POUR原則のうち「堅牢」に対応する、互換性(4.1)の達成基準。加えて操作可能(Operable)の観点からターゲットサイズ(2.5)、知覚可能(Perceivable)の観点から非テキストのコントラスト(1.4.11)も関わる。3.2.2は「理解可能(Understandable)」の予測可能性(3.2)に関わる。",
     useCases: [
       "ARIAのswitchロールなどで支援技術にスイッチであることを伝える",
       "状態(オン・オフ)がプログラム的に伝わるようにする",
@@ -136,15 +137,15 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "オンとオフの2状態+即時反映が前提の場面に限定使用",
     size:
-      "数値基準は明言していません。ただし即時反映という挙動そのものが、ユーザーが誤操作にすぐ気づき、元に戻しやすいUXの前提になっているとしています。",
+      <span><NoData>数値基準なし。</NoData>ただし即時反映という挙動そのものが、ユーザーが誤操作にすぐ気づき、元に戻しやすいUXの前提になっているとしている。</span>,
     colorInfo:
-      "色についての数値基準はありません。動きや色などの視覚的な手がかりを一貫して使い、プラットフォームの慣習に沿うべきとしています。",
+      <span><NoData>数値基準なし。</NoData>動きや色などの視覚的な手がかりを一貫して使い、プラットフォームの慣習に沿うべきとしている。</span>,
     stance:
-      "トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、選択結果が即座に反映される場面で使うべきとしています。保存や送信ボタンを必要とする設定には向かないとしています。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしています。",
+      "トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、選択結果が即座に反映される場面で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。",
     exceptions:
-      "ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしています。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしています。",
+      "ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしている。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、即時反映という挙動の違いに基づく使い分けの指針です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、即時反映という挙動の違いに基づく使い分けの指針。",
     useCases: [
       "オン・オフの2状態を即座に反映する設定",
       "保存や送信ボタンを必要としない場面",
@@ -182,7 +183,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -263,6 +264,14 @@ function SizeInfographic() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すとオンとオフがすぐに切り替わる、スイッチの形をした部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "1つの設定のオン・オフを、押した瞬間に反映させる" },
+  { k: "よく使われる場面", v: "Wi-Fi・通知・ダークモードのオン・オフなど、設定画面の項目" },
+  { k: "似た部品との違い", v: <>保存ボタンで確定するフォームの中なら<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
+];
+
 export default function SelectionTogglePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -288,16 +297,20 @@ export default function SelectionTogglePage() {
           </div>
 
           <h1 style={styles.title}>トグルスイッチ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、チェックボックスとの使い分け・サイズ・色・アクセシビリティをどう説明しているかを比較します</p>
+          <SummaryCard
+            image={<><ToggleSwatch /></>}
+            imageNote={<>オン・オフの2状態を、送信ボタンなしで即座に切り替えるコントロール。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <ToggleSwatch />
-            <p style={styles.swatchNote}>オン・オフの2状態を、送信ボタンなしで即座に切り替えるコントロール。</p>
-          </div>
 
+
+          <SizeInfographic />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>即座に反映することを明示しているのはGoogleとNielsen Norman Group</strong>で、NN groupは特に、保存ボタンを必要とせず結果が即座に反映される点を、チェックボックスとの決定的な違いとして挙げています。保存・送信ボタンで確定するフォームにトグルを混ぜると、「もう反映されたのか」が分からず混乱を招きます。
             </p>
@@ -308,9 +321,6 @@ export default function SelectionTogglePage() {
               サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になります。
             </p>
           </div>
-
-          <SizeInfographic />
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -320,13 +330,13 @@ export default function SelectionTogglePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -353,7 +363,6 @@ export default function SelectionTogglePage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -363,8 +372,6 @@ export default function SelectionTogglePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -372,14 +379,16 @@ export default function SelectionTogglePage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -394,8 +403,8 @@ export default function SelectionTogglePage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -422,7 +431,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -432,7 +441,7 @@ const styles = {
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -452,7 +461,7 @@ const styles = {
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
-  infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 22 },
+  infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 40 },
   infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
   infographicLegendRow: { display: "flex", alignItems: "flex-start", gap: 8 },
   infographicDot: { width: 9, height: 9, borderRadius: "50%", flexShrink: 0, marginTop: 3 },
@@ -463,7 +472,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -474,7 +483,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ダイアログ(基本ダイアログ)」ページ。
@@ -31,17 +32,17 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Alerts",
     color: "#C2542A",
     position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
-    size: "具体的なpt数値は確認できていません。ボタンには他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられます。",
-    colorInfo: "色についての明確な規定は確認できていません。危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていません。",
+    size: <span><NoData>数値は未確認。</NoData>ボタンには他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。</span>,
+    colorInfo: <span><NoData>記載なし。</NoData>危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていない。</span>,
     stance:
-      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしています。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしています。ボタンのラベルは、選んだ結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)にするとしています。",
+      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしている。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしている。ボタンのラベルは、選んだ結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)にするとしている。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
     ],
     exceptions:
-      "よく選ばれる(最も可能性の高い)ボタンは右側に、キャンセルボタンは常に左側に置くべきとしています。メッセージは必須ではなく、必要な場合にのみ表示すべきだとしています。",
+      "よく選ばれる(最も可能性の高い)ボタンは右側に、キャンセルボタンは常に左側に置くべきとしている。メッセージは必須ではなく、必要な場合にのみ表示すべきだとしている。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。VoiceOver等の支援技術での読み上げは、標準のAlertコントロールを使うことで自動的に対応されると考えられます。",
+      <span><NoData>記載なし。</NoData>VoiceOver等の支援技術での読み上げは、標準のAlertコントロールを使うことで自動的に対応されると考えられる。</span>,
     useCases: [
       "取り消せない重大な操作の前など、本当に必要な場面に限定して使う",
       "タイトルは1行・簡潔に、メッセージは1〜2行に収める",
@@ -68,21 +69,21 @@ const SOURCES = [
     doc: "Material Design 3 ― Dialogs(Basic dialog)",
     color: "#2F7D6E",
     position: "アプリのコンテンツ手前に表示され、重要な情報を提供したり判断を求めたりするモーダルウィンドウ。基本ダイアログと全画面ダイアログの2種類のうち、このページはスクリム上の基本ダイアログを扱う",
-    size: "具体的なdp数値は文書内に記載がなく確認できていません。M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしています。",
-    colorInfo: "色の値はデザイントークンを通して実装されるとしています。M2→M3では新しいカラーマッピングとダイナミックカラーへの対応が加わったとしています。ダイアログコンテナは他の画面要素の上に表示され、対話に注目を集めるため背後の表面には一時的なオーバーレイ(スクリム)が重ねられるとしています。",
+    size: <span><NoData>数値は未確認。</NoData>M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしている。</span>,
+    colorInfo: "色の値はデザイントークンを通して実装されるとしている。M2→M3では新しいカラーマッピングとダイナミックカラーへの対応が加わったとしている。ダイアログコンテナは他の画面要素の上に表示され、対話に注目を集めるため背後の表面には一時的なオーバーレイ(スクリム)が重ねられるとしている。",
     glossary: [
       { term: "M2→M3の主な変更点", desc: "新しいカラーマッピング・ダイナミックカラーへの対応/角丸拡大とタイトルサイズ増加に伴う余白拡大/基本ダイアログの位置をカスタマイズするオプションの追加/角の半径拡大/より大きく濃い見出しタイポグラフィ、の5点。" },
     ],
     stance:
-      "ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしています。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしています。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべきとしています。",
+      "ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしている。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべきとしている。",
     scenarios: [
       "進行状況の削除など、リスクの高い操作を確認させたい時",
       "単一タスクの完了に関わる重要な判断を求めたい時",
     ],
     exceptions:
-      "ダイアログには最大2つのアクションを含めるべきで、単一のアクションを提供する場合は確認アクションでなければならず、2つの場合は一方が確認、もう一方が却下アクションでなければならないとしています。確認ボタンは末尾(後端)に配置します。ダイアログの中で選択肢を選ばせる場合は、選ぶまで確認ボタンを押せなくする一方、閉じる操作は決して無効化しないとしています(「削除しますか?」のような単純な確認では、確認ボタンを無効にしません)。否定的な行動を肯定的な行動の右側(末尾側)に配置してはならないとしています。「詳細を見る」のような3つ目のアクションは、タスクが未完了のままユーザーがダイアログを離れてしまうため推奨されず、代わりにインライン展開で追加情報を示すべきとしています。確認アクションのラベルは「送信」「作成」など次に何が起こるか明確に示す語にし、「完了」「OK」「閉じる」のような曖昧な表現は避けるべきとしています。",
+      "ダイアログには最大2つのアクションを含めるべきで、単一のアクションを提供する場合は確認アクションでなければならず、2つの場合は一方が確認、もう一方が却下アクションでなければならないとしている。確認ボタンは末尾(後端)に配置する。ダイアログの中で選択肢を選ばせる場合は、選ぶまで確認ボタンを押せなくする一方、閉じる操作は決して無効化しないとしている(「削除するか?」のような単純な確認では、確認ボタンを無効にしない)。否定的な行動を肯定的な行動の右側(末尾側)に配置してはならないとしている。「詳細を見る」のような3つ目のアクションは、タスクが未完了のままユーザーがダイアログを離れてしまうため推奨されず、代わりにインライン展開で追加情報を示すべきとしている。確認アクションのラベルは「送信」「作成」など次に何が起こるか明確に示す語にし、「完了」「OK」「閉じる」のような曖昧な表現は避けるべきとしている。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― ダイアログが表示されると、フォーカスは自動的にダイアログ内の最初のインタラクティブ要素に移動すべきだとしています。Tabキーで次の要素へ、Shift+Tabで逆方向へフォーカスが移動し、Space/Enterキーでフォーカス中の要素が操作されるとしています。ダイアログのアクセシビリティラベルは通常タイトル・見出しと同じで、Web上の基本ダイアログにはalertdialogロールを与えるべきだとしています(W3Cの区別では、削除の確認のようにすぐに応答を求める警告がalertdialog、それ以外はdialog。W3C欄を参照)。テキストサイズを200%に拡大しても見出しが4行以内に収まるよう簡潔にすべきとしています。",
+      "操作可能(Operable)・理解可能(Understandable) ― ダイアログが表示されると、フォーカスは自動的にダイアログ内の最初のインタラクティブ要素に移動すべきだとしている。ダイアログのアクセシビリティラベルは通常タイトル・見出しと同じで、Web上の基本ダイアログにはalertdialogロールを与えるべきだとしている(W3Cの区別では、削除の確認のようにすぐに応答を求める警告がalertdialog、それ以外はdialog。W3C欄を参照)。テキストサイズを200%に拡大しても見出しが4行以内に収まるよう簡潔にすべきとしている。",
     useCases: [
       "重要な情報の伝達・判断・単一タスクの確認には基本ダイアログを使う(優先度の低い情報にはスナックバーを使う)",
       "アクションは最大2つ(確認+却下、または確認のみ)にし、確認ボタンを末尾に配置する",
@@ -107,21 +108,21 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域",
-    size: "ダイアログ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用されます。",
-    colorInfo: "ダイアログ専用の色基準はありませんが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターやボタンの境界線などに適用され得ます。",
+    size: "ダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
+    colorInfo: "ダイアログ専用の色基準はないが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターやボタンの境界線などに適用され得る。",
     glossary: [
       { term: "aria-modal", desc: "視覚的な隠蔽(スクリム等)と操作防止の両方が実装されている場合にのみtrueを設定すべき属性。ダイアログの外側にあるコンテンツをスクリーンリーダーからも隠す効果を持つ。" },
     ],
     stance:
-      "モーダルダイアログは、背後のコンテンツを操作不能にする、重ねて表示される領域だとしています。実装には role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyまたはaria-labelによるラベル付けが必須だとしています。フォーカスはダイアログ内に閉じ込め、Tabキーで循環させるべきとしています。なお、削除の確認のように、すぐに応答を求める警告にはalertdialog(APGのAlert Dialogパターン)を使い、それ以外はdialogを使う、という区別があります。",
+      "モーダルダイアログは、背後のコンテンツを操作不能にする、重ねて表示される領域だとしている。実装には role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyまたはaria-labelによるラベル付けが必須だとしている。フォーカスはダイアログ内に閉じ込め、Tabキーで循環させるべきとしている。なお、削除の確認のように、すぐに応答を求める警告にはalertdialog(APGのAlert Dialogパターン)を使い、それ以外はdialogを使う、という区別がある。",
     scenarios: [
       "視覚的な隠蔽と操作防止の両方を実装したい時にaria-modal=\"true\"を設定する",
       "リストや表など複雑なコンテンツを含むダイアログの初期フォーカス位置を検討する時",
     ],
     exceptions:
-      "初期フォーカスの位置は内容により異なるべきとし、リストや表など複雑なコンテンツの場合はtabindex=\"-1\"を付けた最初の静的要素に、コンテンツ量が多い場合はスクロールで見えなくなる内容を避けるためタイトル側に置くべきとしています。aria-describedbyは説明が単純な場合のみ推奨され、複雑な構造を持つ場合は省くべきとしています。",
+      "初期フォーカスの位置は内容により異なるべきとし、リストや表など複雑なコンテンツの場合はtabindex=\"-1\"を付けた最初の静的要素に、コンテンツ量が多い場合はスクロールで見えなくなる内容を避けるためタイトル側に置くべきとしている。aria-describedbyは説明が単純な場合のみ推奨され、複雑な構造を持つ場合は省くべきとしている。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログ内に閉じ込め、Shift+Tabで逆順に循環させるべきとしています。Escapeキーでダイアログを閉じられるようにし、閉じた後は通常、起動した要素へフォーカスを戻すべきとしています。",
+      "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログ内に閉じ込め、Shift+Tabで逆順に循環させるべきとしている。Escapeキーでダイアログを閉じられるようにし、閉じた後は通常、起動した要素へフォーカスを戻すべきとしている。",
     useCases: [
       "role=\"dialog\"とaria-modal=\"true\"を設定し、視覚的な隠蔽と操作防止を両方実装する",
       "タイトル要素をaria-labelledbyで参照するか、aria-labelでラベル付けする",
@@ -147,18 +148,18 @@ const SOURCES = [
     doc: "Confirmation Dialogs Can Prevent User Errors",
     color: "#7A4F7E",
     position: "本当に重大で取り消せない操作の前にのみ使うべき確認手段(数値基準ではなく判断基準)",
-    size: "数値基準はありませんが、乱用による「オオカミ少年」効果(頻出しすぎて内容を読まれなくなること)を避けるため、表示頻度を絞るべきだとしています。",
-    colorInfo: "色についての基準はありません。",
+    size: <span><NoData>数値基準なし。</NoData>乱用による「オオカミ少年」効果(頻出しすぎて内容を読まれなくなること)を避けるため、表示頻度を絞るべきだとしている。</span>,
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしています。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(「オオカミ少年」効果)としています。",
+      "確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(「オオカミ少年」効果)としている。",
     scenarios: [
       "ファイル削除など、取り消しできない操作の前",
       "高額な支払いなど、重大な結果を伴う操作の前",
     ],
     exceptions:
-      "最も重大な操作には、確認ボタンを押すだけでなく「DELETE」と入力させるなど、非標準の確認操作を課すべきだとしています。日常的に繰り返す操作については、確認ダイアログを表示しない設定を選べるようにすべきだとしています。「本当によろしいですか?」ではなく、具体的な情報・選択肢(「ファイルを削除」「ファイルを保持」など)を示すべきだとしています。",
+      "最も重大な操作には、確認ボタンを押すだけでなく「DELETE」と入力させるなど、非標準の確認操作を課すべきだとしている。日常的に繰り返す操作については、確認ダイアログを表示しない設定を選べるようにすべきだとしている。「本当によろしいですか?」ではなく、具体的な情報・選択肢(「ファイルを削除」「ファイルを保持」など)を示すべきだとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、誤操作防止という観点の指針です。「はい/いいえ」ではなく操作内容が分かる具体的なラベルにすべきという点は、理解可能性(Understandable)にも関わる実務上の知見です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、誤操作防止という観点の指針。「はい/いいえ」ではなく操作内容が分かる具体的なラベルにすべきという点は、理解可能性(Understandable)にも関わる実務上の知見。",
     useCases: [
       "取り消せない重大な操作の前にのみ確認ダイアログを使う(日常操作には使わない)",
       "「はい/いいえ」ではなく操作内容が分かる具体的なラベルの選択肢にする",
@@ -198,7 +199,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -222,6 +223,14 @@ function DialogSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "作業をいったん止めて、大事な確認(削除してよいかなど)や短い選択に答えてもらう" },
+  { k: "よく使われる場面", v: "削除・破棄の確認、権限の許可、保存せずに閉じるときの確認" },
+  { k: "似た部品との違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
+];
 
 export default function ContainmentDialogPage() {
   return (
@@ -248,16 +257,18 @@ export default function ContainmentDialogPage() {
           </div>
 
           <h1 style={styles.title}>ダイアログ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、確認・警告のために操作をブロックする、スクリム上の基本ダイアログをどう定めているかを比較します(画面全体を占める形は「フルスクリーンダイアログ」ページを参照)</p>
+          <SummaryCard
+            image={<><DialogSwatch /></>}
+            imageNote={<>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <DialogSwatch />
-            <p style={styles.swatchNote}>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このページは、<strong>スクリム上に乗る「基本ダイアログ」中心の内容に絞ったもの</strong>です。画面全体を占め、一連のタスク完了(カレンダー予定の作成など)に使う「フルスクリーンダイアログ」とは、用途もブレークポイントによる使い分けも異なるため、モーダルポップアップ→サイドシート/ボトムシートの分割と同じ考え方でページを分けました。
             </p>
@@ -271,7 +282,6 @@ export default function ContainmentDialogPage() {
               W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致しています。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -281,13 +291,13 @@ export default function ContainmentDialogPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -309,7 +319,6 @@ export default function ContainmentDialogPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -319,8 +328,6 @@ export default function ContainmentDialogPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -328,16 +335,18 @@ export default function ContainmentDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -350,8 +359,8 @@ export default function ContainmentDialogPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -389,7 +398,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -398,7 +407,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -422,7 +431,7 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -437,7 +446,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

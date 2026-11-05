@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ボトムシート」ページ。
@@ -28,22 +29,22 @@ const SOURCES = [
     color: "#C2542A",
     position: "大(large)・中(medium)の2段階の高さ(デタント)で静止する、既定でモーダルなシート",
     size:
-      "大デタントは展開時の全高、中デタントは展開時のおよそ半分の高さとされています。既定では大デタントのみをサポートし、中デタントを追加すると両方の高さの間で静止できるようになる一方、中デタントのみを指定すると全高までは展開できなくなるとしています。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+      "大デタントは展開時の全高、中デタントは展開時のおよそ半分の高さとされている。既定では大デタントのみをサポートし、中デタントを追加すると両方の高さの間で静止できるようになる一方、中デタントのみを指定すると全高までは展開できなくなるとしている。",
+    colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "デタント(detent)", desc: "シートが自然に静止する高さの段階。大デタントは展開時の全高、中デタントは約半分の高さを指す。" },
       { term: "グラバー(grabber)", desc: "シート上端に表示される小さな水平のインジケーター。ドラッグしてシートの高さを変更できることを示す。" },
     ],
     stance:
-      "シートは、現在の文脈に密接に関連する、範囲を限定したタスクを行うのに役立つコンポーネントだとしています。既定ではモーダルとして提示され、閉じるまで親ビューを操作できなくするとしています。",
+      "シートは、現在の文脈に密接に関連する、範囲を限定したタスクを行うのに役立つコンポーネントだとしている。既定ではモーダルとして提示され、閉じるまで親ビューを操作できなくするとしている。",
     scenarios: [
       "現在の文脈に密接に関連する、範囲を限定したタスクを行わせたい時",
       "コンテンツのスクロールやグラバーのドラッグで、シートの高さを調整させたい時",
     ],
     exceptions:
-      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる点に注意が必要だとしています。複数シートの積み重ねに関する明確な記載はこのトピックでは確認できていません。",
+      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる点に注意が必要だとしている。複数シートの積み重ねに関する明確な記載はこのトピックでは確認できていない。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。標準のシートコントロールを使えば、支援技術には自動的に状態が伝わると考えられます。",
+      <span><NoData>記載なし。</NoData>標準のシートコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
       "現在の文脈に関連する、範囲を限定したタスクに使う(既定はモーダル)",
       "大デタントのみ、または大+中デタントの組み合わせで高さの挙動を選ぶ",
@@ -51,7 +52,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/sheets",
-    confirmedNote: "「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。デタントの定義・グラバーの挙動は複数の検索結果で一致しています。",
+    confirmedNote: "「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。デタントの定義・グラバーの挙動は複数の検索結果で一致している。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -70,21 +71,21 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "コンパクト・ミディアムのブレークポイントで使う、標準(メイン領域と共存)とモーダル(背景操作を完全にブロック)の2種類を持つ画面下部のシート",
     size:
-      "初期の垂直位置は、上位のアクションにアクセスできるよう画面高さの50%に制限されるとしています。コンテンツが50%を超える場合は、画面全体に伸びて内部スクロールで残りの項目にアクセスできるとしています。上部48dpの領域はサイズ変更用にインタラクティブで、ドラッグハンドルが表示されている場合はユーザーによるサイズ変更が可能だとしています。具体的なdp数値(コンテナ幅など)は文書内に記載がなく確認できていません。",
-    colorInfo: "色の値はデザイントークンを通して実装されるとしています。モーダルボトムシートはスクリム(裏地)の上に敷かれますが、標準ボトムシートにはスクリムがなく、それ以外の仕様は両者共通だとしています。",
+      "初期の垂直位置は、上位のアクションにアクセスできるよう画面高さの50%に制限されるとしている。コンテンツが50%を超える場合は、画面全体に伸びて内部スクロールで残りの項目にアクセスできるとしている。上部48dpの領域はサイズ変更用にインタラクティブで、ドラッグハンドルが表示されている場合はユーザーによるサイズ変更が可能だとしている。具体的なdp数値(コンテナ幅など)は文書内に記載がなく確認できていない。",
+    colorInfo: "色の値はデザイントークンを通して実装されるとしている。モーダルボトムシートはスクリム(裏地)の上に敷かれますが、標準ボトムシートにはスクリムがなく、それ以外の仕様は両者共通だとしている。",
     glossary: [
       { term: "標準 / モーダルボトムシート", desc: "標準ボトムシートは画面のメインUI領域と共存し、両方を同時に閲覧・操作できる。モーダルボトムシートはアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続ける。" },
     ],
     stance:
-      "標準ボトムシートは、画面のメインUI領域と共存し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしています。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしています。",
+      "標準ボトムシートは、画面のメインUI領域と共存し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしている。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。",
     scenarios: [
       "音楽プレーヤーのように、画面の主要コンテンツを補完するコンテンツを表示したい時(標準ボトムシート、全画面表示時はアプリバーに折りたたみアイコンを表示)",
       "多数の操作項目があり、詳細な説明やアイコンが必要なメニューを提示したい時(モーダルボトムシート、モバイルアプリのみ)",
     ],
     exceptions:
-      "ボトムシートの必須要素はコンテナのみで、項目一覧(オプション)、メディア(オプション: サムネイル・画像・動画)を含められるとしています。ボタン/オーバーフローアイコンのタップで表示され、項目のタップ・画面のタップ・下スワイプ・アプリバーの閉じる機能のいずれかで非表示にできるとしています(全画面表示のモーダルボトムシートには閉じるボタンを表示すべきとしています)。折りたたみ/展開を切り替える拡張オプションがあり、ドラッグハンドルのドラッグまたは選択で高さを変更できるとしています。ドラッグハンドルを選択するとプリセット高さの切り替えまたはシートを閉じる動作になり、スクリムを選択すると常にシートを閉じるとしています。複数のプリセット高さがありドラッグハンドルを使用できない場合は、高さ変更のための単一ポインターによる代替手段を必ず含めるべきだとしています。レスポンシブレイアウトとしては、コンパクトなブレークポイントでは画面幅いっぱいに広がる一方、中〜拡張ブレークポイントでは既定で最大幅が設定される(上書き可能)としており、複雑なタスクにはフローティングシートなど非一時的なサーフェスの使用を検討すべきだとしています。Androidの「予測戻る」ジェスチャーにも対応するとしています。",
+      "ボトムシートの必須要素はコンテナのみで、項目一覧(オプション)、メディア(オプション: サムネイル・画像・動画)を含められるとしている。ボタン/オーバーフローアイコンのタップで表示され、項目のタップ・画面のタップ・下スワイプ・アプリバーの閉じる機能のいずれかで非表示にできるとしている(全画面表示のモーダルボトムシートには閉じるボタンを表示すべきとしている)。折りたたみ/展開を切り替える拡張オプションがあり、ドラッグハンドルのドラッグまたは選択で高さを変更できるとしている。ドラッグハンドルを選択するとプリセット高さの切り替えまたはシートを閉じる動作になり、スクリムを選択すると常にシートを閉じるとしている。複数のプリセット高さがありドラッグハンドルを使用できない場合は、高さ変更のための単一ポインターによる代替手段を必ず含めるべきだとしている。レスポンシブレイアウトとしては、コンパクトなブレークポイントでは画面幅いっぱいに広がる一方、中〜拡張ブレークポイントでは既定で最大幅が設定される(上書き可能)としており、複雑なタスクにはフローティングシートなど非一時的なサーフェスの使用を検討すべきだとしている。Androidの「予測戻る」ジェスチャーにも対応するとしている。",
     accessibility:
-      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしています。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしています。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしています(W3Cの2.5.7・ドラッグ操作に対応する考え方です)。",
+      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしている。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしている。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしている(W3Cの2.5.7・ドラッグ操作に対応する考え方)。",
     useCases: [
       "メインコンテンツと同時に操作したい補助機能には標準ボトムシートを使う(例: 音楽プレーヤー)",
       "選択や確認が完了するまで背景操作をブロックしたい場合はモーダルボトムシートを使う(モバイルアプリのみ)",
@@ -109,18 +110,18 @@ const SOURCES = [
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
     color: "#A3821F",
     position: "ボトムシート専用のロール・パターンは存在せず、モーダル/非モーダルのどちらとして実装するかで適用すべき考え方が変わる",
-    size: "ボトムシート専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用されます。",
-    colorInfo: "色の基準はありませんが、1.4.11(非テキストのコントラスト)がグラバーや境界線に適用され得ます。",
+    size: "ボトムシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
+    colorInfo: "色の基準はないが、1.4.11(非テキストのコントラスト)がグラバーや境界線に適用され得る。",
     stance:
-      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされます。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしています。また、2.5.7(ドラッグ操作・レベルAA)により、グラバーをドラッグしないと高さを変えられない作りにはせず、グラバーをタップすると高さが切り替わる、などドラッグ以外の方法も用意します。",
+      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされる。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしている。また、2.5.7(ドラッグ操作・レベルAA)により、グラバーをドラッグしないと高さを変えられない作りにはせず、グラバーをタップすると高さが切り替わる、などドラッグ以外の方法も用意する。",
     scenarios: [
       "背景の操作を完全に遮断したいモーダルなボトムシートを実装する時",
       "背景コンテンツを操作可能なまま残したい非モーダルなボトムシート(Googleの「標準」に相当)を実装する時",
     ],
     exceptions:
-      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしています。",
+      "背後のコンテンツを完全に遮断・視覚的に覆っていない場合は、aria-modal=\"true\"を設定すべきではないとしている。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合は背景操作を妨げない実装が関わります。ドラッグ以外の操作方法(2.5.7)も「操作可能」の基準です。",
+      "堅牢(Robust)・操作可能(Operable) ― モーダルの場合はフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)が、非モーダルの場合は背景操作を妨げない実装が関わる。ドラッグ以外の操作方法(2.5.7)も「操作可能」の基準。",
     useCases: [
       "背景を完全にブロックするボトムシートにはrole=\"dialog\"+aria-modal=\"true\"を使う",
       "背景操作を許すボトムシートではaria-modalを設定しない",
@@ -145,17 +146,17 @@ const SOURCES = [
     doc: "Bottom Sheets: Definition and UX Guidelines",
     color: "#7A4F7E",
     position: "モバイル画面下部に固定される、段階的な情報開示のための短時間利用向けオーバーレイ(数値基準ではなく実装上の指針)",
-    size: "数値基準としては、モバイルのタップ領域について一般的な目安に言及していますが、ボトムシート専用の数値ではありません。",
-    colorInfo: "色についての数値基準はありません。",
+    size: "数値基準としては、モバイルのタップ領域について一般的な目安に言及しているが、ボトムシート専用の数値ではない。",
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "ボトムシートは、モバイル端末の画面下端に固定され、追加の詳細・操作を表示するオーバーレイと定義されています。モーダル型はユーザーが操作・閉じるまで背景とのやり取りを遮断し、非モーダル型は背景コンテンツとの並行操作を可能にするとしています。",
+      "ボトムシートは、モバイル端末の画面下端に固定され、追加の詳細・操作を表示するオーバーレイと定義されている。モーダル型はユーザーが操作・閉じるまで背景とのやり取りを遮断し、非モーダル型は背景コンテンツとの並行操作を可能にするとしている。",
     scenarios: [
       "短時間で済む追加の詳細・操作を提示したい時(複雑なコンテンツ・長時間の閲覧には不向き)",
     ],
     exceptions:
-      "3つの実装上の注意点を挙げています。(1) 標準的な「戻る」操作との一貫性を保つこと、(2) グラバーハンドルだけに閉じる操作を依存させず、上部に明確な×または閉じるボタンを配置すること(アクセシビリティと操作の確実性の向上のため)、(3) 複数のボトムシートを積み重ねないこと(現在位置の認識を妨げ、誤操作を招くため)。",
+      "3つの実装上の注意点を挙げている。(1) 標準的な「戻る」操作との一貫性を保つこと、(2) グラバーハンドルだけに閉じる操作を依存させず、上部に明確な×または閉じるボタンを配置すること(アクセシビリティと操作の確実性の向上のため)、(3) 複数のボトムシートを積み重ねないこと(現在位置の認識を妨げ、誤操作を招くため)。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、実装上の注意点です。上記の閉じるボタンの明示、戻る操作との一貫性、積み重ねの回避が、支援技術利用者にも操作の確実性をもたらすとしています。",
+      "根拠となる原則 ― POURのような適合区分ではなく、実装上の注意点。上記の閉じるボタンの明示、戻る操作との一貫性、積み重ねの回避が、支援技術利用者にも操作の確実性をもたらすとしている。",
     useCases: [
       "短時間の追加情報・操作の提示に使う(長時間の閲覧・複雑なコンテンツには使わない)",
       "グラバーだけでなく、明確な閉じるボタンを上部に配置する",
@@ -196,7 +197,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -217,6 +218,14 @@ function BottomSheetSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルです。";
+const ABOUT = [
+  { k: "目的・役割", v: "今の画面を残したまま、選択肢や補助の内容を手の届きやすい下側に出す" },
+  { k: "よく使われる場面", v: "共有先の選択、地図の場所の詳細、スマホの絞り込み条件" },
+  { k: "似た部品との違い", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">ダイアログ</PageLink></> },
+];
 
 export default function ContainmentBottomSheetPage() {
   return (
@@ -243,16 +252,18 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <h1 style={styles.title}>ボトムシート</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、下からせり出す半モーダル(ボトムシート)の高さ・モーダル性・閉じ方をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><BottomSheetSwatch /></>}
+            imageNote={<>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <BottomSheetSwatch />
-            <p style={styles.swatchNote}>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>です。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言えます。
             </p>
@@ -260,10 +271,9 @@ export default function ContainmentBottomSheetPage() {
               4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別です。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げています。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現します。
             </p>
             <p style={styles.synthesisText}>
-              公式ドキュメントを確認したところ、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動が判明しました。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示しています。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールです。
+              Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示しています。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示しています。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールです。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -273,13 +283,13 @@ export default function ContainmentBottomSheetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -301,7 +311,6 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -311,8 +320,6 @@ export default function ContainmentBottomSheetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -320,16 +327,18 @@ export default function ContainmentBottomSheetPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -342,8 +351,8 @@ export default function ContainmentBottomSheetPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -381,7 +390,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -390,7 +399,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -414,7 +423,7 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -429,7 +438,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -174,7 +174,7 @@ export default function DesignSystemCompareProto() {
 
         {/* AI synthesis - lead summary */}
         <div style={styles.synthesisBox}>
-          <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+          <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
           <p style={styles.synthesisText}>
             数値の下限には24〜48pxという幅があるが、これは<strong>「絶対最低ライン」(WCAG AA)</strong>と
             <strong>「快適に押せる目安」(HIG・Material・NN)</strong>という異なる問いに答えているために生じる差にすぎない。

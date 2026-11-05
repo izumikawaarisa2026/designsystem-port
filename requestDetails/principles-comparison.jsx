@@ -162,7 +162,7 @@ export default function PrinciplesComparisonPage() {
           <p style={styles.subtitle}>4つのガイドラインが、それぞれ何本の原則を、何のために定めているかを比較する</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「原則」という同じ言葉でも、4系列が指している範囲はそれぞれ異なります。AppleとNielsen Norman Groupは製品デザイン全般の心構えを、WCAGは適合判定の規格を指しています。そしてGoogleは、<strong>原則の内容そのものより、3世代にわたる思想の進化の軌跡に独自性</strong>があります。
             </p>

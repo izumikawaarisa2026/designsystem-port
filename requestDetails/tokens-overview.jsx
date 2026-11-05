@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ファウンデーションの思想比較」ページ(メタページ)。
@@ -52,7 +53,7 @@ const SOURCES = [
     categories: ["Accessibility", "App icons", "Branding", "Color", "Dark Mode", "Icons", "Images", "Immersive experiences", "Inclusion", "Layout", "Materials", "Motion", "Privacy", "Right to left", "SF Symbols", "Spatial layout", "Typography", "Writing"],
     summary: "Foundations配下に18トピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
     stance:
-      "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなど18のトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいます。Googleのような「Foundations」と「Styles」の二分はありません。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれています(ページデータを直接確認、2026-09)。",
+      "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなど18のトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている(ページデータを直接確認、2026-09)。",
     structuralNote: "本サイトの「トークン/ファウンデーション」15項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー、キーボード)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
@@ -74,12 +75,12 @@ const SOURCES = [
     categories: ["Foundations: Overview(原則・支援技術)/ Building for all / Content design / Customization / Design tokens / Designing(色のコントラスト等)/ Interaction / Layout / Usability / Writing / Watches / XR", "Styles: Color / Elevation / Icons / Motion / Shape / Spacing / Typography"],
     summary: "「Foundations」と「Styles」を明確に別セクションとして分離。色・タイポグラフィ等はStyles側",
     stance:
-      "Material Design 3のサイトは、Foundations・Styles・Components・Develop(実装)という区分に分かれています。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など機能横断的な考え方が集められ、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった視覚的なトークンはStylesに属します。設計原則(principles)もFoundationsの中(Overview配下)に置かれています(サイトのsitemap.xmlでURL構成を直接確認、2026-09)。",
+      "Material Design 3のサイトは、Foundations・Styles・Components・Develop(実装)という区分に分かれている。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など機能横断的な考え方が集められ、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった視覚的なトークンはStylesに属する。設計原則(principles)もFoundationsの中(Overview配下)に置かれている(サイトのsitemap.xmlでURL構成を直接確認、2026-09)。",
     structuralNote: "本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている。つまり本サイトはGoogleの構造をそのまま踏襲してはいない。レイアウトはStylesではなくFoundations側にある点にも注意。",
     accessibilityNote: "アクセシビリティはFoundations側の複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれており、1トピックというより横断的な前提条件としての位置づけに近い。",
     url: "https://m3.material.io/foundations",
     urlSecondary: [{ label: "Styles", url: "https://m3.material.io/styles" }],
-    confirmedNote: "区分とトピックは、m3.material.ioのsitemap.xml(静的なXML)でURL構成を直接確認(2026-09)。トピック名はURL上の区分名で、各ページの本文はSPAのため直接確認はできていません。",
+    confirmedNote: "区分とトピックは、m3.material.ioのsitemap.xml(静的なXML)でURL構成を直接確認(2026-09)。トピック名はURL上の区分名で、各ページの本文はSPAのため直接確認はできていない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "8px 10px" }}>
         <div style={{ fontSize: 8.5, fontFamily: "'IBM Plex Mono', monospace", color: "#565D8A" }}>Foundations</div>
@@ -105,11 +106,11 @@ const SOURCES = [
     categories: ["知覚可能(Perceivable)", "操作可能(Operable)", "理解可能(Understandable)", "堅牢(Robust)"],
     summary: "「Foundations」に相当する概念自体を持たない。最も近い構造はPOUR4原則",
     stance:
-      "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されています。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいています。",
+      "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されている。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいている。",
     structuralNote: "本サイトの「トークン/ファウンデーション」15項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
-    confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのものです。本ページで新たに一次情報を取得したものではありません。",
+    confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px" }}>
         {["知覚可能", "操作可能", "理解可能", "堅牢"].map((t) => (
@@ -126,11 +127,11 @@ const SOURCES = [
     categories: ["(固定カテゴリなし。記事・調査単位)"],
     summary: "構造化されたデザインシステムではなく記事・調査ベースのため、固定の「Foundations」カテゴリを持たない",
     stance:
-      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体です。「Foundations」に相当する固定のカテゴリ構造や網羅的な索引は持たず、トピックごとに独立した記事が随時公開される形式です。",
+      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。「Foundations」に相当する固定のカテゴリ構造や網羅的な索引は持たず、トピックごとに独立した記事が随時公開される形式。",
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
     url: "https://www.nngroup.com/articles/",
-    confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではありません。",
+    confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px", alignItems: "center", justifyContent: "center", height: "100%" }}>
         <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>記事単位(索引なし)</span>
@@ -283,6 +284,14 @@ function InfoBox({ label, accent, children }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページです。";
+const ABOUT = [
+  { k: "目的・役割", v: "個々のトークンのページを読む前に、4系列の「基礎」の範囲と分け方の違いを知る" },
+  { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、トークン/ファウンデーションの各ページ" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/principles/comparison">原則比較</PageLink></> },
+];
+
 export default function TokensOverviewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -308,28 +317,31 @@ export default function TokensOverviewPage() {
           </div>
 
           <h1 style={styles.title}>ファウンデーションの思想比較</h1>
-          <p style={styles.subtitle}>個別のトークン(カラー・タイポグラフィ等)の数値比較の前に、「Foundations(ファウンデーション)として何を扱うか」という分類方法自体が4系列でどう違うかを比較します</p>
-
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>4系列の「Foundations」の括り方(概念図)</span>
-            <div style={styles.categoryPreviewRow}>
+          <SummaryCard
+            imageLabel="4系列の「Foundations」の括り方(概念図)"
+            image={<><div style={styles.categoryPreviewRow}>
               {SOURCES.map((s) => (
                 <div key={s.key} style={styles.categoryPreviewItem}>
                   <div style={{ ...styles.categoryPreviewName, color: s.color }}>{s.name}</div>
                   {s.illustration()}
                 </div>
               ))}
-            </div>
-            <p style={styles.swatchNote}>4系列とも「Foundations」という言葉、あるいはそれに近い括りは持つが、実際にそこに何を含めるかの範囲・粒度は大きく異なる。</p>
-          </div>
+            </div></>}
+            imageNote={<>4系列とも「Foundations」という言葉、あるいはそれに近い括りは持つが、実際にそこに何を含めるかの範囲・粒度は大きく異なる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
+
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの15項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
             </p>
             <p style={styles.synthesisText}>
-              最大の発見は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
+              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
             </p>
             <p style={styles.synthesisText}>
               一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下の18トピックとして区別なく並べており、Googleのような二分はしていません。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いています</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違いです(下部の「Foundationsと並列の区分」参照)。
@@ -338,7 +350,6 @@ export default function TokensOverviewPage() {
               W3C(WCAG)は「Foundations」という概念自体を持たず、<strong>最も近い構造的な等価物は知覚可能・操作可能・理解可能・堅牢というPOURの4原則</strong>です。Nielsen Norman Groupは構造化されたデザインシステムではないため、対応する固定カテゴリを持ちません。<strong>この2系列は「Foundations」という枠組みそのものに当てはめようとすること自体が、そもそも無理があります。</strong>
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -368,7 +379,6 @@ export default function TokensOverviewPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -377,8 +387,6 @@ export default function TokensOverviewPage() {
                     <div style={styles.sourceName}>{s.name}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.summary}</div>))}
                 <div style={styles.labelCell}>概念図</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -386,12 +394,14 @@ export default function TokensOverviewPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.summary}</div>))}
                 <div style={styles.labelCell}>含まれる主なトピック</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><CategoryList items={s.categories} /></div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>本サイトの分類との関係</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.structuralNote}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structuralNote}</div>))}
                 <div style={styles.labelCell}>アクセシビリティの位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibilityNote}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
@@ -453,7 +463,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -465,7 +475,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -481,7 +491,7 @@ const styles = {
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
   illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "150px repeat(4, 1fr)", minWidth: 760, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -491,7 +501,7 @@ const styles = {
   exceptionCell: { background: "#F8F9FD" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「タイポグラフィ(文字サイズ・行間)」ページ。
@@ -33,14 +34,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Typography",
     color: "#C2542A",
     position: "Large Title〜Caption 2の11段階の「テキストスタイル」にサイズ・行送りを定義し、Dynamic Type(ユーザーの文字サイズ設定)で全体が連動して拡大縮小する方式",
-    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定に応じてxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズ最大(AX5)の53ptまで変化します。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
-    colorInfo: "テキストスタイルごとに行送り(leading)を指定。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定サイズでの行送りの比率は約1.18〜1.39倍の範囲です。字間(tracking)はシステムフォントがサイズごとに自動調整するため、通常は指定不要としています。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べますが、3行以上のテキストでは詰めた行送りを避けるよう勧めています。",
+    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定に応じてxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズ最大(AX5)の53ptまで変化する。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
+    colorInfo: "テキストスタイルごとに行送り(leading)を指定。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定サイズでの行送りの比率は約1.18〜1.39倍の範囲。字間(tracking)はシステムフォントがサイズごとに自動調整するため、通常は指定不要としている。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べますが、3行以上のテキストでは詰めた行送りを避けるよう勧めている。",
     stance:
-      "Appleは固定のフォントサイズではなく、システムが用意したテキストスタイルを使うことを勧めています。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、ユーザーが文字サイズを変えると全体が比例して拡大縮小します。文字を大きくしたときにはレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめるよう求めています。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避けるべきとしています(ページ本文を直接確認、2026-09)。",
+      "Appleは固定のフォントサイズではなく、システムが用意したテキストスタイルを使うことを勧めている。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、ユーザーが文字サイズを変えると全体が比例して拡大縮小する。文字を大きくしたときにはレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめるよう求めている。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避けるべきとしている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "カスタムフォントを使う場合も、既定・最小サイズの推奨値に従い、Dynamic TypeやBold Text(文字を太くする設定)に自前で対応する必要があるとしています。文字サイズを大きくしたときに、すべての文字を同じように大きくする必要はなく、ユーザーが読みたい主要なコンテンツを優先してよい(例: タブのタイトルは拡大しなくてよい)とも述べています。",
+      "カスタムフォントを使う場合も、既定・最小サイズの推奨値に従い、Dynamic TypeやBold Text(文字を太くする設定)に自前で対応する必要があるとしている。文字サイズを大きくしたときに、すべての文字を同じように大きくする必要はなく、ユーザーが読みたい主要なコンテンツを優先してよい(例: タブのタイトルは拡大しなくてよい)とも述べている。",
     accessibility:
-      "知覚可能(Perceivable) ― Dynamic Typeはユーザーが読みやすい文字サイズを選べる仕組みで、WCAG 1.4.4(テキストのサイズ変更)の考え方をOSの機能として実現したものといえます。テキストスタイルを使えば、この拡大に自動的に追従します。",
+      "知覚可能(Perceivable) ― Dynamic Typeはユーザーが読みやすい文字サイズを選べる仕組みで、WCAG 1.4.4(テキストのサイズ変更)の考え方をOSの機能として実現したものといえる。テキストスタイルを使えば、この拡大に自動的に追従する。",
     useCases: [
       "固定のpt値ではなくテキストスタイル(Body・Headline等)を指定する",
       "本文は17pt、どんな場合も11pt未満にしない(iOS/iPadOS)",
@@ -60,14 +61,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Type scale",
     color: "#2F7D6E",
     position: "Display/Headline/Title/Body/Labelの5つの役割 × Large/Medium/Smallの3サイズ=15段階の「タイプスケール」を定義。さらに同じ15段階に太さを強めた「Emphasized」版がある",
-    size: "Display 57 / 45 / 36、Headline 32 / 28 / 24、Title 22 / 16 / 14、Body 16 / 14 / 12、Label 14 / 12 / 11(いずれもLarge/Medium/Smallの順、単位sp)。基準(本文の既定)はBody Large 16sp(Jetpack ComposeのMaterialThemeが文字の既定スタイルに設定)、最小はLabel Small 11sp。本文の文字色(On Surface)は背景に対して7:1が目標値です。spはAndroidの端末の文字サイズ設定に応じて拡縮する単位です。",
-    colorInfo: "行送り(line height)はDisplay Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとに固定値で定義。比率に直すとBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど行送りの比率が小さくなる設計です(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせとしてトークン化されています。",
+    size: "Display 57 / 45 / 36、Headline 32 / 28 / 24、Title 22 / 16 / 14、Body 16 / 14 / 12、Label 14 / 12 / 11(いずれもLarge/Medium/Smallの順、単位sp)。基準(本文の既定)はBody Large 16sp(Jetpack ComposeのMaterialThemeが文字の既定スタイルに設定)、最小はLabel Small 11sp。本文の文字色(On Surface)は背景に対して7:1が目標値。spはAndroidの端末の文字サイズ設定に応じて拡縮する単位。",
+    colorInfo: "行送り(line height)はDisplay Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとに固定値で定義。比率に直すとBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど行送りの比率が小さくなる設計です(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせとしてトークン化されている。",
     stance:
-      "Material Design 3は、UI全体で使う文字の段階を15種類の名前付きトークンに絞り、コンポーネントはこのトークンを参照します。ブランドに合わせてフォントやサイズを変える場合も、トークンの値を差し替えれば全体に反映される仕組みです。Emphasized版は、選択状態・アクション・見出しなど、強調して階層を作りたい箇所に使うとしています(Google公式のMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      "Material Design 3は、UI全体で使う文字の段階を15種類の名前付きトークンに絞り、コンポーネントはこのトークンを参照する。ブランドに合わせてフォントやサイズを変える場合も、トークンの値を差し替えれば全体に反映される仕組み。Emphasized版は、選択状態・アクション・見出しなど、強調して階層を作りたい箇所に使うとしている(Google公式のMaterial Components for Androidのドキュメントで確認、2026-09)。",
     exceptions:
-      "トークンの値はブランドに合わせて変更できる前提です(カスタマイズ例として、Display Smallを64spに変える例が示されています)。m3.material.io本文の指針(最小サイズの考え方など)は、サイトがSPAのため直接確認できていません。",
+      "トークンの値はブランドに合わせて変更できる前提です(カスタマイズ例として、Display Smallを64spに変える例が示されている)。m3.material.io本文の指針(最小サイズの考え方など)は、サイトがSPAのため直接確認できていない。",
     accessibility:
-      "知覚可能(Perceivable) ― 単位にspを使うことで、端末の文字サイズ設定による拡大に追従し、WCAG 1.4.4(テキストのサイズ変更)の考え方に沿う仕組みです。Body Largeの行送り1.5倍は、WCAG 1.4.12・1.4.8で登場する1.5倍という値とも一致しています。",
+      "知覚可能(Perceivable) ― 単位にspを使うことで、端末の文字サイズ設定による拡大に追従し、WCAG 1.4.4(テキストのサイズ変更)の考え方に沿う仕組み。Body Largeの行送り1.5倍は、WCAG 1.4.12・1.4.8で登場する1.5倍という値とも一致している。",
     useCases: [
       "文字サイズは直接指定せず、タイプスケールのトークン(bodyLarge等)を参照する",
       "本文にはBody(Large 16sp/Medium 14sp)を使い、Labelはボタン等の短い文字に使う",
@@ -79,7 +80,7 @@ const SOURCES = [
       { label: "MDC Android: Typography theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Typography.md" },
       { label: "Compose Material 3 TypeScaleTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/TypeScaleTokens.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。数値は、Google公式のMaterial Components for Androidのドキュメント(サイズ・ウェイト)と、Jetpack ComposeのMaterial 3トークン定義(行送り)をソースで直接確認(2026-09)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。数値は、Google公式のMaterial Components for Androidのドキュメント(サイズ・ウェイト)と、Jetpack ComposeのMaterial 3トークン定義(行送り)をソースで直接確認(2026-09)。",
   },
   {
     key: "wcag",
@@ -87,7 +88,7 @@ const SOURCES = [
     doc: "WCAG 1.4.4 Resize Text / 1.4.12 Text Spacing / 1.4.8 Visual Presentation",
     color: "#A3821F",
     position: "文字サイズの最小値は定めず、「ユーザーが拡大・行間の変更をしても表示が壊れないこと」を求める基準",
-    size: "文字サイズそのものの最小値はありません。1.4.4(レベルAA): 支援技術を使わずに200%まで拡大しても、内容や機能が失われないこと(字幕と文字画像は除く)。1.4.8(レベルAAA): 1行の幅は80文字以内(CJKは40文字以内)にできること、200%に拡大しても横スクロールなしで1行を読めること。",
+    size: "文字サイズそのものの最小値はない。1.4.4(レベルAA): 支援技術を使わずに200%まで拡大しても、内容や機能が失われないこと(字幕と文字画像は除く)。1.4.8(レベルAAA): 1行の幅は80文字以内(CJKは40文字以内)にできること、200%に拡大しても横スクロールなしで1行を読めること。",
     colorInfo: "1.4.12(レベルAA): 行の高さを文字サイズの1.5倍以上、段落の後の間隔を2倍以上、字間を0.12倍以上、単語間隔を0.16倍以上に変更しても、内容や機能が失われないこと。1.4.8(レベルAAA): 段落内の行間を1.5倍以上、段落間の間隔をその行間の1.5倍以上にできること、両端揃えにしないこと。",
     glossary: [
       { term: "1.4.4 Resize Text・レベルAA", desc: "支援技術なしで文字を200%まで拡大しても、内容・機能が失われないことを求める基準。字幕と文字画像は対象外。" },
@@ -95,10 +96,10 @@ const SOURCES = [
       { term: "1.4.8 Visual Presentation・レベルAAA", desc: "文章のかたまりについて、色・行の幅・揃え方・行間・拡大をユーザーが調整できる仕組みを求める、最上位レベルの基準。" },
     ],
     stance:
-      "WCAGの数値は、デザインの初期値として使うための値ではありません。1.4.12・1.4.8には「コンテンツがこの値を使う必要はない」と明記されており、求められているのは、ユーザーが自分で見やすい値に変えたときに、文字が重なったり切れたりしないことです。1.4.4も、拡大の大部分はブラウザなどのユーザーエージェントの役割とし、ページ全体のズームで満たす方法も認めています。",
+      "WCAGの数値は、デザインの初期値として使うための値ではない。1.4.12・1.4.8には「コンテンツがこの値を使う必要はない」と明記されており、求められているのは、ユーザーが自分で見やすい値に変えたときに、文字が重なったり切れたりしないこと。1.4.4も、拡大の大部分はブラウザなどのユーザーエージェントの役割とし、ページ全体のズームで満たす方法も認めている。",
     exceptions:
-      "1.4.4は字幕と文字画像を適用除外としています。1.4.12は、ある言語・文字体系でもともと使われない文字間の設定(例: 単語間スペースを使わない言語の単語間隔)については、存在するものだけで適合してよいとしています。1.4.8はレベルAAAで、多くのサイトが目標とするAAには含まれません。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.4・1.4.12・1.4.8はいずれもPOURの「知覚可能」に属し、弱視・ディスレクシア(読字障害)・高齢などで文字が読みにくい人が、自分に合った大きさ・間隔に調整して読めることを目的としています。",
+      "1.4.4は字幕と文字画像を適用除外としている。1.4.12は、ある言語・文字体系でもともと使われない文字間の設定(例: 単語間スペースを使わない言語の単語間隔)については、存在するものだけで適合してよいとしている。1.4.8はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
+    accessibility: "知覚可能(Perceivable) ― 1.4.4・1.4.12・1.4.8はいずれもPOURの「知覚可能」に属し、弱視・ディスレクシア(読字障害)・高齢などで文字が読みにくい人が、自分に合った大きさ・間隔に調整して読めることを目的としている。",
     useCases: [
       "200%に拡大しても文字の切れ・重なり・機能の消失がないか確認する",
       "行の高さ1.5倍・段落後2倍・字間0.12倍・単語間隔0.16倍を当てても崩れない、固定高さに頼らないレイアウトにする",
@@ -118,13 +119,13 @@ const SOURCES = [
     doc: "Legibility, Readability, and Comprehension ほか",
     color: "#7A4F7E",
     position: "読みやすさを「判読性(文字が見分けられるか)・可読性(文が難しすぎないか)・理解度」の3段階に分け、文字の見た目は最初の判読性の問題として扱う実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及が中心です。2015年の記事では、文字を小さくして目立たなさを調整する場合も少なくとも8ptは確保するよう勧めています。2002年の記事では、既定の文字サイズは十分に大きく(10pt以上)、高齢者向けには12pt以上、画像内の文字も12pt以上にするよう勧めています。352人が16書体を読んだ調査では、同じ人でも最も速く読めた書体は最も遅い書体より平均35%速く、20歳の年齢差でおよそ毎分30語遅くなる(50歳は30歳より約11%長くかかる)という結果でした。",
-    colorInfo: "行間・行の長さについての数値は、確認した記事の中では示されていません。前景と背景の高いコントラスト、すっきりした書体、十分に大きい既定サイズ、ユーザーが文字サイズを変えられることを、判読性の条件として挙げています。",
+    size: "数値基準ではなく原則としての言及が中心。2015年の記事では、文字を小さくして目立たなさを調整する場合も少なくとも8ptは確保するよう勧めている。2002年の記事では、既定の文字サイズは十分に大きく(10pt以上)、高齢者向けには12pt以上、画像内の文字も12pt以上にするよう勧めている。352人が16書体を読んだ調査では、同じ人でも最も速く読めた書体は最も遅い書体より平均35%速く、20歳の年齢差でおよそ毎分30語遅くなる(50歳は30歳より約11%長くかかる)という結果だった。",
+    colorInfo: "行間・行の長さについての数値は、確認した記事の中では示されていない。前景と背景の高いコントラスト、すっきりした書体、十分に大きい既定サイズ、ユーザーが文字サイズを変えられることを、判読性の条件として挙げている。",
     stance:
-      "小さい文字は判読性を損ない、どこからが「小さすぎる」かは視力によって人それぞれで、視力は年齢とともに落ちるとしています。そのため、十分に大きい既定サイズを選んだうえで、ユーザーが文字サイズを変えられるようにすべきだという立場です。書体の調査では、すべての人に最適な書体は存在せず、しかも人は自分にとって最も速く読める書体を選べない(好みと読む速さが一致しない)という結果が示されています(記事本文を直接取得して確認済み、2026-09)。",
+      "小さい文字は判読性を損ない、どこからが「小さすぎる」かは視力によって人それぞれで、視力は年齢とともに落ちるとしている。そのため、十分に大きい既定サイズを選んだうえで、ユーザーが文字サイズを変えられるようにすべきだという立場。書体の調査では、すべての人に最適な書体は存在せず、しかも人は自分にとって最も速く読める書体を選べない(好みと読む速さが一致しない)という結果が示されている(記事本文を直接取得して確認済み、2026-09)。",
     exceptions:
-      "10pt・12ptという数値は2002年の記事によるもので、当時のデスクトップのWebを前提にしています。現在のスマートフォンの単位(pt/sp)とそのまま比べることはできません。書体の調査は英語の文章を対象にしたものです。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザーテストと読む速さの調査に基づく設計上の根拠です。",
+      "10pt・12ptという数値は2002年の記事によるもので、当時のデスクトップのWebを前提にしている。現在のスマートフォンの単位(pt/sp)とそのまま比べることはできない。書体の調査は英語の文章を対象にしたもの。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザーテストと読む速さの調査に基づく設計上の根拠。",
     useCases: [
       "既定の文字サイズは小さくしすぎず、ユーザーが拡大できるようにする",
       "高齢のユーザーが多いサービスでは、既定サイズを一段大きくする",
@@ -137,7 +138,7 @@ const SOURCES = [
       { label: "Let Users Control Font Size(2002)", url: "https://www.nngroup.com/articles/let-users-control-font-size/" },
       { label: "Low-Contrast Text Is Not the Answer(2015)", url: "https://www.nngroup.com/articles/low-contrast/" },
     ],
-    confirmedNote: "4記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は「Best Font for Online Reading」の見出しです。",
+    confirmedNote: "4記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は「Best Font for Online Reading」の見出し。",
   },
 ];
 
@@ -437,7 +438,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -446,6 +447,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "見出し・本文などの役割に合った文字の大きさをそろえ、読みやすくする" },
+  { k: "関わる場面", v: "見出しと本文の大きさ、行間、利用者が文字を大きくする設定への対応" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink></> },
+];
 
 export default function TokensTypographyPage() {
   return (
@@ -474,16 +483,25 @@ export default function TokensTypographyPage() {
           </div>
 
           <h1 style={styles.title}>タイポグラフィ(文字サイズ・行間)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、文字サイズの段階・行送り・拡大への対応をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="文字サイズの段階(実寸の60%で表示)"
+            image={<><TypeLadder /></>}
+            imageNote={<>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みです。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11です。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>文字サイズの段階(実寸の60%で表示)</span>
-            <TypeLadder />
-            <p style={styles.swatchNote}>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みです。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11です。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― 最小サイズと文字色の濃さ(コントラスト)</h2>
+            <MinSizeChart />
+            <p style={styles.chartNote}>○=最小サイズ、◆=基準(本文の既定)サイズ。pt(Apple)・sp(Google)・NN groupのpt(当時のデスクトップのWeb)は実際の大きさが一致しない単位のため、同じ目盛りに並べたのは目安です。右側の「本文 Aa」は、白背景でその比率ちょうどになる灰色で表示しており、これより薄い色は基準を下回ります。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               AppleとGoogleは、どちらも<strong>名前の付いた文字の段階(テキストスタイル/タイプスケール)にサイズと行送りを割り当て、ユーザーの文字サイズ設定に連動させる</strong>という同じ構造を持っています。本文はApple 17pt・Google 16sp、最小はどちらも11と、数値もかなり近い水準です。
             </p>
@@ -500,13 +518,6 @@ export default function TokensTypographyPage() {
               Nielsen Norman Groupは数値より原則が中心で、<strong>「十分に大きい既定サイズ+ユーザーが変えられること」</strong>を判読性の条件としています。これはAppleのDynamic Type、Googleのsp単位、WCAGの1.4.4と同じ方向を向いており、4系列に共通する結論は、<strong>文字サイズを固定せず、ユーザーの拡大に追従して崩れない作りにすること</strong>だといえます。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 最小サイズと文字色の濃さ(コントラスト)</h2>
-            <MinSizeChart />
-            <p style={styles.chartNote}>○=最小サイズ、◆=基準(本文の既定)サイズ。pt(Apple)・sp(Google)・NN groupのpt(当時のデスクトップのWeb)は実際の大きさが一致しない単位のため、同じ目盛りに並べたのは目安です。右側の「本文 Aa」は、白背景でその比率ちょうどになる灰色で表示しており、これより薄い色は基準を下回ります。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -543,7 +554,6 @@ export default function TokensTypographyPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>タイポグラフィ デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -556,13 +566,13 @@ export default function TokensTypographyPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>文字サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>行送り・字間</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -578,8 +588,8 @@ export default function TokensTypographyPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -620,7 +630,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -631,7 +641,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -654,7 +664,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -665,7 +675,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

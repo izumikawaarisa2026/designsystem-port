@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / フルスクリーンダイアログ」ページ。
@@ -31,18 +32,18 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Modality / Sheets",
     color: "#C2542A",
     position: "一時的な没入体験や、複数ステップのタスク(コンテンツ編集など)に集中させるための全画面モーダル体験",
-    size: "具体的なpt数値は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: <NoData>数値は未確認</NoData>,
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "一時的な没入体験を提供したり、複数ステップのタスクに集中させたりするため、アプリは全画面のモーダル体験を提供できるとしています。画面またはウィンドウ全体を占めることで、注意散漫の要素を減らせるという考え方です。",
+      "一時的な没入体験を提供したり、複数ステップのタスクに集中させたりするため、アプリは全画面のモーダル体験を提供できるとしている。画面またはウィンドウ全体を占めることで、注意散漫の要素を減らせるという考え方。",
     scenarios: [
       "動画・写真・カメラビューなど、一時的な没入体験を提示したい時",
       "ドキュメント編集・写真編集のような複数ステップのタスクに集中させたい時",
       "複雑なタスクで、iOS/iPadOSの全画面スタイルのモーダルビューが適する時",
     ],
     exceptions:
-      "モーダルタスク内に複数の階層を持つビューを表示すると、ユーザーが元の手順を思い出せなくなる可能性があるとしています。モーダルタスクがサブビューを含む必要がある場合は、単一の経路のみを提供し、モーダルビューを閉じるボタンと誤認されるようなボタンを含めないようにすべきとしています。",
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
+      "モーダルタスク内に複数の階層を持つビューを表示すると、ユーザーが元の手順を思い出せなくなる可能性があるとしている。モーダルタスクがサブビューを含む必要がある場合は、単一の経路のみを提供し、モーダルビューを閉じるボタンと誤認されるようなボタンを含めないようにすべきとしている。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "動画・写真・カメラビューなど、一時的な没入体験の提示に使う",
       "ドキュメント編集・写真編集のような複数ステップのタスクに使う",
@@ -68,19 +69,19 @@ const SOURCES = [
     doc: "Material Design 3 ― Full-screen dialog",
     color: "#2F7D6E",
     position: "画面全体を占め、一連のタスクを完了させるためのモーダル。コンパクトブレークポイントでのみ使用",
-    size: "具体的なdp数値は文書内に記載がなく確認できていません。コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしています。",
-    colorInfo: "色の値はデザイントークンを通して実装されるとしています。全画面ダイアログを起動すると、アプリの画面上の位置が一時的にリセットされ、その上に表示されるシンプルなメニューやダイアログは画面全体を覆う形になるとしています。",
+    size: <span><NoData>数値は未確認。</NoData>コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしている。</span>,
+    colorInfo: "色の値はデザイントークンを通して実装されるとしている。全画面ダイアログを起動すると、アプリの画面上の位置が一時的にリセットされ、その上に表示されるシンプルなメニューやダイアログは画面全体を覆う形になるとしている。",
     stance:
-      "全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしています。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしています。コンパクトなブレークポイントでのみ使用でき、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしています。",
+      "全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。コンパクトなブレークポイントでのみ使用でき、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。",
     scenarios: [
       "イベントのタイトル・日付・場所・時刻を含むカレンダーエントリの作成のような、一連のタスクを完了させたい時",
       "フォームフィールドなどキーボード入力を必要とするコンポーネントを含む時",
       "変更が即座に保存されない、またはダイアログ内から別のダイアログを開く時",
     ],
     exceptions:
-      "全画面ダイアログを保存せずに閉じようとした場合、選択内容を破棄するかどうかを確認する基本ダイアログを前面に表示すべきとしています(全画面ダイアログの上に基本ダイアログを表示できる唯一のケース)。「保存」などの確認操作を押したときは、確認のダイアログを挟まずに閉じてよく、×アイコン・「キャンセル」・「戻る」で閉じようとして未保存の変更があるときだけ、破棄するかどうかの確認を出すとしています。ナビゲーションは完了・閉じる・破棄しかできないため、アプリバーのナビゲーションオプションは閉じる「×」アイコンボタンのみにすべきとしています。",
+      "全画面ダイアログを保存せずに閉じようとした場合、選択内容を破棄するかどうかを確認する基本ダイアログを前面に表示すべきとしている(全画面ダイアログの上に基本ダイアログを表示できる唯一のケース)。「保存」などの確認操作を押したときは、確認のダイアログを挟まずに閉じてよく、×アイコン・「キャンセル」・「戻る」で閉じようとして未保存の変更があるときだけ、破棄するかどうかの確認を出すとしている。ナビゲーションは完了・閉じる・破棄しかできないため、アプリバーのナビゲーションオプションは閉じる「×」アイコンボタンのみにすべきとしている。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― 基本ダイアログと同様、初期フォーカスは最初のインタラクティブ要素に自動的に移動すべきだとしています。全画面ダイアログに含まれるテキストフィールド・タイポグラフィ・ボタンなどの各要素は、それぞれ固有のアクセシビリティガイドラインに従うべきとしています。",
+      "操作可能(Operable)・理解可能(Understandable) ― 基本ダイアログと同様、初期フォーカスは最初のインタラクティブ要素に自動的に移動すべきだとしている。全画面ダイアログに含まれるテキストフィールド・タイポグラフィ・ボタンなどの各要素は、それぞれ固有のアクセシビリティガイドラインに従うべきとしている。",
     useCases: [
       "フォーム入力などキーボード入力が必要な一連のタスクに使う(コンパクトブレークポイントのみ)",
       "閉じる際に未保存の変更があれば、基本ダイアログで破棄確認を表示する",
@@ -107,18 +108,18 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域。サイズによる区別は設けられていない",
-    size: "フルスクリーンダイアログ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用されます。",
-    colorInfo: "フルスクリーンダイアログ専用の色基準はありませんが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターやボタンの境界線などに適用され得ます。",
+    size: "フルスクリーンダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
+    colorInfo: "フルスクリーンダイアログ専用の色基準はないが、1.4.11(非テキストのコントラスト)がフォーカスインジケーターやボタンの境界線などに適用され得る。",
     stance:
-      "WAI-ARIAのDialog (Modal) Patternは、ダイアログの視覚的な大きさ(画面全体を占めるか、中央寄せの小さいものか)による区別を設けておらず、「ダイアログ」ページで比較した基本ダイアログと同じ実装要件がそのまま当てはまります。",
+      "WAI-ARIAのDialog (Modal) Patternは、ダイアログの視覚的な大きさ(画面全体を占めるか、中央寄せの小さいものか)による区別を設けておらず、「ダイアログ」ページで比較した基本ダイアログと同じ実装要件がそのまま当てはまる。",
     scenarios: [
       "画面全体を占めるダイアログを実装する時も、基本ダイアログと同じrole=\"dialog\"・aria-modal=\"true\"・フォーカストラップを実装する",
       "全画面ダイアログの上にさらに別のダイアログを重ねる時、フォーカストラップの対象を最前面に正しく移す",
     ],
     exceptions:
-      "画面全体を占める場合でも、フォーカスはダイアログ内に閉じ込め、Tab/Shift+Tabで循環させる必要がある点は同じです。全画面ダイアログの上にさらに別のダイアログ(Googleの破棄確認ダイアログなど)を表示する場合、フォーカストラップの範囲を最前面のダイアログに正しく移す実装上の注意が必要です(APG本文に全画面特有の追加要件としての明記はありません)。",
+      "画面全体を占める場合でも、フォーカスはダイアログ内に閉じ込め、Tab/Shift+Tabで循環させる必要がある点は同じ。全画面ダイアログの上にさらに別のダイアログ(Googleの破棄確認ダイアログなど)を表示する場合、フォーカストラップの範囲を最前面のダイアログに正しく移す実装上の注意が必要です(APG本文に全画面特有の追加要件としての明記はない)。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログ内に閉じ込め、Escapeキーで閉じられるようにし、閉じた後は起動した要素へフォーカスを戻すべきとしています(「ダイアログ」ページと共通の要件)。",
+      "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログ内に閉じ込め、Escapeキーで閉じられるようにし、閉じた後は起動した要素へフォーカスを戻すべきとしている(「ダイアログ」ページと共通の要件)。",
     useCases: [
       "role=\"dialog\"とaria-modal=\"true\"を設定する(基本ダイアログと同じ実装)",
       "複数のダイアログを重ねる場合はフォーカストラップの対象を最前面に正しく移す",
@@ -143,18 +144,18 @@ const SOURCES = [
     doc: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations",
     color: "#7A4F7E",
     position: "複数ステップの作業はモーダル(全画面ダイアログも含む)にせず、モーダルではない普通のページ(ウィザード)にすべきという主張",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけだとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としています。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物です。",
+      "複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけだとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としている。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物。",
     scenarios: [
       "ドメイン知識の少ない新規ユーザー向けのオンボーディングフロー",
       "頻繁には行わない、複数ステップのセットアップ・設定作業(日常的に繰り返す操作には不向き)",
     ],
     exceptions:
-      "ウィザード形式にする場合は、ステップの一覧や図表で全体像と現在位置を示し、ユーザーが進捗とプロセスの長さを把握できるようにすべきとしています。ステップの順序を明確にし、前のステップを完了させてから次へ進ませ、「次へ」「戻る」ボタンにはステップの内容が分かる説明的なラベルを付けるべきとしています。途中保存・再開の機能や、ウィザードの内容を覆わない位置にヘルプを表示することも推奨しています。",
+      "ウィザード形式にする場合は、ステップの一覧や図表で全体像と現在位置を示し、ユーザーが進捗とプロセスの長さを把握できるようにすべきとしている。ステップの順序を明確にし、前のステップを完了させてから次へ進ませ、「次へ」「戻る」ボタンにはステップの内容が分かる説明的なラベルを付けるべきとしている。途中保存・再開の機能や、ウィザードの内容を覆わない位置にヘルプを表示することも推奨している。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、モーダルによる文脈喪失を避けるための設計根拠です。全画面ダイアログもモーダルなので、NN groupの指摘は「複数ステップの作業はモーダル(全画面ダイアログも含む)にしない」という意味になります。",
+      "根拠となる原則 ― POURのような適合区分ではなく、モーダルによる文脈喪失を避けるための設計根拠。全画面ダイアログもモーダルなので、NN groupの指摘は「複数ステップの作業はモーダル(全画面ダイアログも含む)にしない」という意味になる。",
     useCases: [
       "複数ステップの複雑なタスクは、モーダル(全画面ダイアログも含む)ではなく、普通のページにする",
       "ウィザード形式にする場合は、進捗・全体のステップ数を明示する",
@@ -198,7 +199,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -223,6 +224,14 @@ function FullscreenDialogSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログです。";
+const ABOUT = [
+  { k: "目的・役割", v: "まとまった入力(予定の作成など)を、元の画面から切り離して集中して行えるようにする" },
+  { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマホでの長めのフォーム" },
+  { k: "似た部品との違い", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">ダイアログ</PageLink></> },
+];
 
 export default function ContainmentFullscreenDialogPage() {
   return (
@@ -249,16 +258,18 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <h1 style={styles.title}>フルスクリーンダイアログ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、画面全体を占め一連のタスクを完了させるダイアログをどう定めているかを比較します(スクリム上の小さいダイアログは「ダイアログ」ページを参照)</p>
+          <SummaryCard
+            image={<><FullscreenDialogSwatch /></>}
+            imageNote={<>画面全体を占め、フォーム入力など一連のタスクをまとめて完了させる。ナビゲーションは閉じる「×」のみで、保存には専用ボタンを使う。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <FullscreenDialogSwatch />
-            <p style={styles.swatchNote}>画面全体を占め、フォーム入力など一連のタスクをまとめて完了させる。ナビゲーションは閉じる「×」のみで、保存には専用ボタンを使う。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このページは、<strong>「ダイアログ」ページから、画面全体を占める変異体を独立させたもの</strong>です。Googleは、フォーム入力などキーボード入力を要する一連のタスクや、変更が即座に保存されないタスクに全画面ダイアログを使うべきとしており、<strong>コンパクトなブレークポイントでのみ使用し、中〜拡張ブレークポイントでは基本ダイアログに切り替える</strong>という明確な使い分けを持っています。
             </p>
@@ -272,7 +283,6 @@ export default function ContainmentFullscreenDialogPage() {
               W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていません</strong>。「ダイアログ」ページで比較した基本ダイアログと同じrole="dialog"・aria-modal・フォーカストラップの要件がそのまま適用され、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かります。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -282,13 +292,13 @@ export default function ContainmentFullscreenDialogPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -316,7 +326,6 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -326,8 +335,6 @@ export default function ContainmentFullscreenDialogPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -335,16 +342,18 @@ export default function ContainmentFullscreenDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -359,8 +368,8 @@ export default function ContainmentFullscreenDialogPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -398,7 +407,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -407,7 +416,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -432,7 +441,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -447,7 +456,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

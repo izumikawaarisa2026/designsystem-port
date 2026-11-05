@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / 表(データテーブル)」ページ。
@@ -26,14 +27,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Lists and tables",
     color: "#C2542A",
     position: "1列のリストと複数列の表を1つのページで扱う。数値の基準は持たず、macOSの複数列の表では、列ごとの並べ替え・列幅の変更・行の色の交互表示を求める",
-    size: "数値の基準は示していません。行の文字は短くして、省略や折り返しを減らすよう求めています。1項目の文章が長いときは、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる方法を勧めています。",
-    colorInfo: "macOSの縦横に広い表では、行ごとに背景色を交互に変えると、列をまたいで同じ行の値を目で追いやすくなるとしています(bordered style)。iOS/iPadOSのgrouped styleは、見出し・脚注・余白でデータのまとまりを分けます。",
+    size: <span><NoData>数値基準なし。</NoData>行の文字は短くして、省略や折り返しを減らすよう求めている。1項目の文章が長いときは、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる方法を勧めている。</span>,
+    colorInfo: "macOSの縦横に広い表では、行ごとに背景色を交互に変えると、列をまたいで同じ行の値を目で追いやすくなるとしている(bordered style)。iOS/iPadOSのgrouped styleは、見出し・脚注・余白でデータのまとまりを分ける。",
     stance:
-      "行の形式は文字を読み流すのに向いているため、文字の情報は表かリストで見せることを勧めています。大きさのまちまちな項目や大量の画像には、表ではなくコレクションを使います。複数列の表の列見出しは名詞か短い名詞句にし、末尾に句読点を付けません。選んだときの反応も使い分け、階層をたどる表は選んだ行の強調を残して道筋を示し、選択肢の表は一瞬強調してからチェックマークを付けます(ページ本文を直接確認、2026-10)。",
+      "行の形式は文字を読み流すのに向いているため、文字の情報は表かリストで見せることを勧めている。大きさのまちまちな項目や大量の画像には、表ではなくコレクションを使う。複数列の表の列見出しは名詞か短い名詞句にし、末尾に句読点を付けない。選んだときの反応も使い分け、階層をたどる表は選んだ行の強調を残して道筋を示し、選択肢の表は一瞬強調してからチェックマークを付ける(ページ本文を直接確認、2026-10)。",
     exceptions:
-      "macOSでは、列見出しをクリックするとその列で並べ替え、すでに並べ替えた列の見出しをもう一度クリックすると逆順にします。列幅は利用者が変えられるようにします。階層のあるデータには、表ではなく開閉の三角が付いたアウトラインビューを使います。表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合があります。iOSでは、行の末尾に開示インジケーターがある表に五十音などの索引を付けないよう求めています(両方が右端にあり、押し間違えるため)。",
+      "macOSでは、列見出しをクリックするとその列で並べ替え、すでに並べ替えた列の見出しをもう一度クリックすると逆順にする。列幅は利用者が変えられるようにする。階層のあるデータには、表ではなく開閉の三角が付いたアウトラインビューを使う。表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合がある。iOSでは、行の末尾に開示インジケーターがある表に五十音などの索引を付けないよう求めている(両方が右端にあり、押し間違えるため)。",
     accessibility:
-      "―(このページには表専用のアクセシビリティの記載はありません)。列見出しを付けない1列の表でも、ラベルや見出しで何の一覧かを示すよう求めており、内容の理解(知覚可能)に関わります。",
+      <span><NoData>記載なし。</NoData>列見出しを付けない1列の表でも、ラベルや見出しで何の一覧かを示すよう求めており、内容の理解(知覚可能)に関わる。</span>,
     useCases: [
       "列見出しをクリックすると並べ替え、もう一度クリックで逆順にする(macOS)",
       "列幅を変えられるようにし、広い表では行の色を交互にする",
@@ -53,14 +54,14 @@ const SOURCES = [
     doc: "Material Design 2 ― Data tables(M3には対応するページなし)",
     color: "#2F7D6E",
     position: "行と列の格子で情報を並べ、データの傾向を見つけやすくする部品。行の高さ・余白・並べ替え・選択まで寸法と見た目を決めている。M3のサイトにはページがなく、旧版M2の指針が最新",
-    size: "行の高さは52dp、列見出しの行は56dp(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取ります。",
-    colorInfo: "チェックボックスで行を選ぶと、行全体に背景色を付けます。画面を拡大して使う人には、チェックボックスが拡大した範囲の外に出てしまうことがあるため、色の塗りで選択をもう1つの方法で示すという理由です。デスクトップでは、ポインタを乗せた行にも背景色を付けます。",
+    size: "行の高さは52dp、列見出しの行は56dp(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。",
+    colorInfo: "チェックボックスで行を選ぶと、行全体に背景色を付ける。画面を拡大して使う人には、チェックボックスが拡大した範囲の外に出てしまうことがあるため、色の塗りで選択をもう1つの方法で示すという理由。デスクトップでは、ポインタを乗せた行にも背景色を付ける。",
     stance:
-      "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいことです。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せます。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転します(Material Design 2のページデータを直接取得して確認、2026-10)。",
+      "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいこと。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せる。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転する(Material Design 2のページデータを直接取得して確認、2026-10)。",
     exceptions:
-      "並べ替えやページの切り替えの処理中は、線形のプログレスインジケーターで処理中であることを示します。表示を変える操作(フィルタチップ・ページネーションなど)は、表の直上か直下に置きます。ページネーションは表の下に置き、1ページに表示する行数をメニューで選べるようにします。セルの中に、決められた選択肢から選ぶインラインメニューを置くこともできます。",
+      "並べ替えやページの切り替えの処理中は、線形のプログレスインジケーターで処理中であることを示す。表示を変える操作(フィルタチップ・ページネーションなど)は、表の直上か直下に置く。ページネーションは表の下に置き、1ページに表示する行数をメニューで選べるようにする。セルの中に、決められた選択肢から選ぶインラインメニューを置くこともできる。",
     accessibility:
-      "知覚可能(Perceivable)・操作可能(Operable) ― 選択した行の背景色は、画面拡大を使う人のための手がかりです。キーボードのTabでチェックボックスなどに移ると、フォーカスの表示が出ることも定めています。",
+      "知覚可能(Perceivable)・操作可能(Operable) ― 選択した行の背景色は、画面拡大を使う人のための手がかり。キーボードのTabでチェックボックスなどに移ると、フォーカスの表示が出ることも定めている。",
     useCases: [
       "見出し行56dp・行52dp・列の間32dp以上を基準にする",
       "並べ替えている列の見出しに矢印を付け、押すと逆順にする",
@@ -68,7 +69,7 @@ const SOURCES = [
     ],
     searchHint: "52dp",
     url: "https://m2.material.io/components/data-tables",
-    confirmedNote: "m3.material.ioのサイトマップにデータテーブルのページはありません。Material Design 2のData tablesのページデータ(JSON)を直接取得して本文を確認済み(2026-10)。",
+    confirmedNote: "m3.material.ioのサイトマップにデータテーブルのページはない。Material Design 2のData tablesのページデータ(JSON)を直接取得して本文を確認済み(2026-10)。",
   },
   {
     key: "wcag",
@@ -76,8 +77,8 @@ const SOURCES = [
     doc: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern",
     color: "#A3821F",
     position: "見た目の決まりは持たず、見出しセルとデータセルの関係を構造として支援技術に伝えることを求める",
-    size: "表専用の数値基準はありません。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められています(「アダプティブ/レスポンシブ」ページを参照)。",
-    colorInfo: "見出しセルは<th>、データセルは<td>で書きます。行と列の両方に見出しがあるならscope=\"col\"/\"row\"で向きを示し、複数の見出しが1つのセルにかかる複雑な表はidとheaders属性で関係を明示します。表の題名は<caption>で付け、見出しのように働いて多くのスクリーンリーダーが読み上げます。",
+    size: "表専用の数値基準はない。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められている(「アダプティブ/レスポンシブ」ページを参照)。",
+    colorInfo: "見出しセルは<th>、データセルは<td>で書く。行と列の両方に見出しがあるならscope=\"col\"/\"row\"で向きを示し、複数の見出しが1つのセルにかかる複雑な表はidとheaders属性で関係を明示する。表の題名は<caption>で付け、見出しのように働いて多くのスクリーンリーダーが読み上げる。",
     glossary: [
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で伝えている構造や関係(表の見出しとデータの関係など)を、マークアップなどでプログラムからも判別できるようにすることを求める基準。" },
       { term: "scope属性", desc: "見出しセル(th)が列の見出しか行の見出しかを示す属性。col・row・colgroup・rowgroupの値を取る。" },
@@ -85,11 +86,11 @@ const SOURCES = [
       { term: "Gridパターン", desc: "表の形をした、操作する部品(セルにフォーカスでき、矢印キーで移動する)を作るためのAPGのパターン。読むだけの表はTableパターンを使う。" },
     ],
     stance:
-      "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失いません。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしています(Tables Tutorialの本文を直接確認、2026-10)。",
+      "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしている(Tables Tutorialの本文を直接確認、2026-10)。",
     exceptions:
-      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできません。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせます。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包みます(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出します。表をレイアウトの目的に使わないことも求めています。",
+      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包みます(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
     accessibility:
-      "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、aria-sortなどで状態を支援技術に伝えることは「堅牢」に関わります。並べ替えのボタンをキーボードで操作できることは「操作可能」です。",
+      "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、aria-sortなどで状態を支援技術に伝えることは「堅牢」に関わる。並べ替えのボタンをキーボードで操作できることは「操作可能」。",
     useCases: [
       "見出しは<th>、データは<td>で書き、必要ならscopeで向きを示す",
       "表には<caption>で題名を付ける",
@@ -103,7 +104,7 @@ const SOURCES = [
       { label: "APG: Sortable Table Example", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/" },
       { label: "1.3.1 Info and Relationships", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
     ],
-    confirmedNote: "Tables Tutorial・Caption & Summary・APGのTable PatternとSortable Table Example・1.3.1のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はTables Tutorialのものです。",
+    confirmedNote: "Tables Tutorial・Caption & Summary・APGのTable PatternとSortable Table Example・1.3.1のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はTables Tutorialのもの。",
   },
   {
     key: "nn",
@@ -111,13 +112,13 @@ const SOURCES = [
     doc: "Data Tables: Four Major User Tasks / Mobile Tables",
     color: "#7A4F7E",
     position: "表は「探す・比べる・1行を見る/編集する・まとめて操作する」の4つの作業を支えるべき、という観点で設計を決める実務指針(適合基準ではない)",
-    size: "数値基準はありません。表の利点として、行も列も増やしやすいことと、隣り合うデータを目や記憶を使わずに比べられることを挙げ、カードの並びより比較に向くとしています。",
-    colorInfo: "大きい表では見出し行と最初の列を固定し、薄い境界線・縞模様(ゼブラ)・ポインタを乗せた行の強調で、目を横に動かしても位置を見失わないようにします。固定した見出しに控えめな影を付けると、表の上に浮いて見えて位置関係がつかみやすいとしています。",
+    size: <span><NoData>数値基準なし。</NoData>表の利点として、行も列も増やしやすいことと、隣り合うデータを目や記憶を使わずに比べられることを挙げ、カードの並びより比較に向くとしている。</span>,
+    colorInfo: "大きい表では見出し行と最初の列を固定し、薄い境界線・縞模様(ゼブラ)・ポインタを乗せた行の強調で、目を横に動かしても位置を見失わないようにする。固定した見出しに控えめな影を付けると、表の上に浮いて見えて位置関係がつかみやすいとしている。",
     stance:
-      "最初の列には、自動で振った番号ではなく人が読める識別名を置き、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べます。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示します。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意します(記事本文を直接取得して確認、2026-10)。",
+      "最初の列には、自動で振った番号ではなく人が読める識別名を置き、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。",
     exceptions:
-      "1行を編集するときは、モーダルは他の行を隠して参照できなくなるため深い編集には勧めず、表を見ながら編集できる非モーダルの横パネルを勧めています。行の中に置く操作は1〜2個までにし、それ以上は行を選んでからまとめて操作する形(全選択も用意)にします。スマートフォンでは、見出しを固定する、横スクロールが必要なら右端の列を少し切って続きがあると示す(点より矢印や切れ目の方が気づかれやすい)、最初の列を固定する、横向きへの回転を強いるのは最後の手段にする、見たい列を選ばせる、としています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠です。列の並べ替えをドラッグだけにすると、見つけにくく使えない人もいるとしています。",
+      "1行を編集するときは、モーダルは他の行を隠して参照できなくなるため深い編集には勧めず、表を見ながら編集できる非モーダルの横パネルを勧めている。行の中に置く操作は1〜2個までにし、それ以上は行を選んでからまとめて操作する形(全選択も用意)にする。スマートフォンでは、見出しを固定する、横スクロールが必要なら右端の列を少し切って続きがあると示す(点より矢印や切れ目の方が気づかれやすい)、最初の列を固定する、横向きへの回転を強いるのは最後の手段にする、見たい列を選ばせる、としている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。列の並べ替えをドラッグだけにすると、見つけにくく使えない人もいるとしている。",
     useCases: [
       "最初の列は人が読める名前にし、関連する列を隣に並べる",
       "大きい表は見出し行と最初の列を固定し、縞模様や境界線で行を追いやすくする",
@@ -128,7 +129,7 @@ const SOURCES = [
     urlSecondary: [
       { label: "Mobile Tables(最初の列を固定)", url: "https://www.nngroup.com/articles/mobile-tables/#toc-stick-the-left-column-in-place-5" },
     ],
-    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Data Tables)のものです。",
+    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Data Tables)のもの。",
   },
 ];
 
@@ -361,7 +362,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -370,6 +371,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "行と列にデータを並べ、項目どうしを比べられるようにする部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "複数の項目を、同じ観点(列)でそろえて比べたり、並べ替えたりできるようにする" },
+  { k: "よく使われる場面", v: "管理画面のデータ一覧、料金プランの比較、ファイル一覧" },
+  { k: "似た部品との違い", v: <>1列の一覧で足りるなら<PageLink to="/components/containment/list">リスト</PageLink>、見た目を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink></> },
+];
 
 export default function ContainmentTablePage() {
   return (
@@ -396,16 +405,25 @@ export default function ContainmentTablePage() {
           </div>
 
           <h1 style={styles.title}>表(データテーブル)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、行と列でデータを比べる表の見出し・並べ替え・選択・小さい画面での見せ方をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ(データテーブルの構成)"
+            image={<><TableSwatch /></>}
+            imageNote={<>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図です。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱います。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(データテーブルの構成)</span>
-            <TableSwatch />
-            <p style={styles.swatchNote}>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図です。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱います。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― 表の要素ごとに何を定めているか</h2>
+            <RuleMatrix />
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針です。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指します。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通しています。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしています。
             </p>
@@ -419,13 +437,6 @@ export default function ContainmentTablePage() {
               NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いています。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造はW3Cのth/td・aria-sortで正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 表の要素ごとに何を定めているか</h2>
-            <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針です。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指します。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -462,7 +473,6 @@ export default function ContainmentTablePage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>表(データテーブル) デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -475,13 +485,13 @@ export default function ContainmentTablePage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ・余白</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>見出し・行の見分け方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -497,8 +507,8 @@ export default function ContainmentTablePage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -548,7 +558,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -561,7 +571,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -584,7 +594,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -599,7 +609,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

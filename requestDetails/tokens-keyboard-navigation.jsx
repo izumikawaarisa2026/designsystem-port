@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「キーボードナビゲーション・フォーカス順序」ページ。
@@ -26,14 +27,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Keyboards / Focus and selection",
     color: "#C2542A",
     position: "「フルキーボードアクセス」で画面のすべての部品に届くようにし、アプリはリスト・入力欄などの内容要素のフォーカスに対応する方式。標準のショートカットを守ることを重視する",
-    size: "iPadOSでは、Tabキーで「フォーカスグループ」(サイドバー・グリッド・リストなどの区画)の間を移動し、矢印キーで同じグループの中を移動します。Tabで巡る順番は読む順(行の始まりから終わり、上から下)。macOSでは、Shift-Tabで逆順、Control-Tabで次のコントロールのまとまり、Control-F2でメニューバー、Control-F5でツールバーへ移動し、Escで今の操作を取り消します。tvOSは、リモコンの方向操作で画面のすべての要素に届くようにします。",
-    colorInfo: "入力欄・検索欄にはフォーカスリング(halo)、リストやコレクションには行全体のハイライトを使い分けます。iPadOS・macOSでは、フォーカスした行をアプリのアクセントカラーの背景と白い文字で表示します。独自のフォーカス効果は本当に必要な場合だけにし、システムの効果を使うよう求めています。iOSとwatchOSにはフォーカスの仕組みがありません。",
+    size: "iPadOSでは、Tabキーで「フォーカスグループ」(サイドバー・グリッド・リストなどの区画)の間を移動し、矢印キーで同じグループの中を移動する。Tabで巡る順番は読む順(行の始まりから終わり、上から下)。macOSでは、Shift-Tabで逆順、Control-Tabで次のコントロールのまとまり、Control-F2でメニューバー、Control-F5でツールバーへ移動し、Escで今の操作を取り消す。tvOSは、リモコンの方向操作で画面のすべての要素に届くようにする。",
+    colorInfo: "入力欄・検索欄にはフォーカスリング(halo)、リストやコレクションには行全体のハイライトを使い分ける。iPadOS・macOSでは、フォーカスした行をアプリのアクセントカラーの背景と白い文字で表示する。独自のフォーカス効果は本当に必要な場合だけにし、システムの効果を使うよう求めている。iOSとwatchOSにはフォーカスの仕組みがない。",
     stance:
-      "利用者の操作なしにフォーカスを動かさないよう求めています。フォーカスは今どこにいるかを知る手がかりで、勝手に動くと探し直す手間がかかるためです。ただし、キーボードやリモコンで1歩ずつ移動している最中にフォーカスしていた項目が消えた場合は、近くの項目へ移してよいとしています。グループにフォーカスが入ったときは、最もよく使われる項目に自動でフォーカスが当たるよう優先度を設定できます(ページ本文を直接確認、2026-10)。",
+      "利用者の操作なしにフォーカスを動かさないよう求めている。フォーカスは今どこにいるかを知る手がかりで、勝手に動くと探し直す手間がかかるため。ただし、キーボードやリモコンで1歩ずつ移動している最中にフォーカスしていた項目が消えた場合は、近くの項目へ移してよいとしている。グループにフォーカスが入ったときは、最もよく使われる項目に自動でフォーカスが当たるよう優先度を設定できる(ページ本文を直接確認、2026-10)。",
     exceptions:
-      "iPadOS・macOSではフルキーボードアクセスがボタン・スライダー・スイッチなどの操作部品を受け持つため、アプリがフォーカスに対応するのはリスト項目・入力欄・検索欄などの内容要素だけでよいとしています。逆にtvOSでは、すべての要素にフォーカスが届くようにする必要があります。ゲームでは、利用者がキーの割り当てを自分で変えられることを期待されています。",
+      "iPadOS・macOSではフルキーボードアクセスがボタン・スライダー・スイッチなどの操作部品を受け持つため、アプリがフォーカスに対応するのはリスト項目・入力欄・検索欄などの内容要素だけでよいとしている。逆にtvOSでは、すべての要素にフォーカスが届くようにする必要がある。ゲームでは、利用者がキーの割り当てを自分で変えられることを期待されている。",
     accessibility:
-      "操作可能(Operable) ― フルキーボードアクセス(iOS・iPadOS・macOS・visionOS)は、キーボードだけでウィンドウ・メニュー・操作部品・システムの機能を移動・操作できる仕組みで、設定アプリのアクセシビリティから有効にしてテストするよう求めています。",
+      "操作可能(Operable) ― フルキーボードアクセス(iOS・iPadOS・macOS・visionOS)は、キーボードだけでウィンドウ・メニュー・操作部品・システムの機能を移動・操作できる仕組みで、設定アプリのアクセシビリティから有効にしてテストするよう求めている。",
     useCases: [
       "Tabで区画の間、矢印キーで区画の中を移動できるようにする",
       "入力欄はフォーカスリング、リストは行のハイライトで示す",
@@ -54,14 +55,14 @@ const SOURCES = [
     doc: "Android Developers ― Focus in Compose / Focus traversal order",
     color: "#2F7D6E",
     position: "Tab(1次元・見た目の順)と矢印キー・D-pad(2次元・位置関係)の2種類の移動を前提に、フォーカスの初期位置・順番・復元・見せ方を設計する",
-    size: "Tab/Shift+Tabは、画面に表示される順番(上の行の先頭→末尾→次の行)で前後に移動し、最後の要素から最初へ折り返します。矢印キー・D-padは、要素の位置関係から、押した方向で最も近い要素へ移動し、折り返しません。まとまり(focusGroup)を指定すると、そのまとまりの中を巡ってから次へ移ります。",
-    colorInfo: "どの要素にフォーカスがあるかを、フォーカスリングや波紋のような、はっきり見える手がかりで示すよう求めています。フォーカスした要素と周りの文脈が、見える位置までスクロールされるようにします。フォーカス時の重ね色の不透明度(10%)は「インタラクション状態」ページを参照。",
+    size: "Tab/Shift+Tabは、画面に表示される順番(上の行の先頭→末尾→次の行)で前後に移動し、最後の要素から最初へ折り返す。矢印キー・D-padは、要素の位置関係から、押した方向で最も近い要素へ移動し、折り返さない。まとまり(focusGroup)を指定すると、そのまとまりの中を巡ってから次へ移る。",
+    colorInfo: "どの要素にフォーカスがあるかを、フォーカスリングや波紋のような、はっきり見える手がかりで示すよう求めている。フォーカスした要素と周りの文脈が、見える位置までスクロールされるようにする。フォーカス時の重ね色の不透明度(10%)は「インタラクション状態」ページを参照。",
     stance:
-      "大画面やタッチ以外の端末(パソコンのキーボード、テレビのD-pad、車のロータリーコントローラー、タブレットのキーボードカバー)のために、5つの原則を挙げています。画面に入ったら最も使われそうな要素に最初のフォーカスを置く、Tabと矢印キーで予測できる順番にする、中断・ダイアログを閉じた後・画面の構成が変わった後にフォーカスを戻す、フォーカスをはっきり示す、フォーカスした要素を見える位置へスクロールする、です(Android Developersの本文を直接確認、2026-10)。",
+      "大画面やタッチ以外の端末(パソコンのキーボード、テレビのD-pad、車のロータリーコントローラー、タブレットのキーボードカバー)のために、5つの原則を挙げている。画面に入ったら最も使われそうな要素に最初のフォーカスを置く、Tabと矢印キーで予測できる順番にする、中断・ダイアログを閉じた後・画面の構成が変わった後にフォーカスを戻す、フォーカスをはっきり示す、フォーカスした要素を見える位置へスクロールする、です(Android Developersの本文を直接確認、2026-10)。",
     exceptions:
-      "多くの場合、Tabと矢印キーでの移動はフレームワークが自動で処理します。ただし、タブやリスト、一部しか見えていない横スクロールのような複雑な部品では、次の移動先を正しく決められないことがあり、まとまりを指定して順番を整える必要があるとしています。",
+      "多くの場合、Tabと矢印キーでの移動はフレームワークが自動で処理する。ただし、タブやリスト、一部しか見えていない横スクロールのような複雑な部品では、次の移動先を正しく決められないことがあり、まとまりを指定して順番を整える必要があるとしている。",
     accessibility:
-      "操作可能(Operable) ― タッチ中心のアプリではキーボードでの移動が実装されないことが多いが、キーボードに手を置いている人は期待しており、アクセシビリティの必要がある人にとっては、スマートフォン・タブレット・折りたたみ端末・パソコンのどれでも欠かせない場合がある、としています。",
+      "操作可能(Operable) ― タッチ中心のアプリではキーボードでの移動が実装されないことが多いが、キーボードに手を置いている人は期待しており、アクセシビリティの必要がある人にとっては、スマートフォン・タブレット・折りたたみ端末・パソコンのどれでも欠かせない場合がある、としている。",
     useCases: [
       "画面を開いたら、最も使われそうな要素に最初のフォーカスを置く",
       "ダイアログを閉じたら、開く前にフォーカスしていた要素に戻す",
@@ -73,7 +74,7 @@ const SOURCES = [
       { label: "Android: Focus traversal order", url: "https://developer.android.com/develop/ui/compose/touch-input/focus/change-focus-traversal-order#one-dimensional-focus-traversal" },
       { label: "Android: Input compatibility on large screens", url: "https://developer.android.com/develop/ui/compose/touch-input/input-compatibility-on-large-screens#navigation" },
     ],
-    confirmedNote: "M3(m3.material.io)にキーボードでの移動の専用ページは見当たらないため(サイトマップで確認)、Google公式のAndroid Developersの本文を掲載しています(直接確認、2026-10)。",
+    confirmedNote: "M3(m3.material.io)にキーボードでの移動の専用ページは見当たらないため(サイトマップで確認)、Google公式のAndroid Developersの本文を掲載している(直接確認、2026-10)。",
   },
   {
     key: "wcag",
@@ -82,7 +83,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "すべての機能をキーボードで使えること・閉じ込めないこと・意味の通る順番・フォーカスが見えること・繰り返しを飛ばせることを、それぞれ独立した基準で求める",
     size: "2.1.1(レベルA): すべての機能を、キーを押す間隔の指定なしにキーボードで操作できること。2.1.2(レベルA): フォーカスが入った部品から、キーボードだけで抜け出せること(Tabや矢印以外の方法が必要なら、その方法を知らせる)。2.4.3(レベルA): 意味や操作に影響するなら、意味と操作性を保つ順番でフォーカスを受けること。2.4.7(レベルAA): フォーカスの表示が見える状態があること。2.4.11(レベルAA): フォーカスした部品が、作者が置いた他の内容に完全には隠れないこと。2.4.1(レベルA): 複数のページで繰り返す内容を飛ばす手段があること。",
-    colorInfo: "W3CのAPG(ARIAの実装ガイド)は、Tab・Shift+Tabで部品から部品へ、矢印キーで複数の要素を持つ部品(ラジオグループ・タブ・メニュー・グリッド)の中を移動する、という役割分担を全プラットフォーム共通の慣習として示しています。部品の中の移動は、Tabの順番に1つだけを入れる「ロービングtabindex」か、aria-activedescendantで実装します。",
+    colorInfo: "W3CのAPG(ARIAの実装ガイド)は、Tab・Shift+Tabで部品から部品へ、矢印キーで複数の要素を持つ部品(ラジオグループ・タブ・メニュー・グリッド)の中を移動する、という役割分担を全プラットフォーム共通の慣習として示している。部品の中の移動は、Tabの順番に1つだけを入れる「ロービングtabindex」か、aria-activedescendantで実装する。",
     glossary: [
       { term: "2.1.1 Keyboard・レベルA", desc: "すべての機能をキーボードで操作できることを求める基準。手書きのように、なぞる軌跡そのものが必要な機能は例外。" },
       { term: "2.1.2 No Keyboard Trap・レベルA", desc: "キーボードでフォーカスを入れた部品から、キーボードだけで抜け出せることを求める基準。" },
@@ -92,10 +93,10 @@ const SOURCES = [
       { term: "ロービングtabindex", desc: "部品の中で今アクティブな1つだけをTabの順番に入れ(tabindex=0)、他は外して(tabindex=-1)、矢印キーで切り替える実装方法。" },
     ],
     stance:
-      "キーボードで操作できれば、目の見えない人(マウスのように目と手の協調が必要な機器を使えない)や、キーボードの代わりになる入力(音声入力、息で操作するスイッチ、画面上のキーボード、スキャン方式など)を使う人、ポインタを目で追いにくい弱視の人も使えるためです。2.1.2を満たさない内容はページ全体の利用を妨げるため、ページ上のすべての内容が満たす必要があります(Understandingページの本文を直接確認、2026-10)。",
+      "キーボードで操作できれば、目の見えない人(マウスのように目と手の協調が必要な機器を使えない)や、キーボードの代わりになる入力(音声入力、息で操作するスイッチ、画面上のキーボード、スキャン方式など)を使う人、ポインタを目で追いにくい弱視の人も使えるため。2.1.2を満たさない内容はページ全体の利用を妨げるため、ページ上のすべての内容が満たす必要がある(Understandingページの本文を直接確認、2026-10)。",
     exceptions:
-      "2.1.1は、手書きのように「なぞる軌跡」そのものが必要な機能を例外とします(ただし文字入力のように、機能自体は軌跡に依存しない場合は例外になりません)。2.4.3は、順番が意味や操作に影響しない場合は対象外です。フォーカスが重なった要素に完全に隠れないこと(2.4.11)・表示の大きさとコントラスト(2.4.13)は「インタラクション状態」「エレベーション」ページを参照。",
-    accessibility: "操作可能(Operable) ― 2.1(キーボード操作可能)と2.4(ナビゲーション可能)のガイドラインに属し、POURの「操作可能」です。",
+      "2.1.1は、手書きのように「なぞる軌跡」そのものが必要な機能を例外とする(ただし文字入力のように、機能自体は軌跡に依存しない場合は例外にならない)。2.4.3は、順番が意味や操作に影響しない場合は対象外。フォーカスが重なった要素に完全に隠れないこと(2.4.11)・表示の大きさとコントラスト(2.4.13)は「インタラクション状態」「エレベーション」ページを参照。",
+    accessibility: "操作可能(Operable) ― 2.1(キーボード操作可能)と2.4(ナビゲーション可能)のガイドラインに属し、POURの「操作可能」。",
     useCases: [
       "マウスを使わず、Tab・Shift+Tab・矢印・Enter・Escだけで全機能を試す",
       "ダイアログやメニューに入ったら、Escなどで必ず抜け出せるようにする",
@@ -109,7 +110,7 @@ const SOURCES = [
       { label: "2.4.7 Focus Visible", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
       { label: "APG: Developing a Keyboard Interface", url: "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#fundamentalkeyboardnavigationconventions" },
     ],
-    confirmedNote: "6つのUnderstandingページ(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7)とAPGの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのものです。",
+    confirmedNote: "6つのUnderstandingページ(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7)とAPGの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのもの。",
   },
   {
     key: "nn",
@@ -117,13 +118,13 @@ const SOURCES = [
     doc: "Keyboard-Only Navigation for Improved Accessibility",
     color: "#7A4F7E",
     position: "キーボードだけで使う人のために、「フォーカスが見える・すべての操作に届く・ナビゲーションを飛ばせる」の3つを満たすよう求める実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及です。キーボードでの移動は「順番に1つずつ」で、マウスのように目的の場所へ直接は行けない点が最大の違いだとしています。Tabの順番はページのレイアウトどおり(左から右、上から下)にするのが基本です。",
-    colorInfo: "ブラウザの既定のフォーカス表示を、見た目が悪いという理由で消すのは致命的だとしています。気に入らなければ消すのではなく、サイトの見た目に合ったデザインに置き換えます(例: マウスのホバーと同じ見た目をフォーカスにも使う)。",
+    size: "数値基準ではなく原則としての言及。キーボードでの移動は「順番に1つずつ」で、マウスのように目的の場所へ直接は行けない点が最大の違いだとしている。Tabの順番はページのレイアウトどおり(左から右、上から下)にするのが基本。",
+    colorInfo: "ブラウザの既定のフォーカス表示を、見た目が悪いという理由で消すのは致命的だとしている。気に入らなければ消すのではなく、サイトの見た目に合ったデザインに置き換えます(例: マウスのホバーと同じ見た目をフォーカスにも使う)。",
     stance:
-      "キーボードを使うのは、効率を求める上級者と、マウスを使えない人(手の動きに障害のある人、画面が見えずスクリーンリーダーを使う人)です。フォーム・ドロップダウン・ボタン・ダイアログなどすべての操作要素にTabで届くこと、ポップアップに入って閉じられること、ドロップダウンでは下矢印で即選択せず選択肢の間を移動してEnterで決めること、を挙げています(記事本文を直接取得して確認、2026-10)。",
+      "キーボードを使うのは、効率を求める上級者と、マウスを使えない人(手の動きに障害のある人、画面が見えずスクリーンリーダーを使う人)。フォーム・ドロップダウン・ボタン・ダイアログなどすべての操作要素にTabで届くこと、ポップアップに入って閉じられること、ドロップダウンでは下矢印で即選択せず選択肢の間を移動してEnterで決めること、を挙げている(記事本文を直接取得して確認、2026-10)。",
     exceptions:
-      "ナビゲーションが多いページでは、本文にたどり着くまでに100個以上のリンクをTabで進む必要が出ることがあるため、「本文へスキップ」のリンクを勧めています。このリンクはTabを押したときだけ表示すれば、マウスで使う人の見た目を邪魔しません。スキップした先から、本文のリンクをTabで続けて進めることも大切だとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のサイトでのキーボード操作の観察に基づく設計上の根拠です。",
+      "ナビゲーションが多いページでは、本文にたどり着くまでに100個以上のリンクをTabで進む必要が出ることがあるため、「本文へスキップ」のリンクを勧めている。このリンクはTabを押したときだけ表示すれば、マウスで使う人の見た目を邪魔しない。スキップした先から、本文のリンクをTabで続けて進めることも大切だとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のサイトでのキーボード操作の観察に基づく設計上の根拠。",
     useCases: [
       "フォーカス表示を消さず、サイトに合ったデザインに置き換える",
       "ナビゲーションが長いページには、Tabで現れる「本文へスキップ」を置く",
@@ -313,7 +314,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -322,6 +323,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "キーボードでの移動の仕方、フォーカスの順番と見せ方の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "マウスを使わずに、すべての操作をキーボードで行えるようにする" },
+  { k: "関わる場面", v: "Tabキーでの移動、フォーカスの枠、ショートカット" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></> },
+];
 
 export default function TokensKeyboardNavigationPage() {
   return (
@@ -348,16 +357,25 @@ export default function TokensKeyboardNavigationPage() {
           </div>
 
           <h1 style={styles.title}>キーボードナビゲーション・フォーカス順序</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、キーボードでの移動の仕方・フォーカスの順番と見せ方・ショートカットをどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="Tabで部品の間を、矢印キーで複合的な部品の中を移動する(概念図)"
+            image={<><TabSequenceSwatch /></>}
+            imageNote={<>Tabは「本文へスキップ」→ サイドバーのリンク(1つずつ)→ グリッド → 保存ボタンの順に進みます。矢印キーで中を移動するのは、グリッドのように、タブ・メニュー・ラジオグループ・グリッドなどAPGで定義された複合的な部品(ウィジェット)の中だけです。グリッドの中を矢印キーで動かすと、Tabを押す回数が減り、どこにいるかも分かりやすくなります。普通のリンクの並び(Webのサイドバーなど)は、Tabで1つずつ移動するのが基本です。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>Tabで部品の間を、矢印キーで複合的な部品の中を移動する(概念図)</span>
-            <TabSequenceSwatch />
-            <p style={styles.swatchNote}>Tabは「本文へスキップ」→ サイドバーのリンク(1つずつ)→ グリッド → 保存ボタンの順に進みます。矢印キーで中を移動するのは、グリッドのように、タブ・メニュー・ラジオグループ・グリッドなどAPGで定義された複合的な部品(ウィジェット)の中だけです。グリッドの中を矢印キーで動かすと、Tabを押す回数が減り、どこにいるかも分かりやすくなります。普通のリンクの並び(Webのサイドバーなど)は、Tabで1つずつ移動するのが基本です。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― キーごとの役割</h2>
+            <KeyRoleChart />
+            <p style={styles.chartNote}>AppleはiPadOS・macOSの記述(標準ショートカットの表を含む)、GoogleはAndroid Developersのフォーカスの説明、W3Cは達成基準とAPG、NN groupはキーボード操作の記事によります。「―」は確認した範囲で該当する記述がないことを示します。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               Apple・Google・W3C(APG)の3系列がそろって示しているのは、<strong>Tab(Shift+Tab)で部品やまとまりの間を、矢印キーでまとまりの中を移動する</strong>という役割分担です(NN groupも、レイアウトどおりの順番で移動できるよう勧めています)。Appleはこれを「フォーカスグループ」、Googleは「Tab=1次元・矢印=2次元」と呼び、W3CのAPGは全プラットフォーム共通の慣習として示しています。ただしWebでは、<strong>矢印キーで中を移動するのは、タブ・メニュー・ラジオグループ・グリッドなどの複合的な部品(ウィジェット)の中</strong>で、普通のリンクの並び(サイドバーのリンクなど)はTabで1つずつ移動するのが基本です(APGの「Developing a Keyboard Interface」)。<strong>順番は読む順(上から下、行の始まりから終わり)</strong>が基本です。
             </p>
@@ -371,13 +389,6 @@ export default function TokensKeyboardNavigationPage() {
               実務では、<strong>マウスを使わずTab・矢印・Enter・Escだけで全機能を試し、順番・見え方・抜け出し方・スキップの4点を確認する</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― キーごとの役割</h2>
-            <KeyRoleChart />
-            <p style={styles.chartNote}>AppleはiPadOS・macOSの記述(標準ショートカットの表を含む)、GoogleはAndroid Developersのフォーカスの説明、W3Cは達成基準とAPG、NN groupはキーボード操作の記事によります。「―」は確認した範囲で該当する記述がないことを示します。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -414,7 +425,6 @@ export default function TokensKeyboardNavigationPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>キーボードナビゲーション デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -427,13 +437,13 @@ export default function TokensKeyboardNavigationPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>移動の仕方とキー</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>フォーカスの見せ方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -449,8 +459,8 @@ export default function TokensKeyboardNavigationPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -495,7 +505,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -509,7 +519,7 @@ const styles = {
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -532,7 +542,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -543,7 +553,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -484,7 +484,7 @@ export default function CommunicationOverviewPage() {
           <p style={styles.subtitle}>サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・アラート/バナー・アコーディオン。9つのパーツを、4つの判断軸と比較表(◯/△/✕)で使い分けます</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               9つのパーツは<strong>「①非モーダル版が存在しないか ②通知か、コンテンツ・操作の提供か ③自動で消えるか ④画面内のどこに出すか」</strong>という4つの軸で整理できます(詳しくは下の「判断軸」を参照)。<strong>①だけがダイアログ・フルスクリーンダイアログを残り7パーツから分ける、部品の定義そのものに基づく軸</strong>で、中身の使い方では変わりません。一方でボトムシート/サイドシート/アコーディオンは多目的な部品で、場面によって性質が変わるため、その実情は下の比較表の△として表現しています。
             </p>

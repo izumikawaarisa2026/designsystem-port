@@ -327,7 +327,7 @@ function ButtonTabContent({ tabId }) {
   return (
     <>
     <div style={styles.synthesisBox}>
-      <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+      <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
       {SYNTHESIS[tabId].map((node, i) => (<p key={i} style={styles.synthesisText}>{node}</p>))}
     </div>
 

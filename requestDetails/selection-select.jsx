@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -26,14 +27,14 @@ const SOURCES = [
     color: "#C2542A",
     position: "相互排他的な選択肢を示す「Pop-upボタン」と、関連する操作をまとめる「Pull-downボタン」に分かれる",
     size:
-      "Pop-up buttonsのページには、サイズの規定がありません(ネイティブコントロールとしてシステムが自動的に描画します)。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+      "Pop-up buttonsのページには、サイズの規定がない(ネイティブコントロールとしてシステムが自動的に描画する)。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "Pop-upボタンは、相互排他的な選択肢のフラットなリストを提示し、選択済みの内容を反映するようラベルを更新できるコントロールと定義されています。一方Pull-downボタンは、そのボタンの目的に直接関連する操作のメニューを表示するもので、選択というより操作の実行に近い位置づけです。",
+      "Pop-upボタンは、相互排他的な選択肢のフラットなリストを提示し、選択済みの内容を反映するようラベルを更新できるコントロールと定義されている。一方Pull-downボタンは、そのボタンの目的に直接関連する操作のメニューを表示するもので、選択というより操作の実行に近い位置づけ。",
     exceptions:
-      "ユーザーがメニューを開かなくても選択肢の内容をある程度予測できるよう、説明的な前置きラベルやボタンラベルを用意すべきとしています。",
+      "ユーザーがメニューを開かなくても選択肢の内容をある程度予測できるよう、説明的な前置きラベルやボタンラベルを用意すべきとしている。",
     accessibility:
-      "―(このトピックにはアクセシビリティに関する直接の記載を確認できていません。標準のPop-up/Pull-downボタンコントロールを使えば、支援技術には自動的に状態が伝わると考えられます。)",
+      <span><NoData>記載なし。</NoData>標準のPop-up/Pull-downボタンコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
       "相互排他的な選択肢から1つを選ばせる(Pop-upボタン)",
       "ボタンの目的に関連する複数の操作をまとめて提示する(Pull-downボタン、選択というより操作の実行)",
@@ -58,18 +59,18 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。単一選択が基本だが、複数選択にも対応する(レアケース)",
     size:
-      "メニュー全体の具体的なdp数値は確認できていませんが、メニュー項目の最小タップ領域は48×48dpと直接確認できました(単一選択・複数選択のメニュー共通)。",
+      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpと直接確認できました(単一選択・複数選択のメニュー共通)。",
     colorInfo:
-      "メニューには「標準(表面ベースの配色、視覚的強調は控えめ)」と「鮮やか(第三次色ベース、視覚的強調が強い)」の2種類のカラーマッピングがあるとしています。鮮やかな配色は目立つため控えめに使うべきとしています。選択済み/未選択の項目間は、デフォルトで少なくとも3:1のコントラスト比を確保すべきとし、チェックマークなど色以外の視覚的な手がかりも併用することを推奨しています。",
+      "メニューには「標準(表面ベースの配色、視覚的強調は控えめ)」と「鮮やか(第三次色ベース、視覚的強調が強い)」の2種類のカラーマッピングがあるとしている。鮮やかな配色は目立つため控えめに使うべきとしている。選択済み/未選択の項目間は、デフォルトで少なくとも3:1のコントラスト比を確保すべきとし、チェックマークなど色以外の視覚的な手がかりも併用することを推奨している。",
     glossary: [
       { term: "単一選択メニュー / 複数選択メニュー", desc: "メニューは単一選択・複数選択のどちらにも対応する。単一選択メニューは新しい項目を選ぶと以前の選択が自動的に解除されるのに対し、複数選択メニューは複数の項目を選択したままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。" },
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開けます。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしています。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されています。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されますが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられます。",
+      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されている。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されるが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。",
     exceptions:
-      "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしています。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしています(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
+      "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
-      "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpです(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、Escキー・メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしています。無効化された項目はフォーカスを受け取れますが選択はできません(区切り線や空白部分はフォーカスを受け取りません)。",
+      "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpです(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしている。無効化された項目はフォーカスを受け取れますが選択はできない(区切り線や空白部分はフォーカスを受け取らない)。",
     useCases: [
       "選択肢が多く、常に全部表示すると場所を取りすぎる場面(ラジオボタン・チップより省スペース)",
       "単一選択が基本だが、複数の項目を選ばせたい場合は複数選択メニューを使う(レアケース)",
@@ -96,20 +97,20 @@ const SOURCES = [
     color: "#A3821F",
     position: "標準select要素かカスタム実装かで対応が変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
     size:
-      "セレクト専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり)。",
+      "セレクト専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
       { term: "3.2.1 On Focus・レベルA", desc: "部品にフォーカスが当たっただけで、文脈の変化(新しいウィンドウ・ページの移動・フォーカスの移動など)を起こさないことを求める基準。" },
       { term: "3.2.2 On Input・レベルA", desc: "部品の設定(選択・チェック・入力)を変えただけで、事前の説明なしに文脈の変化を起こさないことを求める基準。リンクやボタンを押すことは「設定の変更」ではない。" },
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "標準的なHTMLのselect要素であれば、ブラウザが自動的に名前・役割・状態を支援技術に伝えます。WCAGの要件は、部品の名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)です。独自にデザインしたカスタム実装の作り方は、W3CのAPG(実装の参考例。適合の要件ではない)が示しています。折りたたみ式のプルダウンの型は、Comboboxパターンの「Select-Only Combobox」(select要素と同じ働きをする例)です。Listboxは、常に表示する一覧や、開いたポップアップの中身に使う型です。また、選択肢を選んだだけで別のページへ移動したりフォームを送信したりすると、利用者が予期しない文脈の変化になります。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示しています。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求めており、キーボードで選択肢の上を移動しているだけではページを移動させないようにします。",
+      "標準的なHTMLのselect要素であれば、ブラウザが自動的に名前・役割・状態を支援技術に伝える。WCAGの要件は、部品の名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)。独自にデザインしたカスタム実装の作り方は、W3CのAPG(実装の参考例。適合の要件ではない)が示している。折りたたみ式のプルダウンの型は、Comboboxパターンの「Select-Only Combobox」(select要素と同じ働きをする例)。Listboxは、常に表示する一覧や、開いたポップアップの中身に使う型。また、選択肢を選んだだけで別のページへ移動したりフォームを送信したりすると、利用者が予期しない文脈の変化になる。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示している。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求めており、キーボードで選択肢の上を移動しているだけではページを移動させないようにする。",
     exceptions:
-      "APGは実装の勧めとして、選択肢名が長すぎたり、同じ単語・フレーズで始まる選択肢が並ぶと、スクリーンリーダー利用者にとって分かりにくくなるため避けるよう勧めています。7個を超える選択肢がある場合は、先頭文字を入力してジャンプできる機能(タイプアヘッド)を用意するよう勧めています(どちらもWCAGの要件ではありません)。",
+      "APGは実装の勧めとして、選択肢名が長すぎたり、同じ単語・フレーズで始まる選択肢が並ぶと、スクリーンリーダー利用者にとって分かりにくくなるため避けるよう勧めている。7個を超える選択肢がある場合は、先頭文字を入力してジャンプできる機能(タイプアヘッド)を用意するよう勧めている(どちらもWCAGの要件ではない)。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、矢印キー・Home/Endキー・タイプアヘッドなどのキーボード操作性(2.1.1)が関わります。3.2.1・3.2.2は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、キーボード操作性(2.1.1)が関わる。3.2.1・3.2.2は「理解可能(Understandable)」の予測可能性(3.2)に関わる。",
     useCases: [
       "標準のselect要素を使い、ブラウザ標準のアクセシビリティに任せる",
       "カスタム実装の場合は、APGのSelect-Only Comboboxの例を参考にする(開いた一覧はrole=\"listbox\"/\"option\"とaria-selected)",
@@ -143,14 +144,14 @@ const SOURCES = [
     doc: "Dropdowns: Design Guidelines",
     color: "#7A4F7E",
     position: "画面スペースの節約に向くが乱用されがちで扱いにくい面もある(数値基準ではなく使い分けの指針)",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "ドロップダウンは、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性選択という4つの用途で使われるとしています。画面スペースを節約でき、ユーザーに標準的なウィジェットとして理解されやすいという長所がある一方、選択肢が多い・長いと使いにくくなるとしています。",
+      "ドロップダウンは、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性選択という4つの用途で使われるとしている。画面スペースを節約でき、ユーザーに標準的なウィジェットとして理解されやすいという長所がある一方、選択肢が多い・長いと使いにくくなるとしている。",
     exceptions:
-      "他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしています。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしています。都道府県・国名のようにタイピングの方が速い場面や、生年月日のようにユーザーが暗記している情報には不向きだとしています。",
+      "他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしている。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしている。都道府県・国名のようにタイピングの方が速い場面や、生年月日のようにユーザーが暗記している情報には不向きだとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針です。マウス操作とキーボード操作の両方に対応すべきとしています。",
+      "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針。マウス操作とキーボード操作の両方に対応すべきとしている。",
     useCases: [
       "画面スペースを節約したい属性選択・フォーム入力",
       "選択肢が少なく1階層に収まるコマンド/ナビゲーションメニュー",
@@ -189,7 +190,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -240,6 +241,14 @@ function SelectSwatch() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すと選択肢の一覧が開き、その中から値を選ぶ部品です(プルダウン)。";
+const ABOUT = [
+  { k: "目的・役割", v: "選択肢が多いときに場所をとらずに置き、選んだ値を表示し続ける" },
+  { k: "よく使われる場面", v: "都道府県・国の選択、並べ替えの順番、フォームの選択項目" },
+  { k: "似た部品との違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink></> },
+];
+
 export default function SelectionSelectPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -265,16 +274,20 @@ export default function SelectionSelectPage() {
           </div>
 
           <h1 style={styles.title}>セレクト(プルダウン)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、選択肢を折りたたむセレクト(基本は単一選択)のサイズ・色・アクセシビリティ・選択方式をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><SelectSwatch /></>}
+            imageNote={<>選択中の項目を1行で表示し、開くと選択肢の一覧が現れる。ラジオボタンと同じ単一選択だが、常時は折りたたまれている点が異なる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <SelectSwatch />
-            <p style={styles.swatchNote}>選択中の項目を1行で表示し、開くと選択肢の一覧が現れる。ラジオボタンと同じ単一選択だが、常時は折りたたまれている点が異なる。</p>
-          </div>
 
+
+          <MultiSelectMenuSection />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解では一致していますが、<strong>Googleは単一選択だけでなく複数選択のメニューにも公式に対応している</strong>点が他の3系列にはない特徴です(実務では単一選択が圧倒的に多いと考えられますが、公式ガイドラインには選択方式として明記されています)。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
             </p>
@@ -288,9 +301,6 @@ export default function SelectionSelectPage() {
               アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応します</strong>。HTMLの標準のselect要素を使うと、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われます(見た目や操作は端末・ブラウザによって異なります)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全です。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例です(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
-
-          <MultiSelectMenuSection />
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -300,13 +310,13 @@ export default function SelectionSelectPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -333,7 +343,6 @@ export default function SelectionSelectPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -343,8 +352,6 @@ export default function SelectionSelectPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -352,14 +359,16 @@ export default function SelectionSelectPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -374,8 +383,8 @@ export default function SelectionSelectPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -402,7 +411,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -412,7 +421,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -437,7 +446,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -448,7 +457,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

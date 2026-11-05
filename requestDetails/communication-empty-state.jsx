@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態・ローディング状態」ページ。
@@ -34,17 +35,16 @@ const SOURCES = [
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「空状態」「ローディング状態」という単独コンポーネントはなく、コンテンツ読み込み中の体験に関する指針(Loadingページ)と、空状態の文言に関する指針(Writingページ)に分かれて記載されている",
-    size: "数値の基準はありません。",
-    colorInfo: "色についての規定はありません。",
+    size: <NoData>数値基準なし</NoData>,
     stance:
-      "Loadingのページは、できるだけ早く何かを表示するよう求めています。何も出さずに読み込みの完了を待たせると、アプリの不具合だと受け取られかねないため、読み込み中はプレースホルダーの文字・画像・アニメーションを出し、内容が用意できたら差し替えるとしています。待っている間にほかの操作ができるようにし、どうしても時間がかかるなら、ヒントや新機能の紹介など見ていて楽しいものを出すよう勧めています。読み込みが一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの時間の見込みを伝えます(時間が分かるなら確定的、分からないなら不確定のインジケーター)。空状態については、Writingのページで、完了済みのToDoリストや空のブックマークフォルダのような空の画面を、歓迎の気持ちを伝えたりアプリの使い方を伝えたりする機会にでき、次にできる操作を案内し、可能ならそのためのボタンやリンクを置くよう勧めています。",
+      "Loadingのページは、できるだけ早く何かを表示するよう求めている。何も出さずに読み込みの完了を待たせると、アプリの不具合だと受け取られかねないため、読み込み中はプレースホルダーの文字・画像・アニメーションを出し、内容が用意できたら差し替えるとしている。待っている間にほかの操作ができるようにし、どうしても時間がかかるなら、ヒントや新機能の紹介など見ていて楽しいものを出すよう勧めている。読み込みが一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの時間の見込みを伝える(時間が分かるなら確定的、分からないなら不確定のインジケーター)。空状態については、Writingのページで、完了済みのToDoリストや空のブックマークフォルダのような空の画面を、歓迎の気持ちを伝えたりアプリの使い方を伝えたりする機会にでき、次にできる操作を案内し、可能ならそのためのボタンやリンクを置くよう勧めている。",
     exceptions:
-      "空状態は基本的に一時的なものなので、消えてしまう可能性のある重要な情報をそこに置くべきではないとしています(Writingのページ)。watchOSでは、できるだけ読み込み中の表示を出さずにすぐ内容を見せ、1〜2秒かかるなら空白の画面よりはインジケーターを出すほうがよいとしています(Loadingのページ)。なお、Tab barsのページは、機能が一時的に使えないときもタブを消したり無効にしたりしないよう求めています。",
+      "空状態は基本的に一時的なものなので、消えてしまう可能性のある重要な情報をそこに置くべきではないとしている(Writingのページ)。watchOSでは、できるだけ読み込み中の表示を出さずにすぐ内容を見せ、1〜2秒かかるなら空白の画面よりはインジケーターを出すほうがよいとしている(Loadingのページ)。なお、Tab barsのページは、機能が一時的に使えないときもタブを消したり無効にしたりしないよう求めている。",
     scenarios: [
       "コンテンツの読み込みが一瞬で終わらない時に、プレースホルダー表示で体感速度を保ちたい時",
       "ToDoリストや保存済みアイテムが1件もない画面で、次にできる操作を案内したい時",
     ],
-    accessibility: "―(Loading・Writingのページにはアクセシビリティの専用の記載はありません)。Writingのページは、誰にでも伝わるように、平易な言葉でアクセシビリティとローカライズを意識して書くよう勧めています。",
+    accessibility: <span><NoData>記載なし。</NoData>Writingのページは、誰にでも伝わるように、平易な言葉でアクセシビリティとローカライズを意識して書くよう勧めている。</span>,
     useCases: [
       "読み込み中はプレースホルダーを表示し、完了後に実際のコンテンツへ差し替える",
       "時間がかかる読み込みは、プログレスインジケーターで進み具合を伝える",
@@ -53,7 +53,7 @@ const SOURCES = [
     searchHint: "Show something as soon as possible",
     url: "https://developer.apple.com/design/human-interface-guidelines/loading",
     urlSecondary: [{ label: "Writing(空状態の文言指針)", url: "https://developer.apple.com/design/human-interface-guidelines/writing" }],
-    confirmedNote: "HIGのページデータ(Loading・WritingのJSON)を直接取得して本文を確認(2026-10)。「空状態」という単独のコンポーネントページはありません。",
+    confirmedNote: "HIGのページデータ(Loading・WritingのJSON)を直接取得して本文を確認(2026-10)。「空状態」という単独のコンポーネントページはない。",
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -75,17 +75,16 @@ const SOURCES = [
     doc: "Material Design 3 ― Loading indicator(新設)/ Empty state(現行M3では非該当、M1に参考記述)",
     color: "#2F7D6E",
     position: "5秒未満の待ち時間向けに新設された「Loading indicator」という専用コンポーネントを持つ一方、「空状態(Empty state)」という名称の正式なコンポーネント・パターンは現行M3の一覧には見当たらず、旧世代(M1)のパターンページのみ関連記述として確認できた",
-    size: "「5秒未満」という待ち時間の目安以外の具体的な数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: "「5秒未満」という待ち時間の目安以外の具体的な数値基準は確認できていない。",
     stance:
-      "Loading indicatorは、短い待ち時間の処理の進行を示すために新設されたコンポーネントで、5秒未満で終わる読み込みに使うことを想定し、従来の不確定な円形プログレスインジケーターの多くの用途を置き換える意図があるとされています(検索結果による確認)。一方、空状態については、M1時代のパターンページで「リストに項目が1件もない」「検索結果が0件」といった場面での基本形が、非インタラクティブな画像+短い説明文であるとされ、見出しは短く分かりやすく、ユーザーを責めるような表現を避けるべきだとしていますが、これは現行M3の一次情報としての位置づけではありません。",
+      "Loading indicatorは、短い待ち時間の処理の進行を示すために新設されたコンポーネントで、5秒未満で終わる読み込みに使うことを想定し、従来の不確定な円形プログレスインジケーターの多くの用途を置き換える意図があるとされている(検索結果による確認)。一方、空状態については、M1時代のパターンページで「リストに項目が1件もない」「検索結果が0件」といった場面での基本形が、非インタラクティブな画像+短い説明文であるとされ、見出しは短く分かりやすく、ユーザーを責めるような表現を避けるべきだとしているが、これは現行M3の一次情報としての位置づけではない。",
     exceptions:
-      "現行M3のコンポーネント一覧には「空状態」という名称の正式コンポーネントは見当たらないため、上記の空状態に関する記述はM1時代の古いパターンページの内容であり、現行M3が一次情報として保証している内容ではない点に注意が必要です。",
+      "現行M3のコンポーネント一覧には「空状態」という名称の正式コンポーネントは見当たらないため、上記の空状態に関する記述はM1時代の古いパターンページの内容であり、現行M3が一次情報として保証している内容ではない点に注意が必要。",
     scenarios: [
       "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
       "検索結果が0件、リストに項目が1件もない画面の基本形を検討したい時(M1由来の参考情報)",
     ],
-    accessibility: "具体的な数値基準は確認できていません。",
+    accessibility: <NoData>数値基準なし</NoData>,
     useCases: [
       "5秒未満の待ち時間にはLoading indicatorを検討する",
       "空状態の文言は責めるような表現を避け、次の行動を促す(M1由来の参考情報)",
@@ -113,25 +112,25 @@ const SOURCES = [
     doc: "WAI-ARIA ― aria-busy属性(ライブリージョンの更新中を示す)",
     color: "#A3821F",
     position: "「空状態」「ローディング状態」自体に専用ロールはないが、コンテンツが更新中であることを支援技術に伝えるaria-busy属性と、結果を伝えるステータスメッセージ(role=\"status\"、4.1.3)が実装上の指針となる",
-    size: "専用の数値基準はありません。",
-    colorInfo: "色についての専用基準はありません。",
+    size: "専用の数値基準はない。",
     glossary: [
+      { term: "色", desc: "色についての専用基準はない。" },
       { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間は、ライブリージョンの変更内容の読み上げを更新完了まで遅らせることができる。複数箇所が同時に更新されるスケルトン画面などで、更新途中の不完全な状態が読み上げられてしまうのを防ぐ目的で使う。" },
     ],
     stance:
-      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしています。trueに設定すると、ライブリージョン内で複数の変更が発生する間、更新が完了するまで読み上げを遅らせることができ、フィード(feed)のようなロールでも、rendering(描画中)の変更が読み上げから除外されるとしています。更新が完了したらfalseに戻すという使い方が基本パターンとして示されています。",
+      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueに設定すると、ライブリージョン内で複数の変更が発生する間、更新が完了するまで読み上げを遅らせることができ、フィード(feed)のようなロールでも、rendering(描画中)の変更が読み上げから除外されるとしている。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
     exceptions:
-      "aria-busyは単独でも、要素が更新中であることを支援技術に示せます。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もあります。結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝えます(4.1.3)。",
+      "aria-busyは単独でも、要素が更新中であることを支援技術に示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もある。結果の件数や「見つかりませんだった」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる読み込み中の領域を扱いたい時",
       "更新途中の不完全な状態を支援技術に読み上げさせたくない時",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝え、不完全な状態の誤った読み上げを防ぐことに関わります。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝え、不完全な状態の誤った読み上げを防ぐことに関わる。",
     useCases: [
       "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
       "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
       "ライブリージョン(aria-live)に付けて、更新の通知を完了までまとめる(任意)",
-      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)",
+      "結果の件数や「見つかりませんだった」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)",
     ],
     searchHint: "aria-busy",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
@@ -157,17 +156,16 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "空状態を「システム状態の伝達」「学習機会の提供」「主要タスクへの導線」という3つの役割を持つ設計対象として位置づけ、読み込み表現は待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーを使い分けるべきとする(数値の目安を伴う指針)",
     size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスケルトン画面またはスピナー(個別モジュール向け)、10秒超はプログレスバーが望ましいとしている。",
-    colorInfo: "色についての基準はありません。",
     stance:
-      "空状態については、(1)「該当期間のレコードがありません」のように状況を明示して読み込み中か本当にデータが無いのかの混乱を避ける、(2)「お気に入りに追加するとここに表示されます」のように操作方法を教える学習機会として使う、(3)「作成」ボタンなど次に取るべき行動への直接的な導線を用意する、という3つの指針を挙げています。スケルトン画面については、ページ全体の骨組みをワイヤーフレーム風に示すことで、コンテンツが来ることを予告し体感待ち時間を和らげるパターンだとし、静的/アニメーション/フレーム表示の3タイプがあるとしています。ヘッダー・フッターだけを示す「フレーム表示」型は、空白ページのように見えて離脱を招きかねないため避けるべきだとしています。",
+      "空状態については、(1)「該当期間のレコードがない」のように状況を明示して読み込み中か本当にデータが無いのかの混乱を避ける、(2)「お気に入りに追加するとここに表示される」のように操作方法を教える学習機会として使う、(3)「作成」ボタンなど次に取るべき行動への直接的な導線を用意する、という3つの指針を挙げている。スケルトン画面については、ページ全体の骨組みをワイヤーフレーム風に示すことで、コンテンツが来ることを予告し体感待ち時間を和らげるパターンだとし、静的/アニメーション/フレーム表示の3タイプがあるとしている。ヘッダー・フッターだけを示す「フレーム表示」型は、空白ページのように見えて離脱を招きかねないため避けるべきだとしている。",
     exceptions:
-      "空状態の3指針は数値基準ではなく原則としての言及です。一方でスケルトン画面/スピナー/プログレスバーの使い分けには、1秒・10秒という具体的な秒数の目安が示されています。",
+      "空状態の3指針は数値基準ではなく原則としての言及。一方でスケルトン画面/スピナー/プログレスバーの使い分けには、1秒・10秒という具体的な秒数の目安が示されている。",
     scenarios: [
       "検索結果0件やリスト未設定など、データが無い理由をユーザーに明示したい時",
       "初めて使う機能の使い方を、空状態の文言を通じて教えたい時",
       "ページ全体の読み込みで、2〜10秒程度ならスケルトン画面を使いたい時",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、システム状態の伝達・学習支援・タスク導線という観点からの設計指針です。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、システム状態の伝達・学習支援・タスク導線という観点からの設計指針。",
     useCases: [
       "空欄を放置せず、状況を明示するメッセージを必ず入れる",
       "ユーザーを責めるトーンを避け、次の行動を案内する",
@@ -214,7 +212,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -250,6 +248,14 @@ function EmptyStateSwatch() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "表示する中身がない画面と、中身を読み込んでいる最中の画面の見せ方です。";
+const ABOUT = [
+  { k: "目的・役割", v: "空っぽや待ち時間の理由を伝え、次にできることや、もうすぐ表示されることを示す" },
+  { k: "よく使われる場面", v: "初めて使うときの空の一覧、検索結果0件、画面を開いた直後の読み込み" },
+  { k: "似た部品との違い", v: <>処理の進み具合を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink></> },
+];
+
 export default function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -275,18 +281,20 @@ export default function CommunicationEmptyStatePage() {
           </div>
 
           <h1 style={styles.title}>空状態・ローディング状態</h1>
-          <p style={styles.subtitle}>コンテンツが無い画面の見せ方(空状態)と、読み込み中のプレースホルダー表示について、4つのガイドラインを比較します</p>
+          <SummaryCard
+            image={<><EmptyStateSwatch /></>}
+            imageNote={<>空状態は「状況の説明+次の行動への導線」、ローディング状態は「実際のレイアウトを模した骨組み(スケルトン)表示」が共通の考え方。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <EmptyStateSwatch />
-            <p style={styles.swatchNote}>空状態は「状況の説明+次の行動への導線」、ローディング状態は「実際のレイアウトを模した骨組み(スケルトン)表示」が共通の考え方。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで最も明確な発見は、<strong>AppleにもGoogleにも「空状態」という名称の現行の正式コンポーネントが存在しない</strong>ことです。Appleの関連記述はコンポーネント集ではなく<strong>文言ガイド(Writingページ)</strong>の中にあり、Googleの関連記述は現行M3ではなく<strong>旧世代(Material Design 1)のパターンページ</strong>にしか見当たりませんでした。
+              このページで最も大きな点は、<strong>AppleにもGoogleにも「空状態」という名称の現行の正式コンポーネントが存在しない</strong>ことです。Appleの関連記述はコンポーネント集ではなく<strong>文言ガイド(Writingページ)</strong>の中にあり、Googleの関連記述は現行M3ではなく<strong>旧世代(Material Design 1)のパターンページ</strong>にしか見当たりませんでした。
             </p>
             <p style={styles.synthesisText}>
               一方で「ローディング(読み込み中)」の扱いは対照的に手厚く、Appleには専用の<strong>「Loading」ページ</strong>があり、Googleは<strong>5秒未満の待ち時間向けに「Loading indicator」という新しいコンポーネントを独立させた</strong>ばかりです。同じページ内で扱う2つのテーマの間に、これほど明確な非対称性(ローディングは正式コンポーネント化、空状態は文言ガイド止まり)が見られたのは、この4系列比較を通じた新しい発見です。
@@ -298,7 +306,6 @@ export default function CommunicationEmptyStatePage() {
               W3Cの貢献はここでも技術的なもので、<strong>aria-busy属性</strong>によりこのコンテンツは今まさに書き換わっている最中なので、不完全な状態を読み上げないでほしい、という意図を支援技術に伝える仕組みを提供します。これは視覚的なスケルトン画面の裏側で、スクリーンリーダー利用者が中途半端な内容を読まされないようにするための、見落とされがちな実装上のポイントです。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -308,17 +315,16 @@ export default function CommunicationEmptyStatePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
@@ -343,7 +349,6 @@ export default function CommunicationEmptyStatePage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -351,6 +356,13 @@ export default function CommunicationEmptyStatePage() {
                   <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
                     <div style={styles.sourceName}>{s.name}</div>
                     <div style={styles.sourceDoc}>{s.doc}</div>
+                  </div>
+                ))}
+                <div style={styles.labelCell}>デザインイメージ</div>
+                {SOURCES.map((s) => (
+                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
+                    {s.illustration ? s.illustration() : null}
+                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
                 <div style={styles.labelCell}>専用コンポーネント</div>
@@ -361,23 +373,14 @@ export default function CommunicationEmptyStatePage() {
                 ))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : null}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -392,8 +395,8 @@ export default function CommunicationEmptyStatePage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -431,7 +434,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
@@ -441,7 +444,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -466,7 +469,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -481,7 +484,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

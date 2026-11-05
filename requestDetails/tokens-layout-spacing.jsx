@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「レイアウト・スペーシング(余白・グリッド)」ページ。
@@ -26,14 +27,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Layout",
     color: "#C2542A",
     position: "余白の数値の刻みは定めず、システムが用意するマージン・レイアウトガイド・セーフエリアに従って配置する方式。画面の広さはcompact/regularの「サイズクラス」で判断する",
-    size: "iOS/iPadOSでは余白や列の数値基準は示されていません(システムのマージンとセーフエリアを使う前提)。固定値があるのは一部のプラットフォームのみで、tvOSはセーフエリアとして上下60pt・左右80ptの内側に主要な内容を置き、グリッドの列間は40pt・行間は最低100pt。visionOSはボタンの中心同士を最低60pt離す、watchOSは1行に並べるボタンをアイコンなら3つ・文字なら2つまで、としています。",
-    colorInfo: "サイズクラスは横・縦それぞれがcompact(狭い/低い)かregular(広い/高い)のどちらかで、システムが端末・ウィンドウの状態・マルチタスクの状況から判定します。レイアウトは端末の種類や向きではなくサイズクラスで決めるべきで、広い画面ではタブバーをサイドバーに切り替えるなど見せ方を変えてもよいが、使える機能そのものは変えないよう求めています。",
+    size: "iOS/iPadOSでは余白や列の数値基準は示されていない(システムのマージンとセーフエリアを使う前提)。固定値があるのは一部のプラットフォームのみで、tvOSはセーフエリアとして上下60pt・左右80ptの内側に主要な内容を置き、グリッドの列間は40pt・行間は最低100pt。visionOSはボタンの中心同士を最低60pt離す、watchOSは1行に並べるボタンをアイコンなら3つ・文字なら2つまで、としている。",
+    colorInfo: "サイズクラスは横・縦それぞれがcompact(狭い/低い)かregular(広い/高い)のどちらかで、システムが端末・ウィンドウの状態・マルチタスクの状況から判定する。レイアウトは端末の種類や向きではなくサイズクラスで決めるべきで、広い画面ではタブバーをサイドバーに切り替えるなど見せ方を変えてもよいが、使える機能そのものは変えないよう求めている。",
     stance:
-      "重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる、という視覚的な階層の原則を示しています。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応すること、特にDynamic Typeで文字が大きくなったときに、横に並んだ要素を縦に積み直すなどして文字が切れたり重なったりしないようにすることを求めています(ページ本文を直接確認、2026-09)。",
+      "重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる、という視覚的な階層の原則を示している。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応すること、特にDynamic Typeで文字が大きくなったときに、横に並んだ要素を縦に積み直すなどして文字が切れたり重なったりしないようにすることを求めている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "横向き専用のゲームのように向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応すべきとしています。背景の画像は、画面の縦横比が変わっても縦横比を変えずに拡大して画面を埋めるよう勧めています。",
+      "横向き専用のゲームのように向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応すべきとしている。背景の画像は、画面の縦横比が変わっても縦横比を変えずに拡大して画面を埋めるよう勧めている。",
     accessibility:
-      "知覚可能(Perceivable) ― 文字サイズの拡大に合わせてレイアウトを組み替えることは、WCAG 1.4.10(リフロー)・1.4.4(テキストのサイズ変更)と同じ目的を持ちます。セーフエリアを守ることは、システムの表示や端末の形状で内容や操作が隠れないようにするためです。",
+      "知覚可能(Perceivable) ― 文字サイズの拡大に合わせてレイアウトを組み替えることは、WCAG 1.4.10(リフロー)・1.4.4(テキストのサイズ変更)と同じ目的を持つ。セーフエリアを守ることは、システムの表示や端末の形状で内容や操作が隠れないようにするため。",
     useCases: [
       "余白は独自の数値ではなく、システムのマージン・レイアウトガイドを使う",
       "レイアウトは端末の種類や向きではなくサイズクラスで切り替える",
@@ -53,14 +54,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
     position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。余白は4dp刻みを基本とする",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃え、画面端のマージンは幅がCompactで16dp、それ以外で24dpとされています(4dpグリッドとマージンの値は間接確認)。",
-    colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしています。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めています。",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃え、画面端のマージンは幅がCompactで16dp、それ以外で24dpとされている(4dpグリッドとマージンの値は間接確認)。",
+    colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
     stance:
-      "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしています。そのため「タブレットかどうか」の判定に使うものではない、と明言しています。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしています(Android Developersの本文を直接確認、2026-09)。",
+      "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
     exceptions:
-      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたものです。4dpグリッド・マージンの具体的な値は、m3.material.ioがSPAのため本文を直接確認できていません。",
+      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。4dpグリッド・マージンの具体的な値は、m3.material.ioがSPAのため本文を直接確認できていない。",
     accessibility:
-      "知覚可能(Perceivable) ― 画面の幅が狭くなったときに1ペインへ切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくします。",
+      "知覚可能(Perceivable) ― 画面の幅が狭くなったときに1ペインへ切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
       "レイアウトの切り替えは端末の種類ではなく、幅のウィンドウサイズクラスで判断する",
       "Medium幅以上では2ペイン(一覧+詳細)を検討し、ペインの間は24dp空ける",
@@ -72,7 +73,7 @@ const SOURCES = [
       { label: "Use window size classes(Android Developers)", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes" },
       { label: "Compose adaptive: PaneScaffoldDirective(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/adaptive/adaptive-layout/src/commonMain/kotlin/androidx/compose/material3/adaptive/layout/PaneScaffoldDirective.kt" },
     ],
-    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。4dpグリッド・マージン16/24dpはm3.material.io(SPA)の検索結果による間接確認です。",
+    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。4dpグリッド・マージン16/24dpはm3.material.io(SPA)の検索結果による間接確認。",
   },
   {
     key: "wcag",
@@ -80,18 +81,18 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 2.5.8 Target Size (Minimum) / 1.3.1 Info and Relationships",
     color: "#A3821F",
     position: "余白やグリッドの値は定めず、「狭い幅でも読めること」「押す対象どうしの間隔」「見た目のまとまりを構造でも伝えること」を求める基準",
-    size: "1.4.10(レベルAA): 幅320 CSSピクセル相当(縦スクロールの内容)でも、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたります。2.5.8(レベルAA): 押す対象は24×24 CSSピクセル以上。これより小さい場合は、各対象の中心に直径24pxの円を置いたとき、ほかの対象やその円と重ならない間隔があれば適合します。",
-    colorInfo: "1.3.1(レベルA): 見た目で伝えている情報・構造・関係(余白でまとめたグループ、見出しと本文の関係など)は、プログラムでも判別できるか、テキストで示されていること。余白だけでグループを表すと、スクリーンリーダーの利用者にはそのまとまりが伝わりません。",
+    size: "1.4.10(レベルAA): 幅320 CSSピクセル相当(縦スクロールの内容)でも、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。2.5.8(レベルAA): 押す対象は24×24 CSSピクセル以上。これより小さい場合は、各対象の中心に直径24pxの円を置いたとき、ほかの対象やその円と重ならない間隔があれば適合する。",
+    colorInfo: "1.3.1(レベルA): 見た目で伝えている情報・構造・関係(余白でまとめたグループ、見出しと本文の関係など)は、プログラムでも判別できるか、テキストで示されていること。余白だけでグループを表すと、スクリーンリーダーの利用者にはそのまとまりが伝わらない。",
     glossary: [
       { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、縦横両方向のスクロールなしで内容を読めることを求める基準。地図・図表・データ表など2次元の配置が必要な部分は例外。" },
       { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "ポインターで押す対象を24×24 CSSピクセル以上にするか、小さい場合は周囲に十分な間隔を取ることを求める基準。文中のリンクなどは例外。" },
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で表している構造や関係を、見出し・リスト・グループなどのマークアップでも表すことを求める基準。" },
     ],
     stance:
-      "WCAGは余白の大きさやグリッドの列数を指定しません。代わりに、拡大して幅が狭くなったときに内容が1列に組み替わること(1.4.10)、小さな対象どうしを近づけすぎないこと(2.5.8)、余白で表したまとまりを構造としても伝えること(1.3.1)という、結果としての使いやすさを求めています。",
+      "WCAGは余白の大きさやグリッドの列数を指定しない。代わりに、拡大して幅が狭くなったときに内容が1列に組み替わること(1.4.10)、小さな対象どうしを近づけすぎないこと(2.5.8)、余白で表したまとまりを構造としても伝えること(1.3.1)という、結果としての使いやすさを求めている。",
     exceptions:
-      "1.4.10は、地図・図・動画・ゲーム・プレゼンテーション・データ表、操作中に表示し続ける必要があるツールバーなど、2次元の配置が使い方や意味に必要な部分を例外としています。2.5.8は、同じ機能を持つ別の十分な大きさの操作がある場合、文中のリンク、ブラウザが決める大きさの部品、見た目が本質的な場合を例外としています。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.10と1.3.1は「知覚可能」、2.5.8は「操作可能」に属します。拡大して使う弱視の人、指先の細かい操作が難しい人、スクリーンリーダーの利用者が、同じ情報と操作にたどり着けることが目的です。",
+      "1.4.10は、地図・図・動画・ゲーム・プレゼンテーション・データ表、操作中に表示し続ける必要があるツールバーなど、2次元の配置が使い方や意味に必要な部分を例外としている。2.5.8は、同じ機能を持つ別の十分な大きさの操作がある場合、文中のリンク、ブラウザが決める大きさの部品、見た目が本質的な場合を例外としている。",
+    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.10と1.3.1は「知覚可能」、2.5.8は「操作可能」に属する。拡大して使う弱視の人、指先の細かい操作が難しい人、スクリーンリーダーの利用者が、同じ情報と操作にたどり着けることが目的。",
     useCases: [
       "幅320pxで横スクロールが出ないか確認する(データ表・地図などは例外)",
       "24px未満の小さなアイコンボタンを並べるときは、中心どうしを24px以上離す",
@@ -111,13 +112,13 @@ const SOURCES = [
     doc: "Proximity Principle in Visual Design",
     color: "#7A4F7E",
     position: "余白は「何と何が関係しているか」を伝える手段である、というゲシュタルト心理学の近接の原則に基づく実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及です。近くにある要素は同じグループとして、余白で離れた要素は別のグループとして認識されるとしています。例として、12項目のフォームを1つのまとまりで見せるより、意味のある4項目×3グループに分けた方が取り組みやすく見えると述べています。",
-    colorInfo: "近接は最も強いグループ化の原則の1つで、色や形の類似といった別の手がかりよりも優先されることがあるとしています。見出しの上下の余白も同じで、見出しは前の節の本文より、自分の節の本文に近く置くべきだとしています。",
+    size: "数値基準ではなく原則としての言及。近くにある要素は同じグループとして、余白で離れた要素は別のグループとして認識されるとしている。例として、12項目のフォームを1つのまとまりで見せるより、意味のある4項目×3グループに分けた方が取り組みやすく見えると述べている。",
+    colorInfo: "近接は最も強いグループ化の原則の1つで、色や形の類似といった別の手がかりよりも優先されることがあるとしている。見出しの上下の余白も同じで、見出しは前の節の本文より、自分の節の本文に近く置くべきだとしている。",
     stance:
-      "関連する要素は近くに置き、関係のない要素は離すべきだとしています。関係のない要素を近くに置くと、その中の1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれてしまいます。逆に、関連する操作が離れた場所にあると、作業に集中している利用者は目の前にあっても見落とします(いわゆる「トンネル視」)。実例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあったため、登録が必須だと誤解された事例を挙げています(記事本文を直接取得して確認済み、2026-09)。",
+      "関連する要素は近くに置き、関係のない要素は離すべきだとしている。関係のない要素を近くに置くと、その中の1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれてしまう。逆に、関連する操作が離れた場所にあると、作業に集中している利用者は目の前にあっても見落とする(いわゆる「トンネル視」)。実例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあったため、登録が必須だと誤解された事例を挙げている(記事本文を直接取得して確認済み、2026-09)。",
     exceptions:
-      "レスポンシブデザインでは画面の幅によって要素の近さが変わるため、広い画面で余白によって分けていたものが、狭い画面では同じグループに見えてしまうことがあります。その場合は配置そのものを変える(例: 検索を別の場所へ移す)必要があるとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視覚的なグループ化の知覚に関する心理学の原則とユーザーテストに基づく設計上の根拠です。",
+      "レスポンシブデザインでは画面の幅によって要素の近さが変わるため、広い画面で余白によって分けていたものが、狭い画面では同じグループに見えてしまうことがある。その場合は配置そのものを変える(例: 検索を別の場所へ移す)必要があるとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視覚的なグループ化の知覚に関する心理学の原則とユーザーテストに基づく設計上の根拠。",
     useCases: [
       "ラベルと入力欄の間は狭く、次のラベルとの間は広く取る",
       "関連する操作(戻る/次へ)はまとめ、関係のない操作(下書き保存・追加)とは離す",
@@ -206,7 +207,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -215,6 +216,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "余白をそろえて関係のある要素をまとめ、画面の構造を分かりやすくする" },
+  { k: "関わる場面", v: "部品どうしの間隔、画面の端の余白、列(グリッド)の数" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
+];
 
 export default function TokensLayoutSpacingPage() {
   return (
@@ -241,16 +250,25 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <h1 style={styles.title}>レイアウト・スペーシング(余白・グリッド)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、余白の刻み・画面幅によるレイアウトの切り替え・要素のまとまりをどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="余白が「まとまり」を作る(近接の原則)"
+            image={<><ProximitySwatch /></>}
+            imageNote={<>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見えます。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報です。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>余白が「まとまり」を作る(近接の原則)</span>
-            <ProximitySwatch />
-            <p style={styles.swatchNote}>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見えます。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報です。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
+            <BreakpointChart />
+            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分です。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値です。単位(dp・pt・CSS px)は厳密には異なりますが、いずれも画面の密度に依存しない論理的な単位です。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
             </p>
@@ -264,13 +282,6 @@ export default function TokensLayoutSpacingPage() {
               Nielsen Norman Groupの近接の原則は、<strong>余白が要素どうしの関係を伝える</strong>という、数値とは別の観点を加えます。ここでW3Cの1.3.1と組み合わせると、<strong>余白で表したまとまりは、見出しやグループといった構造でも表しておく</strong>必要がある、というのが4系列を合わせた実務上の結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
-            <BreakpointChart />
-            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分です。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値です。単位(dp・pt・CSS px)は厳密には異なりますが、いずれも画面の密度に依存しない論理的な単位です。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -307,7 +318,6 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>レイアウト・スペーシング デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -320,13 +330,13 @@ export default function TokensLayoutSpacingPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>余白・グリッドの数値</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>画面幅による切り替え</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -342,8 +352,8 @@ export default function TokensLayoutSpacingPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -370,7 +380,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -381,7 +391,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -404,7 +414,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -415,7 +425,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

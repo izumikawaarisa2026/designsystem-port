@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -27,14 +28,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Page controls(「カルーセル」の専用ページなし)",
     color: "#C2542A",
     position: "HIGに「カルーセル」という名前のページはない。横にめくる一連のページの位置を点の列で示す「ページコントロール」の指針が最も近い",
-    size: "点は等間隔に並び、塗りつぶした点が今のページです。点が約10個を超えると一目で数えられないため、10ページを超えて同じ階層のページを見せるなら、グリッドのように好きな順で選べる並べ方を検討するよう求めています。",
-    colorInfo: "点に独自の色を付けると、今のページとの区別のコントラストが下がるため、色はシステムに任せます。特別な意味を持つ1ページだけ、独自の形の点にできます(天気アプリの現在地など)。点の形は2種類までにします。iOSでは、点の左右をタップすると前後のページへ移り、点の上をなぞる(スクラブ)と順にめくれます。",
+    size: "点は等間隔に並び、塗りつぶした点が今のページ。点が約10個を超えると一目で数えられないため、10ページを超えて同じ階層のページを見せるなら、グリッドのように好きな順で選べる並べ方を検討するよう求めている。",
+    colorInfo: "点に独自の色を付けると、今のページとの区別のコントラストが下がるため、色はシステムに任せる。特別な意味を持つ1ページだけ、独自の形の点にできる(天気アプリの現在地など)。点の形は2種類までにする。iOSでは、点の左右をタップすると前後のページへ移り、点の上をなぞる(スクラブ)と順にめくれる。",
     stance:
-      "ページコントロールは、順番に並んだページの間の移動を表すもので、階層や順不同の関係は表しません。より複雑な移動にはサイドバーや分割ビューを使います。どこにあるか迷わないよう、ビューの下部中央に置きます。なぞってめくるときは素早く何枚も進むため、ページ切り替えのアニメーションはタップのときだけにします(ページ本文を直接確認、2026-10)。",
+      "ページコントロールは、順番に並んだページの間の移動を表すもので、階層や順不同の関係は表さない。より複雑な移動にはサイドバーや分割ビューを使う。どこにあるか迷わないよう、ビューの下部中央に置く。なぞってめくるときは素早く何枚も進むため、ページ切り替えのアニメーションはタップのときだけにする(ページ本文を直接確認、2026-10)。",
     exceptions:
-      "macOSには対応していません。visionOSでは表示するだけで操作はできません。tvOSでは、内容の多い全画面のページの集まりに使います。iOSの背景のスタイルは3種類で、操作したときだけ背景を出す(automatic)、常に出す(prominent、主なナビゲーションのときだけ)、出さない(minimal)があり、minimalではなぞる操作を使わないよう求めています。",
+      "macOSには対応していない。visionOSでは表示するだけで操作はできない。tvOSでは、内容の多い全画面のページの集まりに使う。iOSの背景のスタイルは3種類で、操作したときだけ背景を出す(automatic)、常に出す(prominent、主なナビゲーションのときだけ)、出さない(minimal)があり、minimalではなぞる操作を使わないよう求めている。",
     accessibility:
-      "―(このページに専用のアクセシビリティの記載はありません)。点の色をシステムに任せる理由として、今のページの点と他の点の区別(コントラスト)を挙げており、見分けやすさ(知覚可能)に関わります。",
+      <span><NoData>記載なし。</NoData>点の色をシステムに任せる理由として、今のページの点と他の点の区別(コントラスト)を挙げており、見分けやすさ(知覚可能)に関わる。</span>,
     useCases: [
       "点の列はビューの下部中央に置く",
       "10ページを超えるなら、グリッドなど別の並べ方を検討する",
@@ -53,14 +54,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Carousel",
     color: "#2F7D6E",
     position: "画像が中心の項目を並べ、画面の内外へ出入りさせる部品。4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ",
-    size: "大・中・小の項目を並べるレイアウトでは、小さい項目の幅を40〜56dpの範囲で決めます(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、横向きのカルーセルでは幅が高さの最大2倍で、画面が広くなると大きい項目の数が増えます。",
-    colorInfo: "マルチブラウズは大・中・小の項目が並び、写真のサムネイルのように多くを素早く見るとき(既定)。アンコンテインドは同じ大きさの項目が画面の端から流れ出し、項目の縦横比を保ちたいとき。ヒーローは1つの大きな項目に注目させ、次の小さな項目をのぞかせるとき(映画など)。全画面は1項目を端から端まで見せて縦にスクロールし、縦長の内容に向きます。",
+    size: "大・中・小の項目を並べるレイアウトでは、小さい項目の幅を40〜56dpの範囲で決める(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、横向きのカルーセルでは幅が高さの最大2倍で、画面が広くなると大きい項目の数が増える。",
+    colorInfo: "マルチブラウズは大・中・小の項目が並び、写真のサムネイルのように多くを素早く見るとき(既定)。アンコンテインドは同じ大きさの項目が画面の端から流れ出し、項目の縦横比を保ちたいとき。ヒーローは1つの大きな項目に注目させ、次の小さな項目をのぞかせるとき(映画など)。全画面は1項目を端から端まで見せて縦にスクロールし、縦長の内容に向く。",
     stance:
-      "項目は画像が中心で、短い文字を添えられ、文字は項目の大きさに合わせて変わります。スクロールで項目が縮む(マスクされる)と、文字が入りきらなくなったら隠すなどの調整をします。マルチブラウズとヒーローでは、スクロールを止めたときに最寄りの項目へ吸着させることを勧めています(Material Components for Androidのドキュメントで直接確認、2026-10)。",
+      "項目は画像が中心で、短い文字を添えられ、文字は項目の大きさに合わせて変わる。スクロールで項目が縮む(マスクされる)と、文字が入りきらなくなったら隠すなどの調整をする。マルチブラウズとヒーローでは、スクロールを止めたときに最寄りの項目へ吸着させることを勧めている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
     exceptions:
-      "全画面のレイアウトは縦向きのまま使い、横向きでは画像の縦横比を保つため別のレイアウトに切り替えます。アンコンテインドでは、カルーセルの幅が項目の幅でほぼ割り切れると見た目が悪くなるため、幅に応じて項目の大きさを調整するよう勧めています。",
+      "全画面のレイアウトは縦向きのまま使い、横向きでは画像の縦横比を保つため別のレイアウトに切り替える。アンコンテインドでは、カルーセルの幅が項目の幅でほぼ割り切れると見た目が悪くなるため、幅に応じて項目の大きさを調整するよう勧めている。",
     accessibility:
-      "―(確認したGoogle公式のドキュメントには、自動送りや停止の手段についての記載は見当たりませんでした)。M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていません。",
+      "―(確認したGoogle公式のドキュメントには、自動送りや停止の手段についての記載は見当たらなかった)。M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていない。",
     useCases: [
       "写真のサムネイルのように多くを見せるならマルチブラウズ",
       "注目させたい1件があるならヒーロー、縦長の内容なら全画面",
@@ -73,7 +74,7 @@ const SOURCES = [
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
       { label: "Compose Material 3: Carousel.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/carousel/Carousel.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで直接確認(2026-10)。",
   },
   {
     key: "wcag",
@@ -81,19 +82,19 @@ const SOURCES = [
     doc: "APG Carousel Pattern / WCAG 2.2.2 Pause, Stop, Hide / WAI Carousels Tutorial",
     color: "#A3821F",
     position: "自動で回るカルーセルを誰でも止められ、回転に振り回されないことを中心に求める。見た目の決まりは持たない",
-    size: "カルーセル専用の時間の基準はありません。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要です。",
-    colorInfo: "必要な操作部品は、前へ・次へのボタンと、任意でスライドを選ぶ部品(点など)。自動で回るなら、さらに回転の停止・再開のボタンを置き、キーボードのフォーカスがカルーセルに入ったら回転を止め(利用者が求めるまで再開しない)、マウスを乗せている間も止めます。停止ボタンは、カルーセルの中でTabの順番の最初に置きます。",
+    size: "カルーセル専用の時間の基準はない。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要。",
+    colorInfo: "必要な操作部品は、前へ・次へのボタンと、任意でスライドを選ぶ部品(点など)。自動で回るなら、さらに回転の停止・再開のボタンを置き、キーボードのフォーカスがカルーセルに入ったら回転を止め(利用者が求めるまで再開しない)、マウスを乗せている間も止める。停止ボタンは、カルーセルの中でTabの順番の最初に置く。",
     glossary: [
       { term: "2.2.2 Pause, Stop, Hide・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロール、自動更新される情報を、止めたり隠したりできることを求める基準。" },
       { term: "aria-roledescription", desc: "要素の役割の呼び名を変える属性。カルーセル全体にcarousel、各スライドにslideを設定し、スクリーンリーダーにカルーセルであることを伝える。" },
       { term: "ライブリージョン(aria-live)", desc: "中身が変わったときにスクリーンリーダーが読み上げる領域。自動で回っている間はoff、利用者が送るときはpoliteにする。" },
     ],
     stance:
-      "画面に見えていないスライドの隠し方を誤ったり、知らないうちに回ったりすると、スクリーンリーダーの利用者は、スライド1の続きを読んだつもりが、何の前触れもなくスライド2の内容を聞くことになり、混乱するためです。動きに気を取られる人や読むのに時間がかかる人も、止められれば内容を読めます(APGとWAIのチュートリアルの本文を直接確認、2026-10)。",
+      "画面に見えていないスライドの隠し方を誤ったり、知らないうちに回ったりすると、スクリーンリーダーの利用者は、スライド1の続きを読んだつもりが、何の前触れもなくスライド2の内容を聞くことになり、混乱するため。動きに気を取られる人や読むのに時間がかかる人も、止められれば内容を読めます(APGとWAIのチュートリアルの本文を直接確認、2026-10)。",
     exceptions:
-      "構造として、カルーセル全体をregionかgroupにしてaria-roledescription=\"carousel\"を付け、ラベルには「カルーセル」の語を含めません(役割の呼び名と重複するため)。各スライドに名前がなければ「3/10」のように番号と総数を名前にします。停止ボタンのラベルは「スライドの回転を停止」「開始」のように動作に合わせて変えます。前へ・次へを押してもフォーカスは動かさず、何度でも押せるようにします。スライドを選ぶ点を1つずつボタンにすると、Tabで止まる場所が増え、キーボードの利用者には最も不便な形になります。APGの実装例では、OSで「視差効果を減らす/動きを減らす」が設定されていれば、自動回転を最初から止めておき、停止ボタンはマウス・キーボード・支援技術・タッチのどれで使う人にも見えるよう常に表示しています。",
+      "構造として、カルーセル全体をregionかgroupにしてaria-roledescription=\"carousel\"を付け、ラベルには「カルーセル」の語を含めません(役割の呼び名と重複するため)。各スライドに名前がなければ「3/10」のように番号と総数を名前にする。停止ボタンのラベルは「スライドの回転を停止」「開始」のように動作に合わせて変える。前へ・次へを押してもフォーカスは動かさず、何度でも押せるようにする。スライドを選ぶ点を1つずつボタンにすると、Tabで止まる場所が増え、キーボードの利用者には最も不便な形になる。APGの実装例では、OSで「視差効果を減らす/動きを減らす」が設定されていれば、自動回転を最初から止めておき、停止ボタンはマウス・キーボード・支援技術・タッチのどれで使う人にも見えるよう常に表示している。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 2.2.2(止められる)とキーボードでの操作は「操作可能」、役割の呼び名やライブリージョンで状態を伝えることは「堅牢」に関わります。",
+      "操作可能(Operable)・堅牢(Robust) ― 2.2.2(止められる)とキーボードでの操作は「操作可能」、役割の呼び名やライブリージョンで状態を伝えることは「堅牢」に関わる。",
     useCases: [
       "自動で回すなら、停止・再開のボタンをカルーセルの最初に置く",
       "フォーカスが入ったら・マウスを乗せたら回転を止める",
@@ -107,7 +108,7 @@ const SOURCES = [
       { label: "WAI Carousels Tutorial", url: "https://www.w3.org/WAI/tutorials/carousels/" },
       { label: "APG: Auto-Rotating Image Carousel(実装例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/" },
     ],
-    confirmedNote: "APGのCarousel Pattern・WAIのCarousels Tutorial・2.2.2のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのものです。",
+    confirmedNote: "APGのCarousel Pattern・WAIのCarousels Tutorial・2.2.2のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのもの。",
   },
   {
     key: "nn",
@@ -115,13 +116,13 @@ const SOURCES = [
     doc: "Carousel Usability / Auto-Forwarding Carousels and Accordions Annoy Users",
     color: "#7A4F7E",
     position: "利用者はカルーセルを読み飛ばしがちで、2枚目以降は見られにくい。まず静的なヒーロー画像を検討し、使うなら案内と内容で効果を上げる、という実務指針(適合基準ではない)",
-    size: "フレーム(枚数)は5枚以下にします。自動で送るなら、文字を読む速さを1秒に3語(英語)として表示時間を見積もります。視線計測では、動く広告のような要素が見られたのは27%だったとしています。",
-    colorInfo: "全部で何枚あり、今どこかを示します。点は押すと何が出るか予想できず、スマートフォンでは気づかれにくいため、各フレームのボタンは中身が分かる見た目にします。操作部品はカルーセルの中に置き、下や画面の折り返しの先に離しません。ボタンは十分に大きく、背景が騒がしいフレームでも見えるようにします。",
+    size: "フレーム(枚数)は5枚以下にする。自動で送るなら、文字を読む速さを1秒に3語(英語)として表示時間を見積もる。視線計測では、動く広告のような要素が見られたのは27%だったとしている。",
+    colorInfo: "全部で何枚あり、今どこかを示す。点は押すと何が出るか予想できず、スマートフォンでは気づかれにくいため、各フレームのボタンは中身が分かる見た目にする。操作部品はカルーセルの中に置き、下や画面の折り返しの先に離さない。ボタンは十分に大きく、背景が騒がしいフレームでも見えるようにする。",
     stance:
-      "カルーセルは同じ一等地に複数の内容を載せられますが、多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ません。1枚だけを見た人が、その1枚で組織を誤解することもあります。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げています(2記事とも本文を直接取得して確認、2026-10)。",
+      "カルーセルは同じ一等地に複数の内容を載せられるが、多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない。1枚だけを見た人が、その1枚で組織を誤解することもある。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げている(2記事とも本文を直接取得して確認、2026-10)。",
     exceptions:
-      "自動送りは、表示時間を適切に合わせられない場合、広告に見える場合、スマートフォン(ページが短く、切り替わる頃には下へスクロールしている)では避けます。自動送りするなら最後で止めずに繰り返し、今のフレームを表示し続けます。自動送りしないなら、矢印や次の画像の端をのぞかせて、続きがあることを見た目で示します。重要な内容は、カルーセル以外の場所にも置きます。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠です。動くUIは運動機能に障害のある人には押す前に消えてしまい、読むのが遅い人や母語でない人には読む時間が足りないとしています。",
+      "自動送りは、表示時間を適切に合わせられない場合、広告に見える場合、スマートフォン(ページが短く、切り替わる頃には下へスクロールしている)では避ける。自動送りするなら最後で止めずに繰り返し、今のフレームを表示し続ける。自動送りしないなら、矢印や次の画像の端をのぞかせて、続きがあることを見た目で示す。重要な内容は、カルーセル以外の場所にも置く。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。動くUIは運動機能に障害のある人には押す前に消えてしまい、読むのが遅い人や母語でない人には読む時間が足りないとしている。",
     useCases: [
       "フレームは5枚以下にし、何枚中の何枚目かを示す",
       "スマートフォンでは自動で送らない",
@@ -132,7 +133,7 @@ const SOURCES = [
     urlSecondary: [
       { label: "Auto-Forwarding Carousels and Accordions Annoy Users", url: "https://www.nngroup.com/articles/auto-forwarding/#toc-big-carousel-like-accordion-ignored-2" },
     ],
-    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10、1本目は2013年公開・2026年8月に見直し)。ページ内検索の語は1本目の記事のものです。",
+    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10、1本目は2013年公開・2026年8月に見直し)。ページ内検索の語は1本目の記事のもの。",
   },
 ];
 
@@ -472,7 +473,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -481,6 +482,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "同じ場所で、複数の項目を横に送りながら順番に見せる部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "限られた場所で、画像などの複数の項目を1つずつ(または少しずつ)見せる" },
+  { k: "よく使われる場面", v: "トップページの特集、商品写真の切り替え、おすすめの横スクロール" },
+  { k: "似た部品との違い", v: <>全部を一度に見せて比べさせるなら<PageLink to="/components/containment/list">リスト</PageLink>や<PageLink to="/components/containment/card">カード</PageLink>の並び</> },
+];
 
 export default function ContainmentCarouselPage() {
   return (
@@ -507,16 +516,25 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <h1 style={styles.title}>カルーセル</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、複数の項目を同じ場所で順に見せるカルーセルの枚数・位置の示し方・最後の1枚の後の扱い・自動送り・止める手段・SP版とPC版の違いをどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ(カルーセルの構成)"
+            image={<><CarouselSwatch /></>}
+            imageNote={<>前へ・次へのボタン、位置を示す点、次の項目の端、自動で回る場合の停止ボタンで構成した概念図です。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(カルーセルの構成)</span>
-            <CarouselSwatch />
-            <p style={styles.swatchNote}>前へ・次へのボタン、位置を示す点、次の項目の端、自動で回る場合の停止ボタンで構成した概念図です。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― 何を定めているか</h2>
+            <RuleMatrix />
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針です。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「カルーセル」を部品として定義しているのは<strong>Googleだけ</strong>で、M3は<strong>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)</strong>を用途で選ぶ方式です。Appleには専用のページがなく、横にめくるページの位置を点で示す<strong>ページコントロール</strong>が最も近い指針です(点は約10個まで、下部中央)。
             </p>
@@ -530,13 +548,6 @@ export default function ContainmentCarouselPage() {
               実務では、<strong>まず静的なヒーロー画像やグリッドで足りないかを考え、カルーセルにするならGoogleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せ、自動では送らない(送るなら止められる)</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 何を定めているか</h2>
-            <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針です。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -573,7 +584,6 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>カルーセル デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -586,13 +596,13 @@ export default function ContainmentCarouselPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>枚数・大きさ・時間</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>位置の示し方・操作</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -608,8 +618,8 @@ export default function ContainmentCarouselPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -685,7 +695,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -698,7 +708,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -721,7 +731,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -736,7 +746,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

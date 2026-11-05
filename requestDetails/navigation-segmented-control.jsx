@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / セグメントコントロール」ページ。
@@ -31,14 +32,14 @@ const SOURCES = [
     color: "#C2542A",
     position: "2つ以上の等幅セグメントからなる線形の集合。それぞれがボタンとして機能する",
     size:
-      "数値による具体的なセグメントサイズの規定は見当たりませんが、全てのタップ可能な要素に適用される一般的なヒットターゲット基準(44×44pt)がここにも適用されるとしています。セグメントは幅が広いほどタップしやすいとしています。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+      "数値による具体的なセグメントサイズの規定は見当たらないが、全てのタップ可能な要素に適用される一般的なヒットターゲット基準(44×44pt)がここにも適用されるとしている。セグメントは幅が広いほどタップしやすいとしている。",
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "セグメントコントロールは、地図アプリの「マップ/交通機関/航空写真」の切り替えのように、異なる表示(ビュー)を切り替える際によく使われるとしています。コントロール内の全セグメントは同じ幅を持ち、テキストまたは画像のどちらかを含められます。",
+      "セグメントコントロールは、地図アプリの「マップ/交通機関/航空写真」の切り替えのように、異なる表示(ビュー)を切り替える際によく使われるとしている。コントロール内の全セグメントは同じ幅を持ち、テキストまたは画像のどちらかを含められる。",
     exceptions:
-      "セグメントが多すぎると読み取りにくく操作に時間がかかるため、広い画面では約5〜7個まで、iPhoneでは約5個までを目安にするとしています(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨しています。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしています。",
+      "セグメントが多すぎると読み取りにくく操作に時間がかかるため、広い画面では約5〜7個まで、iPhoneでは約5個までを目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。全てのインタラクティブ要素に適用される最小44×44ptのタップ領域基準が、ここにも適用されると考えられます。",
+      <span><NoData>記載なし。</NoData>全てのインタラクティブ要素に適用される最小44×44ptのタップ領域基準が、ここにも適用されると考えられる。</span>,
     useCases: [
       "地図の表示切り替えのように、同じコンテンツの異なるビューを切り替える",
       "iPhoneでは5個以下のセグメントに収める",
@@ -66,18 +67,18 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "単一選択・複数選択の2種類。2〜5個の選択肢に最適(5個超はチップを推奨)",
     size:
-      "コンテナの高さは40dpです。角は完全な丸み(フル角丸)を持ちます(M2の「トグルボタン」から刷新)。具体的なセグメント幅や最小タップ領域のdp数値は確認できていません。",
+      "コンテナの高さは40dp。角は完全な丸み(フル角丸)を持つ(M2の「トグルボタン」から刷新)。具体的なセグメント幅や最小タップ領域のdp数値は確認できていない。",
     colorInfo:
-      "色の値はデザイントークンを通して実装され、ダイナミックカラーにも対応しています。セグメントボタンは類似した部品(セグメント)の集合体であるため、輪郭線は背景との間で少なくとも3:1のコントラスト比を確保すべきとしています。選択状態はチェックマークアイコンと色の変化の両方で示すべきで、色だけに頼るべきではないとしています。",
+      "色の値はデザイントークンを通して実装され、ダイナミックカラーにも対応している。セグメントボタンは類似した部品(セグメント)の集合体であるため、輪郭線は背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。選択状態はチェックマークアイコンと色の変化の両方で示すべきで、色だけに頼るべきではないとしている。",
     glossary: [
       { term: "単一選択 / 複数選択", desc: "セグメントボタンには2つの公式バリアントがある。単一選択はラジオボタンのように一度に1つだけ選択でき、複数選択はチェックボックスのように複数(またはゼロ)を選択できる。M2では「トグルボタン」という名称だったが、M3でこの2バリアントを持つ「セグメントボタン」として刷新された。" },
     ],
     stance:
-      "セグメントボタンは、人々が選択肢を選んだり、表示を切り替えたり、要素を並べ替えたりするのを助けるコンポーネントで、アイコン・ラベルテキスト・またはその両方を含められるとしています。単一選択セグメントボタンは、複数のオプションから1つを選ぶ・ビューを切り替える・最大5つの要素を並べ替える場合に使うとしています(例: 飲料のサイズセレクター)。複数選択セグメントボタンは、選択が必須ではなく、何も選ばない状態も含め任意の数のオプションを同時に選べるとしています(例: レストラン検索の価格帯フィルタ)。",
+      "セグメントボタンは、人々が選択肢を選んだり、表示を切り替えたり、要素を並べ替えたりするのを助けるコンポーネントで、アイコン・ラベルテキスト・またはその両方を含められるとしている。単一選択セグメントボタンは、複数のオプションから1つを選ぶ・ビューを切り替える・最大5つの要素を並べ替える場合に使うとしている(例: 飲料のサイズセレクター)。複数選択セグメントボタンは、選択が必須ではなく、何も選ばない状態も含め任意の数のオプションを同時に選べるとしている(例: レストラン検索の価格帯フィルタ)。",
     exceptions:
-      "1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべきとしています。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしています(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。",
+      "1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべきとしている。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしている(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。",
     accessibility:
-      "操作可能(Operable) ― Tabキーで個々のセグメントにフォーカスが移り、最初のフォーカスは言語の方向に応じて最も左または最も右のセグメントに当たります。単一選択ではSpace/Enterキーでフォーカス中のセグメントを選択/選択解除し、複数選択でも同様のキーで各セグメントの選択状態を個別に切り替えます。アクセシビリティ上、単一選択セグメントボタンはラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱われるとしています(Appleの地図アプリのような「表示切り替え」用途でも、Google独自の実装はTabsパターンではなくradiogroup/checkboxとして扱われる点に注意)。ラベルテキストのないアイコンのみのセグメントには、そのアクションを説明するアクセシビリティラベル(例: 通貨記号→「安価」)を用意すべきとしています。なお、Googleの実装はTabキーで各セグメントに移りますが、Webでradiogroupとして作るなら、Tabキーではグループに1回だけ止まり、中は矢印キーで移動します(W3C欄・APGのRadio Groupパターン)。",
+      "操作可能(Operable) ― アクセシビリティ上、単一選択セグメントボタンはラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱われるとしている(Appleの地図アプリのような「表示切り替え」用途でも、Google独自の実装はTabsパターンではなくradiogroup/checkboxとして扱われる点に注意)。ラベルテキストのないアイコンのみのセグメントには、そのアクションを説明するアクセシビリティラベル(例: 通貨記号→「安価」)を用意すべきとしている。",
     useCases: [
       "2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
       "2〜5個の選択肢を、選択必須にせず複数(またはゼロ)選べるようにする(複数選択、例: 価格帯フィルタ)",
@@ -92,7 +93,7 @@ const SOURCES = [
     ],
     confirmedNote: "使用法・M2からの変更点・単一選択/複数選択・配置・色のコントラスト・キーボード操作・フォーカス・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文を直接確認済み。具体的なセグメント幅などのspecs数値は未確認。",
     deprecated: true,
-    deprecatedNote: "Material 3の表現力向上(Expressive)アップデート以降、セグメントボタンは推奨されなくなりました。公式には代わりに「接続ボタングループ(Connected button groups)」の使用が案内されています(機能はほぼ同じで、デザインが刷新されているとのことです)。",
+    deprecatedNote: "Material 3の表現力向上(Expressive)アップデート以降、セグメントボタンは推奨されなくなりました。公式には代わりに「接続ボタングループ(Connected button groups)」の使用が案内されている(機能はほぼ同じで、デザインが刷新されているとのこと)。",
     illustration: () => (
       <svg width="110" height="26" viewBox="0 0 110 26">
         <rect x="1" y="1" width="108" height="24" rx="12" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -111,19 +112,18 @@ const SOURCES = [
     color: "#A3821F",
     position: "用途によって適切なARIAパターンが変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
     size:
-      "セグメントコントロール専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
+      "セグメントコントロール専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     stance:
-      "セグメントコントロールが「フォーム内の1つの値を選ぶ」用途であればWAI-ARIAのRadio Groupパターン(役割はradiogroup/radio、矢印キーで移動)が、Appleの地図の例のように「表示コンテンツを切り替える」用途であればTabsパターン(role=tablist/tab/tabpanel)が適切と考えられます(AI解釈。W3Cはセグメントコントロールという部品を定めていないため)。いずれの場合も、名前・役割・状態が支援技術から取得できることを求めます(4.1.2)。なお、Google自身のセグメントボタン実装は、表示切り替え用途であってもTabsパターンではなく、単一選択=radiogroup・複数選択=checkboxとして扱われるとしており、用途で考えるか実装で考えるかによって当てはめが変わりうる点には注意が必要です。",
+      "セグメントコントロールが「フォーム内の1つの値を選ぶ」用途であればWAI-ARIAのRadio Groupパターン(役割はradiogroup/radio、矢印キーで移動)が、Appleの地図の例のように「表示コンテンツを切り替える」用途であればTabsパターン(role=tablist/tab/tabpanel)が適切と考えられる(AI解釈。W3Cはセグメントコントロールという部品を定めていないため)。いずれの場合も、名前・役割・状態が支援技術から取得できることを求める(4.1.2)。なお、Google自身のセグメントボタン実装は、表示切り替え用途であってもTabsパターンではなく、単一選択=radiogroup・複数選択=checkboxとして扱われるとしており、用途で考えるか実装で考えるかによって当てはめが変わりうる点には注意が必要。",
     exceptions:
-      "標準的なHTMLのinput type=\"radio\"要素や、適切なARIAロールを持つカスタム実装であれば基準を満たします。用途(選択かビュー切替か)を誤ってARIAパターンを選ぶと、支援技術に正しく伝わらない点に注意が必要です。",
+      "標準的なHTMLのinput type=\"radio\"要素や、適切なARIAロールを持つカスタム実装であれば基準を満たす。用途(選択かビュー切替か)を誤ってARIAパターンを選ぶと、支援技術に正しく伝わらない点に注意が必要。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、矢印キーでのセグメント間移動などのキーボード操作性(2.1.1)、ターゲットサイズ(2.5)が関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、キーボード操作性(2.1.1)、ターゲットサイズ(2.5)が関わる。",
     useCases: [
       "フォーム内の単一選択にはRadio Groupパターン(radiogroup/radio)を使う",
       "表示コンテンツの切り替えにはTabsパターン(tablist/tab/tabpanel)を使う",
-      "矢印キーでセグメント間を移動できるようにする",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
@@ -144,12 +144,12 @@ const SOURCES = [
     doc: "専用記事なし",
     color: "#7A4F7E",
     position: "セグメントコントロール専用の設計ガイドライン記事は見当たらない",
-    size: "数値基準は見当たりません。",
-    colorInfo: "色についての数値基準は見当たりません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "セグメントコントロールそのものを主題にした専用の設計ガイドライン記事は確認できていません。トグルスイッチやチェックボックス・ラジオボタンとの使い分けを扱う記事の中で、関連コンポーネントとして触れられる程度です。",
-    exceptions: "専用記事がないため、例外・許容ケースの記載も確認できていません。",
-    accessibility: "―(専用の適合区分・設計根拠の提示は見当たりません)",
+      "セグメントコントロールそのものを主題にした専用の設計ガイドライン記事は確認できていない。トグルスイッチやチェックボックス・ラジオボタンとの使い分けを扱う記事の中で、関連コンポーネントとして触れられる程度。",
+    exceptions: "専用記事がないため、例外・許容ケースの記載も確認できていない。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: ["(専用記事なし)ラジオボタン・トグルスイッチの原則(常に選択肢を可視化する、即時反映するなど)を踏まえて個別に判断する"],
     searchHint: "",
     url: "https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/",
@@ -183,7 +183,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -214,6 +214,14 @@ function SegmentedSwatch() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "少ない選択肢(2〜5個)から1つを選び、同じ内容の見え方(表示形式・期間など)を切り替える" },
+  { k: "よく使われる場面", v: "「日・週・月」の切り替え、リスト表示とグリッド表示の切り替え" },
+  { k: "似た部品との違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
+];
+
 export default function NavigationSegmentedControlPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -239,7 +247,12 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
           <h1 style={styles.title}>セグメントコントロール</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ボタン状に並ぶ選択コンポーネントとしてサイズ・色・アクセシビリティをどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><SegmentedSwatch /></>}
+            imageNote={<>横一列の等幅ボタン群。常に全ての選択肢を見せながら、1つ(または表示ビュー)を選ぶ。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
@@ -248,28 +261,24 @@ export default function NavigationSegmentedControlPage() {
             </p>
           </div>
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <SegmentedSwatch />
-            <p style={styles.swatchNote}>横一列の等幅ボタン群。常に全ての選択肢を見せながら、1つ(または表示ビュー)を選ぶ。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               セグメントコントロールは、<strong>Appleが「表示(ビュー)の切り替え」を主な用途として説明する</strong>のに対し、<strong>Googleは「選択・表示切替・並べ替え」とやや広い用途</strong>で説明しており、両者で強調点が異なります。ラジオボタンと同じ「相互排他的な単一選択」を扱える点は共通しています。
             </p>
             <p style={styles.synthesisText}>
-              公式ページ本文を確認したところ、<strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>があることが判明しました。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされています(「セレクト(プルダウン)」ページで確認した複数選択メニューと同様、Googleには複数選択に対応するSelection系コンポーネントが複数存在する点は興味深い共通項です)。
+              <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>があります。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされています(「セレクト(プルダウン)」ページで確認した複数選択メニューと同様、Googleには複数選択に対応するSelection系コンポーネントが複数存在する点は興味深い共通項です)。
             </p>
             <p style={styles.synthesisText}>
               Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記しています。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言えます。
             </p>
             <p style={styles.synthesisText}>
-              最も重要な発見は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことです(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>と考えられる(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者の視点の違いも見えてきました。Nielsen Norman Groupには専用記事がなく、4系列の中で最も情報が薄いコンポーネントです。
+              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことです(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>と考えられる(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者の視点の違いも見えてきました。Nielsen Norman Groupには専用記事がなく、4系列の中で最も情報が薄いコンポーネントです。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -279,13 +288,13 @@ export default function NavigationSegmentedControlPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -312,7 +321,6 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -322,8 +330,6 @@ export default function NavigationSegmentedControlPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -331,14 +337,16 @@ export default function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -353,8 +361,8 @@ export default function NavigationSegmentedControlPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -381,7 +389,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
   warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
@@ -393,7 +401,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -418,7 +426,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -429,7 +437,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

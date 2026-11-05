@@ -125,7 +125,7 @@ export default function SelectionSelectPatternsPage() {
           <p style={styles.subtitle}>単一選択を実現するUIパターンは、プルダウンだけではありません。代表的な4つのパターンをまとめました</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンでしたが、単一選択を実現する方法はそれだけではありません。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられます。
             </p>

@@ -246,7 +246,7 @@ export default function SelectionOverviewPage() {
           <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・プルダウン。6つのパーツを、ユーザーの行動を起点に使い分けます</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               6つのパーツは、コンポーネントの性質(連続値かどうか、複数選択かどうかなど)からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の判断フローは「感覚的な値を調整したい」「複数の項目を選びたい」「1つの項目をオン/オフしたい」「1つだけ選びたい」という4つの行動を起点にした分岐ツリーです。1つの項目のオン/オフは、<strong>すぐ反映されるならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれます(Nielsen Norman Groupのトグルスイッチの記事の整理)。
             </p>

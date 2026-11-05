@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -34,18 +35,18 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Progress Indicators / Loading",
     color: "#C2542A",
     position: "処理中であることを一時的に示すコンポーネント。確定的(determinate)/不確定(indeterminate)の2種類を使い分ける",
-    size: "具体的なpt数値やバーの太さの基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: <NoData>数値は未確認</NoData>,
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしています。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、可能な限り確定的な表示を優先すべきだとしています。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めています。",
+      "進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、可能な限り確定的な表示を優先すべきだとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。",
     exceptions:
-      "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めています。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしています(詳細は「空状態・ローディング状態」ページ参照)。",
+      "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「空状態・ローディング状態」ページ参照)。",
     scenarios: [
       "所要時間が分かるダウンロード・ファイル変換などにプログレスバー(確定的)を使いたい時",
       "所要時間が見積もれない読み込み・同期処理にスピナー(不確定)を使いたい時",
       "処理が長時間かかることが避けられず、待機中に見せるものが必要な時",
     ],
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "所要時間が分かる処理には確定的な表示を優先する",
       "曖昧な文言(「読み込み中」等)だけに頼らず、常に同じ場所に表示して見つけやすくする",
@@ -70,18 +71,18 @@ const SOURCES = [
     doc: "Material Design 3 ― Progress indicators / Loading indicator",
     color: "#2F7D6E",
     position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせて使うコンポーネント群。5秒未満の短い待ち時間向けに新設された専用の「Loading indicator」も持つ",
-    size: "具体的なdp数値は確認できていません。アクティブインジケーターの形状にはflat(直線的)とwavy(波形)の2オプションがあるとされています。",
-    colorInfo: "不確定インジケーターは既定でprimary・primary container・tertiary・tertiary containerの4色を順に切り替えられるとされています(検索結果による確認)。",
+    size: <span><NoData>数値は未確認。</NoData>アクティブインジケーターの形状にはflat(直線的)とwavy(波形)の2オプションがあるとされている。</span>,
+    colorInfo: "不確定インジケーターは既定でprimary・primary container・tertiary・tertiary containerの4色を順に切り替えられるとされている(検索結果による確認)。",
     stance:
-      "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされています。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされています。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしています。",
+      "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされている。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされている。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしている。",
     exceptions:
-      "5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くの用途を置き換える意図で「Loading indicator」という別コンポーネントが新設されたとみられます(検索結果による確認)。用途が重なるため、実装時にはProgress indicatorとLoading indicatorのどちらが適切か、待ち時間の長さで判断する必要があります。",
+      "5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くの用途を置き換える意図で「Loading indicator」という別コンポーネントが新設されたとみられる(検索結果による確認)。用途が重なるため、実装時にはProgress indicatorとLoading indicatorのどちらが適切か、待ち時間の長さで判断する必要がある。",
     scenarios: [
       "コンテナの端(画面上部など)に配置する処理にはlinearインジケーターを使いたい時",
       "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
       "5秒未満で終わる短い待ち時間にはLoading indicatorを使いたい時",
     ],
-    accessibility: "操作可能・知覚可能 ― 具体的な数値基準は確認できていませんが、一般的なM3の状態・モーション関連のアクセシビリティ原則(モーション低減設定への配慮等)が適用されると考えられます(直接確認はできていません)。",
+    accessibility: "操作可能・知覚可能 ― 具体的な数値基準は確認できていないが、一般的なM3の状態・モーション関連のアクセシビリティ原則(モーション低減設定への配慮等)が適用されると考えられる(直接確認はできていない)。",
     useCases: [
       "配置(端か中央か)に応じてlinear/circularを選ぶ",
       "待ち時間が5秒未満ならLoading indicator、それ以上ならProgress indicatorを検討する",
@@ -90,7 +91,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/progress-indicators/guidelines",
     urlSecondary: [{ label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
-    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認です。",
+    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
@@ -106,15 +107,15 @@ const SOURCES = [
     doc: "WAI-ARIA ― role=\"progressbar\"",
     color: "#A3821F",
     position: "処理の進行状況を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表現する",
-    size: "プログレスバー専用の数値基準はありませんが、値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定するとしています。",
-    colorInfo: "色についての専用基準はありません。",
+    size: "プログレスバー専用の数値基準はないが、値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定するとしている。",
+    colorInfo: "色についての専用基準はない。",
     glossary: [
       { term: "aria-valuenow / aria-valuetext", desc: "aria-valuenowは現在値。不確定な処理では値自体が存在しないため、0に設定するのではなく属性ごと省略すべきとされる。aria-valuetextは、値をパーセンテージとして提示すると誤解を招く場合に、支援技術に伝える文言を上書きするための属性。" },
     ],
     stance:
-      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定するとしています。要素にはaria-labelまたはaria-labelledbyによるアクセシブルネームが必須です。可能な場合はこのロールを使わず、ネイティブの<progress>要素を使うことを勧めています(なお、量を示すだけなら<meter>という別の要素があります。<input type=\"range\">は値を動かすスライダーで、進捗の表示には使いません)。progressbar内の子要素はすべてプレゼンテーション扱いとなり、アクセシビリティツリーからは取り除かれます。",
+      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定するとしている。要素にはaria-labelまたはaria-labelledbyによるアクセシブルネームが必須。可能な場合はこのロールを使わず、ネイティブの<progress>要素を使うことを勧めている(なお、量を示すだけなら<meter>という別の要素がある。<input type=\"range\">は値を動かすスライダーで、進捗の表示には使わない)。progressbar内の子要素はすべてプレゼンテーション扱いとなり、アクセシビリティツリーからは取り除かれる。",
     exceptions:
-      "不確定な処理を表現する場合は、aria-valuenowを0や特定の値に設定するのではなく、属性そのものを省略すべきだとしています。0を設定すると「進捗0%」という誤った情報を支援技術に伝えてしまうためです。",
+      "不確定な処理を表現する場合は、aria-valuenowを0や特定の値に設定するのではなく、属性そのものを省略すべきだとしている。0を設定すると「進捗0%」という誤った情報を支援技術に伝えてしまうため。",
     scenarios: [
       "確定的な進行状況を伝えたい時はaria-valuenow/min/maxを設定する",
       "パーセンテージ表示が実態に合わない時はaria-valuetextで文言を上書きする",
@@ -150,17 +151,17 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
     size: "1秒未満は表示不要、1〜10秒はループアニメーション(スピナー)、10秒超は達成率表示(プログレスバー)が望ましいとしている。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
-    colorInfo: "色についての基準はありません。",
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "進行状況インジケーターは、システムが動作していることを安心させ、おおよその待ち時間を示し、待つ間に見るものを提供するという3つの利点があるとしています。実験では、動く進行状況バーを見たユーザーは、何も表示されなかった場合に比べて平均で3倍長く待つ意思を示したと紹介されています。何も情報を示さない静的な表示は「十分なフィードバックにならない」として避けるべきとし、「しばらくお待ちください、二度押ししないでください」のような注意書きも、ユーザーがほとんど読まないため効果が薄いとしています。",
+      "進行状況インジケーターは、システムが動作していることを安心させ、おおよその待ち時間を示し、待つ間に見るものを提供するという3つの利点があるとしている。実験では、動く進行状況バーを見たユーザーは、何も表示されなかった場合に比べて平均で3倍長く待つ意思を示したと紹介されている。何も情報を示さない静的な表示は「十分なフィードバックにならない」として避けるべきとし、「しばらくお待ちください、二度押ししないでください」のような注意書きも、ユーザーがほとんど読まないため効果が薄いとしている。",
     exceptions:
-      "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしています。",
+      "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしている。",
     scenarios: [
       "1〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
       "10秒を超える、または超える可能性がある処理に達成率表示を使いたい時",
       "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の長さに応じた表示方法の使い分けというユーザー心理に基づく指針です。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の長さに応じた表示方法の使い分けというユーザー心理に基づく指針。",
     useCases: [
       "1秒未満の処理にはインジケーターを表示しない",
       "何も情報を示さない静的な表示や「二度押ししないでください」の注意書きは避ける",
@@ -210,7 +211,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -234,6 +235,14 @@ function ProgressSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示です。";
+const ABOUT = [
+  { k: "目的・役割", v: "待ち時間があることと、進み具合(分かる場合)を伝え、止まっていないと分かるようにする" },
+  { k: "よく使われる場面", v: "ファイルのアップロード・ダウンロード、画面の読み込み、送信中の待ち" },
+  { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/empty-state">空状態・ローディング状態</PageLink></> },
+];
 
 export default function CommunicationProgressPage() {
   return (
@@ -260,16 +269,18 @@ export default function CommunicationProgressPage() {
           </div>
 
           <h1 style={styles.title}>プログレスインジケーター</h1>
-          <p style={styles.subtitle}>処理の進行状況を示す確定的(determinate)/不確定(indeterminate)インジケーターについて、4つのガイドラインを比較します</p>
+          <SummaryCard
+            image={<><ProgressSwatch /></>}
+            imageNote={<>所要時間が分かる処理には確定的なバー、分からない処理には不確定なスピナーを使うのが4系列共通の基本的な考え方。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <ProgressSwatch />
-            <p style={styles.swatchNote}>所要時間が分かる処理には確定的なバー、分からない処理には不確定なスピナーを使うのが4系列共通の基本的な考え方。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意していますが、その扱い方はレイヤーが異なります。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示しています。
             </p>
@@ -283,7 +294,6 @@ export default function CommunicationProgressPage() {
               W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られています。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴です。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -293,13 +303,13 @@ export default function CommunicationProgressPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -327,7 +337,6 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -337,8 +346,6 @@ export default function CommunicationProgressPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -346,16 +353,18 @@ export default function CommunicationProgressPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -370,8 +379,8 @@ export default function CommunicationProgressPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -409,7 +418,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
@@ -419,7 +428,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -444,7 +453,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -459,7 +468,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

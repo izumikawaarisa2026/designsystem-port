@@ -272,7 +272,7 @@ export default function NavigationTabsVsSegmentedPage() {
           <p style={styles.subtitle}>見た目が似ている2つのコンポーネントを、「選ぶと何が起きるか」という軸で比較します</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。
             </p>

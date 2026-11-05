@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / スナックバー」ページ。
@@ -31,17 +32,17 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
     color: "#C2542A",
     position: "「スナックバー」という名称のコンポーネントはなく、最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知",
-    size: "具体的な数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>記載なし</NoData>,
     scenarios: [
       "OSレベルの短時間通知を見せたい時(バナー形式)",
       "アプリ内の一時的なステータス表示は専用コンポーネントがないため独自実装が必要になる時",
     ],
     stance:
-      "HIGには「スナックバー」という名称のコンポーネントは見当たりません。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされています。ただしこれは主に通知センターと連動するOSレベルの通知の表示形式であり、アプリ内の一時的なステータスメッセージ専用のコンポーネントとは言い切れない点に注意が必要です。",
+      "HIGには「スナックバー」という名称のコンポーネントは見当たらない。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされている。ただしこれは主に通知センターと連動するOSレベルの通知の表示形式であり、アプリ内の一時的なステータスメッセージ専用のコンポーネントとは言い切れない点に注意が必要。",
     exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていません。重大な確認が必要な場合は、このページの対象ではなく「ダイアログ」ページで比較したAlertsを使うべきと考えられます。",
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
+      "表示時間・同時表示数などの数値基準は確認できていない。重大な確認が必要な場合は、このページの対象ではなく「ダイアログ」ページで比較したAlertsを使うべきと考えられる。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "OSレベルの短時間通知にはバナー形式を使う",
       "アプリ内の一時的なステータス表示に厳密に対応する専用コンポーネントは持たない",
@@ -49,7 +50,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    confirmedNote: "「スナックバー」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09)。「Notifications」ページ本文はSPAのため直接確認できていません。",
+    confirmedNote: "「スナックバー」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09)。「Notifications」ページ本文はSPAのため直接確認できていない。",
     pending: true,
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
@@ -66,19 +67,19 @@ const SOURCES = [
     doc: "Material Design 3 ― Snackbar",
     color: "#2F7D6E",
     position: "画面下部に一時的に表示し、アプリが実行した(またはこれから実行する)処理をユーザーに知らせる非モーダルなメッセージ。同時に1つだけ表示する",
-    size: "コンパクトなブレークポイントでは、1〜2行のテキストを収めるため、縦方向に48dpから64dpまで拡張するとしています。タブレット・デスクトップなど中〜大型のブレークポイントでは、長めの文章に対応するため横方向に伸縮させ、読みやすい行長の目安として1行あたり40〜60文字程度を推奨しています。画面幅が広いレイアウトで下部の表示位置が一定であれば、左揃え・中央揃えのどちらでも構わないとしています。",
-    colorInfo: "コンテナは不透明なグレーの長方形が基本で、影付きの単色背景によりラベルの文字を読みやすくするとしています。テキストがはっきり読める範囲であれば背景にわずかな透明度を適用することも許容されますが、テキストラベルの色をテキストボタンの色と同じにしてはいけないとしています。",
+    size: "コンパクトなブレークポイントでは、1〜2行のテキストを収めるため、縦方向に48dpから64dpまで拡張するとしている。タブレット・デスクトップなど中〜大型のブレークポイントでは、長めの文章に対応するため横方向に伸縮させ、読みやすい行長の目安として1行あたり40〜60文字程度を推奨している。画面幅が広いレイアウトで下部の表示位置が一定であれば、左揃え・中央揃えのどちらでも構わないとしている。",
+    colorInfo: "コンテナは不透明なグレーの長方形が基本で、影付きの単色背景によりラベルの文字を読みやすくするとしている。テキストがはっきり読める範囲であれば背景にわずかな透明度を適用することも許容されるが、テキストラベルの色をテキストボタンの色と同じにしてはいけないとしている。",
     scenarios: [
       "操作完了後の簡潔な状態通知をしたい時(例: 「アーカイブしました」)",
       "取り消し可能な操作にUndo(元に戻す)アクションを添えたい時",
       "アプリが前面表示中に軽量なフィードバックを出したい時(背面ではNotificationを使う)",
     ],
     stance:
-      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネントです。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしています。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確化されました。",
+      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネント。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしている。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確化されました。",
     exceptions:
-      "Snackbarに設定できるアクションは1つまでで、閉じる/キャンセルアクションは任意とされています。アイコンの追加、装飾されたテキスト、インラインリンクの使用は避けるべきで、必要な場合はダイアログなど別のコンポーネントを検討すべきとしています。塗りつぶし・立体的(elevated)なボタンスタイルは目立ちすぎるため使うべきではないとしています。なお、ダイアログも重要なメッセージの表示を想定したコンポーネントであるため、メッセージの重要度に応じてSnackbarとダイアログのどちらを使うかを判断し、Snackbarの濫用を避けるべきだとしています。配置面では、UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーなど他の要素と重なる場合は少し上にずらす、頻繁に操作するタッチ領域やナビゲーション部分の手前には置かない、といった配慮が必要としています。画面幅いっぱいに広げられるのは、アプリバーやナビゲーションバーのような永続的なナビゲーション要素が無い場合に限られ、FABがある場合はSnackbarをFABより上に表示するとしています。",
+      "Snackbarに設定できるアクションは1つまでで、閉じる/キャンセルアクションは任意とされている。アイコンの追加、装飾されたテキスト、インラインリンクの使用は避けるべきで、必要な場合はダイアログなど別のコンポーネントを検討すべきとしている。塗りつぶし・立体的(elevated)なボタンスタイルは目立ちすぎるため使うべきではないとしている。なお、ダイアログも重要なメッセージの表示を想定したコンポーネントであるため、メッセージの重要度に応じてSnackbarとダイアログのどちらを使うかを判断し、Snackbarの濫用を避けるべきだとしている。配置面では、UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーなど他の要素と重なる場合は少し上にずらす、頻繁に操作するタッチ領域やナビゲーション部分の手前には置かない、といった配慮が必要としている。画面幅いっぱいに広げられるのは、アプリバーやナビゲーションバーのような永続的なナビゲーション要素が無い場合に限られ、FABがある場合はSnackbarをFABより上に表示するとしている。",
     accessibility:
-      "操作可能(Operable) ― Web上で自動的に閉じるSnackbarは、視覚に障害のある人や情報の理解に時間がかかる人にとって利用しづらいとしています。対策として、(1)Snackbarをトリガーした操作の近くに別途インラインフィードバックを用意する(例: 「保存」ボタンのラベルを「保存済み」に変える)、(2)Snackbarに操作を追加して自動的に閉じないようにする、の2つを挙げています。キーボード操作時に、操作可能な要素を完全に覆い隠すような配置も避けるべきだとしています。",
+      "操作可能(Operable) ― Web上で自動的に閉じるSnackbarは、視覚に障害のある人や情報の理解に時間がかかる人にとって利用しづらいとしている。対策として、(1)Snackbarをトリガーした操作の近くに別途インラインフィードバックを用意する(例: 「保存」ボタンのラベルを「保存済み」に変える)、(2)Snackbarに操作を追加して自動的に閉じないようにする、の2つを挙げている。キーボード操作時に、操作可能な要素を完全に覆い隠すような配置も避けるべきだとしている。",
     useCases: [
       "操作完了後の簡潔な状態通知に使う(例: 「アーカイブしました」)",
       "取り消し可能な操作にはUndoアクションを添える",
@@ -103,8 +104,8 @@ const SOURCES = [
     doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
     color: "#A3821F",
     position: "見た目ではなく内容の緊急度に応じて、控えめな通知にはrole=\"status\"、即時に伝えるべき警告にはrole=\"alert\"を使い分ける。操作を持つなら時間で消さない(2.2.1)",
-    size: "スナックバー専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアクションボタンに適用されます。",
-    colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどの視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+    size: "スナックバー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアクションボタンに適用される。",
+    colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどの視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
       { term: "role=\"status\"", desc: "aria-live=\"polite\"相当の暗黙のライブリージョン。スクリーンリーダーは現在読み上げ中の内容を終えてから新しいテキストを読み上げる。確認メッセージなど緊急性の低い通知に向く。" },
       { term: "role=\"alert\"", desc: "aria-live=\"assertive\"相当。スクリーンリーダーが現在読み上げている内容を中断してでも即座に読み上げる。ユーザーが即座に気づく必要のある重大なエラーに限定して使うべきとされる。" },
@@ -114,11 +115,11 @@ const SOURCES = [
       "ユーザーが即座に気づく必要のある重大なエラーにrole=\"alert\"を使いたい時(多用は避ける)",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求めます。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分けます(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいます。2.2.1(時間制限の調整・レベルA)により、時間で消さないか、延長・解除できるようにします。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(時間制限の調整・レベルA)により、時間で消さないか、延長・解除できるようにする。",
     exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしています。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要があります(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
+      "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしている。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要がある(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― ライブリージョンによる自動読み上げ(4.1.3 Status Messages)が中心的な基準です。時間で消える操作の扱い(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」に関わります。",
+      "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― ライブリージョンによる自動読み上げ(4.1.3 Status Messages)が中心的な基準。時間で消える操作の扱い(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」に関わる。",
     useCases: [
       "確認・処理完了などの通知にはrole=\"status\"を使う",
       "即座の対応が必要な重大なエラーにはrole=\"alert\"を使う",
@@ -150,18 +151,18 @@ const SOURCES = [
     doc: "User-Interface Elements: Glossary(Snackbar (Toast)項目)/ Indicators, Validations, and Notifications",
     color: "#7A4F7E",
     position: "一時的な非モーダルダイアログで、操作不要のまま自動的に消える。多くはUndoなど1つの操作ボタンを持てる",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     scenarios: [
       "処理完了の確認をしたい時(例: ファイル削除の完了通知)",
       "元に戻す(Undo)など操作を1つだけ添えたい時",
       "重要な情報の唯一の伝達手段にはしたくない時(パッシブ通知という前提を踏まえる)",
     ],
     stance:
-      "スナックバーを、プロセスの状態をユーザーに知らせ、ユーザーの操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログと定義しています。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしています。",
+      "スナックバーを、プロセスの状態をユーザーに知らせ、ユーザーの操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログと定義している。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしている。",
     exceptions:
-      "パッシブ通知は非割り込み型であるがゆえに見落とされやすいという弱点があるとしており、重要な情報を伝える手段としては不向きだとしています。ユーザーの直接的な操作に対する応答ではなく、システム側の一般的な出来事を伝える点でも、他のコンポーネント(バリデーションなど)とは性質が異なるとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針です。",
+      "パッシブ通知は非割り込み型であるがゆえに見落とされやすいという弱点があるとしており、重要な情報を伝える手段としては不向きだとしている。ユーザーの直接的な操作に対する応答ではなく、システム側の一般的な出来事を伝える点でも、他のコンポーネント(バリデーションなど)とは性質が異なるとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針。",
     useCases: [
       "処理完了の確認に使う(例: ファイル削除の完了通知)",
       "元に戻す(Undo)など、操作を1つだけ添えられる",
@@ -170,7 +171,7 @@ const SOURCES = [
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
     urlSecondary: [{ label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" }],
-    confirmedNote: "用語集の項目名は「Snackbar (Toast)」で、Snackbar/Toastを別項目としては区別していません(2026-09、本文を直接取得して確認)。このページではGoogle実装(操作を持てる)としての性質を中心に扱っています。",
+    confirmedNote: "用語集の項目名は「Snackbar (Toast)」で、Snackbar/Toastを別項目としては区別していない(2026-09、本文を直接取得して確認)。このページではGoogle実装(操作を持てる)としての性質を中心に扱っている。",
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
         <rect x="1" y="1" width="138" height="28" rx="6" fill="#7A4F7E" />
@@ -202,7 +203,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -222,6 +223,14 @@ function SnackbarSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "操作の結果を画面の下などに短く表示し、しばらくすると消える通知です。";
+const ABOUT = [
+  { k: "目的・役割", v: "操作が終わったことを作業を止めずに知らせ、必要なら「元に戻す」などの操作を1つ添える" },
+  { k: "よく使われる場面", v: "「メールを削除しました(元に戻す)」「保存しました」などの完了の知らせ" },
+  { k: "似た部品との違い", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/alert">アラート/バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+];
 
 export default function CommunicationSnackbarPage() {
   return (
@@ -248,21 +257,23 @@ export default function CommunicationSnackbarPage() {
           </div>
 
           <h1 style={styles.title}>スナックバー</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、操作完了後の簡潔な状態通知(スナックバー)をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><SnackbarSwatch /></>}
+            imageNote={<>画面下部に一時的に現れ、操作不要で自動的に消える。Undo(元に戻す)など1つの操作ボタンを持てる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <SnackbarSwatch />
-            <p style={styles.swatchNote}>画面下部に一時的に現れ、操作不要で自動的に消える。Undo(元に戻す)など1つの操作ボタンを持てる。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このページは「スナックバー」に絞った内容です。当初は「トースト」と一体で扱っていましたが、Androidの実装としては<strong>別のAPI</strong>(Snackbar=アクションを持てる、Toast=操作不要のOS標準ポップアップ)であり、Google公式も用途を明確に分けているため、専用ページ「トースト」に切り出しました(末尾のリンクを参照)。スナックバーの一番の特徴は<strong>取り消し可能な操作(Undo)を1つだけ持てる</strong>点で、受動的な通知でありながら操作の余地を残す中間的な性質を持ちます。
             </p>
             <p style={styles.synthesisText}>
-              Android Developers公式ページを直接確認したところ、Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内していることが分かりました。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っています。
+              Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内しています。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけています。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではありません</strong>(重要な確認には「ダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>role="status"(控えめ)とrole="alert"(即時)を使い分けるべき</strong>としており、スナックバーの多くはrole="status"に該当します。
@@ -271,7 +282,6 @@ export default function CommunicationSnackbarPage() {
               なお、Nielsen Norman Groupの用語集では<strong>「Snackbar (Toast)」として1つの項目</strong>にまとめられており、両者を明確に別コンポーネントとして区別しているのは実質<strong>Google(別API)だけ</strong>だという点も付記しておきます。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -281,13 +291,13 @@ export default function CommunicationSnackbarPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -315,7 +325,6 @@ export default function CommunicationSnackbarPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -325,8 +334,6 @@ export default function CommunicationSnackbarPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -334,16 +341,18 @@ export default function CommunicationSnackbarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -358,8 +367,8 @@ export default function CommunicationSnackbarPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -393,7 +402,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -402,7 +411,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -427,7 +436,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -442,7 +451,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

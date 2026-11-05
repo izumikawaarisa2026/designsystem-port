@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ウィジェット(ホーム画面ウィジェット)」ページ。
@@ -72,7 +73,7 @@ const SOURCES = [
       { label: "Android: Widgets(概要)", url: "https://developer.android.com/design/ui/mobile/guides/widgets" },
       { label: "Android: Widget quality guide", url: "https://developer.android.com/design/ui/mobile/guides/widgets/widget_quality_guide#checklists" },
     ],
-    confirmedNote: "m3.material.ioのサイトマップにウィジェットのページはないため、Google公式のAndroid Developersのデザインガイドを掲載しています(本文を直接確認、2026-10)。寸法はPixel端末を基準にした値です。",
+    confirmedNote: "m3.material.ioのサイトマップにウィジェットのページはないため、Google公式のAndroid Developersのデザインガイドを掲載している(本文を直接確認、2026-10)。寸法はPixel端末を基準にした値。",
   },
   {
     key: "wcag",
@@ -95,7 +96,7 @@ const SOURCES = [
     ],
     searchHint: "An interactive component",
     url: "https://www.w3.org/TR/wai-aria-1.2/#widget",
-    confirmedNote: "WAI-ARIA 1.2のwidgetロールの定義を直接取得して確認済み(2026-10)。1.4.3・1.4.1・2.5.8は他のページで本文を確認済みの基準です。",
+    confirmedNote: "WAI-ARIA 1.2のwidgetロールの定義を直接取得して確認済み(2026-10)。1.4.3・1.4.1・2.5.8は他のページで本文を確認済みの基準。",
   },
   {
     key: "nn",
@@ -363,7 +364,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -372,6 +373,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面です。";
+const ABOUT = [
+  { k: "目的・役割", v: "よく見る情報(天気・予定など)を、アプリを開く手間なしに一目で見せる" },
+  { k: "よく使われる場面", v: "天気・カレンダー・歩数・音楽の操作をホーム画面やロック画面に置く" },
+  { k: "似た部品との違い", v: <>アプリの中で情報をまとめて見せるのは<PageLink to="/components/containment/card">カード</PageLink>。ウィジェットはアプリの外に置く</> },
+];
 
 export default function CommunicationWidgetPage() {
   return (
@@ -398,18 +407,27 @@ export default function CommunicationWidgetPage() {
           </div>
 
           <h1 style={styles.title}>ウィジェット(ホーム画面ウィジェット)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ホーム画面などに置くウィジェットの大きさ・見せる内容・更新・品質をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="同じウィジェットでも、大きさで見せる量を変える(概念図)"
+            image={<><WidgetSizesSwatch /></>}
+            imageNote={<>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やします。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決めます(Apple)。寸法はiPhoneの小・中・大の比率で描いています。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
           <WidgetIntro />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>同じウィジェットでも、大きさで見せる量を変える(概念図)</span>
-            <WidgetSizesSwatch />
-            <p style={styles.swatchNote}>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やします。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決めます(Apple)。寸法はiPhoneの小・中・大の比率で描いています。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― 大きさの決め方と数値</h2>
+            <SizeChart />
+            <p style={styles.chartNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)です。Appleは端末ごとに固定の寸法、Googleはマス数と幅・高さの範囲で指定する、という違いがあります。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               Apple・Google・NN groupの3系列がそろって一致しているのは、<strong>1つの主な目的に絞り、アプリを開かずに一目で分かる内容にする</strong>という点です。Appleは天気の例で「今の最高・最低気温と天気」を挙げ、Googleは「1つの主な用途を選ぶ」ことを最初の手順にし、NN groupは<strong>利用者が追いたい「1つのこと」を見つけ、収まる単位に圧縮できるか</strong>が最大の課題だとしています。
             </p>
@@ -423,13 +441,6 @@ export default function CommunicationWidgetPage() {
               W3Cには<strong>ホーム画面のウィジェットの基準はなく</strong>、WAI-ARIAの「widget」はボタンなどの操作部品全般を指す別の言葉です。実務では、<strong>主目的を1つに決めて大きさごとに見せる量を設計し、文字のコントラスト・押せる範囲・色だけに頼らない表現を、通常の画面と同じ基準で確かめる</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 大きさの決め方と数値</h2>
-            <SizeChart />
-            <p style={styles.chartNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)です。Appleは端末ごとに固定の寸法、Googleはマス数と幅・高さの範囲で指定する、という違いがあります。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -465,7 +476,6 @@ export default function CommunicationWidgetPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>ウィジェット デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -478,13 +488,13 @@ export default function CommunicationWidgetPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>大きさの決め方</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>見た目・色の扱い</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>リンク</div>
@@ -498,8 +508,8 @@ export default function CommunicationWidgetPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -558,7 +568,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -572,7 +582,7 @@ const styles = {
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -595,7 +605,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -606,7 +616,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

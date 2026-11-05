@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / フローティングアクションボタン(FAB)」ページ。
@@ -95,7 +96,7 @@ const SOURCES = [
     stance:
       "「Floating Button(Floating Action Button, FAB)」として用語集に掲載。画面上に浮かび、コンテンツがスクロールしても常駐する、画面上で最も使用頻度が高く重要なアクションのために使うボタン、と定義している。モバイル端末で主要な操作へすばやくアクセスできるようにする用途が多いとしている。",
     exceptions: "用語の定義記事であり、サイズや配置に関する数値基準・例外規定は示されていない。",
-    pourDetail: "―(用語集の定義であり、適合区分や設計根拠の提示ではない)",
+    pourDetail: <NoData>記載なし</NoData>,
     searchHint: "Floating Button",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Floating-Button",
     illustration: () => (
@@ -181,6 +182,14 @@ function RangeScale({ scale }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンです。";
+const ABOUT = [
+  { k: "目的・役割", v: "その画面の主な操作(新規作成・作成開始など)を、スクロールしても常に押せる位置に置く" },
+  { k: "よく使われる場面", v: "メールの新規作成、メモ・予定の追加、地図の現在地へ移動" },
+  { k: "似た部品との違い", v: <>画面の中の普通の操作は<PageLink to="/components/actions/button">ボタン</PageLink>。FABは1画面に1つ、主な操作だけに使う</> },
+];
+
 export default function ActionsFabPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -206,16 +215,19 @@ export default function ActionsFabPage() {
           </div>
 
           <h1 style={styles.title}>フローティングアクションボタン(FAB)</h1>
-          <p style={styles.subtitle}>Material発祥のパターンを、他系列がどう扱っている(あるいは扱っていない)かを比較する</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ"
+            image={<><FabSwatch /></>}
+            imageNote={<>Material 3の3サイズ(2025年5月改訂)。丸いコンテナに塗りつぶしアイコンを乗せる形が共通する。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ</span>
-            <FabSwatch />
-            <p style={styles.swatchNote}>Material 3の3サイズ(2025年5月改訂)。丸いコンテナに塗りつぶしアイコンを乗せる形が共通する。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               <strong>役割としてのFAB(画面で最も重要な1つの操作を担うボタン)は、Appleにはありません</strong>。visionOSには空間に浮かぶ円形ボタンにglassマテリアルを使う指針がありますが、これは<strong>「空間に浮かべる見た目」が近いだけ</strong>で、主役の操作という役割までは定めていません。
             </p>
@@ -223,7 +235,6 @@ export default function ActionsFabPage() {
               WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまります。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるでしょう。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -233,8 +244,8 @@ export default function ActionsFabPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <div style={styles.sizeBox}>
                   <span style={styles.exceptionLabel}>ボタンサイズ</span>
                   <p style={styles.exceptionText}>{s.size}</p>
@@ -259,7 +270,6 @@ export default function ActionsFabPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -269,16 +279,16 @@ export default function ActionsFabPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>ボタンのイメージ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>ボタンサイズ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
@@ -340,7 +350,7 @@ const styles = {
   legendRow: { display: "flex", gap: 14, marginBottom: 4, fontSize: 11, color: "#565D8A", fontFamily: "'IBM Plex Mono', monospace" },
   legendItem: { display: "flex", alignItems: "center", gap: 5 },
   legendSwatch: { display: "inline-block", width: 10, height: 10, border: "1px solid", borderRadius: 2 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -357,7 +367,7 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -367,7 +377,7 @@ const styles = {
   exceptionCell: { background: "#F8F9FD" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

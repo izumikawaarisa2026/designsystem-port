@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ページネーション」ページ。
@@ -27,13 +28,12 @@ const SOURCES = [
     urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
     position: "該当なし",
     size: "該当なし",
-    colorInfo: "該当なし",
     stance: "該当なし",
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在しますが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なります(詳しくは上記「ページ送りの種類と使い分け」を参照)。検索結果による間接確認(2026-09)。",
+    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。検索結果による間接確認(2026-09)。",
     pending: true,
   },
   {
@@ -44,13 +44,12 @@ const SOURCES = [
     notApplicable: true,
     position: "該当なし",
     size: "該当なし",
-    colorInfo: "該当なし",
     stance: "該当なし",
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Pagination」という名称の専用コンポーネントページは見当たりません(検索による間接確認。m3.material.ioはSPAのため断定はできません、2026-09)。長いリストの分割はリスト・テーブル等の一般コンポーネントを組み合わせる想定と考えられます。",
+    confirmedNote: "※「Pagination」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。長いリストの分割はリスト・テーブル等の一般コンポーネントを組み合わせる想定と考えられる。",
     pending: true,
   },
   {
@@ -59,17 +58,17 @@ const SOURCES = [
     doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
     color: "#A3821F",
     position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
-    size: "ページネーション専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用されます。",
-    colorInfo: "ページネーション専用の色基準はありませんが、1.4.11(非テキストのコントラスト)は現在ページを示す枠線・背景色などの視覚的要素に適用され得ます。",
+    size: "ページネーション専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用される。",
     glossary: [
+      { term: "色", desc: "ページネーション専用の色基準はないが、1.4.11(非テキストのコントラスト)は現在ページを示す枠線・背景色などの視覚的要素に適用され得る。" },
       { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要な部品(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装するのが一般的(AI解釈)。" },
     ],
     stance:
-      "ページネーションには専用のARIAロールやパターンは定義されていません。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的です(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になります。",
+      "ページネーションには専用のARIAロールやパターンは定義されていない。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的です(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になる。",
     exceptions:
-      "現在のページ番号は、リンクではなく単なるテキスト(span等)として実装し、その要素にaria-current=\"page\"を設定することが多いとされています。単一ページアプリで画面遷移せずにコンテンツだけを切り替える場合は、切り替えをライブリージョンなどで支援技術に通知する配慮も必要です。",
+      "現在のページ番号は、リンクではなく単なるテキスト(span等)として実装し、その要素にaria-current=\"page\"を設定することが多いとされている。単一ページアプリで画面遷移せずにコンテンツだけを切り替える場合は、切り替えをライブリージョンなどで支援技術に通知する配慮も必要。",
     accessibility:
-      "知覚可能・堅牢 ― nav要素によるランドマーク、各リンクの分かりやすい名前、aria-current=\"page\"による現在位置の明示が中心です。「前へ/次へ」ボタンのアイコンのみの表示には、テキストによるアクセシビリティ名を別途用意する必要があります。",
+      "知覚可能・堅牢 ― nav要素によるランドマーク、各リンクの分かりやすい名前、aria-current=\"page\"による現在位置の明示が中心。「前へ/次へ」ボタンのアイコンのみの表示には、テキストによるアクセシビリティ名を別途用意する必要がある。",
     useCases: [
       "ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲む",
       "各ページ番号に「○ページ目に移動」など分かりやすい名前を付ける",
@@ -82,7 +81,7 @@ const SOURCES = [
       { label: "2.4.4 Link Purpose (In Context)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
       { label: "解説(MDN): aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
     ],
-    confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはありません(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存の部品を組み合わせる一般的な作り方です(AI解釈)。",
+    confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはない(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存の部品を組み合わせる一般的な作り方です(AI解釈)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="24" viewBox="0 0 120 24">
@@ -99,14 +98,13 @@ const SOURCES = [
     doc: "Alternatives to Pagination on Product-Listing Pages / Infinite Scrolling",
     color: "#7A4F7E",
     position: "巨大な一覧には従来型ページネーションが向き、少数の一覧には代替案(もっと見るボタンなど)も検討に値する",
-    size: "数値基準としては、無限スクロールが向くのは「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合としています。",
-    colorInfo: "色についての数値基準はありません。",
+    size: "数値基準としては、無限スクロールが向くのは「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合としている。",
     stance:
-      "Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしています。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしています。「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましいとしています(ページ末尾のフッターに到達できなくなる問題を避けられるため)。",
+      "Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしている。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしている。「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましいとしている(ページ末尾のフッターに到達できなくなる問題を避けられるため)。",
     exceptions:
-      "無限スクロールは、ユーザーが自分の閲覧位置を思い出しにくくなり、フッターのコンテンツに到達できなくなるという欠点があるとしています。一覧に「全件表示」の総数を明示し、読み込み済み件数・残り件数を伝えるべきとしています。ユーザーが「全て表示」に切り替えた場合は、その設定を尊重すべきとしています。",
+      "無限スクロールは、ユーザーが自分の閲覧位置を思い出しにくくなり、フッターのコンテンツに到達できなくなるという欠点があるとしている。一覧に「全件表示」の総数を明示し、読み込み済み件数・残り件数を伝えるべきとしている。ユーザーが「全て表示」に切り替えた場合は、その設定を尊重すべきとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、ユーザーが自分の閲覧位置を把握し続けられるか(オリエンテーション)という使い分けの指針です。一覧ページは「ポゴスティッキング」(一覧に戻ってまた個別ページに進む往復行動)を支えられるよう、戻ってきたときに元の位置を保持すべきとしています。",
+      "根拠となる原則 ― POURのような適合区分ではなく、ユーザーが自分の閲覧位置を把握し続けられるか(オリエンテーション)という使い分けの指針。一覧ページは「ポゴスティッキング」(一覧に戻ってまた個別ページに進む往復行動)を支えられるよう、戻ってきたときに元の位置を保持すべきとしている。",
     useCases: [
       "商品数が非常に多い一覧(大規模ECサイトなど)には従来型ページネーションを使う",
       "商品数が比較的少なく絞り込み機能が強い場合は無限ローディングや「もっと見る」ボタンも検討する",
@@ -149,7 +147,7 @@ function UseCaseList({ items, muted }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -231,6 +229,14 @@ function PaginationTypesSection() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "長い一覧をページに分け、ページ番号などで移動できるようにする部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "多くの結果を一定の数ずつに分け、今どこを見ているかと、ほかのページへの行き方を示す" },
+  { k: "よく使われる場面", v: "検索結果、ネットショップの商品一覧、ブログの記事一覧" },
+  { k: "似た部品との違い", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
+];
+
 export default function NavigationPaginationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -256,16 +262,21 @@ export default function NavigationPaginationPage() {
           </div>
 
           <h1 style={styles.title}>ページネーション</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、長い一覧をページに分けて移動する仕組みをどう扱っているかを比較します</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ(番号付きページネーション)"
+            image={<><PaginationSwatch /></>}
+            imageNote={<>ページ番号を並べ、任意のページへ直接移動できる。前後の矢印を併設することが多い。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(番号付きページネーション)</span>
-            <PaginationSwatch />
-            <p style={styles.swatchNote}>ページ番号を並べ、任意のページへ直接移動できる。前後の矢印を併設することが多い。</p>
-          </div>
 
+
+          <PaginationTypesSection />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「ページネーション」という言葉は、実は<strong>2つの異なる場面</strong>を指しています。1つはAppleのPage Controls(オンボーディングのような、少数の固定画面をドットで送る形)、もう1つは検索結果一覧のような可変長のリストを番号で分割する「番号付きページネーション」です。<strong>この2つを混同すると、系列間の比較がずれてしまう</strong>ため、このページでは両方を分けて扱っています。
             </p>
@@ -276,9 +287,6 @@ export default function NavigationPaginationPage() {
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
             </p>
           </div>
-
-          <PaginationTypesSection />
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -288,15 +296,14 @@ export default function NavigationPaginationPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
-                <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
@@ -323,7 +330,6 @@ export default function NavigationPaginationPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -333,8 +339,6 @@ export default function NavigationPaginationPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -342,14 +346,14 @@ export default function NavigationPaginationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -375,8 +379,8 @@ export default function NavigationPaginationPage() {
                     )}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -403,7 +407,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -419,7 +423,7 @@ const styles = {
   typeIllustration: { marginBottom: 10 },
   typeName: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   typeDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -446,7 +450,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -457,7 +461,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

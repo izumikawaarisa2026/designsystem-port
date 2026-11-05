@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / エラー表示」ページ。
@@ -40,13 +41,12 @@ const SOURCES = [
     doc: "専用ページなし(Text fields等の記載に含まれる)",
     color: "#C2542A",
     position: "エラー表示・バリデーションという名称の専用ガイドラインページは見当たらない。テキストフィールド関連の記載に含まれる",
-    size: "専用コンポーネントページがないため、数値基準は確認できていません。",
-    colorInfo: "色だけでエラー状態を伝えるべきではないという言及があります(検索結果による確認)。色に加えてアイコンやテキストラベルを併用すべきとされています。",
+    colorInfo: "色だけでエラー状態を伝えるべきではないという言及がある(検索結果による確認)。色に加えてアイコンやテキストラベルを併用すべきとされている。",
     stance:
-      "AppleのHIGには、エラー表示(バリデーション)という名称の専用ガイドラインページは見当たりません。テキストフィールドなど個別コンポーネントの記載の中に、フィールドの値を検証して問題を知らせ、ユーザーがすぐに訂正できるようにすべきという言及があるとされています(検索結果による確認、2026-09)。表示のタイミング(いつ検証するか)は、このページでは断定せず、「バリデーション」ページで比較しています。",
+      "AppleのHIGには、エラー表示(バリデーション)という名称の専用ガイドラインページは見当たらない。テキストフィールドなど個別コンポーネントの記載の中に、フィールドの値を検証して問題を知らせ、ユーザーがすぐに訂正できるようにすべきという言及があるとされている(検索結果による確認、2026-09)。表示のタイミング(いつ検証するか)は、このページでは断定せず、「バリデーション」ページで比較している。",
     exceptions:
-      "エラーメッセージはエラーコードや汎用的な文言ではなく、次に何をすべきかを説明すべきとしています。赤いエラー表示のように色だけで状態を伝えるべきではなく、アイコンやテキストラベルを併用すべきとされています(検索結果による確認)。",
-    accessibility: "―(専用のアクセシビリティ記載は確認できていません)。一般的な原則として、色だけに頼らない状態表示が挙げられています。",
+      "エラーメッセージはエラーコードや汎用的な文言ではなく、次に何をすべきかを説明すべきとしている。赤いエラー表示のように色だけで状態を伝えるべきではなく、アイコンやテキストラベルを併用すべきとされている(検索結果による確認)。",
+    accessibility: <span><NoData>記載なし。</NoData>一般的な原則として、色だけに頼らない状態表示が挙げられている。</span>,
     useCases: [
       "問題を知らせて、すぐに訂正できるようにする(表示のタイミングは「バリデーション」ページを参照)",
       "エラーメッセージは次にすべき行動を説明する(エラーコードや汎用文言は避ける)",
@@ -54,7 +54,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
-    confirmedNote: "「バリデーション」という名称の専用ページは見当たらないことを検索で確認(2026-09)。テキストフィールド全般の記載中の言及も、公式ページ本文の直接確認ではなく検索結果による間接確認です。",
+    confirmedNote: "「バリデーション」という名称の専用ページは見当たらないことを検索で確認(2026-09)。テキストフィールド全般の記載中の言及も、公式ページ本文の直接確認ではなく検索結果による間接確認。",
     pending: true,
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
@@ -71,13 +71,12 @@ const SOURCES = [
     doc: "Material Design 3 ― Text fields(エラー状態)",
     color: "#2F7D6E",
     position: "テキストフィールドのバリエーションの1つとして「エラー状態」を持つ。エラー表示専用のコンポーネントはない",
-    size: "専用コンポーネントページがないため、数値基準は確認できていません。",
-    colorInfo: "エラー状態では、枠線・フローティングラベル・ヘルパーテキストにエラーカラー(赤系のトークン)を適用し、末尾にエラーアイコンを表示できるとされています(検索結果による確認)。",
+    colorInfo: "エラー状態では、枠線・フローティングラベル・ヘルパーテキストにエラーカラー(赤系のトークン)を適用し、末尾にエラーアイコンを表示できるとされている(検索結果による確認)。",
     stance:
-      "Material Design 3にはエラー表示という独立したコンポーネントはなく、テキストフィールドの状態(Enabled/Focused/Error等)の1つとして「エラー状態」が定義されているとされています。エラー状態ではエラーカラーの枠線・ラベル・ヘルパーテキストに加え、末尾にエラーアイコンを表示できるとされています(検索結果による確認、2026-09)。",
-    exceptions: "エラー状態と他の状態(Disabledなど)が同時に発生する場合の優先順位など、詳細な規定は公式ページ本文で未確認です。",
+      "Material Design 3にはエラー表示という独立したコンポーネントはなく、テキストフィールドの状態(Enabled/Focused/Error等)の1つとして「エラー状態」が定義されているとされている。エラー状態ではエラーカラーの枠線・ラベル・ヘルパーテキストに加え、末尾にエラーアイコンを表示できるとされている(検索結果による確認、2026-09)。",
+    exceptions: "エラー状態と他の状態(Disabledなど)が同時に発生する場合の優先順位など、詳細な規定は公式ページ本文で未確認。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― エラーの発生をテキスト(ヘルパーテキスト)でも伝えるべきとされ、色のみに依存しない表示が求められると考えられます(直接確認はできていません)。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― エラーの発生をテキスト(ヘルパーテキスト)でも伝えるべきとされ、色のみに依存しない表示が求められると考えられる(直接確認はできていない)。",
     useCases: [
       "無効な入力にはエラーカラーの枠線・ラベル・ヘルパーテキストを適用する",
       "エラーであることを示す末尾アイコンを併用する",
@@ -85,7 +84,7 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/text-fields/guidelines",
-    confirmedNote: "テキストフィールドのエラー状態(エラーカラー・ヘルパーテキスト・アイコン)についての一般的な言及は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていません。",
+    confirmedNote: "テキストフィールドのエラー状態(エラーカラー・ヘルパーテキスト・アイコン)についての一般的な言及は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
     pending: true,
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
@@ -104,19 +103,19 @@ const SOURCES = [
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
     color: "#A3821F",
     position: "エラーの検知・説明(レベルA)、訂正案の提示(レベルAA)、重要操作での防止策(レベルAA)という3段階の達成基準",
-    size: "サイズ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はエラー訂正のためのUI要素にも適用されます。",
-    colorInfo: "1.4.1(色の使用・レベルA)により、エラーを色の違いだけで伝えてはいけません(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求めます。エラーは視覚的表示だけでなく、必ずテキストで説明する必要があります(3.3.1)。",
+    colorInfo: "1.4.1(色の使用・レベルA)により、エラーを色の違いだけで伝えてはいけない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求める。エラーは視覚的表示だけでなく、必ずテキストで説明する必要がある(3.3.1)。",
     glossary: [
+      { term: "サイズ", desc: "サイズ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はエラー訂正のためのUI要素にも適用される。" },
       { term: "3.3.1 Error Identification(レベルA)", desc: "入力エラーが自動検出された場合、エラーの項目を特定し、エラーの内容をテキストでユーザーに説明しなければならないという基準。視覚的な表示だけでは不十分とされる。" },
       { term: "3.3.3 Error Suggestion(レベルAA)", desc: "入力エラーが自動検出され、訂正方法が分かっている場合、セキュリティや目的を損なわない限り、その訂正案をユーザーに提示しなければならないという基準。" },
       { term: "3.3.4 Error Prevention(レベルAA)", desc: "法的・金融的な確約、ユーザーデータの変更・削除、試験の回答の送信を伴うページでは、「取消可能」「入力エラーを検査して訂正機会を与える」「送信前に確認・訂正できる仕組みがある」のいずれかを満たさなければならないという基準。" },
     ],
     stance:
-      "3.3.1は、入力エラーが自動検出された場合、エラーのある項目を特定し、エラーの内容をテキストで説明することを求めます(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされています。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求めます(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求めます(レベルAA)。",
+      "3.3.1は、入力エラーが自動検出された場合、エラーのある項目を特定し、エラーの内容をテキストで説明することを求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。",
     exceptions:
-      "3.3.3の訂正案の提示は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしています。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定されます。",
+      "3.3.3の訂正案の提示は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしている。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定される。",
     accessibility:
-      "理解可能(Understandable) ― 3.3.1・3.3.3・3.3.4はガイドライン3.3「入力支援」の基準で、POUR原則のうち「理解可能」に属します。補助として、色だけに頼らないこと(1.4.1)とエラー表示のコントラスト(1.4.11)は「知覚可能」に属します。認知障害・視覚障害・運動障害のあるユーザーが、エラーによってフォームの送信を断念せずに済むようにするという意図が明記されています。",
+      "理解可能(Understandable) ― 3.3.1・3.3.3・3.3.4はガイドライン3.3「入力支援」の基準で、POUR原則のうち「理解可能」に属する。補助として、色だけに頼らないこと(1.4.1)とエラー表示のコントラスト(1.4.11)は「知覚可能」に属する。認知障害・視覚障害・運動障害のあるユーザーが、エラーによってフォームの送信を断念せずに済むようにするという意図が明記されている。",
     useCases: [
       "エラーは項目の特定+テキストによる説明の両方を必ず行う(視覚表示だけにしない)",
       "訂正方法が分かっている場合は具体的な訂正案を提示する(セキュリティ上避けるべき場合を除く)",
@@ -145,13 +144,12 @@ const SOURCES = [
     doc: "Error-Message Guidelines / 10 Design Guidelines for Reporting Errors in Forms",
     color: "#7A4F7E",
     position: "文言・トーン・配置の実務ガイドライン(数値基準ではなく、伝わりやすさの原則)",
-    size: "数値基準は明言していません。",
-    colorInfo: "色だけに頼らず、太字・高コントラストの赤色文字など複数の視覚的手がかりを重ねて使うべきとしています。",
+    colorInfo: "色だけに頼らず、太字・高コントラストの赤色文字など複数の視覚的手がかりを重ねて使うべきとしている。",
     stance:
-      "エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしています。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしています。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしています。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、ユーザーを責める表現(「無効」「不正」など)は避けるべきとしています。",
+      "エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、ユーザーを責める表現(「無効」「不正」など)は避けるべきとしている。",
     exceptions:
-      "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしています。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしています。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしています。ユーモアは繰り返されると陳腐化するため避けるべきとしています。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けています。入力欄のエラーは、欄の近くに消えない形で出すのが基本です(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、エラーメッセージの伝わりやすさ・修正のしやすさに基づく実務的な指針です。",
+      "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしている。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしている。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしている。ユーモアは繰り返されると陳腐化するため避けるべきとしている。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けている。入力欄のエラーは、欄の近くに消えない形で出すのが基本です(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、エラーメッセージの伝わりやすさ・修正のしやすさに基づく実務的な指針。",
     useCases: [
       "フィールドの近くにインラインでエラーを表示し、入力直後に検証する",
       "エラーメッセージは平易な言葉で具体的な解決策を示し、ユーザーを責めない",
@@ -191,7 +189,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -214,6 +212,14 @@ function ValidationSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示です。";
+const ABOUT = [
+  { k: "目的・役割", v: "間違いの場所と理由、直し方を伝え、入力をやり直せるようにする" },
+  { k: "よく使われる場面", v: "フォームの入力欄の下のエラー文、送信後のエラーのまとめ" },
+  { k: "似た部品との違い", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
+];
 
 export default function TextInputsValidationPage() {
   return (
@@ -240,16 +246,18 @@ export default function TextInputsValidationPage() {
           </div>
 
           <h1 style={styles.title}>エラー表示</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、検知したエラーの見せ方(文言・視覚的表現・訂正案の提示)をどう定めているかを比較します。「いつ検証するか」というタイミングの比較は「バリデーション」ページを参照してください。</p>
+          <SummaryCard
+            image={<><ValidationSwatch /></>}
+            imageNote={<>エラー状態の枠線に加え、アイコン・テキストで問題と訂正方法を伝える。色だけに頼らない表示が各系列で共通して求められている。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <ValidationSwatch />
-            <p style={styles.swatchNote}>エラー状態の枠線に加え、アイコン・テキストで問題と訂正方法を伝える。色だけに頼らない表示が各系列で共通して求められている。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このコンポーネントで最も体系的なのはW3Cです。<strong>「エラーの特定(3.3.1・レベルA)」→「訂正案の提示(3.3.3・レベルAA)」→「重要操作でのエラー防止(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっています。
             </p>
@@ -263,7 +271,6 @@ export default function TextInputsValidationPage() {
               Apple・W3C・NN groupの3系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則です。Apple(アイコン・テキストの併用)・W3C(1.4.1の色の使用+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言えます。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -273,14 +280,13 @@ export default function TextInputsValidationPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
-                <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
@@ -306,7 +312,6 @@ export default function TextInputsValidationPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -316,8 +321,6 @@ export default function TextInputsValidationPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -325,14 +328,14 @@ export default function TextInputsValidationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -347,8 +350,8 @@ export default function TextInputsValidationPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -382,7 +385,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -391,7 +394,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -416,7 +419,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -431,7 +434,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「エレベーション・階層表現(影・半透明素材)」ページ。
@@ -35,11 +36,11 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "マテリアルは、背景の色を前景へ透過させることで、文字や操作部品を背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしています(ページ本文を直接確認、2026-09)。",
+      "マテリアルは、背景の色を前景へ透過させることで、文字や操作部品を背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "Liquid Glassの効果は目立つため、独自の部品に使う場合は最も重要な操作に限り、控えめに使うよう求めています。背後の内容が十分に暗い場合や、独自の暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷く必要はないとしています。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせます。",
+      "Liquid Glassの効果は目立つため、独自の部品に使う場合は最も重要な操作に限り、控えめに使うよう求めている。背後の内容が十分に暗い場合や、独自の暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷く必要はないとしている。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせる。",
     accessibility:
-      "知覚可能(Perceivable) ― 透明度を下げる設定(Reduce Transparency)やコントラストを上げる設定(Increase Contrast)を有効にすると、Liquid Glassの見え方が変わるとしています。半透明の素材の上でも文字を読めるよう、システムのバイブラントカラーを使うことが前提です。",
+      "知覚可能(Perceivable) ― 透明度を下げる設定(Reduce Transparency)やコントラストを上げる設定(Increase Contrast)を有効にすると、Liquid Glassの見え方が変わるとしている。半透明の素材の上でも文字を読めるよう、システムのバイブラントカラーを使うことが前提。",
     useCases: null,
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass",
@@ -58,11 +59,11 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "ダークテーマの背景を真っ黒ではなく濃いグレーにしているのは、影を見えやすくし、明るい文字による目の負担を減らすためだと説明しています(Material Components for Androidのドキュメントとトークン定義で直接確認、2026-09)。",
+      "ダークテーマの背景を真っ黒ではなく濃いグレーにしているのは、影を見えやすくし、明るい文字による目の負担を減らすためだと説明している(Material Components for Androidのドキュメントとトークン定義で直接確認、2026-09)。",
     exceptions:
-      "どのコンポーネントがどのレベルを使うか、ホバーやドラッグで高さがどう変わるかといった指針はm3.material.io(SPA)にあり、本文は直接確認できていません。",
+      "どのコンポーネントがどのレベルを使うか、ホバーやドラッグで高さがどう変わるかといった指針はm3.material.io(SPA)にあり、本文は直接確認できていない。",
     accessibility:
-      "―(エレベーションそのものについての専用のアクセシビリティ基準は確認できていません)。影だけで層を区別すると、暗い画面や低いコントラストでは違いが伝わりにくいため、ダークテーマでは色の明るさでも区別する設計になっています。",
+      "―(エレベーションそのものについての専用のアクセシビリティ基準は確認できていない)。影だけで層を区別すると、暗い画面や低いコントラストでは違いが伝わりにくいため、ダークテーマでは色の明るさでも区別する設計になっている。",
     useCases: null,
     searchHint: "",
     url: "https://m3.material.io/styles/elevation/overview",
@@ -70,7 +71,7 @@ const SOURCES = [
       { label: "Compose Material 3 ElevationTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ElevationTokens.kt" },
       { label: "MDC Android: Dark theme(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。レベルの値はJetpack Composeのトークン定義、ダークテーマでの扱いはMaterial Components for Androidのドキュメントで直接確認(2026-09)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。レベルの値はJetpack Composeのトークン定義、ダークテーマでの扱いはMaterial Components for Androidのドキュメントで直接確認(2026-09)。",
   },
   {
     key: "wcag",
@@ -78,17 +79,17 @@ const SOURCES = [
     doc: "WCAG 2.4.11 Focus Not Obscured (Minimum) / 1.4.11 Non-text Contrast",
     color: "#A3821F",
     position: "重なりの表現方法は規定しない。上に重なった要素によって、キーボードでフォーカスした部品が完全に隠れないことを求める",
-    size: "影・重なりについての数値基準はありません。2.4.11(レベルAA): 部品がキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、その部品が完全に隠れないこと。",
-    colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部とみなしてコントラストを計算するとしています。つまり影は部品を識別する手がかりとしては数えられず、影があってもなくても、部品の境界や中身そのものが識別できる必要があります。",
+    size: "影・重なりについての数値基準はない。2.4.11(レベルAA): 部品がキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、その部品が完全に隠れないこと。",
+    colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部とみなしてコントラストを計算するとしている。つまり影は部品を識別する手がかりとしては数えられず、影があってもなくても、部品の境界や中身そのものが識別できる必要がある。",
     glossary: [
       { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスを受けた部品が、固定ヘッダーやバナーなど制作者が作った重なりによって完全に隠れないことを求める基準。一部が隠れるのはこの基準では許容される。" },
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "部品の識別や状態の把握に必要な視覚情報に、隣接色との3:1以上のコントラストを求める基準。" },
     ],
     stance:
-      "WCAGは、影や半透明の素材で層を表すこと自体は問いません。問題にするのは、重なった層の結果として、キーボードで操作している人が今どこにフォーカスがあるかを見失うことです。画面上部に固定したヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなる、というのが典型的な失敗です。",
+      "WCAGは、影や半透明の素材で層を表すこと自体は問わない。問題にするのは、重なった層の結果として、キーボードで操作している人が今どこにフォーカスがあるかを見失うこと。画面上部に固定したヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなる、というのが典型的な失敗。",
     exceptions:
-      "利用者が自分で開いた内容(メニューなど)がフォーカスを隠していても、フォーカスを移さずにその内容を閉じたり動かしたりできれば、隠れているとはみなしません。利用者が位置を動かせる要素は、初期位置で判定します。",
-    accessibility: "操作可能(Operable) ― 2.4.11はPOURの「操作可能」に属し、キーボードや代替入力で操作する人が、フォーカスの位置を目で追えることを目的としています。1.4.11は「知覚可能」に属します。",
+      "利用者が自分で開いた内容(メニューなど)がフォーカスを隠していても、フォーカスを移さずにその内容を閉じたり動かしたりできれば、隠れているとはみなさない。利用者が位置を動かせる要素は、初期位置で判定する。",
+    accessibility: "操作可能(Operable) ― 2.4.11はPOURの「操作可能」に属し、キーボードや代替入力で操作する人が、フォーカスの位置を目で追えることを目的としている。1.4.11は「知覚可能」に属する。",
     useCases: [
       "固定ヘッダー・固定フッターの下にフォーカスが隠れないよう、スクロール位置を調整する(scroll-paddingなど)",
       "Cookieバナーなど固定表示の要素が、フォーカス中の部品を完全に覆わないか確認する",
@@ -107,13 +108,13 @@ const SOURCES = [
     doc: "Flat-Design Best Practices / Dark Mode: Issues to Avoid",
     color: "#7A4F7E",
     position: "影や重なりは、要素の関係を伝える手がかりとして使うべきで、見た目の装飾のためだけに使うべきではない、という実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及です。完全にフラットなデザインではなく、控えめな影・ハイライト・重なりで奥行きを加えた「フラット2.0(セミフラット)」を、多くの製品に勧めています。",
-    colorInfo: "ダークモードでは、白い要素に暗い影を付けるような重なりの表現がそのまま使えず、黒い背景に黒い要素を置いて明るい影を付けると、影ではなく光っているように見えるとしています。暗い画面で奥行きを出すには、一番下の面を最も暗く、手前(利用者に近い)の要素ほど明るい色にするのがよいとしています。",
+    size: "数値基準ではなく原則としての言及。完全にフラットなデザインではなく、控えめな影・ハイライト・重なりで奥行きを加えた「フラット2.0(セミフラット)」を、多くの製品に勧めている。",
+    colorInfo: "ダークモードでは、白い要素に暗い影を付けるような重なりの表現がそのまま使えず、黒い背景に黒い要素を置いて明るい影を付けると、影ではなく光っているように見えるとしている。暗い画面で奥行きを出すには、一番下の面を最も暗く、手前(利用者に近い)の要素ほど明るい色にするのがよいとしている。",
     stance:
-      "フラットデザインは押せる場所の手がかりを失いやすいため、控えめな3Dの影や重なりを加えて要素どうしの関係を明確にするよう勧めています。Material Designが影と層のルールを体系化した点を評価しつつ、実際には影や層が利用者の理解を助けるためではなく、見た目のためだけに使われていることが多いと指摘しています(記事本文を直接取得して確認済み、2026-09)。",
+      "フラットデザインは押せる場所の手がかりを失いやすいため、控えめな3Dの影や重なりを加えて要素どうしの関係を明確にするよう勧めている。Material Designが影と層のルールを体系化した点を評価しつつ、実際には影や層が利用者の理解を助けるためではなく、見た目のためだけに使われていることが多いと指摘している(記事本文を直接取得して確認済み、2026-09)。",
     exceptions:
-      "モーダルと背景を区別するための暗い半透明の幕(スクリム)は、ダークモードでは背景との差が小さくなり、ほとんど見えなくなることがあるとしています。浮いて見せたい要素(フローティングボタンなど)は、ライト・ダークの両方で同じように目立つか確認するよう勧めています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテスト・視線計測に基づく設計上の根拠です。",
+      "モーダルと背景を区別するための暗い半透明の幕(スクリム)は、ダークモードでは背景との差が小さくなり、ほとんど見えなくなることがあるとしている。浮いて見せたい要素(フローティングボタンなど)は、ライト・ダークの両方で同じように目立つか確認するよう勧めている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテスト・視線計測に基づく設計上の根拠。",
     useCases: [
       "影や重なりは、要素の関係(手前/奥、押せる/押せない)を伝える目的で使う",
       "ダークモードでは、手前の要素ほど明るい色にして奥行きを出す",
@@ -341,6 +342,24 @@ function RuleAxesTable() {
           </div>
         </div>
       </div>
+      <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違います</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分けます。
+            </p>
+            <p style={styles.synthesisText}>
+              段階ごとの役割もはっきりしています。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引く部品(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変えます。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしています。</p>
+            <p style={styles.synthesisText}>
+              ところが暗い画面になると、答えがそろいます。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 4→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めています。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出しています。
+            </p>
+            <p style={styles.synthesisText}>
+              W3Cには重なりの表し方の基準はありません。代わりに、<strong>固定ヘッダーやバナーなど上に重なった要素で、キーボードのフォーカスが完全に隠れないこと(2.4.11)</strong>を求めます。影や素材の見た目より、重なりの結果として操作を見失わないかを問題にしています。
+            </p>
+            <p style={styles.synthesisText}>
+              NN groupは、影や重なりが<strong>見た目の装飾ではなく、要素の関係を伝えるために使われるべき</strong>だと指摘しています。実務では、Googleの段階またはAppleの素材で層の意味を決めたうえで、<strong>ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないか</strong>を確かめるのが、4系列を合わせた結論です。
+            </p>
+          </div>
       <div className="dsp-mobile-only" style={styles.sourceList}>
         {RULE_AXES.map((r) => (
           <div key={r.axis} style={styles.sourceCard}>
@@ -493,7 +512,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -502,6 +521,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "重なりの順番を見せ、どれが手前で操作の対象かを分かりやすくする" },
+  { k: "関わる場面", v: "ダイアログ・メニュー・シートの重なり、カードの影、上部バーの区切り" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink></> },
+];
 
 export default function TokensElevationPage() {
   return (
@@ -530,31 +557,15 @@ export default function TokensElevationPage() {
           </div>
 
           <h1 style={styles.title}>エレベーション・階層表現(影・半透明素材)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、要素の重なり(手前と奥)を影・素材・色でどう表すかを比較します</p>
+          <SummaryCard
+            imageLabel="重なりの表し方(ライトとダーク)"
+            image={<><DepthSwatch /></>}
+            imageNote={<>明るい画面では影で要素を浮かせられますが、暗い画面では影が背景に溶けて見えません。そのため暗い画面では、手前の面ほど明るい色にして重なりを表します。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>重なりの表し方(ライトとダーク)</span>
-            <DepthSwatch />
-            <p style={styles.swatchNote}>明るい画面では影で要素を浮かせられますが、暗い画面では影が背景に溶けて見えません。そのため暗い画面では、手前の面ほど明るい色にして重なりを表します。</p>
-          </div>
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            <p style={styles.synthesisText}>
-              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違います</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分けます。
-            </p>
-            <p style={styles.synthesisText}>
-              段階ごとの役割もはっきりしています。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引く部品(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変えます。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしています。</p>
-            <p style={styles.synthesisText}>
-              ところが暗い画面になると、答えがそろいます。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 4→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めています。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出しています。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cには重なりの表し方の基準はありません。代わりに、<strong>固定ヘッダーやバナーなど上に重なった要素で、キーボードのフォーカスが完全に隠れないこと(2.4.11)</strong>を求めます。影や素材の見た目より、重なりの結果として操作を見失わないかを問題にしています。
-            </p>
-            <p style={styles.synthesisText}>
-              NN groupは、影や重なりが<strong>見た目の装飾ではなく、要素の関係を伝えるために使われるべき</strong>だと指摘しています。実務では、Googleの段階またはAppleの素材で層の意味を決めたうえで、<strong>ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないか</strong>を確かめるのが、4系列を合わせた結論です。
-            </p>
-          </div>
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 重なりの表し方</h2>
@@ -598,7 +609,6 @@ export default function TokensElevationPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>エレベーション・階層表現 デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -611,13 +621,13 @@ export default function TokensElevationPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>高さ・素材の段階</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size || <SeeBelow />}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size || <SeeBelow />}</div>))}
                 <div style={styles.labelCell}>層の分け方とダークでの扱い</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo || <SeeBelow />}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -633,8 +643,8 @@ export default function TokensElevationPage() {
                     {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -674,7 +684,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -737,7 +747,7 @@ const styles = {
   shadowWhere: { fontSize: 11.5, fontWeight: 700, color: "#171B36" },
   shadowRule: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -760,7 +770,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -771,7 +781,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

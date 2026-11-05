@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ナビゲーションバー」ページ。
@@ -46,14 +47,14 @@ const SOURCES = [
     color: "#C2542A",
     position: "アプリのトップレベルのセクション間を移動するための、画面下部の永続的なナビゲーション専用バー",
     size:
-      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めています。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避けます(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはありません)。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはない)。",
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしています。厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではないとしています。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしています。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致します。",
+      "タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではないとしている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。",
     exceptions:
-      "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしています(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしています。",
+      "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。",
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられます。",
+      <span><NoData>記載なし。</NoData>標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
       "アプリのトップレベルセクション間を移動する(タブは必要な数に絞り、はみ出しを避ける)",
       "画面遷移中も常に表示し、ユーザーが現在地を見失わないようにする",
@@ -79,19 +80,19 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "画面下部の永続的なバー(3〜5個の主要な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割を担う",
     size:
-      "コンテナは常にウィンドウ幅いっぱいに広がります。コンパクトなウィンドウでは縦型のナビゲーション項目(アイコンの下にラベル)、中サイズのウィンドウでは横型の項目(アイコンとラベルが横並び)を使うとしています。デバイスのテキスト表示サイズが大きい場合、既定のパディングを保ったまま縦方向に拡張してラベルを収めるべきで、最大2倍の文字サイズまではラベル全体を切り詰めずに表示すべきとしています。具体的な高さのdp数値は確認できていません。",
+      <span>コンテナは常にウィンドウ幅いっぱいに広がる。コンパクトなウィンドウでは縦型のナビゲーション項目(アイコンの下にラベル)、中サイズのウィンドウでは横型の項目(アイコンとラベルが横並び)を使うとしている。デバイスのテキスト表示サイズが大きい場合、既定のパディングを保ったまま縦方向に拡張してラベルを収めるべきで、最大2倍の文字サイズまではラベル全体を切り詰めずに表示すべきとしている。<NoData>数値は未確認。</NoData></span>,
     colorInfo:
-      "アクティブなページには塗りつぶしのアイコン+太字ラベル、非アクティブなページには枠線付きアイコン+中程度の太さのラベルを使うとしています(塗りつぶし版のアイコンがない場合はセミボールドの太さで代用)。アクティブ/非アクティブ双方のアイコンは、コンテナとの間で最低3:1のコントラスト比を確保すべきとしています。コンテナ自体も、他のコンテンツと区別するため色付きの塗りつぶしを持つとしています。",
+      "アクティブなページには塗りつぶしのアイコン+太字ラベル、非アクティブなページには枠線付きアイコン+中程度の太さのラベルを使うとしている(塗りつぶし版のアイコンがない場合はセミボールドの太さで代用)。アクティブ/非アクティブ双方のアイコンは、コンテナとの間で最低3:1のコントラスト比を確保すべきとしている。コンテナ自体も、他のコンテンツと区別するため色付きの塗りつぶしを持つとしている。",
     glossary: [
       { term: "ベースライン変異体 / フレキシブルナビゲーションバー", desc: "従来の標準的な見た目のナビゲーションバー(ベースライン変異体)は推奨されなくなり、より短く、中サイズのウィンドウで横型のナビゲーション項目に対応する「フレキシブルナビゲーションバー」への置き換えが案内されている。" },
       { term: "状態を保持する / 状態のリセット", desc: "ナビゲーション項目を選ぶ際の2つの挙動。「状態を保持する」は各行き先のスクロール位置・タブ・検索状態を記憶し続ける。「状態のリセット」は毎回既定のビューに戻す。セクション間を頻繁に行き来するアプリでは前者が適するとされる。" },
     ],
     stance:
-      "ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、同等の重要度を持つ3〜5個の行き先を提供します。行き先はアプリの画面間で一貫しており、変わらないものだとしています。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしています。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担います。",
+      "ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、同等の重要度を持つ3〜5個の行き先を提供する。行き先はアプリの画面間で一貫しており、変わらないものだとしている。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしている。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担う。",
     exceptions:
-      "行き先が5個を超える場合はナビゲーションバーを使うべきではなく、代わりにタブ(ページ内の類似コンテンツの整理)やモーダル展開ナビゲーションレール(メニューアイコンの背後にナビゲーションを隠す)を検討すべきとしています。行き先が3個未満の場合もナビゲーションバーは使うべきではなく、代わりにタブを使うべきとしています。画面のスワイプで行き先を切り替える操作はサポートされておらず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限定すべきとしています。フローティングアクションボタン(FAB)はナビゲーションバーを覆ってはならず、バーの上に右揃えで配置すべきとしています。ダイアログやボトムシートなどによる一時的な被覆は許容されますが、恒久的に隠すべきではないとしています。",
+      "行き先が5個を超える場合はナビゲーションバーを使うべきではなく、代わりにタブ(ページ内の類似コンテンツの整理)やモーダル展開ナビゲーションレール(メニューアイコンの背後にナビゲーションを隠す)を検討すべきとしている。行き先が3個未満の場合もナビゲーションバーは使うべきではなく、代わりにタブを使うべきとしている。画面のスワイプで行き先を切り替える操作はサポートされておらず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限定すべきとしている。フローティングアクションボタン(FAB)はナビゲーションバーを覆ってはならず、バーの上に右揃えで配置すべきとしている。ダイアログやボトムシートなどによる一時的な被覆は許容されるが、恒久的に隠すべきではないとしている。",
     accessibility:
-      "操作可能(Operable) ― ナビゲーション項目には常にラベルテキストが必須で(アイコンのみの項目は認めない)、1〜2語程度に収めるべきとしています。アクセシビリティラベルは通常は行き先名と同じですが、表示テキストが曖昧な場合(例: 「ライブラリ」)はより詳細な説明を追加すべきとしています(Android Views(MDC-Android)では、より詳細なラベルや役割のアナウンスに対応していない点に注意が必要です)。スクリーンリーダー使用中は、スクロールによってバーを非表示にすべきではないとしています。",
+      "操作可能(Operable) ― ナビゲーション項目には常にラベルテキストが必須で(アイコンのみの項目は認めない)、1〜2語程度に収めるべきとしている。アクセシビリティラベルは通常は行き先名と同じですが、表示テキストが曖昧な場合(例: 「ライブラリ」)はより詳細な説明を追加すべきとしている(Android Views(MDC-Android)では、より詳細なラベルや役割のアナウンスに対応していない点に注意が必要)。スクリーンリーダー使用中は、スクロールによってバーを非表示にすべきではないとしている。",
     useCases: [
       "3〜5個の主要ページを持つモバイル/タブレット向け製品で使う(単一タスクへのアクセスには使わない)",
       "行き先が5個を超える場合はタブやモーダル展開ナビゲーションレールを検討する",
@@ -118,18 +119,18 @@ const SOURCES = [
     color: "#A3821F",
     position: "role=\"navigation\"(またはnav要素)で識別する、ページ内のナビゲーション用リンク群を示すランドマーク",
     size:
-      "ナビゲーションバー専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
+      "ナビゲーションバー専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、選択中の項目を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、選択中の項目を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出てくるナビゲーションを、毎回同じ相対的な順番で並べることを求める基準。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "ナビゲーション用のリンク群には、nav要素またはrole=\"navigation\"を使ってランドマークとして識別すべきとしています。1ページに複数のnavigationランドマークがある場合、それぞれに一意のラベル(aria-label等)を付けるべきとしていますが、リンクの集合が別のnavigationランドマークと完全に同じ場合は同じラベルを使ってよいとしています。3.2.3(レベルAA)は、複数のページで繰り返し表示されるナビゲーションを、毎回同じ相対的な順番で並べることを求めます。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするためです。選んだ項目の下にサブメニューを差し込むことは認められています。",
+      "ナビゲーション用のリンク群には、nav要素またはrole=\"navigation\"を使ってランドマークとして識別すべきとしている。1ページに複数のnavigationランドマークがある場合、それぞれに一意のラベル(aria-label等)を付けるべきとしているが、リンクの集合が別のnavigationランドマークと完全に同じ場合は同じラベルを使ってよいとしている。3.2.3(レベルAA)は、複数のページで繰り返し表示されるナビゲーションを、毎回同じ相対的な順番で並べることを求める。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むことは認められている。",
     exceptions:
-      "リンクの集合が他のnavigationランドマークと完全に同一である場合に限り、同じラベルを使うことが許容されています。それ以外の場合は一意のラベルが必要です。",
+      "リンクの集合が他のnavigationランドマークと完全に同一である場合に限り、同じラベルを使うことが許容されている。それ以外の場合は一意のラベルが必要。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― ランドマークによる識別に加え、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)が関わります。3.2.3は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― ランドマークによる識別に加え、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)が関わる。3.2.3は「理解可能(Understandable)」の予測可能性(3.2)に関わる。",
     useCases: [
       "ナビゲーション用のリンク群をnav要素またはrole=\"navigation\"で囲む",
       "1ページに複数のnavigationランドマークがある場合は一意のラベルを付ける",
@@ -158,14 +159,14 @@ const SOURCES = [
     doc: "Basic Patterns for Mobile Navigation: A Primer",
     color: "#7A4F7E",
     position: "画面の上部・下部どちらに置くかで一長一短があり、選択肢が少ない場合に向く(数値基準ではなく使い分けの指針)",
-    size: "数値基準は明言していませんが、選択肢が5個を超えると、バーに収めながら十分なタップ領域を保つのが難しくなるとしています。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分なタップ領域を保つのが難しくなるとしている。</span>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "上部ナビゲーションバーは、選択肢が比較的少ない場合にしかうまく働かず、画面上部の貴重な領域(fold上)を取るとしています。タブバーは上部ナビゲーションバーの近い仲間で同じ欠点を持ち、違いはスクロールしても常に表示される点だとしています。いずれのパターンも選択肢が少ないサイト・アプリに適しているとしています。",
+      "上部ナビゲーションバーは、選択肢が比較的少ない場合にしかうまく働かず、画面上部の貴重な領域(fold上)を取るとしている。タブバーは上部ナビゲーションバーの近い仲間で同じ欠点を持ち、違いはスクロールしても常に表示される点だとしている。いずれのパターンも選択肢が少ないサイト・アプリに適しているとしている。",
     exceptions:
-      "選択肢が5個を超える場合、バーに収めながら十分なタップ領域サイズを保つことが難しくなるとしています。ロゴ・検索・アカウントリンクなど他のUI要素と併用する場合、ナビゲーションの視認性とコンテンツの優先度のどちらを取るかのトレードオフが生じるとしています。",
+      "選択肢が5個を超える場合、バーに収めながら十分なタップ領域サイズを保つことが難しくなるとしている。ロゴ・検索・アカウントリンクなど他のUI要素と併用する場合、ナビゲーションの視認性とコンテンツの優先度のどちらを取るかのトレードオフが生じるとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、画面領域とタップ領域の取り合いに基づく使い分けの指針です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、画面領域とタップ領域の取り合いに基づく使い分けの指針。",
     useCases: [
       "選択肢が少ない(4〜5個程度まで)場合に使う",
       "常時表示させたい場合はプラットフォームの慣習に沿った配置を検討する",
@@ -205,7 +206,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -249,6 +250,14 @@ function TopBarPointerSection() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーです。";
+const ABOUT = [
+  { k: "目的・役割", v: "アプリのいちばん上の階層の行き先を常に見せ、1回で移動できるようにする" },
+  { k: "よく使われる場面", v: "SNS・ショッピングアプリの「ホーム・検索・通知・マイページ」" },
+  { k: "似た部品との違い", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+];
+
 export default function NavigationNavBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -274,21 +283,23 @@ export default function NavigationNavBarPage() {
           </div>
 
           <h1 style={styles.title}>ナビゲーションバー</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、画面下部などに常設する「主要セクション切り替えバー」をどう定めているかを比較します(Apple独自のもう1つの「ナビゲーションバー」は末尾の関連ページを参照)</p>
+          <SummaryCard
+            image={<><NavBarSwatch /></>}
+            imageNote={<>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。Appleでは「Tab Bars」、Googleでは「Navigation bar」と呼ばれる、同じ役割のコンポーネント。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <NavBarSwatch />
-            <p style={styles.swatchNote}>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。Appleでは「Tab Bars」、Googleでは「Navigation bar」と呼ばれる、同じ役割のコンポーネント。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っています(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleの部品は<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)です。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用の部品は、Appleにはありません。<strong>W3Cは見た目の部品ではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めています。
             </p>
             <p style={styles.synthesisText}>
-              公式ページ本文を確認したところ、<strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持つことが判明しました。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけですが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的です。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点です。
+              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っています。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけですが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的です。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点です。
             </p>
             <p style={styles.synthesisText}>
               ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することです。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出しました(末尾のリンクを参照)。
@@ -300,7 +311,6 @@ export default function NavigationNavBarPage() {
               W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てています。特に、1ページに複数のnavigationランドマークがある場合は一意のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点です。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -310,13 +320,13 @@ export default function NavigationNavBarPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -343,7 +353,6 @@ export default function NavigationNavBarPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -353,8 +362,6 @@ export default function NavigationNavBarPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -362,14 +369,16 @@ export default function NavigationNavBarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -384,8 +393,8 @@ export default function NavigationNavBarPage() {
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -414,7 +423,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -423,7 +432,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -448,7 +457,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -459,7 +468,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
