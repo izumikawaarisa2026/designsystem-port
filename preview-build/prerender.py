@@ -9,9 +9,10 @@
 - 出力は圧縮しない(各ページの style 属性・<style> をそのまま残す)。
 - サイト内リンク(/tokens/color など)は、静的版どうしの完全なURL(https://…/designsystem-port/pages/tokens/color/)に張り替える。
 - Chromeは1回だけ起動し、同じ読み込みの中で全ページを順に表示して集める(shell.html の __DSP_STATIC__ の処理)。
-- 各ページはスマホ用のカード(.dsp-mobile-only)とPC用の比較表(.dsp-desktop-only)を両方持つため、そのまま書き出すと
-  文字だけで読むAIには同じ内容が2回見える。そこで、比較表の文字のほぼすべて(90%以上)がカード側にもある比較表は書き出さず、
-  カードをどの幅でも表示する(dedupe_views)。カード側にない内容を持つ比較表は残す。
+- 各ページはスマホ用のカード(.dsp-mobile-only)とPC用の比較表(.dsp-desktop-only)を両方持つ。人が見たときに通常版と
+  同じ見た目になるよう、静的版でも両方を書き出し、画面の幅で切り替える(860px未満=カード、860px以上=比較表)。
+  文字だけで読むAIには同じ内容が2回見えるため、比較表の文字のほぼすべて(90%以上)がカード側にもある比較表には、
+  「カードと同じ内容」という注記を画面には出さずに添える(mark_duplicate_views)。
 """
 import html
 import os
@@ -72,24 +73,26 @@ def text_chunks(fragment):
     return [c for c in (html.unescape(x).strip() for x in re.split(r"<[^>]+>", t)) if c]
 
 
-def dedupe_views(body):
-    """カードと内容が重なる比較表を外し、カードをどの幅でも表示する。外した数を返す"""
+DUP_NOTE = ('<p class="dsp-static-dup-note">(ここからPC用の比較表です。上のスマホ用のカードと同じ内容を'
+            '表の形にしたもので、新しい情報はありません)</p>')
+
+
+def mark_duplicate_views(body):
+    """カードと内容が重なる比較表の直前に、AI向けの注記(画面には出さない)を入れる。入れた数を返す"""
     mobile = find_elements(body, "dsp-mobile-only")
     desktop = find_elements(body, "dsp-desktop-only")
     if not mobile or not desktop:
         return body, 0
     mobile_text = " ".join(" ".join(text_chunks(body[a:b])) for a, b in mobile)
-    drop = []
+    dup = []
     for a, b in desktop:
         chunks = text_chunks(body[a:b])
         total = sum(len(c) for c in chunks)
         if total and sum(len(c) for c in chunks if c in mobile_text) / total >= 0.9:
-            drop.append((a, b))
-    for a, b in sorted(drop, reverse=True):
-        body = body[:a] + body[b:]
-    if drop:
-        body = re.sub(r'\bclass="([^"]*)\bdsp-mobile-only\b', r'class="\1dsp-static-cards', body)
-    return body, len(drop)
+            dup.append(a)
+    for a in sorted(dup, reverse=True):
+        body = body[:a] + DUP_NOTE + body[a:]
+    return body, len(dup)
 
 
 def main():
@@ -121,7 +124,7 @@ def main():
                 return 'href="' + static_href(base) + ("#" + anchor if anchor else "") + '"'
             return mm.group(0)
         body = re.sub(r'href="(/[^"]*)"', fix, body)
-        body, _ = dedupe_views(body)
+        body, _ = mark_duplicate_views(body)
         h1 = re.search(r"<h1[^>]*>(.*?)</h1>", body, re.S)
         title = re.sub(r"<[^>]+>", "", h1.group(1)).strip() if h1 else label
         sub = re.search(r"<h1[^>]*>.*?</h1>\s*<p[^>]*>(.*?)</p>", body, re.S)
@@ -141,6 +144,8 @@ def main():
 <style>{shell_css}
   .dsp-static-note {{ font-family: 'Jost', 'Noto Sans JP', sans-serif; font-size: 12px; color: #454C78; background: #F3F6FA; border-bottom: 1px solid #E1E3F0; padding: 8px 16px; }}
   .dsp-static-note a {{ color: #3A4FCF; }}
+  /* AI向けの注記。文字としては読めるが、画面には出さない */
+  .dsp-static-dup-note {{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }}
   /* 静的版はJavaScriptが動かずハンバーガーメニューを開けないため、スマホ幅では固定のバーを隠し、
      サイドバー(<details>で開閉できる)を本文の上に全幅で表示する */
   @container dsp (max-width: 859px) {{
