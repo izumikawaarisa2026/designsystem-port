@@ -47,6 +47,8 @@
 
   .dsp-static-note { font-family: 'Jost', 'Noto Sans JP', sans-serif; font-size: 12px; color: #454C78; background: #F3F6FA; border-bottom: 1px solid #E1E3F0; padding: 8px 16px; }
   .dsp-static-note a { color: #3A4FCF; }
+  /* AI向けの注記。文字としては読めるが、画面には出さない */
+  .dsp-static-dup-note { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
   /* 静的版はJavaScriptが動かずハンバーガーメニューを開けないため、スマホ幅では固定のバーを隠し、
      サイドバー(<details>で開閉できる)を本文の上に全幅で表示する */
   @container dsp (max-width: 859px) {
