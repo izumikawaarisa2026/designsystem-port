@@ -224,7 +224,7 @@ const LEAD = "画面の下からせり出し、今の画面に関わる追加の
 const ABOUT = [
   { k: "目的・役割", v: "今の画面を残したまま、選択肢や補助の内容を手の届きやすい下側に出す" },
   { k: "よく使われる場面", v: "共有先の選択、地図の場所の詳細、スマホの絞り込み条件" },
-  { k: "似た部品との違い", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">ダイアログ</PageLink></> },
+  { k: "似た部品との違い", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
 export default function ContainmentBottomSheetPage() {

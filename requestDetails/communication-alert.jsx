@@ -1,196 +1,122 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink } from "./page-parts";
 
 /**
- * コンポーネントレイヤー「Communication / アラート/バナー」ページ。
- *
- * 「ダイアログ」ページ(確認・警告のためスクリム上で操作をブロックする基本
- * ダイアログ)とは別物で、このページは画面遷移・操作をブロックせず、ユーザーが
- * 明示的に閉じる/操作するまで画面内に留まり続けるインラインの通知を対象にする。
- * 「スナックバー」「トースト」(操作不要で自動的に消える)とも異なり、このページの
- * 対象は自動的には消えない点が特徴。
- *
- * 2026-09の発見: Googleの「Banner」コンポーネントはMaterial Design 2には
- * 存在したが、M3の公式コンポーネント一覧には見当たらない(検索結果による確認)。
- * M3では、旧Bannerが担っていた用途にはダイアログまたはスナックバーの使用が
- * 案内されているとみられる。このページでは、現在も広く使われているM2の
- * Banner仕様を参考として掲載しつつ、この非推奨化の状況を明記している。
- *
- * Nielsen Norman Group(Indicators, Validations, and Notifications ―
- * 「スナックバー」「トースト」の各ページで確認済みの記事を再構成)は本文確認済み。
- * W3C(role="alert")も同記事を再構成しつつ、role="alertdialog"(ダイアログ
- * ページ側)との対比を軸に整理した。Apple・GoogleはいずれもSPAサイトのため
- * 検索結果による間接確認(2026-09)。
- *
- * 2026-09 追記(ユーザー指摘): (1) M3では非該当であることをテーブル上でも
- * 一目で分かるようにするため、Google欄に「M3では該当なし」チップ(トースト
- * ページと同一パターン)と「M3での実質的な後継」欄(ダイアログ/Snackbarへの
- * 統合)を追加。Apple欄にも「専用コンポーネントなし」チップを追加。
- * (2) 情報/成功/警告/エラーという重要度別4分類の使用シーン差分・配色イメージを
- * 新設(SeverityTypesSection)。この4分類自体は4系列いずれの公式用語でもない
- * 一般的なUI慣習である旨を明記した上で、Googleの公式color role「error」
- * (M3本文で直接確認済み)、Appleの慣習的なsystemRed/Orange/Green、WCAG
- * 1.4.1(色の使用、色だけに頼ってはならない)、NN groupの「アクション必須/
- * パッシブ」2軸との関係を、それぞれ確認レベルを区別して記載した。
+ * コンポーネントレイヤー「Communication / ステータスメッセージ(アラート)」ページ。
+ * 2026-11 ③本人レビューNo.060で、「アラート/バナー」ページを2つに分けて作った。画面に残り続けるお知らせの部品は
+ * 「バナー」ページ(communication-banner.jsx)。このページは、成功・情報・注意・エラーといった状態の知らせ方を比べる。
+ * 一次情報: Apple HIG Feedback(ページデータのJSON)、M3の色の役割(MDC AndroidのColor.md)、WCAG 4.1.3のUnderstanding、
+ * NN group「Indicators, Validations, and Notifications」(いずれも本文を直接取得して確認、2026-11)。
  */
 
 const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Notifications(バナー通知、近い概念)",
+    doc: "Human Interface Guidelines ― Feedback",
+    term: "Feedback(フィードバック)。重大なものはAlerts",
     color: "#C2542A",
-    noDedicatedComponent: true,
-    position: "「アラート/バナー」という名称の、アプリ内に留まり続けるインラインコンポーネントは見当たらない。最も近いのはOSレベルのバナー通知だが、これは自動的に消える点で本ページの対象とは性質が異なる",
-    size: <NoData>数値基準なし</NoData>,
-    stance:
-      "HIGには、アプリ内にユーザーが閉じるまで留まり続けるインラインのアラート/バナーという専用コンポーネントは見当たらない。近い概念として、デバイス使用中に画面上部に数秒間表示されてから自動的に消える「バナー」形式の通知があるが、これは「スナックバー」「トースト」の各ページで比較した自動消去型の通知と同じ性質を持ち、本ページが対象とする「ユーザーが閉じるまで残り続ける」インラインバナーとは異なる。",
-    exceptions:
-      "「ユーザーの操作が完了するまで画面内に留まり続ける」という、本ページで比較する性質に厳密に対応するAppleのガイダンスは確認できていない。取り消せない重大な操作の確認には「ダイアログ」ページで比較したAlerts(モーダル)を使うべきと考えられる。",
-    accessibility: <NoData>記載なし</NoData>,
-    scenarios: [
-      "OSレベルの自動消去型通知を実装したい時(バナー形式、本ページの対象とは性質が異なる)",
-      "重大な確認が必要な場合は「ダイアログ」ページのAlertsを検討する",
-    ],
+    position: "状態の知らせを「フィードバック」として扱い、伝える情報の重さに合わせて伝え方を選ぶ",
+    statuses: <span>フィードバックが伝えるものとして、<Hl>今の状態・重要な作業の成功や失敗・悪い結果になりうる操作への警告・間違いを直す機会</Hl>の4つを挙げている。</span>,
+    delivery: <span>情報の重さと伝え方を合わせるとしている。<Hl>状態の知らせは、対象の近くに受け身の形で置き</Hl>、必要なときに見られるようにする(例: iOSのメールは、未読の数をツールバーに出す)。一方、データを失うおそれのある警告は、作業を止めて伝える(アラート)。</span>,
+    colorIcon: <span><Hl>色・文字・音・触覚など複数の方法で伝える</Hl>ことで、消音中や画面を見ていないとき、VoiceOverを使っているときでも受け取れるようにするとしている。</span>,
+    wording: "コマンドを実行できないときは、そのことと理由を伝えるとしている(例: 地図で出発地と目的地が同じとき、経路を出せないと伝える)。",
+    avoid: <span><Hl>アラートを多用しない</Hl>(使いすぎると効果が薄れる)。予想どおりのデータ損失(ゴミ箱に入れるなど)では警告しない。<Hl>成功の確認は、十分に重要な作業だけにする</Hl>(人は成功を前提にしているため、知りたいのは失敗したときだけ)。</span>,
+    accessibility: "知覚可能(Perceivable) ― 色・文字・音・触覚を組み合わせて、誰にでも届くようにするという点は、知覚可能に関わる。",
     useCases: [
-      "OSレベルの自動消去型通知にはバナー形式を使う(本ページの対象とは性質が異なる)",
-      "永続的なインライン通知に厳密に対応する専用コンポーネントは持たない",
-      "重大な確認が必要な場合は「ダイアログ」ページのAlertsを検討する",
+      "状態の知らせは、対象の近くに目立ちすぎない形で置く",
+      "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて警告する",
+      "Apple Payの支払いのような重要な作業は、完了を確認できるようにする",
     ],
-    searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    confirmedNote: "「スナックバー」「トースト」の各ページのApple欄と同じ一次情報。「ユーザーが閉じるまで残り続ける」インラインバナーに厳密に対応するガイダンスは見当たらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
-    illustration: () => (
-      <svg width="160" height="30" viewBox="0 0 160 30">
-        <rect x="1" y="1" width="158" height="28" rx="6" fill="none" stroke="#C2542A" strokeDasharray="3 2" strokeWidth="1.2" />
-        <text x="80" y="19" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">厳密に対応する概念なし</text>
-      </svg>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、該当なしに近い状況を図示",
+    searchHint: "status feedback",
+    refs: [
+      { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
+      { label: "Feedback ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/feedback#Best-practices" },
+      { label: "Alerts(作業を止めて伝える場合)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts" },
+    ],
+    illustration: () => <StatusMini color="#C2542A" kinds={["info", "success", "warning", "error"]} />,
+    illustrationNote: "4つのフィードバック(概念図・系列識別色)",
   },
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 2 ― Banners(M3の一覧からは削除)",
+    doc: "Material Design 3 ― Color roles(error)",
+    term: "専用の名称なし(色の役割としてerrorを持つ)",
     color: "#2F7D6E",
-    m3NotApplicable: true,
-    successorNote: "M3で「重要だが緊急ではない、対応するまで残り続けるメッセージ」を実現したい場合は、内容の重さに応じてダイアログ(強く操作を止める必要がある場合)またはSnackbar(比較的軽い場合)への置き換えが案内されているとみられる(検索結果による確認)。",
-    position: "重要だが緊急ではないメッセージを、ユーザーが対応・却下するまで画面上部に表示し続けるコンポーネント",
-    size: <span><NoData>数値は未確認。</NoData>1行で収まる「シングルライン」バリエーションでは、デスクトップで最大2つのボタンを配置できるとされている(検索結果による確認)。</span>,
-    stance:
-      "バナーは、重要かつ簡潔なメッセージを表示し、ユーザーがそのメッセージに対応する(または閉じる)ための操作を提供するコンポーネントだとされている。ユーザーが操作するか閉じるまで持続する非モーダルな要素で、いつでも無視することも操作することもできるとされている。アプリバーの直下、画面上部に表示すべきとされている(検索結果による確認)。",
-    exceptions:
-      "アイコン(任意)+テキスト+最大2つのボタンという構成が一般的とされている。1画面に同時に表示するバナーは1つまでにすべきとされている(検索結果による確認)。",
-    scenarios: [
-      "通信環境の不安定さなど、重要だが緊急ではない状態を伝えたい時",
-      "ユーザーの対応(再試行など)を促す簡潔なメッセージを画面上部に表示したい時",
-    ],
-    accessibility:
-      "操作可能(Operable) ― 一般的なタッチターゲット基準がバナー内のボタンに適用されると考えられる(直接確認はできていない)。",
+    position: "ステータスメッセージ専用の部品・指針はない。色の役割として、エラーだけを意味のある色として持つ",
+    statuses: <span><Hl>色の役割として持つのは「エラー」だけ</Hl>(error・onError・errorContainer・onErrorContainer)。成功・注意・情報に当たる色の役割は、基本の組み合わせにはない。</span>,
+    delivery: <NoData>記載なし</NoData>,
+    colorIcon: <span>エラーには、errorの色の役割を使う。成功などの色が必要なときは、<Hl>アプリでカスタムカラーを定義し、主となる色(primary)に色合いを寄せて調和させる</Hl>(ハーモナイズ)方法が用意されている。</span>,
+    wording: <NoData>記載なし</NoData>,
+    avoid: <NoData>記載なし</NoData>,
+    accessibility: "知覚可能(Perceivable) ― 色の役割は、背景と文字の組み合わせでコントラストを保つことを前提にしている。",
     useCases: [
-      "重要だが緊急ではない情報を、ユーザーが対応するまで画面上部に表示し続ける",
-      "アイコン(任意)+簡潔なテキスト+最大2つのボタンで構成する",
-      "同時に表示するバナーは1つまでにする",
+      "エラーの表示には、errorとerrorContainerの色の役割を使う",
+      "成功・注意の色は、カスタムカラーとして定義し、テーマの色と調和させる",
     ],
     searchHint: "",
-    url: "https://m2.material.io/components/banners",
-    confirmedNote: "M3(m3.material.io)の公式コンポーネント一覧にはBannerが見当たらないことを検索で確認しました(2026-09)。M3では、旧Bannerが担っていた用途にダイアログまたはスナックバーを使うよう案内されているとみられる(検索結果による確認)。上記の仕様はM2時点のもの。",
-    pending: true,
-    deprecated: true,
-    deprecatedNote: "GoogleのBannerコンポーネントはMaterial Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たらない。M3では、旧Bannerが担っていた用途に応じて、ダイアログまたはスナックバーの使用が案内されているとみられる(検索結果による確認、2026-09)。",
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <svg width="160" height="30" viewBox="0 0 160 30">
-          <rect x="1" y="1" width="158" height="28" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
-          <circle cx="14" cy="15" r="5" fill="none" stroke="#2F7D6E" strokeWidth="1.4" />
-          <text x="80" y="12" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通信環境が不安定です</text>
-          <text x="130" y="22" fontSize="7.5" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">再試行</text>
-        </svg>
-      </div>
-    ),
-    illustrationNote: "アイコン+テキスト+最大2ボタン(M2仕様、概念図・系列識別色)",
+    refs: [
+      { label: "Color roles", url: "https://m3.material.io/styles/color/roles" },
+      { label: "MDC Android: Color theming ― Custom Colors", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md#custom-colors" },
+      { label: "MDC Android: Color theming ― Color Harmonization", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md#using-color-harmonization" },
+    ],
+    illustration: () => <StatusMini color="#2F7D6E" kinds={["error"]} />,
+    illustrationNote: "色の役割はエラーのみ(概念図・系列識別色)",
   },
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― alert / status / alertdialog の使い分け、WCAG 4.1.3",
+    doc: "WCAG 4.1.3 Status Messages(ステータスメッセージ)",
+    term: "Status message(ステータスメッセージ)。WAI-ARIAでは status / alert ロール",
     color: "#A3821F",
-    position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけalert、緊急でない更新はstatus、最初から表示されているバナーは見出しやラベル付きの領域、モーダルで確認を求めるならalertdialog",
-    size: "アラート/バナー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタン等の操作要素に適用される。",
-    glossary: [
-      { term: "色", desc: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどの視覚的要素は3:1以上のコントラスト比を確保すべきとしている。" },
-      { term: "role=\"alert\" / role=\"status\" / role=\"alertdialog\"", desc: "role=\"alert\"は、新しく出たら読み上げ中の内容を中断してでもすぐ読み上げられる(aria-live=\"assertive\"相当)ライブリージョン。role=\"status\"は、読み上げ中の内容を終えてから読み上げられる(polite相当)。role=\"alertdialog\"はフォーカスを閉じ込め、応答を求めるモーダルのダイアログ(「ダイアログ」ページ参照)。" },
-    ],
-    stance:
-      "アラート/バナーは、ひとまとめにrole=\"alert\"にするのではなく、条件で分ける。①操作の結果として新しく出た、緊急の警告だけをrole=\"alert\"にする(新しく出たときに読み上げられる)。②緊急でない更新(「保存しました」など)はrole=\"status\"にする(4.1.3のステータスメッセージ)。③ページを開いたときから表示されているバナーは、ライブリージョンにする必要はなく、見出しやラベル付きの領域として読めるようにする。④モーダルで確認を求めるならrole=\"alertdialog\"にする(「ダイアログ」ページ参照)。",
-    exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため、重大な内容に限定して使うべきで、多用すると過剰な割り込みになるとしている。alertは、操作のあとなどに動的に表示される内容のためのもので、ページを開いたときからある内容には使わない(ライブリージョンは、内容が変わったときにだけ読み上げられるため。MDNの解説)。",
-    scenarios: [
-      "操作の結果として新しく出た、緊急の警告を伝えたい時にrole=\"alert\"を使う",
-      "緊急でない更新を伝えたい時はrole=\"status\"を使う",
-      "最初から表示されているバナーは、見出しやラベル付きの領域として読めるようにする",
-      "モーダルで確認を求めたい時はrole=\"alertdialog\"を使う(「ダイアログ」ページ参照)",
-    ],
-    accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― ライブリージョンによる読み上げ(4.1.3)、非テキストのコントラスト(1.4.11)、ターゲットサイズ(2.5)が関わる。alertかalertdialogかで、フォーカス管理の要件が大きく変わる点に注意が必要。",
+    position: "画面の見た目は定めず、ステータスメッセージを支援技術にも伝えることを求める",
+    statuses: <span>ステータスメッセージを、<Hl>操作の成功や結果・待ち状態・処理の進み具合・エラーの有無</Hl>を伝えるもので、文脈の変化(フォーカスの移動など)を伴わないもの、と定義している。</span>,
+    delivery: <span>フォーカスを移さずに表示するメッセージ(「5件見つかりました」「入力が正しくありません」など)は、<Hl>role="status"などで支援技術にも伝える</Hl>(4.1.3)。新しく出た緊急の警告にはrole="alert"を使う。</span>,
+    colorIcon: <span><Hl>色だけで状態を伝えない</Hl>(1.4.1)。状態を示すアイコンなどは、周りの色と3:1以上のコントラストにする(1.4.11)。</span>,
+    wording: "入力の誤りを見つけたら、どの項目が誤りかを特定し、文字で説明する(3.3.1。詳しくは「エラー表示」ページ)。",
+    avoid: "検索結果の一覧そのものは、ステータスメッセージではない(件数などの短い知らせが対象)。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 4.1.3は互換性(4.1)の基準で「堅牢」、色の使用(1.4.1)と非テキストのコントラスト(1.4.11)は「知覚可能」に対応する。",
     useCases: [
-      "新しく出た緊急の警告だけrole=\"alert\"にする",
-      "緊急でない更新はrole=\"status\"にする(4.1.3)",
-      "最初から表示されているバナーは、見出しやラベル付きの領域にする(ライブリージョンにしない)",
-      "モーダルで確認を求める警告はrole=\"alertdialog\"にする",
+      "保存完了・検索の件数・入力の誤りなどの短い知らせは、role=\"status\"で読み上げられるようにする",
+      "状態を色だけでなく、アイコンや文字でも示す",
     ],
-    searchHint: "assertive",
-    url: "https://www.w3.org/TR/wai-aria-1.2/#alert",
-    urlSecondary: [
+    searchHint: "status message",
+    refs: [
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "A", label: "3.3.1 エラーの特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
-      { label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" },
-      { label: "4.1.3 Status Messages", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { label: "解説(MDN): alertロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role" },
+      { label: "WAI-ARIA: alertロール", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
     ],
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <svg width="160" height="30" viewBox="0 0 160 30">
-          <rect x="1" y="1" width="158" height="28" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="80" y="19" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">alert / status / 領域</text>
-        </svg>
-      </div>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、role=\"alertdialog\"との対比を図示",
+    illustration: () => <StatusMini color="#A3821F" kinds={["success", "info", "error"]} />,
+    illustrationNote: "成功・待ち/進み具合・エラーを支援技術にも伝える(概念図)",
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)",
+    doc: "Indicators, Validations, and Notifications",
+    term: "Status feedback(状態のフィードバック)",
     color: "#7A4F7E",
-    position: "通知を「アクション必須」と「パッシブ」に分ける分類で、対応の必要性を判断する指針(数値基準ではない)",
-    size: <NoData>数値基準なし</NoData>,
-    stance:
-      "通知全般を「アクション必須(Action-required)」と「パッシブ(Passive)」の2種類に分類しており、この分類は「利用者の対応が必要か」の軸で、表示がどれだけ続くかとは別の軸。画面に残り続けるアラート/バナーでも、必ず対応が必要とは限らず、対応が必要なものだけがアクション必須通知に当たる(AI解釈。「情報伝達の使い分け」ページと同じ整理)。アクション必須通知は、ユーザーがタスクを進めるために対応が必要な情報を伝えるものだとしている。",
-    exceptions:
-      "アクション必須通知は、パッシブ通知と異なり見落とされることを許容できないため、消えずに残り続ける・視覚的に目立つ、といった設計が必要になるとしている。一方で頻度が高すぎたり不必要に使われたりすると、ユーザーの信頼を損なうとも指摘している。",
-    scenarios: [
-      "ユーザーの対応や明示的な却下を必要とする、見落とし厳禁の情報を伝えたい時",
-      "支払い情報の更新など、対応が完了するまで通知を残しておきたい時",
-    ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・対応要否に応じた分類・使い分けの指針。",
+    position: "状態の伝え方を、インジケーター・バリデーション・通知の3つに分けて使い分ける",
+    statuses: <span>伝え方を<Hl>インジケーター(内容や部品に付ける印)・バリデーション(入力の誤り)・通知(システムの出来事)</Hl>の3つに分ける。通知は、対応が必要な「アクション必須」と、知らせるだけの「パッシブ」に分かれる。</span>,
+    delivery: <span>選ぶ基準は、<Hl>情報の種類・緊急度・利用者の対応が必要か</Hl>の3つ。インジケーターは対象の近くに出す。バリデーションは誤りのある入力欄に結び付ける。アクション必須の通知は割り込んで目立たせ、パッシブな通知は控えめにする。</span>,
+    colorIcon: "インジケーターは、アイコン・文字の太さや色(未読メールの太字、株価の上下の色分けなど)・大きさや動きで作れる。バリデーションでは、誤りのある欄にアイコンと色を添えると場所が分かりやすい。",
+    wording: <span>バリデーションのメッセージは、問題を示すだけでなく<Hl>直し方を伝える</Hl>(「入力されていません」ではなく「住所を入力してください」)。通知は利用者の操作の直後とは限らないため、<Hl>何についての知らせかが分かる文脈を添える</Hl>。</span>,
+    avoid: <span><Hl>エラーを、数秒で消えるトーストで出さない</Hl>(気づかずに5分待ち続けた利用者の例)。お気に入りの保存のような頻繁な操作に、対応を求める通知を使わない。今の目的と関係のない通知は送らない。</span>,
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、「システムの状態を見えるようにする」というユーザビリティの原則(10ヒューリスティックの1つ目)に基づく設計指針。",
     useCases: [
-      "ユーザーの対応(または明示的な却下)を必要とする情報に使う(見落とし厳禁の内容)",
-      "頻度を絞り、不必要な場面での多用を避ける",
-      "見落としが許容できる内容には「スナックバー」「トースト」の各ページのパッシブ通知を検討する",
+      "情報の種類・緊急度・対応の要否で、インジケーター・バリデーション・通知を選ぶ",
+      "入力の誤りは、その欄の近くに、直し方と一緒に出す",
+      "通知には、何についての知らせかが分かる文脈を添える",
     ],
-    searchHint: "action-required",
-    url: "https://www.nngroup.com/articles/indicators-validations-notifications/",
-    illustration: () => (
-      <svg width="160" height="30" viewBox="0 0 160 30">
-        <rect x="1" y="1" width="158" height="28" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
-        <circle cx="14" cy="15" r="5" fill="none" stroke="#7A4F7E" strokeWidth="1.4" />
-        <text x="90" y="12" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">お支払い情報の更新が必要です</text>
-        <text x="140" y="22" fontSize="7.5" fontWeight="700" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">更新</text>
-      </svg>
-    ),
-    illustrationNote: "対応を求めるアラート/バナーの例(概念図・系列識別色)",
+    searchHint: "Communicating System Status",
+    refs: [
+      { label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
+    ],
+    illustration: () => <StatusMini color="#7A4F7E" kinds={["info", "error", "warning"]} />,
+    illustrationNote: "インジケーター・バリデーション・通知(概念図・系列識別色)",
   },
 ];
 
@@ -224,67 +150,122 @@ function GlossaryNote({ items }) {
   );
 }
 
-function AlertSwatch() {
+
+/* 状態の小さな見本(系列の図・ステータス別の表で使う) */
+const STATUS_LOOK = {
+  success: { label: "成功", mark: "✓", color: "#2F7D3B", bg: "#EAF7EC" },
+  info: { label: "情報", mark: "i", color: "#2F6FED", bg: "#EAF1FE" },
+  warning: { label: "注意", mark: "!", color: "#A3681A", bg: "#FFF6E5" },
+  error: { label: "エラー", mark: "×", color: "#C23B3B", bg: "#FDEAEA" },
+};
+
+function StatusMini({ color, kinds }) {
   return (
-    <div style={{ width: 280, margin: "0 auto" }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 8 }}>
-        <span style={{ fontSize: 16 }}>⚠️</span>
-        <span style={{ flex: 1, fontSize: 12.5, color: "#2E3457", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>ストレージの空き容量が残りわずかです</span>
-        <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>管理</span>
-      </div>
+    <div style={{ display: "flex", gap: 5, flexWrap: "wrap", justifyContent: "center" }}>
+      {kinds.map((k) => (
+        <span key={k} style={{ display: "inline-flex", alignItems: "center", gap: 3, fontSize: 9, color, border: `1px solid ${color}`, borderRadius: 3, padding: "1px 5px" }}>
+          <span style={{ fontWeight: 700 }}>{STATUS_LOOK[k].mark}</span>{STATUS_LOOK[k].label}
+        </span>
+      ))}
     </div>
   );
 }
 
-const SEVERITY_TYPES = [
-  { key: "info", label: "情報(Info)", color: "#2F6FED", bg: "#EAF1FE", icon: "ℹ️", desc: "状態や補足情報を伝える、緊急性のないメッセージ", example: "新機能が追加されました" },
-  { key: "success", label: "成功(Success)", color: "#2F7D3B", bg: "#EAF7EC", icon: "✅", desc: "操作が正常に完了したことを伝える", example: "変更を保存しました" },
-  { key: "warning", label: "警告(Warning)", color: "#B8860B", bg: "#FFF6E5", icon: "⚠️", desc: "問題が起きる可能性がある、注意を促す内容", example: "ストレージの空き容量が残りわずかです" },
-  { key: "error", label: "エラー(Error)", color: "#C23B3B", bg: "#FDEAEA", icon: "⛔", desc: "操作が失敗した、または致命的な問題が起きたことを伝える", example: "保存に失敗しました" },
+/* サマリーのイメージ図: 4種類のステータスメッセージ */
+function StatusSwatch() {
+  const ex = { success: "変更を保存しました", info: "新しいバージョンがあります", warning: "空き容量が残りわずかです", error: "保存できませんでした。もう一度お試しください" };
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6, maxWidth: 320, margin: "0 auto" }}>
+      {Object.keys(STATUS_LOOK).map((k) => (
+        <div key={k} style={{ display: "flex", alignItems: "center", gap: 8, background: STATUS_LOOK[k].bg, borderLeft: `3px solid ${STATUS_LOOK[k].color}`, borderRadius: 4, padding: "6px 10px", textAlign: "left" }}>
+          <span style={{ width: 16, height: 16, borderRadius: "50%", background: STATUS_LOOK[k].color, color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{STATUS_LOOK[k].mark}</span>
+          <span style={{ fontSize: 11.5, color: "#2E3457" }}><strong style={{ color: STATUS_LOOK[k].color, marginRight: 6 }}>{STATUS_LOOK[k].label}</strong>{ex[k]}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ステータス別のまとめ(4系列の内容を合わせたAI解釈) */
+const STATUS_ROWS = [
+  { k: "success", what: "操作や作業が正しく終わった(W3Cの定義では「操作の成功や結果」)", how: "重要な作業だけ、完了を知らせる(Apple)。作業を止めず、操作した場所の近くに出す", words: "何が終わったかを短く書く(例: 「変更を保存しました」)", look: "緑系の色とチェックのアイコン。Googleは成功の色の役割を持たないため、使うならカスタムカラーをテーマの色と調和させる", avoid: "ささいな操作のたびに出す。頻繁な操作に、対応を求める通知を使う(NN group)" },
+  { k: "info", what: "今の状態や、知っておくとよい出来事(Appleの「今の状態」)", how: "対象の近くに、目立ちすぎない形で置く(Apple)。部品に付ける印(インジケーター)も使える(NN group)", words: "何についての知らせかが分かる文脈を添える(NN group)", look: "青や灰など、目立ちすぎない色と「i」のアイコン", avoid: "今の目的と関係のない知らせを送る(NN group)" },
+  { k: "warning", what: "悪い結果になりうる操作や状況(Appleの「警告」)", how: "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて伝える(Apple)", words: "何が起きうるかと、どうすれば避けられるかを書く", look: "黄・オレンジ系の色と「!」のアイコン", avoid: "予想どおりの結果(ゴミ箱に入れるなど)にまで毎回警告する(Apple)" },
+  { k: "error", what: "操作の失敗や、入力の誤り(W3Cの「エラーの有無」、NN groupの「バリデーション」)", how: "問題のある場所の近くに出し、直すまで残す(NN group)。実行できないときは理由を伝える(Apple)", words: "何が問題で、どう直せばよいかを書く(NN group・W3C 3.3.1)", look: "Googleのerrorの色の役割(赤系)と、×などのアイコン", avoid: "数秒で消える通知(トースト)で出す(NN group)" },
 ];
 
-function SeverityTypeCard({ t }) {
+function StatusTable() {
   return (
-    <div style={{ ...styles.severityCard, background: t.bg, borderColor: t.color }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-        <span style={{ fontSize: 14 }}>{t.icon}</span>
-        <span style={{ ...styles.severityLabel, color: t.color }}>{t.label}</span>
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ステータス別のまとめ</h2>
+      <p style={styles.diagramNote}>成功・情報・注意・エラーの4分類は、4系列のどれかが公式に定めた分け方ではなく、広く使われている整理です。各欄は4系列の内容を合わせたAI解釈で、出典の系列を括弧で示しています。どの種類でも、色だけで伝えず(W3C 1.4.1)、画面を見ていない人や支援技術の利用者にも伝わるようにします(W3C 4.1.3・Apple)。</p>
+      <div style={styles.matrixScroll}>
+        <table style={styles.statusTable}>
+          <thead>
+            <tr>{["種類", "どんな状態か", "伝え方", "文言のポイント", "色・アイコン", "避けること"].map((h) => (<th key={h} style={styles.statusTh}>{h}</th>))}</tr>
+          </thead>
+          <tbody>
+            {STATUS_ROWS.map((r) => (
+              <tr key={r.k}>
+                <td style={{ ...styles.statusTd, whiteSpace: "nowrap" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontWeight: 700, color: STATUS_LOOK[r.k].color }}>
+                    <span style={{ width: 16, height: 16, borderRadius: "50%", background: STATUS_LOOK[r.k].color, color: "#FFFFFF", fontSize: 10, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{STATUS_LOOK[r.k].mark}</span>
+                    {STATUS_LOOK[r.k].label}
+                  </span>
+                </td>
+                <td style={styles.statusTd}>{r.what}</td>
+                <td style={styles.statusTd}>{r.how}</td>
+                <td style={styles.statusTd}>{r.words}</td>
+                <td style={styles.statusTd}>{r.look}</td>
+                <td style={styles.statusTd}>{r.avoid}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-      <p style={styles.severityDesc}>{t.desc}</p>
-      <div style={{ ...styles.severityExample, color: t.color, borderColor: t.color }}>{t.example}</div>
-    </div>
+    </section>
   );
 }
 
-function SeverityTypesSection() {
+/* NN groupの、状態の伝え方の3つの方法 */
+const NN_METHODS = [
+  { t: "インジケーター", d: "内容や部品に付ける印。条件によって現れたり変わったりし、対応は求めない。対象のすぐ近くに出す", ex: "未読メールの太字、新着の印、株価の上下の矢印" },
+  { t: "バリデーション", d: "利用者の入力の誤りを伝える。対応しないと消えず、誤りのある入力欄に結び付ける", ex: "「住所を入力してください」と欄の近くに表示" },
+  { t: "通知", d: "利用者の操作とは関係なく起きた出来事を伝える。対応が必要な「アクション必須」と、知らせるだけの「パッシブ」がある", ex: "アクセサリーの充電が必要(アクション必須)、アップデートがある(パッシブ)" },
+];
+
+function NnMethods() {
   return (
-    <div style={styles.severitySection}>
-      <h2 style={styles.diagramTitle}>アラートの重要度別の種類</h2>
-      <p style={styles.severityIntro}>
-        情報・成功・警告・エラーという4分類は、4系列いずれかが公式に定めた名称ではなく、UI全般で広く使われている一般的な整理です。このサイトではシーンの違いを比較しやすくするための便宜的な分類として掲載しますが、各系列の公式な対応状況には差があります。
-      </p>
-      <div style={styles.severityGrid}>
-        {SEVERITY_TYPES.map((t) => (<SeverityTypeCard key={t.key} t={t} />))}
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>状態の伝え方の3つの方法(Nielsen Norman Group)</h2>
+      <p style={styles.diagramNote}>どれを選ぶかは、情報の種類・緊急度・利用者の対応が必要か、の3つで決めます。</p>
+      <div style={styles.methodGrid}>
+        {NN_METHODS.map((m) => (
+          <div key={m.t} style={styles.methodCard}>
+            <div style={styles.methodTitle}>{m.t}</div>
+            <p style={styles.methodText}>{m.d}</p>
+            <p style={styles.methodEx}>例: {m.ex}</p>
+          </div>
+        ))}
       </div>
-      <div style={styles.severityVendorNotes}>
-        <p style={styles.severityVendorNote}><strong>Google(M3)</strong> ― カラーシステムに「error」という意味づけられた色ロール(error/onError/errorContainer/onErrorContainer)が公式に定義されていますが、success/warning/infoに相当する色ロールは基本セットには含まれず、必要な場合はアプリ側でカスタムカラーとして拡張する形になるとされています(検索結果による確認)。</p>
-        <p style={styles.severityVendorNote}><strong>Apple(HIG)</strong> ― 4分類に対応する専用のアラートコンポーネントは持ちませんが、destructive(重大・破壊的な操作)にはSystem Red、警告的な文脈にはSystem Orange、成功・肯定的な状態にはSystem Greenという意味づけられたシステムカラーが慣習的に使われます(検索結果による確認)。</p>
-        <p style={styles.severityVendorNote}><strong>W3C(WCAG)</strong> ― 4分類そのものは定義していませんが、達成基準1.4.1(色の使用)により、警告・エラーなどの重要度を色だけで伝えてはならず、アイコンや文言など色以外の手段を併用する必要があるとしています。上の4枚のカードで色に加えてアイコン・ラベル文字を併記しているのはこの基準を踏まえた表現です。</p>
-        <p style={styles.severityVendorNote}><strong>Nielsen Norman Group</strong> ― 「Indicators, Validations, and Notifications」記事は、重要度を「アクション必須/パッシブ」という2軸で整理しており、情報/成功/警告/エラーというこの4分類そのものは用いていません。</p>
-      </div>
-    </div>
+    </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の中に表示し、利用者が対応するか閉じるまで残り続けるお知らせです。";
+const LEAD = "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージです。";
 const ABOUT = [
-  { k: "目的・役割", v: "見落とすと困る情報(エラー・注意・必要な対応)を、作業を止めずに伝え続ける" },
-  { k: "よく使われる場面", v: "支払い情報の更新のお願い、オフラインの通知、フォーム上部のエラーのまとめ" },
-  { k: "似た部品との違い", v: <>短時間で自動的に消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">ダイアログ</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "目的・役割", v: "何が起きたか、今どんな状態かを伝え、必要なら次の行動を促す" },
+  { k: "よく使われる場面", v: "保存完了の知らせ、入力の誤り、通信の注意、検索結果の件数" },
+  { k: "似た部品との違い", v: <>画面に残り続けるお知らせの部品は<PageLink to="/components/communication/banner">バナー</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、入力欄のエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
-export default function CommunicationAlertPage() {
+const ROWS = [
+  ["名称", "term"], ["位置づけ", "position"], ["扱うステータス", "statuses"], ["伝え方", "delivery"], ["色・アイコン", "colorIcon"],
+  ["文言", "wording"], ["避けること", "avoid"], ["アクセシビリティ(WCAG基準)", "accessibility"],
+];
+
+export default function CommunicationStatusMessagePage() {
   return (
     <div className="dsp-page" style={styles.page}>
       <style>{`
@@ -304,45 +285,35 @@ export default function CommunicationAlertPage() {
         <SidebarNav currentPath="/components/communication/alert" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / アラート/バナー</span>
+            <span>コンポーネント / ステータスメッセージ</span>
             <span>SPEC No. 033</span>
           </div>
 
-          <h1 style={styles.title}>アラート/バナー</h1>
+          <h1 style={styles.title}>ステータスメッセージ(アラート)</h1>
           <SummaryCard
-            image={<><AlertSwatch /></>}
-            imageNote={<>画面上部などにインラインで表示され、ユーザーが対応するか明示的に閉じるまで残り続ける。「ダイアログ」ページのように操作をブロックはしない。</>}
+            image={<StatusSwatch />}
+            imageNote="成功・情報・注意・エラーを、色だけでなくアイコンと文字でも区別する。"
             lead={LEAD}
             rows={ABOUT}
           />
 
-          <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design)</div>
-            <p style={styles.warningText}>
-              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3では、旧Bannerが担っていた用途に応じて<strong>ダイアログまたはスナックバーの使用</strong>が案内されているとみられます(検索結果による確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
-            </p>
-          </div>
-
-
-
-          <SeverityTypesSection />
+          <StatusTable />
+          <NnMethods />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。ただし、インラインのバナーをすべてrole="alert"にするわけではありません。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にします(W3C欄を参照)。
+              <strong>ステータスメッセージ専用の部品を持つ系列はありません</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」という考え方で扱い、Googleは色の役割として<strong>エラーだけ</strong>を持っています。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます(公式の記述は未確認)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
+              共通しているのは、<strong>伝える情報の重さに合わせて伝え方を変える</strong>ことです。Appleは状態の知らせを対象の近くに控えめに置き、取り返しのつかないデータ損失の警告だけ作業を止めて伝えるとし、NN groupも情報の種類・緊急度・対応の要否で伝え方を選ぶとしています。また、<strong>色だけに頼らず、支援技術にも伝える</strong>ことは、AppleとW3Cの2系列が明記しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸です。対応を求めるアラート/バナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たります。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限りません</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
-            </p>
-            <p style={styles.synthesisText}>
-              Appleには、この「ユーザーが閉じるまで残り続けるインライン通知」に厳密に対応する専用コンポーネントが見当たりません。「スナックバー」「トースト」の各ページのApple欄と同じ「バナー通知」を参考として挙げていますが、これは自動的に消える点で本ページの対象とは性質が異なり、正確な対応物がないという結論になります。
+              実務では、<strong>エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>、<strong>成功の知らせは重要な作業だけにして控えめに出す</strong>、という使い分けが、AppleとNN groupの考え方を満たします。数秒で消える通知にエラーを出すのは避けます(NN group)。
             </p>
           </div>
+
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -358,32 +329,16 @@ export default function CommunicationAlertPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
-                {(s.m3NotApplicable || s.noDedicatedComponent) && (
-                  <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(M2仕様を参考掲載)" : "専用コンポーネントなし"}</span>
-                )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
-                <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
-                <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
-                <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
+                {ROWS.slice(2).map(([label, key]) => (<InfoBox key={key} label={label}>{s[key]}</InfoBox>))}
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
-                {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
           </div>
@@ -405,59 +360,23 @@ export default function CommunicationAlertPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
-                <div style={styles.labelCell}>M3該当状況</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {(s.m3NotApplicable || s.noDedicatedComponent) ? (
-                      <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(M2仕様を参考掲載)" : "専用コンポーネントなし"}</span>
-                    ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
-                  </div>
+                {ROWS.map(([label, key]) => (
+                  <React.Fragment key={key}>
+                    <div style={styles.labelCell}>{label}</div>
+                    {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s[key]}</div>))}
+                  </React.Fragment>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>M3での実質的な後継</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>}</div>))}
-                <div style={styles.labelCell}>推奨される使用シーン</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.lastRowCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
-          </div>
-
-          <div style={styles.linksRow}>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>操作を完全にブロックするモーダルな確認・警告の4系列比較</div>
-            </a>
-            <a href="/components/communication/snackbar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>スナックバー ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持てる、操作不要で自動的に消えるパッシブ通知の4系列比較</div>
-            </a>
-            <a href="/components/communication/toast" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>トースト ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持たない、最も簡潔なパッシブ通知の4系列比較(M3では非該当)</div>
-            </a>
           </div>
 
           <div style={styles.tagsRow}>
@@ -466,11 +385,8 @@ export default function CommunicationAlertPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認。Googleは旧Banner非推奨の可能性も検索で確認。重要度別4分類のセクションは、いずれのソースも「4分類」自体は公式に定義していないため、各系列の対応状況を検索結果ベースで注記)</span>
+            <span>最終確認: 2026-11(③本人レビューNo.060で「アラート/バナー」ページから分けて新規作成。4系列とも本文を直接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -479,27 +395,18 @@ export default function CommunicationAlertPage() {
 }
 
 const styles = {
+  statusTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  statusTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  statusTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  methodGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  methodCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px" },
+  methodTitle: { fontSize: 13, fontWeight: 700, color: "#7A4F7E", marginBottom: 6 },
+  methodText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  methodEx: { fontSize: 11, lineHeight: 1.6, color: "#7E86AC", margin: 0 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
-  warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
-  severitySection: { marginBottom: 22 },
-  severityIntro: { fontSize: 12, color: "#7E86AC", lineHeight: 1.7, margin: "0 0 14px" },
-  severityGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10, marginBottom: 14 },
-  severityCard: { border: "1px solid", borderRadius: 6, padding: "12px 14px" },
-  severityLabel: { fontSize: 12.5, fontWeight: 700 },
-  severityDesc: { fontSize: 11, color: "#454C78", lineHeight: 1.6, margin: "0 0 8px" },
-  severityExample: { fontSize: 10.5, fontWeight: 600, border: "1px dashed", borderRadius: 4, padding: "5px 8px", background: "rgba(255,255,255,0.6)" },
-  severityVendorNotes: { display: "flex", flexDirection: "column", gap: 8 },
-  severityVendorNote: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78", margin: 0, paddingLeft: 10, borderLeft: "2px solid #E1E3F0" },
-  warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -528,7 +435,6 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
@@ -536,16 +442,13 @@ const styles = {
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
-  linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
-  linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
+  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

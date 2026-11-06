@@ -10,7 +10,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
  * 一部として説明されている点が特徴。
  *
  * Nielsen Norman Group(UI Elements Glossaryの「Badge」項目、「スナックバー」
- * 「トースト」「アラート/バナー」の各ページと同一記事)は本文を直接取得して
+ * 「トースト」「バナー」の各ページと同一記事)は本文を直接取得して
  * 確認済み(2026-09)。W3Cは、バッジ専用のARIAロールが存在しないことを確認した
  * 上で、MDN/W3CのARIA14(aria-labelでアクセシブルネームを与える手法)・
  * WCAG 4.1.2(Name, Role, Value)の各ページ本文を直接取得して確認した
@@ -160,7 +160,7 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「アラート/バナー」の各ページと同一記事)",
+    doc: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)",
     color: "#7A4F7E",
     position: "アイコンの上に重ねて表示し、通知(主にドット)またはアイテム数(主に数字)を示す小さな要素、という用語集としての定義",
     size: <NoData>数値基準なし</NoData>,
@@ -255,7 +255,7 @@ const LEAD = "アイコンやタブの角に重ねて、新着や未読の数を
 const ABOUT = [
   { k: "目的・役割", v: "見るべきものがあることを、数字または点で控えめに知らせる" },
   { k: "よく使われる場面", v: "未読メールの件数、アプリアイコンの通知数、タブの新着の点" },
-  { k: "似た部品との違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">アラート/バナー</PageLink>。バッジは数や有無だけを示す</> },
+  { k: "似た部品との違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>。バッジは数や有無だけを示す</> },
 ];
 
 export default function CommunicationBadgePage() {
@@ -407,8 +407,8 @@ export default function CommunicationBadgePage() {
           </div>
 
           <div style={styles.linksRow}>
-            <a href="/components/communication/alert" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>アラート/バナー ↗</div>
+            <a href="/components/communication/banner" style={styles.linkCard}>
+              <div style={styles.linkCardTitle}>バナー ↗</div>
               <div style={styles.linkCardDesc}>閉じるまで残り続けるインライン通知の4系列比較</div>
             </a>
             <a href="/components/communication/overview" style={styles.linkCard}>

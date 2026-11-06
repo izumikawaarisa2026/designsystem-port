@@ -33,7 +33,7 @@ Apple(Human Interface Guidelines)/ Google(Material Design 3)/ W3C(WCAG)/ Nielsen
 3. **コンポーネントレイヤー**(44ページ) ― 個別UI部品ごとの比較。Material Designの伝統的な6分類(Actions / Selection / Text inputs / Navigation / Containment / Communication)に準拠して分類する
 4. **横断ビュー**(1ページ・自動生成) ― 各ページに付けた原則タグ・プロセスタグから逆引きで一覧を生成する「タグから見る」ページ(エラー処理・段階的に見せるなど、UXプロセス単位の横断表示)
 
-全体で合計61ページ(トップページを含めると62ページ、2026-11時点)。詳細な内訳・ページ名の一覧は `sitemap.md` を参照。
+全体で合計65ページ(トップページを含めると66ページ、2026-11時点)。詳細な内訳・ページ名の一覧は `sitemap.md` を参照。
 
 ### 運用・更新プロセス(完全自動化はしない)
 - 一次情報の変更は、完全自動でサイトに反映しない。必ず人の承認を挟む

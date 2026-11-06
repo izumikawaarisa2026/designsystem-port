@@ -208,7 +208,7 @@ const APPLE_SECTIONS = [
     name: "Patterns",
     role: "ユーザーのよくある操作や体験の流れ(複数の部品にまたがる手順)の設計指針",
     items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など25トピック",
-    site: "横断ビュー(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: 空状態・ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
+    site: "横断ビュー(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
   },
   {
     name: "Inputs",

@@ -59,7 +59,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>数は算用数字で書く(「3件のメッセージ」。違う使い方の数が並ぶときは、片方を文字にする)。</span>,
     colorInfo: "呼びかけは、基本は2人称(「あなたの」)で、UIが利用者に直接話しかけるように書く。利用者の持ち物や行動であることを強調したいときは1人称(「マイアカウント」「利用規約に同意する」)にし、同じ文の中で2人称と1人称を混ぜない。どの読解レベルでも分かる一般的な言葉を使い、業界の用語やUIの機能に付けた造語を避ける。",
     stance:
-      "UIの文字は、少数の概念に絞った短く読み流せる単位で書き、簡潔で直接的な言葉を使う(「変更を保存するか?」)。利用者が自分の作業に集中できるよう、必要なことだけを伝え、処理の仕組みのような余計な説明は省く。現在形で書き、目的と操作を述べるときは目的を先に書く(「このアルバムから写真を消すには、ゴミ箱へドラッグ」)。同じ操作は同じ言葉で呼び(「削除」と「消去」を混ぜない)、UIの部品はラベルの文字で呼ぶ(Material Design 2のページデータを直接取得して確認、2026-10)。",
+      "UIの文字は、少数の概念に絞った短く読み流せる単位で書き、簡潔で直接的な言葉を使う(「変更を保存しますか?」)。利用者が自分の作業に集中できるよう、必要なことだけを伝え、処理の仕組みのような余計な説明は省く。現在形で書き、目的と操作を述べるときは目的を先に書く(「このアルバムから写真を消すには、ゴミ箱へドラッグ」)。同じ操作は同じ言葉で呼び(「削除」と「消去」を混ぜない)、UIの部品はラベルの文字で呼ぶ(Material Design 2のページデータを直接取得して確認、2026-10)。",
     exceptions:
       "読み流しやすくするため、ラベル・ホバーで出る文字・箇条書き・ダイアログの本文が1文だけなら句点を付けない。複数の文や、後にリンクが続く文には付ける(英語のピリオドの決まり。日本語の「。」は自社の表記ルールでそろえる、とするのが現実的です(AI解釈))。最初にすべての詳細を説明する必要はなく、利用者が機能を使い進めて必要になったときに詳しく見せる。「〜しなければならない」ではなく、どうすればよいかを書く。",
     accessibility:
@@ -490,7 +490,7 @@ const LEAD = "ボタン・見出し・エラーなど、画面に出る言葉の
 const ABOUT = [
   { k: "目的・役割", v: "短く分かりやすい言葉で、利用者が迷わず操作できるようにする" },
   { k: "関わる場面", v: "ボタンの文言、エラーメッセージ、空の画面の説明、入力欄のラベル" },
-  { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">空状態・ローディング状態</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
 export default function TokensWritingPage() {
@@ -666,7 +666,7 @@ export default function TokensWritingPage() {
               <div style={styles.linkCardDesc}>エラー文の書き方・見せ方の詳しい比較はこちら</div>
             </a>
             <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態・ローディング状態 ↗</div>
+              <div style={styles.linkCardTitle}>空状態 ↗</div>
               <div style={styles.linkCardDesc}>空の画面で次の行動を示す方法はこちら</div>
             </a>
           </div>

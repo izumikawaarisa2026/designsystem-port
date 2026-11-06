@@ -60,5 +60,9 @@
   "/components/containment/table",
   "/components/selection/menu",
   "/components/containment/carousel",
-  "/tokens/writing"
+  "/tokens/writing",
+  "/components/communication/loading",
+  "/components/communication/banner",
+  "/components/text-inputs/wizard",
+  "/components/containment/overview"
 ]

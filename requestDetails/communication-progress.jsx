@@ -5,10 +5,10 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
  * 処理の進行状況を示す、確定的(determinate)/不確定(indeterminate)の2状態を
- * 持つコンポーネントの4系列比較。「空状態・ローディング状態」ページとは対象が
+ * 持つコンポーネントの4系列比較。「ローディング状態」ページとは対象が
  * 隣接するが、本ページは進行状況の可視化そのもの(バー・スピナー等の形状と
  * 状態遷移)に焦点を当て、空のコンテナへのプレースホルダー表示や骨組み表示
- * (スケルトン画面)は「空状態・ローディング状態」ページで扱う。
+ * (スケルトン画面)は「ローディング状態」ページで扱う。
  *
  * Nielsen Norman Group(Progress Indicators Make a Slow System Less
  * Insufferable)は本文を直接取得して確認済み(2026-09)。1秒未満は表示不要、
@@ -40,7 +40,7 @@ const SOURCES = [
     stance:
       "進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、可能な限り確定的な表示を優先すべきだとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。",
     exceptions:
-      "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「空状態・ローディング状態」ページ参照)。",
+      "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「ローディング状態」ページ参照)。",
     scenarios: [
       "所要時間が分かるダウンロード・ファイル変換などにプログレスバー(確定的)を使いたい時",
       "所要時間が見積もれない読み込み・同期処理にスピナー(不確定)を使いたい時",
@@ -241,7 +241,7 @@ const LEAD = "処理がどこまで進んだか、または処理中であるこ
 const ABOUT = [
   { k: "目的・役割", v: "待ち時間があることと、進み具合(分かる場合)を伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "ファイルのアップロード・ダウンロード、画面の読み込み、送信中の待ち" },
-  { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/empty-state">空状態・ローディング状態</PageLink></> },
+  { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
 export default function CommunicationProgressPage() {
@@ -386,8 +386,8 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div style={styles.linksRow}>
-            <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態・ローディング状態 ↗</div>
+            <a href="/components/communication/loading" style={styles.linkCard}>
+              <div style={styles.linkCardTitle}>ローディング状態 ↗</div>
               <div style={styles.linkCardDesc}>コンテンツ読み込み中のプレースホルダー表示・骨組み表示の4系列比較</div>
             </a>
             <a href="/components/communication/overview" style={styles.linkCard}>

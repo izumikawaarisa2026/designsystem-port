@@ -209,7 +209,7 @@ const LEAD = "操作の結果を画面の下などに短く表示し、しばら
 const ABOUT = [
   { k: "目的・役割", v: "操作が終わったことを作業を止めずに知らせ、必要なら「元に戻す」などの操作を1つ添える" },
   { k: "よく使われる場面", v: "「メールを削除しました(元に戻す)」「保存しました」などの完了の知らせ" },
-  { k: "似た部品との違い", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/alert">アラート/バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似た部品との違い", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 export default function CommunicationSnackbarPage() {
@@ -256,7 +256,7 @@ export default function CommunicationSnackbarPage() {
               Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内しています。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけています。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではありません</strong>(重要な確認には「ダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>role="status"(控えめ)とrole="alert"(即時)を使い分けるべき</strong>としており、スナックバーの多くはrole="status"に該当します。
+              Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけています。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではありません</strong>(重要な確認には「モーダルダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>role="status"(控えめ)とrole="alert"(即時)を使い分けるべき</strong>としており、スナックバーの多くはrole="status"に該当します。
             </p>
             <p style={styles.synthesisText}>
               なお、Nielsen Norman Groupの用語集では<strong>「Snackbar (Toast)」として1つの項目</strong>にまとめられており、両者を明確に別コンポーネントとして区別しているのは実質<strong>Google(別API)だけ</strong>だという点も付記しておきます。
