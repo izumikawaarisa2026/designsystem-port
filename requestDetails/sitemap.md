@@ -129,9 +129,11 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 
 ## 合計
 
-**思想レイヤー 2 + トークン/ファウンデーションレイヤー 15 + コンポーネントレイヤー 44 + 横断ビュー 1 = 62ページ**(トップページ `index.jsx` を含めると63ページ。2026-10-05時点)
+**思想レイヤー 2 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 45 + 横断ビュー 1 = 61ページ**(トップページ `index.jsx` を含めると62ページ。2026-11時点)
 
-コンポーネントレイヤーの内訳: Actions 3 / Selection 10 / Text inputs 5 / Navigation 7 / Containment 10 / Communication 9。
+コンポーネントレイヤーの内訳: Actions 4 / Selection 11 / Text inputs 4 / Navigation 7 / Containment 10 / Communication 9。
+
+2026-11の変更(③本人レビュー): インタラクション状態をActions(ボタンの次)へ、カレンダーをSelection(日付/タイムピッカーの次)へ移動。「トークン / インタラクション」を「インタラクション」に改名し、サイドバーではCommunicationの下へ移動。キーボードナビゲーションのページを削除(62→61ページ)。URLは変えていない。
 
 2026-10-05の変更: メニューをActions→Selection、ウィジェットをトークン/ファウンデーション→Communicationへ移動。インタラクション状態・モーション・サウンド・入力方法・キーボードナビゲーションを「トークン / インタラクション」グループにまとめた(合計は変わらず)。同日、日付・タイムピッカーもText inputs→Selectionへ移動。
 

@@ -41,19 +41,10 @@ export const NAV_SECTIONS = [
     ],
   },
   {
-    title: "トークン / インタラクション",
-    items: [
-      { label: "インタラクション状態", path: "/tokens/interaction-states", built: true },
-      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
-      { label: "サウンド", path: "/tokens/sound", built: true },
-      { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
-      { label: "キーボードナビゲーション", path: "/tokens/keyboard-navigation", built: true },
-    ],
-  },
-  {
     title: "Actions",
     items: [
       { label: "ボタン", path: "/components/actions/button", built: true },
+      { label: "インタラクション状態", path: "/tokens/interaction-states", built: true },
       { label: "フローティングアクションボタン", path: "/components/actions/fab", built: true },
       { label: "リンク", path: "/components/actions/link", built: true },
     ],
@@ -71,6 +62,7 @@ export const NAV_SECTIONS = [
       { label: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", built: true },
       { label: "メニュー", path: "/components/selection/menu", built: true },
       { label: "日付/タイムピッカー", path: "/components/selection/date-time-picker", built: true },
+      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
     ],
   },
   {
@@ -78,7 +70,6 @@ export const NAV_SECTIONS = [
     items: [
       { label: "テキストフィールド", path: "/components/text-inputs/text-field", built: true },
       { label: "検索フィールド", path: "/components/text-inputs/search-field", built: true },
-      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
       { label: "エラー表示", path: "/components/text-inputs/validation", built: true },
       { label: "バリデーション", path: "/components/text-inputs/input-validation", built: true },
     ],
@@ -122,6 +113,14 @@ export const NAV_SECTIONS = [
       { label: "バッジ", path: "/components/communication/badge", built: true },
       { label: "空状態・ローディング状態", path: "/components/communication/empty-state", built: true },
       { label: "ウィジェット", path: "/components/communication/widget", built: true },
+    ],
+  },
+  {
+    title: "インタラクション",
+    items: [
+      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
+      { label: "サウンド", path: "/tokens/sound", built: true },
+      { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
     ],
   },
   {

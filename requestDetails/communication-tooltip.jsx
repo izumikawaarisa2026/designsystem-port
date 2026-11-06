@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ツールチップ」ページ。
@@ -31,12 +31,13 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines / UIKit ― Tooltip(Help Tag)+ TipKit(Tip)",
+    doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
     color: "#C2542A",
     position: "ポインターホバーで現れる文字のみの「ヘルプタグ(プレーン相当)」に加え、タイトル・メッセージ・任意の画像・アクションボタンを持てる独立フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装上まったく別の2系統を持つ",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
+      { term: "ポップオーバー(Popovers)", desc: "コントロールを押したときに、出現元を指す矢印とともに他の内容の上に現れる一時的なビュー(主にiPad向け)。ボタンなどの操作も置ける。不要になったら自動で閉じるのが基本で、専用の閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたときは作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
       { term: "ヘルプタグ(プレーン相当)", desc: "要素上へのポインターホバーで表示される、文字のみの短い説明。macOS等ポインター操作が可能な環境向け。" },
       { term: "TipKit の Tip(リッチ相当)", desc: "タイトル・メッセージ・任意の画像・アクションボタンを持てる、新機能の紹介などに使う独立フレームワーク。画面内に埋め込む「インライン形式」と、UI上に重ねる「ポップオーバー形式」の2つの見せ方がある。" },
     ],
@@ -56,8 +57,11 @@ const SOURCES = [
       "機能を使うたびに表示したり、操作ガイドや宣伝目的でTipを乱用しない",
     ],
     searchHint: "help tag",
-    url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions",
+    url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS",
     urlSecondary: [
+      { label: "HIG Offering help ― Creating tips(TipKit)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#Creating-tips" },
+      { label: "HIG Popovers(メモ参照)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
+      { label: "UIKit: ヘルプタグ(ツールチップ)の実装", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
       { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
       { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
@@ -475,8 +479,8 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

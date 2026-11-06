@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / スナックバー」ページ。
@@ -29,37 +29,17 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
+    doc: "該当コンポーネントなし(画面に短く出る通知は「トースト」ページを参照)",
     color: "#C2542A",
-    position: "「スナックバー」という名称のコンポーネントはなく、最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知",
-    size: <NoData>数値基準なし</NoData>,
-    colorInfo: <NoData>記載なし</NoData>,
-    scenarios: [
-      "OSレベルの短時間通知を見せたい時(バナー形式)",
-      "アプリ内の一時的なステータス表示は専用コンポーネントがないため独自実装が必要になる時",
-    ],
-    stance:
-      "HIGには「スナックバー」という名称のコンポーネントは見当たらない。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされている。ただしこれは主に通知センターと連動するOSレベルの通知の表示形式であり、アプリ内の一時的なステータスメッセージ専用のコンポーネントとは言い切れない点に注意が必要。",
-    exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていない。重大な確認が必要な場合は、このページの対象ではなく「ダイアログ」ページで比較したAlertsを使うべきと考えられる。",
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "OSレベルの短時間通知にはバナー形式を使う",
-      "アプリ内の一時的なステータス表示に厳密に対応する専用コンポーネントは持たない",
-      "重要な確認が必要な場合は「ダイアログ」ページのAlertsを検討する",
-    ],
+    position: <NoData>該当なし</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    scenarios: ["該当なし"],
+    stance: <NoData>該当なし</NoData>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: ["該当なし"],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    confirmedNote: "「スナックバー」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09)。「Notifications」ページ本文はSPAのため直接確認できていない。",
-    pending: true,
-    illustration: () => (
-      <svg width="140" height="30" viewBox="0 0 140 30">
-        <rect x="1" y="1" width="138" height="28" rx="14" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <circle cx="16" cy="15" r="6" fill="#C2542A" opacity="0.15" />
-        <text x="76" y="19" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通知バナー(近い概念)</text>
-      </svg>
-    ),
-    illustrationNote: "画面上部の短時間バナー(概念図・系列識別色)",
   },
   {
     key: "material",
@@ -310,7 +290,7 @@ export default function CommunicationSnackbarPage() {
                   {s.searchHint && (
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.url && <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>}
                 </div>
                 {s.urlSecondary && (
                   <div style={styles.secondaryLinks}>
@@ -360,7 +340,7 @@ export default function CommunicationSnackbarPage() {
                 <div style={styles.labelCell}>リンク</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                    {s.url ? <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a> : <NoData>該当なし</NoData>}
                     {s.urlSecondary && s.urlSecondary.map((sl) => (
                       <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
                     ))}
@@ -381,15 +361,15 @@ export default function CommunicationSnackbarPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示", "エラー・確認"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示", "エラー・確認"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
             <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・Googleは本文確認済み。W3Cは2026-10にWCAG 4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
+              リンクについて: Appleはスナックバーに当たる部品がないため、リンクはありません(画面に短く出る通知は「トースト」ページで扱います)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
             </span>
           </div>
         </div>

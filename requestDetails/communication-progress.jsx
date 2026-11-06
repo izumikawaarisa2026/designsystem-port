@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -89,8 +89,8 @@ const SOURCES = [
       "長い処理には表現力のあるwavy形状も選択肢にする",
     ],
     searchHint: "",
-    url: "https://m3.material.io/components/progress-indicators/guidelines",
-    urlSecondary: [{ label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
+    url: "https://m3.material.io/components/progress-indicators/overview",
+    urlSecondary: [{ label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" }, { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
     confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
     pending: true,
     illustration: () => (
@@ -397,8 +397,8 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

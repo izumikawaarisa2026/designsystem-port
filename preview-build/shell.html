@@ -79,8 +79,12 @@ function App() {
     const href = a.getAttribute("href");
     if (!href || !href.startsWith("/")) return;
     e.preventDefault();
-    const p = PAGES.find((pg) => pg.path === href.split("#")[0]);
-    if (p) window.location.hash = p.path;
+    const [path, anchor] = href.split("#");
+    const p = PAGES.find((pg) => pg.path === path);
+    // リンク先のページ内の位置(/cross-view#c3 の c3 など)は、次のページが読めるように渡す
+    window.__DSP_ANCHOR = anchor || null;
+    if (p && p !== current) window.location.hash = p.path;
+    else if (p) window.dispatchEvent(new Event("dsp-anchor"));
   };
   const Current = current.Component;
   return (

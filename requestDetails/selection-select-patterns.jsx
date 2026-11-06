@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
@@ -140,7 +141,7 @@ export default function SelectionSelectPatternsPage() {
           <PatternCards />
 
           <div style={styles.tagsRow}>
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

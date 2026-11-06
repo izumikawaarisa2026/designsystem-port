@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -13,7 +13,7 @@ import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
  * 公式ページ本文(Menusページ: 使用法・バリエーション・色・状態・単一選択/複数選択・
  * インタラクションとスタイル・アクセシビリティの各セクション)を確認できたため、その内容を
  * 反映済み(2026-09、MD3_text/pulldown.docx)。これにより、Googleのメニューは単一選択だけでなく
- * 複数選択にも公式に対応していることが判明し、この点をページに反映した(従来は単一選択の
+ * 複数選択にも公式に対応している(2026-11 ③本人レビューNo.029で、複数選択の内容はこのページから外した。従来は単一選択の
  * コンポーネントとしてのみ記載していた)。メニュー全体のdp数値やカラートークン名などの
  * specs数値は未確認。
  * W3CはWCAG本文に加え、WAI-ARIA Authoring Practices(Combobox・Listboxパターン)を直接取得して確認済み。
@@ -57,23 +57,21 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Menus(Exposed dropdown menu)",
     color: "#2F7D6E",
-    position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。単一選択が基本だが、複数選択にも対応する(レアケース)",
+    position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
-      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpと直接確認できました(単一選択・複数選択のメニュー共通)。",
+      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpとされている。",
     colorInfo:
       "メニューには「標準(表面ベースの配色、視覚的強調は控えめ)」と「鮮やか(第三次色ベース、視覚的強調が強い)」の2種類のカラーマッピングがあるとしている。鮮やかな配色は目立つため控えめに使うべきとしている。選択済み/未選択の項目間は、デフォルトで少なくとも3:1のコントラスト比を確保すべきとし、チェックマークなど色以外の視覚的な手がかりも併用することを推奨している。",
     glossary: [
-      { term: "単一選択メニュー / 複数選択メニュー", desc: "メニューは単一選択・複数選択のどちらにも対応する。単一選択メニューは新しい項目を選ぶと以前の選択が自動的に解除されるのに対し、複数選択メニューは複数の項目を選択したままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。" },
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されている。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されるが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。",
+      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。",
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
       "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpです(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしている。無効化された項目はフォーカスを受け取れますが選択はできない(区切り線や空白部分はフォーカスを受け取らない)。",
     useCases: [
       "選択肢が多く、常に全部表示すると場所を取りすぎる場面(ラジオボタン・チップより省スペース)",
-      "単一選択が基本だが、複数の項目を選ばせたい場合は複数選択メニューを使う(レアケース)",
       "オーバーフローメニュー・テキストフィールドのドロップダウン・コンテキストメニューなど、追加の操作が必要な場面に使う",
     ],
     searchHint: "",
@@ -118,9 +116,9 @@ const SOURCES = [
       "選んだだけでページの移動や送信をせず、「移動」「送信」ボタンで実行する(3.2.2)",
     ],
     searchHint: "aria-selected",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
+    url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/",
     urlSecondary: [
-      { label: "APG: Select-Only Comboboxの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+      { label: "APG: Comboboxパターン(全体)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
       { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
       { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { label: "3.2.2 On Input", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
@@ -200,35 +198,6 @@ function GlossaryNote({ items }) {
   );
 }
 
-function MultiSelectMenuIllustration() {
-  return (
-    <svg width="150" height="90" viewBox="0 0 150 90">
-      <rect x="1" y="1" width="148" height="88" rx="6" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
-      <rect x="10" y="10" width="14" height="14" rx="3" fill="#2F7D6E" />
-      <path d="M13 17l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="32" y="21" fontSize="11" fill="#171B36" fontFamily="Jost, Noto Sans JP">チーズ</text>
-      <rect x="10" y="38" width="14" height="14" rx="3" fill="none" stroke="#9EA4C4" strokeWidth="1.6" />
-      <text x="32" y="49" fontSize="11" fill="#565D8A" fontFamily="Jost, Noto Sans JP">ベーコン</text>
-      <rect x="10" y="66" width="14" height="14" rx="3" fill="#2F7D6E" />
-      <path d="M13 73l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="32" y="77" fontSize="11" fill="#171B36" fontFamily="Jost, Noto Sans JP">トマト</text>
-    </svg>
-  );
-}
-
-function MultiSelectMenuSection() {
-  return (
-    <div style={styles.multiSelectCard}>
-      <span style={styles.swatchLabel}>複数選択メニューのイメージ(Google/Material Design 3)</span>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <MultiSelectMenuIllustration />
-      </div>
-      <p style={styles.swatchNote}>複数の項目を選択済みのまま、ユーザーが閉じるまでメニューが開き続ける(例: トッピングの複数選択。概念図・系列識別色)。</p>
-      <a href="https://m3.material.io/components/menus/guidelines" target="_blank" rel="noreferrer" style={styles.sourceLink}>Google公式ページ(Menus)へ ↗</a>
-    </div>
-  );
-}
-
 function SelectSwatch() {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, width: "fit-content", margin: "0 auto" }}>
@@ -283,16 +252,12 @@ export default function SelectionSelectPage() {
 
 
 
-          <MultiSelectMenuSection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解では一致していますが、<strong>Googleは単一選択だけでなく複数選択のメニューにも公式に対応している</strong>点が他の3系列にはない特徴です(実務では単一選択が圧倒的に多いと考えられますが、公式ガイドラインには選択方式として明記されています)。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
-            </p>
-            <p style={styles.synthesisText}>
-              複数選択メニューは、新しい項目を選んでも以前の選択が解除されず、<strong>ユーザーが閉じるまで複数の項目を選び続けられる</strong>という単一選択メニューとは異なる挙動を持ちます。ただし複数選択そのものを目的とするなら、チェックボックスの一覧やフィルタチップのセットの方が選択状態を常に見せられる分わかりやすく、Googleの複数選択メニューは<strong>選択肢が多く画面スペースを節約したい場面向けの、例外的な実装</strong>と捉えるのが実務上妥当でしょう。
+              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致しています。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要です。
@@ -390,8 +355,8 @@ export default function SelectionSelectPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -416,7 +381,6 @@ const styles = {
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
-  multiSelectCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22, textAlign: "center" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },

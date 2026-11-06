@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ページネーション」ページ。
@@ -278,10 +278,10 @@ export default function NavigationPaginationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「ページネーション」という言葉は、実は<strong>2つの異なる場面</strong>を指しています。1つはAppleのPage Controls(オンボーディングのような、少数の固定画面をドットで送る形)、もう1つは検索結果一覧のような可変長のリストを番号で分割する「番号付きページネーション」です。<strong>この2つを混同すると、系列間の比較がずれてしまう</strong>ため、このページでは両方を分けて扱っています。
+              <strong>AppleとGoogleには、番号付きページネーションに当たる専用の部品はありません</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別の部品です)。
             </p>
             <p style={styles.synthesisText}>
-              番号付きページネーションについては、<strong>Google(M3)にも専用コンポーネントが見当たらず</strong>、W3C(WAI-ARIA)にも<strong>専用のロール(role="pagination")は存在しません</strong>。どちらも既存の部品(nav要素・リスト・リンク・aria-current)を組み合わせて実装するという考え方で、ページネーションが多くの系列にとって「独立した部品」ではなく「実装パターン」として扱われていることがわかります。
+              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作ります。ページネーションは独立した部品というより、既存の部品を組み合わせる実装パターンとして扱われています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
@@ -386,8 +386,8 @@ export default function NavigationPaginationPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション", "情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション", "情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

@@ -101,19 +101,10 @@ const NAV_SECTIONS = [
     ],
   },
   {
-    title: "トークン / インタラクション",
-    items: [
-      { label: "インタラクション状態", path: "/tokens/interaction-states", built: true },
-      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
-      { label: "サウンド", path: "/tokens/sound", built: true },
-      { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
-      { label: "キーボードナビゲーション", path: "/tokens/keyboard-navigation", built: true },
-    ],
-  },
-  {
     title: "Actions",
     items: [
       { label: "ボタン", path: "/components/actions/button", built: true },
+      { label: "インタラクション状態", path: "/tokens/interaction-states", built: true },
       { label: "フローティングアクションボタン", path: "/components/actions/fab", built: true },
       { label: "リンク", path: "/components/actions/link", built: true },
     ],
@@ -131,6 +122,7 @@ const NAV_SECTIONS = [
       { label: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", built: true },
       { label: "メニュー", path: "/components/selection/menu", built: true },
       { label: "日付/タイムピッカー", path: "/components/selection/date-time-picker", built: true },
+      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
     ],
   },
   {
@@ -138,7 +130,6 @@ const NAV_SECTIONS = [
     items: [
       { label: "テキストフィールド", path: "/components/text-inputs/text-field", built: true },
       { label: "検索フィールド", path: "/components/text-inputs/search-field", built: true },
-      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
       { label: "エラー表示", path: "/components/text-inputs/validation", built: true },
       { label: "バリデーション", path: "/components/text-inputs/input-validation", built: true },
     ],
@@ -182,6 +173,14 @@ const NAV_SECTIONS = [
       { label: "バッジ", path: "/components/communication/badge", built: true },
       { label: "空状態・ローディング状態", path: "/components/communication/empty-state", built: true },
       { label: "ウィジェット", path: "/components/communication/widget", built: true },
+    ],
+  },
+  {
+    title: "インタラクション",
+    items: [
+      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
+      { label: "サウンド", path: "/tokens/sound", built: true },
+      { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
     ],
   },
   {
@@ -422,7 +421,7 @@ const styles = {
 return SidebarNav;
 })();
 /* ================= page-parts.jsx ================= */
-const { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, SplitSection } = (function () {
+const { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection } = (function () {
 
 /**
  * 各ページで共通に使う部品(③本人レビュー No.001 で決めたページのひな形)。
@@ -431,6 +430,7 @@ const { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, SplitSection }
  *   W3Cは、適合の要件である「達成基準(レベルA/AA/AAA)」と、実装の参考例である「APG」をバッジで見分けられるようにする
  * - Hl: 比較(カード・比較表)の中で、ページ下の「AI解釈 ― 総括」で取り上げている違い・共通点に引くマーカー
  * - NoData: 比較の中の「記載なし」「数値基準なし」「未確認」など、データがない箇所(薄いグレーの文字で示す)
+ * - TagLink / TAG_LIST: ページ末尾のタグ。横断ビューの、そのタグの一覧へのリンクにする
  * - SplitSection: 「意見が分かれる点」(同じ問いに対して、系列によって答えが違う点)
  *
  * ビルド(build_preview.py)では、このファイルの export した名前が全ページから使えるようになる。
@@ -506,6 +506,30 @@ function NoData({ children }) {
   return <span style={partStyles.noData}>{children}</span>;
 }
 
+/* 横断ビューのタグ。番号(No)は横断ビューの「12のくくり」の番号。id は横断ビュー内の位置(/cross-view#c1 など) */
+const TAG_LIST = [
+  { no: 1, id: "c1", tag: "設計の原則・使い分け", icon: "◇", desc: "原則そのものや、似た部品の使い分けをまとめたページ" },
+  { no: 2, id: "c2", tag: "デザインの基礎", icon: "Aa", desc: "色・文字・余白・角丸・影・動き・音など、見た目と動きの土台" },
+  { no: 3, id: "c3", tag: "操作方法(タッチ・キーボード)", icon: "☝", desc: "タップ・ジェスチャー・キーボード・押せる大きさ" },
+  { no: 4, id: "c4", tag: "入力・フォーム", icon: "✎", desc: "文字や値を入力し、送信するまで" },
+  { no: 5, id: "c5", tag: "選択・切り替え", icon: "☑", desc: "選択肢から選ぶ・オン/オフを切り替える" },
+  { no: 6, id: "c6", tag: "検索・絞り込み", icon: "⌕", desc: "探す・フィルタで絞り込む" },
+  { no: 7, id: "c7", tag: "ナビゲーション", icon: "→", desc: "画面やページの間を移動する" },
+  { no: 8, id: "c8", tag: "情報の整理・一覧", icon: "≡", desc: "情報をまとめる・並べる" },
+  { no: 9, id: "c9", tag: "段階的に見せる", icon: "▸", desc: "必要になったときに、詳しい情報や操作を出す" },
+  { no: 10, id: "c10", tag: "見つけやすさ・初めての案内", icon: "✦", desc: "機能に気づかせる・初めての人に使い方を伝える" },
+  { no: 11, id: "c11", tag: "通知・状態表示", icon: "◔", desc: "お知らせ・進み具合・空の状態などを伝える" },
+  { no: 12, id: "c12", tag: "エラー・確認", icon: "!", desc: "間違いを伝える・取り消す・重要な操作を確かめる" },
+];
+const PRINCIPLE_IDS = { "知覚可能(POUR)": "p1", "操作可能(POUR)": "p2", "理解可能(POUR)": "p3", "堅牢(POUR)": "p4" };
+const tagAnchor = (t) => PRINCIPLE_IDS[t] || (TAG_LIST.find((c) => c.tag === t) || {}).id;
+
+function TagLink({ t, style }) {
+  const id = tagAnchor(t);
+  if (!id) return <span style={style}>{t}</span>;
+  return <a href={"/cross-view#" + id} style={{ ...style, textDecoration: "none" }} title="このタグが付いたページの一覧へ">{t}</a>;
+}
+
 /* 意見が分かれる点。splits: [{ q, figure?(問い全体の図), sides: [{ who, color, t, figure? }], tip }] */
 function SplitSection({ title, splits }) {
   return (
@@ -564,11 +588,12 @@ const partStyles = {
   splitTip: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "6px 10px", marginTop: 10, borderRadius: "0 3px 3px 0" },
 };
 
-return { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, SplitSection };
+return { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection };
 })();
 /* ================= actions-button.jsx ================= */
 const ActionsButtonPage = (function () {
 const { useState } = React;
+
 
 
 /**
@@ -1074,8 +1099,8 @@ function ActionsButtonPage() {
           )}
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -1464,8 +1489,8 @@ function ActionsFabPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -1874,8 +1899,8 @@ function ActionsLinkPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -2410,8 +2435,8 @@ function CommunicationAlertPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示", "エラー・確認"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示", "エラー・確認"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -2607,8 +2632,8 @@ const SOURCES = [
         </div>
         <div style={{ position: "relative", width: 26, height: 26 }}>
           <div style={{ width: 26, height: 26, borderRadius: 6, background: "#DDEFEA" }} />
-          <div style={{ position: "absolute", top: -6, right: -10, minWidth: 18, height: 14, borderRadius: 7, background: "#2F7D6E", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 3px" }}>
-            <span style={{ fontSize: 8, color: "#FFFFFF", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>99+</span>
+          <div style={{ position: "absolute", top: -6, right: -14, minWidth: 24, height: 14, borderRadius: 7, background: "#2F7D6E", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 3px" }}>
+            <span style={{ fontSize: 8, color: "#FFFFFF", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>999+</span>
           </div>
         </div>
       </div>
@@ -2642,9 +2667,14 @@ const SOURCES = [
       "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
       "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
     ],
-    searchHint: "aria-label",
-    url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14",
-    urlSecondary: [{ label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
+    searchHint: "programmatically determined",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+    urlSecondary: [
+      { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
+      { label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+    ],
     confirmedNote: "ARIA14・4.1.2解説ページとも本文を直接確認しました(2026-09)。いずれもバッジ専用の一次文書ではなく、一般的なラベリング手法・達成基準をバッジに適用した間接的な整理。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -2913,8 +2943,8 @@ function CommunicationBadgePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -3404,8 +3434,8 @@ function CommunicationEmptyStatePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -3485,6 +3515,7 @@ return CommunicationEmptyStatePage;
 })();
 /* ================= communication-overview.jsx ================= */
 const CommunicationOverviewPage = (function () {
+
 
 
 /**
@@ -3839,7 +3870,7 @@ const styles = {
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
   matrixScroll: { overflowX: "auto", marginBottom: 22 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "170px repeat(9, minmax(96px, 1fr))", minWidth: 1140, border: "1px solid #E1E3F0" },
+  matrixGrid: { display: "grid", gridTemplateColumns: "120px repeat(9, minmax(0, 1fr))", minWidth: 860, border: "1px solid #E1E3F0" },
   headerCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#565D8A", whiteSpace: "pre-line", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1.4 },
   labelCell: { padding: "8px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontSize: 11.5, fontWeight: 700, color: "#171B36", display: "flex", alignItems: "center" },
   cell: { padding: "8px 6px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, color: "#2E3457", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" },
@@ -3995,7 +4026,7 @@ function CommunicationOverviewPage() {
           <RelatedPartsNote />
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -4102,8 +4133,8 @@ const SOURCES = [
       "長い処理には表現力のあるwavy形状も選択肢にする",
     ],
     searchHint: "",
-    url: "https://m3.material.io/components/progress-indicators/guidelines",
-    urlSecondary: [{ label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
+    url: "https://m3.material.io/components/progress-indicators/overview",
+    urlSecondary: [{ label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" }, { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
     confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
     pending: true,
     illustration: () => (
@@ -4406,8 +4437,8 @@ function CommunicationProgressPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -4517,37 +4548,17 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
+    doc: "該当コンポーネントなし(画面に短く出る通知は「トースト」ページを参照)",
     color: "#C2542A",
-    position: "「スナックバー」という名称のコンポーネントはなく、最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知",
-    size: <NoData>数値基準なし</NoData>,
-    colorInfo: <NoData>記載なし</NoData>,
-    scenarios: [
-      "OSレベルの短時間通知を見せたい時(バナー形式)",
-      "アプリ内の一時的なステータス表示は専用コンポーネントがないため独自実装が必要になる時",
-    ],
-    stance:
-      "HIGには「スナックバー」という名称のコンポーネントは見当たらない。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされている。ただしこれは主に通知センターと連動するOSレベルの通知の表示形式であり、アプリ内の一時的なステータスメッセージ専用のコンポーネントとは言い切れない点に注意が必要。",
-    exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていない。重大な確認が必要な場合は、このページの対象ではなく「ダイアログ」ページで比較したAlertsを使うべきと考えられる。",
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "OSレベルの短時間通知にはバナー形式を使う",
-      "アプリ内の一時的なステータス表示に厳密に対応する専用コンポーネントは持たない",
-      "重要な確認が必要な場合は「ダイアログ」ページのAlertsを検討する",
-    ],
+    position: <NoData>該当なし</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    scenarios: ["該当なし"],
+    stance: <NoData>該当なし</NoData>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: ["該当なし"],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    confirmedNote: "「スナックバー」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09)。「Notifications」ページ本文はSPAのため直接確認できていない。",
-    pending: true,
-    illustration: () => (
-      <svg width="140" height="30" viewBox="0 0 140 30">
-        <rect x="1" y="1" width="138" height="28" rx="14" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <circle cx="16" cy="15" r="6" fill="#C2542A" opacity="0.15" />
-        <text x="76" y="19" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通知バナー(近い概念)</text>
-      </svg>
-    ),
-    illustrationNote: "画面上部の短時間バナー(概念図・系列識別色)",
   },
   {
     key: "material",
@@ -4794,7 +4805,7 @@ function CommunicationSnackbarPage() {
                   {s.searchHint && (
                     <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  {s.url && <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>}
                 </div>
                 {s.urlSecondary && (
                   <div style={styles.secondaryLinks}>
@@ -4844,7 +4855,7 @@ function CommunicationSnackbarPage() {
                 <div style={styles.labelCell}>リンク</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                    {s.url ? <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a> : <NoData>該当なし</NoData>}
                     {s.urlSecondary && s.urlSecondary.map((sl) => (
                       <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
                     ))}
@@ -4865,15 +4876,15 @@ function CommunicationSnackbarPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示", "エラー・確認"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示", "エラー・確認"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
             <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・Googleは本文確認済み。W3Cは2026-10にWCAG 4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
+              リンクについて: Appleはスナックバーに当たる部品がないため、リンクはありません(画面に短く出る通知は「トースト」ページで扱います)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
             </span>
           </div>
         </div>
@@ -5325,8 +5336,8 @@ function CommunicationToastPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -5437,12 +5448,13 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines / UIKit ― Tooltip(Help Tag)+ TipKit(Tip)",
+    doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
     color: "#C2542A",
     position: "ポインターホバーで現れる文字のみの「ヘルプタグ(プレーン相当)」に加え、タイトル・メッセージ・任意の画像・アクションボタンを持てる独立フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装上まったく別の2系統を持つ",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
+      { term: "ポップオーバー(Popovers)", desc: "コントロールを押したときに、出現元を指す矢印とともに他の内容の上に現れる一時的なビュー(主にiPad向け)。ボタンなどの操作も置ける。不要になったら自動で閉じるのが基本で、専用の閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたときは作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
       { term: "ヘルプタグ(プレーン相当)", desc: "要素上へのポインターホバーで表示される、文字のみの短い説明。macOS等ポインター操作が可能な環境向け。" },
       { term: "TipKit の Tip(リッチ相当)", desc: "タイトル・メッセージ・任意の画像・アクションボタンを持てる、新機能の紹介などに使う独立フレームワーク。画面内に埋め込む「インライン形式」と、UI上に重ねる「ポップオーバー形式」の2つの見せ方がある。" },
     ],
@@ -5462,8 +5474,11 @@ const SOURCES = [
       "機能を使うたびに表示したり、操作ガイドや宣伝目的でTipを乱用しない",
     ],
     searchHint: "help tag",
-    url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions",
+    url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS",
     urlSecondary: [
+      { label: "HIG Offering help ― Creating tips(TipKit)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#Creating-tips" },
+      { label: "HIG Popovers(メモ参照)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
+      { label: "UIKit: ヘルプタグ(ツールチップ)の実装", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
       { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
       { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
@@ -5877,8 +5892,8 @@ function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -6490,8 +6505,8 @@ function CommunicationWidgetPage() {
           </section>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -6643,7 +6658,11 @@ const SOURCES = [
       "開示ボタンは内容の近くに置き、1つのビューに1つまでにする",
     ],
     searchHint: "descriptive label",
-    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls",
+    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles",
+    urlSecondary: [
+      { label: "Disclosure controls ― Disclosure buttons", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-buttons" },
+      { label: "Disclosure controls ― iOS・iPadOS・visionOS(DisclosureGroup)", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
+    ],
     confirmedNote: "HIGのページデータ(Disclosure controlsのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="60" viewBox="0 0 120 60">
@@ -6926,8 +6945,8 @@ function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -7369,8 +7388,8 @@ function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -7790,8 +7809,8 @@ function ContainmentCardPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -7940,6 +7959,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/carousel/guidelines",
     urlSecondary: [
+      { label: "カルーセルの種類(Multi-browse・Uncontained・Hero・Full-screen)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md#layouts-of-carousel" },
       { label: "MDC Android: Carousels(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md" },
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
       { label: "Compose Material 3: Carousel.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/carousel/Carousel.kt" },
@@ -8540,8 +8560,8 @@ function ContainmentCarouselPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -9026,8 +9046,8 @@ function ContainmentDialogPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["エラー・確認"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["エラー・確認"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -9488,8 +9508,8 @@ function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -9930,8 +9950,8 @@ function ContainmentListPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -10039,38 +10059,18 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Popovers(サイドシートに当たる専用の部品はなく、役割が近いものを参考として掲載)",
+    doc: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)",
     color: "#C2542A",
-    position: "コントロールをタップ/クリックした際に、出現元を示す矢印とともに現れる一時的なビュー(主にiPad向け)",
+    position: <NoData>該当なし</NoData>,
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
-    stance:
-      "サイドシートに当たる専用の部品はAppleにはない。役割が近いポップオーバーを参考として載せている(形も閉じ方も別物)。ポップオーバーは、コントロールや対話可能な領域をタップ・クリックした際に他のコンテンツの上に現れる一時的なビューで、通常は出現元を指す矢印を持つとしている。ユーザー視点で捉えると、ポップオーバーは軽量・非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間に位置する性質を持つと言える。コントロールから吹き出すように出現し、範囲外のタップで自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的。",
-    scenarios: [
-      "画面上のコンテンツに関連する選択肢や情報を示したい時(例: 共有オプションの表示)",
-      "軽量で一時的な操作パネルを、対象コントロールの近くに表示したい時",
-    ],
-    exceptions:
-      "「閉じる」専用のボタンは基本的に置くべきではなく、ポップオーバーは不要になった時点で自動的に閉じるべきとしている。ただし、変更を保存する/しないを明確にする必要がある場面では、キャンセル・完了などの閉じるボタンを含める価値があるとしている。範囲外のタップで自動的に閉じる際は作業内容を保存しておくべきで、明示的なキャンセル操作があった場合のみ破棄すべきだとしている。",
+    stance: <NoData>該当なし</NoData>,
+    scenarios: ["該当なし"],
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "画面上のコントロールに関連する選択肢・情報を表示する",
-      "範囲外のタップや選択後は自動的に閉じるようにする(明示的な閉じるボタンは限定的に使う)",
-      "ポップオーバーが重要なコンテンツやトリガー元の要素を覆わないようにする",
-    ],
+    useCases: ["該当なし"],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/popovers",
-    confirmedNote: "「Popovers」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
-    illustration: () => (
-      <svg width="120" height="70" viewBox="0 0 120 70">
-        <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#C2542A" strokeWidth="1.2" strokeDasharray="2 2" />
-        <rect x="30" y="10" width="70" height="34" rx="6" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <path d="M55 44l6 8 6-8z" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <text x="65" y="30" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ポップオーバー</text>
-      </svg>
-    ),
-    illustrationNote: "出現元を指す矢印付きの一時的なビュー(概念図・系列識別色)",
   },
   {
     key: "material",
@@ -10397,8 +10397,8 @@ function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -11011,8 +11011,8 @@ function ContainmentTablePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "検索・絞り込み"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "検索・絞り込み"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -11106,7 +11106,8 @@ return ContainmentTablePage;
 })();
 /* ================= cross-view.jsx ================= */
 const CrossViewPage = (function () {
-const { useState } = React;
+const { useState, useEffect, useRef } = React;
+
 
 
 /**
@@ -11135,12 +11136,8 @@ const TAG_INDEX = [
   {"group": "トークン / ファウンデーション", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "ダークモード", "path": "/tokens/dark-mode", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "アダプティブ/レスポンシブ", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / インタラクション", "label": "インタラクション状態", "path": "/tokens/interaction-states", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎", "操作方法(タッチ・キーボード)"]},
-  {"group": "トークン / インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
-  {"group": "トークン / インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
-  {"group": "トークン / インタラクション", "label": "キーボードナビゲーション", "path": "/tokens/keyboard-navigation", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "ナビゲーション"]},
   {"group": "Actions", "label": "ボタン", "path": "/components/actions/button", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
+  {"group": "Actions", "label": "インタラクション状態", "path": "/tokens/interaction-states", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎", "操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "フローティングアクションボタン", "path": "/components/actions/fab", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "リンク", "path": "/components/actions/link", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Selection", "label": "Selectionの選び方", "path": "/components/selection/overview", "principles": [], "processes": ["設計の原則・使い分け", "選択・切り替え"]},
@@ -11153,9 +11150,9 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
+  {"group": "Selection", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "テキストフィールド", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "検索フィールド", "path": "/components/text-inputs/search-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["検索・絞り込み", "見つけやすさ・初めての案内"]},
-  {"group": "Text inputs", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Navigation", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
@@ -11184,6 +11181,9 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "空状態・ローディング状態", "path": "/components/communication/empty-state", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
+  {"group": "インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
+  {"group": "インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
 ];
 /*__TAG_INDEX_END__*/
 
@@ -11197,25 +11197,13 @@ const POUR_TAGS = POUR.map((p) => p.tag);
 
 /* プロセスタグ(12のくくり)。2026-10-04に、ページごとにばらばらだった26種類のタグをまとめ直し、
    同日、軸を「利用者が何をしたいか(作業・場面)」にそろえて組み直した。
-   新しいページにタグを付けるときは、この12個から選ぶ(ここにないタグは下の「未定義のタグ」に表示される)。 */
-const CATEGORIES = [
-  { tag: "設計の原則・使い分け", icon: "◇", desc: "原則そのものや、似た部品の使い分けをまとめたページ" },
-  { tag: "デザインの基礎", icon: "Aa", desc: "色・文字・余白・角丸・影・動き・音など、見た目と動きの土台" },
-  { tag: "操作方法(タッチ・キーボード)", icon: "☝", desc: "タップ・ジェスチャー・キーボード・押せる大きさ" },
-  { tag: "入力・フォーム", icon: "✎", desc: "文字や値を入力し、送信するまで" },
-  { tag: "選択・切り替え", icon: "☑", desc: "選択肢から選ぶ・オン/オフを切り替える" },
-  { tag: "検索・絞り込み", icon: "⌕", desc: "探す・フィルタで絞り込む" },
-  { tag: "ナビゲーション", icon: "→", desc: "画面やページの間を移動する" },
-  { tag: "情報の整理・一覧", icon: "≡", desc: "情報をまとめる・並べる" },
-  { tag: "段階的に見せる", icon: "▸", desc: "必要になったときに、詳しい情報や操作を出す" },
-  { tag: "見つけやすさ・初めての案内", icon: "✦", desc: "機能に気づかせる・初めての人に使い方を伝える" },
-  { tag: "通知・状態表示", icon: "◔", desc: "お知らせ・進み具合・空の状態などを伝える" },
-  { tag: "エラー・確認", icon: "!", desc: "間違いを伝える・取り消す・重要な操作を確かめる" },
-];
+   新しいページにタグを付けるときは、この12個から選ぶ(ここにないタグは下の「未定義のタグ」に表示される)。
+   12個の定義は page-parts.jsx の TAG_LIST にある。 */
+const CATEGORIES = TAG_LIST; // 番号・アンカーと一緒に page-parts.jsx で定義(各ページのタグのリンクと共通)
 const CATEGORY_TAGS = CATEGORIES.map((c) => c.tag);
 
 /* サイドバーのグループを、サイトの3つの層にまとめる */
-const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group.startsWith("トークン") ? "トークン / ファウンデーション" : "コンポーネント");
+const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group.startsWith("トークン") || group === "インタラクション" ? "トークン / ファウンデーション・インタラクション" : "コンポーネント");
 
 const tagged = TAG_INDEX.filter((p) => p.principles.length || p.processes.length);
 const untagged = TAG_INDEX.filter((p) => !p.principles.length && !p.processes.length);
@@ -11288,7 +11276,7 @@ function CategoryGrid({ sel, onSelect }) {
         const on = sel === c.tag;
         return (
           <button key={c.tag} type="button" onClick={() => onSelect(c.tag)} aria-pressed={on} style={{ ...styles.catCard, ...(on ? styles.catCardOn : {}) }}>
-            <span style={{ ...styles.catIcon, ...(on ? styles.catIconOn : {}) }}>{c.icon}</span>
+            <span style={{ ...styles.catIcon, ...(on ? styles.catIconOn : {}) }}>{c.no}</span>
             <span style={{ minWidth: 0, textAlign: "left" }}>
               <span style={styles.catName}>{c.tag}<span style={styles.catCount}>{n}</span></span>
               <span style={styles.catDesc}>{c.desc}</span>
@@ -11304,9 +11292,9 @@ function CategoryGrid({ sel, onSelect }) {
 function TagResult({ sel }) {
   const isPrinciple = principleCounts.some(([t]) => t === sel);
   const hits = tagged.filter((p) => (isPrinciple ? p.principles : p.processes).includes(sel));
-  const byLayer = ["思想レイヤー", "トークン / ファウンデーション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
+  const byLayer = ["思想レイヤー", "トークン / ファウンデーション・インタラクション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
   return (
-    <div style={styles.resultBox} aria-live="polite">
+    <div id={tagAnchor(sel)} style={styles.resultBox} aria-live="polite">
       <div style={styles.resultHead}>
         <span style={isPrinciple ? styles.tagPrinciple : styles.tagProcess}>{sel}</span>
         <span style={styles.resultCount}>{hits.length}ページ</span>
@@ -11334,11 +11322,24 @@ function TagResult({ sel }) {
 }
 
 /* タグを選ぶと、そのタグを持つページを層ごとに並べる */
+const tagOfAnchor = (id) => [...CATEGORIES.map((c) => c.tag), ...POUR_TAGS].find((t) => tagAnchor(t) === id);
+
 function TagExplorer() {
-  const [sel, setSel] = useState(CATEGORIES[5].tag);
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
+  // ほかのページのタグ(/cross-view#c3 など)から来たときは、そのタグを選んだ状態で開く
+  const fromLink = typeof window !== "undefined" ? tagOfAnchor(window.__DSP_ANCHOR) : null;
+  const [sel, setSel] = useState(fromLink || CATEGORIES[5].tag);
+  const resultRef = useRef(null);
+  const scrollToResult = () => resultRef.current && resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    if (fromLink) { window.__DSP_ANCHOR = null; setTimeout(scrollToResult, 50); }
+    const onAnchor = () => { const t = tagOfAnchor(window.__DSP_ANCHOR); window.__DSP_ANCHOR = null; if (t) { setSel(t); setTimeout(scrollToResult, 50); } };
+    window.addEventListener("dsp-anchor", onAnchor);
+    return () => window.removeEventListener("dsp-anchor", onAnchor);
+  }, []);
+  const select = (t) => { setSel(t); setTimeout(scrollToResult, 50); };
   const chip = ([t, n], principle) => (
-    <button key={t} type="button" onClick={() => setSel(t)} aria-pressed={!isStatic && sel === t}
+    <button key={t} type="button" onClick={() => select(t)} aria-pressed={!isStatic && sel === t}
       style={{ ...styles.chip, ...(principle ? styles.chipPrinciple : {}), ...(!isStatic && sel === t ? (principle ? styles.chipPrincipleOn : styles.chipOn) : {}) }}>
       {t}<span style={styles.chipCount}>{n}</span>
     </button>
@@ -11346,7 +11347,7 @@ function TagExplorer() {
   return (
     <div>
       <div style={styles.chipGroupLabel}>プロセスタグ(12のくくり)― 作業や場面から探す</div>
-      <CategoryGrid sel={isStatic ? null : sel} onSelect={setSel} />
+      <CategoryGrid sel={isStatic ? null : sel} onSelect={select} />
       <div style={styles.chipGroupLabel}>原則タグ ― WCAGのPOURから探す</div>
       <div style={styles.chipRow}>{POUR_TAGS.map((t) => chip([t, pourCount(t)], true))}{otherPrinciples.map((c) => chip(c, true))}</div>
       {undefinedTags.length > 0 && (
@@ -11357,38 +11358,32 @@ function TagExplorer() {
         // 静的HTMLの書き出し時は、すべてのタグの結果を並べる(押して切り替えられないため)
         [...CATEGORIES.map((c) => c.tag), ...POUR_TAGS, ...otherPrinciples.map(([t]) => t)].map((t) => <TagResult key={t} sel={t} />)
       ) : (
-        <TagResult sel={sel} />
+        <div ref={resultRef} style={{ scrollMarginTop: 16 }}><TagResult sel={sel} /></div>
       )}
     </div>
   );
 }
 
-/* 全ページのタグ一覧(折りたたみ) */
-function AllPagesTable() {
+/* 12のくくりの番号と内容の対応表。くくりの名前を押すと、下の「関係するページ」へ移る */
+function CategoryTable() {
   return (
-    <details style={styles.fold} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
-      <summary style={styles.foldSummary}>全ページのタグ一覧を開く({tagged.length}ページ。このページを除く)</summary>
-      <div style={styles.foldBody}>
-        {groups.map((g) => {
-          const pages = tagged.filter((p) => p.group === g);
-          if (!pages.length) return null;
-          return (
-            <div key={g} style={{ marginBottom: 12 }}>
-              <div style={styles.allGroup}>{g}</div>
-              {pages.map((p) => (
-                <div key={p.path} style={styles.allRow}>
-                  <a href={p.path} style={styles.allLink}>{p.label}</a>
-                  <span style={styles.resultTags}>
-                    {p.principles.map((t) => <span key={t} style={styles.miniPrinciple}>{t}</span>)}
-                    {p.processes.map((t) => <span key={t} style={styles.miniProcess}>{t}</span>)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-    </details>
+    <div style={styles.numTableScroll}>
+      <table style={styles.numTable}>
+        <thead>
+          <tr><th style={{ ...styles.numTh, width: 44 }}>No.</th><th style={styles.numTh}>くくり</th><th style={styles.numTh}>内容</th><th style={{ ...styles.numTh, width: 64, textAlign: "right" }}>ページ数</th></tr>
+        </thead>
+        <tbody>
+          {CATEGORIES.map((c) => (
+            <tr key={c.tag}>
+              <td style={{ ...styles.numTd, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#3C5A73" }}>{c.no}</td>
+              <td style={{ ...styles.numTd, fontWeight: 700 }}><a href={"/cross-view#" + c.id} style={styles.inlineLink}>{c.tag}</a></td>
+              <td style={styles.numTd}>{c.desc}</td>
+              <td style={{ ...styles.numTd, textAlign: "right", fontFamily: "'IBM Plex Mono', monospace" }}>{(processCounts.find(([t]) => t === c.tag) || [c.tag, 0])[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -11443,6 +11438,11 @@ function CrossViewPage() {
             <p style={styles.swatchNote}>このページは一次情報を持たず、各ページのタグを集計して自動で作っています。ページを追加したりタグを直したりすると、次のビルドでこの一覧にも反映されます。</p>
           </div>
 
+          <section style={styles.section}>
+            <h2 style={styles.diagramTitle}>12のくくり ― 番号と内容</h2>
+            <CategoryTable />
+          </section>
+
           <TrendSummary />
 
           <div style={styles.chartCard}>
@@ -11455,17 +11455,13 @@ function CrossViewPage() {
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>
             <p style={styles.diagramNote}>くくりやタグを押すと、それが付いたページを層ごとに並べます。カードの下の小さいタグは、そのページに付いているほかのタグです。数字はページ数です。</p>
             <TagExplorer />
-          </section>
-
-          <section style={styles.section}>
-            <h2 style={styles.diagramTitle}>全ページのタグ一覧</h2>
-            <AllPagesTable />
             {untagged.length > 0 && (
               <p style={styles.chartNote}>
                 タグが付いていないページ({untagged.length}): {untagged.map((p, i) => (<React.Fragment key={p.path}>{i > 0 && "・"}<a href={p.path} style={styles.inlineLink}>{p.label}</a></React.Fragment>))}。12のくくりから選んでタグを付けてください。
               </p>
             )}
           </section>
+
 
           <div style={styles.footer}>
             <span>最終確認: 2026-10(各ページのタグをビルド時に自動で集計)</span>
@@ -11533,13 +11529,11 @@ const styles = {
   resultTags: { display: "flex", flexWrap: "wrap", gap: 4, marginTop: 2 },
   miniPrinciple: { fontSize: 9.5, padding: "1px 6px", borderRadius: 3, background: "#454C78", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
   miniProcess: { fontSize: 9.5, padding: "1px 6px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
-  fold: { border: "1px solid #E1E3F0", borderRadius: 6, background: "#FFFFFF" },
-  foldSummary: { cursor: "pointer", padding: "10px 12px", fontSize: 12.5, fontWeight: 700, color: "#171B36" },
-  foldBody: { padding: "4px 12px 12px" },
-  allGroup: { fontSize: 11.5, fontWeight: 700, color: "#565D8A", borderBottom: "1px solid #E1E3F0", padding: "4px 0", marginBottom: 4 },
-  allRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "2px 12px", alignItems: "center", padding: "5px 0", borderBottom: "1px dashed #EEF0F7" },
-  allLink: { fontSize: 12, color: "#3A4FCF", textDecoration: "underline" },
   inlineLink: { color: "#3A4FCF", textDecoration: "underline" },
+  numTableScroll: { overflowX: "auto" },
+  numTable: { width: "100%", minWidth: 480, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" },
+  numTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "7px 10px", borderBottom: "1px solid #E1E3F0" },
+  numTd: { padding: "7px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.55, verticalAlign: "top" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
@@ -12196,8 +12190,8 @@ function NavigationAppBarPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション", "検索・絞り込み"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション", "検索・絞り込み"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -12499,7 +12493,7 @@ function NavigationBreadcrumbPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              パンくずリストは、4系列のうち<strong>実質的にW3C(WAI-ARIA)とNielsen Norman Groupの2系列だけが専用の内容を持つ</strong>、やや特殊なコンポーネントです。Appleは「パンくずリスト」という名称の専用ガイドラインページを持たず、階層は<strong>戻るボタンによるナビゲーションスタック</strong>で扱うのが基本という設計思想と考えられます。Googleにも、専用のコンポーネントページは見当たりません。
+              <strong>AppleとGoogleには、パンくずリストに当たる専用の部品はありません</strong>(Appleは、階層を戻るボタンで行き来するのが基本です)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列です。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
@@ -12610,8 +12604,8 @@ function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -13071,8 +13065,8 @@ function NavigationDrawerPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -13251,7 +13245,6 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-bar/guidelines",
-    urlSecondary: [{ label: "アプリバー", url: "https://m3.material.io/components/app-bars/guidelines" }],
     confirmedNote: "使用法・バリエーション(ベースライン/フレキシブル)・配置・状態の保持/リセット・インタラクションとスタイル・アクセシビリティ(ラベル要件・テキスト拡大)の各セクションは2026-09時点で公式ページ本文(m3.material.io「Navigation bar」のガイドライン)を確認済み。具体的な高さなどのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -13549,8 +13542,8 @@ function NavigationNavBarPage() {
           <TopBarPointerSection />
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -13908,10 +13901,10 @@ function NavigationPaginationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「ページネーション」という言葉は、実は<strong>2つの異なる場面</strong>を指しています。1つはAppleのPage Controls(オンボーディングのような、少数の固定画面をドットで送る形)、もう1つは検索結果一覧のような可変長のリストを番号で分割する「番号付きページネーション」です。<strong>この2つを混同すると、系列間の比較がずれてしまう</strong>ため、このページでは両方を分けて扱っています。
+              <strong>AppleとGoogleには、番号付きページネーションに当たる専用の部品はありません</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別の部品です)。
             </p>
             <p style={styles.synthesisText}>
-              番号付きページネーションについては、<strong>Google(M3)にも専用コンポーネントが見当たらず</strong>、W3C(WAI-ARIA)にも<strong>専用のロール(role="pagination")は存在しません</strong>。どちらも既存の部品(nav要素・リスト・リンク・aria-current)を組み合わせて実装するという考え方で、ページネーションが多くの系列にとって「独立した部品」ではなく「実装パターン」として扱われていることがわかります。
+              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作ります。ページネーションは独立した部品というより、既存の部品を組み合わせる実装パターンとして扱われています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
@@ -14016,8 +14009,8 @@ function NavigationPaginationPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション", "情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション", "情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -14466,8 +14459,8 @@ function NavigationSegmentedControlPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -14545,6 +14538,7 @@ return NavigationSegmentedControlPage;
 })();
 /* ================= navigation-tabs-vs-segmented.jsx ================= */
 const NavigationTabsVsSegmentedPage = (function () {
+
 
 
 /**
@@ -14693,20 +14687,33 @@ function ExampleList() {
 }
 
 const SYSTEM_VIEWS = [
-  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab BarsとSegmented Controlsを別々のガイドラインページで明確に区別している。タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素(画面の中のタブとは別の部品)、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。" },
-  { key: "material", name: "Google", color: "#2F7D6E", text: "TabsとSegmented buttonsを別コンポーネントとして扱っている。タブはコンテンツを画面・データセットのカテゴリに整理するもの、セグメントボタンは選択・表示切替・並べ替えを助けるものと説明している。" },
-  { key: "wcag", name: "W3C", color: "#A3821F", text: "「タブ」「セグメントコントロール」という名称や専用roleでの区別は持たない。WAI-ARIAにはtablist/tabパターンはあるが、セグメントコントロール専用のroleは存在せず、挙動(パネルを切り替えるか、持続する選択状態を示すか)に応じてtablist/tabかradiogroup/radioのいずれかを選ぶ、と考えられる(AI解釈。W3Cはセグメントコントロールについて定めていない)。名称ではなく振る舞いで判断する点が特徴的。", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
-  { key: "nn", name: "Nielsen Norman Group", color: "#7A4F7E", text: "両者を正面から比較した記事は見当たらないが、UI Elements Glossaryで「Segmented Button」と「Tab Bar」をそれぞれ別項目として定義している。Segmented Buttonは同じデータの異なるビューの切り替えやコンテンツの絞り込みに使う、Tab Barは利用可能な選択肢(タブ)の中から1つのパネルだけを選択的に表示するとしており、この定義の違いが使い分けの手がかりになる。", url: "https://www.nngroup.com/articles/ui-elements-glossary/" },
+  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab BarsとSegmented Controlsを別々のガイドラインページで明確に区別している。タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素(画面の中のタブとは別の部品)、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
+    { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+    { label: "Segmented controls", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
+  ] },
+  { key: "material", name: "Google", color: "#2F7D6E", text: "TabsとSegmented buttonsを別コンポーネントとして扱っている。タブはコンテンツを画面・データセットのカテゴリに整理するもの、セグメントボタンは選択・表示切替・並べ替えを助けるものと説明している。", links: [
+    { label: "Tabs ― Guidelines", url: "https://m3.material.io/components/tabs/guidelines" },
+    { label: "Segmented buttons ― Guidelines", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
+  ] },
+  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブ(tablist/tab)の型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
+    { label: "APG: Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
+    { label: "APG: Radio Groupパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
+  ] },
+  { key: "nn", name: "Nielsen Norman Group", color: "#7A4F7E", none: true, text: "タブとセグメントコントロールの使い分けを比べた記事はなし。用語集では別々の項目として定義しており、Segmented Buttonは同じデータの見せ方の切り替えや絞り込み、Tab Barは選んだ1つのパネルだけを表示するもの、としている。", links: [
+    { label: "UI Elements Glossary: Segmented Button", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button" },
+    { label: "UI Elements Glossary: Tab Bar", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Tab-Bar" },
+  ] },
 ];
 
 function SystemViews() {
   return (
     <div style={styles.systemGrid}>
       {SYSTEM_VIEWS.map((s) => (
-        <div key={s.key} style={{ ...styles.systemCard, borderLeftColor: s.color }}>
-          <span style={{ ...styles.systemName, color: s.color }}>{s.name}</span>
-          <p style={styles.systemText}>{s.text}</p>
+        <div key={s.key} style={{ ...styles.systemCard, borderLeftColor: s.none ? "#D5D9EC" : s.color }}>
+          <span style={{ ...styles.systemName, color: s.none ? "#9EA4C4" : s.color }}>{s.name}{s.none && <span style={styles.noneBadge}>該当なし</span>}</span>
+          <p style={{ ...styles.systemText, ...(s.none ? { color: "#9EA4C4" } : {}) }}>{s.text}</p>
           {s.url && (<a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>)}
+          {s.links && s.links.map((l) => (<a key={l.url} href={l.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, display: "block", marginTop: 3 }}>{l.label} ↗</a>))}
         </div>
       ))}
     </div>
@@ -14820,7 +14827,7 @@ function NavigationTabsVsSegmentedPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。
+              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。W3CとNN groupには、この使い分けを直接扱う記載はありません。
             </p>
             <p style={styles.synthesisText}>
               最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>です。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものです(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替える部品として定義しています)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、移動はせず同じデータの見せ方だけが変わります。
@@ -14860,7 +14867,7 @@ function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -14899,6 +14906,7 @@ const styles = {
   systemName: { display: "block", fontSize: 12.5, fontWeight: 700, marginBottom: 6 },
   systemText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "0 0 8px" },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
+  noneBadge: { fontSize: 10, fontWeight: 600, color: "#9EA4C4", border: "1px solid #D5D9EC", borderRadius: 3, padding: "0 5px", marginLeft: 8 },
   compareScroll: { overflowX: "auto", marginBottom: 22 },
   compareGrid: { display: "grid", gridTemplateColumns: "150px 1fr 1fr", minWidth: 640, border: "1px solid #E1E3F0" },
   compareCell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, lineHeight: 1.6 },
@@ -15369,8 +15377,8 @@ function NavigationTabsPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -15441,6 +15449,7 @@ return NavigationTabsPage;
 })();
 /* ================= principles-accessibility.jsx ================= */
 const PrinciplesAccessibilityPage = (function () {
+
 
 
 /**
@@ -15716,8 +15725,8 @@ function PrinciplesAccessibilityPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["設計の原則・使い分け"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -15788,6 +15797,7 @@ return PrinciplesAccessibilityPage;
 const PrinciplesComparisonPage = (function () {
 
 
+
 /**
  * 思想レイヤー「原則比較」ページ。
  * コンポーネントページの「基準値+許容レンジ図」というデータモデルはここには馴染まないため、
@@ -15853,6 +15863,7 @@ const FRAMEWORKS = [
         desc: "46件の調査研究・18,000人以上のデータに基づき、使いやすさと感情に働きかけるデザインを両立させている。",
         sub: [],
         url: "https://design.google/library/expressive-material-design-google-research",
+        more: { label: "M3の基礎(Foundations)", url: "https://m3.material.io/foundations" },
       },
     ],
     url: "https://design.google/library/expressive-material-design-google-research",
@@ -15897,10 +15908,10 @@ const FRAMEWORKS = [
 ];
 
 const OVERLAP_ROWS = [
-  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: "―(直接対応する項目なし)", wcag: "(Understandableに関連する考え方だが、直接対応する項目はない)", nn: "システムと実世界の一致 / 一貫性と標準" },
-  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: "―(直接対応する項目なし)", wcag: "(Operableに関連する考え方だが、直接対応する項目はない)", nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
-  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: "(直接対応する項目はない)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
-  { theme: "アクセシビリティを前提とする発想", hig: "Responsibility(関連する考え方だが、直接対応する項目ではない)", material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "(POUR全体がこの発想の規格化)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
+  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
+  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
+  { theme: "アクセシビリティを前提とする発想", hig: <>Responsibility<NoData>(関連する考え方だが、直接対応する項目ではない)</NoData></>, material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
 ];
 
 function CountDots({ count, color, label }) {
@@ -16017,6 +16028,9 @@ function PrinciplesComparisonPage() {
                             {it.url && (
                               <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>
                             )}
+                            {it.more && (
+                              <a href={it.more.url} target="_blank" rel="noreferrer" style={styles.genLink}>{it.more.label} ↗</a>
+                            )}
                           </div>
                           <p style={styles.genDesc}>{it.desc}</p>
                           <div style={styles.genSubList}>
@@ -16103,8 +16117,8 @@ function PrinciplesComparisonPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["設計の原則・使い分け"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -16655,8 +16669,8 @@ function SelectionCheckboxPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -17225,8 +17239,8 @@ function SelectionChipsPage() {
           <SizeInfographic />
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "検索・絞り込み"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "検索・絞り込み"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -17964,8 +17978,8 @@ function SelectionDateTimePickerPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["入力・フォーム", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["入力・フォーム", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -18610,15 +18624,11 @@ function SelectionMenuPage() {
               <div style={styles.linkCardTitle}>セレクト(プルダウン) ↗</div>
               <div style={styles.linkCardDesc}>値を選んで表示し続ける部品の比較はこちら</div>
             </a>
-            <a href="/tokens/keyboard-navigation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>キーボードナビゲーション ↗</div>
-              <div style={styles.linkCardDesc}>Tabと矢印キーの役割分担・ショートカットのルールはこちら</div>
-            </a>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -18718,6 +18728,7 @@ return SelectionMenuPage;
 })();
 /* ================= selection-overview.jsx ================= */
 const SelectionOverviewPage = (function () {
+
 
 
 /**
@@ -18999,7 +19010,7 @@ function SelectionOverviewPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -19414,8 +19425,8 @@ function SelectionRadioPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -19497,6 +19508,7 @@ return SelectionRadioPage;
 })();
 /* ================= selection-select-patterns.jsx ================= */
 const SelectionSelectPatternsPage = (function () {
+
 
 
 /**
@@ -19638,7 +19650,7 @@ function SelectionSelectPatternsPage() {
           <PatternCards />
 
           <div style={styles.tagsRow}>
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -19693,7 +19705,7 @@ const SelectionSelectPage = (function () {
  * 公式ページ本文(Menusページ: 使用法・バリエーション・色・状態・単一選択/複数選択・
  * インタラクションとスタイル・アクセシビリティの各セクション)を確認できたため、その内容を
  * 反映済み(2026-09、MD3_text/pulldown.docx)。これにより、Googleのメニューは単一選択だけでなく
- * 複数選択にも公式に対応していることが判明し、この点をページに反映した(従来は単一選択の
+ * 複数選択にも公式に対応している(2026-11 ③本人レビューNo.029で、複数選択の内容はこのページから外した。従来は単一選択の
  * コンポーネントとしてのみ記載していた)。メニュー全体のdp数値やカラートークン名などの
  * specs数値は未確認。
  * W3CはWCAG本文に加え、WAI-ARIA Authoring Practices(Combobox・Listboxパターン)を直接取得して確認済み。
@@ -19737,23 +19749,21 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Menus(Exposed dropdown menu)",
     color: "#2F7D6E",
-    position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。単一選択が基本だが、複数選択にも対応する(レアケース)",
+    position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
-      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpと直接確認できました(単一選択・複数選択のメニュー共通)。",
+      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpとされている。",
     colorInfo:
       "メニューには「標準(表面ベースの配色、視覚的強調は控えめ)」と「鮮やか(第三次色ベース、視覚的強調が強い)」の2種類のカラーマッピングがあるとしている。鮮やかな配色は目立つため控えめに使うべきとしている。選択済み/未選択の項目間は、デフォルトで少なくとも3:1のコントラスト比を確保すべきとし、チェックマークなど色以外の視覚的な手がかりも併用することを推奨している。",
     glossary: [
-      { term: "単一選択メニュー / 複数選択メニュー", desc: "メニューは単一選択・複数選択のどちらにも対応する。単一選択メニューは新しい項目を選ぶと以前の選択が自動的に解除されるのに対し、複数選択メニューは複数の項目を選択したままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。" },
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。公式ページ本文では、メニューは単一選択・複数選択のどちらにも対応すると明記されている。単一選択メニューでは新しい項目を選ぶと以前の選択が自動的に解除されるが、複数選択メニューでは複数の項目を選んだままメニューが開き続け、ユーザーが閉じるまで選択操作を続けられる。",
+      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。",
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
       "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpです(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしている。無効化された項目はフォーカスを受け取れますが選択はできない(区切り線や空白部分はフォーカスを受け取らない)。",
     useCases: [
       "選択肢が多く、常に全部表示すると場所を取りすぎる場面(ラジオボタン・チップより省スペース)",
-      "単一選択が基本だが、複数の項目を選ばせたい場合は複数選択メニューを使う(レアケース)",
       "オーバーフローメニュー・テキストフィールドのドロップダウン・コンテキストメニューなど、追加の操作が必要な場面に使う",
     ],
     searchHint: "",
@@ -19798,9 +19808,9 @@ const SOURCES = [
       "選んだだけでページの移動や送信をせず、「移動」「送信」ボタンで実行する(3.2.2)",
     ],
     searchHint: "aria-selected",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
+    url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/",
     urlSecondary: [
-      { label: "APG: Select-Only Comboboxの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+      { label: "APG: Comboboxパターン(全体)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
       { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
       { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { label: "3.2.2 On Input", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
@@ -19880,35 +19890,6 @@ function GlossaryNote({ items }) {
   );
 }
 
-function MultiSelectMenuIllustration() {
-  return (
-    <svg width="150" height="90" viewBox="0 0 150 90">
-      <rect x="1" y="1" width="148" height="88" rx="6" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
-      <rect x="10" y="10" width="14" height="14" rx="3" fill="#2F7D6E" />
-      <path d="M13 17l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="32" y="21" fontSize="11" fill="#171B36" fontFamily="Jost, Noto Sans JP">チーズ</text>
-      <rect x="10" y="38" width="14" height="14" rx="3" fill="none" stroke="#9EA4C4" strokeWidth="1.6" />
-      <text x="32" y="49" fontSize="11" fill="#565D8A" fontFamily="Jost, Noto Sans JP">ベーコン</text>
-      <rect x="10" y="66" width="14" height="14" rx="3" fill="#2F7D6E" />
-      <path d="M13 73l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="32" y="77" fontSize="11" fill="#171B36" fontFamily="Jost, Noto Sans JP">トマト</text>
-    </svg>
-  );
-}
-
-function MultiSelectMenuSection() {
-  return (
-    <div style={styles.multiSelectCard}>
-      <span style={styles.swatchLabel}>複数選択メニューのイメージ(Google/Material Design 3)</span>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <MultiSelectMenuIllustration />
-      </div>
-      <p style={styles.swatchNote}>複数の項目を選択済みのまま、ユーザーが閉じるまでメニューが開き続ける(例: トッピングの複数選択。概念図・系列識別色)。</p>
-      <a href="https://m3.material.io/components/menus/guidelines" target="_blank" rel="noreferrer" style={styles.sourceLink}>Google公式ページ(Menus)へ ↗</a>
-    </div>
-  );
-}
-
 function SelectSwatch() {
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4, width: "fit-content", margin: "0 auto" }}>
@@ -19959,16 +19940,12 @@ function SelectionSelectPage() {
 
 
 
-          <MultiSelectMenuSection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解では一致していますが、<strong>Googleは単一選択だけでなく複数選択のメニューにも公式に対応している</strong>点が他の3系列にはない特徴です(実務では単一選択が圧倒的に多いと考えられますが、公式ガイドラインには選択方式として明記されています)。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
-            </p>
-            <p style={styles.synthesisText}>
-              複数選択メニューは、新しい項目を選んでも以前の選択が解除されず、<strong>ユーザーが閉じるまで複数の項目を選び続けられる</strong>という単一選択メニューとは異なる挙動を持ちます。ただし複数選択そのものを目的とするなら、チェックボックスの一覧やフィルタチップのセットの方が選択状態を常に見せられる分わかりやすく、Googleの複数選択メニューは<strong>選択肢が多く画面スペースを節約したい場面向けの、例外的な実装</strong>と捉えるのが実務上妥当でしょう。
+              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致しています。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要です。
@@ -20066,8 +20043,8 @@ function SelectionSelectPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -20092,7 +20069,6 @@ const styles = {
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
-  multiSelectCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22, textAlign: "center" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -20705,8 +20681,8 @@ function SelectionSliderPage() {
           <SizeInfographic />
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -21201,8 +21177,8 @@ function SelectionTogglePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -21682,8 +21658,8 @@ function TextInputsCalendarPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -22379,8 +22355,8 @@ function TextInputsInputValidationPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["エラー・確認", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["エラー・確認", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -23338,8 +23314,8 @@ function TextInputsSearchFieldPage() {
           <IconNotes />
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["検索・絞り込み", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["検索・絞り込み", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -23897,8 +23873,8 @@ function TextInputsTextFieldPage() {
           <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なります。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要です。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要です。</p>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -24340,8 +24316,8 @@ function TextInputsValidationPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["理解可能(POUR)", "知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["エラー・確認", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["理解可能(POUR)", "知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["エラー・確認", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -24943,8 +24919,8 @@ function TokensAdaptivePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -25691,8 +25667,8 @@ function TokensColorPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -26386,8 +26362,8 @@ function TokensDarkModePage() {
           </section>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -27162,8 +27138,8 @@ function TokensElevationPage() {
           </section>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -27808,8 +27784,8 @@ function TokensIconPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -27904,7 +27880,6 @@ const TokensInputMethodsPage = (function () {
  * 2本指・軌跡のあるジェスチャー(2.5.1)、ドラッグ(2.5.7)、端末を振る動き(2.5.4)のそれぞれに
  * 1本指のタップなどの代わりを求め、押した瞬間ではなく離したときに実行すること(2.5.2)を求める。
  * NN groupは、合図のないスワイプは見つけにくく、削除など破壊的な操作に限るべきだとする。
- * キーボードでの操作は「キーボードナビゲーション」ページで扱う。
  *
  * Apple(HIG Gestures・Pointing devices)はHIGのページデータ(JSON)を直接取得して確認(2026-10)。
  * Google(Gestures)はM3のページがSPAのため、Material Design 2のGesturesページのページデータ(JSON)と、
@@ -28224,7 +28199,7 @@ function TokensInputMethodsPage() {
         <SidebarNav currentPath="/tokens/input-methods" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / 入力方法・ジェスチャー</span>
+            <span>インタラクション / 入力方法・ジェスチャー</span>
             <span>SPEC No. 053</span>
           </div>
 
@@ -28351,13 +28326,13 @@ function TokensInputMethodsPage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>入力手段ごとの対応(Apple・Google)</h2>
-            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。キーボードでの移動の順番やフォーカスの見せ方は「キーボードナビゲーション」ページで詳しく扱います。</p>
+            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。フォーカスの見せ方は「インタラクション状態」ページで扱います。</p>
             <InputTable />
           </section>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -28872,7 +28847,7 @@ function TokensInteractionStatesPage() {
         <SidebarNav currentPath="/tokens/interaction-states" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / インタラクション状態</span>
+            <span>コンポーネント / インタラクション状態</span>
             <span>SPEC No. 051</span>
           </div>
 
@@ -28992,8 +28967,8 @@ function TokensInteractionStatesPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -29075,588 +29050,6 @@ const styles = {
 };
 
 return TokensInteractionStatesPage;
-})();
-/* ================= tokens-keyboard-navigation.jsx ================= */
-const TokensKeyboardNavigationPage = (function () {
-
-
-
-/**
- * トークン/ファウンデーションレイヤー「キーボードナビゲーション・フォーカス順序」ページ。
- *
- * このページの発見: 4系列とも「Tab(Shift+Tab)で部品やまとまりの間を、矢印キーでまとまりの中を移動する」
- * という役割分担で一致している(Appleのフォーカスグループ、GoogleのTab=1次元・矢印=2次元、W3CのAPG、
- * NN groupのドロップダウンの例)。フォーカスの順番は読む順(上から下、行の始まりから終わり)が基本。
- * 違いが出るのは「誰がどこまで面倒を見るか」で、Appleはフルキーボードアクセスがボタンなどの操作部品を
- * 受け持ち、アプリはリストや入力欄の内容要素に対応すればよいとする。W3Cは全機能をキーボードで使えること
- * (2.1.1)、閉じ込めないこと(2.1.2)、順番(2.4.3)、見えること(2.4.7)、繰り返しを飛ばせること(2.4.1)を
- * 求め、NN groupはスキップリンクとフォーカス表示を消さないことを勧める。
- * フォーカスの見た目の数値(2.4.13の2px・3:1、Googleの重ね色10%)は「インタラクション状態」ページで扱う。
- *
- * Apple(HIG Keyboards・Focus and selection)はHIGのページデータ(JSON)を直接取得して確認(2026-10)。
- * Google(Focus in Compose・Focus traversal order・Input compatibility on large screens)はAndroid Developersの
- * 本文を直接確認(2026-10)。W3C(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7、APG Developing a Keyboard Interface)・
- * NN group(Keyboard-Only Navigation for Improved Accessibility)は本文を直接取得して確認(2026-10)。
- */
-
-const SOURCES = [
-  {
-    key: "hig",
-    name: "Apple",
-    doc: "Human Interface Guidelines ― Keyboards / Focus and selection",
-    color: "#C2542A",
-    position: "「フルキーボードアクセス」で画面のすべての部品に届くようにし、アプリはリスト・入力欄などの内容要素のフォーカスに対応する方式。標準のショートカットを守ることを重視する",
-    size: "iPadOSでは、Tabキーで「フォーカスグループ」(サイドバー・グリッド・リストなどの区画)の間を移動し、矢印キーで同じグループの中を移動する。Tabで巡る順番は読む順(行の始まりから終わり、上から下)。macOSでは、Shift-Tabで逆順、Control-Tabで次のコントロールのまとまり、Control-F2でメニューバー、Control-F5でツールバーへ移動し、Escで今の操作を取り消す。tvOSは、リモコンの方向操作で画面のすべての要素に届くようにする。",
-    colorInfo: "入力欄・検索欄にはフォーカスリング(halo)、リストやコレクションには行全体のハイライトを使い分ける。iPadOS・macOSでは、フォーカスした行をアプリのアクセントカラーの背景と白い文字で表示する。独自のフォーカス効果は本当に必要な場合だけにし、システムの効果を使うよう求めている。iOSとwatchOSにはフォーカスの仕組みがない。",
-    stance:
-      "利用者の操作なしにフォーカスを動かさないよう求めている。フォーカスは今どこにいるかを知る手がかりで、勝手に動くと探し直す手間がかかるため。ただし、キーボードやリモコンで1歩ずつ移動している最中にフォーカスしていた項目が消えた場合は、近くの項目へ移してよいとしている。グループにフォーカスが入ったときは、最もよく使われる項目に自動でフォーカスが当たるよう優先度を設定できる(ページ本文を直接確認、2026-10)。",
-    exceptions:
-      "iPadOS・macOSではフルキーボードアクセスがボタン・スライダー・スイッチなどの操作部品を受け持つため、アプリがフォーカスに対応するのはリスト項目・入力欄・検索欄などの内容要素だけでよいとしている。逆にtvOSでは、すべての要素にフォーカスが届くようにする必要がある。ゲームでは、利用者がキーの割り当てを自分で変えられることを期待されている。",
-    accessibility:
-      "操作可能(Operable) ― フルキーボードアクセス(iOS・iPadOS・macOS・visionOS)は、キーボードだけでウィンドウ・メニュー・操作部品・システムの機能を移動・操作できる仕組みで、設定アプリのアクセシビリティから有効にしてテストするよう求めている。",
-    useCases: [
-      "Tabで区画の間、矢印キーで区画の中を移動できるようにする",
-      "入力欄はフォーカスリング、リストは行のハイライトで示す",
-      "利用者の操作なしにフォーカスを動かさない",
-    ],
-    searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#iPadOS",
-    urlSecondary: [
-      { label: "Focus and selection ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices" },
-      { label: "Keyboards ― Standard keyboard shortcuts", url: "https://developer.apple.com/design/human-interface-guidelines/keyboards#Standard-keyboard-shortcuts" },
-      { label: "Keyboards ― Custom keyboard shortcuts", url: "https://developer.apple.com/design/human-interface-guidelines/keyboards#Custom-keyboard-shortcuts" },
-    ],
-    confirmedNote: "HIGのページデータを直接取得し、本文・表・見出しアンカーを確認済み(2026-10)。",
-  },
-  {
-    key: "material",
-    name: "Google",
-    doc: "Android Developers ― Focus in Compose / Focus traversal order",
-    color: "#2F7D6E",
-    position: "Tab(1次元・見た目の順)と矢印キー・D-pad(2次元・位置関係)の2種類の移動を前提に、フォーカスの初期位置・順番・復元・見せ方を設計する",
-    size: "Tab/Shift+Tabは、画面に表示される順番(上の行の先頭→末尾→次の行)で前後に移動し、最後の要素から最初へ折り返す。矢印キー・D-padは、要素の位置関係から、押した方向で最も近い要素へ移動し、折り返さない。まとまり(focusGroup)を指定すると、そのまとまりの中を巡ってから次へ移る。",
-    colorInfo: "どの要素にフォーカスがあるかを、フォーカスリングや波紋のような、はっきり見える手がかりで示すよう求めている。フォーカスした要素と周りの文脈が、見える位置までスクロールされるようにする。フォーカス時の重ね色の不透明度(10%)は「インタラクション状態」ページを参照。",
-    stance:
-      "大画面やタッチ以外の端末(パソコンのキーボード、テレビのD-pad、車のロータリーコントローラー、タブレットのキーボードカバー)のために、5つの原則を挙げている。画面に入ったら最も使われそうな要素に最初のフォーカスを置く、Tabと矢印キーで予測できる順番にする、中断・ダイアログを閉じた後・画面の構成が変わった後にフォーカスを戻す、フォーカスをはっきり示す、フォーカスした要素を見える位置へスクロールする、です(Android Developersの本文を直接確認、2026-10)。",
-    exceptions:
-      "多くの場合、Tabと矢印キーでの移動はフレームワークが自動で処理する。ただし、タブやリスト、一部しか見えていない横スクロールのような複雑な部品では、次の移動先を正しく決められないことがあり、まとまりを指定して順番を整える必要があるとしている。",
-    accessibility:
-      "操作可能(Operable) ― タッチ中心のアプリではキーボードでの移動が実装されないことが多いが、キーボードに手を置いている人は期待しており、アクセシビリティの必要がある人にとっては、スマートフォン・タブレット・折りたたみ端末・パソコンのどれでも欠かせない場合がある、としている。",
-    useCases: [
-      "画面を開いたら、最も使われそうな要素に最初のフォーカスを置く",
-      "ダイアログを閉じたら、開く前にフォーカスしていた要素に戻す",
-      "Tabは見た目の順、矢印キーは位置関係で移動できるか確かめる",
-    ],
-    searchHint: "",
-    url: "https://developer.android.com/develop/ui/compose/touch-input/focus#factors-for-navigation",
-    urlSecondary: [
-      { label: "Android: Focus traversal order", url: "https://developer.android.com/develop/ui/compose/touch-input/focus/change-focus-traversal-order#one-dimensional-focus-traversal" },
-      { label: "Android: Input compatibility on large screens", url: "https://developer.android.com/develop/ui/compose/touch-input/input-compatibility-on-large-screens#navigation" },
-    ],
-    confirmedNote: "M3(m3.material.io)にキーボードでの移動の専用ページは見当たらないため(サイトマップで確認)、Google公式のAndroid Developersの本文を掲載している(直接確認、2026-10)。",
-  },
-  {
-    key: "wcag",
-    name: "W3C",
-    doc: "WCAG 2.1.1 / 2.1.2 / 2.4.1 / 2.4.3 / 2.4.7 / 2.4.11、APG Developing a Keyboard Interface",
-    color: "#A3821F",
-    position: "すべての機能をキーボードで使えること・閉じ込めないこと・意味の通る順番・フォーカスが見えること・繰り返しを飛ばせることを、それぞれ独立した基準で求める",
-    size: "2.1.1(レベルA): すべての機能を、キーを押す間隔の指定なしにキーボードで操作できること。2.1.2(レベルA): フォーカスが入った部品から、キーボードだけで抜け出せること(Tabや矢印以外の方法が必要なら、その方法を知らせる)。2.4.3(レベルA): 意味や操作に影響するなら、意味と操作性を保つ順番でフォーカスを受けること。2.4.7(レベルAA): フォーカスの表示が見える状態があること。2.4.11(レベルAA): フォーカスした部品が、作者が置いた他の内容に完全には隠れないこと。2.4.1(レベルA): 複数のページで繰り返す内容を飛ばす手段があること。",
-    colorInfo: "W3CのAPG(ARIAの実装ガイド)は、Tab・Shift+Tabで部品から部品へ、矢印キーで複数の要素を持つ部品(ラジオグループ・タブ・メニュー・グリッド)の中を移動する、という役割分担を全プラットフォーム共通の慣習として示している。部品の中の移動は、Tabの順番に1つだけを入れる「ロービングtabindex」か、aria-activedescendantで実装する。",
-    glossary: [
-      { term: "2.1.1 Keyboard・レベルA", desc: "すべての機能をキーボードで操作できることを求める基準。手書きのように、なぞる軌跡そのものが必要な機能は例外。" },
-      { term: "2.1.2 No Keyboard Trap・レベルA", desc: "キーボードでフォーカスを入れた部品から、キーボードだけで抜け出せることを求める基準。" },
-      { term: "2.4.3 Focus Order・レベルA", desc: "フォーカスの移動順が、意味と操作性を保つ順番であることを求める基準。" },
-      { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボードで操作できる画面で、フォーカスの位置が見えることを求める基準。" },
-      { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスした部品が、固定ヘッダーなど作者が置いた他の内容に完全には隠れないことを求める基準。" },
-      { term: "ロービングtabindex", desc: "部品の中で今アクティブな1つだけをTabの順番に入れ(tabindex=0)、他は外して(tabindex=-1)、矢印キーで切り替える実装方法。" },
-    ],
-    stance:
-      "キーボードで操作できれば、目の見えない人(マウスのように目と手の協調が必要な機器を使えない)や、キーボードの代わりになる入力(音声入力、息で操作するスイッチ、画面上のキーボード、スキャン方式など)を使う人、ポインタを目で追いにくい弱視の人も使えるため。2.1.2を満たさない内容はページ全体の利用を妨げるため、ページ上のすべての内容が満たす必要がある(Understandingページの本文を直接確認、2026-10)。",
-    exceptions:
-      "2.1.1は、手書きのように「なぞる軌跡」そのものが必要な機能を例外とする(ただし文字入力のように、機能自体は軌跡に依存しない場合は例外にならない)。2.4.3は、順番が意味や操作に影響しない場合は対象外。フォーカスが重なった要素に完全に隠れないこと(2.4.11)・表示の大きさとコントラスト(2.4.13)は「インタラクション状態」「エレベーション」ページを参照。",
-    accessibility: "操作可能(Operable) ― 2.1(キーボード操作可能)と2.4(ナビゲーション可能)のガイドラインに属し、POURの「操作可能」。",
-    useCases: [
-      "マウスを使わず、Tab・Shift+Tab・矢印・Enter・Escだけで全機能を試す",
-      "ダイアログやメニューに入ったら、Escなどで必ず抜け出せるようにする",
-      "ページの先頭に「本文へ移動」のスキップリンクを置く",
-    ],
-    searchHint: "primary keyboard navigation convention",
-    url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
-    urlSecondary: [
-      { label: "2.1.2 No Keyboard Trap", url: "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html" },
-      { label: "2.4.3 Focus Order", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html" },
-      { label: "2.4.7 Focus Visible", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
-      { label: "APG: Developing a Keyboard Interface", url: "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#fundamentalkeyboardnavigationconventions" },
-    ],
-    confirmedNote: "6つのUnderstandingページ(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7)とAPGの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのもの。",
-  },
-  {
-    key: "nn",
-    name: "Nielsen Norman Group",
-    doc: "Keyboard-Only Navigation for Improved Accessibility",
-    color: "#7A4F7E",
-    position: "キーボードだけで使う人のために、「フォーカスが見える・すべての操作に届く・ナビゲーションを飛ばせる」の3つを満たすよう求める実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及。キーボードでの移動は「順番に1つずつ」で、マウスのように目的の場所へ直接は行けない点が最大の違いだとしている。Tabの順番はページのレイアウトどおり(左から右、上から下)にするのが基本。",
-    colorInfo: "ブラウザの既定のフォーカス表示を、見た目が悪いという理由で消すのは致命的だとしている。気に入らなければ消すのではなく、サイトの見た目に合ったデザインに置き換えます(例: マウスのホバーと同じ見た目をフォーカスにも使う)。",
-    stance:
-      "キーボードを使うのは、効率を求める上級者と、マウスを使えない人(手の動きに障害のある人、画面が見えずスクリーンリーダーを使う人)。フォーム・ドロップダウン・ボタン・ダイアログなどすべての操作要素にTabで届くこと、ポップアップに入って閉じられること、ドロップダウンでは下矢印で即選択せず選択肢の間を移動してEnterで決めること、を挙げている(記事本文を直接取得して確認、2026-10)。",
-    exceptions:
-      "ナビゲーションが多いページでは、本文にたどり着くまでに100個以上のリンクをTabで進む必要が出ることがあるため、「本文へスキップ」のリンクを勧めている。このリンクはTabを押したときだけ表示すれば、マウスで使う人の見た目を邪魔しない。スキップした先から、本文のリンクをTabで続けて進めることも大切だとしている。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のサイトでのキーボード操作の観察に基づく設計上の根拠。",
-    useCases: [
-      "フォーカス表示を消さず、サイトに合ったデザインに置き換える",
-      "ナビゲーションが長いページには、Tabで現れる「本文へスキップ」を置く",
-      "ドロップダウンは、矢印キーで選択肢を移動し、Enterで決定できるようにする",
-    ],
-    searchHint: "Skip Navigation",
-    url: "https://www.nngroup.com/articles/keyboard-accessibility/#toc-consider-a-skip-navigation-link-4",
-    urlSecondary: [{ label: "Obvious Keyboard Focus(節)", url: "https://www.nngroup.com/articles/keyboard-accessibility/#toc-obvious-keyboard-focus-2" }],
-    confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
-  },
-];
-
-/* 画像エリア: Tabで区画の間、矢印で区画の中 */
-function TabSequenceSwatch() {
-  const font = "'Jost', 'Noto Sans JP', sans-serif";
-  const badge = (x, y, n) => (
-    <g>
-      <circle cx={x} cy={y} r="8" fill="#A3821F" />
-      <text x={x} y={y + 3.5} fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontWeight="700" fontFamily={font}>{n}</text>
-    </g>
-  );
-  return (
-    <svg viewBox="0 0 440 190" width="100%" style={{ maxWidth: 520, display: "block", margin: "0 auto" }} role="img" aria-label="Tabキーで部品の間とリンクを1つずつ、矢印キーでグリッドの中を移動する図">
-      <rect x="10" y="8" width="420" height="160" rx="8" fill="#FFFFFF" stroke="#9EA4C4" />
-      <rect x="22" y="18" width="80" height="16" rx="3" fill="#3A4FCF" opacity="0.15" stroke="#3A4FCF" strokeDasharray="3 2" />
-      <text x="62" y="29" fontSize="8.5" fill="#3A4FCF" textAnchor="middle" fontFamily={font}>本文へスキップ</text>
-      {badge(112, 26, 1)}
-      <rect x="22" y="44" width="90" height="112" rx="4" fill="#F3F6FA" />
-      {[0, 1, 2, 3].map((i) => <rect key={i} x="30" y={52 + i * 24} width="74" height="16" rx="3" fill={i === 1 ? "#D9E4F2" : "#FFFFFF"} stroke={i === 1 ? "#3C5A73" : "#E1E3F0"} strokeWidth={i === 1 ? 1.6 : 1} />)}
-      {badge(22, 44, 2)}
-      <text x="67" y="152" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily={font}>リンクはTabで1つずつ</text>
-      <rect x="126" y="44" width="200" height="112" rx="4" fill="#F8F9FD" />
-      {[0, 1, 2].map((r) => [0, 1, 2].map((c) => <rect key={`${r}${c}`} x={136 + c * 62} y={52 + r * 34} width="54" height="26" rx="3" fill={r === 0 && c === 1 ? "#D9E4F2" : "#FFFFFF"} stroke={r === 0 && c === 1 ? "#3C5A73" : "#E1E3F0"} strokeWidth={r === 0 && c === 1 ? 1.6 : 1} />))}
-      {badge(126, 44, 3)}
-      <text x="226" y="166" fontSize="10" fill="#5A9629" textAnchor="middle" fontFamily={font}>↔ ↕ 矢印でグリッドの中を移動</text>
-      <rect x="338" y="44" width="80" height="26" rx="13" fill="#3F51B5" />
-      <text x="378" y="61" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>保存</text>
-      {badge(338, 44, 4)}
-      <path d="M112 34 q-40 14 -82 10 M30 48 q90 -30 96 -4 M222 46 q60 -30 116 0" stroke="#A3821F" strokeWidth="1.4" fill="none" strokeDasharray="3 2" />
-      <text x="330" y="186" fontSize="9.5" fill="#A3821F" textAnchor="middle" fontFamily={font}>Tabで ①→②(リンクごと)→③→④</text>
-    </svg>
-  );
-}
-
-/* 四サイト比較図: キーごとの役割 */
-const KEY_ROWS = [
-  { keys: ["Tab"], name: "次へ", hig: "フォーカスグループの間を移動(iPadOS)", material: "見た目の順で次へ。最後から最初へ折り返す", wcag: "部品から部品へ(APG)。順番は意味と操作性を保つ(2.4.3)", nn: "レイアウトどおり左→右、上→下の順に" },
-  { keys: ["Shift", "Tab"], name: "前へ", hig: "逆順に移動(macOSの標準ショートカット)", material: "見た目の順で前へ", wcag: "部品から部品へ逆順(APG)", nn: "1つ前へ戻る" },
-  { keys: ["↑", "↓", "←", "→"], name: "まとまりの中", hig: "同じフォーカスグループの中を方向で移動。tvOSは方向操作で全要素へ", material: "位置関係で、押した方向の最も近い要素へ。折り返さない", wcag: "ラジオ・タブ・メニュー・グリッドの中を移動(APG)", nn: "ドロップダウンでは選択肢の間を移動(すぐ選択しない)" },
-  { keys: ["スペース"], name: "実行・切り替え", hig: "―(システムの標準の動きに任せる)", material: "メディアアプリでは再生・一時停止", wcag: "ボタンの実行・チェックボックスの切り替え(APG)。リンクはEnterのみで、スペースではページがスクロールする", nn: "―" },
-  { keys: ["Enter"], name: "決定", hig: "―(フォーカスした項目の選択はシステムに任せる)", material: "入力の確定(大画面のキーボード対応)", wcag: "―(2.1.1で全機能をキーボードで)", nn: "フォーカスしたリンクを開く・選択肢を決める" },
-  { keys: ["Esc"], name: "取り消し・閉じる", hig: "今の操作・処理を取り消す", material: "―", wcag: "閉じ込めない。抜け方が特殊なら知らせる(2.1.2)", nn: "ポップアップから抜けて閉じられること" },
-  { keys: ["スキップ"], name: "繰り返しを飛ばす", hig: "Control-F2(メニューバー)・F5(ツールバー)など、区画へ直接移動", material: "―", wcag: "繰り返す内容を飛ばす手段(2.4.1)", nn: "Tabで現れる「本文へスキップ」リンク" },
-];
-
-function KeyCap({ k }) {
-  return <span style={styles.keyCap}>{k}</span>;
-}
-
-function KeyRoleChart() {
-  const heads = [["Apple", "#C2542A"], ["Google", "#2F7D6E"], ["W3C", "#A3821F"], ["NN group", "#7A4F7E"]];
-  return (
-    <div style={styles.kcScroll}>
-      <div style={styles.kcGrid}>
-        <div style={styles.kcHead}>キー・役割</div>
-        {heads.map(([h, c]) => (<div key={h} style={{ ...styles.kcHead, color: c }}>{h}</div>))}
-        {KEY_ROWS.map((r) => (
-          <React.Fragment key={r.name}>
-            <div style={styles.kcName}>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 3 }}>{r.keys.map((k) => <KeyCap key={k} k={k} />)}</div>
-              <span style={styles.kcRole}>{r.name}</span>
-            </div>
-            {[r.hig, r.material, r.wcag, r.nn].map((t, i) => (
-              <div key={i} style={{ ...styles.kcCell, ...(t.startsWith("―") ? styles.kcMuted : {}) }}>{t}</div>
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* フォーカスの順番と動かし方のルール */
-const FOCUS_RULES = [
-  { icon: "order", t: "読む順に巡る", d: "行の始まりから終わり、上から下へ。見た目の順番と、Tabで巡る順番をそろえる", who: "Apple・Google・W3C 2.4.3・NN group" },
-  { icon: "group", t: "まとまりの中は矢印で", d: "Tabでまとまり(区画・部品)の間、矢印キーでその中を移動。まとまりを指定して順番を整える", who: "Apple・Google・W3C(APG)" },
-  { icon: "first", t: "最初のフォーカスを決める", d: "画面やまとまりに入ったら、最も使われそうな要素に最初のフォーカスを当てる", who: "Apple・Google" },
-  { icon: "keep", t: "勝手に動かさず、戻すべきときは戻す", d: "利用者の操作なしにフォーカスを動かさない。ダイアログを閉じた後や中断の後は、元の位置に戻す", who: "Apple・Google" },
-  { icon: "trap", t: "閉じ込めない", d: "ダイアログやメニューに入ったら、キーボードだけで抜け出せる。ポップアップは閉じられる", who: "W3C 2.1.2・NN group" },
-  { icon: "skip", t: "繰り返しを飛ばせる", d: "長いナビゲーションを毎回Tabで進まなくて済むよう、本文へのスキップや区画への直接移動を用意", who: "W3C 2.4.1・NN group・Apple(macOS)" },
-];
-
-function RuleIcon({ k }) {
-  const c = "#3C5A73";
-  return (
-    <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
-      <rect x="1" y="1" width="38" height="38" rx="8" fill="#EEF1FA" />
-      {k === "order" && <g>{[0, 1, 2].map((i) => <rect key={i} x="8" y={9 + i * 8} width="24" height="5" rx="2" fill={c} opacity={1 - i * 0.25} />)}<path d="M34 10 v20 l-3 -3 M34 30 l3 -3" stroke={c} strokeWidth="1.4" fill="none" /></g>}
-      {k === "group" && <g><rect x="7" y="9" width="12" height="22" rx="2" fill="none" stroke={c} strokeWidth="1.4" /><rect x="22" y="9" width="12" height="22" rx="2" fill="none" stroke={c} strokeWidth="1.4" /><path d="M13 14 v12 M28 14 v12" stroke="#5A9629" strokeWidth="1.6" /></g>}
-      {k === "first" && <g><rect x="8" y="10" width="24" height="8" rx="2" fill="none" stroke={c} strokeWidth="2.2" /><rect x="8" y="22" width="24" height="8" rx="2" fill="#FFFFFF" stroke="#B7BCDA" /></g>}
-      {k === "keep" && <g><rect x="8" y="12" width="14" height="16" rx="2" fill="none" stroke={c} strokeWidth="2" /><path d="M26 20 a7 7 0 1 0 -2 5" stroke="#5A9629" strokeWidth="1.6" fill="none" /></g>}
-      {k === "trap" && <g><rect x="8" y="10" width="24" height="20" rx="3" fill="#FFFFFF" stroke={c} strokeWidth="1.4" /><path d="M20 20 h14 M30 16 l4 4 l-4 4" stroke="#5A9629" strokeWidth="1.6" fill="none" /><text x="13" y="24" fontSize="8" fill={c}>Esc</text></g>}
-      {k === "skip" && <g>{[0, 1, 2, 3].map((i) => <line key={i} x1="8" x2="18" y1={10 + i * 5} y2={10 + i * 5} stroke="#B7BCDA" strokeWidth="2" />)}<rect x="8" y="30" width="24" height="5" rx="2" fill={c} /><path d="M24 8 q8 10 0 20" stroke="#5A9629" strokeWidth="1.6" fill="none" /></g>}
-    </svg>
-  );
-}
-
-function FocusRules() {
-  return (
-    <div style={styles.frGrid}>
-      {FOCUS_RULES.map((r) => (
-        <div key={r.t} style={styles.frCard}>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}><RuleIcon k={r.icon} /><div style={styles.frTitle}>{r.t}</div></div>
-          <div style={styles.frText}>{r.d}</div>
-          <div style={styles.frWho}>{r.who}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* フォーカスの見せ方 */
-function FocusLooks() {
-  const font = "'Jost', 'Noto Sans JP', sans-serif";
-  const card = (title, who, color, body, note) => (
-    <div style={styles.flCard}>
-      <svg viewBox="0 0 150 64" width="100%" style={{ maxWidth: 190, display: "block" }} aria-hidden="true">{body}</svg>
-      <div style={{ ...styles.flTitle, color }}>{title}<span style={styles.flWho}>{who}</span></div>
-      <div style={styles.flNote}>{note}</div>
-    </div>
-  );
-  return (
-    <div style={styles.flGrid}>
-      {card("フォーカスリング", "Apple・Google", "#C2542A",
-        <g><rect x="12" y="18" width="126" height="28" rx="6" fill="#FFFFFF" stroke="#C9CEE3" /><rect x="8" y="14" width="134" height="36" rx="9" fill="none" stroke="#3A4FCF" strokeWidth="3" /><text x="22" y="36" fontSize="10" fill="#7E86AC" fontFamily={font}>検索</text></g>,
-        "入力欄・検索欄に。部品の形に沿った輪郭を表示")}
-      {card("行のハイライト", "Apple", "#C2542A",
-        <g>{[0, 1, 2].map((i) => <g key={i}><rect x="8" y={6 + i * 19} width="134" height="16" rx="3" fill={i === 1 ? "#3A4FCF" : "#FFFFFF"} stroke="#E1E3F0" /><text x="16" y={17 + i * 19} fontSize="9" fill={i === 1 ? "#FFFFFF" : "#454C78"} fontFamily={font}>項目 {i + 1}</text></g>)}</g>,
-        "リスト・コレクションに。行全体をアクセントカラーで")}
-      {card("消さずに置き換える", "NN group", "#7A4F7E",
-        <g><rect x="8" y="16" width="62" height="30" rx="4" fill="#FFFFFF" stroke="#E1E3F0" /><text x="39" y="35" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 表示なし</text><rect x="80" y="16" width="62" height="30" rx="4" fill="#EEF1FA" stroke="#7A4F7E" strokeWidth="2" /><text x="111" y="35" fontSize="9" fill="#2E6B3A" textAnchor="middle" fontFamily={font}>◯ 独自の見た目</text></g>,
-        "既定の表示が気に入らなくても消さず、サイトに合う見た目に")}
-      {card("見えること・隠れないこと", "W3C", "#A3821F",
-        <g><rect x="8" y="6" width="134" height="14" rx="2" fill="#B7BCDA" /><text x="75" y="16" fontSize="8" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>固定ヘッダー</text><rect x="30" y="30" width="90" height="24" rx="5" fill="#FFFFFF" stroke="#A3821F" strokeWidth="2.5" /><text x="75" y="46" fontSize="9" fill="#454C78" textAnchor="middle" fontFamily={font}>フォーカス中</text></g>,
-        "見える状態があること(2.4.7・AA)。重なりで完全に隠さない(2.4.11)。大きさと変化の目安は2.4.13(AAA)")}
-    </div>
-  );
-}
-
-/* キーボードショートカットのルール */
-const SHORTCUTS = [
-  { who: "Apple", color: "#C2542A", items: ["標準のショートカット(Command-Z・C・V・Qなど)を別の機能に流用しない", "独自のショートカットは、よく使う機能だけに", "Commandを主な修飾キーに、Shiftは関連する操作の補助に、Optionは控えめに、Controlは避ける(システムが使うため)", "複数の修飾キーは Control → Option → Shift → Command の順に表記"] },
-  { who: "Google", color: "#2F7D6E", items: ["Ctrl+Z(取り消し)・Ctrl+C(コピー)・Ctrl+S(保存)などの基本のショートカットを確認する", "スペースで再生・一時停止(メディアアプリ)、Enterで入力の確定", "キーボードを中心に使う人向けに、独自のショートカットも検討する"] },
-  { who: "W3C", color: "#A3821F", items: ["文字・数字・記号の1キーだけのショートカットは、オフにできる・修飾キー付きに変えられる・その部品にフォーカスがあるときだけ有効、のいずれかにする(2.1.4・A)", "音声入力の人(話した言葉が文字の並びとして入力される)や、キーを押し間違えやすい人の誤作動を防ぐため"] },
-];
-
-function ShortcutRules() {
-  return (
-    <div style={styles.scGrid}>
-      {SHORTCUTS.map((s) => (
-        <div key={s.who} style={styles.scCard}>
-          <div style={{ ...styles.scWho, color: s.color }}>{s.who}</div>
-          <ul style={styles.scList}>{s.items.map((x) => <li key={x}>{x}</li>)}</ul>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function InfoBox({ label, accent, children }) {
-  return (
-    <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
-      <span style={styles.exceptionLabel}>{label}</span>
-      <div style={styles.exceptionText}>{children}</div>
-    </div>
-  );
-}
-
-function UseCaseList({ items }) {
-  return (
-    <ul style={styles.useCaseList}>
-      {items.map((it, i) => (<li key={i} style={styles.useCaseItem}>{it}</li>))}
-    </ul>
-  );
-}
-
-function GlossaryNote({ items }) {
-  return (
-    <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
-      {items.map((it) => (
-        <p key={it.term} style={styles.glossaryNoteLine}>
-          <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-/* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "キーボードでの移動の仕方、フォーカスの順番と見せ方の決まりです。";
-const ABOUT = [
-  { k: "目的・役割", v: "マウスを使わずに、すべての操作をキーボードで行えるようにする" },
-  { k: "関わる場面", v: "Tabキーでの移動、フォーカスの枠、ショートカット" },
-  { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></> },
-];
-
-function TokensKeyboardNavigationPage() {
-  return (
-    <div className="dsp-page" style={styles.page}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-        * { box-sizing: border-box; }
-        .dsp-inner { max-width: 560px; min-width: 0; margin: 0 auto; padding: 28px 16px 40px; }
-        @container dsp (min-width: 860px) {
-          .dsp-inner { max-width: 980px; padding: 36px 24px 48px; }
-        }
-      `}</style>
-
-      <div style={styles.layout}>
-        <SidebarNav currentPath="/tokens/keyboard-navigation" />
-        <div className="dsp-inner">
-          <div style={styles.metaRow}>
-            <span>トークン / インタラクション / キーボードナビゲーション</span>
-            <span>SPEC No. 054</span>
-          </div>
-
-          <h1 style={styles.title}>キーボードナビゲーション・フォーカス順序</h1>
-          <SummaryCard
-            imageLabel="Tabで部品の間を、矢印キーで複合的な部品の中を移動する(概念図)"
-            image={<><TabSequenceSwatch /></>}
-            imageNote={<>Tabは「本文へスキップ」→ サイドバーのリンク(1つずつ)→ グリッド → 保存ボタンの順に進みます。矢印キーで中を移動するのは、グリッドのように、タブ・メニュー・ラジオグループ・グリッドなどAPGで定義された複合的な部品(ウィジェット)の中だけです。グリッドの中を矢印キーで動かすと、Tabを押す回数が減り、どこにいるかも分かりやすくなります。普通のリンクの並び(Webのサイドバーなど)は、Tabで1つずつ移動するのが基本です。</>}
-            lead={LEAD}
-            rows={ABOUT}
-          />
-
-
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― キーごとの役割</h2>
-            <KeyRoleChart />
-            <p style={styles.chartNote}>AppleはiPadOS・macOSの記述(標準ショートカットの表を含む)、GoogleはAndroid Developersのフォーカスの説明、W3Cは達成基準とAPG、NN groupはキーボード操作の記事によります。「―」は確認した範囲で該当する記述がないことを示します。</p>
-          </div>
-
-          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              Apple・Google・W3C(APG)の3系列がそろって示しているのは、<strong>Tab(Shift+Tab)で部品やまとまりの間を、矢印キーでまとまりの中を移動する</strong>という役割分担です(NN groupも、レイアウトどおりの順番で移動できるよう勧めています)。Appleはこれを「フォーカスグループ」、Googleは「Tab=1次元・矢印=2次元」と呼び、W3CのAPGは全プラットフォーム共通の慣習として示しています。ただしWebでは、<strong>矢印キーで中を移動するのは、タブ・メニュー・ラジオグループ・グリッドなどの複合的な部品(ウィジェット)の中</strong>で、普通のリンクの並び(サイドバーのリンクなど)はTabで1つずつ移動するのが基本です(APGの「Developing a Keyboard Interface」)。<strong>順番は読む順(上から下、行の始まりから終わり)</strong>が基本です。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは、この上に<strong>すべての機能をキーボードで使える(2.1.1)・閉じ込めない(2.1.2)・意味の通る順番(2.4.3)・フォーカスが見える(2.4.7)・繰り返しを飛ばせる(2.4.1)</strong>という基準を重ねています。NN groupも同じく<strong>「フォーカスが見える・すべてに届く・ナビゲーションを飛ばせる」</strong>の3点を挙げ、<strong>フォーカス表示を見た目の理由で消すのは致命的</strong>だとしています。
-            </p>
-            <p style={styles.synthesisText}>
-              違いが出るのは、フォーカスを誰が受け持つかです。Appleは<strong>フルキーボードアクセスがボタンなどの操作部品を受け持つ</strong>ため、アプリはリストや入力欄などの内容要素に対応すればよいとし、<strong>利用者の操作なしにフォーカスを動かさない</strong>ことを重視します。Googleは<strong>最初のフォーカスの位置と、ダイアログを閉じた後などにフォーカスを戻すこと</strong>まで原則に入れています。
-            </p>
-            <p style={styles.synthesisText}>
-              実務では、<strong>マウスを使わずTab・矢印・Enter・Escだけで全機能を試し、順番・見え方・抜け出し方・スキップの4点を確認する</strong>のが、4系列を合わせた結論です。
-            </p>
-          </div>
-          <div className="dsp-mobile-only" style={styles.sourceList}>
-            {SOURCES.map((s) => (
-              <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceHeadRow}>
-                  <div>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                </div>
-                <div style={styles.positionBadge}>{s.position}</div>
-                <InfoBox label="移動の仕方とキー" accent="#3C5A73">{s.size}</InfoBox>
-                <InfoBox label="フォーカスの見せ方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
-                <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
-                )}
-                {s.glossary && <GlossaryNote items={s.glossary} />}
-              </div>
-            ))}
-          </div>
-
-          <div className="dsp-desktop-only">
-            <div style={styles.matrixScroll}>
-              <div style={styles.matrixGrid}>
-                <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>移動の仕方とキー</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
-                <div style={styles.labelCell}>フォーカスの見せ方</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>ユースケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
-                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
-                  </div>
-                ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
-              </div>
-            </div>
-          </div>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>フォーカスの順番と動かし方 ― 6つのルール</h2>
-            <p style={styles.diagramNote}>4系列の記述を、フォーカスの順番・最初の位置・動かし方・抜け出し方にまとめました。下の名前は根拠にした系列です。</p>
-            <FocusRules />
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>フォーカスの見せ方</h2>
-            <p style={styles.diagramNote}>フォーカスの表示の太さ・コントラストの数値(W3C 2.4.13の2px・3:1、Googleの重ね色10%)は「インタラクション状態」ページで比較しています。</p>
-            <FocusLooks />
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>キーボードショートカットのルール</h2>
-            <ShortcutRules />
-            <p style={styles.chartNote}>NN groupの記事はショートカットではなく、Tabでの移動・フォーカス表示・スキップリンクを扱っています。</p>
-          </section>
-
-          <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)", "ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
-          </div>
-
-          <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。GoogleはM3に専用ページがなく、Android Developersの本文で確認)</span>
-            <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Focus and selectionページの「iPadOS」見出し(フォーカスグループの説明)へのアンカー付きリンクで、Keyboardsページのショートカットの見出しも併記しています。GoogleはAndroid Developersのフォーカスのページ(キーボード操作の5原則の節)です。WCAGは2.1.1を基本リンクとし、2.1.2・2.4.3・2.4.7とAPGも併記しています。NN groupはキーボード操作の記事のスキップリンクの節です。
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const styles = {
-  page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
-  layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
-  synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
-  synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
-  synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
-  chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
-  diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
-  subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
-  ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
-  sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
-  sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
-  sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
-  positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
-  infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
-  exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
-  exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
-  useCaseList: { margin: 0, padding: "0 0 0 16px" },
-  useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
-  glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
-  sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
-  searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
-  sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 40 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
-  labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
-  headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
-  headerRowCell: { background: "#FFFFFF" },
-  cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
-  link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
-  lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
-  tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
-  tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
-  kcScroll: { overflowX: "auto" },
-  kcGrid: { display: "grid", gridTemplateColumns: "120px repeat(4, minmax(130px, 1fr))", minWidth: 700, border: "1px solid #E1E3F0", borderRadius: 4 },
-  kcHead: { fontSize: 11, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", color: "#171B36" },
-  kcName: { display: "flex", flexDirection: "column", gap: 4, padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
-  kcRole: { fontSize: 10.5, color: "#565D8A" },
-  kcCell: { fontSize: 10.5, lineHeight: 1.55, color: "#2E3457", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", borderLeft: "1px solid #EEF0F7" },
-  kcMuted: { color: "#B7BCDA" },
-  keyCap: { display: "inline-block", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace", fontSize: 10.5, fontWeight: 600, color: "#171B36", background: "#FFFFFF", border: "1px solid #B7BCDA", borderBottomWidth: 3, borderRadius: 4, padding: "1px 6px", minWidth: 20, textAlign: "center" },
-  frGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 10 },
-  frCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
-  frTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
-  frText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 6 },
-  frWho: { fontSize: 9.5, color: "#7E86AC", marginTop: 5 },
-  flGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 210px), 1fr))", gap: 10 },
-  flCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
-  flTitle: { fontSize: 12, fontWeight: 700, marginTop: 6 },
-  flWho: { fontSize: 9.5, fontWeight: 400, color: "#7E86AC", marginLeft: 6 },
-  flNote: { fontSize: 11, lineHeight: 1.55, color: "#454C78", marginTop: 3 },
-  scGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 10 },
-  scCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
-  scWho: { fontSize: 12.5, fontWeight: 700, marginBottom: 4 },
-  scList: { margin: 0, paddingLeft: 16, fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
-};
-
-return TokensKeyboardNavigationPage;
 })();
 /* ================= tokens-layout-spacing.jsx ================= */
 const TokensLayoutSpacingPage = (function () {
@@ -30016,8 +29409,8 @@ function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -30865,7 +30258,7 @@ function TokensMotionPage() {
         <SidebarNav currentPath="/tokens/motion" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / モーション</span>
+            <span>インタラクション / モーション</span>
             <span>SPEC No. 049</span>
           </div>
 
@@ -31027,8 +30420,8 @@ function TokensMotionPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -31169,7 +30562,7 @@ const TokensOverviewPage = (function () {
  *
  * このページの位置づけ: 個別のトークン(カラー・タイポグラフィ等)の数値比較ではなく、
  * 「Foundations(ファウンデーション)として何を扱うか」という分類方法そのものが
- * 4系列で違う、という構造の違いを扱う概要ページ。本サイトが採用している15項目の
+ * 4系列で違う、という構造の違いを扱う概要ページ。本サイトが採用している13項目の
  * 「トークン/ファウンデーション」という括り自体が、主にApple・Googleの実際のドキュメント
  * 構成を参考にした編集上の判断であり、W3C・NN groupはそもそもこの括り方をしていない
  * ため、その齟齬を正直に扱う。
@@ -31216,7 +30609,7 @@ const SOURCES = [
     summary: "Foundations配下に18トピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
     stance:
       "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなど18のトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている(ページデータを直接確認、2026-09)。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」15項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー、キーボード)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
+    structuralNote: "本サイトの「トークン/ファウンデーション」13項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
     urlSecondary: [{ label: "Design principles(Getting started)", url: "https://developer.apple.com/design/human-interface-guidelines/design-principles" }],
@@ -31269,7 +30662,7 @@ const SOURCES = [
     summary: "「Foundations」に相当する概念自体を持たない。最も近い構造はPOUR4原則",
     stance:
       "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されている。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいている。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」15項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
+    structuralNote: "本サイトの「トークン/ファウンデーション」13項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
@@ -31376,7 +30769,7 @@ const APPLE_SECTIONS = [
     name: "Inputs",
     role: "人がアプリを操作・入力するための手段ごとの設計指針",
     items: "Gestures / Keyboards / Pointing devices / Apple Pencil and Scribble / Focus and selection / Game controls など13トピック",
-    site: "トークン/ファウンデーションレイヤーの「入力方法・ジェスチャー」「キーボードナビゲーション」(Appleでは Foundations とは別区分)",
+    site: "インタラクションの「入力方法・ジェスチャー」(Appleでは Foundations とは別区分)",
   },
   {
     name: "Components",
@@ -31496,7 +30889,7 @@ function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの15項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
+              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの13項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
             </p>
             <p style={styles.synthesisText}>
               最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
@@ -31601,7 +30994,7 @@ function TokensOverviewPage() {
           </section>
 
           <div style={styles.tagsRow}>
-                        {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+                        {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -32330,8 +31723,8 @@ function TokensShapePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -32943,7 +32336,7 @@ function TokensSoundPage() {
         <SidebarNav currentPath="/tokens/sound" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / サウンド</span>
+            <span>インタラクション / サウンド</span>
             <span>SPEC No. 050</span>
           </div>
 
@@ -33089,8 +32482,8 @@ function TokensSoundPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -33815,8 +33208,8 @@ function TokensTypographyPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -34586,8 +33979,8 @@ function TokensWritingPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "エラー・確認", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "エラー・確認", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -34713,12 +34106,8 @@ const PAGES = [
   { id: "tokens-elevation", label: "エレベーション・階層表現", spec: "047", Component: TokensElevationPage, path: "/tokens/elevation", fixed: true },
   { id: "tokens-dark-mode", label: "ダークモード", spec: "048", Component: TokensDarkModePage, path: "/tokens/dark-mode", fixed: true },
   { id: "tokens-adaptive", label: "アダプティブ/レスポンシブ", spec: "052", Component: TokensAdaptivePage, path: "/tokens/adaptive", fixed: true },
-  { id: "tokens-interaction-states", label: "インタラクション状態", spec: "051", Component: TokensInteractionStatesPage, path: "/tokens/interaction-states", fixed: true },
-  { id: "tokens-motion", label: "モーション/アニメーション", spec: "049", Component: TokensMotionPage, path: "/tokens/motion", fixed: true },
-  { id: "tokens-sound", label: "サウンド", spec: "050", Component: TokensSoundPage, path: "/tokens/sound", fixed: true },
-  { id: "tokens-input-methods", label: "入力方法・ジェスチャー", spec: "053", Component: TokensInputMethodsPage, path: "/tokens/input-methods", fixed: true },
-  { id: "tokens-keyboard-navigation", label: "キーボードナビゲーション", spec: "054", Component: TokensKeyboardNavigationPage, path: "/tokens/keyboard-navigation", fixed: true },
   { id: "components-actions-button", label: "ボタン", spec: "001", Component: ActionsButtonPage, path: "/components/actions/button", fixed: true },
+  { id: "tokens-interaction-states", label: "インタラクション状態", spec: "051", Component: TokensInteractionStatesPage, path: "/tokens/interaction-states", fixed: true },
   { id: "components-actions-fab", label: "フローティングアクションボタン", spec: "004", Component: ActionsFabPage, path: "/components/actions/fab", fixed: true },
   { id: "components-actions-link", label: "リンク", spec: "003", Component: ActionsLinkPage, path: "/components/actions/link", fixed: true },
   { id: "components-selection-overview", label: "Selectionの選び方", spec: "004.5", Component: SelectionOverviewPage, path: "/components/selection/overview", fixed: true },
@@ -34731,9 +34120,9 @@ const PAGES = [
   { id: "components-selection-select-patterns", label: "セレクトの種類(プルダウン以外)", spec: "012", Component: SelectionSelectPatternsPage, path: "/components/selection/select-patterns", fixed: true },
   { id: "components-selection-menu", label: "メニュー", spec: "059", Component: SelectionMenuPage, path: "/components/selection/menu", fixed: true },
   { id: "components-selection-date-time-picker", label: "日付/タイムピッカー", spec: "022", Component: SelectionDateTimePickerPage, path: "/components/selection/date-time-picker", fixed: true },
+  { id: "components-text-inputs-calendar", label: "カレンダー(スケジュール/予定表)", spec: "039", Component: TextInputsCalendarPage, path: "/components/text-inputs/calendar", fixed: true },
   { id: "components-text-inputs-text-field", label: "テキストフィールド", spec: "020", Component: TextInputsTextFieldPage, path: "/components/text-inputs/text-field", fixed: true },
   { id: "components-text-inputs-search-field", label: "検索フィールド", spec: "021", Component: TextInputsSearchFieldPage, path: "/components/text-inputs/search-field", fixed: true },
-  { id: "components-text-inputs-calendar", label: "カレンダー(スケジュール/予定表)", spec: "039", Component: TextInputsCalendarPage, path: "/components/text-inputs/calendar", fixed: true },
   { id: "components-text-inputs-validation", label: "エラー表示", spec: "023", Component: TextInputsValidationPage, path: "/components/text-inputs/validation", fixed: true },
   { id: "components-text-inputs-input-validation", label: "バリデーション", spec: "040", Component: TextInputsInputValidationPage, path: "/components/text-inputs/input-validation", fixed: true },
   { id: "components-navigation-tabs", label: "タブ", spec: "013", Component: NavigationTabsPage, path: "/components/navigation/tabs", fixed: true },
@@ -34762,6 +34151,9 @@ const PAGES = [
   { id: "components-communication-badge", label: "バッジ", spec: "037", Component: CommunicationBadgePage, path: "/components/communication/badge", fixed: true },
   { id: "components-communication-empty-state", label: "空状態・ローディング状態", spec: "038", Component: CommunicationEmptyStatePage, path: "/components/communication/empty-state", fixed: true },
   { id: "components-communication-widget", label: "ウィジェット", spec: "055", Component: CommunicationWidgetPage, path: "/components/communication/widget", fixed: true },
+  { id: "tokens-motion", label: "モーション/アニメーション", spec: "049", Component: TokensMotionPage, path: "/tokens/motion", fixed: true },
+  { id: "tokens-sound", label: "サウンド", spec: "050", Component: TokensSoundPage, path: "/tokens/sound", fixed: true },
+  { id: "tokens-input-methods", label: "入力方法・ジェスチャー", spec: "053", Component: TokensInputMethodsPage, path: "/tokens/input-methods", fixed: true },
   { id: "cross-view", label: "タグから見る(自動生成)", spec: "056", Component: CrossViewPage, path: "/cross-view", fixed: true },
 ];
 
@@ -34784,8 +34176,12 @@ function App() {
     const href = a.getAttribute("href");
     if (!href || !href.startsWith("/")) return;
     e.preventDefault();
-    const p = PAGES.find((pg) => pg.path === href.split("#")[0]);
-    if (p) window.location.hash = p.path;
+    const [path, anchor] = href.split("#");
+    const p = PAGES.find((pg) => pg.path === path);
+    // リンク先のページ内の位置(/cross-view#c3 の c3 など)は、次のページが読めるように渡す
+    window.__DSP_ANCHOR = anchor || null;
+    if (p && p !== current) window.location.hash = p.path;
+    else if (p) window.dispatchEvent(new Event("dsp-anchor"));
   };
   const Current = current.Component;
   return (

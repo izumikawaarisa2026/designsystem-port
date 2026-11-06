@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブとセグメントの使い分け」ページ。
@@ -147,20 +148,33 @@ function ExampleList() {
 }
 
 const SYSTEM_VIEWS = [
-  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab BarsとSegmented Controlsを別々のガイドラインページで明確に区別している。タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素(画面の中のタブとは別の部品)、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。" },
-  { key: "material", name: "Google", color: "#2F7D6E", text: "TabsとSegmented buttonsを別コンポーネントとして扱っている。タブはコンテンツを画面・データセットのカテゴリに整理するもの、セグメントボタンは選択・表示切替・並べ替えを助けるものと説明している。" },
-  { key: "wcag", name: "W3C", color: "#A3821F", text: "「タブ」「セグメントコントロール」という名称や専用roleでの区別は持たない。WAI-ARIAにはtablist/tabパターンはあるが、セグメントコントロール専用のroleは存在せず、挙動(パネルを切り替えるか、持続する選択状態を示すか)に応じてtablist/tabかradiogroup/radioのいずれかを選ぶ、と考えられる(AI解釈。W3Cはセグメントコントロールについて定めていない)。名称ではなく振る舞いで判断する点が特徴的。", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
-  { key: "nn", name: "Nielsen Norman Group", color: "#7A4F7E", text: "両者を正面から比較した記事は見当たらないが、UI Elements Glossaryで「Segmented Button」と「Tab Bar」をそれぞれ別項目として定義している。Segmented Buttonは同じデータの異なるビューの切り替えやコンテンツの絞り込みに使う、Tab Barは利用可能な選択肢(タブ)の中から1つのパネルだけを選択的に表示するとしており、この定義の違いが使い分けの手がかりになる。", url: "https://www.nngroup.com/articles/ui-elements-glossary/" },
+  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab BarsとSegmented Controlsを別々のガイドラインページで明確に区別している。タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素(画面の中のタブとは別の部品)、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
+    { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+    { label: "Segmented controls", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
+  ] },
+  { key: "material", name: "Google", color: "#2F7D6E", text: "TabsとSegmented buttonsを別コンポーネントとして扱っている。タブはコンテンツを画面・データセットのカテゴリに整理するもの、セグメントボタンは選択・表示切替・並べ替えを助けるものと説明している。", links: [
+    { label: "Tabs ― Guidelines", url: "https://m3.material.io/components/tabs/guidelines" },
+    { label: "Segmented buttons ― Guidelines", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
+  ] },
+  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブ(tablist/tab)の型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
+    { label: "APG: Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
+    { label: "APG: Radio Groupパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
+  ] },
+  { key: "nn", name: "Nielsen Norman Group", color: "#7A4F7E", none: true, text: "タブとセグメントコントロールの使い分けを比べた記事はなし。用語集では別々の項目として定義しており、Segmented Buttonは同じデータの見せ方の切り替えや絞り込み、Tab Barは選んだ1つのパネルだけを表示するもの、としている。", links: [
+    { label: "UI Elements Glossary: Segmented Button", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button" },
+    { label: "UI Elements Glossary: Tab Bar", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Tab-Bar" },
+  ] },
 ];
 
 function SystemViews() {
   return (
     <div style={styles.systemGrid}>
       {SYSTEM_VIEWS.map((s) => (
-        <div key={s.key} style={{ ...styles.systemCard, borderLeftColor: s.color }}>
-          <span style={{ ...styles.systemName, color: s.color }}>{s.name}</span>
-          <p style={styles.systemText}>{s.text}</p>
+        <div key={s.key} style={{ ...styles.systemCard, borderLeftColor: s.none ? "#D5D9EC" : s.color }}>
+          <span style={{ ...styles.systemName, color: s.none ? "#9EA4C4" : s.color }}>{s.name}{s.none && <span style={styles.noneBadge}>該当なし</span>}</span>
+          <p style={{ ...styles.systemText, ...(s.none ? { color: "#9EA4C4" } : {}) }}>{s.text}</p>
           {s.url && (<a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>)}
+          {s.links && s.links.map((l) => (<a key={l.url} href={l.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, display: "block", marginTop: 3 }}>{l.label} ↗</a>))}
         </div>
       ))}
     </div>
@@ -274,7 +288,7 @@ export default function NavigationTabsVsSegmentedPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。
+              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。W3CとNN groupには、この使い分けを直接扱う記載はありません。
             </p>
             <p style={styles.synthesisText}>
               最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>です。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものです(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替える部品として定義しています)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、移動はせず同じデータの見せ方だけが変わります。
@@ -314,7 +328,7 @@ export default function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
@@ -353,6 +367,7 @@ const styles = {
   systemName: { display: "block", fontSize: 12.5, fontWeight: 700, marginBottom: 6 },
   systemText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "0 0 8px" },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
+  noneBadge: { fontSize: 10, fontWeight: 600, color: "#9EA4C4", border: "1px solid #D5D9EC", borderRadius: 3, padding: "0 5px", marginLeft: 8 },
   compareScroll: { overflowX: "auto", marginBottom: 22 },
   compareGrid: { display: "grid", gridTemplateColumns: "150px 1fr 1fr", minWidth: 640, border: "1px solid #E1E3F0" },
   compareCell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, lineHeight: 1.6 },

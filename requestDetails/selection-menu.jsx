@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / メニュー」ページ。
@@ -554,15 +554,11 @@ export default function SelectionMenuPage() {
               <div style={styles.linkCardTitle}>セレクト(プルダウン) ↗</div>
               <div style={styles.linkCardDesc}>値を選んで表示し続ける部品の比較はこちら</div>
             </a>
-            <a href="/tokens/keyboard-navigation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>キーボードナビゲーション ↗</div>
-              <div style={styles.linkCardDesc}>Tabと矢印キーの役割分担・ショートカットのルールはこちら</div>
-            </a>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

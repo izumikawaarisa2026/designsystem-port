@@ -9,7 +9,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TARGET = "cross-view.jsx"
 START, END = "/*__TAG_INDEX_START__*/", "/*__TAG_INDEX_END__*/"
 # タグの配列: {["a", "b"].map((t) => (<span key={t} style={styles.tagPrinciple}>...
-TAG_RE = re.compile(r'\{(\[[^\]]*\])\.map\(\(t\)\s*=>\s*\(\s*<span key=\{t\} style=\{styles\.(tagPrinciple|tagProcess)\}', re.S)
+TAG_RE = re.compile(r'\{(\[[^\]]*\])\.map\(\(t\)\s*=>\s*\(\s*<(?:span|TagLink) key=\{t\}(?: t=\{t\})? style=\{styles\.(tagPrinciple|tagProcess)\}', re.S)
 
 
 def nav_items(sidebar_src):

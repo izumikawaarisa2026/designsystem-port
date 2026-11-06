@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -70,6 +70,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/carousel/guidelines",
     urlSecondary: [
+      { label: "カルーセルの種類(Multi-browse・Uncontained・Hero・Full-screen)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md#layouts-of-carousel" },
       { label: "MDC Android: Carousels(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md" },
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
       { label: "Compose Material 3: Carousel.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/carousel/Carousel.kt" },
@@ -674,8 +675,8 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

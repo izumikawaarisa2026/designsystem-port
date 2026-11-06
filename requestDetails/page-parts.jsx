@@ -7,6 +7,7 @@ import React from "react";
  *   W3Cは、適合の要件である「達成基準(レベルA/AA/AAA)」と、実装の参考例である「APG」をバッジで見分けられるようにする
  * - Hl: 比較(カード・比較表)の中で、ページ下の「AI解釈 ― 総括」で取り上げている違い・共通点に引くマーカー
  * - NoData: 比較の中の「記載なし」「数値基準なし」「未確認」など、データがない箇所(薄いグレーの文字で示す)
+ * - TagLink / TAG_LIST: ページ末尾のタグ。横断ビューの、そのタグの一覧へのリンクにする
  * - SplitSection: 「意見が分かれる点」(同じ問いに対して、系列によって答えが違う点)
  *
  * ビルド(build_preview.py)では、このファイルの export した名前が全ページから使えるようになる。
@@ -80,6 +81,30 @@ export function Hl({ children }) {
 /* データがない箇所。「記載なし」「数値基準なし」「未確認」など短い言葉で書き、薄いグレーにする */
 export function NoData({ children }) {
   return <span style={partStyles.noData}>{children}</span>;
+}
+
+/* 横断ビューのタグ。番号(No)は横断ビューの「12のくくり」の番号。id は横断ビュー内の位置(/cross-view#c1 など) */
+export const TAG_LIST = [
+  { no: 1, id: "c1", tag: "設計の原則・使い分け", icon: "◇", desc: "原則そのものや、似た部品の使い分けをまとめたページ" },
+  { no: 2, id: "c2", tag: "デザインの基礎", icon: "Aa", desc: "色・文字・余白・角丸・影・動き・音など、見た目と動きの土台" },
+  { no: 3, id: "c3", tag: "操作方法(タッチ・キーボード)", icon: "☝", desc: "タップ・ジェスチャー・キーボード・押せる大きさ" },
+  { no: 4, id: "c4", tag: "入力・フォーム", icon: "✎", desc: "文字や値を入力し、送信するまで" },
+  { no: 5, id: "c5", tag: "選択・切り替え", icon: "☑", desc: "選択肢から選ぶ・オン/オフを切り替える" },
+  { no: 6, id: "c6", tag: "検索・絞り込み", icon: "⌕", desc: "探す・フィルタで絞り込む" },
+  { no: 7, id: "c7", tag: "ナビゲーション", icon: "→", desc: "画面やページの間を移動する" },
+  { no: 8, id: "c8", tag: "情報の整理・一覧", icon: "≡", desc: "情報をまとめる・並べる" },
+  { no: 9, id: "c9", tag: "段階的に見せる", icon: "▸", desc: "必要になったときに、詳しい情報や操作を出す" },
+  { no: 10, id: "c10", tag: "見つけやすさ・初めての案内", icon: "✦", desc: "機能に気づかせる・初めての人に使い方を伝える" },
+  { no: 11, id: "c11", tag: "通知・状態表示", icon: "◔", desc: "お知らせ・進み具合・空の状態などを伝える" },
+  { no: 12, id: "c12", tag: "エラー・確認", icon: "!", desc: "間違いを伝える・取り消す・重要な操作を確かめる" },
+];
+const PRINCIPLE_IDS = { "知覚可能(POUR)": "p1", "操作可能(POUR)": "p2", "理解可能(POUR)": "p3", "堅牢(POUR)": "p4" };
+export const tagAnchor = (t) => PRINCIPLE_IDS[t] || (TAG_LIST.find((c) => c.tag === t) || {}).id;
+
+export function TagLink({ t, style }) {
+  const id = tagAnchor(t);
+  if (!id) return <span style={style}>{t}</span>;
+  return <a href={"/cross-view#" + id} style={{ ...style, textDecoration: "none" }} title="このタグが付いたページの一覧へ">{t}</a>;
 }
 
 /* 意見が分かれる点。splits: [{ q, figure?(問い全体の図), sides: [{ who, color, t, figure? }], tip }] */

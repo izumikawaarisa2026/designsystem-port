@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection」カテゴリの先頭に置く、使い分けガイドページ。
@@ -280,7 +281,7 @@ export default function SelectionOverviewPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

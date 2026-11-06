@@ -1,13 +1,13 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ファウンデーションの思想比較」ページ(メタページ)。
  *
  * このページの位置づけ: 個別のトークン(カラー・タイポグラフィ等)の数値比較ではなく、
  * 「Foundations(ファウンデーション)として何を扱うか」という分類方法そのものが
- * 4系列で違う、という構造の違いを扱う概要ページ。本サイトが採用している15項目の
+ * 4系列で違う、という構造の違いを扱う概要ページ。本サイトが採用している13項目の
  * 「トークン/ファウンデーション」という括り自体が、主にApple・Googleの実際のドキュメント
  * 構成を参考にした編集上の判断であり、W3C・NN groupはそもそもこの括り方をしていない
  * ため、その齟齬を正直に扱う。
@@ -54,7 +54,7 @@ const SOURCES = [
     summary: "Foundations配下に18トピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
     stance:
       "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなど18のトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている(ページデータを直接確認、2026-09)。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」15項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー、キーボード)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
+    structuralNote: "本サイトの「トークン/ファウンデーション」13項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
     urlSecondary: [{ label: "Design principles(Getting started)", url: "https://developer.apple.com/design/human-interface-guidelines/design-principles" }],
@@ -107,7 +107,7 @@ const SOURCES = [
     summary: "「Foundations」に相当する概念自体を持たない。最も近い構造はPOUR4原則",
     stance:
       "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されている。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいている。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」15項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
+    structuralNote: "本サイトの「トークン/ファウンデーション」13項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
@@ -214,7 +214,7 @@ const APPLE_SECTIONS = [
     name: "Inputs",
     role: "人がアプリを操作・入力するための手段ごとの設計指針",
     items: "Gestures / Keyboards / Pointing devices / Apple Pencil and Scribble / Focus and selection / Game controls など13トピック",
-    site: "トークン/ファウンデーションレイヤーの「入力方法・ジェスチャー」「キーボードナビゲーション」(Appleでは Foundations とは別区分)",
+    site: "インタラクションの「入力方法・ジェスチャー」(Appleでは Foundations とは別区分)",
   },
   {
     name: "Components",
@@ -338,7 +338,7 @@ export default function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの15項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
+              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの13項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
             </p>
             <p style={styles.synthesisText}>
               最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
@@ -443,7 +443,7 @@ export default function TokensOverviewPage() {
           </section>
 
           <div style={styles.tagsRow}>
-                        {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+                        {["設計の原則・使い分け", "デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

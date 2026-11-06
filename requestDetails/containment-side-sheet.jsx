@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / サイドシート」ページ(旧ページ名「モーダルポップアップ」)。
@@ -29,38 +29,18 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Popovers(サイドシートに当たる専用の部品はなく、役割が近いものを参考として掲載)",
+    doc: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)",
     color: "#C2542A",
-    position: "コントロールをタップ/クリックした際に、出現元を示す矢印とともに現れる一時的なビュー(主にiPad向け)",
+    position: <NoData>該当なし</NoData>,
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
-    stance:
-      "サイドシートに当たる専用の部品はAppleにはない。役割が近いポップオーバーを参考として載せている(形も閉じ方も別物)。ポップオーバーは、コントロールや対話可能な領域をタップ・クリックした際に他のコンテンツの上に現れる一時的なビューで、通常は出現元を指す矢印を持つとしている。ユーザー視点で捉えると、ポップオーバーは軽量・非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間に位置する性質を持つと言える。コントロールから吹き出すように出現し、範囲外のタップで自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的。",
-    scenarios: [
-      "画面上のコンテンツに関連する選択肢や情報を示したい時(例: 共有オプションの表示)",
-      "軽量で一時的な操作パネルを、対象コントロールの近くに表示したい時",
-    ],
-    exceptions:
-      "「閉じる」専用のボタンは基本的に置くべきではなく、ポップオーバーは不要になった時点で自動的に閉じるべきとしている。ただし、変更を保存する/しないを明確にする必要がある場面では、キャンセル・完了などの閉じるボタンを含める価値があるとしている。範囲外のタップで自動的に閉じる際は作業内容を保存しておくべきで、明示的なキャンセル操作があった場合のみ破棄すべきだとしている。",
+    stance: <NoData>該当なし</NoData>,
+    scenarios: ["該当なし"],
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "画面上のコントロールに関連する選択肢・情報を表示する",
-      "範囲外のタップや選択後は自動的に閉じるようにする(明示的な閉じるボタンは限定的に使う)",
-      "ポップオーバーが重要なコンテンツやトリガー元の要素を覆わないようにする",
-    ],
+    useCases: ["該当なし"],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/popovers",
-    confirmedNote: "「Popovers」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
-    illustration: () => (
-      <svg width="120" height="70" viewBox="0 0 120 70">
-        <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#C2542A" strokeWidth="1.2" strokeDasharray="2 2" />
-        <rect x="30" y="10" width="70" height="34" rx="6" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <path d="M55 44l6 8 6-8z" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <text x="65" y="30" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ポップオーバー</text>
-      </svg>
-    ),
-    illustrationNote: "出現元を指す矢印付きの一時的なビュー(概念図・系列識別色)",
   },
   {
     key: "material",
@@ -391,8 +371,8 @@ export default function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

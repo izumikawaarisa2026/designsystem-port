@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「インタラクション状態」ページ。
@@ -423,7 +423,7 @@ export default function TokensInteractionStatesPage() {
         <SidebarNav currentPath="/tokens/interaction-states" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / インタラクション状態</span>
+            <span>コンポーネント / インタラクション状態</span>
             <span>SPEC No. 051</span>
           </div>
 
@@ -543,8 +543,8 @@ export default function TokensInteractionStatesPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

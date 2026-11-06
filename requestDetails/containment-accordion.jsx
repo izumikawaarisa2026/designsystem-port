@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / アコーディオン(表示コントロール)」ページ。
@@ -39,7 +39,11 @@ const SOURCES = [
       "開示ボタンは内容の近くに置き、1つのビューに1つまでにする",
     ],
     searchHint: "descriptive label",
-    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls",
+    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles",
+    urlSecondary: [
+      { label: "Disclosure controls ― Disclosure buttons", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-buttons" },
+      { label: "Disclosure controls ― iOS・iPadOS・visionOS(DisclosureGroup)", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
+    ],
     confirmedNote: "HIGのページデータ(Disclosure controlsのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="60" viewBox="0 0 120 60">
@@ -326,8 +330,8 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

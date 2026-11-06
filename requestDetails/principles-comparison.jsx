@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink, NoData } from "./page-parts";
 
 /**
  * 思想レイヤー「原則比較」ページ。
@@ -66,6 +67,7 @@ const FRAMEWORKS = [
         desc: "46件の調査研究・18,000人以上のデータに基づき、使いやすさと感情に働きかけるデザインを両立させている。",
         sub: [],
         url: "https://design.google/library/expressive-material-design-google-research",
+        more: { label: "M3の基礎(Foundations)", url: "https://m3.material.io/foundations" },
       },
     ],
     url: "https://design.google/library/expressive-material-design-google-research",
@@ -110,10 +112,10 @@ const FRAMEWORKS = [
 ];
 
 const OVERLAP_ROWS = [
-  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: "―(直接対応する項目なし)", wcag: "(Understandableに関連する考え方だが、直接対応する項目はない)", nn: "システムと実世界の一致 / 一貫性と標準" },
-  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: "―(直接対応する項目なし)", wcag: "(Operableに関連する考え方だが、直接対応する項目はない)", nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
-  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: "(直接対応する項目はない)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
-  { theme: "アクセシビリティを前提とする発想", hig: "Responsibility(関連する考え方だが、直接対応する項目ではない)", material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "(POUR全体がこの発想の規格化)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
+  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
+  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
+  { theme: "アクセシビリティを前提とする発想", hig: <>Responsibility<NoData>(関連する考え方だが、直接対応する項目ではない)</NoData></>, material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
 ];
 
 function CountDots({ count, color, label }) {
@@ -234,6 +236,9 @@ export default function PrinciplesComparisonPage() {
                             {it.url && (
                               <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>
                             )}
+                            {it.more && (
+                              <a href={it.more.url} target="_blank" rel="noreferrer" style={styles.genLink}>{it.more.label} ↗</a>
+                            )}
                           </div>
                           <p style={styles.genDesc}>{it.desc}</p>
                           <div style={styles.genSubList}>
@@ -320,8 +325,8 @@ export default function PrinciplesComparisonPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["設計の原則・使い分け"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

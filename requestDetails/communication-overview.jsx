@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * 「情報伝達の使い分け」ページ。Communicationカテゴリの先頭に置く統合ガイド。
@@ -353,7 +354,7 @@ const styles = {
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
   matrixScroll: { overflowX: "auto", marginBottom: 22 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "170px repeat(9, minmax(96px, 1fr))", minWidth: 1140, border: "1px solid #E1E3F0" },
+  matrixGrid: { display: "grid", gridTemplateColumns: "120px repeat(9, minmax(0, 1fr))", minWidth: 860, border: "1px solid #E1E3F0" },
   headerCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#565D8A", whiteSpace: "pre-line", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1.4 },
   labelCell: { padding: "8px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontSize: 11.5, fontWeight: 700, color: "#171B36", display: "flex", alignItems: "center" },
   cell: { padding: "8px 6px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, color: "#2E3457", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" },
@@ -509,7 +510,7 @@ export default function CommunicationOverviewPage() {
           <RelatedPartsNote />
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

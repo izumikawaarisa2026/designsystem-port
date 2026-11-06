@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「入力方法・ジェスチャー」ページ。
@@ -12,7 +12,6 @@ import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
  * 2本指・軌跡のあるジェスチャー(2.5.1)、ドラッグ(2.5.7)、端末を振る動き(2.5.4)のそれぞれに
  * 1本指のタップなどの代わりを求め、押した瞬間ではなく離したときに実行すること(2.5.2)を求める。
  * NN groupは、合図のないスワイプは見つけにくく、削除など破壊的な操作に限るべきだとする。
- * キーボードでの操作は「キーボードナビゲーション」ページで扱う。
  *
  * Apple(HIG Gestures・Pointing devices)はHIGのページデータ(JSON)を直接取得して確認(2026-10)。
  * Google(Gestures)はM3のページがSPAのため、Material Design 2のGesturesページのページデータ(JSON)と、
@@ -336,7 +335,7 @@ export default function TokensInputMethodsPage() {
         <SidebarNav currentPath="/tokens/input-methods" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / 入力方法・ジェスチャー</span>
+            <span>インタラクション / 入力方法・ジェスチャー</span>
             <span>SPEC No. 053</span>
           </div>
 
@@ -463,13 +462,13 @@ export default function TokensInputMethodsPage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>入力手段ごとの対応(Apple・Google)</h2>
-            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。キーボードでの移動の順番やフォーカスの見せ方は「キーボードナビゲーション」ページで詳しく扱います。</p>
+            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。フォーカスの見せ方は「インタラクション状態」ページで扱います。</p>
             <InputTable />
           </section>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

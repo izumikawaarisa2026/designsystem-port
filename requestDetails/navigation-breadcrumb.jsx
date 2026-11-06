@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / パンくずリスト」ページ。
@@ -215,7 +215,7 @@ export default function NavigationBreadcrumbPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              パンくずリストは、4系列のうち<strong>実質的にW3C(WAI-ARIA)とNielsen Norman Groupの2系列だけが専用の内容を持つ</strong>、やや特殊なコンポーネントです。Appleは「パンくずリスト」という名称の専用ガイドラインページを持たず、階層は<strong>戻るボタンによるナビゲーションスタック</strong>で扱うのが基本という設計思想と考えられます。Googleにも、専用のコンポーネントページは見当たりません。
+              <strong>AppleとGoogleには、パンくずリストに当たる専用の部品はありません</strong>(Appleは、階層を戻るボタンで行き来するのが基本です)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列です。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
@@ -326,8 +326,8 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>

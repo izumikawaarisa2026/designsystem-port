@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
@@ -103,8 +103,8 @@ const SOURCES = [
         </div>
         <div style={{ position: "relative", width: 26, height: 26 }}>
           <div style={{ width: 26, height: 26, borderRadius: 6, background: "#DDEFEA" }} />
-          <div style={{ position: "absolute", top: -6, right: -10, minWidth: 18, height: 14, borderRadius: 7, background: "#2F7D6E", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 3px" }}>
-            <span style={{ fontSize: 8, color: "#FFFFFF", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>99+</span>
+          <div style={{ position: "absolute", top: -6, right: -14, minWidth: 24, height: 14, borderRadius: 7, background: "#2F7D6E", display: "flex", alignItems: "center", justifyContent: "center", padding: "0 3px" }}>
+            <span style={{ fontSize: 8, color: "#FFFFFF", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>999+</span>
           </div>
         </div>
       </div>
@@ -138,9 +138,14 @@ const SOURCES = [
       "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
       "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
     ],
-    searchHint: "aria-label",
-    url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14",
-    urlSecondary: [{ label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
+    searchHint: "programmatically determined",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+    urlSecondary: [
+      { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
+      { label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+    ],
     confirmedNote: "ARIA14・4.1.2解説ページとも本文を直接確認しました(2026-09)。いずれもバッジ専用の一次文書ではなく、一般的なラベリング手法・達成基準をバッジに適用した間接的な整理。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -413,8 +418,8 @@ export default function CommunicationBadgePage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
