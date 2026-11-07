@@ -734,6 +734,38 @@ function GlossaryNote({ items }) {
   );
 }
 
+/* No.016: どのUIで使う動きか(Googleの4つのトランジションの型。Material Components for AndroidのMotionの説明による) */
+const MOTION_UI = [
+  { t: "コンテナ変形(Container transform)", d: "部品の枠が広がって、次の画面になる。2つの要素のつながりを見せる", ex: "カード→詳細画面、リストの項目→詳細画面、FAB→詳細画面、検索バー→検索画面" },
+  { t: "共有軸(Shared axis)", d: "位置関係や順番のある画面どうしを、同じ方向(横・縦・奥行き)に動かす", ex: "オンボーディング(横)、ステップの進行(縦)、親子の画面の行き来(奥行き)" },
+  { t: "フェードスルー(Fade through)", d: "関係の薄い画面どうしを、いったん消してから次を出す", ex: "ナビゲーションバーの行き先の切り替え、更新、アカウントの切り替え" },
+  { t: "フェード(Fade)", d: "画面の中に現れる・消える部品", ex: "ダイアログ、メニュー、スナックバー、FAB" },
+];
+const MOTION_PARTS = [
+  { t: "部品の状態の変化", ex: <>押したときの反応、選択・ホバーの重ね色(<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>)、スイッチのつまみ</> },
+  { t: "待ち時間", ex: <>スピナーやバーの動き(<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>・<PageLink to="/components/communication/loading">ローディング状態</PageLink>)</> },
+  { t: "項目の送り", ex: <>カルーセルのページ送り(<PageLink to="/components/containment/carousel">カルーセル</PageLink>)</> },
+  { t: "シートの出入り", ex: <>下からせり出す・横から出る(<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>)</> },
+];
+
+function MotionUiMap() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>どのUIで使う動きか</h2>
+      <p style={styles.muNote}>このページで比べる長さ(duration)・緩急(イージング)・動きを減らす配慮は、下のような画面の切り替えや部品の動き全般に共通するルールです。Googleは、画面の切り替えの動きを4つの型に分けています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.muTable}>
+          <thead><tr>{["型", "どんな動きか", "使うUIの例"].map((h) => (<th key={h} style={styles.muTh}>{h}</th>))}</tr></thead>
+          <tbody>{MOTION_UI.map((r) => (<tr key={r.t}><td style={{ ...styles.muTd, fontWeight: 700 }}>{r.t}</td><td style={styles.muTd}>{r.d}</td><td style={styles.muTd}>{r.ex}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <h3 style={styles.muSub}>部品の中の動き(各ページ)</h3>
+      <ul style={{ margin: 0, paddingLeft: 18 }}>{MOTION_PARTS.map((m) => (<li key={m.t} style={styles.muLi}><strong>{m.t}</strong>: {m.ex}</li>))}</ul>
+      <p style={styles.muNote}>出典: Material Components for Android「Motion ― Transitions」(M3のトランジションの型)。Apple・W3C・NN groupは、動きを型に分けた一覧は示していません。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まりです。";
 const ABOUT = [
@@ -789,6 +821,8 @@ export default function TokensMotionPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <MotionIntro />
+
+          <MotionUiMap />
 
 
           <div style={styles.chartCard}>
@@ -950,6 +984,12 @@ export default function TokensMotionPage() {
 }
 
 const styles = {
+  muNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  muTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  muTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  muTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  muSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "14px 0 6px" },
+  muLi: { fontSize: 11.5, lineHeight: 1.7, color: "#2E3457" },
   introBox: { border: "1px solid #E1E3F0", borderRadius: 8, padding: "16px 16px 14px", marginBottom: 22, background: "#FFFFFF" },
   introTitle: { fontSize: 15, fontWeight: 700, color: "#171B36", margin: "0 0 12px" },
   introHead: { fontSize: 11.5, fontWeight: 700, color: "#3C5A73", margin: "12px 0 8px", letterSpacing: 0.2 },
