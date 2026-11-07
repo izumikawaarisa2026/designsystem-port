@@ -264,7 +264,7 @@ export default function SelectionOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)</span>
             <span>このページは既存ページの統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。2026-10-05、Selectionに加わったページへの案内を追加。</span>
           </div>
         </div>

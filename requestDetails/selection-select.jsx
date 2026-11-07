@@ -382,7 +382,7 @@ export default function SelectionSelectPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPop-up buttons本体へのリンクです。W3CはAPGのComboboxパターン(実装の参考)を主リンクに、Select-Only Comboboxの例・Listboxパターン・WCAGの各Understandingページを併記、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Menus)へリンクしており、本文は確認済みですが、specsページ本文(dp数値など)はまだ確認できていません。

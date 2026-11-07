@@ -410,7 +410,7 @@ export default function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。

@@ -577,7 +577,7 @@ export default function CommunicationWidgetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・NN groupは本文確認済み。GoogleはM3にページがなく、Android Developersのデザインガイドで確認。W3Cは専用の基準なし)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・NN groupは本文確認済み。GoogleはM3にページがなく、Android Developersのデザインガイドで確認。W3Cは専用の基準なし)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Widgetsページの「Best practices」見出しへのアンカー付きリンクで、表示モード・寸法表・余白の見出しも併記しています。GoogleはAndroid Developersのウィジェットの大きさのページ(既定サイズの節)と、概要・品質ガイドです。W3CはWAI-ARIA 1.2のwidgetロールの定義です。NN groupはMobile Microsessionsの記事の、マイクロセッションの設計の節です。

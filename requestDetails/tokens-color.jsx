@@ -683,7 +683,7 @@ export default function TokensColorPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Colorページの「Best practices」見出しへのアンカー付きリンクで、数値が書かれたDark Modeページの見出しも併記しています。WCAGは1.4.3 Understandingページを基本リンクとし、1.4.11・1.4.1のUnderstandingページも併記しています。GoogleはM3のColor rolesページに加え、数値を確認したGitHub上の公式ドキュメント・ソースを併記しています。NN groupはUsing Color to Enhance Your Designの記事ページです。リンク色の比較はNN groupのGuidelines for Visualizing Links、WCAGの達成方法G183、薄い文字についてはNN groupのLow-Contrast Text Is Not the Answerの記事も参照しています。

@@ -332,7 +332,7 @@ export default function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
             <span>このページは主に「タブ」「セグメントコントロール」両ページの内容を統合した独自の整理です。Nielsen Norman Groupの用語定義のみ新規に直接確認して追加しました。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>

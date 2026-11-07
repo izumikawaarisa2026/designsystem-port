@@ -467,7 +467,7 @@ export default function TokensInputMethodsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。GoogleはM3のジェスチャーのページが未確認、Material Design 2のページデータとAndroid Developersの本文で確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。GoogleはM3のジェスチャーのページが未確認、Material Design 2のページデータとAndroid Developersの本文で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Gesturesページの「Best practices」見出しへのアンカー付きリンクで、標準ジェスチャーの表・独自ジェスチャー・ポインタの効果の見出しも併記しています。GoogleはM3のGesturesページに加え、内容を確認したM2のGesturesページとAndroid Developersのページを併記しています。WCAGは2.5.1を基本リンクとし、2.5.2・2.5.4・2.5.7のUnderstandingページも併記しています。NN groupはコンテキストスワイプの記事の推奨事項の節です。

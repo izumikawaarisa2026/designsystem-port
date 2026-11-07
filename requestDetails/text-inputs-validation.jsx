@@ -375,7 +375,7 @@ export default function TextInputsValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはEntering dataとWritingのページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。

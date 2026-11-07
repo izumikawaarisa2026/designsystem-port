@@ -559,7 +559,7 @@ export default function ContainmentTablePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。GoogleはM3にページがなく、Material Design 2のページデータで本文確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。GoogleはM3にページがなく、Material Design 2のページデータで本文確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Lists and tablesページの「macOS」見出し(並べ替え・列幅・行の色)へのアンカー付きリンクで、Best practices・Contentの見出しも併記しています。GoogleはMaterial Design 2のData tablesページです(M3には対応するページがありません)。W3CはWAIのTables Tutorialを基本リンクとし、Caption & Summary・APGのTable PatternとSortable Table Example・1.3.1も併記しています。NN groupはData Tablesの記事の「4つの作業」の節と、Mobile Tablesの記事の節です。

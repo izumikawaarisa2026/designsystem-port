@@ -523,7 +523,7 @@ export default function NavigationTabsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: 公式で別のページに分かれている内容は、「参照ページ」にそれぞれ載せています。W3Cは達成基準ごとのUnderstandingページとAPG(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ本文を確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。

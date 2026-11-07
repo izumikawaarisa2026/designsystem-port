@@ -406,7 +406,7 @@ export default function CommunicationBannerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications、GoogleはM2 BannersとM3の部品の一覧を2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications、GoogleはM2 BannersとM3の部品の一覧を2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。

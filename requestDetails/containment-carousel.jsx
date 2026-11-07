@@ -695,7 +695,7 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(4系列とも本文を確認。GoogleはM3のアクセシビリティのページとGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。4系列とも本文を確認。GoogleはM3のアクセシビリティのページとGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIGにカルーセルのページがないため、Page controlsページの「Best practices」見出しへのアンカー付きリンクで、iOS・iPadOSの見出しも併記しています。GoogleはM3のCarouselのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースとAndroid Developersのページを併記しています。W3CはAPGのCarousel Patternを基本リンクとし、キーボード操作の節・2.2.2・WAIのチュートリアルも併記しています。NN groupはCarousel Usabilityの記事のガイドラインの節と、自動送りの記事です。

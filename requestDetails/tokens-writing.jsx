@@ -723,7 +723,7 @@ export default function TokensWritingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。GoogleはM3のContent designの本文は未確認、Material Design 2のページデータで本文確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。GoogleはM3のContent designの本文は未確認、Material Design 2のページデータで本文確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Writingページの「Best practices」見出しへのアンカー付きリンクで、「Getting started」の見出しも併記しています。GoogleはM3のContent designのUX writing best practicesページに加え、内容を確認したM2のWritingページとM3のContent designの概要ページを併記しています。WCAGは2.4.6 Understandingページを基本リンクとし、2.4.2・3.3.2・3.1.5も併記しています。NN groupはPlain Languageの記事のヒントの節と、調子の4軸の記事・読まれる量の記事の各節です。

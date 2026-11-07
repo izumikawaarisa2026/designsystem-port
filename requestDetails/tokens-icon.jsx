@@ -615,7 +615,7 @@ export default function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。GoogleはM3のDesigning icons・Applying iconsを2026-11に確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。GoogleはM3のDesigning icons・Applying iconsを2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。

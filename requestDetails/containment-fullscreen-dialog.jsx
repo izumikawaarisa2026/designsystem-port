@@ -414,7 +414,7 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cは「モーダルダイアログ」ページと同じDialog(Modal)パターン)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cは「モーダルダイアログ」ページと同じDialog(Modal)パターン)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはModalityページへのリンクです。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。

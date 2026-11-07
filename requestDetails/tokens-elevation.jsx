@@ -693,7 +693,7 @@ export default function TokensElevationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値とダークテーマでの扱いはGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値とダークテーマでの扱いはGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Materialsページの「Liquid Glass」見出しへのアンカー付きリンクで、標準マテリアルとダークモードのbase/elevatedの見出しも併記しています。GoogleはM3のElevationページに加え、数値を確認したGitHub上の公式ソースを併記しています。WCAGは2.4.11 Understandingページの達成基準の箇所と、1.4.11の隣接色の節です。NN groupはフラットデザインの実践記事と、ダークモードの記事の「避けるべき問題」の節です。

@@ -534,7 +534,7 @@ export default function SelectionMenuPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Menusページの「Labels」見出しへのアンカー付きリンクで、Organization・Context menus・Pull-down buttonsの見出しも併記しています。GoogleはM3のMenusのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースを併記しています。W3CはAPGのMenu and Menubar Patternのキーボード操作の節を基本リンクとし、役割と属性の節・Menu Button Patternも併記しています。NN groupはContextual Menusの記事のヒントの節と、Dropdownsの記事のガイドラインの節です。

@@ -543,7 +543,7 @@ export default function TokensInteractionStatesPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Focus and selectionページの「Best practices」見出しへのアンカー付きリンクで、Buttons(押した状態)・tvOSの5状態・iPadOSのポインタ効果の各見出しも併記しています。GoogleはM3のState layersページに加え、M2のStatesページと、数値を確認したGitHub上のトークン定義を併記しています。WCAGは1.4.11・2.4.13・4.1.2の各Understandingページの基準本文です。NN groupはボタンの状態の解説の節と、読み込み中・選択の節です。

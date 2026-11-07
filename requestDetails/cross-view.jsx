@@ -360,7 +360,7 @@ export default function CrossViewPage() {
 
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(各ページのタグをビルド時に自動で集計)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。各ページのタグをビルド時に自動で集計)</span>
             <span>更新方針: タグは各ページ側で付ける → ビルド時にこの一覧を作り直す → 人が確認</span>
           </div>
         </div>

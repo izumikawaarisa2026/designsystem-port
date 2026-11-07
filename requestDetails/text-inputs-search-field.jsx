@@ -882,7 +882,7 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。

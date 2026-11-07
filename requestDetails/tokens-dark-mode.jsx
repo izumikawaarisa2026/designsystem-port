@@ -658,7 +658,7 @@ export default function TokensDarkModePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、トーンの割り当て・部品ごとの面の色・ダークテーマの扱いはGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、トーンの割り当て・部品ごとの面の色・ダークテーマの扱いはGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Dark Modeページの「Dark Mode colors」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のColor rolesページに加え、内容を確認したGitHub上の公式ドキュメントを併記しています。WCAGは1.4.3 Understandingページ(注記4を含む)と1.4.8です。NN groupは研究の文献調査の記事(まとめの節)と、利用者調査の記事(ベストプラクティスの節)です。

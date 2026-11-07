@@ -712,7 +712,7 @@ export default function TokensShapePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値と形の一覧はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値と形の一覧はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIGに角丸の専用ページがないため、同心の角丸について書かれたToolbarsページの見出しを基本リンクとし、関連する3ページの見出しを併記しています。GoogleはM3のShapeの角丸スケール(Corner radius scale)ページに加え、数値を確認したGitHub上の公式ソースを併記しています。WCAGは1.4.11 Understandingページの「Boundaries」の節と、2.5.8の大きさの要件の節です。NN groupは視線計測の調査記事と、フラットデザインの実践記事です。

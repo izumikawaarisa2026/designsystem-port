@@ -398,7 +398,7 @@ export default function ActionsLinkPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Appleは「Writing」ページ内のBest practicesセクションへのアンカー付きリンクです。WCAGは達成基準ごとのUnderstandingページ(いずれもページ単位で、これ以上細かいアンカーはありません)。NN
