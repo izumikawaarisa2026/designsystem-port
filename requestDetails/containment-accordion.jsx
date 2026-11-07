@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / アコーディオン(表示コントロール)」ページ。
@@ -22,23 +23,29 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Disclosure Controls",
+    term: "Disclosure control(開示三角形・開示ボタン)",
     color: "#C2542A",
     position: "ビューやリストに関連する情報・機能を表示・非表示する部品。開示三角形と開示ボタンの2種類",
-    size: "Disclosure controlsのページには、サイズの規定がありません。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
-    colorInfo: "色についての規定はありません。",
+    size: "Disclosure controlsのページには、サイズの規定がない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "開示コントロールは、詳細を必要になるまで隠しておくために使うとしています。よく使うコントロールを階層の上に置いて常に見えるようにし、高度な機能は既定で隠すことで、たくさんの選択肢に圧倒されずに大事な情報を見つけられるとしています。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にする部品で、隠れているときは内側を、見えているときは下を向きます。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付けるよう勧めています。",
+      "開示コントロールは、詳細を必要になるまで隠しておくために使うとしている。よく使うコントロールを階層の上に置いて常に見えるようにし、高度な機能は既定で隠すことで、たくさんの選択肢に圧倒されずに大事な情報を見つけられるとしている。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にする部品で、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付けるよう勧めている。",
     exceptions:
-      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする部品(macOSの保存シートなど)で、隠れているときは下を、見えているときは上を向きます。開示ボタンは、表示・非表示にする内容の近くに置き、1つのビューに1つまでにするよう勧めています(複数あると複雑で分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えません。",
+      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする部品(macOSの保存シートなど)で、隠れているときは下を、見えているときは上を向く。開示ボタンは、表示・非表示にする内容の近くに置き、1つのビューに1つまでにするよう勧めている(複数あると複雑で分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えない。",
     accessibility:
-      "―(Disclosure controlsのページにはアクセシビリティの専用の記載はありません)。標準の開示コントロールを使えば、支援技術には自動的に状態が伝わると考えられます(AI解釈)。",
+      <span><NoData>記載なし。</NoData>標準の開示コントロールを使えば、支援技術には自動的に状態が伝わると考えられる(AI解釈)。</span>,
     useCases: [
       "詳細や高度な機能を、必要になるまで隠しておく",
       "何が表示・非表示になるかが分かるラベルを付ける",
       "開示ボタンは内容の近くに置き、1つのビューに1つまでにする",
     ],
     searchHint: "descriptive label",
-    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls",
+    url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles",
+    refs: [
+      { label: "Disclosure Controls", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles" },
+      { label: "Disclosure controls ― Disclosure buttons", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-buttons" },
+      { label: "Disclosure controls ― iOS・iPadOS・visionOS(DisclosureGroup)", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
+    ],
     confirmedNote: "HIGのページデータ(Disclosure controlsのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="60" viewBox="0 0 120 60">
@@ -54,6 +61,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -64,35 +72,38 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※現行のMaterial Design 3に「アコーディオン」に相当する名称の独立した専用コンポーネントは存在しません。旧世代(M1)には「Expansion panel」という独立コンポーネントがありましたが、M3では見当たらず、検索結果によれば開閉(展開/折りたたみ)の考え方はListコンポーネントの機能に統合されたとされています(2026-09、間接確認)。「無い」という結論自体は明確ですが、m3.material.ioがSPAで全文網羅の確認はできていないため、間接確認として扱っています。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に、アコーディオンに当たる部品はない(2026-11に確認)。旧世代(M1)の「Expansion panel」に当たる部品も、M3にはない。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
+    term: "Accordion(APGのパターン)",
     color: "#A3821F",
     position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
-    size: "アコーディオン専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は見出しのボタンに適用されます。",
-    colorInfo: "色の基準はありませんが、非表示時は右向き矢印、表示時は下向き矢印などのスタイルで状態を示す例があります。",
+    size: "アコーディオン専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は見出しのボタンに適用される。",
+    colorInfo: "色の基準はないが、非表示時は右向き矢印、表示時は下向き矢印などのスタイルで状態を示す例がある。",
     glossary: [
       { term: "aria-expanded", desc: "見出しのボタンの状態を示す属性。パネルが見えているときはtrue、隠れているときはfalseを設定する。" },
       { term: "aria-controls", desc: "ボタンが、どのパネルを開閉するかを示す属性。値はパネルのIDにする。" },
     ],
     stance:
-      "アコーディオンは、縦に並んだ見出しで、それぞれが対応する内容のセクション(パネル)を表示・非表示にする部品だとしています(APGのAccordion Pattern)。各見出しの文字は、見出し要素(h2など、ページの構成に合ったレベル)の中に置いたbutton要素(またはbuttonの役割を持つ要素)にし、見出しの中にはそのボタンだけを入れます。パネルが見えているときはaria-expanded=\"true\"、隠れているときは\"false\"にし、aria-controlsでパネルのIDを指します。ネイティブの<button>要素を使うなら、role=\"button\"を足す必要はありません。",
+      "アコーディオンは、縦に並んだ見出しで、それぞれが対応する内容のセクション(パネル)を表示・非表示にする部品だとしている(APGのAccordion Pattern)。各見出しの文字は、見出し要素(h2など、ページの構成に合ったレベル)の中に置いたbutton要素(またはbuttonの役割を持つ要素)にし、見出しの中にはそのボタンだけを入れる。パネルが見えているときはaria-expanded=\"true\"、隠れているときは\"false\"にし、aria-controlsでパネルのIDを指す。ネイティブの<button>要素を使うなら、role=\"button\"を足す必要はない。",
     exceptions:
-      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンにaria-disabled=\"true\"を付けるとしています。パネルにregionの役割を付けてもよいが、同時に開けるパネルが6個程度を超えるなら、ランドマークが増えすぎるため避けるよう勧めています。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になります。",
+      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンにaria-disabled=\"true\"を付けるとしている。パネルにregionの役割を付けてもよいが、同時に開けるパネルが6個程度を超えるなら、ランドマークが増えすぎるため避けるよう勧めている。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になる。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 見出しのボタンにフォーカスがあるとき、Enterキー・Spaceキーで開閉できるようにします。開閉の状態は、aria-expandedで支援技術に伝えます(4.1.2)。",
+      "操作可能(Operable)・堅牢(Robust) ― 開閉の状態は、aria-expandedで支援技術に伝える(4.1.2)。",
     useCases: [
       "見出し要素(h2など)の中にbutton要素を置き、そのボタンで開閉する",
       "ボタンにaria-expanded(true/false)とaria-controls(パネルのID)を付ける",
-      "Enter/Spaceキーのいずれでも開閉を切り替えられるようにする",
     ],
     searchHint: "aria-expanded",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/accordion/",
-    urlSecondary: [{ label: "APG: Disclosure (Show/Hide) Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/" }],
+    refs: [
+      { kind: "apg", label: "APG: Accordion Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" },
+      { kind: "apg", label: "APG: Disclosure (Show/Hide) Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="60" viewBox="0 0 120 60">
@@ -107,16 +118,17 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Accordions on Desktop: When and How to Use",
+    term: "Accordion",
     color: "#7A4F7E",
     position: "クリックして情報を表示・非表示にする設計パターン(見出し・アイコン・パネルで構成)。使うべき場面・避けるべき場面が明確に分かれる(数値基準ではなく判断基準)",
-    size: "数値基準は明言していませんが、見出しはコンテンツを正確に反映する長さ・表現にすべきだとしています。",
-    colorInfo: "色についての数値基準はありませんが、展開可能であることを視覚的に示すためキャレットアイコンなどを使うべきだとしています。",
+    size: <span><NoData>数値基準なし。</NoData>見出しはコンテンツを正確に反映する長さ・表現にすべきだとしている。</span>,
+    colorInfo: <span><NoData>数値基準なし。</NoData>展開可能であることを視覚的に示すためキャレットアイコンなどを使うべきだとしている。</span>,
     stance:
-      "アコーディオンは、クリックして情報を表示・非表示にする設計パターンで、見出し・アイコン・パネルで構成されるとしています。ページの煩雑さの軽減・スクロール量の削減・ページ全体の概要提示・スキャン性の向上・(URLなどによる)直接アクセスのしやすさといった利点があるとしています。",
+      "アコーディオンは、クリックして情報を表示・非表示にする設計パターンで、見出し・アイコン・パネルで構成されるとしている。ページの煩雑さの軽減・スクロール量の削減・ページ全体の概要提示・スキャン性の向上・(URLなどによる)直接アクセスのしやすさといった利点があるとしている。",
     exceptions:
-      "ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしています。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、FAQのように各セクションが独立している場合、長いコンテンツで画面幅が小さい場合には適しているとしています。",
+      <>ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしている。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、<Hl>FAQのように各セクションが独立している場合</Hl>、長いコンテンツで画面幅が小さい場合には適しているとしている。</>,
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、使うべき場面・避けるべき場面の判断基準です。見出しはコンテンツを正確に反映させ、展開可能であることをキャレットアイコン等で視覚的に示し、複数セクションの同時展開を許可し、重要な情報は常に表示しておくべきだとしています。",
+      "根拠となる原則 ― POURのような適合区分ではなく、使うべき場面・避けるべき場面の判断基準。見出しはコンテンツを正確に反映させ、展開可能であることをキャレットアイコン等で視覚的に示し、複数セクションの同時展開を許可し、重要な情報は常に表示しておくべきだとしている。",
     useCases: [
       "FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に使う",
       "見出しはコンテンツを正確に反映させ、キャレットアイコン等で展開可能であることを示す",
@@ -124,6 +136,9 @@ const SOURCES = [
     ],
     searchHint: "progressive disclosure",
     url: "https://www.nngroup.com/articles/accordions-on-desktop/",
+    refs: [
+      { label: "Accordions on Desktop: When and How to Use", url: "https://www.nngroup.com/articles/accordions-on-desktop/" },
+    ],
     illustration: () => (
       <svg width="120" height="60" viewBox="0 0 120 60">
         <rect x="1" y="1" width="118" height="16" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -156,7 +171,7 @@ function UseCaseList({ items, muted }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -181,6 +196,38 @@ function AccordionSwatch() {
     </div>
   );
 }
+
+/* No.054: タブとアコーディオンの使い分け(NN group「Tabs, Used Right」の「Tabs Versus Accordions」による) */
+const TAB_VS_ACC = [
+  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)"],
+  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)"],
+  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える"],
+  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)"],
+];
+
+function TabVsAccordion() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け(Nielsen Norman Group)</h2>
+      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法です。画面の広さと内容の長さで選びます。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvaTable}>
+          <thead><tr>{["", "アコーディオン", "タブ"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
+          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
+    </section>
+  );
+}
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできる部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "必要な部分だけを開いて読めるようにし、長いページを短く見せる" },
+  { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマホでの長い説明の折りたたみ" },
+  { k: "似た部品との違い", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
+];
 
 export default function ContainmentAccordionPage() {
   return (
@@ -207,16 +254,20 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <h1 style={styles.title}>アコーディオン(表示コントロール)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、クリック/タップで情報の表示・非表示を切り替える段階的開示のコントロールをどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><AccordionSwatch /></>}
+            imageNote={<>見出しをクリックすると、関連するパネル(詳細内容)の表示・非表示が切り替わる。展開可能であることを示すキャレットアイコンを伴うのが一般的。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <AccordionSwatch />
-            <p style={styles.swatchNote}>見出しをクリックすると、関連するパネル(詳細内容)の表示・非表示が切り替わる。展開可能であることを示すキャレットアイコンを伴うのが一般的。</p>
-          </div>
 
+
+          <TabVsAccordion />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupです。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っています。
             </p>
@@ -224,10 +275,9 @@ export default function ContainmentAccordionPage() {
               W3CのAPGには、専用の<strong>Accordion Pattern</strong>があります。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点です。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがありません。</strong>M1時代には「Expansion panel」という独立コンポーネントが存在しましたが、検索結果によれば現行のM3では見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされています。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情です。
+              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがありません。</strong>M1時代には「Expansion panel」という独立コンポーネントがありましたが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされています。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情です。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -237,13 +287,14 @@ export default function ContainmentAccordionPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
@@ -252,13 +303,14 @@ export default function ContainmentAccordionPage() {
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
-                  <div style={styles.sourceFootRow}>
+                  <>
+                    <InfoBox label="参照ページ(公式)">
+                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    </InfoBox>
                     {s.searchHint && (
                       <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                     )}
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
-                  </div>
+                  </>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -266,7 +318,6 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -276,8 +327,6 @@ export default function ContainmentAccordionPage() {
                     <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -285,45 +334,42 @@ export default function ContainmentAccordionPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} muted={s.notApplicable} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    {s.notApplicable ? (
-                      <span style={styles.mutedText}>該当なし</span>
-                    ) : (
-                      <>
-                        <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
-                        {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                      </>
-                    )}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Disclosure controls、GoogleはM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
@@ -336,10 +382,16 @@ export default function ContainmentAccordionPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
+  tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvaTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -348,7 +400,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -374,7 +426,7 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -385,7 +437,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

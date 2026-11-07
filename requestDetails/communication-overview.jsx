@@ -1,12 +1,13 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * 「情報伝達の使い分け」ページ。Communicationカテゴリの先頭に置く統合ガイド。
  * 「Selectionの選び方」ページと同種の位置づけで、Containment/Communication
  * 両カテゴリにまたがる9パーツ(サイドシート・ボトムシート・ダイアログ・
  * フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・
- * アラート/バナー・アコーディオン)を、「ユーザーに何かアクションをさせる
+ * バナー・アコーディオン)を、「ユーザーに何かアクションをさせる
  * 必要があるか」というユーザー行動を起点に整理する。
  *
  * 2026-09 改訂の経緯: 初版は「スナックバー・トースト」を1パーツとして扱い、
@@ -33,7 +34,7 @@ import SidebarNav from "./sidebar-nav";
  * 受けて全面的に作り直した。新しい判断フローは、1つのひし形=1つの正味の
  * 二択質問という原則を徹底した上で、いったんHTML/CSSの入れ子カード表示に
  * 置き換えた。ルートの軸も「アクションの要否」から「操作を完全にブロックするか」
- * (比較表の1列目と一致)に変更し、「アラート/バナー」ページのAI解釈で確認した
+ * (比較表の1列目と一致)に変更し、「バナー」ページ(旧「アラート/バナー」)のAI解釈で確認した
  * Nielsen Norman Groupの「アクション必須通知」という分類(単純な自動消去型の
  * パッシブ通知とは別の性質)を、判断フロー上でも「対応するまで画面に残すべきか」
  * という独立した問いとして正しく反映した(旧版では「アクション不要」の枝に
@@ -51,7 +52,7 @@ import SidebarNav from "./sidebar-nav";
  * 詳細は DECISION_TREE 付近のコメントを参照。
  *
  * 2026-09 追記: 新規作成された「プログレスインジケーター」「バッジ」
- * 「空状態・ローディング状態」の3ページは、いずれも「進行中のシステム状態を
+ * 「空状態」「ローディング状態」の4ページは、いずれも「進行中のシステム状態を
  * 示す」ことが目的で、本ページの9パーツが扱う「何かが起きたのでユーザーに
  * 伝える・対応させる」という性質とは異なるため、判断フロー・比較表には含めず、
  * ページ末尾に「関連するが対象外のパーツ」として参照リンクのみ追加した。
@@ -91,7 +92,7 @@ import SidebarNav from "./sidebar-nav";
  * これを修正するため、ルートの質問を全9パーツを漏れなく二分できる軸
  * 「決定・確認を求める?」に置き換えた。ダイアログ・フルスクリーンダイアログの
  * みが単一の決定・確認をユーザーに求め、残り7パーツ(アコーディオン・ボトム
- * シート・サイドシート・アラート/バナー・ツールチップ・スナックバー・トースト)は
+ * シート・サイドシート・バナー・ツールチップ・スナックバー・トースト)は
  * いずれもモーダル版の有無にかかわらず決定を要求しない。背景操作の無効化
  * (モーダル性)は、ボトムシート/サイドシートのページ内で標準/モーダルを選ぶ
  * 際の判断材料として引き続き比較表・判断軸の1つ(参考情報)に残すが、フロー自体の分岐
@@ -111,7 +112,7 @@ import SidebarNav from "./sidebar-nav";
  * 「非モーダル版が存在しない(常にモーダルとしてしか実装できない)か?」。
  * ダイアログ・フルスクリーンダイアログは、Apple・Googleいずれの定義でも背景操作を
  * 残したまま使う非モーダル版が存在しない。一方ボトムシート/サイドシートは
- * 標準(非モーダル)版が公式に用意されており、アコーディオン・アラート/バナー・
+ * 標準(非モーダル)版が公式に用意されており、アコーディオン・バナー・
  * ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。
  * この軸は比較表の「背景操作を無効化」列で○(常に無効化)/△(条件による)/✕(常に
  * 無効化しない)のうち「○だけがYES」という、コンテンツの使われ方に左右されない
@@ -190,7 +191,7 @@ const CARDS = [
     ),
   },
   {
-    key: "alert", name: "アラート/バナー", path: "/components/communication/alert", built: true,
+    key: "alert", name: "バナー", path: "/components/communication/banner", built: true,
     oneLiner: "画面に留まり続ける、インラインの継続的な通知。",
     doText: "オフライン状態など、対応するまで気づかせ続けたい時",
     dontText: "一度きりの結果通知で十分な時(→スナックバー)",
@@ -228,7 +229,7 @@ const CARDS = [
     ),
   },
   {
-    key: "dialog", name: "ダイアログ", path: "/components/containment/dialog", built: true,
+    key: "dialog", name: "モーダルダイアログ", path: "/components/containment/dialog", built: true,
     oneLiner: "スクリム上の小さいモーダル。閲覧・確認ベースの情報に使う。",
     doText: "ヘルプなど補助情報の閲覧や、リスクの高い操作の確認・簡潔な選択を求めたい時",
     dontText: "情報量が多く、集中してタスクを完了させたい時(→フルスクリーンダイアログ)",
@@ -301,10 +302,10 @@ const CARDS = [
  * SOURCESデータから統合した独自の整理(新規の一次情報ではない)。 */
 const COMPARISON_ROWS = [
   { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインターやフォーカスが外れたら消える。時間では消さない。1.4.13)", actionButton: "✕", error: "✕", hint: "○", parallel: "○", decision: "✕", fullReplace: "✕", place: "アンカー付近" },
-  { key: "alert", name: "アラート/バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面上部/インライン" },
+  { key: "alert", name: "バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面上部/インライン" },
   { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作を持つなら自動で消さないのが安全)", actionButton: "△(1つまで)", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面下部" },
   { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面下部" },
-  { key: "dialog", name: "ダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(最大2)", error: "△(確認失敗時)", hint: "✕", parallel: "✕", decision: "○", fullReplace: "✕", place: "画面中央" },
+  { key: "dialog", name: "モーダルダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(最大2)", error: "△(確認失敗時)", hint: "✕", parallel: "✕", decision: "○", fullReplace: "✕", place: "画面中央" },
   { key: "fullscreen-dialog", name: "フルスクリーンダイアログ", block: "○", autoDismiss: "✕", actionButton: "○", error: "△(インライン)", hint: "✕", parallel: "✕", decision: "○", fullReplace: "○", place: "画面全体" },
   { key: "accordion", name: "アコーディオン", block: "✕", autoDismiss: "✕", actionButton: "✕(開閉のみ)", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "インライン(展開)" },
   { key: "bottom-sheet", name: "ボトムシート", block: "△(モーダルが多い)", autoDismiss: "✕", actionButton: "○", error: "✕", hint: "✕", parallel: "○", decision: "△(操作メニューとして持つ場合あり)", fullReplace: "✕", place: "画面下部" },
@@ -324,6 +325,15 @@ const COMPARISON_COLUMNS = [
 ];
 
 const styles = {
+  axisGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: 12, marginBottom: 24 },
+  axisBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },
+  axisBoxTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
+  axisGroup: { marginBottom: 8 },
+  axisGroupName: { fontSize: 11, fontWeight: 700, marginBottom: 4 },
+  axisChips: { display: "flex", flexWrap: "wrap", gap: 5 },
+  axisChip: { fontSize: 11, border: "1px solid", borderRadius: 12, padding: "1px 8px", background: "#FFFFFF" },
+  axisDetails: { marginTop: 8 },
+  axisDetailsSummary: { fontSize: 11, color: "#3A4FCF", cursor: "pointer" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
@@ -341,7 +351,7 @@ const styles = {
   axisRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 },
   axisRowLast: { marginBottom: 0 },
   axisLabel: { flexShrink: 0, width: 118, fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3, textAlign: "center" },
-  axisText: { fontSize: 12, lineHeight: 1.6, color: "#454C78" },
+  axisText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "6px 0 0" },
   cardGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 24 },
   card: { display: "block", textDecoration: "none", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 16px", color: "inherit" },
   cardIcon: { marginBottom: 10, height: 30, display: "flex", alignItems: "center" },
@@ -353,7 +363,7 @@ const styles = {
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
   matrixScroll: { overflowX: "auto", marginBottom: 22 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "170px repeat(9, minmax(96px, 1fr))", minWidth: 1140, border: "1px solid #E1E3F0" },
+  matrixGrid: { display: "grid", gridTemplateColumns: "120px repeat(9, minmax(0, 1fr))", minWidth: 860, border: "1px solid #E1E3F0" },
   headerCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#565D8A", whiteSpace: "pre-line", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1.4 },
   labelCell: { padding: "8px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontSize: 11.5, fontWeight: 700, color: "#171B36", display: "flex", alignItems: "center" },
   cell: { padding: "8px 6px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, color: "#2E3457", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" },
@@ -371,21 +381,86 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.5 },
 };
 
-function AxisSummary() {
-  const rows = [
-    { label: "①非モーダル版が存在しないか", text: "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・アラート/バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。" },
-    { label: "②通知か、コンテンツ・操作の提供か", text: "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。" },
-    { label: "③自動で消えるか", text: "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。アラート/バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。" },
-    { label: "④画面内の位置", text: "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。" },
-  ];
+const DETAIL_1 = "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。";
+const DETAIL_2 = "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。";
+const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。";
+const DETAIL_4 = "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。";
+
+/* 4つの判断軸(No.055で図にした)。各軸で9つのパーツをグループに分けて示し、詳しい説明は開いて読む */
+const AXES = [
+  { label: "① モーダルかどうか", groups: [
+    { name: "常にモーダル", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+    { name: "モーダル・非モーダルの両方がある", color: "#A3821F", parts: ["ボトムシート", "サイドシート"] },
+    { name: "モーダルの考えがない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "トースト", "ツールチップ", "アコーディオン"] },
+  ], detail: DETAIL_1 },
+  { label: "② 何を出すか", groups: [
+    { name: "知らせる(通知・フィードバック)", color: "#3A4FCF", parts: ["バナー", "スナックバー", "トースト", "ツールチップ"] },
+    { name: "内容や操作を出す", color: "#2F7D6E", parts: ["アコーディオン", "ボトムシート", "サイドシート"] },
+    { name: "答えや入力を求める", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+  ], detail: DETAIL_2 },
+  { label: "③ どう消えるか", groups: [
+    { name: "時間で自動的に消える", color: "#7E86AC", parts: ["トースト", "スナックバー(操作があれば消さない)"] },
+    { name: "ポインター・フォーカスが離れたら消える", color: "#A3821F", parts: ["ツールチップ"] },
+    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["バナー", "モーダルダイアログ", "フルスクリーンダイアログ", "ボトムシート", "サイドシート"] },
+  ], detail: DETAIL_3 },
+];
+
+function PositionMap() {
+  const W = 220, H = 150;
+  const tag = (x, y, t, c) => (
+    <g key={t}>
+      <rect x={x} y={y} width={t.length * 9 + 10} height="16" rx="8" fill="#FFFFFF" stroke={c} />
+      <text x={x + 5} y={y + 11.5} fontSize="9" fill={c} fontFamily="Jost, Noto Sans JP">{t}</text>
+    </g>
+  );
   return (
-    <div style={styles.axisCard}>
-      {rows.map((r, i) => (
-        <div key={r.label} style={{ ...styles.axisRow, ...(i === rows.length - 1 ? styles.axisRowLast : {}) }}>
-          <span style={styles.axisLabel}>{r.label}</span>
-          <span style={styles.axisText}>{r.text}</span>
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 360, display: "block", margin: "0 auto" }} role="img" aria-label="画面内の位置の図">
+      <rect x="20" y="6" width="180" height="138" rx="10" fill="#F3F6FA" stroke="#C7CBE6" />
+      <rect x="20" y="6" width="180" height="22" rx="10" fill="#E6EAF6" />
+      {tag(26, 10, "バナー(上部)", "#3A4FCF")}
+      <rect x="62" y="56" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#C0503F" />
+      <text x="110" y="74" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルダイアログ</text>
+      <text x="110" y="87" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
+      <rect x="166" y="30" width="34" height="86" rx="4" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="183" y="70" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">サイド</text>
+      <text x="183" y="81" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
+      <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: ボトムシート・スナックバー・トースト</text>
+      {tag(26, 34, "ツールチップ(部品の近く)", "#A3821F")}
+      {tag(26, 100, "アコーディオン(内容の中)", "#565D8A")}
+    </svg>
+  );
+}
+
+function AxisSummary() {
+  return (
+    <div style={styles.axisGrid}>
+      {AXES.map((a) => (
+        <div key={a.label} style={styles.axisBox}>
+          <div style={styles.axisBoxTitle}>{a.label}</div>
+          {a.groups.map((g) => (
+            <div key={g.name} style={styles.axisGroup}>
+              <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
+              <div style={styles.axisChips}>
+                {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
+              </div>
+            </div>
+          ))}
+          <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+            <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+            <p style={styles.axisText}>{a.detail}</p>
+          </details>
         </div>
       ))}
+      <div style={styles.axisBox}>
+        <div style={styles.axisBoxTitle}>④ 画面内の位置</div>
+        <PositionMap />
+        <p style={{ ...styles.axisText, textAlign: "center" }}>フルスクリーンダイアログは画面全体を覆う</p>
+        <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+          <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+          <p style={styles.axisText}>{DETAIL_4}</p>
+        </details>
+      </div>
     </div>
   );
 }
@@ -438,7 +513,8 @@ function ComparisonTable() {
 const RELATED_PARTS = [
   { name: "プログレスインジケーター", path: "/components/communication/progress", note: "処理の進行状況(待ち時間)を示す" },
   { name: "バッジ", path: "/components/communication/badge", note: "件数・存在の有無を示す小さな装飾要素" },
-  { name: "空状態・ローディング状態", path: "/components/communication/empty-state", note: "データが「まだ無い/読み込み中」であることを示す" },
+  { name: "空状態", path: "/components/communication/empty-state", note: "データが「まだ無い」ことを示す" },
+  { name: "ローディング状態", path: "/components/communication/loading", note: "データを「読み込み中」であることを示す" },
 ];
 
 function RelatedPartsNote() {
@@ -446,7 +522,7 @@ function RelatedPartsNote() {
     <div style={styles.relatedBox}>
       <div style={styles.relatedLabel}>関連するが本ページの比較対象外のパーツ</div>
       <p style={styles.relatedText}>
-        プログレスインジケーター・バッジ・空状態/ローディング状態の3つは、「何かが起きたのでユーザーに伝える・対応させる」という本ページの9パーツとは異なり、<strong>「今どんな状態か」という進行中のシステム状態を示すこと自体が目的</strong>のため、この比較には含めていません。用途が近い場面もあるため、参考までにリンクを掲載します。
+        プログレスインジケーター・バッジ・空状態・ローディング状態の4つは、「何かが起きたのでユーザーに伝える・対応させる」という本ページの9パーツとは異なり、<strong>「今どんな状態か」という進行中のシステム状態を示すこと自体が目的</strong>のため、この比較には含めていません。用途が近い場面もあるため、参考までにリンクを掲載します。
       </p>
       <div style={styles.relatedLinks}>
         {RELATED_PARTS.map((it) => (
@@ -481,15 +557,15 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <h1 style={styles.title}>情報伝達の使い分け</h1>
-          <p style={styles.subtitle}>サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・アラート/バナー・アコーディオン。9つのパーツを、4つの判断軸と比較表(◯/△/✕)で使い分けます</p>
+          <p style={styles.subtitle}>サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・バナー・アコーディオン。9つのパーツを、4つの判断軸と比較表(◯/△/✕)で使い分けます</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               9つのパーツは<strong>「①非モーダル版が存在しないか ②通知か、コンテンツ・操作の提供か ③自動で消えるか ④画面内のどこに出すか」</strong>という4つの軸で整理できます(詳しくは下の「判断軸」を参照)。<strong>①だけがダイアログ・フルスクリーンダイアログを残り7パーツから分ける、部品の定義そのものに基づく軸</strong>で、中身の使い方では変わりません。一方でボトムシート/サイドシート/アコーディオンは多目的な部品で、場面によって性質が変わるため、その実情は下の比較表の△として表現しています。
             </p>
             <p style={styles.synthesisText}>
-              スナックバーとトーストの違いは<strong>取り消し等の操作を持たせるか</strong>。ダイアログとフルスクリーンダイアログの違いは<strong>閲覧・確認で完結するか、情報量が多く集中実行させたいか</strong>(最大2アクションを超えたらフルスクリーンへ)。アラート/バナーは<strong>自動で消えず、画面に残り続ける</strong>通知です。ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限りません(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸です)。アコーディオンは通知ではなく、同じ場所で開閉する段階的開示の仕組みです。
+              スナックバーとトーストの違いは<strong>取り消し等の操作を持たせるか</strong>。ダイアログとフルスクリーンダイアログの違いは<strong>閲覧・確認で完結するか、情報量が多く集中実行させたいか</strong>(最大2アクションを超えたらフルスクリーンへ)。バナーは<strong>自動で消えず、画面に残り続ける</strong>通知です。ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限りません(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸です)。アコーディオンは通知ではなく、同じ場所で開閉する段階的開示の仕組みです。
             </p>
             <p style={styles.synthesisText}>
               <strong>ボトムシート/サイドシートは非モーダル版も公式に用意されていますが、実務ではモーダルとして使われる場面が多い点に注意してください。</strong>Appleのシートは既定でモーダルとして提示され、Googleのサイドシートもコンパクトな画面(モバイル)ではモーダル版が好まれるとされています。比較表の「モーダルが多い」という表記はこれを反映したものです。
@@ -509,12 +585,12 @@ export default function CommunicationOverviewPage() {
           <RelatedPartsNote />
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
-            <span>このページは既存ページ(サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・アラート/バナー・アコーディオン)の統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>このページは既存ページ(サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・バナー・アコーディオン)の統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
           </div>
         </div>
       </div>

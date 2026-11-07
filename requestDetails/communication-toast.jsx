@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / トースト」ページ。
@@ -41,27 +42,30 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
+    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「トースト」に該当する専用コンポーネントはなし。最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知(「スナックバー」ページと同一の一次情報)",
-    size: "具体的な数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    position: "トーストに当たる部品はない。最も近いのは通知(ロック画面やホーム画面などのバナー、通知センター)",
+    size: <NoData>数値基準なし</NoData>,
     scenarios: [
       "OSレベルの短時間通知を見せたい時(バナー形式)",
       "アプリ内の一時的なフィードバックは専用コンポーネントがないため独自実装が必要になる時",
     ],
     stance:
-      "HIGには「トースト」という名称のコンポーネントは見当たりません。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされています。この点は「スナックバー」ページと同一の一次情報で、AppleはToast/Snackbarを区別していません。",
+      "HIGに「トースト」という名前の部品はない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。アプリの中で短く出て消えるフィードバックの部品はなく、Appleはトーストとスナックバーを区別していない。",
     exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていません。",
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません)。",
+      "表示時間や同時に出す数の数値の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)ほうがよいとしている。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "OSレベルの短時間通知にはバナー形式を使う",
       "アプリ内の一時的なフィードバック表示に厳密に対応する専用コンポーネントは持たない",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    confirmedNote: "「トースト」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09、「スナックバー」ページと同一の一次情報)。",
+    refs: [
+      { label: "Notifications(バナー、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+    ],
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
@@ -76,23 +80,23 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)",
+    term: "Toast(AndroidのOSの仕組み)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当します。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できます。",
+    successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当する。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できる。",
     position: "M3の公式コンポーネント一覧には存在しない(旧M1〜M2時代の名残であるAndroidのプラットフォームAPI)。操作に対する簡潔なフィードバックを示す、必要最小限のスペースだけを占める小さなポップアップ。現在の画面はそのまま操作可能",
-    size: "具体的なdp数値は確認できていません。Android 12(API31)以降は最大2行のテキストに制限され、アプリのアイコンがテキストの隣に表示されるとしています。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: <span><NoData>数値は未確認。</NoData>Android 12(API31)以降は最大2行のテキストに制限され、アプリのアイコンがテキストの隣に表示されるとしている。</span>,
     scenarios: [
       "取り消しや追加操作を必要としない、ごく簡潔な操作結果のフィードバックを出したい時",
       "ユーザー操作(Undoなど)を持たせたい場合はSnackbarを検討したい時",
       "アプリがバックグラウンドにあり、ユーザーに何らかの対応を求めたい場合はNotificationを使いたい時",
     ],
     stance:
-      "Toastは、操作に対する簡潔なフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、現在の画面はそのまま表示・操作可能な状態を保つとしています。自動的に消えるまでの時間はToast.LENGTH_SHORT等の指定に従うとしています。公式ページは、アプリが前面表示中の場合はSnackbar(アクション性が高い)、背面にある場合はNotification(対応を求める)を検討すべきと案内しており、Toast自体は「取り消し等の操作を伴わない最も簡潔なフィードバック」という位置づけです。",
+      "Toastは、操作に対する簡潔なフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、現在の画面はそのまま表示・操作可能な状態を保つとしている。自動的に消えるまでの時間はToast.LENGTH_SHORT等の指定に従うとしている。公式ページは、アプリが前面表示中の場合はSnackbar(アクション性が高い)、背面にある場合はNotification(対応を求める)を検討すべきと案内しており、Toast自体は「取り消し等の操作を伴わない最も簡潔なフィードバック」という位置づけ。",
     exceptions:
-      "カスタムToastビュー(独自レイアウト)はAPI30で非推奨となり、標準のテキストのみのToastかSnackbarへの置き換えが案内されています。表示テキストの行の長さは画面サイズによって変わるため、できるだけ短い文言にすべきとしています。",
+      "カスタムToastビュー(独自レイアウト)はAPI30で非推奨となり、標準のテキストのみのToastかSnackbarへの置き換えが案内されている。表示テキストの行の長さは画面サイズによって変わるため、できるだけ短い文言にすべきとしている。",
     accessibility:
-      "―(Android公式ページ本文には専用のアクセシビリティ記載は確認できていません)。自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全です(AI解釈)。Androidのスクリーンリーダー(TalkBack)での読み上げの扱いは、公式の文書では確認できていません。",
+      <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全です(AI解釈)。Androidのスクリーンリーダー(TalkBack)での読み上げの扱いは、公式の文書では確認できていない。</span>,
     useCases: [
       "makeText()メソッドで標準的なテキストのみのToastを作成する",
       "独自レイアウトが必要な場合はカスタムToastビュー(非推奨)ではなくSnackbarを使う",
@@ -100,7 +104,10 @@ const SOURCES = [
     ],
     searchHint: "makeText",
     url: "https://developer.android.com/guide/topics/ui/notifiers/toasts",
-    urlSecondary: [{ label: "Snackbar(このコンポーネントとの使い分け)", url: "https://m3.material.io/components/snackbar/guidelines" }],
+    refs: [
+      { label: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)", url: "https://developer.android.com/guide/topics/ui/notifiers/toasts" },
+      { label: "Snackbar(このコンポーネントとの使い分け)", url: "https://m3.material.io/components/snackbar/guidelines" },
+    ],
     confirmedNote: "Android Developers公式ページ本文を直接取得して確認(2026-09)。カスタムToastビューがAPI30で非推奨になったこと、Android12以降の2行制限・アイコン表示も同ページで直接確認済み。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -114,30 +121,34 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
+    term: "status(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "フォーカスを移さずに出る状態の知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
-    size: "トースト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は操作可能な要素に適用されます(Toast自体は操作不可のため直接の対象にはなりにくい)。",
-    colorInfo: "1.4.11(非テキストのコントラスト)は、Toast内にアイコン等の視覚的要素がある場合に適用され得ます。",
+    glossary: [
+      { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toast内にアイコン等の視覚的要素がある場合に適用され得る。" },
+    ],
+    size: "トースト専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は操作可能な要素に適用される(Toast自体は操作不可のため直接の対象にはなりにくい)。",
     scenarios: [
       "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3、role=\"status\")",
       "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求めます。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本です(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使いません。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
-      "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準です。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書きます。",
+      "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
     accessibility:
-      "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠です。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得ます。",
+      "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
     useCases: [
       "Web実装でトースト風の通知を作る場合はrole=\"status\"を使う",
       "自動で消えるため、読み上げが間に合わないことがある。重要な情報の伝達には使わない",
     ],
     searchHint: "without receiving focus",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
-    urlSecondary: [
-      { label: "2.2.1 Timing Adjustable", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { kind: "sc", level: "A", label: "2.2.1 タイミング調整可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
-      { label: "解説(MDN): statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
+      { kind: "mdn", label: "statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
     ],
     confirmedNote: "4.1.3・2.2.1のUnderstandingページと、WAI-ARIA仕様のstatusロールを確認(2026-10)。",
     illustration: () => (
@@ -154,18 +165,18 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
+    term: "Snackbar(Toast)",
     color: "#7A4F7E",
     position: "「Toast」を独立した用語としては区別しておらず、用語集では「Snackbar (Toast)」という1つの項目にまとめられている",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <NoData>数値基準なし</NoData>,
     scenarios: [
       "パッシブ通知(見落としても致命的でない)として位置づけたい時",
       "重要な情報の唯一の伝達手段にはしたくない時",
     ],
     stance:
-      "UI Elements Glossaryを直接確認したところ、「Toast」という単独の項目は存在せず、「Snackbar (Toast)」という1つの項目名で扱われていることが分かりました。定義自体は「スナックバー」ページと同じ(操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログ)で、通知全般を「アクション必須」と「パッシブ」に分類する枠組みの中でパッシブ側に位置づけられます。",
+      "UI Elements Glossaryには「Toast」単独の項目はなく、「Snackbar (Toast)」という1つの項目で扱っている。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動的に消える、一時的な非モーダルの表示)で、通知を「操作が必要」と「受け身(パッシブ)」に分ける枠組みでは受け身の側に入る。",
     exceptions:
-      "NN groupの分類上、Toast固有の追加的な例外・注意点は確認できていません(Snackbarと同一の扱い)。",
+      "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針です(Snackbarと共通)。",
     useCases: [
       "ユーザーの操作を必須にしない、パッシブな通知に使う",
@@ -173,6 +184,9 @@ const SOURCES = [
     ],
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
+    refs: [
+      { label: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar" },
+    ],
     confirmedNote: "用語集本文を直接取得し、「Toast」単独の項目が存在しないこと(「Snackbar (Toast)」という1項目名であること)を確認済み(2026-09)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -211,6 +225,27 @@ function ToastSwatch() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "短い文を一時的に表示して自動で消える、操作のない通知です(主にAndroidのOSの機能)。";
+const ABOUT = [
+  { k: "目的・役割", v: "作業を止めずに、ちょっとした結果や状態を一言で知らせる" },
+  { k: "よく使われる場面", v: "「コピーしました」「送信しました」などの簡単な知らせ" },
+  { k: "似た部品との違い", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "自動で消える短い通知(トースト)に、大事な情報を載せてよい?",
+    sides: [
+      { who: "Google(Android)", color: "#2F7D6E", t: "トーストは、取り消しなどの操作のない、いちばん簡単なフィードバック用。操作が要るならスナックバー、アプリが裏にあるなら通知を使う" },
+      { who: "W3C・NN group", color: "#A3821F", t: "載せない。自動で消える通知は読み上げが間に合わないことがある(W3C)。受け身の通知は見落とされやすい(NN group)" },
+      { who: "Apple", color: "#C2542A", t: "アプリの中のトーストの部品はない。使っている最中なら、今の画面にさりげなく加える方法を勧めている" },
+    ],
+    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使います。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出します。",
+  },
+];
+
 export default function CommunicationToastPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -236,8 +271,14 @@ export default function CommunicationToastPage() {
           </div>
 
           <h1 style={styles.title}>トースト</h1>
-          <p style={styles.subtitle}>操作不要のOS標準ポップアップ(トースト)について、AndroidのプラットフォームAPIとしての情報を中心に比較します</p>
+          <SummaryCard
+            image={<ToastSwatch />}
+            imageNote="アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。"
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
+          <SplitSection splits={SPLITS} />
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
             <p style={styles.warningText}>
@@ -245,16 +286,13 @@ export default function CommunicationToastPage() {
             </p>
           </div>
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <ToastSwatch />
-            <p style={styles.swatchNote}>アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。</p>
-          </div>
 
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>です(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからです。Android Developers公式ページを直接確認したところ、Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっていることが分かりました。
+              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>です(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからです。Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっています。
             </p>
             <p style={styles.synthesisText}>
               興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点です。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言えます。
@@ -276,44 +314,36 @@ export default function CommunicationToastPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                {(s.m3NotApplicable || s.noDedicatedComponent) && (
-                  <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
-                )}
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                {(s.m3NotApplicable || s.noDedicatedComponent) && (
+                  <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
+                )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
               </div>
             ))}
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -321,6 +351,13 @@ export default function CommunicationToastPage() {
                   <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
                     <div style={styles.sourceName}>{s.name}</div>
                     <div style={styles.sourceDoc}>{s.doc}</div>
+                  </div>
+                ))}
+                <div style={styles.labelCell}>デザインイメージ</div>
+                {SOURCES.map((s) => (
+                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
+                    {s.illustration ? s.illustration() : null}
+                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
                 <div style={styles.labelCell}>M3該当状況</div>
@@ -331,38 +368,28 @@ export default function CommunicationToastPage() {
                     ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : null}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
@@ -378,12 +405,12 @@ export default function CommunicationToastPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
@@ -396,10 +423,12 @@ export default function CommunicationToastPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
   warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
@@ -412,7 +441,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -433,7 +462,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -448,7 +477,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

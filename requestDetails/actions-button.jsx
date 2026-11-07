@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink, SummaryCard, PageLink, SplitSection, Hl } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
@@ -86,10 +87,11 @@ const TAB_STYLES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttonsページ「Role」",
+    term: "Button(役割はNormal・Primary・Cancel・Destructive)",
     position: "意味的な役割で4分類(Normal/Primary/Cancel/Destructive)",
     stance:
-      "ボタンには「Role(役割)」という概念があり、Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類に分類しています。役割によって見た目も変わり、たとえばPrimaryはアプリのアクセントカラーを、Destructiveはシステムの赤を使います。",
-    exceptions: "破壊的な操作(Destructive)には、それが選ばれやすい操作であってもPrimaryの役割を割り当てるべきではないとしています。見た目の目立ちやすさゆえに、内容を読まずに選んでしまう危険があるためです。",
+      <>ボタンには「Role(役割)」という概念があり、<Hl>Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類に分類している</Hl>。役割によって見た目も変わり、たとえばPrimaryはアプリのアクセントカラーを、Destructiveはシステムの赤を使う。</>,
+    exceptions: "破壊的な操作(Destructive)には、それが選ばれやすい操作であってもPrimaryの役割を割り当てるべきではないとしている。見た目の目立ちやすさゆえに、内容を読まずに選んでしまう危険があるため。",
     pourDetail: "―(役割分類そのものはPOURの適合区分ではないが、誤操作防止という点で理解可能性に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
@@ -106,9 +108,10 @@ const TAB_STYLES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― 5種類のボタン",
+    term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      "①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義しています。番号は公式の並び順です(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明しています)。見た目で最も目立つのはFilledです。",
+      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義している</Hl>。番号は公式の並び順(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明している)。見た目で最も目立つのはFilled。</>,
     exceptions: "Elevatedは実質的にFilled tonalに影を加えたものと位置づけられており、背景と視覚的に分離する必要がある場合に限って使うべきとしています(影の使いすぎを避けるため)。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
@@ -134,11 +137,12 @@ const TAB_STYLES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.11",
+    term: "button(WAI-ARIAのロール)/ HTMLのbutton要素",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
-      "ボタンの視覚的な「種類」を分類する基準は持っていません。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わります。",
-    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理です。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかります。",
-    pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準です。",
+      "ボタンの視覚的な「種類」を分類する基準は持っていない。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わる。",
+    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかる。",
+    pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
     illustration: () => (
@@ -158,11 +162,12 @@ const TAB_STYLES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Similarity Principle in Visual Design",
+    term: "Button(主要な操作=Primary、副次的な操作=Secondary)",
     position: "色による優先度づけ(数値基準ではなく原則)",
     stance:
-      "主要な操作(Primary)には専用の色を確保し、副次的な操作(Secondary)と視覚的に区別すべきとしています。同じ色のボタンが並んでいると、ユーザーはそれらを同じ重要度だと知覚してしまうため、主要な操作を見分けにくくなると指摘しています。",
-    exceptions: "特定のボタン形状(塗り・枠線・文字のみなど)を推奨する基準ではなく、色による優先度の伝え方についての原則です。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、視覚的知覚(ゲシュタルトの類同の原理)に基づく設計根拠です。",
+      <><Hl>主要な操作(Primary)には専用の色を確保し</Hl>、副次的な操作(Secondary)と視覚的に区別すべきとしている。同じ色のボタンが並んでいると、ユーザーはそれらを同じ重要度だと知覚してしまうため、主要な操作を見分けにくくなると指摘している。</>,
+    exceptions: "特定のボタン形状(塗り・枠線・文字のみなど)を推奨する基準ではなく、色による優先度の伝え方についての原則。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、視覚的知覚(ゲシュタルトの類同の原理)に基づく設計根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
     illustration: () => (
@@ -181,9 +186,9 @@ const TAB_STATES = [
     doc: "Human Interface Guidelines ― Buttonsページ",
     position: "個別の状態名を列挙せず、システム標準の挙動に委ねる",
     stance:
-      "Enabled/Hover/Pressedのような状態を個別に定義するのではなく、システムが提供する標準の見た目・挙動を使うことを基本方針としています。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内しています。",
-    exceptions: "配信中の状態を示す際、ボタンの画像を隠してインジケーターとラベルを表示する、という具体的な切り替え方法が示されています。",
-    pourDetail: "理解可能(Understandable) ― 処理中であることを伝える点は理解可能性に関わります。",
+      <>Enabled/Hover/Pressedのような状態を個別に定義するのではなく、<Hl>システムが提供する標準の見た目・挙動を使うことを基本方針としている</Hl>。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内している。</>,
+    exceptions: "配信中の状態を示す際、ボタンの画像を隠してインジケーターとラベルを表示する、という具体的な切り替え方法が示されている。",
+    pourDetail: "理解可能(Understandable) ― 処理中であることを伝える点は理解可能性に関わる。",
     searchHint: "activity indicator",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
     illustration: () => (
@@ -200,9 +205,9 @@ const TAB_STATES = [
     doc: "Material Design 3 ― Interaction states",
     position: "6つの状態を体系化(Enabled/Disabled/Hover/Focused/Pressed/Dragged)",
     stance:
-      "すべてのインタラクティブ要素に共通する「状態レイヤー(state layer)」という仕組みで、Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理しています。Disabled状態は、有効時は強いコントラストのコンテナと文字を持つのに対し、無効時はグレー地にグレー文字という低コントラストで表現される、という具体例が示されています。",
-    exceptions: "Draggedは主にドラッグ操作が可能な要素(FABなど)向けの状態で、通常のボタンには適用されない場合があります。",
-    pourDetail: "知覚可能・操作可能 ― 状態を視覚的に区別できることは知覚可能性に、操作可否を伝えることは操作可能性に関わります。",
+      <>すべてのインタラクティブ要素に共通する「状態レイヤー(state layer)」という仕組みで、<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理している</Hl>。Disabled状態は、有効時は強いコントラストのコンテナと文字を持つのに対し、無効時はグレー地にグレー文字という低コントラストで表現される、という具体例が示されている。</>,
+    exceptions: "Draggedは主にドラッグ操作が可能な要素(FABなど)向けの状態で、通常のボタンには適用されない場合がある。",
+    pourDetail: "知覚可能・操作可能 ― 状態を視覚的に区別できることは知覚可能性に、操作可否を伝えることは操作可能性に関わる。",
     searchHint: "state layer",
     url: "https://m3.material.io/foundations/interaction/states/overview",
     illustration: () => (
@@ -222,9 +227,9 @@ const TAB_STATES = [
     doc: "WCAG 4.1.2 / 1.4.11",
     position: "状態を支援技術に正しく伝えることを要求",
     stance:
-      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めています。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求めます。",
-    exceptions: "標準的なHTMLのbutton要素を使っていれば、多くの場合ブラウザが自動的にこれらの情報を提供します。独自にデザインしたカスタムボタンでのみ追加対応が必要です。",
-    pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」に対応する達成基準です。",
+      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めている。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求める。",
+    exceptions: "標準的なHTMLのbutton要素を使っていれば、多くの場合ブラウザが自動的にこれらの情報を提供する。独自にデザインしたカスタムボタンでのみ追加対応が必要。",
+    pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」に対応する達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     illustration: () => (
@@ -240,9 +245,9 @@ const TAB_STATES = [
     doc: "Button States: Communicate Interaction",
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
-      "Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態を、押せるかどうかをユーザーに正しく伝えるための仕組みとして整理しています。Enabled状態は背景と文字の高いコントラスト、はっきり読めるラベルを特徴とするとしています。",
-    exceptions: "この5つのほかに、処理中を示すLoadingと、選ばれていることを示すSelectedの状態にも触れています。また「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促しています。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠です。",
+      <><Hl>Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態</Hl>を、押せるかどうかをユーザーに正しく伝えるための仕組みとして整理している。Enabled状態は背景と文字の高いコントラスト、はっきり読めるラベルを特徴とするとしている。</>,
+    exceptions: "この5つのほかに、処理中を示すLoadingと、選ばれていることを示すSelectedの状態にも触れている。また「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促している。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
     illustration: () => (
@@ -327,7 +332,7 @@ function ButtonTabContent({ tabId }) {
   return (
     <>
     <div style={styles.synthesisBox}>
-      <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+      <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
       {SYNTHESIS[tabId].map((node, i) => (<p key={i} style={styles.synthesisText}>{node}</p>))}
     </div>
 
@@ -346,6 +351,7 @@ function ButtonTabContent({ tabId }) {
               </div>
             )}
           </div>
+          {!tab.hasScale && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
           <p style={styles.sourceStance}>{s.stance}</p>
           <div style={styles.exceptionBox}>
@@ -397,6 +403,8 @@ function ButtonTabContent({ tabId }) {
             </>
           ) : (
             <>
+              <div style={styles.labelCell}>名称</div>
+              {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
               <div style={styles.labelCell}>位置づけ</div>
               {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
               <div style={styles.labelCell}>見た目イメージ</div>
@@ -446,6 +454,37 @@ function ButtonTabContent({ tabId }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すとその場で処理を実行する部品です(保存・送信・削除など)。";
+const ABOUT = [
+  { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
+  { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
+  { k: "似た部品との違い", v: <>別のページへ移動するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "ボタンの種類は、何で分ける?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "操作の意味(役割)で4つに分ける。Normal・Primary(最も選ばれやすい既定の操作)・Cancel・Destructive(削除など)。役割に応じて色が変わる" },
+      { who: "Google", color: "#2F7D6E", t: "どれだけ目立たせるか(優先度)で5つに分ける。Elevated・Filled・Filled tonal・Outlined・Text" },
+      { who: "NN group", color: "#7A4F7E", t: "種類の決まりはなく、主要な操作には専用の色を当てて、副次的な操作と見分けられるようにする" },
+    ],
+    tip: "「何の操作か(Apple)」と「どれだけ目立たせるか(Google)」は両立します。まず操作の意味を決め、そのうえで画面の中の優先度で見た目を選びます。削除のような操作は、選ばれやすくても目立つ見た目にしない(Apple)点に気をつけます。",
+  },
+  {
+    q: "押せる範囲の最小は?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のある部品で約12pt)で補う" },
+      { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
+      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
+      { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
+    ],
+    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違います。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにします(詳しくは「アクセシビリティ」のタブ)。",
+  },
+];
+
 export default function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -474,13 +513,23 @@ export default function ActionsButtonPage() {
           </div>
 
           <h1 style={styles.title}>ボタン</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ボタンについて定めている内容を項目ごとに比較する</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ"
+            image={<ButtonSwatch />}
+            imageNote="優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。"
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ</span>
-            <ButtonSwatch />
-            <p style={styles.swatchNote}>優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+
+          {isStatic && (
+            <nav style={styles.segmented} aria-label="比較する項目へ移動">
+              {TABS.map((t) => (<a key={t.id} href={"#btn-" + t.id} style={{ ...styles.segItem, textDecoration: "none", textAlign: "center" }}>{t.label}</a>))}
+            </nav>
+          )}
 
           {!isStatic && <div style={styles.segmented} role="tablist" aria-label="比較する項目">
             {TABS.map((t) => (
@@ -498,7 +547,7 @@ export default function ActionsButtonPage() {
 
           {isStatic ? (
             TABS.map((t) => (
-              <section key={t.id} style={{ marginBottom: 28 }}>
+              <section key={t.id} id={"btn-" + t.id} style={{ marginBottom: 40 }}>
                 <h2 style={styles.staticTabTitle}>{t.label}</h2>
                 <ButtonTabContent tabId={t.id} />
               </section>
@@ -508,12 +557,12 @@ export default function ActionsButtonPage() {
           )}
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の間隔(2.5.8の直径24pxの円)の図は「レイアウト・スペーシング」ページも参照してください。
@@ -526,13 +575,15 @@ export default function ActionsButtonPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 18px" },
   segmented: { display: "inline-flex", gap: 4, background: "#F3F6FA", padding: 4, borderRadius: 8, marginBottom: 20, flexWrap: "wrap" },
   segItem: { appearance: "none", border: "none", background: "transparent", color: "#454C78", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 13, padding: "7px 14px", borderRadius: 6, cursor: "pointer" },

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「カラー(配色・コントラスト基準)」ページ。
@@ -33,13 +34,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Color",
     color: "#C2542A",
     position: "色の見た目ではなく「意味」で定義する「セマンティックカラー」(systemBlue・label・systemBackground等)を使い、ライト/ダークモードやコントラスト設定に応じて自動的に配色を切り替える方式",
-    size: "HIGのDark Modeページで、色どうしのコントラスト比は最低でも4.5:1を下回らないこと、独自の文字色・背景色では特に小さい文字で7:1を目指すことを勧めています。Accessibilityページでは、Xcodeの検査ツール(Accessibility Inspector)がWCAG AAの値を目安に判定するとして、17pt以下の文字は4.5:1、18pt以上は3:1、太字はサイズを問わず3:1という表を示しています(Colorページ自体には数値の記載はありません)。これはAppleの表の値で、WCAGの「大きな文字」(18pt以上、または14pt以上の太字)とは条件が違い、WCAGでは小さい太字は3:1の対象になりません。",
+    size: "HIGのDark Modeページで、色どうしのコントラスト比は最低でも4.5:1を下回らないこと、独自の文字色・背景色では特に小さい文字で7:1を目指すことを勧めている。Accessibilityページでは、Xcodeの検査ツール(Accessibility Inspector)がWCAG AAの値を目安に判定するとして、17pt以下の文字は4.5:1、18pt以上は3:1、太字はサイズを問わず3:1という表を示している(Colorページ自体には数値の記載はない)。これはAppleの表の値で、WCAGの「大きな文字」(18pt以上、または14pt以上の太字)とは条件が違い、WCAGでは小さい太字は3:1の対象にならない。",
     colorInfo: "systemBlue・systemRed・label・secondaryLabel・systemBackground等、意味ごとに名前が付いた「セマンティックカラー」を提供。各色はライトモード/ダークモード/Increase Contrast/Reduce Transparencyといったアクセシビリティ設定に応じて自動的に値を切り替える「ダイナミックカラー」として実装されている。",
     stance:
-      "Appleは固定の色値ではなくセマンティックカラーの使用を推奨しています。iOS/macOSはVibrancyやIncrease Contrast、Reduce Transparencyといったアクセシビリティ設定に自動的に適応する一連のシステムカラーを提供しており、これらの意味を独自に再定義するのではなく意図された通りに使うことで、ライト/ダーク両方の外観・あらゆるコンテキストで一貫した見た目とコントラストを保てるとしています。独自の色を定義する場合は、ライト・ダークの版と、それぞれにコントラストを上げる設定(Increase Contrast)用の版を用意するよう求めています(ページ本文を直接確認、2026-09)。",
+      "Appleは固定の色値ではなくセマンティックカラーの使用を推奨している。iOS/macOSはVibrancyやIncrease Contrast、Reduce Transparencyといったアクセシビリティ設定に自動的に適応する一連のシステムカラーを提供しており、これらの意味を独自に再定義するのではなく意図された通りに使うことで、ライト/ダーク両方の外観・あらゆるコンテキストで一貫した見た目とコントラストを保てるとしている。独自の色を定義する場合は、ライト・ダークの版と、それぞれにコントラストを上げる設定(Increase Contrast)用の版を用意するよう求めている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "アプリが1つの外観しか提供しない場合でも、Liquid Glassの見え方に対応するため、ライトとダークの両方の色を用意するよう求めています。色覚に特性のある人が区別しにくい色の組み合わせや、コントラスト不足でアイコンや文字が背景に溶け込むことを避けるよう求めています。",
-    accessibility: "知覚可能(Perceivable) ― 最低4.5:1はWCAG 1.4.3(AA)の本文の基準と同じ値、独自の色で目指す7:1はWCAG 1.4.6(AAA)の本文の基準と同じ値です。システムカラーはIncrease Contrastなどの設定にも自動で対応します。",
+      "アプリが1つの外観しか提供しない場合でも、Liquid Glassの見え方に対応するため、ライトとダークの両方の色を用意するよう求めている。色覚に特性のある人が区別しにくい色の組み合わせや、コントラスト不足でアイコンや文字が背景に溶け込むことを避けるよう求めている。",
+    accessibility: "知覚可能(Perceivable) ― 最低4.5:1はWCAG 1.4.3(AA)の本文の基準と同じ値、独自の色で目指す7:1はWCAG 1.4.6(AAA)の本文の基準と同じ値。システムカラーはIncrease Contrastなどの設定にも自動で対応する。",
     useCases: [
       "固定の色値ではなくセマンティックカラー(systemBlue・label等)を使う",
       "ライト/ダーク/コントラストを上げる設定のすべてでコントラストを確認する(最低4.5:1、独自の色は7:1を目指す)",
@@ -47,7 +48,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/color#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Color", url: "https://developer.apple.com/design/human-interface-guidelines/color#Best-practices" },
       { label: "Dark Mode colors(4.5:1・7:1)", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#Dark-Mode-colors" },
       { label: "Accessibility ― Vision(文字サイズ別の比率)", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Vision" },
       { label: "System colors", url: "https://developer.apple.com/design/human-interface-guidelines/color#System-colors" },
@@ -71,14 +73,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Color roles / Dynamic color",
     color: "#2F7D6E",
     position: "primary/secondary/tertiary/error/surface等の「カラーロール」で色の意味を体系化(グループごとの一覧は下の図を参照)。ユーザーの壁紙等から配色を生成する「ダイナミックカラー」の仕組みを持つ",
-    size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成します。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられます(例: on-surfaceは11:1・21:1)。",
+    size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成する。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられる(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラーから、HCT(Hue, Chroma, Tone)という知覚基準の色空間を使ってprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを導出し、それぞれ0(黒)〜100(白)の13段階のトーンパレットを生成。カラーロールはこのパレットから固定のトーンを割り当てる。errorロールは、ダイナミックカラーが有効な場合でも変化しない静的な色として扱われる。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされています。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
+      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされている。errorのロールは、ダイナミックカラーでも変わらない固定の色(ライト・ダークには合わせて変わる)(M3 Color rolesの本文で確認、2026-11)。",
     exceptions:
-      "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意しています。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がありません。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっています。",
+      "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意している。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がない。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっている。",
     accessibility:
-      "知覚可能(Perceivable) ― 役割ごとの目標値(本文7:1・補助の文字4.5:1・枠線3:1)は、WCAG 1.4.3(AA 4.5:1)・1.4.6(AAA 7:1)・1.4.11(3:1)の数値と対応しています。Android 14以降は、端末のコントラスト設定に合わせてロールの色が自動で調整されます。",
+      "知覚可能(Perceivable) ― 役割ごとの目標値(本文7:1・補助の文字4.5:1・枠線3:1)は、WCAG 1.4.3(AA 4.5:1)・1.4.6(AAA 7:1)・1.4.11(3:1)の数値と対応している。Android 14以降は、端末のコントラスト設定に合わせてロールの色が自動で調整される。",
     useCases: [
       "UIの意味ごとにカラーロール(primary/secondary/tertiary/error/surface)を割り当てる",
       "errorロールはダイナミックカラーでも固定色として扱う",
@@ -86,12 +88,13 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/color/roles",
-    urlSecondary: [
+    refs: [
+      { label: "Color roles / Dynamic color", url: "https://m3.material.io/styles/color/roles" },
       { label: "Color system overview", url: "https://m3.material.io/styles/color/system/overview" },
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
       { label: "material-color-utilities: 各ロールの目標値(GitHub)", url: "https://github.com/material-foundation/material-color-utilities/blob/main/typescript/dynamiccolor/color_spec_2021.ts" },
     ],
-    confirmedNote: "m3.material.io本文はSPAのため未確認。ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
+    confirmedNote: "ロールの役割とerrorの扱いはM3 Color rolesの本文(2026-11)、ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
         {[
@@ -117,17 +120,17 @@ const SOURCES = [
     color: "#A3821F",
     position: "3つの独立した達成基準で、本文テキストのコントラスト(1.4.3)・UI部品やグラフィックのコントラスト(1.4.11)・色だけに頼らない情報伝達(1.4.1)をそれぞれ規定",
     size: "1.4.3(レベルAA): 通常テキストは4.5:1以上、大きな文字(18pt以上の通常書体、または14pt以上の太字)は3:1以上。ここでのptは印刷の単位で、Webではおよそ24px(太字の14ptは約18.66px)。Appleの18ptとは別の単位。1.4.11(レベルAA): UI部品の状態を識別するための視覚情報・理解に必要なグラフィックの要素は3:1以上。いずれも計算値は四捨五入しない(例: 4.499:1は基準を満たさない)。",
-    colorInfo: "1.4.1(レベルA)により、色は情報を伝える・アクションを示す・応答を促す・視覚要素を区別する唯一の手段にしてはならないとしています。必須項目を赤だけで示すのではなく、アイコンやテキストラベルも併用すべきとしています。",
+    colorInfo: "1.4.1(レベルA)により、色は情報を伝える・アクションを示す・応答を促す・視覚要素を区別する唯一の手段にしてはならないとしている。必須項目を赤だけで示すのではなく、アイコンやテキストラベルも併用すべきとしている。",
     glossary: [
       { term: "1.4.3 Contrast (Minimum)・レベルAA", desc: "本文テキストは4.5:1以上、大きな文字は3:1以上のコントラスト比を確保する基準。非活性コンポーネントの一部・純粋な装飾・不可視のテキスト・ロゴのテキストは適用除外。" },
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UI部品を識別するための視覚情報(枠線・アイコン等、ユーザーエージェントが決定し変更されない部分を除く)、理解に必要なグラフィックの一部に3:1以上のコントラスト比を求める基準。" },
       { term: "1.4.1 Use of Color・レベルA", desc: "色を情報伝達の唯一の視覚的手段にしてはならないという基準。色覚特性を持つ人や白黒表示を使う人にも同じ情報が伝わるよう、アイコンやテキストなど別の視覚的手がかりの併用を求める。" },
     ],
     stance:
-      "1.4.3は本文・画像化されたテキストのコントラスト比を規定する基準で、非活性コンポーネントの一部であるテキスト・純粋な装飾・誰にも見えないテキスト・ロゴの一部であるテキストは適用除外としています。1.4.11は、UI部品を識別するための視覚情報、理解に必要なグラフィックの一部に同様の3:1基準を課しています。1.4.1は、色を情報を伝える・アクションを示す・応答を促す・視覚要素を区別する唯一の手段にしてはならないとし、色覚特性を持つ人や白黒表示を使う人にも同じ情報が伝わるようにすることを求めています。",
+      "1.4.3は本文・画像化されたテキストのコントラスト比を規定する基準で、非活性コンポーネントの一部であるテキスト・純粋な装飾・誰にも見えないテキスト・ロゴの一部であるテキストは適用除外としている。1.4.11は、UI部品を識別するための視覚情報、理解に必要なグラフィックの一部に同様の3:1基準を課している。1.4.1は、色を情報を伝える・アクションを示す・応答を促す・視覚要素を区別する唯一の手段にしてはならないとし、色覚特性を持つ人や白黒表示を使う人にも同じ情報が伝わるようにすることを求めている。",
     exceptions:
-      "1.4.3は非活性コンポーネントの一部・純粋な装飾・不可視のテキスト・ロゴのテキストを適用除外としています。1.4.11も非活性コンポーネントや、ユーザーエージェントが決定し変更されない外観は適用除外です。ロゴ・国旗・写真など、特定の見た目自体が伝えたい情報そのものであるグラフィックも除外され得るとしています。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.3・1.4.11・1.4.1はいずれもPOURの「知覚可能」に属し、視覚・色覚に特性のあるユーザーが、テキスト・UI部品・色分けされた情報を見分けられることを目的としています。",
+      "1.4.3は非活性コンポーネントの一部・純粋な装飾・不可視のテキスト・ロゴのテキストを適用除外としている。1.4.11も非活性コンポーネントや、ユーザーエージェントが決定し変更されない外観は適用除外。ロゴ・国旗・写真など、特定の見た目自体が伝えたい情報そのものであるグラフィックも除外され得るとしている。",
+    accessibility: "知覚可能(Perceivable) ― 1.4.3・1.4.11・1.4.1はいずれもPOURの「知覚可能」に属し、視覚・色覚に特性のあるユーザーが、テキスト・UI部品・色分けされた情報を見分けられることを目的としている。",
     useCases: [
       "本文テキストは4.5:1以上、大きな文字・UI部品や重要なグラフィックは3:1以上のコントラスト比を確保する",
       "必須項目やエラーなどを色だけで示さず、アイコン・テキストラベルも併用する",
@@ -135,9 +138,10 @@ const SOURCES = [
     ],
     searchHint: "not be rounded",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
-    urlSecondary: [
-      { label: "1.4.11 Non-text Contrast", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { label: "1.4.1 Use of Color", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
     ],
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -157,13 +161,13 @@ const SOURCES = [
     doc: "Using Color to Enhance Your Design",
     color: "#7A4F7E",
     position: "配色バランス(60-30-10ルール)・一貫性・色覚特性への配慮という、実務的な配色ガイドライン(適合基準ではない)",
-    size: "数値基準としては「60%を基調色、30%を第二色、10%をアクセントカラーに」という60-30-10ルールを提案。パレットは3色程度に絞ることを推奨しています。",
-    colorInfo: "パレットは3色程度に絞り、視覚的な階層とコントラストを強めることを推奨。色覚特性(color blindness)への配慮とコントラストのテストを勧め、テキストと背景の組み合わせの検証にはaccessible-colors.comのようなツールを挙げています(WCAGの具体的な比率への言及は記事中にありません)。",
+    size: "数値基準としては「60%を基調色、30%を第二色、10%をアクセントカラーに」という60-30-10ルールを提案。パレットは3色程度に絞ることを推奨している。",
+    colorInfo: "パレットは3色程度に絞り、視覚的な階層とコントラストを強めることを推奨。色覚特性(color blindness)への配慮とコントラストのテストを勧め、テキストと背景の組み合わせの検証にはaccessible-colors.comのようなツールを挙げている(WCAGの具体的な比率への言及は記事中にない)。",
     stance:
-      "色の使い方は「60%基調色・30%第二色・10%アクセントカラー」という配分ルールでバランスを保つべきだとしています。同じ意味(例: CTAボタン)には常に同じ色を一貫して使うべきで、一貫性がないとユーザーが色の意味を誤解するとしています。コントラストと色覚特性の両方を検証すべきで、実例としてUberEatsの緑ロゴがオレンジ背景に対して読みにくかった事例を挙げています(記事本文を直接取得して確認済み、2026-09)。",
+      "色の使い方は「60%基調色・30%第二色・10%アクセントカラー」という配分ルールでバランスを保つべきだとしている。同じ意味(例: CTAボタン)には常に同じ色を一貫して使うべきで、一貫性がないとユーザーが色の意味を誤解するとしている。コントラストと色覚特性の両方を検証すべきで、実例としてUberEatsの緑ロゴがオレンジ背景に対して読みにくかった事例を挙げている(記事本文を直接取得して確認済み、2026-09)。",
     exceptions:
-      "配色の文化的な意味の違いにも注意が必要だとしています(赤は世界的に「停止」を意味することが多い一方、お金を表す色は中国では赤、米国では緑など)。グレーのボタンが意図せず「無効」に見えてしまうことがある点も、実際のユーザーテストで確認すべきだとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ・可読性のテスト結果に基づく実務指針です。",
+      "配色の文化的な意味の違いにも注意が必要だとしている(赤は世界的に「停止」を意味することが多い一方、お金を表す色は中国では赤、米国では緑など)。グレーのボタンが意図せず「無効」に見えてしまうことがある点も、実際のユーザーテストで確認すべきだとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ・可読性のテスト結果に基づく実務指針。",
     useCases: [
       "配色は60%基調色・30%第二色・10%アクセントカラーのバランスで設計する",
       "同じ意味には常に同じ色を一貫して使う",
@@ -171,6 +175,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.nngroup.com/articles/color-enhance-design/",
+    refs: [
+      { label: "Using Color to Enhance Your Design", url: "https://www.nngroup.com/articles/color-enhance-design/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -327,36 +334,40 @@ const COLOR_KINDS_LIST = {
 const COLOR_KINDS = [
   {
     kind: "アクセント(ブランド)色",
-    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。" },
-    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。" },
+    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。", sw: [{ n: "Blue(例)", l: "#0088FF", d: "#0091FF" }, { n: "Blue(コントラストを上げる設定)", l: "#1E6EF4", d: "#5CB8FF" }], swNote: "システムカラーのBlue。アクセント色はアプリ独自の色にできる" },
+    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。", sw: [{ n: "Primary", l: "#6750A4", d: "#D0BCFF" }, { n: "Secondary", l: "#625B71", d: "#CCC2DC" }, { n: "Tertiary", l: "#7D5260", d: "#EFB8C8" }], swNote: "基準の配色(壁紙などから作る場合は値が変わる)" },
     wcag: { mark: "―", text: "専用の定義なし。アクセント色で情報を伝える場合も、1.4.1・1.4.3・1.4.11の一般的な基準がそのまま適用される。" },
     nn: { mark: "◯", text: "60-30-10の「10%」がアクセントカラー。同じ意味(例: CTAボタン)には常に同じ色を使う。" },
   },
   {
     kind: "リンク色",
-    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。" },
+    rel: <><PageLink to="/components/actions/link">リンク</PageLink></>,
+    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。", swNone: "色の値はHIGに記載なし" },
     material: { mark: "✕", text: "リンク専用のカラーロールはない(Material Components for Androidのロール一覧に存在しない)。" },
     wcag: { mark: "◯", text: "リンクを色だけで区別するなら、周囲の文字と3:1以上の差が必要(G183。以前の版ではホバー・フォーカス時の手がかりも条件だった)。色覚に頼らないと見分けられないリンクは不適合の例(F73)。" },
-    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。" },
+    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。", sw: [{ n: "未訪問(例)", l: "#1A5FD0", d: "#7FB0FF" }, { n: "訪問済み(例)", l: "#6E5A8E", d: "#B6A6CF" }], swNote: "色はAIの作例。NN groupは具体的な色の値を定めていない(青が最も強い手がかり)" },
   },
   {
     kind: "エラー色",
-    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。" },
-    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。" },
+    rel: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>・<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink></>,
+    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。", sw: [{ n: "Red", l: "#FF383C", d: "#FF4245" }, { n: "Red(コントラストを上げる設定)", l: "#E9152D", d: "#FF6165" }], swNote: "エラー専用ではなく、システムカラーのRed" },
+    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。", sw: [{ n: "Error", l: "#B3261E", d: "#F2B8B5" }] },
     wcag: { mark: "△", text: "専用の色はないが、エラーや必須項目を色の違いだけで示すことは1.4.1の不適合の例(F81)。" },
     nn: { mark: "△", text: "言葉の意味でも区別できるなら、「エラー」を赤で示してよい。ただしリンクの色と重ならないようにする。" },
   },
   {
     kind: "枠線・区切り線",
+    rel: <><PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></>,
     hig: { mark: "◯", text: "Separator(下の内容が少し透ける)とOpaque separator(透けない)の2種類。区切り線の色を文字に使うなど、意味の流用はしない。" },
-    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。" },
+    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。", sw: [{ n: "Outline", l: "#79747E", d: "#938F99" }, { n: "Outline Variant", l: "#CAC4D0", d: "#49454F" }], swNote: "基準の配色" },
     wcag: { mark: "△", text: "枠線が部品を見分けるのに必要な場合は1.4.11で3:1以上。装飾的な線は対象外。" },
     nn: { mark: "―", text: "該当する記述なし。" },
   },
   {
     kind: "非活性・プレースホルダー",
+    rel: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></>,
     hig: { mark: "◯", text: "Placeholder text(入力欄のプレースホルダー)。macOSには使えない部品の文字色(Unavailable control text color)もある。" },
-    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。" },
+    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。", sw: [{ n: "On Surface 38%", l: "#1D1B20", d: "#E6E0E9", op: 0.38 }], swNote: "基準の配色のOn Surfaceを38%で重ねた見え方" },
     wcag: { mark: "△", text: "非活性の部品は1.4.3・1.4.11の適用除外。" },
     nn: { mark: "△", text: "薄いグレーは「無効」に見えやすい。使える要素を薄くすると、使えないと誤解される原因になる。" },
   },
@@ -368,6 +379,26 @@ const KIND_COLS = [
   { key: "wcag", name: "W3C" },
   { key: "nn", name: "NN group" },
 ];
+
+/* 色見本(ライト/ダーク)。値はApple=HIG Colorの色見本、Google=Jetpack Composeの基準の配色トークン */
+function ColorSwatches({ cell }) {
+  if (cell.swNone) return <NoData>{cell.swNone}</NoData>;
+  if (!cell.sw) return null;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 2 }}>
+      {cell.sw.map((c) => (
+        <div key={c.n} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ display: "inline-flex", borderRadius: 4, overflow: "hidden", border: "1px solid #E1E3F0", flexShrink: 0 }}>
+            <span style={{ width: 26, height: 20, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.l, opacity: c.op || 1 }} /></span>
+            <span style={{ width: 26, height: 20, background: "#141218", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.d, opacity: c.op || 1 }} /></span>
+          </span>
+          <span style={{ fontSize: 10, lineHeight: 1.35, color: "#454C78" }}>{c.n}<br /><span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC" }}>{c.l} / {c.d}</span></span>
+        </div>
+      ))}
+      {cell.swNote && <span style={{ fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 }}>{cell.swNote}</span>}
+    </div>
+  );
+}
 
 function KindMark({ mark }) {
   const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#B7BCDA";
@@ -394,7 +425,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -418,6 +449,14 @@ function ColorContrastSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "画面の色の決め方と、文字や部品を読みやすくするための色の差(コントラスト)の基準です。";
+const ABOUT = [
+  { k: "目的・役割", v: "役割に合った色を一貫して使い、文字や部品が誰にでも見分けられるようにする" },
+  { k: "関わる場面", v: "文字と背景の色、ボタンや入力欄の枠、リンクの色、エラーの赤" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
+];
 
 export default function TokensColorPage() {
   return (
@@ -444,16 +483,25 @@ export default function TokensColorPage() {
           </div>
 
           <h1 style={styles.title}>カラー(配色・コントラスト基準)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、配色の仕組みと文字・UI部品のコントラスト基準をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="コントラスト比とは(共通の考え方)"
+            image={<><ColorContrastSwatch /></>}
+            imageNote={<>文字色と背景色の明るさの差を表す数値。WCAGは本文4.5:1以上を要求しており、この数値がこのページの各系列比較の共通のものさしになる。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コントラスト比とは(共通の考え方)</span>
-            <ColorContrastSwatch />
-            <p style={styles.swatchNote}>文字色と背景色の明るさの差を表す数値。WCAGは本文4.5:1以上を要求しており、この数値がこのページの各系列比較の共通のものさしになる。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― 色の優先度(階層)の定義とアクセシビリティの指定</h2>
+            <PriorityDiagram />
+            <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。NN groupのみ比率ではなく面積の割合。色見本は概念図で、各系列の実際の色の値ではありません。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               このトピックで最も数値的に具体的なのはW3Cです。<strong>本文4.5:1・大きな文字/UI部品3:1</strong>という明確な数値を持つ1.4.3・1.4.11に加え、<strong>「色だけに頼ってはならない」</strong>という1.4.1が、数値基準とは別の角度から情報の伝わりやすさを担保しています。
             </p>
@@ -470,13 +518,6 @@ export default function TokensColorPage() {
               W3CとNN groupがはっきり一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則です。W3C(1.4.1の適合基準)・NN group(実際のユーザーテストに基づく指摘)がそれぞれ独立に同じ結論に達しており、Apple・Googleのセマンティックカラー/カラーロールの仕組みは、<strong>意味の一貫性やテーマへの対応を助ける仕組み</strong>で、それだけで「色だけに頼らない」が満たされるわけではありません。色以外の手がかり(1.4.1)は別に用意する必要があります。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 色の優先度(階層)の定義とアクセシビリティの指定</h2>
-            <PriorityDiagram />
-            <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。NN groupのみ比率ではなく面積の割合。色見本は概念図で、各系列の実際の色の値ではありません。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -486,13 +527,13 @@ export default function TokensColorPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="コントラスト比" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="配色の仕組み">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -500,18 +541,11 @@ export default function TokensColorPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -519,7 +553,6 @@ export default function TokensColorPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -529,8 +562,6 @@ export default function TokensColorPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -538,30 +569,29 @@ export default function TokensColorPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>コントラスト比</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>配色の仕組み</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -596,11 +626,12 @@ export default function TokensColorPage() {
                     const last = ri === COLOR_KINDS.length - 1 ? styles.lastRowCell : {};
                     return (
                       <React.Fragment key={row.kind}>
-                        <div style={{ ...styles.labelCell, ...last }}>{row.kind}</div>
+                        <div style={{ ...styles.labelCell, ...last, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>{row.kind}{row.rel && <span style={{ fontSize: 10.5, fontWeight: 400 }}>関連: {row.rel}</span>}</div>
                         {KIND_COLS.map((c) => (
                           <div key={c.key} style={{ ...styles.cell, ...styles.textCell, ...last, flexDirection: "column", gap: 4 }}>
                             <KindMark mark={row[c.key].mark} />
                             <span>{row[c.key].text}</span>
+                            <ColorSwatches cell={row[c.key]} />
                           </div>
                         ))}
                       </React.Fragment>
@@ -614,20 +645,22 @@ export default function TokensColorPage() {
               {COLOR_KINDS.map((row) => (
                 <div key={row.kind} style={styles.sourceCard}>
                   <div style={styles.sourceName}>{row.kind}</div>
+                  {row.rel && <div style={{ fontSize: 11, marginTop: 2 }}>関連: {row.rel}</div>}
                   {KIND_COLS.map((c) => (
                     <div key={c.key} style={styles.kindMobileRow}>
                       <div style={styles.kindMobileHead}><KindMark mark={row[c.key].mark} /><span>{c.name}</span></div>
                       <div style={styles.exceptionText}>{row[c.key].text}</div>
+                      <ColorSwatches cell={row[c.key]} />
                     </div>
                   ))}
                 </div>
               ))}
             </div>
-            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし</p>
+            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし。色見本は左がライト、右がダーク(Apple=HIG Colorの色見本の値、Google=Jetpack Composeの基準の配色の値)。</p>
           </section>
 
           <div style={styles.memoBox}>
-            <span style={styles.memoLabel}>メモ: ダークモードでの扱い</span>
+            <span style={styles.memoLabel}>メモ: ダークモードでの扱い(詳しくは<PageLink to="/tokens/dark-mode">ダークモード</PageLink>)</span>
             <ul style={styles.memoList}>
               <li>Apple ― 独自の色はライト・ダークの2版と、それぞれにコントラストを上げる設定用の版を用意する。1つの外観しか提供しないアプリでも、Liquid Glassのためにライト・ダーク両方の色が必要。比率は最低4.5:1、独自の色は7:1を目指す。</li>
               <li>Google ― 同じロールにライトとダークで別のトーンを割り当てる(例: Primary 40→80、Surface 98→6、On Surface 10→90)。コントラストの目標値はどちらのテーマでも同じ。</li>
@@ -637,13 +670,20 @@ export default function TokensColorPage() {
             <a href="/tokens/dark-mode" style={styles.memoLink}>詳しくは「ダークモード」ページへ ↗</a>
           </div>
 
+          <div style={styles.relatedBox}>
+            <span style={styles.memoLabel}>関連するページ</span>
+            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
+              <PageLink to="/tokens/dark-mode">ダークモード</PageLink>(ライト/ダークの色の切り替え)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(押した・選んだときの重ね色)・<PageLink to="/tokens/typography">タイポグラフィ</PageLink>(文字の大きさとコントラスト)・<PageLink to="/tokens/elevation">エレベーション</PageLink>(面の色の段階)・<PageLink to="/tokens/icon">アイコン</PageLink>(アイコンのコントラスト)・<PageLink to="/components/actions/link">リンク</PageLink>(リンクの色と下線)
+            </p>
+          </div>
+
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Colorページの「Best practices」見出しへのアンカー付きリンクで、数値が書かれたDark Modeページの見出しも併記しています。WCAGは1.4.3 Understandingページを基本リンクとし、1.4.11・1.4.1のUnderstandingページも併記しています。GoogleはM3のColor rolesページに加え、数値を確認したGitHub上の公式ドキュメント・ソースを併記しています。NN groupはUsing Color to Enhance Your Designの記事ページです。リンク色の比較はNN groupのGuidelines for Visualizing Links、WCAGの達成方法G183、薄い文字についてはNN groupのLow-Contrast Text Is Not the Answerの記事も参照しています。
@@ -656,10 +696,11 @@ export default function TokensColorPage() {
 }
 
 const styles = {
+  relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 40 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -668,7 +709,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -693,7 +734,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -704,7 +745,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

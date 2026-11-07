@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / バリデーション」ページ。
@@ -47,25 +48,27 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "専用ページなし(Text fields / Feedbackの記載に含まれる)",
+    term: <NoData>専用の部品なし(入力の決まりの中で扱う)</NoData>,
     color: "#C2542A",
-    position: "フィールドの値は動的に検証すべきとしつつ、検証タイミングは場面依存。メールアドレス等はフォーカスが外れた時、ユーザー名・パスワードの作成は次のフィールドに移る前に検証すべきとされる(公式本文は未確認)",
-    size: "専用コンポーネントページがないため、数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません(視覚的な状態表現は「エラー表示」ページを参照)。",
+    position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。欄ごとのタイミング(フォーカスが外れたときなど)の決まりはない",
+    colorInfo: "色についての明確な規定は確認できていない(視覚的な状態表現は「エラー表示」ページを参照)。",
     stance:
-      "Appleは、フィールドの値を人々が入力した時点で動的に検証し、問題を検知したらすぐにフィードバックを与えて、その場で訂正できるようにすべきだとしています。ただし検証を行う適切なタイミングは文脈によるとしており、メールアドレスのような形式はフォーカスが変わる時に検証するのが望ましい一方、ユーザー名やパスワードの作成では、フォーカスが別のフィールドに移る前に検証すべきだとしています(検索結果による確認、2026-09。HIGのText fieldsのページ本文では該当する記述を確認できなかったため、公式本文は未確認として扱います)。",
+      <>長いフォームを書き終えてから戻って直すのは利用者の負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題を見つけたらすぐに知らせて、その場で直せるようにするとしている(HIG Entering dataの本文で確認、2026-11)。どの時点で確かめるか(入力中か、欄を離れたときか)は書いていない。</>,
     exceptions:
-      "長いフォームを入力し終えた後で間違いを戻って直すのはユーザーの負担になるため、問題を検知した時点で早めにフィードバックを与えるべきだとしています。値の種類が数字だけに限定されるフィールドでは、数字以外の文字が入力された時点で警告すべきだともしています。",
-    accessibility: "―(専用のアクセシビリティ記載は確認できていません)。",
+      "数値の欄では、数字だけを受け付けて決まった形で表示する書式(number formatter)を使うとよいとしている。必須の入力がある場合は、入力が済むまで「次へ」などのボタンを使えないようにして、入力が必要なことを伝える。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
-      "メールアドレスなど一般的な形式は、フォーカスが外れた時点で検証する(公式本文は未確認)",
+      "値は入力されたらすぐに確かめ、問題があればすぐに知らせる",
       "ユーザー名・パスワードの作成は、次のフィールドに移る前に検証する",
       "数字専用フィールドなど値の種類が限定される場合は、不正な文字の入力時点で警告する",
     ],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
-    urlSecondary: [{ label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" }],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。フォーカス変更時/次フィールドに移る前、という検証タイミングの使い分けも同様に間接確認です。",
-    pending: true,
+    url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices",
+    refs: [
+      { label: "Entering data ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices" },
+      { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
+    ],
+    confirmedNote: "HIG Entering dataの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
         <rect x="1" y="1" width="118" height="20" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.4" />
@@ -79,16 +82,16 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(サポートテキスト/エラーテキストの切り替え)",
+    term: "Supporting text → Error text",
     color: "#2F7D6E",
-    position: "検証前は「サポートテキスト」で書式ヒントを常時示し、検証エラー時には同じ位置の「エラーテキスト」に置き換える(レイアウトを動かさないための設計)。具体的な検証トリガー条件(リアルタイム/フォーカス離脱時など)は未確認",
-    size: "専用コンポーネントページがないため、数値基準は確認できていません。",
-    colorInfo: "サポートテキストは既定色、エラーテキストはエラーカラー(赤系トークン)で表示されるとされています(検索結果による確認)。",
+    position: "検証する欄では、欄の下のサポートテキスト(書式のヒント)を、同じ位置のエラーテキストに入れ替える(レイアウトを動かさないため)。いつ検証するかの決まりは記載なし",
+    colorInfo: "エラーテキストはエラーの色で表示し、エラーアイコンも表示することを強く勧めている。",
     stance:
-      "Material Design 3のテキストフィールドは、通常時は「サポートテキスト」で入力の使われ方や書式のヒントを示し、パスワードのように検証を伴うフィールドでは、エラー発生時にサポートテキストをエラーテキストへ置き換えるとされています。新しい行が増えてレイアウトが動くことを避けるため、同じ位置でテキストを入れ替える設計だとされています(検索結果による確認、2026-09)。",
+      "Material Design 3のテキストフィールドは、通常は欄の下の「サポートテキスト」で使い方や書式のヒントを示し、パスワードのように検証する欄では、エラーのときにサポートテキストをエラーテキストに入れ替える。行が増えてレイアウトが動くのを避けるためとしている(M3 Text fieldsのガイドラインで確認、2026-11)。",
     exceptions:
-      "検証をいつ実行するか(入力中のリアルタイム、フォーカスを外した時、送信時など)についての具体的なトリガー条件は、m3.material.ioの公式ページ本文で確認できていません。",
+      "検証をいつ行うか(入力中・欄を離れたとき・送信時)の決まりは、M3のテキストフィールドのページには書かれていない。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― サポートテキストからエラーテキストへの切り替えはテキストによる状態伝達の一種と考えられますが、直接確認はできていません。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― サポートテキストからエラーテキストへの切り替えはテキストによる状態伝達の一種と考えられるが、直接確認はできていない。",
     useCases: [
       "書式のヒントは、エラーが起きる前からサポートテキストとして常に示しておく",
       "検証エラー時は同じ位置のテキストをエラーテキストに置き換える(改行によるレイアウト崩れを避ける)",
@@ -96,8 +99,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/text-fields/guidelines",
-    confirmedNote: "サポートテキスト/エラーテキストの切り替えの仕組みは検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていません。具体的な検証タイミングのトリガー条件は未確認です。",
-    pending: true,
+    refs: [
+      { label: "Text fields(サポートテキスト/エラーテキストの切り替え)", url: "https://m3.material.io/components/text-fields/guidelines" },
+    ],
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="46" viewBox="0 0 120 46">
         <rect x="1" y="1" width="118" height="20" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
@@ -112,21 +117,22 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
+    term: "Validating Input(WAIのチュートリアル)",
     color: "#A3821F",
     position: "検証を「いつ行うべきか」の規範的な基準は見当たらない。ARIA19はエラーを動的に通知する技術的な仕組み(ライブリージョン)を示すが、タイミング自体は実装者の判断に委ねている。G199は送信成功時のフィードバック提供を推奨する、数少ない「タイミング」に触れた技術",
-    size: "検証タイミング専用の数値基準はありません。",
-    colorInfo: "色についての明確な規定はこの3つの資料には見当たりません(視覚的な状態表現は「エラー表示」ページを参照)。",
+    colorInfo: "色についての明確な規定はこの3つの資料には見当たらない(視覚的な状態表現は「エラー表示」ページを参照)。",
     glossary: [
+      { term: "サイズ", desc: "検証タイミング専用の数値基準はない。" },
       { term: "ARIA19", desc: "role=\"alert\"またはaria-live属性を持つライブリージョンに、JavaScriptでエラーメッセージを挿入することで、スクリーンリーダーに動的な変化を通知する技術。ライブリージョンのコンテナ自体はページ読み込み時点でDOM内に存在している必要がある。" },
       { term: "G199", desc: "フォームやデータの送信が成功した際に、成功したことを明示的に伝えるフィードバック(「正常にログインしました」等)を提供する技術。" },
       { term: "3.3.7 Redundant Entry・レベルA", desc: "同じ手続きの中で、すでに入力・提供された情報をもう一度求める場合は、自動で入れておくか、選べるようにすることを求める基準(WCAG 2.2で追加)。" },
     ],
     stance:
-      "WAI「Validating Input」チュートリアルを直接確認したところ、クライアント側での検証は一般に良いユーザー体験につながり、エラーの解決を分かりやすくするとされていますが、検証を「いつ」実行すべきか(リアルタイム/フォーカス離脱時/送信時)を指定する規範的な記述は見当たりませんでした。可能な限り、ユーザーが入力内容を確認し訂正できる機会を持てるようにすべきだ、という一般原則にとどまります。ARIA19(role=\"alert\"またはライブリージョンでエラーを識別する技術)を直接確認したところ、エラーメッセージをライブリージョンに動的に挿入してスクリーンリーダーに通知する仕組みは規定していますが、いつ挿入するかというタイミング自体は実装者の判断に委ねられており、技術の例では送信時に検証し500ミリ秒待ってから挿入する例が示されているのみです。G199(送信成功時のフィードバック提供)を直接確認したところ、送信が成功したことを明示的に伝えるフィードバックを提供すべきだとされており、検証タイミングというより送信「後」の結果通知に関する技術です。WCAG 2.2で追加された3.3.7(レベルA)は、同じ手続きの中ですでに入力された情報をもう一度求める場合、自動で入れておくか、選べるようにすることを求めます(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力済みの内容を消さない)。ブラウザの自動入力だけでは満たしたことにならず、サイト側で前の入力を引き継ぐ必要があります。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように再入力が本質的な場合、前の情報が無効になった場合は例外です。",
+      "WAI「Validating Input」チュートリアルは、クライアント側での検証は一般に良いユーザー体験につながり、エラーの解決を分かりやすくするとされているが、検証を「いつ」実行すべきか(リアルタイム/フォーカス離脱時/送信時)を指定する記述はない。可能な限り、ユーザーが入力内容を確認し訂正できる機会を持てるようにすべきだ、という一般原則にとどまる。ARIA19(role=\"alert\"またはライブリージョンでエラーを識別する技術)は、エラーメッセージをライブリージョンに動的に挿入してスクリーンリーダーに通知する仕組みは規定しているが、いつ挿入するかというタイミング自体は実装者の判断に委ねられており、技術の例では送信時に検証し500ミリ秒待ってから挿入する例が示されているのみ。G199(送信成功時のフィードバック提供)は、送信が成功したことを明示的に伝えるフィードバックを提供すべきだとされており、検証タイミングというより送信「後」の結果通知に関する技術。WCAG 2.2で追加された3.3.7(レベルA)は、同じ手続きの中ですでに入力された情報をもう一度求める場合、自動で入れておくか、選べるようにすることを求める(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力済みの内容を消さない)。ブラウザの自動入力だけでは満たしたことにならず、サイト側で前の入力を引き継ぐ必要がある。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように再入力が本質的な場合、前の情報が無効になった場合は例外。",
     exceptions:
-      "ARIA19のライブリージョンは、ページ読み込み時点でDOM内に空のコンテナとして存在している必要があり、後から動的に追加したコンテナには対応できない支援技術がある、という実装上の注意点があります。",
+      "ARIA19のライブリージョンは、ページ読み込み時点でDOM内に空のコンテナとして存在している必要があり、後から動的に追加したコンテナには対応できない支援技術がある、という実装上の注意点がある。",
     accessibility:
-      "堅牢(Robust) ― ARIA19のライブリージョンによる動的な通知、G199の送信結果フィードバックが中心です。「いつ検証するか」自体はWCAGの規範的な適合基準ではなく、実装上の判断に委ねられている点に注意してください。3.3.7は「理解可能(Understandable)」の入力支援(3.3)に関わります。",
+      "堅牢(Robust) ― ARIA19のライブリージョンによる動的な通知、G199の送信結果フィードバックが中心。「いつ検証するか」自体はWCAGの規範的な適合基準ではなく、実装上の判断に委ねられている点に注意してください。3.3.7は「理解可能(Understandable)」の入力支援(3.3)に関わる。",
     useCases: [
       "エラーメッセージ用のライブリージョンコンテナは、ページ読み込み時点でDOM内に空の状態で用意しておく",
       "検証タイミング自体に絶対的な基準はないため、他系列(特にNN groupの実務指針)を参考に決める",
@@ -135,10 +141,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19",
-    urlSecondary: [
+    refs: [
+      { label: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
-      { label: "3.3.7 Redundant Entry", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
     ],
     confirmedNote: "ARIA19・Validating Inputチュートリアル・G199はいずれも本文を直接取得して確認済み(2026-09)。3つとも検証タイミング自体を規定するものではなく、通知の仕組みや送信後のフィードバックについての技術である点に注意してください。3.3.7はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -155,15 +162,15 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Hostile Patterns in Error Messages / 10 Design Guidelines for Reporting Errors in Forms",
+    term: "Inline validation(インラインの検証)",
     color: "#7A4F7E",
     position: "検証タイミングについて最も具体的な実務指針を持つ。原則は「フィールドを離れた時」に検証し、入力中(タイピング中)にエラーを出すことは避けるべきとしている。パスワードの要件チェックリストのような特殊なケースでのみ、入力中のリアルタイム検証を許容する",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はこの2記事にはありません(視覚的な状態表現は「エラー表示」ページを参照)。",
+    colorInfo: "色についての数値基準はこの2記事にはない(視覚的な状態表現は「エラー表示」ページを参照)。",
     stance:
-      "「Hostile Patterns in Error Messages」を直接確認したところ、大半のケースでは、ユーザーがそのフィールドの入力を終えて次のフィールドへ移動するまでエラー表示を待つべきだとしています。入力中にエラーメッセージを表示するのは、頼んでもいない叱責のように感じられ、苛立たせる可能性があるためです。「10 Design Guidelines for Reporting Errors in Forms」も同様に、理想的にはすべての検証をインラインで行い、ユーザーがフィールドの入力を終えた時点でエラーがあれば近くにインジケーターを表示すべきだとしつつ、パスワードのような複雑なフィールドでは、入力中に即座に検証するインライン表示(タイプ中に表示される)が有効だともしています。両記事を通じて一貫しているのは、「入力途中で急いで警告しない」という原則です(2026-09、両記事とも本文を直接取得して確認済み)。",
+      <>「Hostile Patterns in Error Messages」は、大半のケースでは、ユーザーがその<Hl>フィールドの入力を終えて次のフィールドへ移動するまでエラー表示を待つべき</Hl>だとしている。入力中にエラーメッセージを表示するのは、頼んでもいない叱責のように感じられ、苛立たせる可能性があるため。「10 Design Guidelines for Reporting Errors in Forms」も同様に、理想的にはすべての検証をインラインで行い、ユーザーがフィールドの入力を終えた時点でエラーがあれば近くにインジケーターを表示すべきだとしつつ、パスワードのような複雑なフィールドでは、入力中に即座に検証するインライン表示(タイプ中に表示される)が有効だともしている。両記事を通じて一貫しているのは、「入力途中で急いで警告しない」という原則。</>,
     exceptions:
-      "必須項目が空欄のまま送信された場合のエラーは、送信を試みた後に表示するのが有用だとしています。技術的にリアルタイム検証ができない場合は、フォームやページが再読み込みされた際にエラーメッセージが分かりやすく見つけやすい場所にあるようにすべきだとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザー体験調査(苛立ち・中断のしやすさ)に基づく実務的なタイミング指針です。",
+      "必須項目が空欄のまま送信された場合のエラーは、送信を試みた後に表示するのが有用だとしている。技術的にリアルタイム検証ができない場合は、フォームやページが再読み込みされた際にエラーメッセージが分かりやすく見つけやすい場所にあるようにすべきだとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザー体験調査(苛立ち・中断のしやすさ)に基づく実務的なタイミング指針。",
     useCases: [
       "大半のフィールドは、ユーザーが入力を終えてフィールドを離れた時点(フォーカス離脱時)で検証する",
       "パスワードの要件チェックリストなど、即時フィードバックがユーザーの助けになる場合のみ、入力中のリアルタイム検証を使う",
@@ -171,7 +178,10 @@ const SOURCES = [
     ],
     searchHint: "unwarranted scolding",
     url: "https://www.nngroup.com/articles/hostile-error-messages/",
-    urlSecondary: [{ label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" }],
+    refs: [
+      { label: "Hostile Patterns in Error Messages / 10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/hostile-error-messages/" },
+      { label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" },
+    ],
     confirmedNote: "両記事とも本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -200,8 +210,8 @@ const TIMING_MATRIX = [
     key: "hig", name: "Apple",
     cells: {
       before: { m: "none", t: "言及なし" },
-      typing: { m: "unknown", t: "数字だけの欄に数字以外が入った時点で警告(公式本文は未確認)" },
-      blur: { m: "unknown", t: "メールアドレスなどはフォーカスが変わる時。ユーザー名・パスワードの作成は次の欄に移る前(公式本文は未確認)" },
+      typing: { m: "good", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる(入力中か離れたときかは記載なし)。数値の欄は数字だけを受け付ける書式を使う" },
+      blur: { m: "none", t: "記載なし(「すぐに知らせる」のみ)" },
       submit: { m: "none", t: "言及なし(長いフォームの最後にまとめて直させるのは負担としている)" },
       after: { m: "none", t: "言及なし" },
     },
@@ -210,9 +220,9 @@ const TIMING_MATRIX = [
     key: "material", name: "Google",
     cells: {
       before: { m: "good", t: "サポートテキストで書式のヒントを常に示す" },
-      typing: { m: "unknown", t: "検証のきっかけは未確認" },
-      blur: { m: "unknown", t: "検証のきっかけは未確認" },
-      submit: { m: "unknown", t: "検証のきっかけは未確認" },
+      typing: { m: "none", t: "検証のきっかけは記載なし" },
+      blur: { m: "none", t: "検証のきっかけは記載なし" },
+      submit: { m: "none", t: "検証のきっかけは記載なし" },
       after: { m: "none", t: "言及なし" },
     },
   },
@@ -331,7 +341,7 @@ const TIMING_DETAILS = [
     what: "欄の入力を終えて次の欄へ移った(フォーカスが外れた)時点で検証し、問題があればその欄の近くに表示する。",
     good: "書き終えた内容だけを判定するので、途中で急かさない。フォームの最後まで行かなくても、その場で直せる。",
     care: "何も入力せずにTabキーで通り過ぎただけの欄に、すぐ「必須です」と出すのは早すぎる(NN group)。",
-    who: "NN group(大半の欄の既定)。Appleも同じ考え方とされる(メールアドレスなど。公式本文は未確認)",
+    who: "NN group(大半の欄の既定)",
   },
   {
     key: "submit",
@@ -372,9 +382,9 @@ function TimingDetails() {
 
 /* 入力欄の種類ごとの目安(◯/△/✕)。各系列の記述を入力欄の種類で整理し直したもの */
 const FIELD_GUIDE = [
-  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定(Appleも同じとされるが公式本文は未確認)"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
-  { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "次の欄に移る前に検証(Apple)"], submit: ["cond", "最終確認"] },
-  { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字以外が入った時点で警告(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
+  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
+  { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
+  { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字だけを受け付ける書式にする(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "必須項目の未入力", typing: ["avoid", "入力前から出さない"], blur: ["cond", "何か入力して消した場合など。通り過ぎただけでは出さない"], submit: ["good", "送信を試みた後に示す(NN group)"] },
 ];
 
@@ -426,7 +436,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -455,6 +465,27 @@ function ValidationTimingSwatch() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方です。";
+const ABOUT = [
+  { k: "目的・役割", v: "間違いを早めに知らせつつ、入力の途中で邪魔をしないタイミングを選ぶ" },
+  { k: "よく使われる場面", v: "メールアドレス・パスワードの確認、会員登録・購入のフォーム" },
+  { k: "似た部品との違い", v: <>見つけたエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink></> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "入力の検証は、いつ行う?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "欄の入力を終えて次の欄へ移るまで待つ。入力中にエラーを出すと責められているように感じる。パスワードの条件の一覧のような場面だけは入力中に示してよい" },
+      { who: "Apple", color: "#C2542A", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる。入力中か欄を離れたときかは書いていない" },
+      { who: "W3C・Google", color: "#A3821F", t: "タイミングの決まりはない(W3CのARIA19の例は送信時に確かめる。Googleはエラーテキストの出し方だけを定めている)" },
+    ],
+    tip: "「欄を離れたときに確かめる」を基本にすると、Appleの「すぐに知らせる」とNN groupの「入力中は待つ」の両方に沿います。入力中に示すのは、パスワードの条件のように、満たしたかどうかを見ながら入力したい場面だけにします。",
+  },
+];
+
 export default function TextInputsInputValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -480,35 +511,23 @@ export default function TextInputsInputValidationPage() {
           </div>
 
           <h1 style={styles.title}>バリデーション</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、入力の検証を「いつ行うか」(リアルタイム/フォーカス離脱時/送信時)というタイミングをどう定めているかを比較します。検知したエラーの見せ方(文言・視覚表現)は「エラー表示」ページを参照してください。</p>
+          <SummaryCard
+            imageLabel="検証タイミングの3つの選択肢"
+            image={<><ValidationTimingSwatch /></>}
+            imageNote={<>NN group・Appleとも、「入力中に急いで警告しない」という点で一致している。フィールド離脱時の検証が既定、リアルタイム検証はパスワード要件チェックリストなど特殊な場面に限定される。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>検証タイミングの3つの選択肢</span>
-            <ValidationTimingSwatch />
-            <p style={styles.swatchNote}>NN group・Appleとも、「入力中に急いで警告しない」という点で一致している。フィールド離脱時の検証が既定、リアルタイム検証はパスワード要件チェックリストなど特殊な場面に限定される。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            <p style={styles.synthesisText}>
-              検証タイミングについて最も具体的な指針を持つのはNielsen Norman Groupです。<strong>「入力中(タイピング中)にエラーを出さない」「フィールドを離れた時点で検証する」</strong>を原則としつつ、<strong>パスワードの要件チェックリストのような場面に限りリアルタイム検証を認める</strong>という、原則+例外の形で整理されています。
-            </p>
-            <p style={styles.synthesisText}>
-              Appleも方向性は同じとされ、<strong>メールアドレスのような一般的な形式はフォーカスが外れた時、ユーザー名・パスワードの作成は次のフィールドに移る前に検証する</strong>と紹介されています(ただしHIGのText fieldsのページ本文では該当する記述を確認できておらず、公式本文は未確認です)。タイミングを定めているのは<strong>AppleとNN groupの2系列</strong>で(W3Cは規定なし、Googleは未確認)、確認できれば、2系列が独立に似た結論に達していることになります。
-            </p>
-            <p style={styles.synthesisText}>
-              対照的にW3C(WCAG)は、<strong>「いつ検証すべきか」自体を規範的に定めた記述が見当たりません</strong>。ARIA19はエラーを動的に通知する技術的な仕組み(ライブリージョン)を、G199は送信成功時のフィードバックを扱いますが、どちらも検証のトリガー条件そのものではありません。これはWCAGが「エラーをどう伝えるか」(このサイトの「エラー表示」ページで扱うW3C 3.3.1/3.3.3/3.3.4)には具体的でも、「いつ」には意図的に中立という、探索が甘かったのではなく複数の一次情報を確認した上での発見です。
-            </p>
-            <p style={styles.synthesisText}>
-              Googleは<strong>「サポートテキストをエラーテキストに置き換える」という視覚的な切り替えの仕組み</strong>は明確ですが、それを引き起こす具体的なトリガー条件(リアルタイムか、フォーカス離脱時か)は公式ページ本文で確認できていません。エラーが起きる前から書式のヒントをサポートテキストとして示しておくという点は、NN groupの「入力途中で急がせない」という考え方と相性が良い設計です。
-            </p>
-          </div>
+
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
           <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べました。表は横にスクロールできます。</p>
           <TimingLegend />
           <TimingChart />
-          <p style={styles.diagramNote}>具体的なタイミングを定めているのはApple(フォーカスが変わる時)とNN group(フィールドを離れた時)で、どちらも「入力中は原則として急がせない」という点で一致しています。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱います。Googleは入力前のヒントの出し方は明確ですが、検証のきっかけは確認できていません。</p>
+          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)だけです。Appleは「入力されたらすぐに知らせる」とし、どの時点かは書いていません。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱います。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていません。</p>
 
           <h3 style={styles.subTitle}>5つのタイミングの解説</h3>
           <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べました。</p>
@@ -518,6 +537,22 @@ export default function TextInputsInputValidationPage() {
           <p style={styles.diagramNote}>上の各系列の記述を、入力欄の種類ごとに整理し直した目安です(◯=推奨・既定、△=条件付き、✕=原則避ける)。系列名のないセルは、各系列の原則から導いた一般的な実務としての補足です。1つの欄に1つのタイミングだけを選ぶのではなく、組み合わせて使うのが一般的です。</p>
           <FieldGuide />
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              検証タイミングについて最も具体的な指針を持つのはNielsen Norman Groupです。<strong>「入力中(タイピング中)にエラーを出さない」「フィールドを離れた時点で検証する」</strong>を原則としつつ、<strong>パスワードの要件チェックリストのような場面に限りリアルタイム検証を認める</strong>という、原則+例外の形で整理されています。
+            </p>
+            <p style={styles.synthesisText}>
+              Appleは<strong>「入力されたらすぐに確かめ、問題があればすぐに知らせる」</strong>としていますが、入力中か欄を離れたときかまでは書いていません。いつ検証するかは系列で分かれます(上の「意見が分かれる点」)。
+            </p>
+            <p style={styles.synthesisText}>
+              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていません</strong>。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を、G199は送信が成功したことの知らせ方を扱いますが、どちらも検証のタイミングではありません。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立です。
+            </p>
+            <p style={styles.synthesisText}>
+              Googleは<strong>「サポートテキストをエラーテキストに入れ替える」という見せ方</strong>を定めていますが、いつ検証するかはM3のページに書かれていません。エラーの前から書式のヒントをサポートテキストで示しておく点は、NN groupの「入力途中で急がせない」という考え方と相性のよい作りです。
+            </p>
+          </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -527,32 +562,25 @@ export default function TextInputsInputValidationPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
-                <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -560,7 +588,6 @@ export default function TextInputsInputValidationPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -570,8 +597,6 @@ export default function TextInputsInputValidationPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -579,30 +604,29 @@ export default function TextInputsInputValidationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -615,15 +639,15 @@ export default function TextInputsInputValidationPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["エラー・確認", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["エラー・確認", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
+              リンクについて: AppleはEntering dataページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
             </span>
           </div>
         </div>
@@ -633,10 +657,12 @@ export default function TextInputsInputValidationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -645,7 +671,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -670,7 +696,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -707,7 +733,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

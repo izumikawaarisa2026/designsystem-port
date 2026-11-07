@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink, NoData } from "./page-parts";
 
 /**
  * 思想レイヤー「原則比較」ページ。
@@ -66,6 +67,7 @@ const FRAMEWORKS = [
         desc: "46件の調査研究・18,000人以上のデータに基づき、使いやすさと感情に働きかけるデザインを両立させている。",
         sub: [],
         url: "https://design.google/library/expressive-material-design-google-research",
+        more: { label: "M3の基礎(Foundations)", url: "https://m3.material.io/foundations" },
       },
     ],
     url: "https://design.google/library/expressive-material-design-google-research",
@@ -110,10 +112,10 @@ const FRAMEWORKS = [
 ];
 
 const OVERLAP_ROWS = [
-  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: "―(直接対応する項目なし)", wcag: "(Understandableに関連する考え方だが、直接対応する項目はない)", nn: "システムと実世界の一致 / 一貫性と標準" },
-  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: "―(直接対応する項目なし)", wcag: "(Operableに関連する考え方だが、直接対応する項目はない)", nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
-  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: "(直接対応する項目はない)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
-  { theme: "アクセシビリティを前提とする発想", hig: "Responsibility(関連する考え方だが、直接対応する項目ではない)", material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "(POUR全体がこの発想の規格化)", nn: "―(10ヒューリスティックに直接対応する項目なし)" },
+  { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
+  { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
+  { theme: "アクセシビリティを前提とする発想", hig: <>Responsibility<NoData>(関連する考え方だが、直接対応する項目ではない)</NoData></>, material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
 ];
 
 function CountDots({ count, color, label }) {
@@ -162,7 +164,7 @@ export default function PrinciplesComparisonPage() {
           <p style={styles.subtitle}>4つのガイドラインが、それぞれ何本の原則を、何のために定めているかを比較する</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「原則」という同じ言葉でも、4系列が指している範囲はそれぞれ異なります。AppleとNielsen Norman Groupは製品デザイン全般の心構えを、WCAGは適合判定の規格を指しています。そしてGoogleは、<strong>原則の内容そのものより、3世代にわたる思想の進化の軌跡に独自性</strong>があります。
             </p>
@@ -233,6 +235,9 @@ export default function PrinciplesComparisonPage() {
                             <span style={styles.genName}>{it.name}</span>
                             {it.url && (
                               <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>
+                            )}
+                            {it.more && (
+                              <a href={it.more.url} target="_blank" rel="noreferrer" style={styles.genLink}>{it.more.label} ↗</a>
                             )}
                           </div>
                           <p style={styles.genDesc}>{it.desc}</p>
@@ -320,12 +325,12 @@ export default function PrinciplesComparisonPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["設計の原則・使い分け"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Apple HIG・W3C WCAG・NN groupは各原則に対応する実アンカーを確認済みです。Googleは第1世代(m1.material.io)・第3世代(design.google)は公式ページの本文を確認済み、第2世代のみ報道ベースの情報を含みます(詳細は該当箇所に記載)。

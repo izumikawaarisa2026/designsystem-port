@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「シェイプ・コーナーラジウス(角丸)」ページ。
@@ -32,14 +33,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Toolbars / Live Activities / Widgets ほか",
     color: "#C2542A",
     position: "角丸の専用ページや数値の段階は持たず、形の種類(四角・固定値の角丸・カプセル・円・同心・自動)を部品と場面で使い分ける方式。中心にあるのは「内側の角丸を外枠と同心(concentric)にそろえる」という原則",
-    size: "Googleのような角丸の段階(スケール)はありません。基準は数値ではなく「形の種類」で、ボタンの形は自動・カプセル・円・角丸長方形から選びます。個別の値としては、Dynamic Islandの角丸が44pt(TrueDepthカメラの形に一致)、visionOSのアラートに入れる補助ビューが16pt、Apple Watchの大きな画像のコンプリケーションが4ptなど、部品ごとに示されています。アプリアイコンは正方形で用意し、角丸はシステムが端末の形と揃うようにマスクします。",
-    colorInfo: "内側の角丸は外枠と同心にそろえる、というのが一貫した考え方です。ツールバーでは標準のボタンや入力欄の角丸が自動でバーの角と同心になり、独自の部品も同心にするよう求めています。ライブアクティビティでは「外側の角丸 − 余白」を内側の角丸にする、という計算の仕方まで示しています。visionOSでは、視線が角に引き寄せられて中心を見続けにくいため、円形やカプセル形のボタンを勧めています。",
+    size: "Googleのような角丸の段階(スケール)はない。基準は数値ではなく「形の種類」で、ボタンの形は自動・カプセル・円・角丸長方形から選ぶ。個別の値としては、Dynamic Islandの角丸が44pt(TrueDepthカメラの形に一致)、visionOSのアラートに入れる補助ビューが16pt、Apple Watchの大きな画像のコンプリケーションが4ptなど、部品ごとに示されている。アプリアイコンは正方形で用意し、角丸はシステムが端末の形と揃うようにマスクする。",
+    colorInfo: "内側の角丸は外枠と同心にそろえる、というのが一貫した考え方。ツールバーでは標準のボタンや入力欄の角丸が自動でバーの角と同心になり、独自の部品も同心にするよう求めている。ライブアクティビティでは「外側の角丸 − 余白」を内側の角丸にする、という計算の仕方まで示している。visionOSでは、視線が角に引き寄せられて中心を見続けにくいため、円形やカプセル形のボタンを勧めている。",
     stance:
-      "Appleは角丸を独立したトークンとしてではなく、端末の画面の角・ウィンドウ・バーといった外側の形に内側の部品を調和させるための関係として扱っています。アプリアイコンの角丸が画面の角やほかのUIの丸みと正確に揃うようにシステムがマスクするのも同じ発想です。visionOSのボタンでは、縦に積むときは角丸長方形、横に並べるときはカプセル形が向くとしています(各ページの本文を直接確認、2026-09)。",
+      "Appleは角丸を独立したトークンとしてではなく、端末の画面の角・ウィンドウ・バーといった外側の形に内側の部品を調和させるための関係として扱っている。アプリアイコンの角丸が画面の角やほかのUIの丸みと正確に揃うようにシステムがマスクするのも同じ発想。visionOSのボタンでは、縦に積むときは角丸長方形、横に並べるときはカプセル形が向くとしている(各ページの本文を直接確認、2026-09)。",
     exceptions:
-      "Apple Payボタン・Sign in with Appleボタンなどは、アプリのほかのボタンに合わせて角丸を四角からカプセル形まで調整できます。一方、Apple Healthのアイコンなどブランドの素材は、角丸を変えたり円形に切り抜いたりしてはいけないとしています。",
+      "Apple Payボタン・Sign in with Appleボタンなどは、アプリのほかのボタンに合わせて角丸を四角からカプセル形まで調整できる。一方、Apple Healthのアイコンなどブランドの素材は、角丸を変えたり円形に切り抜いたりしてはいけないとしている。",
     accessibility:
-      "―(形そのものについての専用のアクセシビリティ基準はありません)。visionOSで円形・カプセル形を勧める理由は、対象を見続けやすくするためで、視線で操作するvisionOSでの操作のしやすさに関わる配慮です。",
+      "―(形そのものについての専用のアクセシビリティ基準はない)。visionOSで円形・カプセル形を勧める理由は、対象を見続けやすくするためで、視線で操作するvisionOSでの操作のしやすさに関わる配慮。",
     useCases: [
       "カードやバーの中に置く部品の角丸は「外側の角丸 − 余白」で決める",
       "標準の部品を使い、角丸がバーや画面の角と同心になるようにする",
@@ -47,7 +48,8 @@ const SOURCES = [
     ],
     searchHint: "concentric",
     url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Toolbars / Live Activities / Widgets ほか", url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Best-practices" },
       { label: "Live Activities: Creating layouts", url: "https://developer.apple.com/design/human-interface-guidelines/live-activities#Creating-Live-Activity-layouts" },
       { label: "App icons: Icon shape", url: "https://developer.apple.com/design/human-interface-guidelines/app-icons#Icon-shape" },
       { label: "Buttons: visionOS", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS" },
@@ -60,14 +62,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Shape",
     color: "#2F7D6E",
     position: "角丸を10段階の「シェイプスケール」としてトークン化し、各コンポーネントがその段階を参照する方式。M3 Expressiveでは35種類の装飾的な形と、形から形への変形(モーフ)も加わった",
-    size: "None 0dp / Extra small 4dp / Small 8dp / Medium 12dp / Large 16dp / Large increased 20dp / Extra large 28dp / Extra large increased 32dp / Extra extra large 48dp / Full 50%(完全な円・カプセル)の10段階。角の処理は丸める(rounded)か、斜めに切る(cut)かを選べ、既定は丸めです。",
-    colorInfo: "角丸の値はテーマで一括して変更でき、コンポーネントはその段階を参照するため、アプリ全体の印象を1か所で変えられます。M3 Expressiveでは円・四角・花・クッキー・ハートなど35種類の形(MaterialShapes)が定義され、そのまま使うことも、ある形から別の形へ滑らかに変形させることもできます。",
+    size: "None 0dp / Extra small 4dp / Small 8dp / Medium 12dp / Large 16dp / Large increased 20dp / Extra large 28dp / Extra large increased 32dp / Extra extra large 48dp / Full 50%(完全な円・カプセル)の10段階。角の処理は丸める(rounded)か、斜めに切る(cut)かを選べ、既定は丸め。",
+    colorInfo: "角丸の値はテーマで一括して変更でき、コンポーネントはその段階を参照するため、アプリ全体の印象を1か所で変えられる。M3 Expressiveでは円・四角・花・クッキー・ハートなど35種類の形(MaterialShapes)が定義され、そのまま使うことも、ある形から別の形へ滑らかに変形させることもできる。",
     stance:
-      "Material Designは形をブランド表現の手段と位置づけ、角丸の段階をトークンとして持つことで、ブランドに合わせた調整と一貫性の両立を図っています。独自の形を作るための角・辺の処理(角の切り落とし・三角形の辺など)も用意されています(Material Components for Androidのドキュメントとトークン定義で直接確認、2026-09)。",
+      "Material Designは形をブランド表現の手段と位置づけ、角丸の段階をトークンとして持つことで、ブランドに合わせた調整と一貫性の両立を図っている。独自の形を作るための角・辺の処理(角の切り落とし・三角形の辺など)も用意されている(Material Components for Androidのドキュメントとトークン定義で直接確認、2026-09)。",
     exceptions:
-      "テーマで各段階の値を変更したとき、「MediumがLargeより小さい」といった大小関係が正しいかはライブラリ側では検査されず、開発者が保証する必要があると明記されています。どの部品にどの段階を当てるかの一覧はm3.material.io(SPA)にあり、本文は直接確認できていません。",
+      "テーマで各段階の値を変更したとき、「MediumがLargeより小さい」といった大小関係が正しいかはライブラリ側では検査されず、開発者が保証する必要があると明記されている。どの部品にどの段階を当てるかの一覧はm3.material.io(SPA)にあり、本文は直接確認できていない。",
     accessibility:
-      "―(形そのものについての専用のアクセシビリティ基準は確認できていません)。角丸の大きい小さなボタンの扱いについてはW3C欄(2.5.8)を参照。",
+      "―(形そのものについての専用のアクセシビリティ基準は確認できていない)。角丸の大きい小さなボタンの扱いについてはW3C欄(2.5.8)を参照。",
     useCases: [
       "角丸は固定値ではなく、シェイプスケールの段階(small・large等)で指定する",
       "ブランドの印象を変えたいときは、テーマで段階の値をまとめて調整する",
@@ -75,12 +77,13 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/shape/corner-radius-scale",
-    urlSecondary: [
+    refs: [
+      { label: "Shape", url: "https://m3.material.io/styles/shape/corner-radius-scale" },
       { label: "MDC Android: Shape theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Shape.md" },
       { label: "Compose Material 3 ShapeTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ShapeTokens.kt" },
       { label: "Compose Material 3 MaterialShapes(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/MaterialShapes.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。10段階の値はMaterial Components for Androidのドキュメントとトークン定義、35種類の形はJetpack Composeのソースで直接確認(2026-09)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。10段階の値はMaterial Components for Androidのドキュメントとトークン定義、35種類の形はJetpack Composeのソースで直接確認(2026-09)。",
   },
   {
     key: "wcag",
@@ -88,17 +91,17 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.5.8 Target Size (Minimum)",
     color: "#A3821F",
     position: "形そのものは規定しない。ボタンの枠(形)は、ほかに識別する手がかりが無いときだけ必要で、その場合は3:1のコントラストを求める",
-    size: "形・角丸についての数値基準はありません。1.4.11(レベルAA)は、部品を識別するのに必要な視覚情報に3:1以上のコントラストを求めますが、文字や十分なコントラストのアイコンで部品だと分かる場合、枠(押せる範囲の境界)は必須ではないとしています。2.5.8(レベルAA)では、角丸が大きいために対象の内側に24×24pxの正方形が収まらない場合、その対象は「小さい対象」として扱われます。",
-    colorInfo: "入力欄の立体的な影や、コントラストの異なる背景の間の暗い線などは、明るさが最も近い色の一部とみなして計算するとしています。形の境界がほかに識別の手段がない唯一の手がかりになっている場合にだけ、その境界に3:1が求められます。",
+    size: "形・角丸についての数値基準はない。1.4.11(レベルAA)は、部品を識別するのに必要な視覚情報に3:1以上のコントラストを求めるが、文字や十分なコントラストのアイコンで部品だと分かる場合、枠(押せる範囲の境界)は必須ではないとしている。2.5.8(レベルAA)では、角丸が大きいために対象の内側に24×24pxの正方形が収まらない場合、その対象は「小さい対象」として扱われる。",
+    colorInfo: "入力欄の立体的な影や、コントラストの異なる背景の間の暗い線などは、明るさが最も近い色の一部とみなして計算するとしている。形の境界がほかに識別の手段がない唯一の手がかりになっている場合にだけ、その境界に3:1が求められる。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "部品の識別や状態の把握に必要な視覚情報、図の理解に必要な部分に、隣接色との3:1以上のコントラストを求める基準。" },
       { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSSピクセル以上にするか、周囲に十分な間隔を取ることを求める基準。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
     ],
     stance:
-      "WCAGはボタンを角丸にするか四角にするかを問いません。問題にするのは、それが操作できる部品だと見分けられるかどうかです。枠のない文字だけのボタンも、文字で部品だと分かれば適合します。ただし、見た目の手がかりが枠しかない入力欄などは、その枠に3:1が必要になります。",
+      "WCAGはボタンを角丸にするか四角にするかを問わない。問題にするのは、それが操作できる部品だと見分けられるかどうか。枠のない文字だけのボタンも、文字で部品だと分かれば適合する。ただし、見た目の手がかりが枠しかない入力欄などは、その枠に3:1が必要になる。",
     exceptions:
-      "1.4.11は、非活性の部品と、ブラウザが見た目を決めていて制作者が変更していない部品を適用除外としています。2.5.8では、角丸で小さい対象とみなされても、周囲に十分な間隔があれば適合します。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.11は「知覚可能」、2.5.8は「操作可能」に属します。弱視の人が部品の存在に気づけること、指での操作が難しい人が押し間違えないことが目的です。",
+      "1.4.11は、非活性の部品と、ブラウザが見た目を決めていて制作者が変更していない部品を適用除外としている。2.5.8では、角丸で小さい対象とみなされても、周囲に十分な間隔があれば適合する。",
+    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.11は「知覚可能」、2.5.8は「操作可能」に属する。弱視の人が部品の存在に気づけること、指での操作が難しい人が押し間違えないことが目的。",
     useCases: [
       "枠のないボタンは、文字やアイコンで押せる部品だと分かるようにする",
       "入力欄など、枠が唯一の手がかりになる部品は枠を3:1以上にする",
@@ -106,8 +109,9 @@ const SOURCES = [
     ],
     searchHint: "does not require that controls have a visual boundary",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#boundaries",
-    urlSecondary: [
-      { label: "2.5.8 Target Size (Minimum)", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#size-requirement" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#boundaries" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#size-requirement" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -117,13 +121,13 @@ const SOURCES = [
     doc: "Flat-Design Best Practices / Flat UI Elements Attract Less Attention",
     color: "#7A4F7E",
     position: "形を「押せることを示す手がかり(シグニファイア)」として扱い、フラットデザインで形の手がかりを失うと探す手間が増える、という調査に基づく実務指針(適合基準ではない)",
-    size: "角丸の数値基準はありません。視線計測の調査では、押せる手がかりが弱いページは強いページに比べて、見ている時間が平均22%長く、注視の回数が平均25%多かったとしています。",
-    colorInfo: "ボタンは少なくとも現実のボタンのように見えるべきで、細い枠線だけの「ゴーストボタン」は手がかりが弱いため避けるよう勧めています。完全にフラットにするのではなく、控えめな影や重なりを加えた「フラット2.0」を多くの製品に勧めています。",
+    size: "角丸の数値基準はない。視線計測の調査では、押せる手がかりが弱いページは強いページに比べて、見ている時間が平均22%長く、注視の回数が平均25%多かったとしている。",
+    colorInfo: "ボタンは少なくとも現実のボタンのように見えるべきで、細い枠線だけの「ゴーストボタン」は手がかりが弱いため避けるよう勧めている。完全にフラットにするのではなく、控えめな影や重なりを加えた「フラット2.0」を多くの製品に勧めている。",
     stance:
-      "フラットデザインでは、押せる場所を示す手がかりが取り除かれがちで、利用者はどこを押せるか迷い、作業の効率が落ちるとしています。押せる要素と押せない要素をはっきり区別すること、同じ見た目を静的な文字とリンクの両方に使わないこと、一貫性を保つことが重要だとしています(記事本文を直接取得して確認済み、2026-09)。",
+      "フラットデザインでは、押せる場所を示す手がかりが取り除かれがちで、利用者はどこを押せるか迷い、作業の効率が落ちるとしている。押せる要素と押せない要素をはっきり区別すること、同じ見た目を静的な文字とリンクの両方に使わないこと、一貫性を保つことが重要だとしている(記事本文を直接取得して確認済み、2026-09)。",
     exceptions:
-      "ページ数が少なくシンプルなサイト、操作が少ないサイト、繰り返し訪れる利用者が多いサイト、利用者が専門家の場合は、完全にフラットでも問題が少ないとしています。標準的なレイアウトやパターンに沿っていれば、手がかりが弱くても利用者は要素の役割を理解しやすいとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測を使ったユーザー調査に基づく設計上の根拠です。",
+      "ページ数が少なくシンプルなサイト、操作が少ないサイト、繰り返し訪れる利用者が多いサイト、利用者が専門家の場合は、完全にフラットでも問題が少ないとしている。標準的なレイアウトやパターンに沿っていれば、手がかりが弱くても利用者は要素の役割を理解しやすいとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測を使ったユーザー調査に基づく設計上の根拠。",
     useCases: [
       "ボタンは背景の塗りや形で、押せる部品だと分かるようにする",
       "細い枠線だけのゴーストボタンを主要な操作に使わない",
@@ -131,7 +135,10 @@ const SOURCES = [
     ],
     searchHint: "22% more time",
     url: "https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/",
-    urlSecondary: [{ label: "Flat-Design Best Practices", url: "https://www.nngroup.com/articles/flat-design-best-practices/" }],
+    refs: [
+      { label: "Flat-Design Best Practices / Flat UI Elements Attract Less Attention", url: "https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/" },
+      { label: "Flat-Design Best Practices", url: "https://www.nngroup.com/articles/flat-design-best-practices/" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
   },
 ];
@@ -142,14 +149,66 @@ function ConcentricSwatch() {
   return (
     <svg viewBox="0 0 300 120" width="100%" style={{ maxWidth: 420, display: "block", margin: "0 auto" }} role="img" aria-label="同心の角丸の例">
       <rect x="10" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="22" y="22" width="106" height="36" rx="14" fill="#F4D9CE" />
-      <text x="75" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <rect x="22" y="22" width="106" height="66" rx="14" fill="#F4D9CE" />
+      <text x="75" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <text x="75" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
       <text x="75" y="114" fontSize="9.5" fill="#2F7D6E" textAnchor="middle" fontFamily={font}>○ 同心(外側 − 余白)</text>
       <rect x="160" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="172" y="22" width="106" height="36" rx="26" fill="#F4D9CE" />
-      <text x="225" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
-      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと隙間が不揃い</text>
+      <rect x="172" y="22" width="106" height="66" rx="26" fill="#F4D9CE" />
+      <text x="225" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
+      <text x="225" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
+      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと角の隙間が広がる</text>
     </svg>
+  );
+}
+
+/* No.011: 入れ子(お弁当)構造で見る角丸の大きさ。Google=Jetpack Composeの各部品のトークン(ContainerShape)、Apple=同心の計算 */
+const NEST_G = [
+  { v: "28", n: "XL", parts: "ダイアログ・ボトムシート(上の角)" },
+  { v: "16", n: "L", parts: "FAB・ナビゲーションドロワー(端の角)・リスト(Expressive)" },
+  { v: "12", n: "M", parts: "カード" },
+  { v: "8", n: "S", parts: "チップ" },
+  { v: "4", n: "XS", parts: "メニュー・スナックバー・ツールチップ・テキストフィールド" },
+  { v: "丸", n: "Full", parts: "ボタン・検索バー" },
+];
+function NestDiagram() {
+  const mono = "'IBM Plex Mono', monospace";
+  return (
+    <div style={styles.nestWrap}>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#2F7D6E" }}>Google ― 部品ごとに決まった段階</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Googleの入れ子の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="28" fill="#E3EDE9" stroke="#2F7D6E" />
+          <text x="20" y="24" fontSize="9" fill="#2F7D6E" fontFamily={mono}>ダイアログ 28</text>
+          <rect x="20" y="34" width="220" height="118" rx="12" fill="#FFFFFF" stroke="#2F7D6E" />
+          <text x="32" y="52" fontSize="9" fill="#2F7D6E" fontFamily={mono}>カード 12</text>
+          <rect x="32" y="62" width="70" height="22" rx="8" fill="#CFE3DD" />
+          <text x="67" y="77" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={mono}>チップ 8</text>
+          <rect x="32" y="94" width="196" height="26" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
+          <text x="40" y="111" fontSize="8.5" fill="#454C78" fontFamily={mono}>テキストフィールド 4</text>
+          <rect x="140" y="162" width="100" height="30" rx="15" fill="#2F7D6E" />
+          <text x="190" y="181" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン 丸</text>
+        </svg>
+        <table style={styles.nestTable}><tbody>
+          {NEST_G.map((r) => (<tr key={r.n}><td style={styles.nestVal}>{r.v}{r.v !== "丸" && <span style={{ fontSize: 9 }}>dp</span>}</td><td style={styles.nestName}>{r.n}</td><td style={styles.nestParts}>{r.parts}</td></tr>))}
+        </tbody></table>
+        <p style={styles.nestNote}>大きい面ほど大きく、小さい部品ほど小さい段階が割り当てられています(Jetpack Composeの各部品のトークンで確認)。外枠との関係から計算はしないので、内側の角は同心になるとは限りません。</p>
+      </div>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#C2542A" }}>Apple ― 外側から順に計算(同心)</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Appleの同心の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="34" fill="#F8ECE6" stroke="#C2542A" />
+          <text x="130" y="22" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>外枠 R</text>
+          <rect x="16" y="30" width="228" height="162" rx="22" fill="#FFFFFF" stroke="#C2542A" />
+          <text x="130" y="48" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 余白12</text>
+          <rect x="28" y="56" width="204" height="124" rx="10" fill="#F4D9CE" />
+          <text x="130" y="76" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 24</text>
+          <rect x="40" y="132" width="180" height="36" rx="18" fill="#C2542A" opacity="0.85" />
+          <text x="130" y="154" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン(カプセルなど)</text>
+        </svg>
+        <p style={styles.nestNote}>Appleは段階の値を持たず、<strong>内側の角丸 = 外側の角丸 − 余白</strong>で決めます。ツールバーの中の標準のボタンや入力欄は、自動でバーの角と同心になります。図の値(余白12)は説明のための作例です。</p>
+      </div>
+    </div>
   );
 }
 
@@ -445,6 +504,25 @@ function ShapeChangeRules() {
           </div>
         </div>
       </div>
+      <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              角丸を<strong>数値の段階(トークン)として持っているのはGoogleだけ</strong>です。0・4・8・12・16・20・28・32・48dpとFull(50%)の10段階があり、テーマで一括して変えられます。M3 Expressiveでは35種類の装飾的な形と、形の変形(モーフ)まで加わり、形をブランド表現の中心に据えています。
+            </p>
+            <p style={styles.synthesisText}>
+              Appleには角丸の専用ページがありません。代わりに、ツールバー・ライブアクティビティ・ウィジェット・アプリアイコンの各ページに、<strong>内側の角丸を外枠と同心(concentric)にそろえる</strong>という同じ考え方が繰り返し出てきます。Googleが「絶対値の段階」で統一するのに対し、Appleは<strong>「外側との関係」で統一する</strong>、という発想の違いです。ただしAppleにも基準がないわけではなく、<strong>形の種類(四角・固定値の角丸・カプセル・円・同心・自動)を場面で使い分ける</strong>というルールがあります。例えばvisionOSでは、アイコンだけのボタンは円、単独や横並びのボタンはカプセル、縦に積むボタンは角丸長方形です。
+            </p>
+            <p style={styles.synthesisText}>
+              W3Cは形を規定しません。<strong>ボタンに枠がなくても、文字で押せる部品だと分かれば適合</strong>とし、枠が唯一の手がかりになる場合にだけ3:1を求めます。一方でNN groupは、形が押せることを示す手がかりになると考え、<strong>手がかりの弱いUIでは探す時間が22%長くなる</strong>という調査を示しています。
+            </p>
+            <p style={styles.synthesisText}>
+              つまり、W3Cの基準を満たす最低限(文字だけのボタン)と、NN groupが勧める使いやすさ(ボタンらしい形と塗り)の間には差があります。実務では、<strong>主要な操作には塗りと形のあるボタンを使い、角丸はGoogleの段階またはAppleの同心の考え方で一貫させる</strong>のが、4系列を合わせた結論です。
+            </p>
+            <p style={styles.synthesisText}>
+              角丸100%(Full/カプセル)と固定値の使い分けは、Apple・Googleでほぼ一致しています。<strong>高さが一定の「押す・つまむ」部品(ボタン・スイッチ・つまみ・バッジ)はFull、中身によって大きさが変わる「面」(カード・ダイアログ・シート・入力欄)は固定値</strong>です。大きな面をFullにすると形が崩れ、小さな部品を固定値にすると押せる部品らしさが弱まる、という理由で考えると判断しやすくなります。
+            </p>
+          </div>
       <div className="dsp-mobile-only" style={styles.sourceList}>
         {SHAPE_CHANGES.map((r) => (
           <div key={r.scene} style={styles.sourceCard}>
@@ -479,7 +557,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -488,6 +566,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "部品の角の丸み(角丸)と、形の使い分けの決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "角の丸みをそろえて統一感を出し、形で部品の種類や状態を伝える" },
+  { k: "関わる場面", v: "ボタン・カード・ダイアログの角、丸いアイコンボタン、チップ" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/components/containment/card">カード</PageLink></> },
+];
 
 export default function TokensShapePage() {
   return (
@@ -514,32 +600,15 @@ export default function TokensShapePage() {
           </div>
 
           <h1 style={styles.title}>シェイプ・コーナーラジウス(角丸)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、角丸の段階・形の選び方・形が伝える意味をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="同心の角丸(外枠と内側の部品の関係)"
+            image={<><ConcentricSwatch /></>}
+            imageNote={<>外枠と内側の部品に同じ角丸を使うと、角の部分だけ隙間が広がって見えます。内側の角丸を「外側の角丸 − 余白」にすると、隙間が均一になります(Appleがライブアクティビティなどで示している考え方)。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>同心の角丸(外枠と内側の部品の関係)</span>
-            <ConcentricSwatch />
-            <p style={styles.swatchNote}>外枠と内側の部品に同じ角丸を使うと、角の部分だけ隙間が広がって見えます。内側の角丸を「外側の角丸 − 余白」にすると、隙間が均一になります(Appleがライブアクティビティなどで示している考え方)。</p>
-          </div>
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            <p style={styles.synthesisText}>
-              角丸を<strong>数値の段階(トークン)として持っているのはGoogleだけ</strong>です。0・4・8・12・16・20・28・32・48dpとFull(50%)の10段階があり、テーマで一括して変えられます。M3 Expressiveでは35種類の装飾的な形と、形の変形(モーフ)まで加わり、形をブランド表現の中心に据えています。
-            </p>
-            <p style={styles.synthesisText}>
-              Appleには角丸の専用ページがありません。代わりに、ツールバー・ライブアクティビティ・ウィジェット・アプリアイコンの各ページに、<strong>内側の角丸を外枠と同心(concentric)にそろえる</strong>という同じ考え方が繰り返し出てきます。Googleが「絶対値の段階」で統一するのに対し、Appleは<strong>「外側との関係」で統一する</strong>、という発想の違いです。ただしAppleにも基準がないわけではなく、<strong>形の種類(四角・固定値の角丸・カプセル・円・同心・自動)を場面で使い分ける</strong>というルールがあります。例えばvisionOSでは、アイコンだけのボタンは円、単独や横並びのボタンはカプセル、縦に積むボタンは角丸長方形です。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは形を規定しません。<strong>ボタンに枠がなくても、文字で押せる部品だと分かれば適合</strong>とし、枠が唯一の手がかりになる場合にだけ3:1を求めます。一方でNN groupは、形が押せることを示す手がかりになると考え、<strong>手がかりの弱いUIでは探す時間が22%長くなる</strong>という調査を示しています。
-            </p>
-            <p style={styles.synthesisText}>
-              つまり、W3Cの基準を満たす最低限(文字だけのボタン)と、NN groupが勧める使いやすさ(ボタンらしい形と塗り)の間には差があります。実務では、<strong>主要な操作には塗りと形のあるボタンを使い、角丸はGoogleの段階またはAppleの同心の考え方で一貫させる</strong>のが、4系列を合わせた結論です。
-            </p>
-            <p style={styles.synthesisText}>
-              角丸100%(Full/カプセル)と固定値の使い分けは、Apple・Googleでほぼ一致しています。<strong>高さが一定の「押す・つまむ」部品(ボタン・スイッチ・つまみ・バッジ)はFull、中身によって大きさが変わる「面」(カード・ダイアログ・シート・入力欄)は固定値</strong>です。大きな面をFullにすると形が崩れ、小さな部品を固定値にすると押せる部品らしさが弱まる、という理由で考えると判断しやすくなります。
-            </p>
-          </div>
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>形状ごとの使い方 ― 固定値の角丸・角丸100%と、Google・Appleの扱い</h2>
@@ -558,6 +627,12 @@ export default function TokensShapePage() {
             <ShapeMatrix />
             <h3 style={styles.subTitle}>状態や並べ方で形を切り替えるルール</h3>
             <ShapeChangeRules />
+          </section>
+
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>入れ子(お弁当)構造で見る角丸の大きさ</h2>
+            <p style={styles.diagramNote}>シートやダイアログの中にカード、その中にボタンや入力欄が入る、という入れ子の構造で角丸の大きさを比べます。<Hl>Googleは部品ごとに段階を割り当て、Appleは外枠から余白を引いて計算</Hl>します。</p>
+            <NestDiagram />
           </section>
 
           <div style={styles.chartCard}>
@@ -583,18 +658,11 @@ export default function TokensShapePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -602,7 +670,6 @@ export default function TokensShapePage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>シェイプ・コーナーラジウス デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -615,41 +682,37 @@ export default function TokensShapePage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>角丸の数値</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>形の選び方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値と形の一覧はGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値と形の一覧はGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIGに角丸の専用ページがないため、同心の角丸について書かれたToolbarsページの見出しを基本リンクとし、関連する3ページの見出しを併記しています。GoogleはM3のShapeの角丸スケール(Corner radius scale)ページに加え、数値を確認したGitHub上の公式ソースを併記しています。WCAGは1.4.11 Understandingページの「Boundaries」の節と、2.5.8の大きさの要件の節です。NN groupは視線計測の調査記事と、フラットデザインの実践記事です。
@@ -662,10 +725,18 @@ export default function TokensShapePage() {
 }
 
 const styles = {
+  nestWrap: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: 16, border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px" },
+  nestCol: { minWidth: 0 },
+  nestHead: { fontSize: 12.5, fontWeight: 700, marginBottom: 8 },
+  nestTable: { width: "100%", borderCollapse: "collapse", fontSize: 11, marginTop: 8 },
+  nestVal: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#2F7D6E", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 52, whiteSpace: "nowrap" },
+  nestName: { fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 40 },
+  nestParts: { color: "#2E3457", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.5 },
+  nestNote: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "8px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -702,7 +773,7 @@ const styles = {
   usageCellStrong: { fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px", borderBottom: "1px solid #EEF0F7" },
   usageMobileText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 4 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -725,7 +796,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -736,7 +807,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

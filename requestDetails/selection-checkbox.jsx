@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チェックボックス」ページ。
@@ -17,18 +18,21 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toggles内「Checkboxes」(macOS)",
+    term: "Checkbox(Togglesの見た目の1つ。macOSのみ)",
     color: "#C2542A",
     position: "3状態(オン・オフ・不定)を形状の違いで示す、AppKit提供のネイティブな正方形ボタン",
+    choice:
+      <span>2つ以上の選択肢から1つだけを選ばせたい場合は、チェックボックスではなく<Hl>ラジオボタンを使うべき</Hl>としている。階層を持つ設定項目を示したいときは、スイッチよりチェックボックスを使うべきとしている。</span>,
+    states:
+      <span>オフのとき空、オンのときチェックマーク、<Hl>状態が不定(mixed)のときダッシュ</Hl>を表示する。上位のチェックボックスが複数の下位項目を一括でオン・オフする場合、下位項目の状態が揃っていなければ「不定(mixed)」状態で表示すべきとしている。</span>,
     size:
-      "HIG本文に数値(pt)の基準はありません。ネイティブコントロールのため開発者がサイズを指定する対象ではなく、実際の見た目はコントロールサイズ(Regular/Small/Miniなど)やmacOSのバージョンに応じてシステムが自動決定します。「サイズが無い」のではなく「設計者向けの基準が無い」という意味です。",
+      <span><NoData>数値基準なし。</NoData>ネイティブコントロールのため開発者がサイズを指定する対象ではなく、実際の見た目はコントロールサイズ(Regular/Small/Miniなど)やmacOSのバージョンに応じてシステムが自動決定する。「サイズが無い」のではなく「設計者向けの基準が無い」という意味。</span>,
     colorInfo:
-      "色を切り替えて状態を伝える設計ではなく、空(未選択)/チェックマーク(選択)/ダッシュ(不定)という形状の違いで状態を区別することを基本にしています。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていません。",
+      <span>色を切り替えて状態を伝える設計ではなく、空(未選択)/チェックマーク(選択)/ダッシュ(不定)という<Hl>形状の違いで状態を区別</Hl>することを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。</span>,
     stance:
-      "チェックボックスはmacOS向けの部品で、iOS/iPadOSには標準のチェックボックスがありません(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されています)。チェックボックスは、オフのとき空、オンのときチェックマーク、状態が不定(mixed)のときダッシュを表示する正方形のボタンと定義されています。階層を持つ設定項目を示したいときは、スイッチよりチェックボックスを使うべきとしています。",
-    exceptions:
-      "2つ以上の選択肢から1つだけを選ばせたい場合は、チェックボックスではなくラジオボタンを使うべきとしています。また、上位のチェックボックスが複数の下位項目を一括でオン・オフする場合、下位項目の状態が揃っていなければ「不定(mixed)」状態で表示すべきとしています。",
+      <span><Hl>チェックボックスはmacOS向けの部品で、iOS/iPadOSには標準のチェックボックスがない</Hl>(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されている)。チェックボックスは、状態によって表示が変わる正方形のボタンと定義されている。</span>,
     accessibility:
-      "理解可能(Understandable) ― 状態(オン・オフ・不定)を見た目で正確に伝えるべきという点は、理解可能性に関わります。標準のチェックボックスコントロールを使えば、VoiceOverなどの支援技術に状態が自動的に伝わるため、独自実装は推奨されていません。",
+      "理解可能(Understandable) ― 状態(オン・オフ・不定)を見た目で正確に伝えるべきという点は、理解可能性に関わる。標準のチェックボックスコントロールを使えば、VoiceOverなどの支援技術に状態が自動的に伝わるため、独自実装は推奨されていない。",
     useCases: [
       "階層を持つ設定項目を表現する(親子のチェックボックス)",
       "チェックリスト形式で複数の項目を選ぶ",
@@ -36,6 +40,11 @@ const SOURCES = [
     ],
     searchHint: "checkbox’s state",
     url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes",
+    refs: [
+      { label: "Toggles ― Checkboxes", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes" },
+      { label: "Toggles ― Switches(macOSのスイッチとの使い分け)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches" },
+      { label: "Toggles ― Radio buttons(1つの設定のオン・オフ)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Radio-buttons" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         {["unchecked", "checked", "mixed"].map((st) => (
@@ -53,22 +62,25 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Checkbox(使用法・アクセシビリティ)",
+    term: "Checkbox",
     color: "#2F7D6E",
     position: "複数選択・親子階層(不定状態)を持つ正方形ボタン。隣接するテキストラベルからも選択可能",
+    choice:
+      "複数の関連する選択肢をリストから選べる場合は、スイッチではなくチェックボックスを使うことを推奨している(リストに複数の選択肢がある場合にスイッチを使うのは避けるべきとしている)。チェックボックスは類似の項目を視覚的にグループ化しやすく、スイッチより省スペースだとしている。",
+    states:
+      <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持ち、子の一部だけが選択されている場合は親が不確定状態になり、不確定状態の親を選択すると全ての子項目が選択される。</span>,
     size:
-      "チェックボックスに既定で高密度設定を適用すべきではないとしており、推奨タップ領域は48×48 CSSピクセル(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしています。正方形本体自体の見た目サイズ(dp単位)はこのテキストに含まれておらず未確認です。",
+      <span>チェックボックスに既定で高密度設定を適用すべきではないとしており、<Hl>推奨タップ領域は48×48 CSSピクセル</Hl>(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。<NoData>正方形本体の見た目サイズ(dp)は未確認。</NoData></span>,
     colorInfo:
-      "色の値はカラーロールに対応するデザイントークンを通じて実装されます。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしています。",
+      <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>される。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしている。</span>,
     glossary: [
       { term: "デザイントークン", desc: "色・サイズ・角丸などの具体的な値に、意味のある名前を付けて管理する仕組み。実際の値(例: #3A4FCF)を各所に直接書く代わりに「primary」のような名前を参照させることで、値を1箇所変更するだけで全体に反映できる。" },
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "複数の関連する選択肢をリストから選べる場合は、スイッチではなくチェックボックスを使うことを推奨しています。チェックボックスは類似の項目を視覚的にグループ化しやすく、スイッチより省スペースだとしています。",
-    exceptions:
-      "リストに複数の選択肢がある場合にスイッチを使うのは避けるべきで、代わりにチェックボックスを使うべきとしています。チェックボックス・ラジオボタン・スイッチは主要な選択操作方法の3つで、チェックボックス=複数選択、ラジオボタン=単一選択、スイッチ=独立した設定のオン/オフ、という役割分担が明記されています。",
+      <span>チェックボックス・ラジオボタン・スイッチを主要な選択操作方法の3つとし、<Hl>チェックボックス=複数選択</Hl>、ラジオボタン=単一選択、スイッチ=独立した設定のオン/オフ、という役割分担を明記している。</span>,
     accessibility:
-      "UIテキストがチェックボックスと正しくリンクされていれば、支援技術(スクリーンリーダーなど)はUIテキストに続けてコンポーネントの役割を読み上げます。個々のチェックボックスのアクセシビリティラベルは通常、隣接するテキストラベルと同一にします。親チェックボックスは「選択済み」「未選択」「未確定(indeterminate)」の3状態を持ち、子の一部だけが選択されている場合は親が不確定状態になり、不確定状態の親を選択すると全ての子項目が選択されます。",
+      "UIテキストがチェックボックスと正しくリンクされていれば、支援技術(スクリーンリーダーなど)はUIテキストに続けてコンポーネントの役割を読み上げる。個々のチェックボックスのアクセシビリティラベルは通常、隣接するテキストラベルと同一にする。",
     useCases: [
       "リストから1つ以上のオプションを選択する",
       "サブ選択を含む階層的なリストを表示する",
@@ -77,9 +89,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/checkbox/guidelines",
-    urlSecondary: [
-      { label: "Accessibility", url: "https://m3.material.io/components/checkbox/accessibility" },
-      { label: "Specs(数値)", url: "https://m3.material.io/components/checkbox/specs" },
+    refs: [
+      { label: "Checkbox ― Guidelines(使用法)", url: "https://m3.material.io/components/checkbox/guidelines" },
+      { label: "Checkbox ― Accessibility", url: "https://m3.material.io/components/checkbox/accessibility" },
+      { label: "Checkbox ― Specs(数値)", url: "https://m3.material.io/components/checkbox/specs" },
+      { label: "Switch ― Guidelines(スイッチとの使い分け)", url: "https://m3.material.io/components/switch/guidelines" },
     ],
     confirmedNote: "使用法・行動・ユースケース・インタラクションとスタイル・アクセシビリティラベルの各セクションは2026-09時点で確認済み。正方形の見た目サイズ(dp)やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
@@ -94,18 +108,25 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "checkbox(WAI-ARIAのロール)/ HTMLの input type=\"checkbox\"",
     color: "#A3821F",
     position: "形状を問わず、名前・役割・状態・タップ領域を支援技術/操作性の観点から要求する適合基準の集合",
+    glossary:
+      [
+      { term: "標準のHTML部品を使う場合", desc: "標準的なHTMLのinput type=\"checkbox\"要素を使っていれば、ブラウザが自動的に名前・役割・状態を提供するため、通常は追加の対応は不要。独自にデザインしたカスタムチェックボックスを実装する場合にのみ、この基準への配慮が必要になる。" },
+    ],
+    choice:
+      <NoData>記載なし</NoData>,
+    states:
+      <span>4.1.2により、<Hl>状態(オン・オフ・不定)</Hl>が支援技術に伝わる必要がある。</span>,
     size:
-      "チェックボックス専用の数値基準はありませんが、WCAG 2.2で追加された一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページを参照)。いずれもタップ可能な要素全般に適用される基準で、チェックボックス固有の規定ではありません。",
+      <span>チェックボックス専用の数値基準はないが、WCAG 2.2で追加された一般的なターゲットサイズ基準が適用される。<Hl>2.5.8(レベルAA)は最低24×24 CSSピクセル</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセル</Hl>を求める(どちらも例外あり。詳しくは「ボタン」ページを参照)。いずれもタップ可能な要素全般に適用される基準で、チェックボックス固有の規定ではない。</span>,
     colorInfo:
-      "1.4.11(非テキストのコントラスト、レベルAA)により、チェックボックスの境界線や状態を示す視覚的要素は、隣接する色との間で3:1以上のコントラスト比を確保すべきとしています。1.4.1(色の使用、レベルA)により、色だけで選択状態を示すことも避けるべきとしています。",
+      <span>1.4.11(非テキストのコントラスト、レベルAA)により、チェックボックスの境界線や状態を示す視覚的要素は、隣接する色との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1(色の使用、レベルA)により、<Hl>色だけで選択状態を示すことも避けるべき</Hl>としている。</span>,
     stance:
-      "チェックボックスのような独自UIコンポーネントは、その名前(ラベル)・役割(チェックボックスであること)・状態(オン・オフ・不定)が、支援技術から取得・設定できなければならないとしています。見た目だけでなく、プログラム的にも状態が伝わることを求める基準です。",
-    exceptions:
-      "標準的なHTMLのinput type=\"checkbox\"要素を使っていれば、ブラウザが自動的にこれらの情報を提供するため、通常は追加の対応は不要です。独自にデザインしたカスタムチェックボックスを実装する場合にのみ、この基準への配慮が必要になります。",
+      "チェックボックスのような独自UIコンポーネントは、その名前(ラベル)・役割(チェックボックスであること)・状態が、支援技術から取得・設定できなければならないとしている(4.1.2)。見た目だけでなく、プログラム的にも状態が伝わることを求める基準。",
     accessibility:
-      "堅牢(Robust) ― POUR原則のうち「堅牢」に対応する、互換性(4.1)の達成基準です。加えて操作可能(Operable)の観点からターゲットサイズ(2.5)、知覚可能(Perceivable)の観点から非テキストのコントラスト(1.4.11)も関わります。",
+      "堅牢(Robust) ― POUR原則のうち「堅牢」に対応する、互換性(4.1)の達成基準。加えて操作可能(Operable)の観点からターゲットサイズ(2.5)、知覚可能(Perceivable)の観点から非テキストのコントラスト(1.4.11)も関わる。",
     useCases: [
       "支援技術のユーザーがチェックボックスへ移動し、状態を切り替えられるようにする",
       "状態の変化がプログラム的に(支援技術に)正しく通知されるようにする",
@@ -113,6 +134,15 @@ const SOURCES = [
     ],
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+    refs: [
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
+      { kind: "apg", label: "APG ― Checkbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/" },
+      { kind: "apg", label: "APG ― 不定状態(mixed)のチェックボックスの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/examples/checkbox-mixed/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="40" height="40" viewBox="0 0 40 40">
@@ -128,18 +158,21 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Checkboxes: Design Guidelines",
+    term: "Checkbox(単独・リスト・入れ子の3種類)",
     color: "#7A4F7E",
     position: "用途別に3つの形を整理(数値基準ではなく設計パターン)",
+    choice:
+      <span>2つ以上の選択肢から1つだけを選ぶ場面でチェックボックスを使うのは、よくある誤用だと指摘している。その場面では<Hl>ラジオボタンを使うべき</Hl>としている。</span>,
+    states:
+      <span>入れ子の場合、一部の子項目だけが選択されているときは、親チェックボックスを<Hl>「不定(indeterminate)」状態で表示すべき</Hl>としている。</span>,
     size:
-      "数値基準は明言していません。ただしチェックボックス本体だけでなく、隣接するテキストラベルもクリック可能領域に含める(ラベルをクリックしても選択できるようにする)ことが、実務上のベストプラクティスとして広く知られています(Googleの公式ページも同様に、テキストラベルからの選択に対応していると明記しています)。",
+      <span><NoData>数値基準なし。</NoData>ただしチェックボックス本体だけでなく、隣接するテキストラベルもクリック可能領域に含める(ラベルをクリックしても選択できるようにする)ことが、実務上のベストプラクティスとして広く知られている(Googleの公式ページも同様に、テキストラベルからの選択に対応していると明記している)。</span>,
     colorInfo:
-      "色そのものについての数値基準はありません。選択された項目は選択されていない項目よりも視覚的に目立たせるべき、という原則面の言及があります。",
+      <span><NoData>数値基準なし。</NoData>選択された項目は選択されていない項目よりも視覚的に目立たせるべき、という原則面の言及がある。</span>,
     stance:
-      "チェックボックスの使い方を「単独のチェックボックス」「チェックボックスのリスト」「入れ子のチェックボックスリスト」の3種類に整理しています。入れ子の場合、一部の子項目だけが選択されているときは、親チェックボックスを「不定(indeterminate)」状態で表示すべきとしています。",
-    exceptions:
-      "2つ以上の選択肢から1つだけを選ぶ場面でチェックボックスを使うのは、よくある誤用だと指摘しています。その場面ではラジオボタンを使うべきとしています。",
+      "チェックボックスの使い方を「単独のチェックボックス」「チェックボックスのリスト」「入れ子のチェックボックスリスト」の3種類に整理している。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、用途に応じた使い分けの指針という位置づけです。",
+      "根拠となる原則 ― POURのような適合区分ではなく、用途に応じた使い分けの指針という位置づけ。",
     useCases: [
       "単独のチェックボックスでオン・オフを1つだけ選ばせる",
       "チェックボックスのリストで複数の関連項目を選ばせる",
@@ -147,6 +180,10 @@ const SOURCES = [
     ],
     searchHint: "Nested Checkbox Lists",
     url: "https://www.nngroup.com/articles/checkboxes-design-guidelines/",
+    refs: [
+      { label: "Checkboxes: Design Guidelines", url: "https://www.nngroup.com/articles/checkboxes-design-guidelines/" },
+      { label: "Toggle-Switch Guidelines(スイッチとの使い分け)", url: "https://www.nngroup.com/articles/toggle-switch-guidelines/" },
+    ],
     illustration: () => (
       <svg width="26" height="26" viewBox="0 0 26 26">
         <rect x="2" y="2" width="22" height="22" rx="3" fill="#7A4F7E" />
@@ -177,7 +214,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -186,6 +223,77 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* 意見が分かれる2点 */
+function MiniIcon({ kind }) {
+  const c = "#454C78";
+  if (kind === "checkbox") return (
+    <svg width="44" height="24" viewBox="0 0 44 24" aria-hidden="true"><rect x="12" y="3" width="18" height="18" rx="3" fill={c} /><path d="M16 12l3.5 3.5 6.5-7" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+  );
+  if (kind === "switch") return (
+    <svg width="44" height="24" viewBox="0 0 44 24" aria-hidden="true"><rect x="3" y="3" width="38" height="18" rx="9" fill={c} /><circle cx="32" cy="12" r="6.5" fill="#FFFFFF" /></svg>
+  );
+  if (kind === "both") return (
+    <svg width="44" height="24" viewBox="0 0 44 24" aria-hidden="true"><rect x="1" y="5" width="14" height="14" rx="3" fill={c} /><rect x="19" y="5" width="24" height="14" rx="7" fill={c} /><circle cx="36" cy="12" r="4.5" fill="#FFFFFF" /></svg>
+  );
+  /* 親チェックボックスの状態の移り変わり(不定 → 次の状態) */
+  const box = (x, st) => (
+    <g key={x + st}>
+      <rect x={x} y="4" width="16" height="16" rx="3" fill={st === "off" ? "#FFFFFF" : c} stroke={c} strokeWidth="1.5" />
+      {st === "on" && <path d={`M${x + 4} 12l3 3 5.5-6`} fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />}
+      {st === "mixed" && <line x1={x + 4} y1="12" x2={x + 12} y2="12" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />}
+    </g>
+  );
+  const arrow = (x) => <path key={"a" + x} d={`M${x} 12h8m-3-3l3 3-3 3`} fill="none" stroke="#9EA4C4" strokeWidth="1.3" />;
+  const seq = kind === "all" ? ["mixed", "on"] : ["off", "mixed", "on"];
+  return (
+    <svg width={seq.length * 30} height="24" viewBox={`0 0 ${seq.length * 30} 24`} aria-hidden="true">
+      {seq.map((st, i) => [box(i * 30 + 2, st), i < seq.length - 1 ? arrow(i * 30 + 20) : null])}
+    </svg>
+  );
+}
+
+const SPLITS = [
+  {
+    q: "1つの設定のオン・オフは、チェックボックス?スイッチ?",
+    sides: [
+      { figure: <MiniIcon kind="checkbox" />, who: "Apple(macOS)", color: "#C2542A", t: "1つの設定のオン・オフにはチェックボックスを優先する。スイッチは見た目が重いので、まとめて切り替える設定など強調したいときに使う(iOS・iPadOSはリストの行のスイッチが基本)" },
+      { figure: <MiniIcon kind="both" />, who: "Google", color: "#2F7D6E", t: "単独の項目のオン・オフはスイッチが基本だが、デスクトップではチェックボックスでもよい。どちらを使う場合も、変更はすぐに反映させる" },
+      { figure: <MiniIcon kind="switch" />, who: "NN group", color: "#7A4F7E", t: "すぐに反映するならスイッチ。保存・送信ボタンを押して確定する場面では、スイッチではなく単独のチェックボックスにする" },
+    ],
+    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立します。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマホならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けです。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、フォームの中に即時反映のチェックボックスを混ぜないようにします。",
+  },
+  {
+    q: "不定(一部だけ選択)の親チェックボックスを押したら?",
+    sides: [
+      { figure: <MiniIcon kind="all" />, who: "Google・NN group", color: "#2F7D6E", t: "子をすべて選択する(Google)。親を押すと子がまとめて選択・解除される(NN group)" },
+      { figure: <MiniIcon kind="cycle" />, who: "W3C(APG)", color: "#A3821F", t: "APGの例では、押すたびに「未選択 → 不定 → 選択」と切り替わり、不定に戻ったときは前回の一部だけ選んだ組み合わせを復元する。パターンの説明では、この復元は一部の実装が持つ機能という位置づけ" },
+    ],
+    tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法です。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げます。APGは実装の参考例で、適合の要件ではありません。Appleは、親の状態の表示(不定のときはダッシュ)は定めていますが、押したときの動きは書いていません。",
+  },
+  {
+    q: "押せる範囲(タップ領域)は、どれくらいの大きさが必要?",
+    figure: (
+      <>
+        <SizeRangeScale />
+        <p style={{ fontSize: 11, color: "#7E86AC", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60pxを共通スケールにした目安。24・44=W3C(AA・AAA)、48=Google。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく</p>
+      </>
+    ),
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "48×48 CSSピクセルを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
+      { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
+      { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSの部品)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
+    ],
+    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届きます。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられます(Google・NN groupが勧める方法)。",
+  },
+];
+
+/* この部品について(冒頭の説明) */
+const ABOUT = [
+  { k: "目的・役割", v: "一覧から、当てはまるものをいくつでも(0個でも)選べるようにする。1つだけでも、同意や通知の希望のように「はい/いいえ」を1つ選ぶ用途に使う" },
+  { k: "よく使われる場面", v: "絞り込み検索の条件、メールの受信設定、利用規約への同意、「すべて選択」付きの一覧(親子のチェックボックス)" },
+  { k: "似た部品との違い", v: <>1つだけ選ばせるなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、押した瞬間に設定が切り替わるなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
+];
 
 function CheckboxSwatch() {
   const items = [
@@ -235,31 +343,6 @@ function SizeRangeScale() {
   );
 }
 
-function SizeInfographic() {
-  const legend = [
-    { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
-    { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
-    { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(隣接ラベルも含めクリック領域にする指針)" },
-  ];
-  return (
-    <div style={styles.infographicCard}>
-      <span style={styles.swatchLabel}>サイズの比較</span>
-      <SizeRangeScale />
-      <div style={styles.infographicLegend}>
-        {legend.map((l) => (
-          <div key={l.name} style={styles.infographicLegendRow}>
-            <span style={{ ...styles.infographicDot, background: l.color }} />
-            <span style={styles.infographicLegendName}>{l.name}</span>
-            <span style={styles.infographicLegendNote}>{l.note}</span>
-          </div>
-        ))}
-      </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安です(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはありません。</p>
-    </div>
-  );
-}
-
 export default function SelectionCheckboxPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -285,16 +368,19 @@ export default function SelectionCheckboxPage() {
           </div>
 
           <h1 style={styles.title}>チェックボックス</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、状態の伝え方・サイズ・色・アクセシビリティの基準をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<CheckboxSwatch />}
+            imageNote="3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。"
+            lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品です。"
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <CheckboxSwatch />
-            <p style={styles.swatchNote}>3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。</p>
-          </div>
 
+          <SplitSection splits={SPLITS} />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>しています。Apple・Nielsen Norman
               Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言えます。
@@ -304,14 +390,12 @@ export default function SelectionCheckboxPage() {
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われます。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleが「既定で48×48 CSSピクセルを下回らせない」という具体的な数値を持つ</strong>のに対し、Appleはネイティブコントロールとして描画されるため、HIG自体には設計者向けの数値基準がありません(実際の見た目サイズはシステムが自動決定するもので、「サイズが無い」わけではない点に注意)。WCAGはコンポーネントの種類を問わない一般基準として、24×24px(AA)/44×44px(AAA)のターゲットサイズを求めています(どちらも例外あり)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがありません。
+              サイズは系列によって基準が違います(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがありません。
             </p>
             <p style={styles.synthesisText}>
-              色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3C・NNは「色だけに依存せず形状やコントラストで状態を伝える」という考え方で共通しています。
+              色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通しています。
             </p>
           </div>
-
-          <SizeInfographic />
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
@@ -322,34 +406,34 @@ export default function SelectionCheckboxPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                <InfoBox label="状態(不定を含む)">{s.states}</InfoBox>
+                <InfoBox label="ほかの部品との使い分け">{s.choice}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
-                </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+                )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -359,8 +443,6 @@ export default function SelectionCheckboxPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -368,43 +450,48 @@ export default function SelectionCheckboxPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                <div style={styles.labelCell}>状態(不定を含む)</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.states}</div>))}
+                <div style={styles.labelCell}>ほかの部品との使い分け</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.choice}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはToggleページ内のCheckboxesセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN
-              groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(見た目サイズの数値など)はまだ確認できていません。
+              リンクについて: 公式で別のページ・別のセクションに分かれている内容は、「参照ページ」にそれぞれ載せています。AppleはTogglesページ内の各セクションへのアンカー付きリンク、W3Cは達成基準ごとのUnderstandingページとAPG、NN
+              groupは記事ページ単位です。Googleのspecsページ本文(見た目サイズの数値など)はまだ確認できていません。
             </span>
           </div>
         </div>
@@ -417,16 +504,12 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -446,29 +529,24 @@ const styles = {
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
-  infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 22 },
-  infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
-  infographicLegendRow: { display: "flex", alignItems: "flex-start", gap: 8 },
-  infographicDot: { width: 9, height: 9, borderRadius: "50%", flexShrink: 0, marginTop: 3 },
-  infographicLegendName: { fontSize: 12, fontWeight: 700, color: "#171B36", width: 130, flexShrink: 0 },
-  infographicLegendNote: { fontSize: 11.5, color: "#454C78", lineHeight: 1.5 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
+  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

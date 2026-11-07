@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection」カテゴリの先頭に置く、使い分けガイドページ。
@@ -53,14 +54,14 @@ const CARDS = [
   },
   {
     key: "chips", name: "チップ(Chips)", path: "/components/selection/chips", built: true,
-    oneLiner: "選択・入力・提案を、コンパクトな「タグ」として並べる。",
-    doText: "フィルタ・入力済み項目をタグで見せたい時",
-    dontText: "フォームの主要な選択肢一覧として使う時",
+    oneLiner: "小さなタグの形で、その場の絞り込みや選択を切り替える。1つでもオン/オフに使える(フィルターチップ)。",
+    doText: "一覧をその場で絞り込む条件を選ぶ・切り替える時",
+    dontText: "次の手順へ進むなど主要な操作(→ボタン)",
     icon: () => (<svg width="60" height="22" viewBox="0 0 60 22"><rect x="1" y="1" width="58" height="20" rx="10" fill="#3A4FCF" /></svg>),
   },
   {
     key: "select", name: "プルダウン(セレクト)", path: "/components/selection/select", built: true,
-    oneLiner: "選択肢を折りたたみ、省スペースで選ぶ。基本は1つを選ぶ(Googleのメニューは複数選択にも対応)。",
+    oneLiner: "選択肢を折りたたみ、省スペースで1つを選ぶ。",
     doText: "選択肢が多く省スペースにしたい時",
     dontText: "選択肢が少ない・2〜5個程度の時(→ラジオボタン)",
     icon: () => (
@@ -69,14 +70,19 @@ const CARDS = [
   },
 ];
 
-/* このカテゴリのほかのページ(判断フローの6パーツとは役割が違うもの) */
+/* このカテゴリのほかのページ(表の6パーツとは役割が違うもの) */
 const OTHERS = [
   { name: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", text: "ドラムロール(ホイール)など、プルダウン以外で1つを選ぶ形の一覧" },
   { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならプルダウン" },
   { name: "日付/タイムピッカー", path: "/components/selection/date-time-picker", text: "日付・時刻という決まった形の値を選ぶ。生年月日のように遠い日付は入力欄の方が速いことも" },
+  { name: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", text: "予定を日・週・月の表で見せる画面。日付を1つ選んで入力するなら日付/タイムピッカー" },
 ];
 
 const styles = {
+  useTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" },
+  useTh: { fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 8px", borderBottom: "1px solid #E1E3F0", textAlign: "left", verticalAlign: "bottom" },
+  useTd: { padding: "8px 8px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" },
+  useNote: { display: "block", fontSize: 10, lineHeight: 1.5, color: "#7E86AC", marginTop: 2, textAlign: "left" },
   othersGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10, marginBottom: 24 },
   otherCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", color: "inherit" },
   otherName: { fontSize: 13, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
@@ -145,79 +151,53 @@ function PartCards() {
  * 図の見た目(ひし形=分岐、角丸=開始/結果、ラベル付き矢印)は、
  * ユーザー提供の参考画像(トレードオフ判断のフローチャート)の型を踏襲している。
  */
-function Diamond({ cx, cy, hw, hh, lines }) {
-  return (
-    <g>
-      <polygon points={`${cx},${cy - hh} ${cx + hw},${cy} ${cx},${cy + hh} ${cx - hw},${cy}`} fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.6" />
-      <text x={cx} y={cy - 6} fontSize="11.5" fontWeight="600" fill="#171B36" textAnchor="middle">{lines[0]}</text>
-      <text x={cx} y={cy + 14} fontSize="11.5" fontWeight="600" fill="#171B36" textAnchor="middle">{lines[1]}</text>
-    </g>
-  );
-}
-function ResultBox({ cx, cy, label }) {
-  const w = Math.max(130, label.length * 12.5 + 24);
-  return (
-    <g>
-      <rect x={cx - w / 2} y={cy - 20} width={w} height="40" rx="10" fill="#3A4FCF" />
-      <text x={cx} y={cy + 5} fontSize="12" fontWeight="700" fill="#FFFFFF" textAnchor="middle">{label}</text>
-    </g>
-  );
-}
-function FlowEdge({ x1, y1, x2, y2, label, lx, ly }) {
-  const fontSize = 15;
-  const w = label.length * fontSize * 1.15 + 30;
-  return (
-    <g>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#7E86AC" strokeWidth="1.6" markerEnd="url(#flowArrowHead)" />
-      <rect x={lx - w / 2} y={ly - 19} width={w} height={30} rx="15" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.8" />
-      <text x={lx} y={ly + 2} fontSize={fontSize} fontWeight="700" fill="#171B36" textAnchor="middle">{label}</text>
-    </g>
-  );
-}
+/* 行動ごとに、どのパーツが使えるか(◯=向いている、△=使い方次第、✕=向いていない)。
+   チップのように使い方で役割が変わるパーツがあるため、はい/いいえの分岐図ではなく表で示す */
+const USE_COLS = [
+  { k: "multi", t: "複数の項目を選ぶ" },
+  { k: "onoff", t: "1つの項目をオン/オフ" },
+  { k: "one", t: "1つだけ選ぶ" },
+  { k: "value", t: "感覚的な値を調整する" },
+  { k: "filter", t: "その場で一覧を絞り込む(すぐ反映)" },
+  { k: "form", t: "フォームで選んで送信する" },
+];
+const USE_ROWS = [
+  { name: "チェックボックス", path: "/components/selection/checkbox", multi: "◯", onoff: ["◯", "単独のチェックボックス。送信で確定する場面向け"], one: "✕", value: "✕", filter: ["△", "絞り込みの条件の一覧にも使える"], form: "◯" },
+  { name: "ラジオボタン", path: "/components/selection/radio", multi: "✕", onoff: "✕", one: ["◯", "選択肢を全部見せる"], value: "✕", filter: ["△", "並べ替えの基準など"], form: "◯" },
+  { name: "トグルスイッチ", path: "/components/selection/toggle", multi: "✕", onoff: ["◯", "押した瞬間に反映する場面向け"], one: "✕", value: "✕", filter: ["△", "1つの条件のオン/オフ"], form: ["✕", "送信で確定するフォームには使わない(NN group)"] },
+  { name: "スライダー", path: "/components/selection/slider", multi: "✕", onoff: "✕", one: "✕", value: "◯", filter: ["△", "価格帯などの範囲"], form: ["△", "正確な値が要るなら入力欄"] },
+  { name: "チップ(Chips)", path: "/components/selection/chips", multi: ["◯", "フィルターチップの組み合わせ"], onoff: ["◯", "フィルターチップ1つ。トグルボタンやチェックボックスの代わりに使える(Google)"], one: ["△", "チップのグループを1つだけ選べる設定にできる(Google)"], value: "✕", filter: ["◯", "フィルターチップ"], form: ["△", "入力した値を並べる入力チップ"] },
+  { name: "プルダウン(セレクト)", path: "/components/selection/select", multi: "✕", onoff: "✕", one: ["◯", "選択肢が多く、場所を節約したい"], value: "✕", filter: ["△", "並べ替えの基準など"], form: "◯" },
+];
+const MARK_COLOR = { "◯": "#2F7D6E", "△": "#A3821F", "✕": "#9EA4C4" };
 
-function DecisionTree() {
+function UseTable() {
   return (
     <div style={{ overflowX: "auto" }}>
-      <svg viewBox="0 0 1500 336" style={{ width: "100%", maxWidth: 1000, height: "auto", display: "block", margin: "0 auto" }} role="img" aria-label="ユーザーの行動を起点にした、Selectionパーツを選ぶための判断フローチャート">
-        <defs>
-          <marker id="flowArrowHead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" fill="#7E86AC" />
-          </marker>
-        </defs>
-
-        {/* ルートの分岐: ユーザーが今したいことは? */}
-        <Diamond cx={720} cy={36} hw={115} hh={36} lines={["ユーザーが今", "したいことは?"]} />
-
-        {/* ルート -> 4方向 */}
-        <FlowEdge x1={720} y1={72} x2={120} y2={146} label="感覚的な値の調整" lx={300} ly={124} />
-        <FlowEdge x1={720} y1={72} x2={430} y2={136} label="複数の項目を選ぶ" lx={540} ly={110} />
-        <FlowEdge x1={720} y1={72} x2={850} y2={136} label="1つの項目をオン/オフ" lx={800} ly={104} />
-        <FlowEdge x1={720} y1={72} x2={1275} y2={136} label="1つだけ選ぶ" lx={1100} ly={100} />
-
-        {/* 直接の結果(スライダー) */}
-        <ResultBox cx={120} cy={166} label="スライダー" />
-
-        {/* サブ分岐B: 複数選ぶ場合、どう見せたいか */}
-        <Diamond cx={430} cy={166} hw={80} hh={30} lines={["選んだ結果を", "どう見せたい?"]} />
-        <FlowEdge x1={430} y1={196} x2={330} y2={276} label="タグとして見せる" lx={330} ly={251} />
-        <FlowEdge x1={430} y1={196} x2={530} y2={276} label="一覧として見せる" lx={530} ly={251} />
-        <ResultBox cx={330} cy={296} label="チップ" />
-        <ResultBox cx={530} cy={296} label="チェックボックス" />
-
-        {/* サブ分岐C: 1つの項目のオン/オフは、すぐ反映されるか */}
-        <Diamond cx={850} cy={166} hw={80} hh={30} lines={["すぐに", "反映される?"]} />
-        <FlowEdge x1={850} y1={196} x2={750} y2={276} label="すぐ反映" lx={750} ly={251} />
-        <FlowEdge x1={850} y1={196} x2={950} y2={276} label="送信で確定" lx={950} ly={251} />
-        <ResultBox cx={750} cy={296} label="トグルスイッチ" />
-        <ResultBox cx={950} cy={296} label="単独のチェックボックス" />
-
-        {/* サブ分岐D: 1つだけ選ぶ場合、見せ方は */}
-        <Diamond cx={1275} cy={166} hw={80} hh={30} lines={["選択肢の", "見せ方は?"]} />
-        <FlowEdge x1={1275} y1={196} x2={1170} y2={276} label="全部見比べる" lx={1170} ly={251} />
-        <FlowEdge x1={1275} y1={196} x2={1380} y2={276} label="省スペースにする" lx={1380} ly={251} />
-        <ResultBox cx={1170} cy={296} label="ラジオボタン" />
-        <ResultBox cx={1380} cy={296} label="プルダウン" />
-      </svg>
+      <table style={styles.useTable}>
+        <thead>
+          <tr>
+            <th style={styles.useTh}>パーツ</th>
+            {USE_COLS.map((c) => (<th key={c.k} style={{ ...styles.useTh, textAlign: "center" }}>{c.t}</th>))}
+          </tr>
+        </thead>
+        <tbody>
+          {USE_ROWS.map((r) => (
+            <tr key={r.name}>
+              <td style={{ ...styles.useTd, fontWeight: 700, whiteSpace: "nowrap" }}><a href={r.path} style={{ color: "#3A4FCF" }}>{r.name}</a></td>
+              {USE_COLS.map((c) => {
+                const v = Array.isArray(r[c.k]) ? r[c.k] : [r[c.k], ""];
+                return (
+                  <td key={c.k} style={{ ...styles.useTd, textAlign: "center" }}>
+                    <span style={{ fontSize: 15, fontWeight: 700, color: MARK_COLOR[v[0]] }}>{v[0]}</span>
+                    {v[1] && <span style={styles.useNote}>{v[1]}</span>}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
@@ -246,30 +226,30 @@ export default function SelectionOverviewPage() {
           <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・プルダウン。6つのパーツを、ユーザーの行動を起点に使い分けます</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              6つのパーツは、コンポーネントの性質(連続値かどうか、複数選択かどうかなど)からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の判断フローは「感覚的な値を調整したい」「複数の項目を選びたい」「1つの項目をオン/オフしたい」「1つだけ選びたい」という4つの行動を起点にした分岐ツリーです。1つの項目のオン/オフは、<strong>すぐ反映されるならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれます(Nielsen Norman Groupのトグルスイッチの記事の整理)。
+              6つのパーツは、コンポーネントの性質からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の表は、行動ごとにどのパーツが向いているかを◯/△/✕で示したものです。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>チェックボックスとラジオボタンの取り違え</strong>、<strong>チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点と言えます。Nielsen Norman Groupはトグルスイッチを送信が必要なフォームに使わないよう勧めており、Appleは(macOSで)チェックボックスをスイッチに置き換えないよう勧めています(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
+              1つの項目のオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれます(NN group)。一覧をその場で絞り込む条件なら、<strong>フィルターチップ1つでもオン/オフに使えます</strong>(Googleは、フィルターチップをトグルボタンやチェックボックスの代わりになるものとしています)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>チップは「複数選べる」という行動でチェックボックスと重なります</strong>が、「選んだ結果をコンパクトなタグでどう見せるか」という表示形式の違いが決め手です。判断フローでは、複数選択の後にこの見せ方の分岐を置いています。
+              <strong>チップとチェックボックスは「複数選べる」点で重なります</strong>が、チップは<strong>今見ている一覧をその場で絞り込む</strong>ときに向き、チェックボックスは<strong>フォームの中で選んで、送信して確定する</strong>ときに向きます。また、<strong>チェックボックスとラジオボタン、チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点です(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>プルダウンは基本的にラジオボタンと同じ「1つだけ選ぶ」行動</strong>ですが(Googleのメニューは複数選択にも対応)、Googleがラジオボタンのページで明示している通り、選択肢を折りたたんで省スペースにしたいかどうかが分かれ目です。全選択肢を常に見せておきたいならラジオボタン、表示スペースを節約したいならプルダウン、という使い分けと言えます。
+              <strong>プルダウンはラジオボタンと同じ「1つだけ選ぶ」行動</strong>で、選択肢を常に全部見せたいならラジオボタン、場所を節約したいならプルダウン、という使い分けです。
             </p>
           </div>
 
           <h2 style={styles.diagramTitle}>6つのパーツ</h2>
           <PartCards />
 
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>判断フロー(ユーザーの行動から)</h2>
-          <DecisionTree />
-          <p style={styles.diagramNote}>ひし形が分岐、角丸の四角形が開始・結果です。矢印のラベルは「ユーザーが今したいこと」を表し、1本の直線ではなく途中3箇所(複数選びたい場合/1つの項目をオン/オフする場合/1つだけ選びたい場合)でさらに枝分かれします。「選んだ結果をどう見せたい?」は、たとえば、その場で一覧を絞り込むならフィルタチップ、送信して確定するフォームの複数選択ならチェックボックス、という目安です。この判断フローは、各パーツのページのAI解釈を統合した独自の整理です。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
+          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>行動から選ぶ(◯/△/✕)</h2>
+          <UseTable />
+          <p style={styles.diagramNote}>◯=向いている、△=使い方次第、✕=向いていない。まず「今したいこと」の列を見て、◯のパーツから選びます。チップのように、使い方によって役割が変わるパーツがあるため、はい/いいえで分ける図ではなく表にしています。この表は、各パーツのページの内容をまとめた独自の整理です。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>このカテゴリのほかのページ</h2>
-          <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>判断フローの6パーツとは役割が少し違う、Selectionのページです。</p>
+          <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>表の6パーツとは役割が少し違う、Selectionのページです。</p>
           <div style={styles.othersGrid}>
             {OTHERS.map((o) => (
               <a key={o.path} href={o.path} style={styles.otherCard}>
@@ -280,11 +260,11 @@ export default function SelectionOverviewPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)</span>
             <span>このページは既存ページの統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。2026-10-05、Selectionに加わったページへの案内を追加。</span>
           </div>
         </div>

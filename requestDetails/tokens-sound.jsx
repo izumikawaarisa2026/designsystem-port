@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「サウンド(音フィードバック)」ページ。
@@ -29,14 +30,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Playing audio / Accessibility(Hearing)",
     color: "#C2542A",
     position: "音は端末の消音・音量・出力先の設定に必ず従う、という「利用者の期待どおりに振る舞う」ことが中心。音の作り方より、鳴らし方のルールを詳しく定める",
-    size: "消音モードでは、利用者が自分で始めた音(メディア再生・アラーム・音声/ビデオ通話)だけを鳴らし、キーボードのクリック音・効果音・ゲームのBGMなどは止めます。最終的な音量は常にシステムの音量が決め、アプリが全体の音量を変えてはいけません。ヘッドホンを外したら、再生はすぐに一時停止します。用途に応じて5つのオーディオカテゴリ(Solo ambient/Ambient/Playback/Record/Play and record)から選び、それによって消音スイッチに従うか・他の音と混ぜるか・バックグラウンドで鳴るかが決まります。",
-    design: "音の作り方(音色など)の指針はほとんどありません。具体的なのはvisionOSで、独自のUI要素には独自の音を設計する、繰り返し聞く音は高さと音量をわずかにランダムに変える(仮想キーボードの例)、空間オーディオで音の出どころを物体に結びつける、といった指針があります。tvOSでは、利用者が始めた操作のときだけ音を鳴らし、アラートや通知には音を付けません。",
+    size: "消音モードでは、利用者が自分で始めた音(メディア再生・アラーム・音声/ビデオ通話)だけを鳴らし、キーボードのクリック音・効果音・ゲームのBGMなどは止める。最終的な音量は常にシステムの音量が決め、アプリが全体の音量を変えてはいけない。ヘッドホンを外したら、再生はすぐに一時停止する。用途に応じて5つのオーディオカテゴリ(Solo ambient/Ambient/Playback/Record/Play and record)から選び、それによって消音スイッチに従うか・他の音と混ぜるか・バックグラウンドで鳴るかが決まる。",
+    design: "音の作り方(音色など)の指針はほとんどない。具体的なのはvisionOSで、独自のUI要素には独自の音を設計する、繰り返し聞く音は高さと音量をわずかにランダムに変える(仮想キーボードの例)、空間オーディオで音の出どころを物体に結びつける、といった指針がある。tvOSでは、利用者が始めた操作のときだけ音を鳴らし、アラートや通知には音を付けない。",
     stance:
-      "音が体験の中心でも飾りでも、音量や出力先の変更に対して利用者の期待どおりに振る舞うことを求めています。他のアプリの音楽を必要もなく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後は他のアプリに再開してよいと知らせる、などです(ページ本文を直接確認、2026-09)。",
+      "音が体験の中心でも飾りでも、音量や出力先の変更に対して利用者の期待どおりに振る舞うことを求めている。他のアプリの音楽を必要もなく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後は他のアプリに再開してよいと知らせる、などです(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "visionOSでは逆に「音を鳴らす方を優先する」とし、音のないアプリは味気なく、壊れているようにさえ感じられるとしています。macOSの通知音は、既定で他の音と混ざります。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを推奨しています。",
+      "visionOSでは逆に「音を鳴らす方を優先する」とし、音のないアプリは味気なく、壊れているようにさえ感じられるとしている。macOSの通知音は、既定で他の音と混ざる。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを推奨している。",
     accessibility:
-      "知覚可能(Perceivable) ― 会話や重要な情報を音だけで伝えず、字幕・キャプション・音声解説・書き起こしを用意すること、成功音やエラー音には同じ意味の触覚(ハプティクス)を組み合わせること、音で誘導するときは視覚的な手がかりも添えることを求めています。",
+      "知覚可能(Perceivable) ― 会話や重要な情報を音だけで伝えず、字幕・キャプション・音声解説・書き起こしを用意すること、成功音やエラー音には同じ意味の触覚(ハプティクス)を組み合わせること、音で誘導するときは視覚的な手がかりも添えることを求めている。",
     useCases: [
       "消音モード中は、利用者が始めた再生以外の効果音を鳴らさない",
       "音量はシステムに任せ、アプリ内の音同士のバランスだけを調整する",
@@ -44,7 +45,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Playing audio / Accessibility(Hearing)", url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices" },
       { label: "Accessibility ― Hearing", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Hearing" },
       { label: "Playing haptics ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/playing-haptics#Best-practices" },
     ],
@@ -56,14 +58,14 @@ const SOURCES = [
     doc: "Material Design 2 ― Sound(About sound / Applying sound to UI / Sound attributes)",
     color: "#2F7D6E",
     position: "UIの音の役割と作り方を最も体系的にまとめているが、Material Design 2(旧版)の指針で、M3には対応するページがない",
-    size: "数値の基準はありません。音を鳴らさない方がよい場面として、プライバシーや控えめさが求められる画面、利用者が割り込みを望まないと設定している場合、頻繁に行う操作の3つを挙げています。視覚デザインの余白のように「沈黙」を設計に組み込むことは、音を使う場面を知るのと同じくらい重要だとしています。",
-    design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSが出す操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分類しています。音色は、高音成分の多い明るい音を重要な通知や騒がしい場所向けに、少ない落ち着いた音を優先度の低い音に使い分けます。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的としています。",
+    size: <span><NoData>数値基準なし。</NoData>音を鳴らさない方がよい場面として、プライバシーや控えめさが求められる画面、利用者が割り込みを望まないと設定している場合、頻繁に行う操作の3つを挙げている。視覚デザインの余白のように「沈黙」を設計に組み込むことは、音を使う場面を知るのと同じくらい重要だとしている。</span>,
+    design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSが出す操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分類している。音色は、高音成分の多い明るい音を重要な通知や騒がしい場所向けに、少ない落ち着いた音を優先度の低い音に使い分ける。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的としている。",
     stance:
-      "音の原則は、直感的で機能的な「Informative(情報を伝える)」、ブランドを偽りなく表す「Honest(正直)」、必要なときだけ行動を促し安心感を与える「Reassuring(安心させる)」の3つです。操作や状態の変化に結びつけた音を「イヤコン(earcon)」と呼び、現実の音に似せたもの(カメラのシャッター音など)と抽象的な音に分けています(Material Design 2のページデータを直接取得して確認、2026-09)。",
+      "音の原則は、直感的で機能的な「Informative(情報を伝える)」、ブランドを偽りなく表す「Honest(正直)」、必要なときだけ行動を促し安心感を与える「Reassuring(安心させる)」の3つ。操作や状態の変化に結びつけた音を「イヤコン(earcon)」と呼び、現実の音に似せたもの(カメラのシャッター音など)と抽象的な音に分けている(Material Design 2のページデータを直接取得して確認、2026-09)。",
     exceptions:
-      "装飾としての音は、感情の高まる場面に限り、頻度を抑えて疲れさせないよう求めています。通知音は、離れた場所や騒がしい環境でも聞こえるよう設計し、装飾のない基本的な音から豊かな音まで利用者が選べるようにすることを勧めています。現行のAndroidの触覚(ハプティクス)の指針では、視覚・音・触覚を同時に設計し、タイミングと印象をそろえるよう強く勧めています。",
+      "装飾としての音は、感情の高まる場面に限り、頻度を抑えて疲れさせないよう求めている。通知音は、離れた場所や騒がしい環境でも聞こえるよう設計し、装飾のない基本的な音から豊かな音まで利用者が選べるようにすることを勧めている。現行のAndroidの触覚(ハプティクス)の指針では、視覚・音・触覚を同時に設計し、タイミングと印象をそろえるよう強く勧めている。",
     accessibility:
-      "知覚可能(Perceivable) ― 確認したMaterial Design 2の音のページには、聴覚障害への配慮(音の代替手段)についての具体的な記載は見当たりませんでした。音は視覚体験を高めるもので、損なうものであってはならない、という位置づけです。",
+      "知覚可能(Perceivable) ― 確認したMaterial Design 2の音のページには、聴覚障害への配慮(音の代替手段)についての具体的な記載は見当たらなかった。音は視覚体験を高めるもので、損なうものであってはならない、という位置づけ。",
     useCases: [
       "頻繁な操作や静かにすべき画面では、音を鳴らさない",
       "繰り返し鳴る音ほど短く控えめに、まれに鳴る音ほど印象的に",
@@ -71,13 +73,14 @@ const SOURCES = [
     ],
     searchHint: "When not to use sound",
     url: "https://m2.material.io/design/sound/applying-sound-to-ui.html",
-    urlSecondary: [
+    refs: [
+      { label: "Sound(About sound / Applying sound to UI / Sound attributes)", url: "https://m2.material.io/design/sound/applying-sound-to-ui.html" },
       { label: "M2: About sound", url: "https://m2.material.io/design/sound/about-sound.html" },
       { label: "M2: Sound attributes", url: "https://m2.material.io/design/sound/sound-attributes.html" },
       { label: "M2: Sound choreography", url: "https://m2.material.io/design/sound/sound-choreography.html" },
       { label: "Android: Haptics design principles", url: "https://developer.android.com/develop/ui/views/haptics/haptics-principles#design_visual_audio" },
     ],
-    confirmedNote: "m2.material.ioはSPAですが、ページデータ(JSON)を直接取得して本文を確認済み(2026-09)。M3(m3.material.io)のサイトマップに音のページはありません。",
+    confirmedNote: "m2.material.ioはSPAですが、ページデータ(JSON)を直接取得して本文を確認済み(2026-09)。M3(m3.material.io)のサイトマップに音のページはない。",
   },
   {
     key: "wcag",
@@ -86,16 +89,16 @@ const SOURCES = [
     color: "#A3821F",
     position: "効果音そのものの基準はなく、「自動で鳴る音を止められること」と「音声の聞き取りを妨げないこと」を求める",
     size: "ページで自動的に3秒より長く鳴る音には、一時停止・停止の手段か、システム全体とは別に音量を調整できる手段を用意すること(1.4.2・レベルA)。録音済みの音声が中心のコンテンツでは、背景音をなくす・切れるようにする・前景の音声より20デシベル以上小さくする、のいずれかを満たすこと(1.4.7・レベルAAA)。",
-    design: "音色や効果音の設計は定めていません。音で伝える情報には、録音済みの音声のみのコンテンツに代替(書き起こしなど、1.2.1)、動画の音声に字幕(1.2.2)を求めており、音を唯一の伝達手段にしない考え方は他の系列と共通です。",
+    design: "音色や効果音の設計は定めていない。音で伝える情報には、録音済みの音声のみのコンテンツに代替(書き起こしなど、1.2.1)、動画の音声に字幕(1.2.2)を求めており、音を唯一の伝達手段にしない考え方は他の系列と共通。",
     glossary: [
       { term: "1.4.2 Audio Control・レベルA", desc: "自動で3秒を超えて鳴る音に、停止・一時停止か、個別の音量調整の手段を求める基準。" },
       { term: "1.4.7 Low or No Background Audio・レベルAAA", desc: "録音済みの音声中心のコンテンツで、背景音をなくす・切れる・20dB以上小さくすることを求める基準。" },
     ],
     stance:
-      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくし、音に気を取られやすい人の妨げにもなるためです。1.4.2を満たさない内容はページ全体の利用を妨げうるため、ページ上のすべての内容がこの基準を満たす必要があるとしています(Understandingページの本文を直接確認、2026-09)。",
+      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくし、音に気を取られやすい人の妨げにもなるため。1.4.2を満たさない内容はページ全体の利用を妨げうるため、ページ上のすべての内容がこの基準を満たす必要があるとしている(Understandingページの本文を直接確認、2026-09)。",
     exceptions:
-      "1.4.2は、3秒以内に終わる音には適用されません。1.4.7は、音声CAPTCHA・音声ロゴ・歌やラップなど音楽表現が主な発声には適用されず、レベルAAAです。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7はガイドライン1.4(判別可能)に属し、POURの「知覚可能」です。聴覚に障害のある人やスクリーンリーダーを使う人が、必要な音声を聞き分けられることを目的にしています。",
+      "1.4.2は、3秒以内に終わる音には適用されない。1.4.7は、音声CAPTCHA・音声ロゴ・歌やラップなど音楽表現が主な発声には適用されず、レベルAAA。",
+    accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7はガイドライン1.4(判別可能)に属し、POURの「知覚可能」。聴覚に障害のある人やスクリーンリーダーを使う人が、必要な音声を聞き分けられることを目的にしている。",
     useCases: [
       "自動再生の音は避け、鳴らすなら停止の手段をすぐ見つかる場所に置く",
       "3秒を超えて自動で鳴る音には、停止か個別の音量調整を用意する",
@@ -103,8 +106,9 @@ const SOURCES = [
     ],
     searchHint: "independently from the overall system volume",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion",
-    urlSecondary: [
-      { label: "1.4.7 Low or No Background Audio", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "A", label: "1.4.2 音声の制御", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "1.4.7 小さな背景音、又は背景音なし", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -114,13 +118,13 @@ const SOURCES = [
     doc: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web",
     color: "#7A4F7E",
     position: "効果音は画面とは別の補助チャネルとして有効だが、意味が伝わりにくいので控えめに使い、言葉と組み合わせる、とする実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及です。背景で起きた出来事を知らせる効果音は、ごく静かで邪魔にならないものにし、必ず利用者がオフにできる設定を用意するよう求めています(1995年の記事)。",
-    design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが起動の呼びかけを検知した後の2音のビープ)、明示的な言葉、暗黙の手がかり(話している途中で止まり、聞く態勢を示すなど)の3種類に分けています。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音として働くため、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られるとしています。",
+    size: "数値基準ではなく原則としての言及。背景で起きた出来事を知らせる効果音は、ごく静かで邪魔にならないものにし、必ず利用者がオフにできる設定を用意するよう求めている(1995年の記事)。",
+    design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが起動の呼びかけを検知した後の2音のビープ)、明示的な言葉、暗黙の手がかり(話している途中で止まり、聞く態勢を示すなど)の3種類に分けている。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音として働くため、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られるとしている。",
     stance:
-      "音の利点は画面とは別のチャネルであることで、画面の情報を隠さずに補足できます。一方、イヤコンが効果的なのは、狭く繰り返しの多い文脈(頻繁なタスクの確認音)か、汎用的な注意喚起に限られ、多くの場合は言葉による手がかりを併用するか、置き換える必要があるとしています(記事本文を直接取得して確認、2026-09)。",
+      "音の利点は画面とは別のチャネルであることで、画面の情報を隠さずに補足できる。一方、イヤコンが効果的なのは、狭く繰り返しの多い文脈(頻繁なタスクの確認音)か、汎用的な注意喚起に限られ、多くの場合は言葉による手がかりを併用するか、置き換える必要があるとしている(記事本文を直接取得して確認、2026-09)。",
     exceptions:
-      "ボタンを押したときの控えめなクリック音や、移動の方向で対になる音のように、質の良い効果音は体験を大きく高めるとしています。ゲームの研究で、音を良くしただけで、同じ映像なのに「映像が良くなった」と答えた例も紹介しています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティの観察と研究に基づく設計上の根拠です。音声のナレーションは、聴覚に障害のある人や外国語の利用者には理解しにくい場合があるため、字幕を勧めています。",
+      "ボタンを押したときの控えめなクリック音や、移動の方向で対になる音のように、質の良い効果音は体験を大きく高めるとしている。ゲームの研究で、音を良くしただけで、同じ映像なのに「映像が良くなった」と答えた例も紹介している。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティの観察と研究に基づく設計上の根拠。音声のナレーションは、聴覚に障害のある人や外国語の利用者には理解しにくい場合があるため、字幕を勧めている。",
     useCases: [
       "背景の出来事を知らせる音は、ごく静かにし、オフにできるようにする",
       "イヤコンは、操作直後の確認など意味が文脈から分かる場面で使う",
@@ -128,8 +132,11 @@ const SOURCES = [
     ],
     searchHint: "Non-speech sound effects",
     url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3",
-    urlSecondary: [{ label: "Guidelines for Multimedia on the Web(Audio)", url: "https://www.nngroup.com/articles/guidelines-for-multimedia-on-the-web/" }],
-    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Guidelines for Multimedia on the Web)のものです。",
+    refs: [
+      { label: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web", url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3" },
+      { label: "Guidelines for Multimedia on the Web(Audio)", url: "https://www.nngroup.com/articles/guidelines-for-multimedia-on-the-web/" },
+    ],
+    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Guidelines for Multimedia on the Web)のもの。",
   },
 ];
 
@@ -473,7 +480,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -482,6 +489,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "操作や通知に音を付けるかどうか、どう作るか、音に頼れない人への配慮の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "音で操作の結果や知らせを補い、画面を見ていなくても気づけるようにする" },
+  { k: "関わる場面", v: "通知音、キーボードの打鍵音、エラー音、動画・ゲームの音" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
+];
 
 export default function TokensSoundPage() {
   return (
@@ -505,36 +520,22 @@ export default function TokensSoundPage() {
         <SidebarNav currentPath="/tokens/sound" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / サウンド</span>
+            <span>インタラクション / サウンド</span>
             <span>SPEC No. 050</span>
           </div>
 
           <h1 style={styles.title}>サウンド(音フィードバック)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、UIの音をいつ鳴らし・いつ鳴らさないか、どう作り、音に頼れない人にどう配慮するかを比較します</p>
+          <SummaryCard
+            imageLabel="UIの音の種類(Google・Material Design 2の分類)"
+            image={<><SoundTypesMap /></>}
+            imageNote={<>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものです。位置はM2の説明文をもとにした概念図で、数値の基準ではありません。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
           <SoundIntro />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>UIの音の種類(Google・Material Design 2の分類)</span>
-            <SoundTypesMap />
-            <p style={styles.swatchNote}>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものです。位置はM2の説明文をもとにした概念図で、数値の基準ではありません。</p>
-          </div>
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            <p style={styles.synthesisText}>
-              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点です(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たりません)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めています。
-            </p>
-            <p style={styles.synthesisText}>
-              違いが大きいのは、指針の重心です。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れません。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめていますが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがありません</strong>。
-            </p>
-            <p style={styles.synthesisText}>
-              「鳴らさない」判断も重要です。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止めます。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘しています。
-            </p>
-            <p style={styles.synthesisText}>
-              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論です。
-            </p>
-          </div>
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 音を鳴らすときのルール</h2>
@@ -558,6 +559,22 @@ export default function TokensSoundPage() {
             </div>
           </section>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点です(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たりません)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めています。
+            </p>
+            <p style={styles.synthesisText}>
+              違いが大きいのは、指針の重心です。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れません。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめていますが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがありません</strong>。
+            </p>
+            <p style={styles.synthesisText}>
+              「鳴らさない」判断も重要です。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止めます。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘しています。
+            </p>
+            <p style={styles.synthesisText}>
+              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論です。
+            </p>
+          </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -575,18 +592,11 @@ export default function TokensSoundPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -594,7 +604,6 @@ export default function TokensSoundPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>サウンド デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -607,30 +616,26 @@ export default function TokensSoundPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>鳴らす・鳴らさない基準</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>音の種類・作り方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.design}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -650,12 +655,12 @@ export default function TokensSoundPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "通知・状態表示"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Playing audioページの「Best practices」見出しへのアンカー付きリンクで、AccessibilityページのHearingとPlaying hapticsも併記しています。GoogleはM2の「Applying sound to UI」ページ(アンカーなし)と、関連するM2のページ・Androidの触覚の指針です。WCAGは1.4.2・1.4.7の各Understandingページの基準本文です。NN groupはイヤコン(言葉を使わない音)の節と、マルチメディアの指針の記事です。
@@ -706,7 +711,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -719,7 +724,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   reduceCard: { background: "#F8F9FD", borderRadius: 4, padding: "12px 14px" },
   reduceLead: { fontSize: 11, color: "#7E86AC", margin: "2px 0 8px" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -742,7 +747,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -753,7 +758,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

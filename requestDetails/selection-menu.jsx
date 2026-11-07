@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / メニュー」ページ。
@@ -26,16 +27,17 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Menus / Context menus / Pull-down buttons",
+    term: "Menu(コンテキストメニュー・プルダウンボタン・ポップアップボタン)",
     color: "#C2542A",
     position: "メニュー全般のラベル・並べ方の指針に加え、プルダウンボタン(ボタンの操作に関係する命令)・ポップアップボタン(排他的な選択肢)・コンテキストメニュー(今の対象によく使う操作)を使い分ける",
-    size: "サブメニューは1階層までにし、項目が約5個を超えるなら別のメニューにします。コンテキストメニューは項目を少なくし、区切り線で分けるグループは約3つまで。プルダウンボタンは3項目以上にします(1〜2項目ならボタンやスイッチで足りる)。iOSのメニューには、上に4つのアイコンだけを並べるsmall、3つのアイコン+短いラベルのmedium、全部をリストで見せるlarge(既定)のレイアウトがあります。",
-    colorInfo: "ラベルは何をするかを動詞で短く書きます。実行する前にさらに入力や選択が必要な項目は、末尾に「…」を付けます。使えない項目は、通常のメニューでは薄く表示し(全部使えなくてもメニュー自体は開けるようにする)、コンテキストメニューでは薄くせずに隠します。アイコンは同じグループの項目すべてに付けるか、どれにも付けないかにそろえます。",
+    size: "サブメニューは1階層までにし、項目が約5個を超えるなら別のメニューにする。コンテキストメニューは項目を少なくし、区切り線で分けるグループは約3つまで。プルダウンボタンは3項目以上にする(1〜2項目ならボタンやスイッチで足りる)。iOSのメニューには、上に4つのアイコンだけを並べるsmall、3つのアイコン+短いラベルのmedium、全部をリストで見せるlarge(既定)のレイアウトがある。",
+    colorInfo: "ラベルは何をするかを動詞で短く書く。実行する前にさらに入力や選択が必要な項目は、末尾に「…」を付ける。使えない項目は、通常のメニューでは薄く表示し(全部使えなくてもメニュー自体は開けるようにする)、コンテキストメニューでは薄くせずに隠す。アイコンは同じグループの項目すべてに付けるか、どれにも付けないかにそろえる。",
     stance:
-      "人はメニューを上から読むため、重要な項目・よく使う項目を先頭に置きます。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分けます。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使います(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示します(ページ本文を直接確認、2026-10)。",
+      <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す(ページ本文を直接確認、2026-10)。</>,
     exceptions:
-      "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにします。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しません(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示します(iOS・iPadOS・visionOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもあります。",
+      "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS・visionOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
     accessibility:
-      "―(これらのページに専用のアクセシビリティの記載はありません)。使えない項目があってもメニュー自体は開けるようにし、どんな命令があるかを知れるようにする点は、分かりやすさ(理解可能)に関わります。",
+      <span><NoData>記載なし。</NoData>使えない項目があってもメニュー自体は開けるようにし、どんな命令があるかを知れるようにする点は、分かりやすさ(理解可能)に関わる。</span>,
     useCases: [
       "ラベルは動詞で短く。入力が続く項目は末尾に「…」",
       "よく使う項目を上に置き、関係する項目を区切り線でまとめる",
@@ -43,7 +45,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels",
-    urlSecondary: [
+    refs: [
+      { label: "Menus / Context menus / Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels" },
       { label: "Menus ― Organization", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Organization" },
       { label: "Context menus ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/context-menus#Best-practices" },
       { label: "Pull-down buttons ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons#Best-practices" },
@@ -54,16 +57,17 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Menus",
+    term: "Menu(ドロップダウンメニュー・エクスポーズドドロップダウンメニュー)",
     color: "#2F7D6E",
     position: "一時的な面に選択肢の一覧を出す部品。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
-    size: "項目の高さは48dp、メニューの幅は112〜280dp、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)です。",
-    colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線です。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示します(Jetpack Composeのトークン定義)。",
+    size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。</>,
+    colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示す(Jetpack Composeのトークン定義)。",
     stance:
-      "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるものです。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしています。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されています(Material Components for Androidのドキュメントで直接確認、2026-10)。",
+      "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
     exceptions:
-      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続けます。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできます。値を選ぶ用途は「セレクト(プルダウン)」ページも参照してください。",
+      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
     accessibility:
-      "―(確認したGoogle公式のドキュメントには、メニュー専用のアクセシビリティの記載は見当たりませんでした)。M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていません。項目の高さ48dpは、押せる範囲の最小(48dp)と同じ値です。",
+      "知覚可能・操作可能 ― 選んだ項目は、既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど、色以外の手がかりも添えることを勧めている。押せる範囲は48×48dp以上。メニューを開いたら最初の項目にフォーカスを置く(M3 Menusのアクセシビリティのページで確認、2026-11)。",
     useCases: [
       "項目は48dpの高さ、メニューは112〜280dpの幅にする",
       "先頭にアイコン、末尾にショートカットの文字を置ける",
@@ -71,43 +75,45 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/menus/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Menus", url: "https://m3.material.io/components/menus/guidelines" },
       { label: "MDC Android: Menus(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Menu.md" },
       { label: "Compose Material 3: Menu.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/Menu.kt" },
       { label: "Compose Material 3: MenuTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MenuTokens.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "アクセシビリティはM3 Menusのページの本文(2026-11)、種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで確認(2026-10)。",
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
+    term: "menu・menubar・menuitem(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "OSのメニューのように振る舞う「選択肢の一覧」の部品について、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に表示されるmenubarを扱う",
-    size: "メニュー専用の数値基準はありません。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)が当てはまります。",
-    colorInfo: "メニューが開いたら最初の項目にフォーカスを置きます。上下の矢印キーで項目の間を移動し(メニューバーでは左右)、Enterで実行して閉じます。Escで閉じて、開いたボタンにフォーカスを戻します。Home・Endで最初・最後へ、文字キーでその文字で始まる項目へ移れるようにもできます。Tab・Shift+Tabは項目の間を移動せず、メニューの外へ出てすべて閉じます。",
+    size: "メニュー専用の数値基準はない。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)が当てはまる。",
+    colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "menu・menuitem", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目はmenuitemcheckbox、1つだけ選ぶ項目はmenuitemradioを使う。" },
       { term: "aria-haspopup", desc: "その要素を押すとメニューなどが開くことを伝える属性。メニューボタンにはmenu(またはtrue)を設定する。" },
       { term: "aria-expanded", desc: "メニューが開いているかどうかを伝える属性。開いている間はtrue、閉じているときはfalse。" },
     ],
     stance:
-      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にします。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使います。メニューは項目をまとめた1つの部品として扱うため、中の移動はTabではなく矢印キーで行います。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介しています(APGの本文を直接確認、2026-10)。",
+      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にする。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使う。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している(APGの本文を直接確認、2026-10)。",
     exceptions:
-      "使えない項目はフォーカスできるが実行はできない、としています(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしません。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまいません。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしています。なお、このパターンはアプリの命令メニュー向けで、menuの中ではTabキーで項目間を移動しません。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作る方が合うことが多いと考えられます(AI解釈)。",
+      "使えない項目はフォーカスできるが実行はできない、としている(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまわない。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしている。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作る方が合うことが多いと考えられる(AI解釈)。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 矢印・Enter・Escでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わります。",
+      "操作可能(Operable)・堅牢(Robust) ― キーボードでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わる。",
     useCases: [
       "メニューボタンにaria-haspopupと、開閉に合わせたaria-expandedを付ける",
-      "開いたら最初の項目にフォーカスし、矢印キーで移動・Escで閉じてボタンに戻す",
       "使えない項目もフォーカスできるようにし、実行だけできなくする",
     ],
     searchHint: "Disabled menu items are focusable",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#keyboard_interaction",
-    urlSecondary: [
-      { label: "APG: Menu and Menubar ― 役割と属性", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#roles_states_properties" },
-      { label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
-      { label: "APG: Disclosure Navigation Menuの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" },
+    refs: [
+      { kind: "apg", label: "APG: Menubar Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#keyboard_interaction" },
+      { kind: "apg", label: "APG: Menu and Menubar ― 役割と属性", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#roles_states_properties" },
+      { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+      { kind: "apg", label: "APG: Disclosure Navigation Menuの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" },
     ],
     confirmedNote: "APGのMenu and Menubar Pattern・Menu Button Patternの本文を直接取得して確認済み(2026-10)。",
   },
@@ -115,15 +121,16 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines",
+    term: "Contextual menu・Dropdown",
     color: "#7A4F7E",
     position: "対象に関係する少数の操作を出すコンテキストメニューと、命令・移動・入力・属性の選択に使われるドロップダウンについての実務指針(適合基準ではない)",
-    size: "コンテキストメニューの項目は10〜12個未満にし、スクロールせずに全部見えるようにします。サブメニューを使うなら、その中からさらにサブメニューを開かない(1階層まで)ようにします。",
-    colorInfo: "使えない項目は消さずに薄く表示します。消すと項目の位置が変わって覚えにくく、どこへ行ったのか、どうすれば出てくるのかを探させてしまうためです。関係する命令は一式そろえて載せます(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使いません。",
+    size: "コンテキストメニューの項目は10〜12個未満にし、スクロールせずに全部見えるようにする。サブメニューを使うなら、その中からさらにサブメニューを開かない(1階層まで)ようにする。",
+    colorInfo: "使えない項目は消さずに薄く表示する。消すと項目の位置が変わって覚えにくく、どこへ行ったのか、どうすれば出てくるのかを探させてしまうため。関係する命令は一式そろえて載せる(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使わない。",
     stance:
-      "コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、よく使う順に上から並べます。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにします。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めています(記事本文を直接取得して確認、2026-10)。",
+      <>コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、<Hl>よく使う順に上から並べる</Hl>。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めている(記事本文を直接取得して確認、2026-10)。</>,
     exceptions:
-      "ドロップダウンは、スクロールが必要なほど長いリストを避け、入力した方が速い場合(州・国の名前、生年月日など)には使いません。開いている間もラベルが見えるようにします。デスクトップでは、サイトの主要なナビゲーションをドロップダウンの中に隠しません。ほかのメニューの選択によって中身が変わるメニューも避けます。キーボードで文字を打って項目に移れるようにします。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠です。キーボードでの移動を支えることは、目の見えない人の使いやすさにもつながるとしています。",
+      "ドロップダウンは、スクロールが必要なほど長いリストを避け、入力した方が速い場合(州・国の名前、生年月日など)には使わない。開いている間もラベルが見えるようにする。デスクトップでは、サイトの主要なナビゲーションをドロップダウンの中に隠さない。ほかのメニューの選択によって中身が変わるメニューも避ける。キーボードで文字を打って項目に移れるようにする。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠。キーボードでの移動を支えることは、目の見えない人の使いやすさにもつながるとしている。",
     useCases: [
       "コンテキストメニューは10〜12項目未満、よく使う順に並べる",
       "使えない項目は隠さずに薄く表示する",
@@ -131,10 +138,11 @@ const SOURCES = [
     ],
     searchHint: "Show keyboard shortcuts in contextual menus",
     url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3",
-    urlSecondary: [
+    refs: [
+      { label: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3" },
       { label: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/#toc-guidelines-for-dropdown-design-1" },
     ],
-    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Contextual Menus)のものです。",
+    confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Contextual Menus)のもの。",
   },
 ];
 
@@ -287,7 +295,7 @@ function RuleMatrix() {
   );
 }
 
-/* 意見が分かれる2点 */
+/* 意見が分かれる点 */
 function MiniMenu({ mode }) {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const rows = mode === "hide" ? ["コピー", "貼り付け"] : ["コピー", "貼り付け", "印刷"];
@@ -311,44 +319,20 @@ const SPLITS = [
   {
     q: "使えない項目は、隠す?薄く表示する?",
     sides: [
-      { mode: "hide", who: "Apple(コンテキストメニュー)", color: "#C2542A", t: "隠す。今の対象に関係する操作だけを見せるため(通常のメニューでは薄く表示)" },
-      { mode: "dim", who: "NN group・W3C", color: "#7A4F7E", t: "薄く表示する。消すと位置が変わって覚えにくい(NN)。フォーカスはできるが実行できない(W3C)" },
+      { figure: <MiniMenu mode="hide" />, who: "Apple(コンテキストメニュー)", color: "#C2542A", t: "隠す。今の対象に関係する操作だけを見せるため(通常のメニューでは薄く表示)" },
+      { figure: <MiniMenu mode="dim" />, who: "NN group・W3C", color: "#7A4F7E", t: "薄く表示する。消すと位置が変わって覚えにくい(NN)。フォーカスはできるが実行できない(W3C)" },
     ],
     tip: "コンテキストメニューでは隠し、通常のメニュー・メニューバーでは薄く表示する、というAppleの使い分けが両方の考え方に沿いやすい。ただし、隠すと「どうすれば使えるか」が分からなくなるため、隠した操作はメインの画面からたどれるようにする。",
   },
   {
     q: "コンテキストメニューに、キーボードショートカットを表示する?",
     sides: [
-      { mode: "plain", who: "Apple", color: "#C2542A", t: "表示しない。コンテキストメニュー自体が近道なので重複する。ショートカットはメインのメニューに" },
-      { mode: "shortcut", who: "NN group", color: "#7A4F7E", t: "表示する。繰り返し見るうちにショートカットを覚えてもらえる" },
+      { figure: <MiniMenu mode="plain" />, who: "Apple", color: "#C2542A", t: "表示しない。コンテキストメニュー自体が近道なので重複する。ショートカットはメインのメニューに" },
+      { figure: <MiniMenu mode="shortcut" />, who: "NN group", color: "#7A4F7E", t: "表示する。繰り返し見るうちにショートカットを覚えてもらえる" },
     ],
     tip: "Appleのプラットフォームでは、ショートカットはメニューバー(メインのメニュー)で必ず見つかるようにすれば、コンテキストメニューで省いても覚える機会は残る。Webや他のOSでメインのメニューがない場合は、NN groupの勧めに沿って表示する方が親切。",
   },
 ];
-
-function SplitCards() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {SPLITS.map((s) => (
-        <div key={s.q} style={styles.splitCard}>
-          <div style={styles.splitQ}>{s.q}</div>
-          <div style={styles.splitRow}>
-            {s.sides.map((side) => (
-              <div key={side.who} style={styles.splitSide}>
-                <MiniMenu mode={side.mode} />
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ ...styles.splitWho, color: side.color }}>{side.who}</div>
-                  <div style={styles.splitText}>{side.t}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={styles.splitTip}><strong>AI解釈: </strong>{s.tip}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /* メニューの種類と使い分け(Apple・Google・NN group) */
 const KINDS = [
@@ -378,7 +362,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -387,6 +371,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
+  { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
+  { k: "似た部品との違い", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+];
 
 export default function SelectionMenuPage() {
   return (
@@ -413,29 +405,17 @@ export default function SelectionMenuPage() {
           </div>
 
           <h1 style={styles.title}>メニュー(ドロップダウン・コンテキストメニュー)</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、操作の一覧を出すメニューのラベル・並べ方・長さ・使えない項目・キーボード操作をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ(メニューの構成)"
+            image={<><MenuSwatch /></>}
+            imageNote={<>ボタンを押すと開くメニューの概念図です。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱います。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(メニューの構成)</span>
-            <MenuSwatch />
-            <p style={styles.swatchNote}>ボタンを押すと開くメニューの概念図です。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱います。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
-            <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めています(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めています。W3Cは並べ方ではなく、キーボード操作を定めています。
-            </p>
-            <p style={styles.synthesisText}>
-              一方で、<strong>2点ではっきり意見が分かれます</strong>。1つは使えない項目の扱いで、Appleは<strong>コンテキストメニューでは隠す</strong>とし、NN groupは<strong>隠さず薄く表示する</strong>よう勧め、W3Cは<strong>使えない項目もフォーカスできるように</strong>します。もう1つはキーボードショートカットで、Appleは<strong>コンテキストメニューには表示しない</strong>、NN groupは<strong>表示して覚えてもらう</strong>としています(下の「意見が分かれる2点」を参照)。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>開いたら最初の項目にフォーカス・矢印で移動・Enterで実行・Escで閉じてボタンへ戻る</strong>というキーボード操作と、<strong>aria-haspopup・aria-expanded</strong>で開閉を伝えることを定めています。
-            </p>
-            <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、キーボード操作はW3Cの通りに作り、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
-            </p>
-          </div>
+
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 何を定めているか</h2>
@@ -443,12 +423,22 @@ export default function SelectionMenuPage() {
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めています。</p>
           </div>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>意見が分かれる2点</h2>
-            <p style={styles.diagramNote}>同じ問いに対して、系列によって答えが逆になっている点です。左右の図は概念図です。</p>
-            <SplitCards />
-          </section>
-
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めています(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めています。W3Cは並べ方ではなく、キーボード操作を定めています。
+            </p>
+            <p style={styles.synthesisText}>
+              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆です(上の「意見が分かれる点」)。
+            </p>
+            <p style={styles.synthesisText}>
+              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めています。
+            </p>
+            <p style={styles.synthesisText}>
+              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
+            </p>
+          </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -458,6 +448,7 @@ export default function SelectionMenuPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="長さ・大きさ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="ラベル・項目の見せ方">{s.colorInfo}</InfoBox>
@@ -466,18 +457,11 @@ export default function SelectionMenuPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -485,7 +469,6 @@ export default function SelectionMenuPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>メニュー デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -495,33 +478,31 @@ export default function SelectionMenuPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>長さ・大きさ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>ラベル・項目の見せ方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -545,19 +526,15 @@ export default function SelectionMenuPage() {
               <div style={styles.linkCardTitle}>セレクト(プルダウン) ↗</div>
               <div style={styles.linkCardDesc}>値を選んで表示し続ける部品の比較はこちら</div>
             </a>
-            <a href="/tokens/keyboard-navigation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>キーボードナビゲーション ↗</div>
-              <div style={styles.linkCardDesc}>Tabと矢印キーの役割分担・ショートカットのルールはこちら</div>
-            </a>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Menusページの「Labels」見出しへのアンカー付きリンクで、Organization・Context menus・Pull-down buttonsの見出しも併記しています。GoogleはM3のMenusのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースを併記しています。W3CはAPGのMenu and Menubar Patternのキーボード操作の節を基本リンクとし、役割と属性の節・Menu Button Patternも併記しています。NN groupはContextual Menusの記事のヒントの節と、Dropdownsの記事のガイドラインの節です。
@@ -570,10 +547,12 @@ export default function SelectionMenuPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -586,7 +565,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -609,7 +588,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -624,7 +603,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

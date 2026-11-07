@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「インタラクション状態」ページ。
@@ -30,14 +31,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Buttons / Focus and selection / Pointing devices",
     color: "#C2542A",
     position: "状態の見た目はシステムのコンポーネントに組み込まれており、独自に作るより標準の効果に任せることを基本にする。状態の種類はプラットフォームと入力方法ごとに定義される",
-    size: "共通の一覧はなく、プラットフォームごとに定義されています。tvOSのフォーカスできる項目は5状態(Unfocused/Focused/Highlighted/Selected/Unavailable)、visionOSのボタンは4状態(Idle/Hover/Selected/Unavailable)。iPadOSのポインタにはhighlight・lift・hoverの3つの効果があります。独自のボタンには、押した状態(press state)を必ず用意するよう求めています。",
-    visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分けます。tvOSはフォーカスした項目を拡大・浮き上がり・光・動きで目立たせ、visionOSは視線を向けた要素をハイライト(hover effect)で示します。ボタンの白い塗り+黒い文字は、トグルのオン状態を表す見た目としてシステムが予約しているため、独自のボタンに使わないよう求めています(visionOS)。",
+    size: "共通の一覧はなく、プラットフォームごとに定義されている。tvOSのフォーカスできる項目は5状態(Unfocused/Focused/Highlighted/Selected/Unavailable)、visionOSのボタンは4状態(Idle/Hover/Selected/Unavailable)。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意するよう求めている。",
+    visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分ける。tvOSはフォーカスした項目を拡大・浮き上がり・光・動きで目立たせ、visionOSは視線を向けた要素をハイライト(hover effect)で示す。ボタンの白い塗り+黒い文字は、トグルのオン状態を表す見た目としてシステムが予約しているため、独自のボタンに使わないよう求めている(visionOS)。",
     stance:
-      "システムの効果はAppleのデバイスでの操作に合わせて精密に調整されており、それを使うことで一貫性と予測しやすさが得られるため、独自のフォーカス効果は本当に必要な場合だけにするよう求めています。利用者の操作なしにフォーカスを移動させないことも挙げています(ページ本文を直接確認、2026-09)。",
+      "システムの効果はAppleのデバイスでの操作に合わせて精密に調整されており、それを使うことで一貫性と予測しやすさが得られるため、独自のフォーカス効果は本当に必要な場合だけにするよう求めている。利用者の操作なしにフォーカスを移動させないことも挙げている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "iOSとwatchOSには、フォーカスの仕組みがありません。iPadOS・macOSのフルキーボードアクセスでは、ボタンやスライダーなどのコントロールにはシステムが到達させるため、アプリ側でフォーカスに対応させるのは、リスト項目・テキストフィールド・検索フィールドなどの内容要素だけでよいとしています。visionOSのボタンは、独自のhover effectに対応しません。",
+      "iOSとwatchOSには、フォーカスの仕組みがない。iPadOS・macOSのフルキーボードアクセスでは、ボタンやスライダーなどのコントロールにはシステムが到達させるため、アプリ側でフォーカスに対応させるのは、リスト項目・テキストフィールド・検索フィールドなどの内容要素だけでよいとしている。visionOSのボタンは、独自のhover effectに対応しない。",
     accessibility:
-      "知覚可能・操作可能(Perceivable/Operable) ― 押した状態がないボタンは反応していないように感じられ、入力が受け付けられたか分からなくなるとしています。フォーカスの見た目は、キーボードやリモコン、ゲームコントローラーで操作する人が、いまどこにいるかを知るための手がかりです。",
+      "知覚可能・操作可能(Perceivable/Operable) ― 押した状態がないボタンは反応していないように感じられ、入力が受け付けられたか分からなくなるとしている。フォーカスの見た目は、キーボードやリモコン、ゲームコントローラーで操作する人が、いまどこにいるかを知るための手がかり。",
     useCases: [
       "独自のボタンにも、押した状態を必ず用意する",
       "入力欄はフォーカスリング、リストは行のハイライトで示す",
@@ -45,7 +46,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Buttons / Focus and selection / Pointing devices", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices" },
       { label: "Buttons ― Best practices(press state)", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" },
       { label: "Focus and selection ― tvOS(5つの状態)", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#tvOS" },
       { label: "Pointing devices ― Pointer shape and content effects", url: "https://developer.apple.com/design/human-interface-guidelines/pointing-devices#Pointer-shape-and-content-effects" },
@@ -58,14 +60,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Interaction states(State layers)",
     color: "#2F7D6E",
     position: "状態を「ステートレイヤー」という半透明の重ね色で体系的に表し、状態ごとの不透明度をトークンとして数値化している",
-    size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わります。旧版のM2では、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていました。",
-    visual: "ステートレイヤーは、要素の文字やアイコンと同じ色を半透明で重ねる方式です。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表します(Jetpack Composeのトークン定義v0_210で確認)。M2では、ステートレイヤーは同時に1つだけ表示し、影(エレベーション)・色・アイコンの変化と組み合わせることもあるとしていました。",
+    size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わる。旧版のM2では、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていた。",
+    visual: "ステートレイヤーは、要素の文字やアイコンと同じ色を半透明で重ねる方式。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表す(Jetpack Composeのトークン定義v0_210で確認)。M2では、ステートレイヤーは同時に1つだけ表示し、影(エレベーション)・色・アイコンの変化と組み合わせることもあるとしていた。",
     stance:
-      "状態は、互いに、また周りのレイアウトとはっきり区別できる必要がある一方、部品の見た目を大きく変えすぎず、すべての部品で一貫して適用することを原則にしています。選択とホバーのように複数の状態が同時に起きたら、両方を示すとしています(M2の「States」ページの3原則 Distinct・Additive・Consistent。ページデータを直接取得して確認、2026-09)。",
+      "状態は、互いに、また周りのレイアウトとはっきり区別できる必要がある一方、部品の見た目を大きく変えすぎず、すべての部品で一貫して適用することを原則にしている。選択とホバーのように複数の状態が同時に起きたら、両方を示すとしている(M2の「States」ページの3原則 Distinct・Additive・Consistent。ページデータを直接取得して確認、2026-09)。",
     exceptions:
-      "M2では、ステートレイヤーの不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保するよう求めていました(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスは他に視覚的な手がかりがないため高くする、という考え方です。",
+      "M2では、ステートレイヤーの不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保するよう求めていた(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスは他に視覚的な手がかりがないため高くする、という考え方。",
     accessibility:
-      "知覚可能(Perceivable) ― 無効状態は有効時の38%の不透明度で表示し、操作できないことを伝えます。WCAGの1.4.11は無効な部品をコントラストの要件から除外しているため、この表現と矛盾しません。",
+      "知覚可能(Perceivable) ― 無効状態は有効時の38%の不透明度で表示し、操作できないことを伝える。WCAGの1.4.11は無効な部品をコントラストの要件から除外しているため、この表現と矛盾しない。",
     useCases: [
       "ホバー・フォーカス・プレスは、文字色と同じ色を半透明で重ねて表す",
       "無効状態は、文字・アイコン38%、容器10%の不透明度にする",
@@ -74,12 +76,13 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/interaction/states/state-layers",
-    urlSecondary: [
+    refs: [
+      { label: "Interaction states(State layers)", url: "https://m3.material.io/foundations/interaction/states/state-layers" },
       { label: "M2: States", url: "https://m2.material.io/design/interaction/states.html" },
       { label: "Jetpack Compose: StateTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/StateTokens.kt" },
       { label: "Material Web: フォーカスリングのトークン(GitHub)", url: "https://github.com/material-components/material-web/blob/main/tokens/_md-comp-focus-ring.scss" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。不透明度はJetpack Composeのトークン定義(v0_210)で、状態の原則・種類はM2のページデータで直接確認(2026-09)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。不透明度はJetpack Composeのトークン定義(v0_210)で、状態の原則・種類はM2のページデータで直接確認(2026-09)。",
   },
   {
     key: "wcag",
@@ -87,8 +90,8 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: "状態の種類や見た目は定めず、「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」を求める",
-    size: "部品やその状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下などの状態どうしの差をすべて3:1にすることまでは求めていません。フォーカスは別の基準で、実務の目標(AA)はフォーカスが見えること(2.4.7)と、フォーカスした部品が他の内容に隠れないこと(2.4.11)。さらに厳しいレベルAAAの2.4.13では、フォーカスの表示が、フォーカスしていない部品の周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
-    visual: "見た目の作り方は自由です。ただし、選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする必要があります。隣り合って表示されない状態どうしの色の変化は、3:1でなくてもかまわないとしています(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)を求めています。",
+    size: "部品やその状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下などの状態どうしの差をすべて3:1にすることまでは求めていない。フォーカスは別の基準で、実務の目標(AA)はフォーカスが見えること(2.4.7)と、フォーカスした部品が他の内容に隠れないこと(2.4.11)。さらに厳しいレベルAAAの2.4.13では、フォーカスの表示が、フォーカスしていない部品の周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
+    visual: "見た目の作り方は自由。ただし、選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする必要がある。隣り合って表示されない状態どうしの色の変化は、3:1でなくてもかまわないとしている(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)を求めている。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UI部品とその状態を見分けるための視覚情報、意味のある図形に、隣接する色との3:1以上のコントラストを求める基準。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボードで操作するとき、どこにフォーカスがあるかが見えることを求める基準。実務の目標(AA)になる。" },
@@ -96,10 +99,10 @@ const SOURCES = [
       { term: "4.1.2 Name, Role, Value・レベルA", desc: "UI部品の名前・役割と、状態・値をプログラムで判別でき、変化が支援技術に通知されることを求める基準。" },
     ],
     stance:
-      "中程度のロービジョンの人でも部品とその状態を見分けられるよう、大きな文字と同じ3:1を求めています。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしています(Understandingページの本文を直接確認、2026-09)。キーボードの移動順序と、フォーカスが見えること自体(2.4.3・2.4.7)の詳しい比較は「キーボードナビゲーション」ページ(サイドバーの「トークン / インタラクション」にあります)を参照してください。",
+      "中程度のロービジョンの人でも部品とその状態を見分けられるよう、大きな文字と同じ3:1を求めている。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしている(Understandingページの本文を直接確認、2026-09)。キーボードの移動順序と、フォーカスが見えること自体(2.4.3・2.4.7)の詳しい比較は「キーボードナビゲーション」ページ(サイドバーの「トークン / インタラクション」にある)を参照してください。",
     exceptions:
-      "無効(inactive)な部品は、コントラストの要件の対象外です。ブラウザ標準の見た目を作者が変更していない部品も対象外です。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAAです。",
-    accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」に属します。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められます。",
+      "無効(inactive)な部品は、コントラストの要件の対象外。ブラウザ標準の見た目を作者が変更していない部品も対象外。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAA。",
+    accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」に属する。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められる。",
     useCases: [
       "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
       "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
@@ -107,12 +110,13 @@ const SOURCES = [
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
-    urlSecondary: [
-      { label: "2.4.7 Focus Visible", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
-      { label: "2.4.13 Focus Appearance", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
-      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion" },
+      { kind: "sc", level: "AA", label: "2.4.7 フォーカスの可視化", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
+      { kind: "sc", level: "AAA", label: "2.4.13 フォーカスの外観", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
     ],
-    confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は1.4.11のページのものです。",
+    confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は1.4.11のページのもの。",
   },
   {
     key: "nn",
@@ -120,13 +124,13 @@ const SOURCES = [
     doc: "Button States: Communicate Interaction",
     color: "#7A4F7E",
     position: "ボタンの状態を、デザインシステムに含めるべき基本セットとして整理し、表示までの時間の目安も示す実務指針(適合基準ではない)",
-    size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態を挙げています。表示の目安は、ホバーが約150〜200msの遅延(マウスが通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内です。",
-    visual: "有効はコントラストが高く読みやすい表示、無効はグレーなど彩度を落とした低コントラスト(ただし読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に、フォーカスは色の変化だけでなく輪郭線(アウトライン)で示すことを強く勧めています。読み込み中はラベルの左にスピナーを置きます。選択はチェックボックスやラジオボタンの状態で、ボタンのプレスとは別物としています。",
+    size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態を挙げている。表示の目安は、ホバーが約150〜200msの遅延(マウスが通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内。",
+    visual: "有効はコントラストが高く読みやすい表示、無効はグレーなど彩度を落とした低コントラスト(ただし読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に、フォーカスは色の変化だけでなく輪郭線(アウトライン)で示すことを強く勧めている。読み込み中はラベルの左にスピナーを置く。選択はチェックボックスやラジオボタンの状態で、ボタンのプレスとは別物としている。",
     stance:
-      "押せるのか押せないのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押してしまいます。状態は小さな視覚的手がかりで伝えるものなので、実際の利用者でテストし、見分けられるか確認するよう勧めています(記事本文を直接取得して確認、2026-09)。",
+      "押せるのか押せないのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押してしまう。状態は小さな視覚的手がかりで伝えるものなので、実際の利用者でテストし、見分けられるか確認するよう勧めている(記事本文を直接取得して確認、2026-09)。",
     exceptions:
-      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えません。無効なボタンに aria-disabled=\"true\" を付けると、タブでフォーカスはできるまま、スクリーンリーダーに無効であることが伝わるとしています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティの観察に基づく設計上の根拠です。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合があるとしています。",
+      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンに aria-disabled=\"true\" を付けると、タブでフォーカスはできるまま、スクリーンリーダーに無効であることが伝わるとしている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティの観察に基づく設計上の根拠。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合があるとしている。",
     useCases: [
       "ホバーには150〜200msの遅延を入れる",
       "プレスのフィードバックは100〜150ms以内に表示する",
@@ -134,7 +138,10 @@ const SOURCES = [
     ],
     searchHint: "Focus State",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-button-states-explained-1",
-    urlSecondary: [{ label: "Other States: Loading and Selected", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-other-states-loading-and-selected-2" }],
+    refs: [
+      { label: "Button States: Communicate Interaction", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-button-states-explained-1" },
+      { label: "Other States: Loading and Selected", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-other-states-loading-and-selected-2" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09、2025年4月公開の記事)。",
   },
 ];
@@ -384,7 +391,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -393,6 +400,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "ホバー・フォーカス・押している最中・使えないなど、部品の状態の見せ方の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "部品が今どんな状態かを見て分かるようにし、操作が受け付けられたことを伝える" },
+  { k: "関わる場面", v: "マウスを乗せたとき、キーボードで選んだとき、押したとき、使えないとき" },
+  { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/tokens/motion">モーション</PageLink></> },
+];
 
 export default function TokensInteractionStatesPage() {
   return (
@@ -414,21 +429,30 @@ export default function TokensInteractionStatesPage() {
         <SidebarNav currentPath="/tokens/interaction-states" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / インタラクション状態</span>
+            <span>コンポーネント / インタラクション状態</span>
             <span>SPEC No. 051</span>
           </div>
 
           <h1 style={styles.title}>インタラクション状態</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ホバー・フォーカス・プレス・無効などの状態をどう定義し、どう見せ、どう伝えるかを比較します</p>
+          <SummaryCard
+            imageLabel="ステートレイヤー(同じボタンに、状態ごとの半透明の色を重ねる)"
+            image={<><StateSwatch /></>}
+            imageNote={<>Googleのトークン値(ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は文字38%・容器10%)で描いた概念図です。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えています。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>ステートレイヤー(同じボタンに、状態ごとの半透明の色を重ねる)</span>
-            <StateSwatch />
-            <p style={styles.swatchNote}>Googleのトークン値(ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は文字38%・容器10%)で描いた概念図です。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えています。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― どの状態を定義しているか</h2>
+            <StateMatrix />
+            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図です(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値です。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えています。◯=定義・明記されている、△=部分的・条件付き、―=確認した範囲では定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載しています。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていません。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               4系列で共通する中心の状態は、<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つです。NN groupはこれをボタンの基本セットとし、Googleもこの5つ(+ドラッグ)にトークンを定義しています。Appleは共通の一覧を持たず、<strong>tvOSは5状態・visionOSは4状態</strong>のように、プラットフォームと入力方法ごとに定義しています。
             </p>
@@ -442,13 +466,6 @@ export default function TokensInteractionStatesPage() {
               実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点です。これはW3Cの2.4.7(フォーカスが見えること・AA)を確実に満たす方法で、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づきます。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出します。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― どの状態を定義しているか</h2>
-            <StateMatrix />
-            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図です(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値です。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えています。◯=定義・明記されている、△=部分的・条件付き、―=確認した範囲では定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載しています。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていません。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -466,18 +483,11 @@ export default function TokensInteractionStatesPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -485,7 +495,6 @@ export default function TokensInteractionStatesPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>インタラクション状態 デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -498,30 +507,26 @@ export default function TokensInteractionStatesPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>状態の種類</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>見た目の表し方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.visual}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -533,12 +538,12 @@ export default function TokensInteractionStatesPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["デザインの基礎", "操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、不透明度はGoogle公式のトークン定義、状態の原則はM2のページデータで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Focus and selectionページの「Best practices」見出しへのアンカー付きリンクで、Buttons(押した状態)・tvOSの5状態・iPadOSのポインタ効果の各見出しも併記しています。GoogleはM3のState layersページに加え、M2のStatesページと、数値を確認したGitHub上のトークン定義を併記しています。WCAGは1.4.11・2.4.13・4.1.2の各Understandingページの基準本文です。NN groupはボタンの状態の解説の節と、読み込み中・選択の節です。
@@ -554,7 +559,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -567,7 +572,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   reduceCard: { background: "#F8F9FD", borderRadius: 4, padding: "12px 14px" },
   reduceLead: { fontSize: 11, color: "#7E86AC", margin: "2px 0 8px" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -590,7 +595,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -601,7 +606,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

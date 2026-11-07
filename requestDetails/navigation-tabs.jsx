@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブ」ページ。
@@ -22,17 +23,23 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Tab Bars(画面下部のアプリ全体のナビゲーション)",
+    term: "Tab bar(画面下部・アプリ全体の移動)/ Tab view(画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
     color: "#C2542A",
-    position: "Appleのタブバーは、画面下部に置くアプリ全体のナビゲーション(Googleのナビゲーションバーに相当)で、画面の中で内容を切り替えるタブとは別の部品。比較のため参考として載せる(「ナビゲーションバー」ページも参照)",
+    position:
+      <span>Appleのタブバーは、画面下部に置くアプリ全体のナビゲーション(Googleのナビゲーションバーに相当)で、<Hl>画面の中で内容を切り替えるタブとは別の部品</Hl>。比較のため参考として載せる(「ナビゲーションバー」ページも参照)</span>,
+    structure:
+      "画面遷移中もタブバーを常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。",
+    count:
+      <span>タブの数の上限は数値で示しておらず、必要な数のタブを使い、<Hl>タブは少ないほど移動しやすい</Hl>ことを踏まえて増やしすぎないよう求めている。画面の幅でタブが収まらないと、末尾が「その他(More)」タブにまとめられて中身が見つけにくくなるため、<Hl>はみ出しを避ける</Hl>よう求めている。</span>,
     size:
-      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、タブは少ないほど移動しやすいことを踏まえて増やしすぎないよう求めています。画面の幅でタブが収まらないと、末尾が「その他(More)」タブにまとめられて中身が見つけにくくなるため、はみ出しを避けるよう求めています(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはありません)。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+      <NoData>記載なし</NoData>,
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "タブバーは、アプリのトップレベルのセクション間を移動するために使うものと定義されています。厳密にナビゲーション専用とし、タブバーのボタンを操作の実行(アクション)に使うべきではないとしています。",
+      "タブバーは、アプリのトップレベルのセクション間を移動するために使うものと定義されている。厳密にナビゲーション専用とし、タブバーのボタンを操作の実行(アクション)に使うべきではないとしている。",
     exceptions:
-      "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしています(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしています。また、画面遷移中もタブバーを常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしています。",
+      <span>機能が一時的に使えない場合でも、<Hl>タブを削除したり無効化したりすべきではない</Hl>としている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。</span>,
     accessibility:
-      "―(このトピックには専用のアクセシビリティ記載を確認できていません)。標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられます。",
+      <span><NoData>記載なし。</NoData>標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
       "アプリのトップレベルセクション間を移動する",
       "タブは必要な数に絞り、「その他(More)」タブへのはみ出しを避ける",
@@ -40,6 +47,11 @@ const SOURCES = [
     ],
     searchHint: "Avoid overflow tabs",
     url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+    refs: [
+      { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+      { label: "Tab views(画面の中のタブ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
+      { label: "Segmented controls(iOS・iPadOSでの代わり)", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
+    ],
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#E1E3F0" strokeWidth="1.2" />
@@ -59,22 +71,27 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Tabs",
+    term: "Tabs(Primary tabs / Secondary tabs)",
     color: "#2F7D6E",
     position: "コンテンツを画面・データセットなどのカテゴリに整理する。プライマリ/セカンダリの2階層と、Fixed/Scrollableの2表示方式を持つ",
+    structure:
+      <span>プライマリタブはコンテンツペイン上部・アプリバーの下に置き、<Hl>セカンダリタブは常にその下に配置</Hl>する(詳しくは下記「メモ」を参照)。コンテナは常にウィンドウ幅いっぱいに広がり、下端の区切り線でコンテンツと区切られるとしている。</span>,
+    count:
+      <span><Hl>固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になる</Hl>としている。数が多いときはスクロール可能なタブにし、最初のタブを端から52dp離して配置して、スクロール可能であることを示すべきとしている。</span>,
     size:
-      "タッチターゲットは48×48 CSSピクセル以上を確保すべきとしています。密度設定はデフォルトで適用すべきではなく(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合も各要素は最低48×48pxを維持すべきとしています。固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になるとしています。スクロール可能なタブでは、最初のタブを端から52dp離して配置し、スクロール可能であることを示すべきとしています。",
+      "タッチターゲットは48×48 CSSピクセル以上を確保すべきとしている。密度設定はデフォルトで適用すべきではなく(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合も各要素は最低48×48pxを維持すべきとしている。",
     colorInfo:
-      "アクティブなタブは、テキストとアイコンに下線と色の変化を適用して区別するとしています。具体的なカラートークンの詳細は確認できていません。",
+      <span>アクティブなタブは、テキストとアイコンに下線と色の変化を適用して区別するとしている。<NoData>カラートークンは未確認。</NoData></span>,
     glossary: [
       { term: "プライマリタブ / セカンダリタブ", desc: "タブには2つの階層がある。プライマリタブはコンテンツペイン上部・アプリバー直下に置き、主要なコンテンツへのリンクを示す。セカンダリタブは常にプライマリタブの下に配置し、その中でさらに関連コンテンツを細分化する。見た目はよりシンプルだが機能はプライマリタブと同じ。" },
       { term: "Fixed(固定) / Scrollable(スクロール可能)", desc: "固定タブはセット内の全タブを同時に表示する(地図の交通手段切り替えなど)。スクロール可能なタブは画面に収まりきらない場合に使い、より長いラベルや多くのタブに対応できる。" },
     ],
     stance:
-      "タブは、同じ階層レベルにある関連コンテンツをグループ分けして整理するコンポーネントで、連続した(順番に読むべき)コンテンツではなく、関連するコンテンツをまとめる用途に限定すべきとしています。プライマリタブはコンテンツペイン上部・アプリバーの下に置き、セカンダリタブは常にその下に配置します(詳しくは下記「用語メモ」を参照)。コンテナは常にウィンドウ幅いっぱいに広がり、下端の区切り線でコンテンツと区切られるとしています。",
+      "タブは、同じ階層レベルにある関連コンテンツをグループ分けして整理するコンポーネントで、連続した(順番に読むべき)コンテンツではなく、関連するコンテンツをまとめる用途に限定すべきとしている。",
     exceptions:
-      "特定の順序で読む必要がある連続したコンテンツにはタブを使うべきではなく、代わりにタイポグラフィや余白でコンテンツ内の階層を作るべきとしています。一部のタブにだけアイコンとラベルの両方を使う(他は片方だけ)といった不統一な構成は避けるべきとしています。タブセットを無限スクロールさせるループ処理は避けるべきで、スクリーンリーダーで直線的にナビゲーションしているユーザーの操作を妨げる可能性があるとしています。",
+      <span>特定の順序で読む必要がある連続したコンテンツにはタブを使うべきではなく、代わりにタイポグラフィや余白でコンテンツ内の階層を作るべきとしている。一部のタブにだけアイコンとラベルの両方を使う(他は片方だけ)といった不統一な構成は避けるべきとしている。<Hl>タブセットを無限スクロールさせるループ処理は避けるべき</Hl>で、スクリーンリーダーで直線的にナビゲーションしているユーザーの操作を妨げる可能性があるとしている。</span>,
     accessibility:
-      "操作可能(Operable) ― タッチターゲット48×48 CSSピクセル以上の確保に加え(上記「サイズ」を参照)、アイコンのみで文字を持たないタブには読み上げ用のラベルを設定すべきとしています。Tabキーでフォーカスインジケーターが表示され、Space/Enterキーでアクティブなタブを選択すると新しいページに移動します(フォーカスしただけでは切り替えず、Space/Enterで選んだときに切り替わる、という意味です。W3C欄の「フォーカスしただけで別のページへ移動させない」と矛盾しません)。タブメニュー内では矢印キーまたはTabキーで項目間を移動できます。",
+      "操作可能(Operable) ― タッチターゲット48×48 CSSピクセル以上の確保(上記「サイズ」を参照)に加え、アイコンのみで文字を持たないタブには読み上げ用のラベルを設定すべきとしている。",
     useCases: [
       "同じ階層レベルの関連コンテンツをカテゴリにグループ化する(連続して読むコンテンツには使わない)",
       "タブの階層が複数必要な場合はプライマリ+セカンダリの2段構成にする",
@@ -82,7 +99,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/tabs/guidelines",
-    urlSecondary: [{ label: "Accessibility", url: "https://m3.material.io/components/tabs/accessibility" }],
+    refs: [
+      { label: "Tabs ― Guidelines(使用法)", url: "https://m3.material.io/components/tabs/guidelines" },
+      { label: "Tabs ― Accessibility", url: "https://m3.material.io/components/tabs/accessibility" },
+    ],
     confirmedNote: "使用法・プライマリ/セカンダリ・コンテナ・アイコン・ラベル・バッジ・アクティブインジケーター・Fixed/Scrollable・インタラクションとスタイル・アクセシビリティの各セクションは2026-09時点で公式ページ本文を直接確認済み。タブの高さなどのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -99,32 +119,42 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5(WAI-ARIA Tabsパターン) / 3.2.1",
+    term: "tablist・tab・tabpanel(WAI-ARIAのロール)。APGでは Tabs",
     color: "#A3821F",
     position: "role=\"tablist\"/\"tab\"/\"tabpanel\"という、名前・役割・状態とキーボード操作性を求める一般基準の集合",
+    structure:
+      <span>APGでは、<Hl>タブの並びを囲む要素にrole="tablist"、各タブにrole="tab"、対応するコンテンツ領域にrole="tabpanel"を割り当て</Hl>、選択中のタブにはaria-selected="true"を設定するとしている。</span>,
+    count:
+      <NoData>記載なし</NoData>,
     size:
-      "タブ専用の数値基準はありませんが、一般的なターゲットサイズ基準が適用されます。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求めます(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
+      "タブ専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、選択中のタブを示す下線や背景などの視覚的要素は3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、選択中のタブを示す下線や背景などの視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
       { term: "3.2.1 On Focus・レベルA", desc: "部品にフォーカスが当たっただけで、文脈の変化(新しいウィンドウ・ページの移動・フォーカスの移動など)を起こさないことを求める基準。" },
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "WCAGの要件は、タブの名前・役割・状態が支援技術に伝わること(4.1.2)と、キーボードで操作できること(2.1.1)です。作り方は、W3CのAPG(実装の参考例。適合の要件ではない)のTabsパターンが示しています。タブの並びを囲む要素にrole=\"tablist\"、各タブにrole=\"tab\"、対応するコンテンツ領域にrole=\"tabpanel\"を割り当て、選択中のタブにはaria-selected=\"true\"を設定するとしています。3.2.1(レベルA)は、フォーカスを当てただけで文脈の変化を起こさないことを求めます。W3Cは、タブの切り替えのような内容の変化は、それだけでは文脈の変化にあたらないとしているため、矢印キーでタブに移ったときに同じページ内のパネルを切り替えるのは問題ありません。ただし、タブにフォーカスしただけで別のページへ移動したり、フォーカスをパネルの中へ動かしたりする作りは避けます。",
+      "WCAGの要件は、タブの名前・役割・状態が支援技術に伝わること(4.1.2)と、キーボードで操作できること(2.1.1)。作り方は、W3CのAPG(実装の参考例。適合の要件ではない)のTabsパターンが示している。",
     exceptions:
-      "HTMLには標準のタブ部品がなく、role=\"tab\"などを付けても矢印キーの動きは付きません。そのためWebでタブを作るときは、矢印キーで隣のタブへ移動できるようにし、Tabキーでは選択中のタブだけにフォーカスが止まるようにする(ロービングtabindex)実装が必ず必要です。",
+      <NoData>記載なし</NoData>,
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、矢印キーでのタブ間移動などのキーボード操作性(2.1.1)、ターゲットサイズ(2.5)が関わります。3.2.1は「理解可能(Understandable)」の予測可能性(3.2)に関わります。",
+      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、キーボード操作性(2.1.1)、ターゲットサイズ(2.5)が関わる。3.2.1は「理解可能(Understandable)」の予測可能性(3.2)に関わる。",
     useCases: [
       "タブの並びにrole=\"tablist\"、各タブにrole=\"tab\"を割り当てる",
       "対応するコンテンツ領域にrole=\"tabpanel\"を割り当てる",
-      "矢印キーでタブ間を移動できるようにする(ロービングタブインデックス)",
-      "タブにフォーカスしただけで別のページへ移動させない(パネルの切り替えはよい、3.2.1)",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
-    urlSecondary: [
-      { label: "3.2.1 On Focus", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
+      { kind: "sc", level: "A", label: "3.2.1 フォーカス時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
+      { kind: "apg", label: "APG ― Tabs Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
+      { kind: "apg", label: "APG ― 選択をフォーカスに追従させるかの判断", url: "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#decidingwhentomakeselectionautomaticallyfollowfocus" },
     ],
     confirmedNote: "3.2.1はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -141,16 +171,21 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Tabs, Used Right",
+    term: "Tabs",
     color: "#7A4F7E",
     position: "少数・並列で重要度が均等なコンテンツグループに向く(数値基準ではなく使い分けの指針)",
-    size: "数値基準は明言していません。",
-    colorInfo: "色についての数値基準はありません。",
+    structure:
+      <NoData>記載なし</NoData>,
+    count:
+      <span>タブの数が多すぎてタブ一覧からあふれると、<Hl>カルーセル化して隠れたタブが見つけにくくなる</Hl>ため、<Hl>タブはできるだけ少なくすべき</Hl>としている。</span>,
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "内容が長く、明確なグループ分けがある場合、タブは情報を一目で見える単位に分割し、認知負荷を減らすとしています。タブは、ユーザーが自然に「まとまっているはず」と期待する並列カテゴリを整理するのに最も向くとしています。",
+      "内容が長く、明確なグループ分けがある場合、タブは情報を一目で見える単位に分割し、認知負荷を減らすとしている。タブは、ユーザーが自然に「まとまっているはず」と期待する並列カテゴリを整理するのに最も向くとしている。",
     exceptions:
-      "タブの数が多すぎてタブ一覧からあふれると、カルーセル化して隠れたタブが見つけにくくなるため、タブはできるだけ少なくすべきとしています。また、内容の重要度が均等でない場合はタブを使うべきではないとし、既定で表示されるタブに注目が集まりやすいため、既定でないタブの内容は必須ではなく補助的なものにすべきとしています。",
+      "内容の重要度が均等でない場合はタブを使うべきではないとし、既定で表示されるタブに注目が集まりやすいため、既定でないタブの内容は必須ではなく補助的なものにすべきとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、コンテンツを自然に期待されるグループへ整理するという使い分けの指針です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、コンテンツを自然に期待されるグループへ整理するという使い分けの指針。",
     useCases: [
       "内容が長く、明確な並列グループに分けられる場合に使う",
       "タブ数はできるだけ少なく保つ(あふれるとカルーセル化し発見性が下がる)",
@@ -158,6 +193,7 @@ const SOURCES = [
     ],
     searchHint: "the fewer tabs, the better",
     url: "https://www.nngroup.com/articles/tabs-used-right/",
+    refs: [{ label: "Tabs, Used Right", url: "https://www.nngroup.com/articles/tabs-used-right/" }],
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         {[0, 1, 2].map((i) => (
@@ -189,7 +225,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -198,6 +234,126 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* この部品について(冒頭の説明) */
+const ABOUT = [
+  { k: "目的・役割", v: "同じ画面の中で、関連する内容のまとまり(セクション・カテゴリ)を切り替えて見せる。今どのまとまりを見ているかを、選択中のタブで示す" },
+  { k: "よく使われる場面", v: "商品ページの「概要・仕様・レビュー」、設定画面のカテゴリ、SNSの「おすすめ・フォロー中」" },
+  { k: "似た部品との違い", v: <>同じ内容の見え方(表示形式・絞り込み)を切り替えるなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>(<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)。アプリ全体の行き先を切り替えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>(Appleのタブバーはこちらに相当)</> },
+];
+
+/* 意見が分かれる2点の図 */
+function MiniTabs({ mode }) {
+  const c = "#454C78";
+  if (mode === "auto" || mode === "manual") {
+    return (
+      <svg width="132" height="40" viewBox="0 0 132 40" aria-hidden="true">
+        {[0, 1, 2].map((i) => (
+          <rect key={i} x={2 + i * 43} y="2" width="40" height="14" rx="2" fill={i === 1 && mode === "auto" ? c : "#FFFFFF"} stroke={c} strokeWidth="1.2" strokeDasharray={i === 1 ? "0" : "0"} />
+        ))}
+        <rect x="44" y="0.5" width="44" height="17" rx="3" fill="none" stroke="#3A4FCF" strokeWidth="1.6" />
+        <rect x="2" y="20" width="126" height="18" rx="2" fill="#F3F6FA" stroke="#D5D9EC" />
+        <text x="65" y="32" fontSize="8" textAnchor="middle" fill="#565D8A" fontFamily="Jost, Noto Sans JP">{mode === "auto" ? "フォーカスで表示" : "Enter/Spaceで表示"}</text>
+      </svg>
+    );
+  }
+  /* 収まらないタブ: scroll=はみ出してスクロール、few=数を絞る */
+  return (
+    <svg width="132" height="22" viewBox="0 0 132 22" aria-hidden="true">
+      <rect x="1" y="1" width="110" height="20" rx="2" fill="none" stroke="#D5D9EC" />
+      {(mode === "scroll" ? [0, 1, 2, 3, 4] : [0, 1, 2]).map((i) => (
+        <rect key={i} x={4 + i * (mode === "scroll" ? 30 : 36)} y="4" width={mode === "scroll" ? 27 : 33} height="14" rx="2" fill={i === 0 ? c : "#FFFFFF"} stroke={c} strokeWidth="1" opacity={mode === "scroll" && i > 3 ? 0.35 : 1} />
+      ))}
+      {mode === "scroll" && <path d="M116 11h12m-4-4l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" />}
+    </svg>
+  );
+}
+
+/* タブの種類(4系列のまとめ)と、NN groupによる2種類の違い */
+const TAB_KINDS = [
+  { kind: "ナビゲーションのタブ(主な場所へ移動)", cells: [
+    "Tab bar。iOSは画面の下部に浮かび、iPadOSは画面の上部近くに出る(サイドバーに切り替えられる)",
+    <>タブではなく<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>という別の部品</>,
+    <NoData>記載なし</NoData>,
+    "Navigation tabs。別のページへ移動する。画面の上部か左に置き、モバイルでは下部が多い",
+  ] },
+  { kind: "ページ内のタブ(同じ画面の中で切り替え)", cells: [
+    <>Tab view(macOSのみ。内容の領域の上端に置く)。iOS・iPadOSでは<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>を使う</>,
+    "Tabs。同じ階層の関連する内容を切り替える",
+    "APGのTabsパターン。同じページの中でパネルを切り替える",
+    "In-page tabs。今の画面に留まったまま、関連する内容を切り替える",
+  ] },
+  { kind: "2段(階層)にする", cells: [
+    <NoData>記載なし</NoData>,
+    "Primary tabs(コンテンツの上、アプリバーの下)と、その下のSecondary tabs",
+    <NoData>記載なし</NoData>,
+    "1つのタブの並びに、ナビゲーションのタブとページ内のタブを混ぜない",
+  ] },
+  { kind: "収まらないとき", cells: [
+    "末尾が「その他(More)」タブになるため、はみ出しを避ける",
+    "Scrollable(横にスクロールできるタブ)を使う。全部を見せるFixedは4個まで",
+    <NoData>記載なし</NoData>,
+    "カルーセルのようになり、隠れたタブが見つけにくくなるので、少ないほどよい",
+  ] },
+];
+const NN_TAB_DIFF = [
+  ["内容", "広い範囲の、関連の薄い・異なる内容", "狭い範囲の、関連する・似た内容"],
+  ["位置", "画面の上部か左(モバイルでは下部が多い)", "ページの中の、内容に合わせた場所"],
+  ["スクロールしたとき", "上部(か下部)に固定されることがある", "固定されることは少ない"],
+  ["利用者が思うこと", "新しい画面へ移る。少し読み込みを待つ", "今の画面に留まる。すぐに切り替わる"],
+  ["最初に選ばれているタブ", "通常は1つ。どのタブにも属さない画面では選ばれていないこともある", "必ず1つ選ばれている"],
+];
+
+function TabKinds() {
+  const systems = ["Apple", "Google", "W3C", "NN group"];
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>タブの種類</h2>
+      <p style={styles.diagramNote}>「主な場所へ移動するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものです。このページの比較は、後者(ページ内のタブ)が対象です。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.kindTable}>
+          <thead><tr><th style={styles.kindTh}>種類</th>{systems.map((n) => (<th key={n} style={styles.kindTh}>{n}</th>))}</tr></thead>
+          <tbody>
+            {TAB_KINDS.map((r) => (
+              <tr key={r.kind}>
+                <td style={{ ...styles.kindTd, fontWeight: 700 }}>{r.kind}</td>
+                {r.cells.map((c, i) => (<td key={i} style={styles.kindTd}>{c}</td>))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h3 style={styles.kindSub}>ナビゲーションのタブとページ内のタブの違い(Nielsen Norman Group)</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.kindTable}>
+          <thead><tr>{["", "ナビゲーションのタブ", "ページ内のタブ"].map((h) => (<th key={h} style={styles.kindTh}>{h}</th>))}</tr></thead>
+          <tbody>
+            {NN_TAB_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.kindTd, fontWeight: 700 }}>{r[0]}</td><td style={styles.kindTd}>{r[1]}</td><td style={styles.kindTd}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+const SPLITS = [
+  {
+    q: "キーボードでタブに移ったら、すぐに内容を切り替える?",
+    sides: [
+      { figure: <MiniTabs mode="auto" />, who: "W3C(APG)", color: "#A3821F", t: "内容をすぐに表示できるなら、フォーカスが移った時点で切り替える(自動)ことを勧める。表示に時間がかかる場合は、Enter/Spaceで選んだときに切り替える(手動)" },
+      { figure: <MiniTabs mode="manual" />, who: "Google", color: "#2F7D6E", t: "Tabキー・矢印キーでフォーカスを移し、Space/Enterで選んだときに切り替える(手動)と説明している" },
+    ],
+    tip: "どちらも、矢印キーで移動できる点は同じです。違いは「いつ切り替わるか」だけなので、内容がすぐ出るタブ(同じページ内の文章など)はAPGの自動、読み込みが必要なタブ(通信して一覧を取る、別ページへ移るなど)は手動、と分けると両方に沿います。Appleはキーボードでの切り替え方を定めていません。APGは実装の参考例で、適合の要件ではありません。",
+  },
+  {
+    q: "タブが画面に収まらないほど多いときは?",
+    sides: [
+      { figure: <MiniTabs mode="scroll" />, who: "Google", color: "#2F7D6E", t: "横にスクロールできるタブ(Scrollable)を使えば、必要な数だけ置いてよい。ただし、全部を一度に見せる固定タブは4個まで" },
+      { figure: <MiniTabs mode="few" />, who: "Apple・NN group", color: "#7A4F7E", t: "数を絞る。Appleはタブビューを6個までとし、タブバーでは「その他」へのはみ出しを避ける。NN groupは、あふれてカルーセルのようになると隠れたタブが見つけにくくなるとして、少ないほどよいとする" },
+    ],
+    tip: "まず数を減らせないかを考え、どうしても減らせないときにGoogleのスクロール可能なタブを使う、という順番が3系列の考え方に沿います。スクロールさせる場合は、Googleの「最初のタブを端から52dp離して、続きがあると分かるようにする」工夫を入れると、NN groupが心配する「隠れたタブに気づかない」問題を和らげられます。",
+  },
+];
 
 function TabSwatch() {
   const items = ["おすすめ", "フォロー中", "話題"];
@@ -246,27 +402,31 @@ export default function NavigationTabsPage() {
           </div>
 
           <h1 style={styles.title}>タブ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、コンテンツ間を移動するナビゲーションコンポーネントとしてサイズ・色・アクセシビリティをどう定めているかを比較します</p>
+          <SummaryCard
+            image={<TabSwatch />}
+            imageNote="選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。"
+            lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品です。"
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <TabSwatch />
-            <p style={styles.swatchNote}>選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。</p>
-          </div>
 
+          <TabKinds />
+          <SplitSection splits={SPLITS} />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替える部品</strong>です。Google・W3C・NN groupはこの意味のタブを扱っています。<strong>Appleのタブバーは画面下部のアプリ全体のナビゲーション(Googleのナビゲーションバーに相当)で、画面の中のタブとは別の部品</strong>のため、参考として並べています(詳しくは<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ていますが、<strong>「移動先が変わる」のがタブ、「同じ場所の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質です(詳しくは「タブとセグメントの使い分け」を参照)。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>固定タブは4個までを推奨し、5個以上は容器が窮屈になる</strong>という数値の上限を示し、Appleは数値を示さないものの<strong>タブは少ないほど移動しやすく、『その他』タブへのはみ出しは避ける</strong>としています(以前のHIGにあった「3〜5個」という記述は、2026-10時点の本文にはありません)。Nielsen Norman Groupも<strong>タブはできるだけ少なく、あふれるとカルーセル化して発見性が下がる</strong>と、同じ方向の注意を促しています。Appleのタブバーは別の部品ですが、「増やしすぎない」という考え方は共通しています。
+              タブの数は、Google・Apple・NN groupとも<strong>「増やしすぎない」方向で共通</strong>しています(Googleは固定タブ4個まで)。画面に収まらないときの扱いは系列で分かれます(「意見が分かれる点」を参照)。
             </p>
             <p style={styles.synthesisText}>
-              公式ページ本文を確認したところ、<strong>Googleのタブには「プライマリ/セカンダリ」という2階層の構造</strong>があることが判明しました(セカンダリタブは常にプライマリタブの下に配置)。これはAppleのTab Bars(1階層のみ)にはない発想で、Googleが「Fixed/Scrollable」という表示方式の軸とは別に、階層の軸も持っている点が特徴的です。
+              <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>があります(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab Bars(1階層のみ)にはない考え方です。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、WCAGの要件(4.1.2・2.1.1など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な実装方法(Tabsパターン)</strong>を示しています。HTMLには標準のタブがないため、<strong>矢印キーでのタブ間移動(ロービングtabindex)は、Webでタブを作るなら必ず実装する</strong>必要があります。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っています。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示しています。
+              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な作り方(Tabsパターン)</strong>を示しています。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っています。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示しています。
             </p>
           </div>
 
@@ -279,32 +439,28 @@ export default function NavigationTabsPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
+                <InfoBox label="タブの数">{s.count}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
+                <InfoBox label="構成・配置">{s.structure}</InfoBox>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -312,7 +468,6 @@ export default function NavigationTabsPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -322,8 +477,6 @@ export default function NavigationTabsPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -331,44 +484,49 @@ export default function NavigationTabsPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
+                <div style={styles.labelCell}>タブの数</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.count}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
+                <div style={styles.labelCell}>構成・配置</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structure}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["ナビゲーション"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["ナビゲーション"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはTab Bars本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Tabs)へリンクしており本文は確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。
+              リンクについて: 公式で別のページに分かれている内容は、「参照ページ」にそれぞれ載せています。W3Cは達成基準ごとのUnderstandingページとAPG(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ本文を確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。
             </span>
           </div>
         </div>
@@ -378,19 +536,22 @@ export default function NavigationTabsPage() {
 }
 
 const styles = {
+  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
+  kindTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  kindTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  kindTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  kindSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "20px 0 8px" },
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -415,18 +576,16 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

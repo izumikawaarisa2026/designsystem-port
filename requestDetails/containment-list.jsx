@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / リスト」ページ。
@@ -21,26 +22,30 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and Tables",
+    term: "List(Lists and tables)",
     color: "#C2542A",
     position: "グループや階層に分かれたデータを、行の形で並べて見せる部品。選択・追加・削除・並べ替えにも対応できる",
-    size: "リスト固有の数値(pt)は、Lists and tablesのページにはありません。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になります(AI解釈)。",
-    colorInfo: "色についての規定はありません。macOSには、行の背景色を交互に変えて大きな表を使いやすくする枠付きのスタイルがあるとしています。",
+    size: "リスト固有の数値(pt)は、Lists and tablesのページにはない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
+    colorInfo: <span><NoData>記載なし。</NoData>macOSには、行の背景色を交互に変えて大きな表を使いやすくする枠付きのスタイルがあるとしている。</span>,
     stance:
-      "リストやテーブルは、グループや階層に分かれたデータを表せる部品で、選択・追加・削除・並べ替えといった操作にも対応できるとしています。行の形は文字を読みやすく、ざっと見るのに向くため、文字はリストやテーブルで見せるのがよいとしています(大きさがばらばらの項目や、画像を多く見せるならコレクションを検討)。選んだときのフィードバックは、選ぶと別の画面に進むのか、項目の状態が切り替わるのかで変え、階層を進むリストでは選んだ行を強調し続けるとしています。項目の文字は短く簡潔にし、長い内容はタイトルだけを並べて詳細の画面で見せることも勧めています。",
+      "リストやテーブルは、グループや階層に分かれたデータを表せる部品で、選択・追加・削除・並べ替えといった操作にも対応できるとしている。行の形は文字を読みやすく、ざっと見るのに向くため、文字はリストやテーブルで見せるのがよいとしている(大きさがばらばらの項目や、画像を多く見せるならコレクションを検討)。選んだときのフィードバックは、選ぶと別の画面に進むのか、項目の状態が切り替わるのかで変え、階層を進むリストでは選んだ行を強調し続けるとしている。項目の文字は短く簡潔にし、長い内容はタイトルだけを並べて詳細の画面で見せることも勧めている。",
     exceptions:
-      "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る必要があるとしています。並べ替えだけでもできると喜ばれる、としています。iOS・iPadOS・visionOSでは、情報ボタン(行の中では詳細開示ボタン)は行の内容の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使うとしています。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けないよう勧めています(どちらも末尾にあり、誤って操作しやすいため)。",
+      "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る必要があるとしている。並べ替えだけでもできると喜ばれる、としている。iOS・iPadOS・visionOSでは、情報ボタン(行の中では詳細開示ボタン)は行の内容の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使うとしている。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けないよう勧めている(どちらも末尾にあり、誤って操作しやすいため)。",
     accessibility:
-      "―(Lists and tablesのページにはアクセシビリティの専用の記載はありません)。標準のリスト/テーブルを使えば、支援技術には自動的に構造が伝わると考えられます(AI解釈)。",
+      <span><NoData>記載なし。</NoData>標準のリスト/テーブルを使えば、支援技術には自動的に構造が伝わると考えられる(AI解釈)。</span>,
     scenarios: [
       "文字の項目を、ざっと見やすい行の形で一覧表示したい場面",
       "階層をたどって設定などを選ばせたい場面(iOSの設定アプリのように)",
       "大きさがばらばらの項目や画像が多い場合は、コレクションを検討する",
     ],
     useCases: [
-      "―(支援技術に関する専用のユースケース記載はありません)",
+      "―(支援技術に関する専用のユースケース記載はない)",
     ],
     searchHint: "Provide appropriate feedback",
     url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables",
+    refs: [
+      { label: "Lists and Tables", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables" },
+    ],
     confirmedNote: "HIGのページデータ(Lists and tablesのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -59,31 +64,35 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Lists(表現力豊かなリスト / ベースライン)",
+    term: "List",
     color: "#2F7D6E",
     position: "テキスト・画像を縦に連続して並べた索引。特定の項目を見つけて操作するために使う。2025年12月のM3 Expressiveアップデートで「表現力豊かなリスト」が追加された",
-    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしています。配置は中央揃えが基本ですが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしています。スロット内のターゲットサイズは最低48×48dpを確保すべきとしています。",
-    colorInfo: "色の値はデザイントークンを通じて実装されるとしています。リスト項目に画像が含まれる場合は、コンテンツに基づく配色でコンテナの色をカスタマイズすることを検討すべきとしています。",
+    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしている。配置は中央揃えが基本だが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしている。スロット内のターゲットサイズは最低48×48dpを確保すべきとしている。",
+    colorInfo: "色の値はデザイントークンを通じて実装されるとしている。リスト項目に画像が含まれる場合は、コンテンツに基づく配色でコンテナの色をカスタマイズすることを検討すべきとしている。",
     glossary: [
       { term: "表現力豊かなリスト / リスト(ベースライン)", desc: "2025年12月のM3 Expressiveアップデートで追加された「表現力豊かなリスト」は、セグメント化されたビジュアルスタイル・選択状態の強調表示・柔軟なスロットに対応し、新規デザインに推奨される。従来の「リスト(ベースライン)」も引き続き利用できるが、これらの新機能には対応しない。" },
       { term: "先頭 / コンテンツ / 末尾スロット", desc: "リスト項目を構成する3つの領域。先頭スロットにはアバター・アイコン・選択コントロールなど、コンテンツスロットにはラベルテキスト・補足テキストなど、末尾スロットにはアクション要素や選択コントロールなどを配置できる。" },
     ],
     stance:
-      "リストは、テキストと画像を縦方向に連続してグループ化したもので、読みやすさを最適化するように設計されているとしています。ユーザーが特定の項目を見つけて、それに基づいて行動できるようにする役割を持つとしています。選択モードはリスト単位で1つのみ持てるとし、単一選択にはラジオボタン、複数選択にはチェックボックスやスイッチとの組み合わせが適するとしています。",
+      "リストは、テキストと画像を縦方向に連続してグループ化したもので、読みやすさを最適化するように設計されているとしている。ユーザーが特定の項目を見つけて、それに基づいて行動できるようにする役割を持つとしている。選択モードはリスト単位で1つのみ持てるとし、単一選択にはラジオボタン、複数選択にはチェックボックスやスイッチとの組み合わせが適するとしている。",
     scenarios: [
       "特定の項目を見つけて操作させたい、縦方向の索引を作りたい場面",
       "中〜拡張ブレークポイントで、リストと詳細情報を並べて表示したい場面",
       "大きい画面幅では、カルーセルなど同じ目的を持つ他のコンポーネントへの置き換えも検討する",
     ],
     exceptions:
-      "選択モードはリスト単位で1つのみ持てるとし、単一選択リストと複数選択リストを同時に持つことはできないとしています。単一選択リスト項目にはチェックボックスを、複数選択リスト項目にはラジオボタンを使うべきではないとしています。先頭・コンテンツ・末尾のスロットはデフォルトではアクセスできず、実装にはカスタムコードが必要だとしています。",
+      "選択モードはリスト単位で1つのみ持てるとし、単一選択リストと複数選択リストを同時に持つことはできないとしている。単一選択リスト項目にはチェックボックスを、複数選択リスト項目にはラジオボタンを使うべきではないとしている。先頭・コンテンツ・末尾のスロットはデフォルトではアクセスできず、実装にはカスタムコードが必要だとしている。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― 単一アクションリストではTabキーで最初の要素(または選択済みの項目)にフォーカスが移り、矢印キーで項目間を移動できるとしています。複数アクションリスト項目では個々のアクションのみが選択対象になり、リスト項目全体は選択できないとしています。選択状態は色だけに頼らず、ラジオボタン/チェックボックス、アイコン、下線など色以外の手がかりでも示すべきだとしています。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― 複数アクションリスト項目では個々のアクションのみが選択対象になり、リスト項目全体は選択できないとしている。選択状態は色だけに頼らず、ラジオボタン/チェックボックス、アイコン、下線など色以外の手がかりでも示すべきだとしている。",
     useCases: [
       "リスト項目に移動できるようにする",
       "リスト項目を選択できるようにする",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/lists/guidelines",
+    refs: [
+      { label: "Lists(表現力豊かなリスト / ベースライン)", url: "https://m3.material.io/components/lists/guidelines" },
+    ],
     confirmedNote: "使用法・バリエーション(表現力豊かなリスト/ベースライン)・スロット構造・適応型デザイン・行動(選択モード・スワイプ・展開折りたたみ)・インタラクションとスタイル・ユースケースの各セクションは、M3の公式ページ本文(m3.material.io「Lists」のガイドライン)で2026-09に直接確認・反映済み。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -102,20 +111,21 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
+    term: "list・listitem(WAI-ARIAのロール)/ HTMLのul・ol・li",
     color: "#A3821F",
     position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で識別する、非対話的な項目の集合",
-    size: "リスト専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各項目内の操作要素に適用されます。",
-    colorInfo: "リスト専用の色基準はありませんが、1.4.11(非テキストのコントラスト)が区切り線などの視覚的要素に適用され得ます。",
+    size: "リスト専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各項目内の操作要素に適用される。",
+    colorInfo: "リスト専用の色基準はないが、1.4.11(非テキストのコントラスト)が区切り線などの視覚的要素に適用され得る。",
     stance:
-      "listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしています。可能な限りHTMLのセマンティック要素(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしています。",
+      <>listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしている。<Hl>可能な限りHTMLのセマンティック要素</Hl>(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしている。</>,
     scenarios: [
       "支援技術にリスト構造を明示的に伝えたい場面(特にHTMLを直接制御できない場合)",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
     ],
     exceptions:
-      "ARIAのlistロールは順序付き/順序なしを区別しないため、順序が意味を持つ場合はHTMLのol要素を使うべきだとしています。リストがタブとして機能する場合は、list/listitemではなくtablist/tab/tabpanelロールを使うべきだとしています。",
+      "ARIAのlistロールは順序付き/順序なしを区別しないため、順序が意味を持つ場合はHTMLのol要素を使うべきだとしている。リストがタブとして機能する場合は、list/listitemではなくtablist/tab/tabpanelロールを使うべきだとしている。",
     accessibility:
-      "知覚可能(Perceivable) ― 見た目で伝わる一覧の構造を、支援技術にも伝えること(1.3.1 情報及び関係性)が中心です。セマンティックHTML(ul/ol/li)を優先すれば、構造が自動的に伝わります。ARIA属性はHTMLを直接制御できない場合の代替手段という位置づけです。",
+      "知覚可能(Perceivable) ― 見た目で伝わる一覧の構造を、支援技術にも伝えること(1.3.1 情報及び関係性)が中心。セマンティックHTML(ul/ol/li)を優先すれば、構造が自動的に伝わる。ARIA属性はHTMLを直接制御できない場合の代替手段という位置づけ。",
     useCases: [
       "可能な限りHTMLのul/ol + liを使い、ARIAのlist/listitemはHTMLを制御できない場合の代替とする",
       "順序が意味を持つ場合はul(順序なし)ではなくol(順序あり)を使う",
@@ -124,10 +134,11 @@ const SOURCES = [
     ],
     searchHint: "listitem",
     url: "https://www.w3.org/TR/wai-aria-1.2/#list",
-    urlSecondary: [
-      { label: "1.3.1 Info and Relationships", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
-      { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
-      { label: "解説(MDN): listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
+    refs: [
+      { label: "list role / listitem role / APG Listbox", url: "https://www.w3.org/TR/wai-aria-1.2/#list" },
+      { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
+      { kind: "apg", label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+      { kind: "mdn", label: "listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -144,25 +155,29 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Card View vs. List View",
+    term: "List view(リスト表示)",
     color: "#7A4F7E",
     position: "複数項目のソート・比較を効率的に行える、スペース効率の高い表示形式(「カード」ページで比較したカード表示との対比が判断基準)",
-    size: "数値基準は明言していませんが、リスト表示はスペース効率が高いという特性が挙げられています。",
-    colorInfo: "色についての数値基準はありません。",
+    size: <span><NoData>数値基準なし。</NoData>リスト表示はスペース効率が高いという特性が挙げられている。</span>,
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "リスト表示は、ソートが容易でスペース効率が高いという特性を持つとしています。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしています。",
+      <><Hl>リスト表示は、ソートが容易でスペース効率が高い</Hl>という特性を持つとしている。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしている。</>,
     scenarios: [
       "複数項目を素早く比較・ソートする必要がある場面",
     ],
     exceptions:
-      "複数の項目を素早く比較・ソートする必要がある場合はリスト表示が適しており、情報をビジュアル中心で提示し関連情報をグループ化したい場合はカード表示が向いているとしています。",
+      "複数の項目を素早く比較・ソートする必要がある場合はリスト表示が適しており、情報をビジュアル中心で提示し関連情報をグループ化したい場合はカード表示が向いているとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、比較・ソートのしやすさと視覚的訴求力のどちらを優先するかという使い分けの指針です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、比較・ソートのしやすさと視覚的訴求力のどちらを優先するかという使い分けの指針。",
     useCases: [
       "複数項目を素早く比較・ソートする必要がある場合はリスト表示を使う",
       "視覚的な訴求・関連情報のグループ化を重視する場合はカード表示を検討する",
     ],
     searchHint: "space efficient",
     url: "https://www.nngroup.com/videos/card-view-vs-list-view/",
+    refs: [
+      { label: "Card View vs. List View", url: "https://www.nngroup.com/videos/card-view-vs-list-view/" },
+    ],
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -195,7 +210,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -217,6 +232,27 @@ function ListSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "同じ種類の項目を縦に並べて、一覧で見せる部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "多くの項目を少ない場所に並べ、目で追って探したり比べたりしやすくする" },
+  { k: "よく使われる場面", v: "設定の項目、連絡先、メールの受信一覧" },
+  { k: "似た部品との違い", v: <>1件ごとに画像や操作を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink>、項目ごとに複数の値を比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "リストとカード、どちらで見せる?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "並べ替えて比べるならリスト(場所も取らない)。見た目で引きつけ、情報をまとまりで見せたいならカード" },
+      { who: "Apple", color: "#C2542A", t: "文字は読み流しやすいリストや表で見せる。大きさがばらばらの項目や画像が多いなら、コレクション(格子状の並び)を検討する" },
+      { who: "Google", color: "#2F7D6E", t: "リストは項目を見つけて操作するための並び。画面が小さいときは、カードの代わりにリストを検討する" },
+    ],
+    tip: "文字中心で数が多く、探したり比べたりする一覧はリスト、画像中心で眺めて選ぶ一覧はカードやコレクション、と中身で決めると3系列とも両立します。",
+  },
+];
 
 export default function ContainmentListPage() {
   return (
@@ -243,16 +279,20 @@ export default function ContainmentListPage() {
           </div>
 
           <h1 style={styles.title}>リスト</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、項目を縦に並べ、一覧性・比較のしやすさを重視するコンテナをどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><ListSwatch /></>}
+            imageNote={<>テキスト・画像を縦に連続して並べる索引。「カード」ページで比較した、ブラウジング型のカード表示とは使い分けの関係にある。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <ListSwatch />
-            <p style={styles.swatchNote}>テキスト・画像を縦に連続して並べる索引。「カード」ページで比較した、ブラウジング型のカード表示とは使い分けの関係にある。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
+
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               リストの位置づけを最も明確に言語化しているのはNielsen Norman Groupで、<strong>「リスト表示はソートが容易でスペース効率が高い」</strong>という特性を、カード表示(視覚的訴求力・グループ化に強い)と対比させています。この対比は、そのまま「カード」ページとの使い分けの軸になります。
             </p>
@@ -263,7 +303,6 @@ export default function ContainmentListPage() {
               W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点です。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されています。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -273,13 +312,14 @@ export default function ContainmentListPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -288,20 +328,18 @@ export default function ContainmentListPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
-                </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+                )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -311,8 +349,6 @@ export default function ContainmentListPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -320,30 +356,33 @@ export default function ContainmentListPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.scenarios ? <UseCaseList items={s.scenarios} /> : <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -356,12 +395,12 @@ export default function ContainmentListPage() {
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["情報の整理・一覧"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN group・Googleとも本文確認済み)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN group・Googleとも本文確認済み)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。W3CはWAI-ARIA仕様のlistロールを主リンクに、1.3.1・APGのListboxパターン・MDNの解説を併記しています。NN groupは動画ページ単位です。
@@ -374,10 +413,12 @@ export default function ContainmentListPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -386,7 +427,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -410,7 +451,7 @@ const styles = {
   searchHint: { fontSize: 10.5, color: "#7E86AC" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -425,7 +466,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SidebarNav from "./sidebar-nav";
+import { TAG_LIST, tagAnchor } from "./page-parts";
 
 /**
  * 横断ビュー「タグから見る」ページ。
@@ -27,12 +28,8 @@ const TAG_INDEX = [
   {"group": "トークン / ファウンデーション", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "ダークモード", "path": "/tokens/dark-mode", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "トークン / ファウンデーション", "label": "アダプティブ/レスポンシブ", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / インタラクション", "label": "インタラクション状態", "path": "/tokens/interaction-states", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎", "操作方法(タッチ・キーボード)"]},
-  {"group": "トークン / インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
-  {"group": "トークン / インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
-  {"group": "トークン / インタラクション", "label": "キーボードナビゲーション", "path": "/tokens/keyboard-navigation", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "ナビゲーション"]},
   {"group": "Actions", "label": "ボタン", "path": "/components/actions/button", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
+  {"group": "Actions", "label": "インタラクション状態", "path": "/tokens/interaction-states", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎", "操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "フローティングアクションボタン", "path": "/components/actions/fab", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "リンク", "path": "/components/actions/link", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Selection", "label": "Selectionの選び方", "path": "/components/selection/overview", "principles": [], "processes": ["設計の原則・使い分け", "選択・切り替え"]},
@@ -45,23 +42,25 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
+  {"group": "Selection", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "テキストフィールド", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "検索フィールド", "path": "/components/text-inputs/search-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["検索・絞り込み", "見つけやすさ・初めての案内"]},
-  {"group": "Text inputs", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
+  {"group": "Text inputs", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
   {"group": "Navigation", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "セグメントコントロール", "path": "/components/navigation/segmented-control", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "ナビゲーション"]},
   {"group": "Navigation", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
   {"group": "Navigation", "label": "ナビゲーションバー", "path": "/components/navigation/nav-bar", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "アプリバー", "path": "/components/navigation/app-bar", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "検索・絞り込み"]},
+  {"group": "Navigation", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "パンくずリスト", "path": "/components/navigation/breadcrumb", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ページネーション", "path": "/components/navigation/pagination", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "情報の整理・一覧"]},
-  {"group": "Containment", "label": "ダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
+  {"group": "Containment", "label": "オーバーレイの使い分け", "path": "/components/containment/overview", "principles": [], "processes": ["設計の原則・使い分け", "段階的に見せる"]},
+  {"group": "Containment", "label": "モーダルダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
   {"group": "Containment", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
-  {"group": "Containment", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Containment", "label": "カード", "path": "/components/containment/card", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "リスト", "path": "/components/containment/list", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "表(データテーブル)", "path": "/components/containment/table", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "検索・絞り込み"]},
@@ -72,10 +71,15 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "Communication", "label": "アラート/バナー", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
+  {"group": "Communication", "label": "ステータスメッセージ(アラート)", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
+  {"group": "Communication", "label": "バナー", "path": "/components/communication/banner", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "Communication", "label": "空状態・ローディング状態", "path": "/components/communication/empty-state", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
+  {"group": "Communication", "label": "空状態", "path": "/components/communication/empty-state", "principles": ["理解可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
+  {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
+  {"group": "インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
+  {"group": "インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
 ];
 /*__TAG_INDEX_END__*/
 
@@ -89,25 +93,13 @@ const POUR_TAGS = POUR.map((p) => p.tag);
 
 /* プロセスタグ(12のくくり)。2026-10-04に、ページごとにばらばらだった26種類のタグをまとめ直し、
    同日、軸を「利用者が何をしたいか(作業・場面)」にそろえて組み直した。
-   新しいページにタグを付けるときは、この12個から選ぶ(ここにないタグは下の「未定義のタグ」に表示される)。 */
-const CATEGORIES = [
-  { tag: "設計の原則・使い分け", icon: "◇", desc: "原則そのものや、似た部品の使い分けをまとめたページ" },
-  { tag: "デザインの基礎", icon: "Aa", desc: "色・文字・余白・角丸・影・動き・音など、見た目と動きの土台" },
-  { tag: "操作方法(タッチ・キーボード)", icon: "☝", desc: "タップ・ジェスチャー・キーボード・押せる大きさ" },
-  { tag: "入力・フォーム", icon: "✎", desc: "文字や値を入力し、送信するまで" },
-  { tag: "選択・切り替え", icon: "☑", desc: "選択肢から選ぶ・オン/オフを切り替える" },
-  { tag: "検索・絞り込み", icon: "⌕", desc: "探す・フィルタで絞り込む" },
-  { tag: "ナビゲーション", icon: "→", desc: "画面やページの間を移動する" },
-  { tag: "情報の整理・一覧", icon: "≡", desc: "情報をまとめる・並べる" },
-  { tag: "段階的に見せる", icon: "▸", desc: "必要になったときに、詳しい情報や操作を出す" },
-  { tag: "見つけやすさ・初めての案内", icon: "✦", desc: "機能に気づかせる・初めての人に使い方を伝える" },
-  { tag: "通知・状態表示", icon: "◔", desc: "お知らせ・進み具合・空の状態などを伝える" },
-  { tag: "エラー・確認", icon: "!", desc: "間違いを伝える・取り消す・重要な操作を確かめる" },
-];
+   新しいページにタグを付けるときは、この12個から選ぶ(ここにないタグは下の「未定義のタグ」に表示される)。
+   12個の定義は page-parts.jsx の TAG_LIST にある。 */
+const CATEGORIES = TAG_LIST; // 番号・アンカーと一緒に page-parts.jsx で定義(各ページのタグのリンクと共通)
 const CATEGORY_TAGS = CATEGORIES.map((c) => c.tag);
 
 /* サイドバーのグループを、サイトの3つの層にまとめる */
-const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group.startsWith("トークン") ? "トークン / ファウンデーション" : "コンポーネント");
+const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group.startsWith("トークン") || group === "インタラクション" ? "トークン / ファウンデーション・インタラクション" : "コンポーネント");
 
 const tagged = TAG_INDEX.filter((p) => p.principles.length || p.processes.length);
 const untagged = TAG_INDEX.filter((p) => !p.principles.length && !p.processes.length);
@@ -180,7 +172,7 @@ function CategoryGrid({ sel, onSelect }) {
         const on = sel === c.tag;
         return (
           <button key={c.tag} type="button" onClick={() => onSelect(c.tag)} aria-pressed={on} style={{ ...styles.catCard, ...(on ? styles.catCardOn : {}) }}>
-            <span style={{ ...styles.catIcon, ...(on ? styles.catIconOn : {}) }}>{c.icon}</span>
+            <span style={{ ...styles.catIcon, ...(on ? styles.catIconOn : {}) }}>{c.no}</span>
             <span style={{ minWidth: 0, textAlign: "left" }}>
               <span style={styles.catName}>{c.tag}<span style={styles.catCount}>{n}</span></span>
               <span style={styles.catDesc}>{c.desc}</span>
@@ -196,9 +188,9 @@ function CategoryGrid({ sel, onSelect }) {
 function TagResult({ sel }) {
   const isPrinciple = principleCounts.some(([t]) => t === sel);
   const hits = tagged.filter((p) => (isPrinciple ? p.principles : p.processes).includes(sel));
-  const byLayer = ["思想レイヤー", "トークン / ファウンデーション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
+  const byLayer = ["思想レイヤー", "トークン / ファウンデーション・インタラクション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
   return (
-    <div style={styles.resultBox} aria-live="polite">
+    <div id={tagAnchor(sel)} style={styles.resultBox} aria-live="polite">
       <div style={styles.resultHead}>
         <span style={isPrinciple ? styles.tagPrinciple : styles.tagProcess}>{sel}</span>
         <span style={styles.resultCount}>{hits.length}ページ</span>
@@ -226,11 +218,24 @@ function TagResult({ sel }) {
 }
 
 /* タグを選ぶと、そのタグを持つページを層ごとに並べる */
+const tagOfAnchor = (id) => [...CATEGORIES.map((c) => c.tag), ...POUR_TAGS].find((t) => tagAnchor(t) === id);
+
 function TagExplorer() {
-  const [sel, setSel] = useState(CATEGORIES[5].tag);
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
+  // ほかのページのタグ(/cross-view#c3 など)から来たときは、そのタグを選んだ状態で開く
+  const fromLink = typeof window !== "undefined" ? tagOfAnchor(window.__DSP_ANCHOR) : null;
+  const [sel, setSel] = useState(fromLink || CATEGORIES[5].tag);
+  const resultRef = useRef(null);
+  const scrollToResult = () => resultRef.current && resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  useEffect(() => {
+    if (fromLink) { window.__DSP_ANCHOR = null; setTimeout(scrollToResult, 50); }
+    const onAnchor = () => { const t = tagOfAnchor(window.__DSP_ANCHOR); window.__DSP_ANCHOR = null; if (t) { setSel(t); setTimeout(scrollToResult, 50); } };
+    window.addEventListener("dsp-anchor", onAnchor);
+    return () => window.removeEventListener("dsp-anchor", onAnchor);
+  }, []);
+  const select = (t) => { setSel(t); setTimeout(scrollToResult, 50); };
   const chip = ([t, n], principle) => (
-    <button key={t} type="button" onClick={() => setSel(t)} aria-pressed={!isStatic && sel === t}
+    <button key={t} type="button" onClick={() => select(t)} aria-pressed={!isStatic && sel === t}
       style={{ ...styles.chip, ...(principle ? styles.chipPrinciple : {}), ...(!isStatic && sel === t ? (principle ? styles.chipPrincipleOn : styles.chipOn) : {}) }}>
       {t}<span style={styles.chipCount}>{n}</span>
     </button>
@@ -238,7 +243,7 @@ function TagExplorer() {
   return (
     <div>
       <div style={styles.chipGroupLabel}>プロセスタグ(12のくくり)― 作業や場面から探す</div>
-      <CategoryGrid sel={isStatic ? null : sel} onSelect={setSel} />
+      <CategoryGrid sel={isStatic ? null : sel} onSelect={select} />
       <div style={styles.chipGroupLabel}>原則タグ ― WCAGのPOURから探す</div>
       <div style={styles.chipRow}>{POUR_TAGS.map((t) => chip([t, pourCount(t)], true))}{otherPrinciples.map((c) => chip(c, true))}</div>
       {undefinedTags.length > 0 && (
@@ -249,38 +254,32 @@ function TagExplorer() {
         // 静的HTMLの書き出し時は、すべてのタグの結果を並べる(押して切り替えられないため)
         [...CATEGORIES.map((c) => c.tag), ...POUR_TAGS, ...otherPrinciples.map(([t]) => t)].map((t) => <TagResult key={t} sel={t} />)
       ) : (
-        <TagResult sel={sel} />
+        <div ref={resultRef} style={{ scrollMarginTop: 16 }}><TagResult sel={sel} /></div>
       )}
     </div>
   );
 }
 
-/* 全ページのタグ一覧(折りたたみ) */
-function AllPagesTable() {
+/* 12のくくりの番号と内容の対応表。くくりの名前を押すと、下の「関係するページ」へ移る */
+function CategoryTable() {
   return (
-    <details style={styles.fold} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
-      <summary style={styles.foldSummary}>全ページのタグ一覧を開く({tagged.length}ページ。このページを除く)</summary>
-      <div style={styles.foldBody}>
-        {groups.map((g) => {
-          const pages = tagged.filter((p) => p.group === g);
-          if (!pages.length) return null;
-          return (
-            <div key={g} style={{ marginBottom: 12 }}>
-              <div style={styles.allGroup}>{g}</div>
-              {pages.map((p) => (
-                <div key={p.path} style={styles.allRow}>
-                  <a href={p.path} style={styles.allLink}>{p.label}</a>
-                  <span style={styles.resultTags}>
-                    {p.principles.map((t) => <span key={t} style={styles.miniPrinciple}>{t}</span>)}
-                    {p.processes.map((t) => <span key={t} style={styles.miniProcess}>{t}</span>)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-    </details>
+    <div style={styles.numTableScroll}>
+      <table style={styles.numTable}>
+        <thead>
+          <tr><th style={{ ...styles.numTh, width: 44 }}>No.</th><th style={styles.numTh}>くくり</th><th style={styles.numTh}>内容</th><th style={{ ...styles.numTh, width: 64, textAlign: "right" }}>ページ数</th></tr>
+        </thead>
+        <tbody>
+          {CATEGORIES.map((c) => (
+            <tr key={c.tag}>
+              <td style={{ ...styles.numTd, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#3C5A73" }}>{c.no}</td>
+              <td style={{ ...styles.numTd, fontWeight: 700 }}><a href={"/cross-view#" + c.id} style={styles.inlineLink}>{c.tag}</a></td>
+              <td style={styles.numTd}>{c.desc}</td>
+              <td style={{ ...styles.numTd, textAlign: "right", fontFamily: "'IBM Plex Mono', monospace" }}>{(processCounts.find(([t]) => t === c.tag) || [c.tag, 0])[1]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -335,6 +334,11 @@ export default function CrossViewPage() {
             <p style={styles.swatchNote}>このページは一次情報を持たず、各ページのタグを集計して自動で作っています。ページを追加したりタグを直したりすると、次のビルドでこの一覧にも反映されます。</p>
           </div>
 
+          <section style={styles.section}>
+            <h2 style={styles.diagramTitle}>12のくくり ― 番号と内容</h2>
+            <CategoryTable />
+          </section>
+
           <TrendSummary />
 
           <div style={styles.chartCard}>
@@ -347,11 +351,6 @@ export default function CrossViewPage() {
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>
             <p style={styles.diagramNote}>くくりやタグを押すと、それが付いたページを層ごとに並べます。カードの下の小さいタグは、そのページに付いているほかのタグです。数字はページ数です。</p>
             <TagExplorer />
-          </section>
-
-          <section style={styles.section}>
-            <h2 style={styles.diagramTitle}>全ページのタグ一覧</h2>
-            <AllPagesTable />
             {untagged.length > 0 && (
               <p style={styles.chartNote}>
                 タグが付いていないページ({untagged.length}): {untagged.map((p, i) => (<React.Fragment key={p.path}>{i > 0 && "・"}<a href={p.path} style={styles.inlineLink}>{p.label}</a></React.Fragment>))}。12のくくりから選んでタグを付けてください。
@@ -359,8 +358,9 @@ export default function CrossViewPage() {
             )}
           </section>
 
+
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(各ページのタグをビルド時に自動で集計)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。各ページのタグをビルド時に自動で集計)</span>
             <span>更新方針: タグは各ページ側で付ける → ビルド時にこの一覧を作り直す → 人が確認</span>
           </div>
         </div>
@@ -425,13 +425,11 @@ const styles = {
   resultTags: { display: "flex", flexWrap: "wrap", gap: 4, marginTop: 2 },
   miniPrinciple: { fontSize: 9.5, padding: "1px 6px", borderRadius: 3, background: "#454C78", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
   miniProcess: { fontSize: 9.5, padding: "1px 6px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
-  fold: { border: "1px solid #E1E3F0", borderRadius: 6, background: "#FFFFFF" },
-  foldSummary: { cursor: "pointer", padding: "10px 12px", fontSize: 12.5, fontWeight: 700, color: "#171B36" },
-  foldBody: { padding: "4px 12px 12px" },
-  allGroup: { fontSize: 11.5, fontWeight: 700, color: "#565D8A", borderBottom: "1px solid #E1E3F0", padding: "4px 0", marginBottom: 4 },
-  allRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "2px 12px", alignItems: "center", padding: "5px 0", borderBottom: "1px dashed #EEF0F7" },
-  allLink: { fontSize: 12, color: "#3A4FCF", textDecoration: "underline" },
   inlineLink: { color: "#3A4FCF", textDecoration: "underline" },
+  numTableScroll: { overflowX: "auto" },
+  numTable: { width: "100%", minWidth: 480, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" },
+  numTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "7px 10px", borderBottom: "1px solid #E1E3F0" },
+  numTd: { padding: "7px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.55, verticalAlign: "top" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

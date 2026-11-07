@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { NoData, TagLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
@@ -101,6 +102,64 @@ function PatternCards() {
   );
 }
 
+/* 4系列での扱い。name があれば、その系列での名前(リンク付き)。none は記載なし・未確認 */
+const AVAIL_SYSTEMS = ["Apple", "Google", "W3C", "NN group"];
+const AVAIL = [
+  { pattern: "プルダウン", cells: [
+    { name: "Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+    { name: "Exposed dropdown menu", url: "https://m3.material.io/components/menus/guidelines" },
+    { name: "Select-Only Combobox(APGの例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+    { name: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/" },
+  ] },
+  { pattern: "ドラムロール/ホイールピッカー", cells: [
+    { name: "Pickers(ホイール)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
+    { none: "記載なし" },
+    { none: "専用の型なし" },
+    { none: "未確認" },
+  ] },
+  { pattern: "リストボックス(常時展開)", cells: [
+    { none: "記載なし" },
+    { none: "記載なし" },
+    { name: "Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+    { name: "Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
+  ] },
+  { pattern: "コンボボックス(入力+選択)", cells: [
+    { name: "Combo boxes(macOSのみ)", url: "https://developer.apple.com/design/human-interface-guidelines/combo-boxes" },
+    { name: "Exposed dropdown menu(入力できる型)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Menu.md#exposed-dropdown-menu" },
+    { name: "Comboboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
+    { none: "未確認" },
+  ] },
+];
+
+function AvailabilityTable() {
+  return (
+    <section style={{ marginTop: 40 }}>
+      <h2 style={styles.availTitle}>4系列での扱い</h2>
+      <p style={styles.availNote}>◯の欄は、その系列での名前とページへのリンクです。「記載なし」は公式に該当するページがないもの、「未確認」はこちらでまだ確かめていないものです。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.availTable}>
+          <thead>
+            <tr><th style={styles.availTh}>パターン</th>{AVAIL_SYSTEMS.map((n) => (<th key={n} style={styles.availTh}>{n}</th>))}</tr>
+          </thead>
+          <tbody>
+            {AVAIL.map((r) => (
+              <tr key={r.pattern}>
+                <td style={{ ...styles.availTd, fontWeight: 700 }}>{r.pattern}</td>
+                {r.cells.map((c, i) => (
+                  <td key={i} style={styles.availTd}>
+                    {c.none ? <NoData>{c.none}</NoData> : (<><span style={{ color: "#2F7D6E", fontWeight: 700, marginRight: 4 }}>◯</span><a href={c.url} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>{c.name} ↗</a></>)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p style={styles.availNote}>AppleのCombo boxesはmacOSだけの部品です(iOS・iPadOSなどでは使えない)。GoogleのExposed dropdown menuは、選択肢から選ぶだけの型と、文字を入力できる型の両方を持つとしています。</p>
+    </section>
+  );
+}
+
 export default function SelectionSelectPatternsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -125,7 +184,7 @@ export default function SelectionSelectPatternsPage() {
           <p style={styles.subtitle}>単一選択を実現するUIパターンは、プルダウンだけではありません。代表的な4つのパターンをまとめました</p>
 
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンでしたが、単一選択を実現する方法はそれだけではありません。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられます。
             </p>
@@ -138,13 +197,14 @@ export default function SelectionSelectPatternsPage() {
           </div>
 
           <PatternCards />
+          <AvailabilityTable />
 
           <div style={styles.tagsRow}>
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(ドラムロール/ホイールピッカーはApple公式ページ本文を直接確認。リストボックス・コンボボックスはWAI-ARIA公式仕様を確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(ドラムロール/ホイールピッカーはApple公式ページ本文を直接確認。リストボックス・コンボボックスはWAI-ARIA公式仕様を確認)</span>
             <span>このページは4系列横断の比較表ではなく、代表的なパターンをまとめたギャラリー的な補助ページです。プルダウンの4系列比較は「セレクト(プルダウン)」ページを参照してください。</span>
           </div>
         </div>
@@ -154,6 +214,11 @@ export default function SelectionSelectPatternsPage() {
 }
 
 const styles = {
+  availTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 8px", color: "#171B36" },
+  availNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  availTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 12, color: "#2E3457", marginBottom: 10 },
+  availTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  availTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },

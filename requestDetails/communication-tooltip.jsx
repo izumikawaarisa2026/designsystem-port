@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ツールチップ」ページ。
@@ -30,20 +31,22 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines / UIKit ― Tooltip(Help Tag)+ TipKit(Tip)",
+    doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
+    term: "Tooltip(利用者向けの説明ではHelp tag)・TipKitのTip",
     color: "#C2542A",
     position: "ポインターホバーで現れる文字のみの「ヘルプタグ(プレーン相当)」に加え、タイトル・メッセージ・任意の画像・アクションボタンを持てる独立フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装上まったく別の2系統を持つ",
-    size: "具体的な数値基準は確認できていません。",
-    colorInfo: "色についての明確な規定は確認できていません。",
+    size: "文字数は60〜75文字までを目安にする(多言語化で長さが変わることにも注意)。macOS・visionOS",
+    colorInfo: <NoData>記載なし</NoData>,
     glossary: [
+      { term: "ポップオーバー(Popovers)", desc: "コントロールを押したときに、出現元を指す矢印とともに他の内容の上に現れる一時的なビュー(主にiPad向け)。ボタンなどの操作も置ける。不要になったら自動で閉じるのが基本で、専用の閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたときは作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
       { term: "ヘルプタグ(プレーン相当)", desc: "要素上へのポインターホバーで表示される、文字のみの短い説明。macOS等ポインター操作が可能な環境向け。" },
       { term: "TipKit の Tip(リッチ相当)", desc: "タイトル・メッセージ・任意の画像・アクションボタンを持てる、新機能の紹介などに使う独立フレームワーク。画面内に埋め込む「インライン形式」と、UI上に重ねる「ポップオーバー形式」の2つの見せ方がある。" },
     ],
     stance:
-      "ヘルプタグは、コンポーネントの使い方を短く説明する一時的な表示だとしています。一方、まだ気づかれていない新機能や、より速く目的を達成できる使い方を紹介する場合は、TipKitという別フレームワークのTipを使うべきだとしており、Tipの内容はタイトル・メッセージ・任意の画像で構成するとしています。Tipは機能を使うたびに表示したり、アプリの操作をガイドしたり、宣伝目的で使うべきではないと明記しています。",
+      "ヘルプタグは、コンポーネントの使い方を短く説明する一時的な表示だとしている。一方、まだ気づかれていない新機能や、より速く目的を達成できる使い方を紹介する場合は、TipKitという別フレームワークのTipを使うべきだとしており、Tipの内容はタイトル・メッセージ・任意の画像で構成するとしている。Tipは機能を使うたびに表示したり、アプリの操作をガイドしたり、宣伝目的で使うべきではないと明記している。",
     exceptions:
-      "TipKitのTipには、埋め込み先のレイアウトを押し広げて表示し周囲のUIを隠さない「インライン形式」(基本はこちらを優先すべきとしています)と、画面の上に重ねて表示する「ポップオーバー形式」(隠れる要素があっても問題ない場合向けで、この場合は矢印で対象を示せるため画像は含めない方がよいとしています)の2つがあります。ヘルプタグはポインターホバー前提のため、タッチ操作のみの環境(iPhoneなど)では基本的に使えません。",
-    accessibility: "―(このトピックには専用のアクセシビリティ記載を確認できていません。Tipは閉じるボタンのタップ、または機能の利用に伴うプログラム的な無効化のいずれかで消えるとしています)。",
+      "TipKitのTipには、埋め込み先のレイアウトを押し広げて表示し周囲のUIを隠さない「インライン形式」(基本はこちらを優先すべきとしている)と、画面の上に重ねて表示する「ポップオーバー形式」(隠れる要素があっても問題ない場合向けで、この場合は矢印で対象を示せるため画像は含めない方がよいとしている)の2つがある。ヘルプタグはポインターホバー前提のため、タッチ操作のみの環境(iPhoneなど)では基本的に使えない。",
+    accessibility: <span><NoData>記載なし。</NoData>Tipは閉じるボタンのタップ、または機能の利用に伴うプログラム的な無効化のいずれかで消えるとしている。</span>,
     scenarios: [
       "ポインター操作が可能な環境(Mac等)で、コンポーネントの使い方を短く補足したい時(ヘルプタグ)",
       "気づかれていない新機能や、より速い操作方法を紹介したい時(TipKitのTip)",
@@ -55,12 +58,16 @@ const SOURCES = [
       "機能を使うたびに表示したり、操作ガイドや宣伝目的でTipを乱用しない",
     ],
     searchHint: "help tag",
-    url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions",
-    urlSecondary: [
+    url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS",
+    refs: [
+      { label: "Offering help(Tooltips・Tips)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS" },
+      { label: "HIG Offering help ― Creating tips(TipKit)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#Creating-tips" },
+      { label: "HIG Popovers(メモ参照)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
+      { label: "UIKit: ヘルプタグ(ツールチップ)の実装", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
       { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
       { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
-    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。「Showing help tags...」ページ本文はSPAのため直接取得できず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。ツールチップ(ヘルプタグ)はHIG Offering helpの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -78,25 +85,26 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Tooltips(プレーン/リッチ)",
+    term: "Tooltip(プレーン・リッチ)",
     color: "#2F7D6E",
-    position: "アイコンのみのボタン等にラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。要素にすでに文字のラベルがある場合、プレーンツールチップは不要としています。",
-    size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしています。画面端にはみ出す場合は8dp刻みで位置を調整するとしています。最大幅の具体的なdp数値は、今回入手した公式ドキュメント本文では確認できていません。",
-    colorInfo: "色の値はデザイントークン経由で実装するとしていますが、具体的な配色の数値は本文中の表形式部分(今回のテキスト抽出では再現できませんでした)にあるとみられ、詳細は未確認です。",
+    position: "アイコンのみのボタン等にラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。要素にすでに文字のラベルがある場合、プレーンツールチップは不要としている。",
+    size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしている。画面端にはみ出す場合は8dp刻みで位置を調整するとしている。最大幅の具体的なdp数値は、今回入手した公式ドキュメント本文では確認できていない。",
+    colorInfo: <span>色の値はデザイントークンで実装する。<NoData>具体的な色の値は未確認。</NoData></span>,
     glossary: [
       { term: "プレーンツールチップ", desc: "アイコンのみのボタンなど、文字を持たない要素にラベルを補うための短いテキストのみのツールチップ。" },
       { term: "リッチツールチップ", desc: "小見出し・本文・最大2つのボタン・ハイパーリンクを任意で含められるツールチップ。定義や機能の値の説明など、プレーンより踏み込んだ情報提供に使う。" },
     ],
     stance:
-      "プレーンツールチップは、アイコンのみのボタンなど文字を持たない要素を簡潔に説明するためのものだとしています。リッチツールチップは、定義や機能の値の説明など、より長い説明に向いており、小見出しは1行程度に収め、ボタンは横並びにできるよう簡潔にすべきだとしています。重要な情報をツールチップだけに隠すべきではなく、その場合は割り込み型のダイアログを使うべきだとしています。",
+      "プレーンツールチップは、アイコンのみのボタンなど文字を持たない要素を簡潔に説明するためのものだとしている。リッチツールチップは、定義や機能の値の説明など、より長い説明に向いており、小見出しは1行程度に収め、ボタンは横並びにできるよう簡潔にすべきだとしている。重要な情報をツールチップだけに隠すべきではなく、その場合は割り込み型のダイアログを使うべきだとしている。",
     exceptions:
-      "リッチツールチップには2つの表示モードがあります。通常は対象領域から離れると1.5秒後に自動的に消える一時的な表示で、新しいツールチップを表示すると他の開いているツールチップは即座に閉じるとしています。一方、(1)親要素がクリックされた場合、または(2)ページ読み込み時に新機能を紹介する場合には「永続的なリッチツールチップ」となり、対象領域から離れても表示され続け、ユーザーが別のUI要素を操作するまで消えません(マウスオーバーでは表示されない)。アイコンボタンに常時表示させる使い方は避けるべきだとしています。",
+      "リッチツールチップには2つの表示モードがある。通常は対象領域から離れると1.5秒後に自動的に消える一時的な表示で、新しいツールチップを表示すると他の開いているツールチップは即座に閉じるとしている。一方、(1)親要素がクリックされた場合、または(2)ページ読み込み時に新機能を紹介する場合には「永続的なリッチツールチップ」となり、対象領域から離れても表示され続け、ユーザーが別のUI要素を操作するまで消えません(マウスオーバーでは表示されない)。アイコンボタンに常時表示させる使い方は避けるべきだとしている。",
     scenarios: [
       "アイコンのみのボタンなど、文字を持たない要素の意味を補いたい時(プレーン)",
       "定義や機能の値の説明など、より詳しい補足情報を提供したい時(リッチ)",
       "新機能の紹介など、ページ読み込み時に説明を表示し続けたい時(永続的なリッチツールチップ)",
     ],
     accessibility:
-      "操作可能(Operable) ― 支援技術の利用者が、ツールチップのメッセージを受け取れること、キーボードやスイッチ入力でツールチップを起動できることを求めています。堅牢(Robust) ― ツールチップにはTooltipロール(またはそれに類するロール)を設定すべきとしています。リッチツールチップ内のフォーカス順序はインタラクティブな要素間を上から下へ辿る一方、スクリーンリーダーやキーボードのフォーカスがツールチップ内に留まってしまわないようにし、ユーザーがページの残りを直線的に移動できる状態を保つべきだとしています。",
+      "操作可能(Operable) ― 支援技術の利用者が、ツールチップのメッセージを受け取れること、キーボードやスイッチ入力でツールチップを起動できることを求めている。堅牢(Robust) ― ツールチップにはTooltipロール(またはそれに類するロール)を設定すべきとしている。リッチツールチップ内のフォーカス順序はインタラクティブな要素間を上から下へ辿る一方、スクリーンリーダーやキーボードのフォーカスがツールチップ内に留まってしまわないようにし、ユーザーがページの残りを直線的に移動できる状態を保つべきだとしている。",
     useCases: [
       "アイコンのみのボタンなど文字を持たない要素には、プレーンツールチップでラベルを補う",
       "定義や機能の値の説明などより詳しい情報には、リッチツールチップ(小見出し・リンク・最大2つのボタン)を使う",
@@ -105,6 +113,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/tooltips/guidelines",
+    refs: [
+      { label: "Tooltips(プレーン/リッチ)", url: "https://m3.material.io/components/tooltips/guidelines" },
+    ],
     confirmedNote: "M3の公式ページ本文(m3.material.io「Tooltips」のガイドライン)で、プレーン/リッチの使い分け・配置(4dp/8dpの距離、画面端での8dp調整)・行動(1.5秒での自動消去、永続的なリッチツールチップの条件)・アクセシビリティ要件を2026-09に直接確認・反映。カラートークンの具体的な数値、最大幅の正確なdp数値は本文中の表形式部分が今回のテキスト抽出で再現できず未確認。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -122,25 +133,26 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
+    term: "tooltip(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
-    size: "ツールチップ専用の数値基準はありませんが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はトリガーとなる要素自体に適用されます。",
-    colorInfo: "ツールチップ専用の色基準はありませんが、1.4.11(非テキストのコントラスト)がツールチップの境界線等に適用され得ます。",
+    size: "ツールチップ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はトリガーとなる要素自体に適用される。",
+    colorInfo: "ツールチップ専用の色基準はないが、1.4.11(非テキストのコントラスト)がツールチップの境界線等に適用され得る。",
     glossary: [
       { term: "1.4.13 Content on Hover or Focus・レベルAA", desc: "ホバーやフォーカスで現れる内容について、ポインターを動かさずに消せる(Escなど)、内容の上にポインターを移しても消えない、利用者が離れるか消すまで勝手に消えない、の3点を求める基準。" },
       { term: "role=\"tooltip\"", desc: "ツールチップ要素に付与するARIAロール。ツールチップ自体はフォーカスを受け取らず、トリガー要素からaria-describedbyで参照される。" },
     ],
     stance:
-      "主な根拠は1.4.13(ホバー又はフォーカスで表示されるコンテンツ・レベルAA)です。ホバーやフォーカスで現れるツールチップは、①ポインターを動かさずに消せる(Escキーなど)、②ツールチップの上にポインターを移しても消えない、③利用者がホバーやフォーカスを外すか消すまで、勝手に消えない、の3点を満たす必要があります。実装の参考としては、APGのTooltipパターン(まだ検討中のパターン)が、role=\"tooltip\"とaria-describedbyでの関連付け、Escで閉じること、フォーカスはトリガー側に留めることを示しています。",
+      "主な根拠は1.4.13(ホバー又はフォーカスで表示されるコンテンツ・レベルAA)。ホバーやフォーカスで現れるツールチップは、①ポインターを動かさずに消せる(Escキーなど)、②ツールチップの上にポインターを移しても消えない、③利用者がホバーやフォーカスを外すか消すまで、勝手に消えない、の3点を満たす必要がある。実装の参考としては、APGのTooltipパターン(まだ検討中のパターン)が、role=\"tooltip\"とaria-describedbyでの関連付け、Escで閉じること、フォーカスはトリガー側に留めることを示している。",
     exceptions:
-      "ツールチップ自体はフォーカスを受け取らないとしています。リンクやボタンなど対話的な内容を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきだとしています。このパターン自体は、ワーキンググループ内でまだ完全な合意が得られていない検討中のパターンだとも明記されています。",
+      "ツールチップ自体はフォーカスを受け取らないとしている。リンクやボタンなど対話的な内容を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきだとしている。このパターン自体は、ワーキンググループ内でまだ完全な合意が得られていない検討中のパターンだとも明記されている。",
     scenarios: [
       "ホバーやフォーカスで補足を表示し、1.4.13の3点(消せる・上に移っても消えない・勝手に消えない)を満たしたい時",
       "キーボードフォーカスまたはマウスホバーで、短い遅延の後に補足を表示したい時",
       "対話的な内容(リンク・ボタン等)を含めたい場合は非モーダルダイアログを検討する",
     ],
     accessibility:
-      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 1.4.13は「知覚可能」の基準です。フォーカス・ホバー両方でのトリガーとEscapeキーでの終了は「操作可能」、aria-describedbyによるトリガーとの関連付けは「堅牢」に関わります。",
+      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 1.4.13は「知覚可能」の基準。フォーカス・ホバー両方でのトリガーとEscapeキーでの終了は「操作可能」、aria-describedbyによるトリガーとの関連付けは「堅牢」に関わる。",
     useCases: [
       "ポインターを動かさずに消せる(Escなど)・ツールチップの上にポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13)",
       "role=\"tooltip\"を使い、トリガー要素からaria-describedbyで参照する(APG)",
@@ -149,7 +161,10 @@ const SOURCES = [
     ],
     searchHint: "dismissible",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
-    urlSecondary: [{ label: "APG: Tooltip Pattern(検討中)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" }],
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.13 ホバー又はフォーカスで表示されるコンテンツ", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html" },
+      { kind: "apg", label: "APG: Tooltip Pattern(検討中)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -165,20 +180,21 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Tooltip Guidelines",
+    term: "Tooltip",
     color: "#7A4F7E",
     position: "補足的な説明にのみ使うべき、マイクロコンテンツ(短い自己完結型テキスト)。数値基準ではなく使い分けの指針",
-    size: "数値基準は明言していません。",
-    colorInfo: "背景とのコントラストを適度に確保すべきとしていますが、具体的な数値基準はありません。",
+    size: <NoData>数値基準なし</NoData>,
+    colorInfo: "背景とのコントラストを適度に確保すべきとしているが、具体的な数値基準はない。",
     stance:
-      "ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしています。タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではないとしています。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしています。",
+      <>ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしている。<Hl>タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではない</Hl>としている。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしている。</>,
     scenarios: [
       "慣れない入力項目の意味を説明したい時",
       "一見不自然に見える要求の理由を示したい時",
     ],
     exceptions:
-      "ツールチップはマウスホバーまたはキーボードフォーカスで表示すべきで、タッチスクリーンでは利用できないとしています。マウスだけでなくキーボードでもトリガーできるようにしないと、キーボード操作に依存するユーザーを排除してしまうと明確に指摘しています。複数の要素が密集している場合は、どの要素の説明かが分かるよう方向を示す矢印を使うべきだとしています。",
+      "ツールチップはマウスホバーまたはキーボードフォーカスで表示すべきで、タッチスクリーンでは利用できないとしている。マウスだけでなくキーボードでもトリガーできるようにしないと、キーボード操作に依存するユーザーを排除してしまうと明確に指摘している。複数の要素が密集している場合は、どの要素の説明かが分かるよう方向を示す矢印を使うべきだとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、補足情報としての使いどころに関する指針です。「マウスのみでなくキーボードでもトリガー可能にする」という指摘は、W3Cのフォーカストリガー要件と方向性が一致します。",
+      "根拠となる原則 ― POURのような適合区分ではなく、補足情報としての使いどころに関する指針。「マウスのみでなくキーボードでもトリガー可能にする」という指摘は、W3Cのフォーカストリガー要件と方向性が一致する。",
     useCases: [
       "慣れない入力項目の説明や、一見不自然な要求の理由を補足する(タスク必須の情報には使わない)",
       "マウスホバーだけでなくキーボードフォーカスでもトリガーできるようにする",
@@ -186,6 +202,9 @@ const SOURCES = [
     ],
     searchHint: "microcontent",
     url: "https://www.nngroup.com/articles/tooltip-guidelines/",
+    refs: [
+      { label: "Tooltip Guidelines", url: "https://www.nngroup.com/articles/tooltip-guidelines/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -219,7 +238,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -319,6 +338,52 @@ function PlainRichTable() {
   );
 }
 
+/* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
+const TT_VS_POPUP = [
+  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマホのアプリでも)"],
+  ["出すきっかけ", "マウスを乗せる・キーボードでフォーカスする", "押す(タップ・クリック)"],
+  ["消えるとき", "決められた範囲からポインターが離れたとき", "閉じるを押すか、画面のほかの場所を押したとき"],
+  ["組み合わせる部品", "アイコン・文字のリンク・ボタン・画像", "「?」や「i」のアイコン"],
+  ["内容", "短い補足", "短い補足"],
+];
+
+function TooltipVsPopupTip() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
+      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えません</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使います。NN groupは、この2つを次のように区別しています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvpTable}>
+          <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
+          <tbody>{TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしています。一部の部品だけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めています(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
+    </section>
+  );
+}
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "アイコンだけのボタンなど、見ただけでは分かりにくい部品の名前や働きを補う" },
+  { k: "よく使われる場面", v: "ツールバーのアイコンボタンの名前、略語や記号の説明" },
+  { k: "似た部品との違い", v: <>押して開く詳しい説明や操作を含むなら<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>などのポップオーバー。必ず読ませたい情報は画面に直接書く</> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "タッチの画面(スマートフォン)で、ツールチップを使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "使う。デスクトップではポインターを重ねる、モバイルでは要素を長押しすると出る" },
+      { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
+      { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)とvisionOSのもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
+    ],
+    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要な部品に「?」などの印を置き、押すと開くヒントにするのが確実です(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにします(W3C 1.4.13)。",
+  },
+];
+
 export default function CommunicationTooltipPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -344,16 +409,24 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <h1 style={styles.title}>ツールチップ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ホバー/フォーカスで一時的に表示する補足説明(ツールチップ)をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><TooltipSwatch /></>}
+            imageNote={<>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <TooltipSwatch />
-            <p style={styles.swatchNote}>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
+
+
+          <PlainRichTable />
+
+          <TooltipVsPopupTip />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               ツールチップは、「スナックバー・トースト」「アラート」などの他の通知系コンポーネントと違い、<strong>ユーザーの操作(ホバー/フォーカス)によって出現し、操作をやめると消える</strong>という点が本質的な特徴です。クリックやタップで開くものではなく、ユーザーが求めたときにだけ現れる「オンデマンドの補足情報」だという理解で、Nielsen Norman GroupとW3Cの見解が一致しています。
             </p>
@@ -370,9 +443,6 @@ export default function CommunicationTooltipPage() {
               Appleにも「リッチ」に相当する概念があり、<strong>TipKitという独立フレームワークのTip</strong>がそれにあたります。ただしGoogleのように同一コンポーネントの拡張版ではなく、<strong>別フレームワークとして実装が分かれている</strong>点が特徴で、用途も「機能の値を説明する」よりは<strong>「気づかれていない新機能を紹介する」</strong>ことに寄っています。一方でW3CとNielsen Norman Groupは、どちらも独自の「リッチツールチップ」概念を持たず、<strong>複雑・対話的な内容はツールチップという枠自体に持ち込むべきではない</strong>という立場で一致しており、GoogleとAppleの「拡張路線」とは対照的です。
             </p>
           </div>
-
-          <PlainRichTable />
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -382,13 +452,14 @@ export default function CommunicationTooltipPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -397,18 +468,11 @@ export default function CommunicationTooltipPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -416,7 +480,6 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -426,8 +489,6 @@ export default function CommunicationTooltipPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -435,43 +496,44 @@ export default function CommunicationTooltipPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["段階的に見せる", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleのツールチップはHIG Offering helpの「macOS, visionOS」の節を2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。
@@ -484,10 +546,16 @@ export default function CommunicationTooltipPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
+  tvpNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvpTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvpTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvpTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -497,7 +565,7 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -528,7 +596,7 @@ const styles = {
   prTableNameCell: { fontWeight: 600, fontSize: 12.5, color: "#171B36", padding: "10px 12px", borderBottom: "1px solid #E1E3F0", borderRight: "1px solid #E1E3F0", verticalAlign: "top", whiteSpace: "nowrap" },
   prTableCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", padding: "10px 12px", borderBottom: "1px solid #E1E3F0", borderRight: "1px solid #E1E3F0", verticalAlign: "top" },
   prTableNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.7, margin: "10px 0 0" },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -539,7 +607,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

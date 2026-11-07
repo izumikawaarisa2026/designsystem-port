@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / スライダー」ページ。
@@ -33,18 +34,19 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sliders",
+    term: "Slider",
     color: "#C2542A",
     position: "最小値〜最大値の範囲からおおよその値を選ぶ水平(または垂直)トラック",
     size:
-      "数値によるサイズ規定は見当たりません。トラックやつまみの見た目は自由にカスタマイズできます(配置の慣習については下記「基本方針」を参照)。",
+      <span><NoData>数値基準なし。</NoData>トラックやつまみの見た目は自由にカスタマイズできる(配置の慣習については下記「基本方針」を参照)。</span>,
     colorInfo:
-      "色についての明確な規定はこのページには見当たりません。",
+      <NoData>記載なし</NoData>,
     stance:
-      "スライダーは、つまみ(thumb)を最小値と最大値の間で調整できる水平のトラックだとしています。見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側、最大値は末尾側/上側に置くという、人々が慣れ親しんだ方向は守るべきとしています。",
+      "スライダーは、つまみ(thumb)を最小値と最大値の間で調整できる水平のトラックだとしている。見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側、最大値は末尾側/上側に置くという、人々が慣れ親しんだ方向は守るべきとしている。",
     exceptions:
-      "特に広い範囲の値を扱う場合は、対応するテキストフィールドやステッパーを併設し、正確な値を確認・入力できるようにするとよいとしています。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしています(HIG Slidersの「iOS, iPadOS」の節)。",
+      <>特に広い範囲の値を扱う場合は、<Hl>対応するテキストフィールドやステッパーを併設し</Hl>、正確な値を確認・入力できるようにするとよいとしている。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしている(HIG Slidersの「iOS, iPadOS」の節)。</>,
     accessibility:
-      "―(このページにはアクセシビリティ・タップ領域に関する直接の記載は見当たりません。一般的なコントロールとして、キーボード操作性などの基準は他系列(WCAG)を参照してください。)",
+      <span><NoData>記載なし。</NoData>一般的なコントロールとして、キーボード操作性などの基準はW3C欄を参照。</span>,
     useCases: [
       "明るさなど、おおよその値でよい設定を調整する(iOS/iPadOSの音量は例外で、専用のボリュームビューを使う)",
       "広い範囲の値を扱う場合はテキストフィールドやステッパーを併設する",
@@ -52,6 +54,9 @@ const SOURCES = [
     ],
     searchHint: "minimum and maximum sides of sliders",
     url: "https://developer.apple.com/design/human-interface-guidelines/sliders",
+    refs: [
+      { label: "Sliders", url: "https://developer.apple.com/design/human-interface-guidelines/sliders" },
+    ],
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
         <line x1="4" y1="10" x2="116" y2="10" stroke="#F0DACB" strokeWidth="4" strokeLinecap="round" />
@@ -65,32 +70,35 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Sliders(使用法・アクセシビリティ)",
+    term: "Slider(標準・中央揃え・範囲指定)",
     color: "#2F7D6E",
     position: "標準・中央揃え・範囲指定の3種類。横/縦・埋め込みアイコンに対応(サイズの詳細は下記「サイズ」を参照)",
     size:
-      "つまみ(handle)の既定タップ領域は48dpです。チェックボックス・ラジオボタン・スイッチと同じ48dp基準です。5つのサイズバリエーションを持つとしていますが、具体的な各サイズのdp数値はこのテキストに含まれておらず未確認です。トラック・つまみの見た目サイズ(dp単位)自体も、m3.material.ioのspecsページ本文がSPAのため未確認です。",
+      "つまみ(handle)の既定タップ領域は48dp。チェックボックス・ラジオボタン・スイッチと同じ48dp基準。5つのサイズバリエーションを持つとしているが、具体的な各サイズのdp数値はこのテキストに含まれておらず未確認。トラック・つまみの見た目の大きさ(dp)も未確認。",
     colorInfo:
-      "アクティブなトラック(最小値からつまみまで)と非アクティブなトラック(つまみから最大値まで)を区別して塗り分けるとしています。非アクティブなトラックの端(エンドストップ)は、背景との間で少なくとも3:1のコントラスト比を確保すべきとしており、非アクティブなトラック自体が既にこの比率を満たしていれば、エンドストップは省略できるとしています。",
+      "アクティブなトラック(最小値からつまみまで)と非アクティブなトラック(つまみから最大値まで)を区別して塗り分けるとしている。非アクティブなトラックの端(エンドストップ)は、背景との間で少なくとも3:1のコントラスト比を確保すべきとしており、非アクティブなトラック自体が既にこの比率を満たしていれば、エンドストップは省略できるとしている。",
     glossary: [
       { term: "アクティブ/非アクティブなトラック", desc: "スライダーの帯(トラック)のうち、「最小値からつまみまで」の選択済み部分をアクティブ、「つまみから最大値まで」の未選択部分を非アクティブと呼ぶ区別。" },
       { term: "停止表示器(ストップインジケーター)", desc: "スライダー上で選べる既定の値を示す小さな目盛りマーカー。つまみを離すと最も近い停止表示器の位置に自動的にスナップする。" },
     ],
     stance:
-      "スライダーには標準・中央揃え・範囲指定の3種類があります。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしています。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしています。",
+      <>スライダーには<Hl>標準・中央揃え・範囲指定の3種類</Hl>がある。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしている。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしている。</>,
     exceptions:
-      "停止表示器(既定の選択可能値を示すマーカー)は、多く配置しすぎると視覚的に混雑し値の調整が難しくなるため避けるべきとしています。",
+      "停止表示器(既定の選択可能値を示すマーカー)は、多く配置しすぎると視覚的に混雑し値の調整が難しくなるため避けるべきとしている。",
     icons:
-      "M/L/XLサイズの標準スライダーには、トラック内に埋め込みアイコン(制御対象を示すもの)を含められますが、XS/Sサイズには追加すべきではないとしています。アクティブなトラックにアイコンを表示するスペースが足りない場合(値が低い場合など)は、アイコンを非アクティブ側に移動すべきとし、ゼロ値でアイコンを入れ替える(例: 音量アイコン→ミュートアイコン)ことも検討すべきとしています。",
+      "M/L/XLサイズの標準スライダーには、トラック内に埋め込みアイコン(制御対象を示すもの)を含められるが、XS/Sサイズには追加すべきではないとしている。アクティブなトラックにアイコンを表示するスペースが足りない場合(値が低い場合など)は、アイコンを非アクティブ側に移動すべきとし、ゼロ値でアイコンを入れ替える(例: 音量アイコン→ミュートアイコン)ことも検討すべきとしている。",
     accessibility:
-      "操作可能(Operable) ― 最初のフォーカスはつまみ(主要な操作要素)に当たり、矢印キーなどのキーボードナビゲーションで値を調整できるべきとしています(タップ領域の数値は上記「サイズ」を参照)。タップ・ドラッグ時やカーソルのホバー・クリック時につまみの幅が変化し、現在値が表示されることで操作のフィードバックを与えるとしています。",
+      "操作可能(Operable) ― タップ領域の数値は上記「サイズ」を参照。タップ・ドラッグ時やカーソルのホバー・クリック時につまみの幅が変化し、現在値が表示されることで操作のフィードバックを与えるとしている。",
     useCases: [
       "標準・中央揃え・範囲指定の3種類を用途に応じて使い分ける(詳しくは下記「スライダーの種類と使い分け」を参照)",
       "M/L/XLサイズでは埋め込みアイコンで制御対象を示す(詳しくは下記「アイコン」を参照)",
-      "キーボード操作(矢印キーなど)で値を調整できるようにする",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/sliders/guidelines",
-    urlSecondary: [{ label: "Specs(最新版)", url: "https://m3.material.io/components/sliders/specs" }],
+    refs: [
+      { label: "Sliders(使用法・アクセシビリティ)", url: "https://m3.material.io/components/sliders/guidelines" },
+      { label: "Specs(最新版)", url: "https://m3.material.io/components/sliders/specs" },
+    ],
     confirmedNote: "使用法・トラック・値の表示・停止表示器・埋め込みアイコン・ユースケース・インタラクションとスタイル・フォーカスとナビゲーション・色のコントラストの各セクションは2026-09時点で確認済み。各サイズの具体的なdp数値やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
@@ -105,28 +113,29 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.1.1 / 2.5.7 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "slider(WAI-ARIAのロール)/ HTMLの input type=\"range\"",
     color: "#A3821F",
     position: "キーボード操作性を明確に要求(レベルA)",
     size:
-      "スライダー専用のサイズ規定はありません。WCAG 2.2のターゲットサイズ基準(2.5.8・レベルAAは24×24 CSSピクセル、2.5.5・レベルAAAは44×44 CSSピクセル。どちらも例外あり)では、スライダーのように位置で値を選ぶ部品は、つまみだけでなく全体を1つのターゲットとして扱います(Understanding 2.5.8の注記で、スライダーが例として挙げられています)。",
+      "スライダー専用のサイズ規定はない。WCAG 2.2のターゲットサイズ基準(2.5.8・レベルAAは24×24 CSSピクセル、2.5.5・レベルAAAは44×44 CSSピクセル。どちらも例外あり)では、スライダーのように位置で値を選ぶ部品は、つまみだけでなく全体を1つのターゲットとして扱う(Understanding 2.5.8の注記で、スライダーが例として挙げられている)。",
     colorInfo:
-      "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界は、周囲との間で3:1以上のコントラスト比を確保すべきとしています。",
+      "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。",
     stance:
-      "スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしています(2.1.1・レベルA)。矢印キーなどで値を増減できるようにするのが代表的な実装です。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、タップやクリックだけで操作できる方法を求めます。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げています。",
+      <>スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、<Hl>タップやクリックだけで操作できる方法を求める</Hl>。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。</>,
     exceptions:
-      "自由な手書きや水彩画のような、操作の軌跡そのものに意味がある「経路依存の入力」は、この基準の対象外としています。",
+      "自由な手書きや水彩画のような、操作の軌跡そのものに意味がある「経路依存の入力」は、この基準の対象外としている。",
     accessibility:
-      "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、キーボードアクセシビリティ(2.1)とドラッグ操作(2.5.7)の達成基準です。加えてターゲットサイズ(2.5)・非テキストのコントラスト(1.4.11、知覚可能)も関わります。",
+      "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、キーボードアクセシビリティ(2.1)とドラッグ操作(2.5.7)の達成基準。加えてターゲットサイズ(2.5)・非テキストのコントラスト(1.4.11、知覚可能)も関わる。",
     useCases: [
-      "矢印キーなどキーボードだけで値を増減できるようにする",
       "ドラッグしなくても操作できるようにする(トラックをタップするとつまみが移動する、数値の入力欄を横に置く、など。2.5.7)",
       "経路依存の入力(手書きなど)は対象外とする例外を理解する",
     ],
     searchHint: "path-dependent",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
-    urlSecondary: [
-      { label: "2.5.7 Dragging Movements", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
-      { label: "2.5.8 Target Size (Minimum)", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
+      { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -143,17 +152,18 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Slider Design: Rules of Thumb",
+    term: "Slider",
     color: "#7A4F7E",
     position: "正確な値の指定には不向き、おおよその値でよい場面に限定(数値基準ではなく使い分けの指針)",
     size:
-      "数値基準は明言していません(ラベルの配置については下記「例外・許容ケース」を参照)。",
-    colorInfo: "色についての数値基準はありません。",
+      "数値基準は明言していない(ラベルの配置については下記「例外・許容ケース」を参照)。",
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしています。年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべきとしています。",
+      <>スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしている。<Hl>年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべき</Hl>としている。</>,
     exceptions:
-      "スライダーやそのつまみの現在値を示すラベルは、指で隠れてしまわないよう、つまみの下ではなく上または横に配置すべきとしています。範囲が広い、または密になるほど、正確な値を選びにくくなる点にも注意が必要だとしています。",
+      "スライダーやそのつまみの現在値を示すラベルは、指で隠れてしまわないよう、つまみの下ではなく上または横に配置すべきとしている。範囲が広い、または密になるほど、正確な値を選びにくくなる点にも注意が必要だとしている。",
     accessibility:
-      "根拠となる原則 ― POURのような適合区分ではなく、操作の正確さ(操舵の法則)に基づく設計根拠です。",
+      "根拠となる原則 ― POURのような適合区分ではなく、操作の正確さ(操舵の法則)に基づく設計根拠。",
     useCases: [
       "正確な値より、おおよその値で十分な設定を調整する",
       "年齢や体重のような正確な数値が求められる場面では使わない",
@@ -161,6 +171,9 @@ const SOURCES = [
     ],
     searchHint: "approximate value is good enough",
     url: "https://www.nngroup.com/articles/gui-slider-controls/",
+    refs: [
+      { label: "Slider Design: Rules of Thumb", url: "https://www.nngroup.com/articles/gui-slider-controls/" },
+    ],
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
         <line x1="4" y1="10" x2="116" y2="10" stroke="#E7DCE8" strokeWidth="4" strokeLinecap="round" />
@@ -192,7 +205,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -414,6 +427,73 @@ function ValueDisplaySection() {
   );
 }
 
+/* スライダーに向いているもの・向いていないもの(4系列の内容をまとめたAI解釈。出典の系列を括弧で示す) */
+const FIT_GOOD = [
+  { t: "大まかな値でよい調整", ex: "音量・明るさ・画像フィルターの強さ", src: "Google・NN group" },
+  { t: "動かしながら結果をすぐ見たい調整", ex: "写真の明るさ、文字の大きさのプレビュー", src: "Google(値をすぐ反映し、効果を見ながら選べるようにする)" },
+  { t: "範囲の指定(2つのつまみ)", ex: "価格帯、出発の時間帯", src: "Google(範囲スライダー)・NN group" },
+  { t: "0を中心にした±の調整", ex: "露出・色温度の補正", src: "Google(中央スライダー)" },
+];
+const FIT_BAD = [
+  { t: "正確な値が必要", ex: "体重・金額・分単位の時刻", alt: "入力欄(テキストフィールド)", src: "NN group" },
+  { t: "範囲が広い、刻みが細かい", ex: "0.1刻みの点数、広い範囲の数値", alt: "入力欄やステッパーを添える", src: "NN group・Apple" },
+  { t: "評価をつける", ex: "商品やお店の評価", alt: "タップできる星", src: "NN group" },
+  { t: "縦向きの範囲スライダー", ex: "縦に置いた価格帯の指定", alt: "横向きにする", src: "Google(負担が大きくなる)" },
+  { t: "iOS・iPadOSの音量の調整", ex: "アプリ内の再生音量", alt: "システムの音量ビュー", src: "Apple" },
+];
+
+function FitSection() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>スライダーに向いているもの・向いていないもの</h2>
+      <div style={styles.fitGrid}>
+        <div style={{ ...styles.fitCol, borderTopColor: "#2F7D6E" }}>
+          <div style={{ ...styles.fitHead, color: "#2F7D6E" }}>◯ 向いている</div>
+          {FIT_GOOD.map((f) => (
+            <div key={f.t} style={styles.fitItem}>
+              <div style={styles.fitTitle}>{f.t}</div>
+              <div style={styles.fitText}>例: {f.ex}</div>
+              <div style={styles.fitSrc}>{f.src}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ ...styles.fitCol, borderTopColor: "#C0503F" }}>
+          <div style={{ ...styles.fitHead, color: "#C0503F" }}>✕ 向いていない</div>
+          {FIT_BAD.map((f) => (
+            <div key={f.t} style={styles.fitItem}>
+              <div style={styles.fitTitle}>{f.t}</div>
+              <div style={styles.fitText}>例: {f.ex} → 代わりに<strong>{f.alt}</strong></div>
+              <div style={styles.fitSrc}>{f.src}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p style={styles.fitNote}>使う場合も、値のラベルは指で隠れないよう、スライダーの上か横に出します(NN group)。正確な値も選べるようにしたいときは、入力欄を並べて置き、互いの値をそろえます(Google・Apple)。各系列の内容をまとめたAI解釈で、出典の系列を各項目の下に示しています。</p>
+    </section>
+  );
+}
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "つまみを横に動かして、範囲の中から値を選ぶ部品です。";
+const ABOUT = [
+  { k: "目的・役割", v: "正確な数値より、大まかな量や程度を直感的に調整してもらう" },
+  { k: "よく使われる場面", v: "音量・明るさの調整、価格帯の絞り込み" },
+  { k: "似た部品との違い", v: <>正確な数値を入れてもらうなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>や<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink></> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "正確な値を選ぶ場面でも、スライダーを使う?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "使わない。年齢や体重のように正確な値が要る場面には向かない。おおよその値でよい場面に使う" },
+      { who: "Apple", color: "#C2542A", t: "使ってよいが、広い範囲の値を扱うなら、数値の入力欄やステッパーを横に置いて正確な値を確かめ・入れられるようにする" },
+      { who: "W3C", color: "#A3821F", t: "向き不向きは定めないが、ドラッグせずにタップやクリックだけでも操作できる方法を求める(2.5.7・AA)。例として数値の入力欄を横に置く方法を挙げている" },
+    ],
+    tip: "正確な値が要るならまず入力欄を使い、スライダーを使うときも入力欄を横に置く、という形にすると、3系列のどれにも沿います。入力欄はW3Cの2.5.7の「ドラッグしない操作」にもなります。",
+  },
+];
+
 export default function SelectionSliderPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -439,29 +519,34 @@ export default function SelectionSliderPage() {
           </div>
 
           <h1 style={styles.title}>スライダー</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、スライダーの適切な使いどころ・サイズ・色・操作性をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><SliderSwatch /></>}
+            imageNote={<>最小値〜最大値の範囲を、つまみの位置でおおよそ表す。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <SliderSwatch />
-            <p style={styles.swatchNote}>最小値〜最大値の範囲を、つまみの位置でおおよそ表す。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
+          <FitSection />
+
+
+
+          <SliderTypesSection />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは<strong>実践的な使いどころのガイダンス</strong>を示していますが、WCAGは<strong>操作方法(キーボード操作性)</strong>に焦点を当てた基準を定めています。
+              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは実践的な使いどころを示し、WCAGは<strong>キーボードやドラッグ以外の操作でも使えること</strong>に焦点を当てた基準を定めています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「正確な値が重要な場面ではスライダーを避けるべき」</strong>と明確に述べており、Appleが提案する「テキストフィールドやステッパーの併設」は、この弱点を補う具体的な解決策と言えます。<strong>Googleが公式に定義する「標準・中央揃え・範囲指定」の3種類</strong>は、他の3系列にはない独自の分類です。
+              <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれます(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類です。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準です。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めています。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応です。
             </p>
           </div>
-
-          <SliderTypesSection />
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -471,13 +556,14 @@ export default function SelectionSliderPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -486,18 +572,11 @@ export default function SelectionSliderPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -505,7 +584,6 @@ export default function SelectionSliderPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -515,8 +593,6 @@ export default function SelectionSliderPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>デザインイメージ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
@@ -524,32 +600,33 @@ export default function SelectionSliderPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+                <div style={styles.labelCell}>位置づけ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アイコン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.icons || <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -558,12 +635,12 @@ export default function SelectionSliderPage() {
           <SizeInfographic />
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["選択・切り替え", "入力・フォーム"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSlidersページ本体へのリンクです(セクション単位の実アンカーは未確認)。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(各サイズのdp数値など)はまだ確認できていません。
@@ -576,10 +653,20 @@ export default function SelectionSliderPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
+  fitGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12 },
+  fitCol: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "12px 14px" },
+  fitHead: { fontSize: 13, fontWeight: 700, marginBottom: 8 },
+  fitItem: { padding: "7px 0", borderBottom: "1px solid #EEF0F7" },
+  fitTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
+  fitText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 2 },
+  fitSrc: { fontSize: 10, color: "#7E86AC", marginTop: 2 },
+  fitNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -589,7 +676,7 @@ const styles = {
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -609,7 +696,7 @@ const styles = {
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
-  infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 22 },
+  infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 40 },
   infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
   infographicLegendRow: { display: "flex", alignItems: "flex-start", gap: 8 },
   infographicDot: { width: 9, height: 9, borderRadius: "50%", flexShrink: 0, marginTop: 3 },
@@ -626,7 +713,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -637,7 +724,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

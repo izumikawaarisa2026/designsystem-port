@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / 検索フィールド」ページ。
@@ -50,15 +51,16 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Search fields",
+    term: "Search field",
     color: "#C2542A",
     position: "検索アイコン・クリアボタン・プレースホルダーを持つ、編集できるテキストフィールド。スコープバーとトークンで検索範囲を絞り込める。iOSでは入り口をタブ・ツールバー・インラインの3か所から選ぶ",
-    size: "検索フィールド自体の寸法(pt)は、HIGの検索フィールドのページには示されていません。",
-    colorInfo: "色についての規定は、検索フィールドのページにはありません。",
+    size: "検索フィールド自体の寸法(pt)は、HIGの検索フィールドのページには示されていない。",
+    colorInfo: "色についての規定は、検索フィールドのページにはない。",
     stance:
-      "HIGは検索フィールドを、検索アイコン・クリアボタン・プレースホルダーを表示する、編集できるテキストフィールドとしています。プレースホルダーで何を検索できるかを伝えること、できれば入力と同時に検索を始めて結果を絞り込み続けること、検索を始める前は最近の検索を、入力中は予測した候補を表示することを勧めています。結果は関連の高いものから並べ、必要なら分類し、スコープバーで絞り込めるようにするとしています(ページ本文を直接確認、2026-09)。",
+      "HIGは検索フィールドを、検索アイコン・クリアボタン・プレースホルダーを表示する、編集できるテキストフィールドとしている。プレースホルダーで何を検索できるかを伝えること、できれば入力と同時に検索を始めて結果を絞り込み続けること、検索を始める前は最近の検索を、入力中は予測した候補を表示することを勧めている。結果は関連の高いものから並べ、必要なら分類し、スコープバーで絞り込めるようにするとしている(ページ本文を直接確認、2026-09)。",
     exceptions:
-      "検索専用のエリア(タブなど)に移ったときは、すぐ検索フィールドにフォーカスを当てるとよいとしています。ただしiPadで画面上のキーボードしか使えない場合は、キーボードが急に画面を覆わないよう、フォーカスを当てない方がよいとしています。watchOSでは、検索フィールドをタップすると画面全体の文字入力に切り替わり、キャンセルか検索を押すまで戻りません。",
-    accessibility: "―(検索フィールドのページには、専用のアクセシビリティの記載はありません)。",
+      "検索専用のエリア(タブなど)に移ったときは、すぐ検索フィールドにフォーカスを当てるとよいとしている。ただしiPadで画面上のキーボードしか使えない場合は、キーボードが急に画面を覆わないよう、フォーカスを当てない方がよいとしている。watchOSでは、検索フィールドをタップすると画面全体の文字入力に切り替わり、キャンセルか検索を押すまで戻らない。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "プレースホルダーで、検索できる内容や範囲を伝える",
       "検索前は最近の検索、入力中は予測した候補を表示する",
@@ -66,7 +68,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Search fields", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices" },
       { label: "Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
       { label: "iOS(入り口の3つの配置)", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#iOS" },
     ],
@@ -87,21 +90,22 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Search(Search bar / Search view)",
+    term: "Search(Search bar・Search view)",
     color: "#2F7D6E",
     position: "画面上部の「検索バー」と、選択すると開く「検索ビュー」をまとめて「Search」と呼ぶ。見た目は包含(Contained、推奨)と分割(Divided、従来型)の2スタイル、候補・結果の出し方は全画面とドッキングの2レイアウト",
     size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンはタップ領域48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
-    colorInfo: "検索バーのコンテナは「surface container high」の色ロールを使います。背景が白や単色でもバーがはっきり見えるようにするためで、背景と1段階以上離れたsurface containerのロールを使い、バーを背景に溶け込ませないよう求めています。M3の既定では影(エレベーション)を付けません。",
+    colorInfo: "検索バーのコンテナは「surface container high」の色ロールを使う。背景が白や単色でもバーがはっきり見えるようにするためで、背景と1段階以上離れたsurface containerのロールを使い、バーを背景に溶け込ませないよう求めている。M3の既定では影(エレベーション)を付けない。",
     glossary: [
       { term: "Search bar / Search view", desc: "Search barは画面上部に置く検索の入り口。選択するとSearch view(候補・結果を表示する画面)が開く。M3 Expressiveで、両者をまとめて「Search(検索)」と呼ぶようになった。" },
       { term: "包含(Contained)/分割(Divided)", desc: "包含は、塗りつぶしたコンテナで検索バーと候補・結果をひとまとめにし、フォーカスの前後でバーの形を変えないスタイル(M3 Expressiveで追加、推奨)。分割は、検索バーと候補・結果の間を区切り線で分ける従来(ベースライン)のスタイル。" },
       { term: "全画面/ドッキング", desc: "全画面は、候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは、検索バーの下にリストを出し、残りの画面を幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      "検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされています。入り口は、特定の画面の中を検索する「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つから選びます。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      <>検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。</>,
     exceptions:
-      "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要があります。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置けます。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしています。",
+      "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要がある。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしている。",
     accessibility:
-      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 検索バーのアクセシビリティラベルはヒントテキストと一致させ、役割はAndroidではテキストフィールド、iOSでは検索フィールドとして伝えます。候補や結果が表示されたらスクリーンリーダーで知らせ、キーボードではTab/Shift+Tabで要素の間を移動、Space/Enterで入力を始め、矢印キーで結果の間を移動できるようにするとしています。",
+      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 検索バーのアクセシビリティラベルはヒントテキストと一致させ、役割はAndroidではテキストフィールド、iOSでは検索フィールドとして伝える。候補や結果が表示されたらスクリーンリーダーで知らせるとしている。",
     useCases: [
       "特定の画面内の検索は検索バー、アプリ全体の主要機能なら検索アプリバー、補助的な操作なら検索アイコンボタンを使う",
       "スマートフォンでは全画面、中〜広い画面ではドッキングで候補・結果を表示する",
@@ -109,11 +113,12 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/search/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Search(Search bar / Search view)", url: "https://m3.material.io/components/search/guidelines" },
       { label: "Search overview", url: "https://m3.material.io/components/search/overview" },
       { label: "MDC Android: Search(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Search.md" },
     ],
-    confirmedNote: "M3の公式ページ本文(m3.material.io「Search」のガイドライン、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。m3.material.io本文はSPAのため直接取得はできていません。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Search」のガイドライン、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="12" fill="#E3EDE9" />
@@ -130,19 +135,20 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5",
+    term: "search(ランドマークのロール)/ HTMLのsearch要素・input type=\"search\"",
     color: "#A3821F",
     position: "role=\"search\"(またはHTMLのsearch要素)で検索機能一式をランドマークとして示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
-    size: "検索フィールド専用の数値基準はありませんが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は検索ボタンなどの操作要素にも適用されます。",
-    colorInfo: "1.4.11(非テキストのコントラスト)により、検索アイコンや入力欄の境界線が部品を見分ける唯一の手がかりである場合は、3:1以上のコントラスト比が必要です。",
+    size: "検索フィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は検索ボタンなどの操作要素にも適用される。",
+    colorInfo: "1.4.11(非テキストのコントラスト)により、検索アイコンや入力欄の境界線が部品を見分ける唯一の手がかりである場合は、3:1以上のコントラスト比が必要。",
     glossary: [
       { term: "コンボボックス(combobox)", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせた部品。検索欄で「以前の検索や似た検索を候補に出す」のが代表的な用途としてAPGに挙げられている。" },
     ],
     stance:
-      "searchランドマークは、検索機能を構成する要素一式を囲むコンテナに付ける役割です。input type=\"search\"だけではランドマークにならず、検索用のフォームには汎用のformではなくsearchを使います。可能ならHTMLのsearch要素を使うことが推奨されています。候補を表示する検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を実装します(MDN・APGの本文を直接確認、2026-09)。また2.4.5(レベルAA)は、サイトの中のページにたどり着く方法を2つ以上用意することを求めており、ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方です。画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索の方が目的のページに早く着ける人がいるためです(Understandingページの本文を直接確認、2026-10)。",
+      "searchランドマークは、検索機能を構成する要素一式を囲むコンテナに付ける役割。input type=\"search\"だけではランドマークにならず、検索用のフォームには汎用のformではなくsearchを使う。可能ならHTMLのsearch要素を使うことが推奨されている。候補を表示する検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を実装する(MDN・APGの本文を直接確認、2026-09)。また2.4.5(レベルAA)は、サイトの中のページにたどり着く方法を2つ以上用意することを求めており、ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方。画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索の方が目的のページに早く着ける人がいるためです(Understandingページの本文を直接確認、2026-10)。",
     exceptions:
-      "1ページに複数のsearchランドマークがある場合は、それぞれに区別できるラベルを付けます。同じ検索をページの上下に繰り返し置く場合は、同じラベルにします。ランドマークを多用しすぎると、スクリーンリーダーで全体の構造が分かりにくくなる点にも注意が必要です。2.4.5は、手続きの途中の画面や手続きの結果の画面には適用されません。3〜4ページの小さなサイトなら、トップページから全ページへのリンク(サイトマップの代わり)だけでも満たせる場合があります。",
+      "1ページに複数のsearchランドマークがある場合は、それぞれに区別できるラベルを付ける。同じ検索をページの上下に繰り返し置く場合は、同じラベルにする。ランドマークを多用しすぎると、スクリーンリーダーで全体の構造が分かりにくくなる点にも注意が必要。2.4.5は、手続きの途中の画面や手続きの結果の画面には適用されない。3〜4ページの小さなサイトなら、トップページから全ページへのリンク(サイトマップの代わり)だけでも満たせる場合がある。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― searchランドマークによる識別に加え、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)、結果件数などのステータスメッセージ(4.1.3)が関わります。ページにたどり着く方法を複数用意する2.4.5は「操作可能」(ナビゲーション可能)に属します。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― searchランドマークによる識別に加え、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)、結果件数などのステータスメッセージ(4.1.3)が関わる。ページにたどり着く方法を複数用意する2.4.5は「操作可能」(ナビゲーション可能)に属する。",
     useCases: [
       "検索フォームには、汎用のformではなくsearch要素(またはrole=\"search\")を使う",
       "複数のsearchランドマークがある場合は、それぞれに区別できるラベルを付ける",
@@ -151,10 +157,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
-    urlSecondary: [
-      { label: "解説(MDN): searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
-      { label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
-      { label: "2.4.5 Multiple Ways", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
+    refs: [
+      { label: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5", url: "https://www.w3.org/TR/wai-aria-1.2/#search" },
+      { kind: "mdn", label: "searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
+      { kind: "apg", label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
+      { kind: "sc", level: "AA", label: "2.4.5 複数の手段", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
     ],
     confirmedNote: "MDNのsearchロールの解説と、W3CのAPG Combobox Patternの本文を直接取得して確認済み(2026-09)。WAI-ARIA仕様のsearchロールの節は2026-10に確認。2.4.5はUnderstandingページの本文を直接取得して確認(2026-10追記)。",
     illustration: () => (
@@ -171,15 +178,16 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions",
+    term: "Search box(検索欄)",
     color: "#7A4F7E",
     position: "虫眼鏡アイコンだけにすると検索が見つけにくくなるため、入力欄を開いたまま置くことを基本とする。候補(オートコンプリート)は、良い結果につながり、入力した文字と見分けられることを重視する",
-    size: "固定幅の検索欄は、入力内容を見直せるよう27文字分以上の幅にするよう勧めています。アイコンは大きく、周りに余白を取って押しやすくするとしています。",
-    colorInfo: "アイコンが背景や周りの要素から目立つよう、十分なコントラストを取るよう勧めています(数値基準はありません)。",
+    size: "固定幅の検索欄は、入力内容を見直せるよう27文字分以上の幅にするよう勧めている。アイコンは大きく、周りに余白を取って押しやすくするとしている。",
+    colorInfo: "アイコンが背景や周りの要素から目立つよう、十分なコントラストを取るよう勧めている(数値基準はない)。",
     stance:
-      "多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かります。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしています。デスクトップでは入力欄を開いたままページの右上に置き、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしています。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしています(記事本文を直接取得して確認済み、2026-09)。",
+      <>多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。</>,
     exceptions:
-      "アイコンだけにする場合は、アイコンを1回押したらすぐ入力欄にカーソルが入り、入力できる状態にすべきだとしています。入力欄はアイコンの近くに出し、周りに他のアイコンを詰め込みすぎず、かといって孤立させすぎないようにします。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げています。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、検索の見つけやすさ・操作の手間に関するユーザー調査に基づく指針です。",
+      "アイコンだけにする場合は、アイコンを1回押したらすぐ入力欄にカーソルが入り、入力できる状態にすべきだとしている。入力欄はアイコンの近くに出し、周りに他のアイコンを詰め込みすぎず、かといって孤立させすぎないようにする。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げている。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、検索の見つけやすさ・操作の手間に関するユーザー調査に基づく指針。",
     useCases: [
       "デスクトップ・タブレットでは、入力欄を開いたまま置く",
       "アイコンのクリックとEnterキーのどちらでも検索を実行できるようにする",
@@ -187,7 +195,10 @@ const SOURCES = [
     ],
     searchHint: "27 characters",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4",
-    urlSecondary: [{ label: "Site Search Suggestions", url: "https://www.nngroup.com/articles/site-search-suggestions/" }],
+    refs: [
+      { label: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
+      { label: "Site Search Suggestions", url: "https://www.nngroup.com/articles/site-search-suggestions/" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -206,16 +217,16 @@ const ICON_NOTES = [
   {
     key: "hig",
     name: "Apple",
-    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)。iOSではフォーカスするとキャンセルボタンが追加される",
-    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示すると定義しています。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変形してキーボードの上(場所がなければ上部)に現れます。フォーカス時のキャンセルボタンで検索を終えてキーボードを閉じられる点は、WWDC26のセッションで説明されています。",
-    confirmedNote: "構成要素とツールバーでの挙動はHIGのページデータで直接確認(2026-09)。キャンセルボタンの説明はWWDC26セッション「Design intuitive search experiences」を含む検索結果による間接確認です。",
+    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)",
+    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示するとしている。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変わり、キーボードの上(場所がなければ上部)に現れる。",
+    confirmedNote: "HIG Search fieldsの本文で確認(2026-11)。",
     url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Search-in-a-toolbar",
   },
   {
     key: "material",
     name: "Google",
     position: "先頭には、ナビゲーション用アイコンボタン(メニュー・戻る)か、押しても動作しない検索アイコンのどちらかを置く。フォーカスすると先頭は戻る矢印になり、M3 Expressiveではバーが横に広がる(画面端の余白24dp→12dp)",
-    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成されます。検索アイコンは、先頭に置く場合は押しても動作しない目印として、末尾に置く場合は装飾として扱えます。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻ります。",
+    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成される。検索アイコンは、先頭に置く場合は押しても動作しない目印、末尾に置く場合は装飾として扱える。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻る。",
     confirmedNote: "M3の公式ページ本文(2026-09)とMaterial Components for Androidのドキュメントで確認。",
     url: "https://m3.material.io/components/search/guidelines",
   },
@@ -223,7 +234,7 @@ const ICON_NOTES = [
     key: "wcag",
     name: "W3C",
     position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
-    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はありません。アイコンをボタンとして実装する場合は、他の操作可能な要素と同様にフォーカス可能にし、役割・名前を適切に伝える必要があります。",
+    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
     confirmedNote: "WAI-ARIA仕様のsearchロールと、MDNの解説本文を確認(2026-09、仕様は2026-10)。",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
     urlSecondary: [{ label: "解説(MDN)", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
@@ -232,7 +243,7 @@ const ICON_NOTES = [
     key: "nn",
     name: "Nielsen Norman Group",
     position: "アイコン自体の左右位置ではなく、検索ボックス全体をページの右上に置くことを推奨。アイコンはクリックで送信されるボタンとして機能させ、1回のクリックで入力欄にカーソルが入るようにすべきとしている",
-    text: "記事本文を直接確認したところ、検索の入り口は、人が最初に探す場所である右上に置くよう勧めています。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしています。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としています。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていません。",
+    text: "検索の入り口は、人が最初に探す場所である右上に置くよう勧めている。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしている。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としている。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていない。",
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/",
   },
@@ -334,8 +345,7 @@ function IconBehaviorDiagram({ k }) {
       {mag(22, 98, "#C2542A")}
       {T(32, 102, "旅行|", { c: "#171B36" })}
       <circle cx="117" cy="99" r="5" fill="#C9CEE3" />{T(117, 101.5, "✕", { a: "middle", s: 6, c: "#FFFFFF" })}
-      {T(134, 102, "キャンセル", { s: 7.5, c: "#C2542A", w: 600 })}
-      {T(10, 122, "入力するとクリア、フォーカスでキャンセルが出る", { s: 6.5, c: "#7E86AC" })}
+      {T(10, 122, "入力するとクリアボタンが出る", { s: 6.5, c: "#7E86AC" })}
     </g>
   );
   if (k === "material") body = (
@@ -406,6 +416,7 @@ function IconNotes() {
           <div key={s.key} style={styles.sourceCard}>
             <div style={styles.sourceName}>{s.name}</div>
             <div style={styles.iconDiagramBox}><IconBehaviorDiagram k={s.key} /></div>
+            <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
             <div style={styles.positionBadge}>{s.position}</div>
             <p style={styles.sourceStance}>{s.text}</p>
             <p style={styles.confirmedNote}>{s.confirmedNote}</p>
@@ -431,7 +442,7 @@ function IconNotes() {
             <div style={styles.labelCell}>基本方針</div>
             {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.text}</div>))}
             <div style={styles.labelCell}>確認状況</div>
-            {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.confirmedNote}</div>))}
+            {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.confirmedNote}</div>))}
             <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
             {ICON_NOTES.map((s) => (
               <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>
@@ -583,6 +594,13 @@ function SceneTable() {
                 <div style={styles.sourceName}>{s.name}</div>
               </div>
             ))}
+                <div style={styles.labelCell}>デザインイメージ</div>
+                {SOURCES.map((s) => (
+                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
+                    {s.illustration ? s.illustration() : null}
+                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
+                  </div>
+                ))}
             {SCENES.map((sc, i) => {
               const last = i === SCENES.length - 1 ? styles.lastRowCell : {};
               return (
@@ -658,7 +676,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -681,6 +699,27 @@ function SearchFieldSwatch() {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "言葉を入力して、アプリやサイトの中を検索するための入力欄です。";
+const ABOUT = [
+  { k: "目的・役割", v: "探したいものを言葉で入力してもらい、候補や結果を見せる" },
+  { k: "よく使われる場面", v: "ネットショップ・地図・メールの検索、設定項目の検索" },
+  { k: "似た部品との違い", v: <>情報を登録するための入力欄は<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
+];
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "検索は、虫眼鏡のアイコンだけにしてよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "デスクトップでは入力欄を開いたまま右上に置く。アイコンだけだと見つけにくい。スマートフォンのような狭い画面では、アイコンを押すまで欄を隠してもよい" },
+      { who: "Google", color: "#2F7D6E", t: "検索がどれだけ主要かで選ぶ。主要なら検索バーや検索アプリバー、補助的ならアイコンボタンだけでよい" },
+      { who: "Apple", color: "#C2542A", t: "iOSでは入り口をタブ・ツールバー・画面の中(インライン)の3か所から選ぶ。アイコンだけにするかの決まりはない" },
+    ],
+    tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置きます(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいですが、押したらすぐ入力できる状態にします(NN group)。",
+  },
+];
 
 export default function TextInputsSearchFieldPage() {
   return (
@@ -707,16 +746,20 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <h1 style={styles.title}>検索フィールド</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、検索の入り口(アイコン・配置・発見性)と、通常時・アクティブ・予測候補・結果といった使用シーンごとの部品をどう定めているかを比較します</p>
+          <SummaryCard
+            image={<><SearchFieldSwatch /></>}
+            imageNote={<>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ(共通形状)</span>
-            <SearchFieldSwatch />
-            <p style={styles.swatchNote}>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</p>
-          </div>
+          <SplitSection splits={SPLITS} />
 
+
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               AppleとGoogleは、どちらも<strong>検索を「入り口 → 入力前の候補 → 入力中の予測候補 → 結果 → 絞り込み」という流れで設計</strong>しています。Appleは検索前に最近の検索、入力中に予測候補を出し、できれば入力と同時に結果を更新するよう勧めています。Googleも、入力前から過去の候補を出し、入力中は候補か結果をリストで表示するとしており、考え方はほぼ同じです。
             </p>
@@ -730,7 +773,6 @@ export default function TextInputsSearchFieldPage() {
               W3Cは見た目を定めず、<strong>検索フォームはsearchランドマークで示し、候補を出すならコンボボックスの役割とキー操作で組み立てる</strong>ことを求めます。Googleが「候補が出たらスクリーンリーダーで知らせる」「矢印キーで結果を移動する」としている点は、このW3Cのパターンと対応しています。
             </p>
           </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -740,13 +782,13 @@ export default function TextInputsSearchFieldPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                <div style={styles.positionBadge}>{s.position}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -754,18 +796,11 @@ export default function TextInputsSearchFieldPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -780,7 +815,6 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -790,39 +824,31 @@ export default function TextInputsSearchFieldPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : null}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
                 <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -851,15 +877,15 @@ export default function TextInputsSearchFieldPage() {
           <IconNotes />
 
           <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["検索・絞り込み", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["検索・絞り込み", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
+              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
             </span>
           </div>
         </div>
@@ -869,10 +895,12 @@ export default function TextInputsSearchFieldPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -895,7 +923,7 @@ const styles = {
   chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
   iconDiagramBox: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "10px 8px", margin: "8px 0 4px" },
   iconGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 10, marginBottom: 22 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -920,7 +948,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -935,7 +963,7 @@ const styles = {
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
   linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { TagLink } from "./page-parts";
 
 const SOURCES = [
   {
@@ -174,7 +175,7 @@ export default function DesignSystemCompareProto() {
 
         {/* AI synthesis - lead summary */}
         <div style={styles.synthesisBox}>
-          <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+          <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
           <p style={styles.synthesisText}>
             数値の下限には24〜48pxという幅があるが、これは<strong>「絶対最低ライン」(WCAG AA)</strong>と
             <strong>「快適に押せる目安」(HIG・Material・NN)</strong>という異なる問いに答えているために生じる差にすぎない。
@@ -253,8 +254,8 @@ export default function DesignSystemCompareProto() {
 
         {/* tags */}
         <div style={styles.tagsRow}>
-          {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-          {["操作方法(タッチ・キーボード)"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+          {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+          {["操作方法(タッチ・キーボード)"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
         </div>
 
         <div style={styles.footer}>

@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「入力方法・ジェスチャー」ページ。
@@ -11,7 +12,6 @@ import SidebarNav from "./sidebar-nav";
  * 2本指・軌跡のあるジェスチャー(2.5.1)、ドラッグ(2.5.7)、端末を振る動き(2.5.4)のそれぞれに
  * 1本指のタップなどの代わりを求め、押した瞬間ではなく離したときに実行すること(2.5.2)を求める。
  * NN groupは、合図のないスワイプは見つけにくく、削除など破壊的な操作に限るべきだとする。
- * キーボードでの操作は「キーボードナビゲーション」ページで扱う。
  *
  * Apple(HIG Gestures・Pointing devices)はHIGのページデータ(JSON)を直接取得して確認(2026-10)。
  * Google(Gestures)はM3のページがSPAのため、Material Design 2のGesturesページのページデータ(JSON)と、
@@ -27,14 +27,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Gestures / Pointing devices",
     color: "#C2542A",
     position: "標準ジェスチャーの意味を全プラットフォームでそろえ、声・キーボード・スイッチコントロールなど、ジェスチャー以外の入力でも操作できるようにする方式",
-    size: "標準ジェスチャーは7種類: タップ(操作・選択)、スワイプ(操作を表示・画面を閉じる・スクロール)、ドラッグ(移動)、長押し(追加の操作を表示)、ダブルタップ(拡大・縮小)、ズーム(拡大)、回転。iOS・iPadOSにはさらに、3本指のスワイプ(取り消し・やり直し)、3本指のピンチ(コピー・ペースト)、4本指のスワイプ(iPadOSのアプリ切り替え)、振る(取り消し・やり直し)があります。",
-    colorInfo: "ポインタ(マウス・トラックパッド)は、iPadではタッチの代わりではなく追加の手段です。iPadOSでは、ポインタが部品に近づくと形が変わり(highlight・lift・hoverの3つの効果)、部品に吸い寄せられる「磁力」で狙いやすくします。visionOSでは、見て狙い、指をタップして選ぶ「間接」のジェスチャーと、手で直接触れる「直接」のジェスチャーがあり、ボタンなどには間接を優先します。",
+    size: "標準ジェスチャーは7種類: タップ(操作・選択)、スワイプ(操作を表示・画面を閉じる・スクロール)、ドラッグ(移動)、長押し(追加の操作を表示)、ダブルタップ(拡大・縮小)、ズーム(拡大)、回転。iOS・iPadOSにはさらに、3本指のスワイプ(取り消し・やり直し)、3本指のピンチ(コピー・ペースト)、4本指のスワイプ(iPadOSのアプリ切り替え)、振る(取り消し・やり直し)がある。",
+    colorInfo: "ポインタ(マウス・トラックパッド)は、iPadではタッチの代わりではなく追加の手段。iPadOSでは、ポインタが部品に近づくと形が変わり(highlight・lift・hoverの3つの効果)、部品に吸い寄せられる「磁力」で狙いやすくする。visionOSでは、見て狙い、指をタップして選ぶ「間接」のジェスチャーと、手で直接触れる「直接」のジェスチャーがあり、ボタンなどには間接を優先する。",
     stance:
-      "ジェスチャーは期待どおりに反応させ、タップや戻るのような標準の操作に独自のジェスチャーを当てないよう求めています。独自のジェスチャーは、ゲームやお絵かきアプリのように頻繁で特殊な作業にだけ加え、「見つけやすい・簡単にできる・他と区別できる・重要な操作の唯一の手段にしない」ことを条件にしています。近道のジェスチャー(画面の端からのスワイプで戻るなど)は、標準の操作(戻るボタン)を置き換えず補うものだとしています(ページ本文を直接確認、2026-10)。",
+      "ジェスチャーは期待どおりに反応させ、タップや戻るのような標準の操作に独自のジェスチャーを当てないよう求めている。独自のジェスチャーは、ゲームやお絵かきアプリのように頻繁で特殊な作業にだけ加え、「見つけやすい・簡単にできる・他と区別できる・重要な操作の唯一の手段にしない」ことを条件にしている。近道のジェスチャー(画面の端からのスワイプで戻るなど)は、標準の操作(戻るボタン)を置き換えず補うものだとしている(ページ本文を直接確認、2026-10)。",
     exceptions:
-      "ゲームでは、ジョイスティックと発射ボタンのように複数のジェスチャーを同時に受け付けてもよいとしています。システムの操作に使うジェスチャー(watchOSの画面端のスワイプ、visionOSで手のひらを見る・手を返す動き)と衝突させないことを求めますが、没入型のゲームなどでは、システム側の反応を後回しにできます。",
+      "ゲームでは、ジョイスティックと発射ボタンのように複数のジェスチャーを同時に受け付けてもよいとしている。システムの操作に使うジェスチャー(watchOSの画面端のスワイプ、visionOSで手のひらを見る・手を返す動き)と衝突させないことを求めるが、没入型のゲームなどでは、システム側の反応を後回しにできる。",
     accessibility:
-      "操作可能(Operable) ― 特定のジェスチャーができると決めつけず、声・キーボード・スイッチコントロールなど別の入力でも操作できるようにすることを求めています。visionOSでは、特定の体の動きや姿勢を求めない、片手だけでもできる代わりを用意する、特定の手(右手など)を指定しない、としています。",
+      "操作可能(Operable) ― 特定のジェスチャーができると決めつけず、声・キーボード・スイッチコントロールなど別の入力でも操作できるようにすることを求めている。visionOSでは、特定の体の動きや姿勢を求めない、片手だけでもできる代わりを用意する、特定の手(右手など)を指定しない、としている。",
     useCases: [
       "タップは操作・選択、スワイプは操作の表示や閉じる、など標準の意味で使う",
       "端からのスワイプで戻れても、戻るボタンは残す",
@@ -42,7 +42,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/gestures#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Gestures / Pointing devices", url: "https://developer.apple.com/design/human-interface-guidelines/gestures#Best-practices" },
       { label: "Gestures ― Standard gestures(一覧表)", url: "https://developer.apple.com/design/human-interface-guidelines/gestures#Standard-gestures" },
       { label: "Gestures ― Custom gestures", url: "https://developer.apple.com/design/human-interface-guidelines/gestures#Custom-gestures" },
       { label: "Pointing devices ― Pointer shape and content effects", url: "https://developer.apple.com/design/human-interface-guidelines/pointing-devices#Pointer-shape-and-content-effects" },
@@ -56,13 +57,13 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "ジェスチャーを「ナビゲーション・アクション・変形」の3種類に分け、指の動きに要素が直接ついてくることを重視する。大画面ではキーボード・マウス・スタイラスなどの入力への対応も求める",
     size: "ナビゲーションのジェスチャー: タップ、スクロール・パン、ドラッグ、スワイプ(タブの切り替えなど)、ピンチ(面を開閉)。アクションのジェスチャー: タップ、長押し(追加の機能)、スワイプ(リスト項目への操作)。変形のジェスチャー: ダブルタップ・ピンチ(拡大縮小)、複合ジェスチャー(拡大・回転・パンを続けて)、長押しで持ち上げて移動(カードの並べ替え)。",
-    colorInfo: "大画面では、キーボード(Ctrl+Zで取り消し、Ctrl+Cでコピー、Ctrl+Sで保存、Tab・矢印キーでの移動、Enterで確定、スペースで再生・一時停止)、マウス(右クリックでコンテキストメニュー、ホバーでアイコンの変化、ホイールでスクロール)、スタイラス、ゲームコントローラーでの操作を確認するよう求めています。",
+    colorInfo: "大画面では、キーボード(Ctrl+Zで取り消し、Ctrl+Cでコピー、Ctrl+Sで保存、Tab・矢印キーでの移動、Enterで確定、スペースで再生・一時停止)、マウス(右クリックでコンテキストメニュー、ホバーでアイコンの変化、ホイールでスクロール)、スタイラス、ゲームコントローラーでの操作を確認するよう求めている。",
     stance:
-      "ジェスチャーは、タッチで素早く直感的に操作するための「もう1つの方法」で、多少不正確でも使えるものとしています。要素は指の動きに直接ついてきて、ジェスチャーの速さと要素の動く速さを合わせ、ジェスチャーをきっかけに勝手にアニメーションを始めないこと、要素の見た目(シートの端がのぞく、カードが浮いている)でジェスチャーができることを示すことを求めています(Material Design 2のページデータとAndroid Developersの本文で確認、2026-10)。",
+      "ジェスチャーは、タッチで素早く直感的に操作するための「もう1つの方法」で、多少不正確でも使えるものとしている。要素は指の動きに直接ついてきて、ジェスチャーの速さと要素の動く速さを合わせ、ジェスチャーをきっかけに勝手にアニメーションを始めないこと、要素の見た目(シートの端がのぞく、カードが浮いている)でジェスチャーができることを示すことを求めている(Material Design 2のページデータとAndroid Developersの本文で確認、2026-10)。",
     exceptions:
-      "長押しは追加の機能を出せますが、見つけにくいとしています。1つのジェスチャーで2つの異なる結果が起きる状況を避け、拡大・回転・パンの間を滑らかに切り替えられるようにすることを求めています。スワイプで操作を実行するときは、進み具合に合わせて図形を動かし、確定の境目を越えたことを示します。",
+      "長押しは追加の機能を出せますが、見つけにくいとしている。1つのジェスチャーで2つの異なる結果が起きる状況を避け、拡大・回転・パンの間を滑らかに切り替えられるようにすることを求めている。スワイプで操作を実行するときは、進み具合に合わせて図形を動かし、確定の境目を越えたことを示す。",
     accessibility:
-      "―(確認したジェスチャーのページには、アクセシビリティの専用の記載は見当たりませんでした)。タッチを「もう1つの方法」と位置づけ、ボタンやナビゲーションの部品など明示的な操作を補うものとしている点は、W3Cの考え方と同じ方向です。押せる範囲の最小(48dp)は「ボタン」ページを参照。",
+      <span><NoData>記載なし。</NoData>タッチを「もう1つの方法」と位置づけ、ボタンやナビゲーションの部品など明示的な操作を補うものとしている点は、W3Cの考え方と同じ方向。押せる範囲の最小(48dp)は「ボタン」ページを参照。</span>,
     useCases: [
       "ドラッグやスワイプでは、要素を指の動きに直接ついてこさせる",
       "シートの端をのぞかせるなど、見た目でジェスチャーができることを示す",
@@ -70,11 +71,12 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/interaction/gestures",
-    urlSecondary: [
+    refs: [
+      { label: "Gestures / Android: Input compatibility on large screens", url: "https://m3.material.io/foundations/interaction/gestures" },
       { label: "M2: Gestures", url: "https://m2.material.io/design/interaction/gestures.html" },
       { label: "Android: Input compatibility on large screens", url: "https://developer.android.com/develop/ui/compose/touch-input/input-compatibility-on-large-screens" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていません。ジェスチャーの分類と原則はMaterial Design 2のGesturesページのページデータ、大画面での入力はAndroid Developersの本文で直接確認(2026-10)。",
+    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。ジェスチャーの分類と原則はMaterial Design 2のGesturesページのページデータ、大画面での入力はAndroid Developersの本文で直接確認(2026-10)。",
   },
   {
     key: "wcag",
@@ -83,7 +85,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "ジェスチャーそのものは禁止せず、複雑なジェスチャー・ドラッグ・端末の動きのそれぞれに、1本指の簡単な操作などの代わりを用意することを求める",
     size: "2.5.1(レベルA): 2本指以上・軌跡のあるジェスチャーで行う機能は、1本指で軌跡のない操作(タップなど)でもできること。2.5.7(レベルAA): ドラッグで行う機能は、ドラッグなしの1本指の操作でもできること。2.5.4(レベルA): 端末を振る・傾けるなどの動きで行う機能は、画面上の部品でも操作でき、動きへの反応を無効にできること。2.5.2(レベルA): 押した瞬間ではなく離したときに実行し、途中でやめられる(または取り消せる)こと。",
-    colorInfo: "2.5.6(レベルAAA)は、プラットフォームで使える入力手段(タッチ・マウス・キーボードなど)を、コンテンツ側で制限しないことを求めます。キーボードでの操作(2.1.1)とは別の基準で、マウスやタッチを使えても複雑な動きが難しい人のためのものです。",
+    colorInfo: "2.5.6(レベルAAA)は、プラットフォームで使える入力手段(タッチ・マウス・キーボードなど)を、コンテンツ側で制限しないことを求める。キーボードでの操作(2.1.1)とは別の基準で、マウスやタッチを使えても複雑な動きが難しい人のためのもの。",
     glossary: [
       { term: "2.5.1 Pointer Gestures・レベルA", desc: "ピンチなど2本指以上の操作や、なぞる軌跡で決まる操作に、1本指で軌跡のない代わりの操作を求める基準。" },
       { term: "2.5.2 Pointer Cancellation・レベルA", desc: "押した瞬間(ダウンイベント)では実行せず、離したとき(アップイベント)に実行して途中で中止できるようにすることなどを求める基準。" },
@@ -91,10 +93,10 @@ const SOURCES = [
       { term: "2.5.7 Dragging Movements・レベルAA", desc: "ドラッグで行う機能に、ドラッグを使わない1本指の操作の代わりを求める基準(WCAG 2.2で追加)。" },
     ],
     stance:
-      "複雑なジェスチャーやドラッグは、正確な動きが難しい人や、頭の動きで操作するポインタ・視線入力・声でマウスを動かす仕組みなどを使う人には、できないか非常に難しいためです。ドラッグの代わりの例として、スライダーのつまみを動かすだけでなく、溝をタップした位置へつまみを移せるようにする方法を挙げています。押した瞬間に実行しないのは、誤って触れたときに、指を部品の外へずらして離せば取り消せるようにするためです(Understandingページの本文を直接確認、2026-10)。",
+      "複雑なジェスチャーやドラッグは、正確な動きが難しい人や、頭の動きで操作するポインタ・視線入力・声でマウスを動かす仕組みなどを使う人には、できないか非常に難しいため。ドラッグの代わりの例として、スライダーのつまみを動かすだけでなく、溝をタップした位置へつまみを移せるようにする方法を挙げている。押した瞬間に実行しないのは、誤って触れたときに、指を部品の外へずらして離せば取り消せるようにするためです(Understandingページの本文を直接確認、2026-10)。",
     exceptions:
-      "ジェスチャーや動きそのものが欠かせない場合は例外です。2.5.7は、ブラウザなどが決めていて制作者が変更していないドラッグも対象外です。2.5.4は、OSのアクセシビリティ機能のように支援された仕組みで動きを使う場合も例外です。2.5.2で、キーボードやテンキーの押下をまねる機能は、押した瞬間の実行が欠かせないものとして扱われます。",
-    accessibility: "操作可能(Operable) ― いずれもガイドライン2.5(入力モダリティ)に属し、POURの「操作可能」です。キーボード以外の入力を使う人が、自分にできる動きで同じ機能を使えることを目的としています。",
+      "ジェスチャーや動きそのものが欠かせない場合は例外。2.5.7は、ブラウザなどが決めていて制作者が変更していないドラッグも対象外。2.5.4は、OSのアクセシビリティ機能のように支援された仕組みで動きを使う場合も例外。2.5.2で、キーボードやテンキーの押下をまねる機能は、押した瞬間の実行が欠かせないものとして扱われる。",
+    accessibility: "操作可能(Operable) ― いずれもガイドライン2.5(入力モダリティ)に属し、POURの「操作可能」。キーボード以外の入力を使う人が、自分にできる動きで同じ機能を使えることを目的としている。",
     useCases: [
       "ピンチでの拡大には、+/−のボタンも用意する",
       "スライダーは、つまみのドラッグに加えて、溝をタップした位置へ移せるようにする",
@@ -102,10 +104,11 @@ const SOURCES = [
     ],
     searchHint: "single pointer",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html",
-    urlSecondary: [
-      { label: "2.5.2 Pointer Cancellation", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html" },
-      { label: "2.5.4 Motion Actuation", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html" },
-      { label: "2.5.7 Dragging Movements", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "2.5.1 ポインタのジェスチャ", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html" },
+      { kind: "sc", level: "A", label: "2.5.2 ポインタのキャンセル", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html" },
+      { kind: "sc", level: "A", label: "2.5.4 動きによる起動", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html" },
+      { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
     ],
     confirmedNote: "5つのUnderstandingページ(2.5.1・2.5.2・2.5.4・2.5.6・2.5.7)の本文を直接取得して確認済み(2026-10)。",
   },
@@ -115,13 +118,13 @@ const SOURCES = [
     doc: "Using Swipe to Trigger Contextual Actions",
     color: "#7A4F7E",
     position: "ジェスチャーは画面に合図(シグニファイア)がないため見つけにくい、という観察に基づき、スワイプの使い方を絞る実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及です。リスト項目を横にスワイプして操作を出す「コンテキストスワイプ」について、合図がないためどこで使えるか分からない、アプリによって使えたり使えなかったりして覚えにくい、操作を出すと対象の内容が隠れる、といった問題を挙げています。",
-    colorInfo: "同じジェスチャーに複数の意味を持たせる(左右の方向や項目の状態で操作が変わる)と、学びにくく思い出しにくくなるとしています。横のスワイプは、前の画面に戻る・隠れたメニューを出す・iPadで画面を分割するなどにも使われるため、取り違えて大事なメールを消してしまうような事故も起きうるとしています。",
+    size: "数値基準ではなく原則としての言及。リスト項目を横にスワイプして操作を出す「コンテキストスワイプ」について、合図がないためどこで使えるか分からない、アプリによって使えたり使えなかったりして覚えにくい、操作を出すと対象の内容が隠れる、といった問題を挙げている。",
+    colorInfo: "同じジェスチャーに複数の意味を持たせる(左右の方向や項目の状態で操作が変わる)と、学びにくく思い出しにくくなるとしている。横のスワイプは、前の画面に戻る・隠れたメニューを出す・iPadで画面を分割するなどにも使われるため、取り違えて大事なメールを消してしまうような事故も起きうるとしている。",
     stance:
-      "コンテキストスワイプは、削除など破壊的な操作に限るのがよいとしています。もともと削除のために生まれた操作で、「画面から払いのける」動きと「消す」の意味が結びついているためです。主要な操作をスワイプの奥に隠すと見つけてもらえません。操作の対象が見えるように内容を残し、破壊的な操作は確認するか、すぐ取り消せるようにすることを勧めています(記事本文を直接取得して確認、2026-10)。",
+      "コンテキストスワイプは、削除など破壊的な操作に限るのがよいとしている。もともと削除のために生まれた操作で、「画面から払いのける」動きと「消す」の意味が結びついているため。主要な操作をスワイプの奥に隠すと見つけてもらえない。操作の対象が見えるように内容を残し、破壊的な操作は確認するか、すぐ取り消せるようにすることを勧めている(記事本文を直接取得して確認、2026-10)。",
     exceptions:
-      "確認を毎回求めると面倒な、繰り返しの多い操作では、確認の代わりに目立つ取り消しを用意すればよいとしています。スワイプを使うなら、アプリ内の他のスワイプ(画面の切り替えなど)と干渉しないようにします。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠です。",
+      "確認を毎回求めると面倒な、繰り返しの多い操作では、確認の代わりに目立つ取り消しを用意すればよいとしている。スワイプを使うなら、アプリ内の他のスワイプ(画面の切り替えなど)と干渉しないようにする。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠。",
     useCases: [
       "コンテキストスワイプは、削除などの破壊的な操作に限る",
       "スワイプで削除したら、確認するか、目立つ取り消しを出す",
@@ -129,6 +132,9 @@ const SOURCES = [
     ],
     searchHint: "Limit contextual swipe",
     url: "https://www.nngroup.com/articles/contextual-swipe/#toc-recommendations-for-using-contextual-swipe-1",
+    refs: [
+      { label: "Using Swipe to Trigger Contextual Actions", url: "https://www.nngroup.com/articles/contextual-swipe/#toc-recommendations-for-using-contextual-swipe-1" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
@@ -297,7 +303,7 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>用語メモ</span>
+      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -306,6 +312,14 @@ function GlossaryNote({ items }) {
     </div>
   );
 }
+
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなど入力手段の扱い方の決まりです。";
+const ABOUT = [
+  { k: "目的・役割", v: "どの入力手段でも同じことができるようにし、ジェスチャーが使えない人にも代わりの操作を用意する" },
+  { k: "関わる場面", v: "スワイプでの削除、ピンチでの拡大、長押しのメニュー、マウス・ペンでの操作" },
+  { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>、<PageLink to="/components/actions/button">ボタン</PageLink></> },
+];
 
 export default function TokensInputMethodsPage() {
   return (
@@ -327,21 +341,30 @@ export default function TokensInputMethodsPage() {
         <SidebarNav currentPath="/tokens/input-methods" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / インタラクション / 入力方法・ジェスチャー</span>
+            <span>インタラクション / 入力方法・ジェスチャー</span>
             <span>SPEC No. 053</span>
           </div>
 
           <h1 style={styles.title}>入力方法・ジェスチャー</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、タップ・スワイプ・ピンチなどのジェスチャーの意味と、マウス・ペン・視線などの入力手段、ジェスチャーが使えない人への代わりの操作をどう定めているかを比較します</p>
+          <SummaryCard
+            imageLabel="よく使われるジェスチャー(概念図)"
+            image={<><GestureSwatch /></>}
+            imageNote={<>丸は指の位置、矢印は動かす方向です。タップや長押しは1本指で軌跡がない操作、スワイプ・ドラッグは軌跡がある操作、ピンチ・回転は2本指の操作、振るは端末そのものの動きで、W3Cはこの違いごとに求めることを変えています。</>}
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>よく使われるジェスチャー(概念図)</span>
-            <GestureSwatch />
-            <p style={styles.swatchNote}>丸は指の位置、矢印は動かす方向です。タップや長押しは1本指で軌跡がない操作、スワイプ・ドラッグは軌跡がある操作、ピンチ・回転は2本指の操作、振るは端末そのものの動きで、W3Cはこの違いごとに求めることを変えています。</p>
+
+
+          <div style={styles.chartCard}>
+            <h2 style={styles.diagramTitle}>四サイト比較図 ― ジェスチャーごとの意味と、求められる代わりの操作</h2>
+            <GestureChart />
+            <p style={styles.chartNote}>Appleは標準ジェスチャーの表、GoogleはMaterial Design 2のジェスチャーの分類、W3Cは2.5系の達成基準、NN groupはコンテキストスワイプの記事によります。W3Cの「―(1本指・軌跡なしの操作)」は、2.5.1で代わりが求められる対象ではないことを示します(押した瞬間に実行しないことは2.5.2で全般に求められます)。</p>
           </div>
 
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― まず結論</div>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               4系列とも、<strong>見つけにくいジェスチャーを重要な操作の唯一の手段にしない</strong>方向で考えています。ただし、決まりの強さは違います。Appleは独自のジェスチャーを「重要な操作の唯一の手段にしない」ことを勧め、Googleはジェスチャーを「もう1つの方法」と位置づけています(どちらも設計の勧め)。<strong>WCAGが要件として代わりの操作を求めるのは、複数の指や軌跡で決まるジェスチャー(2.5.1)、ドラッグ(2.5.7)、端末を動かす操作(2.5.4)</strong>で、タップや長押しのすべてに代わりを求めているわけではありません。
             </p>
@@ -355,13 +378,6 @@ export default function TokensInputMethodsPage() {
               実装の細部ではW3Cの<strong>2.5.2(押した瞬間ではなく離したときに実行し、外へずらせば取り消せる)</strong>が重要です。実務では、<strong>標準のジェスチャーを標準の意味で使い、複数の指・軌跡・ドラッグ・端末を動かす操作にはボタンなどの代わりを必ず用意し(WCAGの要件)、独自のジェスチャーは近道として足す</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― ジェスチャーごとの意味と、求められる代わりの操作</h2>
-            <GestureChart />
-            <p style={styles.chartNote}>Appleは標準ジェスチャーの表、GoogleはMaterial Design 2のジェスチャーの分類、W3Cは2.5系の達成基準、NN groupはコンテキストスワイプの記事によります。W3Cの「―(1本指・軌跡なしの操作)」は、2.5.1で代わりが求められる対象ではないことを示します(押した瞬間に実行しないことは2.5.2で全般に求められます)。</p>
-          </div>
-
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -379,18 +395,11 @@ export default function TokensInputMethodsPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -398,7 +407,6 @@ export default function TokensInputMethodsPage() {
           </div>
 
           <div className="dsp-desktop-only">
-            <h2 style={styles.diagramTitle}>入力方法・ジェスチャー デザインシステム比較</h2>
             <div style={styles.matrixScroll}>
               <div style={styles.matrixGrid}>
                 <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -411,30 +419,26 @@ export default function TokensInputMethodsPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>ジェスチャーの種類と意味</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.sizeCell }}>{s.size}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>入力手段の扱い</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>用語メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <span style={{ color: "#B7BCDA" }}>―(該当する専門用語なし)</span>}</div>))}
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
               </div>
             </div>
           </div>
@@ -453,17 +457,17 @@ export default function TokensInputMethodsPage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>入力手段ごとの対応(Apple・Google)</h2>
-            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。キーボードでの移動の順番やフォーカスの見せ方は「キーボードナビゲーション」ページで詳しく扱います。</p>
+            <p style={styles.diagramNote}>タッチ以外の入力も、AppleとGoogleはそれぞれ指針を持っています。フォーカスの見せ方は「インタラクション状態」ページで扱います。</p>
             <InputTable />
           </section>
 
           <div style={styles.tagsRow}>
-            {["操作可能(POUR)"].map((t) => (<span key={t} style={styles.tagPrinciple}>{t}</span>))}
-            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<span key={t} style={styles.tagProcess}>{t}</span>))}
+            {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
+            {["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。GoogleはM3のジェスチャーのページが未確認、Material Design 2のページデータとAndroid Developersの本文で確認)</span>
+            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。GoogleはM3のジェスチャーのページが未確認、Material Design 2のページデータとAndroid Developersの本文で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Gesturesページの「Best practices」見出しへのアンカー付きリンクで、標準ジェスチャーの表・独自ジェスチャー・ポインタの効果の見出しも併記しています。GoogleはM3のGesturesページに加え、内容を確認したM2のGesturesページとAndroid Developersのページを併記しています。WCAGは2.5.1を基本リンクとし、2.5.2・2.5.4・2.5.7のUnderstandingページも併記しています。NN groupはコンテキストスワイプの記事の推奨事項の節です。
@@ -479,7 +483,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
@@ -493,7 +497,7 @@ const styles = {
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   ruleSection: { marginBottom: 26 },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
+  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
@@ -516,7 +520,7 @@ const styles = {
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 20 },
+  matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
@@ -527,7 +531,7 @@ const styles = {
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
+  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
