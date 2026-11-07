@@ -39,13 +39,14 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "専用ページなし(Text fields等の記載に含まれる)",
+    term: <NoData>専用の部品なし</NoData>,
     color: "#C2542A",
     position: "エラー表示・バリデーションという名称の専用ガイドラインページは見当たらない。テキストフィールド関連の記載に含まれる",
-    colorInfo: "色だけでエラー状態を伝えるべきではないという言及がある(検索結果による確認)。色に加えてアイコンやテキストラベルを併用すべきとされている。",
+    colorInfo: "エラー専用の色の規定はない。全体の方針として、色だけに頼らず、形やアイコンなどの手がかりを足すよう求めている(HIG Accessibility)。",
     stance:
-      "AppleのHIGには、エラー表示(バリデーション)という名称の専用ガイドラインページは見当たらない。テキストフィールドなど個別コンポーネントの記載の中に、フィールドの値を検証して問題を知らせ、ユーザーがすぐに訂正できるようにすべきという言及があるとされている(検索結果による確認、2026-09)。表示のタイミング(いつ検証するか)は、このページでは断定せず、「バリデーション」ページで比較している。",
+      "AppleのHIGには、エラー表示の専用ページはない。入力の決まり(Entering data)で、値は入力されたらすぐに確かめ、問題があればすぐに知らせて、その場で直せるようにするとしている。表示のタイミングの比較は「バリデーション」ページで扱う(HIG Entering data・Writingの本文で確認、2026-11)。",
     exceptions:
-      "エラーメッセージはエラーコードや汎用的な文言ではなく、次に何をすべきかを説明すべきとしている。赤いエラー表示のように色だけで状態を伝えるべきではなく、アイコンやテキストラベルを併用すべきとされている(検索結果による確認)。",
+      "エラーは問題の起きた場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ、としている(HIG Writing)。",
     accessibility: <span><NoData>記載なし。</NoData>一般的な原則として、色だけに頼らない状態表示が挙げられている。</span>,
     useCases: [
       "問題を知らせて、すぐに訂正できるようにする(表示のタイミングは「バリデーション」ページを参照)",
@@ -53,12 +54,12 @@ const SOURCES = [
       "色だけでなくアイコン・テキストラベルも併用して状態を伝える",
     ],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices",
     refs: [
-      { label: "専用ページなし(Text fields等の記載に含まれる)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+      { label: "Entering data ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices" },
+      { label: "Writing ― Best practices(エラーの文言)", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
     ],
-    confirmedNote: "「バリデーション」という名称の専用ページは見当たらないことを検索で確認(2026-09)。テキストフィールド全般の記載中の言及も、公式ページ本文の直接確認ではなく検索結果による間接確認。",
-    pending: true,
+    confirmedNote: "HIG Entering data・Writing・Accessibilityの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
         <rect x="1" y="1" width="118" height="22" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -72,12 +73,13 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(エラー状態)",
+    term: "Text fieldのエラー状態(Error text・エラーアイコン)",
     color: "#2F7D6E",
     position: "テキストフィールドのバリエーションの1つとして「エラー状態」を持つ。エラー表示専用のコンポーネントはない",
-    colorInfo: "エラー状態では、枠線・フローティングラベル・ヘルパーテキストにエラーカラー(赤系のトークン)を適用し、末尾にエラーアイコンを表示できるとされている(検索結果による確認)。",
+    colorInfo: "エラー状態では、枠線・ラベル・エラーテキストにエラーの色を使う。あわせてエラーアイコンを表示することを強く勧めている。視覚に障害のある人にとって、色に加わる2つ目の手がかりになるため。",
     stance:
-      "Material Design 3にはエラー表示という独立したコンポーネントはなく、テキストフィールドの状態(Enabled/Focused/Error等)の1つとして「エラー状態」が定義されているとされている。エラー状態ではエラーカラーの枠線・ラベル・ヘルパーテキストに加え、末尾にエラーアイコンを表示できるとされている(検索結果による確認、2026-09)。",
-    exceptions: "エラー状態と他の状態(Disabledなど)が同時に発生する場合の優先順位など、詳細な規定は公式ページ本文で未確認。",
+      <>Material Design 3にはエラー表示という独立した部品はなく、<Hl>テキストフィールドの状態の1つとして「エラー状態」を持つ</Hl>。検証する欄では、欄の下のサポートテキストをエラーテキストに入れ替える(行が増えてレイアウトが動かないようにするため)。エラーが1種類ならその避け方を、複数ありうるなら最も起きやすいエラーの避け方を書く(M3 Text fieldsのガイドラインで確認、2026-11)。</>,
+    exceptions: "エラーテキストが長い場合は複数行に折り返してよいが、そのぶん欄どうしの間隔を十分にとり、レイアウトを押し出さないようにする。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― エラーの発生をテキスト(ヘルパーテキスト)でも伝えるべきとされ、色のみに依存しない表示が求められると考えられる(直接確認はできていない)。",
     useCases: [
@@ -90,8 +92,7 @@ const SOURCES = [
     refs: [
       { label: "Text fields(エラー状態)", url: "https://m3.material.io/components/text-fields/guidelines" },
     ],
-    confirmedNote: "テキストフィールドのエラー状態(エラーカラー・ヘルパーテキスト・アイコン)についての一般的な言及は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
-    pending: true,
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
         <rect x="1" y="1" width="118" height="22" rx="4" fill="#FFFFFF" stroke="#C0503F" strokeWidth="1.6" />
@@ -107,6 +108,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
+    term: "aria-invalid・role=\"alert\"(エラーを伝えるしくみ)",
     color: "#A3821F",
     position: "エラーの検知・説明(レベルA)、訂正案の提示(レベルAA)、重要操作での防止策(レベルAA)という3段階の達成基準",
     colorInfo: "1.4.1(色の使用・レベルA)により、エラーを色の違いだけで伝えてはいけない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求める。エラーは視覚的表示だけでなく、必ずテキストで説明する必要がある(3.3.1)。",
@@ -117,7 +119,7 @@ const SOURCES = [
       { term: "3.3.4 Error Prevention(レベルAA)", desc: "法的・金融的な確約、ユーザーデータの変更・削除、試験の回答の送信を伴うページでは、「取消可能」「入力エラーを検査して訂正機会を与える」「送信前に確認・訂正できる仕組みがある」のいずれかを満たさなければならないという基準。" },
     ],
     stance:
-      "3.3.1は、入力エラーが自動検出された場合、エラーのある項目を特定し、エラーの内容をテキストで説明することを求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。",
+      <>3.3.1は、入力エラーが自動検出された場合、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。</>,
     exceptions:
       "3.3.3の訂正案の提示は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしている。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定される。",
     accessibility:
@@ -149,11 +151,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Error-Message Guidelines / 10 Design Guidelines for Reporting Errors in Forms",
+    term: "Error message(エラーメッセージ)",
     color: "#7A4F7E",
     position: "文言・トーン・配置の実務ガイドライン(数値基準ではなく、伝わりやすさの原則)",
     colorInfo: "色だけに頼らず、太字・高コントラストの赤色文字など複数の視覚的手がかりを重ねて使うべきとしている。",
     stance:
-      "エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、ユーザーを責める表現(「無効」「不正」など)は避けるべきとしている。",
+      <>エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、<Hl>ユーザーを責める表現(「無効」「不正」など)は避けるべき</Hl>としている。</>,
     exceptions:
       "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしている。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしている。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしている。ユーモアは繰り返されると陳腐化するため避けるべきとしている。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けている。入力欄のエラーは、欄の近くに消えない形で出すのが基本です(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、エラーメッセージの伝わりやすさ・修正のしやすさに基づく実務的な指針。",
@@ -296,6 +299,7 @@ export default function TextInputsValidationPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -331,6 +335,8 @@ export default function TextInputsValidationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -369,10 +375,10 @@ export default function TextInputsValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。Googleは最新版(M3)のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
+              リンクについて: AppleはEntering dataとWritingのページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
             </span>
           </div>
         </div>
@@ -382,6 +388,8 @@ export default function TextInputsValidationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / テキストフィールド」ページ。
@@ -48,25 +48,25 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Text fields",
+    term: "Text field(複数行はText view)",
     color: "#C2542A",
     position: "1行(または複数行)のテキストを入力・編集させる標準コントロール",
-    size: <span><NoData>数値は未確認。</NoData>他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。</span>,
+    size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかの部品と同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
-      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。プレースホルダーテキストを使って、フィールドが空のときに入力例や短い説明を示せるとしているが、検索結果からは、それ自体がラベルの代わりになるとは明記されていない(検索結果による確認、2026-09)。",
+      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。欄が空のときは、プレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、欄の目的を思い出せるよう別にラベルを置くと役に立つ、としている(HIG Text fieldsの本文で確認、2026-11)。",
     exceptions:
-      <span>エラー表示やヘルパーテキストの扱いについての詳細な基準は公式ページ本文で未確認。</span>,
+      <span>欄が多いときは間隔をそろえ、できるだけ縦に積み、幅をそろえる。エラーの出し方は入力の決まり(Entering data)で扱う(「エラー表示」「バリデーション」ページを参照)。</span>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "1行のテキストを入力・編集させる",
-      "プレースホルダーテキストで入力例や短い説明を示す(ラベルの代わりにはしない、はAIの補足)",
+      "プレースホルダーで入力例や短い説明を示し、別にラベルも置く",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
     refs: [
       { label: "Text fields", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
+    confirmedNote: "HIG Text fieldsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -79,19 +79,20 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(Filled / Outlined)",
+    term: "Text field(Filled・Outlined)",
     color: "#2F7D6E",
     position: "Filled(塗りつぶし)とOutlined(枠線)の2種類。フローティングラベル+サポートテキスト/エラーテキストの構造を持つ",
-    size: <span><NoData>数値は未確認。</NoData>一般的なタッチターゲット基準(48×48dp)が適用されると考えられる(検索結果による確認)。</span>,
+    size: "欄の高さは56dp(Jetpack Composeのトークン)。押せる範囲の決まりは、テキストフィールドのページには記載なし。",
     glossary: [
       { term: "フローティングラベル", desc: "入力欄の中に表示され、フォーカス時や入力時に上に移動して常に見える状態になるラベル。何も入力していない状態でも入力欄の中に「今何を求められているか」を示す。" },
-      { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下に表示される補足情報。入力の使われ方などを説明するサポートテキストは、検証エラー時にはエラーテキストに置き換えられる。両方表示する場合はサポートテキストを先に、エラーテキストを後に読み上げるべきとされる。" },
+      { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下に表示される補足情報。入力の使われ方などを説明するサポートテキストは、検証エラー時にはエラーテキストに置き換えられる。両方表示する場合はサポートテキストを先に、エラーテキストを後に読み上げさせる。" },
     ],
     stance:
-      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。フローティングラベルは入力欄と揃って配置され、常に表示され続け、フォーカス時や入力時に浮き上がるとされている(検索結果による確認、2026-09)。",
+      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る(M3 Text fieldsのガイドラインで確認、2026-11)。",
     exceptions:
-      "サポートテキストとエラーテキストの両方を表示する場合、アクセシビリティ上はサポートテキストを先に、エラーテキストを後に読み上げる構成にすべきとされている。エラーメッセージの読み上げ方(alertロールを使うかなど)は、公式本文では未確認。",
+      "サポートテキストとエラーテキストの両方を表示する場合は、サポートテキストを先に、エラーテキストを後に読み上げさせる。エラーメッセージにはalertの役割を付ける。必須の欄はラベルの末尾に「*」を付け、読み上げにも含める。",
     accessibility:
-      "操作可能(Operable) ― 一般的なタッチターゲット基準(48×48dp)が適用されると考えられる(直接確認はできていない)。",
+      "知覚可能(Perceivable) ― 枠線のある欄は、枠線と背景のコントラストを3:1以上にする。堅牢(Robust) ― エラーメッセージにalertの役割を付け、支援技術に伝える。",
     useCases: [
       "周囲で目立たせたい単独のフィールドにはFilledを使う",
       "フォームなど多数のフィールドを並べる場合はOutlinedを使う",
@@ -103,8 +104,7 @@ const SOURCES = [
       { label: "Text fields(Filled / Outlined)", url: "https://m3.material.io/components/text-fields/guidelines" },
       { label: "Accessibility", url: "https://m3.material.io/components/text-fields/accessibility" },
     ],
-    confirmedNote: "Filled/Outlinedの区分・フローティングラベル・サポート/エラーテキストの構造は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
-    pending: true,
+    confirmedNote: "M3 Text fieldsのガイドライン・アクセシビリティの本文と、Jetpack Composeのトークンで確認(2026-11)。",
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
         <rect x="1" y="6" width="138" height="22" rx="4" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -119,6 +119,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
+    term: "textbox(WAI-ARIAのロール)/ HTMLのinput要素",
     color: "#A3821F",
     position: "入力を求めるコンテンツには、目に見えるラベルまたは説明を提供することを要求(レベルA)",
     glossary: [
@@ -126,7 +127,7 @@ const SOURCES = [
     ],
     size: "テキストフィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は関連する操作要素(送信ボタンなど)に適用される。",
     stance:
-      "入力を求めるコンテンツには、必須かどうかを問わず、目に見えるラベルまたは説明を提供しなければならないとしている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。",
+      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベルまたは説明を提供しなければならない</Hl>としている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。</>,
     exceptions:
       "プレースホルダーテキストやARIAだけによるラベル付けは、この基準を満たすには不十分だとしている。目的は、ユーザーが過度な混乱なくタスクを完了できるだけの情報を提供することで、データ形式・入力例・必須項目の明示などが必要に応じて求められる。",
     accessibility:
@@ -155,11 +156,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Placeholders in Form Fields Are Harmful",
+    term: "Form field(入力欄)",
     color: "#7A4F7E",
     position: "ラベル・説明文を入力欄の中(プレースホルダー)に置くのは有害という、調査に基づく指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべきだとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている(記事本文を直接確認、2026-10)。",
+      <><Hl>ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべき</Hl>だとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている(記事本文を直接確認、2026-10)。</>,
     exceptions:
       "長いフォームで入力中にヒントを忘れると、書いた内容を消して確認しないと元のヒントが見えないという記憶の負担が生じるとしている。ラベルなしでは、入力済みかどうかを確認するために各欄を1つずつ消して確認する必要が生じるとしている。アイトラッキング調査では、ユーザーの視線は空欄に引き寄せられるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ調査(記憶負荷・確認のしやすさ・視線)に基づく指針。",
@@ -189,23 +191,23 @@ const TEXTAREA_NOTES = [
     key: "hig",
     name: "Apple",
     position: "テキストフィールドは短い特定の文言専用。複数行・大きな文章の入力には、延長ではなく別コンポーネント「Text view」を使うべきとしている",
-    text: "HIGは、テキストフィールドを氏名やメールアドレスなど「小さく具体的な文言」専用と位置づけています。より多くの文章を入力させたい場合は、テキストフィールドを大きくするのではなく別コンポーネントの「Text view」を使うべきだとしており、Text viewは複数行のスタイル付きテキストを表示でき、編集可能/読み取り専用のどちらにもできるとされています。",
-    confirmedNote: "「Text views」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    text: "HIGは、テキストフィールドを氏名やメールアドレスなど短い文言のための部品とし、長い文章には別の部品の「Text view」を使うとしている。Text viewは高さを自由に決められ、内容があふれるとスクロールでき、長い文章・編集できる文章・特別な書式の文章を表示するときに使う。少しの文章なら、表示はラベル、編集はテキストフィールドのほうが簡単としている。",
+    confirmedNote: "HIG Text viewsの本文で確認(2026-11)。",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-views",
   },
   {
     key: "material",
     name: "Google",
-    position: "別コンポーネントではなく、同じText Fieldsコンポーネントが持つ「複数行(multi-line)」バリアント",
-    text: "Material Design 3では、複数行入力はAppleのように独立したコンポーネントに分かれておらず、単一行のテキストフィールドと同じコンポーネントのバリアントの1つとして扱われています。複数行になると入力欄が伸びて複数行分の文章を収められるとされていますが、具体的な最大行数・高さのdp数値は確認できていません。",
-    confirmedNote: "m3.material.io本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    position: "別の部品ではなく、同じText fieldの中の「複数行(multi-line)」と「テキストエリア(text area)」",
+    text: "M3では、複数行の入力は別の部品ではなく、テキストフィールドの3つの形の中で扱う。1行の欄は長い回答に向かない。複数行の欄は最初は1行で、あふれると下に伸びて画面の要素を押し下げる。テキストエリアは最初から高さがあり、決まった高さを超えるとスクロールする。最初から大きいことで、長い回答を書いてよいと伝える。最大の行数・高さのdpの値は記載なし。",
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     url: "https://m3.material.io/components/text-fields/guidelines",
   },
   {
     key: "wcag",
     name: "W3C",
     position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
-    text: "MDNのaria-multiline解説を直接確認したところ、この属性はカスタムのrole=\"textbox\"ウィジェットが複数行入力を受け付けるかを支援技術に伝えるためのもので、ARIAは要素の既定の動作自体は変えないため、ネイティブの<textarea>要素にはそもそも不要だとされています。高さを固定して内容を隠してしまう実装は、達成基準1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に抵触し得る点にも注意が必要です(この2つはテキストエリア専用の基準ではなく一般的な達成基準です)。",
+    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"の部品が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
     confirmedNote: "aria-multiline属性の解説はMDN本文を直接確認済み(2026-09)。",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline",
     urlSecondary: [{ label: "解説(MDN): aria-multiline", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline" }],
@@ -214,8 +216,8 @@ const TEXTAREA_NOTES = [
     key: "nn",
     name: "Nielsen Norman Group",
     position: "入力欄の見た目の大きさ自体が、求められている回答の長さを示す視覚的な手がかりになるという指針",
-    text: "NN groupの記事「Few Guesses, More Success」を直接確認したところ、短い入力欄は簡潔な回答(郵便番号・年齢など)を示唆し、長い・大きい入力欄はより詳しい入力(住所・説明・コメントなど)が必要なことを示すとされています。電話番号・市区町村・郵便番号の欄を同じ大きさで揃えてしまいユーザーを混乱させた実例(NAICのフォーム)が紹介されており、テキストエリアの高さは求める回答の長さに比例させるべきという実務的な指針です。",
-    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。テキストエリア専用の記事ではなく、フォーム全般の認知負荷に関する記事の一節です。",
+    text: "短い入力欄は短い回答(郵便番号・年齢など)を、長く大きい入力欄は詳しい入力(住所・説明・コメントなど)を求めていると伝わる、としている。電話番号・市区町村・郵便番号の欄を同じ大きさにそろえて利用者を迷わせた例(NAICのフォーム)を挙げており、テキストエリアの高さは求める回答の長さに合わせる、という実務的な指針になる。",
+    confirmedNote: "記事の本文で確認(2026-09)。テキストエリア専用の記事ではなく、フォーム全般の認知負荷の記事の一節。",
     url: "https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/",
   },
 ];
@@ -373,6 +375,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>検索のための欄は<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "入力欄の中の文字(プレースホルダー)を、ラベルの代わりにしてよい?",
+    sides: [
+      { who: "W3C・NN group", color: "#A3821F", t: "代わりにしない。目に見えるラベルか説明が必要で、プレースホルダーだけでは足りない(W3C 3.3.2)。ラベルとヒントを欄の外に常に見せるのが最良(NN group)" },
+      { who: "Google", color: "#2F7D6E", t: "すべての欄にラベルを付け、常に見せる。ラベルは欄の中に置いてよく、選ぶと上へ移る(フローティングラベル)" },
+      { who: "Apple", color: "#C2542A", t: "プレースホルダーで欄の目的を示してよい。ただし入力すると消えるので、別にラベルを置くと役に立つ、としている(必須とはしていない)" },
+    ],
+    tip: "ラベルは欄の外に常に表示し、プレースホルダーは入力例(「例: name@example.com」)だけに使う形にすれば、4系列のどれとも食い違いません。場所が足りないときは、Googleのフローティングラベルが次の選択肢です(NN groupは、場所があるなら外に置く方がよいとしています)。",
+  },
+];
+
 export default function TextInputsTextFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -414,6 +429,8 @@ export default function TextInputsTextFieldPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <h2 style={styles.diagramTitle}>① テキストフィールド(単一行)</h2>
           <FieldPatterns />
 
@@ -447,6 +464,7 @@ export default function TextInputsTextFieldPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -482,6 +500,8 @@ export default function TextInputsTextFieldPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -525,10 +545,10 @@ export default function TextInputsTextFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、本文はまだ直接確認できていません。
+              リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)のガイドラインとアクセシビリティのページへのリンクです。
             </span>
           </div>
         </div>
@@ -538,6 +558,8 @@ export default function TextInputsTextFieldPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   patternTitle: { fontSize: 14, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   patternGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   patternCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },

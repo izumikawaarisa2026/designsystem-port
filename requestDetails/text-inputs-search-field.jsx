@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / 検索フィールド」ページ。
@@ -51,6 +51,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Search fields",
+    term: "Search field",
     color: "#C2542A",
     position: "検索アイコン・クリアボタン・プレースホルダーを持つ、編集できるテキストフィールド。スコープバーとトークンで検索範囲を絞り込める。iOSでは入り口をタブ・ツールバー・インラインの3か所から選ぶ",
     size: "検索フィールド自体の寸法(pt)は、HIGの検索フィールドのページには示されていない。",
@@ -89,6 +90,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Search(Search bar / Search view)",
+    term: "Search(Search bar・Search view)",
     color: "#2F7D6E",
     position: "画面上部の「検索バー」と、選択すると開く「検索ビュー」をまとめて「Search」と呼ぶ。見た目は包含(Contained、推奨)と分割(Divided、従来型)の2スタイル、候補・結果の出し方は全画面とドッキングの2レイアウト",
     size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンはタップ領域48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
@@ -99,7 +101,7 @@ const SOURCES = [
       { term: "全画面/ドッキング", desc: "全画面は、候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは、検索バーの下にリストを出し、残りの画面を幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      "検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つから選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      <>検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。</>,
     exceptions:
       "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要がある。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしている。",
     accessibility:
@@ -133,6 +135,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5",
+    term: "search(ランドマークのロール)/ HTMLのsearch要素・input type=\"search\"",
     color: "#A3821F",
     position: "role=\"search\"(またはHTMLのsearch要素)で検索機能一式をランドマークとして示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
     size: "検索フィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は検索ボタンなどの操作要素にも適用される。",
@@ -175,12 +178,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions",
+    term: "Search box(検索欄)",
     color: "#7A4F7E",
     position: "虫眼鏡アイコンだけにすると検索が見つけにくくなるため、入力欄を開いたまま置くことを基本とする。候補(オートコンプリート)は、良い結果につながり、入力した文字と見分けられることを重視する",
     size: "固定幅の検索欄は、入力内容を見直せるよう27文字分以上の幅にするよう勧めている。アイコンは大きく、周りに余白を取って押しやすくするとしている。",
     colorInfo: "アイコンが背景や周りの要素から目立つよう、十分なコントラストを取るよう勧めている(数値基準はない)。",
     stance:
-      "多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。デスクトップでは入力欄を開いたままページの右上に置き、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。",
+      <>多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。</>,
     exceptions:
       "アイコンだけにする場合は、アイコンを1回押したらすぐ入力欄にカーソルが入り、入力できる状態にすべきだとしている。入力欄はアイコンの近くに出し、周りに他のアイコンを詰め込みすぎず、かといって孤立させすぎないようにする。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、検索の見つけやすさ・操作の手間に関するユーザー調査に基づく指針。",
@@ -213,16 +217,16 @@ const ICON_NOTES = [
   {
     key: "hig",
     name: "Apple",
-    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)。iOSではフォーカスするとキャンセルボタンが追加される",
-    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示すると定義しています。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変形してキーボードの上(場所がなければ上部)に現れます。フォーカス時のキャンセルボタンで検索を終えてキーボードを閉じられる点は、WWDC26のセッションで説明されています。",
-    confirmedNote: "構成要素とツールバーでの挙動はHIGのページデータで直接確認(2026-09)。キャンセルボタンの説明はWWDC26セッション「Design intuitive search experiences」を含む検索結果による間接確認です。",
+    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)",
+    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示するとしている。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変わり、キーボードの上(場所がなければ上部)に現れる。",
+    confirmedNote: "HIG Search fieldsの本文で確認(2026-11)。",
     url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Search-in-a-toolbar",
   },
   {
     key: "material",
     name: "Google",
     position: "先頭には、ナビゲーション用アイコンボタン(メニュー・戻る)か、押しても動作しない検索アイコンのどちらかを置く。フォーカスすると先頭は戻る矢印になり、M3 Expressiveではバーが横に広がる(画面端の余白24dp→12dp)",
-    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成されます。検索アイコンは、先頭に置く場合は押しても動作しない目印として、末尾に置く場合は装飾として扱えます。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻ります。",
+    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成される。検索アイコンは、先頭に置く場合は押しても動作しない目印、末尾に置く場合は装飾として扱える。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻る。",
     confirmedNote: "M3の公式ページ本文(2026-09)とMaterial Components for Androidのドキュメントで確認。",
     url: "https://m3.material.io/components/search/guidelines",
   },
@@ -230,7 +234,7 @@ const ICON_NOTES = [
     key: "wcag",
     name: "W3C",
     position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
-    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はありません。アイコンをボタンとして実装する場合は、他の操作可能な要素と同様にフォーカス可能にし、役割・名前を適切に伝える必要があります。",
+    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
     confirmedNote: "WAI-ARIA仕様のsearchロールと、MDNの解説本文を確認(2026-09、仕様は2026-10)。",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
     urlSecondary: [{ label: "解説(MDN)", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
@@ -239,7 +243,7 @@ const ICON_NOTES = [
     key: "nn",
     name: "Nielsen Norman Group",
     position: "アイコン自体の左右位置ではなく、検索ボックス全体をページの右上に置くことを推奨。アイコンはクリックで送信されるボタンとして機能させ、1回のクリックで入力欄にカーソルが入るようにすべきとしている",
-    text: "記事本文を直接確認したところ、検索の入り口は、人が最初に探す場所である右上に置くよう勧めています。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしています。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としています。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていません。",
+    text: "検索の入り口は、人が最初に探す場所である右上に置くよう勧めている。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしている。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としている。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていない。",
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/",
   },
@@ -341,8 +345,7 @@ function IconBehaviorDiagram({ k }) {
       {mag(22, 98, "#C2542A")}
       {T(32, 102, "旅行|", { c: "#171B36" })}
       <circle cx="117" cy="99" r="5" fill="#C9CEE3" />{T(117, 101.5, "✕", { a: "middle", s: 6, c: "#FFFFFF" })}
-      {T(134, 102, "キャンセル", { s: 7.5, c: "#C2542A", w: 600 })}
-      {T(10, 122, "入力するとクリア、フォーカスでキャンセルが出る", { s: 6.5, c: "#7E86AC" })}
+      {T(10, 122, "入力するとクリアボタンが出る", { s: 6.5, c: "#7E86AC" })}
     </g>
   );
   if (k === "material") body = (
@@ -413,6 +416,7 @@ function IconNotes() {
           <div key={s.key} style={styles.sourceCard}>
             <div style={styles.sourceName}>{s.name}</div>
             <div style={styles.iconDiagramBox}><IconBehaviorDiagram k={s.key} /></div>
+            <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
             <div style={styles.positionBadge}>{s.position}</div>
             <p style={styles.sourceStance}>{s.text}</p>
             <p style={styles.confirmedNote}>{s.confirmedNote}</p>
@@ -704,6 +708,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>情報を登録するための入力欄は<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "検索は、虫眼鏡のアイコンだけにしてよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "デスクトップでは入力欄を開いたまま右上に置く。アイコンだけだと見つけにくい。スマートフォンのような狭い画面では、アイコンを押すまで欄を隠してもよい" },
+      { who: "Google", color: "#2F7D6E", t: "検索がどれだけ主要かで選ぶ。主要なら検索バーや検索アプリバー、補助的ならアイコンボタンだけでよい" },
+      { who: "Apple", color: "#C2542A", t: "iOSでは入り口をタブ・ツールバー・画面の中(インライン)の3か所から選ぶ。アイコンだけにするかの決まりはない" },
+    ],
+    tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置きます(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいですが、押したらすぐ入力できる状態にします(NN group)。",
+  },
+];
+
 export default function TextInputsSearchFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -735,6 +752,8 @@ export default function TextInputsSearchFieldPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -805,6 +824,8 @@ export default function TextInputsSearchFieldPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -861,7 +882,7 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
@@ -874,6 +895,8 @@ export default function TextInputsSearchFieldPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

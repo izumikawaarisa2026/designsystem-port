@@ -23991,27 +23991,27 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "専用ページなし(Text fields / Feedbackの記載に含まれる)",
+    term: <NoData>専用の部品なし(入力の決まりの中で扱う)</NoData>,
     color: "#C2542A",
-    position: "フィールドの値は動的に検証すべきとしつつ、検証タイミングは場面依存。メールアドレス等はフォーカスが外れた時、ユーザー名・パスワードの作成は次のフィールドに移る前に検証すべきとされる(公式本文は未確認)",
+    position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。欄ごとのタイミング(フォーカスが外れたときなど)の決まりはない",
     colorInfo: "色についての明確な規定は確認できていない(視覚的な状態表現は「エラー表示」ページを参照)。",
     stance:
-      "Appleは、フィールドの値を人々が入力した時点で動的に検証し、問題を検知したらすぐにフィードバックを与えて、その場で訂正できるようにすべきだとしている。ただし検証を行う適切なタイミングは文脈によるとしており、メールアドレスのような形式はフォーカスが変わる時に検証するのが望ましい一方、ユーザー名やパスワードの作成では、フォーカスが別のフィールドに移る前に検証すべきだとしている(検索結果による確認、2026-09。HIGのText fieldsのページ本文では該当する記述を確認できなかったため、公式本文は未確認として扱う)。",
+      <>長いフォームを書き終えてから戻って直すのは利用者の負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題を見つけたらすぐに知らせて、その場で直せるようにするとしている(HIG Entering dataの本文で確認、2026-11)。どの時点で確かめるか(入力中か、欄を離れたときか)は書いていない。</>,
     exceptions:
-      "長いフォームを入力し終えた後で間違いを戻って直すのはユーザーの負担になるため、問題を検知した時点で早めにフィードバックを与えるべきだとしている。値の種類が数字だけに限定されるフィールドでは、数字以外の文字が入力された時点で警告すべきだともしている。",
+      "数値の欄では、数字だけを受け付けて決まった形で表示する書式(number formatter)を使うとよいとしている。必須の入力がある場合は、入力が済むまで「次へ」などのボタンを使えないようにして、入力が必要なことを伝える。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
-      "メールアドレスなど一般的な形式は、フォーカスが外れた時点で検証する(公式本文は未確認)",
+      "値は入力されたらすぐに確かめ、問題があればすぐに知らせる",
       "ユーザー名・パスワードの作成は、次のフィールドに移る前に検証する",
       "数字専用フィールドなど値の種類が限定される場合は、不正な文字の入力時点で警告する",
     ],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices",
     refs: [
-      { label: "専用ページなし(Text fields / Feedbackの記載に含まれる)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+      { label: "Entering data ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices" },
       { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。フォーカス変更時/次フィールドに移る前、という検証タイミングの使い分けも同様に間接確認。",
-    pending: true,
+    confirmedNote: "HIG Entering dataの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
         <rect x="1" y="1" width="118" height="20" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.4" />
@@ -24025,13 +24025,14 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(サポートテキスト/エラーテキストの切り替え)",
+    term: "Supporting text → Error text",
     color: "#2F7D6E",
-    position: "検証前は「サポートテキスト」で書式ヒントを常時示し、検証エラー時には同じ位置の「エラーテキスト」に置き換える(レイアウトを動かさないための設計)。具体的な検証トリガー条件(リアルタイム/フォーカス離脱時など)は未確認",
-    colorInfo: "サポートテキストは既定色、エラーテキストはエラーカラー(赤系トークン)で表示されるとされている(検索結果による確認)。",
+    position: "検証する欄では、欄の下のサポートテキスト(書式のヒント)を、同じ位置のエラーテキストに入れ替える(レイアウトを動かさないため)。いつ検証するかの決まりは記載なし",
+    colorInfo: "エラーテキストはエラーの色で表示し、エラーアイコンも表示することを強く勧めている。",
     stance:
-      "Material Design 3のテキストフィールドは、通常時は「サポートテキスト」で入力の使われ方や書式のヒントを示し、パスワードのように検証を伴うフィールドでは、エラー発生時にサポートテキストをエラーテキストへ置き換えるとされている。新しい行が増えてレイアウトが動くことを避けるため、同じ位置でテキストを入れ替える設計だとされている(検索結果による確認、2026-09)。",
+      "Material Design 3のテキストフィールドは、通常は欄の下の「サポートテキスト」で使い方や書式のヒントを示し、パスワードのように検証する欄では、エラーのときにサポートテキストをエラーテキストに入れ替える。行が増えてレイアウトが動くのを避けるためとしている(M3 Text fieldsのガイドラインで確認、2026-11)。",
     exceptions:
-      "検証をいつ実行するか(入力中のリアルタイム、フォーカスを外した時、送信時など)についての具体的なトリガー条件は、m3.material.ioの公式ページ本文で確認できていない。",
+      "検証をいつ行うか(入力中・欄を離れたとき・送信時)の決まりは、M3のテキストフィールドのページには書かれていない。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― サポートテキストからエラーテキストへの切り替えはテキストによる状態伝達の一種と考えられるが、直接確認はできていない。",
     useCases: [
@@ -24044,8 +24045,7 @@ const SOURCES = [
     refs: [
       { label: "Text fields(サポートテキスト/エラーテキストの切り替え)", url: "https://m3.material.io/components/text-fields/guidelines" },
     ],
-    confirmedNote: "サポートテキスト/エラーテキストの切り替えの仕組みは検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。具体的な検証タイミングのトリガー条件は未確認。",
-    pending: true,
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="46" viewBox="0 0 120 46">
         <rect x="1" y="1" width="118" height="20" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
@@ -24060,6 +24060,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
+    term: "Validating Input(WAIのチュートリアル)",
     color: "#A3821F",
     position: "検証を「いつ行うべきか」の規範的な基準は見当たらない。ARIA19はエラーを動的に通知する技術的な仕組み(ライブリージョン)を示すが、タイミング自体は実装者の判断に委ねている。G199は送信成功時のフィードバック提供を推奨する、数少ない「タイミング」に触れた技術",
     colorInfo: "色についての明確な規定はこの3つの資料には見当たらない(視覚的な状態表現は「エラー表示」ページを参照)。",
@@ -24070,7 +24071,7 @@ const SOURCES = [
       { term: "3.3.7 Redundant Entry・レベルA", desc: "同じ手続きの中で、すでに入力・提供された情報をもう一度求める場合は、自動で入れておくか、選べるようにすることを求める基準(WCAG 2.2で追加)。" },
     ],
     stance:
-      "WAI「Validating Input」チュートリアルを直接確認したところ、クライアント側での検証は一般に良いユーザー体験につながり、エラーの解決を分かりやすくするとされているが、検証を「いつ」実行すべきか(リアルタイム/フォーカス離脱時/送信時)を指定する規範的な記述は見当たらなかった。可能な限り、ユーザーが入力内容を確認し訂正できる機会を持てるようにすべきだ、という一般原則にとどまる。ARIA19(role=\"alert\"またはライブリージョンでエラーを識別する技術)を直接確認したところ、エラーメッセージをライブリージョンに動的に挿入してスクリーンリーダーに通知する仕組みは規定しているが、いつ挿入するかというタイミング自体は実装者の判断に委ねられており、技術の例では送信時に検証し500ミリ秒待ってから挿入する例が示されているのみ。G199(送信成功時のフィードバック提供)を直接確認したところ、送信が成功したことを明示的に伝えるフィードバックを提供すべきだとされており、検証タイミングというより送信「後」の結果通知に関する技術。WCAG 2.2で追加された3.3.7(レベルA)は、同じ手続きの中ですでに入力された情報をもう一度求める場合、自動で入れておくか、選べるようにすることを求める(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力済みの内容を消さない)。ブラウザの自動入力だけでは満たしたことにならず、サイト側で前の入力を引き継ぐ必要がある。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように再入力が本質的な場合、前の情報が無効になった場合は例外。",
+      "WAI「Validating Input」チュートリアルは、クライアント側での検証は一般に良いユーザー体験につながり、エラーの解決を分かりやすくするとされているが、検証を「いつ」実行すべきか(リアルタイム/フォーカス離脱時/送信時)を指定する記述はない。可能な限り、ユーザーが入力内容を確認し訂正できる機会を持てるようにすべきだ、という一般原則にとどまる。ARIA19(role=\"alert\"またはライブリージョンでエラーを識別する技術)は、エラーメッセージをライブリージョンに動的に挿入してスクリーンリーダーに通知する仕組みは規定しているが、いつ挿入するかというタイミング自体は実装者の判断に委ねられており、技術の例では送信時に検証し500ミリ秒待ってから挿入する例が示されているのみ。G199(送信成功時のフィードバック提供)は、送信が成功したことを明示的に伝えるフィードバックを提供すべきだとされており、検証タイミングというより送信「後」の結果通知に関する技術。WCAG 2.2で追加された3.3.7(レベルA)は、同じ手続きの中ですでに入力された情報をもう一度求める場合、自動で入れておくか、選べるようにすることを求める(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力済みの内容を消さない)。ブラウザの自動入力だけでは満たしたことにならず、サイト側で前の入力を引き継ぐ必要がある。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように再入力が本質的な場合、前の情報が無効になった場合は例外。",
     exceptions:
       "ARIA19のライブリージョンは、ページ読み込み時点でDOM内に空のコンテナとして存在している必要があり、後から動的に追加したコンテナには対応できない支援技術がある、という実装上の注意点がある。",
     accessibility:
@@ -24104,11 +24105,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Hostile Patterns in Error Messages / 10 Design Guidelines for Reporting Errors in Forms",
+    term: "Inline validation(インラインの検証)",
     color: "#7A4F7E",
     position: "検証タイミングについて最も具体的な実務指針を持つ。原則は「フィールドを離れた時」に検証し、入力中(タイピング中)にエラーを出すことは避けるべきとしている。パスワードの要件チェックリストのような特殊なケースでのみ、入力中のリアルタイム検証を許容する",
     colorInfo: "色についての数値基準はこの2記事にはない(視覚的な状態表現は「エラー表示」ページを参照)。",
     stance:
-      "「Hostile Patterns in Error Messages」を直接確認したところ、大半のケースでは、ユーザーがそのフィールドの入力を終えて次のフィールドへ移動するまでエラー表示を待つべきだとしている。入力中にエラーメッセージを表示するのは、頼んでもいない叱責のように感じられ、苛立たせる可能性があるため。「10 Design Guidelines for Reporting Errors in Forms」も同様に、理想的にはすべての検証をインラインで行い、ユーザーがフィールドの入力を終えた時点でエラーがあれば近くにインジケーターを表示すべきだとしつつ、パスワードのような複雑なフィールドでは、入力中に即座に検証するインライン表示(タイプ中に表示される)が有効だともしている。両記事を通じて一貫しているのは、「入力途中で急いで警告しない」という原則です(2026-09、両記事とも本文を直接取得して確認済み)。",
+      <>「Hostile Patterns in Error Messages」は、大半のケースでは、ユーザーがその<Hl>フィールドの入力を終えて次のフィールドへ移動するまでエラー表示を待つべき</Hl>だとしている。入力中にエラーメッセージを表示するのは、頼んでもいない叱責のように感じられ、苛立たせる可能性があるため。「10 Design Guidelines for Reporting Errors in Forms」も同様に、理想的にはすべての検証をインラインで行い、ユーザーがフィールドの入力を終えた時点でエラーがあれば近くにインジケーターを表示すべきだとしつつ、パスワードのような複雑なフィールドでは、入力中に即座に検証するインライン表示(タイプ中に表示される)が有効だともしている。両記事を通じて一貫しているのは、「入力途中で急いで警告しない」という原則。</>,
     exceptions:
       "必須項目が空欄のまま送信された場合のエラーは、送信を試みた後に表示するのが有用だとしている。技術的にリアルタイム検証ができない場合は、フォームやページが再読み込みされた際にエラーメッセージが分かりやすく見つけやすい場所にあるようにすべきだとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザー体験調査(苛立ち・中断のしやすさ)に基づく実務的なタイミング指針。",
@@ -24151,8 +24153,8 @@ const TIMING_MATRIX = [
     key: "hig", name: "Apple",
     cells: {
       before: { m: "none", t: "言及なし" },
-      typing: { m: "unknown", t: "数字だけの欄に数字以外が入った時点で警告(公式本文は未確認)" },
-      blur: { m: "unknown", t: "メールアドレスなどはフォーカスが変わる時。ユーザー名・パスワードの作成は次の欄に移る前(公式本文は未確認)" },
+      typing: { m: "good", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる(入力中か離れたときかは記載なし)。数値の欄は数字だけを受け付ける書式を使う" },
+      blur: { m: "none", t: "記載なし(「すぐに知らせる」のみ)" },
       submit: { m: "none", t: "言及なし(長いフォームの最後にまとめて直させるのは負担としている)" },
       after: { m: "none", t: "言及なし" },
     },
@@ -24161,9 +24163,9 @@ const TIMING_MATRIX = [
     key: "material", name: "Google",
     cells: {
       before: { m: "good", t: "サポートテキストで書式のヒントを常に示す" },
-      typing: { m: "unknown", t: "検証のきっかけは未確認" },
-      blur: { m: "unknown", t: "検証のきっかけは未確認" },
-      submit: { m: "unknown", t: "検証のきっかけは未確認" },
+      typing: { m: "none", t: "検証のきっかけは記載なし" },
+      blur: { m: "none", t: "検証のきっかけは記載なし" },
+      submit: { m: "none", t: "検証のきっかけは記載なし" },
       after: { m: "none", t: "言及なし" },
     },
   },
@@ -24282,7 +24284,7 @@ const TIMING_DETAILS = [
     what: "欄の入力を終えて次の欄へ移った(フォーカスが外れた)時点で検証し、問題があればその欄の近くに表示する。",
     good: "書き終えた内容だけを判定するので、途中で急かさない。フォームの最後まで行かなくても、その場で直せる。",
     care: "何も入力せずにTabキーで通り過ぎただけの欄に、すぐ「必須です」と出すのは早すぎる(NN group)。",
-    who: "NN group(大半の欄の既定)。Appleも同じ考え方とされる(メールアドレスなど。公式本文は未確認)",
+    who: "NN group(大半の欄の既定)",
   },
   {
     key: "submit",
@@ -24323,9 +24325,9 @@ function TimingDetails() {
 
 /* 入力欄の種類ごとの目安(◯/△/✕)。各系列の記述を入力欄の種類で整理し直したもの */
 const FIELD_GUIDE = [
-  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定(Appleも同じとされるが公式本文は未確認)"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
-  { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "次の欄に移る前に検証(Apple)"], submit: ["cond", "最終確認"] },
-  { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字以外が入った時点で警告(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
+  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
+  { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
+  { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字だけを受け付ける書式にする(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "必須項目の未入力", typing: ["avoid", "入力前から出さない"], blur: ["cond", "何か入力して消した場合など。通り過ぎただけでは出さない"], submit: ["good", "送信を試みた後に示す(NN group)"] },
 ];
 
@@ -24414,6 +24416,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>見つけたエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "入力の検証は、いつ行う?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "欄の入力を終えて次の欄へ移るまで待つ。入力中にエラーを出すと責められているように感じる。パスワードの条件の一覧のような場面だけは入力中に示してよい" },
+      { who: "Apple", color: "#C2542A", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる。入力中か欄を離れたときかは書いていない" },
+      { who: "W3C・Google", color: "#A3821F", t: "タイミングの決まりはない(W3CのARIA19の例は送信時に確かめる。Googleはエラーテキストの出し方だけを定めている)" },
+    ],
+    tip: "「欄を離れたときに確かめる」を基本にすると、Appleの「すぐに知らせる」とNN groupの「入力中は待つ」の両方に沿います。入力中に示すのは、パスワードの条件のように、満たしたかどうかを見ながら入力したい場面だけにします。",
+  },
+];
+
 function TextInputsInputValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -24443,13 +24458,15 @@ function TextInputsInputValidationPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
           <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べました。表は横にスクロールできます。</p>
           <TimingLegend />
           <TimingChart />
-          <p style={styles.diagramNote}>具体的なタイミングを定めているのはApple(フォーカスが変わる時)とNN group(フィールドを離れた時)で、どちらも「入力中は原則として急がせない」という点で一致しています。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱います。Googleは入力前のヒントの出し方は明確ですが、検証のきっかけは確認できていません。</p>
+          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)だけです。Appleは「入力されたらすぐに知らせる」とし、どの時点かは書いていません。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱います。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていません。</p>
 
           <h3 style={styles.subTitle}>5つのタイミングの解説</h3>
           <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べました。</p>
@@ -24466,13 +24483,13 @@ function TextInputsInputValidationPage() {
               検証タイミングについて最も具体的な指針を持つのはNielsen Norman Groupです。<strong>「入力中(タイピング中)にエラーを出さない」「フィールドを離れた時点で検証する」</strong>を原則としつつ、<strong>パスワードの要件チェックリストのような場面に限りリアルタイム検証を認める</strong>という、原則+例外の形で整理されています。
             </p>
             <p style={styles.synthesisText}>
-              Appleも方向性は同じとされ、<strong>メールアドレスのような一般的な形式はフォーカスが外れた時、ユーザー名・パスワードの作成は次のフィールドに移る前に検証する</strong>と紹介されています(ただしHIGのText fieldsのページ本文では該当する記述を確認できておらず、公式本文は未確認です)。タイミングを定めているのは<strong>AppleとNN groupの2系列</strong>で(W3Cは規定なし、Googleは未確認)、確認できれば、2系列が独立に似た結論に達していることになります。
+              Appleは<strong>「入力されたらすぐに確かめ、問題があればすぐに知らせる」</strong>としていますが、入力中か欄を離れたときかまでは書いていません。いつ検証するかは系列で分かれます(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              対照的にW3C(WCAG)は、<strong>「いつ検証すべきか」自体を規範的に定めた記述が見当たりません</strong>。ARIA19はエラーを動的に通知する技術的な仕組み(ライブリージョン)を、G199は送信成功時のフィードバックを扱いますが、どちらも検証のトリガー条件そのものではありません。これはWCAGが「エラーをどう伝えるか」(このサイトの「エラー表示」ページで扱うW3C 3.3.1/3.3.3/3.3.4)には具体的でも、「いつ」には意図的に中立という、探索が甘かったのではなく複数の一次情報を確認した上での発見です。
+              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていません</strong>。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を、G199は送信が成功したことの知らせ方を扱いますが、どちらも検証のタイミングではありません。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立です。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「サポートテキストをエラーテキストに置き換える」という視覚的な切り替えの仕組み</strong>は明確ですが、それを引き起こす具体的なトリガー条件(リアルタイムか、フォーカス離脱時か)は公式ページ本文で確認できていません。エラーが起きる前から書式のヒントをサポートテキストとして示しておくという点は、NN groupの「入力途中で急がせない」という考え方と相性が良い設計です。
+              Googleは<strong>「サポートテキストをエラーテキストに入れ替える」という見せ方</strong>を定めていますが、いつ検証するかはM3のページに書かれていません。エラーの前から書式のヒントをサポートテキストで示しておく点は、NN groupの「入力途中で急がせない」という考え方と相性のよい作りです。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -24490,6 +24507,7 @@ function TextInputsInputValidationPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -24525,6 +24543,8 @@ function TextInputsInputValidationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -24563,10 +24583,10 @@ function TextInputsInputValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
+              リンクについて: AppleはEntering dataページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
             </span>
           </div>
         </div>
@@ -24576,6 +24596,8 @@ function TextInputsInputValidationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -24712,6 +24734,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Search fields",
+    term: "Search field",
     color: "#C2542A",
     position: "検索アイコン・クリアボタン・プレースホルダーを持つ、編集できるテキストフィールド。スコープバーとトークンで検索範囲を絞り込める。iOSでは入り口をタブ・ツールバー・インラインの3か所から選ぶ",
     size: "検索フィールド自体の寸法(pt)は、HIGの検索フィールドのページには示されていない。",
@@ -24750,6 +24773,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Search(Search bar / Search view)",
+    term: "Search(Search bar・Search view)",
     color: "#2F7D6E",
     position: "画面上部の「検索バー」と、選択すると開く「検索ビュー」をまとめて「Search」と呼ぶ。見た目は包含(Contained、推奨)と分割(Divided、従来型)の2スタイル、候補・結果の出し方は全画面とドッキングの2レイアウト",
     size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンはタップ領域48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
@@ -24760,7 +24784,7 @@ const SOURCES = [
       { term: "全画面/ドッキング", desc: "全画面は、候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは、検索バーの下にリストを出し、残りの画面を幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      "検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つから選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      <>検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。</>,
     exceptions:
       "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要がある。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしている。",
     accessibility:
@@ -24794,6 +24818,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5",
+    term: "search(ランドマークのロール)/ HTMLのsearch要素・input type=\"search\"",
     color: "#A3821F",
     position: "role=\"search\"(またはHTMLのsearch要素)で検索機能一式をランドマークとして示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
     size: "検索フィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は検索ボタンなどの操作要素にも適用される。",
@@ -24836,12 +24861,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions",
+    term: "Search box(検索欄)",
     color: "#7A4F7E",
     position: "虫眼鏡アイコンだけにすると検索が見つけにくくなるため、入力欄を開いたまま置くことを基本とする。候補(オートコンプリート)は、良い結果につながり、入力した文字と見分けられることを重視する",
     size: "固定幅の検索欄は、入力内容を見直せるよう27文字分以上の幅にするよう勧めている。アイコンは大きく、周りに余白を取って押しやすくするとしている。",
     colorInfo: "アイコンが背景や周りの要素から目立つよう、十分なコントラストを取るよう勧めている(数値基準はない)。",
     stance:
-      "多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。デスクトップでは入力欄を開いたままページの右上に置き、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。",
+      <>多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。</>,
     exceptions:
       "アイコンだけにする場合は、アイコンを1回押したらすぐ入力欄にカーソルが入り、入力できる状態にすべきだとしている。入力欄はアイコンの近くに出し、周りに他のアイコンを詰め込みすぎず、かといって孤立させすぎないようにする。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、検索の見つけやすさ・操作の手間に関するユーザー調査に基づく指針。",
@@ -24874,16 +24900,16 @@ const ICON_NOTES = [
   {
     key: "hig",
     name: "Apple",
-    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)。iOSではフォーカスするとキャンセルボタンが追加される",
-    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示すると定義しています。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変形してキーボードの上(場所がなければ上部)に現れます。フォーカス時のキャンセルボタンで検索を終えてキーボードを閉じられる点は、WWDC26のセッションで説明されています。",
-    confirmedNote: "構成要素とツールバーでの挙動はHIGのページデータで直接確認(2026-09)。キャンセルボタンの説明はWWDC26セッション「Design intuitive search experiences」を含む検索結果による間接確認です。",
+    position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)",
+    text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示するとしている。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変わり、キーボードの上(場所がなければ上部)に現れる。",
+    confirmedNote: "HIG Search fieldsの本文で確認(2026-11)。",
     url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Search-in-a-toolbar",
   },
   {
     key: "material",
     name: "Google",
     position: "先頭には、ナビゲーション用アイコンボタン(メニュー・戻る)か、押しても動作しない検索アイコンのどちらかを置く。フォーカスすると先頭は戻る矢印になり、M3 Expressiveではバーが横に広がる(画面端の余白24dp→12dp)",
-    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成されます。検索アイコンは、先頭に置く場合は押しても動作しない目印として、末尾に置く場合は装飾として扱えます。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻ります。",
+    text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成される。検索アイコンは、先頭に置く場合は押しても動作しない目印、末尾に置く場合は装飾として扱える。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻る。",
     confirmedNote: "M3の公式ページ本文(2026-09)とMaterial Components for Androidのドキュメントで確認。",
     url: "https://m3.material.io/components/search/guidelines",
   },
@@ -24891,7 +24917,7 @@ const ICON_NOTES = [
     key: "wcag",
     name: "W3C",
     position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
-    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はありません。アイコンをボタンとして実装する場合は、他の操作可能な要素と同様にフォーカス可能にし、役割・名前を適切に伝える必要があります。",
+    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
     confirmedNote: "WAI-ARIA仕様のsearchロールと、MDNの解説本文を確認(2026-09、仕様は2026-10)。",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
     urlSecondary: [{ label: "解説(MDN)", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
@@ -24900,7 +24926,7 @@ const ICON_NOTES = [
     key: "nn",
     name: "Nielsen Norman Group",
     position: "アイコン自体の左右位置ではなく、検索ボックス全体をページの右上に置くことを推奨。アイコンはクリックで送信されるボタンとして機能させ、1回のクリックで入力欄にカーソルが入るようにすべきとしている",
-    text: "記事本文を直接確認したところ、検索の入り口は、人が最初に探す場所である右上に置くよう勧めています。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしています。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としています。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていません。",
+    text: "検索の入り口は、人が最初に探す場所である右上に置くよう勧めている。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしている。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としている。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていない。",
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/",
   },
@@ -25002,8 +25028,7 @@ function IconBehaviorDiagram({ k }) {
       {mag(22, 98, "#C2542A")}
       {T(32, 102, "旅行|", { c: "#171B36" })}
       <circle cx="117" cy="99" r="5" fill="#C9CEE3" />{T(117, 101.5, "✕", { a: "middle", s: 6, c: "#FFFFFF" })}
-      {T(134, 102, "キャンセル", { s: 7.5, c: "#C2542A", w: 600 })}
-      {T(10, 122, "入力するとクリア、フォーカスでキャンセルが出る", { s: 6.5, c: "#7E86AC" })}
+      {T(10, 122, "入力するとクリアボタンが出る", { s: 6.5, c: "#7E86AC" })}
     </g>
   );
   if (k === "material") body = (
@@ -25074,6 +25099,7 @@ function IconNotes() {
           <div key={s.key} style={styles.sourceCard}>
             <div style={styles.sourceName}>{s.name}</div>
             <div style={styles.iconDiagramBox}><IconBehaviorDiagram k={s.key} /></div>
+            <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
             <div style={styles.positionBadge}>{s.position}</div>
             <p style={styles.sourceStance}>{s.text}</p>
             <p style={styles.confirmedNote}>{s.confirmedNote}</p>
@@ -25365,6 +25391,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>情報を登録するための入力欄は<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "検索は、虫眼鏡のアイコンだけにしてよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "デスクトップでは入力欄を開いたまま右上に置く。アイコンだけだと見つけにくい。スマートフォンのような狭い画面では、アイコンを押すまで欄を隠してもよい" },
+      { who: "Google", color: "#2F7D6E", t: "検索がどれだけ主要かで選ぶ。主要なら検索バーや検索アプリバー、補助的ならアイコンボタンだけでよい" },
+      { who: "Apple", color: "#C2542A", t: "iOSでは入り口をタブ・ツールバー・画面の中(インライン)の3か所から選ぶ。アイコンだけにするかの決まりはない" },
+    ],
+    tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置きます(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいですが、押したらすぐ入力できる状態にします(NN group)。",
+  },
+];
+
 function TextInputsSearchFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -25392,6 +25431,8 @@ function TextInputsSearchFieldPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -25462,6 +25503,8 @@ function TextInputsSearchFieldPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -25518,7 +25561,7 @@ function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認。Appleのキャンセルボタンの説明のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
@@ -25531,6 +25574,8 @@ function TextInputsSearchFieldPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -25656,25 +25701,25 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Text fields",
+    term: "Text field(複数行はText view)",
     color: "#C2542A",
     position: "1行(または複数行)のテキストを入力・編集させる標準コントロール",
-    size: <span><NoData>数値は未確認。</NoData>他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。</span>,
+    size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかの部品と同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
-      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。プレースホルダーテキストを使って、フィールドが空のときに入力例や短い説明を示せるとしているが、検索結果からは、それ自体がラベルの代わりになるとは明記されていない(検索結果による確認、2026-09)。",
+      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。欄が空のときは、プレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、欄の目的を思い出せるよう別にラベルを置くと役に立つ、としている(HIG Text fieldsの本文で確認、2026-11)。",
     exceptions:
-      <span>エラー表示やヘルパーテキストの扱いについての詳細な基準は公式ページ本文で未確認。</span>,
+      <span>欄が多いときは間隔をそろえ、できるだけ縦に積み、幅をそろえる。エラーの出し方は入力の決まり(Entering data)で扱う(「エラー表示」「バリデーション」ページを参照)。</span>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "1行のテキストを入力・編集させる",
-      "プレースホルダーテキストで入力例や短い説明を示す(ラベルの代わりにはしない、はAIの補足)",
+      "プレースホルダーで入力例や短い説明を示し、別にラベルも置く",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
     refs: [
       { label: "Text fields", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
-    pending: true,
+    confirmedNote: "HIG Text fieldsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -25687,19 +25732,20 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(Filled / Outlined)",
+    term: "Text field(Filled・Outlined)",
     color: "#2F7D6E",
     position: "Filled(塗りつぶし)とOutlined(枠線)の2種類。フローティングラベル+サポートテキスト/エラーテキストの構造を持つ",
-    size: <span><NoData>数値は未確認。</NoData>一般的なタッチターゲット基準(48×48dp)が適用されると考えられる(検索結果による確認)。</span>,
+    size: "欄の高さは56dp(Jetpack Composeのトークン)。押せる範囲の決まりは、テキストフィールドのページには記載なし。",
     glossary: [
       { term: "フローティングラベル", desc: "入力欄の中に表示され、フォーカス時や入力時に上に移動して常に見える状態になるラベル。何も入力していない状態でも入力欄の中に「今何を求められているか」を示す。" },
-      { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下に表示される補足情報。入力の使われ方などを説明するサポートテキストは、検証エラー時にはエラーテキストに置き換えられる。両方表示する場合はサポートテキストを先に、エラーテキストを後に読み上げるべきとされる。" },
+      { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下に表示される補足情報。入力の使われ方などを説明するサポートテキストは、検証エラー時にはエラーテキストに置き換えられる。両方表示する場合はサポートテキストを先に、エラーテキストを後に読み上げさせる。" },
     ],
     stance:
-      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。フローティングラベルは入力欄と揃って配置され、常に表示され続け、フォーカス時や入力時に浮き上がるとされている(検索結果による確認、2026-09)。",
+      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る(M3 Text fieldsのガイドラインで確認、2026-11)。",
     exceptions:
-      "サポートテキストとエラーテキストの両方を表示する場合、アクセシビリティ上はサポートテキストを先に、エラーテキストを後に読み上げる構成にすべきとされている。エラーメッセージの読み上げ方(alertロールを使うかなど)は、公式本文では未確認。",
+      "サポートテキストとエラーテキストの両方を表示する場合は、サポートテキストを先に、エラーテキストを後に読み上げさせる。エラーメッセージにはalertの役割を付ける。必須の欄はラベルの末尾に「*」を付け、読み上げにも含める。",
     accessibility:
-      "操作可能(Operable) ― 一般的なタッチターゲット基準(48×48dp)が適用されると考えられる(直接確認はできていない)。",
+      "知覚可能(Perceivable) ― 枠線のある欄は、枠線と背景のコントラストを3:1以上にする。堅牢(Robust) ― エラーメッセージにalertの役割を付け、支援技術に伝える。",
     useCases: [
       "周囲で目立たせたい単独のフィールドにはFilledを使う",
       "フォームなど多数のフィールドを並べる場合はOutlinedを使う",
@@ -25711,8 +25757,7 @@ const SOURCES = [
       { label: "Text fields(Filled / Outlined)", url: "https://m3.material.io/components/text-fields/guidelines" },
       { label: "Accessibility", url: "https://m3.material.io/components/text-fields/accessibility" },
     ],
-    confirmedNote: "Filled/Outlinedの区分・フローティングラベル・サポート/エラーテキストの構造は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
-    pending: true,
+    confirmedNote: "M3 Text fieldsのガイドライン・アクセシビリティの本文と、Jetpack Composeのトークンで確認(2026-11)。",
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
         <rect x="1" y="6" width="138" height="22" rx="4" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -25727,6 +25772,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
+    term: "textbox(WAI-ARIAのロール)/ HTMLのinput要素",
     color: "#A3821F",
     position: "入力を求めるコンテンツには、目に見えるラベルまたは説明を提供することを要求(レベルA)",
     glossary: [
@@ -25734,7 +25780,7 @@ const SOURCES = [
     ],
     size: "テキストフィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は関連する操作要素(送信ボタンなど)に適用される。",
     stance:
-      "入力を求めるコンテンツには、必須かどうかを問わず、目に見えるラベルまたは説明を提供しなければならないとしている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。",
+      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベルまたは説明を提供しなければならない</Hl>としている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。</>,
     exceptions:
       "プレースホルダーテキストやARIAだけによるラベル付けは、この基準を満たすには不十分だとしている。目的は、ユーザーが過度な混乱なくタスクを完了できるだけの情報を提供することで、データ形式・入力例・必須項目の明示などが必要に応じて求められる。",
     accessibility:
@@ -25763,11 +25809,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Placeholders in Form Fields Are Harmful",
+    term: "Form field(入力欄)",
     color: "#7A4F7E",
     position: "ラベル・説明文を入力欄の中(プレースホルダー)に置くのは有害という、調査に基づく指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべきだとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている(記事本文を直接確認、2026-10)。",
+      <><Hl>ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべき</Hl>だとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている(記事本文を直接確認、2026-10)。</>,
     exceptions:
       "長いフォームで入力中にヒントを忘れると、書いた内容を消して確認しないと元のヒントが見えないという記憶の負担が生じるとしている。ラベルなしでは、入力済みかどうかを確認するために各欄を1つずつ消して確認する必要が生じるとしている。アイトラッキング調査では、ユーザーの視線は空欄に引き寄せられるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ調査(記憶負荷・確認のしやすさ・視線)に基づく指針。",
@@ -25797,23 +25844,23 @@ const TEXTAREA_NOTES = [
     key: "hig",
     name: "Apple",
     position: "テキストフィールドは短い特定の文言専用。複数行・大きな文章の入力には、延長ではなく別コンポーネント「Text view」を使うべきとしている",
-    text: "HIGは、テキストフィールドを氏名やメールアドレスなど「小さく具体的な文言」専用と位置づけています。より多くの文章を入力させたい場合は、テキストフィールドを大きくするのではなく別コンポーネントの「Text view」を使うべきだとしており、Text viewは複数行のスタイル付きテキストを表示でき、編集可能/読み取り専用のどちらにもできるとされています。",
-    confirmedNote: "「Text views」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    text: "HIGは、テキストフィールドを氏名やメールアドレスなど短い文言のための部品とし、長い文章には別の部品の「Text view」を使うとしている。Text viewは高さを自由に決められ、内容があふれるとスクロールでき、長い文章・編集できる文章・特別な書式の文章を表示するときに使う。少しの文章なら、表示はラベル、編集はテキストフィールドのほうが簡単としている。",
+    confirmedNote: "HIG Text viewsの本文で確認(2026-11)。",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-views",
   },
   {
     key: "material",
     name: "Google",
-    position: "別コンポーネントではなく、同じText Fieldsコンポーネントが持つ「複数行(multi-line)」バリアント",
-    text: "Material Design 3では、複数行入力はAppleのように独立したコンポーネントに分かれておらず、単一行のテキストフィールドと同じコンポーネントのバリアントの1つとして扱われています。複数行になると入力欄が伸びて複数行分の文章を収められるとされていますが、具体的な最大行数・高さのdp数値は確認できていません。",
-    confirmedNote: "m3.material.io本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    position: "別の部品ではなく、同じText fieldの中の「複数行(multi-line)」と「テキストエリア(text area)」",
+    text: "M3では、複数行の入力は別の部品ではなく、テキストフィールドの3つの形の中で扱う。1行の欄は長い回答に向かない。複数行の欄は最初は1行で、あふれると下に伸びて画面の要素を押し下げる。テキストエリアは最初から高さがあり、決まった高さを超えるとスクロールする。最初から大きいことで、長い回答を書いてよいと伝える。最大の行数・高さのdpの値は記載なし。",
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     url: "https://m3.material.io/components/text-fields/guidelines",
   },
   {
     key: "wcag",
     name: "W3C",
     position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
-    text: "MDNのaria-multiline解説を直接確認したところ、この属性はカスタムのrole=\"textbox\"ウィジェットが複数行入力を受け付けるかを支援技術に伝えるためのもので、ARIAは要素の既定の動作自体は変えないため、ネイティブの<textarea>要素にはそもそも不要だとされています。高さを固定して内容を隠してしまう実装は、達成基準1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に抵触し得る点にも注意が必要です(この2つはテキストエリア専用の基準ではなく一般的な達成基準です)。",
+    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"の部品が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
     confirmedNote: "aria-multiline属性の解説はMDN本文を直接確認済み(2026-09)。",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline",
     urlSecondary: [{ label: "解説(MDN): aria-multiline", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline" }],
@@ -25822,8 +25869,8 @@ const TEXTAREA_NOTES = [
     key: "nn",
     name: "Nielsen Norman Group",
     position: "入力欄の見た目の大きさ自体が、求められている回答の長さを示す視覚的な手がかりになるという指針",
-    text: "NN groupの記事「Few Guesses, More Success」を直接確認したところ、短い入力欄は簡潔な回答(郵便番号・年齢など)を示唆し、長い・大きい入力欄はより詳しい入力(住所・説明・コメントなど)が必要なことを示すとされています。電話番号・市区町村・郵便番号の欄を同じ大きさで揃えてしまいユーザーを混乱させた実例(NAICのフォーム)が紹介されており、テキストエリアの高さは求める回答の長さに比例させるべきという実務的な指針です。",
-    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。テキストエリア専用の記事ではなく、フォーム全般の認知負荷に関する記事の一節です。",
+    text: "短い入力欄は短い回答(郵便番号・年齢など)を、長く大きい入力欄は詳しい入力(住所・説明・コメントなど)を求めていると伝わる、としている。電話番号・市区町村・郵便番号の欄を同じ大きさにそろえて利用者を迷わせた例(NAICのフォーム)を挙げており、テキストエリアの高さは求める回答の長さに合わせる、という実務的な指針になる。",
+    confirmedNote: "記事の本文で確認(2026-09)。テキストエリア専用の記事ではなく、フォーム全般の認知負荷の記事の一節。",
     url: "https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/",
   },
 ];
@@ -25981,6 +26028,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>検索のための欄は<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "入力欄の中の文字(プレースホルダー)を、ラベルの代わりにしてよい?",
+    sides: [
+      { who: "W3C・NN group", color: "#A3821F", t: "代わりにしない。目に見えるラベルか説明が必要で、プレースホルダーだけでは足りない(W3C 3.3.2)。ラベルとヒントを欄の外に常に見せるのが最良(NN group)" },
+      { who: "Google", color: "#2F7D6E", t: "すべての欄にラベルを付け、常に見せる。ラベルは欄の中に置いてよく、選ぶと上へ移る(フローティングラベル)" },
+      { who: "Apple", color: "#C2542A", t: "プレースホルダーで欄の目的を示してよい。ただし入力すると消えるので、別にラベルを置くと役に立つ、としている(必須とはしていない)" },
+    ],
+    tip: "ラベルは欄の外に常に表示し、プレースホルダーは入力例(「例: name@example.com」)だけに使う形にすれば、4系列のどれとも食い違いません。場所が足りないときは、Googleのフローティングラベルが次の選択肢です(NN groupは、場所があるなら外に置く方がよいとしています)。",
+  },
+];
+
 function TextInputsTextFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -26018,6 +26078,8 @@ function TextInputsTextFieldPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <h2 style={styles.diagramTitle}>① テキストフィールド(単一行)</h2>
           <FieldPatterns />
 
@@ -26051,6 +26113,7 @@ function TextInputsTextFieldPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -26086,6 +26149,8 @@ function TextInputsTextFieldPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -26129,10 +26194,10 @@ function TextInputsTextFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3Cは本文確認済み。Apple・Google・NN groupは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、本文はまだ直接確認できていません。
+              リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)のガイドラインとアクセシビリティのページへのリンクです。
             </span>
           </div>
         </div>
@@ -26142,6 +26207,8 @@ function TextInputsTextFieldPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   patternTitle: { fontSize: 14, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   patternGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   patternCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
@@ -26255,13 +26322,14 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "専用ページなし(Text fields等の記載に含まれる)",
+    term: <NoData>専用の部品なし</NoData>,
     color: "#C2542A",
     position: "エラー表示・バリデーションという名称の専用ガイドラインページは見当たらない。テキストフィールド関連の記載に含まれる",
-    colorInfo: "色だけでエラー状態を伝えるべきではないという言及がある(検索結果による確認)。色に加えてアイコンやテキストラベルを併用すべきとされている。",
+    colorInfo: "エラー専用の色の規定はない。全体の方針として、色だけに頼らず、形やアイコンなどの手がかりを足すよう求めている(HIG Accessibility)。",
     stance:
-      "AppleのHIGには、エラー表示(バリデーション)という名称の専用ガイドラインページは見当たらない。テキストフィールドなど個別コンポーネントの記載の中に、フィールドの値を検証して問題を知らせ、ユーザーがすぐに訂正できるようにすべきという言及があるとされている(検索結果による確認、2026-09)。表示のタイミング(いつ検証するか)は、このページでは断定せず、「バリデーション」ページで比較している。",
+      "AppleのHIGには、エラー表示の専用ページはない。入力の決まり(Entering data)で、値は入力されたらすぐに確かめ、問題があればすぐに知らせて、その場で直せるようにするとしている。表示のタイミングの比較は「バリデーション」ページで扱う(HIG Entering data・Writingの本文で確認、2026-11)。",
     exceptions:
-      "エラーメッセージはエラーコードや汎用的な文言ではなく、次に何をすべきかを説明すべきとしている。赤いエラー表示のように色だけで状態を伝えるべきではなく、アイコンやテキストラベルを併用すべきとされている(検索結果による確認)。",
+      "エラーは問題の起きた場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ、としている(HIG Writing)。",
     accessibility: <span><NoData>記載なし。</NoData>一般的な原則として、色だけに頼らない状態表示が挙げられている。</span>,
     useCases: [
       "問題を知らせて、すぐに訂正できるようにする(表示のタイミングは「バリデーション」ページを参照)",
@@ -26269,12 +26337,12 @@ const SOURCES = [
       "色だけでなくアイコン・テキストラベルも併用して状態を伝える",
     ],
     searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices",
     refs: [
-      { label: "専用ページなし(Text fields等の記載に含まれる)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+      { label: "Entering data ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices" },
+      { label: "Writing ― Best practices(エラーの文言)", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
     ],
-    confirmedNote: "「バリデーション」という名称の専用ページは見当たらないことを検索で確認(2026-09)。テキストフィールド全般の記載中の言及も、公式ページ本文の直接確認ではなく検索結果による間接確認。",
-    pending: true,
+    confirmedNote: "HIG Entering data・Writing・Accessibilityの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
         <rect x="1" y="1" width="118" height="22" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -26288,12 +26356,13 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text fields(エラー状態)",
+    term: "Text fieldのエラー状態(Error text・エラーアイコン)",
     color: "#2F7D6E",
     position: "テキストフィールドのバリエーションの1つとして「エラー状態」を持つ。エラー表示専用のコンポーネントはない",
-    colorInfo: "エラー状態では、枠線・フローティングラベル・ヘルパーテキストにエラーカラー(赤系のトークン)を適用し、末尾にエラーアイコンを表示できるとされている(検索結果による確認)。",
+    colorInfo: "エラー状態では、枠線・ラベル・エラーテキストにエラーの色を使う。あわせてエラーアイコンを表示することを強く勧めている。視覚に障害のある人にとって、色に加わる2つ目の手がかりになるため。",
     stance:
-      "Material Design 3にはエラー表示という独立したコンポーネントはなく、テキストフィールドの状態(Enabled/Focused/Error等)の1つとして「エラー状態」が定義されているとされている。エラー状態ではエラーカラーの枠線・ラベル・ヘルパーテキストに加え、末尾にエラーアイコンを表示できるとされている(検索結果による確認、2026-09)。",
-    exceptions: "エラー状態と他の状態(Disabledなど)が同時に発生する場合の優先順位など、詳細な規定は公式ページ本文で未確認。",
+      <>Material Design 3にはエラー表示という独立した部品はなく、<Hl>テキストフィールドの状態の1つとして「エラー状態」を持つ</Hl>。検証する欄では、欄の下のサポートテキストをエラーテキストに入れ替える(行が増えてレイアウトが動かないようにするため)。エラーが1種類ならその避け方を、複数ありうるなら最も起きやすいエラーの避け方を書く(M3 Text fieldsのガイドラインで確認、2026-11)。</>,
+    exceptions: "エラーテキストが長い場合は複数行に折り返してよいが、そのぶん欄どうしの間隔を十分にとり、レイアウトを押し出さないようにする。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― エラーの発生をテキスト(ヘルパーテキスト)でも伝えるべきとされ、色のみに依存しない表示が求められると考えられる(直接確認はできていない)。",
     useCases: [
@@ -26306,8 +26375,7 @@ const SOURCES = [
     refs: [
       { label: "Text fields(エラー状態)", url: "https://m3.material.io/components/text-fields/guidelines" },
     ],
-    confirmedNote: "テキストフィールドのエラー状態(エラーカラー・ヘルパーテキスト・アイコン)についての一般的な言及は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
-    pending: true,
+    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
         <rect x="1" y="1" width="118" height="22" rx="4" fill="#FFFFFF" stroke="#C0503F" strokeWidth="1.6" />
@@ -26323,6 +26391,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
+    term: "aria-invalid・role=\"alert\"(エラーを伝えるしくみ)",
     color: "#A3821F",
     position: "エラーの検知・説明(レベルA)、訂正案の提示(レベルAA)、重要操作での防止策(レベルAA)という3段階の達成基準",
     colorInfo: "1.4.1(色の使用・レベルA)により、エラーを色の違いだけで伝えてはいけない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求める。エラーは視覚的表示だけでなく、必ずテキストで説明する必要がある(3.3.1)。",
@@ -26333,7 +26402,7 @@ const SOURCES = [
       { term: "3.3.4 Error Prevention(レベルAA)", desc: "法的・金融的な確約、ユーザーデータの変更・削除、試験の回答の送信を伴うページでは、「取消可能」「入力エラーを検査して訂正機会を与える」「送信前に確認・訂正できる仕組みがある」のいずれかを満たさなければならないという基準。" },
     ],
     stance:
-      "3.3.1は、入力エラーが自動検出された場合、エラーのある項目を特定し、エラーの内容をテキストで説明することを求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。",
+      <>3.3.1は、入力エラーが自動検出された場合、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。</>,
     exceptions:
       "3.3.3の訂正案の提示は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしている。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定される。",
     accessibility:
@@ -26365,11 +26434,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Error-Message Guidelines / 10 Design Guidelines for Reporting Errors in Forms",
+    term: "Error message(エラーメッセージ)",
     color: "#7A4F7E",
     position: "文言・トーン・配置の実務ガイドライン(数値基準ではなく、伝わりやすさの原則)",
     colorInfo: "色だけに頼らず、太字・高コントラストの赤色文字など複数の視覚的手がかりを重ねて使うべきとしている。",
     stance:
-      "エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、ユーザーを責める表現(「無効」「不正」など)は避けるべきとしている。",
+      <>エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、<Hl>ユーザーを責める表現(「無効」「不正」など)は避けるべき</Hl>としている。</>,
     exceptions:
       "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしている。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしている。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしている。ユーモアは繰り返されると陳腐化するため避けるべきとしている。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けている。入力欄のエラーは、欄の近くに消えない形で出すのが基本です(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、エラーメッセージの伝わりやすさ・修正のしやすさに基づく実務的な指針。",
@@ -26508,6 +26578,7 @@ function TextInputsValidationPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -26543,6 +26614,8 @@ function TextInputsValidationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -26581,10 +26654,10 @@ function TextInputsValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。Googleは最新版(M3)のText fieldsページへリンクしていますが、本文はまだ直接確認できていません。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
+              リンクについて: AppleはEntering dataとWritingのページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
             </span>
           </div>
         </div>
@@ -26594,6 +26667,8 @@ function TextInputsValidationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
