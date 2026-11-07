@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / フローティングアクションボタン(FAB)」ページ。
@@ -28,6 +28,9 @@ const SOURCES = [
     pourDetail: "―(FABという分類自体がHIGに存在しないため、POUR上の分類も定義されていない)",
     searchHint: "floating in space",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS",
+    refs: [
+      { label: "Buttons(visionOS)", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="40" height="40" viewBox="0 0 40 40">
@@ -53,6 +56,9 @@ const SOURCES = [
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して最低3:1のコントラスト比を確保すべきとされており、知覚可能性に関わる。フォーカス順序で優先的に扱うべきという点は操作可能性に関わる。",
     searchHint: "FAB container height",
     url: "https://m3.material.io/components/floating-action-button/specs",
+    refs: [
+      { label: "FAB(3サイズ)", url: "https://m3.material.io/components/floating-action-button/specs" },
+    ],
     confirmedNote: "56dp/80dp/96dpとアイコンの大きさは、GoogleのMDC Androidのドキュメントで確認(2026-10)。",
     illustration: () => (
       <svg width="40" height="40" viewBox="0 0 40 40">
@@ -76,6 +82,9 @@ const SOURCES = [
     pourDetail: "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、入力方法(2.5)の達成基準。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+    refs: [
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="40" height="40" viewBox="0 0 40 40">
@@ -99,6 +108,9 @@ const SOURCES = [
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "Floating Button",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Floating-Button",
+    refs: [
+      { label: "UI Elements Glossary", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Floating-Button" },
+    ],
     illustration: () => (
       <svg width="40" height="40" viewBox="0 0 40 40">
         <circle cx="20" cy="20" r="18" fill="#7A4F7E" />
@@ -259,12 +271,13 @@ export default function ActionsFabPage() {
                   <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
                   <p style={styles.exceptionText}>{s.pourDetail}</p>
                 </div>
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                <div style={styles.exceptionBox}>
+                  <span style={styles.exceptionLabel}>参照ページ(公式)</span>
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </div>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+                )}
               </div>
             ))}
           </div>
@@ -291,10 +304,10 @@ export default function ActionsFabPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

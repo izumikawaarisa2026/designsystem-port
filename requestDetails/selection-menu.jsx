@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / メニュー」ページ。
@@ -44,7 +44,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels",
-    urlSecondary: [
+    refs: [
+      { label: "Menus / Context menus / Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels" },
       { label: "Menus ― Organization", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Organization" },
       { label: "Context menus ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/context-menus#Best-practices" },
       { label: "Pull-down buttons ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons#Best-practices" },
@@ -72,7 +73,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/menus/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Menus", url: "https://m3.material.io/components/menus/guidelines" },
       { label: "MDC Android: Menus(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Menu.md" },
       { label: "Compose Material 3: Menu.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/Menu.kt" },
       { label: "Compose Material 3: MenuTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MenuTokens.kt" },
@@ -104,10 +106,11 @@ const SOURCES = [
     ],
     searchHint: "Disabled menu items are focusable",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#keyboard_interaction",
-    urlSecondary: [
-      { label: "APG: Menu and Menubar ― 役割と属性", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#roles_states_properties" },
-      { label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
-      { label: "APG: Disclosure Navigation Menuの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" },
+    refs: [
+      { kind: "apg", label: "APG: Menubar Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#keyboard_interaction" },
+      { kind: "apg", label: "APG: Menu and Menubar ― 役割と属性", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menubar/#roles_states_properties" },
+      { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+      { kind: "apg", label: "APG: Disclosure Navigation Menuの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/" },
     ],
     confirmedNote: "APGのMenu and Menubar Pattern・Menu Button Patternの本文を直接取得して確認済み(2026-10)。",
   },
@@ -131,7 +134,8 @@ const SOURCES = [
     ],
     searchHint: "Show keyboard shortcuts in contextual menus",
     url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3",
-    urlSecondary: [
+    refs: [
+      { label: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3" },
       { label: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/#toc-guidelines-for-dropdown-design-1" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Contextual Menus)のもの。",
@@ -476,18 +480,11 @@ export default function SelectionMenuPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -518,15 +515,11 @@ export default function SelectionMenuPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

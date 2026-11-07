@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / テキストフィールド」ページ。
@@ -62,6 +62,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    refs: [
+      { label: "Text fields", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+    ],
     confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -96,7 +99,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/text-fields/guidelines",
-    urlSecondary: [{ label: "Accessibility", url: "https://m3.material.io/components/text-fields/accessibility" }],
+    refs: [
+      { label: "Text fields(Filled / Outlined)", url: "https://m3.material.io/components/text-fields/guidelines" },
+      { label: "Accessibility", url: "https://m3.material.io/components/text-fields/accessibility" },
+    ],
     confirmedNote: "Filled/Outlinedの区分・フローティングラベル・サポート/エラーテキストの構造は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
     pending: true,
     illustration: () => (
@@ -132,6 +138,9 @@ const SOURCES = [
     ],
     searchHint: "undue confusion",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html",
+    refs: [
+      { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="30" viewBox="0 0 140 30">
@@ -161,6 +170,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.nngroup.com/articles/form-design-placeholders/",
+    refs: [
+      { label: "Placeholders in Form Fields Are Harmful", url: "https://www.nngroup.com/articles/form-design-placeholders/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認(2026-10)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -397,18 +409,11 @@ export default function TextInputsTextFieldPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -444,13 +449,10 @@ export default function TextInputsTextFieldPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

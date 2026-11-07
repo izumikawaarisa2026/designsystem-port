@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -42,7 +42,10 @@ const SOURCES = [
     ],
     searchHint: "flat list of mutually exclusive options",
     url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons",
-    urlSecondary: [{ label: "Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" }],
+    refs: [
+      { label: "Pop-up buttons / Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+      { label: "Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
+    ],
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
         <rect x="1" y="1" width="88" height="24" rx="6" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -76,7 +79,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/menus/guidelines",
-    urlSecondary: [{ label: "Specs(最新版)", url: "https://m3.material.io/components/menus/specs" }],
+    refs: [
+      { label: "Menus(Exposed dropdown menu)", url: "https://m3.material.io/components/menus/guidelines" },
+      { label: "Specs(最新版)", url: "https://m3.material.io/components/menus/specs" },
+    ],
     confirmedNote: "使用法・バリエーション・色のマッピング・単一選択/複数選択・メニュー項目・アクセシビリティ(タップ領域・フォーカス・終了操作)の各セクションは2026-09時点で公式ページ本文を直接確認済み。メニュー全体のdp数値やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
@@ -117,12 +123,13 @@ const SOURCES = [
     ],
     searchHint: "aria-selected",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/",
-    urlSecondary: [
-      { label: "APG: Comboboxパターン(全体)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
-      { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
-      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
-      { label: "3.2.2 On Input", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
-      { label: "3.2.1 On Focus", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
+    refs: [
+      { kind: "apg", label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+      { kind: "apg", label: "APG: Comboboxパターン(全体)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
+      { kind: "apg", label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "3.2.2 入力時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
+      { kind: "sc", level: "A", label: "3.2.1 フォーカス時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
     ],
     confirmedNote: "3.2.1・3.2.2はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -157,6 +164,9 @@ const SOURCES = [
     ],
     searchHint: "typing may be faster",
     url: "https://www.nngroup.com/articles/drop-down-menus/",
+    refs: [
+      { label: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/" },
+    ],
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
         <rect x="1" y="1" width="88" height="24" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -289,18 +299,11 @@ export default function SelectionSelectPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -338,13 +341,10 @@ export default function SelectionSelectPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

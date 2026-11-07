@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / フルスクリーンダイアログ」ページ。
@@ -51,6 +51,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/modality",
+    refs: [
+      { label: "Modality / Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
+    ],
     confirmedNote: "「Modality」「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果(ページの引用抜粋)による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -89,6 +92,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/dialogs/guidelines",
+    refs: [
+      { label: "Full-screen dialog", url: "https://m3.material.io/components/dialogs/guidelines" },
+    ],
     confirmedNote: "M3の公式ページ本文(m3.material.io「Dialogs」のガイドライン)で、使用法・コンテナとスクリム・確認/エラーメッセージ・ダイアログウィンドウ・ナビゲーション・適応型デザイン(ブレークポイント切り替え)の各セクションを2026-09に直接確認・反映。具体的なdp数値は文書内に記載がなく未確認。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -127,6 +133,9 @@ const SOURCES = [
     ],
     searchHint: "Escape",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    refs: [
+      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
@@ -163,7 +172,10 @@ const SOURCES = [
     ],
     searchHint: "dedicating a full page",
     url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/",
-    urlSecondary: [{ label: "Wizards: Definition and Design Recommendations", url: "https://www.nngroup.com/articles/wizards/" }],
+    refs: [
+      { label: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations", url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/" },
+      { label: "Wizards: Definition and Design Recommendations", url: "https://www.nngroup.com/articles/wizards/" },
+    ],
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="0" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -307,18 +319,11 @@ export default function ContainmentFullscreenDialogPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -358,13 +363,10 @@ export default function ContainmentFullscreenDialogPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

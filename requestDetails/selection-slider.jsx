@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / スライダー」ページ。
@@ -53,6 +53,9 @@ const SOURCES = [
     ],
     searchHint: "minimum and maximum sides of sliders",
     url: "https://developer.apple.com/design/human-interface-guidelines/sliders",
+    refs: [
+      { label: "Sliders", url: "https://developer.apple.com/design/human-interface-guidelines/sliders" },
+    ],
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
         <line x1="4" y1="10" x2="116" y2="10" stroke="#F0DACB" strokeWidth="4" strokeLinecap="round" />
@@ -90,7 +93,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/sliders/guidelines",
-    urlSecondary: [{ label: "Specs(最新版)", url: "https://m3.material.io/components/sliders/specs" }],
+    refs: [
+      { label: "Sliders(使用法・アクセシビリティ)", url: "https://m3.material.io/components/sliders/guidelines" },
+      { label: "Specs(最新版)", url: "https://m3.material.io/components/sliders/specs" },
+    ],
     confirmedNote: "使用法・トラック・値の表示・停止表示器・埋め込みアイコン・ユースケース・インタラクションとスタイル・フォーカスとナビゲーション・色のコントラストの各セクションは2026-09時点で確認済み。各サイズの具体的なdp数値やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
@@ -123,9 +129,10 @@ const SOURCES = [
     ],
     searchHint: "path-dependent",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html",
-    urlSecondary: [
-      { label: "2.5.7 Dragging Movements", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
-      { label: "2.5.8 Target Size (Minimum)", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
+      { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -160,6 +167,9 @@ const SOURCES = [
     ],
     searchHint: "approximate value is good enough",
     url: "https://www.nngroup.com/articles/gui-slider-controls/",
+    refs: [
+      { label: "Slider Design: Rules of Thumb", url: "https://www.nngroup.com/articles/gui-slider-controls/" },
+    ],
     illustration: () => (
       <svg width="120" height="20" viewBox="0 0 120 20">
         <line x1="4" y1="10" x2="116" y2="10" stroke="#E7DCE8" strokeWidth="4" strokeLinecap="round" />
@@ -413,6 +423,52 @@ function ValueDisplaySection() {
   );
 }
 
+/* スライダーに向いているもの・向いていないもの(4系列の内容をまとめたAI解釈。出典の系列を括弧で示す) */
+const FIT_GOOD = [
+  { t: "大まかな値でよい調整", ex: "音量・明るさ・画像フィルターの強さ", src: "Google・NN group" },
+  { t: "動かしながら結果をすぐ見たい調整", ex: "写真の明るさ、文字の大きさのプレビュー", src: "Google(値をすぐ反映し、効果を見ながら選べるようにする)" },
+  { t: "範囲の指定(2つのつまみ)", ex: "価格帯、出発の時間帯", src: "Google(範囲スライダー)・NN group" },
+  { t: "0を中心にした±の調整", ex: "露出・色温度の補正", src: "Google(中央スライダー)" },
+];
+const FIT_BAD = [
+  { t: "正確な値が必要", ex: "体重・金額・分単位の時刻", alt: "入力欄(テキストフィールド)", src: "NN group" },
+  { t: "範囲が広い、刻みが細かい", ex: "0.1刻みの点数、広い範囲の数値", alt: "入力欄やステッパーを添える", src: "NN group・Apple" },
+  { t: "評価をつける", ex: "商品やお店の評価", alt: "タップできる星", src: "NN group" },
+  { t: "縦向きの範囲スライダー", ex: "縦に置いた価格帯の指定", alt: "横向きにする", src: "Google(負担が大きくなる)" },
+  { t: "iOS・iPadOSの音量の調整", ex: "アプリ内の再生音量", alt: "システムの音量ビュー", src: "Apple" },
+];
+
+function FitSection() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>スライダーに向いているもの・向いていないもの</h2>
+      <div style={styles.fitGrid}>
+        <div style={{ ...styles.fitCol, borderTopColor: "#2F7D6E" }}>
+          <div style={{ ...styles.fitHead, color: "#2F7D6E" }}>◯ 向いている</div>
+          {FIT_GOOD.map((f) => (
+            <div key={f.t} style={styles.fitItem}>
+              <div style={styles.fitTitle}>{f.t}</div>
+              <div style={styles.fitText}>例: {f.ex}</div>
+              <div style={styles.fitSrc}>{f.src}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ ...styles.fitCol, borderTopColor: "#C0503F" }}>
+          <div style={{ ...styles.fitHead, color: "#C0503F" }}>✕ 向いていない</div>
+          {FIT_BAD.map((f) => (
+            <div key={f.t} style={styles.fitItem}>
+              <div style={styles.fitTitle}>{f.t}</div>
+              <div style={styles.fitText}>例: {f.ex} → 代わりに<strong>{f.alt}</strong></div>
+              <div style={styles.fitSrc}>{f.src}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p style={styles.fitNote}>使う場合も、値のラベルは指で隠れないよう、スライダーの上か横に出します(NN group)。正確な値も選べるようにしたいときは、入力欄を並べて置き、互いの値をそろえます(Google・Apple)。各系列の内容をまとめたAI解釈で、出典の系列を各項目の下に示しています。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "つまみを横に動かして、範囲の中から値を選ぶ部品です。";
 const ABOUT = [
@@ -452,6 +508,8 @@ export default function SelectionSliderPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <FitSection />
 
 
 
@@ -494,18 +552,11 @@ export default function SelectionSliderPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -545,13 +596,10 @@ export default function SelectionSliderPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
@@ -583,6 +631,14 @@ export default function SelectionSliderPage() {
 }
 
 const styles = {
+  fitGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12 },
+  fitCol: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "12px 14px" },
+  fitHead: { fontSize: 13, fontWeight: 700, marginBottom: 8 },
+  fitItem: { padding: "7px 0", borderBottom: "1px solid #EEF0F7" },
+  fitTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
+  fitText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 2 },
+  fitSrc: { fontSize: 10, color: "#7E86AC", marginTop: 2 },
+  fitNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

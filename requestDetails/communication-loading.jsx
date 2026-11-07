@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ローディング状態」ページ。
@@ -32,6 +32,9 @@ const SOURCES = [
     ],
     searchHint: "Show something as soon as possible",
     url: "https://developer.apple.com/design/human-interface-guidelines/loading",
+    refs: [
+      { label: "Loading", url: "https://developer.apple.com/design/human-interface-guidelines/loading" },
+    ],
     confirmedNote: "HIGのページデータ(LoadingのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
@@ -62,7 +65,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/loading-indicator/guidelines",
-    urlSecondary: [{ label: "Progress indicators(進み具合を示す場合)", url: "https://m3.material.io/components/progress-indicators/overview" }],
+    refs: [
+      { label: "Loading indicator", url: "https://m3.material.io/components/loading-indicator/guidelines" },
+      { label: "Progress indicators(進み具合を示す場合)", url: "https://m3.material.io/components/progress-indicators/overview" },
+    ],
     confirmedNote: "Loading indicatorの仕様は、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -100,8 +106,9 @@ const SOURCES = [
     ],
     searchHint: "aria-busy",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
-    urlSecondary: [
-      { label: "解説(MDN): aria-busy", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy" },
+    refs: [
+      { label: "aria-busy属性(更新中であることを示す)", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy" },
+      { kind: "mdn", label: "aria-busy", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy" },
     ],
     confirmedNote: "WAI-ARIA仕様のaria-busy(2026-10)と、MDNの解説本文を確認しました(2026-09)。",
     illustration: () => (
@@ -133,6 +140,9 @@ const SOURCES = [
     ],
     searchHint: "skeleton screens",
     url: "https://www.nngroup.com/articles/skeleton-screens/",
+    refs: [
+      { label: "Skeleton Screens 101", url: "https://www.nngroup.com/articles/skeleton-screens/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認しました(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
@@ -273,18 +283,11 @@ export default function CommunicationLoadingPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -328,13 +331,10 @@ export default function CommunicationLoadingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「シェイプ・コーナーラジウス(角丸)」ページ。
@@ -48,7 +48,8 @@ const SOURCES = [
     ],
     searchHint: "concentric",
     url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Toolbars / Live Activities / Widgets ほか", url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Best-practices" },
       { label: "Live Activities: Creating layouts", url: "https://developer.apple.com/design/human-interface-guidelines/live-activities#Creating-Live-Activity-layouts" },
       { label: "App icons: Icon shape", url: "https://developer.apple.com/design/human-interface-guidelines/app-icons#Icon-shape" },
       { label: "Buttons: visionOS", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS" },
@@ -76,7 +77,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/shape/corner-radius-scale",
-    urlSecondary: [
+    refs: [
+      { label: "Shape", url: "https://m3.material.io/styles/shape/corner-radius-scale" },
       { label: "MDC Android: Shape theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Shape.md" },
       { label: "Compose Material 3 ShapeTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ShapeTokens.kt" },
       { label: "Compose Material 3 MaterialShapes(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/MaterialShapes.kt" },
@@ -107,8 +109,9 @@ const SOURCES = [
     ],
     searchHint: "does not require that controls have a visual boundary",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#boundaries",
-    urlSecondary: [
-      { label: "2.5.8 Target Size (Minimum)", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#size-requirement" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#boundaries" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#size-requirement" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -132,7 +135,10 @@ const SOURCES = [
     ],
     searchHint: "22% more time",
     url: "https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/",
-    urlSecondary: [{ label: "Flat-Design Best Practices", url: "https://www.nngroup.com/articles/flat-design-best-practices/" }],
+    refs: [
+      { label: "Flat-Design Best Practices / Flat UI Elements Attract Less Attention", url: "https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/" },
+      { label: "Flat-Design Best Practices", url: "https://www.nngroup.com/articles/flat-design-best-practices/" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
   },
 ];
@@ -594,18 +600,11 @@ export default function TokensShapePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -636,15 +635,11 @@ export default function TokensShapePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

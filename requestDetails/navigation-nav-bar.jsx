@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ナビゲーションバー」ページ。
@@ -62,6 +62,9 @@ const SOURCES = [
     ],
     searchHint: "Avoid overflow tabs",
     url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+    refs: [
+      { label: "Tab Bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+    ],
     confirmedNote: "「タブ」ページで直接取得・確認済みの内容と同一の一次情報です(2026-09)。Appleには「Navigation bar」という名前の別コンポーネントはなく、Googleの同名コンポーネントに対応するのはこのTab Barsです(Appleが別に「Navigation Bars」と呼んでいた上部バーについては「アプリバー」ページを参照)。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -100,6 +103,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-bar/guidelines",
+    refs: [
+      { label: "Navigation bar(画面下部)/ アプリバー(画面上部、別コンポーネント)", url: "https://m3.material.io/components/navigation-bar/guidelines" },
+    ],
     confirmedNote: "使用法・バリエーション(ベースライン/フレキシブル)・配置・状態の保持/リセット・インタラクションとスタイル・アクセシビリティ(ラベル要件・テキスト拡大)の各セクションは2026-09時点で公式ページ本文(m3.material.io「Navigation bar」のガイドライン)を確認済み。具体的な高さなどのspecs数値は未確認。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -138,8 +144,9 @@ const SOURCES = [
     ],
     searchHint: "unique label",
     url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/",
-    urlSecondary: [
-      { label: "3.2.3 Consistent Navigation", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
+    refs: [
+      { kind: "apg", label: "APG: WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
     confirmedNote: "3.2.3はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -173,6 +180,9 @@ const SOURCES = [
     ],
     searchHint: "relatively few navigation options",
     url: "https://www.nngroup.com/articles/mobile-navigation-patterns/",
+    refs: [
+      { label: "Basic Patterns for Mobile Navigation: A Primer", url: "https://www.nngroup.com/articles/mobile-navigation-patterns/" },
+    ],
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -333,18 +343,11 @@ export default function NavigationNavBarPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -382,13 +385,10 @@ export default function NavigationNavBarPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

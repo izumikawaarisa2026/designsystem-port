@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / セグメントコントロール」ページ。
@@ -47,6 +47,9 @@ const SOURCES = [
     ],
     searchHint: "Limit the number of segments",
     url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls",
+    refs: [
+      { label: "Segmented Controls", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
+    ],
     illustration: () => (
       <svg width="110" height="26" viewBox="0 0 110 26">
         <rect x="1" y="1" width="108" height="24" rx="6" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -87,7 +90,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/segmented-buttons/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Segmented buttons", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/segmented-buttons/specs" },
       { label: "後継: Connected button groups", url: "https://m3.material.io/components/button-groups/guidelines" },
     ],
@@ -108,58 +112,47 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5(WAI-ARIA Radio Group / Tabsパターン)",
+    doc: "該当コンポーネントなし(作るときはRadio GroupかTabsの型を使う)",
     color: "#A3821F",
-    position: "用途によって適切なARIAパターンが変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
-    size:
-      "セグメントコントロール専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
-    colorInfo:
-      "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
-    stance:
-      "セグメントコントロールが「フォーム内の1つの値を選ぶ」用途であればWAI-ARIAのRadio Groupパターン(役割はradiogroup/radio、矢印キーで移動)が、Appleの地図の例のように「表示コンテンツを切り替える」用途であればTabsパターン(role=tablist/tab/tabpanel)が適切と考えられる(AI解釈。W3Cはセグメントコントロールという部品を定めていないため)。いずれの場合も、名前・役割・状態が支援技術から取得できることを求める(4.1.2)。なお、Google自身のセグメントボタン実装は、表示切り替え用途であってもTabsパターンではなく、単一選択=radiogroup・複数選択=checkboxとして扱われるとしており、用途で考えるか実装で考えるかによって当てはめが変わりうる点には注意が必要。",
-    exceptions:
-      "標準的なHTMLのinput type=\"radio\"要素や、適切なARIAロールを持つカスタム実装であれば基準を満たす。用途(選択かビュー切替か)を誤ってARIAパターンを選ぶと、支援技術に正しく伝わらない点に注意が必要。",
-    accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)に加え、キーボード操作性(2.1.1)、ターゲットサイズ(2.5)が関わる。",
-    useCases: [
-      "フォーム内の単一選択にはRadio Groupパターン(radiogroup/radio)を使う",
-      "表示コンテンツの切り替えにはTabsパターン(tablist/tab/tabpanel)を使う",
+    position: <NoData>該当なし</NoData>,
+    glossary: [
+      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールという部品を定めていない。フォームの中で1つの値を選ぶ用途ならRadio Groupパターン(radiogroup/radio)、表示する内容を切り替える用途ならTabsパターン(tablist/tab/tabpanel)が近い。いずれも、名前・役割・状態が支援技術に伝わることが求められる(4.1.2)。Google自身の実装は、表示の切り替えでもradiogroup/checkboxとして扱うとしている。" },
     ],
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <NoData>該当なし</NoData>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: ["該当なし"],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
-    urlSecondary: [{ label: "Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" }],
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <svg width="110" height="26" viewBox="0 0 110 26">
-          <rect x="1" y="1" width="108" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="55" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">radiogroup / tablist</text>
-        </svg>
-      </div>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、用途に応じた役割の考え方を図示",
+    refs: [
+      { kind: "apg", label: "APG: Radio Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
+      { kind: "apg", label: "APG: 参考: APG Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+    ],
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "専用記事なし",
+    doc: "該当コンポーネントなし(用語集で定義のみ)",
     color: "#7A4F7E",
-    position: "セグメントコントロール専用の設計ガイドライン記事は見当たらない",
-    size: <NoData>数値基準なし</NoData>,
-    colorInfo: <NoData>数値基準なし</NoData>,
-    stance:
-      "セグメントコントロールそのものを主題にした専用の設計ガイドライン記事は確認できていない。トグルスイッチやチェックボックス・ラジオボタンとの使い分けを扱う記事の中で、関連コンポーネントとして触れられる程度。",
-    exceptions: "専用記事がないため、例外・許容ケースの記載も確認できていない。",
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: ["(専用記事なし)ラジオボタン・トグルスイッチの原則(常に選択肢を可視化する、即時反映するなど)を踏まえて個別に判断する"],
+    position: <NoData>該当なし</NoData>,
+    glossary: [
+      { term: "用語集の定義", desc: "UI Elements Glossaryでは「Segmented Button(Segmented Control)」を、同じデータの見せ方の切り替えや、内容の絞り込みに使う、ボタンがつながった部品として定義している。設計の指針を述べた専用の記事はない。" },
+    ],
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <NoData>該当なし</NoData>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: ["該当なし"],
     searchHint: "",
-    url: "https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/",
-    illustration: () => (
-      <svg width="110" height="26" viewBox="0 0 110 26">
-        <rect x="1" y="1" width="108" height="24" rx="6" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
-        <rect x="1" y="1" width="36" height="24" rx="6" fill="#7A4F7E" />
-      </svg>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button",
+    refs: [
+      { label: "該当コンポーネントなし(用語集で定義のみ)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button" },
+      { label: "UI Elements Glossary: Tab Bar(タブとの違い)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Tab-Bar" },
+    ],
   },
 ];
 
@@ -267,16 +260,16 @@ export default function NavigationSegmentedControlPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セグメントコントロールは、<strong>Appleが「表示(ビュー)の切り替え」を主な用途として説明する</strong>のに対し、<strong>Googleは「選択・表示切替・並べ替え」とやや広い用途</strong>で説明しており、両者で強調点が異なります。ラジオボタンと同じ「相互排他的な単一選択」を扱える点は共通しています。
+              <strong>W3CとNN groupには、セグメントコントロールに当たる項目はありません</strong>(W3Cは作るときの型、NN groupは用語の定義だけを「メモ」に載せています)。セグメントコントロールは、<strong>Appleが「表示(ビュー)の切り替え」を主な用途として説明する</strong>のに対し、<strong>Googleは「選択・表示切替・並べ替え」とやや広い用途</strong>で説明しており、両者で強調点が異なります。ラジオボタンと同じ「相互排他的な単一選択」を扱える点は共通しています。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>があります。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされています(「セレクト(プルダウン)」ページで確認した複数選択メニューと同様、Googleには複数選択に対応するSelection系コンポーネントが複数存在する点は興味深い共通項です)。
+              <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>があります。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされています。
             </p>
             <p style={styles.synthesisText}>
               Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記しています。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言えます。
             </p>
             <p style={styles.synthesisText}>
-              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことです(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>と考えられる(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者の視点の違いも見えてきました。Nielsen Norman Groupには専用記事がなく、4系列の中で最も情報が薄いコンポーネントです。
+              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことです(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>と考えられる(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者で考え方が異なります。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -302,18 +295,11 @@ export default function NavigationSegmentedControlPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -351,13 +337,10 @@ export default function NavigationSegmentedControlPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

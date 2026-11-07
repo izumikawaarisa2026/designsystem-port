@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「モーション/アニメーション」ページ。
@@ -46,7 +46,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/motion#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Motion / Accessibility", url: "https://developer.apple.com/design/human-interface-guidelines/motion#Best-practices" },
       { label: "Providing feedback", url: "https://developer.apple.com/design/human-interface-guidelines/motion#Providing-feedback" },
       { label: "Accessibility ― Cognitive(Reduce Motion)", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Cognitive" },
     ],
@@ -73,7 +74,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs",
-    urlSecondary: [
+    refs: [
+      { label: "Motion(Easing and duration)", url: "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs" },
       { label: "MDC Android: Motion(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md" },
       { label: "Jetpack Compose: MotionTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MotionTokens.kt" },
     ],
@@ -105,9 +107,10 @@ const SOURCES = [
     ],
     searchHint: "reduce motion feature",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html#success-criterion",
-    urlSecondary: [
-      { label: "2.2.2 Pause, Stop, Hide", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html#success-criterion" },
-      { label: "2.3.1 Three Flashes or Below Threshold", url: "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "AAA", label: "2.3.3 インタラクションによるアニメーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html#success-criterion" },
+      { kind: "sc", level: "A", label: "2.2.2 一時停止、停止、非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html#success-criterion" },
+      { kind: "sc", level: "A", label: "2.3.1 3回の閃光、又は閾値以下", url: "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は2.3.3のページのもの。",
   },
@@ -131,7 +134,10 @@ const SOURCES = [
     ],
     searchHint: "rule of thumb",
     url: "https://www.nngroup.com/articles/animation-duration/#toc-animation-duration-3",
-    urlSecondary: [{ label: "Animation for Attention and Comprehension(繰り返しの頻度)", url: "https://www.nngroup.com/articles/animation-usability/#toc-frequency-dont-get-in-the-users-way-3" }],
+    refs: [
+      { label: "Executing UX Animations: Duration and Motion Characteristics / Animation for Attention and Comprehension", url: "https://www.nngroup.com/articles/animation-duration/#toc-animation-duration-3" },
+      { label: "Animation for Attention and Comprehension(繰り返しの頻度)", url: "https://www.nngroup.com/articles/animation-usability/#toc-frequency-dont-get-in-the-users-way-3" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は1本目の記事(Duration and Motion Characteristics)のもの。",
   },
 ];
@@ -862,18 +868,11 @@ export default function TokensMotionPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -904,15 +903,11 @@ export default function TokensMotionPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

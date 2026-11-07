@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バナー」ページ。
@@ -34,6 +34,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
+    refs: [
+      { label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+    ],
     confirmedNote: "「スナックバー」「トースト」の各ページのApple欄と同じ一次情報。「ユーザーが閉じるまで残り続ける」インラインバナーに厳密に対応するガイダンスは見当たらず、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -70,6 +73,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m2.material.io/components/banners",
+    refs: [
+      { label: "Banners(M3の一覧からは削除)", url: "https://m2.material.io/components/banners" },
+    ],
     confirmedNote: "M3(m3.material.io)の公式コンポーネント一覧にはBannerが見当たらないことを検索で確認しました(2026-09)。M3では、旧Bannerが担っていた用途にダイアログまたはスナックバーを使うよう案内されているとみられる(検索結果による確認)。上記の仕様はM2時点のもの。",
     pending: true,
     deprecated: true,
@@ -117,11 +123,12 @@ const SOURCES = [
     ],
     searchHint: "assertive",
     url: "https://www.w3.org/TR/wai-aria-1.2/#alert",
-    urlSecondary: [
+    refs: [
+      { label: "alert / status / alertdialog の使い分け、WCAG 4.1.3", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
-      { label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" },
-      { label: "4.1.3 Status Messages", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { label: "解説(MDN): alertロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role" },
+      { kind: "apg", label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" },
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { kind: "mdn", label: "alertロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -156,6 +163,9 @@ const SOURCES = [
     ],
     searchHint: "action-required",
     url: "https://www.nngroup.com/articles/indicators-validations-notifications/",
+    refs: [
+      { label: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
+    ],
     illustration: () => (
       <svg width="160" height="30" viewBox="0 0 160 30">
         <rect x="1" y="1" width="158" height="28" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -303,18 +313,11 @@ export default function CommunicationBannerPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -362,13 +365,10 @@ export default function CommunicationBannerPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

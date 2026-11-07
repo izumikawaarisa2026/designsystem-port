@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カード」ページ。
@@ -39,6 +39,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/boxes",
+    refs: [
+      { label: "Boxes", url: "https://developer.apple.com/design/human-interface-guidelines/boxes" },
+    ],
     confirmedNote: "「カード」という名称の専用コンポーネントは見当たらず、最も近い概念として「Boxes」を掲載している。ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -79,6 +82,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/cards/guidelines",
+    refs: [
+      { label: "Cards(Elevated / Filled / Outlined)", url: "https://m3.material.io/components/cards/guidelines" },
+    ],
     confirmedNote: "使用法・解剖学(構成要素)・行動(拡大・ナビゲーション・ジェスチャー)・インタラクションとスタイル・ユースケースの各セクションは、M3の公式ページ本文(m3.material.io「Cards」のガイドライン)で2026-09に直接確認・反映済み。具体的なdpのサイズ数値は含まれておらず未確認。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -115,6 +121,9 @@ const SOURCES = [
     ],
     searchHint: "independent part",
     url: "https://www.w3.org/TR/wai-aria-1.2/#article",
+    refs: [
+      { label: "article role", url: "https://www.w3.org/TR/wai-aria-1.2/#article" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
@@ -149,6 +158,9 @@ const SOURCES = [
     ],
     searchHint: "snapshot",
     url: "https://www.nngroup.com/articles/cards-component/",
+    refs: [
+      { label: "Cards: UI-Component Definition", url: "https://www.nngroup.com/articles/cards-component/" },
+    ],
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -280,12 +292,12 @@ export default function ContainmentCardPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+                )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
@@ -324,10 +336,10 @@ export default function ContainmentCardPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

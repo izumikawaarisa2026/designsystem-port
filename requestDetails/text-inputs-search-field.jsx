@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / 検索フィールド」ページ。
@@ -67,7 +67,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Search fields", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices" },
       { label: "Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
       { label: "iOS(入り口の3つの配置)", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#iOS" },
     ],
@@ -110,7 +111,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/search/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Search(Search bar / Search view)", url: "https://m3.material.io/components/search/guidelines" },
       { label: "Search overview", url: "https://m3.material.io/components/search/overview" },
       { label: "MDC Android: Search(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Search.md" },
     ],
@@ -152,10 +154,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
-    urlSecondary: [
-      { label: "解説(MDN): searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
-      { label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
-      { label: "2.4.5 Multiple Ways", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
+    refs: [
+      { label: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5", url: "https://www.w3.org/TR/wai-aria-1.2/#search" },
+      { kind: "mdn", label: "searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
+      { kind: "apg", label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
+      { kind: "sc", level: "AA", label: "2.4.5 複数の手段", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
     ],
     confirmedNote: "MDNのsearchロールの解説と、W3CのAPG Combobox Patternの本文を直接取得して確認済み(2026-09)。WAI-ARIA仕様のsearchロールの節は2026-10に確認。2.4.5はUnderstandingページの本文を直接取得して確認(2026-10追記)。",
     illustration: () => (
@@ -188,7 +191,10 @@ const SOURCES = [
     ],
     searchHint: "27 characters",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4",
-    urlSecondary: [{ label: "Site Search Suggestions", url: "https://www.nngroup.com/articles/site-search-suggestions/" }],
+    refs: [
+      { label: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
+      { label: "Site Search Suggestions", url: "https://www.nngroup.com/articles/site-search-suggestions/" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -771,18 +777,11 @@ export default function TextInputsSearchFieldPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -820,13 +819,10 @@ export default function TextInputsSearchFieldPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

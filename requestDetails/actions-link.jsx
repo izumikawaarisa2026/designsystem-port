@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -28,6 +28,9 @@ const SOURCES = [
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める点は、WCAGのPOUR原則のうち「理解可能」に対応する。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
+    refs: [
+      { label: "Human Interface Guidelines", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
+    ],
     colorCue: { mark: "○", note: "推奨(下線やアイコンなど視覚的な手がかりを追加)" },
     wordingCue: { mark: "○", note: "推奨(具体的な行き先を示す文言。数値基準はなし)" },
     visitedCue: { mark: "―", note: "明記なし" },
@@ -48,7 +51,10 @@ const SOURCES = [
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
-    urlSecondary: [{ label: "参考: M1 Buttons(Text buttonの由来)", url: "https://m1.material.io/components/buttons.html" }],
+    refs: [
+      { label: "Text button(最も近い相当物)", url: "https://m3.material.io/components/buttons/guidelines" },
+      { label: "参考: M1 Buttons(Text buttonの由来)", url: "https://m1.material.io/components/buttons.html" },
+    ],
     colorCue: { mark: "―", note: "独立した記載なし" },
     wordingCue: { mark: "―", note: "独立した記載なし" },
     visitedCue: { mark: "―", note: "独立した記載なし" },
@@ -73,10 +79,11 @@ const SOURCES = [
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」の中のナビゲーションに関する達成基準として分類される。 3.2.4は「理解可能」の予測可能性(3.2)に分類される。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
-    urlSecondary: [
-      { label: "2.4.9 Link Purpose (Link Only)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html" },
-      { label: "1.4.1 Use of Color", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
-      { label: "3.2.4 Consistent Identification", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "2.4.4 リンクの目的(コンテキスト内)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
+      { kind: "sc", level: "AAA", label: "2.4.9 リンクの目的(リンクのみ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字と3:1以上の明度差が必要(G183)。いちばん確実なのは下線" },
@@ -109,6 +116,9 @@ const SOURCES = [
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色のみによる区別の禁止)を関連基準として明示的に引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
+    refs: [
+      { label: "Guidelines for Visualizing Links", url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/" },
+    ],
     colorCue: { mark: "○", note: "出発点は色+下線(ナビゲーション領域は下線省略可)。編注: 下線は必須ではなく、コントラスト+ホバー/フォーカスの手がかりでもよい" },
     wordingCue: { mark: "―", note: "本記事では直接扱わない" },
     visitedCue: { mark: "○", note: "推奨: 訪問済みは彩度を落とした同系色にする" },
@@ -253,24 +263,12 @@ export default function ActionsLinkPage() {
                   <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
                   <p style={styles.exceptionText}>{s.pourDetail}</p>
                 </div>
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>
-                      ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span>
-                    </span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                    公式ページへ ↗
-                  </a>
+                <div style={styles.exceptionBox}>
+                  <span style={styles.exceptionLabel}>参照ページ(公式)</span>
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                        {sl.label} ↗
-                      </a>
-                    ))}
-                  </div>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
               </div>
             ))}
@@ -320,18 +318,11 @@ export default function ActionsLinkPage() {
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>
                 ))}
 
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
-                    {s.searchHint && (
-                      <span style={styles.searchHint}>
-                        ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span>
-                      </span>
-                    )}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
               </div>

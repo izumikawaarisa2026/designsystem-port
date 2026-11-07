@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「インタラクション状態」ページ。
@@ -46,7 +46,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Buttons / Focus and selection / Pointing devices", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices" },
       { label: "Buttons ― Best practices(press state)", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" },
       { label: "Focus and selection ― tvOS(5つの状態)", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#tvOS" },
       { label: "Pointing devices ― Pointer shape and content effects", url: "https://developer.apple.com/design/human-interface-guidelines/pointing-devices#Pointer-shape-and-content-effects" },
@@ -75,7 +76,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/interaction/states/state-layers",
-    urlSecondary: [
+    refs: [
+      { label: "Interaction states(State layers)", url: "https://m3.material.io/foundations/interaction/states/state-layers" },
       { label: "M2: States", url: "https://m2.material.io/design/interaction/states.html" },
       { label: "Jetpack Compose: StateTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/StateTokens.kt" },
       { label: "Material Web: フォーカスリングのトークン(GitHub)", url: "https://github.com/material-components/material-web/blob/main/tokens/_md-comp-focus-ring.scss" },
@@ -108,10 +110,11 @@ const SOURCES = [
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
-    urlSecondary: [
-      { label: "2.4.7 Focus Visible", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
-      { label: "2.4.13 Focus Appearance", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
-      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion" },
+      { kind: "sc", level: "AA", label: "2.4.7 フォーカスの可視化", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
+      { kind: "sc", level: "AAA", label: "2.4.13 フォーカスの外観", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は1.4.11のページのもの。",
   },
@@ -135,7 +138,10 @@ const SOURCES = [
     ],
     searchHint: "Focus State",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-button-states-explained-1",
-    urlSecondary: [{ label: "Other States: Loading and Selected", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-other-states-loading-and-selected-2" }],
+    refs: [
+      { label: "Button States: Communicate Interaction", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-button-states-explained-1" },
+      { label: "Other States: Loading and Selected", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-other-states-loading-and-selected-2" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09、2025年4月公開の記事)。",
   },
 ];
@@ -477,18 +483,11 @@ export default function TokensInteractionStatesPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -519,15 +518,11 @@ export default function TokensInteractionStatesPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

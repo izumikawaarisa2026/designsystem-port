@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / エラー表示」ページ。
@@ -54,6 +54,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
+    refs: [
+      { label: "専用ページなし(Text fields等の記載に含まれる)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+    ],
     confirmedNote: "「バリデーション」という名称の専用ページは見当たらないことを検索で確認(2026-09)。テキストフィールド全般の記載中の言及も、公式ページ本文の直接確認ではなく検索結果による間接確認。",
     pending: true,
     illustration: () => (
@@ -84,6 +87,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/text-fields/guidelines",
+    refs: [
+      { label: "Text fields(エラー状態)", url: "https://m3.material.io/components/text-fields/guidelines" },
+    ],
     confirmedNote: "テキストフィールドのエラー状態(エラーカラー・ヘルパーテキスト・アイコン)についての一般的な言及は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
     pending: true,
     illustration: () => (
@@ -123,10 +129,11 @@ const SOURCES = [
     ],
     searchHint: "unless it would jeopardize",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html",
-    urlSecondary: [
-      { label: "3.3.3 Error Suggestion", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html" },
-      { label: "3.3.4 Error Prevention", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
-      { label: "1.4.1 Use of Color", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "3.3.1 エラーの特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" },
+      { kind: "sc", level: "AA", label: "3.3.3 エラー修正の提案", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html" },
+      { kind: "sc", level: "AA", label: "3.3.4 エラー回避(法的、金融、データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -157,7 +164,10 @@ const SOURCES = [
     ],
     searchHint: "don't blame the user",
     url: "https://www.nngroup.com/articles/error-message-guidelines/",
-    urlSecondary: [{ label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" }],
+    refs: [
+      { label: "Error-Message Guidelines / 10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/error-message-guidelines/" },
+      { label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" },
+    ],
     illustration: () => (
       <svg width="120" height="30" viewBox="0 0 120 30">
         <rect x="1" y="1" width="118" height="22" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -293,18 +303,11 @@ export default function TextInputsValidationPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -340,13 +343,10 @@ export default function TextInputsValidationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

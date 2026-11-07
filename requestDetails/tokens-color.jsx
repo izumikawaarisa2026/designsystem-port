@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「カラー(配色・コントラスト基準)」ページ。
@@ -48,7 +48,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/color#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Color", url: "https://developer.apple.com/design/human-interface-guidelines/color#Best-practices" },
       { label: "Dark Mode colors(4.5:1・7:1)", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#Dark-Mode-colors" },
       { label: "Accessibility ― Vision(文字サイズ別の比率)", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Vision" },
       { label: "System colors", url: "https://developer.apple.com/design/human-interface-guidelines/color#System-colors" },
@@ -87,7 +88,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/color/roles",
-    urlSecondary: [
+    refs: [
+      { label: "Color roles / Dynamic color", url: "https://m3.material.io/styles/color/roles" },
       { label: "Color system overview", url: "https://m3.material.io/styles/color/system/overview" },
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
       { label: "material-color-utilities: 各ロールの目標値(GitHub)", url: "https://github.com/material-foundation/material-color-utilities/blob/main/typescript/dynamiccolor/color_spec_2021.ts" },
@@ -136,9 +138,10 @@ const SOURCES = [
     ],
     searchHint: "not be rounded",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
-    urlSecondary: [
-      { label: "1.4.11 Non-text Contrast", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { label: "1.4.1 Use of Color", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
     ],
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -172,6 +175,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.nngroup.com/articles/color-enhance-design/",
+    refs: [
+      { label: "Using Color to Enhance Your Design", url: "https://www.nngroup.com/articles/color-enhance-design/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -511,18 +517,11 @@ export default function TokensColorPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -560,13 +559,10 @@ export default function TokensColorPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

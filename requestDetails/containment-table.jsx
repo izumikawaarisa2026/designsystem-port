@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / 表(データテーブル)」ページ。
@@ -42,7 +42,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#macOS",
-    urlSecondary: [
+    refs: [
+      { label: "Lists and tables", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#macOS" },
       { label: "Lists and tables ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Best-practices" },
       { label: "Lists and tables ― Content", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables#Content" },
     ],
@@ -69,6 +70,9 @@ const SOURCES = [
     ],
     searchHint: "52dp",
     url: "https://m2.material.io/components/data-tables",
+    refs: [
+      { label: "Data tables(M3には対応するページなし)", url: "https://m2.material.io/components/data-tables" },
+    ],
     confirmedNote: "m3.material.ioのサイトマップにデータテーブルのページはない。Material Design 2のData tablesのページデータ(JSON)を直接取得して本文を確認済み(2026-10)。",
   },
   {
@@ -98,11 +102,12 @@ const SOURCES = [
     ],
     searchHint: "Header cells must be marked up",
     url: "https://www.w3.org/WAI/tutorials/tables/",
-    urlSecondary: [
+    refs: [
+      { label: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern", url: "https://www.w3.org/WAI/tutorials/tables/" },
       { label: "Tables Tutorial ― Caption & Summary", url: "https://www.w3.org/WAI/tutorials/tables/caption-summary/" },
-      { label: "APG: Table Pattern(役割と属性)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/#roles_states_properties" },
-      { label: "APG: Sortable Table Example", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/" },
-      { label: "1.3.1 Info and Relationships", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
+      { kind: "apg", label: "APG: Table Pattern(役割と属性)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/#roles_states_properties" },
+      { kind: "apg", label: "APG: Sortable Table Example", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/" },
+      { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
     ],
     confirmedNote: "Tables Tutorial・Caption & Summary・APGのTable PatternとSortable Table Example・1.3.1のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はTables Tutorialのもの。",
   },
@@ -126,7 +131,8 @@ const SOURCES = [
     ],
     searchHint: "Freeze header rows",
     url: "https://www.nngroup.com/articles/data-tables/#toc-main-user-tasks-in-tables-2",
-    urlSecondary: [
+    refs: [
+      { label: "Data Tables: Four Major User Tasks / Mobile Tables", url: "https://www.nngroup.com/articles/data-tables/#toc-main-user-tasks-in-tables-2" },
       { label: "Mobile Tables(最初の列を固定)", url: "https://www.nngroup.com/articles/mobile-tables/#toc-stick-the-left-column-in-place-5" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Data Tables)のもの。",
@@ -454,18 +460,11 @@ export default function ContainmentTablePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -496,15 +495,11 @@ export default function ContainmentTablePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

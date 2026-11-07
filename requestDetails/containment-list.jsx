@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / リスト」ページ。
@@ -42,6 +42,9 @@ const SOURCES = [
     ],
     searchHint: "Provide appropriate feedback",
     url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables",
+    refs: [
+      { label: "Lists and Tables", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables" },
+    ],
     confirmedNote: "HIGのページデータ(Lists and tablesのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -85,6 +88,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/lists/guidelines",
+    refs: [
+      { label: "Lists(表現力豊かなリスト / ベースライン)", url: "https://m3.material.io/components/lists/guidelines" },
+    ],
     confirmedNote: "使用法・バリエーション(表現力豊かなリスト/ベースライン)・スロット構造・適応型デザイン・行動(選択モード・スワイプ・展開折りたたみ)・インタラクションとスタイル・ユースケースの各セクションは、M3の公式ページ本文(m3.material.io「Lists」のガイドライン)で2026-09に直接確認・反映済み。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -125,10 +131,11 @@ const SOURCES = [
     ],
     searchHint: "listitem",
     url: "https://www.w3.org/TR/wai-aria-1.2/#list",
-    urlSecondary: [
-      { label: "1.3.1 Info and Relationships", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
-      { label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
-      { label: "解説(MDN): listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
+    refs: [
+      { label: "list role / listitem role / APG Listbox", url: "https://www.w3.org/TR/wai-aria-1.2/#list" },
+      { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
+      { kind: "apg", label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+      { kind: "mdn", label: "listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -164,6 +171,9 @@ const SOURCES = [
     ],
     searchHint: "space efficient",
     url: "https://www.nngroup.com/videos/card-view-vs-list-view/",
+    refs: [
+      { label: "Card View vs. List View", url: "https://www.nngroup.com/videos/card-view-vs-list-view/" },
+    ],
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
@@ -298,13 +308,12 @@ export default function ContainmentListPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>))}
-                </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+                )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
@@ -343,11 +352,10 @@ export default function ContainmentListPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                  {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

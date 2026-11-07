@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
@@ -49,7 +49,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    urlSecondary: [{ label: "Tab Bars(タブ上のバッジ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" }],
+    refs: [
+      { label: "Notifications(アプリアイコン)/ Tab Bars(タブ)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+      { label: "Tab Bars(タブ上のバッジ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+    ],
     confirmedNote: "両ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「バッジ」という独立ページが存在しないこと自体も検索結果による確認。",
     pending: true,
     illustration: () => (
@@ -93,6 +96,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/badges/guidelines",
+    refs: [
+      { label: "Badges", url: "https://m3.material.io/components/badges/guidelines" },
+    ],
     confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -140,11 +146,12 @@ const SOURCES = [
     ],
     searchHint: "programmatically determined",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
-    urlSecondary: [
+    refs: [
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
-      { label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
-      { label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
     ],
     confirmedNote: "ARIA14・4.1.2解説ページとも本文を直接確認しました(2026-09)。いずれもバッジ専用の一次文書ではなく、一般的なラベリング手法・達成基準をバッジに適用した間接的な整理。",
     illustration: () => (
@@ -178,6 +185,9 @@ const SOURCES = [
     ],
     searchHint: "Badge",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/",
+    refs: [
+      { label: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)", url: "https://www.nngroup.com/articles/ui-elements-glossary/" },
+    ],
     confirmedNote: "UI Elements Glossaryの「Badge」項目本文を直接取得して確認しました(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
@@ -333,18 +343,11 @@ export default function CommunicationBadgePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -390,13 +393,10 @@ export default function CommunicationBadgePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

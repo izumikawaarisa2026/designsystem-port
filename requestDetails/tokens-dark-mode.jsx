@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ダークモード」ページ。
@@ -48,7 +48,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#Dark-Mode-colors",
-    urlSecondary: [
+    refs: [
+      { label: "Dark Mode", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#Dark-Mode-colors" },
       { label: "Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#Best-practices" },
       { label: "iOS, iPadOS(base/elevated)", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#iOS-iPadOS" },
     ],
@@ -75,7 +76,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/color/roles",
-    urlSecondary: [
+    refs: [
+      { label: "Dark theme / Color roles", url: "https://m3.material.io/styles/color/roles" },
       { label: "MDC Android: Dark theme(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md" },
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
     ],
@@ -105,8 +107,9 @@ const SOURCES = [
     ],
     searchHint: "default background color is unknown",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
-    urlSecondary: [
-      { label: "1.4.8 Visual Presentation", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
+      { kind: "sc", level: "AAA", label: "1.4.8 視覚的提示", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html#success-criterion" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -130,7 +133,10 @@ const SOURCES = [
     ],
     searchHint: "Mirror the device",
     url: "https://www.nngroup.com/articles/dark-mode/#toc-takeaways-5",
-    urlSecondary: [{ label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-best-practices-4" }],
+    refs: [
+      { label: "Dark Mode vs. Light Mode / Dark Mode: Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode/#toc-takeaways-5" },
+      { label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-best-practices-4" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Issues to Avoid)のもの。",
   },
 ];
@@ -521,18 +527,11 @@ export default function TokensDarkModePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -563,15 +562,11 @@ export default function TokensDarkModePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

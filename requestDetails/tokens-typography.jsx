@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「タイポグラフィ(文字サイズ・行間)」ページ。
@@ -49,7 +49,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/typography#Ensuring-legibility",
-    urlSecondary: [
+    refs: [
+      { label: "Typography", url: "https://developer.apple.com/design/human-interface-guidelines/typography#Ensuring-legibility" },
       { label: "Supporting Dynamic Type", url: "https://developer.apple.com/design/human-interface-guidelines/typography#Supporting-Dynamic-Type" },
       { label: "Large (default)のサイズ表", url: "https://developer.apple.com/design/human-interface-guidelines/typography#Large-default" },
     ],
@@ -76,7 +77,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/typography/type-scale-tokens",
-    urlSecondary: [
+    refs: [
+      { label: "Type scale", url: "https://m3.material.io/styles/typography/type-scale-tokens" },
       { label: "MDC Android: Typography theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Typography.md" },
       { label: "Compose Material 3 TypeScaleTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/TypeScaleTokens.kt" },
     ],
@@ -107,9 +109,10 @@ const SOURCES = [
     ],
     searchHint: "not required to use these",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html#success-criterion",
-    urlSecondary: [
-      { label: "1.4.4 Resize Text", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html#success-criterion" },
-      { label: "1.4.8 Visual Presentation", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.12 テキストの間隔", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html#success-criterion" },
+      { kind: "sc", level: "AA", label: "1.4.4 テキストのサイズ変更", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "1.4.8 視覚的提示", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -133,7 +136,8 @@ const SOURCES = [
     ],
     searchHint: "No Best Font",
     url: "https://www.nngroup.com/articles/legibility-readability-comprehension/",
-    urlSecondary: [
+    refs: [
+      { label: "Legibility, Readability, and Comprehension ほか", url: "https://www.nngroup.com/articles/legibility-readability-comprehension/" },
       { label: "Best Font for Online Reading", url: "https://www.nngroup.com/articles/best-font-for-online-reading/" },
       { label: "Let Users Control Font Size(2002)", url: "https://www.nngroup.com/articles/let-users-control-font-size/" },
       { label: "Low-Contrast Text Is Not the Answer(2015)", url: "https://www.nngroup.com/articles/low-contrast/" },
@@ -535,18 +539,11 @@ export default function TokensTypographyPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -577,15 +574,11 @@ export default function TokensTypographyPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

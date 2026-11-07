@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ページネーション」ページ。
@@ -76,10 +76,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
-    urlSecondary: [
-      { label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
-      { label: "2.4.4 Link Purpose (In Context)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
-      { label: "解説(MDN): aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
+    refs: [
+      { label: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current" },
+      { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "sc", level: "A", label: "2.4.4 リンクの目的(コンテキスト内)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
+      { kind: "mdn", label: "aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
     ],
     confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはない(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存の部品を組み合わせる一般的な作り方です(AI解釈)。",
     illustration: () => (
@@ -113,7 +114,10 @@ const SOURCES = [
     ],
     searchHint: "pogo sticking",
     url: "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/",
-    urlSecondary: [{ label: "Infinite Scrolling", url: "https://www.nngroup.com/articles/infinite-scrolling-tips/" }],
+    refs: [
+      { label: "Alternatives to Pagination on Product-Listing Pages / Infinite Scrolling", url: "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/" },
+      { label: "Infinite Scrolling", url: "https://www.nngroup.com/articles/infinite-scrolling-tips/" },
+    ],
     illustration: () => (
       <svg width="120" height="22" viewBox="0 0 120 22">
         <text x="10" y="15" fontSize="9" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">&lt;</text>
@@ -310,12 +314,14 @@ export default function NavigationPaginationPage() {
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
-                  <div style={styles.sourceFootRow}>
+                  <>
+                    <InfoBox label="参照ページ(公式)">
+                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    </InfoBox>
                     {s.searchHint && (
                       <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                     )}
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  </div>
+                  </>
                 )}
                 {s.urlSecondary && (
                   <div style={styles.secondaryLinks}>
@@ -358,25 +364,11 @@ export default function NavigationPaginationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} muted={s.notApplicable} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    {s.notApplicable ? (
-                      <>
-                        <span style={styles.mutedText}>該当なし</span>
-                        {s.urlSecondary && s.urlSecondary.map((sl) => (
-                          <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                        ))}
-                      </>
-                    ) : (
-                      <>
-                        <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                        {s.urlSecondary && s.urlSecondary.map((sl) => (
-                          <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                        ))}
-                        {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                      </>
-                    )}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

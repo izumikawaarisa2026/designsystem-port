@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「文章・UXライティング」ページ。
@@ -42,7 +42,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Writing", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
       { label: "Writing ― Getting started(声と調子)", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Getting-started" },
       { label: "Alerts ― Content・Buttons(タイトルは2行まで・ボタンは1〜2語)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts#Content" },
       { label: "Toolbars ― Titles(15文字未満)", url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Titles" },
@@ -71,7 +72,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Content design(本文はMaterial Design 2 ― Writing)", url: "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices" },
       { label: "M2: Writing", url: "https://m2.material.io/design/communication/writing.html" },
       { label: "M2: Snackbars(行数・1行40〜60文字)", url: "https://m2.material.io/components/snackbars" },
       { label: "M2: Dialogs(タイトルの書き方)", url: "https://m2.material.io/components/dialogs" },
@@ -107,11 +109,12 @@ const SOURCES = [
     ],
     searchHint: "describe topic or purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html",
-    urlSecondary: [
-      { label: "2.4.2 Page Titled", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html" },
-      { label: "3.3.2 Labels or Instructions", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
-      { label: "1.3.3 Sensory Characteristics", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html" },
-      { label: "3.1.5 Reading Level", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "2.4.6 見出し及びラベル", url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html" },
+      { kind: "sc", level: "A", label: "2.4.2 ページタイトル", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html" },
+      { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+      { kind: "sc", level: "A", label: "1.3.3 感覚的な特徴", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html" },
+      { kind: "sc", level: "AAA", label: "3.1.5 読解レベル", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html" },
     ],
     confirmedNote: "5つのUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語は2.4.6のページのもの。",
   },
@@ -135,7 +138,8 @@ const SOURCES = [
     ],
     searchHint: "fewer than 50% of the words",
     url: "https://www.nngroup.com/articles/plain-language-experts/#toc-tips-for-writing-in-plain-language-3",
-    urlSecondary: [
+    refs: [
+      { label: "Plain Language Is for Everyone, Even Experts / The Four Dimensions of Tone of Voice / How Little Do Users Read?", url: "https://www.nngroup.com/articles/plain-language-experts/#toc-tips-for-writing-in-plain-language-3" },
       { label: "The Four Dimensions of Tone of Voice", url: "https://www.nngroup.com/articles/tone-of-voice-dimensions/#toc-the-four-dimensions-of-tone-of-voice-2" },
       { label: "How Little Do Users Read?(2008)", url: "https://www.nngroup.com/articles/how-little-do-users-read/#toc-percentage-of-text-read-3" },
     ],
@@ -567,18 +571,11 @@ export default function TokensWritingPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -609,15 +606,11 @@ export default function TokensWritingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

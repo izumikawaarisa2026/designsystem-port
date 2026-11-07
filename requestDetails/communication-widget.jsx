@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ウィジェット(ホーム画面ウィジェット)」ページ。
@@ -44,7 +44,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/widgets#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Widgets", url: "https://developer.apple.com/design/human-interface-guidelines/widgets#Best-practices" },
       { label: "Widgets ― Appearances(表示モード)", url: "https://developer.apple.com/design/human-interface-guidelines/widgets#Appearances" },
       { label: "Widgets ― iOS dimensions(寸法表)", url: "https://developer.apple.com/design/human-interface-guidelines/widgets#iOS-dimensions" },
       { label: "Widgets ― Choosing margins and padding", url: "https://developer.apple.com/design/human-interface-guidelines/widgets#Choosing-margins-and-padding" },
@@ -69,7 +70,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.android.com/design/ui/mobile/guides/widgets/sizing#default-sizes",
-    urlSecondary: [
+    refs: [
+      { label: "Android Developers ― Widgets(Sizing・Widget quality guide)", url: "https://developer.android.com/design/ui/mobile/guides/widgets/sizing#default-sizes" },
       { label: "Android: Widgets(概要)", url: "https://developer.android.com/design/ui/mobile/guides/widgets" },
       { label: "Android: Widget quality guide", url: "https://developer.android.com/design/ui/mobile/guides/widgets/widget_quality_guide#checklists" },
     ],
@@ -96,6 +98,9 @@ const SOURCES = [
     ],
     searchHint: "An interactive component",
     url: "https://www.w3.org/TR/wai-aria-1.2/#widget",
+    refs: [
+      { label: "(ホーム画面のウィジェット専用の基準なし)WAI-ARIA 1.2 widgetロール", url: "https://www.w3.org/TR/wai-aria-1.2/#widget" },
+    ],
     confirmedNote: "WAI-ARIA 1.2のwidgetロールの定義を直接取得して確認済み(2026-10)。1.4.3・1.4.1・2.5.8は他のページで本文を確認済みの基準。",
   },
   {
@@ -116,6 +121,9 @@ const SOURCES = [
     ],
     searchHint: "Widgets",
     url: "https://www.nngroup.com/articles/mobile-microsessions/#toc-designing-for-microsessions-2",
+    refs: [
+      { label: "Mobile Microsessions", url: "https://www.nngroup.com/articles/mobile-microsessions/#toc-designing-for-microsessions-2" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
@@ -457,18 +465,11 @@ export default function CommunicationWidgetPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -497,15 +498,11 @@ export default function CommunicationWidgetPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

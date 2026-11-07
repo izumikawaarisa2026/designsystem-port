@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態」ページ。
@@ -30,6 +30,9 @@ const SOURCES = [
     ],
     searchHint: "empty state",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing",
+    refs: [
+      { label: "Writing(空の画面の文言)", url: "https://developer.apple.com/design/human-interface-guidelines/writing" },
+    ],
     confirmedNote: "HIGのページデータ(WritingのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -61,6 +64,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m1.material.io/patterns/empty-states.html",
+    refs: [
+      { label: "Empty states(参考。現行M3には該当なし)", url: "https://m1.material.io/patterns/empty-states.html" },
+    ],
     confirmedNote: "現行M3のコンポーネント/パターン一覧に「空状態」が見当たらないことは、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -90,6 +96,9 @@ const SOURCES = [
     ],
     searchHint: "status message",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
+    refs: [
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+    ],
     confirmedNote: "",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -120,6 +129,9 @@ const SOURCES = [
     ],
     searchHint: "empty states",
     url: "https://www.nngroup.com/articles/empty-state-interface-design/",
+    refs: [
+      { label: "Designing Empty States in Complex Applications", url: "https://www.nngroup.com/articles/empty-state-interface-design/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認しました(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -254,18 +266,11 @@ export default function CommunicationEmptyStatePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -309,13 +314,10 @@ export default function CommunicationEmptyStatePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

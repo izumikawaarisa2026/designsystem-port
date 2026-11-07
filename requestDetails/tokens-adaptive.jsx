@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「アダプティブ/レスポンシブデザイン」ページ。
@@ -42,7 +42,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability",
-    urlSecondary: [
+    refs: [
+      { label: "Layout(Adaptability・Size classes)/ Tab bars / Split views", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability" },
       { label: "Layout ― Size classes", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Size-classes" },
       { label: "Tab bars ― iPadOS(サイドバーへの切り替え)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars#iPadOS" },
       { label: "Split views ― iPadOS", url: "https://developer.apple.com/design/human-interface-guidelines/split-views#iPadOS" },
@@ -70,7 +71,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/layout/canonical-examples/overview",
-    urlSecondary: [
+    refs: [
+      { label: "Adaptive design / Canonical layouts(Android Developers)", url: "https://m3.material.io/foundations/layout/canonical-examples/overview" },
       { label: "Android: Canonical layouts", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts#list-detail" },
       { label: "Android: Build adaptive navigation", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/build-adaptive-navigation" },
       { label: "M3: Adaptive design", url: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" },
@@ -101,8 +103,9 @@ const SOURCES = [
     ],
     searchHint: "mounted in a fixed orientation",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
-    urlSecondary: [
-      { label: "1.3.4 Orientation", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.10 リフロー", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html" },
+      { kind: "sc", level: "AA", label: "1.3.4 表示の向き", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語は1.3.4のページのもの。",
   },
@@ -126,6 +129,9 @@ const SOURCES = [
     ],
     searchHint: "Four Common Breakpoints",
     url: "https://www.nngroup.com/articles/breakpoints-in-responsive-design/#toc-four-common-breakpoints-3",
+    refs: [
+      { label: "Breakpoints in Responsive Design", url: "https://www.nngroup.com/articles/breakpoints-in-responsive-design/#toc-four-common-breakpoints-3" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
@@ -449,18 +455,11 @@ export default function TokensAdaptivePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -491,15 +490,11 @@ export default function TokensAdaptivePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

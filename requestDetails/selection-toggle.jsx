@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / トグルスイッチ」ページ。
@@ -39,6 +39,9 @@ const SOURCES = [
     ],
     searchHint: "don’t replace a checkbox with a switch",
     url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches",
+    refs: [
+      { label: "Toggles内「Switches」", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         {[false, true].map((on, i) => (
@@ -78,7 +81,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/switch/guidelines",
-    urlSecondary: [{ label: "Specs(最新版)", url: "https://m3.material.io/components/switch/specs" }],
+    refs: [
+      { label: "Switch(使用法・アクセシビリティ)", url: "https://m3.material.io/components/switch/guidelines" },
+      { label: "Specs(最新版)", url: "https://m3.material.io/components/switch/specs" },
+    ],
     confirmedNote: "使用法・代替選択制御・アイコン・ラベルテキスト・行動・ユースケース・インタラクションとスタイルの各セクションは2026-09時点で確認済み。トラック・つまみの見た目サイズ(dp)やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="38" height="22" viewBox="0 0 38 22">
@@ -115,8 +121,9 @@ const SOURCES = [
     ],
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
-    urlSecondary: [
-      { label: "3.2.2 On Input", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "3.2.2 入力時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
     ],
     confirmedNote: "3.2.2はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -153,6 +160,9 @@ const SOURCES = [
     ],
     searchHint: "immediate results",
     url: "https://www.nngroup.com/articles/toggle-switch-guidelines/",
+    refs: [
+      { label: "Toggle-Switch Guidelines", url: "https://www.nngroup.com/articles/toggle-switch-guidelines/" },
+    ],
     illustration: () => (
       <svg width="38" height="22" viewBox="0 0 38 22">
         <rect x="1" y="1" width="36" height="20" rx="10" fill="#7A4F7E" />
@@ -344,18 +354,11 @@ export default function SelectionTogglePage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -393,13 +396,10 @@ export default function SelectionTogglePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「サウンド(音フィードバック)」ページ。
@@ -45,7 +45,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Playing audio / Accessibility(Hearing)", url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices" },
       { label: "Accessibility ― Hearing", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Hearing" },
       { label: "Playing haptics ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/playing-haptics#Best-practices" },
     ],
@@ -72,7 +73,8 @@ const SOURCES = [
     ],
     searchHint: "When not to use sound",
     url: "https://m2.material.io/design/sound/applying-sound-to-ui.html",
-    urlSecondary: [
+    refs: [
+      { label: "Sound(About sound / Applying sound to UI / Sound attributes)", url: "https://m2.material.io/design/sound/applying-sound-to-ui.html" },
       { label: "M2: About sound", url: "https://m2.material.io/design/sound/about-sound.html" },
       { label: "M2: Sound attributes", url: "https://m2.material.io/design/sound/sound-attributes.html" },
       { label: "M2: Sound choreography", url: "https://m2.material.io/design/sound/sound-choreography.html" },
@@ -104,8 +106,9 @@ const SOURCES = [
     ],
     searchHint: "independently from the overall system volume",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion",
-    urlSecondary: [
-      { label: "1.4.7 Low or No Background Audio", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
+    refs: [
+      { kind: "sc", level: "A", label: "1.4.2 音声の制御", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "1.4.7 小さな背景音、又は背景音なし", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -129,7 +132,10 @@ const SOURCES = [
     ],
     searchHint: "Non-speech sound effects",
     url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3",
-    urlSecondary: [{ label: "Guidelines for Multimedia on the Web(Audio)", url: "https://www.nngroup.com/articles/guidelines-for-multimedia-on-the-web/" }],
+    refs: [
+      { label: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web", url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3" },
+      { label: "Guidelines for Multimedia on the Web(Audio)", url: "https://www.nngroup.com/articles/guidelines-for-multimedia-on-the-web/" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Guidelines for Multimedia on the Web)のもの。",
   },
 ];
@@ -586,18 +592,11 @@ export default function TokensSoundPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -628,15 +627,11 @@ export default function TokensSoundPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / バリデーション」ページ。
@@ -63,7 +63,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/text-fields",
-    urlSecondary: [{ label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" }],
+    refs: [
+      { label: "専用ページなし(Text fields / Feedbackの記載に含まれる)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields" },
+      { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
+    ],
     confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。フォーカス変更時/次フィールドに移る前、という検証タイミングの使い分けも同様に間接確認。",
     pending: true,
     illustration: () => (
@@ -95,6 +98,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/text-fields/guidelines",
+    refs: [
+      { label: "Text fields(サポートテキスト/エラーテキストの切り替え)", url: "https://m3.material.io/components/text-fields/guidelines" },
+    ],
     confirmedNote: "サポートテキスト/エラーテキストの切り替えの仕組みは検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。具体的な検証タイミングのトリガー条件は未確認。",
     pending: true,
     illustration: () => (
@@ -134,10 +140,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19",
-    urlSecondary: [
+    refs: [
+      { label: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
-      { label: "3.3.7 Redundant Entry", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
     ],
     confirmedNote: "ARIA19・Validating Inputチュートリアル・G199はいずれも本文を直接取得して確認済み(2026-09)。3つとも検証タイミング自体を規定するものではなく、通知の仕組みや送信後のフィードバックについての技術である点に注意してください。3.3.7はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -169,7 +176,10 @@ const SOURCES = [
     ],
     searchHint: "unwarranted scolding",
     url: "https://www.nngroup.com/articles/hostile-error-messages/",
-    urlSecondary: [{ label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" }],
+    refs: [
+      { label: "Hostile Patterns in Error Messages / 10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/hostile-error-messages/" },
+      { label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" },
+    ],
     confirmedNote: "両記事とも本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
@@ -548,18 +558,11 @@ export default function TextInputsInputValidationPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -595,13 +598,10 @@ export default function TextInputsInputValidationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

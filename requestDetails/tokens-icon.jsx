@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「アイコン(サイズ・スタイル)」ページ。
@@ -44,7 +44,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Weights-and-scales",
-    urlSecondary: [{ label: "Rendering modes", url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Rendering-modes" }],
+    refs: [
+      { label: "SF Symbols(Human Interface Guidelines ― Foundations)", url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Weights-and-scales" },
+      { label: "Rendering modes", url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Rendering-modes" },
+    ],
     confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="50" viewBox="0 0 120 50">
@@ -83,7 +86,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/icons/overview",
-    urlSecondary: [{ label: "Material Symbols guide(developers.google.com)", url: "https://developers.google.com/fonts/docs/material_symbols" }],
+    refs: [
+      { label: "Material Symbols(Material Design 3)", url: "https://m3.material.io/styles/icons/overview" },
+      { label: "Material Symbols guide(developers.google.com)", url: "https://developers.google.com/fonts/docs/material_symbols" },
+    ],
     confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けの説明はm3.material.io(SPA)の検索結果による間接確認。",
     pending: true,
     illustration: () => (
@@ -128,11 +134,12 @@ const SOURCES = [
     ],
     searchHint: "describes its purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
-    urlSecondary: [
-      { label: "4.1.2 Name, Role, Value", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
-      { label: "1.4.11 Non-text Contrast", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { label: "2.5.3 Label in Name", url: "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html" },
-      { label: "3.2.4 Consistent Identification", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
+    refs: [
+      { kind: "sc", level: "A", label: "1.1.1 非テキストコンテンツ", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "A", label: "2.5.3 ラベルを含む名前", url: "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html" },
+      { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -166,7 +173,10 @@ const SOURCES = [
     ],
     searchHint: "5-second rule",
     url: "https://www.nngroup.com/articles/icon-usability/",
-    urlSecondary: [{ label: "Usability Testing of Icons", url: "https://www.nngroup.com/articles/icon-testing/" }],
+    refs: [
+      { label: "Icon Usability", url: "https://www.nngroup.com/articles/icon-usability/" },
+      { label: "Usability Testing of Icons", url: "https://www.nngroup.com/articles/icon-testing/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="120" height="50" viewBox="0 0 120 50">
@@ -455,18 +465,11 @@ export default function TokensIconPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -504,13 +507,10 @@ export default function TokensIconPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

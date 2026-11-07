@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ツールチップ」ページ。
@@ -58,7 +58,8 @@ const SOURCES = [
     ],
     searchHint: "help tag",
     url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS",
-    urlSecondary: [
+    refs: [
+      { label: "Offering help(Tooltips・Tips)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS" },
       { label: "HIG Offering help ― Creating tips(TipKit)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#Creating-tips" },
       { label: "HIG Popovers(メモ参照)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
       { label: "UIKit: ヘルプタグ(ツールチップ)の実装", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
@@ -110,6 +111,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/tooltips/guidelines",
+    refs: [
+      { label: "Tooltips(プレーン/リッチ)", url: "https://m3.material.io/components/tooltips/guidelines" },
+    ],
     confirmedNote: "M3の公式ページ本文(m3.material.io「Tooltips」のガイドライン)で、プレーン/リッチの使い分け・配置(4dp/8dpの距離、画面端での8dp調整)・行動(1.5秒での自動消去、永続的なリッチツールチップの条件)・アクセシビリティ要件を2026-09に直接確認・反映。カラートークンの具体的な数値、最大幅の正確なdp数値は本文中の表形式部分が今回のテキスト抽出で再現できず未確認。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -154,7 +158,10 @@ const SOURCES = [
     ],
     searchHint: "dismissible",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
-    urlSecondary: [{ label: "APG: Tooltip Pattern(検討中)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" }],
+    refs: [
+      { kind: "sc", level: "AA", label: "1.4.13 ホバー又はフォーカスで表示されるコンテンツ", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html" },
+      { kind: "apg", label: "APG: Tooltip Pattern(検討中)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -191,6 +198,9 @@ const SOURCES = [
     ],
     searchHint: "microcontent",
     url: "https://www.nngroup.com/articles/tooltip-guidelines/",
+    refs: [
+      { label: "Tooltip Guidelines", url: "https://www.nngroup.com/articles/tooltip-guidelines/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
@@ -411,18 +421,11 @@ export default function CommunicationTooltipPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -462,13 +465,10 @@ export default function CommunicationTooltipPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

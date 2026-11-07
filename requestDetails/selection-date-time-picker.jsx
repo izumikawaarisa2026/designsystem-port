@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / 日付・タイムピッカー」ページ。
@@ -60,7 +60,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS",
-    urlSecondary: [
+    refs: [
+      { label: "Pickers", url: "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS" },
       { label: "Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/pickers#Best-practices" },
       { label: "macOS(テキスト形式/グラフィカル形式)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS" },
     ],
@@ -101,7 +102,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/date-pickers/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Date pickers / Time pickers", url: "https://m3.material.io/components/date-pickers/guidelines" },
       { label: "Time pickers", url: "https://m3.material.io/components/time-pickers/guidelines" },
       { label: "MDC Android: Date pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/DatePicker.md" },
       { label: "MDC Android: Time pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/TimePicker.md" },
@@ -144,6 +146,9 @@ const SOURCES = [
     ],
     searchHint: "roving tabindex",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/",
+    refs: [
+      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="90" height="46" viewBox="0 0 90 46">
@@ -174,6 +179,9 @@ const SOURCES = [
     ],
     searchHint: "less than a year",
     url: "https://www.nngroup.com/articles/date-input/",
+    refs: [
+      { label: "Date-Input Form Fields: UX Design Guidelines", url: "https://www.nngroup.com/articles/date-input/" },
+    ],
     illustration: () => (
       <svg width="90" height="46" viewBox="0 0 90 46">
         <rect x="1" y="14" width="88" height="18" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.4" />
@@ -586,18 +594,11 @@ export default function SelectionDateTimePickerPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -635,13 +636,10 @@ export default function SelectionDateTimePickerPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / トースト」ページ。
@@ -61,6 +61,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
+    refs: [
+      { label: "Notifications(バナー、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+    ],
     confirmedNote: "「トースト」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09、「スナックバー」ページと同一の一次情報)。",
     pending: true,
     illustration: () => (
@@ -99,7 +102,10 @@ const SOURCES = [
     ],
     searchHint: "makeText",
     url: "https://developer.android.com/guide/topics/ui/notifiers/toasts",
-    urlSecondary: [{ label: "Snackbar(このコンポーネントとの使い分け)", url: "https://m3.material.io/components/snackbar/guidelines" }],
+    refs: [
+      { label: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)", url: "https://developer.android.com/guide/topics/ui/notifiers/toasts" },
+      { label: "Snackbar(このコンポーネントとの使い分け)", url: "https://m3.material.io/components/snackbar/guidelines" },
+    ],
     confirmedNote: "Android Developers公式ページ本文を直接取得して確認(2026-09)。カスタムToastビューがAPI30で非推奨になったこと、Android12以降の2行制限・アイコン表示も同ページで直接確認済み。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -135,10 +141,11 @@ const SOURCES = [
     ],
     searchHint: "without receiving focus",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
-    urlSecondary: [
-      { label: "2.2.1 Timing Adjustable", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+    refs: [
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { kind: "sc", level: "A", label: "2.2.1 タイミング調整可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
-      { label: "解説(MDN): statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
+      { kind: "mdn", label: "statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
     ],
     confirmedNote: "4.1.3・2.2.1のUnderstandingページと、WAI-ARIA仕様のstatusロールを確認(2026-10)。",
     illustration: () => (
@@ -173,6 +180,9 @@ const SOURCES = [
     ],
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
+    refs: [
+      { label: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar" },
+    ],
     confirmedNote: "用語集本文を直接取得し、「Toast」単独の項目が存在しないこと(「Snackbar (Toast)」という1項目名であること)を確認済み(2026-09)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
@@ -303,18 +313,11 @@ export default function CommunicationToastPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
               </div>
             ))}
@@ -361,13 +364,10 @@ export default function CommunicationToastPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

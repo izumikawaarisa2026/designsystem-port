@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ファウンデーションの思想比較」ページ(メタページ)。
@@ -57,7 +57,10 @@ const SOURCES = [
     structuralNote: "本サイトの「トークン/ファウンデーション」13項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
-    urlSecondary: [{ label: "Design principles(Getting started)", url: "https://developer.apple.com/design/human-interface-guidelines/design-principles" }],
+    refs: [
+      { label: "", url: "https://developer.apple.com/design/human-interface-guidelines/foundations" },
+      { label: "Design principles(Getting started)", url: "https://developer.apple.com/design/human-interface-guidelines/design-principles" },
+    ],
     confirmedNote: "HIGのページデータを直接取得し、トップレベルの6区分とFoundations配下の18トピックを確認済み(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start", padding: "8px 10px" }}>
@@ -79,7 +82,10 @@ const SOURCES = [
     structuralNote: "本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている。つまり本サイトはGoogleの構造をそのまま踏襲してはいない。レイアウトはStylesではなくFoundations側にある点にも注意。",
     accessibilityNote: "アクセシビリティはFoundations側の複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれており、1トピックというより横断的な前提条件としての位置づけに近い。",
     url: "https://m3.material.io/foundations",
-    urlSecondary: [{ label: "Styles", url: "https://m3.material.io/styles" }],
+    refs: [
+      { label: "", url: "https://m3.material.io/foundations" },
+      { label: "Styles", url: "https://m3.material.io/styles" },
+    ],
     confirmedNote: "区分とトピックは、m3.material.ioのsitemap.xml(静的なXML)でURL構成を直接確認(2026-09)。トピック名はURL上の区分名で、各ページの本文はSPAのため直接確認はできていない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "8px 10px" }}>
@@ -110,6 +116,9 @@ const SOURCES = [
     structuralNote: "本サイトの「トークン/ファウンデーション」13項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
+    refs: [
+      { label: "", url: "https://www.w3.org/WAI/WCAG22/quickref/" },
+    ],
     confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px" }}>
@@ -131,6 +140,9 @@ const SOURCES = [
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
     url: "https://www.nngroup.com/articles/",
+    refs: [
+      { label: "", url: "https://www.nngroup.com/articles/" },
+    ],
     confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px", alignItems: "center", justifyContent: "center", height: "100%" }}>
@@ -364,15 +376,11 @@ export default function TokensOverviewPage() {
                 <InfoBox label="本サイトの分類との関係">{s.structuralNote}</InfoBox>
                 <InfoBox label="アクセシビリティの位置づけ">{s.accessibilityNote}</InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
               </div>
             ))}
@@ -404,13 +412,11 @@ export default function TokensOverviewPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structuralNote}</div>))}
                 <div style={styles.labelCell}>アクセシビリティの位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibilityNote}</div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
               </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「エレベーション・階層表現(影・半透明素材)」ページ。
@@ -44,7 +44,8 @@ const SOURCES = [
     useCases: null,
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass",
-    urlSecondary: [
+    refs: [
+      { label: "Materials / Dark Mode", url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" },
       { label: "Standard materials", url: "https://developer.apple.com/design/human-interface-guidelines/materials#Standard-materials" },
       { label: "Dark Mode: iOS, iPadOS(base/elevated)", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#iOS-iPadOS" },
     ],
@@ -67,7 +68,8 @@ const SOURCES = [
     useCases: null,
     searchHint: "",
     url: "https://m3.material.io/styles/elevation/overview",
-    urlSecondary: [
+    refs: [
+      { label: "Elevation / Dark theme", url: "https://m3.material.io/styles/elevation/overview" },
       { label: "Compose Material 3 ElevationTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ElevationTokens.kt" },
       { label: "MDC Android: Dark theme(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md" },
     ],
@@ -97,8 +99,9 @@ const SOURCES = [
     ],
     searchHint: "not entirely hidden",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion",
-    urlSecondary: [
-      { label: "1.4.11 Non-text Contrast", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#adjacent-colors" },
+    refs: [
+      { kind: "sc", level: "AA", label: "2.4.11 フォーカスが隠されない(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#adjacent-colors" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },
@@ -122,7 +125,10 @@ const SOURCES = [
     ],
     searchHint: "Add back in some depth",
     url: "https://www.nngroup.com/articles/flat-design-best-practices/",
-    urlSecondary: [{ label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-issues-to-avoid-3" }],
+    refs: [
+      { label: "Flat-Design Best Practices / Dark Mode: Issues to Avoid", url: "https://www.nngroup.com/articles/flat-design-best-practices/" },
+      { label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-issues-to-avoid-3" },
+    ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
   },
 ];
@@ -590,18 +596,11 @@ export default function TokensElevationPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -632,15 +631,11 @@ export default function TokensElevationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.useCases ? <UseCaseList items={s.useCases} /> : <SeeBelow />}</div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

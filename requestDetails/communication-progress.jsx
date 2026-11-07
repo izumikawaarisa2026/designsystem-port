@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -54,7 +54,10 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators",
-    urlSecondary: [{ label: "Loading(読み込み中のプレースホルダー指針)", url: "https://developer.apple.com/design/human-interface-guidelines/loading" }],
+    refs: [
+      { label: "Progress Indicators / Loading", url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators" },
+      { label: "Loading(読み込み中のプレースホルダー指針)", url: "https://developer.apple.com/design/human-interface-guidelines/loading" },
+    ],
     confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
     pending: true,
     illustration: () => (
@@ -90,7 +93,11 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/progress-indicators/overview",
-    urlSecondary: [{ label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" }, { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" }],
+    refs: [
+      { label: "Progress indicators / Loading indicator", url: "https://m3.material.io/components/progress-indicators/overview" },
+      { label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" },
+      { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" },
+    ],
     confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
     pending: true,
     illustration: () => (
@@ -130,9 +137,10 @@ const SOURCES = [
     ],
     searchHint: "aria-valuenow",
     url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar",
-    urlSecondary: [
-      { label: "4.1.3 Status Messages", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { label: "解説(MDN): progressbarロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/progressbar_role" },
+    refs: [
+      { label: "role=\"progressbar\"", url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar" },
+      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
+      { kind: "mdn", label: "progressbarロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/progressbar_role" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -169,6 +177,9 @@ const SOURCES = [
     ],
     searchHint: "Percent-Done",
     url: "https://www.nngroup.com/articles/progress-indicators/",
+    refs: [
+      { label: "Progress Indicators Make a Slow System Less Insufferable", url: "https://www.nngroup.com/articles/progress-indicators/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: "#7A4F7E", textAlign: "center" }}>
@@ -318,18 +329,11 @@ export default function CommunicationProgressPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -369,13 +373,10 @@ export default function CommunicationProgressPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}

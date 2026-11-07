@@ -58,6 +58,7 @@ export const W3C_REF_NOTE = "達成基準=WCAGに適合するために満たす�
 
 /* refs: [{ label, url, kind?: "sc"|"apg"|"mdn", level?: "A"|"AA"|"AAA" }]。W3C欄では withW3cNote で凡例を添える */
 export function RefList({ refs, withW3cNote }) {
+  if (!refs || !refs.length) return <NoData>該当なし</NoData>;
   return (
     <div>
       <ul style={partStyles.refList}>

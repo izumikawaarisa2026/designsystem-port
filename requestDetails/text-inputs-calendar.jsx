@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / カレンダー(スケジュール/予定表)」ページ。
@@ -64,6 +64,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline",
+    refs: [
+      { label: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
+    ],
     confirmedNote:
       "UIDatePickerStyle.inlineの技術文書、およびiOS 14で.inline/.compactが追加された経緯についての検索結果による確認(2026-09)。HIGの「Pickers」ページ本文でこのスタイルが明示的に扱われているかどうかは、同ページがSPAのため直接確認できていない。",
     pending: true,
@@ -109,6 +112,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/date-pickers/guidelines",
+    refs: [
+      { label: "Date pickers(Modalバリアントのカレンダーグリッド)", url: "https://m3.material.io/components/date-pickers/guidelines" },
+    ],
     confirmedNote:
       "月/年のナビゲーション操作(横スワイプ・縦スクロール・年タップ)は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
     pending: true,
@@ -156,6 +162,9 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",
+    refs: [
+      { kind: "apg", label: "APG: Grid Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/" },
+    ],
     confirmedNote: "Grid Patternの本文、およびLayout Grid Examplesページ(実例が3つのみで、カレンダー・アジェンダの実例がないこと)を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -188,6 +197,9 @@ const SOURCES = [
     ],
     searchHint: "less than a year",
     url: "https://www.nngroup.com/articles/date-input/",
+    refs: [
+      { label: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)", url: "https://www.nngroup.com/articles/date-input/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。「日付・タイムピッカー」ページと同一の記事。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -331,12 +343,14 @@ export default function TextInputsCalendarPage() {
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
-                  <div style={styles.sourceFootRow}>
+                  <>
+                    <InfoBox label="参照ページ(公式)">
+                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    </InfoBox>
                     {s.searchHint && (
                       <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                     )}
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                  </div>
+                  </>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -374,17 +388,11 @@ export default function TextInputsCalendarPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} muted={s.notApplicable} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    {s.notApplicable ? (
-                      <span style={styles.mutedText}>該当なし</span>
-                    ) : (
-                      <>
-                        <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                        {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                      </>
-                    )}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>

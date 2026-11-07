@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -43,7 +43,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/page-controls#Best-practices",
-    urlSecondary: [
+    refs: [
+      { label: "Page controls(「カルーセル」の専用ページなし)", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls#Best-practices" },
       { label: "Page controls ― iOS, iPadOS(タップ・なぞる操作)", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls#iOS-iPadOS" },
     ],
     confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-10)。",
@@ -69,7 +70,8 @@ const SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/carousel/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Carousel", url: "https://m3.material.io/components/carousel/guidelines" },
       { label: "カルーセルの種類(Multi-browse・Uncontained・Hero・Full-screen)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md#layouts-of-carousel" },
       { label: "MDC Android: Carousels(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Carousel.md" },
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
@@ -103,11 +105,12 @@ const SOURCES = [
     ],
     searchHint: "Stops rotating when keyboard focus enters",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/",
-    urlSecondary: [
-      { label: "APG: Carousel ― Keyboard Interaction", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/#keyboard_interaction" },
-      { label: "2.2.2 Pause, Stop, Hide", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html" },
+    refs: [
+      { kind: "apg", label: "APG: Carousel Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/" },
+      { kind: "apg", label: "APG: Carousel ― Keyboard Interaction", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/#keyboard_interaction" },
+      { kind: "sc", level: "A", label: "2.2.2 一時停止、停止、非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html" },
       { label: "WAI Carousels Tutorial", url: "https://www.w3.org/WAI/tutorials/carousels/" },
-      { label: "APG: Auto-Rotating Image Carousel(実装例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/" },
+      { kind: "apg", label: "APG: Auto-Rotating Image Carousel(実装例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/" },
     ],
     confirmedNote: "APGのCarousel Pattern・WAIのCarousels Tutorial・2.2.2のUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語はAPGのページのもの。",
   },
@@ -131,7 +134,8 @@ const SOURCES = [
     ],
     searchHint: "5 or fewer frames",
     url: "https://www.nngroup.com/articles/designing-effective-carousels/#toc-guidelines-for-good-carousel-design-5",
-    urlSecondary: [
+    refs: [
+      { label: "Carousel Usability / Auto-Forwarding Carousels and Accordions Annoy Users", url: "https://www.nngroup.com/articles/designing-effective-carousels/#toc-guidelines-for-good-carousel-design-5" },
       { label: "Auto-Forwarding Carousels and Accordions Annoy Users", url: "https://www.nngroup.com/articles/auto-forwarding/#toc-big-carousel-like-accordion-ignored-2" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10、1本目は2013年公開・2026年8月に見直し)。ページ内検索の語は1本目の記事のもの。",
@@ -566,18 +570,11 @@ export default function ContainmentCarouselPage() {
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                <div style={styles.sourceFootRow}>
-                  {s.searchHint && (
-                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                  )}
-                  <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-                </div>
-                {s.urlSecondary && (
-                  <div style={styles.secondaryLinks}>
-                    {s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                    ))}
-                  </div>
+                <InfoBox label="参照ページ(公式)">
+                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                </InfoBox>
+                {s.searchHint && (
+                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                 )}
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
@@ -608,15 +605,11 @@ export default function ContainmentCarouselPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={styles.labelCell}>リンク</div>
+                <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                    <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                    {s.urlSecondary && s.urlSecondary.map((sl) => (
-                      <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                    ))}
+                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                     {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                    {s.confirmedNote && <span style={styles.confirmedNoteSmall}>{s.confirmedNote}</span>}
                   </div>
                 ))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
