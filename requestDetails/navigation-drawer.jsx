@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ドロワー/サイドナビ」ページ(旧カテゴリ: Navigation)。
@@ -29,6 +29,9 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
  * (navigationDrawer.docx)を確認できたため直接確認済み(2026-09)。Apple(HIG Sidebars)
  * は公式サイトがクライアント側レンダリングのSPAで自動取得できないため、検索結果に
  * よる間接確認(2026-09)。
+ 
+ * 2026-11: M3のNavigation drawerのページ(M3 Expressive、2025年5月)で「推奨されなくなり、展開型のナビゲーションレールを使う」
+ * という記載を確認し、注意の枠を「Googleの注意」として載せている(上の訂正の記述より新しい情報)。
  */
 
 const DRAWER_SOURCES = [
@@ -36,6 +39,7 @@ const DRAWER_SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(iPhone向けの隠れたドロワーの指針はない)",
+    term: <NoData>該当なし(iPhone向けの隠れたドロワーはない)</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>該当なし</NoData>,
@@ -50,11 +54,12 @@ const DRAWER_SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation drawer(Modal)",
+    term: "Navigation drawer(Modal)",
     color: "#2F7D6E",
     position:
       "コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。5つ以上の主な行き先、または2階層を超える場合に使う",
     size:
-      <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、ドロワーをナビゲーションバーに置き換えるべきとしている。<NoData>ドロワーの幅の数値は未確認。</NoData></span>,
+      <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、ドロワーをナビゲーションバーに置き換えるべきとしている。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はデザイントークンを通して実装される。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしている。<NoData>カラートークンは未確認。</NoData></span>,
     glossary: [
@@ -95,6 +100,7 @@ const DRAWER_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal)パターン / WCAG 3.2.3",
+    term: "navigation(ランドマークのロール)",
     color: "#A3821F",
     position:
       "「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、ダイアログ(モーダル)として作る",
@@ -139,6 +145,7 @@ const DRAWER_SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Hamburger Menus and Hidden Navigation Hurt UX Metrics",
+    term: "Hamburger menu・Hidden navigation",
     color: "#7A4F7E",
     position: "隠れたナビゲーション(ドロワー)は発見性・作業速度・満足度の指標を悪化させるという、調査データに基づく指針",
     size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしている。5個以上(4個を超える)の場合はやむを得ず隠す形になるが、その場合も重要な情報へのページ内リンクを併設すべきとしている。",
@@ -177,20 +184,21 @@ const RAIL_SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sidebars(iPadOS・macOS)",
+    term: "Sidebar",
     color: "#C2542A",
     position:
       "iPad・Macで、アプリの主な領域への移動を、画面の脇に常に表示する(折りたたむこともできる)",
     size:
-      <NoData>数値は未確認</NoData>,
-    colorInfo: <span><NoData>記載なし。</NoData>macOSでは選択中の項目のハイライトに角丸のスタイルを使うとしている。</span>,
+      <span><NoData>数値基準なし。</NoData>macOSでは、行の高さ・文字・アイコンの大きさが小・中・大の3段階で、利用者が設定で変えられる。</span>,
+    colorInfo: "サイドバーのアイコンは、既定ではアプリのアクセントカラーを使う。macOSでは利用者がシステムのアクセントカラーを変えると、すべてのアプリのサイドバーのアイコンがその色になる。意味を伝えるための固定の色は、控えめに使えばよい(メールのVIPの黄色など)。",
     stance:
-      "サイドバーは、アプリ内のナビゲーションを可能にし、アプリの主要な領域・コレクションへの素早いアクセスを提供するもので、ほぼ常にスプリットビューの1次(プライマリ)ペインに表示されるとしている。サイドバーで項目を選ぶと、2次(セカンダリ)ペインにその項目の詳細が表示される。iPadOSではタブバーの代わりにサイドバーの使用を検討すべきとしており、多くの項目を表示できるためナビゲーションを効率化できるとしている。項目のカスタマイズや、サイドバー自体を隠してコンテンツ領域を広げる操作も許可すべきとしている。macOSでは、サイドバー(ソースリストとも呼ばれる)はウィンドウの全高に及ぶとしている。",
+      "サイドバーは、アプリの主な領域への移動に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする(HIG Sidebarsの本文で確認、2026-11)。",
     exceptions:
-      "いわゆるハンバーガーメニュー型の隠れたドロワーは勧めておらず、iPadOS・macOSでは、常に表示するか折りたためる、モーダルではないサイドバーを基本にしている。",
+      "利用者がサイドバーを隠せるようにする(iPadOSは画面の端からのスワイプ、macOSは表示メニューなど)。ただし見つけてもらえるよう、初期状態では隠さない。iPhone向けの隠れたドロワーの部品はない。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "iPad/Macで、多くの項目を持つ主要なナビゲーションに使う",
-      "iPadOSではタブバーの代わりに検討する",
+      "iOS・iPadOSでは、まずタブバーを検討し、収まらないときにサイドバーの形を使う",
       "項目のカスタマイズや、サイドバー自体を隠す操作を許可する",
     ],
     searchHint: "",
@@ -198,8 +206,7 @@ const RAIL_SOURCES = [
     refs: [
       { label: "Sidebars(iPadOS・macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/sidebars" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認(2026-09)。iOS向けの「隠れたドロワー」概念自体が見当たらない点も、複数の関連ページを確認した上での間接的な結論。",
-    pending: true,
+    confirmedNote: "HIG Sidebarsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="90" height="60" viewBox="0 0 90 60">
         <rect x="1" y="1" width="34" height="58" fill="#F0DACB" stroke="#C2542A" strokeWidth="1.2" />
@@ -215,6 +222,7 @@ const RAIL_SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation rail(折りたたみ型・展開型)",
+    term: "Navigation rail(折りたたみ型・展開型)",
     color: "#2F7D6E",
     position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。折りたたみ型と、ドロワーの代わりになる展開型がある",
     size: "幅96dp(M3 Expressive。以前は80dp)、項目の最小の高さ64dp(以前は60dp)。",
@@ -248,6 +256,7 @@ const RAIL_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Landmark Regions(navigation)/ WCAG 3.2.3",
+    term: "navigation(ランドマークのロール)",
     color: "#A3821F",
     position: "常に表示するサイドナビは、navigationランドマークとして作る",
     size: "専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり)。",
@@ -274,6 +283,7 @@ const RAIL_SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Left-Side Vertical Navigation on Desktop",
+    term: "Left-side vertical navigation(左の縦型ナビゲーション)",
     color: "#7A4F7E",
     position: "項目の多いメインナビゲーションを、デスクトップでは左側に縦に並べて常に見せる",
     size: <span><NoData>数値基準なし。</NoData>トップの項目が7〜9個を超えても、縦型なら収められるとしている。</span>,
@@ -375,6 +385,7 @@ function Comparison({ SOURCES }) {
                       {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                     </div>
                   )}
+                  <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                   <div style={styles.positionBadge}>{s.position}</div>
                   <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                   <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -411,6 +422,8 @@ function Comparison({ SOURCES }) {
                       {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                     </div>
                   ))}
+                  <div style={styles.labelCell}>名称</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                   <div style={styles.labelCell}>位置づけ</div>
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                   <div style={styles.labelCell}>サイズ</div>
@@ -441,6 +454,19 @@ function Comparison({ SOURCES }) {
     </>
   );
 }
+
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "主な行き先を、ボタンで開くメニュー(ドロワー)に隠してよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "デスクトップでは隠さない。スマートフォンでも4個以下なら見せる。4個を超えて隠すなら、重要な情報へのページ内のリンクを添える" },
+      { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するドロワーやレールにする。ただしM3 Expressiveでは、ドロワーは推奨されず展開型のレールに置き換える" },
+      { who: "Apple", color: "#C2542A", t: "iPhone向けの隠れたドロワーはない。まずタブバーを使い、収まらない領域はタブバーのサイドバーの形で見せる。サイドバーは隠せるようにするが、初期状態では隠さない" },
+    ],
+    tip: "どの系列も「広い画面では隠さない」で一致します。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立します。",
+  },
+];
 
 export default function NavigationDrawerPage() {
   return (
@@ -475,10 +501,12 @@ export default function NavigationDrawerPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-10、Google/Material Design 3)</div>
+            <div style={styles.warningLabel}>⚠ Googleの注意(M3 Expressive、2025年5月)</div>
             <p style={styles.warningText}>
-              Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)によると、<strong>ナビゲーションドロワーはM3 Expressiveのアップデートで非推奨になりつつあり、代わりに「展開ナビゲーションレール(expanded navigation rail)」を使う</strong>とされています。このページのGoogle欄は、それ以前のM3の本文に基づく内容です。<strong>新しく作る場合は、展開ナビゲーションレールを検討</strong>してください(下記Google欄の「MDC Android: Navigation drawer」リンクを参照)。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに展開型のナビゲーションレール(expanded navigation rail)を使う</strong>とされています(M3のNavigation drawerのページとMDC Androidのドキュメントで確認、2026-11)。展開型のレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしています。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読んでください。Apple・W3C・NN groupの内容には影響しません。
             </p>
           </div>
 
@@ -550,6 +578,8 @@ export default function NavigationDrawerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

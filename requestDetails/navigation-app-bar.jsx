@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / アプリバー」ページ(旧ページ名「トップバー」)。
@@ -28,15 +28,16 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
+    term: "Toolbar(iOSではナビゲーションバーとも呼ぶ)",
     color: "#C2542A",
-    position: "階層構造を1段ずつ「掘り下げる」ナビゲーションのための上部バー。戻るボタンを含み、遷移先のタイトルを示す",
+    position: "画面の上部で、今の画面のタイトル・戻るなどのナビゲーション・操作をまとめるバー。iOSでは、ナビゲーションを持つ上部のツールバーをナビゲーションバーとも呼ぶ",
     size:
-      "具体的な高さ(pt数値)は確認できていない。バー内の各項目には、他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。項目を入れすぎると、それぞれを見分けてタップすることが難しくなるとしている。",
+      "高さの数値の記載なし。タイトルは15文字未満を目安にし、ほかの操作のための場所を残す。項目は見分けて押せるよう、入れすぎない",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "この上部バーは、階層構造を1段ずつ「掘り下げる」ナビゲーションのためのもので、戻るボタンは常にバーの左上に置かれ、そのラベルは遷移元の画面タイトルを示すとしている。「深い」コンテンツほど右側にあるという空間的な比喩を、プッシュ遷移で表現するとしている。よく使うコマンド・コントロール・検索へのアクセスを提供する、より一般的な「ツールバー」の一種としても位置づけられている。",
+      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の移動を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く(HIG Toolbarsの本文で確認、2026-11)。",
     exceptions:
-      "項目を入れすぎると、それぞれを見分けて操作することが難しくなるため、項目数は絞るべきとしている。",
+      "幅が狭くなったときに溢れる項目を決めておく。macOS・iPadOSでは、収まらない項目にシステムが自動でオーバーフローメニューを付けるので、自分では足さない。ウィンドウのタイトルにアプリ名は使わない。",
     accessibility:
       <span><NoData>記載なし。</NoData>一般的なタップ領域基準(44×44pt)がここにも適用されると考えられる。</span>,
     useCases: [
@@ -49,8 +50,7 @@ const SOURCES = [
     refs: [
       { label: "Toolbars(旧「Navigation Bars」の内容を含む)", url: "https://developer.apple.com/design/human-interface-guidelines/toolbars" },
     ],
-    confirmedNote: "「Toolbars」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。旧「Navigation Bars」ページのURLは現在このページへ統合・リダイレクトされている。「ナビゲーションバー」ページで一度コラムとしてまとめた内容と同一の一次情報。",
-    pending: true,
+    confirmedNote: "HIG Toolbarsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -64,6 +64,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― App bar(2025年5月改称、旧「Top app bar」)",
+    term: "App bar(旧Top app bar。検索アプリバーを含む)",
     color: "#2F7D6E",
     position: "画面上部でページの内容・主要操作・ナビゲーション操作(戻る/メニューなど)を示すバー。小型・中型フレキシブル・大型フレキシブルに加え、検索の入り口となる検索アプリバーの4系統を持つ",
     size:
@@ -75,7 +76,7 @@ const SOURCES = [
       { term: "ベースライン中型・大型(非推奨)", desc: "M3 Expressive以前の中型・大型アプリバー。現在は非推奨となり、中型フレキシブル・大型フレキシブルへの置き換えが案内されている。" },
     ],
     stance:
-      "アプリバーは、ページに関する情報・主要な操作・「戻る」「メニュー」などのナビゲーション操作を画面上部にまとめて示すコンポーネントだとしている。内容は状況に応じてページ固有のものであるべきとしつつ、検索や通知などアプリ全体に関わるグローバルな操作を含めてもよいとしている。設定する主要操作は多くとも2個までに絞るべきで、それ以上の操作が必要な場合はアプリバーではなくツールバー側に配置すべきとしている。",
+      <>アプリバーは、ページに関する情報・主要な操作・「戻る」「メニュー」などのナビゲーション操作を画面上部にまとめて示すコンポーネントだとしている。内容は状況に応じてページ固有のものであるべきとしつつ、検索や通知などアプリ全体に関わるグローバルな操作を含めてもよいとしている。設定する<Hl>主要操作は多くとも2個までに絞るべき</Hl>で、それ以上の操作が必要な場合はアプリバーではなくツールバー側に配置すべきとしている。</>,
     exceptions:
       "オーバーフローメニューをアプリバーに置くことは可能な限り避けるべきとしている。塗りつぶし・トーン配色のアイコンボタンは、視認性を高める目的であっても同時に複数使うことは避けるべきとしている。中型・大型の「ベースライン」変異体は非推奨のため、新規実装では中型フレキシブル・大型フレキシブルを使うべきとしている。",
     accessibility:
@@ -107,6 +108,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6",
+    term: "banner(ランドマークのロール)/ HTMLのheader要素",
     color: "#A3821F",
     position: "role=\"banner\"(またはheader要素)で識別する、サイト全体で共通するグローバルヘッダー領域のランドマーク",
     size: "上部バー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のアイコン・リンクにも適用される。",
@@ -151,12 +153,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Sticky Headers: 5 Ways to Make Them Better",
+    term: "Sticky header(スクロールしても残るヘッダー)",
     color: "#7A4F7E",
     position: "常時表示させる価値があるかを費用対効果で判断すべき、常設ヘッダー(数値基準ではなく判断基準)",
     size: "モバイルのタップ領域は約1×1cm、テキストは約16ptを目安とし、それ以上の余白は最小限にすべきとしている。",
     colorInfo: "常設ヘッダーは、内容の背景と違う不透明な色にすべきとしている。半透明の背景は下のコンテンツと重なって読みにくくなるためです(Googleの「透明にしてボタンを浮かせる」手法とは考え方が異なる)。",
     stance:
-      "常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしている。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの費用対効果分析を行うべきとしている。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしている。",
+      <>常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしている。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの<Hl>費用対効果分析を行うべき</Hl>としている。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしている。</>,
     exceptions:
       "常設ヘッダーが価値を提供しない場合、他の最適化を行っても意味がないとしている。アニメーションを付ける場合は、素早く滑らかに、自然なスクロール速度に合わせるべきで、遅延して追いかけてくるような動き(「ストーカーメニュー」)は避けるべきとしている。",
     accessibility:
@@ -308,6 +311,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "上部のバーの背景を透かしてよい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "スクロールしたら、バーの色を変えて内容と分けるか、バーを透明にしてボタンだけを内容の上に浮かせるかを選べる" },
+      { who: "NN group", color: "#7A4F7E", t: "常に残るヘッダーは、内容と違う不透明な色にする。半透明だと下の内容と重なって読みにくい" },
+      { who: "Apple", color: "#C2542A", t: "独自の背景色や色付きの操作は控え、内容の層の色をいかす。内容とバーを分ける必要があるときはスクロールの端の効果を使う" },
+    ],
+    tip: "透かすかどうかより、バーの文字やアイコンが下の内容の上でも読めることが大切です。透かす場合は、どんな内容の上でもコントラストが保てるかを確かめ、保てないならNN groupの勧めのように不透明にします。",
+  },
+];
+
 export default function NavigationAppBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -339,6 +355,8 @@ export default function NavigationAppBarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
           <p style={styles.renameNote}>
             旧ページ名「トップバー」から改称(2026-09)。Googleが2025年5月のM3 Expressiveアップデートで、対応コンポーネントの名称を「トップアプリバー」から「アプリバー」に変更したことに合わせています。
           </p>
@@ -382,6 +400,7 @@ export default function NavigationAppBarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -418,6 +437,8 @@ export default function NavigationAppBarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -464,7 +485,7 @@ export default function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
@@ -477,6 +498,8 @@ export default function NavigationAppBarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   diffBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", margin: "0 0 14px", background: "#FFFFFF" },
   diffTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
   diffRow: { display: "flex", flexWrap: "wrap", gap: 12, alignItems: "flex-start" },

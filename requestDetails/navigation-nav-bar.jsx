@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ナビゲーションバー」ページ。
@@ -44,13 +44,14 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Tab Bars",
+    term: "Tab bar",
     color: "#C2542A",
     position: "アプリのトップレベルのセクション間を移動するための、画面下部の永続的なナビゲーション専用バー",
     size:
       "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはない)。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではないとしている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。",
+      <>タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。<Hl>厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではない</Hl>としている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。</>,
     exceptions:
       "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。",
     accessibility:
@@ -80,6 +81,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation bar(画面下部)/ アプリバー(画面上部、別コンポーネント)",
+    term: "Navigation bar",
     color: "#2F7D6E",
     position: "画面下部の永続的なバー(3〜5個の主要な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割を担う",
     size:
@@ -91,7 +93,7 @@ const SOURCES = [
       { term: "状態を保持する / 状態のリセット", desc: "ナビゲーション項目を選ぶ際の2つの挙動。「状態を保持する」は各行き先のスクロール位置・タブ・検索状態を記憶し続ける。「状態のリセット」は毎回既定のビューに戻す。セクション間を頻繁に行き来するアプリでは前者が適するとされる。" },
     ],
     stance:
-      "ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、同等の重要度を持つ3〜5個の行き先を提供する。行き先はアプリの画面間で一貫しており、変わらないものだとしている。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしている。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担う。",
+      <>ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、<Hl>同等の重要度を持つ3〜5個の行き先を提供する</Hl>。行き先はアプリの画面間で一貫しており、変わらないものだとしている。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしている。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担う。</>,
     exceptions:
       "行き先が5個を超える場合はナビゲーションバーを使うべきではなく、代わりにタブ(ページ内の類似コンテンツの整理)やモーダル展開ナビゲーションレール(メニューアイコンの背後にナビゲーションを隠す)を検討すべきとしている。行き先が3個未満の場合もナビゲーションバーは使うべきではなく、代わりにタブを使うべきとしている。画面のスワイプで行き先を切り替える操作はサポートされておらず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限定すべきとしている。フローティングアクションボタン(FAB)はナビゲーションバーを覆ってはならず、バーの上に右揃えで配置すべきとしている。ダイアログやボトムシートなどによる一時的な被覆は許容されるが、恒久的に隠すべきではないとしている。",
     accessibility:
@@ -121,6 +123,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
+    term: "navigation(ランドマークのロール)/ HTMLのnav要素",
     color: "#A3821F",
     position: "role=\"navigation\"(またはnav要素)で識別する、ページ内のナビゲーション用リンク群を示すランドマーク",
     size:
@@ -163,6 +166,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Basic Patterns for Mobile Navigation: A Primer",
+    term: "Tab bar・Navigation bar(上部・下部のバー)",
     color: "#7A4F7E",
     position: "画面の上部・下部どちらに置くかで一長一短があり、選択肢が少ない場合に向く(数値基準ではなく使い分けの指針)",
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分なタップ領域を保つのが難しくなるとしている。</span>,
@@ -303,6 +307,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "行き先はいくつまで置ける?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "3〜5個。5個を超えるならモーダルのナビゲーションレール、3個未満ならタブを使う" },
+      { who: "Apple", color: "#C2542A", t: "数の上限は示さない。少ないほど移動しやすいので増やしすぎず、「その他(More)」に溢れさせない" },
+      { who: "NN group", color: "#7A4F7E", t: "数値の上限はないが、5個を超えると十分な押せる範囲を保ちにくい。選択肢の少ないサイト・アプリ向き" },
+    ],
+    tip: "5個までにしておけば3系列のどれとも食い違いません。行き先が増えるなら、Appleはサイドバーの形に切り替えられるタブバー、Googleはナビゲーションレールやドロワーへ移す、という逃がし先も決めておきます。",
+  },
+];
+
 export default function NavigationNavBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -334,6 +351,8 @@ export default function NavigationNavBarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -373,6 +392,7 @@ export default function NavigationNavBarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -409,6 +429,8 @@ export default function NavigationNavBarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -457,6 +479,8 @@ export default function NavigationNavBarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   npNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   npSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "8px 0 8px" },
   npTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },

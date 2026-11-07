@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / パンくずリスト」ページ。
@@ -24,6 +24,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(近い部品: macOSのPath controls)",
+    term: <NoData>該当なし(近い部品: macOSのPath control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Path controls(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/path-controls" }],
@@ -35,12 +36,13 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられる(検索による間接確認、2026-09)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
+    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層の移動を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
   },
   {
     key: "material",
     name: "Google",
-    doc: "該当コンポーネントなし(確認中)",
+    doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -51,13 +53,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Breadcrumbs」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Breadcrumbs」はない(2026-11に確認)。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA Breadcrumbパターン",
+    term: "Breadcrumb(APGのパターン)",
     color: "#A3821F",
     position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
     size: "パンくず専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用される。",
@@ -95,12 +98,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Breadcrumbs: 11 Design Guidelines for Desktop and Mobile",
+    term: "Breadcrumbs(パンくずリスト)",
     color: "#7A4F7E",
     position: "グローバルナビ・ローカルナビを補完する補助的な要素(数値基準ではなく使い分けの指針)",
     size: "数値基準としては、モバイルのタップ領域について一般的な目安(約1×1cm)に言及しているが、パンくず専用の数値ではない。",
     colorInfo: <span><NoData>数値基準なし。</NoData>区切り記号は「&gt;」を推奨しているが、「/」との間に機能的な違いはないとしている。</span>,
     stance:
-      "パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしている。最も重要な原則は、ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべきという点。",
+      <>パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしている。最も重要な原則は、<Hl>ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべき</Hl>という点。</>,
     exceptions:
       "1〜2階層しかない「浅い」サイト構造ではパンくずリストは不要としている。複数の親を持つページ(ポリヒエラルキー)では、1つの代表的な経路だけを示すべきとしている。モバイルでは複数行に折り返してはならず、タップ領域が小さすぎたり項目が密集しすぎたりしないよう注意すべきとしている。画面が狭い場合は末尾の階層だけを表示する短縮も検討できるが、これは「常にホームページへのリンクから始めるべき」という原則とは緊張関係にある点に注意が必要。",
     accessibility:
@@ -183,6 +187,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>。パンくずは補助の案内</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "今いるページ(末尾の項目)を、リンクにする?",
+    sides: [
+      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするならaria-current=\"page\"を付ける。リンクにしなければaria-currentは任意" },
+      { who: "NN group", color: "#7A4F7E", t: "リンクにしない。何も起きないリンクは置かないため。リンクの項目とは見た目でも区別する" },
+    ],
+    tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たります。APGは実装の参考例で、適合の要件ではありません。",
+  },
+];
+
 export default function NavigationBreadcrumbPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -215,6 +231,8 @@ export default function NavigationBreadcrumbPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -245,6 +263,7 @@ export default function NavigationBreadcrumbPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -292,6 +311,8 @@ export default function NavigationBreadcrumbPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -325,7 +346,7 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。
@@ -338,6 +359,8 @@ export default function NavigationBreadcrumbPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

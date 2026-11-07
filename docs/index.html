@@ -13315,15 +13315,16 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
+    term: "Toolbar(iOSではナビゲーションバーとも呼ぶ)",
     color: "#C2542A",
-    position: "階層構造を1段ずつ「掘り下げる」ナビゲーションのための上部バー。戻るボタンを含み、遷移先のタイトルを示す",
+    position: "画面の上部で、今の画面のタイトル・戻るなどのナビゲーション・操作をまとめるバー。iOSでは、ナビゲーションを持つ上部のツールバーをナビゲーションバーとも呼ぶ",
     size:
-      "具体的な高さ(pt数値)は確認できていない。バー内の各項目には、他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。項目を入れすぎると、それぞれを見分けてタップすることが難しくなるとしている。",
+      "高さの数値の記載なし。タイトルは15文字未満を目安にし、ほかの操作のための場所を残す。項目は見分けて押せるよう、入れすぎない",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "この上部バーは、階層構造を1段ずつ「掘り下げる」ナビゲーションのためのもので、戻るボタンは常にバーの左上に置かれ、そのラベルは遷移元の画面タイトルを示すとしている。「深い」コンテンツほど右側にあるという空間的な比喩を、プッシュ遷移で表現するとしている。よく使うコマンド・コントロール・検索へのアクセスを提供する、より一般的な「ツールバー」の一種としても位置づけられている。",
+      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の移動を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く(HIG Toolbarsの本文で確認、2026-11)。",
     exceptions:
-      "項目を入れすぎると、それぞれを見分けて操作することが難しくなるため、項目数は絞るべきとしている。",
+      "幅が狭くなったときに溢れる項目を決めておく。macOS・iPadOSでは、収まらない項目にシステムが自動でオーバーフローメニューを付けるので、自分では足さない。ウィンドウのタイトルにアプリ名は使わない。",
     accessibility:
       <span><NoData>記載なし。</NoData>一般的なタップ領域基準(44×44pt)がここにも適用されると考えられる。</span>,
     useCases: [
@@ -13336,8 +13337,7 @@ const SOURCES = [
     refs: [
       { label: "Toolbars(旧「Navigation Bars」の内容を含む)", url: "https://developer.apple.com/design/human-interface-guidelines/toolbars" },
     ],
-    confirmedNote: "「Toolbars」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。旧「Navigation Bars」ページのURLは現在このページへ統合・リダイレクトされている。「ナビゲーションバー」ページで一度コラムとしてまとめた内容と同一の一次情報。",
-    pending: true,
+    confirmedNote: "HIG Toolbarsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -13351,6 +13351,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― App bar(2025年5月改称、旧「Top app bar」)",
+    term: "App bar(旧Top app bar。検索アプリバーを含む)",
     color: "#2F7D6E",
     position: "画面上部でページの内容・主要操作・ナビゲーション操作(戻る/メニューなど)を示すバー。小型・中型フレキシブル・大型フレキシブルに加え、検索の入り口となる検索アプリバーの4系統を持つ",
     size:
@@ -13362,7 +13363,7 @@ const SOURCES = [
       { term: "ベースライン中型・大型(非推奨)", desc: "M3 Expressive以前の中型・大型アプリバー。現在は非推奨となり、中型フレキシブル・大型フレキシブルへの置き換えが案内されている。" },
     ],
     stance:
-      "アプリバーは、ページに関する情報・主要な操作・「戻る」「メニュー」などのナビゲーション操作を画面上部にまとめて示すコンポーネントだとしている。内容は状況に応じてページ固有のものであるべきとしつつ、検索や通知などアプリ全体に関わるグローバルな操作を含めてもよいとしている。設定する主要操作は多くとも2個までに絞るべきで、それ以上の操作が必要な場合はアプリバーではなくツールバー側に配置すべきとしている。",
+      <>アプリバーは、ページに関する情報・主要な操作・「戻る」「メニュー」などのナビゲーション操作を画面上部にまとめて示すコンポーネントだとしている。内容は状況に応じてページ固有のものであるべきとしつつ、検索や通知などアプリ全体に関わるグローバルな操作を含めてもよいとしている。設定する<Hl>主要操作は多くとも2個までに絞るべき</Hl>で、それ以上の操作が必要な場合はアプリバーではなくツールバー側に配置すべきとしている。</>,
     exceptions:
       "オーバーフローメニューをアプリバーに置くことは可能な限り避けるべきとしている。塗りつぶし・トーン配色のアイコンボタンは、視認性を高める目的であっても同時に複数使うことは避けるべきとしている。中型・大型の「ベースライン」変異体は非推奨のため、新規実装では中型フレキシブル・大型フレキシブルを使うべきとしている。",
     accessibility:
@@ -13394,6 +13395,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6",
+    term: "banner(ランドマークのロール)/ HTMLのheader要素",
     color: "#A3821F",
     position: "role=\"banner\"(またはheader要素)で識別する、サイト全体で共通するグローバルヘッダー領域のランドマーク",
     size: "上部バー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のアイコン・リンクにも適用される。",
@@ -13438,12 +13440,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Sticky Headers: 5 Ways to Make Them Better",
+    term: "Sticky header(スクロールしても残るヘッダー)",
     color: "#7A4F7E",
     position: "常時表示させる価値があるかを費用対効果で判断すべき、常設ヘッダー(数値基準ではなく判断基準)",
     size: "モバイルのタップ領域は約1×1cm、テキストは約16ptを目安とし、それ以上の余白は最小限にすべきとしている。",
     colorInfo: "常設ヘッダーは、内容の背景と違う不透明な色にすべきとしている。半透明の背景は下のコンテンツと重なって読みにくくなるためです(Googleの「透明にしてボタンを浮かせる」手法とは考え方が異なる)。",
     stance:
-      "常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしている。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの費用対効果分析を行うべきとしている。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしている。",
+      <>常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしている。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの<Hl>費用対効果分析を行うべき</Hl>としている。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしている。</>,
     exceptions:
       "常設ヘッダーが価値を提供しない場合、他の最適化を行っても意味がないとしている。アニメーションを付ける場合は、素早く滑らかに、自然なスクロール速度に合わせるべきで、遅延して追いかけてくるような動き(「ストーカーメニュー」)は避けるべきとしている。",
     accessibility:
@@ -13595,6 +13598,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "上部のバーの背景を透かしてよい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "スクロールしたら、バーの色を変えて内容と分けるか、バーを透明にしてボタンだけを内容の上に浮かせるかを選べる" },
+      { who: "NN group", color: "#7A4F7E", t: "常に残るヘッダーは、内容と違う不透明な色にする。半透明だと下の内容と重なって読みにくい" },
+      { who: "Apple", color: "#C2542A", t: "独自の背景色や色付きの操作は控え、内容の層の色をいかす。内容とバーを分ける必要があるときはスクロールの端の効果を使う" },
+    ],
+    tip: "透かすかどうかより、バーの文字やアイコンが下の内容の上でも読めることが大切です。透かす場合は、どんな内容の上でもコントラストが保てるかを確かめ、保てないならNN groupの勧めのように不透明にします。",
+  },
+];
+
 function NavigationAppBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -13622,6 +13638,8 @@ function NavigationAppBarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
           <p style={styles.renameNote}>
             旧ページ名「トップバー」から改称(2026-09)。Googleが2025年5月のM3 Expressiveアップデートで、対応コンポーネントの名称を「トップアプリバー」から「アプリバー」に変更したことに合わせています。
           </p>
@@ -13665,6 +13683,7 @@ function NavigationAppBarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -13701,6 +13720,8 @@ function NavigationAppBarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -13747,7 +13768,7 @@ function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。GoogleはM3の公式ページ本文で確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
@@ -13760,6 +13781,8 @@ function NavigationAppBarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   diffBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", margin: "0 0 14px", background: "#FFFFFF" },
   diffTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
   diffRow: { display: "flex", flexWrap: "wrap", gap: 12, alignItems: "flex-start" },
@@ -13866,6 +13889,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(近い部品: macOSのPath controls)",
+    term: <NoData>該当なし(近い部品: macOSのPath control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Path controls(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/path-controls" }],
@@ -13877,12 +13901,13 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層ナビゲーションを戻るボタン(ナビゲーションスタック)で扱うのが基本的な設計思想と考えられる(検索による間接確認、2026-09)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
+    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層の移動を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
   },
   {
     key: "material",
     name: "Google",
-    doc: "該当コンポーネントなし(確認中)",
+    doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -13893,13 +13918,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Breadcrumbs」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Breadcrumbs」はない(2026-11に確認)。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA Breadcrumbパターン",
+    term: "Breadcrumb(APGのパターン)",
     color: "#A3821F",
     position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
     size: "パンくず専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用される。",
@@ -13937,12 +13963,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Breadcrumbs: 11 Design Guidelines for Desktop and Mobile",
+    term: "Breadcrumbs(パンくずリスト)",
     color: "#7A4F7E",
     position: "グローバルナビ・ローカルナビを補完する補助的な要素(数値基準ではなく使い分けの指針)",
     size: "数値基準としては、モバイルのタップ領域について一般的な目安(約1×1cm)に言及しているが、パンくず専用の数値ではない。",
     colorInfo: <span><NoData>数値基準なし。</NoData>区切り記号は「&gt;」を推奨しているが、「/」との間に機能的な違いはないとしている。</span>,
     stance:
-      "パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしている。最も重要な原則は、ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべきという点。",
+      <>パンくずリストは、サイトの階層構造上の現在位置を示す補助的なナビゲーションであり、グローバルナビゲーションバーやローカルナビゲーションを補完するものであって、それらの代わりにはならないとしている。最も重要な原則は、<Hl>ユーザーの閲覧履歴(たどってきた順序)ではなく、サイトの階層構造そのものを表示すべき</Hl>という点。</>,
     exceptions:
       "1〜2階層しかない「浅い」サイト構造ではパンくずリストは不要としている。複数の親を持つページ(ポリヒエラルキー)では、1つの代表的な経路だけを示すべきとしている。モバイルでは複数行に折り返してはならず、タップ領域が小さすぎたり項目が密集しすぎたりしないよう注意すべきとしている。画面が狭い場合は末尾の階層だけを表示する短縮も検討できるが、これは「常にホームページへのリンクから始めるべき」という原則とは緊張関係にある点に注意が必要。",
     accessibility:
@@ -14025,6 +14052,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>。パンくずは補助の案内</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "今いるページ(末尾の項目)を、リンクにする?",
+    sides: [
+      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするならaria-current=\"page\"を付ける。リンクにしなければaria-currentは任意" },
+      { who: "NN group", color: "#7A4F7E", t: "リンクにしない。何も起きないリンクは置かないため。リンクの項目とは見た目でも区別する" },
+    ],
+    tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たります。APGは実装の参考例で、適合の要件ではありません。",
+  },
+];
+
 function NavigationBreadcrumbPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -14052,6 +14091,8 @@ function NavigationBreadcrumbPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -14083,6 +14124,7 @@ function NavigationBreadcrumbPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -14130,6 +14172,8 @@ function NavigationBreadcrumbPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -14163,7 +14207,7 @@ function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用コンポーネントが見当たらないことを検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。
@@ -14176,6 +14220,8 @@ function NavigationBreadcrumbPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -14266,6 +14312,9 @@ const NavigationDrawerPage = (function () {
  * (navigationDrawer.docx)を確認できたため直接確認済み(2026-09)。Apple(HIG Sidebars)
  * は公式サイトがクライアント側レンダリングのSPAで自動取得できないため、検索結果に
  * よる間接確認(2026-09)。
+ 
+ * 2026-11: M3のNavigation drawerのページ(M3 Expressive、2025年5月)で「推奨されなくなり、展開型のナビゲーションレールを使う」
+ * という記載を確認し、注意の枠を「Googleの注意」として載せている(上の訂正の記述より新しい情報)。
  */
 
 const DRAWER_SOURCES = [
@@ -14273,6 +14322,7 @@ const DRAWER_SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(iPhone向けの隠れたドロワーの指針はない)",
+    term: <NoData>該当なし(iPhone向けの隠れたドロワーはない)</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>該当なし</NoData>,
@@ -14287,11 +14337,12 @@ const DRAWER_SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation drawer(Modal)",
+    term: "Navigation drawer(Modal)",
     color: "#2F7D6E",
     position:
       "コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。5つ以上の主な行き先、または2階層を超える場合に使う",
     size:
-      <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、ドロワーをナビゲーションバーに置き換えるべきとしている。<NoData>ドロワーの幅の数値は未確認。</NoData></span>,
+      <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、ドロワーをナビゲーションバーに置き換えるべきとしている。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はデザイントークンを通して実装される。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしている。<NoData>カラートークンは未確認。</NoData></span>,
     glossary: [
@@ -14332,6 +14383,7 @@ const DRAWER_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal)パターン / WCAG 3.2.3",
+    term: "navigation(ランドマークのロール)",
     color: "#A3821F",
     position:
       "「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、ダイアログ(モーダル)として作る",
@@ -14376,6 +14428,7 @@ const DRAWER_SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Hamburger Menus and Hidden Navigation Hurt UX Metrics",
+    term: "Hamburger menu・Hidden navigation",
     color: "#7A4F7E",
     position: "隠れたナビゲーション(ドロワー)は発見性・作業速度・満足度の指標を悪化させるという、調査データに基づく指針",
     size: "モバイルでは、ナビゲーション項目が4個以下なら常時表示すべきとしている。5個以上(4個を超える)の場合はやむを得ず隠す形になるが、その場合も重要な情報へのページ内リンクを併設すべきとしている。",
@@ -14414,20 +14467,21 @@ const RAIL_SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sidebars(iPadOS・macOS)",
+    term: "Sidebar",
     color: "#C2542A",
     position:
       "iPad・Macで、アプリの主な領域への移動を、画面の脇に常に表示する(折りたたむこともできる)",
     size:
-      <NoData>数値は未確認</NoData>,
-    colorInfo: <span><NoData>記載なし。</NoData>macOSでは選択中の項目のハイライトに角丸のスタイルを使うとしている。</span>,
+      <span><NoData>数値基準なし。</NoData>macOSでは、行の高さ・文字・アイコンの大きさが小・中・大の3段階で、利用者が設定で変えられる。</span>,
+    colorInfo: "サイドバーのアイコンは、既定ではアプリのアクセントカラーを使う。macOSでは利用者がシステムのアクセントカラーを変えると、すべてのアプリのサイドバーのアイコンがその色になる。意味を伝えるための固定の色は、控えめに使えばよい(メールのVIPの黄色など)。",
     stance:
-      "サイドバーは、アプリ内のナビゲーションを可能にし、アプリの主要な領域・コレクションへの素早いアクセスを提供するもので、ほぼ常にスプリットビューの1次(プライマリ)ペインに表示されるとしている。サイドバーで項目を選ぶと、2次(セカンダリ)ペインにその項目の詳細が表示される。iPadOSではタブバーの代わりにサイドバーの使用を検討すべきとしており、多くの項目を表示できるためナビゲーションを効率化できるとしている。項目のカスタマイズや、サイドバー自体を隠してコンテンツ領域を広げる操作も許可すべきとしている。macOSでは、サイドバー(ソースリストとも呼ばれる)はウィンドウの全高に及ぶとしている。",
+      "サイドバーは、アプリの主な領域への移動に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする(HIG Sidebarsの本文で確認、2026-11)。",
     exceptions:
-      "いわゆるハンバーガーメニュー型の隠れたドロワーは勧めておらず、iPadOS・macOSでは、常に表示するか折りたためる、モーダルではないサイドバーを基本にしている。",
+      "利用者がサイドバーを隠せるようにする(iPadOSは画面の端からのスワイプ、macOSは表示メニューなど)。ただし見つけてもらえるよう、初期状態では隠さない。iPhone向けの隠れたドロワーの部品はない。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "iPad/Macで、多くの項目を持つ主要なナビゲーションに使う",
-      "iPadOSではタブバーの代わりに検討する",
+      "iOS・iPadOSでは、まずタブバーを検討し、収まらないときにサイドバーの形を使う",
       "項目のカスタマイズや、サイドバー自体を隠す操作を許可する",
     ],
     searchHint: "",
@@ -14435,8 +14489,7 @@ const RAIL_SOURCES = [
     refs: [
       { label: "Sidebars(iPadOS・macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/sidebars" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認(2026-09)。iOS向けの「隠れたドロワー」概念自体が見当たらない点も、複数の関連ページを確認した上での間接的な結論。",
-    pending: true,
+    confirmedNote: "HIG Sidebarsの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="90" height="60" viewBox="0 0 90 60">
         <rect x="1" y="1" width="34" height="58" fill="#F0DACB" stroke="#C2542A" strokeWidth="1.2" />
@@ -14452,6 +14505,7 @@ const RAIL_SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation rail(折りたたみ型・展開型)",
+    term: "Navigation rail(折りたたみ型・展開型)",
     color: "#2F7D6E",
     position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。折りたたみ型と、ドロワーの代わりになる展開型がある",
     size: "幅96dp(M3 Expressive。以前は80dp)、項目の最小の高さ64dp(以前は60dp)。",
@@ -14485,6 +14539,7 @@ const RAIL_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Landmark Regions(navigation)/ WCAG 3.2.3",
+    term: "navigation(ランドマークのロール)",
     color: "#A3821F",
     position: "常に表示するサイドナビは、navigationランドマークとして作る",
     size: "専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり)。",
@@ -14511,6 +14566,7 @@ const RAIL_SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Left-Side Vertical Navigation on Desktop",
+    term: "Left-side vertical navigation(左の縦型ナビゲーション)",
     color: "#7A4F7E",
     position: "項目の多いメインナビゲーションを、デスクトップでは左側に縦に並べて常に見せる",
     size: <span><NoData>数値基準なし。</NoData>トップの項目が7〜9個を超えても、縦型なら収められるとしている。</span>,
@@ -14612,6 +14668,7 @@ function Comparison({ SOURCES }) {
                       {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                     </div>
                   )}
+                  <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                   <div style={styles.positionBadge}>{s.position}</div>
                   <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                   <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -14648,6 +14705,8 @@ function Comparison({ SOURCES }) {
                       {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                     </div>
                   ))}
+                  <div style={styles.labelCell}>名称</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                   <div style={styles.labelCell}>位置づけ</div>
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                   <div style={styles.labelCell}>サイズ</div>
@@ -14679,6 +14738,19 @@ function Comparison({ SOURCES }) {
   );
 }
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "主な行き先を、ボタンで開くメニュー(ドロワー)に隠してよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "デスクトップでは隠さない。スマートフォンでも4個以下なら見せる。4個を超えて隠すなら、重要な情報へのページ内のリンクを添える" },
+      { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するドロワーやレールにする。ただしM3 Expressiveでは、ドロワーは推奨されず展開型のレールに置き換える" },
+      { who: "Apple", color: "#C2542A", t: "iPhone向けの隠れたドロワーはない。まずタブバーを使い、収まらない領域はタブバーのサイドバーの形で見せる。サイドバーは隠せるようにするが、初期状態では隠さない" },
+    ],
+    tip: "どの系列も「広い画面では隠さない」で一致します。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立します。",
+  },
+];
+
 function NavigationDrawerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -14708,10 +14780,12 @@ function NavigationDrawerPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-10、Google/Material Design 3)</div>
+            <div style={styles.warningLabel}>⚠ Googleの注意(M3 Expressive、2025年5月)</div>
             <p style={styles.warningText}>
-              Googleの公式ドキュメント(MDC AndroidのNavigation drawerのページ)によると、<strong>ナビゲーションドロワーはM3 Expressiveのアップデートで非推奨になりつつあり、代わりに「展開ナビゲーションレール(expanded navigation rail)」を使う</strong>とされています。このページのGoogle欄は、それ以前のM3の本文に基づく内容です。<strong>新しく作る場合は、展開ナビゲーションレールを検討</strong>してください(下記Google欄の「MDC Android: Navigation drawer」リンクを参照)。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに展開型のナビゲーションレール(expanded navigation rail)を使う</strong>とされています(M3のNavigation drawerのページとMDC Androidのドキュメントで確認、2026-11)。展開型のレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしています。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読んでください。Apple・W3C・NN groupの内容には影響しません。
             </p>
           </div>
 
@@ -14783,6 +14857,8 @@ function NavigationDrawerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -14893,13 +14969,14 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Tab Bars",
+    term: "Tab bar",
     color: "#C2542A",
     position: "アプリのトップレベルのセクション間を移動するための、画面下部の永続的なナビゲーション専用バー",
     size:
       "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはない)。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではないとしている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。",
+      <>タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。<Hl>厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではない</Hl>としている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。</>,
     exceptions:
       "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。",
     accessibility:
@@ -14929,6 +15006,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation bar(画面下部)/ アプリバー(画面上部、別コンポーネント)",
+    term: "Navigation bar",
     color: "#2F7D6E",
     position: "画面下部の永続的なバー(3〜5個の主要な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割を担う",
     size:
@@ -14940,7 +15018,7 @@ const SOURCES = [
       { term: "状態を保持する / 状態のリセット", desc: "ナビゲーション項目を選ぶ際の2つの挙動。「状態を保持する」は各行き先のスクロール位置・タブ・検索状態を記憶し続ける。「状態のリセット」は毎回既定のビューに戻す。セクション間を頻繁に行き来するアプリでは前者が適するとされる。" },
     ],
     stance:
-      "ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、同等の重要度を持つ3〜5個の行き先を提供する。行き先はアプリの画面間で一貫しており、変わらないものだとしている。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしている。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担う。",
+      <>ナビゲーションバーは、小型〜中型デバイスでUIビューを切り替えるためのコンポーネントで、<Hl>同等の重要度を持つ3〜5個の行き先を提供する</Hl>。行き先はアプリの画面間で一貫しており、変わらないものだとしている。製品に3〜5個の主要ページがあり、モバイルまたはタブレット端末である場合に使うべきで、メールを1通読むような単一タスクへのアクセスには使うべきではないとしている。上部の「アプリバー」は、現在の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(現在はToolbarsに統合された)戻るボタン付きの上部バーに近い役割を担う。</>,
     exceptions:
       "行き先が5個を超える場合はナビゲーションバーを使うべきではなく、代わりにタブ(ページ内の類似コンテンツの整理)やモーダル展開ナビゲーションレール(メニューアイコンの背後にナビゲーションを隠す)を検討すべきとしている。行き先が3個未満の場合もナビゲーションバーは使うべきではなく、代わりにタブを使うべきとしている。画面のスワイプで行き先を切り替える操作はサポートされておらず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限定すべきとしている。フローティングアクションボタン(FAB)はナビゲーションバーを覆ってはならず、バーの上に右揃えで配置すべきとしている。ダイアログやボトムシートなどによる一時的な被覆は許容されるが、恒久的に隠すべきではないとしている。",
     accessibility:
@@ -14970,6 +15048,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
+    term: "navigation(ランドマークのロール)/ HTMLのnav要素",
     color: "#A3821F",
     position: "role=\"navigation\"(またはnav要素)で識別する、ページ内のナビゲーション用リンク群を示すランドマーク",
     size:
@@ -15012,6 +15091,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Basic Patterns for Mobile Navigation: A Primer",
+    term: "Tab bar・Navigation bar(上部・下部のバー)",
     color: "#7A4F7E",
     position: "画面の上部・下部どちらに置くかで一長一短があり、選択肢が少ない場合に向く(数値基準ではなく使い分けの指針)",
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分なタップ領域を保つのが難しくなるとしている。</span>,
@@ -15152,6 +15232,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "行き先はいくつまで置ける?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "3〜5個。5個を超えるならモーダルのナビゲーションレール、3個未満ならタブを使う" },
+      { who: "Apple", color: "#C2542A", t: "数の上限は示さない。少ないほど移動しやすいので増やしすぎず、「その他(More)」に溢れさせない" },
+      { who: "NN group", color: "#7A4F7E", t: "数値の上限はないが、5個を超えると十分な押せる範囲を保ちにくい。選択肢の少ないサイト・アプリ向き" },
+    ],
+    tip: "5個までにしておけば3系列のどれとも食い違いません。行き先が増えるなら、Appleはサイドバーの形に切り替えられるタブバー、Googleはナビゲーションレールやドロワーへ移す、という逃がし先も決めておきます。",
+  },
+];
+
 function NavigationNavBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -15179,6 +15272,8 @@ function NavigationNavBarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -15218,6 +15313,7 @@ function NavigationNavBarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -15254,6 +15350,8 @@ function NavigationNavBarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -15302,6 +15400,8 @@ function NavigationNavBarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   npNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   npSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "8px 0 8px" },
   npTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
@@ -15397,6 +15497,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(番号付きページネーションとしては)",
+    term: <NoData>該当なし(近い部品: Page control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
@@ -15407,13 +15508,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。検索結果による間接確認(2026-09)。",
+    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。HIG Page controlsの本文で確認(2026-11)。ページ送りのドットは、順序のあるページの移動に使い、10個ほどを超えると数えにくいとしている。",
     pending: true,
   },
   {
     key: "material",
     name: "Google",
-    doc: "該当コンポーネントなし(確認中)",
+    doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -15423,13 +15525,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Pagination」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。長いリストの分割はリスト・テーブル等の一般コンポーネントを組み合わせる想定と考えられる。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Pagination」はない(2026-11に確認)。長いリストの分割は、リストや表などの部品を組み合わせる想定と考えられる(AI解釈)。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
+    term: "navigation+aria-current=\"page\"(専用のロールなし)",
     color: "#A3821F",
     position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
     size: "ページネーション専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用される。",
@@ -15471,11 +15574,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Alternatives to Pagination on Product-Listing Pages / Infinite Scrolling",
+    term: "Pagination(ページ送り)",
     color: "#7A4F7E",
     position: "巨大な一覧には従来型ページネーションが向き、少数の一覧には代替案(もっと見るボタンなど)も検討に値する",
     size: "数値基準としては、無限スクロールが向くのは「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合としている。",
     stance:
-      "Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしている。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしている。「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましいとしている(ページ末尾のフッターに到達できなくなる問題を避けられるため)。",
+      <>Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしている。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしている。<Hl>「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましい</Hl>としている(ページ末尾のフッターに到達できなくなる問題を避けられるため)。</>,
     exceptions:
       "無限スクロールは、ユーザーが自分の閲覧位置を思い出しにくくなり、フッターのコンテンツに到達できなくなるという欠点があるとしている。一覧に「全件表示」の総数を明示し、読み込み済み件数・残り件数を伝えるべきとしている。ユーザーが「全て表示」に切り替えた場合は、その設定を尊重すべきとしている。",
     accessibility:
@@ -15676,6 +15780,7 @@ function NavigationPaginationPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
@@ -15722,6 +15827,8 @@ function NavigationPaginationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -15753,7 +15860,7 @@ function NavigationPaginationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。
@@ -15766,6 +15873,8 @@ function NavigationPaginationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -15863,6 +15972,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Segmented Controls",
+    term: "Segmented control",
     color: "#C2542A",
     position: "2つ以上の等幅セグメントからなる線形の集合。それぞれがボタンとして機能する",
     size:
@@ -15871,7 +15981,7 @@ const SOURCES = [
     stance:
       "セグメントコントロールは、地図アプリの「マップ/交通機関/航空写真」の切り替えのように、異なる表示(ビュー)を切り替える際によく使われるとしている。コントロール内の全セグメントは同じ幅を持ち、テキストまたは画像のどちらかを含められる。",
     exceptions:
-      "セグメントが多すぎると読み取りにくく操作に時間がかかるため、広い画面では約5〜7個まで、iPhoneでは約5個までを目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。",
+      <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。</>,
     accessibility:
       <span><NoData>記載なし。</NoData>全てのインタラクティブ要素に適用される最小44×44ptのタップ領域基準が、ここにも適用されると考えられる。</span>,
     useCases: [
@@ -15901,6 +16011,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Segmented buttons",
+    term: "Segmented button(単一選択・複数選択)",
     color: "#2F7D6E",
     position: "単一選択・複数選択の2種類。2〜5個の選択肢に最適(5個超はチップを推奨)",
     size:
@@ -15913,7 +16024,7 @@ const SOURCES = [
     stance:
       "セグメントボタンは、人々が選択肢を選んだり、表示を切り替えたり、要素を並べ替えたりするのを助けるコンポーネントで、アイコン・ラベルテキスト・またはその両方を含められるとしている。単一選択セグメントボタンは、複数のオプションから1つを選ぶ・ビューを切り替える・最大5つの要素を並べ替える場合に使うとしている(例: 飲料のサイズセレクター)。複数選択セグメントボタンは、選択が必須ではなく、何も選ばない状態も含め任意の数のオプションを同時に選べるとしている(例: レストラン検索の価格帯フィルタ)。",
     exceptions:
-      "1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべきとしている。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしている(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。",
+      <>1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、<Hl>選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべき</Hl>としている。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしている(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。</>,
     accessibility:
       "操作可能(Operable) ― アクセシビリティ上、単一選択セグメントボタンはラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱われるとしている(Appleの地図アプリのような「表示切り替え」用途でも、Google独自の実装はTabsパターンではなくradiogroup/checkboxとして扱われる点に注意)。ラベルテキストのないアイコンのみのセグメントには、そのアクションを説明するアクセシビリティラベル(例: 通貨記号→「安価」)を用意すべきとしている。",
     useCases: [
@@ -15947,6 +16058,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "該当コンポーネントなし(作るときはRadio GroupかTabsの型を使う)",
+    term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
     glossary: [
@@ -15970,6 +16082,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "該当コンポーネントなし(用語集で定義のみ)",
+    term: "Segmented control(用語集の定義のみ)",
     color: "#7A4F7E",
     position: <NoData>該当なし</NoData>,
     glossary: [
@@ -16073,6 +16186,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "選択肢はいくつまで並べてよい?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "iPhoneでは約5個まで、広い画面では約5〜7個まで。多いと読み取りにくく、操作に時間がかかる" },
+      { who: "Google", color: "#2F7D6E", t: "5個まで。5個を超えるならチップなど別の部品を検討する" },
+    ],
+    tip: "スマートフォンでは5個までにそろえれば、AppleとGoogleのどちらにも沿います。6〜7個を並べられるのはAppleの広い画面だけなので、選択肢が増えそうならチップやメニューに切り替えます。",
+  },
+];
+
 function NavigationSegmentedControlPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -16100,6 +16225,8 @@ function NavigationSegmentedControlPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
@@ -16143,6 +16270,7 @@ function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -16179,6 +16307,8 @@ function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -16225,6 +16355,8 @@ function NavigationSegmentedControlPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   atvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   atvTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   atvTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },

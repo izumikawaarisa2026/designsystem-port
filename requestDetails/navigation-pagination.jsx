@@ -23,6 +23,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(番号付きページネーションとしては)",
+    term: <NoData>該当なし(近い部品: Page control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
@@ -33,13 +34,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。検索結果による間接確認(2026-09)。",
+    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。HIG Page controlsの本文で確認(2026-11)。ページ送りのドットは、順序のあるページの移動に使い、10個ほどを超えると数えにくいとしている。",
     pending: true,
   },
   {
     key: "material",
     name: "Google",
-    doc: "該当コンポーネントなし(確認中)",
+    doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -49,13 +51,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※「Pagination」という名称の専用コンポーネントページは見当たらない(検索による間接確認。m3.material.ioはSPAのため断定はできない、2026-09)。長いリストの分割はリスト・テーブル等の一般コンポーネントを組み合わせる想定と考えられる。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Pagination」はない(2026-11に確認)。長いリストの分割は、リストや表などの部品を組み合わせる想定と考えられる(AI解釈)。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
+    term: "navigation+aria-current=\"page\"(専用のロールなし)",
     color: "#A3821F",
     position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
     size: "ページネーション専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用される。",
@@ -97,11 +100,12 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Alternatives to Pagination on Product-Listing Pages / Infinite Scrolling",
+    term: "Pagination(ページ送り)",
     color: "#7A4F7E",
     position: "巨大な一覧には従来型ページネーションが向き、少数の一覧には代替案(もっと見るボタンなど)も検討に値する",
     size: "数値基準としては、無限スクロールが向くのは「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合としている。",
     stance:
-      "Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしている。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしている。「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましいとしている(ページ末尾のフッターに到達できなくなる問題を避けられるため)。",
+      <>Amazonのような巨大な商品数を持つサイトには、精密な位置制御ができる従来型のページネーションが適しているとしている。一方、商品数が比較的少なく強力な絞り込み機能がある場合は、無限ローディングや「もっと見る」ボタンといった代替案も選択肢になるとしている。<Hl>「もっと見る」ボタンは、ユーザーが自らの操作で次のセットを読み込む点で、自動で読み込まれる無限スクロールより望ましい</Hl>としている(ページ末尾のフッターに到達できなくなる問題を避けられるため)。</>,
     exceptions:
       "無限スクロールは、ユーザーが自分の閲覧位置を思い出しにくくなり、フッターのコンテンツに到達できなくなるという欠点があるとしている。一覧に「全件表示」の総数を明示し、読み込み済み件数・残り件数を伝えるべきとしている。ユーザーが「全て表示」に切り替えた場合は、その設定を尊重すべきとしている。",
     accessibility:
@@ -306,6 +310,7 @@ export default function NavigationPaginationPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
@@ -352,6 +357,8 @@ export default function NavigationPaginationPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -383,7 +390,7 @@ export default function NavigationPaginationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認、Googleは専用コンポーネントの不在を検索で確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。
@@ -396,6 +403,8 @@ export default function NavigationPaginationPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

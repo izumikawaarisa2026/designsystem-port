@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / セグメントコントロール」ページ。
@@ -29,6 +29,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Segmented Controls",
+    term: "Segmented control",
     color: "#C2542A",
     position: "2つ以上の等幅セグメントからなる線形の集合。それぞれがボタンとして機能する",
     size:
@@ -37,7 +38,7 @@ const SOURCES = [
     stance:
       "セグメントコントロールは、地図アプリの「マップ/交通機関/航空写真」の切り替えのように、異なる表示(ビュー)を切り替える際によく使われるとしている。コントロール内の全セグメントは同じ幅を持ち、テキストまたは画像のどちらかを含められる。",
     exceptions:
-      "セグメントが多すぎると読み取りにくく操作に時間がかかるため、広い画面では約5〜7個まで、iPhoneでは約5個までを目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。",
+      <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。</>,
     accessibility:
       <span><NoData>記載なし。</NoData>全てのインタラクティブ要素に適用される最小44×44ptのタップ領域基準が、ここにも適用されると考えられる。</span>,
     useCases: [
@@ -67,6 +68,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Segmented buttons",
+    term: "Segmented button(単一選択・複数選択)",
     color: "#2F7D6E",
     position: "単一選択・複数選択の2種類。2〜5個の選択肢に最適(5個超はチップを推奨)",
     size:
@@ -79,7 +81,7 @@ const SOURCES = [
     stance:
       "セグメントボタンは、人々が選択肢を選んだり、表示を切り替えたり、要素を並べ替えたりするのを助けるコンポーネントで、アイコン・ラベルテキスト・またはその両方を含められるとしている。単一選択セグメントボタンは、複数のオプションから1つを選ぶ・ビューを切り替える・最大5つの要素を並べ替える場合に使うとしている(例: 飲料のサイズセレクター)。複数選択セグメントボタンは、選択が必須ではなく、何も選ばない状態も含め任意の数のオプションを同時に選べるとしている(例: レストラン検索の価格帯フィルタ)。",
     exceptions:
-      "1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべきとしている。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしている(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。",
+      <>1つのセグメントボタンに5個を超えるセグメントを使うべきではなく、<Hl>選択肢が5個を超える場合はチップなど別のコンポーネントの使用を検討すべき</Hl>としている。セグメントボタンは、ビューポートやフレームの端から十分な余白を確保すべきで、大きな画面幅いっぱいに広げることは避けるべきとしている(ラベル周りの余白が大きくなりすぎて使い勝手が悪化するため)。</>,
     accessibility:
       "操作可能(Operable) ― アクセシビリティ上、単一選択セグメントボタンはラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱われるとしている(Appleの地図アプリのような「表示切り替え」用途でも、Google独自の実装はTabsパターンではなくradiogroup/checkboxとして扱われる点に注意)。ラベルテキストのないアイコンのみのセグメントには、そのアクションを説明するアクセシビリティラベル(例: 通貨記号→「安価」)を用意すべきとしている。",
     useCases: [
@@ -113,6 +115,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "該当コンポーネントなし(作るときはRadio GroupかTabsの型を使う)",
+    term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
     glossary: [
@@ -136,6 +139,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "該当コンポーネントなし(用語集で定義のみ)",
+    term: "Segmented control(用語集の定義のみ)",
     color: "#7A4F7E",
     position: <NoData>該当なし</NoData>,
     glossary: [
@@ -239,6 +243,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "選択肢はいくつまで並べてよい?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "iPhoneでは約5個まで、広い画面では約5〜7個まで。多いと読み取りにくく、操作に時間がかかる" },
+      { who: "Google", color: "#2F7D6E", t: "5個まで。5個を超えるならチップなど別の部品を検討する" },
+    ],
+    tip: "スマートフォンでは5個までにそろえれば、AppleとGoogleのどちらにも沿います。6〜7個を並べられるのはAppleの広い画面だけなので、選択肢が増えそうならチップやメニューに切り替えます。",
+  },
+];
+
 export default function NavigationSegmentedControlPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -270,6 +286,8 @@ export default function NavigationSegmentedControlPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
@@ -313,6 +331,7 @@ export default function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -349,6 +368,8 @@ export default function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -395,6 +416,8 @@ export default function NavigationSegmentedControlPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   atvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   atvTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   atvTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
