@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ローディング状態」ページ。
@@ -14,6 +14,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Loading",
+    term: "Loading(プレースホルダー・Progress indicator)",
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「ローディング状態」という単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱っている",
@@ -49,11 +50,12 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Loading indicator",
+    term: "Loading indicator",
     color: "#2F7D6E",
     position: "5秒未満の待ち時間向けに新設された専用コンポーネント「Loading indicator」を持つ",
-    size: <span>5秒未満の待ち時間に使う。<NoData>寸法の数値は未確認。</NoData></span>,
+    size: "200ミリ秒〜5秒の短い待ち時間に使う。寸法の数値の記載なし",
     stance:
-      "Loading indicatorは、短い待ち時間の処理の進行を示すために新設されたコンポーネントで、5秒未満で終わる読み込みに使うことを想定し、従来の不確定な円形プログレスインジケーターの多くの用途を置き換える意図があるとされている(検索結果による確認)。",
+      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す部品。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う(M3 Loading indicatorのガイドラインの本文で確認、2026-11)。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
@@ -69,7 +71,7 @@ const SOURCES = [
       { label: "Loading indicator", url: "https://m3.material.io/components/loading-indicator/guidelines" },
       { label: "Progress indicators(進み具合を示す場合)", url: "https://m3.material.io/components/progress-indicators/overview" },
     ],
-    confirmedNote: "Loading indicatorの仕様は、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3 Loading indicatorのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
@@ -84,6 +86,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― aria-busy属性(更新中であることを示す)",
+    term: "aria-busy(WAI-ARIAの状態)",
     color: "#A3821F",
     position: "「ローディング状態」専用のロールはないが、内容が更新中であることを支援技術に伝えるaria-busy属性がある",
     size: <NoData>数値基準なし</NoData>,
@@ -124,6 +127,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Skeleton Screens 101",
+    term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
     position: "読み込みの見せ方を、待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーで使い分けるべきとする(秒数の目安あり)",
     size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスケルトン画面またはスピナー(個別モジュール向け)、10秒超はプログレスバーが望ましいとしている。",
@@ -212,6 +216,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "待ち時間が何秒なら、どの表示を出す?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "200ミリ秒未満は何も出さない。200ミリ秒〜5秒はLoading indicator。5秒を超えるならProgress indicator" },
+      { who: "NN group", color: "#7A4F7E", t: "1秒・10秒を目安に、スケルトン画面・スピナー・プログレスバーを使い分ける" },
+      { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
+    ],
+    tip: "区切りの秒数は系列で違いますが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通です。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにします。",
+  },
+];
+
 export default function CommunicationLoadingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -244,6 +261,8 @@ export default function CommunicationLoadingPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -275,6 +294,7 @@ export default function CommunicationLoadingPage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -317,6 +337,8 @@ export default function CommunicationLoadingPage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -378,6 +400,8 @@ export default function CommunicationLoadingPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

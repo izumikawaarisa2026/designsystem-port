@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態」ページ。
@@ -12,6 +12,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Writing(空の画面の文言)",
+    term: <NoData>専用の部品なし(Writingで空の画面の文言を扱う)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「空状態」という単独のコンポーネントはなく、文章の書き方(Writing)のページで空の画面の文言に触れている",
@@ -46,6 +47,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 1 ― Empty states(参考。現行M3には該当なし)",
+    term: "Empty state(Material Design 1のパターン)",
     color: "#2F7D6E",
     noDedicatedComponent: true,
     position: "現行M3の一覧には「空状態」の正式なコンポーネント・パターンはなく、旧世代(M1)のパターンページにのみ記述がある",
@@ -67,7 +69,7 @@ const SOURCES = [
     refs: [
       { label: "Empty states(参考。現行M3には該当なし)", url: "https://m1.material.io/patterns/empty-states.html" },
     ],
-    confirmedNote: "現行M3のコンポーネント/パターン一覧に「空状態」が見当たらないことは、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)に「空状態」はない(2026-11に確認)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -81,6 +83,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 ステータスメッセージ",
+    term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "空状態専用のロールはない。検索結果0件などの結果は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
@@ -112,6 +115,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Designing Empty States in Complex Applications",
+    term: "Empty state",
     color: "#7A4F7E",
     position: "空状態を「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」という3つの役割を持つ設計対象として位置づける(数値基準ではなく原則)",
     size: <NoData>数値基準なし</NoData>,
@@ -249,6 +253,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "空の画面に、次の操作のボタンを置く?",
+    sides: [
+      { who: "Apple・NN group", color: "#C2542A", t: "置く。次にできる操作を案内し、できればそのボタンやリンクを置く(Apple)。「作成」など次の行動への直接の入り口を用意する(NN group)" },
+      { who: "Google(M1)", color: "#2F7D6E", t: "基本の形は、操作のない画像と短い説明文(旧版M1のパターン。M3には空状態の決まりはない)" },
+    ],
+    tip: "利用者が自分で埋められる空(まだ何も作っていない一覧など)には、作成のボタンを置きます。検索結果0件のように操作で埋められない空なら、説明文と、条件を変えるための案内(リンク)にとどめます。",
+  },
+];
+
 export default function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -280,6 +296,8 @@ export default function CommunicationEmptyStatePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -314,6 +332,7 @@ export default function CommunicationEmptyStatePage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -356,6 +375,8 @@ export default function CommunicationEmptyStatePage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -413,6 +434,8 @@ export default function CommunicationEmptyStatePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   ewNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 12px" },
   ewSteps: { display: "flex", flexDirection: "column", gap: 8 },
   ewStep: { display: "flex", gap: 10, border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },

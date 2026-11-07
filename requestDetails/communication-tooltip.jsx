@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ツールチップ」ページ。
@@ -32,9 +32,10 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
+    term: "Tooltip(利用者向けの説明ではHelp tag)・TipKitのTip",
     color: "#C2542A",
     position: "ポインターホバーで現れる文字のみの「ヘルプタグ(プレーン相当)」に加え、タイトル・メッセージ・任意の画像・アクションボタンを持てる独立フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装上まったく別の2系統を持つ",
-    size: <NoData>数値基準なし</NoData>,
+    size: "文字数は60〜75文字までを目安にする(多言語化で長さが変わることにも注意)。macOS・visionOS",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "ポップオーバー(Popovers)", desc: "コントロールを押したときに、出現元を指す矢印とともに他の内容の上に現れる一時的なビュー(主にiPad向け)。ボタンなどの操作も置ける。不要になったら自動で閉じるのが基本で、専用の閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたときは作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
@@ -66,7 +67,7 @@ const SOURCES = [
       { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
       { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
-    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。「Showing help tags...」ページ本文はSPAのため直接取得できず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。ツールチップ(ヘルプタグ)はHIG Offering helpの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -84,10 +85,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Tooltips(プレーン/リッチ)",
+    term: "Tooltip(プレーン・リッチ)",
     color: "#2F7D6E",
     position: "アイコンのみのボタン等にラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。要素にすでに文字のラベルがある場合、プレーンツールチップは不要としている。",
     size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしている。画面端にはみ出す場合は8dp刻みで位置を調整するとしている。最大幅の具体的なdp数値は、今回入手した公式ドキュメント本文では確認できていない。",
-    colorInfo: "色の値はデザイントークン経由で実装するとしているが、具体的な配色の数値は本文中の表形式部分(今回のテキスト抽出では再現できなかった)にあるとみられ、詳細は未確認。",
+    colorInfo: <span>色の値はデザイントークンで実装する。<NoData>具体的な色の値は未確認。</NoData></span>,
     glossary: [
       { term: "プレーンツールチップ", desc: "アイコンのみのボタンなど、文字を持たない要素にラベルを補うための短いテキストのみのツールチップ。" },
       { term: "リッチツールチップ", desc: "小見出し・本文・最大2つのボタン・ハイパーリンクを任意で含められるツールチップ。定義や機能の値の説明など、プレーンより踏み込んだ情報提供に使う。" },
@@ -131,6 +133,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
+    term: "tooltip(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
     size: "ツールチップ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はトリガーとなる要素自体に適用される。",
@@ -177,12 +180,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Tooltip Guidelines",
+    term: "Tooltip",
     color: "#7A4F7E",
     position: "補足的な説明にのみ使うべき、マイクロコンテンツ(短い自己完結型テキスト)。数値基準ではなく使い分けの指針",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: "背景とのコントラストを適度に確保すべきとしているが、具体的な数値基準はない。",
     stance:
-      "ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしている。タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではないとしている。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしている。",
+      <>ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしている。<Hl>タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではない</Hl>としている。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしている。</>,
     scenarios: [
       "慣れない入力項目の意味を説明したい時",
       "一見不自然に見える要求の理由を示したい時",
@@ -367,6 +371,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>押して開く詳しい説明や操作を含むなら<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>などのポップオーバー。必ず読ませたい情報は画面に直接書く</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "タッチの画面(スマートフォン)で、ツールチップを使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "使う。デスクトップではポインターを重ねる、モバイルでは要素を長押しすると出る" },
+      { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
+      { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)とvisionOSのもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
+    ],
+    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要な部品に「?」などの印を置き、押すと開くヒントにするのが確実です(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにします(W3C 1.4.13)。",
+  },
+];
+
 export default function CommunicationTooltipPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -398,6 +415,8 @@ export default function CommunicationTooltipPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -439,6 +458,7 @@ export default function CommunicationTooltipPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -476,6 +496,8 @@ export default function CommunicationTooltipPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -511,7 +533,7 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleのツールチップはHIG Offering helpの「macOS, visionOS」の節を2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。
@@ -524,6 +546,8 @@ export default function CommunicationTooltipPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tvpNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   tvpTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   tvpTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },

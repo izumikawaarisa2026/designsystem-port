@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / トースト」ページ。
@@ -42,18 +42,19 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
+    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「トースト」に該当する専用コンポーネントはなし。最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知(「スナックバー」ページと同一の一次情報)",
+    position: "トーストに当たる部品はない。最も近いのは通知(ロック画面やホーム画面などのバナー、通知センター)",
     size: <NoData>数値基準なし</NoData>,
     scenarios: [
       "OSレベルの短時間通知を見せたい時(バナー形式)",
       "アプリ内の一時的なフィードバックは専用コンポーネントがないため独自実装が必要になる時",
     ],
     stance:
-      "HIGには「トースト」という名称のコンポーネントは見当たらない。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされている。この点は「スナックバー」ページと同一の一次情報で、AppleはToast/Snackbarを区別していない。",
+      "HIGに「トースト」という名前の部品はない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。アプリの中で短く出て消えるフィードバックの部品はなく、Appleはトーストとスナックバーを区別していない。",
     exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていない。",
+      "表示時間や同時に出す数の数値の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)ほうがよいとしている。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "OSレベルの短時間通知にはバナー形式を使う",
@@ -64,7 +65,7 @@ const SOURCES = [
     refs: [
       { label: "Notifications(バナー、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
     ],
-    confirmedNote: "「トースト」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09、「スナックバー」ページと同一の一次情報)。",
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
@@ -79,6 +80,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)",
+    term: "Toast(AndroidのOSの仕組み)",
     color: "#2F7D6E",
     m3NotApplicable: true,
     successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当する。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できる。",
@@ -119,6 +121,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
+    term: "status(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "フォーカスを移さずに出る状態の知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
     glossary: [
@@ -130,7 +133,7 @@ const SOURCES = [
       "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本です(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
       "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
     accessibility:
@@ -162,6 +165,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
+    term: "Snackbar(Toast)",
     color: "#7A4F7E",
     position: "「Toast」を独立した用語としては区別しておらず、用語集では「Snackbar (Toast)」という1つの項目にまとめられている",
     size: <NoData>数値基準なし</NoData>,
@@ -170,9 +174,9 @@ const SOURCES = [
       "重要な情報の唯一の伝達手段にはしたくない時",
     ],
     stance:
-      "UI Elements Glossaryを直接確認したところ、「Toast」という単独の項目は存在せず、「Snackbar (Toast)」という1つの項目名で扱われていることが分かりました。定義自体は「スナックバー」ページと同じ(操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログ)で、通知全般を「アクション必須」と「パッシブ」に分類する枠組みの中でパッシブ側に位置づけられる。",
+      "UI Elements Glossaryには「Toast」単独の項目はなく、「Snackbar (Toast)」という1つの項目で扱っている。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動的に消える、一時的な非モーダルの表示)で、通知を「操作が必要」と「受け身(パッシブ)」に分ける枠組みでは受け身の側に入る。",
     exceptions:
-      "NN groupの分類上、Toast固有の追加的な例外・注意点は確認できていない(Snackbarと同一の扱い)。",
+      "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針です(Snackbarと共通)。",
     useCases: [
       "ユーザーの操作を必須にしない、パッシブな通知に使う",
@@ -229,6 +233,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "自動で消える短い通知(トースト)に、大事な情報を載せてよい?",
+    sides: [
+      { who: "Google(Android)", color: "#2F7D6E", t: "トーストは、取り消しなどの操作のない、いちばん簡単なフィードバック用。操作が要るならスナックバー、アプリが裏にあるなら通知を使う" },
+      { who: "W3C・NN group", color: "#A3821F", t: "載せない。自動で消える通知は読み上げが間に合わないことがある(W3C)。受け身の通知は見落とされやすい(NN group)" },
+      { who: "Apple", color: "#C2542A", t: "アプリの中のトーストの部品はない。使っている最中なら、今の画面にさりげなく加える方法を勧めている" },
+    ],
+    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使います。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出します。",
+  },
+];
+
 export default function CommunicationToastPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -260,6 +277,8 @@ export default function CommunicationToastPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
             <p style={styles.warningText}>
@@ -304,6 +323,7 @@ export default function CommunicationToastPage() {
                 {(s.m3NotApplicable || s.noDedicatedComponent) && (
                   <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
@@ -348,6 +368,8 @@ export default function CommunicationToastPage() {
                     ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
@@ -388,7 +410,7 @@ export default function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
@@ -401,6 +423,8 @@ export default function CommunicationToastPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

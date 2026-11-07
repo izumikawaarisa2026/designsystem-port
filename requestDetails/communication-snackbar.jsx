@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / スナックバー」ページ。
@@ -30,6 +30,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(画面に短く出る通知は「トースト」ページを参照)",
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>該当なし</NoData>,
@@ -45,6 +46,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Snackbar",
+    term: "Snackbar",
     color: "#2F7D6E",
     position: "画面下部に一時的に表示し、アプリが実行した(またはこれから実行する)処理をユーザーに知らせる非モーダルなメッセージ。同時に1つだけ表示する",
     size: "コンパクトなブレークポイントでは、1〜2行のテキストを収めるため、縦方向に48dpから64dpまで拡張するとしている。タブレット・デスクトップなど中〜大型のブレークポイントでは、長めの文章に対応するため横方向に伸縮させ、読みやすい行長の目安として1行あたり40〜60文字程度を推奨している。画面幅が広いレイアウトで下部の表示位置が一定であれば、左揃え・中央揃えのどちらでも構わないとしている。",
@@ -55,7 +57,7 @@ const SOURCES = [
       "アプリが前面表示中に軽量なフィードバックを出したい時(背面ではNotificationを使う)",
     ],
     stance:
-      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネント。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしている。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確化されました。",
+      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネント。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしている。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確になった。",
     exceptions:
       "Snackbarに設定できるアクションは1つまでで、閉じる/キャンセルアクションは任意とされている。アイコンの追加、装飾されたテキスト、インラインリンクの使用は避けるべきで、必要な場合はダイアログなど別のコンポーネントを検討すべきとしている。塗りつぶし・立体的(elevated)なボタンスタイルは目立ちすぎるため使うべきではないとしている。なお、ダイアログも重要なメッセージの表示を想定したコンポーネントであるため、メッセージの重要度に応じてSnackbarとダイアログのどちらを使うかを判断し、Snackbarの濫用を避けるべきだとしている。配置面では、UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーなど他の要素と重なる場合は少し上にずらす、頻繁に操作するタッチ領域やナビゲーション部分の手前には置かない、といった配慮が必要としている。画面幅いっぱいに広げられるのは、アプリバーやナビゲーションバーのような永続的なナビゲーション要素が無い場合に限られ、FABがある場合はSnackbarをFABより上に表示するとしている。",
     accessibility:
@@ -85,6 +87,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
+    term: "status・alert(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "見た目ではなく内容の緊急度に応じて、控えめな通知にはrole=\"status\"、即時に伝えるべき警告にはrole=\"alert\"を使い分ける。操作を持つなら時間で消さない(2.2.1)",
     size: "スナックバー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアクションボタンに適用される。",
@@ -98,7 +101,7 @@ const SOURCES = [
       "ユーザーが即座に気づく必要のある重大なエラーにrole=\"alert\"を使いたい時(多用は避ける)",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(時間制限の調整・レベルA)により、時間で消さないか、延長・解除できるようにする。",
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole="status"(ポライト)とrole="alert"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(時間制限の調整・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
     exceptions:
       "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしている。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要がある(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
@@ -133,6 +136,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(Snackbar (Toast)項目)/ Indicators, Validations, and Notifications",
+    term: "Snackbar(Toast)",
     color: "#7A4F7E",
     position: "一時的な非モーダルダイアログで、操作不要のまま自動的に消える。多くはUndoなど1つの操作ボタンを持てる",
     size: <NoData>数値基準なし</NoData>,
@@ -143,7 +147,7 @@ const SOURCES = [
       "重要な情報の唯一の伝達手段にはしたくない時(パッシブ通知という前提を踏まえる)",
     ],
     stance:
-      "スナックバーを、プロセスの状態をユーザーに知らせ、ユーザーの操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログと定義している。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしている。",
+      <>スナックバーを、プロセスの状態をユーザーに知らせ、<Hl>ユーザーの操作を要求せずに短時間で自動的に消える</Hl>、一時的な非モーダルダイアログと定義している。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしている。</>,
     exceptions:
       "パッシブ通知は非割り込み型であるがゆえに見落とされやすいという弱点があるとしており、重要な情報を伝える手段としては不向きだとしている。ユーザーの直接的な操作に対する応答ではなく、システム側の一般的な出来事を伝える点でも、他のコンポーネント(バリデーションなど)とは性質が異なるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針。",
@@ -219,6 +223,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "「元に戻す」などの操作を持つ通知を、時間で自動的に消してよい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "スナックバーは、時間で自動的に消えるか、操作されるまで残るかのどちらか。操作は1つまで" },
+      { who: "W3C", color: "#A3821F", t: "操作する時間が足りない人がいるため、時間で消さないか、延長・解除できるようにする(2.2.1・A)" },
+      { who: "NN group", color: "#7A4F7E", t: "自動で消える通知は見落とされやすいので、重要な情報や必ず必要な操作には向かない" },
+    ],
+    tip: "操作のないお知らせ(「保存しました」)は時間で消してよく、「元に戻す」のような操作を持つものは、利用者が閉じるか操作するまで残すと、3系列のどれにも沿います。",
+  },
+];
+
 export default function CommunicationSnackbarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -250,6 +267,8 @@ export default function CommunicationSnackbarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -284,6 +303,7 @@ export default function CommunicationSnackbarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -321,6 +341,8 @@ export default function CommunicationSnackbarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -363,7 +385,7 @@ export default function CommunicationSnackbarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・Googleは本文確認済み。W3Cは2026-10にWCAG 4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3CはWCAG 4.1.3・2.2.1とWAI-ARIA仕様で確認。Appleには該当する部品がない)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Appleはスナックバーに当たる部品がないため、リンクはありません(画面に短く出る通知は「トースト」ページで扱います)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
@@ -376,6 +398,8 @@ export default function CommunicationSnackbarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
@@ -28,15 +28,16 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(アプリアイコン)/ Tab Bars(タブ)",
+    term: "Badge(アプリアイコン・タブ)",
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「バッジ」という単独ページはなく、アプリアイコン上の未読件数バッジ(Notificationsページ)と、タブ上のバッジ(Tab Barsページ)という2箇所に説明が分かれている",
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: "赤い楕円に白文字という配色が事実上の標準として説明されている(検索結果による確認)。",
+    size: "寸法の数値の記載なし",
+    colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
-      "アプリアイコンのバッジは、赤い楕円の中に数字またはアイコンを表示し、未読の通知件数を示すものだとしている。ユーザーが対応すると消え、新しい通知が来ると再表示されるとしている。バッジは通知を補助する目的で使い、重大な情報の伝達手段そのものにはすべきでないとしている。タブバーのバッジも同様に赤い楕円(数字または感嘆符)で、そのタブに新しい情報があることを控えめに伝えるものだとしている。",
+      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。バッジは未読の通知の数を示すためだけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す(HIG Notifications・Tab barsの本文で確認、2026-11)。",
     exceptions:
-      "重要または新しい情報に限定して使うべきで、多用は控えるべきだとしている。対応した情報が読まれた時点で速やかにバッジを更新・非表示にすべきだとも述べている。",
+      "利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
     scenarios: [
       "アプリアイコン上で未読通知の件数を控えめに知らせたい時",
       "タブバーの特定のタブに新着情報があることを示したい時",
@@ -53,7 +54,7 @@ const SOURCES = [
       { label: "Notifications(アプリアイコン)/ Tab Bars(タブ)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
       { label: "Tab Bars(タブ上のバッジ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
-    confirmedNote: "両ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「バッジ」という独立ページが存在しないこと自体も検索結果による確認。",
+    confirmedNote: "HIG Notifications・Tab barsの本文で確認(2026-11)。「バッジ」という単独のページはない。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
@@ -75,16 +76,17 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Badges",
+    term: "Badge(小さいバッジ・大きいバッジ)",
     color: "#2F7D6E",
     position: "アイコン・タブ・ナビゲーション項目に重ねて表示し、通知や件数を示す小さなコンポーネント。小(ドット)/大(数字・テキスト)の2バリエーションが独立コンポーネントとして定義されている",
-    size: <span>バッジ内のテキストは「+」を含め最大4文字までに制限すべきとされている(例: 999+)。<NoData>数値は未確認。</NoData></span>,
-    colorInfo: <NoData>カラートークンは未確認</NoData>,
+    size: "大きいバッジの文字は「+」を含めて4文字まで(例: 999+)。小さいバッジは数字のない丸。",
+    colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
       "小サイズのバッジ(ドット)は存在を示すだけで文字を持たず、大サイズのバッジは数字やテキストで件数を定量的に示すとしている。タブでは小・大どちらのバッジも使え、ナビゲーションレールでは折りたたみ時はアイコンの右上角、展開時はラベルテキストの隣に配置するとされている。ユーザーが該当する内容を確認したら、バッジの値を更新するか非表示にすべきだとしている。",
     exceptions:
       "桁数が多い件数は「+」付きで丸めて4文字以内に収めるべきとされ、際限なく数字を伸ばすことは想定されていない。",
     glossary: [
-      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述としては未確認(バッジに小・大の2種類があることは確認済み)。" },
+      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3で確認済み)。" },
     ],
     scenarios: [
       "タブ・ナビゲーション項目に未読件数や新着の有無を示したい時",
@@ -102,7 +104,7 @@ const SOURCES = [
     refs: [
       { label: "Badges", url: "https://m3.material.io/components/badges/guidelines" },
     ],
-    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3 Badgesのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
@@ -124,6 +126,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― 専用ロールなし(ARIA14のaria-label手法を援用)",
+    term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
     position: "「バッジ」自体に対応する専用のARIAロールは存在しない。装飾的な視覚要素として扱い、件数などの意味は親要素(アイコンボタン等)のアクセシブルネームに含める、というARIA14のaria-label手法を援用するのが一般的",
@@ -171,6 +174,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)",
+    term: "Badge",
     color: "#7A4F7E",
     position: "アイコンの上に重ねて表示し、通知(主にドット)またはアイテム数(主に数字)を示す小さな要素、という用語集としての定義",
     size: <NoData>数値基準なし</NoData>,
@@ -271,6 +275,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>。バッジは数や有無だけを示す</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "バッジは数字で出す?点(印だけ)で出す?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "2種類を使い分ける。小さいバッジ(点)は未読の知らせ、大きいバッジは件数(「+」を含め4文字まで、999+)" },
+      { who: "Apple", color: "#C2542A", t: "アプリアイコンのバッジは未読の通知の数(数字)。タブのバッジは数字か感嘆符" },
+      { who: "NN group", color: "#7A4F7E", t: "知らせの有無は多くは点、件数は多くは数字、と用語集で定義している" },
+    ],
+    tip: "件数そのものに意味があるとき(未読メール)は数字、新しいものがあることだけを伝えればよいとき(更新あり)は点、と分けると3系列で食い違いません。数字は大きくなりすぎたら「999+」のようにまとめます。",
+  },
+];
+
 export default function CommunicationBadgePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -302,6 +319,8 @@ export default function CommunicationBadgePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -337,6 +356,7 @@ export default function CommunicationBadgePage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -380,6 +400,8 @@ export default function CommunicationBadgePage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -426,7 +448,7 @@ export default function CommunicationBadgePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications・Tab bars、GoogleはM3 Badgesを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページ(補助的にTab Barsページ)、GoogleはM3のBadgesページ、WCAGはARIA14解説ページ(補助的に4.1.2解説ページ、いずれもバッジ専用の一次文書ではない一般的な技法・達成基準)、NN groupはUI Elements Glossaryの記事(「Badge」項目)へのリンクです。
@@ -439,6 +461,8 @@ export default function CommunicationBadgePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

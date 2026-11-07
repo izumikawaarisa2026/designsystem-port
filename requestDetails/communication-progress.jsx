@@ -33,12 +33,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Progress Indicators / Loading",
+    term: "Progress indicator(Progress bar・Activity indicator=スピナー)",
     color: "#C2542A",
     position: "処理中であることを一時的に示すコンポーネント。確定的(determinate)/不確定(indeterminate)の2種類を使い分ける",
-    size: <NoData>数値は未確認</NoData>,
+    size: "寸法の数値の記載なし",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、可能な限り確定的な表示を優先すべきだとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。",
+      <>進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、<Hl>可能な限り確定的な表示を優先すべき</Hl>だとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。</>,
     exceptions:
       "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「ローディング状態」ページ参照)。",
     scenarios: [
@@ -58,7 +59,7 @@ const SOURCES = [
       { label: "Progress Indicators / Loading", url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators" },
       { label: "Loading(読み込み中のプレースホルダー指針)", url: "https://developer.apple.com/design/human-interface-guidelines/loading" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "HIG Progress indicatorsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
@@ -72,14 +73,15 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Progress indicators / Loading indicator",
+    term: "Progress indicator(線形・円形)",
     color: "#2F7D6E",
     position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせて使うコンポーネント群。5秒未満の短い待ち時間向けに新設された専用の「Loading indicator」も持つ",
-    size: <span><NoData>数値は未確認。</NoData>アクティブインジケーターの形状にはflat(直線的)とwavy(波形)の2オプションがあるとされている。</span>,
-    colorInfo: "不確定インジケーターは既定でprimary・primary container・tertiary・tertiary containerの4色を順に切り替えられるとされている(検索結果による確認)。",
+    size: <span><NoData>寸法の数値は記載なし。</NoData>動く部分(アクティブインジケーター)の形はflat(直線)とwavy(波)の2つで、製品の雰囲気に合わせて選ぶ。wavyは全体の高さが増え、とても小さいと見えにくい。線形の確定的なインジケーターの終わりには、直径4dpの丸(ストップインジケーター)を置く。</span>,
+    colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
       "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされている。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされている。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしている。",
     exceptions:
-      "5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くの用途を置き換える意図で「Loading indicator」という別コンポーネントが新設されたとみられる(検索結果による確認)。用途が重なるため、実装時にはProgress indicatorとLoading indicatorのどちらが適切か、待ち時間の長さで判断する必要がある。",
+      "200ミリ秒〜5秒の短い待ち時間には、別の部品のLoading indicatorを使う。5秒を超えるならProgress indicatorを使う。処理の進み具合が分かるようになったら、不確定から確定的な表示に切り替える(ただしLoading indicatorから確定的なProgress indicatorへは切り替えない)。",
     scenarios: [
       "コンテナの端(画面上部など)に配置する処理にはlinearインジケーターを使いたい時",
       "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
@@ -98,7 +100,7 @@ const SOURCES = [
       { label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" },
       { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" },
     ],
-    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
+    confirmedNote: "M3 Progress indicators・Loading indicatorのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
@@ -112,6 +114,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― role=\"progressbar\"",
+    term: "progressbar(WAI-ARIAのロール)/ HTMLのprogress要素",
     color: "#A3821F",
     position: "処理の進行状況を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表現する",
     size: "プログレスバー専用の数値基準はないが、値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定するとしている。",
@@ -156,6 +159,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Progress Indicators Make a Slow System Less Insufferable",
+    term: "Progress indicator",
     color: "#7A4F7E",
     position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
     size: "1秒未満は表示不要、1〜10秒はループアニメーション(スピナー)、10秒超は達成率表示(プログレスバー)が望ましいとしている。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
@@ -357,6 +361,7 @@ export default function CommunicationProgressPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -394,6 +399,8 @@ export default function CommunicationProgressPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -440,7 +447,7 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Progress indicators、GoogleはM3のガイドラインを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはProgress indicatorsページ(補助的にLoadingページ)、GoogleはM3のProgress indicatorsページ(補助的に新設のLoading indicatorページ)、W3CはWAI-ARIA仕様のprogressbarロール(4.1.3とMDNの解説を併記)、NN groupは「Progress Indicators Make a Slow System Less Insufferable」記事へのリンクです。
@@ -453,6 +460,8 @@ export default function CommunicationProgressPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   psNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   psTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
   psTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },

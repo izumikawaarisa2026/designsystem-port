@@ -2675,15 +2675,16 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(アプリアイコン)/ Tab Bars(タブ)",
+    term: "Badge(アプリアイコン・タブ)",
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「バッジ」という単独ページはなく、アプリアイコン上の未読件数バッジ(Notificationsページ)と、タブ上のバッジ(Tab Barsページ)という2箇所に説明が分かれている",
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: "赤い楕円に白文字という配色が事実上の標準として説明されている(検索結果による確認)。",
+    size: "寸法の数値の記載なし",
+    colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
-      "アプリアイコンのバッジは、赤い楕円の中に数字またはアイコンを表示し、未読の通知件数を示すものだとしている。ユーザーが対応すると消え、新しい通知が来ると再表示されるとしている。バッジは通知を補助する目的で使い、重大な情報の伝達手段そのものにはすべきでないとしている。タブバーのバッジも同様に赤い楕円(数字または感嘆符)で、そのタブに新しい情報があることを控えめに伝えるものだとしている。",
+      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。バッジは未読の通知の数を示すためだけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す(HIG Notifications・Tab barsの本文で確認、2026-11)。",
     exceptions:
-      "重要または新しい情報に限定して使うべきで、多用は控えるべきだとしている。対応した情報が読まれた時点で速やかにバッジを更新・非表示にすべきだとも述べている。",
+      "利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
     scenarios: [
       "アプリアイコン上で未読通知の件数を控えめに知らせたい時",
       "タブバーの特定のタブに新着情報があることを示したい時",
@@ -2700,7 +2701,7 @@ const SOURCES = [
       { label: "Notifications(アプリアイコン)/ Tab Bars(タブ)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
       { label: "Tab Bars(タブ上のバッジ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
-    confirmedNote: "両ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「バッジ」という独立ページが存在しないこと自体も検索結果による確認。",
+    confirmedNote: "HIG Notifications・Tab barsの本文で確認(2026-11)。「バッジ」という単独のページはない。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
@@ -2722,16 +2723,17 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Badges",
+    term: "Badge(小さいバッジ・大きいバッジ)",
     color: "#2F7D6E",
     position: "アイコン・タブ・ナビゲーション項目に重ねて表示し、通知や件数を示す小さなコンポーネント。小(ドット)/大(数字・テキスト)の2バリエーションが独立コンポーネントとして定義されている",
-    size: <span>バッジ内のテキストは「+」を含め最大4文字までに制限すべきとされている(例: 999+)。<NoData>数値は未確認。</NoData></span>,
-    colorInfo: <NoData>カラートークンは未確認</NoData>,
+    size: "大きいバッジの文字は「+」を含めて4文字まで(例: 999+)。小さいバッジは数字のない丸。",
+    colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
       "小サイズのバッジ(ドット)は存在を示すだけで文字を持たず、大サイズのバッジは数字やテキストで件数を定量的に示すとしている。タブでは小・大どちらのバッジも使え、ナビゲーションレールでは折りたたみ時はアイコンの右上角、展開時はラベルテキストの隣に配置するとされている。ユーザーが該当する内容を確認したら、バッジの値を更新するか非表示にすべきだとしている。",
     exceptions:
       "桁数が多い件数は「+」付きで丸めて4文字以内に収めるべきとされ、際限なく数字を伸ばすことは想定されていない。",
     glossary: [
-      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述としては未確認(バッジに小・大の2種類があることは確認済み)。" },
+      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3で確認済み)。" },
     ],
     scenarios: [
       "タブ・ナビゲーション項目に未読件数や新着の有無を示したい時",
@@ -2749,7 +2751,7 @@ const SOURCES = [
     refs: [
       { label: "Badges", url: "https://m3.material.io/components/badges/guidelines" },
     ],
-    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3 Badgesのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 20 }}>
@@ -2771,6 +2773,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― 専用ロールなし(ARIA14のaria-label手法を援用)",
+    term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
     position: "「バッジ」自体に対応する専用のARIAロールは存在しない。装飾的な視覚要素として扱い、件数などの意味は親要素(アイコンボタン等)のアクセシブルネームに含める、というARIA14のaria-label手法を援用するのが一般的",
@@ -2818,6 +2821,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)",
+    term: "Badge",
     color: "#7A4F7E",
     position: "アイコンの上に重ねて表示し、通知(主にドット)またはアイテム数(主に数字)を示す小さな要素、という用語集としての定義",
     size: <NoData>数値基準なし</NoData>,
@@ -2918,6 +2922,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>。バッジは数や有無だけを示す</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "バッジは数字で出す?点(印だけ)で出す?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "2種類を使い分ける。小さいバッジ(点)は未読の知らせ、大きいバッジは件数(「+」を含め4文字まで、999+)" },
+      { who: "Apple", color: "#C2542A", t: "アプリアイコンのバッジは未読の通知の数(数字)。タブのバッジは数字か感嘆符" },
+      { who: "NN group", color: "#7A4F7E", t: "知らせの有無は多くは点、件数は多くは数字、と用語集で定義している" },
+    ],
+    tip: "件数そのものに意味があるとき(未読メール)は数字、新しいものがあることだけを伝えればよいとき(更新あり)は点、と分けると3系列で食い違いません。数字は大きくなりすぎたら「999+」のようにまとめます。",
+  },
+];
+
 function CommunicationBadgePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -2945,6 +2962,8 @@ function CommunicationBadgePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -2980,6 +2999,7 @@ function CommunicationBadgePage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -3023,6 +3043,8 @@ function CommunicationBadgePage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -3069,7 +3091,7 @@ function CommunicationBadgePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications・Tab bars、GoogleはM3 Badgesを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページ(補助的にTab Barsページ)、GoogleはM3のBadgesページ、WCAGはARIA14解説ページ(補助的に4.1.2解説ページ、いずれもバッジ専用の一次文書ではない一般的な技法・達成基準)、NN groupはUI Elements Glossaryの記事(「Badge」項目)へのリンクです。
@@ -3082,6 +3104,8 @@ function CommunicationBadgePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -3160,14 +3184,15 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(バナー通知、近い概念)",
+    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「バナー」という名称の、アプリ内に留まり続けるインラインコンポーネントは見当たらない。最も近いのはOSレベルのバナー通知だが、これは自動的に消える点で本ページの対象とは性質が異なる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "HIGには、アプリ内にユーザーが閉じるまで留まり続けるインラインのバナーという専用コンポーネントは見当たらない。近い概念として、デバイス使用中に画面上部に数秒間表示されてから自動的に消える「バナー」形式の通知があるが、これは「スナックバー」「トースト」の各ページで比較した自動消去型の通知と同じ性質を持ち、本ページが対象とする「ユーザーが閉じるまで残り続ける」インラインバナーとは異なる。",
+      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーの部品はない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。",
     exceptions:
-      "「ユーザーの操作が完了するまで画面内に留まり続ける」という、本ページで比較する性質に厳密に対応するAppleのガイダンスは確認できていない。取り消せない重大な操作の確認には「モーダルダイアログ」ページで比較したAlerts(モーダル)を使うべきと考えられる。",
+      "取り消せない重大な操作の確認には、「モーダルダイアログ」ページで比べたアラート(モーダル)を使う(AI解釈)。",
     accessibility: <NoData>記載なし</NoData>,
     scenarios: [
       "OSレベルの自動消去型通知を実装したい時(バナー形式、本ページの対象とは性質が異なる)",
@@ -3183,7 +3208,7 @@ const SOURCES = [
     refs: [
       { label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
     ],
-    confirmedNote: "「スナックバー」「トースト」の各ページのApple欄と同じ一次情報。「ユーザーが閉じるまで残り続ける」インラインバナーに厳密に対応するガイダンスは見当たらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。アプリの中に残り続けるバナーの部品はない。",
     pending: true,
     illustration: () => (
       <svg width="160" height="30" viewBox="0 0 160 30">
@@ -3197,15 +3222,16 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 2 ― Banners(M3の一覧からは削除)",
+    term: "Banner(Material Design 2)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3で「重要だが緊急ではない、対応するまで残り続けるメッセージ」を実現したい場合は、内容の重さに応じてダイアログ(強く操作を止める必要がある場合)またはSnackbar(比較的軽い場合)への置き換えが案内されているとみられる(検索結果による確認)。",
+    successorNote: "M3に後継の部品はない。同じ用途には、内容の重さに応じてダイアログやスナックバーなどを検討する(AI解釈)。",
     position: "重要だが緊急ではないメッセージを、ユーザーが対応・却下するまで画面上部に表示し続けるコンポーネント",
-    size: <span><NoData>数値は未確認。</NoData>1行で収まる「シングルライン」バリエーションでは、デスクトップで最大2つのボタンを配置できるとされている(検索結果による確認)。</span>,
+    size: <span><NoData>寸法の数値は記載なし。</NoData>ボタンは文字のボタンを2つまで(閉じる操作は左、もう一方は右)。ボタンはメッセージの下か、収まるなら同じ行に置く。</span>,
     stance:
-      "バナーは、重要かつ簡潔なメッセージを表示し、ユーザーがそのメッセージに対応する(または閉じる)ための操作を提供するコンポーネントだとされている。ユーザーが操作するか閉じるまで持続する非モーダルな要素で、いつでも無視することも操作することもできるとされている。アプリバーの直下、画面上部に表示すべきとされている(検索結果による確認)。",
+      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添える部品。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる(Material Design 2 Bannersの本文で確認、2026-11)。",
     exceptions:
-      "アイコン(任意)+テキスト+最大2つのボタンという構成が一般的とされている。1画面に同時に表示するバナーは1つまでにすべきとされている(検索結果による確認)。",
+      "一度に出すバナーは1つまで。ボタンは文字で書き、アイコンにしない。ボタン1つで「確認して閉じる」だけにするのは避ける。下にナビゲーションバーがあっても、バナーは画面上部に置く。原因の状態が解消したら消してもよい。",
     scenarios: [
       "通信環境の不安定さなど、重要だが緊急ではない状態を伝えたい時",
       "ユーザーの対応(再試行など)を促す簡潔なメッセージを画面上部に表示したい時",
@@ -3222,10 +3248,10 @@ const SOURCES = [
     refs: [
       { label: "Banners(M3の一覧からは削除)", url: "https://m2.material.io/components/banners" },
     ],
-    confirmedNote: "M3(m3.material.io)の公式コンポーネント一覧にはBannerが見当たらないことを検索で確認しました(2026-09)。M3では、旧Bannerが担っていた用途にダイアログまたはスナックバーを使うよう案内されているとみられる(検索結果による確認)。上記の仕様はM2時点のもの。",
+    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)にBannerはない(2026-11に確認)。上の決まりはMaterial Design 2 Bannersの本文で確認(2026-11)。",
     pending: true,
     deprecated: true,
-    deprecatedNote: "GoogleのBannerコンポーネントはMaterial Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たらない。M3では、旧Bannerが担っていた用途に応じて、ダイアログまたはスナックバーの使用が案内されているとみられる(検索結果による確認、2026-09)。",
+    deprecatedNote: "GoogleのBannerはMaterial Design 2の部品で、M3の部品の一覧にはない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="160" height="30" viewBox="0 0 160 30">
@@ -3242,6 +3268,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― alert / status / alertdialog の使い分け、WCAG 4.1.3",
+    term: "status・alert(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけalert、緊急でない更新はstatus、最初から表示されているバナーは見出しやラベル付きの領域、モーダルで確認を求めるならalertdialog",
     size: "バナー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタン等の操作要素に適用される。",
@@ -3290,6 +3317,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)",
+    term: "Banner",
     color: "#7A4F7E",
     position: "通知を「アクション必須」と「パッシブ」に分ける分類で、対応の必要性を判断する指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
@@ -3405,7 +3433,7 @@ function CommunicationBannerPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design)</div>
             <p style={styles.warningText}>
-              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3では、旧Bannerが担っていた用途に応じて<strong>ダイアログまたはスナックバーの使用</strong>が案内されているとみられます(検索結果による確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3に後継の部品はなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになります(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
             </p>
           </div>
 
@@ -3419,7 +3447,7 @@ function CommunicationBannerPage() {
               このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。ただし、インラインのバナーをすべてrole="alert"にするわけではありません。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にします(W3C欄を参照)。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます(公式の記述は未確認)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
+              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3に後継の部品はなく、同じ用途には既存のダイアログやスナックバーを使うことになります(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸です。対応を求めるバナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たります。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限りません</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
@@ -3446,6 +3474,7 @@ function CommunicationBannerPage() {
                 {(s.m3NotApplicable || s.noDedicatedComponent) && (
                   <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(M2仕様を参考掲載)" : "専用コンポーネントなし"}</span>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
@@ -3491,6 +3520,8 @@ function CommunicationBannerPage() {
                     ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
@@ -3541,7 +3572,7 @@ function CommunicationBannerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.060で「アラート/バナー」ページから名前を変更し、状態の種類の内容は「ステータスメッセージ」ページへ移動)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications、GoogleはM2 BannersとM3の部品の一覧を2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。
@@ -3554,6 +3585,8 @@ function CommunicationBannerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -3633,6 +3666,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Writing(空の画面の文言)",
+    term: <NoData>専用の部品なし(Writingで空の画面の文言を扱う)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「空状態」という単独のコンポーネントはなく、文章の書き方(Writing)のページで空の画面の文言に触れている",
@@ -3667,6 +3701,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 1 ― Empty states(参考。現行M3には該当なし)",
+    term: "Empty state(Material Design 1のパターン)",
     color: "#2F7D6E",
     noDedicatedComponent: true,
     position: "現行M3の一覧には「空状態」の正式なコンポーネント・パターンはなく、旧世代(M1)のパターンページにのみ記述がある",
@@ -3688,7 +3723,7 @@ const SOURCES = [
     refs: [
       { label: "Empty states(参考。現行M3には該当なし)", url: "https://m1.material.io/patterns/empty-states.html" },
     ],
-    confirmedNote: "現行M3のコンポーネント/パターン一覧に「空状態」が見当たらないことは、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)に「空状態」はない(2026-11に確認)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -3702,6 +3737,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 ステータスメッセージ",
+    term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "空状態専用のロールはない。検索結果0件などの結果は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
@@ -3733,6 +3769,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Designing Empty States in Complex Applications",
+    term: "Empty state",
     color: "#7A4F7E",
     position: "空状態を「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」という3つの役割を持つ設計対象として位置づける(数値基準ではなく原則)",
     size: <NoData>数値基準なし</NoData>,
@@ -3870,6 +3907,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "空の画面に、次の操作のボタンを置く?",
+    sides: [
+      { who: "Apple・NN group", color: "#C2542A", t: "置く。次にできる操作を案内し、できればそのボタンやリンクを置く(Apple)。「作成」など次の行動への直接の入り口を用意する(NN group)" },
+      { who: "Google(M1)", color: "#2F7D6E", t: "基本の形は、操作のない画像と短い説明文(旧版M1のパターン。M3には空状態の決まりはない)" },
+    ],
+    tip: "利用者が自分で埋められる空(まだ何も作っていない一覧など)には、作成のボタンを置きます。検索結果0件のように操作で埋められない空なら、説明文と、条件を変えるための案内(リンク)にとどめます。",
+  },
+];
+
 function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -3897,6 +3946,8 @@ function CommunicationEmptyStatePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -3931,6 +3982,7 @@ function CommunicationEmptyStatePage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -3973,6 +4025,8 @@ function CommunicationEmptyStatePage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -4030,6 +4084,8 @@ function CommunicationEmptyStatePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   ewNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 12px" },
   ewSteps: { display: "flex", flexDirection: "column", gap: 8 },
   ewStep: { display: "flex", gap: 10, border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
@@ -4119,6 +4175,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Loading",
+    term: "Loading(プレースホルダー・Progress indicator)",
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「ローディング状態」という単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱っている",
@@ -4154,11 +4211,12 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Loading indicator",
+    term: "Loading indicator",
     color: "#2F7D6E",
     position: "5秒未満の待ち時間向けに新設された専用コンポーネント「Loading indicator」を持つ",
-    size: <span>5秒未満の待ち時間に使う。<NoData>寸法の数値は未確認。</NoData></span>,
+    size: "200ミリ秒〜5秒の短い待ち時間に使う。寸法の数値の記載なし",
     stance:
-      "Loading indicatorは、短い待ち時間の処理の進行を示すために新設されたコンポーネントで、5秒未満で終わる読み込みに使うことを想定し、従来の不確定な円形プログレスインジケーターの多くの用途を置き換える意図があるとされている(検索結果による確認)。",
+      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す部品。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う(M3 Loading indicatorのガイドラインの本文で確認、2026-11)。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
@@ -4174,7 +4232,7 @@ const SOURCES = [
       { label: "Loading indicator", url: "https://m3.material.io/components/loading-indicator/guidelines" },
       { label: "Progress indicators(進み具合を示す場合)", url: "https://m3.material.io/components/progress-indicators/overview" },
     ],
-    confirmedNote: "Loading indicatorの仕様は、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "M3 Loading indicatorのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
@@ -4189,6 +4247,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― aria-busy属性(更新中であることを示す)",
+    term: "aria-busy(WAI-ARIAの状態)",
     color: "#A3821F",
     position: "「ローディング状態」専用のロールはないが、内容が更新中であることを支援技術に伝えるaria-busy属性がある",
     size: <NoData>数値基準なし</NoData>,
@@ -4229,6 +4288,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Skeleton Screens 101",
+    term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
     position: "読み込みの見せ方を、待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーで使い分けるべきとする(秒数の目安あり)",
     size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスケルトン画面またはスピナー(個別モジュール向け)、10秒超はプログレスバーが望ましいとしている。",
@@ -4317,6 +4377,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "待ち時間が何秒なら、どの表示を出す?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "200ミリ秒未満は何も出さない。200ミリ秒〜5秒はLoading indicator。5秒を超えるならProgress indicator" },
+      { who: "NN group", color: "#7A4F7E", t: "1秒・10秒を目安に、スケルトン画面・スピナー・プログレスバーを使い分ける" },
+      { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
+    ],
+    tip: "区切りの秒数は系列で違いますが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通です。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにします。",
+  },
+];
+
 function CommunicationLoadingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -4344,6 +4417,8 @@ function CommunicationLoadingPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -4376,6 +4451,7 @@ function CommunicationLoadingPage() {
                   </div>
                 )}
                 {s.noDedicatedComponent && (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>)}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -4418,6 +4494,8 @@ function CommunicationLoadingPage() {
                     {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -4479,6 +4557,8 @@ function CommunicationLoadingPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -5179,12 +5259,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Progress Indicators / Loading",
+    term: "Progress indicator(Progress bar・Activity indicator=スピナー)",
     color: "#C2542A",
     position: "処理中であることを一時的に示すコンポーネント。確定的(determinate)/不確定(indeterminate)の2種類を使い分ける",
-    size: <NoData>数値は未確認</NoData>,
+    size: "寸法の数値の記載なし",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、可能な限り確定的な表示を優先すべきだとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。",
+      <>進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、<Hl>可能な限り確定的な表示を優先すべき</Hl>だとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。</>,
     exceptions:
       "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「ローディング状態」ページ参照)。",
     scenarios: [
@@ -5204,7 +5285,7 @@ const SOURCES = [
       { label: "Progress Indicators / Loading", url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators" },
       { label: "Loading(読み込み中のプレースホルダー指針)", url: "https://developer.apple.com/design/human-interface-guidelines/loading" },
     ],
-    confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "HIG Progress indicatorsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
@@ -5218,14 +5299,15 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Progress indicators / Loading indicator",
+    term: "Progress indicator(線形・円形)",
     color: "#2F7D6E",
     position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせて使うコンポーネント群。5秒未満の短い待ち時間向けに新設された専用の「Loading indicator」も持つ",
-    size: <span><NoData>数値は未確認。</NoData>アクティブインジケーターの形状にはflat(直線的)とwavy(波形)の2オプションがあるとされている。</span>,
-    colorInfo: "不確定インジケーターは既定でprimary・primary container・tertiary・tertiary containerの4色を順に切り替えられるとされている(検索結果による確認)。",
+    size: <span><NoData>寸法の数値は記載なし。</NoData>動く部分(アクティブインジケーター)の形はflat(直線)とwavy(波)の2つで、製品の雰囲気に合わせて選ぶ。wavyは全体の高さが増え、とても小さいと見えにくい。線形の確定的なインジケーターの終わりには、直径4dpの丸(ストップインジケーター)を置く。</span>,
+    colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
       "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされている。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされている。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしている。",
     exceptions:
-      "5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くの用途を置き換える意図で「Loading indicator」という別コンポーネントが新設されたとみられる(検索結果による確認)。用途が重なるため、実装時にはProgress indicatorとLoading indicatorのどちらが適切か、待ち時間の長さで判断する必要がある。",
+      "200ミリ秒〜5秒の短い待ち時間には、別の部品のLoading indicatorを使う。5秒を超えるならProgress indicatorを使う。処理の進み具合が分かるようになったら、不確定から確定的な表示に切り替える(ただしLoading indicatorから確定的なProgress indicatorへは切り替えない)。",
     scenarios: [
       "コンテナの端(画面上部など)に配置する処理にはlinearインジケーターを使いたい時",
       "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
@@ -5244,7 +5326,7 @@ const SOURCES = [
       { label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" },
       { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" },
     ],
-    confirmedNote: "m3.material.ioの公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。「Loading indicator」が比較的新しいコンポーネントであることも検索結果による確認。",
+    confirmedNote: "M3 Progress indicators・Loading indicatorのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 14 }}>
@@ -5258,6 +5340,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― role=\"progressbar\"",
+    term: "progressbar(WAI-ARIAのロール)/ HTMLのprogress要素",
     color: "#A3821F",
     position: "処理の進行状況を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表現する",
     size: "プログレスバー専用の数値基準はないが、値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定するとしている。",
@@ -5302,6 +5385,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Progress Indicators Make a Slow System Less Insufferable",
+    term: "Progress indicator",
     color: "#7A4F7E",
     position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
     size: "1秒未満は表示不要、1〜10秒はループアニメーション(スピナー)、10秒超は達成率表示(プログレスバー)が望ましいとしている。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
@@ -5499,6 +5583,7 @@ function CommunicationProgressPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -5536,6 +5621,8 @@ function CommunicationProgressPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -5582,7 +5669,7 @@ function CommunicationProgressPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・W3Cは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Progress indicators、GoogleはM3のガイドラインを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはProgress indicatorsページ(補助的にLoadingページ)、GoogleはM3のProgress indicatorsページ(補助的に新設のLoading indicatorページ)、W3CはWAI-ARIA仕様のprogressbarロール(4.1.3とMDNの解説を併記)、NN groupは「Progress Indicators Make a Slow System Less Insufferable」記事へのリンクです。
@@ -5595,6 +5682,8 @@ function CommunicationProgressPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   psNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   psTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
   psTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
@@ -5696,6 +5785,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(画面に短く出る通知は「トースト」ページを参照)",
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>該当なし</NoData>,
@@ -5711,6 +5801,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Snackbar",
+    term: "Snackbar",
     color: "#2F7D6E",
     position: "画面下部に一時的に表示し、アプリが実行した(またはこれから実行する)処理をユーザーに知らせる非モーダルなメッセージ。同時に1つだけ表示する",
     size: "コンパクトなブレークポイントでは、1〜2行のテキストを収めるため、縦方向に48dpから64dpまで拡張するとしている。タブレット・デスクトップなど中〜大型のブレークポイントでは、長めの文章に対応するため横方向に伸縮させ、読みやすい行長の目安として1行あたり40〜60文字程度を推奨している。画面幅が広いレイアウトで下部の表示位置が一定であれば、左揃え・中央揃えのどちらでも構わないとしている。",
@@ -5721,7 +5812,7 @@ const SOURCES = [
       "アプリが前面表示中に軽量なフィードバックを出したい時(背面ではNotificationを使う)",
     ],
     stance:
-      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネント。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしている。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確化されました。",
+      "Snackbarは、アプリが実行した、またはこれから実行する処理をユーザーに知らせる、画面下部に一時的に現れる非モーダルなメッセージコンポーネント。ユーザー体験を妨げてはならず、ユーザーはSnackbarを操作しなくてもページのコンテンツを閲覧できるべきだとしている。M2からM3への変更点として、Snackbarの動作は「一時的に表示され自動的に消える」か「ユーザーが操作するまで画面に残る」かのどちらかであることが明確になった。",
     exceptions:
       "Snackbarに設定できるアクションは1つまでで、閉じる/キャンセルアクションは任意とされている。アイコンの追加、装飾されたテキスト、インラインリンクの使用は避けるべきで、必要な場合はダイアログなど別のコンポーネントを検討すべきとしている。塗りつぶし・立体的(elevated)なボタンスタイルは目立ちすぎるため使うべきではないとしている。なお、ダイアログも重要なメッセージの表示を想定したコンポーネントであるため、メッセージの重要度に応じてSnackbarとダイアログのどちらを使うかを判断し、Snackbarの濫用を避けるべきだとしている。配置面では、UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーなど他の要素と重なる場合は少し上にずらす、頻繁に操作するタッチ領域やナビゲーション部分の手前には置かない、といった配慮が必要としている。画面幅いっぱいに広げられるのは、アプリバーやナビゲーションバーのような永続的なナビゲーション要素が無い場合に限られ、FABがある場合はSnackbarをFABより上に表示するとしている。",
     accessibility:
@@ -5751,6 +5842,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
+    term: "status・alert(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "見た目ではなく内容の緊急度に応じて、控えめな通知にはrole=\"status\"、即時に伝えるべき警告にはrole=\"alert\"を使い分ける。操作を持つなら時間で消さない(2.2.1)",
     size: "スナックバー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアクションボタンに適用される。",
@@ -5764,7 +5856,7 @@ const SOURCES = [
       "ユーザーが即座に気づく必要のある重大なエラーにrole=\"alert\"を使いたい時(多用は避ける)",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole=\"status\"(ポライト)とrole=\"alert\"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(時間制限の調整・レベルA)により、時間で消さないか、延長・解除できるようにする。",
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole="status"(ポライト)とrole="alert"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(時間制限の調整・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
     exceptions:
       "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしている。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要がある(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
@@ -5799,6 +5891,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(Snackbar (Toast)項目)/ Indicators, Validations, and Notifications",
+    term: "Snackbar(Toast)",
     color: "#7A4F7E",
     position: "一時的な非モーダルダイアログで、操作不要のまま自動的に消える。多くはUndoなど1つの操作ボタンを持てる",
     size: <NoData>数値基準なし</NoData>,
@@ -5809,7 +5902,7 @@ const SOURCES = [
       "重要な情報の唯一の伝達手段にはしたくない時(パッシブ通知という前提を踏まえる)",
     ],
     stance:
-      "スナックバーを、プロセスの状態をユーザーに知らせ、ユーザーの操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログと定義している。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしている。",
+      <>スナックバーを、プロセスの状態をユーザーに知らせ、<Hl>ユーザーの操作を要求せずに短時間で自動的に消える</Hl>、一時的な非モーダルダイアログと定義している。通知全般を「アクション必須」と「パッシブ(受動的)」の2種類に分類しており、スナックバーは基本的にパッシブ通知(見落としても致命的でない)に位置づけられるとしている。</>,
     exceptions:
       "パッシブ通知は非割り込み型であるがゆえに見落とされやすいという弱点があるとしており、重要な情報を伝える手段としては不向きだとしている。ユーザーの直接的な操作に対する応答ではなく、システム側の一般的な出来事を伝える点でも、他のコンポーネント(バリデーションなど)とは性質が異なるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針。",
@@ -5885,6 +5978,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "「元に戻す」などの操作を持つ通知を、時間で自動的に消してよい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "スナックバーは、時間で自動的に消えるか、操作されるまで残るかのどちらか。操作は1つまで" },
+      { who: "W3C", color: "#A3821F", t: "操作する時間が足りない人がいるため、時間で消さないか、延長・解除できるようにする(2.2.1・A)" },
+      { who: "NN group", color: "#7A4F7E", t: "自動で消える通知は見落とされやすいので、重要な情報や必ず必要な操作には向かない" },
+    ],
+    tip: "操作のないお知らせ(「保存しました」)は時間で消してよく、「元に戻す」のような操作を持つものは、利用者が閉じるか操作するまで残すと、3系列のどれにも沿います。",
+  },
+];
+
 function CommunicationSnackbarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -5912,6 +6018,8 @@ function CommunicationSnackbarPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -5946,6 +6054,7 @@ function CommunicationSnackbarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -5983,6 +6092,8 @@ function CommunicationSnackbarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -6025,7 +6136,7 @@ function CommunicationSnackbarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(NN group・Googleは本文確認済み。W3Cは2026-10にWCAG 4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3CはWCAG 4.1.3・2.2.1とWAI-ARIA仕様で確認。Appleには該当する部品がない)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: Appleはスナックバーに当たる部品がないため、リンクはありません(画面に短く出る通知は「トースト」ページで扱います)。GoogleはSnackbarページ+Android Developers公式ページ(Toastsとの使い分け)へのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatus/alertロール・MDNの解説を併記、NN groupは用語集内の実アンカー(Snackbar (Toast)項目)と関連記事です。
@@ -6038,6 +6149,8 @@ function CommunicationSnackbarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -6143,18 +6256,19 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
+    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「トースト」に該当する専用コンポーネントはなし。最も近いのは画面上部に短時間表示され自動的に消える「バナー」形式の通知(「スナックバー」ページと同一の一次情報)",
+    position: "トーストに当たる部品はない。最も近いのは通知(ロック画面やホーム画面などのバナー、通知センター)",
     size: <NoData>数値基準なし</NoData>,
     scenarios: [
       "OSレベルの短時間通知を見せたい時(バナー形式)",
       "アプリ内の一時的なフィードバックは専用コンポーネントがないため独自実装が必要になる時",
     ],
     stance:
-      "HIGには「トースト」という名称のコンポーネントは見当たらない。最も近い概念は、デバイス使用中に画面上部に数秒間表示されてから消える「バナー」形式の通知だとされている。この点は「スナックバー」ページと同一の一次情報で、AppleはToast/Snackbarを区別していない。",
+      "HIGに「トースト」という名前の部品はない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。アプリの中で短く出て消えるフィードバックの部品はなく、Appleはトーストとスナックバーを区別していない。",
     exceptions:
-      "表示時間・同時表示数などの数値基準は確認できていない。",
+      "表示時間や同時に出す数の数値の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)ほうがよいとしている。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "OSレベルの短時間通知にはバナー形式を使う",
@@ -6165,7 +6279,7 @@ const SOURCES = [
     refs: [
       { label: "Notifications(バナー、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
     ],
-    confirmedNote: "「トースト」に厳密に対応するコンポーネントは見当たらず、最も近い「バナー」形式の通知は検索結果による間接確認です(2026-09、「スナックバー」ページと同一の一次情報)。",
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="140" height="30" viewBox="0 0 140 30">
@@ -6180,6 +6294,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)",
+    term: "Toast(AndroidのOSの仕組み)",
     color: "#2F7D6E",
     m3NotApplicable: true,
     successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当する。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できる。",
@@ -6220,6 +6335,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
+    term: "status(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
     position: "フォーカスを移さずに出る状態の知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
     glossary: [
@@ -6231,7 +6347,7 @@ const SOURCES = [
       "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本です(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
       "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
     accessibility:
@@ -6263,6 +6379,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
+    term: "Snackbar(Toast)",
     color: "#7A4F7E",
     position: "「Toast」を独立した用語としては区別しておらず、用語集では「Snackbar (Toast)」という1つの項目にまとめられている",
     size: <NoData>数値基準なし</NoData>,
@@ -6271,9 +6388,9 @@ const SOURCES = [
       "重要な情報の唯一の伝達手段にはしたくない時",
     ],
     stance:
-      "UI Elements Glossaryを直接確認したところ、「Toast」という単独の項目は存在せず、「Snackbar (Toast)」という1つの項目名で扱われていることが分かりました。定義自体は「スナックバー」ページと同じ(操作を要求せずに短時間で自動的に消える、一時的な非モーダルダイアログ)で、通知全般を「アクション必須」と「パッシブ」に分類する枠組みの中でパッシブ側に位置づけられる。",
+      "UI Elements Glossaryには「Toast」単独の項目はなく、「Snackbar (Toast)」という1つの項目で扱っている。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動的に消える、一時的な非モーダルの表示)で、通知を「操作が必要」と「受け身(パッシブ)」に分ける枠組みでは受け身の側に入る。",
     exceptions:
-      "NN groupの分類上、Toast固有の追加的な例外・注意点は確認できていない(Snackbarと同一の扱い)。",
+      "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針です(Snackbarと共通)。",
     useCases: [
       "ユーザーの操作を必須にしない、パッシブな通知に使う",
@@ -6330,6 +6447,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "自動で消える短い通知(トースト)に、大事な情報を載せてよい?",
+    sides: [
+      { who: "Google(Android)", color: "#2F7D6E", t: "トーストは、取り消しなどの操作のない、いちばん簡単なフィードバック用。操作が要るならスナックバー、アプリが裏にあるなら通知を使う" },
+      { who: "W3C・NN group", color: "#A3821F", t: "載せない。自動で消える通知は読み上げが間に合わないことがある(W3C)。受け身の通知は見落とされやすい(NN group)" },
+      { who: "Apple", color: "#C2542A", t: "アプリの中のトーストの部品はない。使っている最中なら、今の画面にさりげなく加える方法を勧めている" },
+    ],
+    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使います。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出します。",
+  },
+];
+
 function CommunicationToastPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -6357,6 +6487,8 @@ function CommunicationToastPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
             <p style={styles.warningText}>
@@ -6401,6 +6533,7 @@ function CommunicationToastPage() {
                 {(s.m3NotApplicable || s.noDedicatedComponent) && (
                   <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
@@ -6445,6 +6578,8 @@ function CommunicationToastPage() {
                     ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
@@ -6485,7 +6620,7 @@ function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Google・NN groupは本文確認済み。W3Cは2026-10に4.1.3・2.2.1とWAI-ARIA仕様を確認。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
@@ -6498,6 +6633,8 @@ function CommunicationToastPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -6593,9 +6730,10 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
+    term: "Tooltip(利用者向けの説明ではHelp tag)・TipKitのTip",
     color: "#C2542A",
     position: "ポインターホバーで現れる文字のみの「ヘルプタグ(プレーン相当)」に加え、タイトル・メッセージ・任意の画像・アクションボタンを持てる独立フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装上まったく別の2系統を持つ",
-    size: <NoData>数値基準なし</NoData>,
+    size: "文字数は60〜75文字までを目安にする(多言語化で長さが変わることにも注意)。macOS・visionOS",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "ポップオーバー(Popovers)", desc: "コントロールを押したときに、出現元を指す矢印とともに他の内容の上に現れる一時的なビュー(主にiPad向け)。ボタンなどの操作も置ける。不要になったら自動で閉じるのが基本で、専用の閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたときは作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
@@ -6627,7 +6765,7 @@ const SOURCES = [
       { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
       { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
-    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。「Showing help tags...」ページ本文はSPAのため直接取得できず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。ツールチップ(ヘルプタグ)はHIG Offering helpの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -6645,10 +6783,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Tooltips(プレーン/リッチ)",
+    term: "Tooltip(プレーン・リッチ)",
     color: "#2F7D6E",
     position: "アイコンのみのボタン等にラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。要素にすでに文字のラベルがある場合、プレーンツールチップは不要としている。",
     size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしている。画面端にはみ出す場合は8dp刻みで位置を調整するとしている。最大幅の具体的なdp数値は、今回入手した公式ドキュメント本文では確認できていない。",
-    colorInfo: "色の値はデザイントークン経由で実装するとしているが、具体的な配色の数値は本文中の表形式部分(今回のテキスト抽出では再現できなかった)にあるとみられ、詳細は未確認。",
+    colorInfo: <span>色の値はデザイントークンで実装する。<NoData>具体的な色の値は未確認。</NoData></span>,
     glossary: [
       { term: "プレーンツールチップ", desc: "アイコンのみのボタンなど、文字を持たない要素にラベルを補うための短いテキストのみのツールチップ。" },
       { term: "リッチツールチップ", desc: "小見出し・本文・最大2つのボタン・ハイパーリンクを任意で含められるツールチップ。定義や機能の値の説明など、プレーンより踏み込んだ情報提供に使う。" },
@@ -6692,6 +6831,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
+    term: "tooltip(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
     size: "ツールチップ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はトリガーとなる要素自体に適用される。",
@@ -6738,12 +6878,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Tooltip Guidelines",
+    term: "Tooltip",
     color: "#7A4F7E",
     position: "補足的な説明にのみ使うべき、マイクロコンテンツ(短い自己完結型テキスト)。数値基準ではなく使い分けの指針",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: "背景とのコントラストを適度に確保すべきとしているが、具体的な数値基準はない。",
     stance:
-      "ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしている。タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではないとしている。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしている。",
+      <>ツールチップは、タスク完了に必須ではない補足的な説明に最も向くとしている。<Hl>タスク完了に不可欠な情報をツールチップだけに頼って伝えるべきではない</Hl>としている。ツールチップは「マイクロコンテンツ」――自己完結した短いテキストの断片――であるべきで、冗長・自明・長すぎる内容は避けるべきだとしている。</>,
     scenarios: [
       "慣れない入力項目の意味を説明したい時",
       "一見不自然に見える要求の理由を示したい時",
@@ -6928,6 +7069,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>押して開く詳しい説明や操作を含むなら<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>などのポップオーバー。必ず読ませたい情報は画面に直接書く</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "タッチの画面(スマートフォン)で、ツールチップを使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "使う。デスクトップではポインターを重ねる、モバイルでは要素を長押しすると出る" },
+      { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
+      { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)とvisionOSのもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
+    ],
+    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要な部品に「?」などの印を置き、押すと開くヒントにするのが確実です(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにします(W3C 1.4.13)。",
+  },
+];
+
 function CommunicationTooltipPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -6955,6 +7109,8 @@ function CommunicationTooltipPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -6996,6 +7152,7 @@ function CommunicationTooltipPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -7033,6 +7190,8 @@ function CommunicationTooltipPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -7068,7 +7227,7 @@ function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。AppleはTipKit部分のみ本文確認済み、ヘルプタグ部分は検索結果による間接確認)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleのツールチップはHIG Offering helpの「macOS, visionOS」の節を2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。
@@ -7081,6 +7240,8 @@ function CommunicationTooltipPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tvpNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   tvpTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   tvpTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
@@ -7181,6 +7342,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Widgets",
+    term: "Widget",
     color: "#C2542A",
     position: "端末ごとのpt寸法で大きさを決め、置かれる場所で見た目が自動で変わる",
     size: "小・中・大・特大と、ロック画面などのアクセサリ。iPhoneの寸法は上の比較図。余白16pt(まとまりは11pt)、文字11pt以上",
@@ -7207,6 +7369,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Android Developers ― Widgets(Sizing・Widget quality guide)",
+    term: "App widget(Android)",
     color: "#2F7D6E",
     position: "ホーム画面のマス数で大きさを決め、品質を3段階のチェックリストで判定する",
     size: "2×1〜4×3のマス数と幅・高さの範囲(dp)。主なサイズは上の比較図。最小でも押せる範囲48×48dp",
@@ -7234,6 +7397,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "(ホーム画面のウィジェット専用の基準なし)WAI-ARIA 1.2 widgetロール",
+    term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: "ホーム画面のウィジェットの基準はない。ARIAの「widget」は操作部品全般を指す別の言葉",
     size: "専用の数値なし。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる",
@@ -7260,6 +7424,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Mobile Microsessions",
+    term: "Widget(マイクロセッションの文脈)",
     color: "#7A4F7E",
     position: "15秒未満の短い利用(マイクロセッション)を支える仕組みとして扱う(適合基準ではない)",
     size: "数値なし。スマートフォン利用の4割強が15秒未満という研究を紹介",
@@ -7645,6 +7810,7 @@ function CommunicationWidgetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="大きさの決め方" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目・色の扱い">{s.colorInfo}</InfoBox>
@@ -7673,6 +7839,8 @@ function CommunicationWidgetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>大きさの決め方</div>
@@ -7730,6 +7898,8 @@ function CommunicationWidgetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   wkGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   wkCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
   wkTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },

@@ -14,14 +14,15 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Notifications(バナー通知、近い概念)",
+    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「バナー」という名称の、アプリ内に留まり続けるインラインコンポーネントは見当たらない。最も近いのはOSレベルのバナー通知だが、これは自動的に消える点で本ページの対象とは性質が異なる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "HIGには、アプリ内にユーザーが閉じるまで留まり続けるインラインのバナーという専用コンポーネントは見当たらない。近い概念として、デバイス使用中に画面上部に数秒間表示されてから自動的に消える「バナー」形式の通知があるが、これは「スナックバー」「トースト」の各ページで比較した自動消去型の通知と同じ性質を持ち、本ページが対象とする「ユーザーが閉じるまで残り続ける」インラインバナーとは異なる。",
+      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーの部品はない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。",
     exceptions:
-      "「ユーザーの操作が完了するまで画面内に留まり続ける」という、本ページで比較する性質に厳密に対応するAppleのガイダンスは確認できていない。取り消せない重大な操作の確認には「モーダルダイアログ」ページで比較したAlerts(モーダル)を使うべきと考えられる。",
+      "取り消せない重大な操作の確認には、「モーダルダイアログ」ページで比べたアラート(モーダル)を使う(AI解釈)。",
     accessibility: <NoData>記載なし</NoData>,
     scenarios: [
       "OSレベルの自動消去型通知を実装したい時(バナー形式、本ページの対象とは性質が異なる)",
@@ -37,7 +38,7 @@ const SOURCES = [
     refs: [
       { label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
     ],
-    confirmedNote: "「スナックバー」「トースト」の各ページのApple欄と同じ一次情報。「ユーザーが閉じるまで残り続ける」インラインバナーに厳密に対応するガイダンスは見当たらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。アプリの中に残り続けるバナーの部品はない。",
     pending: true,
     illustration: () => (
       <svg width="160" height="30" viewBox="0 0 160 30">
@@ -51,15 +52,16 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 2 ― Banners(M3の一覧からは削除)",
+    term: "Banner(Material Design 2)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3で「重要だが緊急ではない、対応するまで残り続けるメッセージ」を実現したい場合は、内容の重さに応じてダイアログ(強く操作を止める必要がある場合)またはSnackbar(比較的軽い場合)への置き換えが案内されているとみられる(検索結果による確認)。",
+    successorNote: "M3に後継の部品はない。同じ用途には、内容の重さに応じてダイアログやスナックバーなどを検討する(AI解釈)。",
     position: "重要だが緊急ではないメッセージを、ユーザーが対応・却下するまで画面上部に表示し続けるコンポーネント",
-    size: <span><NoData>数値は未確認。</NoData>1行で収まる「シングルライン」バリエーションでは、デスクトップで最大2つのボタンを配置できるとされている(検索結果による確認)。</span>,
+    size: <span><NoData>寸法の数値は記載なし。</NoData>ボタンは文字のボタンを2つまで(閉じる操作は左、もう一方は右)。ボタンはメッセージの下か、収まるなら同じ行に置く。</span>,
     stance:
-      "バナーは、重要かつ簡潔なメッセージを表示し、ユーザーがそのメッセージに対応する(または閉じる)ための操作を提供するコンポーネントだとされている。ユーザーが操作するか閉じるまで持続する非モーダルな要素で、いつでも無視することも操作することもできるとされている。アプリバーの直下、画面上部に表示すべきとされている(検索結果による確認)。",
+      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添える部品。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる(Material Design 2 Bannersの本文で確認、2026-11)。",
     exceptions:
-      "アイコン(任意)+テキスト+最大2つのボタンという構成が一般的とされている。1画面に同時に表示するバナーは1つまでにすべきとされている(検索結果による確認)。",
+      "一度に出すバナーは1つまで。ボタンは文字で書き、アイコンにしない。ボタン1つで「確認して閉じる」だけにするのは避ける。下にナビゲーションバーがあっても、バナーは画面上部に置く。原因の状態が解消したら消してもよい。",
     scenarios: [
       "通信環境の不安定さなど、重要だが緊急ではない状態を伝えたい時",
       "ユーザーの対応(再試行など)を促す簡潔なメッセージを画面上部に表示したい時",
@@ -76,10 +78,10 @@ const SOURCES = [
     refs: [
       { label: "Banners(M3の一覧からは削除)", url: "https://m2.material.io/components/banners" },
     ],
-    confirmedNote: "M3(m3.material.io)の公式コンポーネント一覧にはBannerが見当たらないことを検索で確認しました(2026-09)。M3では、旧Bannerが担っていた用途にダイアログまたはスナックバーを使うよう案内されているとみられる(検索結果による確認)。上記の仕様はM2時点のもの。",
+    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)にBannerはない(2026-11に確認)。上の決まりはMaterial Design 2 Bannersの本文で確認(2026-11)。",
     pending: true,
     deprecated: true,
-    deprecatedNote: "GoogleのBannerコンポーネントはMaterial Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たらない。M3では、旧Bannerが担っていた用途に応じて、ダイアログまたはスナックバーの使用が案内されているとみられる(検索結果による確認、2026-09)。",
+    deprecatedNote: "GoogleのBannerはMaterial Design 2の部品で、M3の部品の一覧にはない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="160" height="30" viewBox="0 0 160 30">
@@ -96,6 +98,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― alert / status / alertdialog の使い分け、WCAG 4.1.3",
+    term: "status・alert(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけalert、緊急でない更新はstatus、最初から表示されているバナーは見出しやラベル付きの領域、モーダルで確認を求めるならalertdialog",
     size: "バナー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタン等の操作要素に適用される。",
@@ -144,6 +147,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)",
+    term: "Banner",
     color: "#7A4F7E",
     position: "通知を「アクション必須」と「パッシブ」に分ける分類で、対応の必要性を判断する指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
@@ -263,7 +267,7 @@ export default function CommunicationBannerPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design)</div>
             <p style={styles.warningText}>
-              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3では、旧Bannerが担っていた用途に応じて<strong>ダイアログまたはスナックバーの使用</strong>が案内されているとみられます(検索結果による確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3に後継の部品はなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになります(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
             </p>
           </div>
 
@@ -277,7 +281,7 @@ export default function CommunicationBannerPage() {
               このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。ただし、インラインのバナーをすべてrole="alert"にするわけではありません。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にします(W3C欄を参照)。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3では旧Bannerの用途がダイアログ・スナックバーという既存コンポーネントに整理・統合されたとみられます(公式の記述は未確認)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
+              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3に後継の部品はなく、同じ用途には既存のダイアログやスナックバーを使うことになります(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸です。対応を求めるバナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たります。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限りません</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
@@ -304,6 +308,7 @@ export default function CommunicationBannerPage() {
                 {(s.m3NotApplicable || s.noDedicatedComponent) && (
                   <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(M2仕様を参考掲載)" : "専用コンポーネントなし"}</span>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
@@ -349,6 +354,8 @@ export default function CommunicationBannerPage() {
                     ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
@@ -399,7 +406,7 @@ export default function CommunicationBannerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.060で「アラート/バナー」ページから名前を変更し、状態の種類の内容は「ステータスメッセージ」ページへ移動)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications、GoogleはM2 BannersとM3の部品の一覧を2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。
@@ -412,6 +419,8 @@ export default function CommunicationBannerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

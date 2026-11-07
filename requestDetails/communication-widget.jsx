@@ -30,6 +30,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Widgets",
+    term: "Widget",
     color: "#C2542A",
     position: "端末ごとのpt寸法で大きさを決め、置かれる場所で見た目が自動で変わる",
     size: "小・中・大・特大と、ロック画面などのアクセサリ。iPhoneの寸法は上の比較図。余白16pt(まとまりは11pt)、文字11pt以上",
@@ -56,6 +57,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Android Developers ― Widgets(Sizing・Widget quality guide)",
+    term: "App widget(Android)",
     color: "#2F7D6E",
     position: "ホーム画面のマス数で大きさを決め、品質を3段階のチェックリストで判定する",
     size: "2×1〜4×3のマス数と幅・高さの範囲(dp)。主なサイズは上の比較図。最小でも押せる範囲48×48dp",
@@ -83,6 +85,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "(ホーム画面のウィジェット専用の基準なし)WAI-ARIA 1.2 widgetロール",
+    term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: "ホーム画面のウィジェットの基準はない。ARIAの「widget」は操作部品全般を指す別の言葉",
     size: "専用の数値なし。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる",
@@ -109,6 +112,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Mobile Microsessions",
+    term: "Widget(マイクロセッションの文脈)",
     color: "#7A4F7E",
     position: "15秒未満の短い利用(マイクロセッション)を支える仕組みとして扱う(適合基準ではない)",
     size: "数値なし。スマートフォン利用の4割強が15秒未満という研究を紹介",
@@ -498,6 +502,7 @@ export default function CommunicationWidgetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="大きさの決め方" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目・色の扱い">{s.colorInfo}</InfoBox>
@@ -526,6 +531,8 @@ export default function CommunicationWidgetPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>大きさの決め方</div>
@@ -583,6 +590,8 @@ export default function CommunicationWidgetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   wkGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   wkCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
   wkTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },
