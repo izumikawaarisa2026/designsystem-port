@@ -48,12 +48,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)",
+    term: <NoData>独立した部品なし(日付ピッカーのinline・compactスタイル)</NoData>,
     color: "#C2542A",
     position: "「カレンダー」という独立コンポーネント名はないが、日付ピッカーの.inline/.compactスタイルが実際に月表示のカレンダーグリッドを描画する。単一の日付選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "「日付・タイムピッカー」ページで比較したAppleのピッカーはホイール型を中心に扱いましたが、UIDatePickerには.inlineスタイルもあり、これは十分なスペースがある場合にモーダルの手間なくフルサイズのカレンダーを直接表示するものだとされている。.compactスタイルもタップすると同じカレンダーグリッドを開く。Appleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントではなく日付ピッカーの1バリエーションという位置づけ。",
+      "UIDatePickerには.inlineスタイルがあり、これは十分なスペースがある場合にモーダルの手間なくフルサイズのカレンダーを直接表示するものだとされている。.compactスタイルもタップすると同じカレンダーグリッドを開く。Appleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントではなく日付ピッカーの1バリエーションという位置づけ。",
     exceptions:
       ".inline/.compactスタイルはあくまで単一の日付を選ぶためのコントロールで、複数の予定(イベント)を同時に表示・管理するスケジュール/アジェンダのビューではない。カレンダーアプリの予定自体を表示・編集する場合は、EventKitUIというシステムフレームワーク(EKEventViewController等)を呼び出す形になり、これもデザインパターンというよりOS標準UIを呼び出す技術的な仕組み。",
     accessibility: <NoData>記載なし</NoData>,
@@ -95,6 +96,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Date pickers(Modalバリアントのカレンダーグリッド)",
+    term: <NoData>独立した部品なし(Date pickerのモーダル)</NoData>,
     color: "#2F7D6E",
     position: "「カレンダー」という独立コンポーネント名はないが、Date pickersのModalバリアントが月表示のカレンダーグリッドUIそのもの。単一の日付(または範囲)選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
     size: <NoData>数値は未確認</NoData>,
@@ -143,6 +145,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Grid (Interactive Tabular Data) Pattern(「日付・タイムピッカー」ページのDate Picker Dialog例と同じ基盤)",
+    term: "grid(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "カレンダーグリッド専用のパターンではなく、Date Picker Dialog例が使う汎用のGridパターンがそのまま基盤になる。複数の予定を持つスケジュール/アジェンダ向けの完成された実例はない",
     size: "カレンダー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各日・各予定のセルにも適用される。",
@@ -151,9 +154,9 @@ const SOURCES = [
       { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。「日付・タイムピッカー」ページのDate Picker Dialog例と同じ仕組みで、" },
     ],
     stance:
-      "APG本文・Layout Grid Examplesページを直接確認したところ、カレンダー・アジェンダ専用の完成された実例(ワークドエグザンプル)は掲載されていない。掲載されているのはrelated documents list・pill list・search resultsの3例のみ。一方でGrid (Interactive Tabular Data) Patternの一般原則(role=\"grid\"、行・列のセル構造)は、「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ仕組みであり、複数の予定を日・週・月のマス目に並べるスケジュールビューを自作する際の実装の土台になり得るとしている。",
+      "APGには、カレンダー・アジェンダ専用の完成された実例はない。Layout Gridの実例はrelated documents list・pill list・search resultsの3例のみ。一方でGrid (Interactive Tabular Data) Patternの一般原則(role=\"grid\"、行・列のセル構造)は、「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ仕組みであり、複数の予定を日・週・月のマス目に並べるスケジュールビューを自作する際の実装の土台になり得るとしている。",
     exceptions:
-      "「日付・タイムピッカー」ページのDate Picker Dialog例は単一の日付を選ぶ一過性のダイアログですが、スケジュール/予定表は複数の予定を持つ永続的な画面であるため、単純に同じ実装を流用できるわけではない。APG本文にも、複数イベントを持つカレンダービュー特有の追加要件(1つのセルに複数の予定がある場合の扱いなど)についての記載はない。",
+      "「日付・タイムピッカー」ページのDate Picker Dialog例は単一の日付を選ぶ一時的なダイアログで、スケジュール/予定表は複数の予定を持つ永続的な画面であるため、単純に同じ実装を流用できるわけではない。APG本文にも、複数イベントを持つカレンダービュー特有の追加要件(1つのセルに複数の予定がある場合の扱いなど)についての記載はない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― グリッドロール・ローミングtabindexによるキーボード操作性(2.1.1)が中心ですが、カレンダー・アジェンダに特有の要件(予定の読み上げ順序、複数予定の扱いなど)はAPGでカバーされていない。",
     useCases: [
@@ -181,6 +184,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)",
+    term: "Calendar picker(日付入力の記事の中で扱う)",
     color: "#7A4F7E",
     position: "「カレンダー」単体を論じた記事はないが、この記事内でカレンダーピッカー(グリッドUI)の使いどころを具体的に論じている。日付入力の文脈であり、複数の予定を並べるスケジュール/アジェンダ表示について論じたものではない",
     size: "寸法の基準はない。",
@@ -188,7 +192,7 @@ const SOURCES = [
     stance:
       "「日付・タイムピッカー」ページで確認した通り、この記事はカレンダーピッカーを「現在に近い(1年未満程度の)日付」や「日付の範囲選択」に向くとしている。誕生日のような遠い日付ではフリーテキスト入力を推奨しており、カレンダーグリッドUIは万能ではなく用途を選ぶという立場。",
     exceptions:
-      "スケジュール/予定表(複数の予定を並べて表示・管理するアジェンダビュー)そのものを扱った記事は見つかっていない。calendar UX・week view・scheduling app design・appointment bookingなど複数の観点で検索しましたが、この記事以上に近い一次情報はなかった。",
+      "スケジュール/予定表(複数の予定を並べて表示・管理するアジェンダビュー)そのものを扱った記事は見つかっていない。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
     useCases: [
       "近い将来の日付・範囲選択にはカレンダーピッカー(グリッドUI)を使う",
@@ -334,6 +338,7 @@ export default function TextInputsCalendarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -374,6 +379,8 @@ export default function TextInputsCalendarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -427,6 +434,8 @@ export default function TextInputsCalendarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

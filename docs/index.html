@@ -18743,12 +18743,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
+    term: "Token field(macOS)。Chipという名前の部品はない",
     color: "#C2542A",
     position: "「Chip」という名称の専用コンポーネントはないが、近い発想の「トークンフィールド」がmacOS向けに存在",
     size: <span><NoData>数値基準なし。</NoData>トークンフィールドはmacOSのテキストコントロールの一種として位置づけられている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "トークンフィールドは、入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種と定義されている。Materialの「インプットチップ」―ユーザーが入力した情報を表すチップ―に近い発想。",
+      <>トークンフィールドは、<Hl>入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種</Hl>と定義されている。Materialの「インプットチップ」―ユーザーが入力した情報を表すチップ―に近い発想。</>,
     exceptions:
       "トークンフィールドはmacOS向けのガイダンスで、iOS/iPadOS向けの言及は確認できていない。また「フィルタ」や「アシスト」用途のChip相当の概念は見当たらず、あくまで入力補助のコントロールという位置づけ。",
     accessibility: <NoData>記載なし</NoData>,
@@ -18773,10 +18774,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Chips(使用法・アクセシビリティ)",
+    term: "Chip(アシスト・フィルタ・インプット・サジェスチョン)",
     color: "#2F7D6E",
     position: "4種類(アシスト/フィルタ/インプット/サジェスチョン)。状況に応じて動的に変わる、ボタンとは異なるインタラクティブ要素の集合",
     size:
-      "コンテナの高さは32dp、最小タップ領域は48dpを確保する設計。角の半径は8dp(shape small)で、いわゆる「ピル型」ではなく「角丸長方形」です(以前の記載を訂正)。デフォルトで高密度設定を適用すべきではないとしており(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合もタップ領域は最低48×48pxに戻せる設計にすべきとしている。",
+      "コンテナの高さは32dp、最小タップ領域は48dpを確保する設計。角の半径は8dp(shape small)で、いわゆる「ピル型」ではなく「角丸長方形」。デフォルトで高密度設定を適用すべきではないとしており(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合もタップ領域は最低48×48pxに戻せる設計にすべきとしている。",
     colorInfo:
       "チップのラベルは、背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。M2からの変更点として、新しいカラーマッピングとダイナミックカラーへの対応が加わっている。",
     glossary: [
@@ -18784,7 +18786,7 @@ const SOURCES = [
       { term: "メニュー方式", desc: "1行に収まりきらないチップの対処法のもう1つ。先頭にボタンを1つ置き、そこから開くメニューに残りのチップ選択肢をまとめる方法。下のコンテンツの位置がずれないという利点があるが、削除アイコンなど2つ目の操作が必要なチップには使うべきではないとされている。" },
     ],
     stance:
-      "チップはボタンではないと明確に位置づけられている。ボタンは常に同じ見た目・操作方法で配置され、製品の操作を進めたり重要なアクションを実行させたりするのに使う一方、チップは現在のタスクに応じて動的に変化し、インタラクティブな要素の集合として現れ、ユーザーの現在の体験を向上させ行動を促すために使うとしている。チップはタスクの分岐経路を、ボタンは直線的なステップを表すという整理。",
+      <><Hl>チップはボタンではないと明確に位置づけられている</Hl>。ボタンは常に同じ見た目・操作方法で配置され、製品の操作を進めたり重要なアクションを実行させたりするのに使う一方、チップは現在のタスクに応じて動的に変化し、インタラクティブな要素の集合として現れ、ユーザーの現在の体験を向上させ行動を促すために使うとしている。チップはタスクの分岐経路を、ボタンは直線的なステップを表すという整理。</>,
     exceptions:
       "主要な操作をチップに置き換えることは避けるべきで、次/前のステップに進む操作は必ずボタンにすべきとしている。複数のチップはセットとしてまとめて表示すべきが、ボタンは1つの配置につき最大3つまでとしている。",
     overflow:
@@ -18816,12 +18818,13 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5 / 1.4.11 / 1.4.1",
+    term: "button(WAI-ARIAのロール。選択式はaria-pressedなどで状態を伝える)",
     color: "#A3821F",
     position: "形状を問わず、ボタン/トグルボタンとしての名前・役割・状態・操作性を要求する一般基準の集合",
     size:
       "チップ専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "チップのラベルの文字には1.4.3(文字のコントラスト)がかかり、通常サイズの文字は4.5:1以上が必要です(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
+      "チップのラベルの文字には1.4.3(文字のコントラスト)がかかり、通常サイズの文字は4.5:1以上が必要(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
     stance:
       "チップは実装上ボタンまたはトグルボタンとして扱われることが多く、その名前・役割・状態が支援技術から取得できなければならないとしている(4.1.2)。複数のチップが並ぶ場合、キーボードだけで一覧を移動・選択できる必要がある(2.1.1)。",
     exceptions:
@@ -18851,6 +18854,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "専用記事なし(用語的な言及のみ)",
+    term: "Token(チップ)",
     color: "#7A4F7E",
     position: "専用の設計ガイドライン記事は見当たらない",
     size: <NoData>数値基準なし</NoData>,
@@ -19067,6 +19071,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1つの設定のオン・オフなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、移動や実行なら<PageLink to="/components/actions/button">ボタン</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "チップは何に使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "4つの用途に使う。操作の手助け(アシスト)・絞り込み(フィルタ)・入力した値の表示(インプット)・候補の提示(サジェスチョン)。ただし次へ・前へのような主な操作はボタンにする" },
+      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途の部品はない" },
+      { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
+    ],
+    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけです。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準の部品(セグメントコントロールやメニュー)で作れないかも検討します。",
+  },
+];
+
 function SelectionChipsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -19095,6 +19112,8 @@ function SelectionChipsPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -19133,6 +19152,7 @@ function SelectionChipsPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -19170,6 +19190,8 @@ function SelectionChipsPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -19221,6 +19243,8 @@ function SelectionChipsPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -19336,6 +19360,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Pickers",
+    term: "Date picker(Pickersの一種)",
     color: "#C2542A",
     position: "iOS/iPadOSの日付ピッカーは、コンパクト・インライン・ホイール・自動の4スタイルと、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル",
     size:
@@ -19374,18 +19399,19 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Date pickers / Time pickers",
+    term: "Date picker・Time picker",
     color: "#2F7D6E",
     position: "日付はドッキング・モーダル・モーダル入力の3種類(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類",
     size: "寸法のdp値は確認できていない。日付ピッカーのコンテナの角丸は、シェイプスケールのExtra large(28dp)が既定。",
-    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値です(Material Components for Android)。",
+    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
     glossary: [
       { term: "ドッキング / モーダル / モーダル入力", desc: "ドッキングは入力欄に付いた形で、タップするとカレンダーがドロップダウンで開く。モーダルはダイアログ形式のカレンダー。モーダル入力はダイアログ内のテキスト入力。モーダルとモーダル入力は期間(開始日〜終了日)の選択にも使える。" },
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは時計の文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類です(Material Components for Androidのドキュメントで直接確認、2026-09)。",
+      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類(Material Components for Androidのドキュメントで直接確認、2026-09)。",
     exceptions:
-      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとされている(検索結果による確認)。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
+      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとしている(M3 Date pickersのガイドラインで確認、2026-11)。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応しており、ダイアログを開くとタイトルが読み上げられる。タッチターゲットの具体的な数値は確認できていない。",
     useCases: [
@@ -19417,6 +19443,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
+    term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
     position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはrole=\"dialog\"内のrole=\"grid\"で",
     size:
@@ -19426,7 +19453,7 @@ const SOURCES = [
       { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。" },
     ],
     stance:
-      "日付ピッカーの例は、日付を文字で入力できる欄(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装するとしている。月・年の見出しにはaria-live=\"polite\"を設定し、変化を支援技術に知らせるべきとしている。",
+      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装するとしている。月・年の見出しにはaria-live="polite"を設定し、変化を支援技術に知らせるべきとしている。</>,
     exceptions:
       "ダイアログを開いた際、入力欄が空または無効な日付なら現在の日付にフォーカスを当て、既に有効な日付が入っていればカレンダー内の対応する日にフォーカスを当てるとしている。Esc・OKボタン・Cancelボタンのいずれでもダイアログを閉じられ、閉じた後はトリガーボタンにフォーカスが戻るとしている。なお、APGの例は考え方を示すもので、そのまま本番には使わないよう公式に注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差がある、とも書かれている)。実装したら、実際の支援技術で確かめる。",
     accessibility:
@@ -19456,12 +19483,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields: UX Design Guidelines",
+    term: "Date input(日付の入力欄)・Calendar picker",
     color: "#7A4F7E",
     position: "多くの場面ではフリーテキスト入力を推奨。カレンダーピッカーは近い将来の日付・範囲選択に限定",
     size: "数値基準としては、選択肢が10個未満の場合のみドロップダウンを検討すべきとしている。日付専用の寸法基準はない。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "多くの場面で、ユーザーには日付を自由入力(フリーテキスト)で入力させることを推奨している。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的だとしている。カレンダーピッカーは、現在に近い(1年未満程度の)日付や、日付の範囲選択(2ヶ月分を並べて表示するなど)に向いているとしている。ドロップダウンは10個未満の少ない選択肢の場合のみに限定すべきで、月/日/年を分割したドロップダウンは不要なクリックを増やすため避けるべきとしている。",
+      <>多くの場面で、ユーザーには<Hl>日付を自由入力(フリーテキスト)で入力させることを推奨している</Hl>。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的だとしている。カレンダーピッカーは、現在に近い(1年未満程度の)日付や、日付の範囲選択(2ヶ月分を並べて表示するなど)に向いているとしている。ドロップダウンは10個未満の少ない選択肢の場合のみに限定すべきで、月/日/年を分割したドロップダウンは不要なクリックを増やすため避けるべきとしている。</>,
     exceptions:
       "日付の書式について、9-3-17、09/08/17、9.3.17のような入力の揺れを、特殊文字の入力を強制せず受け入れるべきとしている。月名は省略せず綴り、フィールドを明確にラベル付けすべきとしている(「10/11/2016」のような表記は米国式・欧州式で解釈が分かれ曖昧になるため)。到着日より前の出発日のような論理的にありえない選択肢は事前に除外し、利用できない日は選択不可にし、エラー時には具体的な訂正案を示すべきとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
@@ -19805,6 +19833,20 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>予定を一覧で見せる画面は<PageLink to="/components/text-inputs/calendar">カレンダー(スケジュール/予定表)</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "日付は、入力欄で入れる?カレンダーで選ぶ?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "多くの場面では入力欄が速い。誕生日のような遠い日付は特に入力欄。カレンダーは近い日付(1年未満ほど)と期間の選択に向く" },
+      { who: "W3C(APG)", color: "#A3821F", t: "APGの例は、形式を添えた入力欄と、カレンダーを開くボタンの組み合わせ。カレンダーは入力の補助" },
+      { who: "Google", color: "#2F7D6E", t: "入力欄とカレンダーの両方を持つ形(ドッキング)、カレンダー(モーダル)、入力(モーダル入力)を使い分ける。遠い日付にはカレンダーを使わない" },
+      { who: "Apple", color: "#C2542A", t: "コンパクト・インライン・ホイールのスタイルを場所に合わせて選ぶ。カレンダーで日を選ぶほか、数字キーで入力もできる" },
+    ],
+    tip: "入力欄を基本にし、近い日付や期間を選ぶ場面でカレンダーを補助として開けるようにすると、4系列のどれとも食い違いません。誕生日の入力でカレンダーを先に出すのは避けます。",
+  },
+];
+
 function SelectionDateTimePickerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -19834,6 +19876,8 @@ function SelectionDateTimePickerPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>入力方法の使い分け(4種類)</h2>
@@ -19848,13 +19892,10 @@ function SelectionDateTimePickerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「多くの場面ではフリーテキスト入力の方が効率的」</strong>と明確に主張しています。W3C(ARIA APGのDate Picker Dialog例)も、<strong>日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンの組み合わせ</strong>で、カレンダーは入力の補助という位置づけです。つまり両者は対立せず、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立します。
+              <strong>日付を入力欄で入れるか、カレンダーで選ぶか</strong>は系列ごとに重みが違いますが、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立します(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、<strong>カレンダーピッカーは近い将来の日付や期間の選択に向く</strong>としています。Googleにも「生年月日のような遠い日付にはモーダルカレンダーを使わない」という指針があるとされます(公式本文は未確認)。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cの実装パターンは非常に具体的で、<strong>上下キー=週・左右キー=日、Page Up/Down=月(Shiftで年)</strong>というキー操作の割り当てまで定義されています。カレンダーUIを自作する場合、この操作体系に沿わせることが実装上の目安になります。
+              NN groupは、カレンダーピッカーは近い将来の日付や期間の選択に向くとしています。Googleも<strong>生年月日のような遠い日付にはモーダルのカレンダーを使わず</strong>、モーダル入力かドッキングを使うとしています。
             </p>
             <p style={styles.synthesisText}>
               AppleとGoogleは、<strong>1つの部品に複数の見た目(パターン)を用意</strong>しています。AppleはiOSでコンパクト・インライン・ホイール、macOSでテキスト形式・グラフィカル形式を持ち、Googleは日付でドッキング・モーダル・モーダル入力(+期間選択)、時刻でダイヤル・入力を持ちます。どちらも<strong>カレンダーやダイヤルと、キーボード入力の両方を行き来できる</strong>ようにしている点は、NN groupの「自由入力が効率的な場面が多い」という指摘とも両立する設計です。
@@ -19875,6 +19916,7 @@ function SelectionDateTimePickerPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -19911,6 +19953,8 @@ function SelectionDateTimePickerPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -19957,6 +20001,8 @@ function SelectionDateTimePickerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -20062,12 +20108,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Menus / Context menus / Pull-down buttons",
+    term: "Menu(コンテキストメニュー・プルダウンボタン・ポップアップボタン)",
     color: "#C2542A",
     position: "メニュー全般のラベル・並べ方の指針に加え、プルダウンボタン(ボタンの操作に関係する命令)・ポップアップボタン(排他的な選択肢)・コンテキストメニュー(今の対象によく使う操作)を使い分ける",
     size: "サブメニューは1階層までにし、項目が約5個を超えるなら別のメニューにする。コンテキストメニューは項目を少なくし、区切り線で分けるグループは約3つまで。プルダウンボタンは3項目以上にする(1〜2項目ならボタンやスイッチで足りる)。iOSのメニューには、上に4つのアイコンだけを並べるsmall、3つのアイコン+短いラベルのmedium、全部をリストで見せるlarge(既定)のレイアウトがある。",
     colorInfo: "ラベルは何をするかを動詞で短く書く。実行する前にさらに入力や選択が必要な項目は、末尾に「…」を付ける。使えない項目は、通常のメニューでは薄く表示し(全部使えなくてもメニュー自体は開けるようにする)、コンテキストメニューでは薄くせずに隠す。アイコンは同じグループの項目すべてに付けるか、どれにも付けないかにそろえる。",
     stance:
-      "人はメニューを上から読むため、重要な項目・よく使う項目を先頭に置く。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す(ページ本文を直接確認、2026-10)。",
+      <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す(ページ本文を直接確認、2026-10)。</>,
     exceptions:
       "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS・visionOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
     accessibility:
@@ -20091,9 +20138,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Menus",
+    term: "Menu(ドロップダウンメニュー・エクスポーズドドロップダウンメニュー)",
     color: "#2F7D6E",
     position: "一時的な面に選択肢の一覧を出す部品。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
-    size: "項目の高さは48dp、メニューの幅は112〜280dp、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。",
+    size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。</>,
     colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示す(Jetpack Composeのトークン定義)。",
     stance:
       "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
@@ -20120,6 +20168,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
+    term: "menu・menubar・menuitem(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "OSのメニューのように振る舞う「選択肢の一覧」の部品について、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に表示されるmenubarを扱う",
     size: "メニュー専用の数値基準はない。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)が当てはまる。",
@@ -20153,12 +20202,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines",
+    term: "Contextual menu・Dropdown",
     color: "#7A4F7E",
     position: "対象に関係する少数の操作を出すコンテキストメニューと、命令・移動・入力・属性の選択に使われるドロップダウンについての実務指針(適合基準ではない)",
     size: "コンテキストメニューの項目は10〜12個未満にし、スクロールせずに全部見えるようにする。サブメニューを使うなら、その中からさらにサブメニューを開かない(1階層まで)ようにする。",
     colorInfo: "使えない項目は消さずに薄く表示する。消すと項目の位置が変わって覚えにくく、どこへ行ったのか、どうすれば出てくるのかを探させてしまうため。関係する命令は一式そろえて載せる(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使わない。",
     stance:
-      "コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、よく使う順に上から並べる。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めている(記事本文を直接取得して確認、2026-10)。",
+      <>コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、<Hl>よく使う順に上から並べる</Hl>。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めている(記事本文を直接取得して確認、2026-10)。</>,
     exceptions:
       "ドロップダウンは、スクロールが必要なほど長いリストを避け、入力した方が速い場合(州・国の名前、生年月日など)には使わない。開いている間もラベルが見えるようにする。デスクトップでは、サイトの主要なナビゲーションをドロップダウンの中に隠さない。ほかのメニューの選択によって中身が変わるメニューも避ける。キーボードで文字を打って項目に移れるようにする。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠。キーボードでの移動を支えることは、目の見えない人の使いやすさにもつながるとしている。",
@@ -20326,7 +20376,7 @@ function RuleMatrix() {
   );
 }
 
-/* 意見が分かれる2点 */
+/* 意見が分かれる点 */
 function MiniMenu({ mode }) {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const rows = mode === "hide" ? ["コピー", "貼り付け"] : ["コピー", "貼り付け", "印刷"];
@@ -20350,44 +20400,20 @@ const SPLITS = [
   {
     q: "使えない項目は、隠す?薄く表示する?",
     sides: [
-      { mode: "hide", who: "Apple(コンテキストメニュー)", color: "#C2542A", t: "隠す。今の対象に関係する操作だけを見せるため(通常のメニューでは薄く表示)" },
-      { mode: "dim", who: "NN group・W3C", color: "#7A4F7E", t: "薄く表示する。消すと位置が変わって覚えにくい(NN)。フォーカスはできるが実行できない(W3C)" },
+      { figure: <MiniMenu mode="hide" />, who: "Apple(コンテキストメニュー)", color: "#C2542A", t: "隠す。今の対象に関係する操作だけを見せるため(通常のメニューでは薄く表示)" },
+      { figure: <MiniMenu mode="dim" />, who: "NN group・W3C", color: "#7A4F7E", t: "薄く表示する。消すと位置が変わって覚えにくい(NN)。フォーカスはできるが実行できない(W3C)" },
     ],
     tip: "コンテキストメニューでは隠し、通常のメニュー・メニューバーでは薄く表示する、というAppleの使い分けが両方の考え方に沿いやすい。ただし、隠すと「どうすれば使えるか」が分からなくなるため、隠した操作はメインの画面からたどれるようにする。",
   },
   {
     q: "コンテキストメニューに、キーボードショートカットを表示する?",
     sides: [
-      { mode: "plain", who: "Apple", color: "#C2542A", t: "表示しない。コンテキストメニュー自体が近道なので重複する。ショートカットはメインのメニューに" },
-      { mode: "shortcut", who: "NN group", color: "#7A4F7E", t: "表示する。繰り返し見るうちにショートカットを覚えてもらえる" },
+      { figure: <MiniMenu mode="plain" />, who: "Apple", color: "#C2542A", t: "表示しない。コンテキストメニュー自体が近道なので重複する。ショートカットはメインのメニューに" },
+      { figure: <MiniMenu mode="shortcut" />, who: "NN group", color: "#7A4F7E", t: "表示する。繰り返し見るうちにショートカットを覚えてもらえる" },
     ],
     tip: "Appleのプラットフォームでは、ショートカットはメニューバー(メインのメニュー)で必ず見つかるようにすれば、コンテキストメニューで省いても覚える機会は残る。Webや他のOSでメインのメニューがない場合は、NN groupの勧めに沿って表示する方が親切。",
   },
 ];
-
-function SplitCards() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {SPLITS.map((s) => (
-        <div key={s.q} style={styles.splitCard}>
-          <div style={styles.splitQ}>{s.q}</div>
-          <div style={styles.splitRow}>
-            {s.sides.map((side) => (
-              <div key={side.who} style={styles.splitSide}>
-                <MiniMenu mode={side.mode} />
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ ...styles.splitWho, color: side.color }}>{side.who}</div>
-                  <div style={styles.splitText}>{side.t}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={styles.splitTip}><strong>AI解釈: </strong>{s.tip}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /* メニューの種類と使い分け(Apple・Google・NN group) */
 const KINDS = [
@@ -20464,6 +20490,8 @@ function SelectionMenuPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <div style={styles.chartCard}>
@@ -20472,12 +20500,6 @@ function SelectionMenuPage() {
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めています。</p>
           </div>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>意見が分かれる2点</h2>
-            <p style={styles.diagramNote}>同じ問いに対して、系列によって答えが逆になっている点です。左右の図は概念図です。</p>
-            <SplitCards />
-          </section>
-
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -20485,13 +20507,13 @@ function SelectionMenuPage() {
               並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めています(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めています。W3Cは並べ方ではなく、キーボード操作を定めています。
             </p>
             <p style={styles.synthesisText}>
-              一方で、<strong>2点ではっきり意見が分かれます</strong>。1つは使えない項目の扱いで、Appleは<strong>コンテキストメニューでは隠す</strong>とし、NN groupは<strong>隠さず薄く表示する</strong>よう勧め、W3Cは<strong>使えない項目もフォーカスできるように</strong>します。もう1つはキーボードショートカットで、Appleは<strong>コンテキストメニューには表示しない</strong>、NN groupは<strong>表示して覚えてもらう</strong>としています(下の「意見が分かれる2点」を参照)。
+              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆です(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>開いたら最初の項目にフォーカス・矢印で移動・Enterで実行・Escで閉じてボタンへ戻る</strong>というキーボード操作と、<strong>aria-haspopup・aria-expanded</strong>で開閉を伝えることを定めています。
+              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めています。
             </p>
             <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、キーボード操作はW3Cの通りに作り、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
+              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -20503,6 +20525,7 @@ function SelectionMenuPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="長さ・大きさ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="ラベル・項目の見せ方">{s.colorInfo}</InfoBox>
@@ -20532,6 +20555,8 @@ function SelectionMenuPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>長さ・大きさ</div>
@@ -20599,6 +20624,8 @@ function SelectionMenuPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -20980,6 +21007,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toggles内「Radio buttons」(macOS)",
+    term: "Radio button(Togglesの見た目の1つ。macOSのみ)",
     color: "#C2542A",
     position: "小さな円形+ラベル、2〜5個のグループで相互排他的選択に使用",
     size:
@@ -20987,7 +21015,7 @@ const SOURCES = [
     colorInfo:
       "選択時は塗りつぶされた円、非選択時は空の円という形状の違いで状態を示すことを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。",
     stance:
-      "ラジオボタンはmacOS向けの部品で、iOS/iPadOSには標準のラジオボタンがない(HIG Togglesでは、ラジオボタンはmacOSの節で説明されている)。ラジオボタンは、ラベルを伴う小さな円形のボタンで、通常2〜5個のグループとして表示され、相互排他的な選択肢の集合を提示するものと定義されている。単一のオン・オフ設定を示したい場合は、ラジオボタンではなくチェックボックスを使うべきとしている。",
+      <>ラジオボタンはmacOS向けの部品で、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG Togglesでは、ラジオボタンはmacOSの節で説明されている)。ラジオボタンは、ラベルを伴う小さな円形のボタンで、通常2〜5個のグループとして表示され、相互排他的な選択肢の集合を提示するものと定義されている。単一のオン・オフ設定を示したい場合は、ラジオボタンではなくチェックボックスを使うべきとしている。</>,
     exceptions:
       "ラジオボタンも「不定(mixed)」状態を表示できるが、追加のラジオボタンで複数の状態を表現できるため、この状態が有用な場面はまれだとしている。設定や項目が混在状態を示したい場合は、チェックボックスの使用を検討すべきとしている。また、選択肢が多すぎるリストは避け、水平に並べる場合は一貫した間隔を保つべきとしている。",
     accessibility:
@@ -21018,6 +21046,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Radio button(使用法・アクセシビリティ)",
+    term: "Radio button",
     color: "#2F7D6E",
     position: "リストから1つを選ぶ推奨コントロール。5個以下の選択肢に向く",
     size:
@@ -21029,7 +21058,7 @@ const SOURCES = [
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "ユーザーが複数の選択肢から1つを選ぶための推奨コントロールと定義されている。リストから1つの項目しか選択できない場合はラジオボタン(スイッチではない)を使うべきとし、選択肢が5つ以下の場合に向くとしている。画面スペースを節約したい場合はドロップダウンメニューの使用を検討できるが、ドロップダウンはクリック数・認知負荷の両面で追加の手間になるとも指摘している。",
+      <>ユーザーが複数の選択肢から1つを選ぶための推奨コントロールと定義されている。リストから1つの項目しか選択できない場合はラジオボタン(スイッチではない)を使うべきとし、<Hl>選択肢が5つ以下の場合に向く</Hl>としている。画面スペースを節約したい場合はドロップダウンメニューの使用を検討できるが、ドロップダウンはクリック数・認知負荷の両面で追加の手間になるとも指摘している。</>,
     exceptions:
       "ラジオボタンのネスト(入れ子)や、複数選択のための使用は避けるべきとしている。配置の節では、常に1つのオプションが事前選択された状態で開始すべきとしている(ただし操作の節では「1つが選ばれた状態か、何も選ばれていない状態で始められる」とも書いている)。積み重ねた(縦の)レイアウトを基本とし、水平方向のリストは避けるべきとしている。選択済みのラジオボタンは、ユーザー操作だけでは選択解除できないため、解除が必要な場合は「該当なし」の選択肢や「選択をクリア」といった別の手段を用意すべきとしている。",
     accessibility:
@@ -21058,6 +21087,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "radio(WAI-ARIAのロール)/ HTMLの input type=\"radio\"",
     color: "#A3821F",
     position: "状態と相互排他性を支援技術に正しく伝えることを要求",
     size:
@@ -21065,7 +21095,7 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択状態を示す塗りつぶしの円などの視覚的要素は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1により、色だけで選択状態を示すことも避けるべき。",
     stance:
-      "ラジオボタンのような独自UIコンポーネントは、その名前(ラベル)・役割(ラジオボタンであること)・状態(選択・非選択)、そしてグループ内での相互排他性が、支援技術から取得・設定できなければならないとしている。",
+      <>ラジオボタンのような独自UIコンポーネントは、その名前(ラベル)・役割(ラジオボタンであること)・状態(選択・非選択)、そして<Hl>グループ内での相互排他性</Hl>が、支援技術から取得・設定できなければならないとしている。</>,
     exceptions:
       "標準的なHTMLのinput type=\"radio\"要素を同じname属性でグループ化していれば、ブラウザが自動的にこれらの情報を提供するため、通常は追加の対応は不要。独自にデザインしたカスタムラジオボタンを実装する場合にのみ、この基準への配慮が必要になる。",
     accessibility:
@@ -21094,6 +21124,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Checkboxes vs. Radio Buttons",
+    term: "Radio button",
     color: "#7A4F7E",
     position: "相互排他的な選択肢に限定使用(数値基準ではなく使い分けの指針)",
     size:
@@ -21103,7 +21134,7 @@ const SOURCES = [
     stance:
       "2つ以上の選択肢があり、それらが相互排他的で、ユーザーが必ず1つを選ばなければならない場合にラジオボタンを使うべきとしている。選択肢は縦方向に1行1つで配置し、常にすべての選択肢を可視状態に保つことを推奨している。",
     exceptions:
-      "デフォルトで1つの選択肢を選んだ状態にしておくべきとしている(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」でも、ほとんどの場合デフォルト選択が優れたUXになると結論づけている)。選択肢が網羅的でない場合は「その他」の選択肢を用意すべきとしている。",
+      <><Hl>デフォルトで1つの選択肢を選んだ状態にしておくべき</Hl>としている(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」でも、ほとんどの場合デフォルト選択が優れたUXになると結論づけている)。選択肢が網羅的でない場合は「その他」の選択肢を用意すべきとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、選択のしやすさに関する設計根拠。",
     useCases: [
@@ -21236,6 +21267,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>いくつでも選べるなら<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、選択肢が多いなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "最初から1つを選んでおく?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "ほとんどの場合は選んでおく。一度選ぶと押しても外せないため。ただし敬称・性別・寄付額のように押し付けがましくなる質問では選ばない" },
+      { who: "Google", color: "#2F7D6E", t: "配置の節では「常に1つを選んだ状態で始める」、操作の節では「何も選んでいない状態でも始められる」と書いている。外す必要があるなら「該当なし」などの選択肢を用意する" },
+      { who: "Apple", color: "#C2542A", t: "既定の選択についての記載なし" },
+    ],
+    tip: "迷ったら1つを選んでおきます(NN group)。選ばせたくない質問では、何も選ばない状態で始め、「該当なし」「回答しない」の選択肢を足すと、Googleの書き方とも食い違いません。",
+  },
+  {
+    q: "選択肢を横に並べてよい?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "縦に1行1つが基本。横に並べるのは避ける(Google)。縦に並べ、すべての選択肢を常に見せる(NN group)" },
+      { who: "Apple(macOS)", color: "#C2542A", t: "横に並べる場合は、選択肢の間隔をそろえる(横並びを禁じてはいない)" },
+    ],
+    tip: "縦に並べると、ラベルの長さが違っても読みやすく、押し間違いも減ります。横に並べるのは「はい/いいえ」のような短い2〜3択だけにし、その場合も間隔をそろえます。",
+  },
+];
+
 function SelectionRadioPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -21264,6 +21316,8 @@ function SelectionRadioPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <SizeInfographic />
@@ -21275,7 +21329,7 @@ function SelectionRadioPage() {
               ラジオボタンは4系列とも<strong>「複数の選択肢から1つだけを選ぶ」相互排他的な用途</strong>で一致しています。特にApple・Google・Nielsen Norman Groupは、チェックボックス(複数選択)との役割の違いを明確に示しています。
             </p>
             <p style={styles.synthesisText}>
-              <strong>既定で1つを選んでおく</strong>ことは、Nielsen Norman Groupがはっきり勧めています。理由は、ラジオボタンは一度選ぶと押しても選択を外せない(何も選ばれていない状態に戻せない)ため、最初から1つ選んでおくほうが分かりやすいからです。例外として、敬称・性別や寄付額のように<strong>押し付けがましい・相手を不快にする既定値</strong>は、既定で選ばない理由として最も妥当なものに挙げ、その場合は質問自体が必要か、別の部品にできないかを考えるよう勧めています。Googleは配置の節で「常に1つを事前に選択」とする一方、操作の節では「何も選ばれていない状態でも始められる」とも書いており、一致とまでは言い切れません。Appleには既定の選択についての記述は見当たりません。また<strong>Googleは「選択肢が5個以下の場合に向く」という具体的な目安</strong>を持ち、選択肢が多い/省スペースにしたい場合はドロップダウンを検討すべきとしています(ただしクリック数・認知負荷の面で追加の手間になるとも指摘)。
+              <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれます(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしています(ただし操作の手間は増えます)。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求しています。
@@ -21296,6 +21350,7 @@ function SelectionRadioPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -21332,6 +21387,8 @@ function SelectionRadioPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -21378,6 +21435,8 @@ function SelectionRadioPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -21715,6 +21774,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Pop-up buttons / Pull-down buttons",
+    term: "Pop-up button(選んだ値を表示)/ Pull-down button(操作の一覧)",
     color: "#C2542A",
     position: "相互排他的な選択肢を示す「Pop-upボタン」と、関連する操作をまとめる「Pull-downボタン」に分かれる",
     size:
@@ -21750,6 +21810,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Menus(Exposed dropdown menu)",
+    term: "Exposed dropdown menu",
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
@@ -21759,7 +21820,7 @@ const SOURCES = [
     glossary: [
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。",
+      <>メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、<Hl>ラジオボタンのような選択コントロールよりも目立たず</Hl>、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。</>,
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
@@ -21789,6 +21850,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1 / 3.2.1 / 3.2.2、APG Comboboxパターン(Select-Only)",
+    term: "combobox(Select-Only)・listbox(WAI-ARIAのロール)/ HTMLのselect要素",
     color: "#A3821F",
     position: "標準select要素かカスタム実装かで対応が変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
     size:
@@ -21838,6 +21900,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Dropdowns: Design Guidelines",
+    term: "Dropdown(ドロップダウン)",
     color: "#7A4F7E",
     position: "画面スペースの節約に向くが乱用されがちで扱いにくい面もある(数値基準ではなく使い分けの指針)",
     size: <NoData>数値基準なし</NoData>,
@@ -21845,7 +21908,7 @@ const SOURCES = [
     stance:
       "ドロップダウンは、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性選択という4つの用途で使われるとしている。画面スペースを節約でき、ユーザーに標準的なウィジェットとして理解されやすいという長所がある一方、選択肢が多い・長いと使いにくくなるとしている。",
     exceptions:
-      "他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしている。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしている。都道府県・国名のようにタイピングの方が速い場面や、生年月日のようにユーザーが暗記している情報には不向きだとしている。",
+      <>他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしている。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしている。<Hl>都道府県・国名のようにタイピングの方が速い場面</Hl>や、生年月日のようにユーザーが暗記している情報には不向きだとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針。マウス操作とキーボード操作の両方に対応すべきとしている。",
     useCases: [
@@ -21919,6 +21982,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "選択肢がいくつまでならラジオボタン、いくつからセレクト?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "5つ以下ならラジオボタン。場所を節約したいならドロップダウンも使えるが、押す回数と考える手間が増える" },
+      { who: "NN group", color: "#7A4F7E", t: "数の目安はない。場所を節約できる一方、選択肢が多い・長いと使いにくい。国名や生年月日のように入力した方が速いものには使わない" },
+      { who: "Apple", color: "#C2542A", t: "数の目安はない。互いに排他的な選択肢の平らな一覧にポップアップボタンを使う" },
+    ],
+    tip: "5つ以下で場所に余裕があればラジオボタン(全部見えて比べやすい)、それより多いか場所がなければセレクト、数十件を超えて名前を知っているものなら入力して絞り込める欄、という順に考えると、3系列の考え方がつながります。",
+  },
+];
+
 function SelectionSelectPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -21946,6 +22022,8 @@ function SelectionSelectPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -21978,6 +22056,7 @@ function SelectionSelectPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -22014,6 +22093,8 @@ function SelectionSelectPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -22060,6 +22141,8 @@ function SelectionSelectPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -22153,6 +22236,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sliders",
+    term: "Slider",
     color: "#C2542A",
     position: "最小値〜最大値の範囲からおおよその値を選ぶ水平(または垂直)トラック",
     size:
@@ -22162,7 +22246,7 @@ const SOURCES = [
     stance:
       "スライダーは、つまみ(thumb)を最小値と最大値の間で調整できる水平のトラックだとしている。見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側、最大値は末尾側/上側に置くという、人々が慣れ親しんだ方向は守るべきとしている。",
     exceptions:
-      "特に広い範囲の値を扱う場合は、対応するテキストフィールドやステッパーを併設し、正確な値を確認・入力できるようにするとよいとしている。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしている(HIG Slidersの「iOS, iPadOS」の節)。",
+      <>特に広い範囲の値を扱う場合は、<Hl>対応するテキストフィールドやステッパーを併設し</Hl>、正確な値を確認・入力できるようにするとよいとしている。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしている(HIG Slidersの「iOS, iPadOS」の節)。</>,
     accessibility:
       <span><NoData>記載なし。</NoData>一般的なコントロールとして、キーボード操作性などの基準はW3C欄を参照。</span>,
     useCases: [
@@ -22188,6 +22272,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Sliders(使用法・アクセシビリティ)",
+    term: "Slider(標準・中央揃え・範囲指定)",
     color: "#2F7D6E",
     position: "標準・中央揃え・範囲指定の3種類。横/縦・埋め込みアイコンに対応(サイズの詳細は下記「サイズ」を参照)",
     size:
@@ -22199,7 +22284,7 @@ const SOURCES = [
       { term: "停止表示器(ストップインジケーター)", desc: "スライダー上で選べる既定の値を示す小さな目盛りマーカー。つまみを離すと最も近い停止表示器の位置に自動的にスナップする。" },
     ],
     stance:
-      "スライダーには標準・中央揃え・範囲指定の3種類がある。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしている。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしている。",
+      <>スライダーには<Hl>標準・中央揃え・範囲指定の3種類</Hl>がある。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしている。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしている。</>,
     exceptions:
       "停止表示器(既定の選択可能値を示すマーカー)は、多く配置しすぎると視覚的に混雑し値の調整が難しくなるため避けるべきとしている。",
     icons:
@@ -22230,6 +22315,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.1.1 / 2.5.7 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "slider(WAI-ARIAのロール)/ HTMLの input type=\"range\"",
     color: "#A3821F",
     position: "キーボード操作性を明確に要求(レベルA)",
     size:
@@ -22237,7 +22323,7 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。",
     stance:
-      "スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、タップやクリックだけで操作できる方法を求める。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。",
+      <>スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、<Hl>タップやクリックだけで操作できる方法を求める</Hl>。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。</>,
     exceptions:
       "自由な手書きや水彩画のような、操作の軌跡そのものに意味がある「経路依存の入力」は、この基準の対象外としている。",
     accessibility:
@@ -22268,13 +22354,14 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Slider Design: Rules of Thumb",
+    term: "Slider",
     color: "#7A4F7E",
     position: "正確な値の指定には不向き、おおよその値でよい場面に限定(数値基準ではなく使い分けの指針)",
     size:
       "数値基準は明言していない(ラベルの配置については下記「例外・許容ケース」を参照)。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしている。年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべきとしている。",
+      <>スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしている。<Hl>年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべき</Hl>としている。</>,
     exceptions:
       "スライダーやそのつまみの現在値を示すラベルは、指で隠れてしまわないよう、つまみの下ではなく上または横に配置すべきとしている。範囲が広い、または密になるほど、正確な値を選びにくくなる点にも注意が必要だとしている。",
     accessibility:
@@ -22596,6 +22683,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>正確な数値を入れてもらうなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>や<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "正確な値を選ぶ場面でも、スライダーを使う?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "使わない。年齢や体重のように正確な値が要る場面には向かない。おおよその値でよい場面に使う" },
+      { who: "Apple", color: "#C2542A", t: "使ってよいが、広い範囲の値を扱うなら、数値の入力欄やステッパーを横に置いて正確な値を確かめ・入れられるようにする" },
+      { who: "W3C", color: "#A3821F", t: "向き不向きは定めないが、ドラッグせずにタップやクリックだけでも操作できる方法を求める(2.5.7・AA)。例として数値の入力欄を横に置く方法を挙げている" },
+    ],
+    tip: "正確な値が要るならまず入力欄を使い、スライダーを使うときも入力欄を横に置く、という形にすると、3系列のどれにも沿います。入力欄はW3Cの2.5.7の「ドラッグしない操作」にもなります。",
+  },
+];
+
 function SelectionSliderPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -22624,6 +22724,8 @@ function SelectionSliderPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <FitSection />
 
 
@@ -22634,10 +22736,10 @@ function SelectionSliderPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは<strong>実践的な使いどころのガイダンス</strong>を示していますが、WCAGは<strong>操作方法(キーボード操作性)</strong>に焦点を当てた基準を定めています。
+              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは実践的な使いどころを示し、WCAGは<strong>キーボードやドラッグ以外の操作でも使えること</strong>に焦点を当てた基準を定めています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「正確な値が重要な場面ではスライダーを避けるべき」</strong>と明確に述べており、Appleが提案する「テキストフィールドやステッパーの併設」は、この弱点を補う具体的な解決策と言えます。<strong>Googleが公式に定義する「標準・中央揃え・範囲指定」の3種類</strong>は、他の3系列にはない独自の分類です。
+              <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれます(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類です。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準です。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めています。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応です。
@@ -22658,6 +22760,7 @@ function SelectionSliderPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -22695,6 +22798,8 @@ function SelectionSliderPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -22746,6 +22851,8 @@ function SelectionSliderPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   fitGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12 },
   fitCol: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "12px 14px" },
   fitHead: { fontSize: 13, fontWeight: 700, marginBottom: 8 },
@@ -22846,6 +22953,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toggles内「Switches」",
+    term: "Switch(Togglesの見た目の1つ)",
     color: "#C2542A",
     position: "チェックボックスより視覚的な重みが大きい、単一設定のオン・オフ用ネイティブコントロール",
     size:
@@ -22853,7 +22961,7 @@ const SOURCES = [
     colorInfo:
       "オン・オフの状態を、トラックの塗りの有無とつまみの位置の違いで示すことを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。",
     stance:
-      "以下はmacOSでの使い分け。iOS/iPadOSでは、スイッチはリストの行の中でだけ使うとしている(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしている。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしている。",
+      <>以下はmacOSでの使い分け。<Hl>iOS/iPadOSでは、スイッチはリストの行の中でだけ使う</Hl>としている(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしている。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしている。</>,
     exceptions:
       "グループ化されたフォーム内では、行の高さを他のコントロールと揃えるために「ミニスイッチ」を使うことも案内している。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではないとしている(macOSの節)。",
     accessibility:
@@ -22884,6 +22992,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Switch(使用法・アクセシビリティ)",
+    term: "Switch",
     color: "#2F7D6E",
     position: "独立した設定を即座にオン/オフするための推奨コントロール(月額/年額のような相反する2つの選択肢の切り替えには使わない)",
     size:
@@ -22895,7 +23004,7 @@ const SOURCES = [
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられている。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は保存操作なしに即座に反映されるべきとしている。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしている。",
+      <>設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられている。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は<Hl>保存操作なしに即座に反映されるべき</Hl>としている。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしている。</>,
     exceptions:
       "スイッチは、ほかの設定と独立した1つの設定のオン/オフを制御するためのもので、月額/年額のような相反する2つの選択肢を切り替えるためのものではないとしている。リスト表示/マップ表示の切り替えのように、複数の選択肢から1つだけを選ぶ場面では、スイッチではなく接続されたボタングループを使うべきとしている。またスイッチはボタンの代替にはならず(人はボタンに行動喚起を期待する)、保存操作を要する複数選択にスイッチを使うことも避けるべきで、その場合はチェックボックスを使うべきとしている。",
     accessibility:
@@ -22924,6 +23033,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11 / 3.2.2",
+    term: "switch(WAI-ARIAのロール)。HTMLには標準の部品なし",
     color: "#A3821F",
     position: "形状を問わず状態を支援技術に正しく伝えることを要求",
     size:
@@ -22935,7 +23045,7 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしている。見た目上はボタンやチェックボックスと異なるが、WCAGは形状を問わず同じ基準を適用する。スイッチの切り替えは「設定の変更」にあたるため、3.2.2(レベルA)により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要がある。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではない。",
+      <>スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしている。見た目上はボタンやチェックボックスと異なるが、WCAGは形状を問わず同じ基準を適用する。スイッチの切り替えは「設定の変更」にあたるため、<Hl>3.2.2(レベルA)</Hl>により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要がある。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではない。</>,
     exceptions:
       "HTMLには広く使える標準のスイッチ部品がないため、Webのスイッチの多くは独自の実装になる。その場合は、role=\"switch\"とaria-checkedなどで、スイッチであることと状態(オン・オフ)を支援技術に伝える必要がある。",
     accessibility:
@@ -22967,6 +23077,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Toggle-Switch Guidelines",
+    term: "Toggle switch(トグルスイッチ)",
     color: "#7A4F7E",
     position: "オンとオフの2状態+即時反映が前提の場面に限定使用",
     size:
@@ -22974,7 +23085,7 @@ const SOURCES = [
     colorInfo:
       <span><NoData>数値基準なし。</NoData>動きや色などの視覚的な手がかりを一貫して使い、プラットフォームの慣習に沿うべきとしている。</span>,
     stance:
-      "トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、選択結果が即座に反映される場面で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。",
+      <>トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、<Hl>選択結果が即座に反映される場面</Hl>で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。</>,
     exceptions:
       "ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしている。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしている。",
     accessibility:
@@ -23108,6 +23219,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>保存ボタンで確定するフォームの中なら<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "押したらすぐに反映させる必要がある?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "ある。保存ボタンなしで、すぐに反映させる。保存や送信で確定する場面ではスイッチではなくチェックボックスを使う" },
+      { who: "Apple", color: "#C2542A", t: "すぐに反映するかどうかは書いていない。使い分けの理由は見た目の重さで、macOSではチェックボックスをスイッチに置き換えない。iOS・iPadOSではリストの行の中で使う" },
+      { who: "W3C", color: "#A3821F", t: "すぐに反映するかは定めていない。ただし切り替えただけで別の画面に移ったり新しいウィンドウを開いたりするなら、事前に知らせる(3.2.2)" },
+    ],
+    tip: "スイッチは「押した瞬間に効く設定」にだけ使い、保存ボタンのあるフォームではチェックボックスにする、というGoogle・NN groupの使い分けに合わせれば、Apple・W3Cの決まりとも食い違いません。",
+  },
+];
+
 function SelectionTogglePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -23136,6 +23260,8 @@ function SelectionTogglePage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <SizeInfographic />
@@ -23144,10 +23270,10 @@ function SelectionTogglePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>即座に反映することを明示しているのはGoogleとNielsen Norman Group</strong>で、NN groupは特に、保存ボタンを必要とせず結果が即座に反映される点を、チェックボックスとの決定的な違いとして挙げています。保存・送信ボタンで確定するフォームにトグルを混ぜると、「もう反映されたのか」が分からず混乱を招きます。
+              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>押したらすぐ反映させるかどうか</strong>が系列で分かれる点で、GoogleとNN groupは「すぐ反映」をチェックボックスとの違いにしています(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              Appleは(macOSで)<strong>すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではない</strong>としていますが、理由は即時反映ではなく、<strong>見た目の重さと一貫性</strong>です(iOS/iPadOSでは、スイッチはリストの行の中で使います)。Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わない</strong>と明記しています。WCAGは即時反映を定めておらず、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求めます。
+              Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしています。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求めます。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になります。
@@ -23168,6 +23294,7 @@ function SelectionTogglePage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -23204,6 +23331,8 @@ function SelectionTogglePage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -23250,6 +23379,8 @@ function SelectionTogglePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -23364,12 +23495,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)",
+    term: <NoData>独立した部品なし(日付ピッカーのinline・compactスタイル)</NoData>,
     color: "#C2542A",
     position: "「カレンダー」という独立コンポーネント名はないが、日付ピッカーの.inline/.compactスタイルが実際に月表示のカレンダーグリッドを描画する。単一の日付選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "「日付・タイムピッカー」ページで比較したAppleのピッカーはホイール型を中心に扱いましたが、UIDatePickerには.inlineスタイルもあり、これは十分なスペースがある場合にモーダルの手間なくフルサイズのカレンダーを直接表示するものだとされている。.compactスタイルもタップすると同じカレンダーグリッドを開く。Appleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントではなく日付ピッカーの1バリエーションという位置づけ。",
+      "UIDatePickerには.inlineスタイルがあり、これは十分なスペースがある場合にモーダルの手間なくフルサイズのカレンダーを直接表示するものだとされている。.compactスタイルもタップすると同じカレンダーグリッドを開く。Appleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントではなく日付ピッカーの1バリエーションという位置づけ。",
     exceptions:
       ".inline/.compactスタイルはあくまで単一の日付を選ぶためのコントロールで、複数の予定(イベント)を同時に表示・管理するスケジュール/アジェンダのビューではない。カレンダーアプリの予定自体を表示・編集する場合は、EventKitUIというシステムフレームワーク(EKEventViewController等)を呼び出す形になり、これもデザインパターンというよりOS標準UIを呼び出す技術的な仕組み。",
     accessibility: <NoData>記載なし</NoData>,
@@ -23411,6 +23543,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Date pickers(Modalバリアントのカレンダーグリッド)",
+    term: <NoData>独立した部品なし(Date pickerのモーダル)</NoData>,
     color: "#2F7D6E",
     position: "「カレンダー」という独立コンポーネント名はないが、Date pickersのModalバリアントが月表示のカレンダーグリッドUIそのもの。単一の日付(または範囲)選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
     size: <NoData>数値は未確認</NoData>,
@@ -23459,6 +23592,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Grid (Interactive Tabular Data) Pattern(「日付・タイムピッカー」ページのDate Picker Dialog例と同じ基盤)",
+    term: "grid(WAI-ARIAのロール)",
     color: "#A3821F",
     position: "カレンダーグリッド専用のパターンではなく、Date Picker Dialog例が使う汎用のGridパターンがそのまま基盤になる。複数の予定を持つスケジュール/アジェンダ向けの完成された実例はない",
     size: "カレンダー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各日・各予定のセルにも適用される。",
@@ -23467,9 +23601,9 @@ const SOURCES = [
       { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。「日付・タイムピッカー」ページのDate Picker Dialog例と同じ仕組みで、" },
     ],
     stance:
-      "APG本文・Layout Grid Examplesページを直接確認したところ、カレンダー・アジェンダ専用の完成された実例(ワークドエグザンプル)は掲載されていない。掲載されているのはrelated documents list・pill list・search resultsの3例のみ。一方でGrid (Interactive Tabular Data) Patternの一般原則(role=\"grid\"、行・列のセル構造)は、「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ仕組みであり、複数の予定を日・週・月のマス目に並べるスケジュールビューを自作する際の実装の土台になり得るとしている。",
+      "APGには、カレンダー・アジェンダ専用の完成された実例はない。Layout Gridの実例はrelated documents list・pill list・search resultsの3例のみ。一方でGrid (Interactive Tabular Data) Patternの一般原則(role=\"grid\"、行・列のセル構造)は、「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ仕組みであり、複数の予定を日・週・月のマス目に並べるスケジュールビューを自作する際の実装の土台になり得るとしている。",
     exceptions:
-      "「日付・タイムピッカー」ページのDate Picker Dialog例は単一の日付を選ぶ一過性のダイアログですが、スケジュール/予定表は複数の予定を持つ永続的な画面であるため、単純に同じ実装を流用できるわけではない。APG本文にも、複数イベントを持つカレンダービュー特有の追加要件(1つのセルに複数の予定がある場合の扱いなど)についての記載はない。",
+      "「日付・タイムピッカー」ページのDate Picker Dialog例は単一の日付を選ぶ一時的なダイアログで、スケジュール/予定表は複数の予定を持つ永続的な画面であるため、単純に同じ実装を流用できるわけではない。APG本文にも、複数イベントを持つカレンダービュー特有の追加要件(1つのセルに複数の予定がある場合の扱いなど)についての記載はない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― グリッドロール・ローミングtabindexによるキーボード操作性(2.1.1)が中心ですが、カレンダー・アジェンダに特有の要件(予定の読み上げ順序、複数予定の扱いなど)はAPGでカバーされていない。",
     useCases: [
@@ -23497,6 +23631,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)",
+    term: "Calendar picker(日付入力の記事の中で扱う)",
     color: "#7A4F7E",
     position: "「カレンダー」単体を論じた記事はないが、この記事内でカレンダーピッカー(グリッドUI)の使いどころを具体的に論じている。日付入力の文脈であり、複数の予定を並べるスケジュール/アジェンダ表示について論じたものではない",
     size: "寸法の基準はない。",
@@ -23504,7 +23639,7 @@ const SOURCES = [
     stance:
       "「日付・タイムピッカー」ページで確認した通り、この記事はカレンダーピッカーを「現在に近い(1年未満程度の)日付」や「日付の範囲選択」に向くとしている。誕生日のような遠い日付ではフリーテキスト入力を推奨しており、カレンダーグリッドUIは万能ではなく用途を選ぶという立場。",
     exceptions:
-      "スケジュール/予定表(複数の予定を並べて表示・管理するアジェンダビュー)そのものを扱った記事は見つかっていない。calendar UX・week view・scheduling app design・appointment bookingなど複数の観点で検索しましたが、この記事以上に近い一次情報はなかった。",
+      "スケジュール/予定表(複数の予定を並べて表示・管理するアジェンダビュー)そのものを扱った記事は見つかっていない。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
     useCases: [
       "近い将来の日付・範囲選択にはカレンダーピッカー(グリッドUI)を使う",
@@ -23646,6 +23781,7 @@ function TextInputsCalendarPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -23686,6 +23822,8 @@ function TextInputsCalendarPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -23739,6 +23877,8 @@ function TextInputsCalendarPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

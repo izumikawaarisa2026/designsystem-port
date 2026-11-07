@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / スライダー」ページ。
@@ -34,6 +34,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sliders",
+    term: "Slider",
     color: "#C2542A",
     position: "最小値〜最大値の範囲からおおよその値を選ぶ水平(または垂直)トラック",
     size:
@@ -43,7 +44,7 @@ const SOURCES = [
     stance:
       "スライダーは、つまみ(thumb)を最小値と最大値の間で調整できる水平のトラックだとしている。見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側、最大値は末尾側/上側に置くという、人々が慣れ親しんだ方向は守るべきとしている。",
     exceptions:
-      "特に広い範囲の値を扱う場合は、対応するテキストフィールドやステッパーを併設し、正確な値を確認・入力できるようにするとよいとしている。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしている(HIG Slidersの「iOS, iPadOS」の節)。",
+      <>特に広い範囲の値を扱う場合は、<Hl>対応するテキストフィールドやステッパーを併設し</Hl>、正確な値を確認・入力できるようにするとよいとしている。例外として、iOS/iPadOSでは音量の調整にスライダーを使わず、専用のボリュームビュー(音量のスライダーと出力先の切り替えを含む部品)を使うべきとしている(HIG Slidersの「iOS, iPadOS」の節)。</>,
     accessibility:
       <span><NoData>記載なし。</NoData>一般的なコントロールとして、キーボード操作性などの基準はW3C欄を参照。</span>,
     useCases: [
@@ -69,6 +70,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Sliders(使用法・アクセシビリティ)",
+    term: "Slider(標準・中央揃え・範囲指定)",
     color: "#2F7D6E",
     position: "標準・中央揃え・範囲指定の3種類。横/縦・埋め込みアイコンに対応(サイズの詳細は下記「サイズ」を参照)",
     size:
@@ -80,7 +82,7 @@ const SOURCES = [
       { term: "停止表示器(ストップインジケーター)", desc: "スライダー上で選べる既定の値を示す小さな目盛りマーカー。つまみを離すと最も近い停止表示器の位置に自動的にスナップする。" },
     ],
     stance:
-      "スライダーには標準・中央揃え・範囲指定の3種類がある。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしている。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしている。",
+      <>スライダーには<Hl>標準・中央揃え・範囲指定の3種類</Hl>がある。標準スライダーはゼロや範囲の先頭から1つの値を選ぶ場合に、中央揃えスライダーはゼロ(既定値)が範囲の中央にある正負の値を選ぶ場合に、範囲指定スライダーは1つのトラック上で最小値・最大値の2つを選ぶ場合に使うとしている。ほとんどのスライダーは横方向に配置し、特に範囲指定スライダーを縦方向で使うことは認知負荷が大きくなりすぎるため避けるべきとしている。</>,
     exceptions:
       "停止表示器(既定の選択可能値を示すマーカー)は、多く配置しすぎると視覚的に混雑し値の調整が難しくなるため避けるべきとしている。",
     icons:
@@ -111,6 +113,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.1.1 / 2.5.7 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "slider(WAI-ARIAのロール)/ HTMLの input type=\"range\"",
     color: "#A3821F",
     position: "キーボード操作性を明確に要求(レベルA)",
     size:
@@ -118,7 +121,7 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。",
     stance:
-      "スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、タップやクリックだけで操作できる方法を求める。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。",
+      <>スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、<Hl>タップやクリックだけで操作できる方法を求める</Hl>。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。</>,
     exceptions:
       "自由な手書きや水彩画のような、操作の軌跡そのものに意味がある「経路依存の入力」は、この基準の対象外としている。",
     accessibility:
@@ -149,13 +152,14 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Slider Design: Rules of Thumb",
+    term: "Slider",
     color: "#7A4F7E",
     position: "正確な値の指定には不向き、おおよその値でよい場面に限定(数値基準ではなく使い分けの指針)",
     size:
       "数値基準は明言していない(ラベルの配置については下記「例外・許容ケース」を参照)。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしている。年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべきとしている。",
+      <>スライダーは、正確な値そのものが重要ではなく、おおよその値で十分な場面に最も適しているとしている。<Hl>年齢や体重のような正確な数値が求められる場面では、スライダーは避けるべき</Hl>としている。</>,
     exceptions:
       "スライダーやそのつまみの現在値を示すラベルは、指で隠れてしまわないよう、つまみの下ではなく上または横に配置すべきとしている。範囲が広い、または密になるほど、正確な値を選びにくくなる点にも注意が必要だとしている。",
     accessibility:
@@ -477,6 +481,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>正確な数値を入れてもらうなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>や<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "正確な値を選ぶ場面でも、スライダーを使う?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "使わない。年齢や体重のように正確な値が要る場面には向かない。おおよその値でよい場面に使う" },
+      { who: "Apple", color: "#C2542A", t: "使ってよいが、広い範囲の値を扱うなら、数値の入力欄やステッパーを横に置いて正確な値を確かめ・入れられるようにする" },
+      { who: "W3C", color: "#A3821F", t: "向き不向きは定めないが、ドラッグせずにタップやクリックだけでも操作できる方法を求める(2.5.7・AA)。例として数値の入力欄を横に置く方法を挙げている" },
+    ],
+    tip: "正確な値が要るならまず入力欄を使い、スライダーを使うときも入力欄を横に置く、という形にすると、3系列のどれにも沿います。入力欄はW3Cの2.5.7の「ドラッグしない操作」にもなります。",
+  },
+];
+
 export default function SelectionSliderPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -509,6 +526,8 @@ export default function SelectionSliderPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
           <FitSection />
 
 
@@ -519,10 +538,10 @@ export default function SelectionSliderPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは<strong>実践的な使いどころのガイダンス</strong>を示していますが、WCAGは<strong>操作方法(キーボード操作性)</strong>に焦点を当てた基準を定めています。
+              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは実践的な使いどころを示し、WCAGは<strong>キーボードやドラッグ以外の操作でも使えること</strong>に焦点を当てた基準を定めています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「正確な値が重要な場面ではスライダーを避けるべき」</strong>と明確に述べており、Appleが提案する「テキストフィールドやステッパーの併設」は、この弱点を補う具体的な解決策と言えます。<strong>Googleが公式に定義する「標準・中央揃え・範囲指定」の3種類</strong>は、他の3系列にはない独自の分類です。
+              <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれます(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類です。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準です。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めています。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応です。
@@ -543,6 +562,7 @@ export default function SelectionSliderPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -580,6 +600,8 @@ export default function SelectionSliderPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -631,6 +653,8 @@ export default function SelectionSliderPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   fitGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12 },
   fitCol: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "12px 14px" },
   fitHead: { fontSize: 13, fontWeight: 700, marginBottom: 8 },

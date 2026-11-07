@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / 日付・タイムピッカー」ページ。
@@ -43,6 +43,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Pickers",
+    term: "Date picker(Pickersの一種)",
     color: "#C2542A",
     position: "iOS/iPadOSの日付ピッカーは、コンパクト・インライン・ホイール・自動の4スタイルと、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル",
     size:
@@ -81,18 +82,19 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Date pickers / Time pickers",
+    term: "Date picker・Time picker",
     color: "#2F7D6E",
     position: "日付はドッキング・モーダル・モーダル入力の3種類(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類",
     size: "寸法のdp値は確認できていない。日付ピッカーのコンテナの角丸は、シェイプスケールのExtra large(28dp)が既定。",
-    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値です(Material Components for Android)。",
+    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
     glossary: [
       { term: "ドッキング / モーダル / モーダル入力", desc: "ドッキングは入力欄に付いた形で、タップするとカレンダーがドロップダウンで開く。モーダルはダイアログ形式のカレンダー。モーダル入力はダイアログ内のテキスト入力。モーダルとモーダル入力は期間(開始日〜終了日)の選択にも使える。" },
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは時計の文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類です(Material Components for Androidのドキュメントで直接確認、2026-09)。",
+      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類(Material Components for Androidのドキュメントで直接確認、2026-09)。",
     exceptions:
-      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとされている(検索結果による確認)。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
+      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとしている(M3 Date pickersのガイドラインで確認、2026-11)。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応しており、ダイアログを開くとタイトルが読み上げられる。タッチターゲットの具体的な数値は確認できていない。",
     useCases: [
@@ -124,6 +126,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
+    term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
     position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはrole=\"dialog\"内のrole=\"grid\"で",
     size:
@@ -133,7 +136,7 @@ const SOURCES = [
       { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。" },
     ],
     stance:
-      "日付ピッカーの例は、日付を文字で入力できる欄(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装するとしている。月・年の見出しにはaria-live=\"polite\"を設定し、変化を支援技術に知らせるべきとしている。",
+      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装するとしている。月・年の見出しにはaria-live="polite"を設定し、変化を支援技術に知らせるべきとしている。</>,
     exceptions:
       "ダイアログを開いた際、入力欄が空または無効な日付なら現在の日付にフォーカスを当て、既に有効な日付が入っていればカレンダー内の対応する日にフォーカスを当てるとしている。Esc・OKボタン・Cancelボタンのいずれでもダイアログを閉じられ、閉じた後はトリガーボタンにフォーカスが戻るとしている。なお、APGの例は考え方を示すもので、そのまま本番には使わないよう公式に注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差がある、とも書かれている)。実装したら、実際の支援技術で確かめる。",
     accessibility:
@@ -163,12 +166,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields: UX Design Guidelines",
+    term: "Date input(日付の入力欄)・Calendar picker",
     color: "#7A4F7E",
     position: "多くの場面ではフリーテキスト入力を推奨。カレンダーピッカーは近い将来の日付・範囲選択に限定",
     size: "数値基準としては、選択肢が10個未満の場合のみドロップダウンを検討すべきとしている。日付専用の寸法基準はない。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "多くの場面で、ユーザーには日付を自由入力(フリーテキスト)で入力させることを推奨している。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的だとしている。カレンダーピッカーは、現在に近い(1年未満程度の)日付や、日付の範囲選択(2ヶ月分を並べて表示するなど)に向いているとしている。ドロップダウンは10個未満の少ない選択肢の場合のみに限定すべきで、月/日/年を分割したドロップダウンは不要なクリックを増やすため避けるべきとしている。",
+      <>多くの場面で、ユーザーには<Hl>日付を自由入力(フリーテキスト)で入力させることを推奨している</Hl>。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的だとしている。カレンダーピッカーは、現在に近い(1年未満程度の)日付や、日付の範囲選択(2ヶ月分を並べて表示するなど)に向いているとしている。ドロップダウンは10個未満の少ない選択肢の場合のみに限定すべきで、月/日/年を分割したドロップダウンは不要なクリックを増やすため避けるべきとしている。</>,
     exceptions:
       "日付の書式について、9-3-17、09/08/17、9.3.17のような入力の揺れを、特殊文字の入力を強制せず受け入れるべきとしている。月名は省略せず綴り、フィールドを明確にラベル付けすべきとしている(「10/11/2016」のような表記は米国式・欧州式で解釈が分かれ曖昧になるため)。到着日より前の出発日のような論理的にありえない選択肢は事前に除外し、利用できない日は選択不可にし、エラー時には具体的な訂正案を示すべきとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
@@ -512,6 +516,20 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>予定を一覧で見せる画面は<PageLink to="/components/text-inputs/calendar">カレンダー(スケジュール/予定表)</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "日付は、入力欄で入れる?カレンダーで選ぶ?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "多くの場面では入力欄が速い。誕生日のような遠い日付は特に入力欄。カレンダーは近い日付(1年未満ほど)と期間の選択に向く" },
+      { who: "W3C(APG)", color: "#A3821F", t: "APGの例は、形式を添えた入力欄と、カレンダーを開くボタンの組み合わせ。カレンダーは入力の補助" },
+      { who: "Google", color: "#2F7D6E", t: "入力欄とカレンダーの両方を持つ形(ドッキング)、カレンダー(モーダル)、入力(モーダル入力)を使い分ける。遠い日付にはカレンダーを使わない" },
+      { who: "Apple", color: "#C2542A", t: "コンパクト・インライン・ホイールのスタイルを場所に合わせて選ぶ。カレンダーで日を選ぶほか、数字キーで入力もできる" },
+    ],
+    tip: "入力欄を基本にし、近い日付や期間を選ぶ場面でカレンダーを補助として開けるようにすると、4系列のどれとも食い違いません。誕生日の入力でカレンダーを先に出すのは避けます。",
+  },
+];
+
 export default function SelectionDateTimePickerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -545,6 +563,8 @@ export default function SelectionDateTimePickerPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>入力方法の使い分け(4種類)</h2>
@@ -559,13 +579,10 @@ export default function SelectionDateTimePickerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「多くの場面ではフリーテキスト入力の方が効率的」</strong>と明確に主張しています。W3C(ARIA APGのDate Picker Dialog例)も、<strong>日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンの組み合わせ</strong>で、カレンダーは入力の補助という位置づけです。つまり両者は対立せず、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立します。
+              <strong>日付を入力欄で入れるか、カレンダーで選ぶか</strong>は系列ごとに重みが違いますが、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立します(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、<strong>カレンダーピッカーは近い将来の日付や期間の選択に向く</strong>としています。Googleにも「生年月日のような遠い日付にはモーダルカレンダーを使わない」という指針があるとされます(公式本文は未確認)。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cの実装パターンは非常に具体的で、<strong>上下キー=週・左右キー=日、Page Up/Down=月(Shiftで年)</strong>というキー操作の割り当てまで定義されています。カレンダーUIを自作する場合、この操作体系に沿わせることが実装上の目安になります。
+              NN groupは、カレンダーピッカーは近い将来の日付や期間の選択に向くとしています。Googleも<strong>生年月日のような遠い日付にはモーダルのカレンダーを使わず</strong>、モーダル入力かドッキングを使うとしています。
             </p>
             <p style={styles.synthesisText}>
               AppleとGoogleは、<strong>1つの部品に複数の見た目(パターン)を用意</strong>しています。AppleはiOSでコンパクト・インライン・ホイール、macOSでテキスト形式・グラフィカル形式を持ち、Googleは日付でドッキング・モーダル・モーダル入力(+期間選択)、時刻でダイヤル・入力を持ちます。どちらも<strong>カレンダーやダイヤルと、キーボード入力の両方を行き来できる</strong>ようにしている点は、NN groupの「自由入力が効率的な場面が多い」という指摘とも両立する設計です。
@@ -586,6 +603,7 @@ export default function SelectionDateTimePickerPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -622,6 +640,8 @@ export default function SelectionDateTimePickerPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -668,6 +688,8 @@ export default function SelectionDateTimePickerPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

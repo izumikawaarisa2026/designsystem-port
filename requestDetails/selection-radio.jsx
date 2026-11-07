@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / ラジオボタン」ページ。
@@ -19,6 +19,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toggles内「Radio buttons」(macOS)",
+    term: "Radio button(Togglesの見た目の1つ。macOSのみ)",
     color: "#C2542A",
     position: "小さな円形+ラベル、2〜5個のグループで相互排他的選択に使用",
     size:
@@ -26,7 +27,7 @@ const SOURCES = [
     colorInfo:
       "選択時は塗りつぶされた円、非選択時は空の円という形状の違いで状態を示すことを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。",
     stance:
-      "ラジオボタンはmacOS向けの部品で、iOS/iPadOSには標準のラジオボタンがない(HIG Togglesでは、ラジオボタンはmacOSの節で説明されている)。ラジオボタンは、ラベルを伴う小さな円形のボタンで、通常2〜5個のグループとして表示され、相互排他的な選択肢の集合を提示するものと定義されている。単一のオン・オフ設定を示したい場合は、ラジオボタンではなくチェックボックスを使うべきとしている。",
+      <>ラジオボタンはmacOS向けの部品で、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG Togglesでは、ラジオボタンはmacOSの節で説明されている)。ラジオボタンは、ラベルを伴う小さな円形のボタンで、通常2〜5個のグループとして表示され、相互排他的な選択肢の集合を提示するものと定義されている。単一のオン・オフ設定を示したい場合は、ラジオボタンではなくチェックボックスを使うべきとしている。</>,
     exceptions:
       "ラジオボタンも「不定(mixed)」状態を表示できるが、追加のラジオボタンで複数の状態を表現できるため、この状態が有用な場面はまれだとしている。設定や項目が混在状態を示したい場合は、チェックボックスの使用を検討すべきとしている。また、選択肢が多すぎるリストは避け、水平に並べる場合は一貫した間隔を保つべきとしている。",
     accessibility:
@@ -57,6 +58,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Radio button(使用法・アクセシビリティ)",
+    term: "Radio button",
     color: "#2F7D6E",
     position: "リストから1つを選ぶ推奨コントロール。5個以下の選択肢に向く",
     size:
@@ -68,7 +70,7 @@ const SOURCES = [
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "ユーザーが複数の選択肢から1つを選ぶための推奨コントロールと定義されている。リストから1つの項目しか選択できない場合はラジオボタン(スイッチではない)を使うべきとし、選択肢が5つ以下の場合に向くとしている。画面スペースを節約したい場合はドロップダウンメニューの使用を検討できるが、ドロップダウンはクリック数・認知負荷の両面で追加の手間になるとも指摘している。",
+      <>ユーザーが複数の選択肢から1つを選ぶための推奨コントロールと定義されている。リストから1つの項目しか選択できない場合はラジオボタン(スイッチではない)を使うべきとし、<Hl>選択肢が5つ以下の場合に向く</Hl>としている。画面スペースを節約したい場合はドロップダウンメニューの使用を検討できるが、ドロップダウンはクリック数・認知負荷の両面で追加の手間になるとも指摘している。</>,
     exceptions:
       "ラジオボタンのネスト(入れ子)や、複数選択のための使用は避けるべきとしている。配置の節では、常に1つのオプションが事前選択された状態で開始すべきとしている(ただし操作の節では「1つが選ばれた状態か、何も選ばれていない状態で始められる」とも書いている)。積み重ねた(縦の)レイアウトを基本とし、水平方向のリストは避けるべきとしている。選択済みのラジオボタンは、ユーザー操作だけでは選択解除できないため、解除が必要な場合は「該当なし」の選択肢や「選択をクリア」といった別の手段を用意すべきとしている。",
     accessibility:
@@ -97,6 +99,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
+    term: "radio(WAI-ARIAのロール)/ HTMLの input type=\"radio\"",
     color: "#A3821F",
     position: "状態と相互排他性を支援技術に正しく伝えることを要求",
     size:
@@ -104,7 +107,7 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択状態を示す塗りつぶしの円などの視覚的要素は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1により、色だけで選択状態を示すことも避けるべき。",
     stance:
-      "ラジオボタンのような独自UIコンポーネントは、その名前(ラベル)・役割(ラジオボタンであること)・状態(選択・非選択)、そしてグループ内での相互排他性が、支援技術から取得・設定できなければならないとしている。",
+      <>ラジオボタンのような独自UIコンポーネントは、その名前(ラベル)・役割(ラジオボタンであること)・状態(選択・非選択)、そして<Hl>グループ内での相互排他性</Hl>が、支援技術から取得・設定できなければならないとしている。</>,
     exceptions:
       "標準的なHTMLのinput type=\"radio\"要素を同じname属性でグループ化していれば、ブラウザが自動的にこれらの情報を提供するため、通常は追加の対応は不要。独自にデザインしたカスタムラジオボタンを実装する場合にのみ、この基準への配慮が必要になる。",
     accessibility:
@@ -133,6 +136,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Checkboxes vs. Radio Buttons",
+    term: "Radio button",
     color: "#7A4F7E",
     position: "相互排他的な選択肢に限定使用(数値基準ではなく使い分けの指針)",
     size:
@@ -142,7 +146,7 @@ const SOURCES = [
     stance:
       "2つ以上の選択肢があり、それらが相互排他的で、ユーザーが必ず1つを選ばなければならない場合にラジオボタンを使うべきとしている。選択肢は縦方向に1行1つで配置し、常にすべての選択肢を可視状態に保つことを推奨している。",
     exceptions:
-      "デフォルトで1つの選択肢を選んだ状態にしておくべきとしている(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」でも、ほとんどの場合デフォルト選択が優れたUXになると結論づけている)。選択肢が網羅的でない場合は「その他」の選択肢を用意すべきとしている。",
+      <><Hl>デフォルトで1つの選択肢を選んだ状態にしておくべき</Hl>としている(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」でも、ほとんどの場合デフォルト選択が優れたUXになると結論づけている)。選択肢が網羅的でない場合は「その他」の選択肢を用意すべきとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、選択のしやすさに関する設計根拠。",
     useCases: [
@@ -275,6 +279,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>いくつでも選べるなら<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、選択肢が多いなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "最初から1つを選んでおく?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "ほとんどの場合は選んでおく。一度選ぶと押しても外せないため。ただし敬称・性別・寄付額のように押し付けがましくなる質問では選ばない" },
+      { who: "Google", color: "#2F7D6E", t: "配置の節では「常に1つを選んだ状態で始める」、操作の節では「何も選んでいない状態でも始められる」と書いている。外す必要があるなら「該当なし」などの選択肢を用意する" },
+      { who: "Apple", color: "#C2542A", t: "既定の選択についての記載なし" },
+    ],
+    tip: "迷ったら1つを選んでおきます(NN group)。選ばせたくない質問では、何も選ばない状態で始め、「該当なし」「回答しない」の選択肢を足すと、Googleの書き方とも食い違いません。",
+  },
+  {
+    q: "選択肢を横に並べてよい?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "縦に1行1つが基本。横に並べるのは避ける(Google)。縦に並べ、すべての選択肢を常に見せる(NN group)" },
+      { who: "Apple(macOS)", color: "#C2542A", t: "横に並べる場合は、選択肢の間隔をそろえる(横並びを禁じてはいない)" },
+    ],
+    tip: "縦に並べると、ラベルの長さが違っても読みやすく、押し間違いも減ります。横に並べるのは「はい/いいえ」のような短い2〜3択だけにし、その場合も間隔をそろえます。",
+  },
+];
+
 export default function SelectionRadioPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -307,6 +332,8 @@ export default function SelectionRadioPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <SizeInfographic />
@@ -318,7 +345,7 @@ export default function SelectionRadioPage() {
               ラジオボタンは4系列とも<strong>「複数の選択肢から1つだけを選ぶ」相互排他的な用途</strong>で一致しています。特にApple・Google・Nielsen Norman Groupは、チェックボックス(複数選択)との役割の違いを明確に示しています。
             </p>
             <p style={styles.synthesisText}>
-              <strong>既定で1つを選んでおく</strong>ことは、Nielsen Norman Groupがはっきり勧めています。理由は、ラジオボタンは一度選ぶと押しても選択を外せない(何も選ばれていない状態に戻せない)ため、最初から1つ選んでおくほうが分かりやすいからです。例外として、敬称・性別や寄付額のように<strong>押し付けがましい・相手を不快にする既定値</strong>は、既定で選ばない理由として最も妥当なものに挙げ、その場合は質問自体が必要か、別の部品にできないかを考えるよう勧めています。Googleは配置の節で「常に1つを事前に選択」とする一方、操作の節では「何も選ばれていない状態でも始められる」とも書いており、一致とまでは言い切れません。Appleには既定の選択についての記述は見当たりません。また<strong>Googleは「選択肢が5個以下の場合に向く」という具体的な目安</strong>を持ち、選択肢が多い/省スペースにしたい場合はドロップダウンを検討すべきとしています(ただしクリック数・認知負荷の面で追加の手間になるとも指摘)。
+              <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれます(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしています(ただし操作の手間は増えます)。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求しています。
@@ -339,6 +366,7 @@ export default function SelectionRadioPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -375,6 +403,8 @@ export default function SelectionRadioPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -421,6 +451,8 @@ export default function SelectionRadioPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

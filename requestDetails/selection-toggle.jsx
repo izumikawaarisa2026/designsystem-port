@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / トグルスイッチ」ページ。
@@ -20,6 +20,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toggles内「Switches」",
+    term: "Switch(Togglesの見た目の1つ)",
     color: "#C2542A",
     position: "チェックボックスより視覚的な重みが大きい、単一設定のオン・オフ用ネイティブコントロール",
     size:
@@ -27,7 +28,7 @@ const SOURCES = [
     colorInfo:
       "オン・オフの状態を、トラックの塗りの有無とつまみの位置の違いで示すことを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。",
     stance:
-      "以下はmacOSでの使い分け。iOS/iPadOSでは、スイッチはリストの行の中でだけ使うとしている(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしている。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしている。",
+      <>以下はmacOSでの使い分け。<Hl>iOS/iPadOSでは、スイッチはリストの行の中でだけ使う</Hl>としている(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対をなす状態を、異なる見た目で切り替えて示すコントロールだとしている。チェックボックスより視覚的な重みがあるため、複数の設定をまとめて切り替える場合など、チェックボックスより大きな機能範囲を制御する場面に向いているとしている。</>,
     exceptions:
       "グループ化されたフォーム内では、行の高さを他のコントロールと揃えるために「ミニスイッチ」を使うことも案内している。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではないとしている(macOSの節)。",
     accessibility:
@@ -58,6 +59,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Switch(使用法・アクセシビリティ)",
+    term: "Switch",
     color: "#2F7D6E",
     position: "独立した設定を即座にオン/オフするための推奨コントロール(月額/年額のような相反する2つの選択肢の切り替えには使わない)",
     size:
@@ -69,7 +71,7 @@ const SOURCES = [
       { term: "カラーロール", desc: "色そのものではなく「役割」で色を管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように、UI内でその色が果たす役割を指定する。実際の色の値はテーマ(ライト/ダークなど)側で決まるため、テーマが切り替わっても同じ役割名を参照するだけで自動的に適切な色になる。" },
     ],
     stance:
-      "設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられている。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は保存操作なしに即座に反映されるべきとしている。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしている。",
+      <>設定やその他の独立したオプションを調整するのに最適なコントロールと位置づけられている。オン/オフ・真/偽のような二者択一を選ぶもので、切り替えた効果は<Hl>保存操作なしに即座に反映されるべき</Hl>としている。リスト内の項目を個別に制御できる場合はスイッチ(ラジオボタンではない)を使うべきとしている。</>,
     exceptions:
       "スイッチは、ほかの設定と独立した1つの設定のオン/オフを制御するためのもので、月額/年額のような相反する2つの選択肢を切り替えるためのものではないとしている。リスト表示/マップ表示の切り替えのように、複数の選択肢から1つだけを選ぶ場面では、スイッチではなく接続されたボタングループを使うべきとしている。またスイッチはボタンの代替にはならず(人はボタンに行動喚起を期待する)、保存操作を要する複数選択にスイッチを使うことも避けるべきで、その場合はチェックボックスを使うべきとしている。",
     accessibility:
@@ -98,6 +100,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11 / 3.2.2",
+    term: "switch(WAI-ARIAのロール)。HTMLには標準の部品なし",
     color: "#A3821F",
     position: "形状を問わず状態を支援技術に正しく伝えることを要求",
     size:
@@ -109,7 +112,7 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしている。見た目上はボタンやチェックボックスと異なるが、WCAGは形状を問わず同じ基準を適用する。スイッチの切り替えは「設定の変更」にあたるため、3.2.2(レベルA)により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要がある。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではない。",
+      <>スイッチのような独自UIコンポーネントは、その名前(ラベル)・役割・状態(オン・オフ)が、支援技術から取得・設定できなければならないとしている。見た目上はボタンやチェックボックスと異なるが、WCAGは形状を問わず同じ基準を適用する。スイッチの切り替えは「設定の変更」にあたるため、<Hl>3.2.2(レベルA)</Hl>により、切り替えただけで別の画面へ移動したり新しいウィンドウを開いたりする場合は、事前に知らせる必要がある。設定がその場で反映されるだけなら、内容の変化であって文脈の変化ではない。</>,
     exceptions:
       "HTMLには広く使える標準のスイッチ部品がないため、Webのスイッチの多くは独自の実装になる。その場合は、role=\"switch\"とaria-checkedなどで、スイッチであることと状態(オン・オフ)を支援技術に伝える必要がある。",
     accessibility:
@@ -141,6 +144,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Toggle-Switch Guidelines",
+    term: "Toggle switch(トグルスイッチ)",
     color: "#7A4F7E",
     position: "オンとオフの2状態+即時反映が前提の場面に限定使用",
     size:
@@ -148,7 +152,7 @@ const SOURCES = [
     colorInfo:
       <span><NoData>数値基準なし。</NoData>動きや色などの視覚的な手がかりを一貫して使い、プラットフォームの慣習に沿うべきとしている。</span>,
     stance:
-      "トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、選択結果が即座に反映される場面で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。",
+      <>トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、<Hl>選択結果が即座に反映される場面</Hl>で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。</>,
     exceptions:
       "ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしている。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしている。",
     accessibility:
@@ -282,6 +286,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>保存ボタンで確定するフォームの中なら<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "押したらすぐに反映させる必要がある?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "ある。保存ボタンなしで、すぐに反映させる。保存や送信で確定する場面ではスイッチではなくチェックボックスを使う" },
+      { who: "Apple", color: "#C2542A", t: "すぐに反映するかどうかは書いていない。使い分けの理由は見た目の重さで、macOSではチェックボックスをスイッチに置き換えない。iOS・iPadOSではリストの行の中で使う" },
+      { who: "W3C", color: "#A3821F", t: "すぐに反映するかは定めていない。ただし切り替えただけで別の画面に移ったり新しいウィンドウを開いたりするなら、事前に知らせる(3.2.2)" },
+    ],
+    tip: "スイッチは「押した瞬間に効く設定」にだけ使い、保存ボタンのあるフォームではチェックボックスにする、というGoogle・NN groupの使い分けに合わせれば、Apple・W3Cの決まりとも食い違いません。",
+  },
+];
+
 export default function SelectionTogglePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -314,6 +331,8 @@ export default function SelectionTogglePage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <SizeInfographic />
@@ -322,10 +341,10 @@ export default function SelectionTogglePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>即座に反映することを明示しているのはGoogleとNielsen Norman Group</strong>で、NN groupは特に、保存ボタンを必要とせず結果が即座に反映される点を、チェックボックスとの決定的な違いとして挙げています。保存・送信ボタンで確定するフォームにトグルを混ぜると、「もう反映されたのか」が分からず混乱を招きます。
+              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>押したらすぐ反映させるかどうか</strong>が系列で分かれる点で、GoogleとNN groupは「すぐ反映」をチェックボックスとの違いにしています(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              Appleは(macOSで)<strong>すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではない</strong>としていますが、理由は即時反映ではなく、<strong>見た目の重さと一貫性</strong>です(iOS/iPadOSでは、スイッチはリストの行の中で使います)。Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わない</strong>と明記しています。WCAGは即時反映を定めておらず、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求めます。
+              Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしています。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求めます。
             </p>
             <p style={styles.synthesisText}>
               サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になります。
@@ -346,6 +365,7 @@ export default function SelectionTogglePage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -382,6 +402,8 @@ export default function SelectionTogglePage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -428,6 +450,8 @@ export default function SelectionTogglePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

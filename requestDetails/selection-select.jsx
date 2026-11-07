@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -24,6 +24,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Pop-up buttons / Pull-down buttons",
+    term: "Pop-up button(選んだ値を表示)/ Pull-down button(操作の一覧)",
     color: "#C2542A",
     position: "相互排他的な選択肢を示す「Pop-upボタン」と、関連する操作をまとめる「Pull-downボタン」に分かれる",
     size:
@@ -59,6 +60,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Menus(Exposed dropdown menu)",
+    term: "Exposed dropdown menu",
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
@@ -68,7 +70,7 @@ const SOURCES = [
     glossary: [
     ],
     stance:
-      "メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、ラジオボタンのような選択コントロールよりも目立たず、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。",
+      <>メニューは、一時的な表面(サーフェス)に選択肢の一覧を表示するコンポーネントで、アイコンボタンやテキストフィールドなど様々な要素から開ける。Exposed dropdown menuは、選択中の項目をアンカーとなるテキストフィールド上に表示する点が特徴で、<Hl>ラジオボタンのような選択コントロールよりも目立たず</Hl>、コンパクトな選択肢リストに向くとしている。単一選択のメニューでは、新しい項目を選ぶと前の選択が自動的に解除される。</>,
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
@@ -98,6 +100,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1 / 3.2.1 / 3.2.2、APG Comboboxパターン(Select-Only)",
+    term: "combobox(Select-Only)・listbox(WAI-ARIAのロール)/ HTMLのselect要素",
     color: "#A3821F",
     position: "標準select要素かカスタム実装かで対応が変わる、名前・役割・状態とキーボード操作性を求める一般基準の集合",
     size:
@@ -147,6 +150,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Dropdowns: Design Guidelines",
+    term: "Dropdown(ドロップダウン)",
     color: "#7A4F7E",
     position: "画面スペースの節約に向くが乱用されがちで扱いにくい面もある(数値基準ではなく使い分けの指針)",
     size: <NoData>数値基準なし</NoData>,
@@ -154,7 +158,7 @@ const SOURCES = [
     stance:
       "ドロップダウンは、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性選択という4つの用途で使われるとしている。画面スペースを節約でき、ユーザーに標準的なウィジェットとして理解されやすいという長所がある一方、選択肢が多い・長いと使いにくくなるとしている。",
     exceptions:
-      "他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしている。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしている。都道府県・国名のようにタイピングの方が速い場面や、生年月日のようにユーザーが暗記している情報には不向きだとしている。",
+      <>他のウィジェットの選択に応じて選択肢が動的に変化する「インタラクティブメニュー」は、ユーザーを混乱させるため避けるべきとしている。利用不可の選択肢はグレーアウトで示し、非表示にすべきではないとしている。<Hl>都道府県・国名のようにタイピングの方が速い場面</Hl>や、生年月日のようにユーザーが暗記している情報には不向きだとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針。マウス操作とキーボード操作の両方に対応すべきとしている。",
     useCases: [
@@ -228,6 +232,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "選択肢がいくつまでならラジオボタン、いくつからセレクト?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "5つ以下ならラジオボタン。場所を節約したいならドロップダウンも使えるが、押す回数と考える手間が増える" },
+      { who: "NN group", color: "#7A4F7E", t: "数の目安はない。場所を節約できる一方、選択肢が多い・長いと使いにくい。国名や生年月日のように入力した方が速いものには使わない" },
+      { who: "Apple", color: "#C2542A", t: "数の目安はない。互いに排他的な選択肢の平らな一覧にポップアップボタンを使う" },
+    ],
+    tip: "5つ以下で場所に余裕があればラジオボタン(全部見えて比べやすい)、それより多いか場所がなければセレクト、数十件を超えて名前を知っているものなら入力して絞り込める欄、という順に考えると、3系列の考え方がつながります。",
+  },
+];
+
 export default function SelectionSelectPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -260,6 +277,8 @@ export default function SelectionSelectPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
 
@@ -291,6 +310,7 @@ export default function SelectionSelectPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -327,6 +347,8 @@ export default function SelectionSelectPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -373,6 +395,8 @@ export default function SelectionSelectPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

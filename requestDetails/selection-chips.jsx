@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チップ(Chips)」ページ。
@@ -39,12 +39,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
+    term: "Token field(macOS)。Chipという名前の部品はない",
     color: "#C2542A",
     position: "「Chip」という名称の専用コンポーネントはないが、近い発想の「トークンフィールド」がmacOS向けに存在",
     size: <span><NoData>数値基準なし。</NoData>トークンフィールドはmacOSのテキストコントロールの一種として位置づけられている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "トークンフィールドは、入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種と定義されている。Materialの「インプットチップ」―ユーザーが入力した情報を表すチップ―に近い発想。",
+      <>トークンフィールドは、<Hl>入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種</Hl>と定義されている。Materialの「インプットチップ」―ユーザーが入力した情報を表すチップ―に近い発想。</>,
     exceptions:
       "トークンフィールドはmacOS向けのガイダンスで、iOS/iPadOS向けの言及は確認できていない。また「フィルタ」や「アシスト」用途のChip相当の概念は見当たらず、あくまで入力補助のコントロールという位置づけ。",
     accessibility: <NoData>記載なし</NoData>,
@@ -69,10 +70,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Chips(使用法・アクセシビリティ)",
+    term: "Chip(アシスト・フィルタ・インプット・サジェスチョン)",
     color: "#2F7D6E",
     position: "4種類(アシスト/フィルタ/インプット/サジェスチョン)。状況に応じて動的に変わる、ボタンとは異なるインタラクティブ要素の集合",
     size:
-      "コンテナの高さは32dp、最小タップ領域は48dpを確保する設計。角の半径は8dp(shape small)で、いわゆる「ピル型」ではなく「角丸長方形」です(以前の記載を訂正)。デフォルトで高密度設定を適用すべきではないとしており(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合もタップ領域は最低48×48pxに戻せる設計にすべきとしている。",
+      "コンテナの高さは32dp、最小タップ領域は48dpを確保する設計。角の半径は8dp(shape small)で、いわゆる「ピル型」ではなく「角丸長方形」。デフォルトで高密度設定を適用すべきではないとしており(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合もタップ領域は最低48×48pxに戻せる設計にすべきとしている。",
     colorInfo:
       "チップのラベルは、背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。M2からの変更点として、新しいカラーマッピングとダイナミックカラーへの対応が加わっている。",
     glossary: [
@@ -80,7 +82,7 @@ const SOURCES = [
       { term: "メニュー方式", desc: "1行に収まりきらないチップの対処法のもう1つ。先頭にボタンを1つ置き、そこから開くメニューに残りのチップ選択肢をまとめる方法。下のコンテンツの位置がずれないという利点があるが、削除アイコンなど2つ目の操作が必要なチップには使うべきではないとされている。" },
     ],
     stance:
-      "チップはボタンではないと明確に位置づけられている。ボタンは常に同じ見た目・操作方法で配置され、製品の操作を進めたり重要なアクションを実行させたりするのに使う一方、チップは現在のタスクに応じて動的に変化し、インタラクティブな要素の集合として現れ、ユーザーの現在の体験を向上させ行動を促すために使うとしている。チップはタスクの分岐経路を、ボタンは直線的なステップを表すという整理。",
+      <><Hl>チップはボタンではないと明確に位置づけられている</Hl>。ボタンは常に同じ見た目・操作方法で配置され、製品の操作を進めたり重要なアクションを実行させたりするのに使う一方、チップは現在のタスクに応じて動的に変化し、インタラクティブな要素の集合として現れ、ユーザーの現在の体験を向上させ行動を促すために使うとしている。チップはタスクの分岐経路を、ボタンは直線的なステップを表すという整理。</>,
     exceptions:
       "主要な操作をチップに置き換えることは避けるべきで、次/前のステップに進む操作は必ずボタンにすべきとしている。複数のチップはセットとしてまとめて表示すべきが、ボタンは1つの配置につき最大3つまでとしている。",
     overflow:
@@ -112,12 +114,13 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5 / 1.4.11 / 1.4.1",
+    term: "button(WAI-ARIAのロール。選択式はaria-pressedなどで状態を伝える)",
     color: "#A3821F",
     position: "形状を問わず、ボタン/トグルボタンとしての名前・役割・状態・操作性を要求する一般基準の集合",
     size:
       "チップ専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "チップのラベルの文字には1.4.3(文字のコントラスト)がかかり、通常サイズの文字は4.5:1以上が必要です(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
+      "チップのラベルの文字には1.4.3(文字のコントラスト)がかかり、通常サイズの文字は4.5:1以上が必要(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
     stance:
       "チップは実装上ボタンまたはトグルボタンとして扱われることが多く、その名前・役割・状態が支援技術から取得できなければならないとしている(4.1.2)。複数のチップが並ぶ場合、キーボードだけで一覧を移動・選択できる必要がある(2.1.1)。",
     exceptions:
@@ -147,6 +150,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "専用記事なし(用語的な言及のみ)",
+    term: "Token(チップ)",
     color: "#7A4F7E",
     position: "専用の設計ガイドライン記事は見当たらない",
     size: <NoData>数値基準なし</NoData>,
@@ -363,6 +367,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1つの設定のオン・オフなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、移動や実行なら<PageLink to="/components/actions/button">ボタン</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "チップは何に使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "4つの用途に使う。操作の手助け(アシスト)・絞り込み(フィルタ)・入力した値の表示(インプット)・候補の提示(サジェスチョン)。ただし次へ・前へのような主な操作はボタンにする" },
+      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途の部品はない" },
+      { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
+    ],
+    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけです。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準の部品(セグメントコントロールやメニュー)で作れないかも検討します。",
+  },
+];
+
 export default function SelectionChipsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -395,6 +412,8 @@ export default function SelectionChipsPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -433,6 +452,7 @@ export default function SelectionChipsPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
@@ -470,6 +490,8 @@ export default function SelectionChipsPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -521,6 +543,8 @@ export default function SelectionChipsPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
