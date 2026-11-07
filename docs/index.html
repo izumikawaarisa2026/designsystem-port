@@ -2524,6 +2524,9 @@ const SOURCES = [
       "小サイズのバッジ(ドット)は存在を示すだけで文字を持たず、大サイズのバッジは数字やテキストで件数を定量的に示すとしている。タブでは小・大どちらのバッジも使え、ナビゲーションレールでは折りたたみ時はアイコンの右上角、展開時はラベルテキストの隣に配置するとされている。ユーザーが該当する内容を確認したら、バッジの値を更新するか非表示にすべきだとしている。",
     exceptions:
       "桁数が多い件数は「+」付きで丸めて4文字以内に収めるべきとされ、際限なく数字を伸ばすことは想定されていない。",
+    glossary: [
+      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述としては未確認(バッジに小・大の2種類があることは確認済み)。" },
+    ],
     scenarios: [
       "タブ・ナビゲーション項目に未読件数や新着の有無を示したい時",
       "存在の有無だけを伝えたい時は小サイズ(ドット)を使う",
@@ -3599,6 +3602,60 @@ function EmptyStateSwatch() {
   );
 }
 
+/* No.062: 空状態の文言 ― どうあるべきか(4系列の内容をまとめたAI解釈。例文はAIの作例) */
+const EMPTY_STEPS = [
+  { n: "1", t: "今の状況を伝える", d: "読み込み中なのか、本当に中身がないのかを区別できるように書く。", src: "NN group(システムの状態を伝える)", ex: "「この期間の注文はありません」" },
+  { n: "2", t: "なぜ空なのか・どうすれば埋まるかを教える", d: "初めての人には、使い方を伝える機会にする。歓迎の気持ちを伝えてもよい。", src: "NN group(学習の機会)・Apple(Writing)", ex: "「気になる商品のハートを押すと、ここに表示されます」" },
+  { n: "3", t: "次にできることへ案内する", d: "次の行動を書き、可能ならそのためのボタンやリンクを置く。", src: "Apple(Writing)・NN group(主なタスクへの導線)", ex: "「期間を変えて探す」「商品を見る」のボタン" },
+];
+const EMPTY_DONTS = [
+  { t: "責める・突き放す言い方", why: "見出しは短く分かりやすくし、利用者を責める表現は避ける", src: "Google(M1)・NN group", ex: "×「検索条件が正しくありません」→ ◯「条件に合う商品は見つかりませんでした」" },
+  { t: "何も書かない・あいまいな一言", why: "読み込み中なのか中身がないのか分からず、不安にさせる", src: "NN group", ex: "×「データがありません」だけ" },
+  { t: "大事な情報を空状態に置く", why: "空状態は一時的なもので、中身が入ると消えてしまう", src: "Apple(Writing)", ex: "×利用規約の重要な注意を空の一覧に書く" },
+];
+const EMPTY_SCENES = [
+  { t: "初めて使うとき", ex: "まだメモはありません。右下の「+」から最初のメモを作りましょう" },
+  { t: "検索・絞り込みの結果が0件", ex: "「赤いスニーカー」に合う商品は見つかりませんでした。条件を減らして探す" },
+  { t: "すべて済んだとき", ex: "今日のタスクはすべて完了しました" },
+];
+
+function EmptyWriting() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>空状態の文言 ― どうあるべきか</h2>
+      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなります(AI解釈。例文はAIの作例です)。検索結果の件数などは、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝えます(W3C 4.1.3)。</p>
+      <div style={styles.ewSteps}>
+        {EMPTY_STEPS.map((x) => (
+          <div key={x.n} style={styles.ewStep}>
+            <span style={styles.ewNo}>{x.n}</span>
+            <div style={{ minWidth: 0 }}>
+              <div style={styles.ewTitle}>{x.t}</div>
+              <p style={styles.ewText}>{x.d}</p>
+              <div style={styles.ewEx}>例: {x.ex}</div>
+              <div style={styles.ewSrc}>{x.src}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.ewSub}>避けたい書き方</h3>
+      <div style={styles.ewDontGrid}>
+        {EMPTY_DONTS.map((x) => (
+          <div key={x.t} style={styles.ewDont}>
+            <div style={styles.ewTitle}>{x.t}</div>
+            <p style={styles.ewText}>{x.why}</p>
+            <div style={styles.ewEx}>{x.ex}</div>
+            <div style={styles.ewSrc}>{x.src}</div>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.ewSub}>場面ごとの例(AIの作例)</h3>
+      <ul style={{ margin: 0, paddingLeft: 18 }}>
+        {EMPTY_SCENES.map((x) => (<li key={x.t} style={styles.ewText}><strong>{x.t}</strong>: {x.ex}</li>))}
+      </ul>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "表示する中身がない画面(空状態)の見せ方です。";
 const ABOUT = [
@@ -3636,6 +3693,8 @@ function CommunicationEmptyStatePage() {
           />
 
 
+
+          <EmptyWriting />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -3765,6 +3824,17 @@ function CommunicationEmptyStatePage() {
 }
 
 const styles = {
+  ewNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 12px" },
+  ewSteps: { display: "flex", flexDirection: "column", gap: 8 },
+  ewStep: { display: "flex", gap: 10, border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  ewNo: { width: 22, height: 22, flexShrink: 0, borderRadius: "50%", background: "#3C5A73", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" },
+  ewTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3 },
+  ewText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 4px" },
+  ewEx: { fontSize: 11.5, color: "#3A4FCF", marginBottom: 2 },
+  ewSrc: { fontSize: 10, color: "#7E86AC" },
+  ewSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "18px 0 8px" },
+  ewDontGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 240px), 1fr))", gap: 8 },
+  ewDont: { border: "1px solid #F0D5D0", borderRadius: 6, padding: "10px 12px", background: "#FFFBFA" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -4592,6 +4662,15 @@ const COMPARISON_COLUMNS = [
 ];
 
 const styles = {
+  axisGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: 12, marginBottom: 24 },
+  axisBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },
+  axisBoxTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
+  axisGroup: { marginBottom: 8 },
+  axisGroupName: { fontSize: 11, fontWeight: 700, marginBottom: 4 },
+  axisChips: { display: "flex", flexWrap: "wrap", gap: 5 },
+  axisChip: { fontSize: 11, border: "1px solid", borderRadius: 12, padding: "1px 8px", background: "#FFFFFF" },
+  axisDetails: { marginTop: 8 },
+  axisDetailsSummary: { fontSize: 11, color: "#3A4FCF", cursor: "pointer" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
@@ -4609,7 +4688,7 @@ const styles = {
   axisRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 },
   axisRowLast: { marginBottom: 0 },
   axisLabel: { flexShrink: 0, width: 118, fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3, textAlign: "center" },
-  axisText: { fontSize: 12, lineHeight: 1.6, color: "#454C78" },
+  axisText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "6px 0 0" },
   cardGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 24 },
   card: { display: "block", textDecoration: "none", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 16px", color: "inherit" },
   cardIcon: { marginBottom: 10, height: 30, display: "flex", alignItems: "center" },
@@ -4639,21 +4718,86 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.5 },
 };
 
-function AxisSummary() {
-  const rows = [
-    { label: "①非モーダル版が存在しないか", text: "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。" },
-    { label: "②通知か、コンテンツ・操作の提供か", text: "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。" },
-    { label: "③自動で消えるか", text: "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。" },
-    { label: "④画面内の位置", text: "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。" },
-  ];
+const DETAIL_1 = "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。";
+const DETAIL_2 = "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。";
+const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。";
+const DETAIL_4 = "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。";
+
+/* 4つの判断軸(No.055で図にした)。各軸で9つのパーツをグループに分けて示し、詳しい説明は開いて読む */
+const AXES = [
+  { label: "① モーダルかどうか", groups: [
+    { name: "常にモーダル", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+    { name: "モーダル・非モーダルの両方がある", color: "#A3821F", parts: ["ボトムシート", "サイドシート"] },
+    { name: "モーダルの考えがない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "トースト", "ツールチップ", "アコーディオン"] },
+  ], detail: DETAIL_1 },
+  { label: "② 何を出すか", groups: [
+    { name: "知らせる(通知・フィードバック)", color: "#3A4FCF", parts: ["バナー", "スナックバー", "トースト", "ツールチップ"] },
+    { name: "内容や操作を出す", color: "#2F7D6E", parts: ["アコーディオン", "ボトムシート", "サイドシート"] },
+    { name: "答えや入力を求める", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+  ], detail: DETAIL_2 },
+  { label: "③ どう消えるか", groups: [
+    { name: "時間で自動的に消える", color: "#7E86AC", parts: ["トースト", "スナックバー(操作があれば消さない)"] },
+    { name: "ポインター・フォーカスが離れたら消える", color: "#A3821F", parts: ["ツールチップ"] },
+    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["バナー", "モーダルダイアログ", "フルスクリーンダイアログ", "ボトムシート", "サイドシート"] },
+  ], detail: DETAIL_3 },
+];
+
+function PositionMap() {
+  const W = 220, H = 150;
+  const tag = (x, y, t, c) => (
+    <g key={t}>
+      <rect x={x} y={y} width={t.length * 9 + 10} height="16" rx="8" fill="#FFFFFF" stroke={c} />
+      <text x={x + 5} y={y + 11.5} fontSize="9" fill={c} fontFamily="Jost, Noto Sans JP">{t}</text>
+    </g>
+  );
   return (
-    <div style={styles.axisCard}>
-      {rows.map((r, i) => (
-        <div key={r.label} style={{ ...styles.axisRow, ...(i === rows.length - 1 ? styles.axisRowLast : {}) }}>
-          <span style={styles.axisLabel}>{r.label}</span>
-          <span style={styles.axisText}>{r.text}</span>
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 360, display: "block", margin: "0 auto" }} role="img" aria-label="画面内の位置の図">
+      <rect x="20" y="6" width="180" height="138" rx="10" fill="#F3F6FA" stroke="#C7CBE6" />
+      <rect x="20" y="6" width="180" height="22" rx="10" fill="#E6EAF6" />
+      {tag(26, 10, "バナー(上部)", "#3A4FCF")}
+      <rect x="62" y="56" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#C0503F" />
+      <text x="110" y="74" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルダイアログ</text>
+      <text x="110" y="87" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
+      <rect x="166" y="30" width="34" height="86" rx="4" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="183" y="70" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">サイド</text>
+      <text x="183" y="81" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
+      <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: ボトムシート・スナックバー・トースト</text>
+      {tag(26, 34, "ツールチップ(部品の近く)", "#A3821F")}
+      {tag(26, 100, "アコーディオン(内容の中)", "#565D8A")}
+    </svg>
+  );
+}
+
+function AxisSummary() {
+  return (
+    <div style={styles.axisGrid}>
+      {AXES.map((a) => (
+        <div key={a.label} style={styles.axisBox}>
+          <div style={styles.axisBoxTitle}>{a.label}</div>
+          {a.groups.map((g) => (
+            <div key={g.name} style={styles.axisGroup}>
+              <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
+              <div style={styles.axisChips}>
+                {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
+              </div>
+            </div>
+          ))}
+          <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+            <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+            <p style={styles.axisText}>{a.detail}</p>
+          </details>
         </div>
       ))}
+      <div style={styles.axisBox}>
+        <div style={styles.axisBoxTitle}>④ 画面内の位置</div>
+        <PositionMap />
+        <p style={{ ...styles.axisText, textAlign: "center" }}>フルスクリーンダイアログは画面全体を覆う</p>
+        <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+          <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+          <p style={styles.axisText}>{DETAIL_4}</p>
+        </details>
+      </div>
     </div>
   );
 }
@@ -5043,6 +5187,41 @@ function ProgressSwatch() {
   );
 }
 
+/* No.059: 形の使い分け(終わりが分かるか・待ち時間・置く場所)。出典の系列を括弧で示す */
+const SHAPE_ROWS = [
+  { shape: "何も出さない", known: "—", time: "1秒未満(NN group)", where: "—", note: "すぐ終わる処理にはインジケーターを出さない" },
+  { shape: "不確定の円形(スピナー)", known: "分からない", time: "1〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
+  { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
+  { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒を超える(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
+  { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
+  { shape: "Loading indicator(Google)", known: "分からない", time: "5秒未満(Google)", where: "—", note: <>短い待ち時間向けに新設された部品(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)</> },
+];
+const SHAPE_RULES = [
+  "できるだけ確定(何%か分かる)の表示にする。途中で時間が分かったら、不確定から確定に切り替える(Apple)",
+  "円形とバーの間では切り替えない。形と大きさが違うため、画面が乱れる(Apple)",
+  "「読み込み中」のような、あいまいな説明は避ける(Apple)。何も情報のない静的な表示や「二度押ししないで」の注意書きも効果が薄い(NN group)",
+  "支援技術には、確定ならaria-valuenowで今の値を伝え、不確定なら値を付けない(W3C)",
+];
+
+function ProgressShapes() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>形の使い分け</h2>
+      <p style={styles.psNote}>終わりが分かるか(確定・不確定)、待ち時間、置く場所の3つで形を選びます。各欄は4系列の内容をまとめたもので、出典の系列を括弧で示しています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.psTable}>
+          <thead><tr>{["形", "終わりが分かるか", "待ち時間の目安", "置く場所", "各系列の見解"].map((h) => (<th key={h} style={styles.psTh}>{h}</th>))}</tr></thead>
+          <tbody>{SHAPE_ROWS.map((r) => (<tr key={r.shape}><td style={{ ...styles.psTd, fontWeight: 700 }}>{r.shape}</td><td style={styles.psTd}>{r.known}</td><td style={styles.psTd}>{r.time}</td><td style={styles.psTd}>{r.where}</td><td style={styles.psTd}>{r.note}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={styles.psRules}>
+        <div style={styles.psRulesTitle}>どの形にも共通すること</div>
+        <ul style={{ margin: 0, paddingLeft: 18 }}>{SHAPE_RULES.map((t) => (<li key={t} style={styles.psRule}>{t}</li>))}</ul>
+      </div>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示です。";
 const ABOUT = [
@@ -5097,6 +5276,8 @@ function CommunicationProgressPage() {
               W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られています。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴です。
             </p>
           </div>
+          <ProgressShapes />
+
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -5208,6 +5389,13 @@ function CommunicationProgressPage() {
 }
 
 const styles = {
+  psNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  psTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
+  psTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  psTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  psRules: { background: "#F8F9FD", borderRadius: 6, padding: "10px 14px" },
+  psRulesTitle: { fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
+  psRule: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -6501,6 +6689,31 @@ function PlainRichTable() {
   );
 }
 
+/* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
+const TT_VS_POPUP = [
+  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマホのアプリでも)"],
+  ["出すきっかけ", "マウスを乗せる・キーボードでフォーカスする", "押す(タップ・クリック)"],
+  ["消えるとき", "決められた範囲からポインターが離れたとき", "閉じるを押すか、画面のほかの場所を押したとき"],
+  ["組み合わせる部品", "アイコン・文字のリンク・ボタン・画像", "「?」や「i」のアイコン"],
+  ["内容", "短い補足", "短い補足"],
+];
+
+function TooltipVsPopupTip() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
+      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えません</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使います。NN groupは、この2つを次のように区別しています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvpTable}>
+          <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
+          <tbody>{TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしています。一部の部品だけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めています(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品です。";
 const ABOUT = [
@@ -6540,6 +6753,8 @@ function CommunicationTooltipPage() {
 
 
           <PlainRichTable />
+
+          <TooltipVsPopupTip />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -6660,6 +6875,10 @@ function CommunicationTooltipPage() {
 }
 
 const styles = {
+  tvpNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvpTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvpTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvpTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -6800,6 +7019,8 @@ const SOURCES = [
       { label: "Android Developers ― Widgets(Sizing・Widget quality guide)", url: "https://developer.android.com/design/ui/mobile/guides/widgets/sizing#default-sizes" },
       { label: "Android: Widgets(概要)", url: "https://developer.android.com/design/ui/mobile/guides/widgets" },
       { label: "Android: Widget quality guide", url: "https://developer.android.com/design/ui/mobile/guides/widgets/widget_quality_guide#checklists" },
+      { label: "Android: Widgets ― Sizing(マスを埋める・固定の正方形は使わない)", url: "https://developer.android.com/design/ui/mobile/guides/widgets/sizing#fill-bounds" },
+      { label: "Android: App widgets overview(ウィジェットの種類)", url: "https://developer.android.com/develop/ui/views/appwidgets/overview" },
     ],
     confirmedNote: "m3.material.ioのサイトマップにウィジェットのページはないため、Google公式のAndroid Developersのデザインガイドを掲載している(本文を直接確認、2026-10)。寸法はPixel端末を基準にした値。",
   },
@@ -7057,27 +7278,6 @@ function AppearanceModes() {
   );
 }
 
-/* Googleの品質の3段階 */
-const TIERS = [
-  { tier: "Tier 3 ― 低品質", color: "#A33A2E", items: ["グリッドのマスを埋めていない(向かい合う2辺に接していない)", "文字・アイコンボタンのコントラストが足りない", "ウィジェットの名前・プレビュー画像がない", "内容が古いまま・操作しても更新されない・切れている"] },
-  { tier: "Tier 2 ― 標準", color: "#8A6A10", items: ["他の要素と縦横にそろい、余計な空白を占めない", "リサイズできるなら最小・最大のサイズを決める(最小でも48×48dpの押せる範囲)", "ウィジェット選択画面のプレビューが正確", "空の状態・未ログインでも価値を示すか行動を促す", "データが画面より頻繁に変わるなら、手動で更新できる"] },
-  { tier: "Tier 1 ― 差別化", color: "#2E6B3A", items: ["長方形なら4辺すべてに接する(検索バーの4×1は2辺)", "2×2・4×1・4×2のいずれかにリサイズできる", "ヘッダーを仕様どおり一貫して使う", "テーマの色・ライト/ダーク・システムの角丸に対応", "読み込み中の状態・起動時の遷移もシステムの仕様に合わせる"] },
-];
-
-function QualityTiers() {
-  return (
-    <div style={styles.tierRow}>
-      {TIERS.map((t, i) => (
-        <div key={t.tier} style={{ ...styles.tierCard, borderLeftColor: t.color }}>
-          <div style={{ ...styles.tierName, color: t.color }}>{t.tier}</div>
-          <div style={styles.tierBar}><span style={{ ...styles.tierFill, width: `${(i + 1) * 33}%`, background: t.color }} /></div>
-          <ul style={styles.tierList}>{t.items.map((x) => <li key={x}>{x}</li>)}</ul>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -7105,6 +7305,63 @@ function GlossaryNote({ items }) {
         </p>
       ))}
     </div>
+  );
+}
+
+/* No.063: ウィジェットに入れるもの(Googleの4つの種類とAppleの内容) */
+const WIDGET_KINDS = [
+  { t: "情報", d: "大事な情報を表示し、その変化を追う。押すとアプリの詳しい画面が開く", ex: "天気・時計・スポーツの得点", src: "Google(Information widgets)・Apple(1日の中で変わる情報)" },
+  { t: "一覧(コレクション)", d: "同じ種類の項目を複数並べる。縦にスクロールでき、押すとその項目の詳しい画面が開く", ex: "写真のアルバム・ニュースの記事・メールやメッセージ", src: "Google(Collection widgets)" },
+  { t: "操作(コントロール)", d: "よく使う機能を、アプリを開かずに実行する(アプリのリモコンのようなもの)", ex: "家の照明のオン/オフ、検索", src: "Google(Control widgets)・Apple(役立つ操作)" },
+  { t: "組み合わせ", d: "基本の種類を1つ決め、ほかの種類の要素を足す", ex: "音楽プレーヤー(操作+再生中の曲の情報)", src: "Google(Hybrid widgets)" },
+];
+
+/* No.063: AppleとGoogleの違い(大きさの決め方) */
+const SIZE_DIFF = [
+  ["大きさ", "システムが決めた大きさから選ぶ(小・中・大・特大と、ロック画面などの小さなアクセサリー)。小は正方形", "ホーム画面のマス(グリッド)の数で決まり、利用者が大きさを変えられる。最小・最大を決めておく"],
+  ["形", "大きさごとに決まった形", "固定の正方形は使わず、マスに合わせて伸び縮みする長方形にする。マスを端まで埋める"],
+  ["設計の考え方", "決まった枠の中で、一目で分かる内容を作り込む。大きさごとに見せる量を決める", "端末によってマスの数や大きさが違うため、どの大きさでも崩れないように作る"],
+];
+
+function WidgetGuide() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ウィジェットに入れるもの</h2>
+      <div style={styles.wkGrid}>
+        {WIDGET_KINDS.map((k) => (
+          <div key={k.t} style={styles.wkCard}>
+            <div style={styles.wkTitle}>{k.t}</div>
+            <p style={styles.wkText}>{k.d}</p>
+            <div style={styles.wkEx}>例: {k.ex}</div>
+            <div style={styles.wkSrc}>{k.src}</div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.wkNote}>Appleは、意味のある内容と、役立つ操作、アプリの大事な場所へのリンクを入れるよう勧め、大きいサイズでは、データをより詳しく見せる(グラフなど)こともできるとしています。どの種類でも、ウィジェットの主な目的に直接関係する情報だけを表示します。</p>
+
+      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>良いウィジェットの条件(Apple) ― 情報量と流動性</h2>
+      <div style={styles.wkGrid}>
+        <div style={styles.wkCard}>
+          <div style={styles.wkTitle}>情報量のバランス</div>
+          <p style={styles.wkText}>少なすぎると置く意味がないように見え、多すぎると一目で分からない。<strong>大事な情報は一目で分かり、じっくり見ればさらに詳しく分かる</strong>ようにする。詰まりすぎるなら、大きいサイズにするか、文字を図に置き換える。</p>
+          <div style={styles.wkSrc}>HIG Widgets「Balance information density」</div>
+        </div>
+        <div style={styles.wkCard}>
+          <div style={styles.wkTitle}>情報の流動性(1日の中で変わる情報)</div>
+          <p style={styles.wkText}>内容が変わらないウィジェットは、目立つ場所に置き続けてもらえない。分単位では更新されないが、<strong>1日の中で変わる情報</strong>を選び、内容を新しく保って、何度も見たくなるようにする。誕生日や祝日に特別な見せ方をするなど、驚きや喜びを加える工夫も勧めている。</p>
+          <div style={styles.wkSrc}>HIG Widgets「Prefer dynamic information that changes throughout the day」</div>
+        </div>
+      </div>
+
+      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>AppleとGoogleの違い ― 大きさの決め方</h2>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.wkTable}>
+          <thead><tr>{["", "Apple", "Google(Android)"].map((h) => (<th key={h} style={styles.wkTh}>{h}</th>))}</tr></thead>
+          <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視しています。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致しています。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
+    </section>
   );
 }
 
@@ -7146,6 +7403,8 @@ function CommunicationWidgetPage() {
           />
 
           <WidgetIntro />
+
+          <WidgetGuide />
 
 
 
@@ -7245,11 +7504,6 @@ function CommunicationWidgetPage() {
             <AppearanceModes />
           </section>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>Google ― ウィジェットの品質の3段階</h2>
-            <p style={styles.diagramNote}>Androidは、ウィジェットの品質をチェックリストで3段階に分けています。Tier 3に当てはまるものは低品質、Tier 2をすべて満たせば標準、Tier 1も満たせばおすすめとして紹介される対象になります。</p>
-            <QualityTiers />
-          </section>
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -7270,6 +7524,16 @@ function CommunicationWidgetPage() {
 }
 
 const styles = {
+  wkGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  wkCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
+  wkTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },
+  wkText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  wkEx: { fontSize: 11.5, color: "#3A4FCF", marginBottom: 2 },
+  wkSrc: { fontSize: 10, color: "#7E86AC" },
+  wkNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
+  wkTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  wkTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  wkTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   introBox: { border: "1px solid #E1E3F0", borderRadius: 8, padding: "16px 16px 14px", marginBottom: 22, background: "#FFFFFF" },
   introTitle: { fontSize: 15, fontWeight: 700, color: "#171B36", margin: "0 0 12px" },
   introCols: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", gap: "6px 22px" },

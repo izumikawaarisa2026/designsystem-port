@@ -325,6 +325,15 @@ const COMPARISON_COLUMNS = [
 ];
 
 const styles = {
+  axisGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: 12, marginBottom: 24 },
+  axisBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },
+  axisBoxTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
+  axisGroup: { marginBottom: 8 },
+  axisGroupName: { fontSize: 11, fontWeight: 700, marginBottom: 4 },
+  axisChips: { display: "flex", flexWrap: "wrap", gap: 5 },
+  axisChip: { fontSize: 11, border: "1px solid", borderRadius: 12, padding: "1px 8px", background: "#FFFFFF" },
+  axisDetails: { marginTop: 8 },
+  axisDetailsSummary: { fontSize: 11, color: "#3A4FCF", cursor: "pointer" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
@@ -342,7 +351,7 @@ const styles = {
   axisRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 },
   axisRowLast: { marginBottom: 0 },
   axisLabel: { flexShrink: 0, width: 118, fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3, textAlign: "center" },
-  axisText: { fontSize: 12, lineHeight: 1.6, color: "#454C78" },
+  axisText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "6px 0 0" },
   cardGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 24 },
   card: { display: "block", textDecoration: "none", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 16px", color: "inherit" },
   cardIcon: { marginBottom: 10, height: 30, display: "flex", alignItems: "center" },
@@ -372,21 +381,86 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.5 },
 };
 
-function AxisSummary() {
-  const rows = [
-    { label: "①非モーダル版が存在しないか", text: "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。" },
-    { label: "②通知か、コンテンツ・操作の提供か", text: "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。" },
-    { label: "③自動で消えるか", text: "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。" },
-    { label: "④画面内の位置", text: "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。" },
-  ];
+const DETAIL_1 = "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。";
+const DETAIL_2 = "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。";
+const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。";
+const DETAIL_4 = "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。";
+
+/* 4つの判断軸(No.055で図にした)。各軸で9つのパーツをグループに分けて示し、詳しい説明は開いて読む */
+const AXES = [
+  { label: "① モーダルかどうか", groups: [
+    { name: "常にモーダル", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+    { name: "モーダル・非モーダルの両方がある", color: "#A3821F", parts: ["ボトムシート", "サイドシート"] },
+    { name: "モーダルの考えがない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "トースト", "ツールチップ", "アコーディオン"] },
+  ], detail: DETAIL_1 },
+  { label: "② 何を出すか", groups: [
+    { name: "知らせる(通知・フィードバック)", color: "#3A4FCF", parts: ["バナー", "スナックバー", "トースト", "ツールチップ"] },
+    { name: "内容や操作を出す", color: "#2F7D6E", parts: ["アコーディオン", "ボトムシート", "サイドシート"] },
+    { name: "答えや入力を求める", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+  ], detail: DETAIL_2 },
+  { label: "③ どう消えるか", groups: [
+    { name: "時間で自動的に消える", color: "#7E86AC", parts: ["トースト", "スナックバー(操作があれば消さない)"] },
+    { name: "ポインター・フォーカスが離れたら消える", color: "#A3821F", parts: ["ツールチップ"] },
+    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["バナー", "モーダルダイアログ", "フルスクリーンダイアログ", "ボトムシート", "サイドシート"] },
+  ], detail: DETAIL_3 },
+];
+
+function PositionMap() {
+  const W = 220, H = 150;
+  const tag = (x, y, t, c) => (
+    <g key={t}>
+      <rect x={x} y={y} width={t.length * 9 + 10} height="16" rx="8" fill="#FFFFFF" stroke={c} />
+      <text x={x + 5} y={y + 11.5} fontSize="9" fill={c} fontFamily="Jost, Noto Sans JP">{t}</text>
+    </g>
+  );
   return (
-    <div style={styles.axisCard}>
-      {rows.map((r, i) => (
-        <div key={r.label} style={{ ...styles.axisRow, ...(i === rows.length - 1 ? styles.axisRowLast : {}) }}>
-          <span style={styles.axisLabel}>{r.label}</span>
-          <span style={styles.axisText}>{r.text}</span>
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 360, display: "block", margin: "0 auto" }} role="img" aria-label="画面内の位置の図">
+      <rect x="20" y="6" width="180" height="138" rx="10" fill="#F3F6FA" stroke="#C7CBE6" />
+      <rect x="20" y="6" width="180" height="22" rx="10" fill="#E6EAF6" />
+      {tag(26, 10, "バナー(上部)", "#3A4FCF")}
+      <rect x="62" y="56" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#C0503F" />
+      <text x="110" y="74" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルダイアログ</text>
+      <text x="110" y="87" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
+      <rect x="166" y="30" width="34" height="86" rx="4" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="183" y="70" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">サイド</text>
+      <text x="183" y="81" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
+      <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
+      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: ボトムシート・スナックバー・トースト</text>
+      {tag(26, 34, "ツールチップ(部品の近く)", "#A3821F")}
+      {tag(26, 100, "アコーディオン(内容の中)", "#565D8A")}
+    </svg>
+  );
+}
+
+function AxisSummary() {
+  return (
+    <div style={styles.axisGrid}>
+      {AXES.map((a) => (
+        <div key={a.label} style={styles.axisBox}>
+          <div style={styles.axisBoxTitle}>{a.label}</div>
+          {a.groups.map((g) => (
+            <div key={g.name} style={styles.axisGroup}>
+              <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
+              <div style={styles.axisChips}>
+                {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
+              </div>
+            </div>
+          ))}
+          <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+            <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+            <p style={styles.axisText}>{a.detail}</p>
+          </details>
         </div>
       ))}
+      <div style={styles.axisBox}>
+        <div style={styles.axisBoxTitle}>④ 画面内の位置</div>
+        <PositionMap />
+        <p style={{ ...styles.axisText, textAlign: "center" }}>フルスクリーンダイアログは画面全体を覆う</p>
+        <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
+          <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
+          <p style={styles.axisText}>{DETAIL_4}</p>
+        </details>
+      </div>
     </div>
   );
 }

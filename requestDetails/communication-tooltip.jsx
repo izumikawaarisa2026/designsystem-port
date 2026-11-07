@@ -334,6 +334,31 @@ function PlainRichTable() {
   );
 }
 
+/* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
+const TT_VS_POPUP = [
+  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマホのアプリでも)"],
+  ["出すきっかけ", "マウスを乗せる・キーボードでフォーカスする", "押す(タップ・クリック)"],
+  ["消えるとき", "決められた範囲からポインターが離れたとき", "閉じるを押すか、画面のほかの場所を押したとき"],
+  ["組み合わせる部品", "アイコン・文字のリンク・ボタン・画像", "「?」や「i」のアイコン"],
+  ["内容", "短い補足", "短い補足"],
+];
+
+function TooltipVsPopupTip() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
+      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えません</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使います。NN groupは、この2つを次のように区別しています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvpTable}>
+          <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
+          <tbody>{TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしています。一部の部品だけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めています(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品です。";
 const ABOUT = [
@@ -377,6 +402,8 @@ export default function CommunicationTooltipPage() {
 
 
           <PlainRichTable />
+
+          <TooltipVsPopupTip />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -497,6 +524,10 @@ export default function CommunicationTooltipPage() {
 }
 
 const styles = {
+  tvpNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvpTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvpTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvpTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

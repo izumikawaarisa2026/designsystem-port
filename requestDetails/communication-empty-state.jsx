@@ -187,6 +187,60 @@ function EmptyStateSwatch() {
   );
 }
 
+/* No.062: 空状態の文言 ― どうあるべきか(4系列の内容をまとめたAI解釈。例文はAIの作例) */
+const EMPTY_STEPS = [
+  { n: "1", t: "今の状況を伝える", d: "読み込み中なのか、本当に中身がないのかを区別できるように書く。", src: "NN group(システムの状態を伝える)", ex: "「この期間の注文はありません」" },
+  { n: "2", t: "なぜ空なのか・どうすれば埋まるかを教える", d: "初めての人には、使い方を伝える機会にする。歓迎の気持ちを伝えてもよい。", src: "NN group(学習の機会)・Apple(Writing)", ex: "「気になる商品のハートを押すと、ここに表示されます」" },
+  { n: "3", t: "次にできることへ案内する", d: "次の行動を書き、可能ならそのためのボタンやリンクを置く。", src: "Apple(Writing)・NN group(主なタスクへの導線)", ex: "「期間を変えて探す」「商品を見る」のボタン" },
+];
+const EMPTY_DONTS = [
+  { t: "責める・突き放す言い方", why: "見出しは短く分かりやすくし、利用者を責める表現は避ける", src: "Google(M1)・NN group", ex: "×「検索条件が正しくありません」→ ◯「条件に合う商品は見つかりませんでした」" },
+  { t: "何も書かない・あいまいな一言", why: "読み込み中なのか中身がないのか分からず、不安にさせる", src: "NN group", ex: "×「データがありません」だけ" },
+  { t: "大事な情報を空状態に置く", why: "空状態は一時的なもので、中身が入ると消えてしまう", src: "Apple(Writing)", ex: "×利用規約の重要な注意を空の一覧に書く" },
+];
+const EMPTY_SCENES = [
+  { t: "初めて使うとき", ex: "まだメモはありません。右下の「+」から最初のメモを作りましょう" },
+  { t: "検索・絞り込みの結果が0件", ex: "「赤いスニーカー」に合う商品は見つかりませんでした。条件を減らして探す" },
+  { t: "すべて済んだとき", ex: "今日のタスクはすべて完了しました" },
+];
+
+function EmptyWriting() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>空状態の文言 ― どうあるべきか</h2>
+      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなります(AI解釈。例文はAIの作例です)。検索結果の件数などは、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝えます(W3C 4.1.3)。</p>
+      <div style={styles.ewSteps}>
+        {EMPTY_STEPS.map((x) => (
+          <div key={x.n} style={styles.ewStep}>
+            <span style={styles.ewNo}>{x.n}</span>
+            <div style={{ minWidth: 0 }}>
+              <div style={styles.ewTitle}>{x.t}</div>
+              <p style={styles.ewText}>{x.d}</p>
+              <div style={styles.ewEx}>例: {x.ex}</div>
+              <div style={styles.ewSrc}>{x.src}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.ewSub}>避けたい書き方</h3>
+      <div style={styles.ewDontGrid}>
+        {EMPTY_DONTS.map((x) => (
+          <div key={x.t} style={styles.ewDont}>
+            <div style={styles.ewTitle}>{x.t}</div>
+            <p style={styles.ewText}>{x.why}</p>
+            <div style={styles.ewEx}>{x.ex}</div>
+            <div style={styles.ewSrc}>{x.src}</div>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.ewSub}>場面ごとの例(AIの作例)</h3>
+      <ul style={{ margin: 0, paddingLeft: 18 }}>
+        {EMPTY_SCENES.map((x) => (<li key={x.t} style={styles.ewText}><strong>{x.t}</strong>: {x.ex}</li>))}
+      </ul>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "表示する中身がない画面(空状態)の見せ方です。";
 const ABOUT = [
@@ -228,6 +282,8 @@ export default function CommunicationEmptyStatePage() {
           />
 
 
+
+          <EmptyWriting />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -357,6 +413,17 @@ export default function CommunicationEmptyStatePage() {
 }
 
 const styles = {
+  ewNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 12px" },
+  ewSteps: { display: "flex", flexDirection: "column", gap: 8 },
+  ewStep: { display: "flex", gap: 10, border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  ewNo: { width: 22, height: 22, flexShrink: 0, borderRadius: "50%", background: "#3C5A73", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" },
+  ewTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3 },
+  ewText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 4px" },
+  ewEx: { fontSize: 11.5, color: "#3A4FCF", marginBottom: 2 },
+  ewSrc: { fontSize: 10, color: "#7E86AC" },
+  ewSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "18px 0 8px" },
+  ewDontGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 240px), 1fr))", gap: 8 },
+  ewDont: { border: "1px solid #F0D5D0", borderRadius: 6, padding: "10px 12px", background: "#FFFBFA" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

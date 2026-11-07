@@ -247,6 +247,41 @@ function ProgressSwatch() {
   );
 }
 
+/* No.059: 形の使い分け(終わりが分かるか・待ち時間・置く場所)。出典の系列を括弧で示す */
+const SHAPE_ROWS = [
+  { shape: "何も出さない", known: "—", time: "1秒未満(NN group)", where: "—", note: "すぐ終わる処理にはインジケーターを出さない" },
+  { shape: "不確定の円形(スピナー)", known: "分からない", time: "1〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
+  { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
+  { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒を超える(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
+  { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
+  { shape: "Loading indicator(Google)", known: "分からない", time: "5秒未満(Google)", where: "—", note: <>短い待ち時間向けに新設された部品(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)</> },
+];
+const SHAPE_RULES = [
+  "できるだけ確定(何%か分かる)の表示にする。途中で時間が分かったら、不確定から確定に切り替える(Apple)",
+  "円形とバーの間では切り替えない。形と大きさが違うため、画面が乱れる(Apple)",
+  "「読み込み中」のような、あいまいな説明は避ける(Apple)。何も情報のない静的な表示や「二度押ししないで」の注意書きも効果が薄い(NN group)",
+  "支援技術には、確定ならaria-valuenowで今の値を伝え、不確定なら値を付けない(W3C)",
+];
+
+function ProgressShapes() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>形の使い分け</h2>
+      <p style={styles.psNote}>終わりが分かるか(確定・不確定)、待ち時間、置く場所の3つで形を選びます。各欄は4系列の内容をまとめたもので、出典の系列を括弧で示しています。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.psTable}>
+          <thead><tr>{["形", "終わりが分かるか", "待ち時間の目安", "置く場所", "各系列の見解"].map((h) => (<th key={h} style={styles.psTh}>{h}</th>))}</tr></thead>
+          <tbody>{SHAPE_ROWS.map((r) => (<tr key={r.shape}><td style={{ ...styles.psTd, fontWeight: 700 }}>{r.shape}</td><td style={styles.psTd}>{r.known}</td><td style={styles.psTd}>{r.time}</td><td style={styles.psTd}>{r.where}</td><td style={styles.psTd}>{r.note}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={styles.psRules}>
+        <div style={styles.psRulesTitle}>どの形にも共通すること</div>
+        <ul style={{ margin: 0, paddingLeft: 18 }}>{SHAPE_RULES.map((t) => (<li key={t} style={styles.psRule}>{t}</li>))}</ul>
+      </div>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示です。";
 const ABOUT = [
@@ -305,6 +340,8 @@ export default function CommunicationProgressPage() {
               W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られています。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴です。
             </p>
           </div>
+          <ProgressShapes />
+
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -416,6 +453,13 @@ export default function CommunicationProgressPage() {
 }
 
 const styles = {
+  psNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  psTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
+  psTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  psTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  psRules: { background: "#F8F9FD", borderRadius: 6, padding: "10px 14px" },
+  psRulesTitle: { fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
+  psRule: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
