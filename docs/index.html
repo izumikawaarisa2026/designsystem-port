@@ -7559,6 +7559,30 @@ function AccordionSwatch() {
   );
 }
 
+/* No.054: タブとアコーディオンの使い分け(NN group「Tabs, Used Right」の「Tabs Versus Accordions」による) */
+const TAB_VS_ACC = [
+  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)"],
+  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)"],
+  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える"],
+  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)"],
+];
+
+function TabVsAccordion() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け(Nielsen Norman Group)</h2>
+      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法です。画面の広さと内容の長さで選びます。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvaTable}>
+          <thead><tr>{["", "アコーディオン", "タブ"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
+          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできる部品です。";
 const ABOUT = [
@@ -7596,6 +7620,8 @@ function ContainmentAccordionPage() {
           />
 
 
+
+          <TabVsAccordion />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -7711,6 +7737,10 @@ function ContainmentAccordionPage() {
 }
 
 const styles = {
+  tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvaTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -8002,6 +8032,46 @@ function BottomSheetSwatch() {
   );
 }
 
+/* No.048: モーダルにするかどうかの選び方と、閉じ方(ドラッグハンドル・×ボタン) */
+const MODAL_CHOICE = [
+  { t: "非モーダル(後ろの画面も操作できる)", when: "後ろの画面を見ながら、補助の情報や操作を使いたいとき", ex: "地図の場所の詳細(地図は動かせる)、音楽プレーヤー、メモの文字の書式", src: "Google(標準)・Apple(iOS・iPadOSの非モーダルのシート)・NN group" },
+  { t: "モーダル(答えるか閉じるまで後ろは操作できない)", when: "選択肢に集中させたいとき、対応しないと先へ進めないとき", ex: "ファイルの操作メニュー、共有先の選択、接続の問題を直すお願い", src: "Google(モバイルのみ。操作の項目が多いときは、インラインのメニューや簡単なダイアログの代わりに勧める)・NN group" },
+  { t: "広げると全画面になる", when: "最初は小さく出し、必要なら広げて詳しく見せたいとき", ex: "再生中のエピソードの小さなシートを、上へ引いて全画面に", src: "NN group(小さいときは非モーダル、広げるとモーダルになることが多い)" },
+  { t: "シートを使わない", when: "長い作業や、じっくり読む内容", ex: "複数ステップの編集、長い記事", src: "Apple(全画面のモーダルや別のウィンドウを検討)・NN group(短い操作だけに使う)" },
+];
+const CLOSE_ROWS = [
+  ["ドラッグハンドル(グラバー)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(グラバー)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
+  ["×・閉じるボタン", "全画面のモーダルのボトムシートには閉じるボタンを出す", "キャンセル(閉じる)は保存せずに閉じ、完了は作業を終えて閉じる。完了だけにせず、キャンセルか戻るを組み合わせる", "ハンドルだけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる"],
+  ["そのほかの閉じ方", "項目を選ぶ、後ろ(スクリム)をタップ、下へなぞる、シートのアプリバーの閉じるボタン。Androidの「予測型の戻る」操作", <NoData>記載なし</NoData>, "端末の戻るボタン・戻る操作でも閉じられるようにする"],
+  ["重ねない", <NoData>記載なし</NoData>, "一度に出すシートは1枚にする。シートから別のシートを出すなら、先に最初のシートを閉じる", "シートの上にシートを重ねない。ページ間の移動の代わりに使わない"],
+];
+
+function BottomSheetGuide() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>モーダルにするかどうか</h2>
+      <div style={styles.bsGrid}>
+        {MODAL_CHOICE.map((m) => (
+          <div key={m.t} style={styles.bsCard}>
+            <div style={styles.bsTitle}>{m.t}</div>
+            <div style={styles.bsLine}><span style={styles.bsKey}>向いている場面</span>{m.when}</div>
+            <div style={styles.bsLine}><span style={styles.bsKey}>例</span>{m.ex}</div>
+            <div style={styles.bsSrc}>{m.src}</div>
+          </div>
+        ))}
+      </div>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>閉じ方 ― ドラッグハンドルと×ボタン</h2>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.bsTable}>
+          <thead><tr>{["", "Google", "Apple", "NN group"].map((h) => (<th key={h} style={styles.bsTh}>{h}</th>))}</tr></thead>
+          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, whiteSpace: "nowrap" } : {}) }}>{c}</td>))}</tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.bsNote}>W3Cにはボトムシート専用の型はありません。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作ります(比較表のW3C欄)。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルです。";
 const ABOUT = [
@@ -8039,6 +8109,8 @@ function ContainmentBottomSheetPage() {
           />
 
 
+
+          <BottomSheetGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -8164,6 +8236,16 @@ function ContainmentBottomSheetPage() {
 }
 
 const styles = {
+  bsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  bsCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
+  bsTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 6 },
+  bsLine: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 },
+  bsKey: { display: "inline-block", fontSize: 10, fontWeight: 700, color: "#565D8A", background: "#F3F6FA", borderRadius: 3, padding: "0 5px", marginRight: 6 },
+  bsSrc: { fontSize: 10, color: "#7E86AC", marginTop: 4 },
+  bsTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bsTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  bsTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  bsNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -9208,6 +9290,12 @@ function ContainmentCarouselPage() {
               実務では、<strong>まず静的なヒーロー画像やグリッドで足りないかを考え、カルーセルにするならGoogleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せ、自動では送らない(送るなら止められる)</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
+          <section style={styles.ruleSection}>
+            <h2 style={styles.diagramTitle}>Google ― 4つのレイアウトの使い分けと具体例</h2>
+            <p style={styles.diagramNote}>M3のカルーセルは、見せたい内容に合わせてレイアウトを選びます。「公式の用途」はAndroid Developers・Material Components for Androidに書かれている例、「具体例」はその用途に当てはまる場面をAIが挙げたものです(図は概念図)。</p>
+            <LayoutCards />
+          </section>
+
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -9290,12 +9378,6 @@ function ContainmentCarouselPage() {
             <h2 style={styles.diagramTitle}>SP版とPC版の違い</h2>
             <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わります。かっこ内は根拠にした系列です。</p>
             <DeviceTable />
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>Google ― 4つのレイアウトの使い分けと具体例</h2>
-            <p style={styles.diagramNote}>M3のカルーセルは、見せたい内容に合わせてレイアウトを選びます。「公式の用途」はAndroid Developers・Material Components for Androidに書かれている例、「具体例」はその用途に当てはまる場面をAIが挙げたものです(図は概念図)。</p>
-            <LayoutCards />
           </section>
 
           <section style={styles.ruleSection}>
@@ -11275,16 +11357,13 @@ function ContainmentSideSheetPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、旧「モーダルポップアップ」ページのうち、<strong>下からせり出す半モーダルの内容を「ボトムシート」ページへ切り出した後に残った、ポップオーバー・サイドシート中心の内容</strong>をまとめたものです。ページ名も、Google・Nielsen Norman Groupが共通して使う「サイドシート」という呼び方に合わせて改称しました。
+              サイドシートは、<strong>画面の横に出して、今の画面を見ながら補助の情報や操作を扱うパネル</strong>です。専用の部品として定めているのはGoogleで、メインの画面と並べて置く<strong>標準</strong>と、後ろの画面を操作できなくする<strong>モーダル</strong>の2種類があります。
             </p>
             <p style={styles.synthesisText}>
-              Appleの<strong>Popovers</strong>は、コントロールに関連する情報を出現元の矢印付きで示す軽量なオーバーレイです。捉え方としては、<strong>軽量で非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間</strong>に位置するUIと言えます。コントロールから吹き出すように出現し自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的です。Googleの<strong>サイドシート</strong>(画面側面に固定表示)とは見た目こそ異なりますが、「コンテンツを完全に切り替えず、補助的な情報・操作を添える」という役割は共通しています。
+              <strong>Appleには、サイドシートに当たる部品はありません</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介しています)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの用語集は、<strong>「Popup(Popover)」「Overlay」「Side Sheet」を独立した用語として整理</strong>しており、Side Sheetは「ドロワー/サイドナビ」ページで比較したナビゲーション専用の「Drawer Menu」より広い概念(副次コンテンツ全般)だと定義しています。この整理は、Google側の「サイドシート」の位置づけを理解する助けになります。
-            </p>
-            <p style={styles.synthesisText}>
-              実務上の注意点として、<strong>サイドシートに当たる専用の部品はAppleにはなく</strong>、ここで並べたポップオーバーは役割が近い参考の部品です。ポップオーバーは不要になれば自動的に閉じ、閉じる専用のボタンは基本的に置かないとされる一方、Googleのサイドシートは<strong>閉じるアイコンボタンの設置を強く勧めています</strong>。部品の性質が違うため、どちらが正しいかではなく、<strong>サイドシートを作るならGoogleの勧めに沿って閉じるボタンを置く</strong>のが安全です。W3Cはサイドシートを定めていないため、シート本体は<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>のが基本です(ARIAの属性を付けるだけでは動きは付かず、キーボード操作・フォーカス管理はJavaScriptで実装します)。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めています)が基本です。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計します</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付けます。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

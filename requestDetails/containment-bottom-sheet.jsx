@@ -231,6 +231,46 @@ function BottomSheetSwatch() {
   );
 }
 
+/* No.048: モーダルにするかどうかの選び方と、閉じ方(ドラッグハンドル・×ボタン) */
+const MODAL_CHOICE = [
+  { t: "非モーダル(後ろの画面も操作できる)", when: "後ろの画面を見ながら、補助の情報や操作を使いたいとき", ex: "地図の場所の詳細(地図は動かせる)、音楽プレーヤー、メモの文字の書式", src: "Google(標準)・Apple(iOS・iPadOSの非モーダルのシート)・NN group" },
+  { t: "モーダル(答えるか閉じるまで後ろは操作できない)", when: "選択肢に集中させたいとき、対応しないと先へ進めないとき", ex: "ファイルの操作メニュー、共有先の選択、接続の問題を直すお願い", src: "Google(モバイルのみ。操作の項目が多いときは、インラインのメニューや簡単なダイアログの代わりに勧める)・NN group" },
+  { t: "広げると全画面になる", when: "最初は小さく出し、必要なら広げて詳しく見せたいとき", ex: "再生中のエピソードの小さなシートを、上へ引いて全画面に", src: "NN group(小さいときは非モーダル、広げるとモーダルになることが多い)" },
+  { t: "シートを使わない", when: "長い作業や、じっくり読む内容", ex: "複数ステップの編集、長い記事", src: "Apple(全画面のモーダルや別のウィンドウを検討)・NN group(短い操作だけに使う)" },
+];
+const CLOSE_ROWS = [
+  ["ドラッグハンドル(グラバー)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(グラバー)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
+  ["×・閉じるボタン", "全画面のモーダルのボトムシートには閉じるボタンを出す", "キャンセル(閉じる)は保存せずに閉じ、完了は作業を終えて閉じる。完了だけにせず、キャンセルか戻るを組み合わせる", "ハンドルだけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる"],
+  ["そのほかの閉じ方", "項目を選ぶ、後ろ(スクリム)をタップ、下へなぞる、シートのアプリバーの閉じるボタン。Androidの「予測型の戻る」操作", <NoData>記載なし</NoData>, "端末の戻るボタン・戻る操作でも閉じられるようにする"],
+  ["重ねない", <NoData>記載なし</NoData>, "一度に出すシートは1枚にする。シートから別のシートを出すなら、先に最初のシートを閉じる", "シートの上にシートを重ねない。ページ間の移動の代わりに使わない"],
+];
+
+function BottomSheetGuide() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>モーダルにするかどうか</h2>
+      <div style={styles.bsGrid}>
+        {MODAL_CHOICE.map((m) => (
+          <div key={m.t} style={styles.bsCard}>
+            <div style={styles.bsTitle}>{m.t}</div>
+            <div style={styles.bsLine}><span style={styles.bsKey}>向いている場面</span>{m.when}</div>
+            <div style={styles.bsLine}><span style={styles.bsKey}>例</span>{m.ex}</div>
+            <div style={styles.bsSrc}>{m.src}</div>
+          </div>
+        ))}
+      </div>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>閉じ方 ― ドラッグハンドルと×ボタン</h2>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.bsTable}>
+          <thead><tr>{["", "Google", "Apple", "NN group"].map((h) => (<th key={h} style={styles.bsTh}>{h}</th>))}</tr></thead>
+          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, whiteSpace: "nowrap" } : {}) }}>{c}</td>))}</tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.bsNote}>W3Cにはボトムシート専用の型はありません。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作ります(比較表のW3C欄)。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルです。";
 const ABOUT = [
@@ -272,6 +312,8 @@ export default function ContainmentBottomSheetPage() {
           />
 
 
+
+          <BottomSheetGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -397,6 +439,16 @@ export default function ContainmentBottomSheetPage() {
 }
 
 const styles = {
+  bsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  bsCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
+  bsTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 6 },
+  bsLine: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 },
+  bsKey: { display: "inline-block", fontSize: 10, fontWeight: 700, color: "#565D8A", background: "#F3F6FA", borderRadius: 3, padding: "0 5px", marginRight: 6 },
+  bsSrc: { fontSize: 10, color: "#7E86AC", marginTop: 4 },
+  bsTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bsTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  bsTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  bsNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -266,16 +266,13 @@ export default function ContainmentSideSheetPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、旧「モーダルポップアップ」ページのうち、<strong>下からせり出す半モーダルの内容を「ボトムシート」ページへ切り出した後に残った、ポップオーバー・サイドシート中心の内容</strong>をまとめたものです。ページ名も、Google・Nielsen Norman Groupが共通して使う「サイドシート」という呼び方に合わせて改称しました。
+              サイドシートは、<strong>画面の横に出して、今の画面を見ながら補助の情報や操作を扱うパネル</strong>です。専用の部品として定めているのはGoogleで、メインの画面と並べて置く<strong>標準</strong>と、後ろの画面を操作できなくする<strong>モーダル</strong>の2種類があります。
             </p>
             <p style={styles.synthesisText}>
-              Appleの<strong>Popovers</strong>は、コントロールに関連する情報を出現元の矢印付きで示す軽量なオーバーレイです。捉え方としては、<strong>軽量で非侵襲的なツールチップと、操作を要求するブロッキングなダイアログの中間</strong>に位置するUIと言えます。コントロールから吹き出すように出現し自動的に消える点はツールチップ的ですが、ボタンなど操作可能なアクションを含められる点はダイアログ的です。Googleの<strong>サイドシート</strong>(画面側面に固定表示)とは見た目こそ異なりますが、「コンテンツを完全に切り替えず、補助的な情報・操作を添える」という役割は共通しています。
+              <strong>Appleには、サイドシートに当たる部品はありません</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介しています)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義しています。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの用語集は、<strong>「Popup(Popover)」「Overlay」「Side Sheet」を独立した用語として整理</strong>しており、Side Sheetは「ドロワー/サイドナビ」ページで比較したナビゲーション専用の「Drawer Menu」より広い概念(副次コンテンツ全般)だと定義しています。この整理は、Google側の「サイドシート」の位置づけを理解する助けになります。
-            </p>
-            <p style={styles.synthesisText}>
-              実務上の注意点として、<strong>サイドシートに当たる専用の部品はAppleにはなく</strong>、ここで並べたポップオーバーは役割が近い参考の部品です。ポップオーバーは不要になれば自動的に閉じ、閉じる専用のボタンは基本的に置かないとされる一方、Googleのサイドシートは<strong>閉じるアイコンボタンの設置を強く勧めています</strong>。部品の性質が違うため、どちらが正しいかではなく、<strong>サイドシートを作るならGoogleの勧めに沿って閉じるボタンを置く</strong>のが安全です。W3Cはサイドシートを定めていないため、シート本体は<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>のが基本です(ARIAの属性を付けるだけでは動きは付かず、キーボード操作・フォーカス管理はJavaScriptで実装します)。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めています)が基本です。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計します</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付けます。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

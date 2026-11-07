@@ -193,6 +193,30 @@ function AccordionSwatch() {
   );
 }
 
+/* No.054: タブとアコーディオンの使い分け(NN group「Tabs, Used Right」の「Tabs Versus Accordions」による) */
+const TAB_VS_ACC = [
+  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)"],
+  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)"],
+  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える"],
+  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)"],
+];
+
+function TabVsAccordion() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け(Nielsen Norman Group)</h2>
+      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法です。画面の広さと内容の長さで選びます。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvaTable}>
+          <thead><tr>{["", "アコーディオン", "タブ"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
+          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできる部品です。";
 const ABOUT = [
@@ -234,6 +258,8 @@ export default function ContainmentAccordionPage() {
           />
 
 
+
+          <TabVsAccordion />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -349,6 +375,10 @@ export default function ContainmentAccordionPage() {
 }
 
 const styles = {
+  tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  tvaTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

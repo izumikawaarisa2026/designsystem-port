@@ -553,6 +553,12 @@ export default function ContainmentCarouselPage() {
               実務では、<strong>まず静的なヒーロー画像やグリッドで足りないかを考え、カルーセルにするならGoogleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せ、自動では送らない(送るなら止められる)</strong>のが、4系列を合わせた結論です。
             </p>
           </div>
+          <section style={styles.ruleSection}>
+            <h2 style={styles.diagramTitle}>Google ― 4つのレイアウトの使い分けと具体例</h2>
+            <p style={styles.diagramNote}>M3のカルーセルは、見せたい内容に合わせてレイアウトを選びます。「公式の用途」はAndroid Developers・Material Components for Androidに書かれている例、「具体例」はその用途に当てはまる場面をAIが挙げたものです(図は概念図)。</p>
+            <LayoutCards />
+          </section>
+
           <div className="dsp-mobile-only" style={styles.sourceList}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
@@ -635,12 +641,6 @@ export default function ContainmentCarouselPage() {
             <h2 style={styles.diagramTitle}>SP版とPC版の違い</h2>
             <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わります。かっこ内は根拠にした系列です。</p>
             <DeviceTable />
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>Google ― 4つのレイアウトの使い分けと具体例</h2>
-            <p style={styles.diagramNote}>M3のカルーセルは、見せたい内容に合わせてレイアウトを選びます。「公式の用途」はAndroid Developers・Material Components for Androidに書かれている例、「具体例」はその用途に当てはまる場面をAIが挙げたものです(図は概念図)。</p>
-            <LayoutCards />
           </section>
 
           <section style={styles.ruleSection}>
