@@ -269,6 +269,73 @@ function MiniTabs({ mode }) {
   );
 }
 
+/* タブの種類(4系列のまとめ)と、NN groupによる2種類の違い */
+const TAB_KINDS = [
+  { kind: "ナビゲーションのタブ(主な場所へ移動)", cells: [
+    "Tab bar。iOSは画面の下部に浮かび、iPadOSは画面の上部近くに出る(サイドバーに切り替えられる)",
+    <>タブではなく<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>という別の部品</>,
+    <NoData>記載なし</NoData>,
+    "Navigation tabs。別のページへ移動する。画面の上部か左に置き、モバイルでは下部が多い",
+  ] },
+  { kind: "ページ内のタブ(同じ画面の中で切り替え)", cells: [
+    <>Tab view(macOSのみ。内容の領域の上端に置く)。iOS・iPadOSでは<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>を使う</>,
+    "Tabs。同じ階層の関連する内容を切り替える",
+    "APGのTabsパターン。同じページの中でパネルを切り替える",
+    "In-page tabs。今の画面に留まったまま、関連する内容を切り替える",
+  ] },
+  { kind: "2段(階層)にする", cells: [
+    <NoData>記載なし</NoData>,
+    "Primary tabs(コンテンツの上、アプリバーの下)と、その下のSecondary tabs",
+    <NoData>記載なし</NoData>,
+    "1つのタブの並びに、ナビゲーションのタブとページ内のタブを混ぜない",
+  ] },
+  { kind: "収まらないとき", cells: [
+    "末尾が「その他(More)」タブになるため、はみ出しを避ける",
+    "Scrollable(横にスクロールできるタブ)を使う。全部を見せるFixedは4個まで",
+    <NoData>記載なし</NoData>,
+    "カルーセルのようになり、隠れたタブが見つけにくくなるので、少ないほどよい",
+  ] },
+];
+const NN_TAB_DIFF = [
+  ["内容", "広い範囲の、関連の薄い・異なる内容", "狭い範囲の、関連する・似た内容"],
+  ["位置", "画面の上部か左(モバイルでは下部が多い)", "ページの中の、内容に合わせた場所"],
+  ["スクロールしたとき", "上部(か下部)に固定されることがある", "固定されることは少ない"],
+  ["利用者が思うこと", "新しい画面へ移る。少し読み込みを待つ", "今の画面に留まる。すぐに切り替わる"],
+  ["最初に選ばれているタブ", "通常は1つ。どのタブにも属さない画面では選ばれていないこともある", "必ず1つ選ばれている"],
+];
+
+function TabKinds() {
+  const systems = ["Apple", "Google", "W3C", "NN group"];
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>タブの種類</h2>
+      <p style={styles.diagramNote}>「主な場所へ移動するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものです。このページの比較は、後者(ページ内のタブ)が対象です。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.kindTable}>
+          <thead><tr><th style={styles.kindTh}>種類</th>{systems.map((n) => (<th key={n} style={styles.kindTh}>{n}</th>))}</tr></thead>
+          <tbody>
+            {TAB_KINDS.map((r) => (
+              <tr key={r.kind}>
+                <td style={{ ...styles.kindTd, fontWeight: 700 }}>{r.kind}</td>
+                {r.cells.map((c, i) => (<td key={i} style={styles.kindTd}>{c}</td>))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h3 style={styles.kindSub}>ナビゲーションのタブとページ内のタブの違い(Nielsen Norman Group)</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.kindTable}>
+          <thead><tr>{["", "ナビゲーションのタブ", "ページ内のタブ"].map((h) => (<th key={h} style={styles.kindTh}>{h}</th>))}</tr></thead>
+          <tbody>
+            {NN_TAB_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.kindTd, fontWeight: 700 }}>{r[0]}</td><td style={styles.kindTd}>{r[1]}</td><td style={styles.kindTd}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
 const SPLITS = [
   {
     q: "キーボードでタブに移ったら、すぐに内容を切り替える?",
@@ -343,6 +410,7 @@ export default function NavigationTabsPage() {
           />
 
 
+          <TabKinds />
           <SplitSection splits={SPLITS} />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -468,6 +536,11 @@ export default function NavigationTabsPage() {
 }
 
 const styles = {
+  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
+  kindTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  kindTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  kindTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  kindSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "20px 0 8px" },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },

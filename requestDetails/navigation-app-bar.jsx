@@ -258,12 +258,33 @@ function SearchAppBarSection() {
   return (
     <div style={styles.searchSection}>
       <div style={styles.searchSectionHeadRow}>
-        <span style={styles.searchSectionBadge}>Google単独 ― 4系列比較の対象外</span>
+        <span style={styles.searchSectionBadge}>Googleの部品 ― 4系列比較の対象外</span>
         <h2 style={styles.searchSectionTitle}>検索アプリバー(Search app bar)</h2>
       </div>
       <p style={styles.searchSectionIntro}>
-        Googleのアプリバーには、検索ビューへの入り口として使う「検索アプリバー」というバリエーションがあります。記載内容・注意点が多いため、上記の4系列比較には含めず、専用セクションとしてまとめています。Apple・W3C・Nielsen Norman Groupに直接対応する概念は確認できていません。
+        Googleのアプリバーには、検索ビューへの入り口として使う「検索アプリバー」というバリエーションがあります。記載内容・注意点が多いため、上記の4系列比較には含めず、専用セクションとしてまとめています。
       </p>
+      <div style={styles.diffBox}>
+        <div style={styles.diffTitle}>検索アプリバーと検索フィールドの違い</div>
+        <div style={styles.diffRow}>
+          <div style={styles.diffCol}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#EEF1FA", borderRadius: 20, padding: "6px 10px", width: 190 }}>
+              <span style={{ fontSize: 11 }}>☰</span><span style={{ flex: 1, fontSize: 11, color: "#7E86AC" }}>アプリ内を検索</span><span style={{ width: 16, height: 16, borderRadius: 8, background: "#C7CBE6" }} />
+            </div>
+            <div style={styles.diffName}>検索アプリバー(入り口)</div>
+            <p style={styles.diffText}>画面の上部に置く、アプリバーの1つの型。見た目は検索欄だが、押すと<strong>検索ビュー</strong>(入力と候補を出す画面)が開く。検索がアプリ全体の主な機能であるときに向く(特定の画面の中だけを検索するなら「検索バー」)。</p>
+          </div>
+          <div style={styles.diffArrow}>押すと →</div>
+          <div style={styles.diffCol}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, border: "1.4px solid #3A4FCF", borderRadius: 6, padding: "6px 10px", width: 190, background: "#FFFFFF" }}>
+              <span style={{ fontSize: 11 }}>‹</span><span style={{ flex: 1, fontSize: 11, color: "#171B36" }}>東京 カフェ|</span><span style={{ fontSize: 11, color: "#7E86AC" }}>✕</span>
+            </div>
+            <div style={styles.diffName}>検索フィールド(入力する欄)</div>
+            <p style={styles.diffText}>実際に言葉を入力する欄。検索ビューの中や、ページの中に置く。候補や結果の見せ方も含めて、<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページで4系列を比較している。</p>
+          </div>
+        </div>
+        <p style={styles.diffNote}><strong>Appleにも近い置き方があります</strong>。iOSでは、検索の入り口を「タブバーの検索タブ」「画面の上部か下部のツールバー」「内容の中」のどこに置くかを選べ、上部のツールバー(ナビゲーションバー)に置いた検索ボタンを押すと、検索フィールドに変わるとしています(HIG Search fields)。W3CとNielsen Norman Groupには、検索アプリバーに当たる項目はありません。</p>
+      </div>
       <div style={styles.searchSectionGrid}>
         {SEARCH_APP_BAR_ITEMS.map((it) => (
           <div key={it.label} style={styles.searchSectionCard}>
@@ -273,7 +294,7 @@ function SearchAppBarSection() {
         ))}
       </div>
       <p style={styles.searchSectionNote}>
-        出典: m3.material.io「App bars」のガイドラインの本文による2026-09時点のMaterial Design 3公式情報。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照してください。
+        出典: m3.material.io「App bars」のガイドラインの本文(Material Design 3)。Appleの置き方はHIG「Search fields」のiOSの節。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照してください。
       </p>
     </div>
   );
@@ -456,6 +477,14 @@ export default function NavigationAppBarPage() {
 }
 
 const styles = {
+  diffBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", margin: "0 0 14px", background: "#FFFFFF" },
+  diffTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
+  diffRow: { display: "flex", flexWrap: "wrap", gap: 12, alignItems: "flex-start" },
+  diffCol: { flex: "1 1 220px", minWidth: 0 },
+  diffArrow: { fontSize: 11, color: "#7E86AC", alignSelf: "center" },
+  diffName: { fontSize: 12.5, fontWeight: 700, color: "#171B36", margin: "8px 0 4px" },
+  diffText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: 0 },
+  diffNote: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

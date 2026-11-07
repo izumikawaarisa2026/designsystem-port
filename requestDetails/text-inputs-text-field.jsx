@@ -295,6 +295,50 @@ function GlossaryNote({ items }) {
   );
 }
 
+/* テキストフィールドのパターン(4系列の内容をまとめたもの。出典の系列を各カードに示す) */
+function FieldMini({ lead, trail, prefix, suffix, value, placeholder, counter, align, masked }) {
+  return (
+    <div style={{ width: 150 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 5, border: "1.4px solid #9EA4C4", borderRadius: 4, padding: "5px 7px", background: "#FFFFFF", height: 28 }}>
+        {lead && <span style={{ fontSize: 11, color: "#565D8A" }}>{lead}</span>}
+        {prefix && <span style={{ fontSize: 11, color: "#7E86AC" }}>{prefix}</span>}
+        <span style={{ flex: 1, fontSize: 11, color: value ? "#171B36" : "#B7BCDA", textAlign: align || "left", letterSpacing: masked ? 2 : 0 }}>{value || placeholder}</span>
+        {suffix && <span style={{ fontSize: 11, color: "#7E86AC" }}>{suffix}</span>}
+        {trail && <span style={{ fontSize: 11, color: "#565D8A" }}>{trail}</span>}
+      </div>
+      {counter && <div style={{ fontSize: 9, color: "#7E86AC", textAlign: "right", marginTop: 2 }}>{counter}</div>}
+    </div>
+  );
+}
+
+const FIELD_PATTERNS = [
+  { t: "先頭のアイコン(目的を示す)", fig: <FieldMini lead="🔍" placeholder="検索" />, d: "先頭の画像やアイコンで、入力欄の目的を示す。", src: "Apple(先頭は目的、末尾は追加の機能)・Google(Leading icon)" },
+  { t: "末尾のボタン(消す・表示を切り替える)", fig: <FieldMini value="山田太郎" trail="✕" />, d: "末尾には、入力を一度に消すクリアボタンなど、追加の機能を置く。", src: "Apple(iOS・iPadOSのClearボタン)・Google(clear text)" },
+  { t: "パスワード(隠す入力)", fig: <FieldMini value="●●●●●●" trail="👁" masked />, d: "パスワードなどは、入力した文字を隠す欄を使う。末尾のアイコンで、隠す/表示するを切り替えられる。", src: "Apple(secure text field)・Google(password toggle)" },
+  { t: "前後に単位や決まった文字を置く", fig: <FieldMini prefix="¥" value="1,200" suffix="円" />, d: "金額の「¥」、重さの「kg」、メールの「@example.com」など、決まった文字を入力欄の前後に表示する。", src: "Google(prefix・suffix text)" },
+  { t: "メールアドレス・数値など形式のある入力", fig: <FieldMini placeholder="name@example.com" />, d: "入力する内容に合ったキーボード(メール用・数字用など)を出す。数値は書式(小数点・通貨・%)を自動でそろえられる。名前やメールアドレスなど利用者自身の情報は、入力の目的をプログラムで判別できるようにする。", src: "Apple(キーボードの種類・number formatter)・W3C(1.3.5 入力目的の特定、レベルAA)" },
+  { t: "文字数カウンター", fig: <FieldMini value="こんにちは" counter="5 / 50" />, d: "入力できる文字数に上限があるとき、欄の下に今の文字数と上限を表示する。", src: "Google(counter text)" },
+  { t: "左揃え・右揃え", fig: <FieldMini value="12,800" align="right" />, d: "4系列とも、入力欄の文字の揃え方は定めていない。文字は左揃え(右から左に書く言語では右揃え)が基本で、桁をそろえて比べたい数値だけ右揃えにする、という使い分けが一般的(AI解釈)。", src: "4系列とも記載なし" },
+];
+
+function FieldPatterns() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h3 style={styles.patternTitle}>テキストフィールドのパターン</h3>
+      <div style={styles.patternGrid}>
+        {FIELD_PATTERNS.map((f) => (
+          <div key={f.t} style={styles.patternCard}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}>{f.fig}</div>
+            <div style={styles.patternName}>{f.t}</div>
+            <p style={styles.patternText}>{f.d}</p>
+            <div style={styles.patternSrc}>{f.src}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function TextFieldSwatch() {
   return (
     <div style={{ width: 240, margin: "0 auto" }}>
@@ -371,6 +415,7 @@ export default function TextInputsTextFieldPage() {
           />
 
           <h2 style={styles.diagramTitle}>① テキストフィールド(単一行)</h2>
+          <FieldPatterns />
 
 
 
@@ -465,6 +510,11 @@ export default function TextInputsTextFieldPage() {
           <hr style={styles.sectionDivider} />
 
           <h2 style={styles.diagramTitle}>② テキストエリア(複数行)</h2>
+          <div style={styles.textareaImage}>
+            <span style={styles.textareaImageLabel}>コンポーネントイメージ(テキストエリア)</span>
+            <TextareaSwatch />
+            <p style={styles.textareaImageNote}>複数行の文章を入力する欄。ラベル・入力欄・補足情報(文字数など)で構成する。</p>
+          </div>
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較です(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
           <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なります。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要です。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要です。</p>
@@ -488,6 +538,15 @@ export default function TextInputsTextFieldPage() {
 }
 
 const styles = {
+  patternTitle: { fontSize: 14, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
+  patternGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  patternCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
+  patternName: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },
+  patternText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  patternSrc: { fontSize: 10, color: "#7E86AC" },
+  textareaImage: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", marginBottom: 20, textAlign: "center" },
+  textareaImageLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", textAlign: "left", marginBottom: 12 },
+  textareaImageNote: { fontSize: 11, color: "#7E86AC", margin: "12px 0 0", lineHeight: 1.6 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

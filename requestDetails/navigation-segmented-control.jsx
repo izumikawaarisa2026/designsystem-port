@@ -207,6 +207,30 @@ function SegmentedSwatch() {
   );
 }
 
+/* Appleでのタブバーとの使い分け(No.039。HIG Segmented controls・Tab bars・Tab viewsの本文による) */
+const APPLE_TAB_VS_SEG = [
+  ["切り替えるもの", "アプリのまったく別のセクション(時計アプリのアラーム・ストップウォッチ・タイマーなど)", "密接に関係するサブビューや、同じ対象の表示(カレンダーの新規作成で「イベント」と「リマインダー」、ヘルスケアのグラフの期間)"],
+  ["置く場所", "iOSは画面の下部、iPadOSは画面の上部近く。アプリのどの画面でも表示し続ける", "画面の中、ツールバー、インスペクタなど、対象の近く"],
+  ["数の目安", "少ないほど移動しやすい。収まらないと「その他」タブになるので避ける", "iPhoneでは5個程度まで、広い画面では5〜7個程度まで"],
+  ["押したときの働き", "移動だけ。今の画面への操作には使わない(操作はツールバー)", "選んだ状態を示すか、操作のボタンの集まり(macOSのメールの返信・全員に返信・転送)。1つのコントロールの中で両方を混ぜない"],
+];
+
+function AppleTabVsSegmented() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>Appleでの、タブバーとセグメントコントロールの使い分け</h2>
+      <p style={styles.atvNote}>Appleでは、どちらも横に並んだ選択肢に見えますが、役割がはっきり分かれています。iOS・iPadOSには画面の中のタブ(Tab view)がないため、画面の中で関係のある表示を切り替えるときは、セグメントコントロールを使います。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.atvTable}>
+          <thead><tr>{["", "タブバー(Tab bar)", "セグメントコントロール"].map((h) => (<th key={h} style={styles.atvTh}>{h}</th>))}</tr></thead>
+          <tbody>{APPLE_TAB_VS_SEG.map((r) => (<tr key={r[0]}><td style={{ ...styles.atvTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.atvTd}>{r[1]}</td><td style={styles.atvTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.atvNote}>4系列での使い分けは、<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>のページで比べています。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品です。";
 const ABOUT = [
@@ -255,6 +279,8 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
 
+
+          <AppleTabVsSegmented />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -369,6 +395,10 @@ export default function NavigationSegmentedControlPage() {
 }
 
 const styles = {
+  atvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  atvTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  atvTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  atvTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

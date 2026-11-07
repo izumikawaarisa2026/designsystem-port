@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ドロワー/サイドナビ」ページ(旧カテゴリ: Navigation)。
@@ -74,7 +74,8 @@ const DRAWER_SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-drawer/guidelines",
-    urlSecondary: [
+    refs: [
+      { label: "Navigation drawer(Modal)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
       { label: "関連: Navigation rail", url: "https://m3.material.io/components/navigation-rail/guidelines" },
       { label: "MDC Android: Navigation drawer(非推奨化の注記)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationDrawer.md" },
     ],
@@ -118,8 +119,9 @@ const DRAWER_SOURCES = [
     ],
     searchHint: "Tab and Shift + Tab do not move focus",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
-    urlSecondary: [
-      { label: "3.2.3 Consistent Navigation", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
+    refs: [
+      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
+      { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
     confirmedNote: "3.2.3はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -153,6 +155,9 @@ const DRAWER_SOURCES = [
     ],
     searchHint: "Discoverability is cut almost in half",
     url: "https://www.nngroup.com/articles/hamburger-menus/",
+    refs: [
+      { label: "Hamburger Menus and Hidden Navigation Hurt UX Metrics", url: "https://www.nngroup.com/articles/hamburger-menus/" },
+    ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="40" height="40" viewBox="0 0 40 40">
@@ -190,6 +195,9 @@ const RAIL_SOURCES = [
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/sidebars",
+    refs: [
+      { label: "Sidebars(iPadOS・macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/sidebars" },
+    ],
     confirmedNote: "公式ページ本文はSPAのため直接確認できておらず、検索結果による間接確認(2026-09)。iOS向けの「隠れたドロワー」概念自体が見当たらない点も、複数の関連ページを確認した上での間接的な結論。",
     pending: true,
     illustration: () => (
@@ -220,7 +228,8 @@ const RAIL_SOURCES = [
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-rail/overview",
-    urlSecondary: [
+    refs: [
+      { label: "Navigation rail(折りたたみ型・展開型)", url: "https://m3.material.io/components/navigation-rail/overview" },
       { label: "MDC Android: Navigation rail(M3 Expressiveの変更点)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationRail.md#m3-expressive" },
       { label: "Navigation drawer(Standard)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
     ],
@@ -255,8 +264,9 @@ const RAIL_SOURCES = [
     ],
     searchHint: "navigation",
     url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/",
-    urlSecondary: [
-      { label: "3.2.3 Consistent Navigation", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
+    refs: [
+      { kind: "apg", label: "APG: Landmark Regions(navigation)/ WCAG 3.2.3", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
     illustrationNote: "視覚デザインの規定はなく、ランドマークの考え方を図示",
   },
@@ -278,6 +288,9 @@ const RAIL_SOURCES = [
     ],
     searchHint: "Guidelines for Usable Vertical Navigation",
     url: "https://www.nngroup.com/articles/vertical-nav/",
+    refs: [
+      { label: "Left-Side Vertical Navigation on Desktop", url: "https://www.nngroup.com/articles/vertical-nav/" },
+    ],
     confirmedNote: "記事本文を直接取得して確認しました(2026-11)。",
     illustration: () => (
       <div style={{ display: "flex", width: 110, height: 60, border: "1px solid #E1E3F0", borderRadius: 4, overflow: "hidden" }}>
@@ -370,18 +383,11 @@ function Comparison({ SOURCES }) {
                   <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                   <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                   {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
-                  <div style={styles.sourceFootRow}>
-                    {s.searchHint && (
-                      <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                    )}
-                    {s.url && <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>}
-                  </div>
-                  {s.urlSecondary && (
-                    <div style={styles.secondaryLinks}>
-                      {s.urlSecondary.map((sl) => (
-                        <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{sl.label} ↗</a>
-                      ))}
-                    </div>
+                  <InfoBox label="参照ページ(公式)">
+                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
+                  </InfoBox>
+                  {s.searchHint && (
+                    <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
                   )}
                   {s.glossary && <GlossaryNote items={s.glossary} />}
                 </div>
@@ -419,13 +425,10 @@ function Comparison({ SOURCES }) {
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                   <div style={styles.labelCell}>ユースケース</div>
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                  <div style={styles.labelCell}>リンク</div>
+                  <div style={styles.labelCell}>参照ページ(公式)</div>
                   {SOURCES.map((s) => (
-                    <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-                      {s.url ? <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a> : <NoData>該当なし</NoData>}
-                      {s.urlSecondary && s.urlSecondary.map((sl) => (
-                        <a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={styles.link}>{sl.label} ↗</a>
-                      ))}
+                    <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                       {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
                     </div>
                   ))}

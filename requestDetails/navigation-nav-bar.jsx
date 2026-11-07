@@ -259,6 +259,42 @@ function TopBarPointerSection() {
   );
 }
 
+/* 名前の対応と、上部・下部の使い分け(No.041) */
+const NAME_MAP = [
+  { sys: "Apple", name: "Tab bar(タブバー)", note: "このページの対象。iOSは画面の下部、iPadOSは画面の上部近く。なお、戻るボタンを持つ上部のバーは、以前「Navigation bar」と呼ばれていた別の部品(→アプリバー)" },
+  { sys: "Google", name: "Navigation bar(ナビゲーションバー)", note: "このページの対象。画面の下部、コンパクト・中サイズの画面向け" },
+  { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "アプリの主な項目を並べるものをタブバー、サイトの上部に主な項目を並べるものをナビゲーションバーと呼び分ける" },
+];
+const POSITION_ROWS = [
+  ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)。Androidのアプリのタブバーも上部が多い", "アプリの主な場所を切り替える(iOSのタブバー、Googleのナビゲーションバー)"],
+  ["スクロールしたとき", "消えることが多い(上部に固定する型や、上に戻すと再び出る型もある)", "常に表示される"],
+  ["向いている場面", "主な項目が少ないサイト", "主な場所が3〜5か所のアプリ"],
+  ["懸念点", "画面の上の大事な場所をとる。項目が多いと収まらない", "項目が5個を超えると、押せる大きさを保てない"],
+];
+
+function NameAndPosition() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>タブバーとナビゲーションバー ― 名前の違いと、上部・下部の使い分け</h2>
+      <p style={styles.npNote}>同じ役割の部品でも、系列によって呼び名が違います。</p>
+      <div style={{ overflowX: "auto", marginBottom: 16 }}>
+        <table style={styles.npTable}>
+          <thead><tr>{["系列", "呼び名", "メモ"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
+          <tbody>{NAME_MAP.map((r) => (<tr key={r.sys}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r.sys}</td><td style={styles.npTd}>{r.name}</td><td style={styles.npTd}>{r.note}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <h3 style={styles.npSub}>上部に置く場合と、下部に置く場合(Nielsen Norman Groupの整理を中心に)</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.npTable}>
+          <thead><tr>{["", "上部(ナビゲーションバー)", "下部(タブバー)"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
+          <tbody>{POSITION_ROWS.map((r) => (<tr key={r[0]}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.npTd}>{r[1]}</td><td style={styles.npTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.npNote}>どちらの場合も、項目が多いときに横にスクロールさせると、隠れた項目は見つけてもらいにくくなります。バーをその画面の主な場所にし、補助の項目や検索に場所を割きすぎないこと、アイコンには文字のラベルを付けることも、NN groupは勧めています。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーです。";
 const ABOUT = [
@@ -300,6 +336,8 @@ export default function NavigationNavBarPage() {
           />
 
 
+
+          <NameAndPosition />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -419,6 +457,11 @@ export default function NavigationNavBarPage() {
 }
 
 const styles = {
+  npNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  npSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "8px 0 8px" },
+  npTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  npTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  npTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
