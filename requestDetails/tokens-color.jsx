@@ -334,36 +334,40 @@ const COLOR_KINDS_LIST = {
 const COLOR_KINDS = [
   {
     kind: "アクセント(ブランド)色",
-    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。" },
-    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。" },
+    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。", sw: [{ n: "Blue(例)", l: "#0088FF", d: "#0091FF" }, { n: "Blue(コントラストを上げる設定)", l: "#1E6EF4", d: "#5CB8FF" }], swNote: "システムカラーのBlue。アクセント色はアプリ独自の色にできる" },
+    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。", sw: [{ n: "Primary", l: "#6750A4", d: "#D0BCFF" }, { n: "Secondary", l: "#625B71", d: "#CCC2DC" }, { n: "Tertiary", l: "#7D5260", d: "#EFB8C8" }], swNote: "基準の配色(壁紙などから作る場合は値が変わる)" },
     wcag: { mark: "―", text: "専用の定義なし。アクセント色で情報を伝える場合も、1.4.1・1.4.3・1.4.11の一般的な基準がそのまま適用される。" },
     nn: { mark: "◯", text: "60-30-10の「10%」がアクセントカラー。同じ意味(例: CTAボタン)には常に同じ色を使う。" },
   },
   {
     kind: "リンク色",
-    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。" },
+    rel: <><PageLink to="/components/actions/link">リンク</PageLink></>,
+    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。", swNone: "色の値はHIGに記載なし" },
     material: { mark: "✕", text: "リンク専用のカラーロールはない(Material Components for Androidのロール一覧に存在しない)。" },
     wcag: { mark: "◯", text: "リンクを色だけで区別するなら、周囲の文字と3:1以上の差が必要(G183。以前の版ではホバー・フォーカス時の手がかりも条件だった)。色覚に頼らないと見分けられないリンクは不適合の例(F73)。" },
-    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。" },
+    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。", sw: [{ n: "未訪問(例)", l: "#1A5FD0", d: "#7FB0FF" }, { n: "訪問済み(例)", l: "#6E5A8E", d: "#B6A6CF" }], swNote: "色はAIの作例。NN groupは具体的な色の値を定めていない(青が最も強い手がかり)" },
   },
   {
     kind: "エラー色",
-    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。" },
-    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。" },
+    rel: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>・<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink></>,
+    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。", sw: [{ n: "Red", l: "#FF383C", d: "#FF4245" }, { n: "Red(コントラストを上げる設定)", l: "#E9152D", d: "#FF6165" }], swNote: "エラー専用ではなく、システムカラーのRed" },
+    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。", sw: [{ n: "Error", l: "#B3261E", d: "#F2B8B5" }] },
     wcag: { mark: "△", text: "専用の色はないが、エラーや必須項目を色の違いだけで示すことは1.4.1の不適合の例(F81)。" },
     nn: { mark: "△", text: "言葉の意味でも区別できるなら、「エラー」を赤で示してよい。ただしリンクの色と重ならないようにする。" },
   },
   {
     kind: "枠線・区切り線",
+    rel: <><PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></>,
     hig: { mark: "◯", text: "Separator(下の内容が少し透ける)とOpaque separator(透けない)の2種類。区切り線の色を文字に使うなど、意味の流用はしない。" },
-    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。" },
+    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。", sw: [{ n: "Outline", l: "#79747E", d: "#938F99" }, { n: "Outline Variant", l: "#CAC4D0", d: "#49454F" }], swNote: "基準の配色" },
     wcag: { mark: "△", text: "枠線が部品を見分けるのに必要な場合は1.4.11で3:1以上。装飾的な線は対象外。" },
     nn: { mark: "―", text: "該当する記述なし。" },
   },
   {
     kind: "非活性・プレースホルダー",
+    rel: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></>,
     hig: { mark: "◯", text: "Placeholder text(入力欄のプレースホルダー)。macOSには使えない部品の文字色(Unavailable control text color)もある。" },
-    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。" },
+    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。", sw: [{ n: "On Surface 38%", l: "#1D1B20", d: "#E6E0E9", op: 0.38 }], swNote: "基準の配色のOn Surfaceを38%で重ねた見え方" },
     wcag: { mark: "△", text: "非活性の部品は1.4.3・1.4.11の適用除外。" },
     nn: { mark: "△", text: "薄いグレーは「無効」に見えやすい。使える要素を薄くすると、使えないと誤解される原因になる。" },
   },
@@ -375,6 +379,26 @@ const KIND_COLS = [
   { key: "wcag", name: "W3C" },
   { key: "nn", name: "NN group" },
 ];
+
+/* 色見本(ライト/ダーク)。値はApple=HIG Colorの色見本、Google=Jetpack Composeの基準の配色トークン */
+function ColorSwatches({ cell }) {
+  if (cell.swNone) return <NoData>{cell.swNone}</NoData>;
+  if (!cell.sw) return null;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 2 }}>
+      {cell.sw.map((c) => (
+        <div key={c.n} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ display: "inline-flex", borderRadius: 4, overflow: "hidden", border: "1px solid #E1E3F0", flexShrink: 0 }}>
+            <span style={{ width: 26, height: 20, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.l, opacity: c.op || 1 }} /></span>
+            <span style={{ width: 26, height: 20, background: "#141218", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.d, opacity: c.op || 1 }} /></span>
+          </span>
+          <span style={{ fontSize: 10, lineHeight: 1.35, color: "#454C78" }}>{c.n}<br /><span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC" }}>{c.l} / {c.d}</span></span>
+        </div>
+      ))}
+      {cell.swNote && <span style={{ fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 }}>{cell.swNote}</span>}
+    </div>
+  );
+}
 
 function KindMark({ mark }) {
   const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#B7BCDA";
@@ -602,11 +626,12 @@ export default function TokensColorPage() {
                     const last = ri === COLOR_KINDS.length - 1 ? styles.lastRowCell : {};
                     return (
                       <React.Fragment key={row.kind}>
-                        <div style={{ ...styles.labelCell, ...last }}>{row.kind}</div>
+                        <div style={{ ...styles.labelCell, ...last, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>{row.kind}{row.rel && <span style={{ fontSize: 10.5, fontWeight: 400 }}>関連: {row.rel}</span>}</div>
                         {KIND_COLS.map((c) => (
                           <div key={c.key} style={{ ...styles.cell, ...styles.textCell, ...last, flexDirection: "column", gap: 4 }}>
                             <KindMark mark={row[c.key].mark} />
                             <span>{row[c.key].text}</span>
+                            <ColorSwatches cell={row[c.key]} />
                           </div>
                         ))}
                       </React.Fragment>
@@ -620,20 +645,22 @@ export default function TokensColorPage() {
               {COLOR_KINDS.map((row) => (
                 <div key={row.kind} style={styles.sourceCard}>
                   <div style={styles.sourceName}>{row.kind}</div>
+                  {row.rel && <div style={{ fontSize: 11, marginTop: 2 }}>関連: {row.rel}</div>}
                   {KIND_COLS.map((c) => (
                     <div key={c.key} style={styles.kindMobileRow}>
                       <div style={styles.kindMobileHead}><KindMark mark={row[c.key].mark} /><span>{c.name}</span></div>
                       <div style={styles.exceptionText}>{row[c.key].text}</div>
+                      <ColorSwatches cell={row[c.key]} />
                     </div>
                   ))}
                 </div>
               ))}
             </div>
-            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし</p>
+            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし。色見本は左がライト、右がダーク(Apple=HIG Colorの色見本の値、Google=Jetpack Composeの基準の配色の値)。</p>
           </section>
 
           <div style={styles.memoBox}>
-            <span style={styles.memoLabel}>メモ: ダークモードでの扱い</span>
+            <span style={styles.memoLabel}>メモ: ダークモードでの扱い(詳しくは<PageLink to="/tokens/dark-mode">ダークモード</PageLink>)</span>
             <ul style={styles.memoList}>
               <li>Apple ― 独自の色はライト・ダークの2版と、それぞれにコントラストを上げる設定用の版を用意する。1つの外観しか提供しないアプリでも、Liquid Glassのためにライト・ダーク両方の色が必要。比率は最低4.5:1、独自の色は7:1を目指す。</li>
               <li>Google ― 同じロールにライトとダークで別のトーンを割り当てる(例: Primary 40→80、Surface 98→6、On Surface 10→90)。コントラストの目標値はどちらのテーマでも同じ。</li>
@@ -641,6 +668,13 @@ export default function TokensColorPage() {
               <li>NN group ― 正常な視力の人は多くの場合ライトモードの方が読み取りの成績が良いという研究を紹介し、既定は端末の設定に従うことを勧めている。</li>
             </ul>
             <a href="/tokens/dark-mode" style={styles.memoLink}>詳しくは「ダークモード」ページへ ↗</a>
+          </div>
+
+          <div style={styles.relatedBox}>
+            <span style={styles.memoLabel}>関連するページ</span>
+            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
+              <PageLink to="/tokens/dark-mode">ダークモード</PageLink>(ライト/ダークの色の切り替え)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(押した・選んだときの重ね色)・<PageLink to="/tokens/typography">タイポグラフィ</PageLink>(文字の大きさとコントラスト)・<PageLink to="/tokens/elevation">エレベーション</PageLink>(面の色の段階)・<PageLink to="/tokens/icon">アイコン</PageLink>(アイコンのコントラスト)・<PageLink to="/components/actions/link">リンク</PageLink>(リンクの色と下線)
+            </p>
           </div>
 
           <div style={styles.tagsRow}>
@@ -662,6 +696,7 @@ export default function TokensColorPage() {
 }
 
 const styles = {
+  relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 40 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -109,47 +109,48 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     color: "#A3821F",
-    categories: ["知覚可能(Perceivable)", "操作可能(Operable)", "理解可能(Understandable)", "堅牢(Robust)"],
-    summary: "「Foundations」に相当する概念自体を持たない。最も近い構造はPOUR4原則",
+    categories: ["色: 1.4.1 色の使用(A)・1.4.3 文字のコントラスト(AA)・1.4.11 文字以外のコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットのサイズ(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタのジェスチャ(A)・2.5.7 ドラッグ操作(AA)"],
+    summary: "土台(ファウンデーション)に当たる括りはない。色・文字などの各トピックに、個別の達成基準が条件として関わる",
     stance:
-      "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されている。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいている。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」13項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
-    accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
+      "WCAGは色の値や文字サイズの体系を定める文書ではなく、「できあがった画面が満たすべき条件」を定める基準。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)は持たない。その代わり、色のコントラストや文字の拡大など、各トピックで守るべき最低限の条件が個別の達成基準として散らばっている。各トークンページのW3C欄は、この「トピックに関わる達成基準」を比べている。",
+    structuralNote: "WCAGのPOURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは原則ではなく、土台の各トピックに関わる達成基準(左の一覧)として位置づける。",
+    accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのもので、「土台の中の1トピック」という位置づけにはならない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     refs: [
       { label: "", url: "https://www.w3.org/WAI/WCAG22/quickref/" },
     ],
-    confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
+    confirmedNote: "達成基準の番号・名前・レベルはWCAG 2.2の仕様書で確認(2026-11)。トピックへの割り当ては本サイトの各トークンページでの扱いに合わせたもの(AI解釈)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px" }}>
-        {["知覚可能", "操作可能", "理解可能", "堅牢"].map((t) => (
-          <span key={t} style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#A3821F", background: "#F5F0DF", padding: "2px 6px", borderRadius: 3 }}>{t}</span>
+        {[["色", "1.4.3"], ["文字", "1.4.4"], ["レイアウト", "1.4.10"], ["動き", "2.2.2"]].map(([t, n]) => (
+          <span key={t} style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#A3821F", background: "#F5F0DF", padding: "2px 6px", borderRadius: 3 }}>{t} → {n}</span>
         ))}
       </div>
     ),
-    illustrationNote: "POUR4原則(概念図・系列識別色)",
+    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図・系列識別色)",
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     color: "#7A4F7E",
-    categories: ["(固定カテゴリなし。記事・調査単位)"],
-    summary: "構造化されたデザインシステムではなく記事・調査ベースのため、固定の「Foundations」カテゴリを持たない",
+    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など(全40トピック)"],
+    summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
-      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。「Foundations」に相当する固定のカテゴリ構造や網羅的な索引は持たず、トピックごとに独立した記事が随時公開される形式。",
+      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなど40の分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
     url: "https://www.nngroup.com/articles/",
     refs: [
       { label: "", url: "https://www.nngroup.com/articles/" },
+      { label: "Topics(記事の分類)", url: "https://www.nngroup.com/topics/" },
     ],
-    confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではない。",
+    confirmedNote: "Topicsの一覧はnngroup.com/topics/で確認(2026-11)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px", alignItems: "center", justifyContent: "center", height: "100%" }}>
-        <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>記事単位(索引なし)</span>
+        <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>Topics(記事の分類)</span>
       </div>
     ),
-    illustrationNote: "固定カテゴリなし(概念図・系列識別色)",
+    illustrationNote: "記事をトピックで分類(概念図・系列識別色)",
   },
 ];
 
@@ -296,6 +297,62 @@ function InfoBox({ label, accent, children }) {
   );
 }
 
+/* No.005: 原則と土台(ファウンデーション)の構造の違い */
+const TIERS = [
+  { k: "原則", q: "なぜ・何を大事にするか", d: "判断のよりどころ。数値はなく、迷ったときに立ち返る考え方", ex: "例: 知覚できるようにする", color: "#7A4F7E", page: { to: "/principles/comparison", label: "思想レイヤー" } },
+  { k: "土台(ファウンデーション)", q: "どの画面にも共通する決まり", d: "原則を、色・文字・余白・動きなどの具体的な値やルールにしたもの。トークンとして部品に配る", ex: "例: 本文の文字色と背景のコントラスト4.5:1以上", color: "#3A4FCF", page: { to: "/tokens/color", label: "このレイヤー(カラーなど)" } },
+  { k: "部品(コンポーネント)", q: "土台を組み合わせた完成品", d: "ボタン・ダイアログなど。色・文字・形・動きを土台から受け取って作る", ex: "例: ボタンのラベルの色", color: "#2F7D6E", page: { to: "/components/actions/button", label: "コンポーネントレイヤー(ボタンなど)" } },
+];
+const SYSTEM_TIERS = [
+  { k: "Apple", c: "#C2542A", p: "Design principles(Getting started)", f: "Foundations(18トピック)", m: "Components" },
+  { k: "Google", c: "#2F7D6E", p: "Principles(Foundationsの中)", f: "Foundations + Styles", m: "Components" },
+  { k: "W3C", c: "#A3821F", p: "POURの4原則", f: null, fNote: "なし(各トピックに達成基準が関わる)", m: null, mNote: "なし(APGは実装の参考例)" },
+  { k: "NN group", c: "#7A4F7E", p: "10のユーザビリティヒューリスティック", f: null, fNote: "なし(Visual Designなどの記事)", m: null, mNote: "なし(部品ごとの記事)" },
+];
+
+function PrinciplesVsFoundations() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
+      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → 部品</strong>の3段で組み立てられています。思想レイヤーが「原則」を、このレイヤーが「土台」を比べます。</p>
+      <div style={styles.tierWrap}>
+        {TIERS.map((t, i) => (
+          <React.Fragment key={t.k}>
+            <div style={{ ...styles.tierBox, borderLeftColor: t.color, width: `${100 - i * 6}%` }}>
+              <div style={styles.tierHead}><span style={{ ...styles.tierName, color: t.color }}>{t.k}</span><span style={styles.tierQ}>{t.q}</span></div>
+              <p style={styles.tierText}>{t.d}</p>
+              <div style={styles.tierFoot}><span style={styles.tierEx}>{t.ex}</span><PageLink to={t.page.to}>{t.page.label}</PageLink></div>
+            </div>
+            {i < TIERS.length - 1 && <div style={styles.tierArrow} aria-hidden="true">↓ 具体的にする</div>}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <h3 style={styles.subHead}>4系列は、どの段を持っているか</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tierTable}>
+          <thead><tr><th style={styles.tierTh} />{["原則", "土台", "部品"].map((h) => (<th key={h} style={styles.tierTh}>{h}</th>))}</tr></thead>
+          <tbody>
+            {SYSTEM_TIERS.map((r) => (
+              <tr key={r.k}>
+                <th style={{ ...styles.tierTd, color: r.c, fontWeight: 700, textAlign: "left" }}>{r.k}</th>
+                <td style={styles.tierTd}><span style={{ ...styles.tierCell, borderColor: r.c }}>{r.p}</span></td>
+                <td style={styles.tierTd}>{r.f ? <span style={{ ...styles.tierCell, borderColor: r.c, background: "#EEF1FA" }}>{r.f}</span> : <NoData>{r.fNote}</NoData>}</td>
+                <td style={styles.tierTd}>{r.m ? <span style={{ ...styles.tierCell, borderColor: r.c }}>{r.m}</span> : <NoData>{r.mNote}</NoData>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={styles.whyBox}>
+        <div style={styles.whyTitle}>なぜ土台を比べるのか</div>
+        <p style={styles.tierText}>部品の見た目や数値の違いの多くは、土台の違いから来ています(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、部品ページの比較が「なぜそう違うのか」まで読めます。</p>
+        <p style={styles.tierText}>ただし、<Hl>土台を持つのはAppleとGoogleだけ</Hl>です。W3CとNN groupは土台を持たないため、各トークンページでは、W3Cは「そのトピックに関わる達成基準」、NN groupは「そのトピックの記事(調査に基づく指針)」を比べています。</p>
+      </div>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページです。";
 const ABOUT = [
@@ -344,7 +401,7 @@ export default function TokensOverviewPage() {
             rows={ABOUT}
           />
 
-
+          <PrinciplesVsFoundations />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -359,7 +416,7 @@ export default function TokensOverviewPage() {
               一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下の18トピックとして区別なく並べており、Googleのような二分はしていません。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いています</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違いです(下部の「Foundationsと並列の区分」参照)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)は「Foundations」という概念自体を持たず、<strong>最も近い構造的な等価物は知覚可能・操作可能・理解可能・堅牢というPOURの4原則</strong>です。Nielsen Norman Groupは構造化されたデザインシステムではないため、対応する固定カテゴリを持ちません。<strong>この2系列は「Foundations」という枠組みそのものに当てはめようとすること自体が、そもそも無理があります。</strong>
+              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持ちません</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱います)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わります</strong>。NN groupは記事をTopicsで分類していますが、値をそろえる仕組みではなく、調査に基づく指針として読みます。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -453,10 +510,10 @@ export default function TokensOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧ページへのリンクです。
+              リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧とTopicsのページへのリンクです。
             </span>
           </div>
         </div>
@@ -466,6 +523,22 @@ export default function TokensOverviewPage() {
 }
 
 const styles = {
+  tierWrap: { display: "flex", flexDirection: "column", alignItems: "center", gap: 4, marginBottom: 18 },
+  tierBox: { border: "1px solid #E1E3F0", borderLeft: "5px solid", borderRadius: 6, padding: "10px 14px", background: "#FFFFFF" },
+  tierHead: { display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" },
+  tierName: { fontSize: 14, fontWeight: 700 },
+  tierQ: { fontSize: 12, color: "#565D8A", fontWeight: 700 },
+  tierText: { fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "4px 0" },
+  tierFoot: { display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", fontSize: 11 },
+  tierEx: { fontSize: 11, color: "#7E86AC" },
+  tierArrow: { fontSize: 10.5, color: "#9EA4C4" },
+  subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" },
+  tierTable: { width: "100%", minWidth: 560, borderCollapse: "collapse", fontSize: 11.5, marginBottom: 14 },
+  tierTh: { fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "7px 8px", borderBottom: "1px solid #E1E3F0", textAlign: "left" },
+  tierTd: { padding: "7px 8px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top", fontSize: 11.5 },
+  tierCell: { display: "inline-block", border: "1px solid", borderRadius: 4, padding: "3px 8px", lineHeight: 1.5, color: "#171B36" },
+  whyBox: { background: "#F8F9FD", borderRadius: 6, padding: "10px 14px" },
+  whyTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 2 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

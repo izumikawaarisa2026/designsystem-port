@@ -17193,26 +17193,42 @@ const FRAMEWORKS = [
     doc: "Human Interface Guidelines ― Accessibility",
     color: "#C2542A",
     items: [
-      { name: "Vision(視覚)", desc: "色だけに頼らず、形やアイコンなど視覚的な手がかりを追加して情報を伝えるべきという指針。色覚特性により特定の色の組み合わせ(赤緑・青橙など)の判別が難しい人がいることに配慮する。" },
-      { name: "Hearing(聴覚)", desc: "音声情報には字幕や代替テキストなど、聴覚以外でも受け取れる手段を用意すべきという指針。" },
-      { name: "Mobility(可動性)", desc: "運動機能に制約がある人でも操作できるよう、タップ領域の確保や代替の入力手段を用意すべきという指針。" },
-      { name: "Speech(発話)", desc: "音声入力に頼らず操作できる代替手段を用意すべきという指針。" },
-      { name: "Cognitive(認知)", desc: "認知的な負荷を減らし、分かりやすく一貫した設計にすべきという指針。" },
+      { name: "目指す3つの性質", desc: "使いやすい(Intuitive: なじみのある一貫した操作)・知覚できる(Perceivable: 視覚・聴覚・発話・触覚のどれか1つに頼らない)・合わせられる(Adaptable: システムの支援機能や利用者の設定に合わせて変わる)。" },
+      { name: "Vision(視覚)", desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは17pt以下で4.5:1、18pt以上・太字で3:1。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
+      { name: "Hearing(聴覚)", desc: "字幕・音声解説・書き起こしなど、文字で受け取れる手段を用意する。音の合図には触覚(ハプティクス)や画面上の印も添える。" },
+      { name: "Mobility(運動)", desc: "操作部品は既定44×44pt・最小28×28pt(iOS/iPadOS)。部品の間は、枠のある部品なら約12pt、枠のない部品なら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
+      { name: "Speech(発話)", desc: "キーボードだけで操作できるようにし(フルキーボードアクセス)、システムのショートカットを上書きしない。スイッチコントロールに対応する。" },
+      { name: "Cognitive(認知)", desc: "操作は単純で一貫させ、時間で自動的に消える表示は控える。音声・動画の自動再生を避け、点滅や速い動きは「視差効果を減らす」設定に合わせて減らす。アシスティブアクセス(機能をしぼった表示)にも対応する。" },
     ],
+    extra: "apple",
     url: "https://developer.apple.com/design/human-interface-guidelines/accessibility",
-    confirmedNote: "各分野の見出しに実アンカーあり(例: #Vision)。ページ本体の裏側データを直接取得して確認(2026-09)。",
+    confirmedNote: "各分野の見出しに実アンカーあり(例: #Vision)。ページ本体の裏側データを直接取得して確認(2026-11)。Accessibility Nutrition LabelsはApp Store Connectのヘルプで確認。",
   },
   {
     key: "material",
     name: "Google",
-    doc: "Material Design ― アクセシビリティ原則",
+    doc: "Material Design 3 ― Principles・Accessibility designing",
     color: "#2F7D6E",
     items: [
       { name: "アクセシビリティをデフォルトに", desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
+      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。タッチの押せる範囲は48×48dp以上(約9mm)、ポインターは44×44dp以上、間隔は8dp以上が目安。" },
+      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定(ソースコードの順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いた部品にフォーカスを戻す。" },
+      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などの部品名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割(ロール)を割り当てる。" },
+      { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つ部品は対象外)。無効状態はコントラストの要件の対象外。" },
     ],
+    extra: "google",
     url: "https://m3.material.io/foundations/overview/principles",
-    confirmedNote: "ユーザーによる目視確認(2026-09)。ページ内に個別の見出しアンカーは確認できていないため、ページ単位のリンクに留めています。",
+    confirmedNote: "M3のAccessibility(Designing・Building for all)の各ページを、ブラウザで表示した本文で確認(2026-11)。ページ内の見出しアンカーは確認できていないため、ページ単位のリンクに留めています。",
+    refs: [
+      { label: "Principles", url: "https://m3.material.io/foundations/overview/principles" },
+      { label: "Accessibility designing ― Overview", url: "https://m3.material.io/foundations/designing/overview" },
+      { label: "Structure", url: "https://m3.material.io/foundations/designing/structure" },
+      { label: "Flow", url: "https://m3.material.io/foundations/designing/flow" },
+      { label: "Elements", url: "https://m3.material.io/foundations/designing/elements" },
+      { label: "Color & contrast", url: "https://m3.material.io/foundations/designing/color-contrast" },
+      { label: "Building for all ― User needs", url: "https://m3.material.io/foundations/building-for-all/user-needs" },
+    ],
   },
   {
     key: "wcag",
@@ -17225,10 +17241,10 @@ const FRAMEWORKS = [
         desc: "情報やUIコンポーネントは、ユーザーが知覚できる形で提示されなければならないという原則。",
         url: "https://www.w3.org/TR/WCAG22/#perceivable",
         sub: [
-          { name: "1.1 Text Alternatives", desc: "非テキストコンテンツに代替テキストを用意すべきという指針。" },
-          { name: "1.2 Time-based Media", desc: "動画・音声に代替手段を用意すべきという指針。" },
-          { name: "1.3 Adaptable", desc: "情報や構造を失わずに異なる形式でも提示できるべきという指針。" },
-          { name: "1.4 Distinguishable", desc: "前景と背景を区別しやすくすべきという指針(色のみによる区別の禁止など)。" },
+          { name: "1.1 Text Alternatives", desc: "非テキストコンテンツに代替テキストを用意すべきという指針。", sc: "例: 1.1.1 非テキストコンテンツ(A)" },
+          { name: "1.2 Time-based Media", desc: "動画・音声に代替手段を用意すべきという指針。", sc: "例: 1.2.2 キャプション(収録済み)(A)" },
+          { name: "1.3 Adaptable", desc: "情報や構造を失わずに異なる形式でも提示できるべきという指針。", sc: "例: 1.3.1 情報及び関係性(A)、1.3.4 表示の向き(AA)" },
+          { name: "1.4 Distinguishable", desc: "前景と背景を区別しやすくすべきという指針(色のみによる区別の禁止など)。", sc: "例: 1.4.1 色の使用(A)、1.4.3 文字のコントラスト4.5:1(AA)、1.4.4 200%まで拡大(AA)、1.4.11 文字以外のコントラスト3:1(AA)" },
         ],
       },
       {
@@ -17236,11 +17252,11 @@ const FRAMEWORKS = [
         desc: "UIコンポーネントとナビゲーションは操作可能でなければならないという原則。",
         url: "https://www.w3.org/TR/WCAG22/#operable",
         sub: [
-          { name: "2.1 Keyboard Accessible", desc: "すべての機能をキーボードだけで利用できるべきという指針。" },
-          { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。" },
-          { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。" },
-          { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。" },
-          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。" },
+          { name: "2.1 Keyboard Accessible", desc: "すべての機能をキーボードだけで利用できるべきという指針。", sc: "例: 2.1.1 キーボード(A)、2.1.2 キーボードトラップなし(A)" },
+          { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。", sc: "例: 2.2.1 タイミング調整可能(A)、2.2.2 一時停止・停止・非表示(A)" },
+          { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。", sc: "例: 2.3.1 3回の閃光(A)" },
+          { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。", sc: "例: 2.4.3 フォーカス順序(A)、2.4.4 リンクの目的(A)、2.4.7 フォーカスの可視化(AA)、2.4.11 フォーカスが隠されない(AA)" },
+          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。", sc: "例: 2.5.1 ポインタのジェスチャ(A)、2.5.7 ドラッグ操作(AA)、2.5.8 ターゲットのサイズ 24×24px(AA・例外あり)" },
         ],
       },
       {
@@ -17248,9 +17264,9 @@ const FRAMEWORKS = [
         desc: "情報とUIの操作方法は理解可能でなければならないという原則。",
         url: "https://www.w3.org/TR/WCAG22/#understandable",
         sub: [
-          { name: "3.1 Readable", desc: "テキストを読みやすく理解しやすくすべきという指針。" },
-          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。" },
-          { name: "3.3 Input Assistance", desc: "入力ミスを避け、修正を助けるべきという指針。" },
+          { name: "3.1 Readable", desc: "テキストを読みやすく理解しやすくすべきという指針。", sc: "例: 3.1.1 ページの言語(A)" },
+          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。", sc: "例: 3.2.1 フォーカス時に大きく変わらない(A)、3.2.3 一貫したナビゲーション(AA)" },
+          { name: "3.3 Input Assistance", desc: "入力ミスを避け、修正を助けるべきという指針。", sc: "例: 3.3.1 エラーの特定(A)、3.3.2 ラベル又は説明(A)、3.3.8 認証のしやすさ(AA)" },
         ],
       },
       {
@@ -17258,12 +17274,13 @@ const FRAMEWORKS = [
         desc: "コンテンツは支援技術を含む様々なユーザーエージェントで確実に解釈できるべきという原則。",
         url: "https://www.w3.org/TR/WCAG22/#robust",
         sub: [
-          { name: "4.1 Compatible", desc: "現在・将来のユーザーエージェントとの互換性を最大化すべきという指針。" },
+          { name: "4.1 Compatible", desc: "現在・将来のユーザーエージェントとの互換性を最大化すべきという指針。", sc: "例: 4.1.2 名前・役割・値(A)、4.1.3 ステータスメッセージ(AA)" },
         ],
       },
     ],
+    extra: "wcag",
     url: "https://www.w3.org/TR/WCAG22/",
-    confirmedNote: "4原則・13ガイドラインすべて実アンカーあり。仕様書本体で確認(2026-09)。",
+    confirmedNote: "4原則・13ガイドラインすべて実アンカーあり。達成基準の数とレベルは仕様書本体で数えて確認(2026-11)。",
   },
   {
     key: "nn",
@@ -17271,14 +17288,131 @@ const FRAMEWORKS = [
     doc: "Accessibility and Inclusivity: Study Guide",
     color: "#7A4F7E",
     items: [
-      { name: "アクセシビリティ = 心構え", desc: "アクセシビリティとインクルーシブデザインは、手続き・規制・チェックリストの集まりではなく、マインドセットであるという考え方。" },
+      { name: "アクセシビリティ = 心構え", desc: "アクセシビリティとインクルーシブデザインは、ユーザビリティの一部であり、手続き・規制・チェックリストの集まりではなく、心構え(マインドセット)であるという考え方。" },
       { name: "アクセシブルデザイン", desc: "視覚・聴覚・認知・情緒・運動面で困難を抱えるユーザーを助けるデザインという整理。" },
       { name: "インクルーシブデザイン", desc: "人種・性別・宗教など多様な背景を持つユーザーを歓迎し、それらが体験の妨げにならないようにする設計という整理。" },
     ],
+    extra: "nn",
     url: "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/",
-    confirmedNote: "記事本体で確認(2026-09)。個別の見出しアンカーは未確認のため、ページ単位のリンクに留めています。",
+    confirmedNote: "Study Guideと各記事の本文で確認(2026-11)。",
+    refs: [
+      { label: "Accessibility and Inclusivity: Study Guide", url: "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/" },
+      { label: "5 Visual Treatments that Improve Accessibility", url: "https://www.nngroup.com/articles/visual-treatments-accessibility/" },
+      { label: "Inclusive Design", url: "https://www.nngroup.com/articles/inclusive-design/" },
+    ],
   },
 ];
+
+/* 各系列のカードの下に出す補足(No.004) */
+const NAMES_9 = ["VoiceOver", "音声コントロール", "さらに大きな文字(200%以上)", "ダークインターフェース", "色だけに頼らない区別", "十分なコントラスト", "動きを減らす", "字幕(キャプション)", "音声解説"];
+const GOOGLE_DIMENSIONS = ["年齢", "文化", "障害", "教育・読み書きの力", "民族", "ジェンダー", "地域", "身体的な特徴", "人種", "宗教", "性的指向", "社会経済的な状況", "技術への慣れ"];
+const NN_POINTS = [
+  { t: "文字と背景のコントラスト", d: "弱視の人が支援技術なしで読めるよう、コントラストを高くする" },
+  { t: "色以外の手がかり", d: "線・模様・アイコン・文言を添える。画面をグレースケールにして伝わるか確かめる" },
+  { t: "フォーカスの状態", d: "キーボードで操作する人のため、太い枠線などではっきり示す(色の変化だけにしない)" },
+  { t: "画像の代替テキスト", d: "短く書き、キャプションと同じ内容を繰り返さない。飾りの画像には付けない" },
+  { t: "実際の利用者でテスト", d: "読み上げソフトなどを自分でも使ってみる。5人ほどでも効果があり、ニーズの違う人を混ぜる" },
+];
+
+function WcagLevels() {
+  return (
+    <>
+      <div style={styles.extraTitle}>番号とレベルの読み方</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+        {[
+          { lv: "原則", n: "4つ", ex: "2 = 操作可能", w: "100%" },
+          { lv: "ガイドライン", n: "13", ex: "2.5 = 入力モダリティ", w: "88%" },
+          { lv: "達成基準", n: "86", ex: "2.5.8 = ターゲットのサイズ(最低限)", w: "76%" },
+        ].map((r) => (
+          <div key={r.lv} style={{ width: r.w, background: "#FBF6E6", borderLeft: "3px solid #A3821F", padding: "5px 8px", borderRadius: "0 3px 3px 0" }}>
+            <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{r.lv}<span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#7E86AC", marginLeft: 6 }}>{r.n}</span></div>
+            <div style={{ fontSize: 10.5, color: "#454C78" }}>例: {r.ex}</div>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 4, margin: "10px 0 4px" }}>
+        {[{ l: "A", n: 31, t: "最低限" }, { l: "AA", n: 24, t: "実務の一般的な目標" }, { l: "AAA", n: 31, t: "より高い水準" }].map((x) => (
+          <div key={x.l} style={{ flex: 1, border: "1px solid #E7DDB8", borderRadius: 4, padding: "5px 6px", textAlign: "center" }}>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 12, color: "#A3821F" }}>{x.l}<span style={{ color: "#7E86AC", fontWeight: 500 }}> {x.n}</span></div>
+            <div style={{ fontSize: 10, color: "#454C78", lineHeight: 1.4 }}>{x.t}</div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.extraText}>番号の先頭の数字が原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。AAに適合するには、AとAAの達成基準をすべて満たす。法令や社内基準の多くはAAを求め、AAAはすべてのページで満たすことは求められていない。4.1.1(構文解析)はWCAG 2.2で廃止。APGは実装の参考例で、適合の基準ではない。</p>
+    </>
+  );
+}
+
+function FrameworkExtra({ k }) {
+  if (k === "apple") return (
+    <div style={styles.extraBox}>
+      <div style={styles.extraTitle}>Apple独自の評価 ― Accessibility Nutrition Labels</div>
+      <p style={styles.extraText}>App Storeの製品ページに、そのアプリが対応している支援機能をラベルで表示する仕組み(iOS 26などの端末で表示。当初は任意)。開発者が自分で評価して申告する。</p>
+      <div style={styles.extraChips}>{NAMES_9.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
+      <p style={styles.extraText}><strong>判定の基準</strong>: その機能を使って、アプリの「よく行う作業」をすべて最後までできること。よく行う作業は、アプリの主な機能に加えて、初回起動・ログイン・購入・設定。</p>
+      <p style={styles.extraText}>確認には、XcodeのAccessibility Inspectorで画面の問題を洗い出す方法をHIGが勧めている。</p>
+      <a href="https://developer.apple.com/help/app-store-connect/manage-app-accessibility/overview-of-accessibility-nutrition-labels/" target="_blank" rel="noreferrer" style={styles.extraLink}>Overview of Accessibility Nutrition Labels ↗</a>
+    </div>
+  );
+  if (k === "google") return (
+    <div style={styles.extraBox}>
+      <div style={styles.extraTitle}>人の多様さを見る観点(Building for all)</div>
+      <p style={styles.extraText}>調査・設計・テストのときに思い浮かべる観点として、次の一覧を挙げている(増えていく一覧としている)。障害は観点の1つ。</p>
+      <div style={styles.extraChips}>{GOOGLE_DIMENSIONS.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
+      <p style={styles.extraText}>Material の考え方はWCAGと業界のよい実践を土台にしている。標準の部品(Webでは意味のあるHTML)を使えば、支援技術に必要な情報が自動で入るため、独自の部品は余分なテストが必要になる。</p>
+    </div>
+  );
+  if (k === "wcag") return (<div style={styles.extraBox}><WcagLevels /></div>);
+  if (k === "nn") return (
+    <div style={styles.extraBox}>
+      <div style={styles.extraTitle}>気にすべきポイント(5 Visual Treatments)</div>
+      {NN_POINTS.map((x, i) => (<p key={x.t} style={styles.extraText}><strong>{i + 1}. {x.t}</strong>: {x.d}</p>))}
+      <p style={styles.extraText}>Study Guideではほかに、65歳以上の利用者(小さい文字・密な文字が読みにくい)と、読み上げソフトの利用者(画面を1本道で体験する。後付けのアクセシビリティ用ウィジェットでは足りない)を、分けて取り上げている。</p>
+    </div>
+  );
+  return null;
+}
+
+/* アクセシビリティとインクルーシブデザインの関係(No.004) */
+const RELATION_ROWS = [
+  { k: "Apple", v: "Accessibilityとは別に「Inclusion」のページを持つ。年齢・ジェンダー・人種・言語と文化・一時的/状況による障害などの観点を挙げ、「不快なものがない」ことと「インクルーシブである」ことは別だとしている" },
+  { k: "Google", v: "Accessibility designing(作り方)と、Building for all(多様な人と一緒に作る・人の多様さの観点)を分けて置いている" },
+  { k: "W3C", v: "WCAGは、障害のある人が使えるかを確かめる基準。インクルーシブデザインの全体は扱わない" },
+  { k: "NN group", v: "アクセシビリティは障害のある人への配慮に絞った、インクルーシブデザインより狭い範囲。WCAGがあるので確かめやすいが、それは意味のある体験のための最低限にすぎない、としている" },
+];
+function InclusionSection() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>アクセシビリティとインクルーシブデザインの関係</h2>
+      <div style={styles.incWrap}>
+        <svg viewBox="0 0 300 200" style={{ width: "100%", maxWidth: 360, flexShrink: 0 }} role="img" aria-label="インクルーシブデザインの中にアクセシビリティ、その中にWCAGがある図">
+          <ellipse cx="150" cy="100" rx="146" ry="96" fill="#F3F6FA" stroke="#7A4F7E" />
+          <text x="150" y="28" textAnchor="middle" fontSize="11" fontWeight="700" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">インクルーシブデザイン</text>
+          <text x="150" y="42" textAnchor="middle" fontSize="8.5" fill="#565D8A" fontFamily="Jost, Noto Sans JP">年齢・文化・言語・ジェンダー・障害 など</text>
+          <ellipse cx="150" cy="124" rx="104" ry="60" fill="#FFFFFF" stroke="#C2542A" />
+          <text x="150" y="82" textAnchor="middle" fontSize="11" fontWeight="700" fill="#C2542A" fontFamily="Jost, Noto Sans JP">アクセシビリティ</text>
+          <text x="150" y="95" textAnchor="middle" fontSize="8.5" fill="#565D8A" fontFamily="Jost, Noto Sans JP">障害への配慮(視覚・聴覚・運動・認知)</text>
+          <rect x="95" y="106" width="110" height="54" rx="6" fill="#FBF6E6" stroke="#A3821F" />
+          <text x="150" y="126" textAnchor="middle" fontSize="11" fontWeight="700" fill="#A3821F" fontFamily="Jost, Noto Sans JP">WCAG</text>
+          <text x="150" y="140" textAnchor="middle" fontSize="8.5" fill="#565D8A" fontFamily="Jost, Noto Sans JP">確かめられる最低限</text>
+          <text x="150" y="152" textAnchor="middle" fontSize="8.5" fill="#565D8A" fontFamily="Jost, Noto Sans JP">(A・AA・AAA)</text>
+        </svg>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <table style={styles.incTable}>
+            <tbody>{RELATION_ROWS.map((r) => (<tr key={r.k}><th style={styles.incTh}>{r.k}</th><td style={styles.incTd}>{r.v}</td></tr>))}</tbody>
+          </table>
+        </div>
+      </div>
+      <div style={styles.incRead}>
+        <div style={styles.extraTitle}>読み解き方(AI解釈)</div>
+        <p style={styles.extraText}><strong>1. WCAGで最低限を確かめる</strong> ― 障害のある人が使えるかを、番号付きの基準で検証する(実務の目標はAA)。</p>
+        <p style={styles.extraText}><strong>2. 各OSの支援機能に合わせる</strong> ― AppleやGoogleの指針で、読み上げ・文字の拡大・動きを減らすなど、端末の設定に応える。</p>
+        <p style={styles.extraText}><strong>3. 障害以外の違いにも広げる</strong> ― 年齢・言語・文化・状況(片手がふさがっている、まぶしい屋外など)の違いを想定し、当事者と一緒に作り、実際の利用者でテストする。</p>
+        <p style={styles.extraNote}>NN groupは、ひとつの解決策ですべての人に使えるようにする「ユニバーサルデザイン」とも区別しています。インクルーシブデザインは、目的を果たせるなら複数のデザインの違い(設定で切り替えるなど)を認める考え方です。</p>
+      </div>
+    </section>
+  );
+}
 
 function PrinciplesAccessibilityPage() {
   return (
@@ -17309,7 +17443,7 @@ function PrinciplesAccessibilityPage() {
               「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なります。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義しています。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っています。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的です。Appleは視覚・聴覚・可動性・発話・認知という障害の種類ごとに実践的なガイダンスを示し、Googleは「制約を機会に変える」という前向きな捉え方を打ち出しています。
+              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的です。Appleは視覚・聴覚・運動・発話・認知の分野ごとに具体的な数値を示し、さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを開発者に申告させる独自の評価</strong>を持っています。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示しています。
             </p>
             <p style={styles.synthesisText}>
               本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからです。ただし、それが唯一の正解というわけではありません。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になります。
@@ -17325,7 +17459,7 @@ function PrinciplesAccessibilityPage() {
                 {[
                   { key: "nn", label: "Nielsen Norman Group", sub: "心構え(マインドセット)", pos: 8, color: "#7A4F7E" },
                   { key: "hig", label: "Apple", sub: "実践ガイダンス(5分野)", pos: 36, color: "#C2542A" },
-                  { key: "material", label: "Google", sub: "前向きな再解釈(2原則)", pos: 60, color: "#2F7D6E" },
+                  { key: "material", label: "Google", sub: "原則+設計の手順", pos: 60, color: "#2F7D6E" },
                   { key: "wcag", label: "W3C", sub: "検証可能な規格(4原則13項目)", pos: 90, color: "#A3821F" },
                 ].map((p) => (
                   <div key={p.key} style={{ ...styles.spectrumPoint, left: `${p.pos}%` }}>
@@ -17341,24 +17475,6 @@ function PrinciplesAccessibilityPage() {
               <span>検証可能な規格</span>
             </div>
             <p style={styles.diagramNote}>左右は「規格としての厳密さ」の度合いのイメージです。厳密さの高低は優劣を意味しません。詳しい内容は下の「各サイトの詳細」を参照してください。</p>
-          </div>
-
-          {/* WCAGの番号とレベルの読み方(各ページで繰り返し出てくるため、ここで一度説明する) */}
-          <div style={styles.diagramCard}>
-            <h2 style={styles.diagramTitle}>WCAGの番号とレベルの読み方</h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              {[
-                { lv: "原則", n: "4つ", ex: "2 = 操作可能(Operable)", w: "100%" },
-                { lv: "ガイドライン", n: "13", ex: "2.5 = 入力方法(Input Modalities)", w: "86%" },
-                { lv: "達成基準", n: "番号付き", ex: "2.5.8 = ターゲットのサイズ(最低限)", w: "72%" },
-              ].map((r) => (
-                <div key={r.lv} style={{ width: r.w, background: "#FBF6E6", borderLeft: "3px solid #A3821F", padding: "6px 10px", borderRadius: "0 3px 3px 0" }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>{r.lv}<span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#7E86AC", marginLeft: 8 }}>{r.n}</span></div>
-                  <div style={{ fontSize: 11.5, color: "#454C78", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" }}>例: {r.ex}</div>
-                </div>
-              ))}
-            </div>
-            <p style={styles.diagramNote}>番号の先頭の数字が原則を表します(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。各達成基準には適合レベルがあり、<strong>A=最低限</strong>、<strong>AA=実務で一般的な目標</strong>(法令や社内基準の多くがAAを求めます)、<strong>AAA=より高い水準</strong>(すべてのページで満たすことは求められていません)です。なお、W3CのAPG(ARIA Authoring Practices Guide)は実装の参考例で、適合の基準ではありません。</p>
           </div>
 
           {/* 各サイトの詳細: mobile card stack */}
@@ -17385,7 +17501,7 @@ function PrinciplesAccessibilityPage() {
                           {it.sub.map((s, si) => (
                             <div key={s.name} style={styles.genSubRow}>
                               <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
-                              <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div></div>
+                              <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div>{s.sc && <div style={styles.scLine}>{s.sc}</div>}</div>
                             </div>
                           ))}
                         </div>
@@ -17398,6 +17514,8 @@ function PrinciplesAccessibilityPage() {
                     )
                   )}
                 </div>
+                {f.extra && <FrameworkExtra k={f.extra} />}
+                {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
                   <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                   <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
@@ -17427,7 +17545,7 @@ function PrinciplesAccessibilityPage() {
                             {it.sub.map((s, si) => (
                               <div key={s.name} style={styles.genSubRow}>
                                 <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
-                                <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div></div>
+                                <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div>{s.sc && <div style={styles.scLine}>{s.sc}</div>}</div>
                               </div>
                             ))}
                           </div>
@@ -17440,6 +17558,8 @@ function PrinciplesAccessibilityPage() {
                       )
                     )}
                   </div>
+                  {f.extra && <FrameworkExtra k={f.extra} />}
+                  {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
                     <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                     <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
@@ -17449,16 +17569,18 @@ function PrinciplesAccessibilityPage() {
             </div>
           </div>
 
+          <InclusionSection />
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: Apple・WCAGは各項目に対応する実アンカーを確認済みです。Google・NN groupは、個別の見出しアンカーが確認できていないため、ページ単位のリンクに留めています。
+              リンクについて: Apple・WCAGは各項目に対応する実アンカーを確認済みです。Google・NN groupは、各カードの「参照ページ(公式)」にページ単位で載せています。
             </span>
           </div>
         </div>
@@ -17468,6 +17590,20 @@ function PrinciplesAccessibilityPage() {
 }
 
 const styles = {
+  extraBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 4, padding: "10px 12px", margin: "4px 0 10px" },
+  extraTitle: { display: "block", fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
+  extraText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  extraNote: { fontSize: 11, lineHeight: 1.6, color: "#565D8A", margin: "6px 0 0" },
+  extraChips: { display: "flex", flexWrap: "wrap", gap: 4, margin: "2px 0 8px" },
+  extraChip: { fontSize: 10.5, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 10, padding: "1px 7px", color: "#454C78" },
+  extraLink: { fontSize: 11, color: "#3A4FCF" },
+  refBox: { margin: "4px 0 10px" },
+  scLine: { fontSize: 10.5, color: "#7E86AC", marginTop: 2, lineHeight: 1.5 },
+  incWrap: { display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap", marginBottom: 14 },
+  incTable: { width: "100%", borderCollapse: "collapse", fontSize: 11.5 },
+  incTh: { textAlign: "left", verticalAlign: "top", width: 74, padding: "7px 8px", background: "#F8F9FD", borderBottom: "1px solid #E1E3F0", fontWeight: 700, color: "#454C78" },
+  incTd: { padding: "7px 8px", borderBottom: "1px solid #E1E3F0", lineHeight: 1.6, color: "#2E3457" },
+  incRead: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "12px 14px", borderRadius: "0 4px 4px 0" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
@@ -27650,36 +27786,40 @@ const COLOR_KINDS_LIST = {
 const COLOR_KINDS = [
   {
     kind: "アクセント(ブランド)色",
-    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。" },
-    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。" },
+    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数の部品に色を付けすぎないよう求める。", sw: [{ n: "Blue(例)", l: "#0088FF", d: "#0091FF" }, { n: "Blue(コントラストを上げる設定)", l: "#1E6EF4", d: "#5CB8FF" }], swNote: "システムカラーのBlue。アクセント色はアプリ独自の色にできる" },
+    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。", sw: [{ n: "Primary", l: "#6750A4", d: "#D0BCFF" }, { n: "Secondary", l: "#625B71", d: "#CCC2DC" }, { n: "Tertiary", l: "#7D5260", d: "#EFB8C8" }], swNote: "基準の配色(壁紙などから作る場合は値が変わる)" },
     wcag: { mark: "―", text: "専用の定義なし。アクセント色で情報を伝える場合も、1.4.1・1.4.3・1.4.11の一般的な基準がそのまま適用される。" },
     nn: { mark: "◯", text: "60-30-10の「10%」がアクセントカラー。同じ意味(例: CTAボタン)には常に同じ色を使う。" },
   },
   {
     kind: "リンク色",
-    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。" },
+    rel: <><PageLink to="/components/actions/link">リンク</PageLink></>,
+    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。", swNone: "色の値はHIGに記載なし" },
     material: { mark: "✕", text: "リンク専用のカラーロールはない(Material Components for Androidのロール一覧に存在しない)。" },
     wcag: { mark: "◯", text: "リンクを色だけで区別するなら、周囲の文字と3:1以上の差が必要(G183。以前の版ではホバー・フォーカス時の手がかりも条件だった)。色覚に頼らないと見分けられないリンクは不適合の例(F73)。" },
-    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。" },
+    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。", sw: [{ n: "未訪問(例)", l: "#1A5FD0", d: "#7FB0FF" }, { n: "訪問済み(例)", l: "#6E5A8E", d: "#B6A6CF" }], swNote: "色はAIの作例。NN groupは具体的な色の値を定めていない(青が最も強い手がかり)" },
   },
   {
     kind: "エラー色",
-    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。" },
-    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。" },
+    rel: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>・<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink></>,
+    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。", sw: [{ n: "Red", l: "#FF383C", d: "#FF4245" }, { n: "Red(コントラストを上げる設定)", l: "#E9152D", d: "#FF6165" }], swNote: "エラー専用ではなく、システムカラーのRed" },
+    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。", sw: [{ n: "Error", l: "#B3261E", d: "#F2B8B5" }] },
     wcag: { mark: "△", text: "専用の色はないが、エラーや必須項目を色の違いだけで示すことは1.4.1の不適合の例(F81)。" },
     nn: { mark: "△", text: "言葉の意味でも区別できるなら、「エラー」を赤で示してよい。ただしリンクの色と重ならないようにする。" },
   },
   {
     kind: "枠線・区切り線",
+    rel: <><PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></>,
     hig: { mark: "◯", text: "Separator(下の内容が少し透ける)とOpaque separator(透けない)の2種類。区切り線の色を文字に使うなど、意味の流用はしない。" },
-    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。" },
+    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。", sw: [{ n: "Outline", l: "#79747E", d: "#938F99" }, { n: "Outline Variant", l: "#CAC4D0", d: "#49454F" }], swNote: "基準の配色" },
     wcag: { mark: "△", text: "枠線が部品を見分けるのに必要な場合は1.4.11で3:1以上。装飾的な線は対象外。" },
     nn: { mark: "―", text: "該当する記述なし。" },
   },
   {
     kind: "非活性・プレースホルダー",
+    rel: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></>,
     hig: { mark: "◯", text: "Placeholder text(入力欄のプレースホルダー)。macOSには使えない部品の文字色(Unavailable control text color)もある。" },
-    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。" },
+    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。", sw: [{ n: "On Surface 38%", l: "#1D1B20", d: "#E6E0E9", op: 0.38 }], swNote: "基準の配色のOn Surfaceを38%で重ねた見え方" },
     wcag: { mark: "△", text: "非活性の部品は1.4.3・1.4.11の適用除外。" },
     nn: { mark: "△", text: "薄いグレーは「無効」に見えやすい。使える要素を薄くすると、使えないと誤解される原因になる。" },
   },
@@ -27691,6 +27831,26 @@ const KIND_COLS = [
   { key: "wcag", name: "W3C" },
   { key: "nn", name: "NN group" },
 ];
+
+/* 色見本(ライト/ダーク)。値はApple=HIG Colorの色見本、Google=Jetpack Composeの基準の配色トークン */
+function ColorSwatches({ cell }) {
+  if (cell.swNone) return <NoData>{cell.swNone}</NoData>;
+  if (!cell.sw) return null;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 2 }}>
+      {cell.sw.map((c) => (
+        <div key={c.n} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ display: "inline-flex", borderRadius: 4, overflow: "hidden", border: "1px solid #E1E3F0", flexShrink: 0 }}>
+            <span style={{ width: 26, height: 20, background: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.l, opacity: c.op || 1 }} /></span>
+            <span style={{ width: 26, height: 20, background: "#141218", display: "flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 16, height: 12, borderRadius: 2, background: c.d, opacity: c.op || 1 }} /></span>
+          </span>
+          <span style={{ fontSize: 10, lineHeight: 1.35, color: "#454C78" }}>{c.n}<br /><span style={{ fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC" }}>{c.l} / {c.d}</span></span>
+        </div>
+      ))}
+      {cell.swNote && <span style={{ fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 }}>{cell.swNote}</span>}
+    </div>
+  );
+}
 
 function KindMark({ mark }) {
   const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#B7BCDA";
@@ -27914,11 +28074,12 @@ function TokensColorPage() {
                     const last = ri === COLOR_KINDS.length - 1 ? styles.lastRowCell : {};
                     return (
                       <React.Fragment key={row.kind}>
-                        <div style={{ ...styles.labelCell, ...last }}>{row.kind}</div>
+                        <div style={{ ...styles.labelCell, ...last, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>{row.kind}{row.rel && <span style={{ fontSize: 10.5, fontWeight: 400 }}>関連: {row.rel}</span>}</div>
                         {KIND_COLS.map((c) => (
                           <div key={c.key} style={{ ...styles.cell, ...styles.textCell, ...last, flexDirection: "column", gap: 4 }}>
                             <KindMark mark={row[c.key].mark} />
                             <span>{row[c.key].text}</span>
+                            <ColorSwatches cell={row[c.key]} />
                           </div>
                         ))}
                       </React.Fragment>
@@ -27932,20 +28093,22 @@ function TokensColorPage() {
               {COLOR_KINDS.map((row) => (
                 <div key={row.kind} style={styles.sourceCard}>
                   <div style={styles.sourceName}>{row.kind}</div>
+                  {row.rel && <div style={{ fontSize: 11, marginTop: 2 }}>関連: {row.rel}</div>}
                   {KIND_COLS.map((c) => (
                     <div key={c.key} style={styles.kindMobileRow}>
                       <div style={styles.kindMobileHead}><KindMark mark={row[c.key].mark} /><span>{c.name}</span></div>
                       <div style={styles.exceptionText}>{row[c.key].text}</div>
+                      <ColorSwatches cell={row[c.key]} />
                     </div>
                   ))}
                 </div>
               ))}
             </div>
-            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし</p>
+            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし。色見本は左がライト、右がダーク(Apple=HIG Colorの色見本の値、Google=Jetpack Composeの基準の配色の値)。</p>
           </section>
 
           <div style={styles.memoBox}>
-            <span style={styles.memoLabel}>メモ: ダークモードでの扱い</span>
+            <span style={styles.memoLabel}>メモ: ダークモードでの扱い(詳しくは<PageLink to="/tokens/dark-mode">ダークモード</PageLink>)</span>
             <ul style={styles.memoList}>
               <li>Apple ― 独自の色はライト・ダークの2版と、それぞれにコントラストを上げる設定用の版を用意する。1つの外観しか提供しないアプリでも、Liquid Glassのためにライト・ダーク両方の色が必要。比率は最低4.5:1、独自の色は7:1を目指す。</li>
               <li>Google ― 同じロールにライトとダークで別のトーンを割り当てる(例: Primary 40→80、Surface 98→6、On Surface 10→90)。コントラストの目標値はどちらのテーマでも同じ。</li>
@@ -27953,6 +28116,13 @@ function TokensColorPage() {
               <li>NN group ― 正常な視力の人は多くの場合ライトモードの方が読み取りの成績が良いという研究を紹介し、既定は端末の設定に従うことを勧めている。</li>
             </ul>
             <a href="/tokens/dark-mode" style={styles.memoLink}>詳しくは「ダークモード」ページへ ↗</a>
+          </div>
+
+          <div style={styles.relatedBox}>
+            <span style={styles.memoLabel}>関連するページ</span>
+            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
+              <PageLink to="/tokens/dark-mode">ダークモード</PageLink>(ライト/ダークの色の切り替え)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(押した・選んだときの重ね色)・<PageLink to="/tokens/typography">タイポグラフィ</PageLink>(文字の大きさとコントラスト)・<PageLink to="/tokens/elevation">エレベーション</PageLink>(面の色の段階)・<PageLink to="/tokens/icon">アイコン</PageLink>(アイコンのコントラスト)・<PageLink to="/components/actions/link">リンク</PageLink>(リンクの色と下線)
+            </p>
           </div>
 
           <div style={styles.tagsRow}>
@@ -27974,6 +28144,7 @@ function TokensColorPage() {
 }
 
 const styles = {
+  relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 40 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -32963,47 +33134,48 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     color: "#A3821F",
-    categories: ["知覚可能(Perceivable)", "操作可能(Operable)", "理解可能(Understandable)", "堅牢(Robust)"],
-    summary: "「Foundations」に相当する概念自体を持たない。最も近い構造はPOUR4原則",
+    categories: ["色: 1.4.1 色の使用(A)・1.4.3 文字のコントラスト(AA)・1.4.11 文字以外のコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットのサイズ(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタのジェスチャ(A)・2.5.7 ドラッグ操作(AA)"],
+    summary: "土台(ファウンデーション)に当たる括りはない。色・文字などの各トピックに、個別の達成基準が条件として関わる",
     stance:
-      "WCAGは「Foundations」という括りを持たず、達成基準は知覚可能・操作可能・理解可能・堅牢というPOURの4原則の下にガイドライン・達成基準という階層で整理されている。本サイトの各コンポーネントページの「アクセシビリティ」欄がこのPOUR分類を一貫して参照しているのは、この構造に基づいている。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」13項目に対応するW3C側の構造は存在しない。強いて対応させるなら、各項目に関連するWCAG達成基準が個別に分散して存在するのみで、Apple・Googleのような「ファウンデーション」という独立した文書体系はない。",
-    accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのものであり、「Foundationsの中の1トピック」という位置づけ自体が成立しない。",
+      "WCAGは色の値や文字サイズの体系を定める文書ではなく、「できあがった画面が満たすべき条件」を定める基準。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)は持たない。その代わり、色のコントラストや文字の拡大など、各トピックで守るべき最低限の条件が個別の達成基準として散らばっている。各トークンページのW3C欄は、この「トピックに関わる達成基準」を比べている。",
+    structuralNote: "WCAGのPOURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは原則ではなく、土台の各トピックに関わる達成基準(左の一覧)として位置づける。",
+    accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのもので、「土台の中の1トピック」という位置づけにはならない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     refs: [
       { label: "", url: "https://www.w3.org/WAI/WCAG22/quickref/" },
     ],
-    confirmedNote: "POURの4原則によるWCAG全体の構造は、本サイトの他の全コンポーネントページで一貫して参照している前提であり、既に確認済みのもの。本ページで新たに一次情報を取得したものではない。",
+    confirmedNote: "達成基準の番号・名前・レベルはWCAG 2.2の仕様書で確認(2026-11)。トピックへの割り当ては本サイトの各トークンページでの扱いに合わせたもの(AI解釈)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px" }}>
-        {["知覚可能", "操作可能", "理解可能", "堅牢"].map((t) => (
-          <span key={t} style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#A3821F", background: "#F5F0DF", padding: "2px 6px", borderRadius: 3 }}>{t}</span>
+        {[["色", "1.4.3"], ["文字", "1.4.4"], ["レイアウト", "1.4.10"], ["動き", "2.2.2"]].map(([t, n]) => (
+          <span key={t} style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#A3821F", background: "#F5F0DF", padding: "2px 6px", borderRadius: 3 }}>{t} → {n}</span>
         ))}
       </div>
     ),
-    illustrationNote: "POUR4原則(概念図・系列識別色)",
+    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図・系列識別色)",
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     color: "#7A4F7E",
-    categories: ["(固定カテゴリなし。記事・調査単位)"],
-    summary: "構造化されたデザインシステムではなく記事・調査ベースのため、固定の「Foundations」カテゴリを持たない",
+    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など(全40トピック)"],
+    summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
-      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。「Foundations」に相当する固定のカテゴリ構造や網羅的な索引は持たず、トピックごとに独立した記事が随時公開される形式。",
+      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなど40の分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
     url: "https://www.nngroup.com/articles/",
     refs: [
       { label: "", url: "https://www.nngroup.com/articles/" },
+      { label: "Topics(記事の分類)", url: "https://www.nngroup.com/topics/" },
     ],
-    confirmedNote: "NN groupが記事ベースで固定カテゴリ構造を持たないという性質は、本サイトの他の全ページで一貫して確認済みの前提であり、本ページで新たに一次情報を取得したものではない。",
+    confirmedNote: "Topicsの一覧はnngroup.com/topics/で確認(2026-11)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, padding: "8px 10px", alignItems: "center", justifyContent: "center", height: "100%" }}>
-        <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>記事単位(索引なし)</span>
+        <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>Topics(記事の分類)</span>
       </div>
     ),
-    illustrationNote: "固定カテゴリなし(概念図・系列識別色)",
+    illustrationNote: "記事をトピックで分類(概念図・系列識別色)",
   },
 ];
 
@@ -33150,6 +33322,62 @@ function InfoBox({ label, accent, children }) {
   );
 }
 
+/* No.005: 原則と土台(ファウンデーション)の構造の違い */
+const TIERS = [
+  { k: "原則", q: "なぜ・何を大事にするか", d: "判断のよりどころ。数値はなく、迷ったときに立ち返る考え方", ex: "例: 知覚できるようにする", color: "#7A4F7E", page: { to: "/principles/comparison", label: "思想レイヤー" } },
+  { k: "土台(ファウンデーション)", q: "どの画面にも共通する決まり", d: "原則を、色・文字・余白・動きなどの具体的な値やルールにしたもの。トークンとして部品に配る", ex: "例: 本文の文字色と背景のコントラスト4.5:1以上", color: "#3A4FCF", page: { to: "/tokens/color", label: "このレイヤー(カラーなど)" } },
+  { k: "部品(コンポーネント)", q: "土台を組み合わせた完成品", d: "ボタン・ダイアログなど。色・文字・形・動きを土台から受け取って作る", ex: "例: ボタンのラベルの色", color: "#2F7D6E", page: { to: "/components/actions/button", label: "コンポーネントレイヤー(ボタンなど)" } },
+];
+const SYSTEM_TIERS = [
+  { k: "Apple", c: "#C2542A", p: "Design principles(Getting started)", f: "Foundations(18トピック)", m: "Components" },
+  { k: "Google", c: "#2F7D6E", p: "Principles(Foundationsの中)", f: "Foundations + Styles", m: "Components" },
+  { k: "W3C", c: "#A3821F", p: "POURの4原則", f: null, fNote: "なし(各トピックに達成基準が関わる)", m: null, mNote: "なし(APGは実装の参考例)" },
+  { k: "NN group", c: "#7A4F7E", p: "10のユーザビリティヒューリスティック", f: null, fNote: "なし(Visual Designなどの記事)", m: null, mNote: "なし(部品ごとの記事)" },
+];
+
+function PrinciplesVsFoundations() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
+      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → 部品</strong>の3段で組み立てられています。思想レイヤーが「原則」を、このレイヤーが「土台」を比べます。</p>
+      <div style={styles.tierWrap}>
+        {TIERS.map((t, i) => (
+          <React.Fragment key={t.k}>
+            <div style={{ ...styles.tierBox, borderLeftColor: t.color, width: `${100 - i * 6}%` }}>
+              <div style={styles.tierHead}><span style={{ ...styles.tierName, color: t.color }}>{t.k}</span><span style={styles.tierQ}>{t.q}</span></div>
+              <p style={styles.tierText}>{t.d}</p>
+              <div style={styles.tierFoot}><span style={styles.tierEx}>{t.ex}</span><PageLink to={t.page.to}>{t.page.label}</PageLink></div>
+            </div>
+            {i < TIERS.length - 1 && <div style={styles.tierArrow} aria-hidden="true">↓ 具体的にする</div>}
+          </React.Fragment>
+        ))}
+      </div>
+
+      <h3 style={styles.subHead}>4系列は、どの段を持っているか</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tierTable}>
+          <thead><tr><th style={styles.tierTh} />{["原則", "土台", "部品"].map((h) => (<th key={h} style={styles.tierTh}>{h}</th>))}</tr></thead>
+          <tbody>
+            {SYSTEM_TIERS.map((r) => (
+              <tr key={r.k}>
+                <th style={{ ...styles.tierTd, color: r.c, fontWeight: 700, textAlign: "left" }}>{r.k}</th>
+                <td style={styles.tierTd}><span style={{ ...styles.tierCell, borderColor: r.c }}>{r.p}</span></td>
+                <td style={styles.tierTd}>{r.f ? <span style={{ ...styles.tierCell, borderColor: r.c, background: "#EEF1FA" }}>{r.f}</span> : <NoData>{r.fNote}</NoData>}</td>
+                <td style={styles.tierTd}>{r.m ? <span style={{ ...styles.tierCell, borderColor: r.c }}>{r.m}</span> : <NoData>{r.mNote}</NoData>}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={styles.whyBox}>
+        <div style={styles.whyTitle}>なぜ土台を比べるのか</div>
+        <p style={styles.tierText}>部品の見た目や数値の違いの多くは、土台の違いから来ています(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、部品ページの比較が「なぜそう違うのか」まで読めます。</p>
+        <p style={styles.tierText}>ただし、<Hl>土台を持つのはAppleとGoogleだけ</Hl>です。W3CとNN groupは土台を持たないため、各トークンページでは、W3Cは「そのトピックに関わる達成基準」、NN groupは「そのトピックの記事(調査に基づく指針)」を比べています。</p>
+      </div>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページです。";
 const ABOUT = [
@@ -33194,7 +33422,7 @@ function TokensOverviewPage() {
             rows={ABOUT}
           />
 
-
+          <PrinciplesVsFoundations />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -33209,7 +33437,7 @@ function TokensOverviewPage() {
               一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下の18トピックとして区別なく並べており、Googleのような二分はしていません。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いています</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違いです(下部の「Foundationsと並列の区分」参照)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)は「Foundations」という概念自体を持たず、<strong>最も近い構造的な等価物は知覚可能・操作可能・理解可能・堅牢というPOURの4原則</strong>です。Nielsen Norman Groupは構造化されたデザインシステムではないため、対応する固定カテゴリを持ちません。<strong>この2系列は「Foundations」という枠組みそのものに当てはめようとすること自体が、そもそも無理があります。</strong>
+              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持ちません</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱います)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わります</strong>。NN groupは記事をTopicsで分類していますが、値をそろえる仕組みではなく、調査に基づく指針として読みます。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -33303,10 +33531,10 @@ function TokensOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
+            <span>最終確認: 2026-11(③本人レビューの指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧ページへのリンクです。
+              リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧とTopicsのページへのリンクです。
             </span>
           </div>
         </div>
@@ -33316,6 +33544,22 @@ function TokensOverviewPage() {
 }
 
 const styles = {
+  tierWrap: { display: "flex", flexDirection: "column", alignItems: "center", gap: 4, marginBottom: 18 },
+  tierBox: { border: "1px solid #E1E3F0", borderLeft: "5px solid", borderRadius: 6, padding: "10px 14px", background: "#FFFFFF" },
+  tierHead: { display: "flex", alignItems: "baseline", gap: 10, flexWrap: "wrap" },
+  tierName: { fontSize: 14, fontWeight: 700 },
+  tierQ: { fontSize: 12, color: "#565D8A", fontWeight: 700 },
+  tierText: { fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "4px 0" },
+  tierFoot: { display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", fontSize: 11 },
+  tierEx: { fontSize: 11, color: "#7E86AC" },
+  tierArrow: { fontSize: 10.5, color: "#9EA4C4" },
+  subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" },
+  tierTable: { width: "100%", minWidth: 560, borderCollapse: "collapse", fontSize: 11.5, marginBottom: 14 },
+  tierTh: { fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "7px 8px", borderBottom: "1px solid #E1E3F0", textAlign: "left" },
+  tierTd: { padding: "7px 8px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top", fontSize: 11.5 },
+  tierCell: { display: "inline-block", border: "1px solid", borderRadius: 4, padding: "3px 8px", lineHeight: 1.5, color: "#171B36" },
+  whyBox: { background: "#F8F9FD", borderRadius: 6, padding: "10px 14px" },
+  whyTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 2 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
