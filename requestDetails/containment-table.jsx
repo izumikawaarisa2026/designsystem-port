@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / 表(データテーブル)」ページ。
@@ -25,6 +25,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and tables",
+    term: "Table(Lists and tables)",
     color: "#C2542A",
     position: "1列のリストと複数列の表を1つのページで扱う。数値の基準は持たず、macOSの複数列の表では、列ごとの並べ替え・列幅の変更・行の色の交互表示を求める",
     size: <span><NoData>数値基準なし。</NoData>行の文字は短くして、省略や折り返しを減らすよう求めている。1項目の文章が長いときは、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる方法を勧めている。</span>,
@@ -53,9 +54,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 2 ― Data tables(M3には対応するページなし)",
+    term: "Data table(M2)",
     color: "#2F7D6E",
     position: "行と列の格子で情報を並べ、データの傾向を見つけやすくする部品。行の高さ・余白・並べ替え・選択まで寸法と見た目を決めている。M3のサイトにはページがなく、旧版M2の指針が最新",
-    size: "行の高さは52dp、列見出しの行は56dp(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。",
+    size: <><Hl>行の高さは52dp、列見出しの行は56dp</Hl>(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。</>,
     colorInfo: "チェックボックスで行を選ぶと、行全体に背景色を付ける。画面を拡大して使う人には、チェックボックスが拡大した範囲の外に出てしまうことがあるため、色の塗りで選択をもう1つの方法で示すという理由。デスクトップでは、ポインタを乗せた行にも背景色を付ける。",
     stance:
       "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいこと。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せる。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転する(Material Design 2のページデータを直接取得して確認、2026-10)。",
@@ -79,6 +81,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern",
+    term: "table・grid(WAI-ARIAのロール)/ HTMLのtable要素",
     color: "#A3821F",
     position: "見た目の決まりは持たず、見出しセルとデータセルの関係を構造として支援技術に伝えることを求める",
     size: "表専用の数値基準はない。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められている(「アダプティブ/レスポンシブ」ページを参照)。",
@@ -92,7 +95,7 @@ const SOURCES = [
     stance:
       "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしている(Tables Tutorialの本文を直接確認、2026-10)。",
     exceptions:
-      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包みます(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
+      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包む(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
     accessibility:
       "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、aria-sortなどで状態を支援技術に伝えることは「堅牢」に関わる。並べ替えのボタンをキーボードで操作できることは「操作可能」。",
     useCases: [
@@ -115,12 +118,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Data Tables: Four Major User Tasks / Mobile Tables",
+    term: "Data table",
     color: "#7A4F7E",
     position: "表は「探す・比べる・1行を見る/編集する・まとめて操作する」の4つの作業を支えるべき、という観点で設計を決める実務指針(適合基準ではない)",
     size: <span><NoData>数値基準なし。</NoData>表の利点として、行も列も増やしやすいことと、隣り合うデータを目や記憶を使わずに比べられることを挙げ、カードの並びより比較に向くとしている。</span>,
     colorInfo: "大きい表では見出し行と最初の列を固定し、薄い境界線・縞模様(ゼブラ)・ポインタを乗せた行の強調で、目を横に動かしても位置を見失わないようにする。固定した見出しに控えめな影を付けると、表の上に浮いて見えて位置関係がつかみやすいとしている。",
     stance:
-      "最初の列には、自動で振った番号ではなく人が読める識別名を置き、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。",
+      <><Hl>最初の列には、自動で振った番号ではなく人が読める識別名を置き</Hl>、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。</>,
     exceptions:
       "1行を編集するときは、モーダルは他の行を隠して参照できなくなるため深い編集には勧めず、表を見ながら編集できる非モーダルの横パネルを勧めている。行の中に置く操作は1〜2個までにし、それ以上は行を選んでからまとめて操作する形(全選択も用意)にする。スマートフォンでは、見出しを固定する、横スクロールが必要なら右端の列を少し切って続きがあると示す(点より矢印や切れ目の方が気づかれやすい)、最初の列を固定する、横向きへの回転を強いるのは最後の手段にする、見たい列を選ばせる、としている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。列の並べ替えをドラッグだけにすると、見つけにくく使えない人もいるとしている。",
@@ -386,6 +390,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1列の一覧で足りるなら<PageLink to="/components/containment/list">リスト</PageLink>、見た目を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "スマートフォンで、横に広い表をどう見せる?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "見出しと最初の列を固定する。横スクロールが要るなら、右端の列を少し切って続きがあると示す。横向きへの回転を強いるのは最後の手段。見たい列を選ばせるのもよい" },
+      { who: "W3C", color: "#A3821F", t: "データの表は、理解に2次元の配置が要るため、1.4.10(リフロー)でも横スクロールが例外として認められている" },
+      { who: "Apple", color: "#C2542A", t: "表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合がある" },
+    ],
+    tip: "横スクロールそのものはW3Cでも認められるので、NN groupの勧めのように「最初の列を固定」「続きがあると見せる」を組み合わせれば、比べやすさを保てます。列が多すぎるなら、見る列を選ばせるか、1行ずつのカード表示への切り替えを検討します。",
+  },
+];
+
 export default function ContainmentTablePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -418,6 +435,8 @@ export default function ContainmentTablePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -452,6 +471,7 @@ export default function ContainmentTablePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ・余白" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見出し・行の見分け方">{s.colorInfo}</InfoBox>
@@ -481,6 +501,8 @@ export default function ContainmentTablePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ・余白</div>
@@ -550,6 +572,8 @@ export default function ContainmentTablePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

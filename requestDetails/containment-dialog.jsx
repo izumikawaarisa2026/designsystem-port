@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ダイアログ(基本ダイアログ)」ページ。
@@ -30,17 +30,18 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Alerts",
+    term: "Alert",
     color: "#C2542A",
     position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
-    size: <span><NoData>数値は未確認。</NoData>ボタンには他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。</span>,
+    size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
     colorInfo: <span><NoData>記載なし。</NoData>危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていない。</span>,
     stance:
-      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしている。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしている。ボタンのラベルは、選んだ結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)にするとしている。",
+      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない(HIG Alertsの本文で確認、2026-11)。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
     ],
     exceptions:
-      "よく選ばれる(最も可能性の高い)ボタンは右側に、キャンセルボタンは常に左側に置くべきとしている。メッセージは必須ではなく、必要な場合にのみ表示すべきだとしている。",
+      "ボタンの名前は、押した結果を表す1〜2語の動詞にする(「OK」は情報だけを伝えるアラートに限る)。最も選ばれやすいボタンは末尾(横並びなら右)、キャンセルは先頭(左)に置き、キャンセルを既定のボタンにしない。利用者が意図して選んだのではない壊す操作のボタンだけ、壊す操作の見た目にする。",
     accessibility:
       <span><NoData>記載なし。</NoData>VoiceOver等の支援技術での読み上げは、標準のAlertコントロールを使うことで自動的に対応されると考えられる。</span>,
     useCases: [
@@ -53,7 +54,7 @@ const SOURCES = [
     refs: [
       { label: "Alerts", url: "https://developer.apple.com/design/human-interface-guidelines/alerts" },
     ],
-    confirmedNote: "「Alerts」ページ本文はSPAのため直接確認できておらず、検索結果(ページの引用抜粋)による間接確認です(2026-09)。",
+    confirmedNote: "HIG Alertsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -70,6 +71,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Dialogs(Basic dialog)",
+    term: "Dialog(Basic dialog)",
     color: "#2F7D6E",
     position: "アプリのコンテンツ手前に表示され、重要な情報を提供したり判断を求めたりするモーダルウィンドウ。基本ダイアログと全画面ダイアログの2種類のうち、このページはスクリム上の基本ダイアログを扱う",
     size: <span><NoData>数値は未確認。</NoData>M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしている。</span>,
@@ -78,7 +80,7 @@ const SOURCES = [
       { term: "M2→M3の主な変更点", desc: "新しいカラーマッピング・ダイナミックカラーへの対応/角丸拡大とタイトルサイズ増加に伴う余白拡大/基本ダイアログの位置をカスタマイズするオプションの追加/角の半径拡大/より大きく濃い見出しタイポグラフィ、の5点。" },
     ],
     stance:
-      "ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしている。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべきとしている。",
+      <>ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしている。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、<Hl>優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべき</Hl>としている。</>,
     scenarios: [
       "進行状況の削除など、リスクの高い操作を確認させたい時",
       "単一タスクの完了に関わる重要な判断を求めたい時",
@@ -112,6 +114,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
+    term: "dialog・alertdialog(WAI-ARIAのロール)/ HTMLのdialog要素",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域",
     size: "ダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
@@ -155,12 +158,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Confirmation Dialogs Can Prevent User Errors",
+    term: "Confirmation dialog(確認ダイアログ)",
     color: "#7A4F7E",
     position: "本当に重大で取り消せない操作の前にのみ使うべき確認手段(数値基準ではなく判断基準)",
     size: <span><NoData>数値基準なし。</NoData>乱用による「オオカミ少年」効果(頻出しすぎて内容を読まれなくなること)を避けるため、表示頻度を絞るべきだとしている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(「オオカミ少年」効果)としている。",
+      <>確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(<Hl>「オオカミ少年」効果</Hl>)としている。</>,
     scenarios: [
       "ファイル削除など、取り消しできない操作の前",
       "高額な支払いなど、重大な結果を伴う操作の前",
@@ -244,6 +248,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "取り消せない操作の確認は、ボタンを押すだけでよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "最も重大な操作では、「DELETE」と入力させるなど、いつもと違う確認をさせる。「本当によろしいですか?」ではなく、具体的な選択肢(「ファイルを削除」「ファイルを残す」)を示す" },
+      { who: "Apple", color: "#C2542A", t: "ボタンで確認する。読まずにReturnで閉じてほしくないときは、どのボタンも既定にしない。意図せず壊す操作になるボタンには壊す操作の見た目を付ける" },
+      { who: "Google", color: "#2F7D6E", t: "ボタンで確認する。確認ボタンのラベルは「削除」のように次に起きることが分かる語にする。単純な確認では確認ボタンを無効にしない" },
+    ],
+    tip: "ふだんはボタンの名前を具体的にする(Apple・Google・NN groupで一致)だけで十分です。アカウントの削除のように取り返しがつかず影響の大きい操作だけ、NN groupの勧める入力させる確認を足します。",
+  },
+];
+
 export default function ContainmentDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -276,19 +293,18 @@ export default function ContainmentDialogPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>スクリム上に乗る「基本ダイアログ」中心の内容に絞ったもの</strong>です。画面全体を占め、一連のタスク完了(カレンダー予定の作成など)に使う「フルスクリーンダイアログ」とは、用途もブレークポイントによる使い分けも異なるため、モーダルポップアップ→サイドシート/ボトムシートの分割と同じ考え方でページを分けました。
-            </p>
-            <p style={styles.synthesisText}>
               4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢です。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告しています。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致しています。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは右、キャンセルは常に左」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
+              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
             </p>
             <p style={styles.synthesisText}>
               W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致しています。
@@ -309,6 +325,7 @@ export default function ContainmentDialogPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -346,6 +363,8 @@ export default function ContainmentDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -392,7 +411,7 @@ export default function ContainmentDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはAlertsページ、GoogleはDialogsページへのリンクです。WCAGはWAI-ARIA APGのDialog(Modal)パターン、NN groupは記事ページ単位です。
@@ -405,6 +424,8 @@ export default function ContainmentDialogPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

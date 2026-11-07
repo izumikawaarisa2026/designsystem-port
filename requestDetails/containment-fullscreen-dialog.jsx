@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / フルスクリーンダイアログ」ページ。
@@ -30,9 +30,10 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Modality / Sheets",
+    term: "Full-screen modal(Modalityの中の表示の形)",
     color: "#C2542A",
     position: "一時的な没入体験や、複数ステップのタスク(コンテンツ編集など)に集中させるための全画面モーダル体験",
-    size: <NoData>数値は未確認</NoData>,
+    size: "寸法の数値の記載なし(画面またはウィンドウ全体を使う)",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       "一時的な没入体験を提供したり、複数ステップのタスクに集中させたりするため、アプリは全画面のモーダル体験を提供できるとしている。画面またはウィンドウ全体を占めることで、注意散漫の要素を減らせるという考え方。",
@@ -54,7 +55,7 @@ const SOURCES = [
     refs: [
       { label: "Modality / Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
     ],
-    confirmedNote: "「Modality」「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果(ページの引用抜粋)による間接確認です(2026-09)。",
+    confirmedNote: "HIG Modality・Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -70,12 +71,13 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Full-screen dialog",
+    term: "Full-screen dialog",
     color: "#2F7D6E",
     position: "画面全体を占め、一連のタスクを完了させるためのモーダル。コンパクトブレークポイントでのみ使用",
     size: <span><NoData>数値は未確認。</NoData>コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしている。</span>,
     colorInfo: "色の値はデザイントークンを通して実装されるとしている。全画面ダイアログを起動すると、アプリの画面上の位置が一時的にリセットされ、その上に表示されるシンプルなメニューやダイアログは画面全体を覆う形になるとしている。",
     stance:
-      "全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。コンパクトなブレークポイントでのみ使用でき、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。",
+      <>全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。<Hl>コンパクトなブレークポイントでのみ使用でき</Hl>、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。</>,
     scenarios: [
       "イベントのタイトル・日付・場所・時刻を含むカレンダーエントリの作成のような、一連のタスクを完了させたい時",
       "フォームフィールドなどキーボード入力を必要とするコンポーネントを含む時",
@@ -112,6 +114,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
+    term: "dialog(WAI-ARIAのロール。大きさによる区別なし)",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域。サイズによる区別は設けられていない",
     size: "フルスクリーンダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
@@ -151,12 +154,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations",
+    term: "Modal dialog(複数ステップは普通のページ=ウィザードに)",
     color: "#7A4F7E",
     position: "複数ステップの作業はモーダル(全画面ダイアログも含む)にせず、モーダルではない普通のページ(ウィザード)にすべきという主張",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけだとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としている。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物。",
+      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>だとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としている。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物。</>,
     scenarios: [
       "ドメイン知識の少ない新規ユーザー向けのオンボーディングフロー",
       "頻繁には行わない、複数ステップのセットアップ・設定作業(日常的に繰り返す操作には不向き)",
@@ -245,6 +249,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "複数ステップの作業を、全画面のモーダルで行わせてよい?",
+    sides: [
+      { who: "Google・Apple", color: "#2F7D6E", t: "よい。Googleは一連の作業を完了させるために全画面ダイアログを使う(狭い画面のみ)。Appleも、写真の編集のような複数ステップの作業に全画面のモーダルを使えるとする。ただしAppleは、モーダルの中に階層のある画面を入れないよう求める" },
+      { who: "NN group", color: "#7A4F7E", t: "勧めない。複数ステップのモーダルはメインの作業から離れる時間を延ばすだけなので、最初から複数ステップなら、モーダルではない普通のページ(ウィザード)にする" },
+    ],
+    tip: "手順が短く、終わったら元の画面に戻るのが自然な作業(予定の作成など)は全画面のモーダル、手順が長く途中で中断もありうる作業(申し込みなど)は普通のページのウィザード、と分けると両方の考え方に沿います(「ウィザード」ページ)。",
+  },
+];
+
 export default function ContainmentFullscreenDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -277,13 +293,15 @@ export default function ContainmentFullscreenDialogPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>「モーダルダイアログ」ページから、画面全体を占める変異体を独立させたもの</strong>です。Googleは、フォーム入力などキーボード入力を要する一連のタスクや、変更が即座に保存されないタスクに全画面ダイアログを使うべきとしており、<strong>コンパクトなブレークポイントでのみ使用し、中〜拡張ブレークポイントでは基本ダイアログに切り替える</strong>という明確な使い分けを持っています。
+              Googleは、フォーム入力などキーボード入力が要る一連の作業や、変更がすぐに保存されない作業に全画面ダイアログを使い、<strong>狭い画面(コンパクト)でだけ使い、広い画面では基本のダイアログに切り替える</strong>としています。
             </p>
             <p style={styles.synthesisText}>
               Appleにはこの用途にぴったり対応する専用コンポーネント名はありませんが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られます。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点です。
@@ -310,6 +328,7 @@ export default function ContainmentFullscreenDialogPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -347,6 +366,8 @@ export default function ContainmentFullscreenDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -393,10 +414,10 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cは「モーダルダイアログ」ページと同じDialog(Modal)パターン)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはModalityページへのリンクです(検索結果による間接確認)。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
+              リンクについて: AppleはModalityページへのリンクです。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
             </span>
           </div>
         </div>
@@ -406,6 +427,8 @@ export default function ContainmentFullscreenDialogPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

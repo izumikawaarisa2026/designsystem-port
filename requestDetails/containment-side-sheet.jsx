@@ -30,6 +30,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)",
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>数値は未確認</NoData>,
@@ -49,6 +50,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Side sheets(標準/モーダル)",
+    term: "Side sheet(標準・モーダル)",
     color: "#2F7D6E",
     position: "画面側面に固定表示する副次的コンテンツ。標準(メイン領域と共存)とモーダル(背景操作を無効化)の2種類",
     size:
@@ -59,7 +61,7 @@ const SOURCES = [
       { term: "戻る / 閉じるアイコンボタン(いずれもオプション)", desc: "戻るアイコンボタンはサイドシートを閉じる、または別の画面へ移動するための要素。閉じるアイコンボタンは、開閉フローを予測可能にしアクセシビリティを高めるため、設置が強く推奨されている。" },
     ],
     stance:
-      "標準サイドシートは、タブレット・デスクトップなど中〜大規模の画面サイズで主に使われる補助的な画面だとしている。状況に応じた操作や情報表示のための一貫性があり予測可能な画面を提供し、メインコンテンツを補完するコンテンツを表示するとしている。画面サイズが限られるモバイル端末などのコンパクトな画面では、モーダルサイドシートが好まれるとしており、標準サイドシートと同じ種類のコンテンツを表示できるが、下にあるコンテンツを操作するにはサイドシートを閉じる必要があるとしている。",
+      <>標準サイドシートは、<Hl>タブレット・デスクトップなど中〜大規模の画面サイズで主に使われる補助的な画面</Hl>だとしている。状況に応じた操作や情報表示のための一貫性があり予測可能な画面を提供し、メインコンテンツを補完するコンテンツを表示するとしている。画面サイズが限られるモバイル端末などのコンパクトな画面では、モーダルサイドシートが好まれるとしており、標準サイドシートと同じ種類のコンテンツを表示できるが、下にあるコンテンツを操作するにはサイドシートを閉じる必要があるとしている。</>,
     scenarios: [
       "フィルタなど、主要コンテンツに影響を与えるアクションの一覧を表示したい時",
       "メインコンテンツを補完する補足コンテンツ・機能を表示したい時",
@@ -94,6 +96,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
+    term: "dialog(専用のロールなし)",
     color: "#A3821F",
     position: "シート本体はdialogとして作り、ラベルとフォーカスの移動を設計する。背景を操作できないようにするときだけaria-modal=\"true\"",
     size: "サイドシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
@@ -139,6 +142,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(Popup/Overlay/Side Sheet)",
+    term: "Side sheet(用語集)",
     color: "#7A4F7E",
     position: "「ポップアップ(ポップオーバー)」「オーバーレイ」「サイドシート」を、それぞれ独立した用語として定義",
     size: <NoData>数値基準なし</NoData>,
@@ -149,7 +153,7 @@ const SOURCES = [
       { term: "Side Sheet(Drawer, Flyout)", desc: "画面の左右どちらかの端からスライドして現れ、通常は画面のかなりの部分を覆うオーバーレイの一種。ボトムシートと同様、モーダル(背景操作を妨げる)にも非モーダルにもなり得る(用語集本文より)。" },
     ],
     stance:
-      "用語集(UI Elements Glossary)は、このページで扱う概念を3つの独立した項目として定義している。「Popup(Popover)」は画面全体を占有しないオーバーレイ全般を指す総称で、Appleの「popover」はこの一種だとしている。「Side Sheet」は画面の側面からスライドして現れるオーバーレイで、モーダル・非モーダルどちらもあり得るとしている。",
+      <>用語集(UI Elements Glossary)は、このページで扱う概念を3つの独立した項目として定義している。「Popup(Popover)」は画面全体を占有しないオーバーレイ全般を指す総称で、Appleの「popover」はこの一種だとしている。「Side Sheet」は画面の側面からスライドして現れるオーバーレイで、<Hl>モーダル・非モーダルどちらもあり得る</Hl>としている。</>,
     scenarios: [
       "画面の一部だけを覆う軽量なオーバーレイを指す言葉を選びたい時(Popup/Popover)",
       "側面から現れる副次コンテンツ全般を指す言葉を選びたい時(Side Sheet、ナビゲーション以外も含む)",
@@ -290,6 +294,7 @@ export default function ContainmentSideSheetPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -327,6 +332,8 @@ export default function ContainmentSideSheetPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -386,6 +393,8 @@ export default function ContainmentSideSheetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

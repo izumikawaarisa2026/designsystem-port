@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カード」ページ。
@@ -20,18 +20,19 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Boxes",
+    term: "Box(Cardという名前の部品はない)",
     color: "#C2542A",
     position: "論理的に関連する情報・コンポーネントを視覚的にグループ化するコンテナ(「カード」という名称の専用コンポーネントは見当たらない)",
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ボックスは、論理的に関連する情報とコンポーネントを視覚的に区別してグループ化するものだとしている。Googleの「カード」のような、タップして詳細画面に進む要約表示・エントリーポイントという用途に完全に一致する専用コンポーネントは見当たらない。",
+      "ボックスは、関連する情報や部品をまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途の部品はない(HIG Boxesの本文で確認、2026-11)。",
     scenarios: [
       "論理的に関連する情報・コンポーネントを視覚的にグループ化したい場面",
       "「カード」のようなタップ可能な要約表示が必要な場合は、標準コンポーネントの組み合わせで代替する場面",
     ],
     exceptions:
-      "検索で確認できた情報は限定的で、詳細な使用基準(境界線の有無、影の使用可否など)は公式ページ本文で未確認。",
+      "ボックスは入れ物の画面に比べて小さく保つ(大きくなるほど、まとまりを示す効果が薄れる)。ボックスの中をさらに分けたいときは、ボックスを入れ子にせず、余白と揃えで示す。タイトルは中身を表す短い言葉にする(VoiceOverの利用者が中身を予測しやすくなる)。iOS・iPadOSでは2番目・3番目の背景色を使う。",
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
@@ -42,7 +43,7 @@ const SOURCES = [
     refs: [
       { label: "Boxes", url: "https://developer.apple.com/design/human-interface-guidelines/boxes" },
     ],
-    confirmedNote: "「カード」という名称の専用コンポーネントは見当たらず、最も近い概念として「Boxes」を掲載している。ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "「カード」という名前の部品はなく、最も近いBoxesを載せている。HIG Boxesの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -58,6 +59,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Cards(Elevated / Filled / Outlined)",
+    term: "Card(Elevated・Filled・Outlined)",
     color: "#2F7D6E",
     position: "単一の主題に関するコンテンツとアクションをまとめる、境界線・影・塗りつぶしのいずれかで背景と区別するコンテナ。3種類のスタイルバリエーションを持つ",
     size: <NoData>数値は未確認</NoData>,
@@ -66,7 +68,7 @@ const SOURCES = [
       { term: "Elevated / Filled / Outlined", desc: "背景との分かれ方は、Filled(塗りつぶし。控えめ)< Elevated(影。Filledより強いがOutlinedほどではない)< Outlined(輪郭線。ほかの2種類より強調できる)の順。3種類とも読みやすさ・機能は同じで、どれを選ぶかは見た目(スタイル)だけで決める。つまり、強調の強さの違いは見た目の違いで、機能の違いではない。" },
     ],
     stance:
-      "カードは、単一の主題に関するコンテンツとアクションをまとめて表示するコンポーネントだとしている。関連性が高く実行可能な情報を、要素の階層が明確にわかる形でスキャンしやすくまとめるべきだとし、立体的(Elevated)・塗りつぶし(Filled)・輪郭線付き(Outlined)の3種類のスタイルを持つとしている。3種類とも可読性・機能性は同等で、選択はスタイルのみによる判断だとしている。",
+      <>カードは、<Hl>単一の主題に関するコンテンツとアクションをまとめて表示する</Hl>コンポーネントだとしている。関連性が高く実行可能な情報を、要素の階層が明確にわかる形でスキャンしやすくまとめるべきだとし、立体的(Elevated)・塗りつぶし(Filled)・輪郭線付き(Outlined)の3種類のスタイルを持つとしている。3種類とも可読性・機能性は同等で、選択はスタイルのみによる判断だとしている。</>,
     scenarios: [
       "音楽アルバムや今後の予定の詳細など、より詳しい情報やナビゲーションへの入り口として使う場面",
       "グリッド表示・縦型リスト表示・カルーセル表示など、複数のカードをまとめて表示する場面",
@@ -100,6 +102,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― article role",
+    term: "article(WAI-ARIAのロール。カードの決まりはない)",
     color: "#A3821F",
     position: "W3Cはカードを定めていない。カードの内容が単独でも意味を持つ記事・投稿などなら、article要素(role=\"article\")が一つの例(AI解釈)",
     size: "カード専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はタップ可能なカードにも適用される。",
@@ -138,6 +141,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Cards: UI-Component Definition",
+    term: "Card",
     color: "#7A4F7E",
     position: "関連情報をまとめた、要約+詳細への入り口としてのカード。ブラウジング(探索的な閲覧)に適するが、検索・比較には不向き(数値基準ではなく使い分けの指針)",
     size: <span><NoData>数値基準なし。</NoData>高さは可変で幅は固定という柔軟なレイアウトを推奨している。</span>,
@@ -148,7 +152,7 @@ const SOURCES = [
       "異なる種類のコンテンツが混在するダッシュボードなど、ブラウジング(探索的な閲覧)に使う場面",
     ],
     exceptions:
-      "検索時の使用(一覧性が低い)や、複数項目の比較(レイアウトが予測しにくく比較しづらい)には不向きだとしている。写真ギャラリーのような同種コンテンツには、通常グリッド表示の方が適しているとしている。",
+      <><Hl>検索時の使用(一覧性が低い)や、複数項目の比較(レイアウトが予測しにくく比較しづらい)には不向き</Hl>だとしている。写真ギャラリーのような同種コンテンツには、通常グリッド表示の方が適しているとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針。ドロップシャドウ・境界線・背景色でクリック可能性を視覚的に示すことは、大きなタップ領域の確保にもつながり、ユーザビリティを高めるとしている。",
     useCases: [
@@ -221,6 +225,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ形の項目を縦に並べて比べやすくするなら<PageLink to="/components/containment/list">リスト</PageLink>、行と列で比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "カード(まとまりの入れ物)は、何のために使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "1つの主題についての内容と操作をまとめる。画面が小さいときは、カードの代わりにリストも検討する" },
+      { who: "NN group", color: "#7A4F7E", t: "詳細への入り口になる要約。ざっと眺める閲覧に向き、検索や比べる作業には向かない" },
+      { who: "Apple", color: "#C2542A", t: "カードという部品はなく、関連する情報をまとめるボックスがある。小さく保ち、入れ子にしない" },
+    ],
+    tip: "眺めて選んでもらう一覧(おすすめ・特集など)はカード、探したり比べたりする一覧はリストや表、と分けると3系列の考え方がつながります(「リスト」「表」ページ)。",
+  },
+];
+
 export default function ContainmentCardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -253,6 +270,8 @@ export default function ContainmentCardPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -283,6 +302,7 @@ export default function ContainmentCardPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -320,6 +340,8 @@ export default function ContainmentCardPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -362,7 +384,7 @@ export default function ContainmentCardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはBoxesページ(「カード」に完全一致する専用コンポーネントは見当たらないため近似概念)、GoogleはCardsページへのリンクです。WCAGはWAI-ARIA仕様のarticleロール定義、NN groupは記事ページ単位です。
@@ -375,6 +397,8 @@ export default function ContainmentCardPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

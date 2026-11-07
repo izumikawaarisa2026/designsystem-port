@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -26,6 +26,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Page controls(「カルーセル」の専用ページなし)",
+    term: "Page control(カルーセルの部品はない)",
     color: "#C2542A",
     position: "HIGに「カルーセル」という名前のページはない。横にめくる一連のページの位置を点の列で示す「ページコントロール」の指針が最も近い",
     size: "点は等間隔に並び、塗りつぶした点が今のページ。点が約10個を超えると一目で数えられないため、10ページを超えて同じ階層のページを見せるなら、グリッドのように好きな順で選べる並べ方を検討するよう求めている。",
@@ -53,6 +54,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Carousel",
+    term: "Carousel(マルチブラウズ・アンコンテインド・ヒーロー・全画面)",
     color: "#2F7D6E",
     position: "画像が中心の項目を並べ、画面の内外へ出入りさせる部品。4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ",
     size: "大・中・小の項目を並べるレイアウトでは、小さい項目の幅を40〜56dpの範囲で決める(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、横向きのカルーセルでは幅が高さの最大2倍で、画面が広くなると大きい項目の数が増える。",
@@ -62,7 +64,7 @@ const SOURCES = [
     exceptions:
       "全画面のレイアウトは縦向きのまま使い、横向きでは画像の縦横比を保つため別のレイアウトに切り替える。アンコンテインドでは、カルーセルの幅が項目の幅でほぼ割り切れると見た目が悪くなるため、幅に応じて項目の大きさを調整するよう勧めている。",
     accessibility:
-      "―(確認したGoogle公式のドキュメントには、自動送りや停止の手段についての記載は見当たらなかった)。M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていない。",
+      "知覚可能・操作可能 ― 自動送りや停止の手段の記載はない。縦にスクロールするページでは、横にスクロールしなくても全項目を見られる手段を用意する(カルーセルの下の「すべて表示」ボタン、見出しがあれば見出しの横の矢印のアイコンボタン48dp。全画面のレイアウトは対象外)。ボタンはカルーセルの中や横に置かず、上か下に置く(M3 Carouselのアクセシビリティのページで確認、2026-11)。",
     useCases: [
       "写真のサムネイルのように多くを見せるならマルチブラウズ",
       "注目させたい1件があるならヒーロー、縦長の内容なら全画面",
@@ -77,12 +79,13 @@ const SOURCES = [
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
       { label: "Compose Material 3: Carousel.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/carousel/Carousel.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "アクセシビリティはM3 Carouselのページの本文(2026-11)、レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで確認(2026-10)。",
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "APG Carousel Pattern / WCAG 2.2.2 Pause, Stop, Hide / WAI Carousels Tutorial",
+    term: "Carousel(APGのパターン。aria-roledescription=\"carousel\")",
     color: "#A3821F",
     position: "自動で回るカルーセルを誰でも止められ、回転に振り回されないことを中心に求める。見た目の決まりは持たない",
     size: "カルーセル専用の時間の基準はない。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要。",
@@ -118,12 +121,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Carousel Usability / Auto-Forwarding Carousels and Accordions Annoy Users",
+    term: "Carousel",
     color: "#7A4F7E",
     position: "利用者はカルーセルを読み飛ばしがちで、2枚目以降は見られにくい。まず静的なヒーロー画像を検討し、使うなら案内と内容で効果を上げる、という実務指針(適合基準ではない)",
     size: "フレーム(枚数)は5枚以下にする。自動で送るなら、文字を読む速さを1秒に3語(英語)として表示時間を見積もる。視線計測では、動く広告のような要素が見られたのは27%だったとしている。",
     colorInfo: "全部で何枚あり、今どこかを示す。点は押すと何が出るか予想できず、スマートフォンでは気づかれにくいため、各フレームのボタンは中身が分かる見た目にする。操作部品はカルーセルの中に置き、下や画面の折り返しの先に離さない。ボタンは十分に大きく、背景が騒がしいフレームでも見えるようにする。",
     stance:
-      "カルーセルは同じ一等地に複数の内容を載せられるが、多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない。1枚だけを見た人が、その1枚で組織を誤解することもある。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げている(2記事とも本文を直接取得して確認、2026-10)。",
+      <>カルーセルは同じ一等地に複数の内容を載せられるが、<Hl>多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない</Hl>。1枚だけを見た人が、その1枚で組織を誤解することもある。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げている(2記事とも本文を直接取得して確認、2026-10)。</>,
     exceptions:
       "自動送りは、表示時間を適切に合わせられない場合、広告に見える場合、スマートフォン(ページが短く、切り替わる頃には下へスクロールしている)では避ける。自動送りするなら最後で止めずに繰り返し、今のフレームを表示し続ける。自動送りしないなら、矢印や次の画像の端をのぞかせて、続きがあることを見た目で示す。重要な内容は、カルーセル以外の場所にも置く。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。動くUIは運動機能に障害のある人には押す前に消えてしまい、読むのが遅い人や母語でない人には読む時間が足りないとしている。",
@@ -496,6 +500,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>全部を一度に見せて比べさせるなら<PageLink to="/components/containment/list">リスト</PageLink>や<PageLink to="/components/containment/card">カード</PageLink>の並び</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "スライドを自動で送る?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "多くの場面で避ける(表示時間を合わせられない、広告に見える、スマートフォンでは切り替わる頃には下へスクロールしている)。送るなら最後で止めずに繰り返す" },
+      { who: "W3C", color: "#A3821F", t: "自動で始まり5秒より長く続くなら、一時停止・停止・非表示の手段が要る(2.2.2・A)。APGの例は、動きを減らす設定なら最初から止め、停止ボタンを常に見せる" },
+      { who: "Google・Apple", color: "#2F7D6E", t: "自動送りの記載なし。Googleは、横にスクロールしなくても全項目を見られる「すべて表示」を求める。Appleのページコントロールは、ページの切り替えのアニメーションをタップのときだけにする" },
+    ],
+    tip: "自動送りは基本的に使わず、続きがあることを見た目(次の画像の端や矢印)で示します。どうしても自動で送るなら、停止ボタンを最初から見える位置に置き(W3C)、表示時間を読む速さに合わせます(NN group)。",
+  },
+];
+
 export default function ContainmentCarouselPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -528,6 +545,8 @@ export default function ContainmentCarouselPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -568,6 +587,7 @@ export default function ContainmentCarouselPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="枚数・大きさ・時間" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="位置の示し方・操作">{s.colorInfo}</InfoBox>
@@ -597,6 +617,8 @@ export default function ContainmentCarouselPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>枚数・大きさ・時間</div>
@@ -673,7 +695,7 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-10(4系列とも本文を確認。GoogleはM3のアクセシビリティのページとGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIGにカルーセルのページがないため、Page controlsページの「Best practices」見出しへのアンカー付きリンクで、iOS・iPadOSの見出しも併記しています。GoogleはM3のCarouselのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースとAndroid Developersのページを併記しています。W3CはAPGのCarousel Patternを基本リンクとし、キーボード操作の節・2.2.2・WAIのチュートリアルも併記しています。NN groupはCarousel Usabilityの記事のガイドラインの節と、自動送りの記事です。
@@ -686,6 +708,8 @@ export default function ContainmentCarouselPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -7859,6 +7859,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Disclosure Controls",
+    term: "Disclosure control(開示三角形・開示ボタン)",
     color: "#C2542A",
     position: "ビューやリストに関連する情報・機能を表示・非表示する部品。開示三角形と開示ボタンの2種類",
     size: "Disclosure controlsのページには、サイズの規定がない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
@@ -7896,6 +7897,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -7906,13 +7908,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※現行のMaterial Design 3に「アコーディオン」に相当する名称の独立した専用コンポーネントは存在しない。旧世代(M1)には「Expansion panel」という独立コンポーネントがありましたが、M3では見当たらず、検索結果によれば開閉(展開/折りたたみ)の考え方はListコンポーネントの機能に統合されたとされている(2026-09、間接確認)。「無い」という結論自体は明確ですが、m3.material.ioがSPAで全文網羅の確認はできていないため、間接確認として扱っている。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に、アコーディオンに当たる部品はない(2026-11に確認)。旧世代(M1)の「Expansion panel」に当たる部品も、M3にはない。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
+    term: "Accordion(APGのパターン)",
     color: "#A3821F",
     position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
     size: "アコーディオン専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は見出しのボタンに適用される。",
@@ -7951,6 +7954,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Accordions on Desktop: When and How to Use",
+    term: "Accordion",
     color: "#7A4F7E",
     position: "クリックして情報を表示・非表示にする設計パターン(見出し・アイコン・パネルで構成)。使うべき場面・避けるべき場面が明確に分かれる(数値基準ではなく判断基準)",
     size: <span><NoData>数値基準なし。</NoData>見出しはコンテンツを正確に反映する長さ・表現にすべきだとしている。</span>,
@@ -7958,7 +7962,7 @@ const SOURCES = [
     stance:
       "アコーディオンは、クリックして情報を表示・非表示にする設計パターンで、見出し・アイコン・パネルで構成されるとしている。ページの煩雑さの軽減・スクロール量の削減・ページ全体の概要提示・スキャン性の向上・(URLなどによる)直接アクセスのしやすさといった利点があるとしている。",
     exceptions:
-      "ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしている。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、FAQのように各セクションが独立している場合、長いコンテンツで画面幅が小さい場合には適しているとしている。",
+      <>ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしている。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、<Hl>FAQのように各セクションが独立している場合</Hl>、長いコンテンツで画面幅が小さい場合には適しているとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使うべき場面・避けるべき場面の判断基準。見出しはコンテンツを正確に反映させ、展開可能であることをキャレットアイコン等で視覚的に示し、複数セクションの同時展開を許可し、重要な情報は常に表示しておくべきだとしている。",
     useCases: [
@@ -8121,6 +8125,7 @@ function ContainmentAccordionPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -8161,6 +8166,8 @@ function ContainmentAccordionPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -8194,7 +8201,7 @@ function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Disclosure controls、GoogleはM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
@@ -8207,6 +8214,8 @@ function ContainmentAccordionPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
@@ -8297,8 +8306,9 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sheets(デタント)",
+    term: "Sheet",
     color: "#C2542A",
-    position: "大(large)・中(medium)の2段階の高さ(デタント)で静止する、既定でモーダルなシート",
+    position: "大(large)・中(medium)の2段階の高さ(デタント)で止まるシート。iOS・iPadOSではモーダルにも非モーダルにもできる",
     size:
       "大デタントは展開時の全高、中デタントは展開時のおよそ半分の高さとされている。既定では大デタントのみをサポートし、中デタントを追加すると両方の高さの間で静止できるようになる一方、中デタントのみを指定すると全高までは展開できなくなるとしている。",
     colorInfo: <NoData>記載なし</NoData>,
@@ -8307,13 +8317,13 @@ const SOURCES = [
       { term: "グラバー(grabber)", desc: "シート上端に表示される小さな水平のインジケーター。ドラッグしてシートの高さを変更できることを示す。" },
     ],
     stance:
-      "シートは、現在の文脈に密接に関連する、範囲を限定したタスクを行うのに役立つコンポーネントだとしている。既定ではモーダルとして提示され、閉じるまで親ビューを操作できなくするとしている。",
+      "シートは、今の画面に関係する、範囲を限った作業(ファイルの添付や保存先の選択など)をしてもらい、終わったら元の画面に戻るためのもの。iOS・iPadOSではモーダルにも非モーダルにもでき、非モーダルのシート(メモの書式設定など)は開いたまま元の画面を操作できる。高さを変えられるシートにはグラバー(上端の小さな横線)を付け、縦のスワイプで閉じられるようにする(HIG Sheetsの本文で確認、2026-11)。",
     scenarios: [
       "現在の文脈に密接に関連する、範囲を限定したタスクを行わせたい時",
       "コンテンツのスクロールやグラバーのドラッグで、シートの高さを調整させたい時",
     ],
     exceptions:
-      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる点に注意が必要だとしている。複数シートの積み重ねに関する明確な記載はこのトピックでは確認できていない。",
+      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる。メインの画面から出すシートは一度に1枚にし、シートから別のシートを出すときは最初のシートを閉じてから出す。長く複雑な作業には、シートではなく全画面のモーダルなどを検討する。",
     accessibility:
       <span><NoData>記載なし。</NoData>標準のシートコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
@@ -8326,7 +8336,7 @@ const SOURCES = [
     refs: [
       { label: "Sheets(デタント)", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
-    confirmedNote: "「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。デタントの定義・グラバーの挙動は複数の検索結果で一致している。",
+    confirmedNote: "HIG Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -8342,6 +8352,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Bottom sheets(標準/モーダル)",
+    term: "Bottom sheet(標準・モーダル)",
     color: "#2F7D6E",
     position: "コンパクト・ミディアムのブレークポイントで使う、標準(メイン領域と共存)とモーダル(背景操作を完全にブロック)の2種類を持つ画面下部のシート",
     size:
@@ -8351,7 +8362,7 @@ const SOURCES = [
       { term: "標準 / モーダルボトムシート", desc: "標準ボトムシートは画面のメインUI領域と共存し、両方を同時に閲覧・操作できる。モーダルボトムシートはアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続ける。" },
     ],
     stance:
-      "標準ボトムシートは、画面のメインUI領域と共存し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしている。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。",
+      <>標準ボトムシートは、<Hl>画面のメインUI領域と共存</Hl>し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしている。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。</>,
     scenarios: [
       "音楽プレーヤーのように、画面の主要コンテンツを補完するコンテンツを表示したい時(標準ボトムシート、全画面表示時はアプリバーに折りたたみアイコンを表示)",
       "多数の操作項目があり、詳細な説明やアイコンが必要なメニューを提示したい時(モーダルボトムシート、モバイルアプリのみ)",
@@ -8385,6 +8396,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
+    term: "dialog(モーダルの場合。専用のロールなし)",
     color: "#A3821F",
     position: "ボトムシート専用のロール・パターンは存在せず、モーダル/非モーダルのどちらとして実装するかで適用すべき考え方が変わる",
     size: "ボトムシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
@@ -8424,6 +8436,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Bottom Sheets: Definition and UX Guidelines",
+    term: "Bottom sheet",
     color: "#7A4F7E",
     position: "モバイル画面下部に固定される、段階的な情報開示のための短時間利用向けオーバーレイ(数値基準ではなく実装上の指針)",
     size: "数値基準としては、モバイルのタップ領域について一般的な目安に言及しているが、ボトムシート専用の数値ではない。",
@@ -8550,6 +8563,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "閉じるボタン(×)を、いつも置く?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "置く。ハンドルや下へなぞる操作だけに頼らず、上部に見える×(または「閉じる」)を置く。読み上げソフトやキーボードの利用者にも閉じ方が分かる" },
+      { who: "Google", color: "#2F7D6E", t: "全画面のモーダルのボトムシートには閉じるボタンを出す。それ以外は、項目を選ぶ・後ろをタップ・下へなぞる・戻るでも閉じられる" },
+      { who: "Apple", color: "#C2542A", t: "利用者は縦のスワイプで閉じることを期待する。ボタンはキャンセル(保存せずに閉じる)と完了(作業を終えて閉じる)を使い分ける" },
+    ],
+    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿います。スワイプはなぞる操作が苦手な人や読み上げソフトの利用者には使いにくいため、ボタンが代わりの手段になります。",
+  },
+];
+
 function ContainmentBottomSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -8577,6 +8603,8 @@ function ContainmentBottomSheetPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -8610,6 +8638,7 @@ function ContainmentBottomSheetPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -8647,6 +8676,8 @@ function ContainmentBottomSheetPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -8693,7 +8724,7 @@ function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cはドロワー・サイドシートのページと同じDialog(Modal)パターン)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSheetsページへのリンクです。GoogleはBottom sheetsページへのリンクです。WCAGはWAI-ARIA Dialog (Modal) Patternのページ、NN groupは記事ページ単位です。
@@ -8706,6 +8737,8 @@ function ContainmentBottomSheetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   bsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   bsCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
   bsTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 6 },
@@ -8798,18 +8831,19 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Boxes",
+    term: "Box(Cardという名前の部品はない)",
     color: "#C2542A",
     position: "論理的に関連する情報・コンポーネントを視覚的にグループ化するコンテナ(「カード」という名称の専用コンポーネントは見当たらない)",
     size: <NoData>数値は未確認</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ボックスは、論理的に関連する情報とコンポーネントを視覚的に区別してグループ化するものだとしている。Googleの「カード」のような、タップして詳細画面に進む要約表示・エントリーポイントという用途に完全に一致する専用コンポーネントは見当たらない。",
+      "ボックスは、関連する情報や部品をまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途の部品はない(HIG Boxesの本文で確認、2026-11)。",
     scenarios: [
       "論理的に関連する情報・コンポーネントを視覚的にグループ化したい場面",
       "「カード」のようなタップ可能な要約表示が必要な場合は、標準コンポーネントの組み合わせで代替する場面",
     ],
     exceptions:
-      "検索で確認できた情報は限定的で、詳細な使用基準(境界線の有無、影の使用可否など)は公式ページ本文で未確認。",
+      "ボックスは入れ物の画面に比べて小さく保つ(大きくなるほど、まとまりを示す効果が薄れる)。ボックスの中をさらに分けたいときは、ボックスを入れ子にせず、余白と揃えで示す。タイトルは中身を表す短い言葉にする(VoiceOverの利用者が中身を予測しやすくなる)。iOS・iPadOSでは2番目・3番目の背景色を使う。",
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
@@ -8820,7 +8854,7 @@ const SOURCES = [
     refs: [
       { label: "Boxes", url: "https://developer.apple.com/design/human-interface-guidelines/boxes" },
     ],
-    confirmedNote: "「カード」という名称の専用コンポーネントは見当たらず、最も近い概念として「Boxes」を掲載している。ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。",
+    confirmedNote: "「カード」という名前の部品はなく、最も近いBoxesを載せている。HIG Boxesの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -8836,6 +8870,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Cards(Elevated / Filled / Outlined)",
+    term: "Card(Elevated・Filled・Outlined)",
     color: "#2F7D6E",
     position: "単一の主題に関するコンテンツとアクションをまとめる、境界線・影・塗りつぶしのいずれかで背景と区別するコンテナ。3種類のスタイルバリエーションを持つ",
     size: <NoData>数値は未確認</NoData>,
@@ -8844,7 +8879,7 @@ const SOURCES = [
       { term: "Elevated / Filled / Outlined", desc: "背景との分かれ方は、Filled(塗りつぶし。控えめ)< Elevated(影。Filledより強いがOutlinedほどではない)< Outlined(輪郭線。ほかの2種類より強調できる)の順。3種類とも読みやすさ・機能は同じで、どれを選ぶかは見た目(スタイル)だけで決める。つまり、強調の強さの違いは見た目の違いで、機能の違いではない。" },
     ],
     stance:
-      "カードは、単一の主題に関するコンテンツとアクションをまとめて表示するコンポーネントだとしている。関連性が高く実行可能な情報を、要素の階層が明確にわかる形でスキャンしやすくまとめるべきだとし、立体的(Elevated)・塗りつぶし(Filled)・輪郭線付き(Outlined)の3種類のスタイルを持つとしている。3種類とも可読性・機能性は同等で、選択はスタイルのみによる判断だとしている。",
+      <>カードは、<Hl>単一の主題に関するコンテンツとアクションをまとめて表示する</Hl>コンポーネントだとしている。関連性が高く実行可能な情報を、要素の階層が明確にわかる形でスキャンしやすくまとめるべきだとし、立体的(Elevated)・塗りつぶし(Filled)・輪郭線付き(Outlined)の3種類のスタイルを持つとしている。3種類とも可読性・機能性は同等で、選択はスタイルのみによる判断だとしている。</>,
     scenarios: [
       "音楽アルバムや今後の予定の詳細など、より詳しい情報やナビゲーションへの入り口として使う場面",
       "グリッド表示・縦型リスト表示・カルーセル表示など、複数のカードをまとめて表示する場面",
@@ -8878,6 +8913,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― article role",
+    term: "article(WAI-ARIAのロール。カードの決まりはない)",
     color: "#A3821F",
     position: "W3Cはカードを定めていない。カードの内容が単独でも意味を持つ記事・投稿などなら、article要素(role=\"article\")が一つの例(AI解釈)",
     size: "カード専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はタップ可能なカードにも適用される。",
@@ -8916,6 +8952,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Cards: UI-Component Definition",
+    term: "Card",
     color: "#7A4F7E",
     position: "関連情報をまとめた、要約+詳細への入り口としてのカード。ブラウジング(探索的な閲覧)に適するが、検索・比較には不向き(数値基準ではなく使い分けの指針)",
     size: <span><NoData>数値基準なし。</NoData>高さは可変で幅は固定という柔軟なレイアウトを推奨している。</span>,
@@ -8926,7 +8963,7 @@ const SOURCES = [
       "異なる種類のコンテンツが混在するダッシュボードなど、ブラウジング(探索的な閲覧)に使う場面",
     ],
     exceptions:
-      "検索時の使用(一覧性が低い)や、複数項目の比較(レイアウトが予測しにくく比較しづらい)には不向きだとしている。写真ギャラリーのような同種コンテンツには、通常グリッド表示の方が適しているとしている。",
+      <><Hl>検索時の使用(一覧性が低い)や、複数項目の比較(レイアウトが予測しにくく比較しづらい)には不向き</Hl>だとしている。写真ギャラリーのような同種コンテンツには、通常グリッド表示の方が適しているとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使い分けの指針。ドロップシャドウ・境界線・背景色でクリック可能性を視覚的に示すことは、大きなタップ領域の確保にもつながり、ユーザビリティを高めるとしている。",
     useCases: [
@@ -8999,6 +9036,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ形の項目を縦に並べて比べやすくするなら<PageLink to="/components/containment/list">リスト</PageLink>、行と列で比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "カード(まとまりの入れ物)は、何のために使う?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "1つの主題についての内容と操作をまとめる。画面が小さいときは、カードの代わりにリストも検討する" },
+      { who: "NN group", color: "#7A4F7E", t: "詳細への入り口になる要約。ざっと眺める閲覧に向き、検索や比べる作業には向かない" },
+      { who: "Apple", color: "#C2542A", t: "カードという部品はなく、関連する情報をまとめるボックスがある。小さく保ち、入れ子にしない" },
+    ],
+    tip: "眺めて選んでもらう一覧(おすすめ・特集など)はカード、探したり比べたりする一覧はリストや表、と分けると3系列の考え方がつながります(「リスト」「表」ページ)。",
+  },
+];
+
 function ContainmentCardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -9026,6 +9076,8 @@ function ContainmentCardPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -9057,6 +9109,7 @@ function ContainmentCardPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -9094,6 +9147,8 @@ function ContainmentCardPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -9136,7 +9191,7 @@ function ContainmentCardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN group・Googleは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはBoxesページ(「カード」に完全一致する専用コンポーネントは見当たらないため近似概念)、GoogleはCardsページへのリンクです。WCAGはWAI-ARIA仕様のarticleロール定義、NN groupは記事ページ単位です。
@@ -9149,6 +9204,8 @@ function ContainmentCardPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -9237,6 +9294,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Page controls(「カルーセル」の専用ページなし)",
+    term: "Page control(カルーセルの部品はない)",
     color: "#C2542A",
     position: "HIGに「カルーセル」という名前のページはない。横にめくる一連のページの位置を点の列で示す「ページコントロール」の指針が最も近い",
     size: "点は等間隔に並び、塗りつぶした点が今のページ。点が約10個を超えると一目で数えられないため、10ページを超えて同じ階層のページを見せるなら、グリッドのように好きな順で選べる並べ方を検討するよう求めている。",
@@ -9264,6 +9322,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Carousel",
+    term: "Carousel(マルチブラウズ・アンコンテインド・ヒーロー・全画面)",
     color: "#2F7D6E",
     position: "画像が中心の項目を並べ、画面の内外へ出入りさせる部品。4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ",
     size: "大・中・小の項目を並べるレイアウトでは、小さい項目の幅を40〜56dpの範囲で決める(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、横向きのカルーセルでは幅が高さの最大2倍で、画面が広くなると大きい項目の数が増える。",
@@ -9273,7 +9332,7 @@ const SOURCES = [
     exceptions:
       "全画面のレイアウトは縦向きのまま使い、横向きでは画像の縦横比を保つため別のレイアウトに切り替える。アンコンテインドでは、カルーセルの幅が項目の幅でほぼ割り切れると見た目が悪くなるため、幅に応じて項目の大きさを調整するよう勧めている。",
     accessibility:
-      "―(確認したGoogle公式のドキュメントには、自動送りや停止の手段についての記載は見当たらなかった)。M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていない。",
+      "知覚可能・操作可能 ― 自動送りや停止の手段の記載はない。縦にスクロールするページでは、横にスクロールしなくても全項目を見られる手段を用意する(カルーセルの下の「すべて表示」ボタン、見出しがあれば見出しの横の矢印のアイコンボタン48dp。全画面のレイアウトは対象外)。ボタンはカルーセルの中や横に置かず、上か下に置く(M3 Carouselのアクセシビリティのページで確認、2026-11)。",
     useCases: [
       "写真のサムネイルのように多くを見せるならマルチブラウズ",
       "注目させたい1件があるならヒーロー、縦長の内容なら全画面",
@@ -9288,12 +9347,13 @@ const SOURCES = [
       { label: "Android: Carousel(Jetpack Compose)", url: "https://developer.android.com/develop/ui/compose/components/carousel" },
       { label: "Compose Material 3: Carousel.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/carousel/Carousel.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "アクセシビリティはM3 Carouselのページの本文(2026-11)、レイアウトの種類と使い分けはMaterial Components for AndroidのドキュメントとAndroid Developersの本文、小さい項目の幅はJetpack Composeのソースで確認(2026-10)。",
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "APG Carousel Pattern / WCAG 2.2.2 Pause, Stop, Hide / WAI Carousels Tutorial",
+    term: "Carousel(APGのパターン。aria-roledescription=\"carousel\")",
     color: "#A3821F",
     position: "自動で回るカルーセルを誰でも止められ、回転に振り回されないことを中心に求める。見た目の決まりは持たない",
     size: "カルーセル専用の時間の基準はない。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要。",
@@ -9329,12 +9389,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Carousel Usability / Auto-Forwarding Carousels and Accordions Annoy Users",
+    term: "Carousel",
     color: "#7A4F7E",
     position: "利用者はカルーセルを読み飛ばしがちで、2枚目以降は見られにくい。まず静的なヒーロー画像を検討し、使うなら案内と内容で効果を上げる、という実務指針(適合基準ではない)",
     size: "フレーム(枚数)は5枚以下にする。自動で送るなら、文字を読む速さを1秒に3語(英語)として表示時間を見積もる。視線計測では、動く広告のような要素が見られたのは27%だったとしている。",
     colorInfo: "全部で何枚あり、今どこかを示す。点は押すと何が出るか予想できず、スマートフォンでは気づかれにくいため、各フレームのボタンは中身が分かる見た目にする。操作部品はカルーセルの中に置き、下や画面の折り返しの先に離さない。ボタンは十分に大きく、背景が騒がしいフレームでも見えるようにする。",
     stance:
-      "カルーセルは同じ一等地に複数の内容を載せられるが、多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない。1枚だけを見た人が、その1枚で組織を誤解することもある。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げている(2記事とも本文を直接取得して確認、2026-10)。",
+      <>カルーセルは同じ一等地に複数の内容を載せられるが、<Hl>多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない</Hl>。1枚だけを見た人が、その1枚で組織を誤解することもある。目当ての情報がカルーセルにあっても、5秒ごとに切り替わる設計では表示されているのが20%の時間だけで、利用者は見つけられずに諦めた例を挙げている(2記事とも本文を直接取得して確認、2026-10)。</>,
     exceptions:
       "自動送りは、表示時間を適切に合わせられない場合、広告に見える場合、スマートフォン(ページが短く、切り替わる頃には下へスクロールしている)では避ける。自動送りするなら最後で止めずに繰り返し、今のフレームを表示し続ける。自動送りしないなら、矢印や次の画像の端をのぞかせて、続きがあることを見た目で示す。重要な内容は、カルーセル以外の場所にも置く。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。動くUIは運動機能に障害のある人には押す前に消えてしまい、読むのが遅い人や母語でない人には読む時間が足りないとしている。",
@@ -9707,6 +9768,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>全部を一度に見せて比べさせるなら<PageLink to="/components/containment/list">リスト</PageLink>や<PageLink to="/components/containment/card">カード</PageLink>の並び</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "スライドを自動で送る?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "多くの場面で避ける(表示時間を合わせられない、広告に見える、スマートフォンでは切り替わる頃には下へスクロールしている)。送るなら最後で止めずに繰り返す" },
+      { who: "W3C", color: "#A3821F", t: "自動で始まり5秒より長く続くなら、一時停止・停止・非表示の手段が要る(2.2.2・A)。APGの例は、動きを減らす設定なら最初から止め、停止ボタンを常に見せる" },
+      { who: "Google・Apple", color: "#2F7D6E", t: "自動送りの記載なし。Googleは、横にスクロールしなくても全項目を見られる「すべて表示」を求める。Appleのページコントロールは、ページの切り替えのアニメーションをタップのときだけにする" },
+    ],
+    tip: "自動送りは基本的に使わず、続きがあることを見た目(次の画像の端や矢印)で示します。どうしても自動で送るなら、停止ボタンを最初から見える位置に置き(W3C)、表示時間を読む速さに合わせます(NN group)。",
+  },
+];
+
 function ContainmentCarouselPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -9735,6 +9809,8 @@ function ContainmentCarouselPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -9775,6 +9851,7 @@ function ContainmentCarouselPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="枚数・大きさ・時間" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="位置の示し方・操作">{s.colorInfo}</InfoBox>
@@ -9804,6 +9881,8 @@ function ContainmentCarouselPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>枚数・大きさ・時間</div>
@@ -9880,7 +9959,7 @@ function ContainmentCarouselPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-10(4系列とも本文を確認。GoogleはM3のアクセシビリティのページとGoogle公式のドキュメント・ソースで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIGにカルーセルのページがないため、Page controlsページの「Best practices」見出しへのアンカー付きリンクで、iOS・iPadOSの見出しも併記しています。GoogleはM3のCarouselのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースとAndroid Developersのページを併記しています。W3CはAPGのCarousel Patternを基本リンクとし、キーボード操作の節・2.2.2・WAIのチュートリアルも併記しています。NN groupはCarousel Usabilityの記事のガイドラインの節と、自動送りの記事です。
@@ -9893,6 +9972,8 @@ function ContainmentCarouselPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -10018,17 +10099,18 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Alerts",
+    term: "Alert",
     color: "#C2542A",
     position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
-    size: <span><NoData>数値は未確認。</NoData>ボタンには他のタップ可能要素と同じ最小44×44ptのヒットターゲット基準が適用されると考えられる。</span>,
+    size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
     colorInfo: <span><NoData>記載なし。</NoData>危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていない。</span>,
     stance:
-      "タイトルは状況を簡潔・明確に伝える一文にすべきで、単語1つだけのタイトルは有用な情報を提供しにくいため避けるべきとしている。メッセージは短い完全な文にし、非難めいた・判断がましい言い回しは避けるべきとしている。ボタンのラベルは、選んだ結果を示す短い動詞・動詞句(例: 「表示」「返信」「無視」)にするとしている。",
+      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない(HIG Alertsの本文で確認、2026-11)。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
     ],
     exceptions:
-      "よく選ばれる(最も可能性の高い)ボタンは右側に、キャンセルボタンは常に左側に置くべきとしている。メッセージは必須ではなく、必要な場合にのみ表示すべきだとしている。",
+      "ボタンの名前は、押した結果を表す1〜2語の動詞にする(「OK」は情報だけを伝えるアラートに限る)。最も選ばれやすいボタンは末尾(横並びなら右)、キャンセルは先頭(左)に置き、キャンセルを既定のボタンにしない。利用者が意図して選んだのではない壊す操作のボタンだけ、壊す操作の見た目にする。",
     accessibility:
       <span><NoData>記載なし。</NoData>VoiceOver等の支援技術での読み上げは、標準のAlertコントロールを使うことで自動的に対応されると考えられる。</span>,
     useCases: [
@@ -10041,7 +10123,7 @@ const SOURCES = [
     refs: [
       { label: "Alerts", url: "https://developer.apple.com/design/human-interface-guidelines/alerts" },
     ],
-    confirmedNote: "「Alerts」ページ本文はSPAのため直接確認できておらず、検索結果(ページの引用抜粋)による間接確認です(2026-09)。",
+    confirmedNote: "HIG Alertsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -10058,6 +10140,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Dialogs(Basic dialog)",
+    term: "Dialog(Basic dialog)",
     color: "#2F7D6E",
     position: "アプリのコンテンツ手前に表示され、重要な情報を提供したり判断を求めたりするモーダルウィンドウ。基本ダイアログと全画面ダイアログの2種類のうち、このページはスクリム上の基本ダイアログを扱う",
     size: <span><NoData>数値は未確認。</NoData>M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしている。</span>,
@@ -10066,7 +10149,7 @@ const SOURCES = [
       { term: "M2→M3の主な変更点", desc: "新しいカラーマッピング・ダイナミックカラーへの対応/角丸拡大とタイトルサイズ増加に伴う余白拡大/基本ダイアログの位置をカスタマイズするオプションの追加/角の半径拡大/より大きく濃い見出しタイポグラフィ、の5点。" },
     ],
     stance:
-      "ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしている。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべきとしている。",
+      <>ダイアログは、アプリのコンテンツの前に表示され、重要な情報を提供したりユーザーに判断を求めたりするモーダルウィンドウだとしている。表示されるとアプリのすべての機能が無効になり、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。ダイアログは意図的にユーザーの操作を中断させるため使用は控えめにすべきで、<Hl>優先度の低い・中程度の情報には自動的に閉じるスナックバーを使うべき</Hl>としている。</>,
     scenarios: [
       "進行状況の削除など、リスクの高い操作を確認させたい時",
       "単一タスクの完了に関わる重要な判断を求めたい時",
@@ -10100,6 +10183,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
+    term: "dialog・alertdialog(WAI-ARIAのロール)/ HTMLのdialog要素",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域",
     size: "ダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
@@ -10143,12 +10227,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Confirmation Dialogs Can Prevent User Errors",
+    term: "Confirmation dialog(確認ダイアログ)",
     color: "#7A4F7E",
     position: "本当に重大で取り消せない操作の前にのみ使うべき確認手段(数値基準ではなく判断基準)",
     size: <span><NoData>数値基準なし。</NoData>乱用による「オオカミ少年」効果(頻出しすぎて内容を読まれなくなること)を避けるため、表示頻度を絞るべきだとしている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(「オオカミ少年」効果)としている。",
+      <>確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(<Hl>「オオカミ少年」効果</Hl>)としている。</>,
     scenarios: [
       "ファイル削除など、取り消しできない操作の前",
       "高額な支払いなど、重大な結果を伴う操作の前",
@@ -10232,6 +10317,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "取り消せない操作の確認は、ボタンを押すだけでよい?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "最も重大な操作では、「DELETE」と入力させるなど、いつもと違う確認をさせる。「本当によろしいですか?」ではなく、具体的な選択肢(「ファイルを削除」「ファイルを残す」)を示す" },
+      { who: "Apple", color: "#C2542A", t: "ボタンで確認する。読まずにReturnで閉じてほしくないときは、どのボタンも既定にしない。意図せず壊す操作になるボタンには壊す操作の見た目を付ける" },
+      { who: "Google", color: "#2F7D6E", t: "ボタンで確認する。確認ボタンのラベルは「削除」のように次に起きることが分かる語にする。単純な確認では確認ボタンを無効にしない" },
+    ],
+    tip: "ふだんはボタンの名前を具体的にする(Apple・Google・NN groupで一致)だけで十分です。アカウントの削除のように取り返しがつかず影響の大きい操作だけ、NN groupの勧める入力させる確認を足します。",
+  },
+];
+
 function ContainmentDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -10260,19 +10358,18 @@ function ContainmentDialogPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>スクリム上に乗る「基本ダイアログ」中心の内容に絞ったもの</strong>です。画面全体を占め、一連のタスク完了(カレンダー予定の作成など)に使う「フルスクリーンダイアログ」とは、用途もブレークポイントによる使い分けも異なるため、モーダルポップアップ→サイドシート/ボトムシートの分割と同じ考え方でページを分けました。
-            </p>
-            <p style={styles.synthesisText}>
               4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢です。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告しています。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致しています。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは右、キャンセルは常に左」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
+              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
             </p>
             <p style={styles.synthesisText}>
               W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致しています。
@@ -10293,6 +10390,7 @@ function ContainmentDialogPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -10330,6 +10428,8 @@ function ContainmentDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -10376,7 +10476,7 @@ function ContainmentDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。W3C・NN groupは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはAlertsページ、GoogleはDialogsページへのリンクです。WCAGはWAI-ARIA APGのDialog(Modal)パターン、NN groupは記事ページ単位です。
@@ -10389,6 +10489,8 @@ function ContainmentDialogPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -10481,9 +10583,10 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Modality / Sheets",
+    term: "Full-screen modal(Modalityの中の表示の形)",
     color: "#C2542A",
     position: "一時的な没入体験や、複数ステップのタスク(コンテンツ編集など)に集中させるための全画面モーダル体験",
-    size: <NoData>数値は未確認</NoData>,
+    size: "寸法の数値の記載なし(画面またはウィンドウ全体を使う)",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       "一時的な没入体験を提供したり、複数ステップのタスクに集中させたりするため、アプリは全画面のモーダル体験を提供できるとしている。画面またはウィンドウ全体を占めることで、注意散漫の要素を減らせるという考え方。",
@@ -10505,7 +10608,7 @@ const SOURCES = [
     refs: [
       { label: "Modality / Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
     ],
-    confirmedNote: "「Modality」「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果(ページの引用抜粋)による間接確認です(2026-09)。",
+    confirmedNote: "HIG Modality・Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -10521,12 +10624,13 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Full-screen dialog",
+    term: "Full-screen dialog",
     color: "#2F7D6E",
     position: "画面全体を占め、一連のタスクを完了させるためのモーダル。コンパクトブレークポイントでのみ使用",
     size: <span><NoData>数値は未確認。</NoData>コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしている。</span>,
     colorInfo: "色の値はデザイントークンを通して実装されるとしている。全画面ダイアログを起動すると、アプリの画面上の位置が一時的にリセットされ、その上に表示されるシンプルなメニューやダイアログは画面全体を覆う形になるとしている。",
     stance:
-      "全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。コンパクトなブレークポイントでのみ使用でき、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。",
+      <>全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。<Hl>コンパクトなブレークポイントでのみ使用でき</Hl>、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。</>,
     scenarios: [
       "イベントのタイトル・日付・場所・時刻を含むカレンダーエントリの作成のような、一連のタスクを完了させたい時",
       "フォームフィールドなどキーボード入力を必要とするコンポーネントを含む時",
@@ -10563,6 +10667,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
+    term: "dialog(WAI-ARIAのロール。大きさによる区別なし)",
     color: "#A3821F",
     position: "role=\"dialog\" + aria-modal=\"true\"で識別する、背後のコンテンツを操作不能にする重ねて表示される領域。サイズによる区別は設けられていない",
     size: "フルスクリーンダイアログ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はボタンなどの操作要素に適用される。",
@@ -10602,12 +10707,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations",
+    term: "Modal dialog(複数ステップは普通のページ=ウィザードに)",
     color: "#7A4F7E",
     position: "複数ステップの作業はモーダル(全画面ダイアログも含む)にせず、モーダルではない普通のページ(ウィザード)にすべきという主張",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけだとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としている。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物。",
+      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>だとし、最初から複数ステップが必要なら、専用のページを1つ割り当てるだけの理由がある、としている。ここでの「ページ」は、モーダルではない普通のページのことで、Googleの全画面ダイアログ(これもモーダル)とは別物。</>,
     scenarios: [
       "ドメイン知識の少ない新規ユーザー向けのオンボーディングフロー",
       "頻繁には行わない、複数ステップのセットアップ・設定作業(日常的に繰り返す操作には不向き)",
@@ -10696,6 +10802,18 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "複数ステップの作業を、全画面のモーダルで行わせてよい?",
+    sides: [
+      { who: "Google・Apple", color: "#2F7D6E", t: "よい。Googleは一連の作業を完了させるために全画面ダイアログを使う(狭い画面のみ)。Appleも、写真の編集のような複数ステップの作業に全画面のモーダルを使えるとする。ただしAppleは、モーダルの中に階層のある画面を入れないよう求める" },
+      { who: "NN group", color: "#7A4F7E", t: "勧めない。複数ステップのモーダルはメインの作業から離れる時間を延ばすだけなので、最初から複数ステップなら、モーダルではない普通のページ(ウィザード)にする" },
+    ],
+    tip: "手順が短く、終わったら元の画面に戻るのが自然な作業(予定の作成など)は全画面のモーダル、手順が長く途中で中断もありうる作業(申し込みなど)は普通のページのウィザード、と分けると両方の考え方に沿います(「ウィザード」ページ)。",
+  },
+];
+
 function ContainmentFullscreenDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -10724,13 +10842,15 @@ function ContainmentFullscreenDialogPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>「モーダルダイアログ」ページから、画面全体を占める変異体を独立させたもの</strong>です。Googleは、フォーム入力などキーボード入力を要する一連のタスクや、変更が即座に保存されないタスクに全画面ダイアログを使うべきとしており、<strong>コンパクトなブレークポイントでのみ使用し、中〜拡張ブレークポイントでは基本ダイアログに切り替える</strong>という明確な使い分けを持っています。
+              Googleは、フォーム入力などキーボード入力が要る一連の作業や、変更がすぐに保存されない作業に全画面ダイアログを使い、<strong>狭い画面(コンパクト)でだけ使い、広い画面では基本のダイアログに切り替える</strong>としています。
             </p>
             <p style={styles.synthesisText}>
               Appleにはこの用途にぴったり対応する専用コンポーネント名はありませんが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られます。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点です。
@@ -10757,6 +10877,7 @@ function ContainmentFullscreenDialogPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -10794,6 +10915,8 @@ function ContainmentFullscreenDialogPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -10840,10 +10963,10 @@ function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは記事本文を直接取得して確認済み。Apple・W3Cは検索結果・既存ページ内容の準用による確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cは「モーダルダイアログ」ページと同じDialog(Modal)パターン)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはModalityページへのリンクです(検索結果による間接確認)。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
+              リンクについて: AppleはModalityページへのリンクです。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
             </span>
           </div>
         </div>
@@ -10853,6 +10976,8 @@ function ContainmentFullscreenDialogPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -10938,6 +11063,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and Tables",
+    term: "List(Lists and tables)",
     color: "#C2542A",
     position: "グループや階層に分かれたデータを、行の形で並べて見せる部品。選択・追加・削除・並べ替えにも対応できる",
     size: "リスト固有の数値(pt)は、Lists and tablesのページにはない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
@@ -10979,9 +11105,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Lists(表現力豊かなリスト / ベースライン)",
+    term: "List",
     color: "#2F7D6E",
     position: "テキスト・画像を縦に連続して並べた索引。特定の項目を見つけて操作するために使う。2025年12月のM3 Expressiveアップデートで「表現力豊かなリスト」が追加された",
-    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしている。配置は中央揃えが基本ですが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしている。スロット内のターゲットサイズは最低48×48dpを確保すべきとしている。",
+    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしている。配置は中央揃えが基本だが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしている。スロット内のターゲットサイズは最低48×48dpを確保すべきとしている。",
     colorInfo: "色の値はデザイントークンを通じて実装されるとしている。リスト項目に画像が含まれる場合は、コンテンツに基づく配色でコンテナの色をカスタマイズすることを検討すべきとしている。",
     glossary: [
       { term: "表現力豊かなリスト / リスト(ベースライン)", desc: "2025年12月のM3 Expressiveアップデートで追加された「表現力豊かなリスト」は、セグメント化されたビジュアルスタイル・選択状態の強調表示・柔軟なスロットに対応し、新規デザインに推奨される。従来の「リスト(ベースライン)」も引き続き利用できるが、これらの新機能には対応しない。" },
@@ -11025,12 +11152,13 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
+    term: "list・listitem(WAI-ARIAのロール)/ HTMLのul・ol・li",
     color: "#A3821F",
     position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で識別する、非対話的な項目の集合",
     size: "リスト専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各項目内の操作要素に適用される。",
     colorInfo: "リスト専用の色基準はないが、1.4.11(非テキストのコントラスト)が区切り線などの視覚的要素に適用され得る。",
     stance:
-      "listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしている。可能な限りHTMLのセマンティック要素(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしている。",
+      <>listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしている。<Hl>可能な限りHTMLのセマンティック要素</Hl>(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしている。</>,
     scenarios: [
       "支援技術にリスト構造を明示的に伝えたい場面(特にHTMLを直接制御できない場合)",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
@@ -11068,12 +11196,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Card View vs. List View",
+    term: "List view(リスト表示)",
     color: "#7A4F7E",
     position: "複数項目のソート・比較を効率的に行える、スペース効率の高い表示形式(「カード」ページで比較したカード表示との対比が判断基準)",
     size: <span><NoData>数値基準なし。</NoData>リスト表示はスペース効率が高いという特性が挙げられている。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "リスト表示は、ソートが容易でスペース効率が高いという特性を持つとしている。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしている。",
+      <><Hl>リスト表示は、ソートが容易でスペース効率が高い</Hl>という特性を持つとしている。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしている。</>,
     scenarios: [
       "複数項目を素早く比較・ソートする必要がある場面",
     ],
@@ -11153,6 +11282,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1件ごとに画像や操作を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink>、項目ごとに複数の値を比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "リストとカード、どちらで見せる?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "並べ替えて比べるならリスト(場所も取らない)。見た目で引きつけ、情報をまとまりで見せたいならカード" },
+      { who: "Apple", color: "#C2542A", t: "文字は読み流しやすいリストや表で見せる。大きさがばらばらの項目や画像が多いなら、コレクション(格子状の並び)を検討する" },
+      { who: "Google", color: "#2F7D6E", t: "リストは項目を見つけて操作するための並び。画面が小さいときは、カードの代わりにリストを検討する" },
+    ],
+    tip: "文字中心で数が多く、探したり比べたりする一覧はリスト、画像中心で眺めて選ぶ一覧はカードやコレクション、と中身で決めると3系列とも両立します。",
+  },
+];
+
 function ContainmentListPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -11180,6 +11322,8 @@ function ContainmentListPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -11211,6 +11355,7 @@ function ContainmentListPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -11248,6 +11393,8 @@ function ContainmentListPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -11303,6 +11450,8 @@ function ContainmentListPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -11595,6 +11744,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)",
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
     size: <NoData>数値は未確認</NoData>,
@@ -11614,6 +11764,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Side sheets(標準/モーダル)",
+    term: "Side sheet(標準・モーダル)",
     color: "#2F7D6E",
     position: "画面側面に固定表示する副次的コンテンツ。標準(メイン領域と共存)とモーダル(背景操作を無効化)の2種類",
     size:
@@ -11624,7 +11775,7 @@ const SOURCES = [
       { term: "戻る / 閉じるアイコンボタン(いずれもオプション)", desc: "戻るアイコンボタンはサイドシートを閉じる、または別の画面へ移動するための要素。閉じるアイコンボタンは、開閉フローを予測可能にしアクセシビリティを高めるため、設置が強く推奨されている。" },
     ],
     stance:
-      "標準サイドシートは、タブレット・デスクトップなど中〜大規模の画面サイズで主に使われる補助的な画面だとしている。状況に応じた操作や情報表示のための一貫性があり予測可能な画面を提供し、メインコンテンツを補完するコンテンツを表示するとしている。画面サイズが限られるモバイル端末などのコンパクトな画面では、モーダルサイドシートが好まれるとしており、標準サイドシートと同じ種類のコンテンツを表示できるが、下にあるコンテンツを操作するにはサイドシートを閉じる必要があるとしている。",
+      <>標準サイドシートは、<Hl>タブレット・デスクトップなど中〜大規模の画面サイズで主に使われる補助的な画面</Hl>だとしている。状況に応じた操作や情報表示のための一貫性があり予測可能な画面を提供し、メインコンテンツを補完するコンテンツを表示するとしている。画面サイズが限られるモバイル端末などのコンパクトな画面では、モーダルサイドシートが好まれるとしており、標準サイドシートと同じ種類のコンテンツを表示できるが、下にあるコンテンツを操作するにはサイドシートを閉じる必要があるとしている。</>,
     scenarios: [
       "フィルタなど、主要コンテンツに影響を与えるアクションの一覧を表示したい時",
       "メインコンテンツを補完する補足コンテンツ・機能を表示したい時",
@@ -11659,6 +11810,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
+    term: "dialog(専用のロールなし)",
     color: "#A3821F",
     position: "シート本体はdialogとして作り、ラベルとフォーカスの移動を設計する。背景を操作できないようにするときだけaria-modal=\"true\"",
     size: "サイドシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
@@ -11704,6 +11856,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "User-Interface Elements: Glossary(Popup/Overlay/Side Sheet)",
+    term: "Side sheet(用語集)",
     color: "#7A4F7E",
     position: "「ポップアップ(ポップオーバー)」「オーバーレイ」「サイドシート」を、それぞれ独立した用語として定義",
     size: <NoData>数値基準なし</NoData>,
@@ -11714,7 +11867,7 @@ const SOURCES = [
       { term: "Side Sheet(Drawer, Flyout)", desc: "画面の左右どちらかの端からスライドして現れ、通常は画面のかなりの部分を覆うオーバーレイの一種。ボトムシートと同様、モーダル(背景操作を妨げる)にも非モーダルにもなり得る(用語集本文より)。" },
     ],
     stance:
-      "用語集(UI Elements Glossary)は、このページで扱う概念を3つの独立した項目として定義している。「Popup(Popover)」は画面全体を占有しないオーバーレイ全般を指す総称で、Appleの「popover」はこの一種だとしている。「Side Sheet」は画面の側面からスライドして現れるオーバーレイで、モーダル・非モーダルどちらもあり得るとしている。",
+      <>用語集(UI Elements Glossary)は、このページで扱う概念を3つの独立した項目として定義している。「Popup(Popover)」は画面全体を占有しないオーバーレイ全般を指す総称で、Appleの「popover」はこの一種だとしている。「Side Sheet」は画面の側面からスライドして現れるオーバーレイで、<Hl>モーダル・非モーダルどちらもあり得る</Hl>としている。</>,
     scenarios: [
       "画面の一部だけを覆う軽量なオーバーレイを指す言葉を選びたい時(Popup/Popover)",
       "側面から現れる副次コンテンツ全般を指す言葉を選びたい時(Side Sheet、ナビゲーション以外も含む)",
@@ -11851,6 +12004,7 @@ function ContainmentSideSheetPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -11888,6 +12042,8 @@ function ContainmentSideSheetPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -11947,6 +12103,8 @@ function ContainmentSideSheetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -12035,6 +12193,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and tables",
+    term: "Table(Lists and tables)",
     color: "#C2542A",
     position: "1列のリストと複数列の表を1つのページで扱う。数値の基準は持たず、macOSの複数列の表では、列ごとの並べ替え・列幅の変更・行の色の交互表示を求める",
     size: <span><NoData>数値基準なし。</NoData>行の文字は短くして、省略や折り返しを減らすよう求めている。1項目の文章が長いときは、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる方法を勧めている。</span>,
@@ -12063,9 +12222,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 2 ― Data tables(M3には対応するページなし)",
+    term: "Data table(M2)",
     color: "#2F7D6E",
     position: "行と列の格子で情報を並べ、データの傾向を見つけやすくする部品。行の高さ・余白・並べ替え・選択まで寸法と見た目を決めている。M3のサイトにはページがなく、旧版M2の指針が最新",
-    size: "行の高さは52dp、列見出しの行は56dp(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。",
+    size: <><Hl>行の高さは52dp、列見出しの行は56dp</Hl>(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。</>,
     colorInfo: "チェックボックスで行を選ぶと、行全体に背景色を付ける。画面を拡大して使う人には、チェックボックスが拡大した範囲の外に出てしまうことがあるため、色の塗りで選択をもう1つの方法で示すという理由。デスクトップでは、ポインタを乗せた行にも背景色を付ける。",
     stance:
       "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいこと。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せる。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転する(Material Design 2のページデータを直接取得して確認、2026-10)。",
@@ -12089,6 +12249,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern",
+    term: "table・grid(WAI-ARIAのロール)/ HTMLのtable要素",
     color: "#A3821F",
     position: "見た目の決まりは持たず、見出しセルとデータセルの関係を構造として支援技術に伝えることを求める",
     size: "表専用の数値基準はない。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められている(「アダプティブ/レスポンシブ」ページを参照)。",
@@ -12102,7 +12263,7 @@ const SOURCES = [
     stance:
       "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしている(Tables Tutorialの本文を直接確認、2026-10)。",
     exceptions:
-      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包みます(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
+      "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包む(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
     accessibility:
       "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、aria-sortなどで状態を支援技術に伝えることは「堅牢」に関わる。並べ替えのボタンをキーボードで操作できることは「操作可能」。",
     useCases: [
@@ -12125,12 +12286,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Data Tables: Four Major User Tasks / Mobile Tables",
+    term: "Data table",
     color: "#7A4F7E",
     position: "表は「探す・比べる・1行を見る/編集する・まとめて操作する」の4つの作業を支えるべき、という観点で設計を決める実務指針(適合基準ではない)",
     size: <span><NoData>数値基準なし。</NoData>表の利点として、行も列も増やしやすいことと、隣り合うデータを目や記憶を使わずに比べられることを挙げ、カードの並びより比較に向くとしている。</span>,
     colorInfo: "大きい表では見出し行と最初の列を固定し、薄い境界線・縞模様(ゼブラ)・ポインタを乗せた行の強調で、目を横に動かしても位置を見失わないようにする。固定した見出しに控えめな影を付けると、表の上に浮いて見えて位置関係がつかみやすいとしている。",
     stance:
-      "最初の列には、自動で振った番号ではなく人が読める識別名を置き、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。",
+      <><Hl>最初の列には、自動で振った番号ではなく人が読める識別名を置き</Hl>、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。</>,
     exceptions:
       "1行を編集するときは、モーダルは他の行を隠して参照できなくなるため深い編集には勧めず、表を見ながら編集できる非モーダルの横パネルを勧めている。行の中に置く操作は1〜2個までにし、それ以上は行を選んでからまとめて操作する形(全選択も用意)にする。スマートフォンでは、見出しを固定する、横スクロールが必要なら右端の列を少し切って続きがあると示す(点より矢印や切れ目の方が気づかれやすい)、最初の列を固定する、横向きへの回転を強いるのは最後の手段にする、見たい列を選ばせる、としている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。列の並べ替えをドラッグだけにすると、見つけにくく使えない人もいるとしている。",
@@ -12396,6 +12558,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1列の一覧で足りるなら<PageLink to="/components/containment/list">リスト</PageLink>、見た目を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "スマートフォンで、横に広い表をどう見せる?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "見出しと最初の列を固定する。横スクロールが要るなら、右端の列を少し切って続きがあると示す。横向きへの回転を強いるのは最後の手段。見たい列を選ばせるのもよい" },
+      { who: "W3C", color: "#A3821F", t: "データの表は、理解に2次元の配置が要るため、1.4.10(リフロー)でも横スクロールが例外として認められている" },
+      { who: "Apple", color: "#C2542A", t: "表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合がある" },
+    ],
+    tip: "横スクロールそのものはW3Cでも認められるので、NN groupの勧めのように「最初の列を固定」「続きがあると見せる」を組み合わせれば、比べやすさを保てます。列が多すぎるなら、見る列を選ばせるか、1行ずつのカード表示への切り替えを検討します。",
+  },
+];
+
 function ContainmentTablePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -12424,6 +12599,8 @@ function ContainmentTablePage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -12458,6 +12635,7 @@ function ContainmentTablePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ・余白" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見出し・行の見分け方">{s.colorInfo}</InfoBox>
@@ -12487,6 +12665,8 @@ function ContainmentTablePage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ・余白</div>
@@ -12556,6 +12736,8 @@ function ContainmentTablePage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

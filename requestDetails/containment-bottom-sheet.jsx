@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ボトムシート」ページ。
@@ -26,8 +26,9 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Sheets(デタント)",
+    term: "Sheet",
     color: "#C2542A",
-    position: "大(large)・中(medium)の2段階の高さ(デタント)で静止する、既定でモーダルなシート",
+    position: "大(large)・中(medium)の2段階の高さ(デタント)で止まるシート。iOS・iPadOSではモーダルにも非モーダルにもできる",
     size:
       "大デタントは展開時の全高、中デタントは展開時のおよそ半分の高さとされている。既定では大デタントのみをサポートし、中デタントを追加すると両方の高さの間で静止できるようになる一方、中デタントのみを指定すると全高までは展開できなくなるとしている。",
     colorInfo: <NoData>記載なし</NoData>,
@@ -36,13 +37,13 @@ const SOURCES = [
       { term: "グラバー(grabber)", desc: "シート上端に表示される小さな水平のインジケーター。ドラッグしてシートの高さを変更できることを示す。" },
     ],
     stance:
-      "シートは、現在の文脈に密接に関連する、範囲を限定したタスクを行うのに役立つコンポーネントだとしている。既定ではモーダルとして提示され、閉じるまで親ビューを操作できなくするとしている。",
+      "シートは、今の画面に関係する、範囲を限った作業(ファイルの添付や保存先の選択など)をしてもらい、終わったら元の画面に戻るためのもの。iOS・iPadOSではモーダルにも非モーダルにもでき、非モーダルのシート(メモの書式設定など)は開いたまま元の画面を操作できる。高さを変えられるシートにはグラバー(上端の小さな横線)を付け、縦のスワイプで閉じられるようにする(HIG Sheetsの本文で確認、2026-11)。",
     scenarios: [
       "現在の文脈に密接に関連する、範囲を限定したタスクを行わせたい時",
       "コンテンツのスクロールやグラバーのドラッグで、シートの高さを調整させたい時",
     ],
     exceptions:
-      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる点に注意が必要だとしている。複数シートの積み重ねに関する明確な記載はこのトピックでは確認できていない。",
+      "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる。メインの画面から出すシートは一度に1枚にし、シートから別のシートを出すときは最初のシートを閉じてから出す。長く複雑な作業には、シートではなく全画面のモーダルなどを検討する。",
     accessibility:
       <span><NoData>記載なし。</NoData>標準のシートコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
     useCases: [
@@ -55,7 +56,7 @@ const SOURCES = [
     refs: [
       { label: "Sheets(デタント)", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
-    confirmedNote: "「Sheets」ページ本文はSPAのため直接確認できておらず、検索結果による間接確認です(2026-09)。デタントの定義・グラバーの挙動は複数の検索結果で一致している。",
+    confirmedNote: "HIG Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -71,6 +72,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Bottom sheets(標準/モーダル)",
+    term: "Bottom sheet(標準・モーダル)",
     color: "#2F7D6E",
     position: "コンパクト・ミディアムのブレークポイントで使う、標準(メイン領域と共存)とモーダル(背景操作を完全にブロック)の2種類を持つ画面下部のシート",
     size:
@@ -80,7 +82,7 @@ const SOURCES = [
       { term: "標準 / モーダルボトムシート", desc: "標準ボトムシートは画面のメインUI領域と共存し、両方を同時に閲覧・操作できる。モーダルボトムシートはアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続ける。" },
     ],
     stance:
-      "標準ボトムシートは、画面のメインUI領域と共存し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしている。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。",
+      <>標準ボトムシートは、<Hl>画面のメインUI領域と共存</Hl>し、特にメインUI領域が頻繁にスクロール・パンされる場合に両方の領域を同時に表示・操作できるようにするコンポーネントだとしている。モーダルボトムシートはダイアログと同様にアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続けるとしている。</>,
     scenarios: [
       "音楽プレーヤーのように、画面の主要コンテンツを補完するコンテンツを表示したい時(標準ボトムシート、全画面表示時はアプリバーに折りたたみアイコンを表示)",
       "多数の操作項目があり、詳細な説明やアイコンが必要なメニューを提示したい時(モーダルボトムシート、モバイルアプリのみ)",
@@ -114,6 +116,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
+    term: "dialog(モーダルの場合。専用のロールなし)",
     color: "#A3821F",
     position: "ボトムシート専用のロール・パターンは存在せず、モーダル/非モーダルのどちらとして実装するかで適用すべき考え方が変わる",
     size: "ボトムシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
@@ -153,6 +156,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Bottom Sheets: Definition and UX Guidelines",
+    term: "Bottom sheet",
     color: "#7A4F7E",
     position: "モバイル画面下部に固定される、段階的な情報開示のための短時間利用向けオーバーレイ(数値基準ではなく実装上の指針)",
     size: "数値基準としては、モバイルのタップ領域について一般的な目安に言及しているが、ボトムシート専用の数値ではない。",
@@ -279,6 +283,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "閉じるボタン(×)を、いつも置く?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "置く。ハンドルや下へなぞる操作だけに頼らず、上部に見える×(または「閉じる」)を置く。読み上げソフトやキーボードの利用者にも閉じ方が分かる" },
+      { who: "Google", color: "#2F7D6E", t: "全画面のモーダルのボトムシートには閉じるボタンを出す。それ以外は、項目を選ぶ・後ろをタップ・下へなぞる・戻るでも閉じられる" },
+      { who: "Apple", color: "#C2542A", t: "利用者は縦のスワイプで閉じることを期待する。ボタンはキャンセル(保存せずに閉じる)と完了(作業を終えて閉じる)を使い分ける" },
+    ],
+    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿います。スワイプはなぞる操作が苦手な人や読み上げソフトの利用者には使いにくいため、ボタンが代わりの手段になります。",
+  },
+];
+
 export default function ContainmentBottomSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -310,6 +327,8 @@ export default function ContainmentBottomSheetPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -343,6 +362,7 @@ export default function ContainmentBottomSheetPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -380,6 +400,8 @@ export default function ContainmentBottomSheetPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -426,7 +448,7 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN groupは本文確認済み。Appleは検索結果による間接確認。W3Cはドロワーページ・サイドシートページと同一のDialog (Modal) Patternを準用)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cはドロワー・サイドシートのページと同じDialog(Modal)パターン)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSheetsページへのリンクです。GoogleはBottom sheetsページへのリンクです。WCAGはWAI-ARIA Dialog (Modal) Patternのページ、NN groupは記事ページ単位です。
@@ -439,6 +461,8 @@ export default function ContainmentBottomSheetPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   bsGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
   bsCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
   bsTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 6 },

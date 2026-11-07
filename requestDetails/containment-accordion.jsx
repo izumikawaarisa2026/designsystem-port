@@ -23,6 +23,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Disclosure Controls",
+    term: "Disclosure control(開示三角形・開示ボタン)",
     color: "#C2542A",
     position: "ビューやリストに関連する情報・機能を表示・非表示する部品。開示三角形と開示ボタンの2種類",
     size: "Disclosure controlsのページには、サイズの規定がない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
@@ -60,6 +61,7 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "該当コンポーネントなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
     notApplicable: true,
     position: "該当なし",
@@ -70,13 +72,14 @@ const SOURCES = [
     accessibility: "該当なし",
     useCases: ["該当なし"],
     searchHint: "",
-    confirmedNote: "※現行のMaterial Design 3に「アコーディオン」に相当する名称の独立した専用コンポーネントは存在しない。旧世代(M1)には「Expansion panel」という独立コンポーネントがありましたが、M3では見当たらず、検索結果によれば開閉(展開/折りたたみ)の考え方はListコンポーネントの機能に統合されたとされている(2026-09、間接確認)。「無い」という結論自体は明確ですが、m3.material.ioがSPAで全文網羅の確認はできていないため、間接確認として扱っている。",
+    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に、アコーディオンに当たる部品はない(2026-11に確認)。旧世代(M1)の「Expansion panel」に当たる部品も、M3にはない。",
     pending: true,
   },
   {
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
+    term: "Accordion(APGのパターン)",
     color: "#A3821F",
     position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
     size: "アコーディオン専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は見出しのボタンに適用される。",
@@ -115,6 +118,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Accordions on Desktop: When and How to Use",
+    term: "Accordion",
     color: "#7A4F7E",
     position: "クリックして情報を表示・非表示にする設計パターン(見出し・アイコン・パネルで構成)。使うべき場面・避けるべき場面が明確に分かれる(数値基準ではなく判断基準)",
     size: <span><NoData>数値基準なし。</NoData>見出しはコンテンツを正確に反映する長さ・表現にすべきだとしている。</span>,
@@ -122,7 +126,7 @@ const SOURCES = [
     stance:
       "アコーディオンは、クリックして情報を表示・非表示にする設計パターンで、見出し・アイコン・パネルで構成されるとしている。ページの煩雑さの軽減・スクロール量の削減・ページ全体の概要提示・スキャン性の向上・(URLなどによる)直接アクセスのしやすさといった利点があるとしている。",
     exceptions:
-      "ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしている。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、FAQのように各セクションが独立している場合、長いコンテンツで画面幅が小さい場合には適しているとしている。",
+      <>ユーザーがほぼすべてのコンテンツを必要とする場合、コンテンツ量が少ない場合、深い階層構造がある場合、記事のような連続した読書が必要な場合には向かないとしている。逆に、ユーザーが少数の情報のみを必要とする場合、ステップバイステップのプロセス、<Hl>FAQのように各セクションが独立している場合</Hl>、長いコンテンツで画面幅が小さい場合には適しているとしている。</>,
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、使うべき場面・避けるべき場面の判断基準。見出しはコンテンツを正確に反映させ、展開可能であることをキャレットアイコン等で視覚的に示し、複数セクションの同時展開を許可し、重要な情報は常に表示しておくべきだとしている。",
     useCases: [
@@ -289,6 +293,7 @@ export default function ContainmentAccordionPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
@@ -329,6 +334,8 @@ export default function ContainmentAccordionPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -362,7 +369,7 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Disclosure controls、GoogleはM3の部品の一覧で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
@@ -375,6 +382,8 @@ export default function ContainmentAccordionPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
   tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },

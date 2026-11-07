@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / リスト」ページ。
@@ -22,6 +22,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Lists and Tables",
+    term: "List(Lists and tables)",
     color: "#C2542A",
     position: "グループや階層に分かれたデータを、行の形で並べて見せる部品。選択・追加・削除・並べ替えにも対応できる",
     size: "リスト固有の数値(pt)は、Lists and tablesのページにはない。参考として、Appleの一般的なタップ領域(iOS/iPadOSで既定44pt・最小28pt。ボタンのページを参照)が目安になる(AI解釈)。",
@@ -63,9 +64,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Lists(表現力豊かなリスト / ベースライン)",
+    term: "List",
     color: "#2F7D6E",
     position: "テキスト・画像を縦に連続して並べた索引。特定の項目を見つけて操作するために使う。2025年12月のM3 Expressiveアップデートで「表現力豊かなリスト」が追加された",
-    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしている。配置は中央揃えが基本ですが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしている。スロット内のターゲットサイズは最低48×48dpを確保すべきとしている。",
+    size: "リスト項目の高さは、項目内の最も高い要素によって56dp・72dp・88dpのいずれかに決まるとしている。配置は中央揃えが基本だが、高さが88dp以上、または3行以上のテキストを含む場合は上揃えになるとしている。スロット内のターゲットサイズは最低48×48dpを確保すべきとしている。",
     colorInfo: "色の値はデザイントークンを通じて実装されるとしている。リスト項目に画像が含まれる場合は、コンテンツに基づく配色でコンテナの色をカスタマイズすることを検討すべきとしている。",
     glossary: [
       { term: "表現力豊かなリスト / リスト(ベースライン)", desc: "2025年12月のM3 Expressiveアップデートで追加された「表現力豊かなリスト」は、セグメント化されたビジュアルスタイル・選択状態の強調表示・柔軟なスロットに対応し、新規デザインに推奨される。従来の「リスト(ベースライン)」も引き続き利用できるが、これらの新機能には対応しない。" },
@@ -109,12 +111,13 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
+    term: "list・listitem(WAI-ARIAのロール)/ HTMLのul・ol・li",
     color: "#A3821F",
     position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で識別する、非対話的な項目の集合",
     size: "リスト専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各項目内の操作要素に適用される。",
     colorInfo: "リスト専用の色基準はないが、1.4.11(非テキストのコントラスト)が区切り線などの視覚的要素に適用され得る。",
     stance:
-      "listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしている。可能な限りHTMLのセマンティック要素(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしている。",
+      <>listロールは0個以上のlistitem子要素のみを含むコンテナで、支援技術にリスト構造を伝えるためのものだとしている。<Hl>可能な限りHTMLのセマンティック要素</Hl>(順序がない場合はul+li、順序が重要な場合はol+li)を優先すべきで、ARIAのlist/listitemロールは、HTMLを直接制御できない場合やJavaScriptで動的にアクセシビリティを付与する場合にのみ使うべきだとしている。</>,
     scenarios: [
       "支援技術にリスト構造を明示的に伝えたい場面(特にHTMLを直接制御できない場合)",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
@@ -152,12 +155,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Card View vs. List View",
+    term: "List view(リスト表示)",
     color: "#7A4F7E",
     position: "複数項目のソート・比較を効率的に行える、スペース効率の高い表示形式(「カード」ページで比較したカード表示との対比が判断基準)",
     size: <span><NoData>数値基準なし。</NoData>リスト表示はスペース効率が高いという特性が挙げられている。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "リスト表示は、ソートが容易でスペース効率が高いという特性を持つとしている。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしている。",
+      <><Hl>リスト表示は、ソートが容易でスペース効率が高い</Hl>という特性を持つとしている。対してカード表示は視覚的な魅力が高く、関連情報のグループ化に効果的だとしている。</>,
     scenarios: [
       "複数項目を素早く比較・ソートする必要がある場面",
     ],
@@ -237,6 +241,19 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>1件ごとに画像や操作を大きく見せるなら<PageLink to="/components/containment/card">カード</PageLink>、項目ごとに複数の値を比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "リストとカード、どちらで見せる?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "並べ替えて比べるならリスト(場所も取らない)。見た目で引きつけ、情報をまとまりで見せたいならカード" },
+      { who: "Apple", color: "#C2542A", t: "文字は読み流しやすいリストや表で見せる。大きさがばらばらの項目や画像が多いなら、コレクション(格子状の並び)を検討する" },
+      { who: "Google", color: "#2F7D6E", t: "リストは項目を見つけて操作するための並び。画面が小さいときは、カードの代わりにリストを検討する" },
+    ],
+    tip: "文字中心で数が多く、探したり比べたりする一覧はリスト、画像中心で眺めて選ぶ一覧はカードやコレクション、と中身で決めると3系列とも両立します。",
+  },
+];
+
 export default function ContainmentListPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -269,6 +286,8 @@ export default function ContainmentListPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -299,6 +318,7 @@ export default function ContainmentListPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -336,6 +356,8 @@ export default function ContainmentListPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
@@ -391,6 +413,8 @@ export default function ContainmentListPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
