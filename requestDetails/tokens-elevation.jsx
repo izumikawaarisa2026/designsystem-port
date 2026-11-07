@@ -156,37 +156,67 @@ function DepthSwatch() {
   );
 }
 
-/* 四サイト比較図: 高さの段階と、ダークでの明るさ */
-const LEVELS = [0, 1, 3, 6, 8, 12];
-const DARK_TONES = [["Lowest", 4, "#0F0D13"], ["Low", 10, "#1D1B20"], ["標準", 12, "#211F26"], ["High", 17, "#2B2930"], ["Highest", 22, "#36343B"]];
+/* 四サイト比較図: 4系列の重なりの表し方(イラスト) */
 
 function ElevationChart() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
   const x0 = 96;
   return (
-    <svg viewBox="0 0 560 212" width="100%" style={{ maxWidth: 660, display: "block", margin: "0 auto" }} role="img" aria-label="エレベーションの段階とダークでの明るさの比較図">
+    <svg viewBox="0 0 600 330" width="100%" style={{ maxWidth: 700, display: "block", margin: "0 auto" }} role="img" aria-label="4系列の重なりの表し方の比較図">
+      <defs>
+        <filter id="ecS1" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" floodColor="#000" floodOpacity="0.25" /></filter>
+        <filter id="ecS3" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.25" /></filter>
+        <filter id="ecS5" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#000" floodOpacity="0.28" /></filter>
+        <filter id="ecBlur"><feGaussianBlur stdDeviation="3" /></filter>
+        <linearGradient id="ecBg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#F2B27A" /><stop offset="0.5" stopColor="#7FB0E8" /><stop offset="1" stopColor="#B49AD9" /></linearGradient>
+      </defs>
+      {/* Google */}
       <text x="0" y="22" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Google</text>
-      <text x={x0} y="12" fontSize="9" fill="#7E86AC" fontFamily={font}>影の高さ(Level 0〜5, dp)</text>
-      {LEVELS.map((v, i) => (
-        <g key={i}>
-          <rect x={x0 + i * 58} y={46 - v * 2.2} width="40" height={Math.max(v * 2.2, 1)} fill="#2F7D6E" opacity="0.75" />
-          <text x={x0 + 20 + i * 58} y="58" fontSize="9" fill="#454C78" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{v}</text>
+      <text x="0" y="36" fontSize="8.5" fill="#7E86AC" fontFamily={font}>影の高さ</text>
+      <rect x={x0} y="6" width="496" height="64" rx="6" fill="#FEF7FF" stroke="#E1E3F0" />
+      <text x={x0 + 8} y="64" fontSize="7.5" fill="#7E86AC" fontFamily={font}>地 = Surface</text>
+      {[["0", null, 0], ["1", "ecS1", 1], ["3", "ecS3", 3], ["6", "ecS3", 6], ["8", "ecS5", 8], ["12", "ecS5", 12]].map(([v, f, n], i) => (
+        <g key={v}>
+          <rect x={x0 + 70 + i * 70} y="16" width="48" height="30" rx="6" fill={i === 0 ? "#FEF7FF" : "#FFFFFF"} stroke={i === 0 ? "#2F7D6E" : "none"} strokeDasharray={i === 0 ? "3 2" : undefined} filter={f ? `url(#${f})` : undefined} />
+          <text x={x0 + 94 + i * 70} y="35" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily={mono}>{v}dp</text>
+          <text x={x0 + 94 + i * 70} y="60" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={mono}>Level {i}</text>
         </g>
       ))}
-      <text x={x0} y="76" fontSize="9" fill="#7E86AC" fontFamily={font}>ダークでの面の明るさ(neutralのトーン)</text>
-      {DARK_TONES.map(([n, t, hex], i) => (
-        <g key={n}>
-          <rect x={x0 + i * 70} y="82" width="60" height="22" rx="4" fill={hex} stroke="#E1E3F0" strokeWidth="0.6" />
-          <text x={x0 + 30 + i * 70} y="96.5" fontSize="8" fill="#E7E9F5" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{hex}</text>
-          <text x={x0 + 30 + i * 70} y="115" fontSize="8.5" fill="#454C78" textAnchor="middle" fontFamily={font}>{n}・トーン{t}</text>
-        </g>
-      ))}
-      <text x="0" y="140" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
-      <text x={x0} y="140" fontSize="9.5" fill="#454C78" fontFamily={font}>影の段階なし。素材の厚さ4段階 / ダークは base(暗)→ elevated(明)</text>
-      <text x="0" y="168" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>W3C</text>
-      <text x={x0} y="168" fontSize="9.5" fill="#454C78" fontFamily={font}>表現方法の規定なし。重なりでフォーカスが完全に隠れないこと(2.4.11)</text>
-      <text x="0" y="196" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
-      <text x={x0} y="196" fontSize="9.5" fill="#454C78" fontFamily={font}>数値なし。ダークでは一番下を最も暗く、手前ほど明るく</text>
+      {/* Apple */}
+      <text x="0" y="104" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
+      <text x="0" y="118" fontSize="8.5" fill="#7E86AC" fontFamily={font}>透ける素材</text>
+      <rect x={x0} y="82" width="496" height="70" rx="6" fill="url(#ecBg)" />
+      <circle cx={x0 + 120} cy="112" r="20" fill="#E4572E" opacity="0.8" />
+      <circle cx={x0 + 300} cy="118" r="24" fill="#2F6FED" opacity="0.7" />
+      <text x={x0 + 8} y="146" fontSize="7.5" fill="#FFFFFF" fontFamily={font}>内容(写真など)。素材はこの上に重なり、背後が透ける</text>
+      <rect x={x0 + 70} y="90" width="170" height="40" rx="8" fill="rgba(255,255,255,0.55)" stroke="rgba(255,255,255,0.8)" />
+      <text x={x0 + 155} y="114" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>標準マテリアル(regular)</text>
+      <rect x={x0 + 300} y="120" width="180" height="26" rx="13" fill="rgba(255,255,255,0.35)" stroke="#FFFFFF" />
+      <text x={x0 + 390} y="137" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>Liquid Glass(タブバーなど)</text>
+      {/* W3C */}
+      <text x="0" y="186" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>W3C</text>
+      <text x="0" y="200" fontSize="8.5" fill="#7E86AC" fontFamily={font}>隠さない</text>
+      <rect x={x0} y="164" width="240" height="70" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      <rect x={x0 + 20} y="180" width="90" height="22" rx="4" fill="#FFFFFF" stroke="#2F6FED" strokeWidth="2.5" />
+      <text x={x0 + 65} y="195" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily={font}>フォーカス中</text>
+      <rect x={x0} y="198" width="240" height="36" rx="0" fill="#E9EBF3" opacity="0.92" />
+      <text x={x0 + 120} y="222" fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={font}>固定のバー(一部だけ重なる)</text>
+      <text x={x0 + 120} y="248" fontSize="8" fill="#2E6B3A" textAnchor="middle" fontFamily={font}>○ 一部が見えていれば2.4.11(AA)に適合</text>
+      <rect x={x0 + 256} y="164" width="240" height="70" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      <rect x={x0 + 276} y="200" width="90" height="22" rx="4" fill="#FFFFFF" stroke="#2F6FED" strokeWidth="2.5" />
+      <rect x={x0 + 256} y="192" width="240" height="42" fill="#E9EBF3" />
+      <text x={x0 + 376} y="218" fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={font}>固定のバー(完全に隠す)</text>
+      <text x={x0 + 376} y="248" fontSize="8" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ フォーカスが完全に隠れる</text>
+      {/* NN */}
+      <text x="0" y="284" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
+      <text x="0" y="298" fontSize="8.5" fill="#7E86AC" fontFamily={font}>ダークの重なり</text>
+      <rect x={x0} y="262" width="496" height="60" rx="6" fill="#0F1014" />
+      <rect x={x0 + 40} y="270" width="160" height="44" rx="6" fill="#23252C" />
+      <rect x={x0 + 90} y="278" width="120" height="30" rx="6" fill="#363944" />
+      <text x={x0 + 150} y="297" fontSize="8" fill="#E7E9F5" textAnchor="middle" fontFamily={font}>手前ほど明るく</text>
+      <rect x={x0 + 280} y="276" width="120" height="32" rx="6" fill="#0F1014" stroke="#2A2C33" filter="url(#ecS3)" />
+      <text x={x0 + 340} y="296" fontSize="8" fill="#8A8EA3" textAnchor="middle" fontFamily={font}>黒に黒の影は見えない</text>
     </svg>
   );
 }
@@ -212,8 +242,8 @@ const TIERS = [
   {
     role: "画面の地",
     desc: "画面そのもの。浮かせない",
-    g: { lv: 0, dp: 0, surf: "Surface", dark: "#141218", parts: "アプリバー(スクロール前)、ナビゲーションレール、常時表示のドロワー、塗りつぶし・枠線のカード、タブ" },
-    a: { kind: "base", name: "コンテンツの層 ― システムの背景色", parts: "通常の画面。ダークでは暗いbaseの組を使い、奥に引いて見せる" },
+    g: { lv: 0, dp: 0, surf: "Surface(画面の地の色)", dark: "#141218", light: "#FEF7FF", base: true, parts: "影はなく、地のSurfaceと同じ面に貼り付く。アプリバー(スクロール前)、ナビゲーションレール、常時表示のドロワー、塗りつぶし・枠線のカード、タブ" },
+    a: { kind: "base", base: true, name: "コンテンツの層 ― システムの背景色", parts: "通常の画面の地。ダークでは暗いbaseの組を使い、奥に引いて見せる" },
   },
   {
     role: "少し浮かせたまとまり",
@@ -256,7 +286,7 @@ function ApplePreview({ kind }) {
 function GooglePreview({ g }) {
   return (
     <div style={styles.gPrevWrap}>
-      <div style={{ ...styles.gPrevCard, boxShadow: G_SHADOW[g.lv] }}>
+      <div style={{ ...styles.gPrevCard, boxShadow: G_SHADOW[g.lv], ...(g.light ? { background: g.light, border: "1px dashed #2F7D6E" } : {}) }}>
         <span style={styles.gPrevLv}>Level {g.lv}</span>
         <span style={styles.gPrevDp}>{g.dp}dp</span>
       </div>
@@ -295,7 +325,7 @@ function TierMap() {
               <div style={styles.tierSideBody}>
                 <GooglePreview g={t.g} />
                 <div style={{ minWidth: 0 }}>
-                  <div style={styles.tierName}>Level {t.g.lv}・{t.g.dp}dp / {t.g.surf}</div>
+                  <div style={styles.tierName}>{t.g.base && <span style={styles.baseBadge}>基準(地)</span>}Level {t.g.lv}・{t.g.dp}dp / {t.g.surf}</div>
                   <div style={styles.tierParts}>{t.g.parts}</div>
                 </div>
               </div>
@@ -305,7 +335,7 @@ function TierMap() {
               <div style={styles.tierSideBody}>
                 <ApplePreview kind={t.a.kind} />
                 <div style={{ minWidth: 0 }}>
-                  <div style={styles.tierName}>{t.a.name}</div>
+                  <div style={styles.tierName}>{t.a.base && <span style={styles.baseBadge}>基準(地)</span>}{t.a.name}</div>
                   <div style={styles.tierParts}>{t.a.parts}</div>
                 </div>
               </div>
@@ -313,7 +343,7 @@ function TierMap() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}>Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色です。Level 5(12dp)は段階としては定義されていますが、標準部品の既定値では使われていません。Appleの図は層の関係を示す概念図です。この対応は役割の近さでAIが並べたもので、公式の対応表ではありません。</p>
+      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0の部品は影なしでこの面に貼り付きます(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)です。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色です。Level 5(12dp)は段階としては定義されていますが、標準部品の既定値では使われていません。Appleの図は層の関係を示す概念図です。この対応は役割の近さでAIが並べたもので、公式の対応表ではありません。</p>
     </>
   );
 }
@@ -576,7 +606,7 @@ export default function TokensElevationPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 重なりの表し方</h2>
             <ElevationChart />
-            <p style={styles.chartNote}>Googleの上段は影の高さ(dp)、下段はダークテーマでの面の色の明るさ(neutralパレットのトーン、0=黒・100=白)です。Appleは影の段階を持たず、素材の厚さとダークモードの背景色の2組で重なりを表します。</p>
+            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)で部品を浮かせます。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねます。W3Cは表し方を定めず、重なりでフォーカス中の部品が完全に隠れないこと(2.4.11)を求めます。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めています。ダークでの面の色は下の対応図を見てください。図は概念図です(Googleの影は実際の値を簡略化)。</p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -676,6 +706,7 @@ export default function TokensElevationPage() {
 }
 
 const styles = {
+  baseBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 700, color: "#FFFFFF", background: "#3A4FCF", borderRadius: 3, padding: "0 5px", marginRight: 6, verticalAlign: "1px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -193,6 +193,87 @@ const SOURCES = [
    Google: Jetpack Compose Material 3 の XSmall〜XLarge IconButtonTokens(容器の高さ・アイコンの大きさ・左右の余白)、
            minimumInteractiveComponentSize(48dp)、Material Symbolsのopsz軸(20〜48dp)。
    Apple: HIG Buttons(44×44pt・visionOS 60×60pt・visionOSのボタン5サイズ・中心間60pt)、SF Symbols(3スケール)、Icons(光学的な中心合わせの余白)。 */
+/* 星形のパス(図の中のアイコンの見本) */
+function starPath(cx, cy, r) {
+  const pts = [];
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    const rr = i % 2 === 0 ? r : r * 0.45;
+    pts.push(`${(cx + rr * Math.cos(a)).toFixed(2)},${(cy + rr * Math.sin(a)).toFixed(2)}`);
+  }
+  return "M" + pts.join("L") + "Z";
+}
+
+/* No.009: Googleの24dpグリッドと、Appleの文字との太さ・大きさの合わせ方の図 */
+function IconAnatomy() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  const u = 7; // 1dp = 7px(実寸の約7倍)
+  const ox = 30, oy = 34;
+  const grid = [];
+  for (let i = 0; i <= 24; i++) {
+    grid.push(<line key={"v" + i} x1={ox + i * u} x2={ox + i * u} y1={oy} y2={oy + 24 * u} stroke="#E3EDE9" strokeWidth="0.6" />);
+    grid.push(<line key={"h" + i} y1={oy + i * u} y2={oy + i * u} x1={ox} x2={ox + 24 * u} stroke="#E3EDE9" strokeWidth="0.6" />);
+  }
+  return (
+    <div style={styles.anatomyWrap}>
+      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Googleのアイコンの24dpグリッド">
+        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#2F7D6E" fontFamily={font}>Google ― 24dpのグリッド</text>
+        {grid}
+        <rect x={ox} y={oy} width={24 * u} height={24 * u} fill="none" stroke="#2F7D6E" strokeWidth="1.2" />
+        <rect x={ox + 2 * u} y={oy + 2 * u} width={20 * u} height={20 * u} fill="rgba(47,125,110,0.06)" stroke="#2F7D6E" strokeDasharray="4 3" />
+        <circle cx={ox + 12 * u} cy={oy + 12 * u} r={10 * u} fill="none" stroke="#A3821F" strokeDasharray="2 2" />
+        <path d={starPath(ox + 12 * u, oy + 12.6 * u, 8.6 * u)} fill="none" stroke="#2F7D6E" strokeWidth={2 * u * 0.55} strokeLinejoin="round" />
+        <text x={ox + 24 * u + 6} y={oy + 8} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>24dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 20} fontSize="8" fill="#454C78" fontFamily={font}>全体</text>
+        <text x={ox + 24 * u + 6} y={oy + 48} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 60} fontSize="8" fill="#454C78" fontFamily={font}>描く範囲</text>
+        <text x={ox + 24 * u + 6} y={oy + 88} fontSize="8.5" fill="#A3821F" fontFamily={mono}>円 20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 100} fontSize="8" fill="#454C78" fontFamily={font}>基準の形</text>
+        <text x={ox + 24 * u + 6} y={oy + 128} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>線 2dp</text>
+        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#7E86AC" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
+      </svg>
+      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Appleのシンボルと文字の太さ・大きさの合わせ方">
+        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#C2542A" fontFamily={font}>Apple ― 隣の文字に合わせる</text>
+        {[{ w: 300, sw: 1.2, l: "Light" }, { w: 400, sw: 2, l: "Regular" }, { w: 700, sw: 3.4, l: "Bold" }].map((r, i) => (
+          <g key={r.l}>
+            <path d={starPath(22, 46 + i * 34, 11)} fill="none" stroke="#C2542A" strokeWidth={r.sw} strokeLinejoin="round" />
+            <text x="40" y={52 + i * 34} fontSize="17" fontWeight={r.w} fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Favorites</text>
+            <text x="140" y={52 + i * 34} fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+          </g>
+        ))}
+        <text x="0" y="146" fontSize="8.5" fill="#454C78" fontFamily={font}>文字と同じ太さにそろえる(9段階)</text>
+        {[{ s: 0.8, l: "small" }, { s: 1, l: "medium" }, { s: 1.25, l: "large" }].map((r, i) => (
+          <g key={r.l}>
+            <path d={starPath(22 + i * 74, 186, 10 * r.s)} fill="#C2542A" />
+            <text x={36 + i * 74 + (r.s - 1) * 12} y="191" fontSize="13" fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Aa</text>
+            <text x={14 + i * 74} y="214" fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+          </g>
+        ))}
+        <text x="0" y="228" fontSize="8" fill="#7E86AC" fontFamily={font}>同じ文字サイズのまま、シンボルの大きさを3段階で調整</text>
+      </svg>
+    </div>
+  );
+}
+
+const STYLE_ROWS = [
+  { k: "考え方", hig: "単純で、すぐに分かる形にする。身近な比喩を使い、アプリの中のアイコンは大きさ・細かさ・線の太さ・視点をそろえる", material: "単純・現代的・親しみやすく、ときに遊び心がある形。細く頼りない線ではなく、くっきり太めに描く。1つのセットの中でスタイルを混ぜない" },
+  { k: "形", hig: "非対称の形は、図形の中心ではなく見た目の中心に合わせる(余白を含めた画像にする)。状態は塗り(fill)・斜線(slash)・囲み(enclosed)の形の違いで表す", material: "24dpのグリッドの中、20dpの範囲に描く。基準の形(正方形18dp・円20dp・縦長20×16dp・横長16×20dp)で大きさをそろえる。角の丸みは2dp。スタイルはアウトライン・ラウンド・シャープの3種類" },
+  { k: "線の太さ", hig: "ウルトラライトからブラックまでの9段階。San Franciscoの文字の太さと対応し、隣の文字と同じ太さにするのが基本", material: "標準は2dp(太さ400)。100〜700で変えられるが、24dpでは200より細くしない。光学サイズ(20〜48dp)で、大きさが変わっても線の太さが自然に見えるよう自動で調整する" },
+  { k: "色", hig: "形は黒と透明で作り、色はシステムが付ける。色の付け方は4つのモード(単色・階層・パレット・マルチカラー)。量の変化には可変カラーを使い、奥行きの表現には使わない", material: "塗り(Fill 0〜1)で未選択と選択を切り替える(例: ナビゲーションバー)。暗い背景の明るいアイコンは太く見えやすいため、グレード-25で細く補正する。色の意味は文化で違う(赤と緑の警告など)" },
+];
+
+function IconStyleTable() {
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={styles.styleTable}>
+        <thead><tr><th style={styles.styleTh} /><th style={{ ...styles.styleTh, color: "#C2542A" }}>Apple(SF Symbols・Icons)</th><th style={{ ...styles.styleTh, color: "#2F7D6E" }}>Google(Material Symbols)</th></tr></thead>
+        <tbody>{STYLE_ROWS.map((r) => (<tr key={r.k}><th style={styles.styleRowHead}>{r.k}</th><td style={styles.styleTd}>{r.hig}</td><td style={styles.styleTd}>{r.material}</td></tr>))}</tbody>
+      </table>
+    </div>
+  );
+}
+
 const G_ICON_BUTTONS = [
   { name: "XS", h: 32, icon: 20, pad: 6, narrow: 4, wide: 10 },
   { name: "S", h: 40, icon: 24, pad: 8, narrow: 4, wide: 14 },
@@ -216,7 +297,7 @@ function IconSizeChart() {
     return (
       <g key={b.name}>
         <rect x={x} y={y} width={w} height={h} rx={Math.min(h / 2, 14)} fill="#E3EDE9" />
-        <rect x={ix} y={iy} width={b.icon * k} height={b.icon * k} fill="#2F7D6E" opacity="0.85" rx="1.5" />
+        <path d={starPath(ix + (b.icon * k) / 2, iy + (b.icon * k) / 2 + 0.6, (b.icon * k) / 2)} fill="#2F7D6E" />
         <line x1={x} x2={ix} y1={y + h + 6} y2={y + h + 6} stroke="#A3821F" strokeWidth="1" />
         <text x={x + w / 2} y={y - 5} fontSize="9" fill="#171B36" textAnchor="middle" fontWeight="600" fontFamily={font}>{b.name}</text>
         <text x={x + w / 2} y={136} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}dp</text>
@@ -232,7 +313,7 @@ function IconSizeChart() {
     return (
       <g key={b.name}>
         <circle cx={x + d / 2} cy={y + d / 2} r={d / 2} fill="#F4DDD3" />
-        <rect x={x + d / 2 - d * 0.22} y={y + d / 2 - d * 0.22} width={d * 0.44} height={d * 0.44} fill="#C2542A" opacity="0.8" rx="1.5" />
+        <path d={starPath(x + d / 2, y + d / 2 + 0.5, d * 0.24)} fill="#C2542A" />
         <text x={x + d / 2} y={252} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}pt</text>
         <text x={x + d / 2} y={262} fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={font}>{b.name}</text>
       </g>
@@ -260,7 +341,7 @@ function IconSizeChart() {
       <rect x={tx + 110} y={236 - 60 * k} width={60 * k} height={60 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
       <text x={tx + 110 + 30 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>60pt</text>
       <text x={tx + 110 + 30 * k} y={262} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>visionOS</text>
-      <text x="96" y="282" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>図は実寸の55%。緑・オレンジの四角はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
+      <text x="96" y="282" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>図は実寸の55%。緑・オレンジの星はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
       <text x="96" y="294" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>金色の線は、容器の端からアイコンまでの余白。点線の枠は押せる範囲の最小。</text>
     </svg>
   );
@@ -421,6 +502,14 @@ export default function TokensIconPage() {
 
 
 
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>アイコンのスタイルの考え方 ― 形・線の太さ・色</h2>
+            <p style={styles.diagramNote}>アイコンの描き方を決めているのはAppleとGoogleです。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>ことを求めています。W3Cは形や色を定めず、意味を伝えるアイコンに背景との3:1のコントラスト(1.4.11)と代わりの文字(1.1.1)を求めます。NN groupも描き方は定めず、文字のラベルを添えることを勧めています。</p>
+            <IconAnatomy />
+            <IconStyleTable />
+            <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」(本文を確認、2026-11)。</p>
+          </section>
+
           <h2 style={styles.diagramTitle}>Apple・Googleのサイズと余白(スペーシング)の比較</h2>
           <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べます。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めています。</p>
           <div style={styles.chartCard}>
@@ -539,6 +628,11 @@ export default function TokensIconPage() {
 }
 
 const styles = {
+  anatomyWrap: { display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 12px", marginBottom: 14 },
+  styleTable: { width: "100%", minWidth: 620, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  styleTh: { textAlign: "left", fontSize: 12, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  styleRowHead: { textAlign: "left", verticalAlign: "top", width: 80, padding: "9px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", fontWeight: 700, color: "#454C78" },
+  styleTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.65, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

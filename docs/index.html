@@ -27174,6 +27174,73 @@ function OrientationDiagram() {
   );
 }
 
+/* No.014: 公式サイトにあって載せていなかった内容(GoogleはM3 Layoutの本文、AppleはHIGの各ページで確認) */
+const MISSING = [
+  { s: "Google", c: "#2F7D6E", t: "アダプティブとレスポンシブの違い", d: "レスポンシブは1つのレイアウトを画面に合わせて伸び縮みさせること。アダプティブは端末ごとに体験を作り分けること。色・文字・形だけでなく、構造や部品、レイアウト全体を変える", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "組み替え方の5つ", d: "広さが変わったら、要素を「見せる・分ける・大きさを変える・位置を変える・入れ替える」のどれにするかを決める。ペインを内容の上に浮かべる「重ねる(levitate)」もある", ref: { l: "Breakpoints", u: "https://m3.material.io/foundations/layout/breakpoints/overview" } },
+  { s: "Google", c: "#2F7D6E", t: "画面の骨組み ― バー・レール・ペイン", d: "上下のバー(アプリバー・ナビゲーションバー)、その内側や左右のレール(ツールバー・FAB・ナビゲーションレール)、内容を入れるペインの順に組み立てる。画面の上下端のシステムの領域には主な内容を置かない", ref: { l: "Scaffold ― Bars・Rails", u: "https://m3.material.io/foundations/layout/scaffold/bars" } },
+  { s: "Apple", c: "#C2542A", t: "狭い画面ではポップオーバーを使わない", d: "compactではポップオーバーを出さず、シートなど画面全体を使う表示にする。ポップオーバーは広い画面のためのもの", ref: { l: "Popovers ― iOS, iPadOS", u: "https://developer.apple.com/design/human-interface-guidelines/popovers#iOS-iPadOS" } },
+];
+
+/* 画面の広さで大きく変わる部品 */
+const BIG_CHANGES = [
+  { k: "ナビゲーション", g: ["ナビゲーションバー(縦型の項目)", "ナビゲーションバー(横型の項目)またはレール", "ナビゲーションレール・標準のドロワー"], a: "タブバー → サイドバー(タブバーがサイドバーに変わる型を使える)", link: <><PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>・<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+  { k: "タブの項目の並び", g: ["アイコンの下に文字", "アイコンの横に文字", "(レールに切り替え)"], a: "compactはアイコンの下に文字、regularはアイコンと文字を横に並べる", link: <PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink> },
+  { k: "ダイアログ", g: ["全画面ダイアログも使える", "基本のダイアログ", "基本のダイアログ(背景の幕の上)"], a: "広い画面のポップオーバーは、狭い画面ではシートにする", link: <><PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>・<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
+  { k: "シート", g: ["ボトムシート(画面の幅いっぱい)", "ボトムシート(最大幅あり)・標準のサイドシート", "標準のサイドシート"], a: "iPhoneのシートは高さの段階(medium・large)で止まる", link: <><PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { k: "一覧と詳細", g: ["一覧か詳細のどちらか一方", "一覧か詳細のどちらか一方", "一覧と詳細を左右に並べる"], a: "compactでは分割ビューを使わず、regularで2〜3列", link: <NoData>専用ページなし(カノニカルレイアウトの節)</NoData> },
+];
+
+function AdaptiveMissing() {
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>公式サイトにあって、ここまでに載せていなかった内容</h2>
+      <div style={styles.amGrid}>
+        {MISSING.map((m) => (
+          <div key={m.t} style={{ ...styles.amCard, borderLeftColor: m.c }}>
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: m.c }}>{m.s}</div>
+            <div style={styles.amTitle}>{m.t}</div>
+            <p style={styles.amText}>{m.d}</p>
+            <a href={m.ref.u} target="_blank" rel="noreferrer" style={styles.amLink}>{m.ref.l} ↗</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BigChanges() {
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>画面の広さで大きく変わる部品</h2>
+      <p style={styles.diagramNote}>部品そのものが入れ替わるものをまとめました。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替えます。詳しくは各部品のページを見てください。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.bcTable}>
+          <thead><tr>
+            <th style={styles.bcTh}>部品</th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Google Compact<br /><span style={styles.bcSub}>600dp未満</span></th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Medium<br /><span style={styles.bcSub}>600〜839dp</span></th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Expanded以上<br /><span style={styles.bcSub}>840dp〜</span></th>
+            <th style={{ ...styles.bcTh, color: "#C2542A" }}>Apple</th>
+            <th style={styles.bcTh}>詳しいページ</th>
+          </tr></thead>
+          <tbody>{BIG_CHANGES.map((r) => (
+            <tr key={r.k}>
+              <th style={styles.bcRowHead}>{r.k}</th>
+              {r.g.map((v, i) => (<td key={i} style={styles.bcTd}>{v}</td>))}
+              <td style={styles.bcTd}>{r.a}</td>
+              <td style={styles.bcTd}>{r.link}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+      <p style={styles.chartNote}>出典: M3「Navigation bar」「Navigation drawer」「Dialogs」「Bottom sheets」「Side sheets」「Canonical layout examples」、HIG「Tab bars」「Sidebars」「Popovers」「Sheets」「Split views」。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -27347,13 +27414,17 @@ function TokensAdaptivePage() {
             <OrientationDiagram />
           </div>
 
+          <BigChanges />
+
+          <AdaptiveMissing />
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、切り替えのルールはAndroid Developersの本文で確認)</span>
+            <span>最終確認: 2026-11(Apple・W3C・NN groupは本文確認済み。GoogleはM3のLayoutの本文をブラウザで表示して確認、切り替えのルールはAndroid Developersの本文でも確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Adaptability」見出しへのアンカー付きリンクで、Size classes・Tab bars・Split viewsの見出しも併記しています。GoogleはM3のCanonical examplesのページに加え、内容を確認したAndroid Developersのページを併記しています。WCAGは1.4.10・1.3.4のUnderstandingページです。NN groupはBreakpoints in Responsive Designの「Four Common Breakpoints」の節です。
@@ -27366,6 +27437,16 @@ function TokensAdaptivePage() {
 }
 
 const styles = {
+  amGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 8 },
+  amCard: { border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 6, padding: "10px 12px" },
+  amTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "2px 0 4px" },
+  amText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  amLink: { fontSize: 11, color: "#3A4FCF" },
+  bcTable: { width: "100%", minWidth: 820, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bcTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", verticalAlign: "bottom" },
+  bcSub: { fontSize: 10, fontWeight: 400, color: "#7E86AC", fontFamily: "'IBM Plex Mono', monospace" },
+  bcRowHead: { textAlign: "left", verticalAlign: "top", padding: "9px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", fontWeight: 700, color: "#454C78", width: 110 },
+  bcTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -28643,6 +28724,70 @@ function DarkElevationRules() {
   );
 }
 
+/* No.013: まず押さえる要点。画面見本の色はGoogleの基準の配色(G_ROLE_RULESと同じ値) */
+const KEY_POINTS = [
+  { n: 1, t: "切り替えは端末の設定に従う", d: "アプリ独自の切り替えを主にせず、端末のライト/ダークの設定に合わせる", who: "Apple・Google・NN groupの3系列。W3Cはどちらの見た目でもよい" },
+  { n: 2, t: "色を反転せず、役割ごとに作り直す", d: "背景と文字は明るさを入れ替えるが、色をそのまま反転はしない", who: "Appleは「単純な反転ではない」と明言。Googleは役割ごとにライト用とダーク用の明るさを決めている" },
+  { n: 3, t: "背景は真っ黒にしない", d: "濃いグレーにして、重なりや影を見えやすくし、目の負担を減らす", who: "Google(背景はトーン6 = #141218)" },
+  { n: 4, t: "アクセント色は暗い背景に合わせて明るく", d: "ボタンなどの色は反転せず、暗い背景で読める明るさ・淡さにする", who: "Google(Primaryはトーン40→80)・Apple(システムカラーにダーク用の値がある)" },
+  { n: 5, t: "重なりは影ではなく明るさで表す", d: "暗い画面では影が見えにくいため、手前の面ほど明るくする", who: "Google(背景6→ダイアログ17)・Apple(前面の画面はelevatedの明るい背景)・NN group" },
+  { n: 6, t: "コントラストはどちらの見た目でも同じ基準", d: "文字と背景は組で指定し、ライトでもダークでも4.5:1以上を保つ", who: "W3C(1.4.3)・Apple(最低4.5:1、独自の色は7:1を目指す)" },
+];
+function PhoneMock({ dark }) {
+  const c = dark
+    ? { bg: "#141218", text: "#E6E0E9", sub: "#CAC4D0", card: "#1D1B20", primary: "#D0BCFF", onPrimary: "#381E72", dialog: "#2B2930" }
+    : { bg: "#FEF7FF", text: "#1D1B20", sub: "#49454F", card: "#F7F2FA", primary: "#6750A4", onPrimary: "#FFFFFF", dialog: "#ECE6F0" };
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const num = (x, y, n) => (<g><circle cx={x} cy={y} r="7" fill="#3A4FCF" /><text x={x} y={y + 3} fontSize="8" fill="#FFFFFF" textAnchor="middle" fontWeight="700" fontFamily={font}>{n}</text></g>);
+  return (
+    <svg viewBox="0 0 170 250" style={{ width: "100%", maxWidth: 200 }} role="img" aria-label={dark ? "ダークの画面見本" : "ライトの画面見本"}>
+      <rect x="4" y="4" width="162" height="242" rx="18" fill={c.bg} stroke="#C7CBE6" />
+      <text x="18" y="34" fontSize="11" fontWeight="700" fill={c.text} fontFamily={font}>ホーム</text>
+      <rect x="16" y="46" width="138" height="62" rx="10" fill={c.card} filter={dark ? undefined : "url(#pmShadow)"} />
+      <text x="26" y="66" fontSize="9" fill={c.text} fontFamily={font}>カードの見出し</text>
+      <text x="26" y="80" fontSize="7.5" fill={c.sub} fontFamily={font}>補助の文字はやや控えめに</text>
+      <rect x="26" y="86" width="56" height="16" rx="8" fill={c.primary} />
+      <text x="54" y="97" fontSize="7.5" fill={c.onPrimary} textAnchor="middle" fontFamily={font}>保存</text>
+      <rect x="30" y="128" width="110" height="74" rx="14" fill={c.dialog} filter={dark ? undefined : "url(#pmShadow2)"} />
+      <text x="42" y="150" fontSize="9" fill={c.text} fontFamily={font}>ダイアログ</text>
+      <text x="42" y="164" fontSize="7.5" fill={c.sub} fontFamily={font}>手前の面</text>
+      <text x="128" y="192" fontSize="8" fill={c.primary} textAnchor="end" fontFamily={font}>OK</text>
+      <defs>
+        <filter id="pmShadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" floodOpacity="0.2" /></filter>
+        <filter id="pmShadow2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" floodOpacity="0.25" /></filter>
+      </defs>
+      {dark && <>{num(150, 20, 3)}{num(92, 94, 4)}{num(146, 132, 5)}{num(150, 70, 6)}</>}
+    </svg>
+  );
+}
+function DarkKeyPoints() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>まず押さえる要点</h2>
+      <div style={styles.kpWrap}>
+        <div style={styles.kpMocks}>
+          <div style={{ textAlign: "center" }}><PhoneMock dark={false} /><div style={styles.kpLabel}>ライト</div></div>
+          <div style={styles.kpArrow}>→</div>
+          <div style={{ textAlign: "center" }}><PhoneMock dark /><div style={styles.kpLabel}>ダーク(3〜6は右の要点の番号)</div></div>
+        </div>
+        <ol style={styles.kpList}>
+          {KEY_POINTS.map((k) => (
+            <li key={k.n} style={styles.kpItem}>
+              <span style={styles.kpNum}>{k.n}</span>
+              <div>
+                <div style={styles.kpTitle}>{k.t}</div>
+                <div style={styles.kpText}>{k.d}</div>
+                <div style={styles.kpWho}>{k.who}</div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p style={styles.chartNote}>画面見本の色は、Googleの基準の配色の実際の値(背景・カード・ダイアログ・Primary・文字)です。このあと、4系列の比較図、詳しい比較表、役割ごとの色の変わり方、暗い画面での重なりの表し方の順に詳しく見ていきます。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -28710,7 +28855,7 @@ function TokensDarkModePage() {
             rows={ABOUT}
           />
 
-
+          <DarkKeyPoints />
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
@@ -28835,6 +28980,16 @@ function TokensDarkModePage() {
 }
 
 const styles = {
+  kpWrap: { display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px" },
+  kpMocks: { display: "flex", alignItems: "center", gap: 8, flex: "1 1 360px", justifyContent: "center" },
+  kpArrow: { fontSize: 18, color: "#9EA4C4" },
+  kpLabel: { fontSize: 11, color: "#565D8A", marginTop: 4 },
+  kpList: { listStyle: "none", margin: 0, padding: 0, flex: "1 1 340px", display: "flex", flexDirection: "column", gap: 8 },
+  kpItem: { display: "flex", gap: 10, alignItems: "flex-start" },
+  kpNum: { flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: "#3A4FCF", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
+  kpTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
+  kpText: { fontSize: 12, lineHeight: 1.6, color: "#2E3457" },
+  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#7E86AC" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -29090,37 +29245,67 @@ function DepthSwatch() {
   );
 }
 
-/* 四サイト比較図: 高さの段階と、ダークでの明るさ */
-const LEVELS = [0, 1, 3, 6, 8, 12];
-const DARK_TONES = [["Lowest", 4, "#0F0D13"], ["Low", 10, "#1D1B20"], ["標準", 12, "#211F26"], ["High", 17, "#2B2930"], ["Highest", 22, "#36343B"]];
+/* 四サイト比較図: 4系列の重なりの表し方(イラスト) */
 
 function ElevationChart() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
   const x0 = 96;
   return (
-    <svg viewBox="0 0 560 212" width="100%" style={{ maxWidth: 660, display: "block", margin: "0 auto" }} role="img" aria-label="エレベーションの段階とダークでの明るさの比較図">
+    <svg viewBox="0 0 600 330" width="100%" style={{ maxWidth: 700, display: "block", margin: "0 auto" }} role="img" aria-label="4系列の重なりの表し方の比較図">
+      <defs>
+        <filter id="ecS1" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="1" stdDeviation="1.2" floodColor="#000" floodOpacity="0.25" /></filter>
+        <filter id="ecS3" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.25" /></filter>
+        <filter id="ecS5" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="6" stdDeviation="5" floodColor="#000" floodOpacity="0.28" /></filter>
+        <filter id="ecBlur"><feGaussianBlur stdDeviation="3" /></filter>
+        <linearGradient id="ecBg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#F2B27A" /><stop offset="0.5" stopColor="#7FB0E8" /><stop offset="1" stopColor="#B49AD9" /></linearGradient>
+      </defs>
+      {/* Google */}
       <text x="0" y="22" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Google</text>
-      <text x={x0} y="12" fontSize="9" fill="#7E86AC" fontFamily={font}>影の高さ(Level 0〜5, dp)</text>
-      {LEVELS.map((v, i) => (
-        <g key={i}>
-          <rect x={x0 + i * 58} y={46 - v * 2.2} width="40" height={Math.max(v * 2.2, 1)} fill="#2F7D6E" opacity="0.75" />
-          <text x={x0 + 20 + i * 58} y="58" fontSize="9" fill="#454C78" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{v}</text>
+      <text x="0" y="36" fontSize="8.5" fill="#7E86AC" fontFamily={font}>影の高さ</text>
+      <rect x={x0} y="6" width="496" height="64" rx="6" fill="#FEF7FF" stroke="#E1E3F0" />
+      <text x={x0 + 8} y="64" fontSize="7.5" fill="#7E86AC" fontFamily={font}>地 = Surface</text>
+      {[["0", null, 0], ["1", "ecS1", 1], ["3", "ecS3", 3], ["6", "ecS3", 6], ["8", "ecS5", 8], ["12", "ecS5", 12]].map(([v, f, n], i) => (
+        <g key={v}>
+          <rect x={x0 + 70 + i * 70} y="16" width="48" height="30" rx="6" fill={i === 0 ? "#FEF7FF" : "#FFFFFF"} stroke={i === 0 ? "#2F7D6E" : "none"} strokeDasharray={i === 0 ? "3 2" : undefined} filter={f ? `url(#${f})` : undefined} />
+          <text x={x0 + 94 + i * 70} y="35" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily={mono}>{v}dp</text>
+          <text x={x0 + 94 + i * 70} y="60" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={mono}>Level {i}</text>
         </g>
       ))}
-      <text x={x0} y="76" fontSize="9" fill="#7E86AC" fontFamily={font}>ダークでの面の明るさ(neutralのトーン)</text>
-      {DARK_TONES.map(([n, t, hex], i) => (
-        <g key={n}>
-          <rect x={x0 + i * 70} y="82" width="60" height="22" rx="4" fill={hex} stroke="#E1E3F0" strokeWidth="0.6" />
-          <text x={x0 + 30 + i * 70} y="96.5" fontSize="8" fill="#E7E9F5" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{hex}</text>
-          <text x={x0 + 30 + i * 70} y="115" fontSize="8.5" fill="#454C78" textAnchor="middle" fontFamily={font}>{n}・トーン{t}</text>
-        </g>
-      ))}
-      <text x="0" y="140" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
-      <text x={x0} y="140" fontSize="9.5" fill="#454C78" fontFamily={font}>影の段階なし。素材の厚さ4段階 / ダークは base(暗)→ elevated(明)</text>
-      <text x="0" y="168" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>W3C</text>
-      <text x={x0} y="168" fontSize="9.5" fill="#454C78" fontFamily={font}>表現方法の規定なし。重なりでフォーカスが完全に隠れないこと(2.4.11)</text>
-      <text x="0" y="196" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
-      <text x={x0} y="196" fontSize="9.5" fill="#454C78" fontFamily={font}>数値なし。ダークでは一番下を最も暗く、手前ほど明るく</text>
+      {/* Apple */}
+      <text x="0" y="104" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
+      <text x="0" y="118" fontSize="8.5" fill="#7E86AC" fontFamily={font}>透ける素材</text>
+      <rect x={x0} y="82" width="496" height="70" rx="6" fill="url(#ecBg)" />
+      <circle cx={x0 + 120} cy="112" r="20" fill="#E4572E" opacity="0.8" />
+      <circle cx={x0 + 300} cy="118" r="24" fill="#2F6FED" opacity="0.7" />
+      <text x={x0 + 8} y="146" fontSize="7.5" fill="#FFFFFF" fontFamily={font}>内容(写真など)。素材はこの上に重なり、背後が透ける</text>
+      <rect x={x0 + 70} y="90" width="170" height="40" rx="8" fill="rgba(255,255,255,0.55)" stroke="rgba(255,255,255,0.8)" />
+      <text x={x0 + 155} y="114" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>標準マテリアル(regular)</text>
+      <rect x={x0 + 300} y="120" width="180" height="26" rx="13" fill="rgba(255,255,255,0.35)" stroke="#FFFFFF" />
+      <text x={x0 + 390} y="137" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>Liquid Glass(タブバーなど)</text>
+      {/* W3C */}
+      <text x="0" y="186" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>W3C</text>
+      <text x="0" y="200" fontSize="8.5" fill="#7E86AC" fontFamily={font}>隠さない</text>
+      <rect x={x0} y="164" width="240" height="70" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      <rect x={x0 + 20} y="180" width="90" height="22" rx="4" fill="#FFFFFF" stroke="#2F6FED" strokeWidth="2.5" />
+      <text x={x0 + 65} y="195" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily={font}>フォーカス中</text>
+      <rect x={x0} y="198" width="240" height="36" rx="0" fill="#E9EBF3" opacity="0.92" />
+      <text x={x0 + 120} y="222" fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={font}>固定のバー(一部だけ重なる)</text>
+      <text x={x0 + 120} y="248" fontSize="8" fill="#2E6B3A" textAnchor="middle" fontFamily={font}>○ 一部が見えていれば2.4.11(AA)に適合</text>
+      <rect x={x0 + 256} y="164" width="240" height="70" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      <rect x={x0 + 276} y="200" width="90" height="22" rx="4" fill="#FFFFFF" stroke="#2F6FED" strokeWidth="2.5" />
+      <rect x={x0 + 256} y="192" width="240" height="42" fill="#E9EBF3" />
+      <text x={x0 + 376} y="218" fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={font}>固定のバー(完全に隠す)</text>
+      <text x={x0 + 376} y="248" fontSize="8" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ フォーカスが完全に隠れる</text>
+      {/* NN */}
+      <text x="0" y="284" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
+      <text x="0" y="298" fontSize="8.5" fill="#7E86AC" fontFamily={font}>ダークの重なり</text>
+      <rect x={x0} y="262" width="496" height="60" rx="6" fill="#0F1014" />
+      <rect x={x0 + 40} y="270" width="160" height="44" rx="6" fill="#23252C" />
+      <rect x={x0 + 90} y="278" width="120" height="30" rx="6" fill="#363944" />
+      <text x={x0 + 150} y="297" fontSize="8" fill="#E7E9F5" textAnchor="middle" fontFamily={font}>手前ほど明るく</text>
+      <rect x={x0 + 280} y="276" width="120" height="32" rx="6" fill="#0F1014" stroke="#2A2C33" filter="url(#ecS3)" />
+      <text x={x0 + 340} y="296" fontSize="8" fill="#8A8EA3" textAnchor="middle" fontFamily={font}>黒に黒の影は見えない</text>
     </svg>
   );
 }
@@ -29146,8 +29331,8 @@ const TIERS = [
   {
     role: "画面の地",
     desc: "画面そのもの。浮かせない",
-    g: { lv: 0, dp: 0, surf: "Surface", dark: "#141218", parts: "アプリバー(スクロール前)、ナビゲーションレール、常時表示のドロワー、塗りつぶし・枠線のカード、タブ" },
-    a: { kind: "base", name: "コンテンツの層 ― システムの背景色", parts: "通常の画面。ダークでは暗いbaseの組を使い、奥に引いて見せる" },
+    g: { lv: 0, dp: 0, surf: "Surface(画面の地の色)", dark: "#141218", light: "#FEF7FF", base: true, parts: "影はなく、地のSurfaceと同じ面に貼り付く。アプリバー(スクロール前)、ナビゲーションレール、常時表示のドロワー、塗りつぶし・枠線のカード、タブ" },
+    a: { kind: "base", base: true, name: "コンテンツの層 ― システムの背景色", parts: "通常の画面の地。ダークでは暗いbaseの組を使い、奥に引いて見せる" },
   },
   {
     role: "少し浮かせたまとまり",
@@ -29190,7 +29375,7 @@ function ApplePreview({ kind }) {
 function GooglePreview({ g }) {
   return (
     <div style={styles.gPrevWrap}>
-      <div style={{ ...styles.gPrevCard, boxShadow: G_SHADOW[g.lv] }}>
+      <div style={{ ...styles.gPrevCard, boxShadow: G_SHADOW[g.lv], ...(g.light ? { background: g.light, border: "1px dashed #2F7D6E" } : {}) }}>
         <span style={styles.gPrevLv}>Level {g.lv}</span>
         <span style={styles.gPrevDp}>{g.dp}dp</span>
       </div>
@@ -29229,7 +29414,7 @@ function TierMap() {
               <div style={styles.tierSideBody}>
                 <GooglePreview g={t.g} />
                 <div style={{ minWidth: 0 }}>
-                  <div style={styles.tierName}>Level {t.g.lv}・{t.g.dp}dp / {t.g.surf}</div>
+                  <div style={styles.tierName}>{t.g.base && <span style={styles.baseBadge}>基準(地)</span>}Level {t.g.lv}・{t.g.dp}dp / {t.g.surf}</div>
                   <div style={styles.tierParts}>{t.g.parts}</div>
                 </div>
               </div>
@@ -29239,7 +29424,7 @@ function TierMap() {
               <div style={styles.tierSideBody}>
                 <ApplePreview kind={t.a.kind} />
                 <div style={{ minWidth: 0 }}>
-                  <div style={styles.tierName}>{t.a.name}</div>
+                  <div style={styles.tierName}>{t.a.base && <span style={styles.baseBadge}>基準(地)</span>}{t.a.name}</div>
                   <div style={styles.tierParts}>{t.a.parts}</div>
                 </div>
               </div>
@@ -29247,7 +29432,7 @@ function TierMap() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}>Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色です。Level 5(12dp)は段階としては定義されていますが、標準部品の既定値では使われていません。Appleの図は層の関係を示す概念図です。この対応は役割の近さでAIが並べたもので、公式の対応表ではありません。</p>
+      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0の部品は影なしでこの面に貼り付きます(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)です。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色です。Level 5(12dp)は段階としては定義されていますが、標準部品の既定値では使われていません。Appleの図は層の関係を示す概念図です。この対応は役割の近さでAIが並べたもので、公式の対応表ではありません。</p>
     </>
   );
 }
@@ -29506,7 +29691,7 @@ function TokensElevationPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 重なりの表し方</h2>
             <ElevationChart />
-            <p style={styles.chartNote}>Googleの上段は影の高さ(dp)、下段はダークテーマでの面の色の明るさ(neutralパレットのトーン、0=黒・100=白)です。Appleは影の段階を持たず、素材の厚さとダークモードの背景色の2組で重なりを表します。</p>
+            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)で部品を浮かせます。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねます。W3Cは表し方を定めず、重なりでフォーカス中の部品が完全に隠れないこと(2.4.11)を求めます。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めています。ダークでの面の色は下の対応図を見てください。図は概念図です(Googleの影は実際の値を簡略化)。</p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -29606,6 +29791,7 @@ function TokensElevationPage() {
 }
 
 const styles = {
+  baseBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 700, color: "#FFFFFF", background: "#3A4FCF", borderRadius: 3, padding: "0 5px", marginRight: 6, verticalAlign: "1px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -29910,6 +30096,87 @@ const SOURCES = [
    Google: Jetpack Compose Material 3 の XSmall〜XLarge IconButtonTokens(容器の高さ・アイコンの大きさ・左右の余白)、
            minimumInteractiveComponentSize(48dp)、Material Symbolsのopsz軸(20〜48dp)。
    Apple: HIG Buttons(44×44pt・visionOS 60×60pt・visionOSのボタン5サイズ・中心間60pt)、SF Symbols(3スケール)、Icons(光学的な中心合わせの余白)。 */
+/* 星形のパス(図の中のアイコンの見本) */
+function starPath(cx, cy, r) {
+  const pts = [];
+  for (let i = 0; i < 10; i++) {
+    const a = -Math.PI / 2 + (i * Math.PI) / 5;
+    const rr = i % 2 === 0 ? r : r * 0.45;
+    pts.push(`${(cx + rr * Math.cos(a)).toFixed(2)},${(cy + rr * Math.sin(a)).toFixed(2)}`);
+  }
+  return "M" + pts.join("L") + "Z";
+}
+
+/* No.009: Googleの24dpグリッドと、Appleの文字との太さ・大きさの合わせ方の図 */
+function IconAnatomy() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  const u = 7; // 1dp = 7px(実寸の約7倍)
+  const ox = 30, oy = 34;
+  const grid = [];
+  for (let i = 0; i <= 24; i++) {
+    grid.push(<line key={"v" + i} x1={ox + i * u} x2={ox + i * u} y1={oy} y2={oy + 24 * u} stroke="#E3EDE9" strokeWidth="0.6" />);
+    grid.push(<line key={"h" + i} y1={oy + i * u} y2={oy + i * u} x1={ox} x2={ox + 24 * u} stroke="#E3EDE9" strokeWidth="0.6" />);
+  }
+  return (
+    <div style={styles.anatomyWrap}>
+      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Googleのアイコンの24dpグリッド">
+        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#2F7D6E" fontFamily={font}>Google ― 24dpのグリッド</text>
+        {grid}
+        <rect x={ox} y={oy} width={24 * u} height={24 * u} fill="none" stroke="#2F7D6E" strokeWidth="1.2" />
+        <rect x={ox + 2 * u} y={oy + 2 * u} width={20 * u} height={20 * u} fill="rgba(47,125,110,0.06)" stroke="#2F7D6E" strokeDasharray="4 3" />
+        <circle cx={ox + 12 * u} cy={oy + 12 * u} r={10 * u} fill="none" stroke="#A3821F" strokeDasharray="2 2" />
+        <path d={starPath(ox + 12 * u, oy + 12.6 * u, 8.6 * u)} fill="none" stroke="#2F7D6E" strokeWidth={2 * u * 0.55} strokeLinejoin="round" />
+        <text x={ox + 24 * u + 6} y={oy + 8} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>24dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 20} fontSize="8" fill="#454C78" fontFamily={font}>全体</text>
+        <text x={ox + 24 * u + 6} y={oy + 48} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 60} fontSize="8" fill="#454C78" fontFamily={font}>描く範囲</text>
+        <text x={ox + 24 * u + 6} y={oy + 88} fontSize="8.5" fill="#A3821F" fontFamily={mono}>円 20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 100} fontSize="8" fill="#454C78" fontFamily={font}>基準の形</text>
+        <text x={ox + 24 * u + 6} y={oy + 128} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>線 2dp</text>
+        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#7E86AC" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
+      </svg>
+      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Appleのシンボルと文字の太さ・大きさの合わせ方">
+        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#C2542A" fontFamily={font}>Apple ― 隣の文字に合わせる</text>
+        {[{ w: 300, sw: 1.2, l: "Light" }, { w: 400, sw: 2, l: "Regular" }, { w: 700, sw: 3.4, l: "Bold" }].map((r, i) => (
+          <g key={r.l}>
+            <path d={starPath(22, 46 + i * 34, 11)} fill="none" stroke="#C2542A" strokeWidth={r.sw} strokeLinejoin="round" />
+            <text x="40" y={52 + i * 34} fontSize="17" fontWeight={r.w} fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Favorites</text>
+            <text x="140" y={52 + i * 34} fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+          </g>
+        ))}
+        <text x="0" y="146" fontSize="8.5" fill="#454C78" fontFamily={font}>文字と同じ太さにそろえる(9段階)</text>
+        {[{ s: 0.8, l: "small" }, { s: 1, l: "medium" }, { s: 1.25, l: "large" }].map((r, i) => (
+          <g key={r.l}>
+            <path d={starPath(22 + i * 74, 186, 10 * r.s)} fill="#C2542A" />
+            <text x={36 + i * 74 + (r.s - 1) * 12} y="191" fontSize="13" fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Aa</text>
+            <text x={14 + i * 74} y="214" fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+          </g>
+        ))}
+        <text x="0" y="228" fontSize="8" fill="#7E86AC" fontFamily={font}>同じ文字サイズのまま、シンボルの大きさを3段階で調整</text>
+      </svg>
+    </div>
+  );
+}
+
+const STYLE_ROWS = [
+  { k: "考え方", hig: "単純で、すぐに分かる形にする。身近な比喩を使い、アプリの中のアイコンは大きさ・細かさ・線の太さ・視点をそろえる", material: "単純・現代的・親しみやすく、ときに遊び心がある形。細く頼りない線ではなく、くっきり太めに描く。1つのセットの中でスタイルを混ぜない" },
+  { k: "形", hig: "非対称の形は、図形の中心ではなく見た目の中心に合わせる(余白を含めた画像にする)。状態は塗り(fill)・斜線(slash)・囲み(enclosed)の形の違いで表す", material: "24dpのグリッドの中、20dpの範囲に描く。基準の形(正方形18dp・円20dp・縦長20×16dp・横長16×20dp)で大きさをそろえる。角の丸みは2dp。スタイルはアウトライン・ラウンド・シャープの3種類" },
+  { k: "線の太さ", hig: "ウルトラライトからブラックまでの9段階。San Franciscoの文字の太さと対応し、隣の文字と同じ太さにするのが基本", material: "標準は2dp(太さ400)。100〜700で変えられるが、24dpでは200より細くしない。光学サイズ(20〜48dp)で、大きさが変わっても線の太さが自然に見えるよう自動で調整する" },
+  { k: "色", hig: "形は黒と透明で作り、色はシステムが付ける。色の付け方は4つのモード(単色・階層・パレット・マルチカラー)。量の変化には可変カラーを使い、奥行きの表現には使わない", material: "塗り(Fill 0〜1)で未選択と選択を切り替える(例: ナビゲーションバー)。暗い背景の明るいアイコンは太く見えやすいため、グレード-25で細く補正する。色の意味は文化で違う(赤と緑の警告など)" },
+];
+
+function IconStyleTable() {
+  return (
+    <div style={{ overflowX: "auto" }}>
+      <table style={styles.styleTable}>
+        <thead><tr><th style={styles.styleTh} /><th style={{ ...styles.styleTh, color: "#C2542A" }}>Apple(SF Symbols・Icons)</th><th style={{ ...styles.styleTh, color: "#2F7D6E" }}>Google(Material Symbols)</th></tr></thead>
+        <tbody>{STYLE_ROWS.map((r) => (<tr key={r.k}><th style={styles.styleRowHead}>{r.k}</th><td style={styles.styleTd}>{r.hig}</td><td style={styles.styleTd}>{r.material}</td></tr>))}</tbody>
+      </table>
+    </div>
+  );
+}
+
 const G_ICON_BUTTONS = [
   { name: "XS", h: 32, icon: 20, pad: 6, narrow: 4, wide: 10 },
   { name: "S", h: 40, icon: 24, pad: 8, narrow: 4, wide: 14 },
@@ -29933,7 +30200,7 @@ function IconSizeChart() {
     return (
       <g key={b.name}>
         <rect x={x} y={y} width={w} height={h} rx={Math.min(h / 2, 14)} fill="#E3EDE9" />
-        <rect x={ix} y={iy} width={b.icon * k} height={b.icon * k} fill="#2F7D6E" opacity="0.85" rx="1.5" />
+        <path d={starPath(ix + (b.icon * k) / 2, iy + (b.icon * k) / 2 + 0.6, (b.icon * k) / 2)} fill="#2F7D6E" />
         <line x1={x} x2={ix} y1={y + h + 6} y2={y + h + 6} stroke="#A3821F" strokeWidth="1" />
         <text x={x + w / 2} y={y - 5} fontSize="9" fill="#171B36" textAnchor="middle" fontWeight="600" fontFamily={font}>{b.name}</text>
         <text x={x + w / 2} y={136} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}dp</text>
@@ -29949,7 +30216,7 @@ function IconSizeChart() {
     return (
       <g key={b.name}>
         <circle cx={x + d / 2} cy={y + d / 2} r={d / 2} fill="#F4DDD3" />
-        <rect x={x + d / 2 - d * 0.22} y={y + d / 2 - d * 0.22} width={d * 0.44} height={d * 0.44} fill="#C2542A" opacity="0.8" rx="1.5" />
+        <path d={starPath(x + d / 2, y + d / 2 + 0.5, d * 0.24)} fill="#C2542A" />
         <text x={x + d / 2} y={252} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}pt</text>
         <text x={x + d / 2} y={262} fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={font}>{b.name}</text>
       </g>
@@ -29977,7 +30244,7 @@ function IconSizeChart() {
       <rect x={tx + 110} y={236 - 60 * k} width={60 * k} height={60 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
       <text x={tx + 110 + 30 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>60pt</text>
       <text x={tx + 110 + 30 * k} y={262} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>visionOS</text>
-      <text x="96" y="282" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>図は実寸の55%。緑・オレンジの四角はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
+      <text x="96" y="282" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>図は実寸の55%。緑・オレンジの星はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
       <text x="96" y="294" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>金色の線は、容器の端からアイコンまでの余白。点線の枠は押せる範囲の最小。</text>
     </svg>
   );
@@ -30134,6 +30401,14 @@ function TokensIconPage() {
 
 
 
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>アイコンのスタイルの考え方 ― 形・線の太さ・色</h2>
+            <p style={styles.diagramNote}>アイコンの描き方を決めているのはAppleとGoogleです。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>ことを求めています。W3Cは形や色を定めず、意味を伝えるアイコンに背景との3:1のコントラスト(1.4.11)と代わりの文字(1.1.1)を求めます。NN groupも描き方は定めず、文字のラベルを添えることを勧めています。</p>
+            <IconAnatomy />
+            <IconStyleTable />
+            <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」(本文を確認、2026-11)。</p>
+          </section>
+
           <h2 style={styles.diagramTitle}>Apple・Googleのサイズと余白(スペーシング)の比較</h2>
           <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べます。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めています。</p>
           <div style={styles.chartCard}>
@@ -30252,6 +30527,11 @@ function TokensIconPage() {
 }
 
 const styles = {
+  anatomyWrap: { display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 12px", marginBottom: 14 },
+  styleTable: { width: "100%", minWidth: 620, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  styleTh: { textAlign: "left", fontSize: 12, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  styleRowHead: { textAlign: "left", verticalAlign: "top", width: 80, padding: "9px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", fontWeight: 700, color: "#454C78" },
+  styleTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.65, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -31549,7 +31829,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
     position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。余白は4dp刻みを基本とする",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃え、画面端のマージンは幅がCompactで16dp、それ以外で24dpとされている(4dpグリッドとマージンの値は間接確認)。",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃える(4dpグリッドは間接確認)。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
     stance:
       "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
@@ -31687,6 +31967,130 @@ function BreakpointChart() {
   );
 }
 
+/* No.010: 画面の幅ごとの余白(Google)と、Appleの分割ビュー・tvOSのセーフエリアの図 */
+function MarginDiagram() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  const k = 0.16; // 1dp = 0.16px
+  const frames = [
+    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマホ縦)" },
+    { name: "Medium", w: 700, m: 24, panes: [{ f: 1 }], note: "600〜839dp(タブレット縦)" },
+    { name: "Expanded", w: 1000, m: 24, panes: [{ fixed: 360 }, { f: 1 }], note: "840〜1199dp" },
+    { name: "Large", w: 1400, m: 24, panes: [{ fixed: 412 }, { f: 1 }], note: "1200〜1599dp" },
+  ];
+  let x = 4;
+  const H = 120 * 1.0;
+  const items = frames.map((fr) => {
+    const W = fr.w * k, fx = x; x += W + 14;
+    const inner = W - fr.m * 2 * k;
+    const fixedW = fr.panes.reduce((a, p) => a + (p.fixed ? p.fixed * k : 0), 0);
+    const spacers = (fr.panes.length - 1) * 24 * k;
+    const flexW = inner - fixedW - spacers;
+    let px = fx + fr.m * k;
+    const panes = fr.panes.map((p, i) => {
+      const pw = p.fixed ? p.fixed * k : flexW;
+      const el = (
+        <g key={i}>
+          <rect x={px} y={30} width={pw} height={H - 26} rx="3" fill={p.fixed ? "#CFE3DD" : "#E3EDE9"} />
+          {p.fixed && <text x={px + pw / 2} y={30 + (H - 26) / 2} fontSize="7.5" textAnchor="middle" fill="#2F7D6E" fontFamily={mono}>{p.fixed}</text>}
+        </g>
+      );
+      px += pw + 24 * k;
+      return el;
+    });
+    return (
+      <g key={fr.name}>
+        <rect x={fx} y={22} width={W} height={H - 10} rx="5" fill="#FFFFFF" stroke="#7E86AC" />
+        {panes}
+        <text x={fx} y={14} fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>{fr.name}</text>
+        <text x={fx} y={H + 26} fontSize="7.5" fill="#7E86AC" fontFamily={font}>{fr.note}</text>
+        <text x={fx} y={H + 37} fontSize="7.5" fill="#2F7D6E" fontFamily={mono}>端 {fr.m}{fr.panes.length > 1 ? " / 間 24" : ""}</text>
+      </g>
+    );
+  });
+  return (
+    <svg viewBox={`0 0 ${x} ${H + 44}`} style={{ width: "100%", display: "block" }} role="img" aria-label="Googleの画面の幅ごとの余白とペインの図">
+      {items}
+    </svg>
+  );
+}
+
+function AppleLayoutDiagram() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  return (
+    <svg viewBox="0 0 400 130" style={{ width: "100%", maxWidth: 520, display: "block" }} role="img" aria-label="Appleの分割ビューとtvOSのセーフエリアの図">
+      <text x="0" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>分割ビュー(iPadOS・macOS)</text>
+      <rect x="0" y="20" width="190" height="96" rx="6" fill="#FFFFFF" stroke="#7E86AC" />
+      <rect x="4" y="24" width="48" height="88" rx="3" fill="#F4DDD3" />
+      <rect x="54" y="24" width="56" height="88" rx="3" fill="#F8ECE6" />
+      <rect x="112" y="24" width="74" height="88" rx="3" fill="#FCF6F3" />
+      <text x="28" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>サイドバー</text>
+      <text x="82" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
+      <text x="149" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
+      <text x="0" y="128" fontSize="7.5" fill="#7E86AC" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
+      <text x="216" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>tvOSのセーフエリア</text>
+      <rect x="216" y="20" width="176" height="99" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
+      <rect x={216 + 176 * (80 / 1920)} y={20 + 99 * (60 / 1080)} width={176 * (1 - 160 / 1920)} height={99 * (1 - 120 / 1080)} fill="#F8ECE6" stroke="#C2542A" strokeDasharray="3 2" />
+      <text x="304" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>主な内容はこの内側</text>
+      <text x="304" y="78" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={mono}>上下60pt・左右80pt</text>
+    </svg>
+  );
+}
+
+const LAYOUT_PATTERNS = [
+  { s: "Google", c: "#2F7D6E", t: "フィード(Feed)", d: "カードなどを格子状に並べ、たくさんの内容をざっと見せる", fig: "feed" },
+  { s: "Google", c: "#2F7D6E", t: "リスト・詳細(List-detail)", d: "一覧と、選んだ項目の詳細を左右に並べる", fig: "listdetail" },
+  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容(約3分の2)の横に、補助の内容を置く", fig: "support" },
+  { s: "Google", c: "#2F7D6E", t: "重ねる(Levitate)", d: "ペインを内容の上に浮かべ、カートの確認やコメントの返信など1つの作業に集中させる", fig: "levitate" },
+  { s: "Apple", c: "#C2542A", t: "分割ビュー(Split view)", d: "サイドバー・一覧・詳細の2〜3列で、階層を一度に見せる。広い画面(regular)向け", fig: "split" },
+  { s: "Apple", c: "#C2542A", t: "タブバー ↔ サイドバー", d: "広い画面では、タブバーをサイドバーに切り替えてよい(使える機能は変えない)", fig: "tabside" },
+  { s: "W3C", c: "#A3821F", t: "1列に組み替える(リフロー)", d: "幅320px相当でも、横スクロールなしで読めるようにする(1.4.10)", fig: "reflow" },
+  { s: "NN group", c: "#7A4F7E", t: "近接でまとめる", d: "関係するものを近づけ、別のグループとは余白で離す", fig: "proximity" },
+];
+function PatternFig({ k, c }) {
+  const box = (x, y, w, h, o = 1) => <rect x={x} y={y} width={w} height={h} rx="2" fill={c} opacity={o} />;
+  const f = {
+    feed: <>{[0, 1, 2].map((i) => [0, 1].map((j) => <g key={i + "" + j}>{box(6 + i * 22, 6 + j * 22, 18, 18, 0.35)}</g>))}</>,
+    listdetail: <>{[0, 1, 2, 3].map((i) => <g key={i}>{box(6, 6 + i * 11, 26, 8, i === 1 ? 0.7 : 0.3)}</g>)}{box(36, 6, 38, 41, 0.18)}</>,
+    support: <>{box(6, 6, 46, 41, 0.3)}{box(56, 6, 18, 41, 0.15)}</>,
+    levitate: <>{box(6, 6, 68, 41, 0.12)}{box(40, 12, 30, 30, 0.45)}</>,
+    split: <>{box(6, 6, 16, 41, 0.45)}{box(25, 6, 20, 41, 0.28)}{box(48, 6, 26, 41, 0.14)}</>,
+    tabside: <>{box(6, 6, 22, 41, 0.12)}{box(6, 40, 22, 7, 0.5)}<text x="33" y="30" fontSize="9" fill={c}>→</text>{box(44, 6, 9, 41, 0.45)}{box(55, 6, 19, 41, 0.15)}</>,
+    reflow: <>{box(6, 6, 30, 8, 0.3)}{box(6, 17, 30, 8, 0.3)}{box(6, 28, 30, 8, 0.3)}<text x="40" y="30" fontSize="9" fill={c}>→</text>{box(52, 6, 14, 41, 0.3)}</>,
+    proximity: <>{[0, 1].map((i) => <g key={i}>{box(6 + i * 9, 10, 7, 7, 0.5)}{box(6 + i * 9, 19, 7, 7, 0.5)}</g>)}{[0, 1].map((i) => <g key={"b" + i}>{box(46 + i * 9, 10, 7, 7, 0.5)}{box(46 + i * 9, 19, 7, 7, 0.5)}</g>)}</>,
+  };
+  return <svg viewBox="0 0 80 53" style={{ width: 96, height: 64, flexShrink: 0, border: "1px solid #E1E3F0", borderRadius: 4, background: "#FFFFFF" }} aria-hidden="true">{f[k]}</svg>;
+}
+
+function LayoutVisuals() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>余白とレイアウトを図で見る</h2>
+      <h3 style={styles.lvSub}>Google ― 画面の幅ごとの余白とペイン(dp)</h3>
+      <div style={styles.lvCard}><MarginDiagram /></div>
+      <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図です(出典: M3「Breakpoints」「Panes」)。</p>
+      <h3 style={styles.lvSub}>Apple ― 分割ビューとtvOSのセーフエリア</h3>
+      <div style={styles.lvCard}><AppleLayoutDiagram /></div>
+      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせます。固定の数値があるのはtvOSなど一部です(出典: HIG「Layout」「Split views」)。</p>
+      <h3 style={styles.lvSub}>レイアウトのパターン</h3>
+      <div style={styles.lvGrid}>
+        {LAYOUT_PATTERNS.map((p) => (
+          <div key={p.t} style={styles.lvPattern}>
+            <PatternFig k={p.fig} c={p.c} />
+            <div>
+              <div style={{ fontSize: 10.5, fontWeight: 700, color: p.c }}>{p.s}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>{p.t}</div>
+              <div style={{ fontSize: 11, lineHeight: 1.55, color: "#454C78" }}>{p.d}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.lvNote}>Googleの4つはM3「Canonical layout examples」、Appleの2つはHIG「Split views」「Layout」、W3Cは1.4.10、NN groupは近接の原則によります。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -31761,6 +32165,8 @@ function TokensLayoutSpacingPage() {
             <BreakpointChart />
             <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分です。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値です。単位(dp・pt・CSS px)は厳密には異なりますが、いずれも画面の密度に依存しない論理的な単位です。</p>
           </div>
+
+          <LayoutVisuals />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -31862,6 +32268,11 @@ function TokensLayoutSpacingPage() {
 }
 
 const styles = {
+  lvSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "14px 0 8px" },
+  lvCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", overflowX: "auto" },
+  lvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "6px 0 0" },
+  lvGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 8 },
+  lvPattern: { display: "flex", gap: 10, alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "8px 10px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -33771,14 +34182,66 @@ function ConcentricSwatch() {
   return (
     <svg viewBox="0 0 300 120" width="100%" style={{ maxWidth: 420, display: "block", margin: "0 auto" }} role="img" aria-label="同心の角丸の例">
       <rect x="10" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="22" y="22" width="106" height="36" rx="14" fill="#F4D9CE" />
-      <text x="75" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <rect x="22" y="22" width="106" height="66" rx="14" fill="#F4D9CE" />
+      <text x="75" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <text x="75" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
       <text x="75" y="114" fontSize="9.5" fill="#2F7D6E" textAnchor="middle" fontFamily={font}>○ 同心(外側 − 余白)</text>
       <rect x="160" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="172" y="22" width="106" height="36" rx="26" fill="#F4D9CE" />
-      <text x="225" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
-      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと隙間が不揃い</text>
+      <rect x="172" y="22" width="106" height="66" rx="26" fill="#F4D9CE" />
+      <text x="225" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
+      <text x="225" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
+      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと角の隙間が広がる</text>
     </svg>
+  );
+}
+
+/* No.011: 入れ子(お弁当)構造で見る角丸の大きさ。Google=Jetpack Composeの各部品のトークン(ContainerShape)、Apple=同心の計算 */
+const NEST_G = [
+  { v: "28", n: "XL", parts: "ダイアログ・ボトムシート(上の角)" },
+  { v: "16", n: "L", parts: "FAB・ナビゲーションドロワー(端の角)・リスト(Expressive)" },
+  { v: "12", n: "M", parts: "カード" },
+  { v: "8", n: "S", parts: "チップ" },
+  { v: "4", n: "XS", parts: "メニュー・スナックバー・ツールチップ・テキストフィールド" },
+  { v: "丸", n: "Full", parts: "ボタン・検索バー" },
+];
+function NestDiagram() {
+  const mono = "'IBM Plex Mono', monospace";
+  return (
+    <div style={styles.nestWrap}>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#2F7D6E" }}>Google ― 部品ごとに決まった段階</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Googleの入れ子の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="28" fill="#E3EDE9" stroke="#2F7D6E" />
+          <text x="20" y="24" fontSize="9" fill="#2F7D6E" fontFamily={mono}>ダイアログ 28</text>
+          <rect x="20" y="34" width="220" height="118" rx="12" fill="#FFFFFF" stroke="#2F7D6E" />
+          <text x="32" y="52" fontSize="9" fill="#2F7D6E" fontFamily={mono}>カード 12</text>
+          <rect x="32" y="62" width="70" height="22" rx="8" fill="#CFE3DD" />
+          <text x="67" y="77" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={mono}>チップ 8</text>
+          <rect x="32" y="94" width="196" height="26" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
+          <text x="40" y="111" fontSize="8.5" fill="#454C78" fontFamily={mono}>テキストフィールド 4</text>
+          <rect x="140" y="162" width="100" height="30" rx="15" fill="#2F7D6E" />
+          <text x="190" y="181" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン 丸</text>
+        </svg>
+        <table style={styles.nestTable}><tbody>
+          {NEST_G.map((r) => (<tr key={r.n}><td style={styles.nestVal}>{r.v}{r.v !== "丸" && <span style={{ fontSize: 9 }}>dp</span>}</td><td style={styles.nestName}>{r.n}</td><td style={styles.nestParts}>{r.parts}</td></tr>))}
+        </tbody></table>
+        <p style={styles.nestNote}>大きい面ほど大きく、小さい部品ほど小さい段階が割り当てられています(Jetpack Composeの各部品のトークンで確認)。外枠との関係から計算はしないので、内側の角は同心になるとは限りません。</p>
+      </div>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#C2542A" }}>Apple ― 外側から順に計算(同心)</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Appleの同心の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="34" fill="#F8ECE6" stroke="#C2542A" />
+          <text x="130" y="22" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>外枠 R</text>
+          <rect x="16" y="30" width="228" height="162" rx="22" fill="#FFFFFF" stroke="#C2542A" />
+          <text x="130" y="48" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 余白12</text>
+          <rect x="28" y="56" width="204" height="124" rx="10" fill="#F4D9CE" />
+          <text x="130" y="76" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 24</text>
+          <rect x="40" y="132" width="180" height="36" rx="18" fill="#C2542A" opacity="0.85" />
+          <text x="130" y="154" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン(カプセルなど)</text>
+        </svg>
+        <p style={styles.nestNote}>Appleは段階の値を持たず、<strong>内側の角丸 = 外側の角丸 − 余白</strong>で決めます。ツールバーの中の標準のボタンや入力欄は、自動でバーの角と同心になります。図の値(余白12)は説明のための作例です。</p>
+      </div>
+    </div>
   );
 }
 
@@ -34195,6 +34658,12 @@ function TokensShapePage() {
             <ShapeChangeRules />
           </section>
 
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>入れ子(お弁当)構造で見る角丸の大きさ</h2>
+            <p style={styles.diagramNote}>シートやダイアログの中にカード、その中にボタンや入力欄が入る、という入れ子の構造で角丸の大きさを比べます。<Hl>Googleは部品ごとに段階を割り当て、Appleは外枠から余白を引いて計算</Hl>します。</p>
+            <NestDiagram />
+          </section>
+
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 角丸の決め方</h2>
             <ShapeChart />
@@ -34285,6 +34754,14 @@ function TokensShapePage() {
 }
 
 const styles = {
+  nestWrap: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: 16, border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px" },
+  nestCol: { minWidth: 0 },
+  nestHead: { fontSize: 12.5, fontWeight: 700, marginBottom: 8 },
+  nestTable: { width: "100%", borderCollapse: "collapse", fontSize: 11, marginTop: 8 },
+  nestVal: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#2F7D6E", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 52, whiteSpace: "nowrap" },
+  nestName: { fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 40 },
+  nestParts: { color: "#2E3457", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.5 },
+  nestNote: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "8px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -35564,6 +36041,86 @@ function TypeLadder() {
   );
 }
 
+/* No.007: フォントの種類(4系列) */
+const FONT_COLS = ["Apple", "Google", "W3C", "NN group"];
+const FONT_ROWS = [
+  { k: "システムの既定のフォント", v: [
+    <>San Francisco(SF、サンセリフ)。iOS・iPadOS・macOS・tvOS・visionOSはSF Pro、watchOSはSF Compact</>,
+    <>Roboto(Androidの既定。M3のタイプスケールで使う)</>,
+    <NoData>記載なし(フォントを指定しない)</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "ほかに用意されているもの", v: [
+    <>New York(NY、セリフ。SFと組み合わせて使える)、SF Mono(等幅)、角の丸いRounded版、アラビア文字・ヘブライ文字などの各言語版</>,
+    <>Roboto Flex(可変フォント)、Roboto Serif(セリフ)、Roboto Mono(等幅。数字をそろえるのに向く)、Noto Sans(多言語)</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "可変フォント", v: [
+    <>SFとNYは可変フォントで、文字の大きさに合わせて形を自動で調整する(光学サイズ)</>,
+    <>Roboto Flexは太さ・幅・光学サイズなどを変えられるが、M3のタイプスケールにはまだ含まれていない</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "独自のフォントを使うとき", v: [
+    <>推奨の最小サイズを守り、Dynamic Type(文字サイズの設定)と太字の設定に自分で対応する。書体の数はしぼる</>,
+    <>大きい文字(Display・Headline)用の「ブランド」と、小さい文字(Body・Label)用の「プレーン」の2つのトークンを差し替える。文字サイズは変えず、行送りと字間で調整する</>,
+    <>フォントの指定はないが、文字は画像にせず本物の文字で表示する(1.4.5 文字画像・AA)。利用者が行送り・字間を広げても内容が欠けないようにする(1.4.12 テキストの間隔・AA)</>,
+    <>すべての人に最適なフォントはない。人によって速く読めるフォントが違い(最大35%の差)、好みのフォントが速く読めるフォントとは限らない。年齢が20歳上がるごとに読む速さが約11%遅くなる</>,
+  ] },
+  { k: "多言語・フォールバック", v: [
+    <>SFに各言語版がある</>,
+    <>文字がないときの代わり(フォールバック)は Roboto Flex → Roboto → Noto Sans の順。Noto Sansは150以上の文字体系に対応</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+];
+const FONT_REFS = [
+  { s: "Apple", label: "Typography ― Using system fonts", url: "https://developer.apple.com/design/human-interface-guidelines/typography#Using-system-fonts" },
+  { s: "Google", label: "Typography ― Fonts", url: "https://m3.material.io/styles/typography/fonts" },
+  { s: "Google", label: "Type scale tokens(ブランドとプレーン)", url: "https://m3.material.io/styles/typography/type-scale-tokens" },
+  { s: "W3C", label: "Understanding 1.4.5 Images of Text", url: "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html" },
+  { s: "W3C", label: "Understanding 1.4.12 Text Spacing", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html" },
+  { s: "NN group", label: "Best Font for Online Reading: No Single Answer", url: "https://www.nngroup.com/articles/best-font-for-online-reading/" },
+];
+
+function FontTypes() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>フォントの種類</h2>
+      <p style={styles.fontLead}>システムのフォントを持つのはAppleとGoogleです。どちらも<Hl>サンセリフを既定にし、セリフ・等幅・可変フォントを別に用意</Hl>しています。W3CとNN groupはフォントを指定せず、W3Cは文字の扱い方、NN groupは読みやすさの調査を示しています。</p>
+      <div style={styles.fontSamples}>
+        {[
+          { n: "サンセリフ", f: "-apple-system, 'Helvetica Neue', Roboto, sans-serif", ex: "SF Pro / Roboto" },
+          { n: "セリフ", f: "'New York', Georgia, 'Roboto Serif', serif", ex: "New York / Roboto Serif" },
+          { n: "等幅", f: "'SF Mono', 'Roboto Mono', 'IBM Plex Mono', monospace", ex: "SF Mono / Roboto Mono" },
+        ].map((x) => (
+          <div key={x.n} style={styles.fontSample}>
+            <div style={{ fontFamily: x.f, fontSize: 22, color: "#171B36" }}>Aa 012</div>
+            <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{x.n}</div>
+            <div style={{ fontSize: 10.5, color: "#7E86AC" }}>{x.ex}</div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.fontNote}>見本は閲覧中の端末にあるフォントで表示しています(端末によっては別のフォントになります)。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.fontTable}>
+          <thead><tr><th style={styles.fontTh} />{FONT_COLS.map((c) => (<th key={c} style={styles.fontTh}>{c}</th>))}</tr></thead>
+          <tbody>
+            {FONT_ROWS.map((r) => (
+              <tr key={r.k}><th style={{ ...styles.fontTd, ...styles.fontRowHead }}>{r.k}</th>{r.v.map((v, i) => (<td key={i} style={styles.fontTd}>{v}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={styles.fontRefs}>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>参照ページ(公式)</span>
+        {FONT_REFS.map((r) => (<a key={r.url} href={r.url} target="_blank" rel="noreferrer" style={styles.fontRefLink}>{r.s}: {r.label} ↗</a>))}
+      </div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -35739,6 +36296,8 @@ function TokensTypographyPage() {
             <p style={styles.chartNote}>帯は各系列の段階全体の範囲、丸は本文の値です。W3Cの破線は初期値の基準ではなく、ユーザーがこの値に変更しても崩れないことを求める値です。</p>
           </div>
 
+          <FontTypes />
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -35758,6 +36317,16 @@ function TokensTypographyPage() {
 }
 
 const styles = {
+  fontLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
+  fontSamples: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8, marginBottom: 4 },
+  fontSample: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  fontNote: { fontSize: 10.5, color: "#9EA4C4", margin: "0 0 12px" },
+  fontTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  fontTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  fontTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  fontRowHead: { background: "#F8F9FD", fontWeight: 700, color: "#454C78", width: 130, textAlign: "left" },
+  fontRefs: { display: "flex", flexDirection: "column", gap: 3, marginTop: 10 },
+  fontRefLink: { fontSize: 11, color: "#3A4FCF" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -36302,6 +36871,59 @@ function ReadingShare() {
   );
 }
 
+/* No.008: 各系列のライティングの考え方(前提) */
+const PHILOSOPHY = [
+  { k: "Apple", c: "#C2542A", title: "言葉を通してデザインする", lead: "オンボーディングでもアラートでも画像の説明でも、言葉の面から設計すると、アプリをより活かしてもらえる、という立場。",
+    points: [
+      { t: "声を決める", d: "誰に話すかを考え、使う語彙を決める(銀行アプリなら信頼と安定を伝える、など)" },
+      { t: "調子を場面に合わせる", d: "利用者が何をしているか(運動で目標を達成した・支払いに失敗した)で調子を変える" },
+      { t: "はっきり書く", d: "1語ずつ必要かを確かめ、減らせるなら減らす。迷ったら声に出して読む" },
+      { t: "すべての人に向けて書く", d: "平易な言葉を選び、アクセシビリティと多言語化を考え、専門用語や性別を前提にした言葉を避ける" },
+    ],
+    ref: { label: "Writing ― Getting started", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Getting-started" } },
+  { k: "Google", c: "#2F7D6E", title: "明確・正確・簡潔", lead: "UIの文章は画面を使いやすくし、信頼を築く。文章は明確・正確・簡潔であるべき、という立場(M2のWritingの原則)。M3では「誰にでも分かる文章」を掲げ、AP通信の表記ルール(AP Style)を基本にしている。",
+    points: [
+      { t: "簡潔に", d: "一度に扱う考えを少なくし、短く拾い読みしやすい単位で書く" },
+      { t: "単純・直接に", d: "やさしい言葉で、今の作業に必要なことだけを書く" },
+      { t: "利用者に明確に呼びかける", d: "「あなた」か「私」のどちらかで呼びかけ、1つの文で混ぜない" },
+      { t: "目的から書き始める", d: "目的→操作の順に書き、詳しい説明は必要になったときに見せる" },
+    ],
+    ref: { label: "Writing(Material Design 2)", url: "https://m2.material.io/design/communication/writing.html" } },
+  { k: "W3C", c: "#A3821F", title: null, lead: null, none: "ライティングの考え方は定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は説明・A、3.1.5 読解レベル・AAA など)", points: [], ref: null },
+  { k: "NN group", c: "#7A4F7E", title: "言葉で行うデザイン", lead: "UXライティングは、利用者の状況・ニーズ・行動に合わせて情報を書くこと。ピクセルの代わりに言葉を使う点以外は、見た目や操作のデザインと同じ技能が要る、という立場。",
+    points: [
+      { t: "前提: 画面の文章は読まれない", d: "利用者は印刷物と違い、文章を拾い読みする(F字型・見出しを追う層状のパターンなど)。平均的なページで読まれるのは約20%" },
+      { t: "読み手のニーズから始める", d: "書く前に、誰が・なぜ・読んだあと何をするのかを確かめる" },
+      { t: "平易な言葉はすべての人のため", d: "専門家にとっても、簡潔で拾い読みしやすい文章のほうが使いやすい" },
+      { t: "最初の2語で伝える", d: "拾い読みする目は、見出しやリンクの最初の言葉で判断する" },
+    ],
+    ref: { label: "UX Writing: Study Guide", url: "https://www.nngroup.com/articles/ux-writing-study-guide/" } },
+];
+
+function WritingPhilosophy() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ライティングの考え方(前提)</h2>
+      <p style={styles.philLead}>細かい決まりを比べる前に、各系列が文章をどう位置づけているかをまとめます。<Hl>AppleとNN groupは「言葉もデザインの一部」</Hl>、Googleは「明確・正確・簡潔」という原則から入ります。</p>
+      <div style={styles.philGrid}>
+        {PHILOSOPHY.map((p) => (
+          <div key={p.k} style={{ ...styles.philCard, borderTopColor: p.c }}>
+            <div style={{ ...styles.philName, color: p.c }}>{p.k}</div>
+            {p.none ? <p style={styles.philText}><NoData>{p.none}</NoData></p> : (
+              <>
+                <div style={styles.philTitle}>{p.title}</div>
+                <p style={styles.philText}>{p.lead}</p>
+                <ul style={styles.philList}>{p.points.map((x) => (<li key={x.t} style={styles.philItem}><strong>{x.t}</strong>: {x.d}</li>))}</ul>
+                <a href={p.ref.url} target="_blank" rel="noreferrer" style={styles.philLink}>{p.ref.label} ↗</a>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -36369,7 +36991,7 @@ function TokensWritingPage() {
             rows={ABOUT}
           />
 
-
+          <WritingPhilosophy />
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― UIの言葉の場面ごとに何を定めているか</h2>
@@ -36522,6 +37144,15 @@ function TokensWritingPage() {
 }
 
 const styles = {
+  philLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
+  philGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  philCard: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "10px 12px" },
+  philName: { fontSize: 12.5, fontWeight: 700 },
+  philTitle: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "2px 0 4px" },
+  philText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  philList: { margin: "0 0 8px", paddingLeft: 16 },
+  philItem: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 3 },
+  philLink: { fontSize: 11, color: "#3A4FCF" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

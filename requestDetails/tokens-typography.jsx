@@ -422,6 +422,86 @@ function TypeLadder() {
   );
 }
 
+/* No.007: フォントの種類(4系列) */
+const FONT_COLS = ["Apple", "Google", "W3C", "NN group"];
+const FONT_ROWS = [
+  { k: "システムの既定のフォント", v: [
+    <>San Francisco(SF、サンセリフ)。iOS・iPadOS・macOS・tvOS・visionOSはSF Pro、watchOSはSF Compact</>,
+    <>Roboto(Androidの既定。M3のタイプスケールで使う)</>,
+    <NoData>記載なし(フォントを指定しない)</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "ほかに用意されているもの", v: [
+    <>New York(NY、セリフ。SFと組み合わせて使える)、SF Mono(等幅)、角の丸いRounded版、アラビア文字・ヘブライ文字などの各言語版</>,
+    <>Roboto Flex(可変フォント)、Roboto Serif(セリフ)、Roboto Mono(等幅。数字をそろえるのに向く)、Noto Sans(多言語)</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "可変フォント", v: [
+    <>SFとNYは可変フォントで、文字の大きさに合わせて形を自動で調整する(光学サイズ)</>,
+    <>Roboto Flexは太さ・幅・光学サイズなどを変えられるが、M3のタイプスケールにはまだ含まれていない</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+  { k: "独自のフォントを使うとき", v: [
+    <>推奨の最小サイズを守り、Dynamic Type(文字サイズの設定)と太字の設定に自分で対応する。書体の数はしぼる</>,
+    <>大きい文字(Display・Headline)用の「ブランド」と、小さい文字(Body・Label)用の「プレーン」の2つのトークンを差し替える。文字サイズは変えず、行送りと字間で調整する</>,
+    <>フォントの指定はないが、文字は画像にせず本物の文字で表示する(1.4.5 文字画像・AA)。利用者が行送り・字間を広げても内容が欠けないようにする(1.4.12 テキストの間隔・AA)</>,
+    <>すべての人に最適なフォントはない。人によって速く読めるフォントが違い(最大35%の差)、好みのフォントが速く読めるフォントとは限らない。年齢が20歳上がるごとに読む速さが約11%遅くなる</>,
+  ] },
+  { k: "多言語・フォールバック", v: [
+    <>SFに各言語版がある</>,
+    <>文字がないときの代わり(フォールバック)は Roboto Flex → Roboto → Noto Sans の順。Noto Sansは150以上の文字体系に対応</>,
+    <NoData>記載なし</NoData>,
+    <NoData>記載なし</NoData>,
+  ] },
+];
+const FONT_REFS = [
+  { s: "Apple", label: "Typography ― Using system fonts", url: "https://developer.apple.com/design/human-interface-guidelines/typography#Using-system-fonts" },
+  { s: "Google", label: "Typography ― Fonts", url: "https://m3.material.io/styles/typography/fonts" },
+  { s: "Google", label: "Type scale tokens(ブランドとプレーン)", url: "https://m3.material.io/styles/typography/type-scale-tokens" },
+  { s: "W3C", label: "Understanding 1.4.5 Images of Text", url: "https://www.w3.org/WAI/WCAG22/Understanding/images-of-text.html" },
+  { s: "W3C", label: "Understanding 1.4.12 Text Spacing", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html" },
+  { s: "NN group", label: "Best Font for Online Reading: No Single Answer", url: "https://www.nngroup.com/articles/best-font-for-online-reading/" },
+];
+
+function FontTypes() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>フォントの種類</h2>
+      <p style={styles.fontLead}>システムのフォントを持つのはAppleとGoogleです。どちらも<Hl>サンセリフを既定にし、セリフ・等幅・可変フォントを別に用意</Hl>しています。W3CとNN groupはフォントを指定せず、W3Cは文字の扱い方、NN groupは読みやすさの調査を示しています。</p>
+      <div style={styles.fontSamples}>
+        {[
+          { n: "サンセリフ", f: "-apple-system, 'Helvetica Neue', Roboto, sans-serif", ex: "SF Pro / Roboto" },
+          { n: "セリフ", f: "'New York', Georgia, 'Roboto Serif', serif", ex: "New York / Roboto Serif" },
+          { n: "等幅", f: "'SF Mono', 'Roboto Mono', 'IBM Plex Mono', monospace", ex: "SF Mono / Roboto Mono" },
+        ].map((x) => (
+          <div key={x.n} style={styles.fontSample}>
+            <div style={{ fontFamily: x.f, fontSize: 22, color: "#171B36" }}>Aa 012</div>
+            <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{x.n}</div>
+            <div style={{ fontSize: 10.5, color: "#7E86AC" }}>{x.ex}</div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.fontNote}>見本は閲覧中の端末にあるフォントで表示しています(端末によっては別のフォントになります)。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.fontTable}>
+          <thead><tr><th style={styles.fontTh} />{FONT_COLS.map((c) => (<th key={c} style={styles.fontTh}>{c}</th>))}</tr></thead>
+          <tbody>
+            {FONT_ROWS.map((r) => (
+              <tr key={r.k}><th style={{ ...styles.fontTd, ...styles.fontRowHead }}>{r.k}</th>{r.v.map((v, i) => (<td key={i} style={styles.fontTd}>{v}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={styles.fontRefs}>
+        <span style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>参照ページ(公式)</span>
+        {FONT_REFS.map((r) => (<a key={r.url} href={r.url} target="_blank" rel="noreferrer" style={styles.fontRefLink}>{r.s}: {r.label} ↗</a>))}
+      </div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -601,6 +681,8 @@ export default function TokensTypographyPage() {
             <p style={styles.chartNote}>帯は各系列の段階全体の範囲、丸は本文の値です。W3Cの破線は初期値の基準ではなく、ユーザーがこの値に変更しても崩れないことを求める値です。</p>
           </div>
 
+          <FontTypes />
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -620,6 +702,16 @@ export default function TokensTypographyPage() {
 }
 
 const styles = {
+  fontLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
+  fontSamples: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8, marginBottom: 4 },
+  fontSample: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  fontNote: { fontSize: 10.5, color: "#9EA4C4", margin: "0 0 12px" },
+  fontTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  fontTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  fontTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  fontRowHead: { background: "#F8F9FD", fontWeight: 700, color: "#454C78", width: 130, textAlign: "left" },
+  fontRefs: { display: "flex", flexDirection: "column", gap: 3, marginTop: 10 },
+  fontRefLink: { fontSize: 11, color: "#3A4FCF" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

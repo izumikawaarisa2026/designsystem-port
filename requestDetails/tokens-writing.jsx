@@ -459,6 +459,59 @@ function ReadingShare() {
   );
 }
 
+/* No.008: 各系列のライティングの考え方(前提) */
+const PHILOSOPHY = [
+  { k: "Apple", c: "#C2542A", title: "言葉を通してデザインする", lead: "オンボーディングでもアラートでも画像の説明でも、言葉の面から設計すると、アプリをより活かしてもらえる、という立場。",
+    points: [
+      { t: "声を決める", d: "誰に話すかを考え、使う語彙を決める(銀行アプリなら信頼と安定を伝える、など)" },
+      { t: "調子を場面に合わせる", d: "利用者が何をしているか(運動で目標を達成した・支払いに失敗した)で調子を変える" },
+      { t: "はっきり書く", d: "1語ずつ必要かを確かめ、減らせるなら減らす。迷ったら声に出して読む" },
+      { t: "すべての人に向けて書く", d: "平易な言葉を選び、アクセシビリティと多言語化を考え、専門用語や性別を前提にした言葉を避ける" },
+    ],
+    ref: { label: "Writing ― Getting started", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Getting-started" } },
+  { k: "Google", c: "#2F7D6E", title: "明確・正確・簡潔", lead: "UIの文章は画面を使いやすくし、信頼を築く。文章は明確・正確・簡潔であるべき、という立場(M2のWritingの原則)。M3では「誰にでも分かる文章」を掲げ、AP通信の表記ルール(AP Style)を基本にしている。",
+    points: [
+      { t: "簡潔に", d: "一度に扱う考えを少なくし、短く拾い読みしやすい単位で書く" },
+      { t: "単純・直接に", d: "やさしい言葉で、今の作業に必要なことだけを書く" },
+      { t: "利用者に明確に呼びかける", d: "「あなた」か「私」のどちらかで呼びかけ、1つの文で混ぜない" },
+      { t: "目的から書き始める", d: "目的→操作の順に書き、詳しい説明は必要になったときに見せる" },
+    ],
+    ref: { label: "Writing(Material Design 2)", url: "https://m2.material.io/design/communication/writing.html" } },
+  { k: "W3C", c: "#A3821F", title: null, lead: null, none: "ライティングの考え方は定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は説明・A、3.1.5 読解レベル・AAA など)", points: [], ref: null },
+  { k: "NN group", c: "#7A4F7E", title: "言葉で行うデザイン", lead: "UXライティングは、利用者の状況・ニーズ・行動に合わせて情報を書くこと。ピクセルの代わりに言葉を使う点以外は、見た目や操作のデザインと同じ技能が要る、という立場。",
+    points: [
+      { t: "前提: 画面の文章は読まれない", d: "利用者は印刷物と違い、文章を拾い読みする(F字型・見出しを追う層状のパターンなど)。平均的なページで読まれるのは約20%" },
+      { t: "読み手のニーズから始める", d: "書く前に、誰が・なぜ・読んだあと何をするのかを確かめる" },
+      { t: "平易な言葉はすべての人のため", d: "専門家にとっても、簡潔で拾い読みしやすい文章のほうが使いやすい" },
+      { t: "最初の2語で伝える", d: "拾い読みする目は、見出しやリンクの最初の言葉で判断する" },
+    ],
+    ref: { label: "UX Writing: Study Guide", url: "https://www.nngroup.com/articles/ux-writing-study-guide/" } },
+];
+
+function WritingPhilosophy() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ライティングの考え方(前提)</h2>
+      <p style={styles.philLead}>細かい決まりを比べる前に、各系列が文章をどう位置づけているかをまとめます。<Hl>AppleとNN groupは「言葉もデザインの一部」</Hl>、Googleは「明確・正確・簡潔」という原則から入ります。</p>
+      <div style={styles.philGrid}>
+        {PHILOSOPHY.map((p) => (
+          <div key={p.k} style={{ ...styles.philCard, borderTopColor: p.c }}>
+            <div style={{ ...styles.philName, color: p.c }}>{p.k}</div>
+            {p.none ? <p style={styles.philText}><NoData>{p.none}</NoData></p> : (
+              <>
+                <div style={styles.philTitle}>{p.title}</div>
+                <p style={styles.philText}>{p.lead}</p>
+                <ul style={styles.philList}>{p.points.map((x) => (<li key={x.t} style={styles.philItem}><strong>{x.t}</strong>: {x.d}</li>))}</ul>
+                <a href={p.ref.url} target="_blank" rel="noreferrer" style={styles.philLink}>{p.ref.label} ↗</a>
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -530,7 +583,7 @@ export default function TokensWritingPage() {
             rows={ABOUT}
           />
 
-
+          <WritingPhilosophy />
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― UIの言葉の場面ごとに何を定めているか</h2>
@@ -683,6 +736,15 @@ export default function TokensWritingPage() {
 }
 
 const styles = {
+  philLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
+  philGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  philCard: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "10px 12px" },
+  philName: { fontSize: 12.5, fontWeight: 700 },
+  philTitle: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "2px 0 4px" },
+  philText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  philList: { margin: "0 0 8px", paddingLeft: 16 },
+  philItem: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 3 },
+  philLink: { fontSize: 11, color: "#3A4FCF" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

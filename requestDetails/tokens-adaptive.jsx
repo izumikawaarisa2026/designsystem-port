@@ -343,6 +343,73 @@ function OrientationDiagram() {
   );
 }
 
+/* No.014: 公式サイトにあって載せていなかった内容(GoogleはM3 Layoutの本文、AppleはHIGの各ページで確認) */
+const MISSING = [
+  { s: "Google", c: "#2F7D6E", t: "アダプティブとレスポンシブの違い", d: "レスポンシブは1つのレイアウトを画面に合わせて伸び縮みさせること。アダプティブは端末ごとに体験を作り分けること。色・文字・形だけでなく、構造や部品、レイアウト全体を変える", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "組み替え方の5つ", d: "広さが変わったら、要素を「見せる・分ける・大きさを変える・位置を変える・入れ替える」のどれにするかを決める。ペインを内容の上に浮かべる「重ねる(levitate)」もある", ref: { l: "Breakpoints", u: "https://m3.material.io/foundations/layout/breakpoints/overview" } },
+  { s: "Google", c: "#2F7D6E", t: "画面の骨組み ― バー・レール・ペイン", d: "上下のバー(アプリバー・ナビゲーションバー)、その内側や左右のレール(ツールバー・FAB・ナビゲーションレール)、内容を入れるペインの順に組み立てる。画面の上下端のシステムの領域には主な内容を置かない", ref: { l: "Scaffold ― Bars・Rails", u: "https://m3.material.io/foundations/layout/scaffold/bars" } },
+  { s: "Apple", c: "#C2542A", t: "狭い画面ではポップオーバーを使わない", d: "compactではポップオーバーを出さず、シートなど画面全体を使う表示にする。ポップオーバーは広い画面のためのもの", ref: { l: "Popovers ― iOS, iPadOS", u: "https://developer.apple.com/design/human-interface-guidelines/popovers#iOS-iPadOS" } },
+];
+
+/* 画面の広さで大きく変わる部品 */
+const BIG_CHANGES = [
+  { k: "ナビゲーション", g: ["ナビゲーションバー(縦型の項目)", "ナビゲーションバー(横型の項目)またはレール", "ナビゲーションレール・標準のドロワー"], a: "タブバー → サイドバー(タブバーがサイドバーに変わる型を使える)", link: <><PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>・<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+  { k: "タブの項目の並び", g: ["アイコンの下に文字", "アイコンの横に文字", "(レールに切り替え)"], a: "compactはアイコンの下に文字、regularはアイコンと文字を横に並べる", link: <PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink> },
+  { k: "ダイアログ", g: ["全画面ダイアログも使える", "基本のダイアログ", "基本のダイアログ(背景の幕の上)"], a: "広い画面のポップオーバーは、狭い画面ではシートにする", link: <><PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>・<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
+  { k: "シート", g: ["ボトムシート(画面の幅いっぱい)", "ボトムシート(最大幅あり)・標準のサイドシート", "標準のサイドシート"], a: "iPhoneのシートは高さの段階(medium・large)で止まる", link: <><PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { k: "一覧と詳細", g: ["一覧か詳細のどちらか一方", "一覧か詳細のどちらか一方", "一覧と詳細を左右に並べる"], a: "compactでは分割ビューを使わず、regularで2〜3列", link: <NoData>専用ページなし(カノニカルレイアウトの節)</NoData> },
+];
+
+function AdaptiveMissing() {
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>公式サイトにあって、ここまでに載せていなかった内容</h2>
+      <div style={styles.amGrid}>
+        {MISSING.map((m) => (
+          <div key={m.t} style={{ ...styles.amCard, borderLeftColor: m.c }}>
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: m.c }}>{m.s}</div>
+            <div style={styles.amTitle}>{m.t}</div>
+            <p style={styles.amText}>{m.d}</p>
+            <a href={m.ref.u} target="_blank" rel="noreferrer" style={styles.amLink}>{m.ref.l} ↗</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function BigChanges() {
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>画面の広さで大きく変わる部品</h2>
+      <p style={styles.diagramNote}>部品そのものが入れ替わるものをまとめました。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替えます。詳しくは各部品のページを見てください。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.bcTable}>
+          <thead><tr>
+            <th style={styles.bcTh}>部品</th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Google Compact<br /><span style={styles.bcSub}>600dp未満</span></th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Medium<br /><span style={styles.bcSub}>600〜839dp</span></th>
+            <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Expanded以上<br /><span style={styles.bcSub}>840dp〜</span></th>
+            <th style={{ ...styles.bcTh, color: "#C2542A" }}>Apple</th>
+            <th style={styles.bcTh}>詳しいページ</th>
+          </tr></thead>
+          <tbody>{BIG_CHANGES.map((r) => (
+            <tr key={r.k}>
+              <th style={styles.bcRowHead}>{r.k}</th>
+              {r.g.map((v, i) => (<td key={i} style={styles.bcTd}>{v}</td>))}
+              <td style={styles.bcTd}>{r.a}</td>
+              <td style={styles.bcTd}>{r.link}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      </div>
+      <p style={styles.chartNote}>出典: M3「Navigation bar」「Navigation drawer」「Dialogs」「Bottom sheets」「Side sheets」「Canonical layout examples」、HIG「Tab bars」「Sidebars」「Popovers」「Sheets」「Split views」。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -520,13 +587,17 @@ export default function TokensAdaptivePage() {
             <OrientationDiagram />
           </div>
 
+          <BigChanges />
+
+          <AdaptiveMissing />
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["デザインの基礎"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、切り替えのルールはAndroid Developersの本文で確認)</span>
+            <span>最終確認: 2026-11(Apple・W3C・NN groupは本文確認済み。GoogleはM3のLayoutの本文をブラウザで表示して確認、切り替えのルールはAndroid Developersの本文でも確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Adaptability」見出しへのアンカー付きリンクで、Size classes・Tab bars・Split viewsの見出しも併記しています。GoogleはM3のCanonical examplesのページに加え、内容を確認したAndroid Developersのページを併記しています。WCAGは1.4.10・1.3.4のUnderstandingページです。NN groupはBreakpoints in Responsive Designの「Four Common Breakpoints」の節です。
@@ -539,6 +610,16 @@ export default function TokensAdaptivePage() {
 }
 
 const styles = {
+  amGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 8 },
+  amCard: { border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 6, padding: "10px 12px" },
+  amTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "2px 0 4px" },
+  amText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  amLink: { fontSize: 11, color: "#3A4FCF" },
+  bcTable: { width: "100%", minWidth: 820, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bcTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", verticalAlign: "bottom" },
+  bcSub: { fontSize: 10, fontWeight: 400, color: "#7E86AC", fontFamily: "'IBM Plex Mono', monospace" },
+  bcRowHead: { textAlign: "left", verticalAlign: "top", padding: "9px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", fontWeight: 700, color: "#454C78", width: 110 },
+  bcTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

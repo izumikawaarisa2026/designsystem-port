@@ -149,14 +149,66 @@ function ConcentricSwatch() {
   return (
     <svg viewBox="0 0 300 120" width="100%" style={{ maxWidth: 420, display: "block", margin: "0 auto" }} role="img" aria-label="同心の角丸の例">
       <rect x="10" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="22" y="22" width="106" height="36" rx="14" fill="#F4D9CE" />
-      <text x="75" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <rect x="22" y="22" width="106" height="66" rx="14" fill="#F4D9CE" />
+      <text x="75" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側 = 26 − 12 = 14</text>
+      <text x="75" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
       <text x="75" y="114" fontSize="9.5" fill="#2F7D6E" textAnchor="middle" fontFamily={font}>○ 同心(外側 − 余白)</text>
       <rect x="160" y="10" width="130" height="90" rx="26" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-      <rect x="172" y="22" width="106" height="36" rx="26" fill="#F4D9CE" />
-      <text x="225" y="44" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
-      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと隙間が不揃い</text>
+      <rect x="172" y="22" width="106" height="66" rx="26" fill="#F4D9CE" />
+      <text x="225" y="52" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily={font}>内側も 26</text>
+      <text x="225" y="64" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily={font}>(余白12)</text>
+      <text x="225" y="114" fontSize="9.5" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ 同じ値だと角の隙間が広がる</text>
     </svg>
+  );
+}
+
+/* No.011: 入れ子(お弁当)構造で見る角丸の大きさ。Google=Jetpack Composeの各部品のトークン(ContainerShape)、Apple=同心の計算 */
+const NEST_G = [
+  { v: "28", n: "XL", parts: "ダイアログ・ボトムシート(上の角)" },
+  { v: "16", n: "L", parts: "FAB・ナビゲーションドロワー(端の角)・リスト(Expressive)" },
+  { v: "12", n: "M", parts: "カード" },
+  { v: "8", n: "S", parts: "チップ" },
+  { v: "4", n: "XS", parts: "メニュー・スナックバー・ツールチップ・テキストフィールド" },
+  { v: "丸", n: "Full", parts: "ボタン・検索バー" },
+];
+function NestDiagram() {
+  const mono = "'IBM Plex Mono', monospace";
+  return (
+    <div style={styles.nestWrap}>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#2F7D6E" }}>Google ― 部品ごとに決まった段階</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Googleの入れ子の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="28" fill="#E3EDE9" stroke="#2F7D6E" />
+          <text x="20" y="24" fontSize="9" fill="#2F7D6E" fontFamily={mono}>ダイアログ 28</text>
+          <rect x="20" y="34" width="220" height="118" rx="12" fill="#FFFFFF" stroke="#2F7D6E" />
+          <text x="32" y="52" fontSize="9" fill="#2F7D6E" fontFamily={mono}>カード 12</text>
+          <rect x="32" y="62" width="70" height="22" rx="8" fill="#CFE3DD" />
+          <text x="67" y="77" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={mono}>チップ 8</text>
+          <rect x="32" y="94" width="196" height="26" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
+          <text x="40" y="111" fontSize="8.5" fill="#454C78" fontFamily={mono}>テキストフィールド 4</text>
+          <rect x="140" y="162" width="100" height="30" rx="15" fill="#2F7D6E" />
+          <text x="190" y="181" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン 丸</text>
+        </svg>
+        <table style={styles.nestTable}><tbody>
+          {NEST_G.map((r) => (<tr key={r.n}><td style={styles.nestVal}>{r.v}{r.v !== "丸" && <span style={{ fontSize: 9 }}>dp</span>}</td><td style={styles.nestName}>{r.n}</td><td style={styles.nestParts}>{r.parts}</td></tr>))}
+        </tbody></table>
+        <p style={styles.nestNote}>大きい面ほど大きく、小さい部品ほど小さい段階が割り当てられています(Jetpack Composeの各部品のトークンで確認)。外枠との関係から計算はしないので、内側の角は同心になるとは限りません。</p>
+      </div>
+      <div style={styles.nestCol}>
+        <div style={{ ...styles.nestHead, color: "#C2542A" }}>Apple ― 外側から順に計算(同心)</div>
+        <svg viewBox="0 0 260 210" style={{ width: "100%", maxWidth: 320 }} role="img" aria-label="Appleの同心の角丸の例">
+          <rect x="4" y="4" width="252" height="200" rx="34" fill="#F8ECE6" stroke="#C2542A" />
+          <text x="130" y="22" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>外枠 R</text>
+          <rect x="16" y="30" width="228" height="162" rx="22" fill="#FFFFFF" stroke="#C2542A" />
+          <text x="130" y="48" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 余白12</text>
+          <rect x="28" y="56" width="204" height="124" rx="10" fill="#F4D9CE" />
+          <text x="130" y="76" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily={mono}>R − 24</text>
+          <rect x="40" y="132" width="180" height="36" rx="18" fill="#C2542A" opacity="0.85" />
+          <text x="130" y="154" fontSize="8.5" fill="#FFFFFF" textAnchor="middle" fontFamily={mono}>ボタン(カプセルなど)</text>
+        </svg>
+        <p style={styles.nestNote}>Appleは段階の値を持たず、<strong>内側の角丸 = 外側の角丸 − 余白</strong>で決めます。ツールバーの中の標準のボタンや入力欄は、自動でバーの角と同心になります。図の値(余白12)は説明のための作例です。</p>
+      </div>
+    </div>
   );
 }
 
@@ -577,6 +629,12 @@ export default function TokensShapePage() {
             <ShapeChangeRules />
           </section>
 
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>入れ子(お弁当)構造で見る角丸の大きさ</h2>
+            <p style={styles.diagramNote}>シートやダイアログの中にカード、その中にボタンや入力欄が入る、という入れ子の構造で角丸の大きさを比べます。<Hl>Googleは部品ごとに段階を割り当て、Appleは外枠から余白を引いて計算</Hl>します。</p>
+            <NestDiagram />
+          </section>
+
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― 角丸の決め方</h2>
             <ShapeChart />
@@ -667,6 +725,14 @@ export default function TokensShapePage() {
 }
 
 const styles = {
+  nestWrap: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: 16, border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px" },
+  nestCol: { minWidth: 0 },
+  nestHead: { fontSize: 12.5, fontWeight: 700, marginBottom: 8 },
+  nestTable: { width: "100%", borderCollapse: "collapse", fontSize: 11, marginTop: 8 },
+  nestVal: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#2F7D6E", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 52, whiteSpace: "nowrap" },
+  nestName: { fontFamily: "'IBM Plex Mono', monospace", color: "#7E86AC", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", width: 40 },
+  nestParts: { color: "#2E3457", padding: "4px 6px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.5 },
+  nestNote: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "8px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -55,7 +55,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
     position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。余白は4dp刻みを基本とする",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃え、画面端のマージンは幅がCompactで16dp、それ以外で24dpとされている(4dpグリッドとマージンの値は間接確認)。",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃える(4dpグリッドは間接確認)。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
     stance:
       "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
@@ -193,6 +193,130 @@ function BreakpointChart() {
   );
 }
 
+/* No.010: 画面の幅ごとの余白(Google)と、Appleの分割ビュー・tvOSのセーフエリアの図 */
+function MarginDiagram() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  const k = 0.16; // 1dp = 0.16px
+  const frames = [
+    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマホ縦)" },
+    { name: "Medium", w: 700, m: 24, panes: [{ f: 1 }], note: "600〜839dp(タブレット縦)" },
+    { name: "Expanded", w: 1000, m: 24, panes: [{ fixed: 360 }, { f: 1 }], note: "840〜1199dp" },
+    { name: "Large", w: 1400, m: 24, panes: [{ fixed: 412 }, { f: 1 }], note: "1200〜1599dp" },
+  ];
+  let x = 4;
+  const H = 120 * 1.0;
+  const items = frames.map((fr) => {
+    const W = fr.w * k, fx = x; x += W + 14;
+    const inner = W - fr.m * 2 * k;
+    const fixedW = fr.panes.reduce((a, p) => a + (p.fixed ? p.fixed * k : 0), 0);
+    const spacers = (fr.panes.length - 1) * 24 * k;
+    const flexW = inner - fixedW - spacers;
+    let px = fx + fr.m * k;
+    const panes = fr.panes.map((p, i) => {
+      const pw = p.fixed ? p.fixed * k : flexW;
+      const el = (
+        <g key={i}>
+          <rect x={px} y={30} width={pw} height={H - 26} rx="3" fill={p.fixed ? "#CFE3DD" : "#E3EDE9"} />
+          {p.fixed && <text x={px + pw / 2} y={30 + (H - 26) / 2} fontSize="7.5" textAnchor="middle" fill="#2F7D6E" fontFamily={mono}>{p.fixed}</text>}
+        </g>
+      );
+      px += pw + 24 * k;
+      return el;
+    });
+    return (
+      <g key={fr.name}>
+        <rect x={fx} y={22} width={W} height={H - 10} rx="5" fill="#FFFFFF" stroke="#7E86AC" />
+        {panes}
+        <text x={fx} y={14} fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>{fr.name}</text>
+        <text x={fx} y={H + 26} fontSize="7.5" fill="#7E86AC" fontFamily={font}>{fr.note}</text>
+        <text x={fx} y={H + 37} fontSize="7.5" fill="#2F7D6E" fontFamily={mono}>端 {fr.m}{fr.panes.length > 1 ? " / 間 24" : ""}</text>
+      </g>
+    );
+  });
+  return (
+    <svg viewBox={`0 0 ${x} ${H + 44}`} style={{ width: "100%", display: "block" }} role="img" aria-label="Googleの画面の幅ごとの余白とペインの図">
+      {items}
+    </svg>
+  );
+}
+
+function AppleLayoutDiagram() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const mono = "'IBM Plex Mono', monospace";
+  return (
+    <svg viewBox="0 0 400 130" style={{ width: "100%", maxWidth: 520, display: "block" }} role="img" aria-label="Appleの分割ビューとtvOSのセーフエリアの図">
+      <text x="0" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>分割ビュー(iPadOS・macOS)</text>
+      <rect x="0" y="20" width="190" height="96" rx="6" fill="#FFFFFF" stroke="#7E86AC" />
+      <rect x="4" y="24" width="48" height="88" rx="3" fill="#F4DDD3" />
+      <rect x="54" y="24" width="56" height="88" rx="3" fill="#F8ECE6" />
+      <rect x="112" y="24" width="74" height="88" rx="3" fill="#FCF6F3" />
+      <text x="28" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>サイドバー</text>
+      <text x="82" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
+      <text x="149" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
+      <text x="0" y="128" fontSize="7.5" fill="#7E86AC" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
+      <text x="216" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>tvOSのセーフエリア</text>
+      <rect x="216" y="20" width="176" height="99" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
+      <rect x={216 + 176 * (80 / 1920)} y={20 + 99 * (60 / 1080)} width={176 * (1 - 160 / 1920)} height={99 * (1 - 120 / 1080)} fill="#F8ECE6" stroke="#C2542A" strokeDasharray="3 2" />
+      <text x="304" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>主な内容はこの内側</text>
+      <text x="304" y="78" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={mono}>上下60pt・左右80pt</text>
+    </svg>
+  );
+}
+
+const LAYOUT_PATTERNS = [
+  { s: "Google", c: "#2F7D6E", t: "フィード(Feed)", d: "カードなどを格子状に並べ、たくさんの内容をざっと見せる", fig: "feed" },
+  { s: "Google", c: "#2F7D6E", t: "リスト・詳細(List-detail)", d: "一覧と、選んだ項目の詳細を左右に並べる", fig: "listdetail" },
+  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容(約3分の2)の横に、補助の内容を置く", fig: "support" },
+  { s: "Google", c: "#2F7D6E", t: "重ねる(Levitate)", d: "ペインを内容の上に浮かべ、カートの確認やコメントの返信など1つの作業に集中させる", fig: "levitate" },
+  { s: "Apple", c: "#C2542A", t: "分割ビュー(Split view)", d: "サイドバー・一覧・詳細の2〜3列で、階層を一度に見せる。広い画面(regular)向け", fig: "split" },
+  { s: "Apple", c: "#C2542A", t: "タブバー ↔ サイドバー", d: "広い画面では、タブバーをサイドバーに切り替えてよい(使える機能は変えない)", fig: "tabside" },
+  { s: "W3C", c: "#A3821F", t: "1列に組み替える(リフロー)", d: "幅320px相当でも、横スクロールなしで読めるようにする(1.4.10)", fig: "reflow" },
+  { s: "NN group", c: "#7A4F7E", t: "近接でまとめる", d: "関係するものを近づけ、別のグループとは余白で離す", fig: "proximity" },
+];
+function PatternFig({ k, c }) {
+  const box = (x, y, w, h, o = 1) => <rect x={x} y={y} width={w} height={h} rx="2" fill={c} opacity={o} />;
+  const f = {
+    feed: <>{[0, 1, 2].map((i) => [0, 1].map((j) => <g key={i + "" + j}>{box(6 + i * 22, 6 + j * 22, 18, 18, 0.35)}</g>))}</>,
+    listdetail: <>{[0, 1, 2, 3].map((i) => <g key={i}>{box(6, 6 + i * 11, 26, 8, i === 1 ? 0.7 : 0.3)}</g>)}{box(36, 6, 38, 41, 0.18)}</>,
+    support: <>{box(6, 6, 46, 41, 0.3)}{box(56, 6, 18, 41, 0.15)}</>,
+    levitate: <>{box(6, 6, 68, 41, 0.12)}{box(40, 12, 30, 30, 0.45)}</>,
+    split: <>{box(6, 6, 16, 41, 0.45)}{box(25, 6, 20, 41, 0.28)}{box(48, 6, 26, 41, 0.14)}</>,
+    tabside: <>{box(6, 6, 22, 41, 0.12)}{box(6, 40, 22, 7, 0.5)}<text x="33" y="30" fontSize="9" fill={c}>→</text>{box(44, 6, 9, 41, 0.45)}{box(55, 6, 19, 41, 0.15)}</>,
+    reflow: <>{box(6, 6, 30, 8, 0.3)}{box(6, 17, 30, 8, 0.3)}{box(6, 28, 30, 8, 0.3)}<text x="40" y="30" fontSize="9" fill={c}>→</text>{box(52, 6, 14, 41, 0.3)}</>,
+    proximity: <>{[0, 1].map((i) => <g key={i}>{box(6 + i * 9, 10, 7, 7, 0.5)}{box(6 + i * 9, 19, 7, 7, 0.5)}</g>)}{[0, 1].map((i) => <g key={"b" + i}>{box(46 + i * 9, 10, 7, 7, 0.5)}{box(46 + i * 9, 19, 7, 7, 0.5)}</g>)}</>,
+  };
+  return <svg viewBox="0 0 80 53" style={{ width: 96, height: 64, flexShrink: 0, border: "1px solid #E1E3F0", borderRadius: 4, background: "#FFFFFF" }} aria-hidden="true">{f[k]}</svg>;
+}
+
+function LayoutVisuals() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>余白とレイアウトを図で見る</h2>
+      <h3 style={styles.lvSub}>Google ― 画面の幅ごとの余白とペイン(dp)</h3>
+      <div style={styles.lvCard}><MarginDiagram /></div>
+      <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図です(出典: M3「Breakpoints」「Panes」)。</p>
+      <h3 style={styles.lvSub}>Apple ― 分割ビューとtvOSのセーフエリア</h3>
+      <div style={styles.lvCard}><AppleLayoutDiagram /></div>
+      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせます。固定の数値があるのはtvOSなど一部です(出典: HIG「Layout」「Split views」)。</p>
+      <h3 style={styles.lvSub}>レイアウトのパターン</h3>
+      <div style={styles.lvGrid}>
+        {LAYOUT_PATTERNS.map((p) => (
+          <div key={p.t} style={styles.lvPattern}>
+            <PatternFig k={p.fig} c={p.c} />
+            <div>
+              <div style={{ fontSize: 10.5, fontWeight: 700, color: p.c }}>{p.s}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>{p.t}</div>
+              <div style={{ fontSize: 11, lineHeight: 1.55, color: "#454C78" }}>{p.d}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.lvNote}>Googleの4つはM3「Canonical layout examples」、Appleの2つはHIG「Split views」「Layout」、W3Cは1.4.10、NN groupは近接の原則によります。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -271,6 +395,8 @@ export default function TokensLayoutSpacingPage() {
             <BreakpointChart />
             <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分です。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値です。単位(dp・pt・CSS px)は厳密には異なりますが、いずれも画面の密度に依存しない論理的な単位です。</p>
           </div>
+
+          <LayoutVisuals />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -372,6 +498,11 @@ export default function TokensLayoutSpacingPage() {
 }
 
 const styles = {
+  lvSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "14px 0 8px" },
+  lvCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", overflowX: "auto" },
+  lvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "6px 0 0" },
+  lvGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 8 },
+  lvPattern: { display: "flex", gap: 10, alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "8px 10px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },

@@ -411,6 +411,70 @@ function DarkElevationRules() {
   );
 }
 
+/* No.013: まず押さえる要点。画面見本の色はGoogleの基準の配色(G_ROLE_RULESと同じ値) */
+const KEY_POINTS = [
+  { n: 1, t: "切り替えは端末の設定に従う", d: "アプリ独自の切り替えを主にせず、端末のライト/ダークの設定に合わせる", who: "Apple・Google・NN groupの3系列。W3Cはどちらの見た目でもよい" },
+  { n: 2, t: "色を反転せず、役割ごとに作り直す", d: "背景と文字は明るさを入れ替えるが、色をそのまま反転はしない", who: "Appleは「単純な反転ではない」と明言。Googleは役割ごとにライト用とダーク用の明るさを決めている" },
+  { n: 3, t: "背景は真っ黒にしない", d: "濃いグレーにして、重なりや影を見えやすくし、目の負担を減らす", who: "Google(背景はトーン6 = #141218)" },
+  { n: 4, t: "アクセント色は暗い背景に合わせて明るく", d: "ボタンなどの色は反転せず、暗い背景で読める明るさ・淡さにする", who: "Google(Primaryはトーン40→80)・Apple(システムカラーにダーク用の値がある)" },
+  { n: 5, t: "重なりは影ではなく明るさで表す", d: "暗い画面では影が見えにくいため、手前の面ほど明るくする", who: "Google(背景6→ダイアログ17)・Apple(前面の画面はelevatedの明るい背景)・NN group" },
+  { n: 6, t: "コントラストはどちらの見た目でも同じ基準", d: "文字と背景は組で指定し、ライトでもダークでも4.5:1以上を保つ", who: "W3C(1.4.3)・Apple(最低4.5:1、独自の色は7:1を目指す)" },
+];
+function PhoneMock({ dark }) {
+  const c = dark
+    ? { bg: "#141218", text: "#E6E0E9", sub: "#CAC4D0", card: "#1D1B20", primary: "#D0BCFF", onPrimary: "#381E72", dialog: "#2B2930" }
+    : { bg: "#FEF7FF", text: "#1D1B20", sub: "#49454F", card: "#F7F2FA", primary: "#6750A4", onPrimary: "#FFFFFF", dialog: "#ECE6F0" };
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const num = (x, y, n) => (<g><circle cx={x} cy={y} r="7" fill="#3A4FCF" /><text x={x} y={y + 3} fontSize="8" fill="#FFFFFF" textAnchor="middle" fontWeight="700" fontFamily={font}>{n}</text></g>);
+  return (
+    <svg viewBox="0 0 170 250" style={{ width: "100%", maxWidth: 200 }} role="img" aria-label={dark ? "ダークの画面見本" : "ライトの画面見本"}>
+      <rect x="4" y="4" width="162" height="242" rx="18" fill={c.bg} stroke="#C7CBE6" />
+      <text x="18" y="34" fontSize="11" fontWeight="700" fill={c.text} fontFamily={font}>ホーム</text>
+      <rect x="16" y="46" width="138" height="62" rx="10" fill={c.card} filter={dark ? undefined : "url(#pmShadow)"} />
+      <text x="26" y="66" fontSize="9" fill={c.text} fontFamily={font}>カードの見出し</text>
+      <text x="26" y="80" fontSize="7.5" fill={c.sub} fontFamily={font}>補助の文字はやや控えめに</text>
+      <rect x="26" y="86" width="56" height="16" rx="8" fill={c.primary} />
+      <text x="54" y="97" fontSize="7.5" fill={c.onPrimary} textAnchor="middle" fontFamily={font}>保存</text>
+      <rect x="30" y="128" width="110" height="74" rx="14" fill={c.dialog} filter={dark ? undefined : "url(#pmShadow2)"} />
+      <text x="42" y="150" fontSize="9" fill={c.text} fontFamily={font}>ダイアログ</text>
+      <text x="42" y="164" fontSize="7.5" fill={c.sub} fontFamily={font}>手前の面</text>
+      <text x="128" y="192" fontSize="8" fill={c.primary} textAnchor="end" fontFamily={font}>OK</text>
+      <defs>
+        <filter id="pmShadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="1" stdDeviation="1.5" floodOpacity="0.2" /></filter>
+        <filter id="pmShadow2" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" floodOpacity="0.25" /></filter>
+      </defs>
+      {dark && <>{num(150, 20, 3)}{num(92, 94, 4)}{num(146, 132, 5)}{num(150, 70, 6)}</>}
+    </svg>
+  );
+}
+function DarkKeyPoints() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>まず押さえる要点</h2>
+      <div style={styles.kpWrap}>
+        <div style={styles.kpMocks}>
+          <div style={{ textAlign: "center" }}><PhoneMock dark={false} /><div style={styles.kpLabel}>ライト</div></div>
+          <div style={styles.kpArrow}>→</div>
+          <div style={{ textAlign: "center" }}><PhoneMock dark /><div style={styles.kpLabel}>ダーク(3〜6は右の要点の番号)</div></div>
+        </div>
+        <ol style={styles.kpList}>
+          {KEY_POINTS.map((k) => (
+            <li key={k.n} style={styles.kpItem}>
+              <span style={styles.kpNum}>{k.n}</span>
+              <div>
+                <div style={styles.kpTitle}>{k.t}</div>
+                <div style={styles.kpText}>{k.d}</div>
+                <div style={styles.kpWho}>{k.who}</div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p style={styles.chartNote}>画面見本の色は、Googleの基準の配色の実際の値(背景・カード・ダイアログ・Primary・文字)です。このあと、4系列の比較図、詳しい比較表、役割ごとの色の変わり方、暗い画面での重なりの表し方の順に詳しく見ていきます。</p>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -482,7 +546,7 @@ export default function TokensDarkModePage() {
             rows={ABOUT}
           />
 
-
+          <DarkKeyPoints />
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四サイト比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
@@ -607,6 +671,16 @@ export default function TokensDarkModePage() {
 }
 
 const styles = {
+  kpWrap: { display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px" },
+  kpMocks: { display: "flex", alignItems: "center", gap: 8, flex: "1 1 360px", justifyContent: "center" },
+  kpArrow: { fontSize: 18, color: "#9EA4C4" },
+  kpLabel: { fontSize: 11, color: "#565D8A", marginTop: 4 },
+  kpList: { listStyle: "none", margin: 0, padding: 0, flex: "1 1 340px", display: "flex", flexDirection: "column", gap: 8 },
+  kpItem: { display: "flex", gap: 10, alignItems: "flex-start" },
+  kpNum: { flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: "#3A4FCF", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
+  kpTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
+  kpText: { fontSize: 12, lineHeight: 1.6, color: "#2E3457" },
+  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#7E86AC" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
