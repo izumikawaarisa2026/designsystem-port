@@ -686,10 +686,11 @@ const TAB_STYLES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttonsページ「Role」",
+    term: "Button(役割はNormal・Primary・Cancel・Destructive)",
     position: "意味的な役割で4分類(Normal/Primary/Cancel/Destructive)",
     stance:
-      "ボタンには「Role(役割)」という概念があり、Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類に分類しています。役割によって見た目も変わり、たとえばPrimaryはアプリのアクセントカラーを、Destructiveはシステムの赤を使います。",
-    exceptions: "破壊的な操作(Destructive)には、それが選ばれやすい操作であってもPrimaryの役割を割り当てるべきではないとしています。見た目の目立ちやすさゆえに、内容を読まずに選んでしまう危険があるためです。",
+      <>ボタンには「Role(役割)」という概念があり、<Hl>Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類に分類している</Hl>。役割によって見た目も変わり、たとえばPrimaryはアプリのアクセントカラーを、Destructiveはシステムの赤を使う。</>,
+    exceptions: "破壊的な操作(Destructive)には、それが選ばれやすい操作であってもPrimaryの役割を割り当てるべきではないとしている。見た目の目立ちやすさゆえに、内容を読まずに選んでしまう危険があるため。",
     pourDetail: "―(役割分類そのものはPOURの適合区分ではないが、誤操作防止という点で理解可能性に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
@@ -706,9 +707,10 @@ const TAB_STYLES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― 5種類のボタン",
+    term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      "①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義しています。番号は公式の並び順です(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明しています)。見た目で最も目立つのはFilledです。",
+      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義している</Hl>。番号は公式の並び順(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明している)。見た目で最も目立つのはFilled。</>,
     exceptions: "Elevatedは実質的にFilled tonalに影を加えたものと位置づけられており、背景と視覚的に分離する必要がある場合に限って使うべきとしています(影の使いすぎを避けるため)。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
@@ -734,11 +736,12 @@ const TAB_STYLES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.11",
+    term: "button(WAI-ARIAのロール)/ HTMLのbutton要素",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
-      "ボタンの視覚的な「種類」を分類する基準は持っていません。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わります。",
-    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理です。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかります。",
-    pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準です。",
+      "ボタンの視覚的な「種類」を分類する基準は持っていない。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わる。",
+    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかる。",
+    pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
     illustration: () => (
@@ -758,11 +761,12 @@ const TAB_STYLES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Similarity Principle in Visual Design",
+    term: "Button(主要な操作=Primary、副次的な操作=Secondary)",
     position: "色による優先度づけ(数値基準ではなく原則)",
     stance:
-      "主要な操作(Primary)には専用の色を確保し、副次的な操作(Secondary)と視覚的に区別すべきとしています。同じ色のボタンが並んでいると、ユーザーはそれらを同じ重要度だと知覚してしまうため、主要な操作を見分けにくくなると指摘しています。",
-    exceptions: "特定のボタン形状(塗り・枠線・文字のみなど)を推奨する基準ではなく、色による優先度の伝え方についての原則です。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、視覚的知覚(ゲシュタルトの類同の原理)に基づく設計根拠です。",
+      <><Hl>主要な操作(Primary)には専用の色を確保し</Hl>、副次的な操作(Secondary)と視覚的に区別すべきとしている。同じ色のボタンが並んでいると、ユーザーはそれらを同じ重要度だと知覚してしまうため、主要な操作を見分けにくくなると指摘している。</>,
+    exceptions: "特定のボタン形状(塗り・枠線・文字のみなど)を推奨する基準ではなく、色による優先度の伝え方についての原則。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、視覚的知覚(ゲシュタルトの類同の原理)に基づく設計根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
     illustration: () => (
@@ -781,9 +785,9 @@ const TAB_STATES = [
     doc: "Human Interface Guidelines ― Buttonsページ",
     position: "個別の状態名を列挙せず、システム標準の挙動に委ねる",
     stance:
-      "Enabled/Hover/Pressedのような状態を個別に定義するのではなく、システムが提供する標準の見た目・挙動を使うことを基本方針としています。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内しています。",
-    exceptions: "配信中の状態を示す際、ボタンの画像を隠してインジケーターとラベルを表示する、という具体的な切り替え方法が示されています。",
-    pourDetail: "理解可能(Understandable) ― 処理中であることを伝える点は理解可能性に関わります。",
+      <>Enabled/Hover/Pressedのような状態を個別に定義するのではなく、<Hl>システムが提供する標準の見た目・挙動を使うことを基本方針としている</Hl>。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内している。</>,
+    exceptions: "配信中の状態を示す際、ボタンの画像を隠してインジケーターとラベルを表示する、という具体的な切り替え方法が示されている。",
+    pourDetail: "理解可能(Understandable) ― 処理中であることを伝える点は理解可能性に関わる。",
     searchHint: "activity indicator",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
     illustration: () => (
@@ -800,9 +804,9 @@ const TAB_STATES = [
     doc: "Material Design 3 ― Interaction states",
     position: "6つの状態を体系化(Enabled/Disabled/Hover/Focused/Pressed/Dragged)",
     stance:
-      "すべてのインタラクティブ要素に共通する「状態レイヤー(state layer)」という仕組みで、Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理しています。Disabled状態は、有効時は強いコントラストのコンテナと文字を持つのに対し、無効時はグレー地にグレー文字という低コントラストで表現される、という具体例が示されています。",
-    exceptions: "Draggedは主にドラッグ操作が可能な要素(FABなど)向けの状態で、通常のボタンには適用されない場合があります。",
-    pourDetail: "知覚可能・操作可能 ― 状態を視覚的に区別できることは知覚可能性に、操作可否を伝えることは操作可能性に関わります。",
+      <>すべてのインタラクティブ要素に共通する「状態レイヤー(state layer)」という仕組みで、<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理している</Hl>。Disabled状態は、有効時は強いコントラストのコンテナと文字を持つのに対し、無効時はグレー地にグレー文字という低コントラストで表現される、という具体例が示されている。</>,
+    exceptions: "Draggedは主にドラッグ操作が可能な要素(FABなど)向けの状態で、通常のボタンには適用されない場合がある。",
+    pourDetail: "知覚可能・操作可能 ― 状態を視覚的に区別できることは知覚可能性に、操作可否を伝えることは操作可能性に関わる。",
     searchHint: "state layer",
     url: "https://m3.material.io/foundations/interaction/states/overview",
     illustration: () => (
@@ -822,9 +826,9 @@ const TAB_STATES = [
     doc: "WCAG 4.1.2 / 1.4.11",
     position: "状態を支援技術に正しく伝えることを要求",
     stance:
-      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めています。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求めます。",
-    exceptions: "標準的なHTMLのbutton要素を使っていれば、多くの場合ブラウザが自動的にこれらの情報を提供します。独自にデザインしたカスタムボタンでのみ追加対応が必要です。",
-    pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」に対応する達成基準です。",
+      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めている。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求める。",
+    exceptions: "標準的なHTMLのbutton要素を使っていれば、多くの場合ブラウザが自動的にこれらの情報を提供する。独自にデザインしたカスタムボタンでのみ追加対応が必要。",
+    pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」に対応する達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     illustration: () => (
@@ -840,9 +844,9 @@ const TAB_STATES = [
     doc: "Button States: Communicate Interaction",
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
-      "Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態を、押せるかどうかをユーザーに正しく伝えるための仕組みとして整理しています。Enabled状態は背景と文字の高いコントラスト、はっきり読めるラベルを特徴とするとしています。",
-    exceptions: "この5つのほかに、処理中を示すLoadingと、選ばれていることを示すSelectedの状態にも触れています。また「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促しています。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠です。",
+      <><Hl>Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態</Hl>を、押せるかどうかをユーザーに正しく伝えるための仕組みとして整理している。Enabled状態は背景と文字の高いコントラスト、はっきり読めるラベルを特徴とするとしている。</>,
+    exceptions: "この5つのほかに、処理中を示すLoadingと、選ばれていることを示すSelectedの状態にも触れている。また「状態(States)」と「種類・見た目のスタイル(Styles)」を明確に別の概念として区別しており、両者を混同しないよう注意を促している。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
     illustration: () => (
@@ -946,6 +950,7 @@ function ButtonTabContent({ tabId }) {
               </div>
             )}
           </div>
+          {!tab.hasScale && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
           <p style={styles.sourceStance}>{s.stance}</p>
           <div style={styles.exceptionBox}>
@@ -997,6 +1002,8 @@ function ButtonTabContent({ tabId }) {
             </>
           ) : (
             <>
+              <div style={styles.labelCell}>名称</div>
+              {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
               <div style={styles.labelCell}>位置づけ</div>
               {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
               <div style={styles.labelCell}>見た目イメージ</div>
@@ -1054,6 +1061,29 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>別のページへ移動するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "ボタンの種類は、何で分ける?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "操作の意味(役割)で4つに分ける。Normal・Primary(最も選ばれやすい既定の操作)・Cancel・Destructive(削除など)。役割に応じて色が変わる" },
+      { who: "Google", color: "#2F7D6E", t: "どれだけ目立たせるか(優先度)で5つに分ける。Elevated・Filled・Filled tonal・Outlined・Text" },
+      { who: "NN group", color: "#7A4F7E", t: "種類の決まりはなく、主要な操作には専用の色を当てて、副次的な操作と見分けられるようにする" },
+    ],
+    tip: "「何の操作か(Apple)」と「どれだけ目立たせるか(Google)」は両立します。まず操作の意味を決め、そのうえで画面の中の優先度で見た目を選びます。削除のような操作は、選ばれやすくても目立つ見た目にしない(Apple)点に気をつけます。",
+  },
+  {
+    q: "押せる範囲の最小は?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のある部品で約12pt)で補う" },
+      { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
+      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
+      { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
+    ],
+    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違います。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにします(詳しくは「アクセシビリティ」のタブ)。",
+  },
+];
+
 function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -1085,6 +1115,10 @@ function ActionsButtonPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
 
           {isStatic && (
             <nav style={styles.segmented} aria-label="比較する項目へ移動">
@@ -1136,6 +1170,8 @@ function ActionsButtonPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
@@ -1216,11 +1252,12 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttons(visionOS)",
+    term: <NoData>FABに当たる部品なし(visionOSの浮かぶボタンが近い)</NoData>,
     color: "#C2542A",
     position: "iOS/iPadOSには無いが、visionOSには近い概念がある",
     size: "visionOS: Mini(28pt)/Small(32pt)/Regular(44pt)/Large(52pt)/Extra large(64pt)の5段階。※visionOS固有の概念であり、MaterialのFABと同一の概念ではない点に注意(参考情報として掲載)。",
     stance:
-      "iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。",
+      <><Hl>iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない</Hl>。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。</>,
     exceptions:
       "5段階のサイズは円形・カプセル型・角丸長方形すべてに共通する一般的なボタンサイズの規定であり、「浮かせる」ときだけの専用サイズではない。また、ボタン同士は中心間で60pt以上離すべきという配置の指針もある。なお、macOSにある「Image button(画像ボタン)」は名称が紛らわしいが、これは単なる画像アイコンのボタンでiOS向けではなく、FABの浮遊感・主役性とは異なる概念。",
     pourDetail: "―(FABという分類自体がHIGに存在しないため、POUR上の分類も定義されていない)",
@@ -1244,11 +1281,12 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― FAB(3サイズ)",
+    term: "FAB(Floating action button)。文字のラベル付きはExtended FAB",
     color: "#2F7D6E",
     position: "3サイズ(FAB 56dp / Medium 80dp / Large 96dp)",
     size: "FAB 56dp / Medium FAB 80dp(最も推奨) / Large FAB 96dp。アイコンの大きさは、MDC Androidでは FAB 24dp・Medium FAB 28dp・Large FAB 36dp。",
     stance:
-      "画面上で最も重要な操作に使うボタンで、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。",
+      <><Hl>画面上で最も重要な操作に使うボタン</Hl>で、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。</>,
     exceptions:
       "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。なお、アイコンに文字のラベルを添えたい場合は、「Extended FAB」という別の部品が用意されている。",
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して最低3:1のコントラスト比を確保すべきとされており、知覚可能性に関わる。フォーカス順序で優先的に扱うべきという点は操作可能性に関わる。",
@@ -1270,11 +1308,12 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.5.5 / 2.5.8",
+    term: <NoData>専用の名称なし(ボタンとして扱う)</NoData>,
     color: "#A3821F",
     position: "ボタンページと同一の一般基準を適用",
     size: "―(FAB固有のサイズ規定はない。一般的なタップ領域基準は下記アクセシビリティ欄を参照)",
     stance:
-      "WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める(どちらも例外あり。詳細は「ボタン」ページ参照)。",
+      <>WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。<Hl>レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
     exceptions:
       "「ボタン」ページと同じく、2.5.8(AA)には5つの例外がある: ①間隔(24px未満なら、中心に直径24pxの円を描いて隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の追加規定はない。",
     pourDetail: "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、入力方法(2.5)の達成基準。",
@@ -1297,6 +1336,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "UI Elements Glossary",
+    term: "Floating Button(Floating Action Button、FAB)",
     color: "#7A4F7E",
     position: "用語集項目としての定義のみ(数値基準なし)",
     size: "―(用語集にサイズの数値記載なし)",
@@ -1449,6 +1489,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の中の普通の操作は<PageLink to="/components/actions/button">ボタン</PageLink>。FABは1画面に1つ、主な操作だけに使う</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "画面に常に浮かぶ、主な操作のボタンを置く?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
+      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たる部品がない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
+    ],
+    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形です。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえます。",
+  },
+  {
+    q: "大きさはどれくらい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
+      { who: "Apple(visionOS)", color: "#C2542A", t: "ボタン全般の5段階(28〜64pt)。FAB専用の大きさはない" },
+      { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
+    ],
+    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たします。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつけます(重なりについては「エレベーション」ページ)。",
+  },
+];
+
 function ActionsFabPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -1478,6 +1539,8 @@ function ActionsFabPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <FabGuide />
@@ -1502,6 +1565,7 @@ function ActionsFabPage() {
                   </div>
                 </div>
                 {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <div style={styles.sizeBox}>
                   <span style={styles.exceptionLabel}>ボタンサイズ</span>
@@ -1539,6 +1603,8 @@ function ActionsFabPage() {
                 ))}
                 <div style={styles.labelCell}>ボタンのイメージ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>ボタンサイズ</div>
@@ -1591,6 +1657,8 @@ function ActionsFabPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   fgNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   fgGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 8, marginBottom: 6 },
   fgCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
@@ -1673,6 +1741,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines",
+    term: "専用の部品なし。リンクの文字色(Link)をシステムカラーとして持つ",
     color: "#C2542A",
     position: "文言による目的の明確化(数値基準なし)",
     stance:
@@ -1698,10 +1767,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text button(最も近い相当物)",
+    term: "専用の部品なし。最も近いのはText button",
     color: "#2F7D6E",
     position: "独立したLinkコンポーネントはなく、「Text button」が最も近い",
     stance:
-      "独立した「Link」コンポーネントはない。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。",
+      <><Hl>独立した「Link」コンポーネントはない</Hl>。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。</>,
     exceptions: "「Text button」はあくまでボタン(操作)の一種であり、文中に埋め込む本来のハイパーリンクとは位置づけが異なる。この点を踏まえ、厳密な意味での「リンク」の独立ガイダンスは見当たらない、という理解が正確。",
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
@@ -1725,10 +1795,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.4.4 / 2.4.9 / 1.4.1 / 3.2.4",
+    term: "link(WAI-ARIAのロール)/ HTMLのa要素",
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
-      "2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。",
+      <>2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。<Hl>1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する</Hl>。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。</>,
     exceptions:
       "2.4.4は、リンクの文言だけで、または同じ文・段落などの文脈と合わせて目的が分かればよい。例外は、ページ上の情報だけでは誰にとっても目的が分からないリンク(その場合は求められない)。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が必要になる(テクニックG183)。いちばん確実なのは下線を付けること。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」の中のナビゲーションに関する達成基準として分類される。 3.2.4は「理解可能」の予測可能性(3.2)に分類される。",
@@ -1762,10 +1833,11 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Guidelines for Visualizing Links",
+    term: "Link(リンク)",
     color: "#7A4F7E",
     position: "色+下線による視認性(数値基準ではなく原則としての言及)",
     stance:
-      "記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、リンクテキストに色と下線の両方を付けるとよいとしている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。",
+      <>記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>としている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。</>,
     exceptions:
       "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年3月の編注では、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)と補足し、記事の見た目の推奨は出発点として扱うよう書いている。なお、現在のW3CのG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版にあった条件。",
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色のみによる区別の禁止)を関連基準として明示的に引用している。",
@@ -1867,6 +1939,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>その場で処理を実行する(保存・送信など)なら<PageLink to="/components/actions/button">ボタン</PageLink>。リンクは「移動」に使う</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "リンクに下線は必要?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の補足で、下線は必須ではないとした" },
+      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字と3:1以上の明度の差が必要(1.4.1・G183)。下線を付けるのがいちばん確実" },
+      { who: "Apple", color: "#C2542A", t: "リンク専用の決まりはなく、全体の方針として、色だけに頼らず形やアイコンなどの手がかりを足すよう求めている" },
+    ],
+    tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違いません。下線をなくす場合は、周りの文字との3:1の差を確かめます。",
+  },
+  {
+    q: "リンクの文言だけで行き先が分かる必要がある?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "「ここをタップ」のような曖昧な文言は避け、「◯◯について詳しく見る」のように行き先や機能が分かる言葉にする" },
+      { who: "W3C", color: "#A3821F", t: "レベルAA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
+    ],
+    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせます。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全です。",
+  },
+];
+
 function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -1895,6 +1988,8 @@ function ActionsLinkPage() {
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <SplitSection splits={SPLITS} />
 
 
 
@@ -1925,6 +2020,7 @@ function ActionsLinkPage() {
                   {s.illustration && s.illustration()}
                   <TapMini k={s.key} color={s.color} />
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <div style={styles.exceptionBox}>
@@ -1971,6 +2067,8 @@ function ActionsLinkPage() {
                   <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}
 
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>
@@ -2032,6 +2130,8 @@ function ActionsLinkPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   criteriaLegend: { fontSize: 10.5, color: "#7E86AC", margin: "0 0 6px" },
   criteriaList: { margin: "10px 0", borderTop: "1px solid #EEF0F7" },
   criteriaItem: { display: "grid", gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 10, padding: "8px 0", borderBottom: "1px solid #EEF0F7" },

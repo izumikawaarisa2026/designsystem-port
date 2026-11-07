@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -19,6 +19,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines",
+    term: "専用の部品なし。リンクの文字色(Link)をシステムカラーとして持つ",
     color: "#C2542A",
     position: "文言による目的の明確化(数値基準なし)",
     stance:
@@ -44,10 +45,11 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Text button(最も近い相当物)",
+    term: "専用の部品なし。最も近いのはText button",
     color: "#2F7D6E",
     position: "独立したLinkコンポーネントはなく、「Text button」が最も近い",
     stance:
-      "独立した「Link」コンポーネントはない。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。",
+      <><Hl>独立した「Link」コンポーネントはない</Hl>。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。</>,
     exceptions: "「Text button」はあくまでボタン(操作)の一種であり、文中に埋め込む本来のハイパーリンクとは位置づけが異なる。この点を踏まえ、厳密な意味での「リンク」の独立ガイダンスは見当たらない、という理解が正確。",
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
@@ -71,10 +73,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.4.4 / 2.4.9 / 1.4.1 / 3.2.4",
+    term: "link(WAI-ARIAのロール)/ HTMLのa要素",
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
-      "2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。",
+      <>2.4.4(レベルA)は、リンクの目的がリンクテキスト単体、またはリンクテキストと周囲の文脈から判別できることを求める。より厳格な2.4.9(レベルAAA)は、リンクテキスト単体だけで目的が分かることを求める。<Hl>1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する</Hl>。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けないことが基本。ただし文言が完全に同じである必要はなく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。</>,
     exceptions:
       "2.4.4は、リンクの文言だけで、または同じ文・段落などの文脈と合わせて目的が分かればよい。例外は、ページ上の情報だけでは誰にとっても目的が分からないリンク(その場合は求められない)。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が必要になる(テクニックG183)。いちばん確実なのは下線を付けること。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」の中のナビゲーションに関する達成基準として分類される。 3.2.4は「理解可能」の予測可能性(3.2)に分類される。",
@@ -108,10 +111,11 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Guidelines for Visualizing Links",
+    term: "Link(リンク)",
     color: "#7A4F7E",
     position: "色+下線による視認性(数値基準ではなく原則としての言及)",
     stance:
-      "記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、リンクテキストに色と下線の両方を付けるとよいとしている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。",
+      <>記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>としている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。</>,
     exceptions:
       "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年3月の編注では、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)と補足し、記事の見た目の推奨は出発点として扱うよう書いている。なお、現在のW3CのG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版にあった条件。",
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色のみによる区別の禁止)を関連基準として明示的に引用している。",
@@ -213,6 +217,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>その場で処理を実行する(保存・送信など)なら<PageLink to="/components/actions/button">ボタン</PageLink>。リンクは「移動」に使う</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "リンクに下線は必要?",
+    sides: [
+      { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の補足で、下線は必須ではないとした" },
+      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字と3:1以上の明度の差が必要(1.4.1・G183)。下線を付けるのがいちばん確実" },
+      { who: "Apple", color: "#C2542A", t: "リンク専用の決まりはなく、全体の方針として、色だけに頼らず形やアイコンなどの手がかりを足すよう求めている" },
+    ],
+    tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違いません。下線をなくす場合は、周りの文字との3:1の差を確かめます。",
+  },
+  {
+    q: "リンクの文言だけで行き先が分かる必要がある?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "「ここをタップ」のような曖昧な文言は避け、「◯◯について詳しく見る」のように行き先や機能が分かる言葉にする" },
+      { who: "W3C", color: "#A3821F", t: "レベルAA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
+    ],
+    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせます。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全です。",
+  },
+];
+
 export default function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -246,6 +271,8 @@ export default function ActionsLinkPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           {/* mobile: unified card stack (position + criteria + stance + exceptions + a11y + links, all in one card) */}
@@ -275,6 +302,7 @@ export default function ActionsLinkPage() {
                   {s.illustration && s.illustration()}
                   <TapMini k={s.key} color={s.color} />
                 </div>
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <div style={styles.exceptionBox}>
@@ -321,6 +349,8 @@ export default function ActionsLinkPage() {
                   <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}
 
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>
@@ -382,6 +412,8 @@ export default function ActionsLinkPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   criteriaLegend: { fontSize: 10.5, color: "#7E86AC", margin: "0 0 6px" },
   criteriaList: { margin: "10px 0", borderTop: "1px solid #EEF0F7" },
   criteriaItem: { display: "grid", gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 10, padding: "8px 0", borderBottom: "1px solid #EEF0F7" },

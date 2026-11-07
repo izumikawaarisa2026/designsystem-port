@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / フローティングアクションボタン(FAB)」ページ。
@@ -18,11 +18,12 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttons(visionOS)",
+    term: <NoData>FABに当たる部品なし(visionOSの浮かぶボタンが近い)</NoData>,
     color: "#C2542A",
     position: "iOS/iPadOSには無いが、visionOSには近い概念がある",
     size: "visionOS: Mini(28pt)/Small(32pt)/Regular(44pt)/Large(52pt)/Extra large(64pt)の5段階。※visionOS固有の概念であり、MaterialのFABと同一の概念ではない点に注意(参考情報として掲載)。",
     stance:
-      "iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。",
+      <><Hl>iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない</Hl>。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。</>,
     exceptions:
       "5段階のサイズは円形・カプセル型・角丸長方形すべてに共通する一般的なボタンサイズの規定であり、「浮かせる」ときだけの専用サイズではない。また、ボタン同士は中心間で60pt以上離すべきという配置の指針もある。なお、macOSにある「Image button(画像ボタン)」は名称が紛らわしいが、これは単なる画像アイコンのボタンでiOS向けではなく、FABの浮遊感・主役性とは異なる概念。",
     pourDetail: "―(FABという分類自体がHIGに存在しないため、POUR上の分類も定義されていない)",
@@ -46,11 +47,12 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― FAB(3サイズ)",
+    term: "FAB(Floating action button)。文字のラベル付きはExtended FAB",
     color: "#2F7D6E",
     position: "3サイズ(FAB 56dp / Medium 80dp / Large 96dp)",
     size: "FAB 56dp / Medium FAB 80dp(最も推奨) / Large FAB 96dp。アイコンの大きさは、MDC Androidでは FAB 24dp・Medium FAB 28dp・Large FAB 36dp。",
     stance:
-      "画面上で最も重要な操作に使うボタンで、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。",
+      <><Hl>画面上で最も重要な操作に使うボタン</Hl>で、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。</>,
     exceptions:
       "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。なお、アイコンに文字のラベルを添えたい場合は、「Extended FAB」という別の部品が用意されている。",
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して最低3:1のコントラスト比を確保すべきとされており、知覚可能性に関わる。フォーカス順序で優先的に扱うべきという点は操作可能性に関わる。",
@@ -72,11 +74,12 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.5.5 / 2.5.8",
+    term: <NoData>専用の名称なし(ボタンとして扱う)</NoData>,
     color: "#A3821F",
     position: "ボタンページと同一の一般基準を適用",
     size: "―(FAB固有のサイズ規定はない。一般的なタップ領域基準は下記アクセシビリティ欄を参照)",
     stance:
-      "WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める(どちらも例外あり。詳細は「ボタン」ページ参照)。",
+      <>WCAGはボタンの形状や配置(浮動か否か)を区別せず、すべてのタップ可能な要素に同一のターゲットサイズ基準を適用する。<Hl>レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
     exceptions:
       "「ボタン」ページと同じく、2.5.8(AA)には5つの例外がある: ①間隔(24px未満なら、中心に直径24pxの円を描いて隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の追加規定はない。",
     pourDetail: "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、入力方法(2.5)の達成基準。",
@@ -99,6 +102,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "UI Elements Glossary",
+    term: "Floating Button(Floating Action Button、FAB)",
     color: "#7A4F7E",
     position: "用語集項目としての定義のみ(数値基準なし)",
     size: "―(用語集にサイズの数値記載なし)",
@@ -251,6 +255,27 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の中の普通の操作は<PageLink to="/components/actions/button">ボタン</PageLink>。FABは1画面に1つ、主な操作だけに使う</> },
 ];
 
+/* 意見が分かれる点 */
+const SPLITS = [
+  {
+    q: "画面に常に浮かぶ、主な操作のボタンを置く?",
+    sides: [
+      { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
+      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たる部品がない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
+    ],
+    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形です。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえます。",
+  },
+  {
+    q: "大きさはどれくらい?",
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
+      { who: "Apple(visionOS)", color: "#C2542A", t: "ボタン全般の5段階(28〜64pt)。FAB専用の大きさはない" },
+      { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
+    ],
+    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たします。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつけます(重なりについては「エレベーション」ページ)。",
+  },
+];
+
 export default function ActionsFabPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -284,6 +309,8 @@ export default function ActionsFabPage() {
             rows={ABOUT}
           />
 
+          <SplitSection splits={SPLITS} />
+
 
 
           <FabGuide />
@@ -308,6 +335,7 @@ export default function ActionsFabPage() {
                   </div>
                 </div>
                 {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <div style={styles.sizeBox}>
                   <span style={styles.exceptionLabel}>ボタンサイズ</span>
@@ -345,6 +373,8 @@ export default function ActionsFabPage() {
                 ))}
                 <div style={styles.labelCell}>ボタンのイメージ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>))}
+                <div style={styles.labelCell}>名称</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>ボタンサイズ</div>
@@ -397,6 +427,8 @@ export default function ActionsFabPage() {
 }
 
 const styles = {
+  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
+  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   fgNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
   fgGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 8, marginBottom: 6 },
   fgCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
