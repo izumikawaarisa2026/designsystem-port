@@ -12260,7 +12260,7 @@ function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleには該当する部品がない)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。W3CはAPGのDialogパターンを主リンクに、4.1.2とMDNのaria-haspopup解説を併記、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。
@@ -15739,7 +15739,7 @@ function NavigationNavBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認。「アプリバー」ページで扱うApple「Toolbars」は間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはTab Barsページへのリンクです(「タブ」ページと同じ一次情報)。WCAGはWAI-ARIA Landmark Regionsの実践ガイド、NN groupは記事ページ単位です。Googleは下部Navigation barの最新版(M3)公式ページへリンクしており本文は確認済みですが、高さなどのspecs数値はまだ確認できていません。上部アプリバーおよびAppleのToolbarsページへのリンクは「アプリバー」ページに記載しています。
@@ -19911,7 +19911,7 @@ const SOURCES = [
       { label: "MDC Android: Date pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/DatePicker.md" },
       { label: "MDC Android: Time pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/TimePicker.md" },
     ],
-    confirmedNote: "日付ピッカー3種類・期間選択・時刻ピッカー2種類・色の既定値は、Material Components for Androidのドキュメントで直接確認(2026-09)。「生年月日にはモーダルを使わない」という指針のみ検索結果による間接確認。m3.material.io本文はSPAのため直接取得はできていない。",
+    confirmedNote: "日付ピッカー3種類・期間選択・時刻ピッカー2種類・色の既定値は、Material Components for Androidのドキュメントで直接確認(2026-09)。「生年月日にはモーダルを使わない」はM3 Date pickersのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="90" height="46" viewBox="0 0 90 46">
         <rect x="1" y="1" width="88" height="44" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
@@ -20472,7 +20472,7 @@ function SelectionDateTimePickerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認、「生年月日にはモーダルを使わない」の指針のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認。「生年月日にはモーダルを使わない」はM3の本文で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPickersページの「iOS, iPadOS」見出しへのアンカー付きリンクで、Best practices・macOSの見出しも併記しています。WCAGはWAI-ARIA APGのDate Picker Dialog実例、NN groupは記事ページ単位です。GoogleはDate pickersの最新版(M3)公式ページに加え、Time pickersと、内容を確認したMaterial Components for Androidのドキュメントを併記しています。
@@ -20630,9 +20630,9 @@ const SOURCES = [
     stance:
       "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
     exceptions:
-      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照してください。",
+      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
     accessibility:
-      <span><NoData>記載なし。</NoData>M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていない。項目の高さ48dpは、押せる範囲の最小(48dp)と同じ値。</span>,
+      "知覚可能・操作可能 ― 選んだ項目は、既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど、色以外の手がかりも添えることを勧めている。押せる範囲は48×48dp以上。メニューを開いたら最初の項目にフォーカスを置く(M3 Menusのアクセシビリティのページで確認、2026-11)。",
     useCases: [
       "項目は48dpの高さ、メニューは112〜280dpの幅にする",
       "先頭にアイコン、末尾にショートカットの文字を置ける",
@@ -20646,7 +20646,7 @@ const SOURCES = [
       { label: "Compose Material 3: Menu.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/Menu.kt" },
       { label: "Compose Material 3: MenuTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MenuTokens.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "アクセシビリティはM3 Menusのページの本文(2026-11)、種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで確認(2026-10)。",
   },
   {
     key: "wcag",
@@ -22760,7 +22760,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "標準・中央揃え・範囲指定の3種類。横/縦・埋め込みアイコンに対応(サイズの詳細は下記「サイズ」を参照)",
     size:
-      "つまみ(handle)の既定タップ領域は48dp。チェックボックス・ラジオボタン・スイッチと同じ48dp基準。5つのサイズバリエーションを持つとしているが、具体的な各サイズのdp数値はこのテキストに含まれておらず未確認。トラック・つまみの見た目サイズ(dp単位)自体も、m3.material.ioのspecsページ本文がSPAのため未確認。",
+      "つまみ(handle)の既定タップ領域は48dp。チェックボックス・ラジオボタン・スイッチと同じ48dp基準。5つのサイズバリエーションを持つとしているが、具体的な各サイズのdp数値はこのテキストに含まれておらず未確認。トラック・つまみの見た目の大きさ(dp)も未確認。",
     colorInfo:
       "アクティブなトラック(最小値からつまみまで)と非アクティブなトラック(つまみから最大値まで)を区別して塗り分けるとしている。非アクティブなトラックの端(エンドストップ)は、背景との間で少なくとも3:1のコントラスト比を確保すべきとしており、非アクティブなトラック自体が既にこの比率を満たしていれば、エンドストップは省略できるとしている。",
     glossary: [
@@ -24000,7 +24000,7 @@ const SOURCES = [
       { label: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
     ],
     confirmedNote:
-      "UIDatePickerStyle.inlineの技術文書、およびiOS 14で.inline/.compactが追加された経緯についての検索結果による確認(2026-09)。HIGの「Pickers」ページ本文でこのスタイルが明示的に扱われているかどうかは、同ページがSPAのため直接確認できていない。",
+      "HIG Pickersの本文(iOS・iPadOSの日付ピッカーのコンパクト・インライン・ホイール・自動のスタイル)と、UIDatePickerStyleの技術文書で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -24049,7 +24049,7 @@ const SOURCES = [
       { label: "Date pickers(Modalバリアントのカレンダーグリッド)", url: "https://m3.material.io/components/date-pickers/guidelines" },
     ],
     confirmedNote:
-      "月/年のナビゲーション操作(横スワイプ・縦スクロール・年タップ)は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
+      "月・年の移動(横スワイプで月、年をタップして年を選ぶ)はM3 Date pickersのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -24348,7 +24348,7 @@ function TextInputsCalendarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleはカレンダーグリッドの挙動について検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIDatePickerStyle.inlineの技術文書、GoogleはDate pickersページ(「日付・タイムピッカー」ページと同一URL)へのリンクです。WCAGはWAI-ARIA APGのGrid (Interactive Tabular Data) Patternのページ、NN groupは「日付・タイムピッカー」ページと同じ記事です。
@@ -25285,7 +25285,7 @@ const SOURCES = [
       { label: "Search overview", url: "https://m3.material.io/components/search/overview" },
       { label: "MDC Android: Search(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Search.md" },
     ],
-    confirmedNote: "M3の公式ページ本文(m3.material.io「Search」のガイドライン、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。m3.material.io本文はSPAのため直接取得はできていない。",
+    confirmedNote: "M3の公式ページ本文(m3.material.io「Search」のガイドライン、2026-09)と、Material Components for Androidのドキュメント(GitHub)で確認。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="12" fill="#E3EDE9" />
@@ -26048,7 +26048,7 @@ function TextInputsSearchFieldPage() {
             <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています(m3.material.io本文はSPAのため、内容はM3のSearchのページ本文とMaterial Components for Androidのドキュメントで確認)。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
+              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
             </span>
           </div>
         </div>
@@ -28408,7 +28408,7 @@ const SOURCES = [
     size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成する。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられる(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラーから、HCT(Hue, Chroma, Tone)という知覚基準の色空間を使ってprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを導出し、それぞれ0(黒)〜100(白)の13段階のトーンパレットを生成。カラーロールはこのパレットから固定のトーンを割り当てる。errorロールは、ダイナミックカラーが有効な場合でも変化しない静的な色として扱われる。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされている。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
+      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされている。errorのロールは、ダイナミックカラーでも変わらない固定の色(ライト・ダークには合わせて変わる)(M3 Color rolesの本文で確認、2026-11)。",
     exceptions:
       "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意している。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がない。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっている。",
     accessibility:
@@ -28426,7 +28426,7 @@ const SOURCES = [
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
       { label: "material-color-utilities: 各ロールの目標値(GitHub)", url: "https://github.com/material-foundation/material-color-utilities/blob/main/typescript/dynamiccolor/color_spec_2021.ts" },
     ],
-    confirmedNote: "m3.material.io本文はSPAのため未確認。ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
+    confirmedNote: "ロールの役割とerrorの扱いはM3 Color rolesの本文(2026-11)、ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
         {[
@@ -30777,7 +30777,7 @@ const SOURCES = [
       { term: "weight軸・grade軸", desc: "weightは線の太さで、thin(100)〜bold(700)の範囲。gradeはweightより細かい太さの調整で、アイコンの大きさへの影響が小さい。暗い背景の明るいアイコンのにじみを抑えるには低いgrade(例: -25)、強調には高いgrade(例: 200)を使う。" },
     ],
     stance:
-      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。3スタイルの使い分けは検索結果による確認、4軸の範囲・既定値はdevelopers.google.comのガイド本文で直接確認(2026-09)。",
+      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
     exceptions: "gradeは、暗い背景に明るいアイコンを置くときのにじみを抑える目的で低い値(例: -25)に、強調したいときは高い値(例: 200)にするとしている。文字のフォントがgrade軸を持つ場合は、文字とアイコンのgradeをそろえると調和するとしている。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝達については、下記W3C(1.1.1/4.1.2)を参照。Material Symbols自体に専用のアクセシビリティ数値基準は確認できていない。",
@@ -30792,7 +30792,7 @@ const SOURCES = [
       { label: "Material Symbols(Material Design 3)", url: "https://m3.material.io/styles/icons/overview" },
       { label: "Material Symbols guide(developers.google.com)", url: "https://developers.google.com/fonts/docs/material_symbols" },
     ],
-    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けの説明はm3.material.io(SPA)の検索結果による間接確認。",
+    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="50" viewBox="0 0 120 50">
@@ -31313,7 +31313,7 @@ function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。GoogleはM3のDesigning icons・Applying iconsを2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。
@@ -32627,13 +32627,13 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
-    position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。余白は4dp刻みを基本とする",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃える(4dpグリッドは間接確認)。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
+    position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。画面端の余白はCompactで16dp、それより広い幅で24dp",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白を4dpのグリッドに揃えるという値は、M3のレイアウトのページでは未確認。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
     stance:
       "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
     exceptions:
-      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。4dpグリッド・マージンの具体的な値は、m3.material.ioがSPAのため本文を直接確認できていない。",
+      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。画面端のマージン(16/24dp)はM3の本文で確認(2026-11)。4dpのグリッドは未確認。",
     accessibility:
       "知覚可能(Perceivable) ― 画面の幅が狭くなったときに1ペインへ切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
@@ -32648,7 +32648,7 @@ const SOURCES = [
       { label: "Use window size classes(Android Developers)", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes" },
       { label: "Compose adaptive: PaneScaffoldDirective(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/adaptive/adaptive-layout/src/commonMain/kotlin/androidx/compose/material3/adaptive/layout/PaneScaffoldDirective.kt" },
     ],
-    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。4dpグリッド・マージン16/24dpはm3.material.io(SPA)の検索結果による間接確認。",
+    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。マージン16/24dp・固定ペイン360/412dpはM3 Breakpoints・Panesの本文で確認(2026-11)。4dpのグリッドは未確認。",
   },
   {
     key: "wcag",
@@ -32974,7 +32974,7 @@ function TokensLayoutSpacingPage() {
               AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
             </p>
             <p style={styles.synthesisText}>
-              違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、4dp刻み・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。
+              違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。
             </p>
             <p style={styles.synthesisText}>
               W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求めます。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値です。
@@ -33054,7 +33054,7 @@ function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはブレークポイント・マージン・ペインをM3の本文とソースで確認、4dpのグリッドのみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Size classes」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のブレークポイント(Breakpoints)の概要ページに加え、数値を確認したAndroid Developersのページとソースを併記しています。WCAGは1.4.10 Understandingページの達成基準の箇所を基本リンクとし、2.5.8(間隔の例外の節)・1.3.1も併記しています。NN groupはProximity Principle in Visual Designの記事です。

@@ -69,7 +69,7 @@ const SOURCES = [
       { label: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
     ],
     confirmedNote:
-      "UIDatePickerStyle.inlineの技術文書、およびiOS 14で.inline/.compactが追加された経緯についての検索結果による確認(2026-09)。HIGの「Pickers」ページ本文でこのスタイルが明示的に扱われているかどうかは、同ページがSPAのため直接確認できていない。",
+      "HIG Pickersの本文(iOS・iPadOSの日付ピッカーのコンパクト・インライン・ホイール・自動のスタイル)と、UIDatePickerStyleの技術文書で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -118,7 +118,7 @@ const SOURCES = [
       { label: "Date pickers(Modalバリアントのカレンダーグリッド)", url: "https://m3.material.io/components/date-pickers/guidelines" },
     ],
     confirmedNote:
-      "月/年のナビゲーション操作(横スワイプ・縦スクロール・年タップ)は検索結果による確認(2026-09)。m3.material.io本文はSPAのため直接確認はできていない。",
+      "月・年の移動(横スワイプで月、年をタップして年を選ぶ)はM3 Date pickersのガイドラインの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -421,7 +421,7 @@ export default function TextInputsCalendarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleはカレンダーグリッドの挙動について検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはUIDatePickerStyle.inlineの技術文書、GoogleはDate pickersページ(「日付・タイムピッカー」ページと同一URL)へのリンクです。WCAGはWAI-ARIA APGのGrid (Interactive Tabular Data) Patternのページ、NN groupは「日付・タイムピッカー」ページと同じ記事です。

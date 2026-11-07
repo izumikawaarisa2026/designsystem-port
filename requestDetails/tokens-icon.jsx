@@ -75,7 +75,7 @@ const SOURCES = [
       { term: "weight軸・grade軸", desc: "weightは線の太さで、thin(100)〜bold(700)の範囲。gradeはweightより細かい太さの調整で、アイコンの大きさへの影響が小さい。暗い背景の明るいアイコンのにじみを抑えるには低いgrade(例: -25)、強調には高いgrade(例: 200)を使う。" },
     ],
     stance:
-      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。3スタイルの使い分けは検索結果による確認、4軸の範囲・既定値はdevelopers.google.comのガイド本文で直接確認(2026-09)。",
+      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
     exceptions: "gradeは、暗い背景に明るいアイコンを置くときのにじみを抑える目的で低い値(例: -25)に、強調したいときは高い値(例: 200)にするとしている。文字のフォントがgrade軸を持つ場合は、文字とアイコンのgradeをそろえると調和するとしている。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝達については、下記W3C(1.1.1/4.1.2)を参照。Material Symbols自体に専用のアクセシビリティ数値基準は確認できていない。",
@@ -90,7 +90,7 @@ const SOURCES = [
       { label: "Material Symbols(Material Design 3)", url: "https://m3.material.io/styles/icons/overview" },
       { label: "Material Symbols guide(developers.google.com)", url: "https://developers.google.com/fonts/docs/material_symbols" },
     ],
-    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けの説明はm3.material.io(SPA)の検索結果による間接確認。",
+    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="50" viewBox="0 0 120 50">
@@ -615,7 +615,7 @@ export default function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleは4軸の仕様をdevelopers.google.comで本文確認、3スタイルの使い分けのみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。GoogleはM3のDesigning icons・Applying iconsを2026-11に確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。

@@ -65,9 +65,9 @@ const SOURCES = [
     stance:
       "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
     exceptions:
-      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照してください。",
+      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
     accessibility:
-      <span><NoData>記載なし。</NoData>M3のAccessibilityのページ(m3.material.io)はSPAのため本文を確認できていない。項目の高さ48dpは、押せる範囲の最小(48dp)と同じ値。</span>,
+      "知覚可能・操作可能 ― 選んだ項目は、既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど、色以外の手がかりも添えることを勧めている。押せる範囲は48×48dp以上。メニューを開いたら最初の項目にフォーカスを置く(M3 Menusのアクセシビリティのページで確認、2026-11)。",
     useCases: [
       "項目は48dpの高さ、メニューは112〜280dpの幅にする",
       "先頭にアイコン、末尾にショートカットの文字を置ける",
@@ -81,7 +81,7 @@ const SOURCES = [
       { label: "Compose Material 3: Menu.kt(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/Menu.kt" },
       { label: "Compose Material 3: MenuTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MenuTokens.kt" },
     ],
-    confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで直接確認(2026-10)。",
+    confirmedNote: "アクセシビリティはM3 Menusのページの本文(2026-11)、種類と構成はMaterial Components for Androidのドキュメント、寸法・色はJetpack Composeのソースで確認(2026-10)。",
   },
   {
     key: "wcag",

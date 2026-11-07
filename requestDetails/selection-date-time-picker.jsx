@@ -110,7 +110,7 @@ const SOURCES = [
       { label: "MDC Android: Date pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/DatePicker.md" },
       { label: "MDC Android: Time pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/TimePicker.md" },
     ],
-    confirmedNote: "日付ピッカー3種類・期間選択・時刻ピッカー2種類・色の既定値は、Material Components for Androidのドキュメントで直接確認(2026-09)。「生年月日にはモーダルを使わない」という指針のみ検索結果による間接確認。m3.material.io本文はSPAのため直接取得はできていない。",
+    confirmedNote: "日付ピッカー3種類・期間選択・時刻ピッカー2種類・色の既定値は、Material Components for Androidのドキュメントで直接確認(2026-09)。「生年月日にはモーダルを使わない」はM3 Date pickersのガイドラインの本文で確認(2026-11)。",
     illustration: () => (
       <svg width="90" height="46" viewBox="0 0 90 46">
         <rect x="1" y="1" width="88" height="44" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
@@ -675,7 +675,7 @@ export default function SelectionDateTimePickerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認、「生年月日にはモーダルを使わない」の指針のみ検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認。「生年月日にはモーダルを使わない」はM3の本文で確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはPickersページの「iOS, iPadOS」見出しへのアンカー付きリンクで、Best practices・macOSの見出しも併記しています。WCAGはWAI-ARIA APGのDate Picker Dialog実例、NN groupは記事ページ単位です。GoogleはDate pickersの最新版(M3)公式ページに加え、Time pickersと、内容を確認したMaterial Components for Androidのドキュメントを併記しています。

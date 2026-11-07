@@ -54,13 +54,13 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
-    position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。余白は4dp刻みを基本とする",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白は4dpのグリッドに揃える(4dpグリッドは間接確認)。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
+    position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。画面端の余白はCompactで16dp、それより広い幅で24dp",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白を4dpのグリッドに揃えるという値は、M3のレイアウトのページでは未確認。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
     stance:
       "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
     exceptions:
-      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。4dpグリッド・マージンの具体的な値は、m3.material.ioがSPAのため本文を直接確認できていない。",
+      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。画面端のマージン(16/24dp)はM3の本文で確認(2026-11)。4dpのグリッドは未確認。",
     accessibility:
       "知覚可能(Perceivable) ― 画面の幅が狭くなったときに1ペインへ切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
@@ -75,7 +75,7 @@ const SOURCES = [
       { label: "Use window size classes(Android Developers)", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes" },
       { label: "Compose adaptive: PaneScaffoldDirective(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/adaptive/adaptive-layout/src/commonMain/kotlin/androidx/compose/material3/adaptive/layout/PaneScaffoldDirective.kt" },
     ],
-    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。4dpグリッド・マージン16/24dpはm3.material.io(SPA)の検索結果による間接確認。",
+    confirmedNote: "ウィンドウサイズクラスはAndroid Developersの本文、ペイン間24dpはJetpack Composeのソースで直接確認(2026-09)。マージン16/24dp・固定ペイン360/412dpはM3 Breakpoints・Panesの本文で確認(2026-11)。4dpのグリッドは未確認。",
   },
   {
     key: "wcag",
@@ -405,7 +405,7 @@ export default function TokensLayoutSpacingPage() {
               AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
             </p>
             <p style={styles.synthesisText}>
-              違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、4dp刻み・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。
+              違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。
             </p>
             <p style={styles.synthesisText}>
               W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求めます。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値です。
@@ -485,7 +485,7 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはウィンドウサイズクラスとペイン間隔を本文・ソースで確認、4dpグリッドとマージンは検索結果による間接確認)</span>
+            <span>最終確認: 2026-10(①AIレビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはブレークポイント・マージン・ペインをM3の本文とソースで確認、4dpのグリッドのみ未確認)</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
               リンクについて: AppleはHIG Layoutページの「Size classes」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のブレークポイント(Breakpoints)の概要ページに加え、数値を確認したAndroid Developersのページとソースを併記しています。WCAGは1.4.10 Understandingページの達成基準の箇所を基本リンクとし、2.5.8(間隔の例外の節)・1.3.1も併記しています。NN groupはProximity Principle in Visual Designの記事です。

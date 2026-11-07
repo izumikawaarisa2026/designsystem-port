@@ -76,7 +76,7 @@ const SOURCES = [
     size: "Google公式の配色生成ライブラリ(material-color-utilities)では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標値として色を生成する。ユーザーがコントラストを上げる設定(中・高)にすると、目標値が段階的に引き上げられる(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラーから、HCT(Hue, Chroma, Tone)という知覚基準の色空間を使ってprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを導出し、それぞれ0(黒)〜100(白)の13段階のトーンパレットを生成。カラーロールはこのパレットから固定のトーンを割り当てる。errorロールは、ダイナミックカラーが有効な場合でも変化しない静的な色として扱われる。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされている。errorロールはダイナミックカラーが有効でも固定される点が特徴です(検索結果による確認、2026-09)。",
+      "primary/secondary/tertiary/error/surface/outlineなどのグループにまとめられたカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」の役割を果たすとされている。errorのロールは、ダイナミックカラーでも変わらない固定の色(ライト・ダークには合わせて変わる)(M3 Color rolesの本文で確認、2026-11)。",
     exceptions:
       "独自のブランド色を指定する場合は、既定のPrimaryと同じ明るさ(トーン40)を保たないと、部品の中でコントラストが崩れることがあると注意している。装飾的な区切り線に使うoutline-variantには、標準の設定ではコントラストの目標値がない。なお、ライブラリの新しい2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1とするなど、一部の目標値が変わっている。",
     accessibility:
@@ -94,7 +94,7 @@ const SOURCES = [
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
       { label: "material-color-utilities: 各ロールの目標値(GitHub)", url: "https://github.com/material-foundation/material-color-utilities/blob/main/typescript/dynamiccolor/color_spec_2021.ts" },
     ],
-    confirmedNote: "m3.material.io本文はSPAのため未確認。ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
+    confirmedNote: "ロールの役割とerrorの扱いはM3 Color rolesの本文(2026-11)、ロールの一覧とトーンはMaterial Components for AndroidのColor theming文書、コントラストの目標値はmaterial-color-utilitiesのソース(2021年版の仕様)で直接確認(2026-09)。",
     illustration: () => (
       <svg width="120" height="40" viewBox="0 0 120 40">
         {[
