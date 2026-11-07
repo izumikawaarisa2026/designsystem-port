@@ -22,14 +22,15 @@ const SOURCES = [
     color: "#C2542A",
     position: "文言による目的の明確化(数値基準なし)",
     stance:
-      "独立した「リンク」ページは持たず、ライティングとアクセシビリティの各ページに分けて言及している。リンクのラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように具体的な行き先や機能を示す言葉を使うべきとしている。",
+      "独立した「リンク」ページは持たず、ライティングとアクセシビリティの各ページに分けて言及している。リンクのラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように具体的な行き先や機能を示す言葉を使うべきとしている。文中のリンクに矢印を付けるかどうかは定めていない(リストの行の右端の矢印「›」は、階層の次の画面へ移る印(disclosure indicator)として、リンクとは別に定めている)。",
     exceptions:
       "色による区別についても直接のリンク基準ではなく、アクセシビリティ全般の方針として「色だけに頼らず、形やアイコンなど視覚的な手がかりを追加する」ことを求めている。数値的な例外規定はない。",
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める点は、WCAGのPOUR原則のうち「理解可能」に対応する。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
     refs: [
-      { label: "Human Interface Guidelines", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
+      { label: "Writing ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
+      { label: "Lists and tables(行の右端の矢印 disclosure indicator)", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables" },
     ],
     colorCue: { mark: "○", note: "推奨(下線やアイコンなど視覚的な手がかりを追加)" },
     wordingCue: { mark: "○", note: "推奨(具体的な行き先を示す文言。数値基準はなし)" },
@@ -153,6 +154,32 @@ function LinkSwatch() {
   );
 }
 
+/* タップ領域の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
+const TAP_MINI = {
+  hig: { w: 44, label: "44×44pt(最小28pt)" },
+  material: { w: 48, label: "48×48dp" },
+  wcag: { w: 24, label: "24×24px(AA)。文中は例外" },
+  nn: { w: 38, label: "約1cm四方(一般の目安)" },
+};
+function TapMini({ k, color }) {
+  const t = TAP_MINI[k];
+  if (!t) return null;
+  const h = t.w;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+      <div style={{ position: "relative", width: Math.max(h, 60), height: h, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "absolute", width: Math.max(h, 60), height: h, border: `1.4px dashed ${color}`, borderRadius: 4, background: "#FFFFFF" }} />
+        <span style={{ position: "relative", fontSize: 11, color: "#2F6FED", textDecoration: "underline" }}>リンク</span>
+      </div>
+      <span style={{ fontSize: 9.5, color: "#7E86AC" }}>{t.label}</span>
+    </div>
+  );
+}
+
+function CriteriaLegend() {
+  return <p style={styles.criteriaLegend}>記号の意味: ○=定めている、△=条件付き・例外あり、―=記載なし</p>;
+}
+
 function CriteriaMark({ cell }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "flex-start" }}>
@@ -164,8 +191,8 @@ function CriteriaMark({ cell }) {
           minWidth: 22,
           padding: "2px 8px",
           borderRadius: 10,
-          background: "#FBF0D9",
-          color: "#7A4A1F",
+          background: cell.mark === "―" ? "#F3F4F9" : "#FBF0D9",
+          color: cell.mark === "―" ? "#9EA4C4" : "#7A4A1F",
           fontFamily: "'IBM Plex Mono', monospace",
           fontWeight: 700,
           fontSize: 12,
@@ -244,18 +271,22 @@ export default function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={{ ...styles.illustrationBox, display: "flex", gap: 18, alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
+                  {s.illustration && s.illustration()}
+                  <TapMini k={s.key} color={s.color} />
+                </div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
                 </div>
-                <div style={styles.criteriaRowMobile}>
+                <div style={styles.criteriaList}>
+                  <CriteriaLegend />
                   {CRITERIA_ROWS.map((row) => (
-                    <div key={row.key} style={styles.criteriaChip}>
+                    <div key={row.key} style={styles.criteriaItem}>
+                      <span style={styles.criteriaItemLabel}>{row.label}</span>
                       <CriteriaMark cell={s[row.key]} />
-                      <span style={styles.criteriaChipLabel}>{row.label}</span>
                     </div>
                   ))}
                 </div>
@@ -285,9 +316,9 @@ export default function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>リンクのイメージ</div>
+                <div style={styles.labelCell}>リンクのイメージ・タップ領域</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>
+                  <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}
 
                 <div style={styles.labelCell}>位置づけ</div>
@@ -306,6 +337,7 @@ export default function ActionsLinkPage() {
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>
                 ))}
 
+                <div style={{ ...styles.labelCell, gridColumn: "1 / -1", background: "#FFFFFF" }}><CriteriaLegend /></div>
                 {CRITERIA_ROWS.map((row) => (
                   <React.Fragment key={row.key}>
                     <div style={styles.labelCell}>{row.label}</div>
@@ -350,6 +382,10 @@ export default function ActionsLinkPage() {
 }
 
 const styles = {
+  criteriaLegend: { fontSize: 10.5, color: "#7E86AC", margin: "0 0 6px" },
+  criteriaList: { margin: "10px 0", borderTop: "1px solid #EEF0F7" },
+  criteriaItem: { display: "grid", gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 10, padding: "8px 0", borderBottom: "1px solid #EEF0F7" },
+  criteriaItemLabel: { fontSize: 11.5, fontWeight: 700, color: "#454C78", lineHeight: 1.5 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -376,9 +412,6 @@ const styles = {
   sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "10px 0" },
-  criteriaRowMobile: { display: "flex", flexWrap: "wrap", gap: 8, margin: "10px 0" },
-  criteriaChip: { display: "flex", alignItems: "center", gap: 5, background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 4, padding: "4px 8px" },
-  criteriaChipLabel: { fontSize: 10.5, color: "#565D8A", lineHeight: 1.3, maxWidth: 130 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   exceptionBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   pourBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },

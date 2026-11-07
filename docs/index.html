@@ -1046,6 +1046,14 @@ function ButtonTabContent({ tabId }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すとその場で処理を実行する部品です(保存・送信・削除など)。";
+const ABOUT = [
+  { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
+  { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
+  { k: "似た部品との違い", v: <>別のページへ移動するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+];
+
 function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -1070,13 +1078,19 @@ function ActionsButtonPage() {
           </div>
 
           <h1 style={styles.title}>ボタン</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ボタンについて定めている内容を項目ごとに比較する</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ"
+            image={<ButtonSwatch />}
+            imageNote="優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。"
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ</span>
-            <ButtonSwatch />
-            <p style={styles.swatchNote}>優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。</p>
-          </div>
+          {isStatic && (
+            <nav style={styles.segmented} aria-label="比較する項目へ移動">
+              {TABS.map((t) => (<a key={t.id} href={"#btn-" + t.id} style={{ ...styles.segItem, textDecoration: "none", textAlign: "center" }}>{t.label}</a>))}
+            </nav>
+          )}
 
           {!isStatic && <div style={styles.segmented} role="tablist" aria-label="比較する項目">
             {TABS.map((t) => (
@@ -1094,7 +1108,7 @@ function ActionsButtonPage() {
 
           {isStatic ? (
             TABS.map((t) => (
-              <section key={t.id} style={{ marginBottom: 28 }}>
+              <section key={t.id} id={"btn-" + t.id} style={{ marginBottom: 40 }}>
                 <h2 style={styles.staticTabTitle}>{t.label}</h2>
                 <ButtonTabContent tabId={t.id} />
               </section>
@@ -1128,7 +1142,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 18px" },
   segmented: { display: "inline-flex", gap: 4, background: "#F3F6FA", padding: 4, borderRadius: 8, marginBottom: 20, flexWrap: "wrap" },
   segItem: { appearance: "none", border: "none", background: "transparent", color: "#454C78", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 13, padding: "7px 14px", borderRadius: 6, cursor: "pointer" },
@@ -1378,6 +1392,55 @@ function RangeScale({ scale }) {
   );
 }
 
+/* No.021: FABの種類・変形・ユースケース(Google。M3の本文とMaterial Components for Androidの説明による) */
+const FAB_KINDS = [
+  { t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
+  { t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
+  { t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
+  { t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
+  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小(56dp)・中・大の3サイズ", tag: "" },
+  { t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
+];
+const FAB_CHANGES = [
+  { from: "FAB → 拡張FAB", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
+  { from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
+];
+const FAB_USE = [
+  { ok: true, t: "使う操作", d: "その画面でいちばん大事な、前向きな操作(作成・お気に入り・共有・処理を始める)" },
+  { ok: false, t: "使わない操作", d: "アーカイブ・ゴミ箱のような小さな操作や壊す操作、警告・エラー、文字の切り抜きのような限られた作業、音量や文字色の調整(ツールバー向き)" },
+  { ok: true, t: "置く場所", d: "コンパクト・中サイズの画面では右下。広い画面では左上(ナビゲーションレールの中)も検討する" },
+  { ok: false, t: "避けること", d: "1画面に複数のFABを置く。使えないときに無効表示にする(使えないなら出さない)。分かりにくいアイコン" },
+];
+
+function FabGuide() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>FABの種類と使い方(Google)</h2>
+      <p style={styles.fgNote}>FABを部品として定めているのはGoogleです。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たる部品はなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていません。</p>
+      <div style={styles.fgGrid}>
+        {FAB_KINDS.map((k) => (
+          <div key={k.t} style={styles.fgCard}>
+            <div style={styles.fgTitle}>{k.t}{k.tag && <span style={{ ...styles.fgTag, ...(k.tag === "非推奨" ? styles.fgTagDep : {}) }}>{k.tag}</span>}</div>
+            <p style={styles.fgText}>{k.d}</p>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.fgSub}>変形するとき</h3>
+      {FAB_CHANGES.map((c) => (<p key={c.from} style={styles.fgText}><strong>{c.from}</strong>: {c.d}</p>))}
+      <h3 style={styles.fgSub}>使いどころ</h3>
+      <div style={styles.fgGrid}>
+        {FAB_USE.map((u) => (
+          <div key={u.t} style={{ ...styles.fgCard, borderLeft: `3px solid ${u.ok ? "#2F7D6E" : "#C0503F"}` }}>
+            <div style={styles.fgTitle}>{u.t}</div>
+            <p style={styles.fgText}>{u.d}</p>
+          </div>
+        ))}
+      </div>
+      <p style={styles.fgNote}>出典: Material Design 3「FAB」のガイドライン、Material Components for Android(Extended FAB・FAB menu)。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンです。";
 const ABOUT = [
@@ -1416,6 +1479,8 @@ function ActionsFabPage() {
           />
 
 
+
+          <FabGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -1526,6 +1591,14 @@ function ActionsFabPage() {
 }
 
 const styles = {
+  fgNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  fgGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 8, marginBottom: 6 },
+  fgCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  fgTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3, display: "flex", alignItems: "center", gap: 6 },
+  fgTag: { fontSize: 9.5, fontWeight: 700, color: "#2F7D6E", border: "1px solid #2F7D6E", borderRadius: 3, padding: "0 4px" },
+  fgTagDep: { color: "#9EA4C4", borderColor: "#D5D9EC" },
+  fgText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  fgSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "16px 0 8px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -1603,14 +1676,15 @@ const SOURCES = [
     color: "#C2542A",
     position: "文言による目的の明確化(数値基準なし)",
     stance:
-      "独立した「リンク」ページは持たず、ライティングとアクセシビリティの各ページに分けて言及している。リンクのラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように具体的な行き先や機能を示す言葉を使うべきとしている。",
+      "独立した「リンク」ページは持たず、ライティングとアクセシビリティの各ページに分けて言及している。リンクのラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように具体的な行き先や機能を示す言葉を使うべきとしている。文中のリンクに矢印を付けるかどうかは定めていない(リストの行の右端の矢印「›」は、階層の次の画面へ移る印(disclosure indicator)として、リンクとは別に定めている)。",
     exceptions:
       "色による区別についても直接のリンク基準ではなく、アクセシビリティ全般の方針として「色だけに頼らず、形やアイコンなど視覚的な手がかりを追加する」ことを求めている。数値的な例外規定はない。",
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める点は、WCAGのPOUR原則のうち「理解可能」に対応する。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
     refs: [
-      { label: "Human Interface Guidelines", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
+      { label: "Writing ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices" },
+      { label: "Lists and tables(行の右端の矢印 disclosure indicator)", url: "https://developer.apple.com/design/human-interface-guidelines/lists-and-tables" },
     ],
     colorCue: { mark: "○", note: "推奨(下線やアイコンなど視覚的な手がかりを追加)" },
     wordingCue: { mark: "○", note: "推奨(具体的な行き先を示す文言。数値基準はなし)" },
@@ -1734,6 +1808,32 @@ function LinkSwatch() {
   );
 }
 
+/* タップ領域の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
+const TAP_MINI = {
+  hig: { w: 44, label: "44×44pt(最小28pt)" },
+  material: { w: 48, label: "48×48dp" },
+  wcag: { w: 24, label: "24×24px(AA)。文中は例外" },
+  nn: { w: 38, label: "約1cm四方(一般の目安)" },
+};
+function TapMini({ k, color }) {
+  const t = TAP_MINI[k];
+  if (!t) return null;
+  const h = t.w;
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
+      <div style={{ position: "relative", width: Math.max(h, 60), height: h, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ position: "absolute", width: Math.max(h, 60), height: h, border: `1.4px dashed ${color}`, borderRadius: 4, background: "#FFFFFF" }} />
+        <span style={{ position: "relative", fontSize: 11, color: "#2F6FED", textDecoration: "underline" }}>リンク</span>
+      </div>
+      <span style={{ fontSize: 9.5, color: "#7E86AC" }}>{t.label}</span>
+    </div>
+  );
+}
+
+function CriteriaLegend() {
+  return <p style={styles.criteriaLegend}>記号の意味: ○=定めている、△=条件付き・例外あり、―=記載なし</p>;
+}
+
 function CriteriaMark({ cell }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "flex-start" }}>
@@ -1745,8 +1845,8 @@ function CriteriaMark({ cell }) {
           minWidth: 22,
           padding: "2px 8px",
           borderRadius: 10,
-          background: "#FBF0D9",
-          color: "#7A4A1F",
+          background: cell.mark === "―" ? "#F3F4F9" : "#FBF0D9",
+          color: cell.mark === "―" ? "#9EA4C4" : "#7A4A1F",
           fontFamily: "'IBM Plex Mono', monospace",
           fontWeight: 700,
           fontSize: 12,
@@ -1821,18 +1921,22 @@ function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 </div>
-                {s.illustration && <div style={styles.illustrationBox}>{s.illustration()}</div>}
+                <div style={{ ...styles.illustrationBox, display: "flex", gap: 18, alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}>
+                  {s.illustration && s.illustration()}
+                  <TapMini k={s.key} color={s.color} />
+                </div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
                 </div>
-                <div style={styles.criteriaRowMobile}>
+                <div style={styles.criteriaList}>
+                  <CriteriaLegend />
                   {CRITERIA_ROWS.map((row) => (
-                    <div key={row.key} style={styles.criteriaChip}>
+                    <div key={row.key} style={styles.criteriaItem}>
+                      <span style={styles.criteriaItemLabel}>{row.label}</span>
                       <CriteriaMark cell={s[row.key]} />
-                      <span style={styles.criteriaChipLabel}>{row.label}</span>
                     </div>
                   ))}
                 </div>
@@ -1862,9 +1966,9 @@ function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>リンクのイメージ</div>
+                <div style={styles.labelCell}>リンクのイメージ・タップ領域</div>
                 {SOURCES.map((s) => (
-                  <div key={s.key} style={styles.cell}>{s.illustration ? s.illustration() : null}</div>
+                  <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}
 
                 <div style={styles.labelCell}>位置づけ</div>
@@ -1883,6 +1987,7 @@ function ActionsLinkPage() {
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>
                 ))}
 
+                <div style={{ ...styles.labelCell, gridColumn: "1 / -1", background: "#FFFFFF" }}><CriteriaLegend /></div>
                 {CRITERIA_ROWS.map((row) => (
                   <React.Fragment key={row.key}>
                     <div style={styles.labelCell}>{row.label}</div>
@@ -1927,6 +2032,10 @@ function ActionsLinkPage() {
 }
 
 const styles = {
+  criteriaLegend: { fontSize: 10.5, color: "#7E86AC", margin: "0 0 6px" },
+  criteriaList: { margin: "10px 0", borderTop: "1px solid #EEF0F7" },
+  criteriaItem: { display: "grid", gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 10, padding: "8px 0", borderBottom: "1px solid #EEF0F7" },
+  criteriaItemLabel: { fontSize: 11.5, fontWeight: 700, color: "#454C78", lineHeight: 1.5 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
@@ -1953,9 +2062,6 @@ const styles = {
   sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "10px 0" },
-  criteriaRowMobile: { display: "flex", flexWrap: "wrap", gap: 8, margin: "10px 0" },
-  criteriaChip: { display: "flex", alignItems: "center", gap: 5, background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 4, padding: "4px 8px" },
-  criteriaChipLabel: { fontSize: 10.5, color: "#565D8A", lineHeight: 1.3, maxWidth: 130 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   exceptionBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   pourBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },

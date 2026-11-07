@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink } from "./page-parts";
+import { TagLink, SummaryCard, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
@@ -447,6 +447,14 @@ function ButtonTabContent({ tabId }) {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表(目的・役割など) */
+const LEAD = "押すとその場で処理を実行する部品です(保存・送信・削除など)。";
+const ABOUT = [
+  { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
+  { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
+  { k: "似た部品との違い", v: <>別のページへ移動するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+];
+
 export default function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -475,13 +483,19 @@ export default function ActionsButtonPage() {
           </div>
 
           <h1 style={styles.title}>ボタン</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、ボタンについて定めている内容を項目ごとに比較する</p>
+          <SummaryCard
+            imageLabel="コンポーネントイメージ"
+            image={<ButtonSwatch />}
+            imageNote="優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。"
+            lead={LEAD}
+            rows={ABOUT}
+          />
 
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>コンポーネントイメージ</span>
-            <ButtonSwatch />
-            <p style={styles.swatchNote}>優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。</p>
-          </div>
+          {isStatic && (
+            <nav style={styles.segmented} aria-label="比較する項目へ移動">
+              {TABS.map((t) => (<a key={t.id} href={"#btn-" + t.id} style={{ ...styles.segItem, textDecoration: "none", textAlign: "center" }}>{t.label}</a>))}
+            </nav>
+          )}
 
           {!isStatic && <div style={styles.segmented} role="tablist" aria-label="比較する項目">
             {TABS.map((t) => (
@@ -499,7 +513,7 @@ export default function ActionsButtonPage() {
 
           {isStatic ? (
             TABS.map((t) => (
-              <section key={t.id} style={{ marginBottom: 28 }}>
+              <section key={t.id} id={"btn-" + t.id} style={{ marginBottom: 40 }}>
                 <h2 style={styles.staticTabTitle}>{t.label}</h2>
                 <ButtonTabContent tabId={t.id} />
               </section>
@@ -533,7 +547,7 @@ const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
+  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 18px" },
   segmented: { display: "inline-flex", gap: 4, background: "#F3F6FA", padding: 4, borderRadius: 8, marginBottom: 20, flexWrap: "wrap" },
   segItem: { appearance: "none", border: "none", background: "transparent", color: "#454C78", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 13, padding: "7px 14px", borderRadius: 6, cursor: "pointer" },

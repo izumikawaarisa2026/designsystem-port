@@ -194,6 +194,55 @@ function RangeScale({ scale }) {
   );
 }
 
+/* No.021: FABの種類・変形・ユースケース(Google。M3の本文とMaterial Components for Androidの説明による) */
+const FAB_KINDS = [
+  { t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
+  { t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
+  { t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
+  { t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
+  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小(56dp)・中・大の3サイズ", tag: "" },
+  { t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
+];
+const FAB_CHANGES = [
+  { from: "FAB → 拡張FAB", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
+  { from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
+];
+const FAB_USE = [
+  { ok: true, t: "使う操作", d: "その画面でいちばん大事な、前向きな操作(作成・お気に入り・共有・処理を始める)" },
+  { ok: false, t: "使わない操作", d: "アーカイブ・ゴミ箱のような小さな操作や壊す操作、警告・エラー、文字の切り抜きのような限られた作業、音量や文字色の調整(ツールバー向き)" },
+  { ok: true, t: "置く場所", d: "コンパクト・中サイズの画面では右下。広い画面では左上(ナビゲーションレールの中)も検討する" },
+  { ok: false, t: "避けること", d: "1画面に複数のFABを置く。使えないときに無効表示にする(使えないなら出さない)。分かりにくいアイコン" },
+];
+
+function FabGuide() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>FABの種類と使い方(Google)</h2>
+      <p style={styles.fgNote}>FABを部品として定めているのはGoogleです。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たる部品はなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていません。</p>
+      <div style={styles.fgGrid}>
+        {FAB_KINDS.map((k) => (
+          <div key={k.t} style={styles.fgCard}>
+            <div style={styles.fgTitle}>{k.t}{k.tag && <span style={{ ...styles.fgTag, ...(k.tag === "非推奨" ? styles.fgTagDep : {}) }}>{k.tag}</span>}</div>
+            <p style={styles.fgText}>{k.d}</p>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.fgSub}>変形するとき</h3>
+      {FAB_CHANGES.map((c) => (<p key={c.from} style={styles.fgText}><strong>{c.from}</strong>: {c.d}</p>))}
+      <h3 style={styles.fgSub}>使いどころ</h3>
+      <div style={styles.fgGrid}>
+        {FAB_USE.map((u) => (
+          <div key={u.t} style={{ ...styles.fgCard, borderLeft: `3px solid ${u.ok ? "#2F7D6E" : "#C0503F"}` }}>
+            <div style={styles.fgTitle}>{u.t}</div>
+            <p style={styles.fgText}>{u.d}</p>
+          </div>
+        ))}
+      </div>
+      <p style={styles.fgNote}>出典: Material Design 3「FAB」のガイドライン、Material Components for Android(Extended FAB・FAB menu)。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンです。";
 const ABOUT = [
@@ -236,6 +285,8 @@ export default function ActionsFabPage() {
           />
 
 
+
+          <FabGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -346,6 +397,14 @@ export default function ActionsFabPage() {
 }
 
 const styles = {
+  fgNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  fgGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 8, marginBottom: 6 },
+  fgCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
+  fgTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3, display: "flex", alignItems: "center", gap: 6 },
+  fgTag: { fontSize: 9.5, fontWeight: 700, color: "#2F7D6E", border: "1px solid #2F7D6E", borderRadius: 3, padding: "0 4px" },
+  fgTagDep: { color: "#9EA4C4", borderColor: "#D5D9EC" },
+  fgText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
+  fgSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "16px 0 8px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
