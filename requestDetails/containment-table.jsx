@@ -258,7 +258,7 @@ const TABLE_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];

@@ -113,7 +113,7 @@ export function SplitSection({ title, splits }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={partStyles.h2}>{title || "意見が分かれる点"}</h2>
-      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点です。図は概念図です。</p>
+      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。図は概念図。</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {splits.map((s) => (
           <div key={s.q} style={partStyles.splitCard}>

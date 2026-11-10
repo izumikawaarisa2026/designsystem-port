@@ -133,7 +133,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     color: "#7A4F7E",
-    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など(全40トピック)"],
+    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など"],
     summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
       "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなどの分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
@@ -249,8 +249,8 @@ function LayerBox({ cell, color }) {
     : cell.inside
       ? { ...base, border: `1px dashed ${color}`, background: "#FFFFFF" }
       : { ...base, border: `1px solid ${color}`, background: cell.highlight ? color : "#FFFFFF" };
-  const nameColor = cell.none ? "#9EA4C4" : cell.highlight ? "#FFFFFF" : color;
-  const subColor = cell.highlight ? "#FFFFFF" : cell.none ? "#9EA4C4" : "#454C78";
+  const nameColor = cell.none ? "#666D93" : cell.highlight ? "#FFFFFF" : color;
+  const subColor = cell.highlight ? "#FFFFFF" : cell.none ? "#666D93" : "#454C78";
   return (
     <div style={style}>
       <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 600, color: nameColor }}>{cell.name}</div>

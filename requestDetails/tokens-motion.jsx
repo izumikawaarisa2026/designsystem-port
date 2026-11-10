@@ -623,7 +623,7 @@ function MotionIntro() {
 }
 
 /* 四サイト比較: 何を定めているかを◯△―で一覧にする */
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 const RULE_ROWS = [
   {
     label: "長さをミリ秒で示す",

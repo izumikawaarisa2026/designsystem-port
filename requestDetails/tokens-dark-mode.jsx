@@ -562,7 +562,7 @@ export default function TokensDarkModePage() {
               <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>ダークモードは端末の設定に従う</strong>という点だ(W3Cはダークモードについて定めておらず、どちらの見た目にも同じ基準を当てる)。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告している。
             </p>
             <p style={styles.synthesisText}>
-              配色の作り方も共通している。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てる。どちらも背景は真っ黒ではなく、Googleは影を見えやすくするため濃いグレーを使う。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通している(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
+              配色の作り方も共通している。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てる。Googleは影を見えやすくするため、背景を真っ黒にせず濃いグレーを使う(Appleの背景色の値はHIGに記載なし)。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通している(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
             </p>
             <p style={styles.synthesisText}>
               コントラストでは、Appleが<strong>最低4.5:1、独自の色では7:1を目指す</strong>と数値で示しており、WCAGのAA(4.5:1)より高い水準を勧めている。W3Cにはダークモード専用の基準はなく、<strong>どちらの見た目でも同じ基準が適用</strong>される。文字色と背景色を組で指定しないと不合格になる、という1.4.3の注記は、切り替えの実装で特に注意が必要な点だ。

@@ -540,7 +540,7 @@ function SplitSection({ title, splits }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={partStyles.h2}>{title || "意見が分かれる点"}</h2>
-      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点です。図は概念図です。</p>
+      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。図は概念図。</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {splits.map((s) => (
           <div key={s.q} style={partStyles.splitCard}>
@@ -1264,7 +1264,7 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Buttons(visionOS)",
+    doc: "該当なし(参考: Human Interface Guidelines ― Buttons(visionOS))",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし(FABに当たる部品はない)</NoData>,
@@ -2983,7 +2983,7 @@ function CommunicationBadgePage() {
               Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものだ。これは「バッジのための一次情報」ではなく「一般的なラベリング手法の転用」である点を正直に記載している。
+              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものだ。つまり、バッジ専用の基準ではなく、一般的な名前の付け方を当てはめたものだ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていない)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまる。
@@ -8463,7 +8463,7 @@ const SOURCES = [
     exceptions:
       "ボトムシートの必須要素はコンテナのみで、項目一覧(オプション)、メディア(オプション: サムネイル・画像・動画)を含められるとしている。ボタン/オーバーフローアイコンのタップで表示され、項目のタップ・画面のタップ・下スワイプ・アプリバーの閉じる機能のいずれかで非表示にできるとしている(全画面表示のモーダルボトムシートには閉じるボタンを表示すべきとしている)。折りたたみ/展開を切り替える拡張オプションがあり、ドラッグハンドルのドラッグまたは選択で高さを変更できるとしている。ドラッグハンドルを選択するとプリセット高さの切り替えまたはシートを閉じる動作になり、スクリムを選択すると常にシートを閉じるとしている。複数のプリセット高さがありドラッグハンドルを使用できない場合は、高さ変更のための単一ポインターによる代替手段を必ず含めるべきだとしている。レスポンシブレイアウトとしては、コンパクトなブレークポイントでは画面幅いっぱいに広がる一方、中〜拡張ブレークポイントでは既定で最大幅が設定される(上書き可能)としており、複雑なタスクにはフローティングシートなど非一時的なサーフェスの使用を検討すべきだとしている。Androidの「予測戻る」ジェスチャーにも対応するとしている。",
     accessibility:
-      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしている。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしている。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしている(W3Cの2.5.7・ドラッグ操作に対応する考え方)。",
+      "操作可能(Operable) ― 上部48dpの領域はサイズ変更用にインタラクティブだとしている。オプションのドラッグハンドルはタブ順序でフォーカスでき、キーボードやスイッチ操作などの非タッチ入力で操作できるとしている。ドラッグ操作で実行できるすべてのアクションについて、単一ポインターによる代替操作を含めるべきだとしている(W3Cの2.5.7 ドラッグ動作に対応する考え方)。",
     useCases: [
       "メインコンテンツと同時に操作したい補助機能には標準ボトムシートを使う(例: 音楽プレーヤー)",
       "選択や確認が完了するまで背景操作をブロックしたい場合はモーダルボトムシートを使う(モバイルアプリのみ)",
@@ -9564,7 +9564,7 @@ const CAROUSEL_ROWS = [
     label: "自動送り",
     cells: [
       { mark: "―", note: "" },
-      { mark: "―", note: "確認した資料に記載なし" },
+      { mark: "―", note: "記載なし" },
       { mark: "◯", note: "5秒を超えるなら止める手段(2.2.2)" },
       { mark: "◯", note: "避けるのが基本。スマホでは送らない" },
     ],
@@ -9598,7 +9598,7 @@ const CAROUSEL_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];
@@ -12493,7 +12493,7 @@ const TABLE_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];
@@ -13029,7 +13029,7 @@ function PourHeatmap() {
                 const n = pages.filter((p) => p.principles.includes(t)).length;
                 return (
                   <div key={t} style={styles.hmCell}>
-                    <span style={{ ...styles.hmBox, background: n ? `rgba(60, 90, 115, ${0.12 + (n / max) * 0.78})` : "#F3F4F9", color: n / max > 0.45 ? "#FFFFFF" : n ? "#171B36" : "#B7BCDA" }}>{n || "―"}</span>
+                    <span style={{ ...styles.hmBox, background: n ? `rgba(60, 90, 115, ${0.12 + (n / max) * 0.78})` : "#F3F4F9", color: n / max > 0.45 ? "#FFFFFF" : n ? "#171B36" : "#666D93" }}>{n || "―"}</span>
                   </div>
                 );
               })}
@@ -15216,7 +15216,7 @@ const SOURCES = [
     color: "#C2542A",
     position: "アプリのトップレベルのセクション間を移動するための、画面下部の永続的なナビゲーション専用バー",
     size:
-      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける(2026-10にHIGの本文で再確認。以前の「3〜5個」という記述は現在の本文にはない)。",
+      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       <>タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。<Hl>厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではない</Hl>としている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。</>,
@@ -16217,7 +16217,7 @@ const SOURCES = [
     stance:
       "セグメントコントロールは、地図アプリの「マップ/交通機関/航空写真」の切り替えのように、異なる表示(ビュー)を切り替える際によく使われるとしている。コントロール内の全セグメントは同じ幅を持ち、テキストまたは画像のどちらかを含められる。",
     exceptions:
-      <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。</>,
+      <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にするとしている。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。</>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -17740,7 +17740,7 @@ const FRAMEWORKS = [
         url: "https://www.w3.org/TR/WCAG22/#understandable",
         sub: [
           { name: "3.1 Readable", desc: "テキストを読みやすく理解しやすくすべきという指針。", sc: "例: 3.1.1 ページの言語(A)" },
-          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。", sc: "例: 3.2.1 フォーカス時に大きく変わらない(A)、3.2.3 一貫したナビゲーション(AA)" },
+          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。", sc: "例: 3.2.1 オンフォーカス(A)、3.2.3 一貫したナビゲーション(AA)" },
           { name: "3.3 Input Assistance", desc: "入力ミスを避け、修正を助けるべきという指針。", sc: "例: 3.3.1 エラーの特定(A)、3.3.2 ラベル又は説明(A)、3.3.8 認証のしやすさ(AA)" },
         ],
       },
@@ -20734,7 +20734,7 @@ const MENU_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];
@@ -26900,7 +26900,7 @@ function TextInputsValidationPage() {
               Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「訂正案の提示」を実際にどう書くかという具体化と言える。
             </p>
             <p style={styles.synthesisText}>
-              興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことだ。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としては文書化していないと考えられる。
+              興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことだ。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としての独立したページはない。
             </p>
             <p style={styles.synthesisText}>
               Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の使用+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言える。
@@ -28365,6 +28365,7 @@ const SOURCES = [
     refs: [
       { label: "Using Color to Enhance Your Design", url: "https://www.nngroup.com/articles/color-enhance-design/" },
       { label: "Guidelines for Visualizing Links", url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/" },
+      { label: "Low-Contrast Text Is Not the Answer", url: "https://www.nngroup.com/articles/low-contrast/" },
     ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
@@ -28589,7 +28590,7 @@ function ColorSwatches({ cell }) {
 }
 
 function KindMark({ mark }) {
-  const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#B7BCDA";
+  const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#666D93";
   return <span style={{ ...styles.kindMark, color: c }}>{mark}</span>;
 }
 
@@ -29522,7 +29523,7 @@ function TokensDarkModePage() {
               <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>ダークモードは端末の設定に従う</strong>という点だ(W3Cはダークモードについて定めておらず、どちらの見た目にも同じ基準を当てる)。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告している。
             </p>
             <p style={styles.synthesisText}>
-              配色の作り方も共通している。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てる。どちらも背景は真っ黒ではなく、Googleは影を見えやすくするため濃いグレーを使う。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通している(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
+              配色の作り方も共通している。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てる。Googleは影を見えやすくするため、背景を真っ黒にせず濃いグレーを使う(Appleの背景色の値はHIGに記載なし)。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通している(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
             </p>
             <p style={styles.synthesisText}>
               コントラストでは、Appleが<strong>最低4.5:1、独自の色では7:1を目指す</strong>と数値で示しており、WCAGのAA(4.5:1)より高い水準を勧めている。W3Cにはダークモード専用の基準はなく、<strong>どちらの見た目でも同じ基準が適用</strong>される。文字色と背景色を組で指定しないと不合格になる、という1.4.3の注記は、切り替えの実装で特に注意が必要な点だ。
@@ -32001,7 +32002,7 @@ const STATE_ROWS = [
   { key: "loading", label: "読み込み中", num: "スピナー", cells: [{ mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "◯", note: "ラベルの左にスピナー" }] },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 /* 各状態のイメージ図(Googleのトークン値で描いたボタン) */
 function StateMini({ k }) {
@@ -33603,7 +33604,7 @@ function MotionIntro() {
 }
 
 /* 四サイト比較: 何を定めているかを◯△―で一覧にする */
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 const RULE_ROWS = [
   {
     label: "長さをミリ秒で示す",
@@ -34231,7 +34232,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     color: "#7A4F7E",
-    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など(全40トピック)"],
+    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など"],
     summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
       "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなどの分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
@@ -34347,8 +34348,8 @@ function LayerBox({ cell, color }) {
     : cell.inside
       ? { ...base, border: `1px dashed ${color}`, background: "#FFFFFF" }
       : { ...base, border: `1px solid ${color}`, background: cell.highlight ? color : "#FFFFFF" };
-  const nameColor = cell.none ? "#9EA4C4" : cell.highlight ? "#FFFFFF" : color;
-  const subColor = cell.highlight ? "#FFFFFF" : cell.none ? "#9EA4C4" : "#454C78";
+  const nameColor = cell.none ? "#666D93" : cell.highlight ? "#FFFFFF" : color;
+  const subColor = cell.highlight ? "#FFFFFF" : cell.none ? "#666D93" : "#454C78";
   return (
     <div style={style}>
       <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 600, color: nameColor }}>{cell.name}</div>
@@ -35723,7 +35724,7 @@ const RULE_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];
@@ -36717,7 +36718,7 @@ const FONT_ROWS = [
     <>推奨の最小サイズを守り、Dynamic Type(文字サイズの設定)と太字の設定に自分で対応する。書体の数はしぼる</>,
     <>大きい文字(Display・Headline)用の「ブランド」と、小さい文字(Body・Label)用の「プレーン」の2つのトークンを差し替える。文字サイズは変えず、行送りと字間で調整する</>,
     <>フォントの指定はないが、文字は画像にせず本物の文字で表示する(1.4.5 文字画像・AA)。利用者が行送り・字間を広げても内容が欠けないようにする(1.4.12 テキストの間隔・AA)</>,
-    <>すべての人に最適なフォントはない。人によって速く読めるフォントが違い(最大35%の差)、好みのフォントが速く読めるフォントとは限らない。年齢が20歳上がるごとに読む速さが約11%遅くなる</>,
+    <>すべての人に最適なフォントはない。人によって速く読めるフォントが違い(自分の最も速い書体は最も遅い書体より平均35%速い)、好みのフォントが速く読めるフォントとは限らない。年齢が20歳上がるごとに読む速さが約11%遅くなる</>,
   ] },
   { k: "多言語・フォールバック", v: [
     <>SFに各言語版がある(SFとNYは多くの言語に対応するとしている)。日本語の書体の指定は<NoData>記載なし</NoData>(実装の例: 日本語はOSの日本語フォントで表示される。AI解釈)</>,
@@ -37305,7 +37306,7 @@ const WRITING_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];
