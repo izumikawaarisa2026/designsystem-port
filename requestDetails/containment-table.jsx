@@ -191,7 +191,7 @@ function TableSwatch() {
   );
 }
 
-/* 四系列比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const TABLE_ROWS = [
   {
     label: "列見出し",
@@ -443,7 +443,7 @@ export default function ContainmentTablePage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 表の要素ごとに何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
