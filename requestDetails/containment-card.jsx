@@ -23,10 +23,10 @@ const SOURCES = [
     term: "Box(Cardという名前の部品はない)",
     color: "#C2542A",
     position: "論理的に関連する情報・コンポーネントを視覚的にグループ化するコンテナ(「カード」という名称の専用コンポーネントは見当たらない)",
-    size: <NoData>数値は未確認</NoData>,
+    size: <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ボックスは、関連する情報や部品をまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途の部品はない(HIG Boxesの本文で確認、2026-11)。",
+      "ボックスは、関連する情報や部品をまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途の部品はない。",
     scenarios: [
       "論理的に関連する情報・コンポーネントを視覚的にグループ化したい場面",
       "「カード」のようなタップ可能な要約表示が必要な場合は、標準コンポーネントの組み合わせで代替する場面",
@@ -36,7 +36,6 @@ const SOURCES = [
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
-      "―(支援技術に関する専用のユースケース記載は確認できていない)",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/boxes",
@@ -62,8 +61,8 @@ const SOURCES = [
     term: "Card(Elevated・Filled・Outlined)",
     color: "#2F7D6E",
     position: "単一の主題に関するコンテンツとアクションをまとめる、境界線・影・塗りつぶしのいずれかで背景と区別するコンテナ。3種類のスタイルバリエーションを持つ",
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: "色の値はデザイントークンを通じて実装されるとしている。3種類のスタイル間で色の役割自体に基準の違いがあるという記載は確認できていない。",
+    size: "3種類とも容器の角丸はMedium(12dp)。影はElevatedがLevel 1、FilledとOutlinedはLevel 0、Outlinedの線の太さは1dp(Jetpack Composeのトークン)。",
+    colorInfo: "色の値はデザイントークンを通じて実装されるとしている。",
     glossary: [
       { term: "Elevated / Filled / Outlined", desc: "背景との分かれ方は、Filled(塗りつぶし。控えめ)< Elevated(影。Filledより強いがOutlinedほどではない)< Outlined(輪郭線。ほかの2種類より強調できる)の順。3種類とも読みやすさ・機能は同じで、どれを選ぶかは見た目(スタイル)だけで決める。つまり、強調の強さの違いは見た目の違いで、機能の違いではない。" },
     ],
@@ -212,13 +211,13 @@ function CardSwatch() {
     <div style={{ width: 220, margin: "0 auto", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 8, padding: "12px 14px", boxShadow: "0 2px 8px rgba(23,27,54,0.08)", textAlign: "left" }}>
       <div style={{ width: "100%", height: 60, borderRadius: 4, background: "#F0F4F8", marginBottom: 10 }} />
       <div style={{ fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>見出しテキスト</div>
-      <div style={{ fontSize: 11, color: "#7E86AC" }}>要約テキストがここに入ります…</div>
+      <div style={{ fontSize: 11, color: "#666D93" }}>要約テキストがここに入る…</div>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "1つの話題に関わる情報と操作を、1つの枠にまとめて見せる部品です。";
+const LEAD = "1つの話題に関わる情報と操作を、1つの枠にまとめて見せる部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "関連する情報をひとまとまりに見せ、詳しい画面への入り口にする" },
   { k: "よく使われる場面", v: "商品や記事の一覧、ダッシュボードの項目、SNSの投稿" },
@@ -234,7 +233,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "詳細への入り口になる要約。ざっと眺める閲覧に向き、検索や比べる作業には向かない" },
       { who: "Apple", color: "#C2542A", t: "カードという部品はなく、関連する情報をまとめるボックスがある。小さく保ち、入れ子にしない" },
     ],
-    tip: "眺めて選んでもらう一覧(おすすめ・特集など)はカード、探したり比べたりする一覧はリストや表、と分けると3系列の考え方がつながります(「リスト」「表」ページ)。",
+    tip: "眺めて選んでもらう一覧(おすすめ・特集など)はカード、探したり比べたりする一覧はリストや表、と分けると3系列の考え方がつながる(「リスト」「表」ページ)。",
   },
 ];
 
@@ -278,13 +277,13 @@ export default function ContainmentCardPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>一方、<strong>Appleには「カード」という名称の専用コンポーネントが見当たりません</strong>。最も近い概念は「論理的に関連する情報をグループ化する」ためのBoxesですが、Googleのカードが持つ「タップして詳細に進む要約表示」という発見的な役割までは踏み込んでいない可能性があります。
+              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>一方、<strong>Appleには「カード」という名称の専用コンポーネントが見当たらない</strong>。最も近い概念は「論理的に関連する情報をグループ化する」ためのBoxesだが、Googleのカードが持つ「タップして詳細に進む要約表示」という発見的な役割までは踏み込んでいない可能性がある。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けです。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要です。
+              Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けだ。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cはカードについて定めていません。<strong>articleロール(独立した構成をなす領域)</strong>は、カードの内容が単独でも意味を持つ記事・投稿などの場合に使える<strong>一つの例</strong>です(AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別のHTMLを選びます。また、<strong>カード全体を押せるようにするなら、中に別のボタンやリンクを入れ子にしない</strong>のが安全です(支援技術で正しく扱えないため)。これは、NN groupが定義する「完全な情報ではなく詳細への入り口となる要約」という性質と、意味的に近い関係にあります。
+              W3Cはカードについて定めていない。<strong>articleロール(独立した構成をなす領域)</strong>は、カードの内容が単独でも意味を持つ記事・投稿などの場合に使える<strong>一つの例</strong>だ(AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別のHTMLを選ぶ。また、<strong>カード全体を押せるようにするなら、中に別のボタンやリンクを入れ子にしない</strong>のが安全だ(支援技術で正しく扱えないため)。これは、NN groupが定義する「完全な情報ではなく詳細への入り口となる要約」という性質と、意味的に近い関係にある。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -311,7 +310,6 @@ export default function ContainmentCardPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -345,7 +343,7 @@ export default function ContainmentCardPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.scenarios ? <UseCaseList items={s.scenarios} /> : <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.scenarios ? <UseCaseList items={s.scenarios} /> : <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -384,11 +382,8 @@ export default function ContainmentCardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはBoxesページ(「カード」に完全一致する専用コンポーネントは見当たらないため近似概念)、GoogleはCardsページへのリンクです。WCAGはWAI-ARIA仕様のarticleロール定義、NN groupは記事ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -401,12 +396,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -415,24 +410,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -449,9 +444,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -6,7 +6,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } fro
  * コンポーネントレイヤー「Actions / リンク」ページ。
  * ボタン(タップ領域)と違い、リンクには「単一の数値基準」がないため、
  * データモデルの「基準値」欄は系列ごとの位置づけの説明に置き換えている。
- * 「四サイト比較図」も許容レンジ図ではなく、各系列が何を求めているかの
+ * 「四系列比較図」も許容レンジ図ではなく、各系列が何を求めているかの
  * 要求ポイント比較表に置き換えた(CLAUDE.mdの「都度判断してよい」方針に基づく)。
  *
  * Apple / W3C / Nielsen Norman Group は一次情報を直接取得して確認済み(2026-09)。
@@ -44,18 +44,18 @@ const SOURCES = [
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― Text button(最も近い相当物)",
-    term: "専用の部品なし。最も近いのはText button",
+    doc: "Material Design 3 ― 該当なし(参考: Text button)",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
-    position: "独立したLinkコンポーネントはなく、「Text button」が最も近い",
+    position: <NoData>該当なし(参考: Text buttonが見た目は近い)</NoData>,
     stance:
-      <><Hl>独立した「Link」コンポーネントはない</Hl>。ただしMaterialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。</>,
+      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: Materialには2014年の初代デザイン(当時は「Flat button」)から続く「Text button」という考え方があり、ラベルのみ・枠や塗りの背景を持たない、最も優先度が低いアクションに使う表現として定義されている。ダイアログやカードの中の軽い操作など、見た目の重さを抑えたい場面で使われる。</>,
     exceptions: "「Text button」はあくまでボタン(操作)の一種であり、文中に埋め込む本来のハイパーリンクとは位置づけが異なる。この点を踏まえ、厳密な意味での「リンク」の独立ガイダンスは見当たらない、という理解が正確。",
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
     refs: [
-      { label: "Text button(最も近い相当物)", url: "https://m3.material.io/components/buttons/guidelines" },
+      { label: "参考: Buttons(Text button)", url: "https://m3.material.io/components/buttons/guidelines" },
       { label: "参考: M1 Buttons(Text buttonの由来)", url: "https://m1.material.io/components/buttons.html" },
     ],
     colorCue: { mark: "―", note: "独立した記載なし" },
@@ -65,7 +65,7 @@ const SOURCES = [
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
         <span style={{ display: "inline-block", color: "#2F7D6E", fontWeight: 600, fontSize: 11.5, padding: "6px 4px" }}>詳しく見る</span>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>(Text button)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>参考: Text button</span>
       </div>
     ),
   },
@@ -118,7 +118,7 @@ const SOURCES = [
       <>記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>としている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。</>,
     exceptions:
       "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年3月の編注では、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)と補足し、記事の見た目の推奨は出発点として扱うよう書いている。なお、現在のW3CのG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版にあった条件。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色のみによる区別の禁止)を関連基準として明示的に引用している。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色の使用)を関連基準として明示的に引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
     refs: [
@@ -153,7 +153,7 @@ const CRITERIA_ROWS = [
 function LinkSwatch() {
   return (
     <p style={{ fontSize: 13, lineHeight: 2, color: "#2E3457", margin: 0 }}>
-      テキストテキストテキスト<a href="#" onClick={(e) => e.preventDefault()} style={{ color: "#3A4FCF", textDecoration: "underline" }}>リンク</a>テキストテキスト。<a href="#" onClick={(e) => e.preventDefault()} style={{ color: "#8B8FB8", textDecoration: "underline" }}>リンク</a>(訪問済み)
+      テキストテキストテキスト<span style={{ color: "#3A4FCF", textDecoration: "underline" }}>リンク</span>テキストテキスト。<span style={{ color: "#6E5A8E", textDecoration: "underline" }}>リンク</span>(訪問済み)
     </p>
   );
 }
@@ -175,7 +175,7 @@ function TapMini({ k, color }) {
         <div style={{ position: "absolute", width: Math.max(h, 60), height: h, border: `1.4px dashed ${color}`, borderRadius: 4, background: "#FFFFFF" }} />
         <span style={{ position: "relative", fontSize: 11, color: "#2F6FED", textDecoration: "underline" }}>リンク</span>
       </div>
-      <span style={{ fontSize: 9.5, color: "#7E86AC" }}>{t.label}</span>
+      <span style={{ fontSize: 9.5, color: "#666D93" }}>{t.label}</span>
     </div>
   );
 }
@@ -196,7 +196,7 @@ function CriteriaMark({ cell }) {
           padding: "2px 8px",
           borderRadius: 10,
           background: cell.mark === "―" ? "#F3F4F9" : "#FBF0D9",
-          color: cell.mark === "―" ? "#9EA4C4" : "#7A4A1F",
+          color: cell.mark === "―" ? "#666D93" : "#7A4A1F",
           fontFamily: "'IBM Plex Mono', monospace",
           fontWeight: 700,
           fontSize: 12,
@@ -210,7 +210,7 @@ function CriteriaMark({ cell }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "押すと別のページや同じページの別の場所へ移動する、文字の部品です。";
+const LEAD = "押すと別のページや同じページの別の場所へ移動する、文字の部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "移動先を文字で示し、押すとそこへ移動させる" },
   { k: "よく使われる場面", v: "本文中の参照先、ヘッダー・フッターのページ一覧、「詳しくはこちら」の案内" },
@@ -222,19 +222,19 @@ const SPLITS = [
   {
     q: "リンクに下線は必要?",
     sides: [
-      { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の補足で、下線は必須ではないとした" },
+      { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の編注で、下線は必須ではないとした" },
       { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字と3:1以上の明度の差が必要(1.4.1・G183)。下線を付けるのがいちばん確実" },
       { who: "Apple", color: "#C2542A", t: "リンク専用の決まりはなく、全体の方針として、色だけに頼らず形やアイコンなどの手がかりを足すよう求めている" },
     ],
-    tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違いません。下線をなくす場合は、周りの文字との3:1の差を確かめます。",
+    tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違わない。下線をなくす場合は、周りの文字との3:1の差を確かめる。",
   },
   {
     q: "リンクの文言だけで行き先が分かる必要がある?",
     sides: [
       { who: "Apple", color: "#C2542A", t: "「ここをタップ」のような曖昧な文言は避け、「◯◯について詳しく見る」のように行き先や機能が分かる言葉にする" },
-      { who: "W3C", color: "#A3821F", t: "レベルAA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
+      { who: "W3C", color: "#A3821F", t: "レベルA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
     ],
-    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせます。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全です。",
+    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせる。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全だ。",
   },
 ];
 
@@ -280,13 +280,13 @@ export default function ActionsLinkPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              リンクには、ボタンのような<strong>数値の基準がありません</strong>。代わりにApple・WCAG・NN groupは、「色だけに頼らず見分けられるか」と「文言だけで目的が伝わるか」という2つの観点で考え方を示しています。
+              リンクには、ボタンのような<strong>数値の基準がない</strong>。代わりにApple・WCAG・NN groupは、「色だけに頼らず見分けられるか」と「文言だけで目的が伝わるか」という2つの観点で考え方を示している。
             </p>
             <p style={styles.synthesisText}>
-              Googleには独立した「Link」コンポーネントはなく、<strong>「Text button」(ラベルのみ・枠なしの低優先度ボタン)が最も近い相当物</strong>です。厳密なハイパーリンクとは別物ですが、見た目の軽さという点では近い存在と言えます。
+              Googleには独立した「Link」コンポーネントはなく、<strong>「Text button」(ラベルのみ・枠なしの低優先度ボタン)が最も近い相当物</strong>だ。厳密なハイパーリンクとは別物だが、見た目の軽さという点では近い存在と言える。
             </p>
             <p style={styles.synthesisText}>
-              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点です。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要です(G183)。Nielsen Norman Groupも2026年の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足しています。
+              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点だ。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要だ(G183)。Nielsen Norman Groupも2026年3月の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -398,12 +398,8 @@ export default function ActionsLinkPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: Appleは「Writing」ページ内のBest practicesセクションへのアンカー付きリンクです。WCAGは達成基準ごとのUnderstandingページ(いずれもページ単位で、これ以上細かいアンカーはありません)。NN
-              groupは記事ページ単位です。Googleは独立した「Link」ページがないため、最も近い相当物である「Text button」の公式ページ(主リンクはm3.material.ioの最新仕様のButtons。m1.material.ioの旧仕様は、Text buttonの由来を見る参考リンク)へリンクしています。
-            </span>
           </div>
         </div>
       </div>
@@ -414,18 +410,18 @@ export default function ActionsLinkPage() {
 const styles = {
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  criteriaLegend: { fontSize: 10.5, color: "#7E86AC", margin: "0 0 6px" },
+  criteriaLegend: { fontSize: 10.5, color: "#666D93", margin: "0 0 6px" },
   criteriaList: { margin: "10px 0", borderTop: "1px solid #EEF0F7" },
   criteriaItem: { display: "grid", gridTemplateColumns: "minmax(0, 0.9fr) minmax(0, 1.1fr)", gap: 10, padding: "8px 0", borderBottom: "1px solid #EEF0F7" },
   criteriaItemLabel: { fontSize: 11.5, fontWeight: 700, color: "#454C78", lineHeight: 1.5 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -441,7 +437,7 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "10px 0" },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
@@ -450,7 +446,7 @@ const styles = {
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -467,5 +463,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -40,7 +40,7 @@ const SOURCES = [
     doc: "Material Design 1 ― Steppers(参考。現行M3には該当なし)",
     term: "Steppers(M1)",
     color: "#2F7D6E",
-    position: "番号付きのステップで進み具合を示すStepperがM1にあった。現行M3のコンポーネント一覧にはない",
+    position: "番号付きのステップで進み具合を示すStepperがM1にあった。現行M3のコンポーネント一覧にはなく、代わりの部品もない",
     stance: <span>手順を番号付きのステップに分けて、進み具合を示す。<Hl>ある入力によって次の入力が決まる場合に使う</Hl>。短いフォームを区切るために使ったり、1ページに複数置いたり、入れ子にしたりしない。</span>,
     progress: "画面の幅に合わせて、横型(前のステップの内容で次が決まる場合)と縦型(狭い画面向け)を使い分ける。モバイルでは、ステップを文字・点・プログレスバーで示し、ステップが多いときや途中で増えるときはプログレスバーにする。",
     order: <span>順に終えないと進めない型(linear)に加え、<Hl>好きな順に入れられる型(non-linear)</Hl>もある。順に進む流れの中の任意のステップは、「任意」と示す。</span>,
@@ -150,7 +150,7 @@ function StepMini({ color, steps, current, numbered, list, label }) {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
         {Array.from({ length: steps }).map((_, i) => (
-          <span key={i} style={{ fontSize: 9, color: i === current ? color : "#9EA4C4", fontWeight: i === current ? 700 : 400 }}>{i < current ? "✓ " : i === current ? "▶ " : "・"}ステップ{i + 1}</span>
+          <span key={i} style={{ fontSize: 9, color: i === current ? color : "#666D93", fontWeight: i === current ? 700 : 400 }}>{i < current ? "✓ " : i === current ? "▶ " : "・"}ステップ{i + 1}</span>
         ))}
       </div>
     );
@@ -181,7 +181,7 @@ function WizardSwatch() {
             {i > 0 && <span style={{ width: 36, height: 2, background: i <= 1 ? "#3A4FCF" : "#D5D9EC" }} />}
             <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
               <span style={{ width: 22, height: 22, borderRadius: "50%", background: i <= 1 ? "#3A4FCF" : "#FFFFFF", border: `2px solid ${i <= 1 ? "#3A4FCF" : "#D5D9EC"}`, color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" }}>{i < 1 ? "✓" : i + 1}</span>
-              <span style={{ fontSize: 10.5, color: i === 1 ? "#171B36" : "#7E86AC", fontWeight: i === 1 ? 700 : 400 }}>{t}</span>
+              <span style={{ fontSize: 10.5, color: i === 1 ? "#171B36" : "#666D93", fontWeight: i === 1 ? 700 : 400 }}>{t}</span>
             </span>
           </React.Fragment>
         ))}
@@ -206,7 +206,7 @@ const SPLITS = [
       { figure: <StepMini color="#C2542A" steps={3} current={1} />, who: "Apple", color: "#C2542A", t: "コンテンツの編集のような複数ステップの作業には、全画面のモーダルを検討できる。ただし、モーダルの作業は単純・短く保つ" },
       { figure: <StepMini color="#7A4F7E" steps={3} current={1} list />, who: "NN group", color: "#7A4F7E", t: "複数ステップのモーダルは、元の作業から離れる時間を延ばすだけ。最初から複数ステップが必要なら、モーダルではない普通のページを割り当てる" },
     ],
-    tip: "写真の編集のように、元の画面を見る必要がなく、短く終わる作業なら全画面のモーダルでもよく(Apple)、会員登録や購入のように長く、途中で別の画面を確かめたくなる手順は、普通のページで進める(NN group)と考えると両立します。",
+    tip: "写真の編集のように、元の画面を見る必要がなく、短く終わる作業なら全画面のモーダルでもよく(Apple)、会員登録や購入のように長く、途中で別の画面を確かめたくなる手順は、普通のページで進める(NN group)と考えると両立する。",
   },
   {
     q: "ステップは、好きな順に進めてよい?",
@@ -214,12 +214,12 @@ const SPLITS = [
       { figure: <StepMini color="#2F7D6E" steps={3} current={2} numbered />, who: "Google(M1)", color: "#2F7D6E", t: "順に終えないと進めない型(linear)と、好きな順に入れられる型(non-linear)の両方を用意している" },
       { figure: <StepMini color="#7A4F7E" steps={3} current={1} list />, who: "NN group", color: "#7A4F7E", t: "順番をはっきりさせ、前のステップを終えるまで先に進ませない。好きな順に進められる利点が大きいなら、そもそもウィザードに向かない" },
     ],
-    tip: "前の入力で次の内容が変わる手順は、順に進める形にします(両者とも一致)。順番に意味がない入力なら、ステップに分けずに1つのフォームや、見出しで区切ったページにするほうが、NN groupの考え方に合います。Googleのnon-linearは、現行M3にはないM1の参考情報です。",
+    tip: "前の入力で次の内容が変わる手順は、順に進める形にする(両者とも一致)。順番に意味がない入力なら、ステップに分けずに1つのフォームや、見出しで区切ったページにするほうが、NN groupの考え方に合う。Googleのnon-linearは、現行M3にはないM1の参考情報だ。",
   },
 ];
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形です。";
+const LEAD = "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形だ。";
 const ABOUT = [
   { k: "目的・役割", v: "長く複雑な入力を小さなまとまりに分け、迷わず最後まで進めるようにする" },
   { k: "よく使われる場面", v: "会員登録、購入手続き(お届け先→支払い→確認)、アプリの初期設定" },
@@ -269,13 +269,13 @@ export default function TextInputsWizardPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>ウィザード専用の部品を、現行のガイドラインとして持つ系列はありません</strong>。Appleは全画面のモーダルの中で扱い、GoogleはMaterial Design 1にStepperがありましたが現行のM3にはありません。最も具体的なのはNN groupの記事と、W3Cの複数ページのフォームのチュートリアルです。
+              <strong>ウィザード専用の部品を、現行のガイドラインとして持つ系列はない</strong>。Appleは全画面のモーダルの中で扱い、GoogleはMaterial Design 1にStepperがあったが現行のM3にはない。最も具体的なのはNN groupの記事と、W3Cの複数ページのフォームのチュートリアルだ。
             </p>
             <p style={styles.synthesisText}>
-              共通しているのは、<strong>全体のステップ数と今の位置を示す</strong>ことです。NN groupはステップの一覧や図で今のステップを強調するよう求め、W3Cは最初に全体の数を伝え、見出しやtitleに「ステップ2/4」と入れることを勧めています。また、<strong>途中で中断しても作業を失わないようにする</strong>ことも、Apple・W3C・NN groupの3系列が触れています(閉じる前の確認・制限時間の延長・途中保存)。
+              共通しているのは、<strong>全体のステップ数と今の位置を示す</strong>ことだ。NN groupはステップの一覧や図で今のステップを強調するよう求め、W3Cは最初に全体の数を伝え、見出しやtitleに「ステップ2/4」と入れることを勧めている。また、<strong>途中で中断しても作業を失わないようにする</strong>ことも、Apple・W3C・NN groupの3系列が触れている(閉じる前の確認・制限時間の延長・途中保存)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの<strong>3.3.7(冗長な入力)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件です(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれます(「意見が分かれる点」を参照)。
+              W3Cの<strong>3.3.7(冗長な入力)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件だ(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれる(「意見が分かれる点」を参照)。
             </p>
           </div>
 
@@ -353,7 +353,7 @@ export default function TextInputsWizardPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.046で「フルスクリーンダイアログ」ページから独立させて新規作成。4系列とも本文を直接確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
           </div>
         </div>
@@ -365,7 +365,7 @@ export default function TextInputsWizardPage() {
 const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
@@ -375,24 +375,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -409,6 +409,6 @@ const styles = {
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  diagramNote: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -55,7 +55,7 @@ const SOURCES = [
     position: "5秒未満の待ち時間向けに新設された専用コンポーネント「Loading indicator」を持つ",
     size: "200ミリ秒〜5秒の短い待ち時間に使う。寸法の数値の記載なし",
     stance:
-      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す部品。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う(M3 Loading indicatorのガイドラインの本文で確認、2026-11)。",
+      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す部品。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
@@ -202,14 +202,14 @@ function LoadingStateSwatch() {
         </div>
         <div style={{ width: "100%", height: 6, borderRadius: 3, background: "#EEF1FA" }} />
         <div style={{ width: "70%", height: 6, borderRadius: 3, background: "#EEF1FA" }} />
-        <span style={{ fontSize: 9.5, color: "#7E86AC" }}>ローディング状態(スケルトン)</span>
+        <span style={{ fontSize: 9.5, color: "#666D93" }}>ローディング状態(スケルトン)</span>
       </div>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "中身を読み込んでいる最中の画面の見せ方です。";
+const LEAD = "中身を読み込んでいる最中の画面の見せ方だ。";
 const ABOUT = [
   { k: "目的・役割", v: "待っていることと、もうすぐ表示されることを伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "画面を開いた直後の読み込み、一覧の追加読み込み、画像の表示待ち" },
@@ -225,7 +225,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "1秒・10秒を目安に、スケルトン画面・スピナー・プログレスバーを使い分ける" },
       { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
     ],
-    tip: "区切りの秒数は系列で違いますが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通です。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにします。",
+    tip: "区切りの秒数は系列で違うが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通だ。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
   },
 ];
 
@@ -269,13 +269,13 @@ export default function CommunicationLoadingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っています</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けています。
+              読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示しています。<strong>1秒未満は表示不要、2〜10秒はスケルトン画面かスピナー、10秒を超えるならプログレスバー</strong>です(「プログレスインジケーター」ページの秒数の目安と共通)。
+              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスケルトン画面かスピナー、10秒を超えるならプログレスバー</strong>だ(「プログレスインジケーター」ページの秒数の目安と共通)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝え、不完全な状態が読み上げられるのを防ぐ仕組みを用意しています。見た目のスケルトン画面の裏側で、スクリーンリーダーの利用者が途中の内容を読まされないようにするための実装上のポイントです。
+              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝え、不完全な状態が読み上げられるのを防ぐ仕組みを用意している。見た目のスケルトン画面の裏側で、スクリーンリーダーの利用者が途中の内容を読まされないようにするための実装上のポイントだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -302,7 +302,6 @@ export default function CommunicationLoadingPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -334,7 +333,7 @@ export default function CommunicationLoadingPage() {
                 <div style={styles.labelCell}>専用コンポーネント</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
+                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -387,11 +386,8 @@ export default function CommunicationLoadingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.062で「空状態・ローディング状態」ページから分離)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはLoadingページ、GoogleはM3のLoading indicatorページ、W3CはWAI-ARIA仕様のaria-busy(MDNの解説を併記)、NN groupはSkeleton Screens 101の記事へのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -404,13 +400,13 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -419,24 +415,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -454,9 +450,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

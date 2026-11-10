@@ -188,21 +188,21 @@ function StatusSwatch() {
 
 /* ステータス別のまとめ(4系列の内容を合わせたAI解釈) */
 const STATUS_ROWS = [
-  { k: "success", what: "操作や作業が正しく終わった(W3Cの定義では「操作の成功や結果」)", how: "重要な作業だけ、完了を知らせる(Apple)。作業を止めず、操作した場所の近くに出す", words: "何が終わったかを短く書く(例: 「変更を保存しました」)", look: "緑系の色とチェックのアイコン。Googleは成功の色の役割を持たないため、使うならカスタムカラーをテーマの色と調和させる", avoid: "ささいな操作のたびに出す。頻繁な操作に、対応を求める通知を使う(NN group)" },
-  { k: "info", what: "今の状態や、知っておくとよい出来事(Appleの「今の状態」)", how: "対象の近くに、目立ちすぎない形で置く(Apple)。部品に付ける印(インジケーター)も使える(NN group)", words: "何についての知らせかが分かる文脈を添える(NN group)", look: "青や灰など、目立ちすぎない色と「i」のアイコン", avoid: "今の目的と関係のない知らせを送る(NN group)" },
-  { k: "warning", what: "悪い結果になりうる操作や状況(Appleの「警告」)", how: "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて伝える(Apple)", words: "何が起きうるかと、どうすれば避けられるかを書く", look: "黄・オレンジ系の色と「!」のアイコン", avoid: "予想どおりの結果(ゴミ箱に入れるなど)にまで毎回警告する(Apple)" },
-  { k: "error", what: "操作の失敗や、入力の誤り(W3Cの「エラーの有無」、NN groupの「バリデーション」)", how: "問題のある場所の近くに出し、直すまで残す(NN group)。実行できないときは理由を伝える(Apple)", words: "何が問題で、どう直せばよいかを書く(NN group・W3C 3.3.1)", look: "Googleのerrorの色の役割(赤系)と、×などのアイコン", avoid: "数秒で消える通知(トースト)で出す(NN group)" },
+  { k: "success", what: "操作や作業が正しく終わった(W3Cの定義では「操作の成功や結果」)", how: "重要な作業だけ、完了を知らせる(Apple)。作業を止めず、操作した場所の近くに出す", words: "何が終わったかを短く書く(例: 「変更を保存しました」)", look: "緑系の色とチェックのアイコン。Googleは成功の色の役割を持たないため、使うならカスタムカラーをテーマの色と調和させる", avoid: "ささいな操作のたびに出す。頻繁な操作に、対応を求める通知を使う(NN group)", exc: "ささいな作業の成功は知らせなくてよい。人は成功を前提にしていて、知りたいのは失敗したときだから(Apple)" },
+  { k: "info", what: "今の状態や、知っておくとよい出来事(Appleの「今の状態」)", how: "対象の近くに、目立ちすぎない形で置く(Apple)。部品に付ける印(インジケーター)も使える(NN group)", words: "何についての知らせかが分かる文脈を添える(NN group)", look: "青や灰など、目立ちすぎない色と「i」のアイコン", avoid: "今の目的と関係のない知らせを送る(NN group)", exc: "フォーカスを移して見せるメッセージは、4.1.3のステータスメッセージには当たらない(フォーカスの移動で読み上げられるため。W3C)" },
+  { k: "warning", what: "悪い結果になりうる操作や状況(Appleの「警告」)", how: "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて伝える(Apple)", words: "何が起きうるかと、どうすれば避けられるかを書く", look: "黄・オレンジ系の色と「!」のアイコン", avoid: "予想どおりの結果(ゴミ箱に入れるなど)にまで毎回警告する(Apple)", exc: "作業を止めて警告するのは、予期しない・取り返しのつかないデータ損失のときだけ。それ以外は作業を止めずに伝える(Apple)" },
+  { k: "error", what: "操作の失敗や、入力の誤り(W3Cの「エラーの有無」、NN groupの「バリデーション」)", how: "問題のある場所の近くに出し、直すまで残す(NN group)。実行できないときは理由を伝える(Apple)", words: "何が問題で、どう直せばよいかを書く(NN group・W3C 3.3.1)", look: "Googleのerrorの色の役割(赤系)と、×などのアイコン", avoid: "数秒で消える通知(トースト)で出す(NN group)", exc: "入力の誤りは、作業を止めるダイアログではなく、誤りのある入力欄の近くに出して入力を続けられるようにする(NN group: バリデーション)" },
 ];
 
 function StatusTable() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>ステータス別のまとめ</h2>
-      <p style={styles.diagramNote}>成功・情報・注意・エラーの4分類は、4系列のどれかが公式に定めた分け方ではなく、広く使われている整理です。各欄は4系列の内容を合わせたAI解釈で、出典の系列を括弧で示しています。どの種類でも、色だけで伝えず(W3C 1.4.1)、画面を見ていない人や支援技術の利用者にも伝わるようにします(W3C 4.1.3・Apple)。</p>
+      <p style={styles.diagramNote}>成功・情報・注意・エラーの4分類は、4系列のどれかが公式に定めた分け方ではなく、広く使われている整理だ。各欄は4系列の内容を合わせたAI解釈で、出典の系列を括弧で示している。どの種類でも、色だけで伝えず(W3C 1.4.1)、画面を見ていない人や支援技術の利用者にも伝わるようにする(W3C 4.1.3・Apple)。</p>
       <div style={styles.matrixScroll}>
         <table style={styles.statusTable}>
           <thead>
-            <tr>{["種類", "どんな状態か", "伝え方", "文言のポイント", "色・アイコン", "避けること"].map((h) => (<th key={h} style={styles.statusTh}>{h}</th>))}</tr>
+            <tr>{["種類", "どんな状態か", "伝え方", "文言のポイント", "色・アイコン", "避けること", "例外・特例"].map((h) => (<th key={h} style={styles.statusTh}>{h}</th>))}</tr>
           </thead>
           <tbody>
             {STATUS_ROWS.map((r) => (
@@ -218,6 +218,7 @@ function StatusTable() {
                 <td style={styles.statusTd}>{r.words}</td>
                 <td style={styles.statusTd}>{r.look}</td>
                 <td style={styles.statusTd}>{r.avoid}</td>
+                <td style={styles.statusTd}>{r.exc}</td>
               </tr>
             ))}
           </tbody>
@@ -238,7 +239,7 @@ function NnMethods() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>状態の伝え方の3つの方法(Nielsen Norman Group)</h2>
-      <p style={styles.diagramNote}>どれを選ぶかは、情報の種類・緊急度・利用者の対応が必要か、の3つで決めます。</p>
+      <p style={styles.diagramNote}>どれを選ぶかは、情報の種類・緊急度・利用者の対応が必要か、の3つで決める。</p>
       <div style={styles.methodGrid}>
         {NN_METHODS.map((m) => (
           <div key={m.t} style={styles.methodCard}>
@@ -253,7 +254,7 @@ function NnMethods() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージです。";
+const LEAD = "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージだ。";
 const ABOUT = [
   { k: "目的・役割", v: "何が起きたか、今どんな状態かを伝え、必要なら次の行動を促す" },
   { k: "よく使われる場面", v: "保存完了の知らせ、入力の誤り、通信の注意、検索結果の件数" },
@@ -304,13 +305,13 @@ export default function CommunicationStatusMessagePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>ステータスメッセージ専用の部品を持つ系列はありません</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」という考え方で扱い、Googleは色の役割として<strong>エラーだけ</strong>を持っています。
+              <strong>ステータスメッセージ専用の部品を持つ系列はない</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」という考え方で扱い、Googleは色の役割として<strong>エラーだけ</strong>を持っている。
             </p>
             <p style={styles.synthesisText}>
-              共通しているのは、<strong>伝える情報の重さに合わせて伝え方を変える</strong>ことです。Appleは状態の知らせを対象の近くに控えめに置き、取り返しのつかないデータ損失の警告だけ作業を止めて伝えるとし、NN groupも情報の種類・緊急度・対応の要否で伝え方を選ぶとしています。また、<strong>色だけに頼らず、支援技術にも伝える</strong>ことは、AppleとW3Cの2系列が明記しています。
+              共通しているのは、<strong>伝える情報の重さに合わせて伝え方を変える</strong>ことだ。Appleは状態の知らせを対象の近くに控えめに置き、取り返しのつかないデータ損失の警告だけ作業を止めて伝えるとし、NN groupも情報の種類・緊急度・対応の要否で伝え方を選ぶとしている。また、<strong>色だけに頼らず、支援技術にも伝える</strong>ことは、AppleとW3Cの2系列が明記している。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>、<strong>成功の知らせは重要な作業だけにして控えめに出す</strong>、という使い分けが、AppleとNN groupの考え方を満たします。数秒で消える通知にエラーを出すのは避けます(NN group)。
+              実務では、<strong>エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>、<strong>成功の知らせは重要な作業だけにして控えめに出す</strong>、という使い分けが、AppleとNN groupの考え方を満たす。数秒で消える通知にエラーを出すのは避ける(NN group)。
             </p>
           </div>
 
@@ -385,7 +386,7 @@ export default function CommunicationStatusMessagePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.060で「アラート/バナー」ページから分けて新規作成。4系列とも本文を直接確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
           </div>
         </div>
@@ -402,10 +403,10 @@ const styles = {
   methodCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px" },
   methodTitle: { fontSize: 13, fontWeight: 700, color: "#7A4F7E", marginBottom: 6 },
   methodText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
-  methodEx: { fontSize: 11, lineHeight: 1.6, color: "#7E86AC", margin: 0 },
+  methodEx: { fontSize: 11, lineHeight: 1.6, color: "#666D93", margin: 0 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
@@ -415,24 +416,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -449,6 +450,6 @@ const styles = {
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  diagramNote: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

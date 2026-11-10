@@ -63,9 +63,9 @@ const SOURCES = [
       { label: "Offering help(Tooltips・Tips)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#macOS-visionOS" },
       { label: "HIG Offering help ― Creating tips(TipKit)", url: "https://developer.apple.com/design/human-interface-guidelines/offering-help#Creating-tips" },
       { label: "HIG Popovers(メモ参照)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
-      { label: "UIKit: ヘルプタグ(ツールチップ)の実装", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
-      { label: "TipKit(リッチ相当のフレームワーク)", url: "https://developer.apple.com/documentation/tipkit" },
-      { label: "Highlighting app features with TipKit(インライン/ポップオーバーの使い分け)", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
+      { label: "補足(実装): UIKit ― ヘルプタグ(ツールチップ)", url: "https://developer.apple.com/documentation/uikit/showing-help-tags-for-views-and-controls-using-tooltip-interactions" },
+      { label: "補足(実装): TipKit", url: "https://developer.apple.com/documentation/tipkit" },
+      { label: "補足(実装): Highlighting app features with TipKit", url: "https://developer.apple.com/documentation/tipkit/highlightingappfeatureswithtipkit" },
     ],
     confirmedNote: "TipKitの公式リファレンス(developer.apple.com/documentation/TipKit、/HighlightingAppFeaturesWithTipKit)は本文を直接取得して確認済み(2026-09)。Tipの構成要素・インライン/ポップオーバー2形式の使い分け・乱用を避けるべきという指針を直接確認・反映。ツールチップ(ヘルプタグ)はHIG Offering helpの本文で確認(2026-11)。",
     pending: true,
@@ -88,8 +88,8 @@ const SOURCES = [
     term: "Tooltip(プレーン・リッチ)",
     color: "#2F7D6E",
     position: "アイコンのみのボタン等にラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。要素にすでに文字のラベルがある場合、プレーンツールチップは不要としている。",
-    size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしている。画面端にはみ出す場合は8dp刻みで位置を調整するとしている。最大幅の具体的なdp数値は、今回入手した公式ドキュメント本文では確認できていない。",
-    colorInfo: <span>色の値はデザイントークンで実装する。<NoData>具体的な色の値は未確認。</NoData></span>,
+    size: "配置の目安として、視覚的な境界がある要素(ボタンなど)からは4dp、境界のない要素(テキストのベースラインなど)からは8dpの距離を置くとしている。画面端にはみ出す場合は8dp刻みで位置を調整するとしている。",
+    colorInfo: "色の値はデザイントークンで実装する。",
     glossary: [
       { term: "プレーンツールチップ", desc: "アイコンのみのボタンなど、文字を持たない要素にラベルを補うための短いテキストのみのツールチップ。" },
       { term: "リッチツールチップ", desc: "小見出し・本文・最大2つのボタン・ハイパーリンクを任意で含められるツールチップ。定義や機能の値の説明など、プレーンより踏み込んだ情報提供に使う。" },
@@ -97,7 +97,7 @@ const SOURCES = [
     stance:
       "プレーンツールチップは、アイコンのみのボタンなど文字を持たない要素を簡潔に説明するためのものだとしている。リッチツールチップは、定義や機能の値の説明など、より長い説明に向いており、小見出しは1行程度に収め、ボタンは横並びにできるよう簡潔にすべきだとしている。重要な情報をツールチップだけに隠すべきではなく、その場合は割り込み型のダイアログを使うべきだとしている。",
     exceptions:
-      "リッチツールチップには2つの表示モードがある。通常は対象領域から離れると1.5秒後に自動的に消える一時的な表示で、新しいツールチップを表示すると他の開いているツールチップは即座に閉じるとしている。一方、(1)親要素がクリックされた場合、または(2)ページ読み込み時に新機能を紹介する場合には「永続的なリッチツールチップ」となり、対象領域から離れても表示され続け、ユーザーが別のUI要素を操作するまで消えません(マウスオーバーでは表示されない)。アイコンボタンに常時表示させる使い方は避けるべきだとしている。",
+      "リッチツールチップには2つの表示モードがある。通常は対象領域から離れると1.5秒後に自動的に消える一時的な表示で、新しいツールチップを表示すると他の開いているツールチップは即座に閉じるとしている。一方、(1)親要素がクリックされた場合、または(2)ページ読み込み時に新機能を紹介する場合には「永続的なリッチツールチップ」となり、対象領域から離れても表示され続け、ユーザーが別のUI要素を操作するまで消えない(マウスオーバーでは表示されない)。アイコンボタンに常時表示させる使い方は避けるべきだとしている。",
     scenarios: [
       "アイコンのみのボタンなど、文字を持たない要素の意味を補いたい時(プレーン)",
       "定義や機能の値の説明など、より詳しい補足情報を提供したい時(リッチ)",
@@ -268,7 +268,7 @@ function TooltipSwatch() {
             <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 3, fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>お気に入りに追加</div>
             <div style={{ fontSize: 10.5, color: "#565D8A", lineHeight: 1.5, marginBottom: 6, fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>お気に入りは常にリストの先頭に表示されます</div>
             <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
-              <span style={{ fontSize: 10.5, fontWeight: 600, color: "#7E86AC" }}>閉じる</span>
+              <span style={{ fontSize: 10.5, fontWeight: 600, color: "#666D93" }}>閉じる</span>
               <span style={{ fontSize: 10.5, fontWeight: 700, color: "#3A4FCF" }}>試してみる</span>
             </div>
           </div>
@@ -332,7 +332,7 @@ function PlainRichTable() {
         </table>
       </div>
       <p style={styles.prTableNote}>
-        Googleは「プレーン/リッチ」を公式に2種類のコンポーネントとして定義していますが、Appleは「ヘルプタグ」と「TipKit」という<strong>別フレームワーク</strong>として実装が分かれています。一方W3C・Nielsen Norman Groupは、ツールチップという1つのパターンに<strong>リッチな内容を持ち込むこと自体に慎重</strong>で、対話的・複雑な内容は非モーダルダイアログや可視化されたUIへ逃がすべきという立場を取っています。
+        Googleは「プレーン/リッチ」を公式に2種類のコンポーネントとして定義しているが、Appleは「ヘルプタグ」と「TipKit」という<strong>別フレームワーク</strong>として実装が分かれている。一方W3C・Nielsen Norman Groupは、ツールチップという1つのパターンに<strong>リッチな内容を持ち込むこと自体に慎重</strong>で、対話的・複雑な内容は非モーダルダイアログや可視化されたUIへ逃がすべきという立場を取っている。<strong>Googleのリッチツールチップ(ボタンやリンクを含められる)と、W3Cのrole="tooltip"(操作できる要素を持たない補足の説明)は別のもの</strong>で、名前が同じでも同じ部品として扱わない(AI解釈)。
       </p>
     </div>
   );
@@ -351,20 +351,20 @@ function TooltipVsPopupTip() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
-      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えません</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使います。NN groupは、この2つを次のように区別しています。</p>
+      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えない</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使う。NN groupは、この2つを次のように区別している。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvpTable}>
           <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
           <tbody>{TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしています。一部の部品だけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めています(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
+      <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしている。一部の部品だけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めている(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品です。";
+const LEAD = "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "アイコンだけのボタンなど、見ただけでは分かりにくい部品の名前や働きを補う" },
   { k: "よく使われる場面", v: "ツールバーのアイコンボタンの名前、略語や記号の説明" },
@@ -380,7 +380,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
       { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)とvisionOSのもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
     ],
-    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要な部品に「?」などの印を置き、押すと開くヒントにするのが確実です(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにします(W3C 1.4.13)。",
+    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要な部品に「?」などの印を置き、押すと開くヒントにするのが確実だ(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13)。",
   },
 ];
 
@@ -428,19 +428,19 @@ export default function CommunicationTooltipPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              ツールチップは、「スナックバー・トースト」「アラート」などの他の通知系コンポーネントと違い、<strong>ユーザーの操作(ホバー/フォーカス)によって出現し、操作をやめると消える</strong>という点が本質的な特徴です。クリックやタップで開くものではなく、ユーザーが求めたときにだけ現れる「オンデマンドの補足情報」だという理解で、Nielsen Norman GroupとW3Cの見解が一致しています。
+              ツールチップは、「スナックバー・トースト」「アラート」などの他の通知系コンポーネントと違い、<strong>ユーザーの操作(ホバー/フォーカス)によって出現し、操作をやめると消える</strong>という点が本質的な特徴だ。クリックやタップで開くものではなく、ユーザーが求めたときにだけ現れる「オンデマンドの補足情報」だという理解で、Nielsen Norman GroupとW3Cの見解が一致している。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>タスク完了に不可欠な情報をツールチップだけに頼るべきではない</strong>と明確に警告しています。ツールチップは消えてしまう性質上、内容を作業記憶に留めて後から実行する必要がある指示には不向きで、<strong>マイクロコンテンツ(短い自己完結型のテキスト)</strong>としての役割に徹するべきだとしています。
+              Nielsen Norman Groupは<strong>タスク完了に不可欠な情報をツールチップだけに頼るべきではない</strong>と明確に警告している。ツールチップは消えてしまう性質上、内容を作業記憶に留めて後から実行する必要がある指示には不向きで、<strong>マイクロコンテンツ(短い自己完結型のテキスト)</strong>としての役割に徹するべきだとしている。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「プレーン(アイコンのラベル代わり)」「リッチ(小見出し・リンク・ボタンを含む詳しい説明)」の2種類</strong>を定義しており、W3Cが指摘する「対話的な内容を含めたい場合は非モーダルダイアログを使うべき」という論点とは、リッチツールチップがクリックで<strong>「永続的な表示」に切り替わる仕組み</strong>によって折り合いをつけていると解釈できます。ホバーだけの一時的な表示から、クリックで消えない状態に変わる点が、この2つの考え方をつなぐ鍵です。
+              Googleは<strong>「プレーン(アイコンのラベル代わり)」「リッチ(小見出し・リンク・ボタンを含む詳しい説明)」の2種類</strong>を定義しており、W3Cが指摘する「対話的な内容を含めたい場合は非モーダルダイアログを使うべき」という論点とは、リッチツールチップがクリックで<strong>「永続的な表示」に切り替わる仕組み</strong>によって折り合いをつけていると解釈できる。ホバーだけの一時的な表示から、クリックで消えない状態に変わる点が、この2つの考え方をつなぐ鍵だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>マウスホバーだけでなくキーボードフォーカスでも表示できるようにすべき</strong>という点で、W3C・Nielsen Norman Groupの見解が完全に一致しています。WCAGの1.4.13は、ホバーやフォーカスで出た内容を<strong>勝手に消さない</strong>ことも求めているため、Googleのリッチツールチップは「対象領域から離れて1.5秒後に消える」としており、離れた後に消える点では1.4.13と矛盾しません。Webで作るときも、ホバーやフォーカスが続いている間は消さないようにします(AI解釈)。Appleの「ヘルプタグ」はポインター操作の環境(Mac等)を前提とした機能で、タッチのみの環境では利用できない点も、この「入力方法への配慮」という論点に関わってきます。
+              アクセシビリティ面では、<strong>マウスホバーだけでなくキーボードフォーカスでも表示できるようにすべき</strong>という点で、W3C・Nielsen Norman Groupの見解が完全に一致している。WCAGの1.4.13は、ホバーやフォーカスで出た内容を<strong>勝手に消さない</strong>ことも求めているため、Googleのリッチツールチップは「対象領域から離れて1.5秒後に消える」としており、離れた後に消える点では1.4.13と矛盾しない。Webで作るときも、ホバーやフォーカスが続いている間は消さないようにする(AI解釈)。Appleの「ヘルプタグ」はポインター操作の環境(Mac等)を前提とした機能で、タッチのみの環境では利用できない点も、この「入力方法への配慮」という論点に関わってくる。
             </p>
             <p style={styles.synthesisText}>
-              Appleにも「リッチ」に相当する概念があり、<strong>TipKitという独立フレームワークのTip</strong>がそれにあたります。ただしGoogleのように同一コンポーネントの拡張版ではなく、<strong>別フレームワークとして実装が分かれている</strong>点が特徴で、用途も「機能の値を説明する」よりは<strong>「気づかれていない新機能を紹介する」</strong>ことに寄っています。一方でW3CとNielsen Norman Groupは、どちらも独自の「リッチツールチップ」概念を持たず、<strong>複雑・対話的な内容はツールチップという枠自体に持ち込むべきではない</strong>という立場で一致しており、GoogleとAppleの「拡張路線」とは対照的です。
+              Appleにも「リッチ」に相当する概念があり、<strong>TipKitという独立フレームワークのTip</strong>がそれにあたる。ただしGoogleのように同一コンポーネントの拡張版ではなく、<strong>別フレームワークとして実装が分かれている</strong>点が特徴で、用途も「機能の値を説明する」よりは<strong>「気づかれていない新機能を紹介する」</strong>ことに寄っている。一方でW3CとNielsen Norman Groupは、どちらも独自の「リッチツールチップ」概念を持たず、<strong>複雑・対話的な内容はツールチップという枠自体に持ち込むべきではない</strong>という立場で一致しており、GoogleとAppleの「拡張路線」とは対照的だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -467,7 +467,6 @@ export default function CommunicationTooltipPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -533,11 +532,8 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleのツールチップはHIG Offering helpの「macOS, visionOS」の節を2026-11に確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはUIKitのヘルプタグ解説ページ+TipKitの公式リファレンス2件へのリンクです。GoogleはM3のTooltipsページへのリンクです。WCAGはWAI-ARIA APGのTooltipパターン、NN groupは記事ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -554,12 +550,12 @@ const styles = {
   tvpTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   swatchTypeLabel: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#565D8A", letterSpacing: 0.3 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
@@ -569,24 +565,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -595,7 +591,7 @@ const styles = {
   prTableHeadCell: { textAlign: "left", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", background: "#F8F9FD", padding: "9px 12px", borderBottom: "1px solid #E1E3F0", borderRight: "1px solid #E1E3F0" },
   prTableNameCell: { fontWeight: 600, fontSize: 12.5, color: "#171B36", padding: "10px 12px", borderBottom: "1px solid #E1E3F0", borderRight: "1px solid #E1E3F0", verticalAlign: "top", whiteSpace: "nowrap" },
   prTableCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", padding: "10px 12px", borderBottom: "1px solid #E1E3F0", borderRight: "1px solid #E1E3F0", verticalAlign: "top" },
-  prTableNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.7, margin: "10px 0 0" },
+  prTableNote: { fontSize: 11, color: "#666D93", lineHeight: 1.7, margin: "10px 0 0" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
@@ -610,5 +606,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

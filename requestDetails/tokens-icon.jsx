@@ -33,7 +33,7 @@ const SOURCES = [
     size: "3段階のスケール(small / medium(既定) / large)。スケールはSan Franciscoフォントのキャップハイト(大文字の高さ)を基準に定義される。シンボルは隣接するテキストのポイントサイズに合わせて表示され、スケールで文字に対する強弱を調整する。スケールごとの具体的なpt数値はHIG本文には示されていない。",
     colorInfo: "4種類のレンダリングモードで色の適用方法が変わる。モノクローム(単色、最も中立的)・階層的(1つの色相の濃淡で奥行きを表現)・パレット(2色以上のコントラストで要素を強調)・マルチカラー(シンボル自体が複数色を内蔵)。",
     stance:
-      "SF Symbolsは、ウルトラライトからブラックまでの9段階のウェイトを持ち、それぞれ隣接するテキストのSan Franciscoフォントのウェイトと精密に対応させることで、シンボルと文字の視覚的な調和を図れるとされている。スケールはsmall/medium(既定)/largeの3段階で、キャップハイトを基準に定義され、同じポイントサイズの文字とのウェイトの対応を崩さずに強弱を調整できる。選択状態にはfill、利用できない状態にはslashといったバリアントで状態を表せます(ページ本文を直接確認、2026-09)。",
+      "SF Symbolsは、ウルトラライトからブラックまでの9段階のウェイトを持ち、それぞれ隣接するテキストのSan Franciscoフォントのウェイトと精密に対応させることで、シンボルと文字の視覚的な調和を図れるとされている。スケールはsmall/medium(既定)/largeの3段階で、キャップハイトを基準に定義され、同じポイントサイズの文字とのウェイトの対応を崩さずに強弱を調整できる。選択状態にはfill、利用できない状態にはslashといったバリアントで状態を表せる。",
     exceptions:
       "どのレンダリングモードを使うべきかという固定のルールはなく、シンボルのサイズや背景とのコントラストによって細部の見えやすさが変わるため、使う場所ごとに見え方を確認するよう求めている。自動設定でシンボルごとの推奨モードを使うこともできる。可変カラー(Variable color)は量や強さの変化を表すためのもので、奥行きの表現には使わない(奥行きは階層的モードで表す)としている。",
     accessibility: "知覚可能(Perceivable) ― 専用の数値基準はないが、どのレンダリングモードでもシステムカラーを使えば、アクセシビリティ設定やダークモードに自動で追従するとしている。アイコン単体の意味の伝達については、W3C(1.1.1/4.1.2)を参照。",
@@ -47,6 +47,7 @@ const SOURCES = [
     refs: [
       { label: "SF Symbols(Human Interface Guidelines ― Foundations)", url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Weights-and-scales" },
       { label: "Rendering modes", url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Rendering-modes" },
+      { label: "Icons", url: "https://developer.apple.com/design/human-interface-guidelines/icons" },
     ],
     confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-09)。",
     illustration: () => (
@@ -54,9 +55,9 @@ const SOURCES = [
         <text x="20" y="24" fontSize="20" fill="#C2542A" textAnchor="middle" fontWeight="200">★</text>
         <text x="60" y="26" fontSize="24" fill="#C2542A" textAnchor="middle" fontWeight="500">★</text>
         <text x="100" y="30" fontSize="30" fill="#C2542A" textAnchor="middle" fontWeight="900">★</text>
-        <text x="20" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">small</text>
-        <text x="60" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">medium</text>
-        <text x="100" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">large</text>
+        <text x="20" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">small</text>
+        <text x="60" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">medium</text>
+        <text x="100" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">large</text>
       </svg>
     ),
     illustrationNote: "3段階のスケール、ウェイトによる太さの違い(概念図・系列識別色)",
@@ -66,7 +67,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Symbols(Material Design 3)",
     color: "#2F7D6E",
-    position: "Outlined / Rounded / Sharpの3スタイル(可変フォントのfill軸で塗りつぶし表現も可能)。fill/weight/grade/optical sizeの4軸を持つ可変フォント",
+    position: "Outlined / Rounded / Sharpの3スタイル(可変フォントのfill軸で塗りつぶし表現も可能)。fill/weight/grade(太さの細かい調整)/optical size(表示サイズに合わせた線の太さの調整)の4軸を持つ可変フォント",
     size: "オプティカルサイズ(opsz)軸は20〜48dpの範囲。表示サイズを変えても同じ見た目に見えるよう、ストロークの太さが自動調整される。Google Fontsから読み込んだときの既定値はopsz 48・weight 400・grade 0・fill 0。",
     colorInfo: <span><NoData>数値基準なし。</NoData>weight軸・grade軸によって視覚的な太さ・濃さの印象を調整できるとされている。</span>,
     glossary: [
@@ -75,10 +76,10 @@ const SOURCES = [
       { term: "weight軸・grade軸", desc: "weightは線の太さで、thin(100)〜bold(700)の範囲。gradeはweightより細かい太さの調整で、アイコンの大きさへの影響が小さい。暗い背景の明るいアイコンのにじみを抑えるには低いgrade(例: -25)、強調には高いgrade(例: 200)を使う。" },
     ],
     stance:
-      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
+      "Material Symbolsは、Outlined(密なUIに向く軽く整理されたスタイル)・Rounded(角丸で太めのタイポグラフィやロゴと調和)・Sharp(直線的で小さいスケールでも視認性が高い)の3スタイルで提供されるとされている。独立した「Filled」フォントは無く、各スタイルが持つfill軸で塗りつぶし表現を実現する。fill・weight・grade・optical sizeの4つの可変フォント軸により、1つのフォントファイルで幅広い見た目を表現できる。",
     exceptions: "gradeは、暗い背景に明るいアイコンを置くときのにじみを抑える目的で低い値(例: -25)に、強調したいときは高い値(例: 200)にするとしている。文字のフォントがgrade軸を持つ場合は、文字とアイコンのgradeをそろえると調和するとしている。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝達については、下記W3C(1.1.1/4.1.2)を参照。Material Symbols自体に専用のアクセシビリティ数値基準は確認できていない。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝達については、下記W3C(1.1.1/4.1.2)を参照。Material Symbols自体に専用のアクセシビリティ数値基準はない。",
     useCases: [
       "密なUIにはOutlined、丸みのあるブランドにはRounded、直線的で小さいスケールにはSharpを選ぶ",
       "表示サイズに応じてoptical size軸を調整し、ストローク幅を最適化する",
@@ -88,18 +89,20 @@ const SOURCES = [
     url: "https://m3.material.io/styles/icons/overview",
     refs: [
       { label: "Material Symbols(Material Design 3)", url: "https://m3.material.io/styles/icons/overview" },
+      { label: "Designing icons", url: "https://m3.material.io/styles/icons/designing-icons" },
+      { label: "Applying icons", url: "https://m3.material.io/styles/icons/applying-icons" },
       { label: "Material Symbols guide(developers.google.com)", url: "https://developers.google.com/fonts/docs/material_symbols" },
     ],
-    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。3スタイルの使い分けはM3 Applying iconsの本文で確認(2026-11)。",
+    confirmedNote: "可変フォント4軸の範囲・既定値はdevelopers.google.comのMaterial Symbolsガイド本文で直接確認(2026-09)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="50" viewBox="0 0 120 50">
         <circle cx="20" cy="20" r="10" fill="none" stroke="#2F7D6E" strokeWidth="2" />
         <rect x="48" y="10" width="20" height="20" rx="6" fill="none" stroke="#2F7D6E" strokeWidth="2" />
         <rect x="88" y="10" width="20" height="20" fill="none" stroke="#2F7D6E" strokeWidth="2" />
-        <text x="20" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Outlined</text>
-        <text x="58" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Rounded</text>
-        <text x="98" y="42" fontSize="7" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Sharp</text>
+        <text x="20" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Outlined</text>
+        <text x="58" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Rounded</text>
+        <text x="98" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Sharp</text>
       </svg>
     ),
     illustrationNote: "3スタイルの形状の違い(概念図・系列識別色)",
@@ -110,7 +113,7 @@ const SOURCES = [
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
     position: "意味を持つアイコンには代替テキストを(レベルA)、アイコンのみの操作要素には programmatic な名前を(レベルA)、UI部品として機能するアイコンには3:1のコントラストを(レベルAA)要求する、などの主な基準",
-    size: "アイコン専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はアイコンをタップ領域として使う場合に適用される。",
+    size: <span>アイコン専用の数値基準はない。アイコンを押せる部品として使う場合は、2.5.8(AA)の24×24 CSS px以上(例外あり。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>のページ)。より高い水準の2.5.5(AAA)では44×44 CSS px以上(例外あり)。</span>,
     colorInfo: "1.4.11により、UIコンポーネントの識別に必要な視覚情報(境界線・フォーカス表示・選択状態など)、および情報伝達に必要なグラフィックの一部(アイコン・図表の線など)は、隣接色に対して3:1以上のコントラスト比を確保しなければならないとしている(無効化された要素は除外)。ロゴ・旗・写真など、特定の見た目自体が意味を持つ場合は例外。",
     glossary: [
       { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える非テキストコンテンツ(アイコン・画像など)には、同等の目的を果たすテキストによる代替を提供しなければならないという基準。アイコンが操作要素(ボタンなど)として機能する場合は、視覚的な等価物ではなく「その操作の目的を説明する名前」が必要になる。" },
@@ -120,7 +123,7 @@ const SOURCES = [
       { term: "2.5.3 Label in Name(レベルA)", desc: "見えるラベル(文字)が付いた部品は、支援技術向けの名前にもそのラベルの言葉を含めることを求める基準。食い違うと、音声入力でラベルの言葉を言っても反応しない。" },
     ],
     stance:
-      "1.1.1は、意味を伝える非テキストコンテンツには同じ情報を別の形式(視覚・聴覚・触覚のいずれでも認識できる形)で提供する代替テキストを求める。短い代替で意味を伝えきれる場合はそれで十分ですが、複雑な図表などでは長い説明が必要になるとしている。アイコンが操作要素として機能する場合は、視覚的な見た目の説明ではなく「その操作が何をするか」を説明する名前が必要だと明記されている。4.1.2は、全てのUIコンポーネントについて名前・役割をプログラム的に判定可能にすることを求め、名前は視覚的に非表示でも構わないが支援技術には常に伝わる必要があるとしている。1.4.11は、UIコンポーネントの識別に必要な視覚情報や、理解に必要なグラフィックの一部について3:1以上のコントラスト比を求める。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ意味が伝わる名前(代替テキスト)を付ける。",
+      "1.1.1は、意味を伝える非テキストコンテンツには同じ情報を別の形式(視覚・聴覚・触覚のいずれでも認識できる形)で提供する代替テキストを求める。短い代替で意味を伝えきれる場合はそれで十分だが、複雑な図表などでは長い説明が必要になるとしている。アイコンが操作要素として機能する場合は、視覚的な見た目の説明ではなく「その操作が何をするか」を説明する名前が必要だと明記されている。4.1.2は、全てのUIコンポーネントについて名前・役割をプログラム的に判定可能にすることを求め、名前は視覚的に非表示でも構わないが支援技術には常に伝わる必要があるとしている。1.4.11は、UIコンポーネントの識別に必要な視覚情報や、理解に必要なグラフィックの一部について3:1以上のコントラスト比を求める。3.2.4(レベルAA)は、ページをまたいで繰り返し出てくる同じ働きの部品を、一貫して識別できるようにすることを求める。全ページ共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ意味が伝わる名前(代替テキスト)を付ける。",
     exceptions:
       "1.4.11は、無効化(非アクティブ)なコンポーネントには適用されない。また、ロゴ・旗・写真など、特定の視覚的表現自体が情報として本質的な場合は例外とされている。1.1.1についても、装飾目的のみで情報を持たない画像は対象外。",
     accessibility:
@@ -231,7 +234,7 @@ function IconAnatomy() {
         <text x={ox + 24 * u + 6} y={oy + 88} fontSize="8.5" fill="#A3821F" fontFamily={mono}>円 20dp</text>
         <text x={ox + 24 * u + 6} y={oy + 100} fontSize="8" fill="#454C78" fontFamily={font}>基準の形</text>
         <text x={ox + 24 * u + 6} y={oy + 128} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>線 2dp</text>
-        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#7E86AC" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
+        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#666D93" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
       </svg>
       <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Appleのシンボルと文字の太さ・大きさの合わせ方">
         <text x="0" y="14" fontSize="11" fontWeight="700" fill="#C2542A" fontFamily={font}>Apple ― 隣の文字に合わせる</text>
@@ -239,7 +242,7 @@ function IconAnatomy() {
           <g key={r.l}>
             <path d={starPath(22, 46 + i * 34, 11)} fill="none" stroke="#C2542A" strokeWidth={r.sw} strokeLinejoin="round" />
             <text x="40" y={52 + i * 34} fontSize="17" fontWeight={r.w} fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Favorites</text>
-            <text x="140" y={52 + i * 34} fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+            <text x="140" y={52 + i * 34} fontSize="8.5" fill="#666D93" fontFamily={mono}>{r.l}</text>
           </g>
         ))}
         <text x="0" y="146" fontSize="8.5" fill="#454C78" fontFamily={font}>文字と同じ太さにそろえる(9段階)</text>
@@ -247,10 +250,10 @@ function IconAnatomy() {
           <g key={r.l}>
             <path d={starPath(22 + i * 74, 186, 10 * r.s)} fill="#C2542A" />
             <text x={36 + i * 74 + (r.s - 1) * 12} y="191" fontSize="13" fill="#171B36" fontFamily="-apple-system, 'Helvetica Neue', sans-serif">Aa</text>
-            <text x={14 + i * 74} y="214" fontSize="8.5" fill="#7E86AC" fontFamily={mono}>{r.l}</text>
+            <text x={14 + i * 74} y="214" fontSize="8.5" fill="#666D93" fontFamily={mono}>{r.l}</text>
           </g>
         ))}
-        <text x="0" y="228" fontSize="8" fill="#7E86AC" fontFamily={font}>同じ文字サイズのまま、シンボルの大きさを3段階で調整</text>
+        <text x="0" y="228" fontSize="8" fill="#666D93" fontFamily={font}>同じ文字サイズのまま、シンボルの大きさを3段階で調整</text>
       </svg>
     </div>
   );
@@ -315,7 +318,7 @@ function IconSizeChart() {
         <circle cx={x + d / 2} cy={y + d / 2} r={d / 2} fill="#F4DDD3" />
         <path d={starPath(x + d / 2, y + d / 2 + 0.5, d * 0.24)} fill="#C2542A" />
         <text x={x + d / 2} y={252} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}pt</text>
-        <text x={x + d / 2} y={262} fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={font}>{b.name}</text>
+        <text x={x + d / 2} y={262} fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily={font}>{b.name}</text>
       </g>
     );
   });
@@ -323,8 +326,8 @@ function IconSizeChart() {
   return (
     <svg viewBox="0 0 640 300" width="100%" style={{ maxWidth: 700, display: "block", margin: "0 auto" }} role="img" aria-label="Apple・Googleのアイコンボタンの大きさと余白の比較図">
       <text x="0" y="24" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Google</text>
-      <text x="0" y="38" fontSize="8.5" fill="#7E86AC" fontFamily={font}>アイコンボタン</text>
-      <text x="0" y="49" fontSize="8.5" fill="#7E86AC" fontFamily={font}>5段階(標準幅)</text>
+      <text x="0" y="38" fontSize="8.5" fill="#666D93" fontFamily={font}>アイコンボタン</text>
+      <text x="0" y="49" fontSize="8.5" fill="#666D93" fontFamily={font}>5段階(標準幅)</text>
       {gItems}
       {/* 押せる範囲の最小(48dp)の枠 */}
       <rect x={tx + 60} y={120 - 48 * k} width={48 * k} height={48 * k} fill="none" stroke="#2F7D6E" strokeDasharray="3 2" />
@@ -332,8 +335,8 @@ function IconSizeChart() {
       <text x={tx + 60 + 24 * k} y={146} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>押せる範囲の最小</text>
       <line x1="0" x2="640" y1="176" y2="176" stroke="#E1E3F0" />
       <text x="0" y="200" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
-      <text x="0" y="214" fontSize="8.5" fill="#7E86AC" fontFamily={font}>visionOSの</text>
-      <text x="0" y="225" fontSize="8.5" fill="#7E86AC" fontFamily={font}>ボタン5サイズ</text>
+      <text x="0" y="214" fontSize="8.5" fill="#666D93" fontFamily={font}>visionOSの</text>
+      <text x="0" y="225" fontSize="8.5" fill="#666D93" fontFamily={font}>ボタン5サイズ</text>
       {aItems}
       <rect x={tx + 60} y={236 - 44 * k} width={44 * k} height={44 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
       <text x={tx + 60 + 22 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>44pt</text>
@@ -341,8 +344,8 @@ function IconSizeChart() {
       <rect x={tx + 110} y={236 - 60 * k} width={60 * k} height={60 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
       <text x={tx + 110 + 30 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>60pt</text>
       <text x={tx + 110 + 30 * k} y={262} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>visionOS</text>
-      <text x="96" y="282" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>図は実寸の55%。緑・オレンジの星はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
-      <text x="96" y="294" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>金色の線は、容器の端からアイコンまでの余白。点線の枠は押せる範囲の最小。</text>
+      <text x="96" y="282" fontSize="8.5" fill="#666D93" fontFamily={font}>図は実寸の55%。緑・オレンジの星はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
+      <text x="96" y="294" fontSize="8.5" fill="#666D93" fontFamily={font}>金色の線は、容器の端からアイコンまでの余白。点線の枠は押せる範囲の最小。</text>
     </svg>
   );
 }
@@ -371,7 +374,7 @@ const ICON_SPEC_ROWS = [
   {
     label: "並べるときの間隔",
     hig: "visionOSでは、ボタンの中心どうしを60pt以上離す。60pt以上のボタンには、ホバー効果が重ならないよう周りに4ptの余白を取る。",
-    material: "アイコンボタン自体の間隔の数値は、確認した資料にはない(押せる範囲48dpを確保すれば重ならない)。",
+    material: "アイコンボタン自体の間隔の数値は記載なし(押せる範囲48dpを確保すれば重ならない)。",
   },
 ];
 
@@ -452,7 +455,7 @@ function IconSwatch() {
           <svg width={it.size} height={it.size} viewBox="0 0 24 24">
             <path d="M12 2l2.9 6.6L22 9.3l-5 4.9 1.2 7.1L12 17.9l-6.2 3.4L7 14.2 2 9.3l7.1-.7z" fill="none" stroke="#3A4FCF" strokeWidth="1.6" strokeLinejoin="round" />
           </svg>
-          <span style={{ fontSize: 10.5, color: "#7E86AC", fontFamily: "'IBM Plex Mono', monospace" }}>{it.label}px</span>
+          <span style={{ fontSize: 10.5, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" }}>{it.label}pt/dp</span>
         </div>
       ))}
     </div>
@@ -460,11 +463,11 @@ function IconSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アイコンの大きさ・線の太さなどのスタイルと、意味の伝え方の決まりです。";
+const LEAD = "アイコンの大きさ・線の太さなどのスタイルと、意味の伝え方の決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "小さな絵で操作や内容を伝え、見た目をそろえる" },
   { k: "関わる場面", v: "ツールバーのボタン、ナビゲーションバーの項目、リストの先頭の印" },
-  { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
 export default function TokensIconPage() {
@@ -504,31 +507,31 @@ export default function TokensIconPage() {
 
           <section style={{ marginBottom: 40 }}>
             <h2 style={styles.diagramTitle}>アイコンのスタイルの考え方 ― 形・線の太さ・色</h2>
-            <p style={styles.diagramNote}>アイコンの描き方を決めているのはAppleとGoogleです。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>ことを求めています。W3Cは形や色を定めず、意味を伝えるアイコンに背景との3:1のコントラスト(1.4.11)と代わりの文字(1.1.1)を求めます。NN groupも描き方は定めず、文字のラベルを添えることを勧めています。</p>
+            <p style={styles.diagramNote}>アイコンの描き方を決めているのはAppleとGoogleだ。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>ことを求めている。W3Cは形や色を定めず、意味を伝えるアイコンに背景との3:1のコントラスト(1.4.11)と代わりの文字(1.1.1)を求める。NN groupも描き方は定めず、文字のラベルを添えることを勧めている。</p>
             <IconAnatomy />
             <IconStyleTable />
-            <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」(本文を確認、2026-11)。</p>
+            <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」。</p>
           </section>
 
           <h2 style={styles.diagramTitle}>Apple・Googleのサイズと余白(スペーシング)の比較</h2>
-          <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べます。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めています。</p>
+          <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べる。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めている。</p>
           <div style={styles.chartCard}>
             <IconSizeChart />
           </div>
           <IconSpecTable />
-          <p style={styles.diagramNote}>出典: GoogleはJetpack Compose Material 3のトークン定義(XSmall〜XLargeのIconButtonTokens、押せる範囲の最小48dp)とMaterial Symbolsのガイド、AppleはHIGのButtons・SF Symbols・Iconsページ(いずれも本文を直接確認、2026-09)。</p>
+          <p style={styles.diagramNote}>出典: GoogleはJetpack Compose Material 3のトークン定義(XSmall〜XLargeのIconButtonTokens、押せる範囲の最小48dp)とMaterial Symbolsのガイド、AppleはHIGのButtons・SF Symbols・Iconsページ。</p>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Apple・Googleはどちらも<strong>可変的なアイコン体系(SF Symbols / Material Symbols)</strong>を持ち、単一のスタイルではなく複数のウェイト・スタイル・サイズを1つのフォント技術で連続的に切り替えられるようにしています。Appleは<strong>隣接するテキストとのウェイト一致</strong>を重視し、Googleは<strong>optical size軸によるストローク幅の自動最適化</strong>を重視するなど、同じ「可変フォント」的アプローチでも力点が異なります。
+              Apple・Googleはどちらも<strong>可変的なアイコン体系(SF Symbols / Material Symbols)</strong>を持ち、単一のスタイルではなく複数のウェイト・スタイル・サイズを1つのフォント技術で連続的に切り替えられるようにしている。Appleは<strong>隣接するテキストとのウェイト一致</strong>を重視し、Googleは<strong>optical size軸によるストローク幅の自動最適化</strong>を重視するなど、同じ「可変フォント」的アプローチでも力点が異なる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、アイコンそのものの見た目ではなく<strong>「意味がちゃんと伝わるか」を3段階(代替テキスト・プログラム的な名前・コントラスト比)で規定</strong>しています。特に4.1.2は、アイコンのみのボタンに視覚的なラベルがなくても、支援技術に伝わる名前さえあれば基準を満たせるとしており、Apple・Googleのようなビジュアル面の柔軟性とは別の軸の要求です。
+              W3Cは、アイコンそのものの見た目ではなく<strong>「意味がちゃんと伝わるか」を3段階(代替テキスト・プログラム的な名前・コントラスト比)で規定</strong>している。特に4.1.2は、アイコンのみのボタンに視覚的なラベルがなくても、支援技術に伝わる名前さえあれば基準を満たせるとしており、Apple・Googleのようなビジュアル面の柔軟性とは別の軸の要求だ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの指摘は、Apple・Googleが提供する洗練されたアイコン体系があっても<strong>「アイコン単体の意味は標準化されていないことが多い」</strong>という現実を突いています。5秒ルールや再認・記憶テストといった実務的な検証手法は、W3Cの「プログラム的な名前」という技術要件だけでは解決しない、<strong>視覚的に見ただけで意味が伝わるか</strong>という別の問題を扱っています。
+              Nielsen Norman Groupの指摘は、Apple・Googleが提供する洗練されたアイコン体系があっても<strong>「アイコン単体の意味は標準化されていないことが多い」</strong>という現実を突いている。5秒ルールや再認・記憶テストといった実務的な検証手法は、W3Cの「プログラム的な名前」という技術要件だけでは解決しない、<strong>視覚的に見ただけで意味が伝わるか</strong>という別の問題を扱っている。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -553,7 +556,6 @@ export default function TokensIconPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -615,11 +617,8 @@ export default function TokensIconPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。GoogleはM3のDesigning icons・Applying iconsを2026-11に確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSF Symbolsページの「Weights and scales」見出しへのアンカー付きリンクで、「Rendering modes」見出しへのリンクも併記しています。GoogleはMaterial Design 3のIconsページを基本リンクとし、developers.google.comのMaterial Symbolsガイドも併記しています。WCAGは1.1.1 Understandingページを基本リンクとし、4.1.2・1.4.11のUnderstandingページも併記しています。NN groupはIcon Usability記事を基本リンクとし、関連記事も併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -635,12 +634,12 @@ const styles = {
   styleTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.65, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -656,24 +655,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -691,5 +690,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -5,7 +5,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
 /**
  * コンポーネントレイヤー「Text inputs / カレンダー(スケジュール/予定表)」ページ。
  *
- * 「日付・タイムピッカー」ページが扱う「単一の日付を選ぶための入力コントロール」
+ * 「日付/タイムピッカー」ページが扱う「単一の日付を選ぶための入力コントロール」
  * とは異なり、このページはGoogleカレンダーのような「予定を表示・管理する
  * スケジュール/アジェンダのビュー」を扱う。ユーザーからの新規ページ依頼を受けて
  * 2026-09に新規作成。
@@ -17,7 +17,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
  * なくフルサイズのカレンダーを直接表示する」ものであり、実質的に月表示の
  * カレンダーグリッドである(検索結果で確認、2026-09)。GoogleのDate pickers
  * Modalバリアントも、月をまたぐ横スワイプ・年をまたぐ縦スクロールを持つ
- * カレンダーグリッドUIそのもの(「日付・タイムピッカー」ページで確認済み)。
+ * カレンダーグリッドUIそのもの(「日付/タイムピッカー」ページで確認済み)。
  * NN groupの既存記事(Date-Input Form Fields)も、カレンダーピッカー(グリッド
  * UI)の使いどころを論じている。したがって正しい発見は「4系列とも独立した
  * 『カレンダー』コンポーネントは持たないが、いずれも日付ピッカーの1バリエー
@@ -47,26 +47,21 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)",
-    term: <NoData>独立した部品なし(日付ピッカーのinline・compactスタイル)</NoData>,
+    doc: "Human Interface Guidelines ― Pickers(関連)",
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
-    position: "「カレンダー」という独立コンポーネント名はないが、日付ピッカーの.inline/.compactスタイルが実際に月表示のカレンダーグリッドを描画する。単一の日付選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: <NoData>記載なし</NoData>,
-    stance:
-      "UIDatePickerには.inlineスタイルがあり、これは十分なスペースがある場合にモーダルの手間なくフルサイズのカレンダーを直接表示するものだとされている。.compactスタイルもタップすると同じカレンダーグリッドを開く。Appleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントではなく日付ピッカーの1バリエーションという位置づけ。",
-    exceptions:
-      ".inline/.compactスタイルはあくまで単一の日付を選ぶためのコントロールで、複数の予定(イベント)を同時に表示・管理するスケジュール/アジェンダのビューではない。カレンダーアプリの予定自体を表示・編集する場合は、EventKitUIというシステムフレームワーク(EKEventViewController等)を呼び出す形になり、これもデザインパターンというよりOS標準UIを呼び出す技術的な仕組み。",
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "十分なスペースがある画面では.inlineスタイルでカレンダーグリッドを直接表示する",
-      "スペースが限られる場合は.compactスタイルでタップ時に同じグリッドを開く",
-      "複数の予定を並べて管理する用途にはEventKitUI等の別の仕組みが必要になる",
-    ],
+    position: <NoData>該当なし(予定表の部品はない)</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>。関連: 日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline",
+    url: "https://developer.apple.com/design/human-interface-guidelines/pickers",
     refs: [
-      { label: "UIDatePickerStyle.inline / .compact(日付ピッカーの1バリエーション)", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
+      { label: "関連: Pickers", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
+      { label: "補足(実装): UIDatePickerStyle.inline", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
     ],
     confirmedNote:
       "HIG Pickersの本文(iOS・iPadOSの日付ピッカーのコンパクト・インライン・ホイール・自動のスタイル)と、UIDatePickerStyleの技術文書で確認(2026-11)。",
@@ -90,35 +85,28 @@ const SOURCES = [
         })}
       </svg>
     ),
-    illustrationNote: "UIDatePickerStyle.inlineの月表示カレンダーグリッド(概念図・系列識別色)",
+    illustrationNote: "関連: 日付ピッカー(インライン)の月表示(概念図・系列識別色)",
   },
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― Date pickers(Modalバリアントのカレンダーグリッド)",
-    term: <NoData>独立した部品なし(Date pickerのモーダル)</NoData>,
+    doc: "Material Design 3 ― Date pickers(関連)",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
-    position: "「カレンダー」という独立コンポーネント名はないが、Date pickersのModalバリアントが月表示のカレンダーグリッドUIそのもの。単一の日付(または範囲)選択用であり、複数の予定を並べるスケジュール/アジェンダ専用ではない",
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: "色の値はデザイントークンを通して実装されるとされている。",
-    stance:
-      "「日付・タイムピッカー」ページで比較した通り、GoogleのModal date pickerは月をまたぐ横スワイプ・年をまたぐ縦スクロール・年タップでの年選択という具体的な操作を持つカレンダーグリッドUI。Googleにも実質的な「カレンダーUI」は存在するが、独立した「Calendar」コンポーネントとしてではなく、日付ピッカーの1バリエーションとして提供されている。",
-    exceptions:
-      "Modal date pickerは主に単一の日付・日付範囲の選択に使われ、「日付・タイムピッカー」ページで確認した通り生年月日のような遠い日付には不向き(Docked/Modal date inputを推奨)とされている。複数の予定を同時に表示・管理するスケジュール/アジェンダのビューとしての専用コンポーネントは、m3.material.ioのコンポーネント一覧に見当たらない。",
-    accessibility:
-      "操作可能(Operable) ― 「日付・タイムピッカー」ページで比較したDate Picker Dialogのアクセシビリティ要件(グリッドロール・ローミングtabindexなど)が同様に関わると考えられる。",
-    useCases: [
-      "単一の日付・範囲を選ばせたい場合にModal date pickerのカレンダーグリッドを使う",
-      "生年月日など遠い日付にはDocked/Modal date inputを使う(カレンダー形式は避ける)",
-      "複数の予定を並べて管理する用途には、このコンポーネントとは別のUI設計が必要になる",
-    ],
+    position: <NoData>該当なし(予定表の部品はない)</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>。関連: Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://m3.material.io/components/date-pickers/guidelines",
     refs: [
-      { label: "Date pickers(Modalバリアントのカレンダーグリッド)", url: "https://m3.material.io/components/date-pickers/guidelines" },
+      { label: "関連: Date pickers", url: "https://m3.material.io/components/date-pickers/guidelines" },
     ],
     confirmedNote:
-      "月・年の移動(横スワイプで月、年をタップして年を選ぶ)はM3 Date pickersのガイドラインの本文で確認(2026-11)。",
+      "月・年の移動(横スワイプで月、年をタップして年を選ぶ)はM3 Date pickersのガイドラインによる。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -139,34 +127,25 @@ const SOURCES = [
         })}
       </svg>
     ),
-    illustrationNote: "Date pickers Modalバリアントのカレンダーグリッド、月送りナビゲーション付き(概念図・系列識別色)",
+    illustrationNote: "関連: Date pickers(モーダル)の月表示(概念図・系列識別色)",
   },
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Grid (Interactive Tabular Data) Pattern(「日付・タイムピッカー」ページのDate Picker Dialog例と同じ基盤)",
-    term: "grid(WAI-ARIAのロール)",
+    doc: "WAI-ARIA APG ― Grid Pattern(関連)",
+    term: <NoData>該当なし</NoData>,
     color: "#A3821F",
-    position: "カレンダーグリッド専用のパターンではなく、Date Picker Dialog例が使う汎用のGridパターンがそのまま基盤になる。複数の予定を持つスケジュール/アジェンダ向けの完成された実例はない",
-    size: "カレンダー専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各日・各予定のセルにも適用される。",
-    colorInfo: "1.4.11(非テキストのコントラスト)により、選択中のセルや予定を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
-    glossary: [
-      { term: "ローミングtabindex", desc: "グリッド内で常に1つのセルだけがtabindex=\"0\"を持ち、残りは-1にする実装方法。「日付・タイムピッカー」ページのDate Picker Dialog例と同じ仕組みで、" },
-    ],
-    stance:
-      "APGには、カレンダー・アジェンダ専用の完成された実例はない。Layout Gridの実例はrelated documents list・pill list・search resultsの3例のみ。一方でGrid (Interactive Tabular Data) Patternの一般原則(role=\"grid\"、行・列のセル構造)は、「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ仕組みであり、複数の予定を日・週・月のマス目に並べるスケジュールビューを自作する際の実装の土台になり得るとしている。",
-    exceptions:
-      "「日付・タイムピッカー」ページのDate Picker Dialog例は単一の日付を選ぶ一時的なダイアログで、スケジュール/予定表は複数の予定を持つ永続的な画面であるため、単純に同じ実装を流用できるわけではない。APG本文にも、複数イベントを持つカレンダービュー特有の追加要件(1つのセルに複数の予定がある場合の扱いなど)についての記載はない。",
-    accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― グリッドロール・ローミングtabindexによるキーボード操作性(2.1.1)が中心ですが、カレンダー・アジェンダに特有の要件(予定の読み上げ順序、複数予定の扱いなど)はAPGでカバーされていない。",
-    useCases: [
-      "日・週・月のマス目状のレイアウトには、role=\"grid\"とローミングtabindexを土台として使う",
-      "1つのセルに複数の予定がある場合の読み上げ順序・操作性は、APGに実例がないため独自に設計する",
-    ],
+    position: <NoData>該当なし(予定表の決まりや実装例はない)</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>。関連: 表の形で操作する部品の参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかの部品と同じく満たす。</>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",
     refs: [
-      { kind: "apg", label: "APG: Grid Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/" },
+      { kind: "apg", label: "関連: APG Grid Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/" },
     ],
     confirmedNote: "Grid Patternの本文、およびLayout Grid Examplesページ(実例が3つのみで、カレンダー・アジェンダの実例がないこと)を直接取得して確認済み(2026-09)。",
     illustration: () => (
@@ -183,28 +162,22 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)",
-    term: "Calendar picker(日付入力の記事の中で扱う)",
+    doc: "Date-Input Form Fields(関連)",
+    term: <NoData>該当なし</NoData>,
     color: "#7A4F7E",
-    position: "「カレンダー」単体を論じた記事はないが、この記事内でカレンダーピッカー(グリッドUI)の使いどころを具体的に論じている。日付入力の文脈であり、複数の予定を並べるスケジュール/アジェンダ表示について論じたものではない",
-    size: "寸法の基準はない。",
-    colorInfo: <NoData>数値基準なし</NoData>,
-    stance:
-      "「日付・タイムピッカー」ページで確認した通り、この記事はカレンダーピッカーを「現在に近い(1年未満程度の)日付」や「日付の範囲選択」に向くとしている。誕生日のような遠い日付ではフリーテキスト入力を推奨しており、カレンダーグリッドUIは万能ではなく用途を選ぶという立場。",
-    exceptions:
-      "スケジュール/予定表(複数の予定を並べて表示・管理するアジェンダビュー)そのものを扱った記事は見つかっていない。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
-    useCases: [
-      "近い将来の日付・範囲選択にはカレンダーピッカー(グリッドUI)を使う",
-      "誕生日など遠い日付にはフリーテキスト入力を使う(カレンダーグリッドは避ける)",
-      "複数の予定を並べるスケジュール表示は、この記事の範囲外として別途設計する",
-    ],
+    position: <NoData>該当なし(予定表を主題にした記事はない)</NoData>,
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>。関連: 日付入力の記事で、カレンダーピッカーは近い日付や期間を選ぶのに向くとしている(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    exceptions: <NoData>該当なし</NoData>,
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "less than a year",
     url: "https://www.nngroup.com/articles/date-input/",
     refs: [
-      { label: "Date-Input Form Fields: UX Design Guidelines(「日付・タイムピッカー」ページと同じ記事、カレンダーピッカーの使い分け箇所)", url: "https://www.nngroup.com/articles/date-input/" },
+      { label: "関連: Date-Input Form Fields: UX Design Guidelines", url: "https://www.nngroup.com/articles/date-input/" },
     ],
-    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。「日付・タイムピッカー」ページと同一の記事。",
+    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。「日付/タイムピッカー」ページと同一の記事。",
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.4" />
@@ -214,7 +187,7 @@ const SOURCES = [
         <text x="60" y="58" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">近い日付・範囲選択向き</text>
       </svg>
     ),
-    illustrationNote: "「日付・タイムピッカー」ページと同じカレンダーピッカーの使いどころ(概念図・系列識別色)",
+    illustrationNote: "「日付/タイムピッカー」ページと同じカレンダーピッカーの使いどころ(概念図・系列識別色)",
   },
 ];
 
@@ -254,7 +227,7 @@ function CalendarSwatch() {
       <div style={{ padding: "8px 12px", borderBottom: "1px solid #E1E3F0", fontSize: 12, fontWeight: 700, color: "#171B36" }}>2026年9月</div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 1, background: "#E1E3F0" }}>
         {["日", "月", "火", "水", "木", "金", "土"].map((d) => (
-          <div key={d} style={{ background: "#F8F9FD", textAlign: "center", fontSize: 9, color: "#9EA4C4", padding: "3px 0" }}>{d}</div>
+          <div key={d} style={{ background: "#F8F9FD", textAlign: "center", fontSize: 9, color: "#666D93", padding: "3px 0" }}>{d}</div>
         ))}
         {Array.from({ length: 14 }).map((_, i) => (
           <div key={i} style={{ background: "#FFFFFF", minHeight: 26, fontSize: 9, color: "#454C78", padding: "2px 3px", position: "relative" }}>
@@ -268,7 +241,7 @@ function CalendarSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "予定を日・週・月などの表で見せる画面です。予定表そのものの指針は、4系列ともありません。";
+const LEAD = "予定を日・週・月などの表で見せる画面だ。予定表そのものの指針は、4系列ともない。";
 const ABOUT = [
   { k: "目的・役割", v: "予定や出来事を、日付の並びの中で見渡せるようにする" },
   { k: "よく使われる場面", v: "カレンダーアプリ、会議室・店舗の予約状況、シフト表" },
@@ -303,7 +276,7 @@ export default function TextInputsCalendarPage() {
           <SummaryCard
             imageLabel="コンポーネントイメージ(月表示の例)"
             image={<><CalendarSwatch /></>}
-            imageNote={<>部品としてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションです。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っています。</>}
+            imageNote={<>部品としてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションだ。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -314,13 +287,10 @@ export default function TextInputsCalendarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページの一番のポイントは、<strong>「カレンダー」という名前の独立コンポーネントは4系列のどれにもなく、部品として月表示のカレンダーを持つのはAppleとGoogleで、どちらも「日付ピッカー」の1バリエーション</strong>だということです。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っています。Appleは<strong>UIDatePickerの.inline/.compactスタイル</strong>で、十分なスペースがあればモーダルの手間なくフルサイズのカレンダーを直接表示します。Googleは<strong>Date pickersのModalバリアント</strong>で、月をまたぐ横スワイプ・年をまたぐ縦スクロールという具体的な操作を持つカレンダーグリッドを提供しています。
+              <strong>予定を日・週・月の表で見せる「予定表」の部品や指針は、4系列のどれにもない</strong>。AppleとGoogleが持つ月表示のカレンダーは、どちらも1つの日付(または期間)を選ぶ<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>の形で、予定表とは別物だ。W3CにもGridパターン(表の形で操作する部品の参考例)があるだけで、予定表の実装例はない。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>「日付・タイムピッカー」ページで比較したDate Picker Dialog例と同じ汎用Grid (Interactive Tabular Data) Pattern</strong>がそのまま基盤になります。Nielsen Norman Groupも、同じ記事「Date-Input Form Fields」の中でカレンダーピッカー(グリッドUI)の使いどころを論じており、<strong>近い将来の日付・範囲選択には向くが、誕生日のような遠い日付にはフリーテキスト入力を推奨</strong>しています。
-            </p>
-            <p style={styles.synthesisText}>
-              一方で、<strong>複数の予定を並べて表示・管理するスケジュール/アジェンダ専用のビュー(Googleカレンダーのような画面)は、4系列のいずれにも見当たりません</strong>。どの系列の「カレンダー」も、単一の日付(または範囲)を選ぶための入力コントロールとしてのグリッドUIであり、予定表そのものではないという点が実務上重要です。自作する場合は、<strong>W3Cの汎用Gridパターン(矢印キー移動・ローミングtabindex)を土台にしつつ、予定の表示自体は「カード」「リスト」「バッジ」など本サイトの他のパーツを組み合わせて設計する</strong>ことになります。
+              自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかの部品を組み合わせて設計する</strong>ことになる(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -346,7 +316,6 @@ export default function TextInputsCalendarPage() {
                 <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
                   <>
                     <InfoBox label="参照ページ(公式)">
@@ -410,7 +379,7 @@ export default function TextInputsCalendarPage() {
 
           <div style={styles.linksRow}>
             <a href="/components/selection/date-time-picker" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>日付・タイムピッカー ↗</div>
+              <div style={styles.linkCardTitle}>日付/タイムピッカー ↗</div>
               <div style={styles.linkCardDesc}>同じカレンダーグリッドを、単一の日付・時刻を選ぶ入力コントロールという角度から詳しく比較</div>
             </a>
           </div>
@@ -421,11 +390,8 @@ export default function TextInputsCalendarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはUIDatePickerStyle.inlineの技術文書、GoogleはDate pickersページ(「日付・タイムピッカー」ページと同一URL)へのリンクです。WCAGはWAI-ARIA APGのGrid (Interactive Tabular Data) Patternのページ、NN groupは「日付・タイムピッカー」ページと同じ記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -438,12 +404,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -452,26 +418,26 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  positionBadgeMuted: { color: "#B7BCDA", background: "#F3F4F9" },
-  mutedText: { color: "#B7BCDA" },
+  positionBadgeMuted: { color: "#666D93", background: "#F3F4F9" },
+  mutedText: { color: "#666D93" },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -488,9 +454,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -35,7 +35,7 @@ const SOURCES = [
     size: "寸法の数値の記載なし",
     colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
-      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。バッジは未読の通知の数を示すためだけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す(HIG Notifications・Tab barsの本文で確認、2026-11)。",
+      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。バッジは未読の通知の数を示すためだけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す。",
     exceptions:
       "利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
     scenarios: [
@@ -51,7 +51,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
     refs: [
-      { label: "Notifications(アプリアイコン)/ Tab Bars(タブ)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+      { label: "Notifications", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
       { label: "Tab Bars(タブ上のバッジ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
     confirmedNote: "HIG Notifications・Tab barsの本文で確認(2026-11)。「バッジ」という単独のページはない。",
@@ -86,14 +86,14 @@ const SOURCES = [
     exceptions:
       "桁数が多い件数は「+」付きで丸めて4文字以内に収めるべきとされ、際限なく数字を伸ばすことは想定されていない。",
     glossary: [
-      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3で確認済み)。" },
+      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3 Badgesにある)。" },
     ],
     scenarios: [
       "タブ・ナビゲーション項目に未読件数や新着の有無を示したい時",
       "存在の有無だけを伝えたい時は小サイズ(ドット)を使う",
       "具体的な件数を伝えたい時は大サイズ(数字・最大4文字)を使う",
     ],
-    accessibility: <span><NoData>数値基準なし。</NoData>バッジ自体には装飾的な意味しか持たせず、意味のある情報は親要素(アイコンボタン等)側で支援技術に伝えるべきだと考えられる(直接確認はできていない)。</span>,
+    accessibility: <span><NoData>数値基準なし。</NoData>バッジが伝える件数・状態は、バッジを付けたボタンなどの名前に含めて支援技術にも伝える(4.1.2 名前・役割・値)。色の違いだけで状態を伝えない(1.4.1 色の使用)。</span>,
     useCases: [
       "存在のみを示す場合は小(ドット)、件数を示す場合は大(数字)を使い分ける",
       "件数は「+」付きで4文字以内に丸める",
@@ -129,14 +129,14 @@ const SOURCES = [
     term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
-    position: "「バッジ」自体に対応する専用のARIAロールは存在しない。装飾的な視覚要素として扱い、件数などの意味は親要素(アイコンボタン等)のアクセシブルネームに含める、というARIA14のaria-label手法を援用するのが一般的",
+    position: "「バッジ」に対応する専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
     size: "専用の数値基準はない。",
-    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 文字のコントラスト)が必要。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の使用)の違反にはならない。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝える。",
+    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))が必要。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の使用)の違反にはならない。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
-      { term: "ARIA14 / aria-label", desc: "視覚的なラベルを置けない要素に対し、aria-label属性でアクセシブルネームを与える手法。バッジ付きのアイコンボタンでは、装飾的なバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")がこの技法の応用として紹介される。" },
+      { term: "ARIA14 / aria-label", desc: "視覚的なラベルを置けない要素に対し、aria-label属性でアクセシブルネームを与える手法。バッジ付きのアイコンボタンでは、装飾的なバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、この技法を当てはめた形になる(AI解釈)。" },
     ],
     stance:
-      "ARIA14は、視覚的な文字ラベルを置けない場面でaria-label属性を使いアクセシブルネームを与える技法で、記号だけの閉じるボタンなどが例として挙げられている。バッジ付きアイコンにこれを応用すると、装飾要素であるバッジ自体はaria-hidden=\"true\"で隠し、件数などの意味のある情報は親のボタン・アイコンのaria-labelに畳み込む実装が一般的だとされる。これはWCAG 4.1.2(Name, Role, Value)が求める「名前・役割・値がプログラム的に取得できること」を満たすための具体的な手段。",
+      "バッジに対応する専用のロールはない。関わるのは、達成基準4.1.2(名前・役割・値)と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを画面に置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げている(バッジ専用の技法ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジ自体はaria-hidden=\"true\"で隠す形になる(AI解釈)。こうして名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
     exceptions:
       "可視のラベル文字列がすでに存在する場合は、WCAG 2.5.3(Label in Name)により、aria-labelにもその可視文字列を含める必要があるとされている(バッジ専用の例外規定ではなく、ラベル全般に共通する規定)。",
     scenarios: [
@@ -173,7 +173,7 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)",
+    doc: "UI Elements Glossary ― Badge",
     term: "Badge",
     color: "#7A4F7E",
     position: "アイコンの上に重ねて表示し、通知(主にドット)またはアイテム数(主に数字)を示す小さな要素、という用語集としての定義",
@@ -193,7 +193,7 @@ const SOURCES = [
     searchHint: "Badge",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/",
     refs: [
-      { label: "UI Elements Glossary ― Badge項目(「スナックバー」「トースト」「バナー」の各ページと同一記事)", url: "https://www.nngroup.com/articles/ui-elements-glossary/" },
+      { label: "UI Elements Glossary: Badge", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Badge" },
     ],
     confirmedNote: "UI Elements Glossaryの「Badge」項目本文を直接取得して確認しました(2026-09)。",
     illustration: () => (
@@ -252,7 +252,7 @@ function BadgeSwatch() {
           <div style={{ width: 40, height: 40, borderRadius: 10, background: "#EEF1FA", border: "1px solid #E1E3F0" }} />
           <div style={{ position: "absolute", top: -5, right: -5, width: 12, height: 12, borderRadius: "50%", background: "#3A4FCF", border: "2px solid #FFFFFF" }} />
         </div>
-        <span style={{ fontSize: 10.5, color: "#7E86AC" }}>ドット(存在の有無)</span>
+        <span style={{ fontSize: 10.5, color: "#666D93" }}>ドット(存在の有無)</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <div style={{ position: "relative", width: 40, height: 40 }}>
@@ -261,14 +261,14 @@ function BadgeSwatch() {
             <span style={{ fontSize: 10, color: "#FFFFFF", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>12</span>
           </div>
         </div>
-        <span style={{ fontSize: 10.5, color: "#7E86AC" }}>数字(件数)</span>
+        <span style={{ fontSize: 10.5, color: "#666D93" }}>数字(件数)</span>
       </div>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印です。";
+const LEAD = "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印だ。";
 const ABOUT = [
   { k: "目的・役割", v: "見るべきものがあることを、数字または点で控えめに知らせる" },
   { k: "よく使われる場面", v: "未読メールの件数、アプリアイコンの通知数、タブの新着の点" },
@@ -284,7 +284,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "アプリアイコンのバッジは未読の通知の数(数字)。タブのバッジは数字か感嘆符" },
       { who: "NN group", color: "#7A4F7E", t: "知らせの有無は多くは点、件数は多くは数字、と用語集で定義している" },
     ],
-    tip: "件数そのものに意味があるとき(未読メール)は数字、新しいものがあることだけを伝えればよいとき(更新あり)は点、と分けると3系列で食い違いません。数字は大きくなりすぎたら「999+」のようにまとめます。",
+    tip: "件数そのものに意味があるとき(未読メール)は数字、新しいものがあることだけを伝えればよいとき(更新あり)は点、と分けると3系列で食い違わない。数字は大きくなりすぎたら「999+」のようにまとめる。",
   },
 ];
 
@@ -328,16 +328,16 @@ export default function CommunicationBadgePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントです。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義しています。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散しています。
+              Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しません</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものです。これは「バッジのための一次情報」ではなく「一般的なラベリング手法の転用」である点を正直に記載しています。
+              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものだ。これは「バッジのための一次情報」ではなく「一般的なラベリング手法の転用」である点を正直に記載している。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まります。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていません)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまります。
+              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていない)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまる。
             </p>
             <p style={styles.synthesisText}>
-              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴です。
+              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -365,7 +365,6 @@ export default function CommunicationBadgePage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -397,7 +396,7 @@ export default function CommunicationBadgePage() {
                 <div style={styles.labelCell}>専用コンポーネント</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
+                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -448,11 +447,8 @@ export default function CommunicationBadgePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications・Tab bars、GoogleはM3 Badgesを2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページ(補助的にTab Barsページ)、GoogleはM3のBadgesページ、WCAGはARIA14解説ページ(補助的に4.1.2解説ページ、いずれもバッジ専用の一次文書ではない一般的な技法・達成基準)、NN groupはUI Elements Glossaryの記事(「Badge」項目)へのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -465,13 +461,13 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -480,24 +476,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -515,9 +511,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -31,7 +31,7 @@ const SOURCES = [
     exceptions:
       "ラジオボタンも「不定(mixed)」状態を表示できるが、追加のラジオボタンで複数の状態を表現できるため、この状態が有用な場面はまれだとしている。設定や項目が混在状態を示したい場合は、チェックボックスの使用を検討すべきとしている。また、選択肢が多すぎるリストは避け、水平に並べる場合は一貫した間隔を保つべきとしている。",
     accessibility:
-      "理解可能(Understandable) ― 選択・非選択の状態を見た目で正確に伝えるべきという点は、理解可能性に関わる。標準のラジオボタンコントロールを使えば、グループ内での相互排他性が支援技術に自動的に伝わる。",
+      "理解可能(Understandable) ― 選択・非選択の状態を見た目で正確に伝えるべきという点は、理解可能性に関わる。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに支援技術向けの記載はない。",
     useCases: [
       "2〜5個程度の選択肢からちょうど1つを選ばせる",
       "設定画面で相互排他的なオプションを提示する",
@@ -62,7 +62,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "リストから1つを選ぶ推奨コントロール。5個以下の選択肢に向く",
     size:
-      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしている(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。円の本体自体の見た目サイズ(dp単位)はこのテキストに含まれておらず未確認。",
+      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしている(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンを通じて実装される。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしている。",
     glossary: [
@@ -74,7 +74,7 @@ const SOURCES = [
     exceptions:
       "ラジオボタンのネスト(入れ子)や、複数選択のための使用は避けるべきとしている。配置の節では、常に1つのオプションが事前選択された状態で開始すべきとしている(ただし操作の節では「1つが選ばれた状態か、何も選ばれていない状態で始められる」とも書いている)。積み重ねた(縦の)レイアウトを基本とし、水平方向のリストは避けるべきとしている。選択済みのラジオボタンは、ユーザー操作だけでは選択解除できないため、解除が必要な場合は「該当なし」の選択肢や「選択をクリア」といった別の手段を用意すべきとしている。",
     accessibility:
-      "操作可能(Operable) ― UIテキストが正しくリンクされていれば、支援技術はテキストに続けてコンポーネントの役割(ラジオグループ)を読み上げる。",
+      "堅牢(Robust) ― UIテキストが正しくリンクされていれば、支援技術はテキストに続けてコンポーネントの役割(ラジオグループ)を読み上げる。",
     useCases: [
       "リストから1つの項目だけを選ばせる(複数選択が必要ならチェックボックスを使う)",
       "5個以下の選択肢を縦に並べ、全て見せた状態で選ばせる",
@@ -93,7 +93,7 @@ const SOURCES = [
         <circle cx="11" cy="11" r="4.5" fill="#2F7D6E" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示。実際のカラートークンは未確認",
+    illustrationNote: "系列識別色で図示",
   },
   {
     key: "wcag",
@@ -120,6 +120,10 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
       { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "apg", label: "APG: Radio Group Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -127,7 +131,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
@@ -142,7 +146,7 @@ const SOURCES = [
     size:
       <span><NoData>数値基準なし。</NoData>ただし選択肢は常にすべて可視状態に保つべきとしており、隠れた選択肢のために追加の操作が発生しない設計を推奨している。</span>,
     colorInfo:
-      <span><NoData>数値基準なし。</NoData>デフォルトで1つの選択肢を選んだ状態にしておくことが、視覚的にも分かりやすいとしている。</span>,
+      <NoData>数値基準なし</NoData>,
     stance:
       "2つ以上の選択肢があり、それらが相互排他的で、ユーザーが必ず1つを選ばなければならない場合にラジオボタンを使うべきとしている。選択肢は縦方向に1行1つで配置し、常にすべての選択肢を可視状態に保つことを推奨している。",
     exceptions:
@@ -266,13 +270,13 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安です(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはありません。</p>
+      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。</p>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "丸いボタンを並べ、選択肢の中から1つだけを選ばせる部品です。";
+const LEAD = "丸いボタンを並べ、選択肢の中から1つだけを選ばせる部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "すべての選択肢を見せたうえで、ちょうど1つを選んでもらう" },
   { k: "よく使われる場面", v: "配送方法・支払い方法の選択、アンケートの単一回答、設定の切り替え(大・中・小など)" },
@@ -288,7 +292,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "配置の節では「常に1つを選んだ状態で始める」、操作の節では「何も選んでいない状態でも始められる」と書いている。外す必要があるなら「該当なし」などの選択肢を用意する" },
       { who: "Apple", color: "#C2542A", t: "既定の選択についての記載なし" },
     ],
-    tip: "迷ったら1つを選んでおきます(NN group)。選ばせたくない質問では、何も選ばない状態で始め、「該当なし」「回答しない」の選択肢を足すと、Googleの書き方とも食い違いません。",
+    tip: "迷ったら1つを選んでおく(NN group)。選ばせたくない質問では、何も選ばない状態で始め、「該当なし」「回答しない」の選択肢を足すと、Googleの書き方とも食い違わない。",
   },
   {
     q: "選択肢を横に並べてよい?",
@@ -296,7 +300,7 @@ const SPLITS = [
       { who: "Google・NN group", color: "#2F7D6E", t: "縦に1行1つが基本。横に並べるのは避ける(Google)。縦に並べ、すべての選択肢を常に見せる(NN group)" },
       { who: "Apple(macOS)", color: "#C2542A", t: "横に並べる場合は、選択肢の間隔をそろえる(横並びを禁じてはいない)" },
     ],
-    tip: "縦に並べると、ラベルの長さが違っても読みやすく、押し間違いも減ります。横に並べるのは「はい/いいえ」のような短い2〜3択だけにし、その場合も間隔をそろえます。",
+    tip: "縦に並べると、ラベルの長さが違っても読みやすく、押し間違いも減る。横に並べるのは「はい/いいえ」のような短い2〜3択だけにし、その場合も間隔をそろえる。",
   },
 ];
 
@@ -342,13 +346,13 @@ export default function SelectionRadioPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              ラジオボタンは4系列とも<strong>「複数の選択肢から1つだけを選ぶ」相互排他的な用途</strong>で一致しています。特にApple・Google・Nielsen Norman Groupは、チェックボックス(複数選択)との役割の違いを明確に示しています。
+              ラジオボタンは4系列とも<strong>「複数の選択肢から1つだけを選ぶ」相互排他的な用途</strong>で一致している。特にApple・Google・Nielsen Norman Groupは、チェックボックス(複数選択)との役割の違いを明確に示している。
             </p>
             <p style={styles.synthesisText}>
-              <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれます(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしています(ただし操作の手間は増えます)。
+              <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれる(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしている(ただし操作の手間は増える)。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求しています。
+              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -374,7 +378,6 @@ export default function SelectionRadioPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -438,11 +441,8 @@ export default function SelectionRadioPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはTogglesページ内のRadio buttonsセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(見た目サイズの数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -455,12 +455,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -470,21 +470,21 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 40 },
   infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
@@ -493,7 +493,7 @@ const styles = {
   infographicLegendName: { fontSize: 12, fontWeight: 700, color: "#171B36", width: 130, flexShrink: 0 },
   infographicLegendNote: { fontSize: 11.5, color: "#454C78", lineHeight: 1.5 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -511,5 +511,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

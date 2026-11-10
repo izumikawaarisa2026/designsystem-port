@@ -29,8 +29,9 @@ const SOURCES = [
     position: "余白の数値の刻みは定めず、システムが用意するマージン・レイアウトガイド・セーフエリアに従って配置する方式。画面の広さはcompact/regularの「サイズクラス」で判断する",
     size: "iOS/iPadOSでは余白や列の数値基準は示されていない(システムのマージンとセーフエリアを使う前提)。固定値があるのは一部のプラットフォームのみで、tvOSはセーフエリアとして上下60pt・左右80ptの内側に主要な内容を置き、グリッドの列間は40pt・行間は最低100pt。visionOSはボタンの中心同士を最低60pt離す、watchOSは1行に並べるボタンをアイコンなら3つ・文字なら2つまで、としている。",
     colorInfo: "サイズクラスは横・縦それぞれがcompact(狭い/低い)かregular(広い/高い)のどちらかで、システムが端末・ウィンドウの状態・マルチタスクの状況から判定する。レイアウトは端末の種類や向きではなくサイズクラスで決めるべきで、広い画面ではタブバーをサイドバーに切り替えるなど見せ方を変えてもよいが、使える機能そのものは変えないよう求めている。",
+    structure: "関連する項目は、余白・容器の形・区切り線でまとめ、関係のない項目と見分けられるようにする(HIG Layout)。",
     stance:
-      "重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる、という視覚的な階層の原則を示している。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応すること、特にDynamic Typeで文字が大きくなったときに、横に並んだ要素を縦に積み直すなどして文字が切れたり重なったりしないようにすることを求めている(ページ本文を直接確認、2026-09)。",
+      "重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる、という視覚的な階層の原則を示している。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応すること、特にDynamic Typeで文字が大きくなったときに、横に並んだ要素を縦に積み直すなどして文字が切れたり重なったりしないようにすることを求めている。",
     exceptions:
       "横向き専用のゲームのように向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応すべきとしている。背景の画像は、画面の縦横比が変わっても縦横比を変えずに拡大して画面を埋めるよう勧めている。",
     accessibility:
@@ -46,6 +47,7 @@ const SOURCES = [
       { label: "Layout", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Size-classes" },
       { label: "Visual hierarchy", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Visual-hierarchy" },
       { label: "Guides and safe areas", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Guides-and-safe-areas" },
+      { label: "Split views", url: "https://developer.apple.com/design/human-interface-guidelines/split-views" },
     ],
     confirmedNote: "HIGのページデータを直接取得し、本文・数値表・見出しアンカーを確認済み(2026-09)。",
   },
@@ -55,23 +57,26 @@ const SOURCES = [
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
     position: "使える画面の幅を5段階の「ウィンドウサイズクラス」に分け、その区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える方式。画面端の余白はCompactで16dp、それより広い幅で24dp",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。余白を4dpのグリッドに揃えるという値は、M3のレイアウトのページでは未確認。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp(M3の本文で確認、2026-11)。",
+    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。",
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよいとしている。ただしスマートフォンを横にした場合のように、幅はMediumでも高さがCompactのときは2ペインが実用的でないため、高さも考慮するよう勧めている。",
+    structure: "まとまりは余白で示す。線・区切り線・影で囲む明示的なまとめ方と、近さと空きで示す暗黙のまとめ方がある(カルーセルの項目を近づけ、周りを空けるなど)(M3 Spacing)。",
     stance:
-      "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている(Android Developersの本文を直接確認、2026-09)。",
+      "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズでアプリの実行中にも変わるとしている。そのため「タブレットかどうか」の判定に使うものではない、と明言している。各区分は典型的な端末の大多数に対応するよう選ばれており、例えばCompact幅は縦向きのスマートフォンの99.96%にあたるとしている。",
     exceptions:
-      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。画面端のマージン(16/24dp)はM3の本文で確認(2026-11)。4dpのグリッドは未確認。",
+      "Large・Extra-largeの2区分は、デスクトップや外部ディスプレイに対応するため、Material Designの元のレイアウト指針(Compact/Medium/Expanded)に後から追加されたもの。",
     accessibility:
       "知覚可能(Perceivable) ― 画面の幅が狭くなったときに1ペインへ切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
       "レイアウトの切り替えは端末の種類ではなく、幅のウィンドウサイズクラスで判断する",
       "Medium幅以上では2ペイン(一覧+詳細)を検討し、ペインの間は24dp空ける",
-      "余白・サイズは4dpの倍数に揃える",
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/layout/breakpoints/overview",
     refs: [
-      { label: "Layout / Window size classes", url: "https://m3.material.io/foundations/layout/breakpoints/overview" },
+      { label: "Breakpoints(Window size classes)", url: "https://m3.material.io/foundations/layout/breakpoints/overview" },
+      { label: "Panes", url: "https://m3.material.io/foundations/layout/scaffold/panes" },
+      { label: "Canonical layout examples", url: "https://m3.material.io/foundations/layout/canonical-examples/overview" },
+      { label: "Spacing", url: "https://m3.material.io/foundations/layout/grids-spacing/spacing" },
       { label: "Use window size classes(Android Developers)", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/use-window-size-classes" },
       { label: "Compose adaptive: PaneScaffoldDirective(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/adaptive/adaptive-layout/src/commonMain/kotlin/androidx/compose/material3/adaptive/layout/PaneScaffoldDirective.kt" },
     ],
@@ -84,7 +89,8 @@ const SOURCES = [
     color: "#A3821F",
     position: "余白やグリッドの値は定めず、「狭い幅でも読めること」「押す対象どうしの間隔」「見た目のまとまりを構造でも伝えること」を求める基準",
     size: "1.4.10(レベルAA): 幅320 CSSピクセル相当(縦スクロールの内容)でも、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。2.5.8(レベルAA): 押す対象は24×24 CSSピクセル以上。これより小さい場合は、各対象の中心に直径24pxの円を置いたとき、ほかの対象やその円と重ならない間隔があれば適合する。",
-    colorInfo: "1.3.1(レベルA): 見た目で伝えている情報・構造・関係(余白でまとめたグループ、見出しと本文の関係など)は、プログラムでも判別できるか、テキストで示されていること。余白だけでグループを表すと、スクリーンリーダーの利用者にはそのまとまりが伝わらない。",
+    colorInfo: "1.4.10により、狭い幅でも情報と機能を失わずに1列に組み替えられること(数値は上の行)。幅ごとのレイアウトの決まりはない。",
+    structure: "1.3.1(レベルA): 見た目で伝えている情報・構造・関係(余白でまとめたグループ、見出しと本文の関係など)は、プログラムでも判別できるか、テキストで示されていること。余白だけでグループを表すと、スクリーンリーダーの利用者にはそのまとまりが伝わらない。",
     glossary: [
       { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、縦横両方向のスクロールなしで内容を読めることを求める基準。地図・図表・データ表など2次元の配置が必要な部分は例外。" },
       { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "ポインターで押す対象を24×24 CSSピクセル以上にするか、小さい場合は周囲に十分な間隔を取ることを求める基準。文中のリンクなどは例外。" },
@@ -116,9 +122,10 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "余白は「何と何が関係しているか」を伝える手段である、というゲシュタルト心理学の近接の原則に基づく実務指針(適合基準ではない)",
     size: "数値基準ではなく原則としての言及。近くにある要素は同じグループとして、余白で離れた要素は別のグループとして認識されるとしている。例として、12項目のフォームを1つのまとまりで見せるより、意味のある4項目×3グループに分けた方が取り組みやすく見えると述べている。",
-    colorInfo: "近接は最も強いグループ化の原則の1つで、色や形の類似といった別の手がかりよりも優先されることがあるとしている。見出しの上下の余白も同じで、見出しは前の節の本文より、自分の節の本文に近く置くべきだとしている。",
+    colorInfo: <NoData>記載なし</NoData>,
+    structure: "近接は最も強いグループ化の原則の1つで、色や形の類似といった別の手がかりよりも優先されることがあるとしている。見出しの上下の余白も同じで、見出しは前の節の本文より、自分の節の本文に近く置くべきだとしている。",
     stance:
-      "関連する要素は近くに置き、関係のない要素は離すべきだとしている。関係のない要素を近くに置くと、その中の1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれてしまう。逆に、関連する操作が離れた場所にあると、作業に集中している利用者は目の前にあっても見落とする(いわゆる「トンネル視」)。実例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあったため、登録が必須だと誤解された事例を挙げている(記事本文を直接取得して確認済み、2026-09)。",
+      "関連する要素は近くに置き、関係のない要素は離すべきだとしている。関係のない要素を近くに置くと、その中の1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれてしまう。逆に、関連する操作が離れた場所にあると、作業に集中している利用者は目の前にあっても見落とす(いわゆる「トンネル視」)。実例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあったため、登録が必須だと誤解された事例を挙げている。",
     exceptions:
       "レスポンシブデザインでは画面の幅によって要素の近さが変わるため、広い画面で余白によって分けていたものが、狭い画面では同じグループに見えてしまうことがある。その場合は配置そのものを変える(例: 検索を別の場所へ移す)必要があるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視覚的なグループ化の知覚に関する心理学の原則とユーザーテストに基づく設計上の根拠。",
@@ -151,7 +158,7 @@ function ProximitySwatch() {
   );
 }
 
-/* 四サイト比較図: レイアウトを切り替える幅の境界 */
+/* 四系列比較図: レイアウトを切り替える幅の境界 */
 function BreakpointChart() {
   const x0 = 96, x1 = 530, max = 1800;
   const X = (v) => x0 + (Math.min(v, max) / max) * (x1 - x0);
@@ -170,7 +177,7 @@ function BreakpointChart() {
       {ticks.map((t) => (
         <g key={t}>
           <line x1={X(t)} x2={X(t)} y1="8" y2="150" stroke="#E1E3F0" strokeWidth="1" />
-          <text x={X(t)} y="164" fontSize="9.5" fill="#7E86AC" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t}</text>
+          <text x={X(t)} y="164" fontSize="9.5" fill="#666D93" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t}</text>
         </g>
       ))}
       <text x="0" y="24" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
@@ -188,7 +195,7 @@ function BreakpointChart() {
       <circle cx={X(320)} cy="89" r="4" fill="#A3821F" />
       <text x={X(320) + 8} y="92.5" fontSize="9.5" fill="#454C78" fontFamily={font}>320px でも2方向スクロールなし(1.4.10)</text>
       <text x="0" y="126" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
-      <text x={X(0) + 6} y="126" fontSize="9.5" fill="#7E86AC" fontFamily={font}>数値基準なし(幅が変わっても近接によるグループが崩れないこと)</text>
+      <text x={X(0) + 6} y="126" fontSize="9.5" fill="#666D93" fontFamily={font}>数値基準なし(幅が変わっても近接によるグループが崩れないこと)</text>
     </svg>
   );
 }
@@ -229,7 +236,7 @@ function MarginDiagram() {
         <rect x={fx} y={22} width={W} height={H - 10} rx="5" fill="#FFFFFF" stroke="#7E86AC" />
         {panes}
         <text x={fx} y={14} fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>{fr.name}</text>
-        <text x={fx} y={H + 26} fontSize="7.5" fill="#7E86AC" fontFamily={font}>{fr.note}</text>
+        <text x={fx} y={H + 26} fontSize="7.5" fill="#666D93" fontFamily={font}>{fr.note}</text>
         <text x={fx} y={H + 37} fontSize="7.5" fill="#2F7D6E" fontFamily={mono}>端 {fr.m}{fr.panes.length > 1 ? " / 間 24" : ""}</text>
       </g>
     );
@@ -254,7 +261,7 @@ function AppleLayoutDiagram() {
       <text x="28" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>サイドバー</text>
       <text x="82" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
       <text x="149" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
-      <text x="0" y="128" fontSize="7.5" fill="#7E86AC" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
+      <text x="0" y="128" fontSize="7.5" fill="#666D93" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
       <text x="216" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>tvOSのセーフエリア</text>
       <rect x="216" y="20" width="176" height="99" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
       <rect x={216 + 176 * (80 / 1920)} y={20 + 99 * (60 / 1080)} width={176 * (1 - 160 / 1920)} height={99 * (1 - 120 / 1080)} fill="#F8ECE6" stroke="#C2542A" strokeDasharray="3 2" />
@@ -267,7 +274,7 @@ function AppleLayoutDiagram() {
 const LAYOUT_PATTERNS = [
   { s: "Google", c: "#2F7D6E", t: "フィード(Feed)", d: "カードなどを格子状に並べ、たくさんの内容をざっと見せる", fig: "feed" },
   { s: "Google", c: "#2F7D6E", t: "リスト・詳細(List-detail)", d: "一覧と、選んだ項目の詳細を左右に並べる", fig: "listdetail" },
-  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容(約3分の2)の横に、補助の内容を置く", fig: "support" },
+  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容の横に補助の内容を置く(主:補助=Expandedは7:3、Mediumは1:1)", fig: "support" },
   { s: "Google", c: "#2F7D6E", t: "重ねる(Levitate)", d: "ペインを内容の上に浮かべ、カートの確認やコメントの返信など1つの作業に集中させる", fig: "levitate" },
   { s: "Apple", c: "#C2542A", t: "分割ビュー(Split view)", d: "サイドバー・一覧・詳細の2〜3列で、階層を一度に見せる。広い画面(regular)向け", fig: "split" },
   { s: "Apple", c: "#C2542A", t: "タブバー ↔ サイドバー", d: "広い画面では、タブバーをサイドバーに切り替えてよい(使える機能は変えない)", fig: "tabside" },
@@ -295,10 +302,10 @@ function LayoutVisuals() {
       <h2 style={styles.diagramTitle}>余白とレイアウトを図で見る</h2>
       <h3 style={styles.lvSub}>Google ― 画面の幅ごとの余白とペイン(dp)</h3>
       <div style={styles.lvCard}><MarginDiagram /></div>
-      <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図です(出典: M3「Breakpoints」「Panes」)。</p>
+      <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図だ(出典: M3「Breakpoints」「Panes」)。</p>
       <h3 style={styles.lvSub}>Apple ― 分割ビューとtvOSのセーフエリア</h3>
       <div style={styles.lvCard}><AppleLayoutDiagram /></div>
-      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせます。固定の数値があるのはtvOSなど一部です(出典: HIG「Layout」「Split views」)。</p>
+      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせる。固定の数値があるのはtvOSなど一部だ(出典: HIG「Layout」「Split views」)。</p>
       <h3 style={styles.lvSub}>レイアウトのパターン</h3>
       <div style={styles.lvGrid}>
         {LAYOUT_PATTERNS.map((p) => (
@@ -312,7 +319,7 @@ function LayoutVisuals() {
           </div>
         ))}
       </div>
-      <p style={styles.lvNote}>Googleの4つはM3「Canonical layout examples」、Appleの2つはHIG「Split views」「Layout」、W3Cは1.4.10、NN groupは近接の原則によります。</p>
+      <p style={styles.lvNote}>Googleの4つはM3「Canonical layout examples」、Appleの2つはHIG「Split views」「Layout」、W3Cは1.4.10、NN groupは近接の原則による。</p>
     </section>
   );
 }
@@ -348,7 +355,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まりです。";
+const LEAD = "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "余白をそろえて関係のある要素をまとめ、画面の構造を分かりやすくする" },
   { k: "関わる場面", v: "部品どうしの間隔、画面の端の余白、列(グリッド)の数" },
@@ -383,7 +390,7 @@ export default function TokensLayoutSpacingPage() {
           <SummaryCard
             imageLabel="余白が「まとまり」を作る(近接の原則)"
             image={<><ProximitySwatch /></>}
-            imageNote={<>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見えます。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報です。</>}
+            imageNote={<>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見える。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報だ。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -391,9 +398,9 @@ export default function TokensLayoutSpacingPage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
             <BreakpointChart />
-            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分です。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値です。単位(dp・pt・CSS px)は厳密には異なりますが、いずれも画面の密度に依存しない論理的な単位です。</p>
+            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分だ。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値だ。単位(dp・pt・CSS px)は厳密には異なるが、いずれも画面の密度に依存しない論理的な単位だ。</p>
           </div>
 
           <LayoutVisuals />
@@ -402,16 +409,16 @@ export default function TokensLayoutSpacingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言しています。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱います。
+              AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言している。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱う。
             </p>
             <p style={styles.synthesisText}>
-              違いは数値の公開の仕方です。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示しています。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式です。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られます。
+              違いは数値の公開の仕方だ。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示している。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式だ。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求めます。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値です。
+              W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求める。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値だ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの近接の原則は、<strong>余白が要素どうしの関係を伝える</strong>という、数値とは別の観点を加えます。ここでW3Cの1.3.1と組み合わせると、<strong>余白で表したまとまりは、見出しやグループといった構造でも表しておく</strong>必要がある、というのが4系列を合わせた実務上の結論です。
+              Nielsen Norman Groupの近接の原則は、<strong>余白が要素どうしの関係を伝える</strong>という、数値とは別の観点を加える。ここでW3Cの1.3.1と組み合わせると、<strong>余白で表したまとまりは、見出しやグループといった構造でも表しておく</strong>必要がある、というのが4系列を合わせた実務上の結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -426,11 +433,11 @@ export default function TokensLayoutSpacingPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="余白・グリッドの数値" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="画面幅による切り替え">{s.colorInfo}</InfoBox>
+                <InfoBox label="構造・グループ化">{s.structure}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -458,6 +465,8 @@ export default function TokensLayoutSpacingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>画面幅による切り替え</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
+                <div style={styles.labelCell}>構造・グループ化</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structure}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
@@ -485,11 +494,8 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはブレークポイント・マージン・ペインをM3の本文とソースで確認、4dpのグリッドのみ未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Layoutページの「Size classes」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のブレークポイント(Breakpoints)の概要ページに加え、数値を確認したAndroid Developersのページとソースを併記しています。WCAGは1.4.10 Understandingページの達成基準の箇所を基本リンクとし、2.5.8(間隔の例外の節)・1.3.1も併記しています。NN groupはProximity Principle in Visual Designの記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -505,38 +511,38 @@ const styles = {
   lvPattern: { display: "flex", gap: 10, alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "8px 10px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -554,5 +560,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

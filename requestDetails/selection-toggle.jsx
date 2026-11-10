@@ -32,7 +32,7 @@ const SOURCES = [
     exceptions:
       "グループ化されたフォーム内では、行の高さを他のコントロールと揃えるために「ミニスイッチ」を使うことも案内している。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えるべきではないとしている(macOSの節)。",
     accessibility:
-      "理解可能(Understandable) ― オン・オフの状態を見た目で正確に伝えるべきという点は、理解可能性に関わる。標準のスイッチコントロールを使えば、支援技術に状態が自動的に伝わる。",
+      "理解可能(Understandable) ― オン・オフの状態を見た目で正確に伝えるべきという点は、理解可能性に関わる。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに支援技術向けの記載はない。",
     useCases: [
       "単一の設定項目のオン・オフを即座に切り替える",
       "チェックボックスより大きな機能範囲を制御する場面",
@@ -63,7 +63,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定を即座にオン/オフするための推奨コントロール(月額/年額のような相反する2つの選択肢の切り替えには使わない)",
     size:
-      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしている(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。トラック・つまみの見た目サイズ(dp単位)はこのテキストに含まれておらず未確認。",
+      "推奨タップ領域は48×48 CSSピクセル。デフォルトで高密度設定を適用すべきではないとしている(密度を上げるとターゲットサイズが48×48pxを下回ってしまうため)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンを通じて実装される。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしている。",
     glossary: [
@@ -94,7 +94,7 @@ const SOURCES = [
         <circle cx="27" cy="11" r="7.5" fill="#FFFFFF" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示。実際のカラートークンは未確認",
+    illustrationNote: "系列識別色で図示",
   },
   {
     key: "wcag",
@@ -127,6 +127,9 @@ const SOURCES = [
     refs: [
       { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { kind: "sc", level: "A", label: "3.2.2 入力時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "apg", label: "APG: Switch Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/switch/" },
     ],
     confirmedNote: "3.2.2はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -135,7 +138,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="10" y="14" width="20" height="12" rx="6" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
@@ -148,13 +151,13 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "オンとオフの2状態+即時反映が前提の場面に限定使用",
     size:
-      <span><NoData>数値基準なし。</NoData>ただし即時反映という挙動そのものが、ユーザーが誤操作にすぐ気づき、元に戻しやすいUXの前提になっているとしている。</span>,
+      <NoData>数値基準なし</NoData>,
     colorInfo:
-      <span><NoData>数値基準なし。</NoData>動きや色などの視覚的な手がかりを一貫して使い、プラットフォームの慣習に沿うべきとしている。</span>,
+      <NoData>数値基準なし</NoData>,
     stance:
       <>トグルスイッチは、オンとオフの2つの状態のどちらかを選び、デフォルト値を持ち、<Hl>選択結果が即座に反映される場面</Hl>で使うべきとしている。保存や送信ボタンを必要とする設定には向かないとしている。たとえば、送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず利用者が混乱するとし、航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げて、この場合は単独のチェックボックスが適切だったとしている。</>,
     exceptions:
-      "ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしている。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしている。",
+      "即時反映という挙動そのものが、誤操作にすぐ気づき、元に戻しやすい前提になっているとしている。ラベルは短く直接的にし、曖昧な表現や質問形式を避けるべきとしている。また、動きや色などの視覚的な手がかりを使い、プラットフォームの慣習に沿って一貫した実装をすべきとしている。",
     accessibility:
       "根拠となる原則 ― POURのような適合区分ではなく、即時反映という挙動の違いに基づく使い分けの指針。",
     useCases: [
@@ -273,13 +276,13 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安です(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはありません。</p>
+      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。</p>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "押すとオンとオフがすぐに切り替わる、スイッチの形をした部品です。";
+const LEAD = "押すとオンとオフがすぐに切り替わる、スイッチの形をした部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "1つの設定のオン・オフを、押した瞬間に反映させる" },
   { k: "よく使われる場面", v: "Wi-Fi・通知・ダークモードのオン・オフなど、設定画面の項目" },
@@ -295,7 +298,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "すぐに反映するかどうかは書いていない。使い分けの理由は見た目の重さで、macOSではチェックボックスをスイッチに置き換えない。iOS・iPadOSではリストの行の中で使う" },
       { who: "W3C", color: "#A3821F", t: "すぐに反映するかは定めていない。ただし切り替えただけで別の画面に移ったり新しいウィンドウを開いたりするなら、事前に知らせる(3.2.2)" },
     ],
-    tip: "スイッチは「押した瞬間に効く設定」にだけ使い、保存ボタンのあるフォームではチェックボックスにする、というGoogle・NN groupの使い分けに合わせれば、Apple・W3Cの決まりとも食い違いません。",
+    tip: "スイッチは「押した瞬間に効く設定」にだけ使い、保存ボタンのあるフォームではチェックボックスにする、というGoogle・NN groupの使い分けに合わせれば、Apple・W3Cの決まりとも食い違わない。",
   },
 ];
 
@@ -341,13 +344,13 @@ export default function SelectionTogglePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品です。<strong>押したらすぐ反映させるかどうか</strong>が系列で分かれる点で、GoogleとNN groupは「すぐ反映」をチェックボックスとの違いにしています(上の「意見が分かれる点」)。
+              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>部品だ。<strong>押したらすぐ反映させるかどうか</strong>が系列で分かれる点で、GoogleとNN groupは「すぐ反映」をチェックボックスとの違いにしている(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしています。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求めます。
+              Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしている。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求める。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方です。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になります。
+              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -373,7 +376,6 @@ export default function SelectionTogglePage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -437,11 +439,8 @@ export default function SelectionTogglePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはTogglesページ内のSwitchesセクションへのアンカー付きリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(見た目サイズの数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -454,12 +453,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -469,21 +468,21 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 40 },
   infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
@@ -492,7 +491,7 @@ const styles = {
   infographicLegendName: { fontSize: 12, fontWeight: 700, color: "#171B36", width: 130, flexShrink: 0 },
   infographicLegendNote: { fontSize: 11.5, color: "#454C78", lineHeight: 1.5 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -510,5 +509,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

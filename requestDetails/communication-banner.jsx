@@ -20,7 +20,7 @@ const SOURCES = [
     position: "「バナー」という名称の、アプリ内に留まり続けるインラインコンポーネントは見当たらない。最も近いのはOSレベルのバナー通知だが、これは自動的に消える点で本ページの対象とは性質が異なる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーの部品はない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。",
+      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーの部品はない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る。",
     exceptions:
       "取り消せない重大な操作の確認には、「モーダルダイアログ」ページで比べたアラート(モーダル)を使う(AI解釈)。",
     accessibility: <NoData>記載なし</NoData>,
@@ -59,7 +59,7 @@ const SOURCES = [
     position: "重要だが緊急ではないメッセージを、ユーザーが対応・却下するまで画面上部に表示し続けるコンポーネント",
     size: <span><NoData>寸法の数値は記載なし。</NoData>ボタンは文字のボタンを2つまで(閉じる操作は左、もう一方は右)。ボタンはメッセージの下か、収まるなら同じ行に置く。</span>,
     stance:
-      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添える部品。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる(Material Design 2 Bannersの本文で確認、2026-11)。",
+      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添える部品。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる。",
     exceptions:
       "一度に出すバナーは1つまで。ボタンは文字で書き、アイコンにしない。ボタン1つで「確認して閉じる」だけにするのは避ける。下にナビゲーションバーがあっても、バナーは画面上部に置く。原因の状態が解消したら消してもよい。",
     scenarios: [
@@ -67,7 +67,7 @@ const SOURCES = [
       "ユーザーの対応(再試行など)を促す簡潔なメッセージを画面上部に表示したい時",
     ],
     accessibility:
-      "操作可能(Operable) ― 一般的なタッチターゲット基準がバナー内のボタンに適用されると考えられる(直接確認はできていない)。",
+      "操作可能(Operable) ― バナー専用のアクセシビリティの記載なし。",
     useCases: [
       "重要だが緊急ではない情報を、ユーザーが対応するまで画面上部に表示し続ける",
       "アイコン(任意)+簡潔なテキスト+最大2つのボタンで構成する",
@@ -127,7 +127,8 @@ const SOURCES = [
     searchHint: "assertive",
     url: "https://www.w3.org/TR/wai-aria-1.2/#alert",
     refs: [
-      { label: "alert / status / alertdialog の使い分け、WCAG 4.1.3", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
+      { label: "WAI-ARIA: alert", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
+      { label: "WAI-ARIA: alertdialog", url: "https://www.w3.org/TR/wai-aria-1.2/#alertdialog" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
       { kind: "apg", label: "APG: Alert Dialog Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/" },
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
@@ -146,7 +147,7 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)",
+    doc: "Indicators, Validations, and Notifications",
     term: "Banner",
     color: "#7A4F7E",
     position: "通知を「アクション必須」と「パッシブ」に分ける分類で、対応の必要性を判断する指針(数値基準ではない)",
@@ -168,7 +169,7 @@ const SOURCES = [
     searchHint: "action-required",
     url: "https://www.nngroup.com/articles/indicators-validations-notifications/",
     refs: [
-      { label: "Indicators, Validations, and Notifications(「スナックバー」「トースト」の各ページと同一記事)", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
+      { label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
     ],
     illustration: () => (
       <svg width="160" height="30" viewBox="0 0 160 30">
@@ -225,7 +226,7 @@ function AlertSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせです。";
+const LEAD = "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせだ。";
 const ABOUT = [
   { k: "目的・役割", v: "見落とすと困るが緊急ではない情報を、作業を止めずに伝え続ける" },
   { k: "よく使われる場面", v: "オフラインの知らせ、支払い情報の更新のお願い、サービスのお知らせ" },
@@ -265,9 +266,9 @@ export default function CommunicationBannerPage() {
           />
 
           <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design)</div>
+            <div style={styles.warningLabel}>⚠ 重要な注記(Google/Material Design)</div>
             <p style={styles.warningText}>
-              GoogleのBannerコンポーネントは<strong>Material Design 2に存在しましたが、M3の公式コンポーネント一覧には見当たりません</strong>。M3に後継の部品はなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになります(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記しています。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              GoogleのBannerコンポーネントは<strong>Material Design 2に存在したが、M3の公式コンポーネント一覧には見当たらない</strong>。M3に後継の部品はなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになる(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記している。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しない。
             </p>
           </div>
 
@@ -278,16 +279,16 @@ export default function CommunicationBannerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知です。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続けます。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表しています。ただし、インラインのバナーをすべてrole="alert"にするわけではありません。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にします(W3C欄を参照)。
+              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知だ。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続ける。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表している。ただし、インラインのバナーをすべてrole="alert"にするわけではない。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にする(W3C欄を参照)。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことです。M3に後継の部品はなく、同じ用途には既存のダイアログやスナックバーを使うことになります(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されています。
+              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことだ。M3に後継の部品はなく、同じ用途には既存のダイアログやスナックバーを使うことになる(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸です。対応を求めるバナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たります。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限りません</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能します。
+              Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸だ。対応を求めるバナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たる。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限らない</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能する。
             </p>
             <p style={styles.synthesisText}>
-              Appleには、この「ユーザーが閉じるまで残り続けるインライン通知」に厳密に対応する専用コンポーネントが見当たりません。「スナックバー」「トースト」の各ページのApple欄と同じ「バナー通知」を参考として挙げていますが、これは自動的に消える点で本ページの対象とは性質が異なり、正確な対応物がないという結論になります。
+              Appleには、この「ユーザーが閉じるまで残り続けるインライン通知」に厳密に対応する専用コンポーネントが見当たらない。「スナックバー」「トースト」の各ページのApple欄と同じ「バナー通知」を参考として挙げているが、これは自動的に消える点で本ページの対象とは性質が異なり、正確な対応物がないという結論になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -317,7 +318,6 @@ export default function CommunicationBannerPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -351,7 +351,7 @@ export default function CommunicationBannerPage() {
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
                     {(s.m3NotApplicable || s.noDedicatedComponent) ? (
                       <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(M2仕様を参考掲載)" : "専用コンポーネントなし"}</span>
-                    ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
+                    ) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -359,7 +359,7 @@ export default function CommunicationBannerPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#666D93" }}>―(この観点は対象外)</span>}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -406,11 +406,8 @@ export default function CommunicationBannerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notifications、GoogleはM2 BannersとM3の部品の一覧を2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似)。GoogleはM2のBannersページへのリンクです(M3に後継ページが見当たらないため)。WCAGはMDNのalert role解説ページ(alertdialog roleも併記)、NN groupは「スナックバー」「トースト」の各ページと同一記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -423,7 +420,7 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
@@ -432,7 +429,7 @@ const styles = {
   warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -441,24 +438,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -476,9 +473,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

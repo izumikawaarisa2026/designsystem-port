@@ -31,7 +31,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>行の文字は短くして、省略や折り返しを減らすよう求めている。1項目の文章が長いときは、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる方法を勧めている。</span>,
     colorInfo: "macOSの縦横に広い表では、行ごとに背景色を交互に変えると、列をまたいで同じ行の値を目で追いやすくなるとしている(bordered style)。iOS/iPadOSのgrouped styleは、見出し・脚注・余白でデータのまとまりを分ける。",
     stance:
-      "行の形式は文字を読み流すのに向いているため、文字の情報は表かリストで見せることを勧めている。大きさのまちまちな項目や大量の画像には、表ではなくコレクションを使う。複数列の表の列見出しは名詞か短い名詞句にし、末尾に句読点を付けない。選んだときの反応も使い分け、階層をたどる表は選んだ行の強調を残して道筋を示し、選択肢の表は一瞬強調してからチェックマークを付ける(ページ本文を直接確認、2026-10)。",
+      "行の形式は文字を読み流すのに向いているため、文字の情報は表かリストで見せることを勧めている。大きさのまちまちな項目や大量の画像には、表ではなくコレクションを使う。複数列の表の列見出しは名詞か短い名詞句にし、末尾に句読点を付けない。選んだときの反応も使い分け、階層をたどる表は選んだ行の強調を残して道筋を示し、選択肢の表は一瞬強調してからチェックマークを付ける。",
     exceptions:
       "macOSでは、列見出しをクリックするとその列で並べ替え、すでに並べ替えた列の見出しをもう一度クリックすると逆順にする。列幅は利用者が変えられるようにする。階層のあるデータには、表ではなく開閉の三角が付いたアウトラインビューを使う。表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合がある。iOSでは、行の末尾に開示インジケーターがある表に五十音などの索引を付けないよう求めている(両方が右端にあり、押し間違えるため)。",
     accessibility:
@@ -60,7 +60,7 @@ const SOURCES = [
     size: <><Hl>行の高さは52dp、列見出しの行は56dp</Hl>(通常の行より4dp高い)。列と列の間は32dp以上空け、各見出しの左右に16dpの余白を取る。</>,
     colorInfo: "チェックボックスで行を選ぶと、行全体に背景色を付ける。画面を拡大して使う人には、チェックボックスが拡大した範囲の外に出てしまうことがあるため、色の塗りで選択をもう1つの方法で示すという理由。デスクトップでは、ポインタを乗せた行にも背景色を付ける。",
     stance:
-      "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいこと。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せる。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転する(Material Design 2のページデータを直接取得して確認、2026-10)。",
+      "原則は3つで、意味のある順(階層・五十音など)に整理されていること、利用者が表示を変えられること、論理的な構造で分かりやすいこと。列見出しは中くらいの太さにして行の文字と区別し、列幅より長い見出しは「…」で省略して、ポインタを乗せると全文をツールチップで見せる。並べ替えている列は見出しの横に下向きか上向きの矢印で示し、見出しか矢印を押すと逆順になって矢印も反転する。",
     exceptions:
       "並べ替えやページの切り替えの処理中は、線形のプログレスインジケーターで処理中であることを示す。表示を変える操作(フィルタチップ・ページネーションなど)は、表の直上か直下に置く。ページネーションは表の下に置き、1ページに表示する行数をメニューで選べるようにする。セルの中に、決められた選択肢から選ぶインラインメニューを置くこともできる。",
     accessibility:
@@ -93,7 +93,7 @@ const SOURCES = [
       { term: "Gridパターン", desc: "表の形をした、操作する部品(セルにフォーカスでき、矢印キーで移動する)を作るためのAPGのパターン。読むだけの表はTableパターンを使う。" },
     ],
     stance:
-      "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしている(Tables Tutorialの本文を直接確認、2026-10)。",
+      "見た目の手がかりだけでは表は使えるものにならず、構造をマークアップすることで、スクリーンリーダーは1セルずつ読むときに対応する行と列の見出しも読み上げ、利用者は文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストとして表示し直したりする人もいるため、正しい構造はその前提にもなるとしている。",
     exceptions:
       "APGのTableパターンは操作する部品ではなく、セルはフォーカスできない。表の中にボタンなどの操作部品が多い場合は、1つの部品として扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包む(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトの目的に使わないことも求めている。",
     accessibility:
@@ -106,7 +106,7 @@ const SOURCES = [
     searchHint: "Header cells must be marked up",
     url: "https://www.w3.org/WAI/tutorials/tables/",
     refs: [
-      { label: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern", url: "https://www.w3.org/WAI/tutorials/tables/" },
+      { label: "WAI Tutorials: Tables", url: "https://www.w3.org/WAI/tutorials/tables/" },
       { label: "Tables Tutorial ― Caption & Summary", url: "https://www.w3.org/WAI/tutorials/tables/caption-summary/" },
       { kind: "apg", label: "APG: Table Pattern(役割と属性)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/#roles_states_properties" },
       { kind: "apg", label: "APG: Sortable Table Example", url: "https://www.w3.org/WAI/ARIA/apg/patterns/table/examples/sortable-table/" },
@@ -124,7 +124,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>表の利点として、行も列も増やしやすいことと、隣り合うデータを目や記憶を使わずに比べられることを挙げ、カードの並びより比較に向くとしている。</span>,
     colorInfo: "大きい表では見出し行と最初の列を固定し、薄い境界線・縞模様(ゼブラ)・ポインタを乗せた行の強調で、目を横に動かしても位置を見失わないようにする。固定した見出しに控えめな影を付けると、表の上に浮いて見えて位置関係がつかみやすいとしている。",
     stance:
-      <><Hl>最初の列には、自動で振った番号ではなく人が読める識別名を置き</Hl>、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する(記事本文を直接取得して確認、2026-10)。</>,
+      <><Hl>最初の列には、自動で振った番号ではなく人が読める識別名を置き</Hl>、列は利用者にとっての重要度の順に、関連する列を隣り合わせに並べる。フィルタは見つけやすく速くし、絞り込み中であることをはっきり示す。列を隠す・並べ替えることも簡単にし、ドラッグ以外の方法も用意する。</>,
     exceptions:
       "1行を編集するときは、モーダルは他の行を隠して参照できなくなるため深い編集には勧めず、表を見ながら編集できる非モーダルの横パネルを勧めている。行の中に置く操作は1〜2個までにし、それ以上は行を選んでからまとめて操作する形(全選択も用意)にする。スマートフォンでは、見出しを固定する、横スクロールが必要なら右端の列を少し切って続きがあると示す(点より矢印や切れ目の方が気づかれやすい)、最初の列を固定する、横向きへの回転を強いるのは最後の手段にする、見たい列を選ばせる、としている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、視線計測とユーザビリティテストの観察に基づく設計上の根拠。列の並べ替えをドラッグだけにすると、見つけにくく使えない人もいるとしている。",
@@ -136,7 +136,7 @@ const SOURCES = [
     searchHint: "Freeze header rows",
     url: "https://www.nngroup.com/articles/data-tables/#toc-main-user-tasks-in-tables-2",
     refs: [
-      { label: "Data Tables: Four Major User Tasks / Mobile Tables", url: "https://www.nngroup.com/articles/data-tables/#toc-main-user-tasks-in-tables-2" },
+      { label: "Data Tables: Four Major User Tasks", url: "https://www.nngroup.com/articles/data-tables/#toc-main-user-tasks-in-tables-2" },
       { label: "Mobile Tables(最初の列を固定)", url: "https://www.nngroup.com/articles/mobile-tables/#toc-stick-the-left-column-in-place-5" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Data Tables)のもの。",
@@ -191,7 +191,7 @@ function TableSwatch() {
   );
 }
 
-/* 四サイト比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
 const TABLE_ROWS = [
   {
     label: "列見出し",
@@ -383,7 +383,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "行と列にデータを並べ、項目どうしを比べられるようにする部品です。";
+const LEAD = "行と列にデータを並べ、項目どうしを比べられるようにする部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "複数の項目を、同じ観点(列)でそろえて比べたり、並べ替えたりできるようにする" },
   { k: "よく使われる場面", v: "管理画面のデータ一覧、料金プランの比較、ファイル一覧" },
@@ -399,7 +399,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "データの表は、理解に2次元の配置が要るため、1.4.10(リフロー)でも横スクロールが例外として認められている" },
       { who: "Apple", color: "#C2542A", t: "表の幅が狭いときは、文字の途中を省略して先頭と末尾を残すと区別しやすい場合がある" },
     ],
-    tip: "横スクロールそのものはW3Cでも認められるので、NN groupの勧めのように「最初の列を固定」「続きがあると見せる」を組み合わせれば、比べやすさを保てます。列が多すぎるなら、見る列を選ばせるか、1行ずつのカード表示への切り替えを検討します。",
+    tip: "横スクロールそのものはW3Cでも認められるので、NN groupの勧めのように「最初の列を固定」「続きがあると見せる」を組み合わせれば、比べやすさを保てる。列が多すぎるなら、見る列を選ばせるか、1行ずつのカード表示への切り替えを検討する。",
   },
 ];
 
@@ -431,7 +431,7 @@ export default function ContainmentTablePage() {
           <SummaryCard
             imageLabel="コンポーネントイメージ(データテーブルの構成)"
             image={<><TableSwatch /></>}
-            imageNote={<>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図です。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱います。</>}
+            imageNote={<>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図だ。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱う。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -441,25 +441,25 @@ export default function ContainmentTablePage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 表の要素ごとに何を定めているか</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 表の要素ごとに何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針です。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指します。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通しています。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしています。
+              <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通している。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしている。
             </p>
             <p style={styles.synthesisText}>
-              違いは決めている層です。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めています。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求めます。並べ替えの操作は、AppleとGoogleでほぼ同じです。
+              違いは決めている層だ。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>見出しセル(th)とデータセル(td)の関係を構造として伝えること(1.3.1)</strong>を求めます。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからです。並べ替えの状態も<strong>aria-sort</strong>で伝えます。
+              W3Cは見た目ではなく、<strong>見出しセル(th)とデータセル(td)の関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。並べ替えの状態も<strong>aria-sort</strong>で伝える。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いています。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造はW3Cのth/td・aria-sortで正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論です。
+              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いている。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造はW3Cのth/td・aria-sortで正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -479,7 +479,6 @@ export default function ContainmentTablePage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -532,14 +531,14 @@ export default function ContainmentTablePage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>表が支える4つの作業と、そのための機能</h2>
-            <p style={styles.diagramNote}>NN groupが挙げる4つの作業ごとに、必要な機能と、それを定めている系列をまとめました。表を設計するときは、4つの作業がどれも楽にできるかを確かめます。</p>
+            <p style={styles.diagramNote}>NN groupが挙げる4つの作業ごとに、必要な機能と、それを定めている系列をまとめた。表を設計するときは、4つの作業がどれも楽にできるかを確かめる。</p>
             <TaskCards />
           </section>
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>小さい画面で表が収まらないとき</h2>
             <NarrowTableDiagram />
-            <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めています(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段です。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めています(1.4.10)。</p>
+            <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めている(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段だ。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めている(1.4.10)。</p>
           </div>
 
           <div style={styles.linksRow}>
@@ -559,11 +558,8 @@ export default function ContainmentTablePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。GoogleはM3にページがなく、Material Design 2のページデータで本文確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Lists and tablesページの「macOS」見出し(並べ替え・列幅・行の色)へのアンカー付きリンクで、Best practices・Contentの見出しも併記しています。GoogleはMaterial Design 2のData tablesページです(M3には対応するページがありません)。W3CはWAIのTables Tutorialを基本リンクとし、Caption & Summary・APGのTable PatternとSortable Table Example・1.3.1も併記しています。NN groupはData Tablesの記事の「4つの作業」の節と、Mobile Tablesの記事の節です。
-            </span>
           </div>
         </div>
       </div>
@@ -576,17 +572,17 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
@@ -594,22 +590,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -627,11 +623,11 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   ruleScroll: { overflowX: "auto" },
   ruleGrid: { display: "grid", gridTemplateColumns: "120px repeat(4, minmax(120px, 1fr))", minWidth: 640, border: "1px solid #E1E3F0", borderRadius: 4 },
   ruleHead: { fontSize: 11.5, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#FFFFFF" },
@@ -644,5 +640,5 @@ const styles = {
   taskTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
   taskText: { fontSize: 11, lineHeight: 1.6, color: "#454C78", marginTop: 6 },
   taskHow: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", background: "#F3F6FA", borderRadius: 4, padding: "6px 8px", marginTop: 6 },
-  taskWho: { fontSize: 9.5, color: "#7E86AC", marginTop: 5 },
+  taskWho: { fontSize: 9.5, color: "#666D93", marginTop: 5 },
 };

@@ -68,7 +68,7 @@ export const NAV_SECTIONS = [
   {
     title: "Text inputs",
     items: [
-      { label: "テキストフィールド", path: "/components/text-inputs/text-field", built: true },
+      { label: "テキストフィールド・テキストエリア", path: "/components/text-inputs/text-field", built: true },
       { label: "検索フィールド", path: "/components/text-inputs/search-field", built: true },
       { label: "エラー表示", path: "/components/text-inputs/validation", built: true },
       { label: "バリデーション", path: "/components/text-inputs/input-validation", built: true },
@@ -129,7 +129,7 @@ export const NAV_SECTIONS = [
   },
   {
     title: "横断ビュー",
-    items: [{ label: "タグから見る(自動生成)", path: "/cross-view", built: true }],
+    items: [{ label: "タグから見る", path: "/cross-view", built: true }],
   },
 ];
 
@@ -294,7 +294,7 @@ const styles = {
     background: "none",
     border: "none",
     fontSize: 16,
-    color: "#7E86AC",
+    color: "#666D93",
     cursor: "pointer",
     padding: 6,
   },
@@ -310,8 +310,8 @@ const styles = {
     backgroundClip: "text",
     color: "transparent",
   },
-  homeNote: { fontSize: 10, color: "#9EA4C4", marginTop: 1 },
-  homeSub: { fontSize: 11, color: "#9EA4C4", marginTop: 6 },
+  homeNote: { fontSize: 10, color: "#666D93", marginTop: 1 },
+  homeSub: { fontSize: 11, color: "#666D93", marginTop: 6 },
   group: { marginBottom: 2 },
   groupTitle: {
     display: "flex",
@@ -319,7 +319,7 @@ const styles = {
     alignItems: "center",
     fontSize: 12,
     fontWeight: 500,
-    color: "#7E86AC",
+    color: "#666D93",
     cursor: "pointer",
     padding: "8px 4px",
     listStyle: "none",
@@ -327,7 +327,7 @@ const styles = {
   groupCount: {
     fontSize: 11,
     fontWeight: 400,
-    color: "#A6ACC9",
+    color: "#666D93",
   },
   list: { listStyle: "none", margin: "0 0 10px", padding: 0 },
   link: {
@@ -349,7 +349,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    color: "#B7BCDA",
+    color: "#666D93",
     fontSize: 13,
     padding: "7px 12px",
     lineHeight: 1.4,
@@ -357,7 +357,7 @@ const styles = {
   },
   unbuiltTag: {
     fontSize: 10.5,
-    color: "#B7BCDA",
+    color: "#666D93",
     flexShrink: 0,
   },
 };

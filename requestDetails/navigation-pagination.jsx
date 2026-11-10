@@ -29,12 +29,11 @@ const SOURCES = [
     urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
     position: "該当なし",
     size: "該当なし",
-    stance: "該当なし",
+    stance: <>該当なし。関連: Page controls(ドット表示)は、少数の決まった画面を順に送る部品で、検索結果のような長さの変わる一覧を分ける番号付きのページ送りとは対象が違う(上の「ページ送りの種類と使い分け」)。ドットは順序のあるページの移動に使い、10個ほどを超えると数えにくいとしている。</>,
     exceptions: "該当なし",
     accessibility: "該当なし",
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    confirmedNote: "※ 関連パターンとして「Page Controls」(ドット表示)は存在するが、少数の固定画面をページ送りする用途で、検索結果一覧のような可変長リストを分割する「番号付きページネーション」とは対象が異なる(詳しくは上記「ページ送りの種類と使い分け」を参照)。HIG Page controlsの本文で確認(2026-11)。ページ送りのドットは、順序のあるページの移動に使い、10個ほどを超えると数えにくいとしている。",
     pending: true,
   },
   {
@@ -46,12 +45,11 @@ const SOURCES = [
     notApplicable: true,
     position: "該当なし",
     size: "該当なし",
-    stance: "該当なし",
+    stance: "該当なし(M3の部品の一覧にPaginationはない。長い一覧の分割は、リストや表などを組み合わせる想定とみられる。AI解釈)",
     exceptions: "該当なし",
     accessibility: "該当なし",
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Pagination」はない(2026-11に確認)。長いリストの分割は、リストや表などの部品を組み合わせる想定と考えられる(AI解釈)。",
     pending: true,
   },
   {
@@ -67,7 +65,7 @@ const SOURCES = [
       { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要な部品(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装するのが一般的(AI解釈)。" },
     ],
     stance:
-      "ページネーションには専用のARIAロールやパターンは定義されていない。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的です(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になる。",
+      "ページネーションには専用のARIAロールやパターンは定義されていない。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的だ(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になる。",
     exceptions:
       "現在のページ番号は、リンクではなく単なるテキスト(span等)として実装し、その要素にaria-current=\"page\"を設定することが多いとされている。単一ページアプリで画面遷移せずにコンテンツだけを切り替える場合は、切り替えをライブリージョンなどで支援技術に通知する配慮も必要。",
     accessibility:
@@ -80,7 +78,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
     refs: [
-      { label: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current" },
+      { label: "WAI-ARIA: aria-current", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current" },
       { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "sc", level: "A", label: "2.4.4 リンクの目的(コンテキスト内)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
       { kind: "mdn", label: "aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
@@ -119,16 +117,16 @@ const SOURCES = [
     searchHint: "pogo sticking",
     url: "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/",
     refs: [
-      { label: "Alternatives to Pagination on Product-Listing Pages / Infinite Scrolling", url: "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/" },
+      { label: "Alternatives to Pagination on Product-Listing Pages", url: "https://www.nngroup.com/articles/alternatives-pagination-listing-pages/" },
       { label: "Infinite Scrolling", url: "https://www.nngroup.com/articles/infinite-scrolling-tips/" },
     ],
     illustration: () => (
       <svg width="120" height="22" viewBox="0 0 120 22">
-        <text x="10" y="15" fontSize="9" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">&lt;</text>
+        <text x="10" y="15" fontSize="9" fill="#666D93" fontFamily="Jost, Noto Sans JP">&lt;</text>
         {[1, 2, 3].map((n, i) => (
           <text key={n} x={30 + i * 20} y="15" fontSize="9.5" fill={n === 1 ? "#171B36" : "#7A4F7E"} fontWeight={n === 1 ? "700" : "400"} textAnchor="middle" fontFamily="Jost, Noto Sans JP">{n}</text>
         ))}
-        <text x="100" y="15" fontSize="9" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">&gt;</text>
+        <text x="100" y="15" fontSize="9" fill="#666D93" fontFamily="Jost, Noto Sans JP">&gt;</text>
       </svg>
     ),
     illustrationNote: "従来型の番号付きページネーション(概念図・系列識別色)",
@@ -168,7 +166,7 @@ function GlossaryNote({ items }) {
 function PaginationSwatch() {
   return (
     <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 13 }}>
-      <span style={{ color: "#9EA4C4" }}>&lt;</span>
+      <span style={{ color: "#666D93" }}>&lt;</span>
       {[1, 2, 3, 4].map((n) => (
         <span
           key={n}
@@ -182,7 +180,7 @@ function PaginationSwatch() {
           {n}
         </span>
       ))}
-      <span style={{ color: "#9EA4C4" }}>&gt;</span>
+      <span style={{ color: "#666D93" }}>&gt;</span>
     </div>
   );
 }
@@ -231,14 +229,14 @@ function PaginationTypesSection() {
         ))}
       </div>
       <p style={styles.diagramNote}>
-        この3種類は特定の1系列の公式分類ではなく、Apple(Page Controls)・W3C(番号付きページネーションの実装パターン)・Nielsen Norman Group(もっと見る/無限スクロールの比較)の内容を横断して整理したものです。
+        この3種類は特定の1系列の公式分類ではなく、Apple(Page Controls)・W3C(番号付きページネーションの実装パターン)・Nielsen Norman Group(もっと見る/無限スクロールの比較)の内容を横断して整理したものだ。
       </p>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "長い一覧をページに分け、ページ番号などで移動できるようにする部品です。";
+const LEAD = "長い一覧をページに分け、ページ番号などで移動できるようにする部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "多くの結果を一定の数ずつに分け、今どこを見ているかと、ほかのページへの行き方を示す" },
   { k: "よく使われる場面", v: "検索結果、ネットショップの商品一覧、ブログの記事一覧" },
@@ -286,13 +284,13 @@ export default function NavigationPaginationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleとGoogleには、番号付きページネーションに当たる専用の部品はありません</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別の部品です)。
+              <strong>AppleとGoogleには、番号付きページネーションに当たる専用の部品はない</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別の部品)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作ります。ページネーションは独立した部品というより、既存の部品を組み合わせる実装パターンとして扱われています。
+              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作る。ページネーションは独立した部品というより、既存の部品を組み合わせる実装パターンとして扱われている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要です。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針です。
+              Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -317,7 +315,6 @@ export default function NavigationPaginationPage() {
                 <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
                   <>
                     <InfoBox label="参照ページ(公式)">
@@ -390,11 +387,8 @@ export default function NavigationPaginationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: W3CはWAI-ARIA仕様のaria-currentを主リンクに、APGのLandmark Regions・2.4.4・MDNの解説を併記しています(ページネーション専用のパターンはないため)。NN groupは記事ページ単位です。Appleは番号付きページネーションの部品がないため、ドット表示のPage Controlsを参考リンクにしています。Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません。
-            </span>
           </div>
         </div>
       </div>
@@ -407,12 +401,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -428,26 +422,26 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  positionBadgeMuted: { color: "#B7BCDA", background: "#F3F4F9" },
-  mutedText: { color: "#B7BCDA" },
+  positionBadgeMuted: { color: "#666D93", background: "#F3F4F9" },
+  mutedText: { color: "#666D93" },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -465,5 +459,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

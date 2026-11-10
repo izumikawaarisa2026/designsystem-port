@@ -29,21 +29,20 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)",
+    doc: "該当なし",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし</NoData>,
-    size: <NoData>数値は未確認</NoData>,
-    colorInfo: <NoData>記載なし</NoData>,
-    stance: <NoData>該当なし</NoData>,
-    scenarios: ["該当なし"],
+    size: <NoData>該当なし</NoData>,
+    colorInfo: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>(役割が近いPopoversは<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>のページのメモで扱う)</>,
+    scenarios: [<NoData>該当なし</NoData>],
     exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: ["該当なし"],
+    accessibility: <NoData>該当なし</NoData>,
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/popovers",
     refs: [
-      { label: "該当コンポーネントなし(役割が近いPopoversは「ツールチップ」ページのメモに掲載)", url: "https://developer.apple.com/design/human-interface-guidelines/popovers" },
     ],
   },
   {
@@ -54,8 +53,8 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "画面側面に固定表示する副次的コンテンツ。標準(メイン領域と共存)とモーダル(背景操作を無効化)の2種類",
     size:
-      <span>幅は固定で(既定の幅があり、レイアウトに応じてサイズを変えられる)、画面端(通常は右側。左端にあるナビゲーションコンポーネントとの干渉を避けるため)に配置し、16dp程度内側にずらすことは許容されるとしている。画面端からの推奨マージンを超えて内側に配置しないよう注意しており、シートの位置・スクロール挙動が分かりにくくなり、メインコンテンツも隠れてしまうためだとしている。<NoData>数値は未確認。</NoData></span>,
-    colorInfo: <span>色の値はデザイントークンを通して実装されるとしている。<NoData>カラートークンは未確認。</NoData></span>,
+      <span>幅は固定で(既定の幅があり、レイアウトに応じてサイズを変えられる)、画面端(通常は右側。左端にあるナビゲーションコンポーネントとの干渉を避けるため)に配置し、16dp程度内側にずらすことは許容されるとしている。画面端からの推奨マージンを超えて内側に配置しないよう注意しており、シートの位置・スクロール挙動が分かりにくくなり、メインコンテンツも隠れてしまうためだとしている。既定の幅は256dp、影は標準がLevel 0・モーダルがLevel 1(Material Components for Androidのトークン)。</span>,
+    colorInfo: <span>色の値はデザイントークンを通して実装されるとしている。</span>,
     glossary: [
       { term: "標準 / モーダルサイドシート", desc: "標準サイドシートはメイン領域と共存し、ユーザーがメインコンテンツを操作している間も表示され続ける。モーダルサイドシートはコンパクトな画面向けで、下にあるコンテンツを操作するには閉じる必要がある。" },
       { term: "戻る / 閉じるアイコンボタン(いずれもオプション)", desc: "戻るアイコンボタンはサイドシートを閉じる、または別の画面へ移動するための要素。閉じるアイコンボタンは、開閉フローを予測可能にしアクセシビリティを高めるため、設置が強く推奨されている。" },
@@ -106,7 +105,7 @@ const SOURCES = [
       { term: "aria-haspopup", desc: "シートを開く側のボタンに付けて、どの種類のポップアップ(menu/listbox/tree/grid/dialog)を開くかを支援技術に伝える属性。シート本体の作り方ではない。" },
     ],
     stance:
-      "W3Cはサイドシートという部品を定めていないため、シート本体は、APGのDialogパターンを参考にdialogとして作るのが基本です(AI解釈)。role=\"dialog\"とaria-labelledby(またはaria-label)で名前を付け、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できないようにする(モーダルの)シートだけにaria-modal=\"true\"を付ける。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けることもできる(開く側の属性で、シート本体の作り方ではない)。",
+      "W3Cはサイドシートという部品を定めていないため、シート本体は、APGのDialogパターンを参考にdialogとして作るのが基本だ(AI解釈)。role=\"dialog\"とaria-labelledby(またはaria-label)で名前を付け、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できないようにする(モーダルの)シートだけにaria-modal=\"true\"を付ける。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けることもできる(開く側の属性で、シート本体の作り方ではない)。",
     scenarios: [
       "シート本体をdialogとして作り、名前とフォーカスの移動を設計したい時",
       "背景コンテンツを操作可能なまま残したい時は、aria-modalを付けない非モーダルとして扱う",
@@ -225,7 +224,7 @@ function SideSheetSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネルです。";
+const LEAD = "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネルだ。";
 const ABOUT = [
   { k: "目的・役割", v: "元の画面を見ながら、詳細・絞り込み・設定などの補助の内容を操作できるようにする" },
   { k: "よく使われる場面", v: "一覧の絞り込み条件、選んだ項目の詳細、編集パネル" },
@@ -270,13 +269,13 @@ export default function ContainmentSideSheetPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              サイドシートは、<strong>画面の横に出して、今の画面を見ながら補助の情報や操作を扱うパネル</strong>です。専用の部品として定めているのはGoogleで、メインの画面と並べて置く<strong>標準</strong>と、後ろの画面を操作できなくする<strong>モーダル</strong>の2種類があります。
+              サイドシートは、<strong>画面の横に出して、今の画面を見ながら補助の情報や操作を扱うパネル</strong>だ。専用の部品として定めているのはGoogleで、メインの画面と並べて置く<strong>標準</strong>と、後ろの画面を操作できなくする<strong>モーダル</strong>の2種類がある。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Appleには、サイドシートに当たる部品はありません</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介しています)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義しています。
+              <strong>Appleには、サイドシートに当たる部品はない</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介している)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義している。
             </p>
             <p style={styles.synthesisText}>
-              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めています)が基本です。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計します</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付けます。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付ける。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -303,7 +302,6 @@ export default function ContainmentSideSheetPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -380,11 +378,8 @@ export default function ContainmentSideSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(GoogleはM3の公式ページ本文で確認済み。NN group・W3Cは本文確認済み。Appleには該当する部品がない)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPopoversページへのリンクです。GoogleはSide sheetsページへのリンクです。W3CはAPGのDialogパターンを主リンクに、4.1.2とMDNのaria-haspopup解説を併記、NN groupは用語集内の実アンカー(Side Sheet項目、Popup項目)です。
-            </span>
           </div>
         </div>
       </div>
@@ -397,12 +392,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -411,24 +406,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -446,9 +441,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

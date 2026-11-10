@@ -55,7 +55,7 @@ const SOURCES = [
     exceptions:
       "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "アプリのトップレベルセクション間を移動する(タブは必要な数に絞り、はみ出しを避ける)",
       "画面遷移中も常に表示し、ユーザーが現在地を見失わないようにする",
@@ -80,12 +80,12 @@ const SOURCES = [
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― Navigation bar(画面下部)/ アプリバー(画面上部、別コンポーネント)",
+    doc: "Material Design 3 ― Navigation bar(画面下部)",
     term: "Navigation bar",
     color: "#2F7D6E",
     position: "画面下部の永続的なバー(3〜5個の主要な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割を担う",
     size:
-      <span>コンテナは常にウィンドウ幅いっぱいに広がる。コンパクトなウィンドウでは縦型のナビゲーション項目(アイコンの下にラベル)、中サイズのウィンドウでは横型の項目(アイコンとラベルが横並び)を使うとしている。デバイスのテキスト表示サイズが大きい場合、既定のパディングを保ったまま縦方向に拡張してラベルを収めるべきで、最大2倍の文字サイズまではラベル全体を切り詰めずに表示すべきとしている。<NoData>数値は未確認。</NoData></span>,
+      <span>コンテナは常にウィンドウ幅いっぱいに広がる。コンパクトなウィンドウでは縦型のナビゲーション項目(アイコンの下にラベル)、中サイズのウィンドウでは横型の項目(アイコンとラベルが横並び)を使うとしている。デバイスのテキスト表示サイズが大きい場合、既定のパディングを保ったまま縦方向に拡張してラベルを収めるべきで、最大2倍の文字サイズまではラベル全体を切り詰めずに表示すべきとしている。容器の高さは64dp(高い形は80dp。Jetpack ComposeのNavigationBarTokens)。</span>,
     colorInfo:
       "アクティブなページには塗りつぶしのアイコン+太字ラベル、非アクティブなページには枠線付きアイコン+中程度の太さのラベルを使うとしている(塗りつぶし版のアイコンがない場合はセミボールドの太さで代用)。アクティブ/非アクティブ双方のアイコンは、コンテナとの間で最低3:1のコントラスト比を確保すべきとしている。コンテナ自体も、他のコンテンツと区別するため色付きの塗りつぶしを持つとしている。",
     glossary: [
@@ -97,7 +97,7 @@ const SOURCES = [
     exceptions:
       "行き先が5個を超える場合はナビゲーションバーを使うべきではなく、代わりにタブ(ページ内の類似コンテンツの整理)やモーダル展開ナビゲーションレール(メニューアイコンの背後にナビゲーションを隠す)を検討すべきとしている。行き先が3個未満の場合もナビゲーションバーは使うべきではなく、代わりにタブを使うべきとしている。画面のスワイプで行き先を切り替える操作はサポートされておらず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限定すべきとしている。フローティングアクションボタン(FAB)はナビゲーションバーを覆ってはならず、バーの上に右揃えで配置すべきとしている。ダイアログやボトムシートなどによる一時的な被覆は許容されるが、恒久的に隠すべきではないとしている。",
     accessibility:
-      "操作可能(Operable) ― ナビゲーション項目には常にラベルテキストが必須で(アイコンのみの項目は認めない)、1〜2語程度に収めるべきとしている。アクセシビリティラベルは通常は行き先名と同じですが、表示テキストが曖昧な場合(例: 「ライブラリ」)はより詳細な説明を追加すべきとしている(Android Views(MDC-Android)では、より詳細なラベルや役割のアナウンスに対応していない点に注意が必要)。スクリーンリーダー使用中は、スクロールによってバーを非表示にすべきではないとしている。",
+      "操作可能(Operable) ― ナビゲーション項目には常にラベルテキストが必須で(アイコンのみの項目は認めない)、1〜2語程度に収めるべきとしている。アクセシビリティラベルは通常は行き先名と同じだが、表示テキストが曖昧な場合(例: 「ライブラリ」)はより詳細な説明を追加すべきとしている(Android Views(MDC-Android)では、より詳細なラベルや役割のアナウンスに対応していない点に注意が必要)。スクリーンリーダー使用中は、スクロールによってバーを非表示にすべきではないとしている。",
     useCases: [
       "3〜5個の主要ページを持つモバイル/タブレット向け製品で使う(単一タスクへのアクセスには使わない)",
       "行き先が5個を超える場合はタブやモーダル展開ナビゲーションレールを検討する",
@@ -106,7 +106,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/navigation-bar/guidelines",
     refs: [
-      { label: "Navigation bar(画面下部)/ アプリバー(画面上部、別コンポーネント)", url: "https://m3.material.io/components/navigation-bar/guidelines" },
+      { label: "Navigation bar", url: "https://m3.material.io/components/navigation-bar/guidelines" },
     ],
     confirmedNote: "使用法・バリエーション(ベースライン/フレキシブル)・配置・状態の保持/リセット・インタラクションとスタイル・アクセシビリティ(ラベル要件・テキスト拡大)の各セクションは2026-09時点で公式ページ本文(m3.material.io「Navigation bar」のガイドライン)を確認済み。具体的な高さなどのspecs数値は未確認。",
     illustration: () => (
@@ -148,7 +148,10 @@ const SOURCES = [
     searchHint: "unique label",
     url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/",
     refs: [
-      { kind: "apg", label: "APG: WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
     confirmedNote: "3.2.3はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
@@ -237,7 +240,7 @@ function NavBarSwatch() {
         {items.map((label, i) => (
           <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
             <span style={{ width: 16, height: 16, borderRadius: "50%", border: `1.6px solid ${i === 0 ? "#3A4FCF" : "#B7BCDA"}`, background: i === 0 ? "#3A4FCF" : "none" }} />
-            <span style={{ fontSize: 9, color: i === 0 ? "#3A4FCF" : "#9EA4C4", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>{label}</span>
+            <span style={{ fontSize: 9, color: i === 0 ? "#3A4FCF" : "#666D93", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>{label}</span>
           </div>
         ))}
       </div>
@@ -253,7 +256,7 @@ function TopBarPointerSection() {
         <span style={styles.columnTitle}>Appleが別に「ナビゲーションバー」と呼んでいたもの</span>
       </div>
       <p style={styles.columnIntro}>
-        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)がありましたが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>です。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(bannerランドマーク)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出しました。
+        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(bannerランドマーク)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
       </p>
       <a href="/components/navigation/app-bar" style={styles.linkCard}>
         <div style={styles.linkCardTitle}>アプリバー ↗</div>
@@ -270,7 +273,7 @@ const NAME_MAP = [
   { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "アプリの主な項目を並べるものをタブバー、サイトの上部に主な項目を並べるものをナビゲーションバーと呼び分ける" },
 ];
 const POSITION_ROWS = [
-  ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)。Androidのアプリのタブバーも上部が多い", "アプリの主な場所を切り替える(iOSのタブバー、Googleのナビゲーションバー)"],
+  ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)", "アプリの主な場所を切り替える(iOSのタブバー、Googleのナビゲーションバー)"],
   ["スクロールしたとき", "消えることが多い(上部に固定する型や、上に戻すと再び出る型もある)", "常に表示される"],
   ["向いている場面", "主な項目が少ないサイト", "主な場所が3〜5か所のアプリ"],
   ["懸念点", "画面の上の大事な場所をとる。項目が多いと収まらない", "項目が5個を超えると、押せる大きさを保てない"],
@@ -280,7 +283,7 @@ function NameAndPosition() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>タブバーとナビゲーションバー ― 名前の違いと、上部・下部の使い分け</h2>
-      <p style={styles.npNote}>同じ役割の部品でも、系列によって呼び名が違います。</p>
+      <p style={styles.npNote}>同じ役割の部品でも、系列によって呼び名が違う。</p>
       <div style={{ overflowX: "auto", marginBottom: 16 }}>
         <table style={styles.npTable}>
           <thead><tr>{["系列", "呼び名", "メモ"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
@@ -294,13 +297,13 @@ function NameAndPosition() {
           <tbody>{POSITION_ROWS.map((r) => (<tr key={r[0]}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.npTd}>{r[1]}</td><td style={styles.npTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.npNote}>どちらの場合も、項目が多いときに横にスクロールさせると、隠れた項目は見つけてもらいにくくなります。バーをその画面の主な場所にし、補助の項目や検索に場所を割きすぎないこと、アイコンには文字のラベルを付けることも、NN groupは勧めています。</p>
+      <p style={styles.npNote}>どちらの場合も、項目が多いときに横にスクロールさせると、隠れた項目は見つけてもらいにくくなる。バーをその画面の主な場所にし、補助の項目や検索に場所を割きすぎないこと、アイコンには文字のラベルを付けることも、NN groupは勧めている。</p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーです。";
+const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーだ。";
 const ABOUT = [
   { k: "目的・役割", v: "アプリのいちばん上の階層の行き先を常に見せ、1回で移動できるようにする" },
   { k: "よく使われる場面", v: "SNS・ショッピングアプリの「ホーム・検索・通知・マイページ」" },
@@ -316,7 +319,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "数の上限は示さない。少ないほど移動しやすいので増やしすぎず、「その他(More)」に溢れさせない" },
       { who: "NN group", color: "#7A4F7E", t: "数値の上限はないが、5個を超えると十分な押せる範囲を保ちにくい。選択肢の少ないサイト・アプリ向き" },
     ],
-    tip: "5個までにしておけば3系列のどれとも食い違いません。行き先が増えるなら、Appleはサイドバーの形に切り替えられるタブバー、Googleはナビゲーションレールやドロワーへ移す、という逃がし先も決めておきます。",
+    tip: "5個までにしておけば3系列のどれとも食い違わない。行き先が増えるなら、Appleはサイドバーの形に切り替えられるタブバー、Googleはナビゲーションレールやドロワーへ移す、という逃がし先も決めておく。",
   },
 ];
 
@@ -362,19 +365,19 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っています(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleの部品は<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)です。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用の部品は、Appleにはありません。<strong>W3Cは見た目の部品ではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めています。
+              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleの部品は<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用の部品は、Appleにはない。<strong>W3Cは見た目の部品ではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めている。
             </p>
             <p style={styles.synthesisText}>
-              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っています。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけですが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的です。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点です。
+              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
             </p>
             <p style={styles.synthesisText}>
-              ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することです。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出しました(末尾のリンクを参照)。
+              ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することだ。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出した(末尾のリンクを参照)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げています。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしています。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じです。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できました(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新です)。
+              Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げている。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしている。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じだ。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できた(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てています。特に、1ページに複数のnavigationランドマークがある場合は一意のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点です。
+              W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てている。特に、1ページに複数のnavigationランドマークがある場合は一意のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -400,7 +403,6 @@ export default function NavigationNavBarPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -466,11 +468,8 @@ export default function NavigationNavBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleの高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはTab Barsページへのリンクです(「タブ」ページと同じ一次情報)。WCAGはWAI-ARIA Landmark Regionsの実践ガイド、NN groupは記事ページ単位です。Googleは下部Navigation barの最新版(M3)公式ページへリンクしており本文は確認済みですが、高さなどのspecs数値はまだ確認できていません。上部アプリバーおよびAppleのToolbarsページへのリンクは「アプリバー」ページに記載しています。
-            </span>
           </div>
         </div>
       </div>
@@ -488,12 +487,12 @@ const styles = {
   npTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -502,24 +501,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -537,13 +536,13 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   columnCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 20px 20px", marginBottom: 22 },
   columnHeadRow: { display: "flex", alignItems: "baseline", gap: 10, marginBottom: 12, flexWrap: "wrap" },
-  columnLabel: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#7E86AC", letterSpacing: 0.3, background: "#EEF1FA", padding: "2px 8px", borderRadius: 3 },
+  columnLabel: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, background: "#EEF1FA", padding: "2px 8px", borderRadius: 3 },
   columnTitle: { fontSize: 15, fontWeight: 700, color: "#171B36" },
   columnIntro: { fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 14px" },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
 };

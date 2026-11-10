@@ -32,7 +32,7 @@ const SOURCES = [
     exceptions:
       "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る必要があるとしている。並べ替えだけでもできると喜ばれる、としている。iOS・iPadOS・visionOSでは、情報ボタン(行の中では詳細開示ボタン)は行の内容の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使うとしている。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けないよう勧めている(どちらも末尾にあり、誤って操作しやすいため)。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準のリスト/テーブルを使えば、支援技術には自動的に構造が伝わると考えられる(AI解釈)。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     scenarios: [
       "文字の項目を、ざっと見やすい行の形で一覧表示したい場面",
       "階層をたどって設定などを選ばせたい場面(iOSの設定アプリのように)",
@@ -135,7 +135,8 @@ const SOURCES = [
     searchHint: "listitem",
     url: "https://www.w3.org/TR/wai-aria-1.2/#list",
     refs: [
-      { label: "list role / listitem role / APG Listbox", url: "https://www.w3.org/TR/wai-aria-1.2/#list" },
+      { label: "WAI-ARIA: list", url: "https://www.w3.org/TR/wai-aria-1.2/#list" },
+      { label: "WAI-ARIA: listitem", url: "https://www.w3.org/TR/wai-aria-1.2/#listitem" },
       { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
       { kind: "apg", label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
       { kind: "mdn", label: "listロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/list_role" },
@@ -234,7 +235,7 @@ function ListSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "同じ種類の項目を縦に並べて、一覧で見せる部品です。";
+const LEAD = "同じ種類の項目を縦に並べて、一覧で見せる部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "多くの項目を少ない場所に並べ、目で追って探したり比べたりしやすくする" },
   { k: "よく使われる場面", v: "設定の項目、連絡先、メールの受信一覧" },
@@ -250,7 +251,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "文字は読み流しやすいリストや表で見せる。大きさがばらばらの項目や画像が多いなら、コレクション(格子状の並び)を検討する" },
       { who: "Google", color: "#2F7D6E", t: "リストは項目を見つけて操作するための並び。画面が小さいときは、カードの代わりにリストを検討する" },
     ],
-    tip: "文字中心で数が多く、探したり比べたりする一覧はリスト、画像中心で眺めて選ぶ一覧はカードやコレクション、と中身で決めると3系列とも両立します。",
+    tip: "文字中心で数が多く、探したり比べたりする一覧はリスト、画像中心で眺めて選ぶ一覧はカードやコレクション、と中身で決めると3系列とも両立する。",
   },
 ];
 
@@ -294,13 +295,13 @@ export default function ContainmentListPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              リストの位置づけを最も明確に言語化しているのはNielsen Norman Groupで、<strong>「リスト表示はソートが容易でスペース効率が高い」</strong>という特性を、カード表示(視覚的訴求力・グループ化に強い)と対比させています。この対比は、そのまま「カード」ページとの使い分けの軸になります。
+              リストの位置づけを最も明確に言語化しているのはNielsen Norman Groupで、<strong>「リスト表示はソートが容易でスペース効率が高い」</strong>という特性を、カード表示(視覚的訴求力・グループ化に強い)と対比させている。この対比は、そのまま「カード」ページとの使い分けの軸になる。
             </p>
             <p style={styles.synthesisText}>
-              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通しています。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なります。
+              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点です。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されています。
+              W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点だ。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されている。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -327,7 +328,6 @@ export default function ContainmentListPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -361,7 +361,7 @@ export default function ContainmentListPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.scenarios ? <UseCaseList items={s.scenarios} /> : <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.scenarios ? <UseCaseList items={s.scenarios} /> : <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -400,11 +400,8 @@ export default function ContainmentListPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN group・Googleとも本文確認済み)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはLists and Tablesページ、GoogleはListsページへのリンクです。W3CはWAI-ARIA仕様のlistロールを主リンクに、1.3.1・APGのListboxパターン・MDNの解説を併記しています。NN groupは動画ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -417,12 +414,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -431,24 +428,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -465,9 +462,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

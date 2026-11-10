@@ -32,7 +32,7 @@ const SOURCES = [
     stance:
       <span><Hl>チェックボックスはmacOS向けの部品で、iOS/iPadOSには標準のチェックボックスがない</Hl>(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されている)。チェックボックスは、状態によって表示が変わる正方形のボタンと定義されている。</span>,
     accessibility:
-      "理解可能(Understandable) ― 状態(オン・オフ・不定)を見た目で正確に伝えるべきという点は、理解可能性に関わる。標準のチェックボックスコントロールを使えば、VoiceOverなどの支援技術に状態が自動的に伝わるため、独自実装は推奨されていない。",
+      "理解可能(Understandable) ― 状態(オン・オフ・不定)を見た目で正確に伝えるべきという点は、理解可能性に関わる。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに支援技術向けの記載はない。",
     useCases: [
       "階層を持つ設定項目を表現する(親子のチェックボックス)",
       "チェックリスト形式で複数の項目を選ぶ",
@@ -43,7 +43,7 @@ const SOURCES = [
     refs: [
       { label: "Toggles ― Checkboxes", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes" },
       { label: "Toggles ― Switches(macOSのスイッチとの使い分け)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches" },
-      { label: "Toggles ― Radio buttons(1つの設定のオン・オフ)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Radio-buttons" },
+      { label: "Toggles ― Radio buttons(1つの設定のオン・オフにはチェックボックス)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Radio-buttons" },
     ],
     illustration: () => (
       <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
@@ -70,7 +70,7 @@ const SOURCES = [
     states:
       <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持ち、子の一部だけが選択されている場合は親が不確定状態になり、不確定状態の親を選択すると全ての子項目が選択される。</span>,
     size:
-      <span>チェックボックスに既定で高密度設定を適用すべきではないとしており、<Hl>推奨タップ領域は48×48 CSSピクセル</Hl>(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。<NoData>正方形本体の見た目サイズ(dp)は未確認。</NoData></span>,
+      <span>チェックボックスに既定で高密度設定を適用すべきではないとしており、<Hl>推奨タップ領域は48×48 CSSピクセル</Hl>(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。より高密度なレイアウトをユーザーが選べるようにする場合も、対象の各要素は最低48×48ピクセルへ戻せる設計にすべきとしている。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>される。隣接するテキストラベルの色は、ラベルやコンポーネントを操作している最中かどうかにかかわらず、サーフェス上のカラーロールを一貫して使うとしている。</span>,
     glossary: [
@@ -80,7 +80,7 @@ const SOURCES = [
     stance:
       <span>チェックボックス・ラジオボタン・スイッチを主要な選択操作方法の3つとし、<Hl>チェックボックス=複数選択</Hl>、ラジオボタン=単一選択、スイッチ=独立した設定のオン/オフ、という役割分担を明記している。</span>,
     accessibility:
-      "UIテキストがチェックボックスと正しくリンクされていれば、支援技術(スクリーンリーダーなど)はUIテキストに続けてコンポーネントの役割を読み上げる。個々のチェックボックスのアクセシビリティラベルは通常、隣接するテキストラベルと同一にする。",
+      "堅牢(Robust) ― UIテキストがチェックボックスと正しくリンクされていれば、支援技術(スクリーンリーダーなど)はUIテキストに続けてコンポーネントの役割を読み上げる。個々のチェックボックスのアクセシビリティラベルは通常、隣接するテキストラベルと同一にする。",
     useCases: [
       "リストから1つ以上のオプションを選択する",
       "サブ選択を含む階層的なリストを表示する",
@@ -102,7 +102,7 @@ const SOURCES = [
         <path d="M7 13.5l3.5 3.5 7-8" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "Material tokens(系列識別色で図示。実際のカラートークンは未確認)",
+    illustrationNote: "Material tokens(系列識別色で図示)",
   },
   {
     key: "wcag",
@@ -149,7 +149,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="14" y="14" width="12" height="12" rx="2" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
@@ -166,7 +166,7 @@ const SOURCES = [
     states:
       <span>入れ子の場合、一部の子項目だけが選択されているときは、親チェックボックスを<Hl>「不定(indeterminate)」状態で表示すべき</Hl>としている。</span>,
     size:
-      <span><NoData>数値基準なし。</NoData>ただしチェックボックス本体だけでなく、隣接するテキストラベルもクリック可能領域に含める(ラベルをクリックしても選択できるようにする)ことが、実務上のベストプラクティスとして広く知られている(Googleの公式ページも同様に、テキストラベルからの選択に対応していると明記している)。</span>,
+      <span><NoData>数値基準なし。</NoData></span>,
     colorInfo:
       <span><NoData>数値基準なし。</NoData>選択された項目は選択されていない項目よりも視覚的に目立たせるべき、という原則面の言及がある。</span>,
     stance:
@@ -261,7 +261,7 @@ const SPLITS = [
       { figure: <MiniIcon kind="both" />, who: "Google", color: "#2F7D6E", t: "単独の項目のオン・オフはスイッチが基本だが、デスクトップではチェックボックスでもよい。どちらを使う場合も、変更はすぐに反映させる" },
       { figure: <MiniIcon kind="switch" />, who: "NN group", color: "#7A4F7E", t: "すぐに反映するならスイッチ。保存・送信ボタンを押して確定する場面では、スイッチではなく単独のチェックボックスにする" },
     ],
-    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立します。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマホならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けです。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、フォームの中に即時反映のチェックボックスを混ぜないようにします。",
+    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマホならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、フォームの中に即時反映のチェックボックスを混ぜないようにする。",
   },
   {
     q: "不定(一部だけ選択)の親チェックボックスを押したら?",
@@ -269,14 +269,14 @@ const SPLITS = [
       { figure: <MiniIcon kind="all" />, who: "Google・NN group", color: "#2F7D6E", t: "子をすべて選択する(Google)。親を押すと子がまとめて選択・解除される(NN group)" },
       { figure: <MiniIcon kind="cycle" />, who: "W3C(APG)", color: "#A3821F", t: "APGの例では、押すたびに「未選択 → 不定 → 選択」と切り替わり、不定に戻ったときは前回の一部だけ選んだ組み合わせを復元する。パターンの説明では、この復元は一部の実装が持つ機能という位置づけ" },
     ],
-    tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法です。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げます。APGは実装の参考例で、適合の要件ではありません。Appleは、親の状態の表示(不定のときはダッシュ)は定めていますが、押したときの動きは書いていません。",
+    tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法だ。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げる。APGは実装の参考例で、適合の要件ではない。Appleは、親の状態の表示(不定のときはダッシュ)は定めているが、押したときの動きは書いていない。",
   },
   {
     q: "押せる範囲(タップ領域)は、どれくらいの大きさが必要?",
     figure: (
       <>
         <SizeRangeScale />
-        <p style={{ fontSize: 11, color: "#7E86AC", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60pxを共通スケールにした目安。24・44=W3C(AA・AAA)、48=Google。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく</p>
+        <p style={{ fontSize: 11, color: "#666D93", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60pxを共通スケールにした目安。24・44=W3C(AA・AAA)、48=Google。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく</p>
       </>
     ),
     sides: [
@@ -284,7 +284,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
       { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSの部品)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
-    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届きます。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられます(Google・NN groupが勧める方法)。",
+    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
   },
 ];
 
@@ -371,7 +371,7 @@ export default function SelectionCheckboxPage() {
           <SummaryCard
             image={<CheckboxSwatch />}
             imageNote="3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。"
-            lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品です。"
+            lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
             rows={ABOUT}
           />
 
@@ -382,18 +382,18 @@ export default function SelectionCheckboxPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>しています。Apple・Nielsen Norman
-              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言えます。
+              チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>している。Apple・Nielsen Norman
+              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言える。
             </p>
             <p style={styles.synthesisText}>
-              もう一つの共通点は<strong>「オン・オフ」だけでなく「不定(indeterminate / mixed)」という第3の状態</strong>です。Apple・Google・Nielsen Norman
-              Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われます。
+              もう一つの共通点は<strong>「オン・オフ」だけでなく「不定(indeterminate / mixed)」という第3の状態</strong>だ。Apple・Google・Nielsen Norman
+              Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われる。
             </p>
             <p style={styles.synthesisText}>
-              サイズは系列によって基準が違います(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがありません。
+              サイズは系列によって基準が違う(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがない。
             </p>
             <p style={styles.synthesisText}>
-              色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通しています。
+              色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通している。
             </p>
           </div>
 
@@ -421,7 +421,6 @@ export default function SelectionCheckboxPage() {
                 <InfoBox label="ほかの部品との使い分け">{s.choice}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -487,12 +486,8 @@ export default function SelectionCheckboxPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。specs数値の一部は未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: 公式で別のページ・別のセクションに分かれている内容は、「参照ページ」にそれぞれ載せています。AppleはTogglesページ内の各セクションへのアンカー付きリンク、W3Cは達成基準ごとのUnderstandingページとAPG、NN
-              groupは記事ページ単位です。Googleのspecsページ本文(見た目サイズの数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -503,7 +498,7 @@ export default function SelectionCheckboxPage() {
 const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
@@ -513,24 +508,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -547,6 +542,6 @@ const styles = {
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  diagramNote: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

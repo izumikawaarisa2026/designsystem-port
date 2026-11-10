@@ -33,7 +33,7 @@ const SOURCES = [
     exceptions:
       "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする部品(macOSの保存シートなど)で、隠れているときは下を、見えているときは上を向く。開示ボタンは、表示・非表示にする内容の近くに置き、1つのビューに1つまでにするよう勧めている(複数あると複雑で分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えない。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準の開示コントロールを使えば、支援技術には自動的に状態が伝わると考えられる(AI解釈)。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "詳細や高度な機能を、必要になるまで隠しておく",
       "何が表示・非表示になるかが分かるラベルを付ける",
@@ -67,12 +67,11 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
-    stance: "該当なし",
+    stance: "該当なし(M3の部品の一覧にアコーディオンに当たる部品はなく、M1の「Expansion panel」に当たる部品もない)",
     exceptions: "該当なし",
     accessibility: "該当なし",
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に、アコーディオンに当たる部品はない(2026-11に確認)。旧世代(M1)の「Expansion panel」に当たる部品も、M3にはない。",
     pending: true,
   },
   {
@@ -188,10 +187,10 @@ function AccordionSwatch() {
         <span style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>質問1: 返品はできますか?</span>
         <span style={{ color: "#3A4FCF" }}>⌄</span>
       </div>
-      <div style={{ padding: "8px 12px 10px", fontSize: 11, color: "#7E86AC", borderBottom: "1px solid #E1E3F0" }}>購入から30日以内であれば返品を受け付けています。</div>
+      <div style={{ padding: "8px 12px 10px", fontSize: 11, color: "#666D93", borderBottom: "1px solid #E1E3F0" }}>購入から30日以内であれば返品を受け付けている。</div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px" }}>
-        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらですか?</span>
-        <span style={{ color: "#9EA4C4" }}>›</span>
+        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらだか?</span>
+        <span style={{ color: "#666D93" }}>›</span>
       </div>
     </div>
   );
@@ -209,7 +208,7 @@ function TabVsAccordion() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け(Nielsen Norman Group)</h2>
-      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法です。画面の広さと内容の長さで選びます。</p>
+      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法だ。画面の広さと内容の長さで選ぶ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvaTable}>
           <thead><tr>{["", "アコーディオン", "タブ"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
@@ -222,7 +221,7 @@ function TabVsAccordion() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできる部品です。";
+const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできる部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "必要な部分だけを開いて読めるようにし、長いページを短く見せる" },
   { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマホでの長い説明の折りたたみ" },
@@ -269,13 +268,13 @@ export default function ContainmentAccordionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupです。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っています。
+              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupだ。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っている。
             </p>
             <p style={styles.synthesisText}>
-              W3CのAPGには、専用の<strong>Accordion Pattern</strong>があります。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点です。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがありません。</strong>M1時代には「Expansion panel」という独立コンポーネントがありましたが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされています。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情です。
+              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1時代には「Expansion panel」という独立コンポーネントがあったが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされている。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -301,7 +300,6 @@ export default function ContainmentAccordionPage() {
                 <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
                   <>
                     <InfoBox label="参照ページ(公式)">
@@ -369,11 +367,8 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Disclosure controls、GoogleはM3の部品の一覧で確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはDisclosure Controlsページへのリンクです。Googleは該当する独立コンポーネントが存在しないため、リンクなしとしています。W3CはAPGのAccordionパターンを主リンクに、単体の開閉の参考としてDisclosure(Show/Hide)パターンを併記しています。NN groupは記事ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -390,12 +385,12 @@ const styles = {
   tvaTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -404,26 +399,26 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  positionBadgeMuted: { color: "#B7BCDA", background: "#F3F4F9" },
-  mutedText: { color: "#B7BCDA" },
+  positionBadgeMuted: { color: "#666D93", background: "#F3F4F9" },
+  mutedText: { color: "#666D93" },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -440,5 +435,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

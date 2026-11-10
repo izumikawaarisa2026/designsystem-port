@@ -3,7 +3,7 @@ import SidebarNav from "./sidebar-nav";
 import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
- * コンポーネントレイヤー「Selection / 日付・タイムピッカー」ページ。
+ * コンポーネントレイヤー「Selection / 日付/タイムピッカー」ページ。
  * (2026-10-05、Material 3のコンポーネント分類(Date pickers・Time pickersはSelection、Flutterの公式ドキュメントで確認)に合わせ、Text inputsから移動)
  *
  * このページの発見(2026-10改訂: W3Cの例は入力欄+カレンダーで、NN groupの推奨と両立する): W3C(ARIA APG)・Google(Modal派生)は「カレンダー型のダイアログ」を
@@ -50,7 +50,7 @@ const SOURCES = [
       "日付ピッカーの寸法(pt)はHIGに示されていない。分の選択肢は既定で60個(0〜59)で、60を割り切れる間隔(例: 15分刻み)に減らせるとしている。",
     colorInfo: "コンパクトスタイルのボタンは、現在の値をアプリのアクセントカラーで表示する。それ以外の色の規定はない。",
     stance:
-      "ピッカーは、1つまたは複数の部分からなる値を選ばせる部品で、日付ピッカーはさらに、カレンダーで日を選ぶ・数字キーで入力する、といった方法を持つとしている。表示される値と並び順は、端末の言語・地域によって変わる。スペースが限られるときはコンパクトスタイルを使い、ボタンをタップするとカレンダー形式の編集画面と時刻ピッカーがモーダルで開き、外側をタップして確定する(ページ本文を直接確認、2026-09)。",
+      "ピッカーは、1つまたは複数の部分からなる値を選ばせる部品で、日付ピッカーはさらに、カレンダーで日を選ぶ・数字キーで入力する、といった方法を持つとしている。表示される値と並び順は、端末の言語・地域によって変わる。スペースが限られるときはコンパクトスタイルを使い、ボタンをタップするとカレンダー形式の編集画面と時刻ピッカーがモーダルで開き、外側をタップして確定する。",
     exceptions:
       "選択肢が少ない場合はプルダウンボタン、非常に多い場合はリストやテーブルの方が向くとしている。ピッカーは画面を切り替えて表示するのではなく、編集中の項目の近く(画面下部やポップオーバー)に表示するよう求めている。カウントダウンタイマーのモードは最大23時間59分で、インライン・コンパクトのスタイルでは使えない。",
     accessibility: <NoData>記載なし</NoData>,
@@ -71,9 +71,9 @@ const SOURCES = [
       <svg width="90" height="46" viewBox="0 0 90 46">
         <rect x="1" y="1" width="88" height="44" rx="4" fill="#F8F9FD" stroke="#E1E3F0" strokeWidth="1" />
         <rect x="3" y="17" width="84" height="12" fill="#F0DACB" stroke="#C2542A" strokeWidth="1" />
-        <text x="45" y="11" fontSize="9" fill="#B7BCDA" textAnchor="middle" fontFamily="Jost, Noto Sans JP">8月</text>
+        <text x="45" y="11" fontSize="9" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">8月</text>
         <text x="45" y="26" fontSize="10" fill="#171B36" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">9月</text>
-        <text x="45" y="41" fontSize="9" fill="#B7BCDA" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
+        <text x="45" y="41" fontSize="9" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
       </svg>
     ),
     illustrationNote: "ホイールスタイルの例(概念図・系列識別色)。全8パターンは「デザインパターン一覧」を参照",
@@ -85,18 +85,18 @@ const SOURCES = [
     term: "Date picker・Time picker",
     color: "#2F7D6E",
     position: "日付はドッキング・モーダル・モーダル入力の3種類(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類",
-    size: "寸法のdp値は確認できていない。日付ピッカーのコンテナの角丸は、シェイプスケールのExtra large(28dp)が既定。",
+    size: "モーダルの日付ピッカーは360×568dp、日付の丸は40×40dp、見出し部分の高さは120dp(Jetpack Composeのトークン)。容器の角丸はExtra large(28dp)。",
     colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
     glossary: [
       { term: "ドッキング / モーダル / モーダル入力", desc: "ドッキングは入力欄に付いた形で、タップするとカレンダーがドロップダウンで開く。モーダルはダイアログ形式のカレンダー。モーダル入力はダイアログ内のテキスト入力。モーダルとモーダル入力は期間(開始日〜終了日)の選択にも使える。" },
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは時計の文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類(Material Components for Androidのドキュメントで直接確認、2026-09)。",
+      "ドッキングは入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く形で、入力とカレンダーのどちらでも入力できるため、近い日付にも遠い日付にも向くとしている。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類。",
     exceptions:
-      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとしている(M3 Date pickersのガイドラインで確認、2026-11)。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
+      "生年月日のように遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使うべきとしている。日付ピッカーのタイトルは開いたときに読み上げられるため、「予約日を選択」のように作業内容が分かる文言にするよう勧めている。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応しており、ダイアログを開くとタイトルが読み上げられる。タッチターゲットの具体的な数値は確認できていない。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応しており、ダイアログを開くとタイトルが読み上げられる。",
     useCases: [
       "近い日付・遠い日付のどちらもあり得るならドッキングを使う",
       "予約など期間を選ばせる場合は、モーダルの期間選択を使う",
@@ -105,7 +105,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/date-pickers/guidelines",
     refs: [
-      { label: "Date pickers / Time pickers", url: "https://m3.material.io/components/date-pickers/guidelines" },
+      { label: "Date pickers", url: "https://m3.material.io/components/date-pickers/guidelines" },
       { label: "Time pickers", url: "https://m3.material.io/components/time-pickers/guidelines" },
       { label: "MDC Android: Date pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/DatePicker.md" },
       { label: "MDC Android: Time pickers(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/TimePicker.md" },
@@ -150,7 +150,8 @@ const SOURCES = [
     searchHint: "roving tabindex",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/",
     refs: [
-      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/" },
+      { kind: "apg", label: "APG: Date Picker Dialogの例(Gridパターンを使った実装例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/" },
+      { kind: "apg", label: "APG: Grid Pattern(日付の並びに使う汎用の型)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -169,12 +170,12 @@ const SOURCES = [
     term: "Date input(日付の入力欄)・Calendar picker",
     color: "#7A4F7E",
     position: "多くの場面ではフリーテキスト入力を推奨。カレンダーピッカーは近い将来の日付・範囲選択に限定",
-    size: "数値基準としては、選択肢が10個未満の場合のみドロップダウンを検討すべきとしている。日付専用の寸法基準はない。",
+    size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
       <>多くの場面で、ユーザーには<Hl>日付を自由入力(フリーテキスト)で入力させることを推奨している</Hl>。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的だとしている。カレンダーピッカーは、現在に近い(1年未満程度の)日付や、日付の範囲選択(2ヶ月分を並べて表示するなど)に向いているとしている。ドロップダウンは10個未満の少ない選択肢の場合のみに限定すべきで、月/日/年を分割したドロップダウンは不要なクリックを増やすため避けるべきとしている。</>,
     exceptions:
-      "日付の書式について、9-3-17、09/08/17、9.3.17のような入力の揺れを、特殊文字の入力を強制せず受け入れるべきとしている。月名は省略せず綴り、フィールドを明確にラベル付けすべきとしている(「10/11/2016」のような表記は米国式・欧州式で解釈が分かれ曖昧になるため)。到着日より前の出発日のような論理的にありえない選択肢は事前に除外し、利用できない日は選択不可にし、エラー時には具体的な訂正案を示すべきとしている。",
+      "ドロップダウンは選択肢が10個未満の場合だけ検討する(月/日/年に分けたドロップダウンは避ける)。日付の書式について、9-3-17、09/08/17、9.3.17のような入力の揺れを、特殊文字の入力を強制せず受け入れるべきとしている。月名は省略せず綴り、フィールドを明確にラベル付けすべきとしている(「10/11/2016」のような表記は米国式・欧州式で解釈が分かれ曖昧になるため)。到着日より前の出発日のような論理的にありえない選択肢は事前に除外し、利用できない日は選択不可にし、エラー時には具体的な訂正案を示すべきとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際の入力効率・エラー率に基づく使い分けの指針。",
     useCases: [
       "誕生日や遠い日付では自由入力(フリーテキスト)を第一の選択肢にする",
@@ -254,7 +255,7 @@ const PATTERNS = [
     key: "hig",
     name: "Apple",
     color: "#C2542A",
-    note: "iOS/iPadOSは「スタイル(見た目)」と「モード(選ぶ値)」の組み合わせで決まります。スタイルはコンパクト・インライン・ホイール・自動(システムが決める)の4つ、モードは日付・時刻・日付と時刻・カウントダウンタイマーの4つです。",
+    note: "iOS/iPadOSは「スタイル(見た目)」と「モード(選ぶ値)」の組み合わせで決まる。スタイルはコンパクト・インライン・ホイール・自動(システムが決める)の4つ、モードは日付・時刻・日付と時刻・カウントダウンタイマーの4つだ。",
     items: [
       { kind: "a-compact", name: "コンパクト", platform: "iOS / iPadOS", method: "カレンダー", desc: "現在の値をアクセントカラーのボタンで表示。タップするとカレンダーと時刻の編集画面がモーダルで開き、外側をタップして確定する。スペースが限られるとき向け。" },
       { kind: "a-inline", name: "インライン(日付)", platform: "iOS / iPadOS", method: "カレンダー", desc: "日付を含むモードでは、カレンダーを画面の中に埋め込んで表示する。" },
@@ -270,7 +271,7 @@ const PATTERNS = [
     key: "material",
     name: "Google",
     color: "#2F7D6E",
-    note: "日付ピッカー(3種類+期間選択)と時刻ピッカー(2種類)は別のコンポーネントです。モーダルとモーダル入力は、1日だけでなく期間(開始日〜終了日)の選択にも使えます。",
+    note: "日付ピッカー(3種類+期間選択)と時刻ピッカー(2種類)は別のコンポーネントだ。モーダルとモーダル入力は、1日だけでなく期間(開始日〜終了日)の選択にも使える。",
     items: [
       { kind: "g-docked", name: "ドッキング", platform: "日付", method: "テキスト入力+カレンダー", desc: "入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く。どちらでも入力でき、近い日付にも遠い日付にも向く。" },
       { kind: "g-modal", name: "モーダル", platform: "日付", method: "カレンダー", desc: "ダイアログでカレンダーを表示。横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。" },
@@ -334,7 +335,7 @@ function PatternMockup({ kind, color }) {
   );
   if (kind === "a-inline-time") body = <g>{T(10, 16, "時刻")}{wheel(15, 26, [["7", "8", "9", "10", "11"], ["39", "40", "41", "42", "43"], ["", "", "AM", "PM", ""]])}</g>;
   if (kind === "a-wheels") body = <g>{wheel(15, 22, [["7月", "8月", "9月", "10月", "11月"], ["15", "16", "17", "18", "19"], ["2024", "2025", "2026", "2027", "2028"]])}</g>;
-  if (kind === "a-countdown") body = <g>{wheel(30, 22, [["0", "1", "2", "3", "4"], ["28", "29", "30", "31", "32"]])}{T(60, 88, "時間     分", { a: "middle", s: 6, c: "#7E86AC" })}</g>;
+  if (kind === "a-countdown") body = <g>{wheel(30, 22, [["0", "1", "2", "3", "4"], ["28", "29", "30", "31", "32"]])}{T(60, 88, "時間     分", { a: "middle", s: 6, c: "#666D93" })}</g>;
   if (kind === "a-mac-text") body = (
     <g>
       <rect x="14" y="42" width="78" height="16" rx="3" fill="#FFFFFF" stroke="#B7BCDA" />
@@ -427,7 +428,7 @@ function PatternMockup({ kind, color }) {
       {T(78, 44, "00", { a: "middle", s: 13, f: mono })}
       <rect x="100" y="26" width="12" height="26" rx="3" fill="none" stroke="#B7BCDA" />
       {T(106, 37, "AM", { a: "middle", s: 4 })}{T(106, 47, "PM", { a: "middle", s: 4 })}
-      {T(30, 60, "時", { a: "middle", s: 5.5, c: "#7E86AC" })}{T(78, 60, "分", { a: "middle", s: 5.5, c: "#7E86AC" })}
+      {T(30, 60, "時", { a: "middle", s: 5.5, c: "#666D93" })}{T(78, 60, "分", { a: "middle", s: 5.5, c: "#666D93" })}
       {T(12, 92, "⌚", { s: 8, c: "#565D8A" })}
       {T(108, 92, "キャンセル  OK", { a: "end", s: 5.5, c: color, w: 600 })}
     </g>
@@ -500,16 +501,16 @@ function DateTimePickerSwatch() {
   return (
     <div style={{ width: 160, margin: "0 auto" }}>
       <div style={{ border: "1px solid #E1E3F0", borderRadius: 6, overflow: "hidden", background: "#F8F9FD" }}>
-        <div style={{ padding: "4px 0", textAlign: "center", fontSize: 10, color: "#B7BCDA", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>8月</div>
+        <div style={{ padding: "4px 0", textAlign: "center", fontSize: 10, color: "#666D93", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>8月</div>
         <div style={{ padding: "6px 0", textAlign: "center", fontSize: 14, fontWeight: 700, color: "#171B36", background: "#EEF1FA", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>9月</div>
-        <div style={{ padding: "4px 0", textAlign: "center", fontSize: 10, color: "#B7BCDA", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>10月</div>
+        <div style={{ padding: "4px 0", textAlign: "center", fontSize: 10, color: "#666D93", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>10月</div>
       </div>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "カレンダーや回転する一覧などで、日付や時刻を選んで入力する部品です。";
+const LEAD = "カレンダーや回転する一覧などで、日付や時刻を選んで入力する部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "日付・時刻を、形式の間違いなく入力してもらう" },
   { k: "よく使われる場面", v: "予約日・生年月日・アラームの時刻の入力" },
@@ -526,7 +527,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "入力欄とカレンダーの両方を持つ形(ドッキング)、カレンダー(モーダル)、入力(モーダル入力)を使い分ける。遠い日付にはカレンダーを使わない" },
       { who: "Apple", color: "#C2542A", t: "コンパクト・インライン・ホイールのスタイルを場所に合わせて選ぶ。カレンダーで日を選ぶほか、数字キーで入力もできる" },
     ],
-    tip: "入力欄を基本にし、近い日付や期間を選ぶ場面でカレンダーを補助として開けるようにすると、4系列のどれとも食い違いません。誕生日の入力でカレンダーを先に出すのは避けます。",
+    tip: "入力欄を基本にし、近い日付や期間を選ぶ場面でカレンダーを補助として開けるようにすると、4系列のどれとも食い違わない。誕生日の入力でカレンダーを先に出すのは避ける。",
   },
 ];
 
@@ -550,11 +551,11 @@ export default function SelectionDateTimePickerPage() {
         <SidebarNav currentPath="/components/selection/date-time-picker" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / 日付・タイムピッカー</span>
+            <span>コンポーネント / 日付/タイムピッカー</span>
             <span>SPEC No. 022</span>
           </div>
 
-          <h1 style={styles.title}>日付・タイムピッカー</h1>
+          <h1 style={styles.title}>日付/タイムピッカー</h1>
           <SummaryCard
             imageLabel="コンポーネントイメージ(ホイール型の例)"
             image={<><DateTimePickerSwatch /></>}
@@ -569,23 +570,23 @@ export default function SelectionDateTimePickerPage() {
 
           <h2 style={styles.diagramTitle}>入力方法の使い分け(4種類)</h2>
           <InputMethodsSummary />
-          <p style={styles.diagramNote}>どの系列も、上記いずれかの方式(または組み合わせ)を採用しています。ダイヤルは時刻専用の方式です。日付・時刻の性質(近い/遠い、範囲か単一か)に応じて方式を選び、迷ったらNN groupの「多くの場面ではフリーテキストが最も効率的」という指針を起点にするのが安全です。</p>
+          <p style={styles.diagramNote}>どの系列も、上記いずれかの方式(または組み合わせ)を採用している。ダイヤルは時刻専用の方式だ。日付・時刻の性質(近い/遠い、範囲か単一か)に応じて方式を選び、迷ったらNN groupの「多くの場面ではフリーテキストが最も効率的」という指針を起点にするのが安全だ。</p>
 
           <h2 style={styles.diagramTitle}>デザインパターン一覧(Apple・Google)</h2>
-          <p style={styles.diagramNote}>AppleとGoogleは、日付・時刻のピッカーを複数の見た目(パターン)で用意しています。各公式ドキュメントに載っているパターンをすべて並べました。画面イメージは内容をもとに描いた概念図です。</p>
+          <p style={styles.diagramNote}>AppleとGoogleは、日付・時刻のピッカーを複数の見た目(パターン)で用意している。各公式ドキュメントに載っているパターンをすべて並べた。画面イメージは内容をもとに描いた概念図だ。</p>
           <PatternGallery />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>日付を入力欄で入れるか、カレンダーで選ぶか</strong>は系列ごとに重みが違いますが、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立します(上の「意見が分かれる点」)。
+              <strong>日付を入力欄で入れるか、カレンダーで選ぶか</strong>は系列ごとに重みが違うが、<strong>「入力欄を基本に、カレンダーは補助」</strong>という形で両立する(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、カレンダーピッカーは近い将来の日付や期間の選択に向くとしています。Googleも<strong>生年月日のような遠い日付にはモーダルのカレンダーを使わず</strong>、モーダル入力かドッキングを使うとしています。
+              NN groupは、カレンダーピッカーは近い将来の日付や期間の選択に向くとしている。Googleも<strong>生年月日のような遠い日付にはモーダルのカレンダーを使わず</strong>、モーダル入力かドッキングを使うとしている。
             </p>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、<strong>1つの部品に複数の見た目(パターン)を用意</strong>しています。AppleはiOSでコンパクト・インライン・ホイール、macOSでテキスト形式・グラフィカル形式を持ち、Googleは日付でドッキング・モーダル・モーダル入力(+期間選択)、時刻でダイヤル・入力を持ちます。どちらも<strong>カレンダーやダイヤルと、キーボード入力の両方を行き来できる</strong>ようにしている点は、NN groupの「自由入力が効率的な場面が多い」という指摘とも両立する設計です。
+              AppleとGoogleは、<strong>1つの部品に複数の見た目(パターン)を用意</strong>している。AppleはiOSでコンパクト・インライン・ホイール、macOSでテキスト形式・グラフィカル形式を持ち、Googleは日付でドッキング・モーダル・モーダル入力(+期間選択)、時刻でダイヤル・入力を持つ。どちらも<strong>カレンダーやダイヤルと、キーボード入力の両方を行き来できる</strong>ようにしている点は、NN groupの「自由入力が効率的な場面が多い」という指摘とも両立する設計だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -611,7 +612,6 @@ export default function SelectionDateTimePickerPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -675,11 +675,8 @@ export default function SelectionDateTimePickerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Components for Androidのドキュメントで確認。「生年月日にはモーダルを使わない」はM3の本文で確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPickersページの「iOS, iPadOS」見出しへのアンカー付きリンクで、Best practices・macOSの見出しも併記しています。WCAGはWAI-ARIA APGのDate Picker Dialog実例、NN groupは記事ページ単位です。GoogleはDate pickersの最新版(M3)公式ページに加え、Time pickersと、内容を確認したMaterial Components for Androidのドキュメントを併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -692,12 +689,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -725,24 +722,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -760,5 +757,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

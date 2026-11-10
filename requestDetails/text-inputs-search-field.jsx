@@ -57,7 +57,7 @@ const SOURCES = [
     size: "検索フィールド自体の寸法(pt)は、HIGの検索フィールドのページには示されていない。",
     colorInfo: "色についての規定は、検索フィールドのページにはない。",
     stance:
-      "HIGは検索フィールドを、検索アイコン・クリアボタン・プレースホルダーを表示する、編集できるテキストフィールドとしている。プレースホルダーで何を検索できるかを伝えること、できれば入力と同時に検索を始めて結果を絞り込み続けること、検索を始める前は最近の検索を、入力中は予測した候補を表示することを勧めている。結果は関連の高いものから並べ、必要なら分類し、スコープバーで絞り込めるようにするとしている(ページ本文を直接確認、2026-09)。",
+      "HIGは検索フィールドを、検索アイコン・クリアボタン・プレースホルダーを表示する、編集できるテキストフィールドとしている。プレースホルダーで何を検索できるかを伝えること、できれば入力と同時に検索を始めて結果を絞り込み続けること、検索を始める前は最近の検索を、入力中は予測した候補を表示することを勧めている。結果は関連の高いものから並べ、必要なら分類し、スコープバーで絞り込めるようにするとしている。",
     exceptions:
       "検索専用のエリア(タブなど)に移ったときは、すぐ検索フィールドにフォーカスを当てるとよいとしている。ただしiPadで画面上のキーボードしか使えない場合は、キーボードが急に画面を覆わないよう、フォーカスを当てない方がよいとしている。watchOSでは、検索フィールドをタップすると画面全体の文字入力に切り替わり、キャンセルか検索を押すまで戻らない。",
     accessibility: <NoData>記載なし</NoData>,
@@ -79,7 +79,7 @@ const SOURCES = [
         <rect x="1" y="1" width="138" height="24" rx="8" fill="#F0F4F8" stroke="#C2542A" strokeWidth="1.2" />
         <circle cx="16" cy="13" r="4.5" fill="none" stroke="#C2542A" strokeWidth="1.6" />
         <line x1="19.2" y1="16.2" x2="23" y2="20" stroke="#C2542A" strokeWidth="1.6" strokeLinecap="round" />
-        <text x="30" y="17" fontSize="9.5" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">検索</text>
+        <text x="30" y="17" fontSize="9.5" fill="#666D93" fontFamily="Jost, Noto Sans JP">検索</text>
         <circle cx="126" cy="13" r="5" fill="#C9CEE3" />
         <text x="126" y="16" fontSize="7" fill="#FFFFFF" textAnchor="middle">✕</text>
       </svg>
@@ -101,7 +101,7 @@ const SOURCES = [
       { term: "全画面/ドッキング", desc: "全画面は、候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは、検索バーの下にリストを出し、残りの画面を幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      <>検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わります(M3の公式ページ本文とMaterial Components for Androidのドキュメントで確認、2026-09)。</>,
+      <>検索は、ファイルやメッセージのように扱う項目が多い製品で、情報を素早く見つけるための仕組みとされている。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾アイコンを置き、選択すると候補・結果を表示する状態(フォーカスした検索)に切り替わる。</>,
     exceptions:
       "先頭には、メニューや戻るなどのナビゲーション用アイコンボタンか、押しても動作しない検索アイコンのどちらかを置く必要がある。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えてはいけないとしている。",
     accessibility:
@@ -144,7 +144,7 @@ const SOURCES = [
       { term: "コンボボックス(combobox)", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせた部品。検索欄で「以前の検索や似た検索を候補に出す」のが代表的な用途としてAPGに挙げられている。" },
     ],
     stance:
-      "searchランドマークは、検索機能を構成する要素一式を囲むコンテナに付ける役割。input type=\"search\"だけではランドマークにならず、検索用のフォームには汎用のformではなくsearchを使う。可能ならHTMLのsearch要素を使うことが推奨されている。候補を表示する検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を実装する(MDN・APGの本文を直接確認、2026-09)。また2.4.5(レベルAA)は、サイトの中のページにたどり着く方法を2つ以上用意することを求めており、ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方。画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索の方が目的のページに早く着ける人がいるためです(Understandingページの本文を直接確認、2026-10)。",
+      "searchランドマークは、検索機能を構成する要素一式を囲むコンテナに付ける役割。input type=\"search\"だけではランドマークにならず、検索用のフォームには汎用のformではなくsearchを使う。可能ならHTMLのsearch要素を使うことが推奨されている。候補を表示する検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を実装する。また2.4.5(レベルAA)は、サイトの中のページにたどり着く方法を2つ以上用意することを求めており、ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方。画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索の方が目的のページに早く着ける人がいるためだ。",
     exceptions:
       "1ページに複数のsearchランドマークがある場合は、それぞれに区別できるラベルを付ける。同じ検索をページの上下に繰り返し置く場合は、同じラベルにする。ランドマークを多用しすぎると、スクリーンリーダーで全体の構造が分かりにくくなる点にも注意が必要。2.4.5は、手続きの途中の画面や手続きの結果の画面には適用されない。3〜4ページの小さなサイトなら、トップページから全ページへのリンク(サイトマップの代わり)だけでも満たせる場合がある。",
     accessibility:
@@ -158,7 +158,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#search",
     refs: [
-      { label: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5", url: "https://www.w3.org/TR/wai-aria-1.2/#search" },
+      { label: "WAI-ARIA: search", url: "https://www.w3.org/TR/wai-aria-1.2/#search" },
       { kind: "mdn", label: "searchロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" },
       { kind: "apg", label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/#aboutthispattern" },
       { kind: "sc", level: "AA", label: "2.4.5 複数の手段", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html" },
@@ -184,7 +184,7 @@ const SOURCES = [
     size: "固定幅の検索欄は、入力内容を見直せるよう27文字分以上の幅にするよう勧めている。アイコンは大きく、周りに余白を取って押しやすくするとしている。",
     colorInfo: "アイコンが背景や周りの要素から目立つよう、十分なコントラストを取るよう勧めている(数値基準はない)。",
     stance:
-      <>多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている(記事本文を直接取得して確認済み、2026-09)。</>,
+      <>多くの人は、ラベルがなくても虫眼鏡アイコンが検索を表すと分かる。ただしアイコンだけにすると目立たず、検索を探す手間が増えるとしている。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索を実行できるようにすべきだとしている。スマートフォンのような小さな画面では、アイコンをタップするまで入力欄を隠してもよいとしている。</>,
     exceptions:
       "アイコンだけにする場合は、アイコンを1回押したらすぐ入力欄にカーソルが入り、入力できる状態にすべきだとしている。入力欄はアイコンの近くに出し、周りに他のアイコンを詰め込みすぎず、かといって孤立させすぎないようにする。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、検索の見つけやすさ・操作の手間に関するユーザー調査に基づく指針。",
@@ -196,14 +196,14 @@ const SOURCES = [
     searchHint: "27 characters",
     url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4",
     refs: [
-      { label: "The Magnifying-Glass Icon in Search Design / Site Search Suggestions", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
+      { label: "The Magnifying-Glass Icon in Search Design", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
       { label: "Site Search Suggestions", url: "https://www.nngroup.com/articles/site-search-suggestions/" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="112" height="24" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.6" />
-        <text x="10" y="17" fontSize="9.5" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">検索する内容を入力</text>
+        <text x="10" y="17" fontSize="9.5" fill="#666D93" fontFamily="Jost, Noto Sans JP">検索する内容を入力</text>
         <rect x="113" y="1" width="26" height="24" rx="4" fill="#7A4F7E" />
         <circle cx="124.5" cy="12" r="4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.6" />
         <line x1="127.7" y1="15.2" x2="131" y2="18.5" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" />
@@ -219,33 +219,28 @@ const ICON_NOTES = [
     name: "Apple",
     position: "検索アイコンは検索フィールドの構成要素の1つ(ほかにクリアボタンとプレースホルダー)",
     text: "HIGは、検索フィールドが検索アイコン・クリアボタン・プレースホルダーを表示するとしている。iOSのツールバーに置いた検索ボタンは、タップすると検索フィールドに変わり、キーボードの上(場所がなければ上部)に現れる。",
-    confirmedNote: "HIG Search fieldsの本文で確認(2026-11)。",
-    url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Search-in-a-toolbar",
+    refs: [{ label: "Search fields ― Search in a toolbar", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Search-in-a-toolbar" }],
   },
   {
     key: "material",
     name: "Google",
     position: "先頭には、ナビゲーション用アイコンボタン(メニュー・戻る)か、押しても動作しない検索アイコンのどちらかを置く。フォーカスすると先頭は戻る矢印になり、M3 Expressiveではバーが横に広がる(画面端の余白24dp→12dp)",
     text: "Material Design 3の検索バーは、コンテナ・先頭のアイコンボタン・ヒントテキスト・末尾のアイコンまたはアバターで構成される。検索アイコンは、先頭に置く場合は押しても動作しない目印、末尾に置く場合は装飾として扱える。フォーカスすると先頭が戻る矢印に変わり、戻るを押すとフォーカスが外れて候補・結果が閉じ、バーが元に戻る。",
-    confirmedNote: "M3の公式ページ本文(2026-09)とMaterial Components for Androidのドキュメントで確認。",
-    url: "https://m3.material.io/components/search/guidelines",
+    refs: [{ label: "Search ― Guidelines", url: "https://m3.material.io/components/search/guidelines" }],
   },
   {
     key: "wcag",
     name: "W3C",
     position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
     text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
-    confirmedNote: "WAI-ARIA仕様のsearchロールと、MDNの解説本文を確認(2026-09、仕様は2026-10)。",
-    url: "https://www.w3.org/TR/wai-aria-1.2/#search",
-    urlSecondary: [{ label: "解説(MDN)", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
+    refs: [{ label: "WAI-ARIA: search", url: "https://www.w3.org/TR/wai-aria-1.2/#search" }, { kind: "mdn", label: "search role", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     position: "アイコン自体の左右位置ではなく、検索ボックス全体をページの右上に置くことを推奨。アイコンはクリックで送信されるボタンとして機能させ、1回のクリックで入力欄にカーソルが入るようにすべきとしている",
     text: "検索の入り口は、人が最初に探す場所である右上に置くよう勧めている。アイコンの役割については、検索ボタンを押して検索する習慣を持つ人がまだ多いので、虫眼鏡アイコンを押したら検索が実行されるようにするのが大切だとしている。また、アイコンを1回押せば入力欄にカーソルが入ってすぐ入力できるようにし、できればポインターを重ねた時点で検索欄を広げて入力できる状態にするとよい、としている。アイコン自体を検索ボックス内の左右どちらに置くべきかは、この記事では明言されていない。",
-    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
-    url: "https://www.nngroup.com/articles/magnifying-glass-icon/",
+    refs: [{ label: "The Magnifying-Glass Icon in Search Design", url: "https://www.nngroup.com/articles/magnifying-glass-icon/" }],
   },
 ];
 
@@ -291,7 +286,7 @@ const SCENES = [
     cells: {
       hig: "関連の高い結果から並べ、スクロールを減らす。必要に応じて結果を分類する。",
       material: "Enterキーで実行するか、候補・結果を直接選ぶ。結果はバーの下にリストで表示し、バーの下をスクロールする。検索中であることを示す状態表示(検索アイコンや結果のラベル)を置く。",
-      wcag: "「5件見つかりました」のような件数表示は、ステータスメッセージ(4.1.3)としてスクリーンリーダーに伝える。",
+      wcag: <>「5件見つかりました」のような件数表示は、ステータスメッセージ(<a href="https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>4.1.3</a>)としてスクリーンリーダーに伝える。</>,
       nn: "候補の中に商品などを並べても、実際には全結果の一覧を見て比べたい人が多かった。",
     },
   },
@@ -314,7 +309,7 @@ const SCENES = [
       hig: "入力内容はフィールド内のクリアボタンで消す。watchOSは、キャンセルか検索を押すと元の画面に戻る。",
       material: "戻るアイコンで、フォーカスが外れ、候補・結果が消え、バーが元に戻る。Androidの予測型「戻る」では、スワイプ中に全画面の検索が縮み、前の画面がのぞいて見える。",
       wcag: "Escで候補を閉じ、フォーカスを入力欄に戻す。候補が閉じている状態でEscを押したら入力内容を消す、という動作も任意で加えられる。",
-      nn: "―(このシーン専用の指針は、確認した記事にはありません)。",
+      nn: "―(このシーン専用の指針は、確認した記事にはない)。",
     },
   },
 ];
@@ -329,7 +324,7 @@ function IconBehaviorDiagram({ k }) {
     </g>
   );
   const T = (x, y, t, o = {}) => <text x={x} y={y} fontSize={o.s || 7.5} fill={o.c || "#454C78"} textAnchor={o.a || "start"} fontWeight={o.w || 400} fontFamily={font}>{t}</text>;
-  const step = (y, label) => T(4, y, label, { s: 7, c: "#7E86AC", w: 700 });
+  const step = (y, label) => T(4, y, label, { s: 7, c: "#666D93", w: 700 });
   const arrow = <g><line x1="90" y1="54" x2="90" y2="64" stroke="#B7BCDA" strokeWidth="1.2" /><path d="M86.5 61 L90 66 L93.5 61" fill="none" stroke="#B7BCDA" strokeWidth="1.2" /></g>;
   let body = null;
   if (k === "hig") body = (
@@ -337,7 +332,7 @@ function IconBehaviorDiagram({ k }) {
       {step(12, "操作前")}
       <rect x="10" y="20" width="160" height="22" rx="11" fill="#EEF0F5" />
       {mag(22, 30, "#C2542A")}
-      {T(32, 34, "検索", { c: "#9EA4C4" })}
+      {T(32, 34, "検索", { c: "#666D93" })}
       {T(170, 52, "先頭に虫眼鏡", { a: "end", s: 6.5, c: "#C2542A" })}
       {arrow}
       {step(80, "フォーカス後")}
@@ -345,7 +340,7 @@ function IconBehaviorDiagram({ k }) {
       {mag(22, 98, "#C2542A")}
       {T(32, 102, "旅行|", { c: "#171B36" })}
       <circle cx="117" cy="99" r="5" fill="#C9CEE3" />{T(117, 101.5, "✕", { a: "middle", s: 6, c: "#FFFFFF" })}
-      {T(10, 122, "入力するとクリアボタンが出る", { s: 6.5, c: "#7E86AC" })}
+      {T(10, 122, "入力するとクリアボタンが出る", { s: 6.5, c: "#666D93" })}
     </g>
   );
   if (k === "material") body = (
@@ -363,7 +358,7 @@ function IconBehaviorDiagram({ k }) {
       {T(16, 102.5, "‹", { s: 11, c: "#2F7D6E", w: 700 })}
       {T(28, 102, "旅行|", { c: "#171B36" })}
       {T(162, 102, "✕", { a: "end", c: "#454C78" })}
-      {T(8, 122, "先頭が戻る矢印に変わり、バーが横に広がる(余白12dp)", { s: 6.5, c: "#7E86AC" })}
+      {T(8, 122, "先頭が戻る矢印に変わり、バーが横に広がる(余白12dp)", { s: 6.5, c: "#666D93" })}
     </g>
   );
   if (k === "wcag") body = (
@@ -387,7 +382,7 @@ function IconBehaviorDiagram({ k }) {
       <rect x="8" y="18" width="164" height="34" rx="3" fill="#F8F9FD" stroke="#E1E3F0" />
       <rect x="14" y="26" width="26" height="8" rx="2" fill="#D5D9EC" />
       <rect x="90" y="24" width="60" height="16" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.1" />
-      {T(94, 35, "検索…", { s: 6.5, c: "#9EA4C4" })}
+      {T(94, 35, "検索…", { s: 6.5, c: "#666D93" })}
       <rect x="150" y="24" width="18" height="16" rx="3" fill="#7A4F7E" />
       {mag(158, 31, "#FFFFFF", 0.9)}
       {T(168, 48, "クリック/Enterで送信", { a: "end", s: 6.2, c: "#7A4F7E" })}
@@ -395,10 +390,10 @@ function IconBehaviorDiagram({ k }) {
       {step(80, "アイコンだけの場合(小さな画面)")}
       <rect x="148" y="88" width="20" height="18" rx="3" fill="#FFFFFF" stroke="#7A4F7E" />
       {mag(157, 96, "#7A4F7E")}
-      {T(140, 100, "→", { a: "end", s: 8, c: "#B7BCDA" })}
+      {T(140, 100, "→", { a: "end", s: 8, c: "#666D93" })}
       <rect x="20" y="88" width="104" height="18" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.2" />
       {T(26, 100, "|", { s: 8, c: "#3A4FCF" })}
-      {T(8, 122, "1回押したら、アイコンの近くの入力欄にすぐカーソル", { s: 6.5, c: "#7E86AC" })}
+      {T(8, 122, "1回押したら、アイコンの近くの入力欄にすぐカーソル", { s: 6.5, c: "#666D93" })}
     </g>
   );
   return (
@@ -416,12 +411,10 @@ function IconNotes() {
           <div key={s.key} style={styles.sourceCard}>
             <div style={styles.sourceName}>{s.name}</div>
             <div style={styles.iconDiagramBox}><IconBehaviorDiagram k={s.key} /></div>
-            <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
+            <div style={styles.termLine}><span style={styles.termLabel}>アイコンの置き方</span>{s.term}</div>
             <div style={styles.positionBadge}>{s.position}</div>
             <p style={styles.sourceStance}>{s.text}</p>
-            <p style={styles.confirmedNote}>{s.confirmedNote}</p>
-            <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-            {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, marginLeft: 8 }}>{sl.label} ↗</a>))}
+            <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
           </div>
         ))}
       </div>
@@ -441,13 +434,10 @@ function IconNotes() {
             {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
             <div style={styles.labelCell}>基本方針</div>
             {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.text}</div>))}
-            <div style={styles.labelCell}>確認状況</div>
-            {ICON_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.confirmedNote}</div>))}
-            <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+            <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
             {ICON_NOTES.map((s) => (
-              <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>
-                <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.link, display: "block" }}>{sl.label} ↗</a>))}
+              <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, display: "block" }}>
+                <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
               </div>
             ))}
           </div>
@@ -472,13 +462,13 @@ function SceneMockup({ scene }) {
         </g>
       )}
       <text x="24" y={y + 9.8} fontSize="6.5" fill={typed ? "#171B36" : "#9EA4C4"} fontFamily={font}>{text}</text>
-      {typed && <text x="85" y={y + 9.8} fontSize="6.5" fill="#7E86AC" textAnchor="middle">✕</text>}
+      {typed && <text x="85" y={y + 9.8} fontSize="6.5" fill="#666D93" textAnchor="middle">✕</text>}
     </g>
   );
   const rows = (y0, items, icon) =>
     items.map((t, i) => (
       <g key={i}>
-        <text x="12" y={y0 + i * 12} fontSize="6" fill="#9EA4C4">{icon}</text>
+        <text x="12" y={y0 + i * 12} fontSize="6" fill="#666D93">{icon}</text>
         <text x="21" y={y0 + i * 12} fontSize="6.3" fill="#2E3457" fontFamily={font}>{t}</text>
       </g>
     ));
@@ -488,10 +478,10 @@ function SceneMockup({ scene }) {
   if (scene === "active") body = (
     <g>
       {bar(12, true, "検索", false)}
-      <text x="12" y="38" fontSize="5.5" fill="#7E86AC" fontFamily={font}>最近の検索</text>
+      <text x="12" y="38" fontSize="5.5" fill="#666D93" fontFamily={font}>最近の検索</text>
       {rows(50, ["請求書", "旅行の予定", "会議メモ"], "↺")}
       <rect x="4" y="88" width="92" height="36" fill="#E7EAF4" />
-      <text x="50" y="109" fontSize="6" fill="#7E86AC" textAnchor="middle" fontFamily={font}>キーボード</text>
+      <text x="50" y="109" fontSize="6" fill="#666D93" textAnchor="middle" fontFamily={font}>キーボード</text>
     </g>
   );
   if (scene === "typing") body = (
@@ -500,15 +490,15 @@ function SceneMockup({ scene }) {
       <text x="21" y="42" fontSize="6.3" fill="#2E3457" fontFamily={font}><tspan fontWeight="700">旅</tspan>行の予定</text>
       <text x="21" y="54" fontSize="6.3" fill="#2E3457" fontFamily={font}><tspan fontWeight="700">旅</tspan>館 予約</text>
       <text x="21" y="66" fontSize="6.3" fill="#2E3457" fontFamily={font}><tspan fontWeight="700">旅</tspan>費 精算</text>
-      {[42, 54, 66].map((y) => <text key={y} x="12" y={y} fontSize="6" fill="#9EA4C4">⌕</text>)}
+      {[42, 54, 66].map((y) => <text key={y} x="12" y={y} fontSize="6" fill="#666D93">⌕</text>)}
       <rect x="4" y="88" width="92" height="36" fill="#E7EAF4" />
-      <text x="50" y="109" fontSize="6" fill="#7E86AC" textAnchor="middle" fontFamily={font}>キーボード</text>
+      <text x="50" y="109" fontSize="6" fill="#666D93" textAnchor="middle" fontFamily={font}>キーボード</text>
     </g>
   );
   if (scene === "results") body = (
     <g>
       {bar(12, true, "旅行", true)}
-      <text x="12" y="38" fontSize="5.5" fill="#7E86AC" fontFamily={font}>結果 3件</text>
+      <text x="12" y="38" fontSize="5.5" fill="#666D93" fontFamily={font}>結果 3件</text>
       {[0, 1, 2].map((i) => (
         <g key={i}>
           <circle cx="16" cy={48 + i * 20} r="4" fill="#C9CEE3" />
@@ -609,7 +599,7 @@ function SceneTable() {
                     <span style={{ fontWeight: 600, color: "#171B36" }}>{sc.name}</span>
                   </div>
                   {SOURCES.map((s) => (
-                    <div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...last, ...(sc.cells[s.key].startsWith("―") ? { color: "#9EA4C4" } : {}) }}>{sc.cells[s.key]}</div>
+                    <div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...last, ...(typeof sc.cells[s.key] === "string" && sc.cells[s.key].startsWith("―") ? { color: "#666D93" } : {}) }}>{sc.cells[s.key]}</div>
                   ))}
                 </React.Fragment>
               );
@@ -690,7 +680,7 @@ function SearchFieldSwatch() {
   return (
     <div style={{ width: 240, margin: "0 auto" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, border: "1.6px solid #3A4FCF", borderRadius: 20, padding: "8px 14px", background: "#F8F9FD" }}>
-        <span style={{ fontSize: 13, color: "#9EA4C4", flex: 1, textAlign: "left", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>検索</span>
+        <span style={{ fontSize: 13, color: "#666D93", flex: 1, textAlign: "left", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>検索</span>
         <svg width="16" height="16" viewBox="0 0 16 16">
           <circle cx="7" cy="7" r="5" fill="none" stroke="#3A4FCF" strokeWidth="1.8" />
           <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#3A4FCF" strokeWidth="1.8" strokeLinecap="round" />
@@ -701,7 +691,7 @@ function SearchFieldSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "言葉を入力して、アプリやサイトの中を検索するための入力欄です。";
+const LEAD = "言葉を入力して、アプリやサイトの中を検索するための入力欄だ。";
 const ABOUT = [
   { k: "目的・役割", v: "探したいものを言葉で入力してもらい、候補や結果を見せる" },
   { k: "よく使われる場面", v: "ネットショップ・地図・メールの検索、設定項目の検索" },
@@ -717,7 +707,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "検索がどれだけ主要かで選ぶ。主要なら検索バーや検索アプリバー、補助的ならアイコンボタンだけでよい" },
       { who: "Apple", color: "#C2542A", t: "iOSでは入り口をタブ・ツールバー・画面の中(インライン)の3か所から選ぶ。アイコンだけにするかの決まりはない" },
     ],
-    tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置きます(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいですが、押したらすぐ入力できる状態にします(NN group)。",
+    tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置く(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいが、押したらすぐ入力できる状態にする(NN group)。",
   },
 ];
 
@@ -761,16 +751,16 @@ export default function TextInputsSearchFieldPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、どちらも<strong>検索を「入り口 → 入力前の候補 → 入力中の予測候補 → 結果 → 絞り込み」という流れで設計</strong>しています。Appleは検索前に最近の検索、入力中に予測候補を出し、できれば入力と同時に結果を更新するよう勧めています。Googleも、入力前から過去の候補を出し、入力中は候補か結果をリストで表示するとしており、考え方はほぼ同じです。
+              AppleとGoogleは、どちらも<strong>検索を「入り口 → 入力前の候補 → 入力中の予測候補 → 結果 → 絞り込み」という流れで設計</strong>している。Appleは検索前に最近の検索、入力中に予測候補を出し、できれば入力と同時に結果を更新するよう勧めている。Googleも、入力前から過去の候補を出し、入力中は候補か結果をリストで表示するとしており、考え方はほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
-              違いが大きいのは入り口の置き方です。Appleは<strong>iOSでタブ・ツールバー(画面下が推奨)・インラインの3か所</strong>から選ばせ、Googleは<strong>検索バー・検索アプリバー・検索アイコンボタン</strong>の3種類を、検索がどれだけ主要な機能かで使い分けます。Googleは高さ56dp・幅360〜720dpなどの寸法や、スマートフォンでは全画面、広い画面ではドッキングという表示の切り替えまで具体的に定めています。
+              違いが大きいのは入り口の置き方だ。Appleは<strong>iOSでタブ・ツールバー(画面下が推奨)・インラインの3か所</strong>から選ばせ、Googleは<strong>検索バー・検索アプリバー・検索アイコンボタン</strong>の3種類を、検索がどれだけ主要な機能かで使い分ける。Googleは高さ56dp・幅360〜720dpなどの寸法や、スマートフォンでは全画面、広い画面ではドッキングという表示の切り替えまで具体的に定めている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、<strong>「虫眼鏡アイコンだけにすると検索が見つけにくくなる」</strong>と指摘し、デスクトップでは入力欄を開いたまま右上に置くよう勧めています。予測候補についても、<strong>良い結果につながらない候補は出さない、入力した文字と候補を書体で見分けられるようにする</strong>という品質面の注意を示しており、見た目の仕様が中心のApple・Googleを補う内容です。
+              Nielsen Norman Groupは、<strong>「虫眼鏡アイコンだけにすると検索が見つけにくくなる」</strong>と指摘し、デスクトップでは入力欄を開いたまま右上に置くよう勧めている。予測候補についても、<strong>良い結果につながらない候補は出さない、入力した文字と候補を書体で見分けられるようにする</strong>という品質面の注意を示しており、見た目の仕様が中心のApple・Googleを補う内容だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目を定めず、<strong>検索フォームはsearchランドマークで示し、候補を出すならコンボボックスの役割とキー操作で組み立てる</strong>ことを求めます。Googleが「候補が出たらスクリーンリーダーで知らせる」「矢印キーで結果を移動する」としている点は、このW3Cのパターンと対応しています。
+              W3Cは見た目を定めず、<strong>検索フォームはsearchランドマークで示し、候補を出すならコンボボックスの役割とキー操作で組み立てる</strong>ことを求める。Googleが「候補が出たらスクリーンリーダーで知らせる」「矢印キーで結果を移動する」としている点は、このW3Cのパターンと対応している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -795,7 +785,6 @@ export default function TextInputsSearchFieldPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -854,26 +843,26 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>使用シーンごとのコンポーネント比較</h2>
-          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れです。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較します。下の画面イメージは、各系列の内容をもとに検索の流れを描いた概念図です(AI解釈)。</p>
+          <p style={styles.diagramNote}>検索は1つの部品ではなく、状態が移り変わる一連の流れだ。通常時(入り口)からクリア・終了までの6つのシーンで、4系列がそれぞれ何を定めているかを比較する。下の画面イメージは、各系列の内容をもとに検索の流れを描いた概念図だ(AI解釈)。</p>
           <SceneStrip />
           <SceneTable />
           <div style={styles.sceneNoteBox}>
             <div style={styles.sceneNoteTitle}>Google(M3)の補足 ― アクティブ時の見た目は「スタイル2種 × レイアウト2種」</div>
             <M3SearchVariants />
-            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されています。分割(Divided)は区切り線で分ける従来のスタイルです。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆います。図はM3のSearchのページの図を元にした概念図です。</p>
+            <p style={styles.chartNote}>包含(Contained)は塗りつぶしたコンテナで検索バーと結果をまとめるM3 Expressiveのスタイルで、推奨されている。分割(Divided)は区切り線で分ける従来のスタイルだ。全画面はスマートフォン(コンパクト幅)の既定、ドッキングは中〜広い幅に向き、検索バーの下にリストを出して残りの画面を幕で覆う。図はM3のSearchのページの図を元にした概念図だ。</p>
           </div>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 使用シーンから見た実務の結論</div>
             <p style={styles.synthesisText}>
-              4系列を合わせると、<strong>入力前は最近の検索、入力中は予測候補、実行後は関連順の結果</strong>という流れが共通の型です。候補はAppleとGoogleがそろって勧めていますが、NN groupの調査では<strong>実際に候補が選ばれたのは23%</strong>にとどまり、候補は「選ばせるもの」だけでなく、綴りや品ぞろえを確かめる手がかりとしても役立つとしています。
+              4系列を合わせると、<strong>入力前は最近の検索、入力中は予測候補、実行後は関連順の結果</strong>という流れが共通の型だ。候補はAppleとGoogleがそろって勧めているが、NN groupの調査では<strong>実際に候補が選ばれたのは23%</strong>にとどまり、候補は「選ばせるもの」だけでなく、綴りや品ぞろえを確かめる手がかりとしても役立つとしている。
             </p>
             <p style={styles.synthesisText}>
-              絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めています。<strong>既定を広い範囲にするよう明記しているのはApple</strong>です(スコープバーの既定)。ほかの系列も、絞り込みを後から加える形をとっており、この考え方と矛盾しません。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届きます。
+              絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めている。<strong>既定を広い範囲にするよう明記しているのはApple</strong>だ(スコープバーの既定)。ほかの系列も、絞り込みを後から加える形をとっており、この考え方と矛盾しない。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届く。
             </p>
           </div>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>虫眼鏡アイコンの位置と挙動</h2>
-          <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較します。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)です。</p>
+          <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較する。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)だ。</p>
           <IconNotes />
 
           <div style={styles.tagsRow}>
@@ -882,11 +871,8 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C(MDN・APG)・NN groupは本文確認済み。GoogleはM3の公式ページ本文とMaterial Components for Androidのドキュメントで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSearch fieldsページの「Best practices」見出しへのアンカー付きリンクで、スコープバー・トークンとiOSの見出しも併記しています。GoogleはM3のSearchのGuidelinesページに加え、Material Components for Androidのドキュメントを併記しています。W3CはMDNのsearchロール解説と、APG Combobox Patternの「About This Pattern」の節です。NN groupは虫眼鏡アイコンの記事の推奨事項の節と、検索候補の記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -899,12 +885,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -913,38 +899,38 @@ const styles = {
   sceneStrip: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12, marginBottom: 18 },
   sceneStep: { position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 4 },
   sceneStepName: { fontSize: 11.5, fontWeight: 700, color: "#171B36", marginTop: 4 },
-  sceneStepDesc: { fontSize: 10.5, lineHeight: 1.5, color: "#7E86AC" },
+  sceneStepDesc: { fontSize: 10.5, lineHeight: 1.5, color: "#666D93" },
   sceneCardList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 22 },
   sceneCardRow: { display: "flex", flexDirection: "column", gap: 2, borderTop: "1px dashed #E1E3F0", paddingTop: 8, marginTop: 8 },
   sceneCardSite: { fontSize: 11, fontWeight: 700, color: "#454C78" },
   sceneCardText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
   sceneNoteBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   sceneNoteTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   iconDiagramBox: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "10px 8px", margin: "8px 0 4px" },
   iconGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 10, marginBottom: 22 },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -962,9 +948,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

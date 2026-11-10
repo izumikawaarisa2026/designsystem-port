@@ -47,16 +47,18 @@ const SOURCES = [
     stance:
       <>トークンフィールドは、<Hl>入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種</Hl>と定義されている。Materialの「インプットチップ」―ユーザーが入力した情報を表すチップ―に近い発想。</>,
     exceptions:
-      "トークンフィールドはmacOS向けのガイダンスで、iOS/iPadOS向けの言及は確認できていない。また「フィルタ」や「アシスト」用途のChip相当の概念は見当たらず、あくまで入力補助のコントロールという位置づけ。",
+      <>トークンフィールドはmacOS向けのガイダンスで、iOS/iPadOS向けの記載はない(iOSなどの検索のトークンは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページを参照)。また「フィルタ」や「アシスト」用途のChip相当の概念は見当たらず、あくまで入力補助のコントロールという位置づけ。</>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "メール作成画面の宛先(To/Cc)欄など、入力した項目をトークンとして表示する",
+      "iOSなどの検索で、検索語をトークン(選んで編集でき、続く検索語の絞り込みになる印)として表示する(Search fieldsの「Scope bars and tokens」)",
       "入力された情報をひとまとまりの単位として選択・削除できるようにする",
     ],
     searchHint: "converts the text",
     url: "https://developer.apple.com/design/human-interface-guidelines/token-fields",
     refs: [
       { label: "Token Fields(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
+      { label: "Search fields ― Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -120,7 +122,7 @@ const SOURCES = [
     size:
       "チップ専用の数値基準はないが、一般的なターゲットサイズ基準が適用される。2.5.8(レベルAA)は最低24×24 CSSピクセル、2.5.5(レベルAAA)は44×44 CSSピクセルを求める(どちらも例外あり。詳しくは「ボタン」ページのターゲットサイズの説明を参照)。",
     colorInfo:
-      "チップのラベルの文字には1.4.3(文字のコントラスト)がかかり、通常サイズの文字は4.5:1以上が必要(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
+      "チップのラベルの文字には1.4.3(コントラスト(最低限))がかかり、通常サイズの文字は4.5:1以上が必要(Googleの「ラベルは背景と3:1以上」より厳しい値)。1.4.11により、チップの境界線や選択状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。1.4.1により、フィルタチップの選択状態を色だけで示すことも避けるべき。",
     stance:
       "チップは実装上ボタンまたはトグルボタンとして扱われることが多く、その名前・役割・状態が支援技術から取得できなければならないとしている(4.1.2)。複数のチップが並ぶ場合、キーボードだけで一覧を移動・選択できる必要がある(2.1.1)。",
     exceptions:
@@ -135,13 +137,17 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
       { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "apg", label: "APG: Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/button/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="70" height="24" viewBox="0 0 70 24">
           <rect x="1" y="1" width="68" height="22" rx="6" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>ボタン/トグルボタン相当(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>ボタン/トグルボタン相当(概念図)</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、役割の考え方を図示",
@@ -149,21 +155,21 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "専用記事なし(用語的な言及のみ)",
-    term: "Token(チップ)",
+    doc: "該当なし",
+    term: <NoData>該当なし</NoData>,
     color: "#7A4F7E",
-    position: "専用の設計ガイドライン記事は見当たらない",
+    position: <NoData>該当なし(チップを主題にした記事はない)</NoData>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "チップ(トークン)そのものを主題にした専用の設計ガイドライン記事は確認できていない。フロントエンドのスタイルガイドに関する記事の中で、スタイルガイドに載せるべき部品の1つとして「トークン(チップ)」を挙げ、メールの宛先欄で宛先を1件ずつ分けて表示し、1回のクリックで削除できるようにする使い方や、詳細検索の欄・メタデータのタグでの使い方を紹介している。",
-    exceptions: "専用記事がないため、例外・許容ケースの記載も確認できていない。",
+      <><NoData>該当なし</NoData>。参考: スタイルガイドの記事で、載せるべき部品の1つに「トークン(チップ)」を挙げ、メールの宛先を1件ずつ分けて1回のクリックで消せるようにする使い方や、詳細検索・タグでの使い方に触れている。</>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: ["(専用記事なし)他のSelectionコンポーネントの原則(相互排他性・複数選択・即時反映など)を踏まえて個別に判断する"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://www.nngroup.com/articles/front-end-style-guides/",
     refs: [
-      { label: "専用記事なし(用語的な言及のみ)", url: "https://www.nngroup.com/articles/front-end-style-guides/" },
+      { label: "参考: Front-End Style Guides", url: "https://www.nngroup.com/articles/front-end-style-guides/" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -209,7 +215,7 @@ function ChipSwatch() {
     { label: "予定に追加", sub: "アシスト", leading: "+" },
     { label: "在庫あり", sub: "フィルタ", filled: true },
     { label: "田中 太郎", sub: "インプット", closable: true },
-    { label: "了解です!", sub: "サジェスチョン", leading: "✨" },
+    { label: "了解だ!", sub: "サジェスチョン", leading: "✨" },
   ];
   return (
     <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
@@ -234,7 +240,7 @@ function ChipSwatch() {
             {it.label}
             {it.closable && <span style={{ fontSize: 11, opacity: 0.6, marginLeft: 1 }}>✕</span>}
           </div>
-          <span style={{ fontSize: 9.5, color: "#9EA4C4" }}>{it.sub}</span>
+          <span style={{ fontSize: 9.5, color: "#666D93" }}>{it.sub}</span>
         </div>
       ))}
     </div>
@@ -263,7 +269,7 @@ const CHIP_TYPES = [
   {
     name: "サジェスチョンチップ",
     desc: "製品(システム)側が動的に生成した提案を表すチップ。タップするとその内容がそのまま入力される。例: メッセージアプリが自動生成する「了解です!」という返信候補。",
-    example: "了解です!",
+    example: "了解だ!",
     leading: "✨",
   },
 ];
@@ -302,7 +308,7 @@ function ChipTypesSection() {
         ))}
       </div>
       <p style={styles.diagramNote}>
-        種類の選び分けは、Googleの公式ページ本文で確認済みの2つの問いに沿っています(2026-09): 「そのチップは動作を表すか、それとも結果を絞り込むか?」(アシスト⇔フィルタ)、「そのコンテンツは製品が生成したものか、それとも人が入力したものか?」(サジェスチョン⇔インプット)。なおM2からM3への変更で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分割され、旧「チョイスチップ」はフィルタチップの一種として統合されています。
+        種類の選び分けは、Googleの公式ページにある2つの問いに沿っている: 「そのチップは動作を表すか、それとも結果を絞り込むか?」(アシスト⇔フィルタ)、「そのコンテンツは製品が生成したものか、それとも人が入力したものか?」(サジェスチョン⇔インプット)。なおM2からM3への変更で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分割され、旧「チョイスチップ」はフィルタチップの一種として統合されている。
       </p>
     </div>
   );
@@ -354,13 +360,13 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安です(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色です)。Googleは見た目のコンテナ高さ(32dp)とタップ領域(48dp)を分けている点が特徴的です。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはありません。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしています。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)とタップ領域(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "短い言葉を小さな角丸の枠に入れた、選択・絞り込み・入力済みの値などを表す部品です。";
+const LEAD = "短い言葉を小さな角丸の枠に入れた、選択・絞り込み・入力済みの値などを表す部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "絞り込みの条件や入力した値などを、小さくまとめて見せ、選んだり外したりできるようにする" },
   { k: "よく使われる場面", v: "検索結果の絞り込み条件、メールの宛先、タグの入力" },
@@ -376,7 +382,7 @@ const SPLITS = [
       { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途の部品はない" },
       { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
     ],
-    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけです。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準の部品(セグメントコントロールやメニュー)で作れないかも検討します。",
+    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけだ。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準の部品(セグメントコントロールやメニュー)で作れないかも検討する。",
   },
 ];
 
@@ -423,18 +429,18 @@ export default function SelectionChipsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              チップは<strong>Material Designが体系化したパターン</strong>で、同じ名称のコンポーネントは他系列にはありません。ただしAppleには、入力内容をトークン化するmacOS向けの「トークンフィールド」という近い発想のコントロールが存在し、特にMaterialの「インプットチップ」と役割が重なります。
+              チップは<strong>Material Designが体系化したパターン</strong>で、同じ名称のコンポーネントは他系列にはない。ただしAppleには、入力内容をトークン化するmacOS向けの「トークンフィールド」という近い発想のコントロールが存在し、特にMaterialの「インプットチップ」と役割が重なる。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「チップはボタンではない」</strong>と明確に区別しています。ボタンは常に同じ見た目で配置され直線的な操作を進めるのに対し、チップはタスクに応じて動的に変わる分岐的な選択肢の集合だとしています。主要な操作(次へ/前へなど)をチップに置き換えることは避けるべき、という点は実務上の注意点です。
+              Googleは<strong>「チップはボタンではない」</strong>と明確に区別している。ボタンは常に同じ見た目で配置され直線的な操作を進めるのに対し、チップはタスクに応じて動的に変わる分岐的な選択肢の集合だとしている。主要な操作(次へ/前へなど)をチップに置き換えることは避けるべき、という点は実務上の注意点だ。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleが「見た目32dp・タップ領域48dp」という2段構えの数値</strong>を持つ点が特徴的です。見た目を小さく保ちながら、タップ領域だけを広げるという考え方は、WCAGの24×24px(AA)/44×44px(AAA)基準(どちらも例外あり)を満たすための実務的な工夫と言えます。</p>
+              サイズについては、<strong>Googleが「見た目32dp・タップ領域48dp」という2段構えの数値</strong>を持つ点が特徴的だ。見た目を小さく保ちながら、タップ領域だけを広げるという考え方は、WCAGの24×24px(AA)/44×44px(AAA)基準(どちらも例外あり)を満たすための実務的な工夫と言える。</p>
             <p style={styles.synthesisText}>
-              色については、Googleは<strong>「チップのラベルは背景と3:1以上」</strong>としています。一方WCAGでは、通常サイズの文字には<strong>4.5:1(1.4.3)</strong>、枠線や選択状態の表示には<strong>3:1(1.4.11)</strong>が必要です。Webで作るなら、ラベルは4.5:1を目安にするのが安全です。
+              色については、Googleは<strong>「チップのラベルは背景と3:1以上」</strong>としている。一方WCAGでは、通常サイズの文字には<strong>4.5:1(1.4.3)</strong>、枠線や選択状態の表示には<strong>3:1(1.4.11)</strong>が必要だ。Webで作るなら、ラベルは4.5:1を目安にするのが安全だ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupにはチップ専用の設計記事がなく、<strong>4系列の中で最も情報が薄いコンポーネント</strong>です。実務では、他のSelectionコンポーネント(複数選択はチェックボックス、単一選択はラジオボタン)の原則を踏まえつつ、Materialの4分類(アシスト/フィルタ/インプット/サジェスチョン)を判断軸として使うのが実用的でしょう。複数選択なら、<strong>その場で一覧を絞り込むならフィルタチップ、送信して確定するフォームの複数選択ならチェックボックス</strong>が目安です。
+              Nielsen Norman Groupにはチップ専用の設計記事がなく、<strong>4系列の中で最も情報が薄いコンポーネント</strong>だ。実務では、他のSelectionコンポーネント(複数選択はチェックボックス、単一選択はラジオボタン)の原則を踏まえつつ、Materialの4分類(アシスト/フィルタ/インプット/サジェスチョン)を判断軸として使うのが実用的だろう。複数選択なら、<strong>その場で一覧を絞り込むならフィルタチップ、送信して確定するフォームの複数選択ならチェックボックス</strong>が目安だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -461,7 +467,6 @@ export default function SelectionChipsPage() {
                 {s.overflow && <InfoBox label="オーバーフロー" accent="#3A4FCF">{s.overflow}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -503,7 +508,7 @@ export default function SelectionChipsPage() {
                 <div style={styles.labelCell}>例外・許容ケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>オーバーフロー</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.overflow || <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.overflow || <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -529,12 +534,8 @@ export default function SelectionChipsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはToken Fieldsページへの直接リンクです。WCAGはUnderstandingページ、NN
-              groupはスタイルガイド記事です(チップ専用記事なし)。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(各サイズのdp数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -547,12 +548,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -571,27 +572,27 @@ const styles = {
   typeName: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   typeDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -609,5 +610,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

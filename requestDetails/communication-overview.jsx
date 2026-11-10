@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink } from "./page-parts";
+import { TagLink, PageLink } from "./page-parts";
 
 /**
  * 「情報伝達の使い分け」ページ。Communicationカテゴリの先頭に置く統合ガイド。
@@ -176,63 +176,14 @@ import { TagLink } from "./page-parts";
  * ようにした。
  */
 
+/* 6つの知らせる部品(⑥ No.055で、オーバーレイの部品を「オーバーレイの使い分け」へ分け、
+ * ステータスメッセージを加えた)。並びは判断軸①→②の順(作業を止める → 残る → 操作を持てる → 見るだけ) */
 const CARDS = [
   {
-    key: "tooltip", name: "ツールチップ", path: "/components/communication/tooltip", built: true,
-    oneLiner: "ホバー/フォーカスで一時的に出る、短い一言の補足説明。",
-    doText: "アイコンの意味など、短い補足を添えたい時",
-    dontText: "操作可能なアクションを含めたい時(→サイドシート等)",
-    icon: () => (
-      <svg width="56" height="24" viewBox="0 0 56 24">
-        <rect x="1" y="1" width="54" height="16" rx="4" fill="#3A4FCF" />
-        <path d="M18 17l4 6 4-6z" fill="#3A4FCF" />
-        <line x1="10" y1="9" x2="46" y2="9" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
-      </svg>
-    ),
-  },
-  {
-    key: "alert", name: "バナー", path: "/components/communication/banner", built: true,
-    oneLiner: "画面に留まり続ける、インラインの継続的な通知。",
-    doText: "オフライン状態など、対応するまで気づかせ続けたい時",
-    dontText: "一度きりの結果通知で十分な時(→スナックバー)",
-    icon: () => (
-      <svg width="70" height="24" viewBox="0 0 70 24">
-        <rect x="1" y="1" width="68" height="22" rx="3" fill="#FFF6E5" stroke="#B8860B" strokeWidth="1.4" />
-        <circle cx="12" cy="12" r="4" fill="none" stroke="#8A6210" strokeWidth="1.6" />
-        <line x1="22" y1="12" x2="58" y2="12" stroke="#8A6210" strokeWidth="1.8" strokeLinecap="round" opacity="0.8" />
-      </svg>
-    ),
-  },
-  {
-    key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
-    oneLiner: "操作完了を知らせる。基本は自動で消えるが、Undoなど1つの操作を持つなら自動で消さないのが安全。",
-    doText: "取り消し可能な操作の完了を知らせたい時(例: 削除しました→元に戻す)",
-    dontText: "取り消し操作を持たせる必要がない、ただの通知で十分な時(→トースト)",
-    icon: () => (
-      <svg width="70" height="24" viewBox="0 0 70 24">
-        <rect x="1" y="1" width="68" height="22" rx="6" fill="#2E3457" />
-        <line x1="10" y1="12" x2="42" y2="12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.9" />
-        <line x1="50" y1="12" x2="62" y2="12" stroke="#9EB6FF" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    key: "toast", name: "トースト", path: "/components/communication/toast", built: true,
-    oneLiner: "操作ボタンを持たない、最も軽量な一時的メッセージ。",
-    doText: "取り消し操作などを持たない、ごく軽いお知らせをしたい時",
-    dontText: "Undoなどの操作を持たせたい時(→スナックバー)",
-    icon: () => (
-      <svg width="70" height="24" viewBox="0 0 70 24">
-        <rect x="1" y="1" width="68" height="22" rx="6" fill="#6B7290" />
-        <line x1="18" y1="12" x2="52" y2="12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
-      </svg>
-    ),
-  },
-  {
     key: "dialog", name: "モーダルダイアログ", path: "/components/containment/dialog", built: true,
-    oneLiner: "スクリム上の小さいモーダル。閲覧・確認ベースの情報に使う。",
-    doText: "ヘルプなど補助情報の閲覧や、リスクの高い操作の確認・簡潔な選択を求めたい時",
-    dontText: "情報量が多く、集中してタスクを完了させたい時(→フルスクリーンダイアログ)",
+    oneLiner: "作業を止めて、答え(OK・キャンセルなど)を求める知らせ方。",
+    doText: "取り消せない操作の確認など、答えを得るまで先へ進ませたくない時",
+    dontText: "答えのいらない知らせで済む時(→バナー・スナックバー)",
     icon: () => (
       <svg width="50" height="24" viewBox="0 0 50 24">
         <rect x="0" y="0" width="50" height="24" fill="#171B36" opacity="0.12" />
@@ -243,84 +194,88 @@ const CARDS = [
     ),
   },
   {
-    key: "fullscreen-dialog", name: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true,
-    oneLiner: "画面全体を占め、情報量の多いタスクに集中させる。",
-    doText: "フォーム入力など情報量が多く、集中して完了させたいタスクがある時",
-    dontText: "閲覧や簡潔な確認・選択だけで済む時(→ダイアログ)",
+    key: "banner", name: "バナー", path: "/components/communication/banner", built: true,
+    oneLiner: "画面に残り続ける、作業を止めないお知らせ。",
+    doText: "オフライン状態など、対応するまで気づかせ続けたい時",
+    dontText: "一度きりの結果の知らせで十分な時(→スナックバー)",
     icon: () => (
-      <svg width="50" height="24" viewBox="0 0 50 24">
-        <rect x="0" y="0" width="50" height="24" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.6" />
-        <circle cx="8" cy="6" r="2" fill="none" stroke="#3A4FCF" strokeWidth="1.4" />
-        <line x1="16" y1="6" x2="38" y2="6" stroke="#3A4FCF" strokeWidth="1.6" strokeLinecap="round" opacity="0.7" />
-        <line x1="7" y1="13" x2="43" y2="13" stroke="#D5D9EC" strokeWidth="1.6" strokeLinecap="round" />
-        <line x1="7" y1="18" x2="30" y2="18" stroke="#D5D9EC" strokeWidth="1.6" strokeLinecap="round" />
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="22" rx="3" fill="#FFF6E5" stroke="#B8860B" strokeWidth="1.4" />
+        <circle cx="12" cy="12" r="4" fill="none" stroke="#8A6210" strokeWidth="1.6" />
+        <line x1="22" y1="12" x2="58" y2="12" stroke="#8A6210" strokeWidth="1.8" strokeLinecap="round" opacity="0.8" />
       </svg>
     ),
   },
   {
-    key: "accordion", name: "アコーディオン", path: "/components/containment/accordion", built: true,
-    oneLiner: "同じ場所で開閉し、情報を段階的に開示する。",
-    doText: "画面遷移させずに、詳細情報を必要な人にだけ見せたい時",
-    dontText: "常に見えている必要がある情報を隠したい時",
+    key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
+    oneLiner: "操作の完了を知らせる。基本は自動で消えるが、元に戻すなど1つの操作を持つなら自動で消さないのが安全。",
+    doText: "取り消せる操作の完了を知らせたい時(例: 削除した→元に戻す)",
+    dontText: "操作を持たせる必要がない、ただの知らせで十分な時(→トースト)",
     icon: () => (
-      <svg width="60" height="24" viewBox="0 0 60 24">
-        <rect x="1" y="1" width="58" height="9" rx="2" fill="#3A4FCF" />
-        <path d="M50 3.5l3 3 3-3" fill="none" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="1" y="13" width="58" height="10" rx="2" fill="#EEF1FA" stroke="#D5D9EC" strokeWidth="1" />
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="22" rx="6" fill="#2E3457" />
+        <line x1="10" y1="12" x2="42" y2="12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.9" />
+        <line x1="50" y1="12" x2="62" y2="12" stroke="#9EB6FF" strokeWidth="2" strokeLinecap="round" />
       </svg>
     ),
   },
   {
-    key: "bottom-sheet", name: "ボトムシート", path: "/components/containment/bottom-sheet", built: true,
-    oneLiner: "画面下部からせり出す補助コンテンツ・操作用のメニュー。標準/モーダルの2種類。",
-    doText: "モバイルで補助的な操作・メニューを見せたい時",
-    dontText: "画面全体を使う複数ステップのタスクをさせたい時(→フルスクリーンダイアログ)",
+    key: "status", name: "ステータスメッセージ", path: "/components/communication/alert", built: true,
+    oneLiner: "操作の結果や今の状態(成功・情報・注意・エラー)を、作業を止めずに伝えるメッセージ。",
+    doText: "保存の完了・入力の誤り・検索結果の件数などを知らせたい時",
+    dontText: "答えを得るまで先へ進ませたくない時(→モーダルダイアログ)",
     icon: () => (
-      <svg width="46" height="30" viewBox="0 0 46 30">
-        <rect x="1" y="1" width="44" height="28" rx="3" fill="#F0F4F8" stroke="#E1E3F0" strokeWidth="1" />
-        <rect x="6" y="14" width="34" height="14" rx="5" fill="#3A4FCF" />
-        <rect x="18" y="17" width="10" height="2.5" rx="1.25" fill="#FFFFFF" opacity="0.7" />
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="22" rx="3" fill="#EAF7EC" stroke="#2F7D3B" strokeWidth="1.2" />
+        <path d="M8 12l3 3 5-6" fill="none" stroke="#2F7D3B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <line x1="22" y1="12" x2="58" y2="12" stroke="#2F7D3B" strokeWidth="1.8" strokeLinecap="round" opacity="0.7" />
       </svg>
     ),
   },
   {
-    key: "side-sheet", name: "サイドシート", path: "/components/containment/side-sheet", built: true,
-    oneLiner: "画面側面に固定される補助コンテンツ・操作パネル。標準/モーダルの2種類。",
-    doText: "メインコンテンツと並行して補助情報・フィルタ操作を見せたい時",
-    dontText: "タスクを完結させる主目的の操作をさせたい時(→フルスクリーンダイアログ)",
+    key: "toast", name: "トースト", path: "/components/communication/toast", built: true,
+    oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
+    doText: "取り消しなどの操作を持たない、ごく軽いお知らせをしたい時",
+    dontText: "元に戻すなどの操作を持たせたい時(→スナックバー)",
     icon: () => (
-      <svg width="46" height="30" viewBox="0 0 46 30">
-        <rect x="1" y="1" width="44" height="28" rx="3" fill="#F0F4F8" stroke="#E1E3F0" strokeWidth="1" />
-        <rect x="28" y="4" width="14" height="22" rx="4" fill="#3A4FCF" />
-        <rect x="32" y="10" width="6" height="2.5" rx="1.25" fill="#FFFFFF" opacity="0.7" />
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="22" rx="6" fill="#6B7290" />
+        <line x1="18" y1="12" x2="52" y2="12" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
+      </svg>
+    ),
+  },
+  {
+    key: "tooltip", name: "ツールチップ", path: "/components/communication/tooltip", built: true,
+    oneLiner: "ポインターを重ねたときやフォーカスしたときに出る、短い一言の補足説明。",
+    doText: "アイコンの意味など、短い補足を添えたい時",
+    dontText: "押せる操作を含めたい時(→ダイアログやシートなど)",
+    icon: () => (
+      <svg width="56" height="24" viewBox="0 0 56 24">
+        <rect x="1" y="1" width="54" height="16" rx="4" fill="#3A4FCF" />
+        <path d="M18 17l4 6 4-6z" fill="#3A4FCF" />
+        <line x1="10" y1="9" x2="46" y2="9" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
       </svg>
     ),
   },
 ];
 
-/* 比較表: パーツ × 判断基準を○/△/✕で整理。値は各パーツのページのAI解釈・
- * SOURCESデータから統合した独自の整理(新規の一次情報ではない)。 */
+/* 比較表: 部品 × 判断基準を○/△/✕で整理。値は各部品のページの内容をまとめた独自の整理
+ * (新規の一次情報ではない)。PCでは横スクロールさせず、列の数を6つに絞って幅に収める(③本人レビューの指示) */
 const COMPARISON_ROWS = [
-  { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインターやフォーカスが外れたら消える。時間では消さない。1.4.13)", actionButton: "✕", error: "✕", hint: "○", parallel: "○", decision: "✕", fullReplace: "✕", place: "アンカー付近" },
-  { key: "alert", name: "バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面上部/インライン" },
-  { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作を持つなら自動で消さないのが安全)", actionButton: "△(1つまで)", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面下部" },
-  { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "画面下部" },
-  { key: "dialog", name: "モーダルダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(最大2)", error: "△(確認失敗時)", hint: "✕", parallel: "✕", decision: "○", fullReplace: "✕", place: "画面中央" },
-  { key: "fullscreen-dialog", name: "フルスクリーンダイアログ", block: "○", autoDismiss: "✕", actionButton: "○", error: "△(インライン)", hint: "✕", parallel: "✕", decision: "○", fullReplace: "○", place: "画面全体" },
-  { key: "accordion", name: "アコーディオン", block: "✕", autoDismiss: "✕", actionButton: "✕(開閉のみ)", error: "✕", hint: "✕", parallel: "○", decision: "✕", fullReplace: "✕", place: "インライン(展開)" },
-  { key: "bottom-sheet", name: "ボトムシート", block: "△(モーダルが多い)", autoDismiss: "✕", actionButton: "○", error: "✕", hint: "✕", parallel: "○", decision: "△(操作メニューとして持つ場合あり)", fullReplace: "✕", place: "画面下部" },
-  { key: "side-sheet", name: "サイドシート", block: "△(モーダルが多い)", autoDismiss: "✕", actionButton: "○", error: "✕", hint: "✕", parallel: "○", decision: "△(操作メニューとして持つ場合あり)", fullReplace: "✕", place: "画面側面" },
+  { key: "dialog", name: "モーダルダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(答えのボタン)", error: "△(取り消せない操作の前など)", hint: "✕", place: "画面中央" },
+  { key: "banner", name: "バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", place: "画面上部" },
+  { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作があれば消さない)", actionButton: "△(1つまで)", error: "✕", hint: "✕", place: "画面下部" },
+  { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "操作した場所の近く" },
+  { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", place: "画面下部" },
+  { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインター・フォーカスが離れたら)", actionButton: "✕", error: "✕", hint: "○", place: "指している部品の近く" },
 ];
 
 const COMPARISON_COLUMNS = [
-  { key: "block", label: "背景操作を\n無効化" },
-  { key: "autoDismiss", label: "自動で消える" },
-  { key: "actionButton", label: "アクション\nボタン" },
-  { key: "error", label: "エラー表示\nに使う" },
-  { key: "hint", label: "補足/ヒント\nに特化" },
-  { key: "parallel", label: "並行表示\n可能" },
-  { key: "decision", label: "決定・確認を\n求める" },
-  { key: "fullReplace", label: "画面全体を\n置き換える" },
+  { key: "block", label: "作業を\n止める" },
+  { key: "autoDismiss", label: "自動で\n消える" },
+  { key: "actionButton", label: "操作\nボタン" },
+  { key: "error", label: "エラーを\n伝える" },
+  { key: "hint", label: "補足・ヒント\nに特化" },
   { key: "place", label: "主な配置" },
 ];
 
@@ -339,7 +294,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
@@ -363,45 +318,46 @@ const styles = {
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
   matrixScroll: { overflowX: "auto", marginBottom: 22 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "120px repeat(9, minmax(0, 1fr))", minWidth: 860, border: "1px solid #E1E3F0" },
+  matrixGrid: { display: "grid", gridTemplateColumns: "128px repeat(6, minmax(0, 1fr))", border: "1px solid #E1E3F0" },
   headerCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#565D8A", whiteSpace: "pre-line", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", lineHeight: 1.4 },
   labelCell: { padding: "8px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", fontSize: 11.5, fontWeight: 700, color: "#171B36", display: "flex", alignItems: "center" },
   cell: { padding: "8px 6px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, color: "#2E3457", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" },
   cellText: { fontSize: 10.5, color: "#454C78", textAlign: "center" },
   markOk: { color: "#2F7D6E", fontWeight: 700 },
-  markNg: { color: "#B7BCDA", fontWeight: 700 },
+  markNg: { color: "#666D93", fontWeight: 700 },
   markMid: { color: "#A3821F", fontWeight: 700 },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 18px", marginBottom: 22 },
   relatedLabel: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 700, color: "#565D8A", letterSpacing: 0.3, marginBottom: 8 },
   relatedText: { fontSize: 12, lineHeight: 1.75, color: "#454C78", margin: "0 0 12px" },
   relatedLinks: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 8 },
   relatedLink: { display: "flex", flexDirection: "column", gap: 3, textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
   relatedLinkName: { fontSize: 12.5, fontWeight: 700, color: "#3A4FCF" },
-  relatedLinkNote: { fontSize: 11, color: "#7E86AC", lineHeight: 1.5 },
+  relatedLinkNote: { fontSize: 11, color: "#666D93", lineHeight: 1.5 },
 };
 
-const DETAIL_1 = "ダイアログ・フルスクリーンダイアログは、Apple・Googleの部品としては、背景操作を残したまま使う非モーダル版が存在せず、常にモーダルとしてのみ実装される(Webのdialog要素には非モーダルの表示もある)。ボトムシート/サイドシートは標準(非モーダル)版が公式に用意されており、必ずしもモーダルにはならない。アコーディオン・バナー・ツールチップ・スナックバー・トーストはそもそもモーダルという概念を持たない。これは「その部品に何を入れるか・どう使うか」で変わる行動の属性ではなく、各系列がその部品をどう定義しているかという構造的な事実であり、コンテンツの使われ方(決定を求めるか、背景をブロックするかなど)に左右されない。下の比較表の「背景操作を無効化」列に対応する。";
-const DETAIL_2 = "「単なる通知・フィードバックを伝えたいだけ」(アラート・スナックバー・トースト・ツールチップ)か、「補助的なコンテンツや操作(メニュー・アクション一覧・フィルタなど)そのものを画面内に用意したい」(アコーディオン・ボトムシート・サイドシート)かという軸。ボトムシート/サイドシートは受け身の「コンテンツ」提示だけでなく、複数の操作項目を持つメニューとして使われることも多いため、「コンテンツ」だけでなく「操作」も軸のラベルに明記している。この軸自体は二択だが、ボトムシート/サイドシートは実際には「決定・確認を求める操作」を持つ場合と持たない場合の両方があるため、その実情は下の比較表の「決定・確認を求める」列で△として表現している。";
-const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーは画面に残り続ける。ただし「表示がどれだけ続くか(自動で消えるか)」「利用者の対応が必要か」「どれだけ急ぎか(緊急度)」は別々の軸で、画面に残り続ける通知でも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、対応の必要性の軸として読む。";
-const DETAIL_4 = "サイドシート=側面、ボトムシート/スナックバー/トースト=下部、ダイアログ=中央、フルスクリーンダイアログ=全画面、ツールチップ=アンカー付近、アラート=上部/インライン、アコーディオン=インライン(展開)。";
+const DETAIL_1 = <>モーダルダイアログは、答えを得るまで後ろの画面を操作させない。ほかの5つは、作業を止めずに知らせる。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出す部品の使い分けは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>で比べている。下の比較表の「作業を止める」列に対応する。</>;
+const DETAIL_2 = "「利用者の対応が必要か」は、表示がどれだけ続くか・どれだけ急ぎか(緊急度)とは別の軸だ。画面に残り続けるバナーでも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、この対応の必要性の軸として読む。スナックバーの操作(元に戻すなど)は任意で、押さなくても作業は続けられる。";
+const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーとモーダルダイアログは、閉じるか対応するまで残る。ステータスメッセージは内容で変わり、入力の誤りは直すまで問題の場所の近くに残す(NN group)。";
+const DETAIL_4 = "モーダルダイアログ=中央、バナー=上部、スナックバー/トースト=下部、ステータスメッセージ=操作した場所や問題の場所の近く、ツールチップ=指している部品の近く。";
 
-/* 4つの判断軸(No.055で図にした)。各軸で9つのパーツをグループに分けて示し、詳しい説明は開いて読む */
+/* 4つの判断軸(No.055で図にした)。各軸で6つの部品をグループに分けて示し、詳しい説明は開いて読む */
 const AXES = [
-  { label: "① モーダルかどうか", groups: [
-    { name: "常にモーダル", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
-    { name: "モーダル・非モーダルの両方がある", color: "#A3821F", parts: ["ボトムシート", "サイドシート"] },
-    { name: "モーダルの考えがない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "トースト", "ツールチップ", "アコーディオン"] },
+  { label: "① 作業を止めるか", groups: [
+    { name: "止める(モーダル)", color: "#C0503F", parts: ["モーダルダイアログ"] },
+    { name: "止めない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "ステータスメッセージ", "トースト", "ツールチップ"] },
   ], detail: DETAIL_1 },
-  { label: "② 何を出すか", groups: [
-    { name: "知らせる(通知・フィードバック)", color: "#3A4FCF", parts: ["バナー", "スナックバー", "トースト", "ツールチップ"] },
-    { name: "内容や操作を出す", color: "#2F7D6E", parts: ["アコーディオン", "ボトムシート", "サイドシート"] },
-    { name: "答えや入力を求める", color: "#C0503F", parts: ["モーダルダイアログ", "フルスクリーンダイアログ"] },
+  { label: "② 利用者の対応が要るか", groups: [
+    { name: "答えを求める", color: "#C0503F", parts: ["モーダルダイアログ"] },
+    { name: "対応するか閉じるまで残る", color: "#A3821F", parts: ["バナー"] },
+    { name: "操作を1つ添えられる(任意)", color: "#3A4FCF", parts: ["スナックバー"] },
+    { name: "見るだけ", color: "#2F7D6E", parts: ["ステータスメッセージ", "トースト", "ツールチップ"] },
   ], detail: DETAIL_2 },
   { label: "③ どう消えるか", groups: [
-    { name: "時間で自動的に消える", color: "#7E86AC", parts: ["トースト", "スナックバー(操作があれば消さない)"] },
+    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["モーダルダイアログ", "バナー"] },
+    { name: "時間で自動的に消える", color: "#666D93", parts: ["スナックバー(操作があれば消さない)", "トースト"] },
+    { name: "内容で変わる", color: "#2F7D6E", parts: ["ステータスメッセージ(エラーは直すまで残す)"] },
     { name: "ポインター・フォーカスが離れたら消える", color: "#A3821F", parts: ["ツールチップ"] },
-    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["バナー", "モーダルダイアログ", "フルスクリーンダイアログ", "ボトムシート", "サイドシート"] },
   ], detail: DETAIL_3 },
 ];
 
@@ -420,14 +376,11 @@ function PositionMap() {
       {tag(26, 10, "バナー(上部)", "#3A4FCF")}
       <rect x="62" y="56" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#C0503F" />
       <text x="110" y="74" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルダイアログ</text>
-      <text x="110" y="87" fontSize="8" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
-      <rect x="166" y="30" width="34" height="86" rx="4" fill="#FFFFFF" stroke="#2F7D6E" />
-      <text x="183" y="70" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">サイド</text>
-      <text x="183" y="81" fontSize="8" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
+      <text x="110" y="87" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
       <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
-      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: ボトムシート・スナックバー・トースト</text>
+      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: スナックバー・トースト</text>
       {tag(26, 34, "ツールチップ(部品の近く)", "#A3821F")}
-      {tag(26, 100, "アコーディオン(内容の中)", "#565D8A")}
+      {tag(26, 100, "ステータスメッセージ", "#2F7D3B")}
     </svg>
   );
 }
@@ -455,7 +408,6 @@ function AxisSummary() {
       <div style={styles.axisBox}>
         <div style={styles.axisBoxTitle}>④ 画面内の位置</div>
         <PositionMap />
-        <p style={{ ...styles.axisText, textAlign: "center" }}>フルスクリーンダイアログは画面全体を覆う</p>
         <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
           <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
           <p style={styles.axisText}>{DETAIL_4}</p>
@@ -495,8 +447,8 @@ function MarkCell({ value }) {
 function ComparisonTable() {
   return (
     <div style={styles.matrixScroll}>
-      <div style={styles.matrixGrid}>
-        <div style={styles.headerCell}>パーツ</div>
+      <div className="dsp-ovw-matrix" style={styles.matrixGrid}>
+        <div style={styles.headerCell}>部品</div>
         {COMPARISON_COLUMNS.map((c) => (<div key={c.key} style={styles.headerCell}>{c.label}</div>))}
         {COMPARISON_ROWS.map((r) => (
           <React.Fragment key={r.key}>
@@ -511,6 +463,8 @@ function ComparisonTable() {
 }
 
 const RELATED_PARTS = [
+  { name: "オーバーレイの使い分け", path: "/components/containment/overview", note: "画面の上に重ねて内容や操作を出す部品(フルスクリーンダイアログ・ボトムシート・サイドシートなど)の比較" },
+  { name: "アコーディオン", path: "/components/containment/accordion", note: "同じ場所で開閉して、詳しい内容を見せる" },
   { name: "プログレスインジケーター", path: "/components/communication/progress", note: "処理の進行状況(待ち時間)を示す" },
   { name: "バッジ", path: "/components/communication/badge", note: "件数・存在の有無を示す小さな装飾要素" },
   { name: "空状態", path: "/components/communication/empty-state", note: "データが「まだ無い」ことを示す" },
@@ -520,9 +474,9 @@ const RELATED_PARTS = [
 function RelatedPartsNote() {
   return (
     <div style={styles.relatedBox}>
-      <div style={styles.relatedLabel}>関連するが本ページの比較対象外のパーツ</div>
+      <div style={styles.relatedLabel}>関連するページ(この比較には含めていない部品)</div>
       <p style={styles.relatedText}>
-        プログレスインジケーター・バッジ・空状態・ローディング状態の4つは、「何かが起きたのでユーザーに伝える・対応させる」という本ページの9パーツとは異なり、<strong>「今どんな状態か」という進行中のシステム状態を示すこと自体が目的</strong>のため、この比較には含めていません。用途が近い場面もあるため、参考までにリンクを掲載します。
+        画面の上に重ねて内容や操作を出す部品(フルスクリーンダイアログ・ボトムシート・サイドシートなど)は「オーバーレイの使い分け」で、同じ場所で開閉して詳しい内容を見せる部品は「アコーディオン」で比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、何かが起きたことを知らせるのではなく<strong>「今どんな状態か」を示すこと自体が目的</strong>のため、この比較には含めていない。
       </p>
       <div style={styles.relatedLinks}>
         {RELATED_PARTS.map((it) => (
@@ -543,8 +497,10 @@ export default function CommunicationOverviewPage() {
         @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
         * { box-sizing: border-box; }
         .dsp-inner { max-width: 560px; min-width: 0; margin: 0 auto; padding: 28px 16px 40px; }
+        .dsp-ovw-matrix { min-width: 600px; }
         @media (min-width: 860px) {
           .dsp-inner { max-width: 980px; padding: 36px 24px 48px; }
+          .dsp-ovw-matrix { min-width: 0; }
         }
       `}</style>
 
@@ -557,30 +513,30 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <h1 style={styles.title}>情報伝達の使い分け</h1>
-          <p style={styles.subtitle}>サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・バナー・アコーディオン。9つのパーツを、4つの判断軸と比較表(◯/△/✕)で使い分けます</p>
+          <p style={styles.subtitle}>モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ。利用者に何かを知らせる6つの部品を、4つの判断軸と比較表(◯/△/✕)で使い分ける</p>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              9つのパーツは<strong>「①非モーダル版が存在しないか ②通知か、コンテンツ・操作の提供か ③自動で消えるか ④画面内のどこに出すか」</strong>という4つの軸で整理できます(詳しくは下の「判断軸」を参照)。<strong>①だけがダイアログ・フルスクリーンダイアログを残り7パーツから分ける、部品の定義そのものに基づく軸</strong>で、中身の使い方では変わりません。一方でボトムシート/サイドシート/アコーディオンは多目的な部品で、場面によって性質が変わるため、その実情は下の比較表の△として表現しています。
+              6つの知らせ方は、<strong>①作業を止めるか ②利用者の対応が要るか ③どう消えるか ④画面のどこに出すか</strong>という4つの軸で整理できる(詳しくは下の「4つの判断軸」を参照)。<strong>作業を止めるのはモーダルダイアログだけ</strong>で、答えを得るまで先へ進ませたくない場面に限って使う。ほかの5つは作業を止めずに知らせる。
             </p>
             <p style={styles.synthesisText}>
-              スナックバーとトーストの違いは<strong>取り消し等の操作を持たせるか</strong>。ダイアログとフルスクリーンダイアログの違いは<strong>閲覧・確認で完結するか、情報量が多く集中実行させたいか</strong>(最大2アクションを超えたらフルスクリーンへ)。バナーは<strong>自動で消えず、画面に残り続ける</strong>通知です。ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限りません(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸です)。アコーディオンは通知ではなく、同じ場所で開閉する段階的開示の仕組みです。
+              スナックバーとトーストの違いは<strong>取り消しなどの操作を持たせるか</strong>。バナーは<strong>自動で消えず、画面に残り続ける</strong>お知らせだ。ステータスメッセージは成功・情報・注意・エラーという<strong>状態の伝え方</strong>そのもので、バナーやスナックバーの形で出すこともある(AI解釈)。ツールチップは、知らせるというより部品の意味を補う短い説明だ。
             </p>
             <p style={styles.synthesisText}>
-              <strong>ボトムシート/サイドシートは非モーダル版も公式に用意されていますが、実務ではモーダルとして使われる場面が多い点に注意してください。</strong>Appleのシートは既定でモーダルとして提示され、Googleのサイドシートもコンパクトな画面(モバイル)ではモーダル版が好まれるとされています。比較表の「モーダルが多い」という表記はこれを反映したものです。
+              ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限らない(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸)。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出す部品の使い分けは「オーバーレイの使い分け」ページで比べている。
             </p>
           </div>
 
           <h2 style={styles.diagramTitle}>4つの判断軸</h2>
           <AxisSummary />
 
-          <h2 style={styles.diagramTitle}>9つのパーツ</h2>
+          <h2 style={styles.diagramTitle}>6つの部品</h2>
           <PartCards />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
           <ComparisonTable />
-          <p style={styles.diagramNote}>◯=あてはまる、△=条件付き(バリエーションや場面による)、✕=あてはまらない。この表は各パーツのページのAI解釈・データを統合した独自の整理です。特にボトムシート/サイドシートは「補助コンテンツの提示」から「操作メニュー」「ダイアログに近い使い方」まで場面によって性質が変わる多目的な部品のため、複数の列で△が付いています。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
+          <p style={styles.diagramNote}>◯=あてはまる、△=条件付き(場面による)、✕=あてはまらない。この表は各部品のページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
 
           <RelatedPartsNote />
 
@@ -589,8 +545,8 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
-            <span>このページは既存ページ(サイドシート・ボトムシート・ダイアログ・フルスクリーンダイアログ・スナックバー・トースト・ツールチップ・バナー・アコーディオン)の統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
+            <span>最終確認: 2026-11</span>
+            <span>このページは各部品のページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各部品のページを参照。</span>
           </div>
         </div>
       </div>

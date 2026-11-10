@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink } from "./page-parts";
+import { TagLink, SummaryCard, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブとセグメントの使い分け」ページ。
@@ -24,8 +24,8 @@ import { TagLink } from "./page-parts";
  */
 
 const COMPARE_ROWS = [
-  { label: "選ぶと何が起きるか", tab: "別のコンテンツ領域(画面・セクション)に移動する", seg: "同じ場所の見え方や設定が変わる(移動はしない)" },
-  { label: "Appleでの位置づけ", tab: "画面の中のタブに当たる専用の部品はない(Appleのタブバーは画面下部のアプリ全体のナビゲーションで、別の部品)", seg: "地図の「マップ/交通機関/航空写真」のように、同じデータの異なるビューを切り替える" },
+  { label: "選ぶと何が起きるか", tab: "同じページの中で、内容のまとまり(パネル)を切り替える", seg: "同じ場所の見え方や設定が変わる(移動はしない)" },
+  { label: "Appleでの位置づけ", tab: "iOS・iPadOSにはない(Segmented controlを勧める)。macOSにはTab viewがある(画面下部のタブバーはアプリ全体の移動で、別の部品)", seg: "地図の「マップ/交通機関/航空写真」のように、同じデータの異なるビューを切り替える" },
   { label: "Googleでの位置づけ", tab: "コンテンツを画面・データセットのカテゴリに整理する", seg: "選択・表示切替・並べ替えを助ける(選択肢は2〜5個。5個を超えたらチップ)" },
   { label: "典型的な配置", tab: "画面の上部(コンテンツの見出しとして)", seg: "画面上部やツールバー内、フォームの一部として" },
   { label: "選択肢の数の目安", tab: "固定タブは4個まで、多い場合は横スクロール(Google)", seg: "iPhoneでは約5個まで(Apple)・5個を超えたらチップ(Google)" },
@@ -46,8 +46,8 @@ function TabMock() {
       <svg width="220" height="44" viewBox="0 0 220 44">
         <text x="40" y="20" fontSize="12" fill="#3A4FCF" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">おすすめ</text>
         <rect x="18" y="28" width="44" height="3" rx="1.5" fill="#3A4FCF" />
-        <text x="115" y="20" fontSize="12" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">フォロー中</text>
-        <text x="185" y="20" fontSize="12" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">話題</text>
+        <text x="115" y="20" fontSize="12" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">フォロー中</text>
+        <text x="185" y="20" fontSize="12" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">話題</text>
       </svg>
       <span style={styles.mockCaption}>項目同士が独立している(trackなし)</span>
     </div>
@@ -82,7 +82,7 @@ function VisualCompare() {
           <SegmentedMock />
         </div>
       </div>
-      <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>です。つながっていればセグメントコントロール、項目が独立していればタブです。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意してください。</p>
+      <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>だ。つながっていればセグメントコントロール、項目が独立していればタブだ。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意する。</p>
     </div>
   );
 }
@@ -129,7 +129,7 @@ function VennDiagram() {
           <text key={i} x="260" y={162 + i * 18} fontSize="9.5" fill="#454C78" textAnchor="middle" fontFamily="Jost, Noto Sans JP">{line}</text>
         ))}
       </svg>
-      <p style={styles.diagramNote}>混同されやすい理由は、この図の重なり部分(共通点)が大きいためです。判断の決め手は、左右どちらか片方にしかない特徴、特に<strong>「選ぶと何が起きるか」</strong>にあります。</p>
+      <p style={styles.diagramNote}>混同されやすい理由は、この図の重なり部分(共通点)が大きいためだ。判断の決め手は、左右どちらか片方にしかない特徴、特に<strong>「選ぶと何が起きるか」</strong>にある。</p>
     </div>
   );
 }
@@ -148,7 +148,7 @@ function ExampleList() {
 }
 
 const SYSTEM_VIEWS = [
-  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab BarsとSegmented Controlsを別々のガイドラインページで明確に区別している。タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素(画面の中のタブとは別の部品)、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
+  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab views(macOSの画面の中のタブ)・Tab bars・Segmented controlsを別々のページで区別している。iOS・iPadOSでは画面の中のタブの代わりにSegmented controlを勧め、タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
     { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     { label: "Segmented controls", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
   ] },
@@ -171,8 +171,8 @@ function SystemViews() {
     <div style={styles.systemGrid}>
       {SYSTEM_VIEWS.map((s) => (
         <div key={s.key} style={{ ...styles.systemCard, borderLeftColor: s.none ? "#D5D9EC" : s.color }}>
-          <span style={{ ...styles.systemName, color: s.none ? "#9EA4C4" : s.color }}>{s.name}{s.none && <span style={styles.noneBadge}>該当なし</span>}</span>
-          <p style={{ ...styles.systemText, ...(s.none ? { color: "#9EA4C4" } : {}) }}>{s.text}</p>
+          <span style={{ ...styles.systemName, color: s.none ? "#666D93" : s.color }}>{s.name}{s.none && <span style={styles.noneBadge}>該当なし</span>}</span>
+          <p style={{ ...styles.systemText, ...(s.none ? { color: "#666D93" } : {}) }}>{s.text}</p>
           {s.url && (<a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>)}
           {s.links && s.links.map((l) => (<a key={l.url} href={l.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, display: "block", marginTop: 3 }}>{l.label} ↗</a>))}
         </div>
@@ -245,7 +245,7 @@ function DecisionFlow() {
         <FlowArrowH x1={440} x2={485} y={230} />
         <FlowArrowV y1={270} y2={370} x={320} />
 
-        <FlowDiamond cx={320} cy={50} w={220} h={76} stroke="#3A4FCF" lines={["選んだ結果、別のコンテンツ領域", "(画面・セクション)に移動する?"]} />
+        <FlowDiamond cx={320} cy={50} w={220} h={76} stroke="#3A4FCF" lines={["選んだ結果、内容のまとまり(パネル)", "ごと切り替わる?"]} />
         <FlowResult x={490} y={25} w={140} h={50} color="#3A4FCF" lines={["タブ"]} />
         <FlowTag x={460} y={38} text="はい" />
         <FlowTag x={340} y={140} text="いいえ" />
@@ -255,9 +255,9 @@ function DecisionFlow() {
         <FlowTag x={462} y={218} text="はい" />
         <FlowTag x={340} y={320} text="いいえ" />
 
-        <FlowResult x={190} y={370} w={260} h={60} color="#7E86AC" lines={["タブ・セグメント以外", "(ラジオボタン等)を検討"]} />
+        <FlowResult x={190} y={370} w={260} h={60} color="#666D93" lines={["タブ・セグメント以外", "(ラジオボタン等)を検討"]} />
       </svg>
-      <p style={styles.diagramNote}>どちらの問いにも「いいえ」の場合は、そもそも「複数の選択肢から1つを選ぶ」という前提自体を見直すサインです。ラジオボタンやドロップダウンなど、他のSelectionコンポーネントも検討してください。</p>
+      <p style={styles.diagramNote}>どちらの問いにも「いいえ」の場合は、そもそも「複数の選択肢から1つを選ぶ」という前提自体を見直すサインだ。ラジオボタンやドロップダウンなど、他のSelectionコンポーネントも検討する。</p>
     </div>
   );
 }
@@ -283,18 +283,23 @@ export default function NavigationTabsVsSegmentedPage() {
           </div>
 
           <h1 style={styles.title}>タブとセグメントの使い分け</h1>
-          <p style={styles.subtitle}>見た目が似ている2つのコンポーネントを、「選ぶと何が起きるか」という軸で比較します</p>
+
+          <SummaryCard lead="見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページだ。" rows={[
+            { k: "目的・役割", v: "内容のまとまりを切り替える(タブ)のか、同じ内容の見え方を変える(セグメントコントロール)のかを見分ける" },
+            { k: "よく使われる場面", v: "設定画面のセクションの切り替え(タブ)、一覧の表示形式や並び順の切り替え(セグメントコントロール)" },
+            { k: "似た部品との違い", v: <>アプリ全体の行き先を変えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、フォームで1つの値を選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink></> },
+          ]} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントです。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明しています。W3CとNN groupには、この使い分けを直接扱う記載はありません。
+              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントだ。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明している。W3CとNN groupには、この使い分けを直接扱う記載はない。
             </p>
             <p style={styles.synthesisText}>
-              最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>です。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものです(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替える部品として定義しています)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、移動はせず同じデータの見せ方だけが変わります。
+              最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>だ。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものだ(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替える部品として定義している)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、移動はせず同じデータの見せ方だけが変わる。
             </p>
             <p style={styles.synthesisText}>
-              迷ったときは、<strong>切り替えるものの意味</strong>で見分けます。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>です。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使います。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになります(つながっていればセグメントコントロール)。
+              迷ったときは、<strong>切り替えるものの意味</strong>で見分ける。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>だ。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使う。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになる(つながっていればセグメントコントロール)。
             </p>
           </div>
 
@@ -332,8 +337,8 @@ export default function NavigationTabsVsSegmentedPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Nielsen Norman GroupのUI Elements Glossaryは直接確認済み)</span>
-            <span>このページは主に「タブ」「セグメントコントロール」両ページの内容を統合した独自の整理です。Nielsen Norman Groupの用語定義のみ新規に直接確認して追加しました。系列別の詳細・公式リンクは各パーツのページを参照してください。</span>
+            <span>最終確認: 2026-11</span>
+            <span>このページは「タブ」「セグメントコントロール」両ページの内容をまとめた整理。系列別の詳細・公式リンクは各パーツのページを参照。</span>
           </div>
         </div>
       </div>
@@ -347,7 +352,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
@@ -359,7 +364,7 @@ const styles = {
   visualGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 20, justifyItems: "center" },
   visualItem: { display: "flex", flexDirection: "column", alignItems: "center", gap: 10 },
   visualLabel: { fontSize: 13, fontWeight: 700 },
-  mockCaption: { fontSize: 10, color: "#9EA4C4" },
+  mockCaption: { fontSize: 10, color: "#666D93" },
   vennCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
   flowCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
   systemGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12, marginBottom: 24 },
@@ -367,7 +372,7 @@ const styles = {
   systemName: { display: "block", fontSize: 12.5, fontWeight: 700, marginBottom: 6 },
   systemText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "0 0 8px" },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  noneBadge: { fontSize: 10, fontWeight: 600, color: "#9EA4C4", border: "1px solid #D5D9EC", borderRadius: 3, padding: "0 5px", marginLeft: 8 },
+  noneBadge: { fontSize: 10, fontWeight: 600, color: "#666D93", border: "1px solid #D5D9EC", borderRadius: 3, padding: "0 5px", marginLeft: 8 },
   compareScroll: { overflowX: "auto", marginBottom: 22 },
   compareGrid: { display: "grid", gridTemplateColumns: "150px 1fr 1fr", minWidth: 640, border: "1px solid #E1E3F0" },
   compareCell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, lineHeight: 1.6 },
@@ -383,6 +388,6 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 24 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

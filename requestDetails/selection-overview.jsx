@@ -16,7 +16,7 @@ import { TagLink } from "./page-parts";
  * ツリー構造。図の見た目(ひし形=分岐、角丸=開始/結果、ラベル付き矢印)は、ユーザー提供の参考画像
  * (トレードオフ判断のフローチャート)の型を踏襲している。
  *
- * プルダウン(セレクト)は「Selection」の6パーツ目として比較対象に含めている(専用ページは作成済み)。
+ * セレクト(プルダウン)は「Selection」の6パーツ目として比較対象に含めている(専用ページは作成済み)。
  * 2026-10-05、Selectionに後から加わった「セレクトの種類」「メニュー」「日付/タイムピッカー」への案内を
  * 「このカテゴリのほかのページ」として追加した(判断フローの6パーツとは役割が異なるため、フローには含めない)。
  */
@@ -35,7 +35,7 @@ const CARDS = [
     key: "radio", name: "ラジオボタン", path: "/components/selection/radio", built: true,
     oneLiner: "選択肢を全部見せた上で、相互排他的に1つだけ選ぶ。",
     doText: "少数の選択肢を全部見せて1つ選ばせたい時",
-    dontText: "選択肢が多く場所を取りすぎる時(→プルダウン)",
+    dontText: "選択肢が多く場所を取りすぎる時(→セレクト(プルダウン))",
     icon: () => (<svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="2" /><circle cx="11" cy="11" r="4.5" fill="#3A4FCF" /></svg>),
   },
   {
@@ -60,7 +60,7 @@ const CARDS = [
     icon: () => (<svg width="60" height="22" viewBox="0 0 60 22"><rect x="1" y="1" width="58" height="20" rx="10" fill="#3A4FCF" /></svg>),
   },
   {
-    key: "select", name: "プルダウン(セレクト)", path: "/components/selection/select", built: true,
+    key: "select", name: "セレクト(プルダウン)", path: "/components/selection/select", built: true,
     oneLiner: "選択肢を折りたたみ、省スペースで1つを選ぶ。",
     doText: "選択肢が多く省スペースにしたい時",
     dontText: "選択肢が少ない・2〜5個程度の時(→ラジオボタン)",
@@ -73,16 +73,17 @@ const CARDS = [
 /* このカテゴリのほかのページ(表の6パーツとは役割が違うもの) */
 const OTHERS = [
   { name: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", text: "ドラムロール(ホイール)など、プルダウン以外で1つを選ぶ形の一覧" },
-  { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならプルダウン" },
+  { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならセレクト(プルダウン)" },
   { name: "日付/タイムピッカー", path: "/components/selection/date-time-picker", text: "日付・時刻という決まった形の値を選ぶ。生年月日のように遠い日付は入力欄の方が速いことも" },
   { name: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", text: "予定を日・週・月の表で見せる画面。日付を1つ選んで入力するなら日付/タイムピッカー" },
+  { name: "セグメントコントロール", path: "/components/navigation/segmented-control", text: "少ない選択肢から1つを選び、同じ場所の見え方をすぐ切り替える(表示形式の切り替えなど)" },
 ];
 
 const styles = {
   useTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" },
   useTh: { fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 8px", borderBottom: "1px solid #E1E3F0", textAlign: "left", verticalAlign: "bottom" },
   useTd: { padding: "8px 8px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" },
-  useNote: { display: "block", fontSize: 10, lineHeight: 1.5, color: "#7E86AC", marginTop: 2, textAlign: "left" },
+  useNote: { display: "block", fontSize: 10, lineHeight: 1.5, color: "#666D93", marginTop: 2, textAlign: "left" },
   othersGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10, marginBottom: 24 },
   otherCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", color: "inherit" },
   otherName: { fontSize: 13, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
@@ -92,7 +93,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
@@ -106,13 +107,13 @@ const styles = {
   cardIcon: { marginBottom: 10, height: 26, display: "flex", alignItems: "center" },
   cardName: { fontSize: 13.5, fontWeight: 700, color: "#171B36", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 },
   cardOneLiner: { fontSize: 11.5, lineHeight: 1.6, color: "#565D8A", marginBottom: 10 },
-  unbuiltTag: { fontSize: 9.5, fontWeight: 400, color: "#B7BCDA", fontFamily: "'IBM Plex Mono', monospace" },
+  unbuiltTag: { fontSize: 9.5, fontWeight: 400, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" },
   usageRow: { display: "flex", gap: 6, alignItems: "flex-start", marginBottom: 4 },
   usageMark: { flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, width: 30 },
   usageMarkOk: { color: "#2F7D6E" },
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };
 
 function PartCards() {
@@ -158,7 +159,7 @@ const USE_COLS = [
   { k: "onoff", t: "1つの項目をオン/オフ" },
   { k: "one", t: "1つだけ選ぶ" },
   { k: "value", t: "感覚的な値を調整する" },
-  { k: "filter", t: "その場で一覧を絞り込む(すぐ反映)" },
+  { k: "filter", t: "その場で絞り込む・並べ替える(すぐ反映)" },
   { k: "form", t: "フォームで選んで送信する" },
 ];
 const USE_ROWS = [
@@ -167,9 +168,9 @@ const USE_ROWS = [
   { name: "トグルスイッチ", path: "/components/selection/toggle", multi: "✕", onoff: ["◯", "押した瞬間に反映する場面向け"], one: "✕", value: "✕", filter: ["△", "1つの条件のオン/オフ"], form: ["✕", "送信で確定するフォームには使わない(NN group)"] },
   { name: "スライダー", path: "/components/selection/slider", multi: "✕", onoff: "✕", one: "✕", value: "◯", filter: ["△", "価格帯などの範囲"], form: ["△", "正確な値が要るなら入力欄"] },
   { name: "チップ(Chips)", path: "/components/selection/chips", multi: ["◯", "フィルターチップの組み合わせ"], onoff: ["◯", "フィルターチップ1つ。トグルボタンやチェックボックスの代わりに使える(Google)"], one: ["△", "チップのグループを1つだけ選べる設定にできる(Google)"], value: "✕", filter: ["◯", "フィルターチップ"], form: ["△", "入力した値を並べる入力チップ"] },
-  { name: "プルダウン(セレクト)", path: "/components/selection/select", multi: "✕", onoff: "✕", one: ["◯", "選択肢が多く、場所を節約したい"], value: "✕", filter: ["△", "並べ替えの基準など"], form: "◯" },
+  { name: "セレクト(プルダウン)", path: "/components/selection/select", multi: "✕", onoff: "✕", one: ["◯", "選択肢が多く、場所を節約したい"], value: "✕", filter: ["△", "並べ替えの基準など"], form: "◯" },
 ];
-const MARK_COLOR = { "◯": "#2F7D6E", "△": "#A3821F", "✕": "#9EA4C4" };
+const MARK_COLOR = { "◯": "#2F7D6E", "△": "#A3821F", "✕": "#666D93" };
 
 function UseTable() {
   return (
@@ -223,21 +224,21 @@ export default function SelectionOverviewPage() {
           </div>
 
           <h1 style={styles.title}>Selectionの選び方</h1>
-          <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・プルダウン。6つのパーツを、ユーザーの行動を起点に使い分けます</p>
+          <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・セレクト(プルダウン)。6つのパーツを、ユーザーの行動を起点に使い分ける</p>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              6つのパーツは、コンポーネントの性質からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなります。下の表は、行動ごとにどのパーツが向いているかを◯/△/✕で示したものです。
+              6つのパーツは、コンポーネントの性質からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなる。下の表は、行動ごとにどのパーツが向いているかを◯/△/✕で示したものだ。
             </p>
             <p style={styles.synthesisText}>
-              1つの項目のオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれます(NN group)。一覧をその場で絞り込む条件なら、<strong>フィルターチップ1つでもオン/オフに使えます</strong>(Googleは、フィルターチップをトグルボタンやチェックボックスの代わりになるものとしています)。
+              1つの項目のオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれる(NN group)。一覧をその場で絞り込む条件なら、<strong>フィルターチップ1つでもオン/オフに使える</strong>(Googleは、フィルターチップをトグルボタンやチェックボックスの代わりになるものとしている)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>チップとチェックボックスは「複数選べる」点で重なります</strong>が、チップは<strong>今見ている一覧をその場で絞り込む</strong>ときに向き、チェックボックスは<strong>フォームの中で選んで、送信して確定する</strong>ときに向きます。また、<strong>チェックボックスとラジオボタン、チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点です(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
+              <strong>チップとチェックボックスは「複数選べる」点で重なる</strong>が、チップは<strong>今見ている一覧をその場で絞り込む</strong>ときに向き、チェックボックスは<strong>フォームの中で選んで、送信して確定する</strong>ときに向く。また、<strong>チェックボックスとラジオボタン、チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点だ(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>プルダウンはラジオボタンと同じ「1つだけ選ぶ」行動</strong>で、選択肢を常に全部見せたいならラジオボタン、場所を節約したいならプルダウン、という使い分けです。
+              <strong>セレクト(プルダウン)はラジオボタンと同じ「1つだけ選ぶ」行動</strong>で、選択肢を常に全部見せたいならラジオボタン、場所を節約したいならセレクト(プルダウン)、という使い分けだ。表示の切り替えのように、少ない選択肢から1つを選んですぐ反映するなら<a href="/components/navigation/segmented-control" style={{ color: "#3A4FCF" }}>セグメントコントロール</a>も使える。
             </p>
           </div>
 
@@ -246,10 +247,10 @@ export default function SelectionOverviewPage() {
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>行動から選ぶ(◯/△/✕)</h2>
           <UseTable />
-          <p style={styles.diagramNote}>◯=向いている、△=使い方次第、✕=向いていない。まず「今したいこと」の列を見て、◯のパーツから選びます。チップのように、使い方によって役割が変わるパーツがあるため、はい/いいえで分ける図ではなく表にしています。この表は、各パーツのページの内容をまとめた独自の整理です。数値基準・アクセシビリティの詳細は、上のカードから各ページを開いて確認してください。</p>
+          <p style={styles.diagramNote}>◯=向いている、△=使い方次第、✕=向いていない。まず「今したいこと」の列を見て、◯のパーツから選ぶ。チップのように、使い方によって役割が変わるパーツがあるため、はい/いいえで分ける図ではなく表にしている。この表は、各パーツのページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>このカテゴリのほかのページ</h2>
-          <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>表の6パーツとは役割が少し違う、Selectionのページです。</p>
+          <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>表の6パーツとは役割が少し違う、Selectionのページだ。</p>
           <div style={styles.othersGrid}>
             {OTHERS.map((o) => (
               <a key={o.path} href={o.path} style={styles.otherCard}>
@@ -264,8 +265,8 @@ export default function SelectionOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)</span>
-            <span>このページは既存ページの統合見解であり、新規の一次情報の引用は行っていません。系列別の詳細・公式リンクは各パーツのページを参照してください。2026-10-05、Selectionに加わったページへの案内を追加。</span>
+            <span>最終確認: 2026-11</span>
+            <span>このページは各パーツのページの内容をまとめた整理。系列別の詳細・公式リンクは各パーツのページを参照。</span>
           </div>
         </div>
       </div>

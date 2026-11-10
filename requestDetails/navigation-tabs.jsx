@@ -22,35 +22,35 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Tab Bars(画面下部のアプリ全体のナビゲーション)",
-    term: "Tab bar(画面下部・アプリ全体の移動)/ Tab view(画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
+    doc: "Human Interface Guidelines ― Tab views(macOS)",
+    term: "Tab view(macOSの画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
     color: "#C2542A",
     position:
-      <span>Appleのタブバーは、画面下部に置くアプリ全体のナビゲーション(Googleのナビゲーションバーに相当)で、<Hl>画面の中で内容を切り替えるタブとは別の部品</Hl>。比較のため参考として載せる(「ナビゲーションバー」ページも参照)</span>,
+      <span>Tab viewはmacOSの部品で、iOS・iPadOS・tvOS・visionOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の移動)は別の部品で、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
     structure:
-      "画面遷移中もタブバーを常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。",
+      "タブの並び(タブのコントロール)は、内容の領域の上端に置く。ウィンドウの端との間には余白を取る。プログラムで切り替えるアプリでは、タブの並びを隠してもよい。",
     count:
-      <span>タブの数の上限は数値で示しておらず、必要な数のタブを使い、<Hl>タブは少ないほど移動しやすい</Hl>ことを踏まえて増やしすぎないよう求めている。画面の幅でタブが収まらないと、末尾が「その他(More)」タブにまとめられて中身が見つけにくくなるため、<Hl>はみ出しを避ける</Hl>よう求めている。</span>,
+      <span><Hl>1つのタブビューに6個を超えるタブを置かない</Hl>としている。多すぎると圧倒され、レイアウトも崩れやすいため、それ以上なら、ポップアップボタンのメニューで表示を選ぶなど別の作りを考える。</span>,
     size:
       <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "タブバーは、アプリのトップレベルのセクション間を移動するために使うものと定義されている。厳密にナビゲーション専用とし、タブバーのボタンを操作の実行(アクション)に使うべきではないとしている。",
+      "密接に関係する内容の領域を並べて見せるのに使う。各タブの中身は互いに関係が深く、各パネルの中の操作はそのパネルの内容だけに効くようにする(パネルは互いに独立)。タブのラベルは中身を予想できる名詞(または短い動詞句)にする。",
     exceptions:
-      <span>機能が一時的に使えない場合でも、<Hl>タブを削除したり無効化したりすべきではない</Hl>としている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。</span>,
+      "タブの切り替えにポップアップボタンを使うのは避ける(1回で選べ、全部の選択肢が見えるタブの方が効率的なため)。ただし、パネルが多すぎてタブで並べきれない場合は、ポップアップボタンが代わりになる。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準のタブバーコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
+      <span><NoData>記載なし</NoData></span>,
     useCases: [
-      "アプリのトップレベルセクション間を移動する",
-      "タブは必要な数に絞り、「その他(More)」タブへのはみ出しを避ける",
-      "機能が使えない場合もタブ自体は無効化・削除せず、理由を説明する",
+      "macOSの設定画面などで、関係の深い内容の領域をタブで切り替える",
+      "タブは6個までにし、それ以上ならポップアップボタンのメニューなど別の作りにする",
+      "iOS・iPadOSでは、Tab viewの代わりにSegmented controlを使う",
     ],
-    searchHint: "Avoid overflow tabs",
-    url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars",
+    searchHint: "more than six tabs",
+    url: "https://developer.apple.com/design/human-interface-guidelines/tab-views",
     refs: [
-      { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
-      { label: "Tab views(画面の中のタブ)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
+      { label: "Tab views", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
       { label: "Segmented controls(iOS・iPadOSでの代わり)", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
+      { label: "参考: Tab bars(アプリ全体の移動)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -60,9 +60,9 @@ const SOURCES = [
         ))}
         <line x1="1" y1="1" x2="1" y2="25" stroke="#C2542A" strokeWidth="2.5" />
         <text x="16" y="17" fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">A</text>
-        <text x="45" y="17" fontSize="8" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">B</text>
-        <text x="75" y="17" fontSize="8" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
-        <text x="104" y="17" fontSize="8" fill="#9EA4C4" textAnchor="middle" fontFamily="Jost, Noto Sans JP">D</text>
+        <text x="45" y="17" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">B</text>
+        <text x="75" y="17" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
+        <text x="104" y="17" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">D</text>
       </svg>
     ),
     illustrationNote: "4タブ、左端が選択済み(概念図・系列識別色)",
@@ -79,9 +79,9 @@ const SOURCES = [
     count:
       <span><Hl>固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になる</Hl>としている。数が多いときはスクロール可能なタブにし、最初のタブを端から52dp離して配置して、スクロール可能であることを示すべきとしている。</span>,
     size:
-      "タッチターゲットは48×48 CSSピクセル以上を確保すべきとしている。密度設定はデフォルトで適用すべきではなく(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合も各要素は最低48×48pxを維持すべきとしている。",
+      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。タッチターゲットは48×48 CSSピクセル以上を確保すべきとしている。密度設定はデフォルトで適用すべきではなく(適用するとターゲットサイズが48×48pxを下回るため)、より高密度なレイアウトを選ぶ場合も各要素は最低48×48pxを維持すべきとしている。",
     colorInfo:
-      <span>アクティブなタブは、テキストとアイコンに下線と色の変化を適用して区別するとしている。<NoData>カラートークンは未確認。</NoData></span>,
+      <span>アクティブなタブは、テキストとアイコンに下線と色の変化を適用して区別するとしている。</span>,
     glossary: [
       { term: "プライマリタブ / セカンダリタブ", desc: "タブには2つの階層がある。プライマリタブはコンテンツペイン上部・アプリバー直下に置き、主要なコンテンツへのリンクを示す。セカンダリタブは常にプライマリタブの下に配置し、その中でさらに関連コンテンツを細分化する。見た目はよりシンプルだが機能はプライマリタブと同じ。" },
       { term: "Fixed(固定) / Scrollable(スクロール可能)", desc: "固定タブはセット内の全タブを同時に表示する(地図の交通手段切り替えなど)。スクロール可能なタブは画面に収まりきらない場合に使い、より長いラベルや多くのタブに対応できる。" },
@@ -309,7 +309,7 @@ function TabKinds() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>タブの種類</h2>
-      <p style={styles.diagramNote}>「主な場所へ移動するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものです。このページの比較は、後者(ページ内のタブ)が対象です。</p>
+      <p style={styles.diagramNote}>「主な場所へ移動するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものだ。このページの比較は、後者(ページ内のタブ)が対象だ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.kindTable}>
           <thead><tr><th style={styles.kindTh}>種類</th>{systems.map((n) => (<th key={n} style={styles.kindTh}>{n}</th>))}</tr></thead>
@@ -343,7 +343,7 @@ const SPLITS = [
       { figure: <MiniTabs mode="auto" />, who: "W3C(APG)", color: "#A3821F", t: "内容をすぐに表示できるなら、フォーカスが移った時点で切り替える(自動)ことを勧める。表示に時間がかかる場合は、Enter/Spaceで選んだときに切り替える(手動)" },
       { figure: <MiniTabs mode="manual" />, who: "Google", color: "#2F7D6E", t: "Tabキー・矢印キーでフォーカスを移し、Space/Enterで選んだときに切り替える(手動)と説明している" },
     ],
-    tip: "どちらも、矢印キーで移動できる点は同じです。違いは「いつ切り替わるか」だけなので、内容がすぐ出るタブ(同じページ内の文章など)はAPGの自動、読み込みが必要なタブ(通信して一覧を取る、別ページへ移るなど)は手動、と分けると両方に沿います。Appleはキーボードでの切り替え方を定めていません。APGは実装の参考例で、適合の要件ではありません。",
+    tip: "どちらも、矢印キーで移動できる点は同じだ。違いは「いつ切り替わるか」だけなので、内容がすぐ出るタブ(同じページ内の文章など)はAPGの自動、読み込みが必要なタブ(通信して一覧を取る、別ページへ移るなど)は手動、と分けると両方に沿う。Appleはキーボードでの切り替え方を定めていない。APGは実装の参考例で、適合の要件ではない。",
   },
   {
     q: "タブが画面に収まらないほど多いときは?",
@@ -351,7 +351,7 @@ const SPLITS = [
       { figure: <MiniTabs mode="scroll" />, who: "Google", color: "#2F7D6E", t: "横にスクロールできるタブ(Scrollable)を使えば、必要な数だけ置いてよい。ただし、全部を一度に見せる固定タブは4個まで" },
       { figure: <MiniTabs mode="few" />, who: "Apple・NN group", color: "#7A4F7E", t: "数を絞る。Appleはタブビューを6個までとし、タブバーでは「その他」へのはみ出しを避ける。NN groupは、あふれてカルーセルのようになると隠れたタブが見つけにくくなるとして、少ないほどよいとする" },
     ],
-    tip: "まず数を減らせないかを考え、どうしても減らせないときにGoogleのスクロール可能なタブを使う、という順番が3系列の考え方に沿います。スクロールさせる場合は、Googleの「最初のタブを端から52dp離して、続きがあると分かるようにする」工夫を入れると、NN groupが心配する「隠れたタブに気づかない」問題を和らげられます。",
+    tip: "まず数を減らせないかを考え、どうしても減らせないときにGoogleのスクロール可能なタブを使う、という順番が3系列の考え方に沿う。スクロールさせる場合は、Googleの「最初のタブを端から52dp離して、続きがあると分かるようにする」工夫を入れると、NN groupが心配する「隠れたタブに気づかない」問題を和らげられる。",
   },
 ];
 
@@ -364,7 +364,7 @@ function TabSwatch() {
           key={label}
           style={{
             padding: "8px 16px", fontSize: 13, fontFamily: "'Jost', 'Noto Sans JP', sans-serif",
-            color: i === 0 ? "#3A4FCF" : "#9EA4C4",
+            color: i === 0 ? "#3A4FCF" : "#666D93",
             fontWeight: i === 0 ? 700 : 400,
             borderBottom: i === 0 ? "2px solid #3A4FCF" : "2px solid transparent",
             marginBottom: -2,
@@ -405,7 +405,7 @@ export default function NavigationTabsPage() {
           <SummaryCard
             image={<TabSwatch />}
             imageNote="選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。"
-            lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品です。"
+            lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
             rows={ABOUT}
           />
 
@@ -417,16 +417,16 @@ export default function NavigationTabsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替える部品</strong>です。Google・W3C・NN groupはこの意味のタブを扱っています。<strong>Appleのタブバーは画面下部のアプリ全体のナビゲーション(Googleのナビゲーションバーに相当)で、画面の中のタブとは別の部品</strong>のため、参考として並べています(詳しくは<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ていますが、<strong>「移動先が変わる」のがタブ、「同じ場所の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質です(詳しくは「タブとセグメントの使い分け」を参照)。
+              タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替える部品</strong>だ。Google・W3C・NN groupはこの意味のタブを扱い、AppleはmacOSの<strong>Tab view</strong>がこれに当たる(<strong>iOS・iPadOSではSegmented controlを勧める</strong>)。画面下部のAppleのタブバーはアプリ全体のナビゲーションで、別の部品だ(<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ているが、<strong>「内容のまとまりが切り替わる」のがタブ、「同じ内容の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質だ(詳しくは「タブとセグメントの使い分け」を参照)。
             </p>
             <p style={styles.synthesisText}>
-              タブの数は、Google・Apple・NN groupとも<strong>「増やしすぎない」方向で共通</strong>しています(Googleは固定タブ4個まで)。画面に収まらないときの扱いは系列で分かれます(「意見が分かれる点」を参照)。
+              タブの数は、Google・Apple・NN groupとも<strong>「増やしすぎない」方向で共通</strong>している(Googleは固定タブ4個まで、AppleのTab viewは6個まで)。画面に収まらないときの扱いは系列で分かれる(「意見が分かれる点」を参照)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>があります(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab Bars(1階層のみ)にはない考え方です。
+              <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>がある(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab view(1階層のみ)にはない考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な作り方(Tabsパターン)</strong>を示しています。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っています。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示しています。
+              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な作り方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
             </p>
           </div>
 
@@ -455,7 +455,6 @@ export default function NavigationTabsPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -523,11 +522,8 @@ export default function NavigationTabsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN group・Googleとも本文確認済み。Googleのタブ高さなどのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: 公式で別のページに分かれている内容は、「参照ページ」にそれぞれ載せています。W3Cは達成基準ごとのUnderstandingページとAPG(Tabsパターン)、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ本文を確認済みですが、タブの高さなどのspecs数値はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -536,7 +532,7 @@ export default function NavigationTabsPage() {
 }
 
 const styles = {
-  diagramNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 10px", lineHeight: 1.6 },
+  diagramNote: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
   kindTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   kindTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   kindTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
@@ -545,7 +541,7 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
@@ -555,24 +551,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -588,5 +584,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -84,7 +84,7 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "(ホーム画面のウィジェット専用の基準なし)WAI-ARIA 1.2 widgetロール",
+    doc: "該当なし(ホーム画面のウィジェット専用の基準はない)",
     term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: "ホーム画面のウィジェットの基準はない。ARIAの「widget」は操作部品全般を指す別の言葉",
@@ -101,11 +101,8 @@ const SOURCES = [
       "ウィジェットの中の文字は、背景と4.5:1以上のコントラストを目安にする",
       "押せる部分は小さくしすぎない(24px以上・Androidの品質基準では48dp)",
     ],
-    searchHint: "An interactive component",
-    url: "https://www.w3.org/TR/wai-aria-1.2/#widget",
-    refs: [
-      { label: "(ホーム画面のウィジェット専用の基準なし)WAI-ARIA 1.2 widgetロール", url: "https://www.w3.org/TR/wai-aria-1.2/#widget" },
-    ],
+    searchHint: "",
+    refs: [],
     confirmedNote: "WAI-ARIA 1.2のwidgetロールの定義を直接取得して確認済み(2026-10)。1.4.3・1.4.1・2.5.8は他のページで本文を確認済みの基準。",
   },
   {
@@ -169,7 +166,7 @@ function WidgetIntro() {
               </div>
             </div>
           ))}
-          <p style={styles.introNote}>ウィジェットはアプリの「入り口」ではなく、アプリを開かなくても用が済む「小さな窓」として考えます。</p>
+          <p style={styles.introNote}>ウィジェットはアプリの「入り口」ではなく、アプリを開かなくても用が済む「小さな窓」として考える。</p>
         </div>
         <div style={{ minWidth: 0 }}>
           <div style={styles.introHead}>ルールの概要(系列の共通点)</div>
@@ -226,7 +223,7 @@ function WidgetSizesSwatch() {
   );
 }
 
-/* 四サイト比較図: 大きさの決め方(実寸比で描画) */
+/* 四系列比較図: 大きさの決め方(実寸比で描画) */
 function SizeChart() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const mono = "'IBM Plex Mono', monospace";
@@ -257,7 +254,7 @@ function SizeChart() {
         <text x="330" y="14" fontSize="11.5" fill="#2F7D6E" fontWeight="700" fontFamily={font}>Google(スマートフォン、単位dp)</text>
         {range(330, 109, 115, 306, 276, "2×2")}
         {range(430, 245, 115, 624, 276, "4×2")}
-        <text x="0" y="194" fontSize="8.5" fill="#9EA4C4" fontFamily={font}>実寸の28%で描画。Googleの塗りは最小、点線は最大(画面の向きや端末で変わる範囲)。ptとdpはどちらも画面の密度に依存しない単位です。</text>
+        <text x="0" y="194" fontSize="8.5" fill="#666D93" fontFamily={font}>実寸の28%で描画。Googleの塗りは最小、点線は最大(画面の向きや端末で変わる範囲)。ptとdpはどちらも画面の密度に依存しない単位。</text>
       </svg>
       <div style={styles.numRow}>
         {[
@@ -396,7 +393,7 @@ function WidgetGuide() {
           </div>
         ))}
       </div>
-      <p style={styles.wkNote}>Appleは、意味のある内容と、役立つ操作、アプリの大事な場所へのリンクを入れるよう勧め、大きいサイズでは、データをより詳しく見せる(グラフなど)こともできるとしています。どの種類でも、ウィジェットの主な目的に直接関係する情報だけを表示します。</p>
+      <p style={styles.wkNote}>Appleは、意味のある内容と、役立つ操作、アプリの大事な場所へのリンクを入れるよう勧め、大きいサイズでは、データをより詳しく見せる(グラフなど)こともできるとしている。どの種類でも、ウィジェットの主な目的に直接関係する情報だけを表示する。</p>
 
       <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>良いウィジェットの条件(Apple) ― 情報量と流動性</h2>
       <div style={styles.wkGrid}>
@@ -419,13 +416,13 @@ function WidgetGuide() {
           <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視しています。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致しています。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
+      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面です。";
+const LEAD = "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面だ。";
 const ABOUT = [
   { k: "目的・役割", v: "よく見る情報(天気・予定など)を、アプリを開く手間なしに一目で見せる" },
   { k: "よく使われる場面", v: "天気・カレンダー・歩数・音楽の操作をホーム画面やロック画面に置く" },
@@ -460,7 +457,7 @@ export default function CommunicationWidgetPage() {
           <SummaryCard
             imageLabel="同じウィジェットでも、大きさで見せる量を変える(概念図)"
             image={<><WidgetSizesSwatch /></>}
-            imageNote={<>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やします。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決めます(Apple)。寸法はiPhoneの小・中・大の比率で描いています。</>}
+            imageNote={<>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やす。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決める(Apple)。寸法はiPhoneの小・中・大の比率で描いている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -472,25 +469,25 @@ export default function CommunicationWidgetPage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 大きさの決め方と数値</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 大きさの決め方と数値</h2>
             <SizeChart />
-            <p style={styles.chartNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)です。Appleは端末ごとに固定の寸法、Googleはマス数と幅・高さの範囲で指定する、という違いがあります。</p>
+            <p style={styles.chartNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)だ。Appleは端末ごとに固定の寸法、Googleはマス数と幅・高さの範囲で指定する、という違いがある。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Apple・Google・NN groupの3系列がそろって一致しているのは、<strong>1つの主な目的に絞り、アプリを開かずに一目で分かる内容にする</strong>という点です。Appleは天気の例で「今の最高・最低気温と天気」を挙げ、Googleは「1つの主な用途を選ぶ」ことを最初の手順にし、NN groupは<strong>利用者が追いたい「1つのこと」を見つけ、収まる単位に圧縮できるか</strong>が最大の課題だとしています。
+              Apple・Google・NN groupの3系列がそろって一致しているのは、<strong>1つの主な目的に絞り、アプリを開かずに一目で分かる内容にする</strong>という点だ。Appleは天気の例で「今の最高・最低気温と天気」を挙げ、Googleは「1つの主な用途を選ぶ」ことを最初の手順にし、NN groupは<strong>利用者が追いたい「1つのこと」を見つけ、収まる単位に圧縮できるか</strong>が最大の課題だとしている。
             </p>
             <p style={styles.synthesisText}>
-              大きさの決め方は違います。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定めます。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを3段階の品質チェックリストにしています。
+              大きさの決め方は違う。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定める。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを3段階の品質チェックリストにしている。
             </p>
             <p style={styles.synthesisText}>
-              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないものを低品質</strong>としています。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めています。
+              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないものを低品質</strong>としている。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>ホーム画面のウィジェットの基準はなく</strong>、WAI-ARIAの「widget」はボタンなどの操作部品全般を指す別の言葉です。実務では、<strong>主目的を1つに決めて大きさごとに見せる量を設計し、文字のコントラスト・押せる範囲・色だけに頼らない表現を、通常の画面と同じ基準で確かめる</strong>のが、4系列を合わせた結論です。
+              W3Cには<strong>ホーム画面のウィジェットの基準はなく</strong>、WAI-ARIAの「widget」はボタンなどの操作部品全般を指す別の言葉だ。実務では、<strong>主目的を1つに決めて大きさごとに見せる量を設計し、文字のコントラスト・押せる範囲・色だけに頼らない表現を、通常の画面と同じ基準で確かめる</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -509,7 +506,6 @@ export default function CommunicationWidgetPage() {
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -560,13 +556,13 @@ export default function CommunicationWidgetPage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>良いウィジェット・避けたいウィジェット</h2>
-            <p style={styles.diagramNote}>Apple・Google・NN groupの記述を、良いウィジェット(◯)と避けたいウィジェット(✕)に分けて並べました。下の名前は根拠にした系列です。</p>
+            <p style={styles.diagramNote}>Apple・Google・NN groupの記述を、良いウィジェット(◯)と避けたいウィジェット(✕)に分けて並べた。下の名前は根拠にした系列だ。</p>
             <DoDont />
           </section>
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>Apple ― 置かれる場所で変わる表示モード</h2>
-            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変えます。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用します(図は概念図)。</p>
+            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変える。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用する(図は概念図)。</p>
             <AppearanceModes />
           </section>
 
@@ -577,11 +573,8 @@ export default function CommunicationWidgetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・NN groupは本文確認済み。GoogleはM3にページがなく、Android Developersのデザインガイドで確認。W3Cは専用の基準なし)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Widgetsページの「Best practices」見出しへのアンカー付きリンクで、表示モード・寸法表・余白の見出しも併記しています。GoogleはAndroid Developersのウィジェットの大きさのページ(既定サイズの節)と、概要・品質ガイドです。W3CはWAI-ARIA 1.2のwidgetロールの定義です。NN groupはMobile Microsessionsの記事の、マイクロセッションの設計の節です。
-            </span>
           </div>
         </div>
       </div>
@@ -597,7 +590,7 @@ const styles = {
   wkTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },
   wkText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
   wkEx: { fontSize: 11.5, color: "#3A4FCF", marginBottom: 2 },
-  wkSrc: { fontSize: 10, color: "#7E86AC" },
+  wkSrc: { fontSize: 10, color: "#666D93" },
   wkNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   wkTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   wkTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
@@ -606,29 +599,29 @@ const styles = {
   introTitle: { fontSize: 15, fontWeight: 700, color: "#171B36", margin: "0 0 12px" },
   introCols: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", gap: "6px 22px" },
   introHead: { fontSize: 11.5, fontWeight: 700, color: "#3C5A73", margin: "6px 0 8px", letterSpacing: 0.2 },
-  introNote: { fontSize: 11, lineHeight: 1.6, color: "#7E86AC", margin: "6px 0 8px" },
+  introNote: { fontSize: 11, lineHeight: 1.6, color: "#666D93", margin: "6px 0 8px" },
   purposeRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 8 },
   purposeIcon: { width: 26, height: 26, flexShrink: 0, borderRadius: 13, background: "#EEF1FA", color: "#3C5A73", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center" },
   purposeTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   purposeText: { fontSize: 11, lineHeight: 1.6, color: "#454C78" },
   ruleList: { margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 7 },
   ruleItem: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
-  ruleWho: { display: "inline-block", marginLeft: 6, fontSize: 9.5, color: "#7E86AC", border: "1px solid #E1E3F0", borderRadius: 3, padding: "0 4px" },
+  ruleWho: { display: "inline-block", marginLeft: 6, fontSize: 9.5, color: "#666D93", border: "1px solid #E1E3F0", borderRadius: 3, padding: "0 4px" },
   sceneChips: { display: "flex", flexWrap: "wrap", gap: 6 },
   sceneChip: { fontSize: 11, color: "#2E3457", background: "#F3F6FA", borderRadius: 12, padding: "3px 10px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
@@ -637,22 +630,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -670,7 +663,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   numRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 8, marginTop: 8 },
   numItem: { fontSize: 11, lineHeight: 1.55, color: "#2E3457", background: "#F8F9FD", borderRadius: 4, padding: "7px 9px" },
   numWho: { display: "block", fontSize: 10, fontWeight: 700 },
@@ -680,7 +673,7 @@ const styles = {
   ddItem: { padding: "8px 0", borderTop: "1px dashed #E1E3F0" },
   ddTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   ddText: { fontSize: 11, lineHeight: 1.6, color: "#454C78", marginTop: 4 },
-  ddWho: { fontSize: 9.5, color: "#7E86AC", marginTop: 5 },
+  ddWho: { fontSize: 9.5, color: "#666D93", marginTop: 5 },
   amGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 170px), 1fr))", gap: 10 },
   amCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px", background: "#FFFFFF" },
   amName: { fontSize: 12, fontWeight: 700, color: "#171B36", marginTop: 6 },

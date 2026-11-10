@@ -43,7 +43,7 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
   {"group": "Selection", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
-  {"group": "Text inputs", "label": "テキストフィールド", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
+  {"group": "Text inputs", "label": "テキストフィールド・テキストエリア", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "検索フィールド", "path": "/components/text-inputs/search-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["検索・絞り込み", "見つけやすさ・初めての案内"]},
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
@@ -247,7 +247,7 @@ function TagExplorer() {
       <div style={styles.chipGroupLabel}>原則タグ ― WCAGのPOURから探す</div>
       <div style={styles.chipRow}>{POUR_TAGS.map((t) => chip([t, pourCount(t)], true))}{otherPrinciples.map((c) => chip(c, true))}</div>
       {undefinedTags.length > 0 && (
-        <p style={styles.warnNote}>12のくくりにない未定義のタグ: {undefinedTags.map(([t, n]) => `${t}(${n})`).join("・")}。各ページのタグを12のくくりから選び直してください。</p>
+        <p style={styles.warnNote}>12のくくりにない未定義のタグ: {undefinedTags.map(([t, n]) => `${t}(${n})`).join("・")}。各ページのタグを12のくくりから選び直す。</p>
       )}
 
       {isStatic ? (
@@ -293,13 +293,13 @@ function TrendSummary() {
     <div style={styles.synthesisBox}>
       <div style={styles.synthesisLabel}>AI解釈 ― タグから見える傾向</div>
       <p style={styles.synthesisText}>
-        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けています。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトが部品を「どんな作業で使うか」の単位で比べていることが分かります。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}です。
+        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けている。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトが部品を「どんな作業で使うか」の単位で比べていることが分かる。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}だ。
       </p>
       <p style={styles.synthesisText}>
-        原則タグで最も多いのは<strong>「{top.short}」({pourCount(top.tag)}ページ)</strong>、最も少ないのは<strong>「{low.short}」({pourCount(low.tag)}ページ)</strong>です。比較の中心は、見え方や操作のしやすさ、支援技術への伝わり方に関わる基準です。
+        原則タグで最も多いのは<strong>「{top.short}」({pourCount(top.tag)}ページ)</strong>、最も少ないのは<strong>「{low.short}」({pourCount(low.tag)}ページ)</strong>だ。比較の中心は、見え方や操作のしやすさ、支援技術への伝わり方に関わる基準だ。
       </p>
       <p style={styles.synthesisText}>
-        使い方としては、<strong>まず12のくくりから作業を選び、同じくくりのページを層をまたいで読む</strong>のがおすすめです。たとえば「入力・フォーム」では、テキストフィールド・選択部品・エラー表示・バリデーションを続けて確認できます。
+        使い方としては、<strong>まず12のくくりから作業を選び、同じくくりのページを層をまたいで読む</strong>のがおすすめだ。たとえば「入力・フォーム」では、テキストフィールド・選択部品・エラー表示・バリデーションを続けて確認できる。
       </p>
     </div>
   );
@@ -326,12 +326,12 @@ export default function CrossViewPage() {
           </div>
 
           <h1 style={styles.title}>横断ビュー(タグから見る)</h1>
-          <p style={styles.subtitle}>各ページの末尾に付けたタグを逆引きして、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで一覧にします</p>
+          <p style={styles.subtitle}>各ページの末尾に付けたタグを逆引きして、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで一覧にする</p>
 
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>タグの見方</span>
             <TagLegend />
-            <p style={styles.swatchNote}>このページは一次情報を持たず、各ページのタグを集計して自動で作っています。ページを追加したりタグを直したりすると、次のビルドでこの一覧にも反映されます。</p>
+            <p style={styles.swatchNote}>各ページに付けたタグから自動で作った一覧だ。</p>
           </div>
 
           <section style={styles.section}>
@@ -344,23 +344,23 @@ export default function CrossViewPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>カテゴリ × POUR ― どの原則に関わるページがどこに多いか</h2>
             <PourHeatmap />
-            <p style={styles.chartNote}>数字は、そのカテゴリで該当する原則タグを持つページの数です(1ページに複数の原則タグが付くことがあります)。色が濃いほど多いことを示します。タグのないページは数えていません。</p>
+            <p style={styles.chartNote}>数字は、そのカテゴリで該当する原則タグを持つページの数だ(1ページに複数の原則タグが付くことがある)。色が濃いほど多いことを示す。タグのないページは数えていない。</p>
           </div>
 
           <section style={styles.section}>
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>
-            <p style={styles.diagramNote}>くくりやタグを押すと、それが付いたページを層ごとに並べます。カードの下の小さいタグは、そのページに付いているほかのタグです。数字はページ数です。</p>
+            <p style={styles.diagramNote}>くくりやタグを押すと、それが付いたページを層ごとに並べる。カードの下の小さいタグは、そのページに付いているほかのタグだ。数字はページ数だ。</p>
             <TagExplorer />
             {untagged.length > 0 && (
               <p style={styles.chartNote}>
-                タグが付いていないページ({untagged.length}): {untagged.map((p, i) => (<React.Fragment key={p.path}>{i > 0 && "・"}<a href={p.path} style={styles.inlineLink}>{p.label}</a></React.Fragment>))}。12のくくりから選んでタグを付けてください。
+                タグが付いていないページ({untagged.length}): {untagged.map((p, i) => (<React.Fragment key={p.path}>{i > 0 && "・"}<a href={p.path} style={styles.inlineLink}>{p.label}</a></React.Fragment>))}。12のくくりから選んでタグを付ける。
               </p>
             )}
           </section>
 
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。各ページのタグをビルド時に自動で集計)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: タグは各ページ側で付ける → ビルド時にこの一覧を作り直す → 人が確認</span>
           </div>
         </div>
@@ -372,12 +372,12 @@ export default function CrossViewPage() {
 const styles = {
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20 },
   swatchLabel: { display: "block", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   legendRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: 12 },
   legendItem: { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 8, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px" },
   legendText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
@@ -385,16 +385,16 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.7 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.7 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   section: { marginBottom: 26 },
   hmScroll: { overflowX: "auto" },
   hmGrid: { display: "grid", gridTemplateColumns: "minmax(150px, 1.3fr) repeat(4, minmax(72px, 1fr))", minWidth: 470, border: "1px solid #E1E3F0", borderRadius: 4 },
   hmHead: { fontSize: 11, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD" },
-  hmHeadEn: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 500, color: "#7E86AC" },
+  hmHeadEn: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, fontWeight: 500, color: "#666D93" },
   hmLabel: { fontSize: 11.5, color: "#2E3457", padding: "6px 10px", borderBottom: "1px solid #EEF0F7", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 },
-  hmLabelCount: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#7E86AC" },
+  hmLabelCount: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, color: "#666D93" },
   hmCell: { padding: "5px 8px", borderBottom: "1px solid #EEF0F7", borderLeft: "1px solid #EEF0F7", display: "flex", alignItems: "center", justifyContent: "center" },
   hmBox: { width: "100%", maxWidth: 64, height: 26, borderRadius: 4, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11.5, fontWeight: 600 },
   catGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 8, marginBottom: 14 },
@@ -403,7 +403,7 @@ const styles = {
   catIcon: { width: 28, height: 28, flexShrink: 0, borderRadius: 6, background: "#EEF1FA", color: "#3C5A73", fontSize: 13, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" },
   catIconOn: { background: "#3C5A73", color: "#FFFFFF" },
   catName: { display: "flex", alignItems: "baseline", gap: 6, fontSize: 12.5, fontWeight: 700, color: "#171B36" },
-  catCount: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 600, color: "#7E86AC" },
+  catCount: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 600, color: "#666D93" },
   catDesc: { display: "block", fontSize: 10.5, lineHeight: 1.5, color: "#565D8A", marginTop: 2 },
   warnNote: { fontSize: 11, color: "#A33A2E", background: "#FBEFEC", borderRadius: 4, padding: "6px 9px", margin: "4px 0 10px" },
   chipGroupLabel: { fontSize: 11, fontWeight: 700, color: "#565D8A", margin: "4px 0 6px" },
@@ -420,7 +420,7 @@ const styles = {
   resultLayerName: { fontSize: 11, fontWeight: 700, color: "#565D8A", marginBottom: 6 },
   resultList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 210px), 1fr))", gap: 8 },
   resultCard: { display: "flex", flexDirection: "column", gap: 3, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "9px 11px", textDecoration: "none", color: "inherit" },
-  resultGroup: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, color: "#7E86AC" },
+  resultGroup: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, color: "#666D93" },
   resultTitle: { fontSize: 13, fontWeight: 700, color: "#3A4FCF" },
   resultTags: { display: "flex", flexWrap: "wrap", gap: 4, marginTop: 2 },
   miniPrinciple: { fontSize: 9.5, padding: "1px 6px", borderRadius: 3, background: "#454C78", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
@@ -432,5 +432,5 @@ const styles = {
   numTd: { padding: "7px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.55, verticalAlign: "top" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

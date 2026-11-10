@@ -36,7 +36,7 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "マテリアルは、背景の色を前景へ透過させることで、文字や操作部品を背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしている(ページ本文を直接確認、2026-09)。",
+      "マテリアルは、背景の色を前景へ透過させることで、文字や操作部品を背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしている。",
     exceptions:
       "Liquid Glassの効果は目立つため、独自の部品に使う場合は最も重要な操作に限り、控えめに使うよう求めている。背後の内容が十分に暗い場合や、独自の暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷く必要はないとしている。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせる。",
     accessibility:
@@ -45,7 +45,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass",
     refs: [
-      { label: "Materials / Dark Mode", url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" },
+      { label: "Materials", url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass" },
       { label: "Standard materials", url: "https://developer.apple.com/design/human-interface-guidelines/materials#Standard-materials" },
       { label: "Dark Mode: iOS, iPadOS(base/elevated)", url: "https://developer.apple.com/design/human-interface-guidelines/dark-mode#iOS-iPadOS" },
     ],
@@ -60,16 +60,16 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "ダークテーマの背景を真っ黒ではなく濃いグレーにしているのは、影を見えやすくし、明るい文字による目の負担を減らすためだと説明している(Material Components for Androidのドキュメントとトークン定義で直接確認、2026-09)。",
+      "ダークテーマの背景を真っ黒ではなく濃いグレーにしているのは、影を見えやすくし、明るい文字による目の負担を減らすためだと説明している。",
     exceptions:
-      "どのコンポーネントがどのレベルを使うか、ホバーやドラッグで高さがどう変わるかといった指針はm3.material.io(SPA)にあり、本文は直接確認できていない。",
+      "どの部品がどのレベルを使うか、ホバーやドラッグで高さがどう変わるかは、Jetpack Composeの各部品のトークン(ContainerElevationなど)で決まっている(下の対応図)。",
     accessibility:
-      "―(エレベーションそのものについての専用のアクセシビリティ基準は確認できていない)。影だけで層を区別すると、暗い画面や低いコントラストでは違いが伝わりにくいため、ダークテーマでは色の明るさでも区別する設計になっている。",
+      "―(エレベーションそのものについての専用のアクセシビリティ基準はない)。影だけで層を区別すると、暗い画面や低いコントラストでは違いが伝わりにくいため、ダークテーマでは色の明るさでも区別する設計になっている。",
     useCases: null,
     searchHint: "",
     url: "https://m3.material.io/styles/elevation/overview",
     refs: [
-      { label: "Elevation / Dark theme", url: "https://m3.material.io/styles/elevation/overview" },
+      { label: "Elevation", url: "https://m3.material.io/styles/elevation/overview" },
       { label: "Compose Material 3 ElevationTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/ElevationTokens.kt" },
       { label: "MDC Android: Dark theme(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md" },
     ],
@@ -81,7 +81,7 @@ const SOURCES = [
     doc: "WCAG 2.4.11 Focus Not Obscured (Minimum) / 1.4.11 Non-text Contrast",
     color: "#A3821F",
     position: "重なりの表現方法は規定しない。上に重なった要素によって、キーボードでフォーカスした部品が完全に隠れないことを求める",
-    size: "影・重なりについての数値基準はない。2.4.11(レベルAA): 部品がキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、その部品が完全に隠れないこと。",
+    size: "影・重なりについての数値基準はない。2.4.11(レベルAA): 部品がキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、その部品が完全に隠れないこと。2.4.12(レベルAAA)では、一部も隠れないこと。",
     colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部とみなしてコントラストを計算するとしている。つまり影は部品を識別する手がかりとしては数えられず、影があってもなくても、部品の境界や中身そのものが識別できる必要がある。",
     glossary: [
       { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスを受けた部品が、固定ヘッダーやバナーなど制作者が作った重なりによって完全に隠れないことを求める基準。一部が隠れるのはこの基準では許容される。" },
@@ -101,6 +101,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion",
     refs: [
       { kind: "sc", level: "AA", label: "2.4.11 フォーカスが隠されない(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "2.4.12 フォーカスが隠されない(高度)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#adjacent-colors" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
@@ -114,7 +115,7 @@ const SOURCES = [
     size: "数値基準ではなく原則としての言及。完全にフラットなデザインではなく、控えめな影・ハイライト・重なりで奥行きを加えた「フラット2.0(セミフラット)」を、多くの製品に勧めている。",
     colorInfo: "ダークモードでは、白い要素に暗い影を付けるような重なりの表現がそのまま使えず、黒い背景に黒い要素を置いて明るい影を付けると、影ではなく光っているように見えるとしている。暗い画面で奥行きを出すには、一番下の面を最も暗く、手前(利用者に近い)の要素ほど明るい色にするのがよいとしている。",
     stance:
-      "フラットデザインは押せる場所の手がかりを失いやすいため、控えめな3Dの影や重なりを加えて要素どうしの関係を明確にするよう勧めている。Material Designが影と層のルールを体系化した点を評価しつつ、実際には影や層が利用者の理解を助けるためではなく、見た目のためだけに使われていることが多いと指摘している(記事本文を直接取得して確認済み、2026-09)。",
+      "フラットデザインは押せる場所の手がかりを失いやすいため、控えめな3Dの影や重なりを加えて要素どうしの関係を明確にするよう勧めている。Material Designが影と層のルールを体系化した点を評価しつつ、実際には影や層が利用者の理解を助けるためではなく、見た目のためだけに使われていることが多いと指摘している。",
     exceptions:
       "モーダルと背景を区別するための暗い半透明の幕(スクリム)は、ダークモードでは背景との差が小さくなり、ほとんど見えなくなることがあるとしている。浮いて見せたい要素(フローティングボタンなど)は、ライト・ダークの両方で同じように目立つか確認するよう勧めている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテスト・視線計測に基づく設計上の根拠。",
@@ -126,7 +127,7 @@ const SOURCES = [
     searchHint: "Add back in some depth",
     url: "https://www.nngroup.com/articles/flat-design-best-practices/",
     refs: [
-      { label: "Flat-Design Best Practices / Dark Mode: Issues to Avoid", url: "https://www.nngroup.com/articles/flat-design-best-practices/" },
+      { label: "Flat-Design Best Practices", url: "https://www.nngroup.com/articles/flat-design-best-practices/" },
       { label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-issues-to-avoid-3" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
@@ -156,7 +157,7 @@ function DepthSwatch() {
   );
 }
 
-/* 四サイト比較図: 4系列の重なりの表し方(イラスト) */
+/* 四系列比較図: 4系列の重なりの表し方(イラスト) */
 
 function ElevationChart() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
@@ -173,19 +174,19 @@ function ElevationChart() {
       </defs>
       {/* Google */}
       <text x="0" y="22" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Google</text>
-      <text x="0" y="36" fontSize="8.5" fill="#7E86AC" fontFamily={font}>影の高さ</text>
+      <text x="0" y="36" fontSize="8.5" fill="#666D93" fontFamily={font}>影の高さ</text>
       <rect x={x0} y="6" width="496" height="64" rx="6" fill="#FEF7FF" stroke="#E1E3F0" />
-      <text x={x0 + 8} y="64" fontSize="7.5" fill="#7E86AC" fontFamily={font}>地 = Surface</text>
+      <text x={x0 + 8} y="64" fontSize="7.5" fill="#666D93" fontFamily={font}>地 = Surface</text>
       {[["0", null, 0], ["1", "ecS1", 1], ["3", "ecS3", 3], ["6", "ecS3", 6], ["8", "ecS5", 8], ["12", "ecS5", 12]].map(([v, f, n], i) => (
         <g key={v}>
           <rect x={x0 + 70 + i * 70} y="16" width="48" height="30" rx="6" fill={i === 0 ? "#FEF7FF" : "#FFFFFF"} stroke={i === 0 ? "#2F7D6E" : "none"} strokeDasharray={i === 0 ? "3 2" : undefined} filter={f ? `url(#${f})` : undefined} />
           <text x={x0 + 94 + i * 70} y="35" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily={mono}>{v}dp</text>
-          <text x={x0 + 94 + i * 70} y="60" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily={mono}>Level {i}</text>
+          <text x={x0 + 94 + i * 70} y="60" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily={mono}>Level {i}</text>
         </g>
       ))}
       {/* Apple */}
       <text x="0" y="104" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
-      <text x="0" y="118" fontSize="8.5" fill="#7E86AC" fontFamily={font}>透ける素材</text>
+      <text x="0" y="118" fontSize="8.5" fill="#666D93" fontFamily={font}>透ける素材</text>
       <rect x={x0} y="82" width="496" height="70" rx="6" fill="url(#ecBg)" />
       <circle cx={x0 + 120} cy="112" r="20" fill="#E4572E" opacity="0.8" />
       <circle cx={x0 + 300} cy="118" r="24" fill="#2F6FED" opacity="0.7" />
@@ -196,7 +197,7 @@ function ElevationChart() {
       <text x={x0 + 390} y="137" fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>Liquid Glass(タブバーなど)</text>
       {/* W3C */}
       <text x="0" y="186" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>W3C</text>
-      <text x="0" y="200" fontSize="8.5" fill="#7E86AC" fontFamily={font}>隠さない</text>
+      <text x="0" y="200" fontSize="8.5" fill="#666D93" fontFamily={font}>隠さない</text>
       <rect x={x0} y="164" width="240" height="70" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
       <rect x={x0 + 20} y="180" width="90" height="22" rx="4" fill="#FFFFFF" stroke="#2F6FED" strokeWidth="2.5" />
       <text x={x0 + 65} y="195" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily={font}>フォーカス中</text>
@@ -210,7 +211,7 @@ function ElevationChart() {
       <text x={x0 + 376} y="248" fontSize="8" fill="#C0503F" textAnchor="middle" fontFamily={font}>✕ フォーカスが完全に隠れる</text>
       {/* NN */}
       <text x="0" y="284" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>NN group</text>
-      <text x="0" y="298" fontSize="8.5" fill="#7E86AC" fontFamily={font}>ダークの重なり</text>
+      <text x="0" y="298" fontSize="8.5" fill="#666D93" fontFamily={font}>ダークの重なり</text>
       <rect x={x0} y="262" width="496" height="60" rx="6" fill="#0F1014" />
       <rect x={x0 + 40} y="270" width="160" height="44" rx="6" fill="#23252C" />
       <rect x={x0 + 90} y="278" width="120" height="30" rx="6" fill="#363944" />
@@ -343,7 +344,7 @@ function TierMap() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0の部品は影なしでこの面に貼り付きます(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)です。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色です。Level 5(12dp)は段階としては定義されていますが、標準部品の既定値では使われていません。Appleの図は層の関係を示す概念図です。この対応は役割の近さでAIが並べたもので、公式の対応表ではありません。</p>
+      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0の部品は影なしでこの面に貼り付く(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)だ。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色だ。Level 5(12dp)は段階としては定義されているが、標準部品の既定値では使われていない。Appleの図は層の関係を示す概念図だ。この対応は役割の近さでAIが並べたもので、公式の対応表ではない。</p>
     </>
   );
 }
@@ -382,18 +383,18 @@ function RuleAxesTable() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違います</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分けます。
+              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違う</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分ける。
             </p>
             <p style={styles.synthesisText}>
-              段階ごとの役割もはっきりしています。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引く部品(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変えます。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしています。</p>
+              段階ごとの役割もはっきりしている。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引く部品(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変える。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしている。</p>
             <p style={styles.synthesisText}>
-              ところが暗い画面になると、答えがそろいます。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 4→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めています。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出しています。
+              ところが暗い画面になると、答えがそろう。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 6→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めている。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには重なりの表し方の基準はありません。代わりに、<strong>固定ヘッダーやバナーなど上に重なった要素で、キーボードのフォーカスが完全に隠れないこと(2.4.11)</strong>を求めます。影や素材の見た目より、重なりの結果として操作を見失わないかを問題にしています。
+              W3Cには重なりの表し方の基準はない。代わりに、<strong>固定ヘッダーやバナーなど上に重なった要素で、キーボードのフォーカスが完全に隠れないこと(2.4.11)</strong>を求める。影や素材の見た目より、重なりの結果として操作を見失わないかを問題にしている。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、影や重なりが<strong>見た目の装飾ではなく、要素の関係を伝えるために使われるべき</strong>だと指摘しています。実務では、Googleの段階またはAppleの素材で層の意味を決めたうえで、<strong>ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないか</strong>を確かめるのが、4系列を合わせた結論です。
+              NN groupは、影や重なりが<strong>見た目の装飾ではなく、要素の関係を伝えるために使われるべき</strong>だと指摘している。実務では、Googleの段階またはAppleの素材で層の意味を決めたうえで、<strong>ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないか</strong>を確かめるのが、4系列を合わせた結論だ。
             </p>
           </div>
       <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -447,7 +448,7 @@ function GoogleLevelTable() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}>影の値はGoogle公式のWeb版コンポーネント(Material Web)の定義(x y ぼかし 広がり)。AndroidではOSの影の描画に高さ(dp)を渡します。影の色はどちらのテーマでも黒(Shadowロール)です。</p>
+      <p style={styles.chartNote}>影の値はGoogle公式のWeb版コンポーネント(Material Web)の定義(x y ぼかし 広がり)。AndroidではOSの影の描画に高さ(dp)を渡す。影の色はどちらのテーマでも黒(Shadowロール)だ。</p>
     </>
   );
 }
@@ -486,7 +487,7 @@ function AppleThicknessDetail() {
           ))}
         </div>
       </div>
-      <p style={styles.chartNote}>厚さごとの推奨用途が具体的に書かれているのはtvOSとvisionOSです。macOSは用途ごとに名前の付いた標準マテリアルがあり、背景の混ぜ方をウィンドウの後ろ(behind window)とウィンドウ内(within window)から選びます。透け具合の図は概念図です。</p>
+      <p style={styles.chartNote}>厚さごとの推奨用途が具体的に書かれているのはtvOSとvisionOSだ。macOSは用途ごとに名前の付いた標準マテリアルがあり、背景の混ぜ方をウィンドウの後ろ(behind window)とウィンドウ内(within window)から選ぶ。透け具合の図は概念図だ。</p>
     </>
   );
 }
@@ -559,7 +560,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりです。";
+const LEAD = "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "重なりの順番を見せ、どれが手前で操作の対象かを分かりやすくする" },
   { k: "関わる場面", v: "ダイアログ・メニュー・シートの重なり、カードの影、上部バーの区切り" },
@@ -596,7 +597,7 @@ export default function TokensElevationPage() {
           <SummaryCard
             imageLabel="重なりの表し方(ライトとダーク)"
             image={<><DepthSwatch /></>}
-            imageNote={<>明るい画面では影で要素を浮かせられますが、暗い画面では影が背景に溶けて見えません。そのため暗い画面では、手前の面ほど明るい色にして重なりを表します。</>}
+            imageNote={<>明るい画面では影で要素を浮かせられるが、暗い画面では影が背景に溶けて見えない。そのため暗い画面では、手前の面ほど明るい色にして重なりを表す。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -604,9 +605,9 @@ export default function TokensElevationPage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 重なりの表し方</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 重なりの表し方</h2>
             <ElevationChart />
-            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)で部品を浮かせます。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねます。W3Cは表し方を定めず、重なりでフォーカス中の部品が完全に隠れないこと(2.4.11)を求めます。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めています。ダークでの面の色は下の対応図を見てください。図は概念図です(Googleの影は実際の値を簡略化)。</p>
+            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)で部品を浮かせる。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねる。W3Cは表し方を定めず、重なりでフォーカス中の部品が完全に隠れないこと(2.4.11)を求める。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めている。ダークでの面の色は下の対応図を参照。図は概念図だ(Googleの影は実際の値を簡略化)。</p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -625,7 +626,6 @@ export default function TokensElevationPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -676,8 +676,9 @@ export default function TokensElevationPage() {
 
           <section id="elv-rules" style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>Google・Appleの階層ルール ― 役割ごとに並べて比較</h2>
-            <p style={styles.diagramNote}>Googleは「影の高さ(Level)」、Appleは「層と素材」と表し方は違いますが、どの役割の面をどう浮かせるかで並べると対応関係が見えます。①役割ごとの対応図 → ②同じ観点で並べたルール → ③詳しい値、の順に読めるようにしています。</p>
+            <p style={styles.diagramNote}>Googleは「影の高さ(Level)」、Appleは「層と素材」と表し方は違うが、どの役割の面をどう浮かせるかで並べると対応関係が見える。①役割ごとの対応図 → ②同じ観点で並べたルール → ③詳しい値、の順に読めるようにしている。</p>
             <h3 style={styles.subTitle}>① 役割ごとの対応図(奥 → 手前)</h3>
+            <p style={styles.diagramNote}>Googleの部品ごとのLevelは、Jetpack Composeの各部品のトークン(ContainerElevation・ContainerColor)の値。</p>
             <TierMap />
             <h3 style={styles.subTitle}>② ルールを同じ観点で比較</h3>
             <RuleAxesTable />
@@ -693,11 +694,8 @@ export default function TokensElevationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値とダークテーマでの扱いはGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Materialsページの「Liquid Glass」見出しへのアンカー付きリンクで、標準マテリアルとダークモードのbase/elevatedの見出しも併記しています。GoogleはM3のElevationページに加え、数値を確認したGitHub上の公式ソースを併記しています。WCAGは2.4.11 Understandingページの達成基準の箇所と、1.4.11の隣接色の節です。NN groupはフラットデザインの実践記事と、ダークモードの記事の「避けるべき問題」の節です。
-            </span>
           </div>
         </div>
       </div>
@@ -709,18 +707,18 @@ const styles = {
   baseBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 700, color: "#FFFFFF", background: "#3A4FCF", borderRadius: 3, padding: "0 5px", marginRight: 6, verticalAlign: "1px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   seeBelow: { fontSize: 11.5, color: "#3C5A73", textDecoration: "none", lineHeight: 1.6 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "18px 0 8px" },
   ruleSection: { marginBottom: 26 },
@@ -746,7 +744,7 @@ const styles = {
   gPrevDp: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: "#565D8A" },
   gPrevDark: { height: 20, borderRadius: 4, border: "1px solid #D5D9EC", display: "flex", alignItems: "center", justifyContent: "center" },
   gPrevDarkText: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 8.5, color: "#E6E0E9" },
-  gPrevNone: { fontSize: 8, color: "#9EA4C4" },
+  gPrevNone: { fontSize: 8, color: "#666D93" },
   apPrevBox: { width: 76, height: 66, flexShrink: 0, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #E1E3F0" },
   apPrevGrad: { width: 76, height: 66, flexShrink: 0, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #C2542A, #3A4FCF 55%, #2F7D6E)" },
   apPrevSolid: { fontSize: 10, color: "#565D8A" },
@@ -777,22 +775,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -810,5 +808,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

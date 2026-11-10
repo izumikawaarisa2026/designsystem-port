@@ -30,20 +30,20 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Alerts",
-    term: "Alert",
+    term: "Alert(「ダイアログ」という名前の部品はなく、用途が重なるAlertを比べる。作業をさせるモーダルはSheets=ボトムシートのページ)",
     color: "#C2542A",
     position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
     size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
-    colorInfo: <span><NoData>記載なし。</NoData>危険な操作を表す赤系の強調表示が一般的に使われますが、Alertsページ本文で直接の規定は確認できていない。</span>,
+    colorInfo: <span><NoData>記載なし。</NoData></span>,
     stance:
-      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない(HIG Alertsの本文で確認、2026-11)。",
+      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
     ],
     exceptions:
       "ボタンの名前は、押した結果を表す1〜2語の動詞にする(「OK」は情報だけを伝えるアラートに限る)。最も選ばれやすいボタンは末尾(横並びなら右)、キャンセルは先頭(左)に置き、キャンセルを既定のボタンにしない。利用者が意図して選んだのではない壊す操作のボタンだけ、壊す操作の見た目にする。",
     accessibility:
-      <span><NoData>記載なし。</NoData>VoiceOver等の支援技術での読み上げは、標準のAlertコントロールを使うことで自動的に対応されると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "取り消せない重大な操作の前など、本当に必要な場面に限定して使う",
       "タイトルは1行・簡潔に、メッセージは1〜2行に収める",
@@ -53,6 +53,7 @@ const SOURCES = [
     url: "https://developer.apple.com/design/human-interface-guidelines/alerts",
     refs: [
       { label: "Alerts", url: "https://developer.apple.com/design/human-interface-guidelines/alerts" },
+      { label: "参考: Sheets(作業をさせるモーダル)", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
     confirmedNote: "HIG Alertsの本文で確認(2026-11)。",
     pending: true,
@@ -60,7 +61,7 @@ const SOURCES = [
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="8" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
         <text x="60" y="26" fontSize="9" fontWeight="700" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">削除しますか?</text>
-        <text x="60" y="40" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">この操作は取り消せません</text>
+        <text x="60" y="40" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">この操作は取り消せません</text>
         <text x="38" y="58" fontSize="8" fill="#454C78" textAnchor="middle" fontFamily="Jost, Noto Sans JP">キャンセル</text>
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">削除</text>
       </svg>
@@ -74,7 +75,7 @@ const SOURCES = [
     term: "Dialog(Basic dialog)",
     color: "#2F7D6E",
     position: "アプリのコンテンツ手前に表示され、重要な情報を提供したり判断を求めたりするモーダルウィンドウ。基本ダイアログと全画面ダイアログの2種類のうち、このページはスクリム上の基本ダイアログを扱う",
-    size: <span><NoData>数値は未確認。</NoData>M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしている。</span>,
+    size: <span>幅280〜560dp(AlertDialog)、容器の角丸Extra large(28dp)、影Level 3、容器の色Surface container high(Jetpack Composeのトークン)。M2→M3では、角丸拡大とタイトルサイズの増加に対応するため余白が拡大され、角の半径も拡大されたとしている。</span>,
     colorInfo: "色の値はデザイントークンを通して実装されるとしている。M2→M3では新しいカラーマッピングとダイナミックカラーへの対応が加わったとしている。ダイアログコンテナは他の画面要素の上に表示され、対話に注目を集めるため背後の表面には一時的なオーバーレイ(スクリム)が重ねられるとしている。",
     glossary: [
       { term: "M2→M3の主な変更点", desc: "新しいカラーマッピング・ダイナミックカラーへの対応/角丸拡大とタイトルサイズ増加に伴う余白拡大/基本ダイアログの位置をカスタマイズするオプションの追加/角の半径拡大/より大きく濃い見出しタイポグラフィ、の5点。" },
@@ -104,7 +105,7 @@ const SOURCES = [
       <svg width="120" height="70" viewBox="0 0 120 70">
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
         <text x="60" y="24" fontSize="9" fontWeight="700" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">見出し</text>
-        <text x="60" y="38" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">補足テキスト</text>
+        <text x="60" y="38" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">補足テキスト</text>
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">OK</text>
       </svg>
     ),
@@ -164,7 +165,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>乱用による「オオカミ少年」効果(頻出しすぎて内容を読まれなくなること)を避けるため、表示頻度を絞るべきだとしている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>確認ダイアログは、ユーザーに操作を再考する機会を与える手段ですが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(<Hl>「オオカミ少年」効果</Hl>)としている。</>,
+      <>確認ダイアログは、ユーザーに操作を再考する機会を与える手段だが、設計を誤ると逆効果になるとしている。日常的な操作に多用すると、ユーザーが内容を読まずに「はい」を押す習慣がついてしまう(<Hl>「オオカミ少年」効果</Hl>)としている。</>,
     scenarios: [
       "ファイル削除など、取り消しできない操作の前",
       "高額な支払いなど、重大な結果を伴う操作の前",
@@ -230,7 +231,7 @@ function DialogSwatch() {
     <div style={{ width: 240, margin: "0 auto" }}>
       <div style={{ background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 8, padding: "16px 14px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}>
         <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 4, fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>削除しますか?</div>
-        <div style={{ fontSize: 11, color: "#7E86AC", marginBottom: 12 }}>この操作は取り消せません</div>
+        <div style={{ fontSize: 11, color: "#666D93", marginBottom: 12 }}>この操作は取り消せない</div>
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 16 }}>
           <span style={{ fontSize: 11.5, color: "#454C78" }}>キャンセル</span>
           <span style={{ fontSize: 11.5, color: "#3A4FCF", fontWeight: 700 }}>削除</span>
@@ -241,7 +242,7 @@ function DialogSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品です。";
+const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "作業をいったん止めて、大事な確認(削除してよいかなど)や短い選択に答えてもらう" },
   { k: "よく使われる場面", v: "削除・破棄の確認、権限の許可、保存せずに閉じるときの確認" },
@@ -257,7 +258,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "ボタンで確認する。読まずにReturnで閉じてほしくないときは、どのボタンも既定にしない。意図せず壊す操作になるボタンには壊す操作の見た目を付ける" },
       { who: "Google", color: "#2F7D6E", t: "ボタンで確認する。確認ボタンのラベルは「削除」のように次に起きることが分かる語にする。単純な確認では確認ボタンを無効にしない" },
     ],
-    tip: "ふだんはボタンの名前を具体的にする(Apple・Google・NN groupで一致)だけで十分です。アカウントの削除のように取り返しがつかず影響の大きい操作だけ、NN groupの勧める入力させる確認を足します。",
+    tip: "ふだんはボタンの名前を具体的にする(Apple・Google・NN groupで一致)だけで十分だ。アカウントの削除のように取り返しがつかず影響の大きい操作だけ、NN groupの勧める入力させる確認を足す。",
   },
 ];
 
@@ -301,13 +302,13 @@ export default function ContainmentDialogPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢です。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告しています。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致しています。
+              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢だ。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告している。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致している。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っています。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にあります。
+              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っている。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にある。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致しています。
+              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -334,7 +335,6 @@ export default function ContainmentDialogPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -411,11 +411,8 @@ export default function ContainmentDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはAlertsページ、GoogleはDialogsページへのリンクです。WCAGはWAI-ARIA APGのDialog(Modal)パターン、NN groupは記事ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -428,12 +425,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -442,24 +439,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -476,9 +473,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };
