@@ -174,7 +174,7 @@ function SoundTypesMap() {
   );
 }
 
-/* 四系列比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=記載なし) */
 const RULE_ROWS = [
   {
     label: "利用者が音を止められる",
@@ -542,7 +542,7 @@ export default function TokensSoundPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 音を鳴らすときのルール</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
           </div>
 
           <section style={styles.kindSection}>

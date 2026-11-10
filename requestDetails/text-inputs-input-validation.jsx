@@ -309,7 +309,7 @@ function TimingField({ value, state, caption, cursor }) {
   return (
     <div style={{ width: "100%", maxWidth: 220, margin: "0 auto", textAlign: "left" }}>
       <div style={{ fontSize: 10, color: "#565D8A", marginBottom: 3 }}>メールアドレス</div>
-      <div style={{ border: `1.6px solid ${border}`, borderRadius: 5, padding: "6px 8px", fontSize: 11.5, background: "#FFFFFF", color: value ? "#171B36" : "#9EA4C4", minHeight: 28, fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ border: `1.6px solid ${border}`, borderRadius: 5, padding: "6px 8px", fontSize: 11.5, background: "#FFFFFF", color: value ? "#171B36" : "#666D93", minHeight: 28, fontFamily: "'IBM Plex Mono', monospace" }}>
         {value || "name@example.com"}{cursor && <span style={{ color: "#3A4FCF" }}>|</span>}
       </div>
       <div style={{ fontSize: 10, marginTop: 4, lineHeight: 1.45, color: state === "error" ? "#C0503F" : state === "ok" ? "#2F7D6E" : "#666D93" }}>{caption}</div>

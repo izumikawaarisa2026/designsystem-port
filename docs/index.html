@@ -9522,7 +9522,7 @@ function CarouselSwatch() {
   );
 }
 
-/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const CAROUSEL_ROWS = [
   {
     label: "枚数",
@@ -9902,7 +9902,7 @@ function ContainmentCarouselPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針だ。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針だ。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -12426,7 +12426,7 @@ function TableSwatch() {
   );
 }
 
-/* 四系列比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 表の要素ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const TABLE_ROWS = [
   {
     label: "列見出し",
@@ -12674,7 +12674,7 @@ function ContainmentTablePage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 表の要素ごとに何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -20658,7 +20658,7 @@ function MenuSwatch() {
   );
 }
 
-/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const MENU_ROWS = [
   {
     label: "ラベル",
@@ -20895,7 +20895,7 @@ function SelectionMenuPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めている。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めている。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -24617,7 +24617,7 @@ function TimingField({ value, state, caption, cursor }) {
   return (
     <div style={{ width: "100%", maxWidth: 220, margin: "0 auto", textAlign: "left" }}>
       <div style={{ fontSize: 10, color: "#565D8A", marginBottom: 3 }}>メールアドレス</div>
-      <div style={{ border: `1.6px solid ${border}`, borderRadius: 5, padding: "6px 8px", fontSize: 11.5, background: "#FFFFFF", color: value ? "#171B36" : "#9EA4C4", minHeight: 28, fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ border: `1.6px solid ${border}`, borderRadius: 5, padding: "6px 8px", fontSize: 11.5, background: "#FFFFFF", color: value ? "#171B36" : "#666D93", minHeight: 28, fontFamily: "'IBM Plex Mono', monospace" }}>
         {value || "name@example.com"}{cursor && <span style={{ color: "#3A4FCF" }}>|</span>}
       </div>
       <div style={{ fontSize: 10, marginTop: 4, lineHeight: 1.45, color: state === "error" ? "#C0503F" : state === "ok" ? "#2F7D6E" : "#666D93" }}>{caption}</div>
@@ -31990,7 +31990,7 @@ function StateSwatch() {
   );
 }
 
-/* 四系列比較図: どの状態を定義しているか(◯=定義あり/△=部分的・条件付き/―=確認した範囲で定義なし) */
+/* 四系列比較図: どの状態を定義しているか(◯=定義あり/△=部分的・条件付き/―=定義なし) */
 const STATE_ROWS = [
   { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "◯", note: "visionOS: Idle/tvOS: Unfocused" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "部品を見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
   { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "visionOS: 視線でハイライト/iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
@@ -32242,7 +32242,7 @@ function TokensInteractionStatesPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― どの状態を定義しているか</h2>
             <StateMatrix />
-            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。◯=定義・明記されている、△=部分的・条件付き、―=確認した範囲では定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
+            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。◯=定義・明記されている、△=部分的・条件付き、―=定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -33824,7 +33824,7 @@ function TokensMotionPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値で長さを示すのはGoogleとNN groupだけで、W3Cは長さではなく安全面の上限(5秒・1秒間に3回)を定めている。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値で長さを示すのはGoogleとNN groupだけで、W3Cは長さではなく安全面の上限(5秒・1秒間に3回)を定めている。</p>
           </div>
 
           <div style={styles.chartCard}>
@@ -35675,7 +35675,7 @@ function SoundTypesMap() {
   );
 }
 
-/* 四系列比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=記載なし) */
 const RULE_ROWS = [
   {
     label: "利用者が音を止められる",
@@ -36039,7 +36039,7 @@ function TokensSoundPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 音を鳴らすときのルール</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
           </div>
 
           <section style={styles.kindSection}>
@@ -37230,7 +37230,7 @@ function VoiceToneSwatch() {
   );
 }
 
-/* 四系列比較図: UIの言葉の場面ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: UIの言葉の場面ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const WRITING_ROWS = [
   {
     label: "ボタン・リンク",
@@ -37645,7 +37645,7 @@ function TokensWritingPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― UIの言葉の場面ごとに何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)のWritingの指針だ。W3Cの「エラー」「用語の一貫性」は、ほかのページで扱っている基準を示している(表の中のリンクから各ページへ)。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)のWritingの指針だ。W3Cの「エラー」「用語の一貫性」は、ほかのページで扱っている基準を示している(表の中のリンクから各ページへ)。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>

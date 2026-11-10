@@ -847,7 +847,7 @@ export default function TokensMotionPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値で長さを示すのはGoogleとNN groupだけで、W3Cは長さではなく安全面の上限(5秒・1秒間に3回)を定めている。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値で長さを示すのはGoogleとNN groupだけで、W3Cは長さではなく安全面の上限(5秒・1秒間に3回)を定めている。</p>
           </div>
 
           <div style={styles.chartCard}>

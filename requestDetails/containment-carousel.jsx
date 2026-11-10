@@ -170,7 +170,7 @@ function CarouselSwatch() {
   );
 }
 
-/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const CAROUSEL_ROWS = [
   {
     label: "枚数",
@@ -554,7 +554,7 @@ export default function ContainmentCarouselPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針だ。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Appleの欄はカルーセルではなく、最も近いページコントロールの指針だ。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>

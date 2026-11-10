@@ -170,7 +170,7 @@ function VoiceToneSwatch() {
   );
 }
 
-/* 四系列比較図: UIの言葉の場面ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: UIの言葉の場面ごとに、何を定めているか(◯=明記/△=部分的・条件付き/―=記載なし) */
 const WRITING_ROWS = [
   {
     label: "ボタン・リンク",
@@ -589,7 +589,7 @@ export default function TokensWritingPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― UIの言葉の場面ごとに何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは旧版(Material Design 2)のWritingの指針だ。W3Cの「エラー」「用語の一貫性」は、ほかのページで扱っている基準を示している(表の中のリンクから各ページへ)。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)のWritingの指針だ。W3Cの「エラー」「用語の一貫性」は、ほかのページで扱っている基準を示している(表の中のリンクから各ページへ)。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
