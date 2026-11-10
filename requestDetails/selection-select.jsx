@@ -35,7 +35,7 @@ const SOURCES = [
     exceptions:
       "ユーザーがメニューを開かなくても選択肢の内容をある程度予測できるよう、説明的な前置きラベルやボタンラベルを用意すべきとしている。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準のPop-up/Pull-downボタンコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "相互排他的な選択肢から1つを選ばせる(Pop-upボタン)",
       "ボタンの目的に関連する複数の操作をまとめて提示する(Pull-downボタン、選択というより操作の実行)",
@@ -44,7 +44,7 @@ const SOURCES = [
     searchHint: "flat list of mutually exclusive options",
     url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons",
     refs: [
-      { label: "Pop-up buttons / Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+      { label: "Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
       { label: "Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
     ],
     illustration: () => (
@@ -64,7 +64,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
-      "メニュー全体の具体的なdp数値は確認できていないが、メニュー項目の最小タップ領域は48×48dpとされている。",
+      "メニュー項目の最小タップ領域は48×48dp。",
     colorInfo:
       "メニューには「標準(表面ベースの配色、視覚的強調は控えめ)」と「鮮やか(第三次色ベース、視覚的強調が強い)」の2種類のカラーマッピングがあるとしている。鮮やかな配色は目立つため控えめに使うべきとしている。選択済み/未選択の項目間は、デフォルトで少なくとも3:1のコントラスト比を確保すべきとし、チェックマークなど色以外の視覚的な手がかりも併用することを推奨している。",
     glossary: [
@@ -74,10 +74,10 @@ const SOURCES = [
     exceptions:
       "利用できない選択肢は、削除するのではなく無効状態(グレーアウトなど)で示すべきとしている。メニュー項目にボタンやスイッチなど別の直接操作可能な要素を追加することは避けるべきで、ネストされた要素は1つの操作のみを行うようにすべきとしている(複数の操作を持たせるとキーボード操作やスクリーンリーダーの機能が損なわれる可能性があるため)。",
     accessibility:
-      "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpです(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしている。無効化された項目はフォーカスを受け取れますが選択はできない(区切り線や空白部分はフォーカスを受け取らない)。",
+      "操作可能(Operable) ― メニュー項目の最小タップ領域は48×48dpだ(上記「サイズ」を参照)。メニューが開いたら最初の項目に自動的にフォーカスが当たるべきとしており、メニュー外側のタップ・システムの戻るボタンで閉じられるべきとしている。無効化された項目はフォーカスを受け取れるが選択はできない(区切り線や空白部分はフォーカスを受け取らない)。",
     useCases: [
       "選択肢が多く、常に全部表示すると場所を取りすぎる場面(ラジオボタン・チップより省スペース)",
-      "オーバーフローメニュー・テキストフィールドのドロップダウン・コンテキストメニューなど、追加の操作が必要な場面に使う",
+      "テキストフィールドの形のドロップダウンで、決まった選択肢から値を1つ選ぶ(オーバーフロー・コンテキストメニューなど命令の一覧は「メニュー」のページ)",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/menus/guidelines",
@@ -127,12 +127,14 @@ const SOURCES = [
     searchHint: "aria-selected",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/",
     refs: [
-      { kind: "apg", label: "APG: Combobox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+      { kind: "apg", label: "APG: Select-Only Comboboxの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
       { kind: "apg", label: "APG: Comboboxパターン(全体)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
       { kind: "apg", label: "APG: Listboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
       { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { kind: "sc", level: "A", label: "3.2.2 入力時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
       { kind: "sc", level: "A", label: "3.2.1 フォーカス時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html" },
+      { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
     ],
     confirmedNote: "3.2.1・3.2.2はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -141,7 +143,7 @@ const SOURCES = [
           <rect x="1" y="1" width="88" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <text x="10" y="17" fontSize="9.5" fill="#A3821F" fontFamily="Jost, Noto Sans JP">role="combobox"</text>
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>視覚デザインの規定はなく、役割の考え方を図示</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>視覚デザインの規定はなく、役割の考え方を図示</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、役割・状態の考え方を図示",
@@ -225,7 +227,7 @@ function SelectSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "押すと選択肢の一覧が開き、その中から値を選ぶ部品です(プルダウン)。";
+const LEAD = "押すと選択肢の一覧が開き、その中から値を選ぶ部品だ(プルダウン)。";
 const ABOUT = [
   { k: "目的・役割", v: "選択肢が多いときに場所をとらずに置き、選んだ値を表示し続ける" },
   { k: "よく使われる場面", v: "都道府県・国の選択、並べ替えの順番、フォームの選択項目" },
@@ -241,7 +243,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "数の目安はない。場所を節約できる一方、選択肢が多い・長いと使いにくい。国名や生年月日のように入力した方が速いものには使わない" },
       { who: "Apple", color: "#C2542A", t: "数の目安はない。互いに排他的な選択肢の平らな一覧にポップアップボタンを使う" },
     ],
-    tip: "5つ以下で場所に余裕があればラジオボタン(全部見えて比べやすい)、それより多いか場所がなければセレクト、数十件を超えて名前を知っているものなら入力して絞り込める欄、という順に考えると、3系列の考え方がつながります。",
+    tip: "5つ以下で場所に余裕があればラジオボタン(全部見えて比べやすい)、それより多いか場所がなければセレクト、数十件を超えて名前を知っているものなら入力して絞り込める欄、という順に考えると、3系列の考え方がつながる。",
   },
 ];
 
@@ -286,13 +288,13 @@ export default function SelectionSelectPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致しています。ラジオボタンと役割は近いですが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけです。
+              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要です。
+              Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応します</strong>。HTMLの標準のselect要素を使うと、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われます(見た目や操作は端末・ブラウザによって異なります)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全です。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例です(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応する</strong>。HTMLの標準のselect要素を使うと、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -318,7 +320,6 @@ export default function SelectionSelectPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -382,11 +383,8 @@ export default function SelectionSelectPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・NN group・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのメニュー全体のdp数値・カラートークンなどspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはPop-up buttons本体へのリンクです。W3CはAPGのComboboxパターン(実装の参考)を主リンクに、Select-Only Comboboxの例・Listboxパターン・WCAGの各Understandingページを併記、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページ(Menus)へリンクしており、本文は確認済みですが、specsページ本文(dp数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -399,12 +397,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -413,24 +411,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -448,5 +446,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

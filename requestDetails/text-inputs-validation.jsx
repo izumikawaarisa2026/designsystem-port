@@ -44,7 +44,7 @@ const SOURCES = [
     position: "エラー表示・バリデーションという名称の専用ガイドラインページは見当たらない。テキストフィールド関連の記載に含まれる",
     colorInfo: "エラー専用の色の規定はない。全体の方針として、色だけに頼らず、形やアイコンなどの手がかりを足すよう求めている(HIG Accessibility)。",
     stance:
-      "AppleのHIGには、エラー表示の専用ページはない。入力の決まり(Entering data)で、値は入力されたらすぐに確かめ、問題があればすぐに知らせて、その場で直せるようにするとしている。表示のタイミングの比較は「バリデーション」ページで扱う(HIG Entering data・Writingの本文で確認、2026-11)。",
+      "AppleのHIGには、エラー表示の専用ページはない。入力の決まり(Entering data)で、値は入力されたらすぐに確かめ、問題があればすぐに知らせて、その場で直せるようにするとしている。表示のタイミングの比較は「バリデーション」ページで扱う。",
     exceptions:
       "エラーは問題の起きた場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ、としている(HIG Writing)。",
     accessibility: <span><NoData>記載なし。</NoData>一般的な原則として、色だけに頼らない状態表示が挙げられている。</span>,
@@ -78,12 +78,12 @@ const SOURCES = [
     position: "テキストフィールドのバリエーションの1つとして「エラー状態」を持つ。エラー表示専用のコンポーネントはない",
     colorInfo: "エラー状態では、枠線・ラベル・エラーテキストにエラーの色を使う。あわせてエラーアイコンを表示することを強く勧めている。視覚に障害のある人にとって、色に加わる2つ目の手がかりになるため。",
     stance:
-      <>Material Design 3にはエラー表示という独立した部品はなく、<Hl>テキストフィールドの状態の1つとして「エラー状態」を持つ</Hl>。検証する欄では、欄の下のサポートテキストをエラーテキストに入れ替える(行が増えてレイアウトが動かないようにするため)。エラーが1種類ならその避け方を、複数ありうるなら最も起きやすいエラーの避け方を書く(M3 Text fieldsのガイドラインで確認、2026-11)。</>,
+      <>Material Design 3にはエラー表示という独立した部品はなく、<Hl>テキストフィールドの状態の1つとして「エラー状態」を持つ</Hl>。検証する欄では、欄の下のサポートテキストをエラーテキストに入れ替える(行が増えてレイアウトが動かないようにするため)。エラーが1種類ならその避け方を、複数ありうるなら最も起きやすいエラーの避け方を書く。</>,
     exceptions: "エラーテキストが長い場合は複数行に折り返してよいが、そのぶん欄どうしの間隔を十分にとり、レイアウトを押し出さないようにする。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― エラーの発生をテキスト(ヘルパーテキスト)でも伝えるべきとされ、色のみに依存しない表示が求められると考えられる(直接確認はできていない)。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― エラーは色だけでなく、エラーテキストとエラーアイコンでも伝える(エラーアイコンは色に加わる2つ目の手がかりとして強く勧めている)。",
     useCases: [
-      "無効な入力にはエラーカラーの枠線・ラベル・ヘルパーテキストを適用する",
+      "無効な入力にはエラーカラーの枠線・ラベル・サポートテキストを適用する",
       "エラーであることを示す末尾アイコンを併用する",
       "エラーテキストで具体的な訂正方法を伝える",
     ],
@@ -136,6 +136,8 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "3.3.3 エラー修正の提案", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html" },
       { kind: "sc", level: "AA", label: "3.3.4 エラー回避(法的、金融、データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
       { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { label: "ARIA21(aria-invalidでエラーの欄を示す技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21" },
+      { label: "ARIA19(role=\"alert\"でエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -158,7 +160,7 @@ const SOURCES = [
     stance:
       <>エラーはフィールドの近くに表示し、認知的な負荷を減らすべきとしている。理想的には全ての検証をインラインで行い、ユーザーが1つのフィールドの入力を終えた直後に、その場でエラーの有無を示すべきとしている。これによりユーザーは入力の途中で修正でき、やり直しのコストを減らせるとしている。エラーメッセージは平易な言葉で、簡潔かつ正確に問題を説明し、具体的な解決策を提示すべきで、<Hl>ユーザーを責める表現(「無効」「不正」など)は避けるべき</Hl>としている。</>,
     exceptions:
-      "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしている。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしている。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしている。ユーモアは繰り返されると陳腐化するため避けるべきとしている。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けている。入力欄のエラーは、欄の近くに消えない形で出すのが基本です(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
+      "ユーザーが実際に何らかの入力を行うまでは、エラーを早まって表示すべきではないとしている。前の入力内容は保持し、ユーザーがゼロから入力し直す必要がないようにすべきとしている。可能であれば、正しい候補を推測し、小さな一覧からユーザーが選べるようにするとよいとしている。ユーモアは繰り返されると陳腐化するため避けるべきとしている。また、「知っておくとよい」程度の軽微な問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を使い、作業の妨げになる問題にはモーダルダイアログで対応を求める、と使い分けている。入力欄のエラーは、欄の近くに消えない形で出すのが基本だ(トーストは自動で消え、読み逃しやすいため。AI解釈)。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、エラーメッセージの伝わりやすさ・修正のしやすさに基づく実務的な指針。",
     useCases: [
       "フィールドの近くにインラインでエラーを表示し、入力直後に検証する",
@@ -168,7 +170,7 @@ const SOURCES = [
     searchHint: "don't blame the user",
     url: "https://www.nngroup.com/articles/error-message-guidelines/",
     refs: [
-      { label: "Error-Message Guidelines / 10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/error-message-guidelines/" },
+      { label: "Error-Message Guidelines", url: "https://www.nngroup.com/articles/error-message-guidelines/" },
       { label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" },
     ],
     illustration: () => (
@@ -227,7 +229,7 @@ function ValidationSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示です。";
+const LEAD = "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示だ。";
 const ABOUT = [
   { k: "目的・役割", v: "間違いの場所と理由、直し方を伝え、入力をやり直せるようにする" },
   { k: "よく使われる場面", v: "フォームの入力欄の下のエラー文、送信後のエラーのまとめ" },
@@ -272,16 +274,16 @@ export default function TextInputsValidationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も体系的なのはW3Cです。<strong>「エラーの特定(3.3.1・レベルA)」→「訂正案の提示(3.3.3・レベルAA)」→「重要操作でのエラー防止(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっています。
+              このコンポーネントで最も体系的なのはW3Cだ。<strong>「エラーの特定(3.3.1・レベルA)」→「訂正案の提示(3.3.3・レベルAA)」→「重要操作でのエラー防止(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供しています。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「訂正案の提示」を実際にどう書くかという具体化と言えます。
+              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「訂正案の提示」を実際にどう書くかという具体化と言える。
             </p>
             <p style={styles.synthesisText}>
-              興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことです。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としては文書化していないと考えられます。
+              興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことだ。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としては文書化していないと考えられる。
             </p>
             <p style={styles.synthesisText}>
-              Apple・W3C・NN groupの3系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則です。Apple(アイコン・テキストの併用)・W3C(1.4.1の色の使用+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言えます。
+              Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の使用+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -306,7 +308,6 @@ export default function TextInputsValidationPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -375,11 +376,8 @@ export default function TextInputsValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはEntering dataとWritingのページへのリンクです(エラー表示の専用ページなし)。WCAGは3.3.1 Understandingページを基本リンクとし、3.3.3・3.3.4のUnderstandingページも併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはError-Message Guidelinesを基本リンクとし、関連記事も併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -392,12 +390,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -406,24 +404,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -441,9 +439,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -35,11 +35,11 @@ const SOURCES = [
       "高さの数値の記載なし。タイトルは15文字未満を目安にし、ほかの操作のための場所を残す。項目は見分けて押せるよう、入れすぎない",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の移動を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く(HIG Toolbarsの本文で確認、2026-11)。",
+      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の移動を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く。",
     exceptions:
       "幅が狭くなったときに溢れる項目を決めておく。macOS・iPadOSでは、収まらない項目にシステムが自動でオーバーフローメニューを付けるので、自分では足さない。ウィンドウのタイトルにアプリ名は使わない。",
     accessibility:
-      <span><NoData>記載なし。</NoData>一般的なタップ領域基準(44×44pt)がここにも適用されると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "階層構造を1段ずつ掘り下げるナビゲーションに使う(戻るボタンで1段戻る)",
       "現在の画面タイトルを示し、よく使うコマンド・操作へのアクセスを提供する",
@@ -63,12 +63,12 @@ const SOURCES = [
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― App bar(2025年5月改称、旧「Top app bar」)",
+    doc: "Material Design 3 ― App bar",
     term: "App bar(旧Top app bar。検索アプリバーを含む)",
     color: "#2F7D6E",
     position: "画面上部でページの内容・主要操作・ナビゲーション操作(戻る/メニューなど)を示すバー。小型・中型フレキシブル・大型フレキシブルに加え、検索の入り口となる検索アプリバーの4系統を持つ",
     size:
-      "具体的な高さのdp数値は確認できていないが、M3 Expressiveのアップデートで全体の高さが従来より低くなったとしている。中型・大型の「ベースライン」変異体は非推奨となり、複数行の見出しに対応しつつ高さを抑えた「中型フレキシブル」「大型フレキシブル」への置き換えが案内されている。検索アプリバーの詳細サイズは本ページ末尾の専用セクションを参照してください。",
+      "M3 Expressiveのアップデートで全体の高さが従来より低くなったとしている。中型・大型の「ベースライン」変異体は非推奨となり、複数行の見出しに対応しつつ高さを抑えた「中型フレキシブル」「大型フレキシブル」への置き換えが案内されている。検索アプリバーの詳細サイズは本ページ末尾の専用セクションを参照。",
     colorInfo:
       "色の値はデザイントークン経由で実装するとしている。すべての変異体が同じ色の役割を共有し、スクロール時にはコンテナ色をサーフェスコンテナ色に変えて背景コンテンツとの分離を示すか、逆にコンテナを透明にしてボタンをコンテンツの上に浮かせるか、いずれかの手法を選べるとしている。",
     glossary: [
@@ -89,7 +89,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/app-bars/guidelines",
     refs: [
-      { label: "App bar(2025年5月改称、旧「Top app bar」)", url: "https://m3.material.io/components/app-bars/guidelines" },
+      { label: "App bars", url: "https://m3.material.io/components/app-bars/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/app-bars/specs" },
     ],
     confirmedNote: "M3の公式ページ本文(m3.material.io「App bars」のガイドライン)で、名称変更の経緯・バリエーション・色・容器・先頭ボタン・見出し・末尾アイコン・アダプティブデザイン・スクロール挙動・アクセシビリティの各セクションを2026-09に直接確認・反映(M3 Expressive 2025年5月アップデート時点の内容)。具体的な高さのdp数値はドキュメント内に記載がなく未確認。",
@@ -132,7 +132,8 @@ const SOURCES = [
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#banner",
     refs: [
-      { label: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6", url: "https://www.w3.org/TR/wai-aria-1.2/#banner" },
+      { label: "WAI-ARIA: banner", url: "https://www.w3.org/TR/wai-aria-1.2/#banner" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "mdn", label: "bannerロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/banner_role" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
@@ -157,7 +158,7 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "常時表示させる価値があるかを費用対効果で判断すべき、常設ヘッダー(数値基準ではなく判断基準)",
     size: "モバイルのタップ領域は約1×1cm、テキストは約16ptを目安とし、それ以上の余白は最小限にすべきとしている。",
-    colorInfo: "常設ヘッダーは、内容の背景と違う不透明な色にすべきとしている。半透明の背景は下のコンテンツと重なって読みにくくなるためです(Googleの「透明にしてボタンを浮かせる」手法とは考え方が異なる)。",
+    colorInfo: "常設ヘッダーは、内容の背景と違う不透明な色にすべきとしている。半透明の背景は下のコンテンツと重なって読みにくくなるためだ(Googleの「透明にしてボタンを浮かせる」手法とは考え方が異なる)。",
     stance:
       <>常設(スティッキー)ヘッダーは、ナビゲーション・検索・ユーティリティナビゲーションへ素早くアクセスできる一方、常にコンテンツ表示領域を占有するというコストを伴うとしている。導入前に、その要素がセッション中に本当に頻繁に必要とされるかどうかの<Hl>費用対効果分析を行うべき</Hl>としている。コンテンツと chrome(枠部分)の比率を意識すべきとし、良い例では13:1程度、悪い例では2:1程度まで下がるとしている。</>,
     exceptions:
@@ -229,31 +230,31 @@ function TopBarSwatch() {
 const SEARCH_APP_BAR_ITEMS = [
   {
     label: "検索の入り口として",
-    text: "検索アプリバーは、検索ビューを開くための目立つ入り口として使うアプリバーのバリエーションだとしています。バーのラベルには必ず「検索」という語(または各言語での相当語)を含めるべきとしています。",
+    text: "検索アプリバーは、検索ビューを開くための目立つ入り口として使うアプリバーのバリエーションだとしている。バーのラベルには必ず「検索」という語(または各言語での相当語)を含めるべきとしている。",
   },
   {
     label: "ボタンの配置",
-    text: "モバイル版では、アバターに加えて最大2つのアイコンボタンを表示できるとしています。末尾のアイコンは検索バーの内側・外側どちらにも配置可能です。アバターを表示する場合、末尾に2つ以上のアイコンボタンを追加しないとしています。より多くの操作が必要な場合はツールバー側に配置すべきとしています。",
+    text: "モバイル版では、アバターに加えて最大2つのアイコンボタンを表示できるとしている。末尾のアイコンは検索バーの内側・外側どちらにも配置可能だ。アバターを表示する場合、末尾に2つ以上のアイコンボタンを追加しないとしている。より多くの操作が必要な場合はツールバー側に配置すべきとしている。",
   },
   {
     label: "先頭のロゴ",
-    text: "先頭には製品ロゴを置くことができ、装飾目的のみでも、ホーム画面に戻る・画面を更新するなどの操作を兼ねてもよいとしています。ただし、拡張ナビゲーションレールを開く操作にロゴを使うことは避けるべきだとしています。",
+    text: "先頭には製品ロゴを置くことができ、装飾目的のみでも、ホーム画面に戻る・画面を更新するなどの操作を兼ねてもよいとしている。ただし、拡張ナビゲーションレールを開く操作にロゴを使うことは避けるべきだとしている。",
   },
   {
     label: "大画面での拡張",
-    text: "画面幅に応じて動的に調整され、大きい画面では末尾に最大4つのアイコンを表示できるとしています。検索コンテナは先頭・末尾の要素の間のスペースを埋めるように広がり、312dpに達するまで拡大を続け、それ以降はそのスペースの50%までしか広がらないとしています。",
+    text: "画面幅に応じて動的に調整され、大きい画面では末尾に最大4つのアイコンを表示できるとしている。検索コンテナは先頭・末尾の要素の間のスペースを埋めるように広がり、312dpに達するまで拡大を続け、それ以降はそのスペースの50%までしか広がらないとしている。",
   },
   {
     label: "配色",
-    text: "既定では検索コンテナにサーフェスコンテナの色、ラベルにサーフェスバリアントの色を使うとしています。背景が暗い場合は、サーフェスブライトなど明るいコンテナ色を使うべきだとしています。既定以外の色ロールを使う場合はテキストとコンテナのコントラスト比を3:1以上確保すべきで、カスタムの色ロール自体は避けるのが望ましいとしています。",
+    text: "既定では検索コンテナにサーフェスコンテナの色、ラベルにサーフェスバリアントの色を使うとしている。背景が暗い場合は、サーフェスブライトなど明るいコンテナ色を使うべきだとしている。既定以外の色ロールを使う場合はテキストとコンテナのコントラスト比を3:1以上確保すべきで、カスタムの色ロール自体は避けるのが望ましいとしている。",
   },
   {
     label: "スクロール時の変形",
-    text: "中型フレキシブル・大型フレキシブルのアプリバーはスクロールに応じて小型アプリバーへ変形しますが、検索アプリバーへは変形させないとしています。",
+    text: "中型フレキシブル・大型フレキシブルのアプリバーはスクロールに応じて小型アプリバーへ変形するが、検索アプリバーへは変形させないとしている。",
   },
   {
     label: "アクセシビリティ",
-    text: "見出し(タイトル)のアクセシビリティラベルは表示テキストと一致させ、必要に応じて補足情報を加えるべきだとしています。アイコンボタンには、その操作内容が明確に伝わるラベル(例: 「地図で表示」)を付けるべきだとしています。",
+    text: "見出し(タイトル)のアクセシビリティラベルは表示テキストと一致させ、必要に応じて補足情報を加えるべきだとしている。アイコンボタンには、その操作内容が明確に伝わるラベル(例: 「地図で表示」)を付けるべきだとしている。",
   },
 ];
 
@@ -265,14 +266,14 @@ function SearchAppBarSection() {
         <h2 style={styles.searchSectionTitle}>検索アプリバー(Search app bar)</h2>
       </div>
       <p style={styles.searchSectionIntro}>
-        Googleのアプリバーには、検索ビューへの入り口として使う「検索アプリバー」というバリエーションがあります。記載内容・注意点が多いため、上記の4系列比較には含めず、専用セクションとしてまとめています。
+        Googleのアプリバーには、検索ビューへの入り口として使う「検索アプリバー」というバリエーションがある。記載内容・注意点が多いため、上記の4系列比較には含めず、専用セクションとしてまとめている。
       </p>
       <div style={styles.diffBox}>
         <div style={styles.diffTitle}>検索アプリバーと検索フィールドの違い</div>
         <div style={styles.diffRow}>
           <div style={styles.diffCol}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, background: "#EEF1FA", borderRadius: 20, padding: "6px 10px", width: 190 }}>
-              <span style={{ fontSize: 11 }}>☰</span><span style={{ flex: 1, fontSize: 11, color: "#7E86AC" }}>アプリ内を検索</span><span style={{ width: 16, height: 16, borderRadius: 8, background: "#C7CBE6" }} />
+              <span style={{ fontSize: 11 }}>☰</span><span style={{ flex: 1, fontSize: 11, color: "#666D93" }}>アプリ内を検索</span><span style={{ width: 16, height: 16, borderRadius: 8, background: "#C7CBE6" }} />
             </div>
             <div style={styles.diffName}>検索アプリバー(入り口)</div>
             <p style={styles.diffText}>画面の上部に置く、アプリバーの1つの型。見た目は検索欄だが、押すと<strong>検索ビュー</strong>(入力と候補を出す画面)が開く。検索がアプリ全体の主な機能であるときに向く(特定の画面の中だけを検索するなら「検索バー」)。</p>
@@ -280,13 +281,13 @@ function SearchAppBarSection() {
           <div style={styles.diffArrow}>押すと →</div>
           <div style={styles.diffCol}>
             <div style={{ display: "flex", alignItems: "center", gap: 6, border: "1.4px solid #3A4FCF", borderRadius: 6, padding: "6px 10px", width: 190, background: "#FFFFFF" }}>
-              <span style={{ fontSize: 11 }}>‹</span><span style={{ flex: 1, fontSize: 11, color: "#171B36" }}>東京 カフェ|</span><span style={{ fontSize: 11, color: "#7E86AC" }}>✕</span>
+              <span style={{ fontSize: 11 }}>‹</span><span style={{ flex: 1, fontSize: 11, color: "#171B36" }}>東京 カフェ|</span><span style={{ fontSize: 11, color: "#666D93" }}>✕</span>
             </div>
             <div style={styles.diffName}>検索フィールド(入力する欄)</div>
             <p style={styles.diffText}>実際に言葉を入力する欄。検索ビューの中や、ページの中に置く。候補や結果の見せ方も含めて、<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページで4系列を比較している。</p>
           </div>
         </div>
-        <p style={styles.diffNote}><strong>Appleにも近い置き方があります</strong>。iOSでは、検索の入り口を「タブバーの検索タブ」「画面の上部か下部のツールバー」「内容の中」のどこに置くかを選べ、上部のツールバー(ナビゲーションバー)に置いた検索ボタンを押すと、検索フィールドに変わるとしています(HIG Search fields)。W3CとNielsen Norman Groupには、検索アプリバーに当たる項目はありません。</p>
+        <p style={styles.diffNote}><strong>Appleにも近い置き方がある</strong>。iOSでは、検索の入り口を「タブバーの検索タブ」「画面の上部か下部のツールバー」「内容の中」のどこに置くかを選べ、上部のツールバー(ナビゲーションバー)に置いた検索ボタンを押すと、検索フィールドに変わるとしている(HIG Search fields)。W3CとNielsen Norman Groupには、検索アプリバーに当たる項目はない。</p>
       </div>
       <div style={styles.searchSectionGrid}>
         {SEARCH_APP_BAR_ITEMS.map((it) => (
@@ -297,14 +298,14 @@ function SearchAppBarSection() {
         ))}
       </div>
       <p style={styles.searchSectionNote}>
-        出典: m3.material.io「App bars」のガイドラインの本文(Material Design 3)。Appleの置き方はHIG「Search fields」のiOSの節。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照してください。
+        出典: m3.material.io「App bars」のガイドラインの本文(Material Design 3)。Appleの置き方はHIG「Search fields」のiOSの節。虫眼鏡アイコン・発見性など検索の入り口全般の4系列比較は「検索フィールド」ページを参照。
       </p>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバーです。";
+const LEAD = "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバーだ。";
 const ABOUT = [
   { k: "目的・役割", v: "今いる画面がどこかを示し、前の画面へ戻る手段と、その画面の主な操作を置く" },
   { k: "よく使われる場面", v: "設定画面の見出しと戻るボタン、メール画面の検索・メニューのアイコン" },
@@ -320,7 +321,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "常に残るヘッダーは、内容と違う不透明な色にする。半透明だと下の内容と重なって読みにくい" },
       { who: "Apple", color: "#C2542A", t: "独自の背景色や色付きの操作は控え、内容の層の色をいかす。内容とバーを分ける必要があるときはスクロールの端の効果を使う" },
     ],
-    tip: "透かすかどうかより、バーの文字やアイコンが下の内容の上でも読めることが大切です。透かす場合は、どんな内容の上でもコントラストが保てるかを確かめ、保てないならNN groupの勧めのように不透明にします。",
+    tip: "透かすかどうかより、バーの文字やアイコンが下の内容の上でも読めることが大切だ。透かす場合は、どんな内容の上でもコントラストが保てるかを確かめ、保てないならNN groupの勧めのように不透明にする。",
   },
 ];
 
@@ -357,9 +358,6 @@ export default function NavigationAppBarPage() {
           />
 
           <SplitSection splits={SPLITS} />
-          <p style={styles.renameNote}>
-            旧ページ名「トップバー」から改称(2026-09)。Googleが2025年5月のM3 Expressiveアップデートで、対応コンポーネントの名称を「トップアプリバー」から「アプリバー」に変更したことに合わせています。
-          </p>
 
 
 
@@ -367,22 +365,22 @@ export default function NavigationAppBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>「ナビゲーションバー」ページのコラムを独立させたもの</strong>です。Appleが元々「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタン+画面タイトルを持つ上部バーは、Googleの<strong>「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネント</strong>であることが分かりました。両者とも、画面ごとにタイトルを示し、先頭に戻る/閉じるためのアイコン、末尾に関連操作アイコンを置くという構造が共通しています。
+              Appleが以前「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタン+画面タイトルを持つ上部バーは、Googleの<strong>「アプリバー」(旧Top app bar)がほぼ正確な対応コンポーネント</strong>だ。両者とも、画面ごとにタイトルを示し、先頭に戻る/閉じるためのアイコン、末尾に関連操作アイコンを置くという構造が共通している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはありませんが、<strong>bannerランドマーク</strong>が最も近い関連概念です。ただしbannerは、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱いません</strong>。1ページに複数のbannerランドマークを置くべきではない、という点も実装上の注意点です。
+              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはないが、<strong>bannerランドマーク</strong>が最も近い関連概念だ。ただしbannerは、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱わない</strong>。1ページに複数のbannerランドマークを置くべきではない、という点も実装上の注意点だ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupにも「上部バー」という名前の専用記事はありませんが、<strong>常設ヘッダー全般の費用対効果を問う「Sticky Headers」</strong>が関連する実務的知見を提供しています。<strong>「コンテンツとchromeの比率」</strong>(良い例で13:1、悪い例で2:1)という具体的な目安は、Apple・Googleどちらのアプリバーにも当てはまる、実装時の判断材料です。
+              Nielsen Norman Groupにも「上部バー」という名前の専用記事はないが、<strong>常設ヘッダー全般の費用対効果を問う「Sticky Headers」</strong>が関連する実務的知見を提供している。<strong>「コンテンツとchromeの比率」</strong>(良い例で13:1、悪い例で2:1)という具体的な目安は、Apple・Googleどちらのアプリバーにも当てはまる、実装時の判断材料だ。
             </p>
             <p style={styles.synthesisText}>
-              背景の透明度では意見が分かれます。<strong>NN groupは常設ヘッダーを、内容と違う不透明な色にすべき</strong>としている一方、<strong>Googleはスクロール時にコンテナを透明にしてボタンを内容の上に浮かせる手法も選べる</strong>としています。透明・半透明にするなら、<strong>上に載る文字やアイコンが、下の内容と重なっても読めるかを確かめる</strong>のが判断の目安です(AI解釈)。
+              背景の透明度では意見が分かれる。<strong>NN groupは常設ヘッダーを、内容と違う不透明な色にすべき</strong>としている一方、<strong>Googleはスクロール時にコンテナを透明にしてボタンを内容の上に浮かせる手法も選べる</strong>としている。透明・半透明にするなら、<strong>上に載る文字やアイコンが、下の内容と重なっても読めるかを確かめる</strong>のが判断の目安だ(AI解釈)。
             </p>
             <p style={styles.synthesisText}>
-              Googleのアプリバーには、検索ビューへの入り口となる<strong>「検索アプリバー」</strong>というバリエーションもありますが、他3系列に直接対応する概念がないため、4系列比較には含めず、ページ末尾にGoogle単独の専用セクションとしてまとめています。
+              Googleのアプリバーには、検索ビューへの入り口となる<strong>「検索アプリバー」</strong>というバリエーションもあるが、他3系列に直接対応する概念がないため、4系列比較には含めず、ページ末尾にGoogle単独の専用セクションとしてまとめている。
             </p>
             <p style={styles.synthesisText}>
-              このページと「ナビゲーションバー」ページを合わせて読むと、<strong>AppleのTab BarsはGoogleのNavigation barに、ToolbarsはGoogleのアプリバーに対応する</strong>、という4系列比較全体の構造が見えてきます。
+              このページと「ナビゲーションバー」ページを合わせて読むと、<strong>AppleのTab BarsはGoogleのNavigation barに、ToolbarsはGoogleのアプリバーに対応する</strong>、という4系列比較全体の構造が見えてくる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -408,7 +406,6 @@ export default function NavigationAppBarPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -485,11 +482,8 @@ export default function NavigationAppBarPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはToolbarsページへのリンクです(旧Navigation Barsページから統合)。W3CはWAI-ARIA仕様のbannerロールを主リンクに、APGのLandmark Regionsと、分かりやすい解説としてMDNを併記しています。NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしています。
-            </span>
           </div>
         </div>
       </div>
@@ -504,19 +498,19 @@ const styles = {
   diffTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
   diffRow: { display: "flex", flexWrap: "wrap", gap: 12, alignItems: "flex-start" },
   diffCol: { flex: "1 1 220px", minWidth: 0 },
-  diffArrow: { fontSize: 11, color: "#7E86AC", alignSelf: "center" },
+  diffArrow: { fontSize: 11, color: "#666D93", alignSelf: "center" },
   diffName: { fontSize: 12.5, fontWeight: 700, color: "#171B36", margin: "8px 0 4px" },
   diffText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: 0 },
   diffNote: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 8px" },
-  renameNote: { fontSize: 11.5, color: "#7E86AC", margin: "0 0 22px", lineHeight: 1.6, fontStyle: "italic" },
+  renameNote: { fontSize: 11.5, color: "#666D93", margin: "0 0 22px", lineHeight: 1.6, fontStyle: "italic" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -525,24 +519,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -566,13 +560,13 @@ const styles = {
   searchSectionCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "10px 12px" },
   searchSectionCardLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11.5, fontWeight: 700, color: "#2F7D6E", marginBottom: 4 },
   searchSectionCardText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: 0 },
-  searchSectionNote: { fontSize: 10, color: "#7E86AC", margin: 0, lineHeight: 1.5, fontStyle: "italic" },
+  searchSectionNote: { fontSize: 10, color: "#666D93", margin: 0, lineHeight: 1.5, fontStyle: "italic" },
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

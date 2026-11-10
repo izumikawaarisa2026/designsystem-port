@@ -30,7 +30,7 @@ const SOURCES = [
     size: "広さの区分は横・縦それぞれcompact/regularの2つで、境界値は公開されていない。対応すべき変化として、画面サイズ、向きと縦横比、Dynamic Islandなどのシステムの機能、外部ディスプレイ・画面表示の拡大・iPadとMacでのウィンドウのリサイズ、文字サイズの変更、地域設定(右から左の表記・日付や数字の書式・文字の長さ)を挙げている。",
     colorInfo: "広い画面では、タブバーをサイドバーに切り替えたり、オーバーフローメニューにまとめていた機能を表に出したりしてよいとしている。iPadOSでは、タブバーを、サイドバーに切り替えるボタン付きで表示できる。スプリットビューはiPadOSで2列(メールのように)か3列(Keynoteのように)。iPhoneの縦向きのようなcompactの環境では、スプリットビューを使わないよう勧めている。",
     stance:
-      "回転・ウィンドウのリサイズ・ディスプレイの追加・別の端末への切り替えのどれでも、体験が変わらず慣れたものに感じられるようにすることを求めている。そのために、セーフエリア・マージン・レイアウトガイドを尊重する。サイズクラスの組み合わせはすべて起こりうるため、縦横どちらの向きでも全部を検討し、最大と最小のレイアウトから確認すると効率的だとしている(ページ本文を直接確認、2026-10)。",
+      "回転・ウィンドウのリサイズ・ディスプレイの追加・別の端末への切り替えのどれでも、体験が変わらず慣れたものに感じられるようにすることを求めている。そのために、セーフエリア・マージン・レイアウトガイドを尊重する。サイズクラスの組み合わせはすべて起こりうるため、縦横どちらの向きでも全部を検討し、最大と最小のレイアウトから確認すると効率的だとしている。",
     exceptions:
       "横向き専用のゲームのように向きを固定するアプリでも、ウィンドウや端末の大きさの違いには対応すべきだとしている。背景の画像は、縦横比を変えずに拡大して画面を埋める。macOSのスプリットビューは縦・横・両方に分割でき、ペインに最小・最大の大きさを決めたり、作業に集中するためにペインを隠せるようにしたりする。",
     accessibility:
@@ -43,7 +43,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability",
     refs: [
-      { label: "Layout(Adaptability・Size classes)/ Tab bars / Split views", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability" },
+      { label: "Layout ― Adaptability", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability" },
       { label: "Layout ― Size classes", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Size-classes" },
       { label: "Tab bars ― iPadOS(サイドバーへの切り替え)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars#iPadOS" },
       { label: "Split views ― iPadOS", url: "https://developer.apple.com/design/human-interface-guidelines/split-views#iPadOS" },
@@ -56,14 +56,14 @@ const SOURCES = [
     doc: "Material Design 3 ― Adaptive design / Canonical layouts(Android Developers)",
     color: "#2F7D6E",
     position: "ウィンドウサイズクラスごとに、ナビゲーションの部品とペイン(画面の区画)の数を切り替える。よく使う形を「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)として3種類用意している",
-    size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならナビゲーションバー、それ以外はナビゲーションレールに自動で切り替わります(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
+    size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならナビゲーションバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
     colorInfo: "広さが変わっても状態を保つ。リストと詳細を並べていた画面が狭くなったら、詳細を残してリストを隠す。詳細だけを表示していた画面が広くなったら、リストも並べ、詳細に表示中の項目をリストで選択中として示す。リストだけのときに広くなったら、空の詳細ペインを並べる。",
     stance:
-      "カノニカルレイアウトは、スマートフォンからタブレット・折りたたみ端末・ChromeOSまで、多くの画面で実績のある汎用的な形で、Material Designの指針から作られたものだとしている。ナビゲーションの切り替えは、タブレットを両手で持ったときに左右の端に手が届きやすいよう、広い画面ではレールにする、という考え方です(Android Developersの本文を直接確認、2026-10)。",
+      "カノニカルレイアウトは、スマートフォンからタブレット・折りたたみ端末・ChromeOSまで、多くの画面で実績のある汎用的な形で、Material Designの指針から作られたものだとしている。ナビゲーションの切り替えは、タブレットを両手で持ったときに左右の端に手が届きやすいよう、広い画面ではレールにする、という考え方だ。",
     exceptions:
       "補助ペインの内容は、主の内容と組み合わせて初めて意味を持つもの(文書へのコメント、動画の関連動画、編集ツールのパレットなど)に使い、単独でも意味のある詳細(商品の説明など)はリスト・詳細を使う、と区別している。フィードは、1列のスクロールから複数列のグリッドまで、画面の広さに合わせて列の数を変える。",
     accessibility:
-      "―(アダプティブ専用のアクセシビリティ基準は確認できていない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
+      "―(アダプティブ専用のアクセシビリティ基準はない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)が求める「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
       "Compactではナビゲーションバー、それより広い画面ではナビゲーションレールにする",
       "一覧と詳細があるアプリ(メッセージ・連絡先など)は、Expanded幅で2ペインを並べる",
@@ -72,7 +72,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/foundations/layout/canonical-examples/overview",
     refs: [
-      { label: "Adaptive design / Canonical layouts(Android Developers)", url: "https://m3.material.io/foundations/layout/canonical-examples/overview" },
+      { label: "Canonical layouts", url: "https://m3.material.io/foundations/layout/canonical-examples/overview" },
       { label: "Android: Canonical layouts", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/canonical-layouts#list-detail" },
       { label: "Android: Build adaptive navigation", url: "https://developer.android.com/develop/ui/compose/layouts/adaptive/build-adaptive-navigation" },
       { label: "M3: Adaptive design", url: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" },
@@ -92,7 +92,7 @@ const SOURCES = [
       { term: "1.3.4 Orientation・レベルAA", desc: "表示と操作を縦・横のどちらかに固定しないことを求める基準。特定の向きが欠かせない場合は例外。" },
     ],
     stance:
-      "大きな文字が必要な人にとって、長い行を読むために横にスクロールし続けるのは難しいため。向きについては、車いすのアームなどに端末を固定して使う人は、端末を回転させられないためだとしている(Understandingページの本文を直接確認、2026-10)。",
+      "大きな文字が必要な人にとって、長い行を読むために横にスクロールし続けるのは難しいため。向きについては、車いすのアームなどに端末を固定して使う人は、端末を回転させられないためだとしている。",
     exceptions:
       "1.4.10は、使い方や意味のために2次元の配置が必要な部分(理解に必要な図や地図、動画、ゲーム、プレゼンテーション、データ表、操作中に表示し続ける必要があるツールバー)を例外とする。1.3.4は、小切手、ピアノのアプリ、プロジェクターやテレビ向けのスライド、VRのように、特定の向きが欠かせない場合を例外とする。",
     accessibility: "知覚可能(Perceivable) ― 1.4.10・1.3.4はいずれもPOURの「知覚可能」に属し、拡大して使う弱視の人や、端末を固定して使う人が、同じ情報と操作にたどり着けることを目的としている。",
@@ -118,7 +118,7 @@ const SOURCES = [
     size: "標準は決まっていないとしたうえで、よく使う目安として、Extra-small 500pxまで(スマートフォン・4列のグリッド)、Small 500〜1200px(タブレット・8列)、Medium 1200〜1400px(ノートパソコン・12列)、Large 1400px以上(外部モニター・12列)を挙げている。実際には、2〜3個のブレークポイントに対応するのが一般的。",
     colorInfo: "切り替えで起きる典型的な変化として、ナビゲーションの変更(左のナビゲーションをハンバーガーメニューに畳む)、列を畳む(右の列を本文に入れる・別の場所に移す)、1行に見える要素の数を変える、の3つを挙げている。実例として、広い画面で一覧と地図を並べ、タブレットでは地図をボタンの奥に隠すサイトを紹介している。",
     stance:
-      "ブレークポイントの値は、利用者がどんな端末で見ているかを分析して決め、開発チームと一緒に定めるよう勧めている。各サイズで、利用者が知るべきことがすぐ手に入るか、列を縦に積んだときに重要な操作(右の列にあった主な行動ボタンなど)が見つけにくくならないかを確かめるよう求めている(記事本文を直接取得して確認、2026-10)。",
+      "ブレークポイントの値は、利用者がどんな端末で見ているかを分析して決め、開発チームと一緒に定めるよう勧めている。各サイズで、利用者が知るべきことがすぐ手に入るか、列を縦に積んだときに重要な操作(右の列にあった主な行動ボタンなど)が見つけにくくならないかを確かめるよう求めている。",
     exceptions:
       "ブレークポイントを増やすほど細かく対応できるが、デザインの手間が増えるため、実際には2〜3個に絞られることが多いとしている。重要な操作が埋もれる場合は、前にある内容をアコーディオンに畳むなど、通常の積み方の例外を作ってもよいとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、Webのレイアウト設計の実務に基づく指針。",
@@ -178,7 +178,7 @@ function ReflowSwatch() {
   );
 }
 
-/* 四サイト比較図: 画面の広さが変わると、何が変わるか */
+/* 四系列比較図: 画面の広さが変わると、何が変わるか */
 const ADAPT_ROWS = [
   {
     key: "hig", name: "Apple", color: "#C2542A",
@@ -192,7 +192,7 @@ const ADAPT_ROWS = [
     key: "material", name: "Google", color: "#2F7D6E",
     cells: [
       { wire: { nav: "bottom", cols: [1] }, text: "Compact: ナビゲーションバー+1ペイン(リストか詳細の一方)" },
-      { wire: { nav: "rail", cols: [1, 1] }, text: "Medium: ナビゲーションレール。補助ペインは1:1で並べる(リスト・詳細は一方のみ)" },
+      { wire: { nav: "rail", cols: [1, 1] }, text: "Medium: M3の指針ではナビゲーションバー(横型の項目)かナビゲーションレール(Jetpack ComposeのNavigationSuiteScaffoldの既定ではレール)。補助ペインは1:1で並べる(リスト・詳細は一方のみ)" },
       { wire: { nav: "rail", cols: [1, 1.6] }, text: "Expanded: レール+2ペイン(リストと詳細を並べる)。補助ペインは7:3" },
     ],
   },
@@ -384,7 +384,7 @@ function BigChanges() {
   return (
     <section style={styles.ruleSection}>
       <h2 style={styles.diagramTitle}>画面の広さで大きく変わる部品</h2>
-      <p style={styles.diagramNote}>部品そのものが入れ替わるものをまとめました。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替えます。詳しくは各部品のページを見てください。</p>
+      <p style={styles.diagramNote}>部品そのものが入れ替わるものをまとめた。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替える。詳しくは各部品のページを参照。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.bcTable}>
           <thead><tr>
@@ -405,7 +405,7 @@ function BigChanges() {
           ))}</tbody>
         </table>
       </div>
-      <p style={styles.chartNote}>出典: M3「Navigation bar」「Navigation drawer」「Dialogs」「Bottom sheets」「Side sheets」「Canonical layout examples」、HIG「Tab bars」「Sidebars」「Popovers」「Sheets」「Split views」。</p>
+      <p style={styles.chartNote}>出典: <a href="https://m3.material.io/components/navigation-bar/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Navigation bar</a>・<a href="https://m3.material.io/components/navigation-drawer/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Navigation drawer</a>・<a href="https://m3.material.io/components/dialogs/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Dialogs</a>・<a href="https://m3.material.io/components/bottom-sheets/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Bottom sheets</a>・<a href="https://m3.material.io/components/side-sheets/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Side sheets</a>・<a href="https://m3.material.io/foundations/layout/canonical-examples/overview" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>M3 Canonical layout examples</a>・<a href="https://developer.apple.com/design/human-interface-guidelines/tab-bars" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>HIG Tab bars</a>・<a href="https://developer.apple.com/design/human-interface-guidelines/sidebars" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>HIG Sidebars</a>・<a href="https://developer.apple.com/design/human-interface-guidelines/popovers" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>HIG Popovers</a>・<a href="https://developer.apple.com/design/human-interface-guidelines/sheets" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>HIG Sheets</a>・<a href="https://developer.apple.com/design/human-interface-guidelines/split-views" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>HIG Split views</a>。</p>
     </section>
   );
 }
@@ -441,7 +441,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の広さや向き、ウィンドウの大きさが変わったときに、レイアウトを組み替える考え方です。";
+const LEAD = "画面の広さや向き、ウィンドウの大きさが変わったときに、レイアウトを組み替える考え方だ。";
 const ABOUT = [
   { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },
@@ -476,7 +476,7 @@ export default function TokensAdaptivePage() {
           <SummaryCard
             imageLabel="同じ内容を、画面の広さに合わせて組み替える(概念図)"
             image={<><ReflowSwatch /></>}
-            imageNote={<>狭い画面では下のナビゲーションと1列、広くなるにつれて横のナビゲーションと複数の区画(ペイン)に組み替えます。内容と機能は同じまま、見せ方だけを変えるのが基本です。ブレークポイントの値や余白は「レイアウト・スペーシング」ページを参照してください。</>}
+            imageNote={<>狭い画面では下のナビゲーションと1列、広くなるにつれて横のナビゲーションと複数の区画(ペイン)に組み替える。内容と機能は同じまま、見せ方だけを変えるのが基本だ。ブレークポイントの値や余白は「レイアウト・スペーシング」ページを参照。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -484,25 +484,25 @@ export default function TokensAdaptivePage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 画面の広さが変わると、何が変わるか</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 画面の広さが変わると、何が変わるか</h2>
             <AdaptiveChart />
-            <p style={styles.chartNote}>図はそれぞれの記述をもとにした概念図で、色の帯はナビゲーション(下=バー、細い縦=レール、太い縦=サイドバー・左のナビゲーション、上の線=ハンバーガー)、四角は内容の区画です。「狭い・中くらい・広い」は比較のための便宜的な区分で、Appleはcompact/regularの2区分、Googleはウィンドウサイズクラス、NN groupはWebの画面幅(px)を基準にしています。</p>
+            <p style={styles.chartNote}>図はそれぞれの記述をもとにした概念図で、色の帯はナビゲーション(下=バー、細い縦=レール、太い縦=サイドバー・左のナビゲーション、上の線=ハンバーガー)、四角は内容の区画だ。「狭い・中くらい・広い」は比較のための便宜的な区分で、Appleはcompact/regularの2区分、Googleはウィンドウサイズクラス、NN groupはWebの画面幅(px)を基準にしている。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示しています。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めています。
+              <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示している。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めている。
             </p>
             <p style={styles.synthesisText}>
-              組み替え方を最も具体的に決めているのはGoogleです。<strong>Compactではナビゲーションバー、それより広ければナビゲーションレール</strong>に自動で切り替え、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示しています。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもあります。
+              組み替え方を最も具体的に決めているのはGoogleだ。<strong>Compactではナビゲーションバー、それより広ければナビゲーションレール</strong>に自動で切り替え(Jetpack ComposeのNavigationSuiteScaffoldの既定。M3の指針ではMediumはバーかレール)、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示している。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもある。
             </p>
             <p style={styles.synthesisText}>
-              Appleは境界値を示さず、システムが決める<strong>サイズクラス(compact/regular)</strong>で判断させます。広い画面では<strong>タブバーをサイドバーに切り替え、スプリットビューで2〜3列</strong>にするなど、Googleと同じ方向の組み替えを勧めつつ、<strong>リサイズしてもプラットフォームらしいレイアウトのままにする</strong>ことを重視しています。
+              Appleは境界値を示さず、システムが決める<strong>サイズクラス(compact/regular)</strong>で判断させる。広い画面では<strong>タブバーをサイドバーに切り替え、スプリットビューで2〜3列</strong>にするなど、Googleと同じ方向の組み替えを勧めつつ、<strong>リサイズしてもプラットフォームらしいレイアウトのままにする</strong>ことを重視している。
             </p>
             <p style={styles.synthesisText}>
-              NN groupはWebのブレークポイントの目安として<strong>500px・1200px・1400px</strong>を挙げ、実際には2〜3個で十分としています。切り替えで<strong>ナビゲーションをハンバーガーに畳む・列を減らす</strong>ときは、主な行動ボタンが埋もれないかの確認を求めています。実務では、<strong>Googleの型で組み替え方を決め、W3Cの320pxと縦横両方の向きで情報と機能が残るかを確かめる</strong>のが、4系列を合わせた結論です。
+              NN groupはWebのブレークポイントの目安として<strong>500px・1200px・1400px</strong>を挙げ、実際には2〜3個で十分としている。切り替えで<strong>ナビゲーションをハンバーガーに畳む・列を減らす</strong>ときは、主な行動ボタンが埋もれないかの確認を求めている。実務では、<strong>Googleの型で組み替え方を決め、W3Cの320pxと縦横両方の向きで情報と機能が残るかを確かめる</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -521,7 +521,6 @@ export default function TokensAdaptivePage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -572,13 +571,13 @@ export default function TokensAdaptivePage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>広さに合わせて「変えてよいもの」と「変えてはいけないもの」</h2>
-            <p style={styles.diagramNote}>4系列の記述を、組み替えてよい要素と、どの広さでも保つべき要素に分けて整理しました。右の名前は根拠にした系列です。</p>
+            <p style={styles.diagramNote}>4系列の記述を、組み替えてよい要素と、どの広さでも保つべき要素に分けて整理した。右の名前は根拠にした系列だ。</p>
             <ChangeRules />
           </section>
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>Googleのカノニカルレイアウト3種と、Appleの近い考え方</h2>
-            <p style={styles.diagramNote}>Googleは、よく使う画面構成を3つの「型」として用意し、広さに応じた組み替え方まで決めています。Appleには同じ名前の型はありませんが、スプリットビューが近い役割を持ちます。</p>
+            <p style={styles.diagramNote}>Googleは、よく使う画面構成を3つの「型」として用意し、広さに応じた組み替え方まで決めている。Appleには同じ名前の型はないが、スプリットビューが近い役割を持つ。</p>
             <CanonicalLayouts />
           </section>
 
@@ -597,11 +596,8 @@ export default function TokensAdaptivePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(Apple・W3C・NN groupは本文確認済み。GoogleはM3のLayoutの本文をブラウザで表示して確認、切り替えのルールはAndroid Developersの本文でも確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Layoutページの「Adaptability」見出しへのアンカー付きリンクで、Size classes・Tab bars・Split viewsの見出しも併記しています。GoogleはM3のCanonical examplesのページに加え、内容を確認したAndroid Developersのページを併記しています。WCAGは1.4.10・1.3.4のUnderstandingページです。NN groupはBreakpoints in Responsive Designの「Four Common Breakpoints」の節です。
-            </span>
           </div>
         </div>
       </div>
@@ -617,22 +613,22 @@ const styles = {
   amLink: { fontSize: 11, color: "#3A4FCF" },
   bcTable: { width: "100%", minWidth: 820, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   bcTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", verticalAlign: "bottom" },
-  bcSub: { fontSize: 10, fontWeight: 400, color: "#7E86AC", fontFamily: "'IBM Plex Mono', monospace" },
+  bcSub: { fontSize: 10, fontWeight: 400, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" },
   bcRowHead: { textAlign: "left", verticalAlign: "top", padding: "9px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", fontWeight: 700, color: "#454C78", width: 110 },
   bcTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
@@ -641,22 +637,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -674,28 +670,28 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   adScroll: { overflowX: "auto" },
   adGrid: { display: "grid", gridTemplateColumns: "84px repeat(3, minmax(150px, 1fr))", minWidth: 620, border: "1px solid #E1E3F0", borderRadius: 4 },
   adHead: { fontSize: 11.5, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", display: "flex", flexDirection: "column", gap: 1 },
-  adHeadSub: { fontSize: 9.5, color: "#7E86AC" },
+  adHeadSub: { fontSize: 9.5, color: "#666D93" },
   adName: { fontSize: 12.5, fontWeight: 700, padding: "10px", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   adCell: { padding: "8px 10px", borderBottom: "1px solid #E1E3F0", borderLeft: "1px solid #EEF0F7", display: "flex", flexDirection: "column", gap: 4 },
-  adNone: { fontSize: 14, color: "#B7BCDA", height: 30, display: "flex", alignItems: "center" },
+  adNone: { fontSize: 14, color: "#666D93", height: 30, display: "flex", alignItems: "center" },
   adText: { fontSize: 10.5, lineHeight: 1.5, color: "#2E3457" },
   crGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 12 },
   crCol: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 6px", background: "#FFFFFF" },
   crTitle: { fontSize: 12.5, fontWeight: 700, marginBottom: 8 },
   crItem: { borderTop: "1px dashed #E1E3F0", padding: "7px 0" },
   crItemTitle: { fontSize: 12, fontWeight: 700, color: "#171B36" },
-  crWho: { marginLeft: 6, fontSize: 9.5, fontWeight: 400, color: "#7E86AC" },
+  crWho: { marginLeft: 6, fontSize: 9.5, fontWeight: 400, color: "#666D93" },
   crItemText: { fontSize: 11, lineHeight: 1.6, color: "#454C78", marginTop: 2 },
   canGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 10 },
   canCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px", background: "#FFFFFF" },
   canName: { fontSize: 13.5, fontWeight: 700, color: "#171B36", marginBottom: 8 },
-  canEn: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 400, color: "#7E86AC", marginLeft: 6 },
+  canEn: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 400, color: "#666D93", marginLeft: 6 },
   canWires: { display: "flex", alignItems: "center", gap: 8, marginBottom: 6 },
-  canArrow: { fontSize: 14, color: "#9EA4C4" },
+  canArrow: { fontSize: 14, color: "#666D93" },
   canRule: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
   canUse: { fontSize: 11, lineHeight: 1.6, color: "#454C78", marginTop: 6 },
   canApple: { fontSize: 10.5, lineHeight: 1.55, color: "#454C78", borderTop: "1px dashed #E1E3F0", paddingTop: 6, marginTop: 6 },

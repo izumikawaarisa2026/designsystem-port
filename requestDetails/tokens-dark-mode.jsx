@@ -18,7 +18,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
  * Dark Mode: How Users Think About It and Issues to Avoid)は本文を直接取得して確認済み(2026-09)。
  *
  * 2026-10 追記: ユーザーから「ダークモード内のカラールール、エレベーションルールを細かく記載して」
- * 「四サイト比較図が何を示しているかわからない」というフィードバックを受け、(1)四サイト比較図を
+ * 「四系列比較図が何を示しているかわからない」というフィードバックを受け、(1)四系列比較図を
  * 「ライトからダークで背景・文字・アクセント色がどう変わるか」を色見本で並べる表に作り直し、
  * (2)「カラールール」(Googleの全カラーロールのトーン=material-color-utilitiesのcolor_spec_2021.ts、
  * 色見本=Jetpack ComposeのPaletteTokens、AppleのシステムカラーのRGB値=HIG Colorの表の画像の代替テキスト)と
@@ -34,9 +34,9 @@ const SOURCES = [
     color: "#C2542A",
     position: "端末全体の外観設定に従い、アプリ独自の外観設定は置かない。意味で定義されたシステムカラーが、ライト/ダークで自動的に切り替わる方式",
     size: "コントラスト比は最低でも4.5:1を下回らないこと。独自の文字色・背景色を使う場合は、特に小さい文字で7:1を目指すよう勧めている。",
-    colorInfo: "ダークモードの配色は、背景を暗く、前景を明るくしたものですが、ライトの色を単純に反転したものではなく、反転しない色もあるとしている。独自の色が必要な場合は、明るい版と暗い版を持つカラーセットを作り、固定の色値を使わないよう求めている。iOS/iPadOSでは背景色に暗いbaseと明るいelevatedの2組があり、前面に出た画面は自動的に明るい方になる。",
+    colorInfo: "ダークモードの配色は、背景を暗く、前景を明るくしたものだが、ライトの色を単純に反転したものではなく、反転しない色もあるとしている。独自の色が必要な場合は、明るい版と暗い版を持つカラーセットを作り、固定の色値を使わないよう求めている。iOS/iPadOSでは背景色に暗いbaseと明るいelevatedの2組があり、前面に出た画面は自動的に明るい方になる。",
     stance:
-      "ダークモードを既定の外観に選ぶ人は多く、そうした人はすべてのアプリがその設定に従うことを期待しているとしている。アプリ独自の外観設定は、利用者に複数の設定を調整させ、端末の設定に反応しないアプリは壊れていると思われかねないため、避けるべきだとしている。時間帯で自動的に切り替わる「自動」設定もあるため、アプリの実行中に外観が変わっても問題ないようにする必要がある(ページ本文を直接確認、2026-09)。",
+      "ダークモードを既定の外観に選ぶ人は多く、そうした人はすべてのアプリがその設定に従うことを期待しているとしている。アプリ独自の外観設定は、利用者に複数の設定を調整させ、端末の設定に反応しないアプリは壊れていると思われかねないため、避けるべきだとしている。時間帯で自動的に切り替わる「自動」設定もあるため、アプリの実行中に外観が変わっても問題ないようにする必要がある。",
     exceptions:
       "動画や写真の鑑賞のように、UIを目立たせず内容に集中させたいアプリでは、常にダークの外観だけを使うことも「まれなケース」として認めている(例: 株価アプリ)。ダークモードはvisionOSとwatchOSでは提供されていない。白い背景を含む画像は、ダークモードの中で光って見えないよう少し暗くすることを勧めている。",
     accessibility:
@@ -61,10 +61,10 @@ const SOURCES = [
     doc: "Material Design 3 ― Dark theme / Color roles",
     color: "#2F7D6E",
     position: "同じカラーロールに、ライトとダークで異なるトーン(明るさ)を割り当てる方式。端末の設定に合わせて自動で切り替わるDayNightテーマを基本にする",
-    size: "Google公式の配色生成ライブラリ(material-color-utilities)は、標準のコントラスト設定で本文の文字(on surface)7:1・補助の文字4.5:1・枠線(outline)3:1を目標に色を生成し、この目標はライト・ダークのどちらでも同じです(「カラー」ページと同じ)。基準の配色では、ロールごとにトーン(0=黒〜100=白)を入れ替える。例: primary 40→80、on primary 白→20、surface 98→6、on surface 10→90(いずれもライト→ダーク)。",
+    size: "Google公式の配色生成ライブラリ(material-color-utilities)は、標準のコントラスト設定で本文の文字(on surface)7:1・補助の文字4.5:1・枠線(outline)3:1を目標に色を生成し、この目標はライト・ダークのどちらでも同じだ(「カラー」ページと同じ)。基準の配色では、ロールごとにトーン(0=黒〜100=白)を入れ替える。例: primary 40→80、on primary 白→20、surface 98→6、on surface 10→90(いずれもライト→ダーク)。",
     colorInfo: "ダークテーマの背景と面は、真っ黒ではなく濃いグレー(neutral 6)。影を見えやすくし、明るい文字による目の負担を減らすためとしている。ブランドの色も、ダークテーマ用に調整された既定値が用意されている。Android 12以降では、壁紙から生成されたシステムの配色(ダイナミックカラー)を使うこともできる。",
     stance:
-      "ダークテーマの利点として、有機ELの画面での電池の節約、目の負担の軽減、暗い場所での見やすさを挙げている。Android 10以降は端末全体のダークテーマ設定があり、DayNightテーマを使えば、1つのテーマ定義でライトとダークを切り替えられるとしている(Material Components for Androidのドキュメントで直接確認、2026-09)。",
+      "ダークテーマの利点として、有機ELの画面での電池の節約、目の負担の軽減、暗い場所での見やすさを挙げている。Android 10以降は端末全体のダークテーマ設定があり、DayNightテーマを使えば、1つのテーマ定義でライトとダークを切り替えられるとしている。",
     exceptions:
       "ライトとダークを別々のテーマとして定義することもできる(固定のダークテーマ)。ダークテーマでブランドの色をどう調整するかの詳しい指針は、Material Designの仕様ページ側にあるとしている。",
     accessibility:
@@ -77,7 +77,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/styles/color/roles",
     refs: [
-      { label: "Dark theme / Color roles", url: "https://m3.material.io/styles/color/roles" },
+      { label: "Color roles", url: "https://m3.material.io/styles/color/roles" },
       { label: "MDC Android: Dark theme(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Dark.md" },
       { label: "MDC Android: Color theming(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md" },
     ],
@@ -119,10 +119,10 @@ const SOURCES = [
     doc: "Dark Mode vs. Light Mode / Dark Mode: Issues to Avoid",
     color: "#7A4F7E",
     position: "研究の文献調査と利用者調査に基づき、「ダークモードは既定にはしないが、切り替えられるようにする」「端末の設定に従う」とする実務指針(適合基準ではない)",
-    size: "数値基準ではなく研究結果の紹介。紹介されている研究では、正常な視力の人は年齢を問わずライトモードの方が視力検査・校正作業の成績が良く、その差は文字が小さいほど大きくなりました。疲労の指標にはライト/ダークで有意な差はなかった。一方、白内障などの人はダークモードの方が成績が良い場合があるとしている。115人のスマートフォン利用者への調査では、ダーク・ライト・両方を使う人がほぼ3分の1ずつだった。",
+    size: "数値基準ではなく研究結果の紹介。紹介されている研究では、正常な視力の人は年齢を問わずライトモードの方が視力検査・校正作業の成績が良く、その差は文字が小さいほど大きくなった。疲労の指標にはライト/ダークで有意な差はなかった。一方、白内障などの人はダークモードの方が成績が良い場合があるとしている。115人のスマートフォン利用者への調査では、ダーク・ライト・両方を使う人がほぼ3分の1ずつだった。",
     colorInfo: "ダークモードでよくある問題として、白い背景が見えてしまう画像、暗い背景で見えにくくなるモーダルの幕(スクリム)、細すぎる/太すぎる文字、暗い背景の上の彩度の高い色、見えにくくなる区切り線、色が反転して読み取れなくなるQRコードなどを挙げている。文字の色は、1つの色の不透明度を変えて使い分けると、異なる背景に対応しやすいとしている。",
     stance:
-      "一般の利用者を対象とする場合、ダークモードを既定にすることは勧めていない。一方で、長期的な影響の可能性、視覚障害のある人の一部はダークの方が見やすいこと、単に好む人がいることから、切り替えられるようにすることを強く勧めている。利用者はダークモードをアプリごとではなく端末全体の設定として考えているため、既定では端末の設定に従うべきだとしている(記事本文を直接取得して確認済み、2026-09)。",
+      "一般の利用者を対象とする場合、ダークモードを既定にすることは勧めていない。一方で、長期的な影響の可能性、視覚障害のある人の一部はダークの方が見やすいこと、単に好む人がいることから、切り替えられるようにすることを強く勧めている。利用者はダークモードをアプリごとではなく端末全体の設定として考えているため、既定では端末の設定に従うべきだとしている。",
     exceptions:
       "ダークモードに力を入れるべきなのは、1回の利用時間が長い(電子書籍・ニュース)、利用頻度が高い(メッセージ)、暗い場所で使われる(動画配信)、写真や動画が少ない、という条件に当てはまる場合だとしている。調査では、ダークモードに対応していないサイトに移っても、利用者はほとんど気にせず使い続けていた。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、研究の文献調査・ユーザー調査・ユーザビリティテストに基づく設計上の根拠。",
@@ -134,7 +134,7 @@ const SOURCES = [
     searchHint: "Mirror the device",
     url: "https://www.nngroup.com/articles/dark-mode/#toc-takeaways-5",
     refs: [
-      { label: "Dark Mode vs. Light Mode / Dark Mode: Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode/#toc-takeaways-5" },
+      { label: "Dark Mode vs. Light Mode: Which Is Better?", url: "https://www.nngroup.com/articles/dark-mode/#toc-takeaways-5" },
       { label: "Dark Mode: How Users Think About It and Issues to Avoid", url: "https://www.nngroup.com/articles/dark-mode-users-issues/#toc-dark-mode-best-practices-4" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Issues to Avoid)のもの。",
@@ -163,14 +163,14 @@ function ModeSwatch() {
   );
 }
 
-/* 四サイト比較図: ライトからダークに切り替えたとき、何がどう変わるか。
+/* 四系列比較図: ライトからダークに切り替えたとき、何がどう変わるか。
    Apple: HIG Colorの表(Gray 6・Blueのライト/ダークのRGB)、Dark Mode。
    Google: 基準の配色(Jetpack Compose ColorLightTokens/ColorDarkTokens・PaletteTokens)。 */
 const SWITCH_ROWS = [
   {
     key: "hig", name: "Apple", color: "#C2542A",
     how: "端末の設定に従う。アプリ独自の切り替えは置かない",
-    bg: { light: "#F2F2F7", dark: "#1C1C1E", label: "Gray 6(最も明るいグレー)", note: "ほぼ反転" },
+    bg: { text: "背景色の値はHIGに記載なし(iOS/iPadOSは暗いbaseと明るいelevatedの2組があり、前面の画面は自動で明るい方になる)" },
     fg: { text: "Label(文字の色)は4段階とも自動で明るい色に変わる(値はHIGに記載なし)" },
     accent: { light: "#0088FF", dark: "#0091FF", label: "Blue(システムカラー)", note: "反転せず、少し明るく" },
     contrast: "最低4.5:1、独自の色は7:1を目指す",
@@ -307,7 +307,7 @@ function DarkColorRules() {
     <>
       <div style={styles.ruleSummary}>
         {[
-          { t: "背景・面", d: "明るさを反転(Google トーン98→6 = #FEF7FF→#141218、Apple Gray 6 #F2F2F7→#1C1C1E)。真っ黒にはしない" },
+          { t: "背景・面", d: "明るさを反転(Google トーン98→6 = #FEF7FF→#141218)。Googleは真っ黒にはしない(Appleの背景色の値はHIGに記載なし)" },
           { t: "文字", d: "明るさを反転(Google トーン10→90 = #1D1B20→#E6E0E9)。Appleは文字色4段階が自動で切り替わる" },
           { t: "アクセント色", d: "反転しない。少し明るく・淡くする(Google トーン40→80 = #6750A4→#D0BCFF、Apple Blue #0088FF→#0091FF)" },
           { t: "面の上のアクセント", d: "Container系は逆に暗くする(Google トーン90→30 = #EADDFF→#4F378B)" },
@@ -336,7 +336,7 @@ function DarkColorRules() {
           ))}
         </div>
       </div>
-      <p style={styles.chartNote}>数字はトーン(0=黒・100=白)、その下は基準の配色での実際のカラーコードです。標準のコントラスト設定での値で、ユーザーがコントラストを上げる設定にすると、ダークの面の明るさの差が広がります(例: Surface Container Highは17→21→25)。基準の配色は紫系で、壁紙から配色を作るダイナミックカラーでも明るさ(トーン)の割り当ては同じです。</p>
+      <p style={styles.chartNote}>数字はトーン(0=黒・100=白)、その下は基準の配色での実際のカラーコードだ。標準のコントラスト設定での値で、ユーザーがコントラストを上げる設定にすると、ダークの面の明るさの差が広がる(例: Surface Container Highは17→21→25)。基準の配色は紫系で、壁紙から配色を作るダイナミックカラーでも明るさ(トーン)の割り当ては同じだ。</p>
 
       <h3 style={styles.subTitle}>Apple ― システムカラーのライト/ダークの値(既定)</h3>
       <div style={styles.appleColorGrid}>
@@ -351,7 +351,7 @@ function DarkColorRules() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}>色味のあるシステムカラーは反転せず、暗い背景で見えやすいよう少し明るくなります。グレーはGray(中間)だけが変わらず、Gray 2〜6は明るさが反転します。HIGはこのほか、コントラストを上げる設定用の値もライト・ダークそれぞれに定めています。背景色(System Background等)と文字色(Label等)は役割で指定し、具体的な値はHIGに載っていません。</p>
+      <p style={styles.chartNote}>色味のあるシステムカラーは反転せず、暗い背景で見えやすいよう少し明るくなる。グレーはGray(中間)だけが変わらず、Gray 2〜6は明るさが反転する。HIGはこのほか、コントラストを上げる設定用の値もライト・ダークそれぞれに定めている。背景色(System Background等)と文字色(Label等)は役割で指定し、具体的な値はHIGに載っていない。</p>
     </>
   );
 }
@@ -455,7 +455,7 @@ function DarkKeyPoints() {
         <div style={styles.kpMocks}>
           <div style={{ textAlign: "center" }}><PhoneMock dark={false} /><div style={styles.kpLabel}>ライト</div></div>
           <div style={styles.kpArrow}>→</div>
-          <div style={{ textAlign: "center" }}><PhoneMock dark /><div style={styles.kpLabel}>ダーク(3〜6は右の要点の番号)</div></div>
+          <div style={{ textAlign: "center" }}><PhoneMock dark /><div style={styles.kpLabel}>ダーク(3〜6は右の要点の番号。1・2は全体の考え方)</div></div>
         </div>
         <ol style={styles.kpList}>
           {KEY_POINTS.map((k) => (
@@ -470,7 +470,7 @@ function DarkKeyPoints() {
           ))}
         </ol>
       </div>
-      <p style={styles.chartNote}>画面見本の色は、Googleの基準の配色の実際の値(背景・カード・ダイアログ・Primary・文字)です。このあと、4系列の比較図、詳しい比較表、役割ごとの色の変わり方、暗い画面での重なりの表し方の順に詳しく見ていきます。</p>
+      <p style={styles.chartNote}>画面見本の色は、Googleの基準の配色の実際の値(背景・カード・ダイアログ・Primary・文字)だ。このあと、4系列の比較図、詳しい比較表、役割ごとの色の変わり方、暗い画面での重なりの表し方の順に詳しく見ていく。</p>
     </section>
   );
 }
@@ -506,7 +506,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "暗い背景に明るい文字を置く配色(ダークモード)の切り替え方と作り方の決まりです。";
+const LEAD = "暗い背景に明るい文字を置く配色(ダークモード)の切り替え方と作り方の決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "暗い場所での見やすさや好みに合わせ、読みやすさを保ったまま配色を切り替える" },
   { k: "関わる場面", v: "OSの設定に合わせた自動切り替え、暗い背景での色・影の作り方" },
@@ -541,7 +541,7 @@ export default function TokensDarkModePage() {
           <SummaryCard
             imageLabel="ライトとダーク(同じ役割の色の明るさを入れ替える)"
             image={<><ModeSwatch /></>}
-            imageNote={<>ダークモードは色の反転ではありません。背景は暗く、文字は明るくしつつ、ボタンの色などは暗い背景に合う明るさに作り直します(図の配色はGoogleの基準の考え方を参考にした概念図)。</>}
+            imageNote={<>ダークモードは色の反転ではない。背景は暗く、文字は明るくしつつ、ボタンの色などは暗い背景に合う明るさに作り直す(図の配色はGoogleの基準の考え方を参考にした概念図)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -549,29 +549,29 @@ export default function TokensDarkModePage() {
           <DarkKeyPoints />
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
-            <p style={styles.diagramNote}>各行の色見本は「左=ライト → 右=ダーク」です。背景・文字・アクセント色のそれぞれが、ダークでどの明るさに変わるかを4系列で並べています。</p>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
+            <p style={styles.diagramNote}>各行の色見本は「左=ライト → 右=ダーク」だ。背景・文字・アクセント色のそれぞれが、ダークでどの明るさに変わるかを4系列で並べている。</p>
             <DarkModeChart />
-            <p style={styles.chartNote}>色見本は、AppleはHIGのシステムカラーの表、Googleは基準の配色(紫系)の実際の値です。どちらも背景と文字は明るさが反転する一方、アクセント色は反転せず、暗い背景に合うよう明るく調整されます。W3C・NN groupは色の値を定めず、W3Cは組で指定すること、NN groupは彩度や面の重なり方を問題にしています。</p>
+            <p style={styles.chartNote}>色見本は、AppleはHIGのシステムカラーの表、Googleは基準の配色(紫系)の実際の値だ。どちらも背景と文字は明るさが反転する一方、アクセント色は反転せず、暗い背景に合うよう明るく調整される。W3C・NN groupは色の値を定めず、W3Cは組で指定すること、NN groupは彩度や面の重なり方を問題にしている。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>ダークモードは端末の設定に従う</strong>という点です(W3Cはダークモードについて定めておらず、どちらの見た目にも同じ基準を当てます)。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告しています。
+              <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>ダークモードは端末の設定に従う</strong>という点だ(W3Cはダークモードについて定めておらず、どちらの見た目にも同じ基準を当てる)。Appleはアプリ独自の外観設定を置かないよう求め、Googleは端末の設定に合わせて切り替わるDayNightテーマを基本にし、NN groupも利用者はダークモードを端末全体の設定として考えていると報告している。
             </p>
             <p style={styles.synthesisText}>
-              配色の作り方も共通しています。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てます。どちらも背景は真っ黒ではなく、Googleは影を見えやすくするため濃いグレーを使います。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通しています(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
+              配色の作り方も共通している。Appleは<strong>「ライトの色の単純な反転ではない」</strong>と明言し、Googleは同じ役割の色に<strong>ライトとダークで別のトーン(primary 40→80、surface 98→6など)</strong>を割り当てる。どちらも背景は真っ黒ではなく、Googleは影を見えやすくするため濃いグレーを使う。役割ごとに見ると、<strong>背景と文字は明るさを反転し、アクセント色は反転せずに明るく淡くする</strong>という変え方が2系列で共通している(Googleのprimaryは40→80、AppleのBlueも少し明るくなる)。
             </p>
             <p style={styles.synthesisText}>
-              コントラストでは、Appleが<strong>最低4.5:1、独自の色では7:1を目指す</strong>と数値で示しており、WCAGのAA(4.5:1)より高い水準を勧めています。W3Cにはダークモード専用の基準はなく、<strong>どちらの見た目でも同じ基準が適用</strong>されます。文字色と背景色を組で指定しないと不合格になる、という1.4.3の注記は、切り替えの実装で特に注意が必要な点です。
+              コントラストでは、Appleが<strong>最低4.5:1、独自の色では7:1を目指す</strong>と数値で示しており、WCAGのAA(4.5:1)より高い水準を勧めている。W3Cにはダークモード専用の基準はなく、<strong>どちらの見た目でも同じ基準が適用</strong>される。文字色と背景色を組で指定しないと不合格になる、という1.4.3の注記は、切り替えの実装で特に注意が必要な点だ。
             </p>
             <p style={styles.synthesisText}>
-              注意したいのは、NN groupが紹介する研究では、<strong>正常な視力の人は多くの場合ライトモードの方が読み取りの成績が良い</strong>ことです。そのためNN groupは、一般向けのサービスでダークを既定にすることは勧めず、<strong>既定は端末の設定に従い、切り替えられるようにする</strong>ことを勧めています。ダークモードは「目に優しい」と一律に考えず、両方の見た目を同じ品質で用意するのが、4系列を合わせた結論です。
+              注意したいのは、NN groupが紹介する研究では、<strong>正常な視力の人は多くの場合ライトモードの方が読み取りの成績が良い</strong>ことだ。そのためNN groupは、一般向けのサービスでダークを既定にすることは勧めず、<strong>既定は端末の設定に従い、切り替えられるようにする</strong>ことを勧めている。ダークモードは「目に優しい」と一律に考えず、両方の見た目を同じ品質で用意するのが、4系列を合わせた結論だ。
             </p>
             <p style={styles.synthesisText}>
-              重なり(エレベーション)の表し方も、ダークでは変わります。影は暗い背景でほとんど見えないため、<strong>Googleは上の面ほど明るいトーン(背景6→ダイアログ17)、Appleは前面の画面を暗いbaseから明るいelevatedに切り替える</strong>ことで手前と奥を表します。
+              重なり(エレベーション)の表し方も、ダークでは変わる。影は暗い背景でほとんど見えないため、<strong>Googleは上の面ほど明るいトーン(背景6→ダイアログ17)、Appleは前面の画面を暗いbaseから明るいelevatedに切り替える</strong>ことで手前と奥を表す。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -590,7 +590,6 @@ export default function TokensDarkModePage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -641,13 +640,13 @@ export default function TokensDarkModePage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>ダークモードのカラールール ― 役割ごとの色の変わり方</h2>
-            <p style={styles.diagramNote}>ダークモードは「全部の色を反転する」のではなく、役割ごとに変え方が決まっています。まず6つの共通ルールを示し、その下にGoogleの全カラーロールとAppleのシステムカラーの具体的な値を並べます。</p>
+            <p style={styles.diagramNote}>ダークモードは「全部の色を反転する」のではなく、役割ごとに変え方が決まっている。まず6つの共通ルールを示し、その下にGoogleの全カラーロールとAppleのシステムカラーの具体的な値を並べる。</p>
             <DarkColorRules />
           </section>
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>ダークモードのエレベーションルール ― 暗い画面で重なりをどう表すか</h2>
-            <p style={styles.diagramNote}>暗い背景では影が見えにくいため、Apple・Googleとも「手前の面ほど明るい色にする」ことで重なりを表します。Googleは5段階以上のトーン、Appleはbase/elevatedの2組で切り替えます。影の段階そのものは「エレベーション」ページを参照してください。</p>
+            <p style={styles.diagramNote}>暗い背景では影が見えにくいため、Apple・Googleとも「手前の面ほど明るい色にする」ことで重なりを表す。Googleは5段階以上のトーン、Appleはbase/elevatedの2組で切り替える。影の段階そのものは「エレベーション」ページを参照。</p>
             <DarkElevationRules />
             <a href="/tokens/elevation" style={styles.memoLink}>「エレベーション・階層表現」ページへ ↗</a>
           </section>
@@ -658,11 +657,8 @@ export default function TokensDarkModePage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、トーンの割り当て・部品ごとの面の色・ダークテーマの扱いはGoogle公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Dark Modeページの「Dark Mode colors」見出しへのアンカー付きリンクで、関連する見出しも併記しています。GoogleはM3のColor rolesページに加え、内容を確認したGitHub上の公式ドキュメントを併記しています。WCAGは1.4.3 Understandingページ(注記4を含む)と1.4.8です。NN groupは研究の文献調査の記事(まとめの節)と、利用者調査の記事(ベストプラクティスの節)です。
-            </span>
           </div>
         </div>
       </div>
@@ -673,32 +669,32 @@ export default function TokensDarkModePage() {
 const styles = {
   kpWrap: { display: "flex", gap: 20, flexWrap: "wrap", alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px" },
   kpMocks: { display: "flex", alignItems: "center", gap: 8, flex: "1 1 360px", justifyContent: "center" },
-  kpArrow: { fontSize: 18, color: "#9EA4C4" },
+  kpArrow: { fontSize: 18, color: "#666D93" },
   kpLabel: { fontSize: 11, color: "#565D8A", marginTop: 4 },
   kpList: { listStyle: "none", margin: 0, padding: 0, flex: "1 1 340px", display: "flex", flexDirection: "column", gap: 8 },
   kpItem: { display: "flex", gap: 10, alignItems: "flex-start" },
   kpNum: { flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: "#3A4FCF", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
   kpTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
   kpText: { fontSize: 12, lineHeight: 1.6, color: "#2E3457" },
-  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#7E86AC" },
+  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#666D93" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "18px 0 8px" },
   ruleSection: { marginBottom: 26 },
   switchGrid: { display: "grid", gridTemplateColumns: "80px 1fr 1.2fr 1.2fr 1.2fr 1fr", minWidth: 760, borderTop: "1px solid #E1E3F0" },
-  switchHead: { fontSize: 10.5, color: "#7E86AC", padding: "6px 8px", borderBottom: "1px solid #E1E3F0" },
+  switchHead: { fontSize: 10.5, color: "#666D93", padding: "6px 8px", borderBottom: "1px solid #E1E3F0" },
   switchName: { fontSize: 12.5, fontWeight: 700, padding: "10px 8px", borderBottom: "1px solid #E1E3F0" },
   switchCell: { fontSize: 11, lineHeight: 1.55, color: "#2E3457", padding: "10px 8px", borderBottom: "1px solid #E1E3F0", minWidth: 0 },
   swPair: { display: "flex", alignItems: "flex-start", gap: 5, flexWrap: "wrap" },
@@ -706,7 +702,7 @@ const styles = {
   hexText: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, color: "#454C78", letterSpacing: 0.2 },
   swChip: { width: 26, height: 26, borderRadius: 4, border: "1px solid #D5D9EC", flexShrink: 0, display: "inline-block" },
   swChipSm: { width: 14, height: 14, borderRadius: 3, border: "1px solid #D5D9EC", display: "inline-block", marginRight: 6, verticalAlign: "-2px" },
-  swArrow: { fontSize: 11, color: "#9EA4C4", lineHeight: "26px" },
+  swArrow: { fontSize: 11, color: "#666D93", lineHeight: "26px" },
   swNote: { fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace", fontSize: 10, color: "#3C5A73", marginTop: 4 },
   swLabel: { fontSize: 10.5, color: "#565D8A", marginTop: 3, lineHeight: 1.45 },
   swText: { fontSize: 11, color: "#454C78", lineHeight: 1.55 },
@@ -729,8 +725,8 @@ const styles = {
   dkStack: { display: "flex", flexDirection: "column", gap: 4, background: "#0B0A0E", borderRadius: 8, padding: 10, marginBottom: 8 },
   dkLayer: { borderRadius: 6, padding: "7px 10px", display: "flex", flexDirection: "column", gap: 2 },
   dkLayerName: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, fontWeight: 600, color: "#E6E0E9" },
-  dkTone: { fontWeight: 400, color: "#B7BCDA", marginLeft: 8 },
-  dkHex: { marginLeft: 6, color: "#9EA4C4" },
+  dkTone: { fontWeight: 400, color: "#666D93", marginLeft: 8 },
+  dkHex: { marginLeft: 6, color: "#666D93" },
   dkLayerComp: { fontSize: 10.5, color: "#C9CCD9", lineHeight: 1.5 },
   memoList: { margin: "0 0 8px", paddingLeft: 18, fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   memoLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
@@ -739,22 +735,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -772,5 +768,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

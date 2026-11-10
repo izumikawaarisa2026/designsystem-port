@@ -53,7 +53,8 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/modality",
     refs: [
-      { label: "Modality / Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
+      { label: "Modality", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
+      { label: "Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
     confirmedNote: "HIG Modality・Sheetsの本文で確認(2026-11)。",
     pending: true,
@@ -62,7 +63,7 @@ const SOURCES = [
         <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
         <text x="60" y="20" fontSize="8.5" fontWeight="700" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">写真を編集</text>
         <rect x="12" y="28" width="96" height="26" rx="4" fill="#F0DACB" />
-        <text x="60" y="62" fontSize="7.5" fill="#7E86AC" textAnchor="middle" fontFamily="Jost, Noto Sans JP">複数ステップのタスク</text>
+        <text x="60" y="62" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">複数ステップのタスク</text>
       </svg>
     ),
     illustrationNote: "画面全体を占める複数ステップの編集タスク(概念図・系列識別色)",
@@ -74,7 +75,7 @@ const SOURCES = [
     term: "Full-screen dialog",
     color: "#2F7D6E",
     position: "画面全体を占め、一連のタスクを完了させるためのモーダル。コンパクトブレークポイントでのみ使用",
-    size: <span><NoData>数値は未確認。</NoData>コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしている。</span>,
+    size: <span><NoData>数値基準なし</NoData>。コンテナ・ヘッダー・閉じるアイコン・テキストボタン・任意の区切り線で構成されるとしている。</span>,
     colorInfo: "色の値はデザイントークンを通して実装されるとしている。全画面ダイアログを起動すると、アプリの画面上の位置が一時的にリセットされ、その上に表示されるシンプルなメニューやダイアログは画面全体を覆う形になるとしている。",
     stance:
       <>全画面ダイアログは、一連のタスクを完了する必要がある操作に使うモーダルだとしている。画面全体を占めるため、その上に他のダイアログを表示できる唯一のダイアログだとしている。<Hl>コンパクトなブレークポイントでのみ使用でき</Hl>、中〜拡張ブレークポイントでは基本ダイアログを使うべきとしている。</>,
@@ -126,7 +127,7 @@ const SOURCES = [
       "全画面ダイアログの上にさらに別のダイアログを重ねる時、フォーカストラップの対象を最前面に正しく移す",
     ],
     exceptions:
-      "画面全体を占める場合でも、フォーカスはダイアログ内に閉じ込め、Tab/Shift+Tabで循環させる必要がある点は同じ。全画面ダイアログの上にさらに別のダイアログ(Googleの破棄確認ダイアログなど)を表示する場合、フォーカストラップの範囲を最前面のダイアログに正しく移す実装上の注意が必要です(APG本文に全画面特有の追加要件としての明記はない)。",
+      "画面全体を占める場合でも、フォーカスはダイアログ内に閉じ込め、Tab/Shift+Tabで循環させる必要がある点は同じ。全画面ダイアログの上にさらに別のダイアログ(Googleの破棄確認ダイアログなど)を表示する場合、フォーカストラップの範囲を最前面のダイアログに正しく移す実装上の注意が必要だ(APG本文に全画面特有の追加要件としての明記はない)。",
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログ内に閉じ込め、Escapeキーで閉じられるようにし、閉じた後は起動した要素へフォーカスを戻すべきとしている(「モーダルダイアログ」ページと共通の要件)。",
     useCases: [
@@ -177,7 +178,7 @@ const SOURCES = [
     searchHint: "dedicating a full page",
     url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/",
     refs: [
-      { label: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations", url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/" },
+      { label: "Modal & Nonmodal Dialogs", url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/" },
       { label: "Wizards: Definition and Design Recommendations", url: "https://www.nngroup.com/articles/wizards/" },
     ],
     illustration: () => (
@@ -230,7 +231,7 @@ function FullscreenDialogSwatch() {
     <div style={{ width: 240, margin: "0 auto", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 8, padding: "10px 14px 14px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
         <span style={{ fontSize: 13, fontWeight: 700, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>新しい予定</span>
-        <span style={{ fontSize: 13, color: "#7E86AC" }}>✕</span>
+        <span style={{ fontSize: 13, color: "#666D93" }}>✕</span>
       </div>
       <div style={{ height: 8, borderRadius: 4, background: "#E1E3F0", marginBottom: 8 }} />
       <div style={{ height: 8, borderRadius: 4, background: "#E1E3F0", marginBottom: 12 }} />
@@ -242,7 +243,7 @@ function FullscreenDialogSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログです。";
+const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログだ。";
 const ABOUT = [
   { k: "目的・役割", v: "まとまった入力(予定の作成など)を、元の画面から切り離して集中して行えるようにする" },
   { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマホでの長めのフォーム" },
@@ -257,7 +258,7 @@ const SPLITS = [
       { who: "Google・Apple", color: "#2F7D6E", t: "よい。Googleは一連の作業を完了させるために全画面ダイアログを使う(狭い画面のみ)。Appleも、写真の編集のような複数ステップの作業に全画面のモーダルを使えるとする。ただしAppleは、モーダルの中に階層のある画面を入れないよう求める" },
       { who: "NN group", color: "#7A4F7E", t: "勧めない。複数ステップのモーダルはメインの作業から離れる時間を延ばすだけなので、最初から複数ステップなら、モーダルではない普通のページ(ウィザード)にする" },
     ],
-    tip: "手順が短く、終わったら元の画面に戻るのが自然な作業(予定の作成など)は全画面のモーダル、手順が長く途中で中断もありうる作業(申し込みなど)は普通のページのウィザード、と分けると両方の考え方に沿います(「ウィザード」ページ)。",
+    tip: "手順が短く、終わったら元の画面に戻るのが自然な作業(予定の作成など)は全画面のモーダル、手順が長く途中で中断もありうる作業(申し込みなど)は普通のページのウィザード、と分けると両方の考え方に沿う(「ウィザード」ページ)。",
   },
 ];
 
@@ -301,16 +302,16 @@ export default function ContainmentFullscreenDialogPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Googleは、フォーム入力などキーボード入力が要る一連の作業や、変更がすぐに保存されない作業に全画面ダイアログを使い、<strong>狭い画面(コンパクト)でだけ使い、広い画面では基本のダイアログに切り替える</strong>としています。
+              Googleは、フォーム入力などキーボード入力が要る一連の作業や、変更がすぐに保存されない作業に全画面ダイアログを使い、<strong>狭い画面(コンパクト)でだけ使い、広い画面では基本のダイアログに切り替える</strong>としている。
             </p>
             <p style={styles.synthesisText}>
-              Appleにはこの用途にぴったり対応する専用コンポーネント名はありませんが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られます。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点です。
+              Appleにはこの用途にぴったり対応する専用コンポーネント名はないが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られる。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点だ。
             </p>
             <p style={styles.synthesisText}>
-              最も踏み込んだ主張をしているのはNielsen Norman Groupです。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしています。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になります。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確です。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針です。
+              最も踏み込んだ主張をしているのはNielsen Norman Groupだ。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしている。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になる。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確だ。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていません</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じrole="dialog"・aria-modal・フォーカストラップの要件がそのまま適用され、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かります。
+              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じrole="dialog"・aria-modal・フォーカストラップの要件がそのまま適用され、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -337,7 +338,6 @@ export default function ContainmentFullscreenDialogPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -414,11 +414,8 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cは「モーダルダイアログ」ページと同じDialog(Modal)パターン)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはModalityページへのリンクです。GoogleはDialogsページへのリンクです。WCAGは「モーダルダイアログ」ページと同一のWAI-ARIA APG Dialog(Modal)パターンです。NN groupはModal & Nonmodal Dialogs記事、および関連するWizards記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -431,12 +428,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -445,24 +442,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -480,9 +477,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

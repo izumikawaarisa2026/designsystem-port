@@ -19,7 +19,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
  * (行送り)をGitHub上のソースで直接確認(2026-09)。W3C(WCAG 2.2 Understanding:
  * 1.4.4/1.4.12/1.4.8)・Nielsen Norman Group(3記事)は本文を直接取得して確認済み(2026-09)。
  *
- * 2026-09改訂: 四サイト比較図を「最小サイズと文字色の濃さ(コントラスト)」に変更し、行送りの図は
+ * 2026-09改訂: 四系列比較図を「最小サイズと文字色の濃さ(コントラスト)」に変更し、行送りの図は
  * 下部の「参考」に移動。Apple・Googleの基準サイズ(本文の既定)に印を付け、タイプスケールの段階ごとの
  * 使用例を追加。Appleの使用例はUIKitのUIFont.TextStyleの各説明とHIG(Typography・Toolbars)、
  * Googleの使用例はJetpack Compose Material 3のトークン定義(どの部品がどの段階を使うか)で確認。
@@ -35,9 +35,9 @@ const SOURCES = [
     color: "#C2542A",
     position: "Large Title〜Caption 2の11段階の「テキストスタイル」にサイズ・行送りを定義し、Dynamic Type(ユーザーの文字サイズ設定)で全体が連動して拡大縮小する方式",
     size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定に応じてxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズ最大(AX5)の53ptまで変化する。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
-    colorInfo: "テキストスタイルごとに行送り(leading)を指定。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定サイズでの行送りの比率は約1.18〜1.39倍の範囲。字間(tracking)はシステムフォントがサイズごとに自動調整するため、通常は指定不要としている。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べますが、3行以上のテキストでは詰めた行送りを避けるよう勧めている。",
+    colorInfo: "テキストスタイルごとに行送り(leading)を指定。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定サイズでの行送りの比率は約1.18〜1.39倍の範囲。字間(tracking)はシステムフォントがサイズごとに自動調整するため、通常は指定不要としている。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べるが、3行以上のテキストでは詰めた行送りを避けるよう勧めている。",
     stance:
-      "Appleは固定のフォントサイズではなく、システムが用意したテキストスタイルを使うことを勧めている。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、ユーザーが文字サイズを変えると全体が比例して拡大縮小する。文字を大きくしたときにはレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめるよう求めている。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避けるべきとしている(ページ本文を直接確認、2026-09)。",
+      "Appleは固定のフォントサイズではなく、システムが用意したテキストスタイルを使うことを勧めている。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、ユーザーが文字サイズを変えると全体が比例して拡大縮小する。文字を大きくしたときにはレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめるよう求めている。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避けるべきとしている。",
     exceptions:
       "カスタムフォントを使う場合も、既定・最小サイズの推奨値に従い、Dynamic TypeやBold Text(文字を太くする設定)に自前で対応する必要があるとしている。文字サイズを大きくしたときに、すべての文字を同じように大きくする必要はなく、ユーザーが読みたい主要なコンテンツを優先してよい(例: タブのタイトルは拡大しなくてよい)とも述べている。",
     accessibility:
@@ -63,11 +63,11 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "Display/Headline/Title/Body/Labelの5つの役割 × Large/Medium/Smallの3サイズ=15段階の「タイプスケール」を定義。さらに同じ15段階に太さを強めた「Emphasized」版がある",
     size: "Display 57 / 45 / 36、Headline 32 / 28 / 24、Title 22 / 16 / 14、Body 16 / 14 / 12、Label 14 / 12 / 11(いずれもLarge/Medium/Smallの順、単位sp)。基準(本文の既定)はBody Large 16sp(Jetpack ComposeのMaterialThemeが文字の既定スタイルに設定)、最小はLabel Small 11sp。本文の文字色(On Surface)は背景に対して7:1が目標値。spはAndroidの端末の文字サイズ設定に応じて拡縮する単位。",
-    colorInfo: "行送り(line height)はDisplay Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとに固定値で定義。比率に直すとBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど行送りの比率が小さくなる設計です(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせとしてトークン化されている。",
+    colorInfo: "行送り(line height)はDisplay Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとに固定値で定義。比率に直すとBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど行送りの比率が小さくなる設計だ(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせとしてトークン化されている。",
     stance:
-      "Material Design 3は、UI全体で使う文字の段階を15種類の名前付きトークンに絞り、コンポーネントはこのトークンを参照する。ブランドに合わせてフォントやサイズを変える場合も、トークンの値を差し替えれば全体に反映される仕組み。Emphasized版は、選択状態・アクション・見出しなど、強調して階層を作りたい箇所に使うとしている(Google公式のMaterial Components for Androidのドキュメントで確認、2026-09)。",
+      "Material Design 3は、UI全体で使う文字の段階を15種類の名前付きトークンに絞り、コンポーネントはこのトークンを参照する。ブランドに合わせてフォントやサイズを変える場合も、トークンの値を差し替えれば全体に反映される仕組み。Emphasized版は、選択状態・アクション・見出しなど、強調して階層を作りたい箇所に使うとしている。",
     exceptions:
-      "トークンの値はブランドに合わせて変更できる前提です(カスタマイズ例として、Display Smallを64spに変える例が示されている)。m3.material.io本文の指針(最小サイズの考え方など)は、サイトがSPAのため直接確認できていない。",
+      "トークンの値はブランドに合わせて変更できる前提だ(カスタマイズ例として、Display Smallを64spに変える例が示されている)。",
     accessibility:
       "知覚可能(Perceivable) ― 単位にspを使うことで、端末の文字サイズ設定による拡大に追従し、WCAG 1.4.4(テキストのサイズ変更)の考え方に沿う仕組み。Body Largeの行送り1.5倍は、WCAG 1.4.12・1.4.8で登場する1.5倍という値とも一致している。",
     useCases: [
@@ -119,13 +119,13 @@ const SOURCES = [
   {
     key: "nn",
     name: "Nielsen Norman Group",
-    doc: "Legibility, Readability, and Comprehension ほか",
+    doc: "Legibility, Readability, and Comprehension など",
     color: "#7A4F7E",
     position: "読みやすさを「判読性(文字が見分けられるか)・可読性(文が難しすぎないか)・理解度」の3段階に分け、文字の見た目は最初の判読性の問題として扱う実務指針(適合基準ではない)",
-    size: "数値基準ではなく原則としての言及が中心。2015年の記事では、文字を小さくして目立たなさを調整する場合も少なくとも8ptは確保するよう勧めている。2002年の記事では、既定の文字サイズは十分に大きく(10pt以上)、高齢者向けには12pt以上、画像内の文字も12pt以上にするよう勧めている。352人が16書体を読んだ調査では、同じ人でも最も速く読めた書体は最も遅い書体より平均35%速く、20歳の年齢差でおよそ毎分30語遅くなる(50歳は30歳より約11%長くかかる)という結果だった。",
+    size: "数値基準ではなく原則としての言及が中心。2015年の記事では、文字を小さくして目立たなさを調整する場合も少なくとも8ptは確保するよう勧めている。2002年の記事では、既定の文字サイズは十分に大きく(10pt以上)、高齢者向けには12pt以上、画像内の文字も12pt以上にするよう勧めている。352人が16書体を読んだ調査では、同じ人でも最も速く読めた書体は最も遅い書体より平均35%速く、20歳年をとるごとに読む速さが約11%遅くなるという結果だった。",
     colorInfo: "行間・行の長さについての数値は、確認した記事の中では示されていない。前景と背景の高いコントラスト、すっきりした書体、十分に大きい既定サイズ、ユーザーが文字サイズを変えられることを、判読性の条件として挙げている。",
     stance:
-      "小さい文字は判読性を損ない、どこからが「小さすぎる」かは視力によって人それぞれで、視力は年齢とともに落ちるとしている。そのため、十分に大きい既定サイズを選んだうえで、ユーザーが文字サイズを変えられるようにすべきだという立場。書体の調査では、すべての人に最適な書体は存在せず、しかも人は自分にとって最も速く読める書体を選べない(好みと読む速さが一致しない)という結果が示されている(記事本文を直接取得して確認済み、2026-09)。",
+      "小さい文字は判読性を損ない、どこからが「小さすぎる」かは視力によって人それぞれで、視力は年齢とともに落ちるとしている。そのため、十分に大きい既定サイズを選んだうえで、ユーザーが文字サイズを変えられるようにすべきだという立場。書体の調査では、すべての人に最適な書体は存在せず、しかも人は自分にとって最も速く読める書体を選べない(好みと読む速さが一致しない)という結果が示されている。",
     exceptions:
       "10pt・12ptという数値は2002年の記事によるもので、当時のデスクトップのWebを前提にしている。現在のスマートフォンの単位(pt/sp)とそのまま比べることはできない。書体の調査は英語の文章を対象にしたもの。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザーテストと読む速さの調査に基づく設計上の根拠。",
@@ -137,7 +137,7 @@ const SOURCES = [
     searchHint: "No Best Font",
     url: "https://www.nngroup.com/articles/legibility-readability-comprehension/",
     refs: [
-      { label: "Legibility, Readability, and Comprehension ほか", url: "https://www.nngroup.com/articles/legibility-readability-comprehension/" },
+      { label: "Legibility, Readability, and Comprehension", url: "https://www.nngroup.com/articles/legibility-readability-comprehension/" },
       { label: "Best Font for Online Reading", url: "https://www.nngroup.com/articles/best-font-for-online-reading/" },
       { label: "Let Users Control Font Size(2002)", url: "https://www.nngroup.com/articles/let-users-control-font-size/" },
       { label: "Low-Contrast Text Is Not the Answer(2015)", url: "https://www.nngroup.com/articles/low-contrast/" },
@@ -146,7 +146,7 @@ const SOURCES = [
   },
 ];
 
-/* 四サイト比較図: 最小サイズ・基準サイズと、本文の文字色に求められるコントラスト */
+/* 四系列比較図: 最小サイズ・基準サイズと、本文の文字色に求められるコントラスト */
 const MIN_ROWS = [
   {
     key: "hig", name: "Apple", color: "#C2542A", unit: "pt",
@@ -184,11 +184,11 @@ function MinSizeScale({ row }) {
       {ticks.map((t) => (
         <g key={t}>
           <line x1={X(t)} x2={X(t)} y1={20} y2={28} stroke="#D5D9EC" strokeWidth="1" />
-          <text x={X(t)} y={44} fontSize="8.5" fill="#9EA4C4" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t}</text>
+          <text x={X(t)} y={44} fontSize="8.5" fill="#666D93" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t}</text>
         </g>
       ))}
       {row.noMin ? (
-        <text x={X(0) + 2} y={13} fontSize="9.5" fill="#7E86AC" fontFamily="'Jost', 'Noto Sans JP', sans-serif">{row.noMin}</text>
+        <text x={X(0) + 2} y={13} fontSize="9.5" fill="#666D93" fontFamily="'Jost', 'Noto Sans JP', sans-serif">{row.noMin}</text>
       ) : (
         <>
           <rect x={X(row.min)} y={20} width={X(row.baseMax || row.base) - X(row.min)} height={8} rx={4} fill={row.color} opacity={0.22} />
@@ -363,7 +363,7 @@ function LeadingChart() {
       {ticks.map((t) => (
         <g key={t}>
           <line x1={X(t)} x2={X(t)} y1={top - 6} y2={h - 18} stroke="#E1E3F0" strokeWidth="1" />
-          <text x={X(t)} y={h - 5} fontSize="10" fill="#7E86AC" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t.toFixed(1)}倍</text>
+          <text x={X(t)} y={h - 5} fontSize="10" fill="#666D93" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace">{t.toFixed(1)}倍</text>
         </g>
       ))}
       {LEADING_ROWS.map((r, i) => {
@@ -385,7 +385,7 @@ function LeadingChart() {
               </>
             )}
             {r.none && (
-              <text x={X(1.0) + 4} y={y + 4} fontSize="10" fill="#7E86AC" fontFamily="'Jost', 'Noto Sans JP', sans-serif">{r.markLabel}</text>
+              <text x={X(1.0) + 4} y={y + 4} fontSize="10" fill="#666D93" fontFamily="'Jost', 'Noto Sans JP', sans-serif">{r.markLabel}</text>
             )}
           </g>
         );
@@ -450,8 +450,8 @@ const FONT_ROWS = [
     <>すべての人に最適なフォントはない。人によって速く読めるフォントが違い(最大35%の差)、好みのフォントが速く読めるフォントとは限らない。年齢が20歳上がるごとに読む速さが約11%遅くなる</>,
   ] },
   { k: "多言語・フォールバック", v: [
-    <>SFに各言語版がある</>,
-    <>文字がないときの代わり(フォールバック)は Roboto Flex → Roboto → Noto Sans の順。Noto Sansは150以上の文字体系に対応</>,
+    <>SFに各言語版がある(SFとNYは多くの言語に対応するとしている)。日本語の書体の指定は<NoData>記載なし</NoData>(実装の例: 日本語はOSの日本語フォントで表示される。AI解釈)</>,
+    <>文字がないときの代わり(フォールバック)は Roboto Flex → Roboto → Noto Sans の順。Noto Sansは150以上の文字体系に対応(実装の例: 日本語はNoto Sans JPなどNotoの日本語版で表示される。AI解釈)</>,
     <NoData>記載なし</NoData>,
     <NoData>記載なし</NoData>,
   ] },
@@ -469,7 +469,7 @@ function FontTypes() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>フォントの種類</h2>
-      <p style={styles.fontLead}>システムのフォントを持つのはAppleとGoogleです。どちらも<Hl>サンセリフを既定にし、セリフ・等幅・可変フォントを別に用意</Hl>しています。W3CとNN groupはフォントを指定せず、W3Cは文字の扱い方、NN groupは読みやすさの調査を示しています。</p>
+      <p style={styles.fontLead}>システムのフォントを持つのはAppleとGoogleだ。どちらも<Hl>サンセリフを既定にし、セリフ・等幅・可変フォントを別に用意</Hl>している。W3CとNN groupはフォントを指定せず、W3Cは文字の扱い方、NN groupは読みやすさの調査を示している。</p>
       <div style={styles.fontSamples}>
         {[
           { n: "サンセリフ", f: "-apple-system, 'Helvetica Neue', Roboto, sans-serif", ex: "SF Pro / Roboto" },
@@ -479,11 +479,11 @@ function FontTypes() {
           <div key={x.n} style={styles.fontSample}>
             <div style={{ fontFamily: x.f, fontSize: 22, color: "#171B36" }}>Aa 012</div>
             <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{x.n}</div>
-            <div style={{ fontSize: 10.5, color: "#7E86AC" }}>{x.ex}</div>
+            <div style={{ fontSize: 10.5, color: "#666D93" }}>{x.ex}</div>
           </div>
         ))}
       </div>
-      <p style={styles.fontNote}>見本は閲覧中の端末にあるフォントで表示しています(端末によっては別のフォントになります)。</p>
+      <p style={styles.fontNote}>見本は閲覧中の端末にあるフォントで表示している(端末によっては別のフォントになる)。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.fontTable}>
           <thead><tr><th style={styles.fontTh} />{FONT_COLS.map((c) => (<th key={c} style={styles.fontTh}>{c}</th>))}</tr></thead>
@@ -533,7 +533,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりです。";
+const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "見出し・本文などの役割に合った文字の大きさをそろえ、読みやすくする" },
   { k: "関わる場面", v: "見出しと本文の大きさ、行間、利用者が文字を大きくする設定への対応" },
@@ -570,7 +570,7 @@ export default function TokensTypographyPage() {
           <SummaryCard
             imageLabel="文字サイズの段階(実寸の60%で表示)"
             image={<><TypeLadder /></>}
-            imageNote={<>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みです。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11です。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</>}
+            imageNote={<>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みだ。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11だ。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -578,28 +578,28 @@ export default function TokensTypographyPage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 最小サイズと文字色の濃さ(コントラスト)</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 最小サイズと文字色の濃さ(コントラスト)</h2>
             <MinSizeChart />
-            <p style={styles.chartNote}>○=最小サイズ、◆=基準(本文の既定)サイズ。pt(Apple)・sp(Google)・NN groupのpt(当時のデスクトップのWeb)は実際の大きさが一致しない単位のため、同じ目盛りに並べたのは目安です。右側の「本文 Aa」は、白背景でその比率ちょうどになる灰色で表示しており、これより薄い色は基準を下回ります。</p>
+            <p style={styles.chartNote}>○=最小サイズ、◆=基準(本文の既定)サイズ。pt(Apple)・sp(Google)・NN groupのpt(当時のデスクトップのWeb)は実際の大きさが一致しない単位のため、同じ目盛りに並べたのは目安だ。右側の「本文 Aa」は、白背景でその比率ちょうどになる灰色で表示しており、これより薄い色は基準を下回る。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、どちらも<strong>名前の付いた文字の段階(テキストスタイル/タイプスケール)にサイズと行送りを割り当て、ユーザーの文字サイズ設定に連動させる</strong>という同じ構造を持っています。本文はApple 17pt・Google 16sp、最小はどちらも11と、数値もかなり近い水準です。
+              AppleとGoogleは、どちらも<strong>名前の付いた文字の段階(テキストスタイル/タイプスケール)にサイズと行送りを割り当て、ユーザーの文字サイズ設定に連動させる</strong>という同じ構造を持っている。本文はApple 17pt・Google 16sp、最小はどちらも11と、数値もかなり近い水準だ。
             </p>
             <p style={styles.synthesisText}>
-              最小サイズと文字色の濃さを並べると、<strong>数値で下限を決めているのはApple・Google(サイズと濃さの両方)とW3C(濃さのみ)</strong>です。Appleは17pt以下の文字に4.5:1、Googleは本文の文字色に7:1・補助の文字に4.5:1を求め、Googleの本文はWCAGのAA(4.5:1)より一段濃い水準です。W3Cは文字サイズの最小値を持たず、NN groupは8pt・10ptといった目安を示すものの、コントラスト比の数値は示していません。
+              最小サイズと文字色の濃さを並べると、<strong>数値で下限を決めているのはApple・Google(サイズと濃さの両方)とW3C(濃さのみ)</strong>だ。Appleは17pt以下の文字に4.5:1、Googleは本文の文字色に7:1・補助の文字に4.5:1を求め、Googleの本文はWCAGのAA(4.5:1)より一段濃い水準だ。W3Cは文字サイズの最小値を持たず、NN groupは8pt・10ptといった目安を示すものの、コントラスト比の数値は示していない。
             </p>
             <p style={styles.synthesisText}>
-              違いが出るのは行送りです。Appleの本文は17ptに対して22pt(約1.29倍)、GoogleのBody Largeは16spに対して24sp(1.5倍)です。どちらも<strong>大きい文字ほど行送りの比率を小さくする</strong>点は共通しています。ただし、これらはラテン文字のシステムフォントを前提にした値です。<strong>日本語の長い文章では行送りを広めに取り、実際の文章で確かめる</strong>のが安全です(W3Cの「日本語組版処理の要件」も参考になります)。
+              違いが出るのは行送りだ。Appleの本文は17ptに対して22pt(約1.29倍)、GoogleのBody Largeは16spに対して24sp(1.5倍)だ。どちらも<strong>大きい文字ほど行送りの比率を小さくする</strong>点は共通している。ただし、これらはラテン文字のシステムフォントを前提にした値だ。<strong>日本語の長い文章では行送りを広めに取り、実際の文章で確かめる</strong>のが安全だ(W3Cの<a href="https://www.w3.org/TR/jlreq/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>「日本語組版処理の要件」(JLReq)</a>も参考になる。WCAGの達成基準ではない)。
             </p>
             <p style={styles.synthesisText}>
-              ここで誤解しやすいのがW3Cの数値です。1.4.12の「行の高さ1.5倍」などは、<strong>デザインの初期値として守るべき値ではなく、ユーザーがその値に変えても表示が壊れないことを確かめる耐性テストの値</strong>です(基準の注記に「コンテンツがこの値を使う必要はない」と明記されています)。そのため、Appleの約1.29倍という初期値もWCAGに反しているわけではありません。WCAGは文字サイズの最小値も定めておらず、代わりに「200%まで拡大できること」を求めています。
+              ここで誤解しやすいのがW3Cの数値だ。1.4.12の「行の高さ1.5倍」などは、<strong>デザインの初期値として守るべき値ではなく、ユーザーがその値に変えても表示が壊れないことを確かめる耐性テストの値</strong>だ(基準の注記に「コンテンツがこの値を使う必要はない」と明記されている)。そのため、Appleの約1.29倍という初期値もWCAGに反しているわけではない。WCAGは文字サイズの最小値も定めておらず、代わりに「200%まで拡大できること」を求めている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは数値より原則が中心で、<strong>「十分に大きい既定サイズ+ユーザーが変えられること」</strong>を判読性の条件としています。これはAppleのDynamic Type、Googleのsp単位、WCAGの1.4.4と同じ方向を向いており、4系列に共通する結論は、<strong>文字サイズを固定せず、ユーザーの拡大に追従して崩れない作りにすること</strong>だといえます。
+              Nielsen Norman Groupは数値より原則が中心で、<strong>「十分に大きい既定サイズ+ユーザーが変えられること」</strong>を判読性の条件としている。これはAppleのDynamic Type、Googleのsp単位、WCAGの1.4.4と同じ方向を向いており、4系列に共通する結論は、<strong>文字サイズを固定せず、ユーザーの拡大に追従して崩れない作りにすること</strong>だといえる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -618,7 +618,6 @@ export default function TokensTypographyPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -670,7 +669,7 @@ export default function TokensTypographyPage() {
           <section style={styles.usageSection}>
             <h2 style={styles.diagramTitle}>タイプスケールの段階ごとの使用例(実寸の60%で表示)</h2>
             <p style={styles.sectionLead}>
-              Apple・Googleとも、<strong>基準は「本文」の段階</strong>(Apple=Body 17pt、Google=Body Large 16sp)で、他の段階はそこから上下に広がります。Googleは段階の名前が役割(Display/Headline/Title/Body/Label)を表し、ボタンなどの部品の文字はLabel、見出しはHeadline・Titleを使います。
+              Apple・Googleとも、<strong>基準は「本文」の段階</strong>(Apple=Body 17pt、Google=Body Large 16sp)で、他の段階はそこから上下に広がる。Googleは段階の名前が役割(Display/Headline/Title/Body/Label)を表し、ボタンなどの部品の文字はLabel、見出しはHeadline・Titleを使う。
             </p>
             <TypeScaleUsage />
           </section>
@@ -678,7 +677,7 @@ export default function TokensTypographyPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>参考 ― 文字サイズに対する行送りの比率</h2>
             <LeadingChart />
-            <p style={styles.chartNote}>帯は各系列の段階全体の範囲、丸は本文の値です。W3Cの破線は初期値の基準ではなく、ユーザーがこの値に変更しても崩れないことを求める値です。</p>
+            <p style={styles.chartNote}>帯は各系列の段階全体の範囲、丸は本文の値だ。W3Cの破線は初期値の基準ではなく、ユーザーがこの値に変更しても崩れないことを求める値だ。</p>
           </div>
 
           <FontTypes />
@@ -689,11 +688,8 @@ export default function TokensTypographyPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、数値はGoogle公式のソース・ドキュメントで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Typographyページの該当見出しへのアンカー付きリンクです。WCAGは1.4.12 Understandingページの達成基準の箇所を基本リンクとし、1.4.4・1.4.8も併記しています。GoogleはM3のType scale tokensページに加え、数値を確認したGitHub上の公式ソースを併記しています。NN groupはLegibility, Readability, and Comprehensionの記事を基本リンクとし、書体の調査記事と2002年の文字サイズの記事を併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -705,7 +701,7 @@ const styles = {
   fontLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
   fontSamples: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8, marginBottom: 4 },
   fontSample: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
-  fontNote: { fontSize: 10.5, color: "#9EA4C4", margin: "0 0 12px" },
+  fontNote: { fontSize: 10.5, color: "#666D93", margin: "0 0 12px" },
   fontTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   fontTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#171B36", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   fontTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
@@ -714,38 +710,38 @@ const styles = {
   fontRefLink: { fontSize: 11, color: "#3A4FCF" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -763,22 +759,22 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   sectionLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 14px" },
   minChart: { display: "flex", flexDirection: "column" },
   minRow: { display: "grid", gap: "6px 16px", alignItems: "center", padding: "10px 0", borderTop: "1px solid #E1E3F0" },
   minHeadRow: { borderTop: "none", paddingTop: 0 },
-  minHead: { fontSize: 10.5, color: "#7E86AC" },
+  minHead: { fontSize: 10.5, color: "#666D93" },
   minName: { fontSize: 13, fontWeight: 700 },
   minLegend: { display: "flex", flexWrap: "wrap", gap: "2px 10px", fontSize: 10.5, color: "#565D8A", marginTop: 2 },
   contrastRow: { display: "flex", flexWrap: "wrap", gap: 6 },
   contrastSample: { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 3, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "6px 9px", minWidth: 112 },
   contrastRatio: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 600, color: "#FFFFFF", background: "#3C5A73", borderRadius: 3, padding: "1px 6px" },
   contrastNoteSmall: { fontSize: 10, color: "#565D8A" },
-  contrastFoot: { fontSize: 10.5, color: "#7E86AC", marginTop: 4 },
+  contrastFoot: { fontSize: 10.5, color: "#666D93", marginTop: 4 },
   usageSection: { marginBottom: 22 },
   scaleCol: { flex: "1 1 320px", minWidth: 0, textAlign: "left" },
-  scaleNote: { fontSize: 10.5, color: "#7E86AC", lineHeight: 1.5, marginBottom: 6 },
+  scaleNote: { fontSize: 10.5, color: "#666D93", lineHeight: 1.5, marginBottom: 6 },
   scaleRow: { display: "flex", alignItems: "center", gap: 8, borderBottom: "1px dashed #E1E3F0", padding: "5px 4px" },
   scaleRowBase: { background: "#F0F4F8", borderRadius: 3 },
   scaleNameRow: { display: "flex", alignItems: "center", gap: 6 },

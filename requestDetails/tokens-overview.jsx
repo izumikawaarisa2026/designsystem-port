@@ -51,14 +51,14 @@ const SOURCES = [
     name: "Apple",
     color: "#C2542A",
     categories: ["Accessibility", "App icons", "Branding", "Color", "Dark Mode", "Icons", "Images", "Immersive experiences", "Inclusion", "Layout", "Materials", "Motion", "Privacy", "Right to left", "SF Symbols", "Spatial layout", "Typography", "Writing"],
-    summary: "Foundations配下に18トピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
+    summary: "Foundations配下にトピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
     stance:
-      "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなど18のトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている(ページデータを直接確認、2026-09)。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」13項目は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
+      "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなどのトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている。",
+    structuralNote: "本サイトの「トークン / ファウンデーション」(9ページ)と「インタラクション」(3ページ)は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
     refs: [
-      { label: "", url: "https://developer.apple.com/design/human-interface-guidelines/foundations" },
+      { label: "Foundations", url: "https://developer.apple.com/design/human-interface-guidelines/foundations" },
       { label: "Design principles(Getting started)", url: "https://developer.apple.com/design/human-interface-guidelines/design-principles" },
     ],
     confirmedNote: "HIGのページデータを直接取得し、トップレベルの6区分とFoundations配下の18トピックを確認済み(2026-09)。",
@@ -69,7 +69,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "Foundations配下に18トピックを並列配置(5つを抜粋。概念図・系列識別色)",
+    illustrationNote: "Foundations配下にトピックを並列配置(5つを抜粋。概念図・系列識別色)",
   },
   {
     key: "material",
@@ -78,12 +78,12 @@ const SOURCES = [
     categories: ["Foundations: Overview(原則・支援技術)/ Building for all / Content design / Customization / Design tokens / Designing(色のコントラスト等)/ Interaction / Layout / Usability / Writing / Watches / XR", "Styles: Color / Elevation / Icons / Motion / Shape / Spacing / Typography"],
     summary: "「Foundations」と「Styles」を明確に別セクションとして分離。色・タイポグラフィ等はStyles側",
     stance:
-      "Material Design 3のサイトは、Foundations・Styles・Components・Develop(実装)という区分に分かれている。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など機能横断的な考え方が集められ、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった視覚的なトークンはStylesに属する。設計原則(principles)もFoundationsの中(Overview配下)に置かれている(サイトのsitemap.xmlでURL構成を直接確認、2026-09)。",
+      "Material Design 3のサイトは、Foundations・Styles・Components・Develop(実装)という区分に分かれている。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など機能横断的な考え方が集められ、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった視覚的なトークンはStylesに属する。設計原則(principles)もFoundationsの中(Overview配下)に置かれている。",
     structuralNote: "本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている。つまり本サイトはGoogleの構造をそのまま踏襲してはいない。レイアウトはStylesではなくFoundations側にある点にも注意。",
     accessibilityNote: "アクセシビリティはFoundations側の複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれており、1トピックというより横断的な前提条件としての位置づけに近い。",
     url: "https://m3.material.io/foundations",
     refs: [
-      { label: "", url: "https://m3.material.io/foundations" },
+      { label: "M3 Foundations", url: "https://m3.material.io/foundations" },
       { label: "Styles", url: "https://m3.material.io/styles" },
     ],
     confirmedNote: "区分とトピックは、m3.material.ioのsitemap.xml(静的なXML)でURL構成を直接確認(2026-09)。トピック名はURL上の区分名で、各ページの本文はSPAのため直接確認はできていない。",
@@ -109,7 +109,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     color: "#A3821F",
-    categories: ["色: 1.4.1 色の使用(A)・1.4.3 文字のコントラスト(AA)・1.4.11 文字以外のコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットのサイズ(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタのジェスチャ(A)・2.5.7 ドラッグ操作(AA)"],
+    categories: ["色: 1.4.1 色の使用(A)・1.4.3 コントラスト(最低限)(AA)・1.4.11 非テキストのコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットサイズ(最低限)(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタのジェスチャ(A)・2.5.7 ドラッグ動作(AA)"],
     summary: "土台(ファウンデーション)に当たる括りはない。色・文字などの各トピックに、個別の達成基準が条件として関わる",
     stance:
       "WCAGは色の値や文字サイズの体系を定める文書ではなく、「できあがった画面が満たすべき条件」を定める基準。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)は持たない。その代わり、色のコントラストや文字の拡大など、各トピックで守るべき最低限の条件が個別の達成基準として散らばっている。各トークンページのW3C欄は、この「トピックに関わる達成基準」を比べている。",
@@ -117,7 +117,7 @@ const SOURCES = [
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのもので、「土台の中の1トピック」という位置づけにはならない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     refs: [
-      { label: "", url: "https://www.w3.org/WAI/WCAG22/quickref/" },
+      { label: "How to Meet WCAG(クイックリファレンス)", url: "https://www.w3.org/WAI/WCAG22/quickref/" },
     ],
     confirmedNote: "達成基準の番号・名前・レベルはWCAG 2.2の仕様書で確認(2026-11)。トピックへの割り当ては本サイトの各トークンページでの扱いに合わせたもの(AI解釈)。",
     illustration: () => (
@@ -136,12 +136,11 @@ const SOURCES = [
     categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など(全40トピック)"],
     summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
-      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなど40の分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
+      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなどの分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
-    url: "https://www.nngroup.com/articles/",
+    url: "https://www.nngroup.com/topics/",
     refs: [
-      { label: "", url: "https://www.nngroup.com/articles/" },
       { label: "Topics(記事の分類)", url: "https://www.nngroup.com/topics/" },
     ],
     confirmedNote: "Topicsの一覧はnngroup.com/topics/で確認(2026-11)。",
@@ -171,21 +170,21 @@ const LAYERS = [
     key: "foundations",
     label: "基礎",
     site: "トークン/ファウンデーション",
-    apple: { name: "Foundations", sub: "色・文字・レイアウト・アクセシビリティなど18トピック", highlight: true },
+    apple: { name: "Foundations", sub: "色・文字・レイアウト・アクセシビリティなど", highlight: true },
     google: { name: "Foundations + Styles", sub: "考え方はFoundations、視覚トークンはStylesに二分", highlight: true },
   },
   {
     key: "inputs",
     label: "入力手段",
-    site: "トークン/インタラクション(入力方法・キーボード)",
-    apple: { name: "Inputs", sub: "ジェスチャー・キーボード・ポインター・Apple Pencilなど13トピック" },
+    site: "インタラクション(入力方法・ジェスチャー)",
+    apple: { name: "Inputs", sub: "ジェスチャー・キーボード・ポインター・Apple Pencilなど" },
     google: { name: "Foundations の中", sub: "Interaction(Gestures / Inputs / Selection / States)", inside: true },
   },
   {
     key: "patterns",
     label: "体験パターン",
     site: "横断ビュー(プロセスタグ)/一部はコンポーネント",
-    apple: { name: "Patterns", sub: "ローディング・オンボーディング・フィードバック・モーダルなど25トピック" },
+    apple: { name: "Patterns", sub: "ローディング・オンボーディング・フィードバック・モーダルなど" },
     google: { name: "独立した区分なし", sub: "該当する内容はFoundationsやComponentsに分散", none: true },
   },
   {
@@ -199,7 +198,7 @@ const LAYERS = [
     key: "tech",
     label: "技術・実装",
     site: "対象外",
-    apple: { name: "Technologies", sub: "Apple Pay・Siri・CarPlayなどApple固有の技術29トピック" },
+    apple: { name: "Technologies", sub: "Apple Pay・Siri・CarPlayなどApple固有の技術" },
     google: { name: "Develop", sub: "Jetpack Compose・MDC Android・Flutter・Web向けの実装情報" },
   },
 ];
@@ -214,19 +213,19 @@ const APPLE_SECTIONS = [
   {
     name: "Foundations",
     role: "どの画面・部品にも共通する、見た目と体験の基礎要素",
-    items: "Accessibility / Color / Dark Mode / Layout / Materials / Motion / Typography / Writing など18トピック",
+    items: "Accessibility / Color / Dark Mode / Layout / Materials / Motion / Typography / Writing など",
     site: "トークン/ファウンデーションレイヤー",
   },
   {
     name: "Patterns",
     role: "ユーザーのよくある操作や体験の流れ(複数の部品にまたがる手順)の設計指針",
-    items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など25トピック",
+    items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など",
     site: "横断ビュー(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
   },
   {
     name: "Inputs",
     role: "人がアプリを操作・入力するための手段ごとの設計指針",
-    items: "Gestures / Keyboards / Pointing devices / Apple Pencil and Scribble / Focus and selection / Game controls など13トピック",
+    items: "Gestures / Keyboards / Pointing devices / Apple Pencil and Scribble / Focus and selection / Game controls など",
     site: "インタラクションの「入力方法・ジェスチャー」(Appleでは Foundations とは別区分)",
   },
   {
@@ -238,7 +237,7 @@ const APPLE_SECTIONS = [
   {
     name: "Technologies",
     role: "アプリに組み込めるApple固有の技術・機能・サービス",
-    items: "Apple Pay / Siri / CarPlay / HealthKit / Sign in with Apple / VoiceOver など29トピック",
+    items: "Apple Pay / Siri / CarPlay / HealthKit / Sign in with Apple / VoiceOver など",
     site: "対象外(他の3系列と比較できる共通の対象がないプラットフォーム機能のため)",
   },
 ];
@@ -270,7 +269,7 @@ function LayerDiagram() {
         <React.Fragment key={l.key}>
           <div style={styles.layerLabel}>
             <div style={{ fontWeight: 700, color: "#171B36" }}>{l.label}</div>
-            <div style={{ fontSize: 9.5, color: "#7E86AC", marginTop: 2 }}>本サイト: {l.site}</div>
+            <div style={{ fontSize: 9.5, color: "#666D93", marginTop: 2 }}>本サイト: {l.site}</div>
           </div>
           <LayerBox cell={l.apple} color="#C2542A" />
           <LayerBox cell={l.google} color="#2F7D6E" />
@@ -304,7 +303,7 @@ const TIERS = [
   { k: "部品(コンポーネント)", q: "土台を組み合わせた完成品", d: "ボタン・ダイアログなど。色・文字・形・動きを土台から受け取って作る", ex: "例: ボタンのラベルの色", color: "#2F7D6E", page: { to: "/components/actions/button", label: "コンポーネントレイヤー(ボタンなど)" } },
 ];
 const SYSTEM_TIERS = [
-  { k: "Apple", c: "#C2542A", p: "Design principles(Getting started)", f: "Foundations(18トピック)", m: "Components" },
+  { k: "Apple", c: "#C2542A", p: "Design principles(Getting started)", f: "Foundations", m: "Components" },
   { k: "Google", c: "#2F7D6E", p: "Principles(Foundationsの中)", f: "Foundations + Styles", m: "Components" },
   { k: "W3C", c: "#A3821F", p: "POURの4原則", f: null, fNote: "なし(各トピックに達成基準が関わる)", m: null, mNote: "なし(APGは実装の参考例)" },
   { k: "NN group", c: "#7A4F7E", p: "10のユーザビリティヒューリスティック", f: null, fNote: "なし(Visual Designなどの記事)", m: null, mNote: "なし(部品ごとの記事)" },
@@ -314,7 +313,7 @@ function PrinciplesVsFoundations() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
-      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → 部品</strong>の3段で組み立てられています。思想レイヤーが「原則」を、このレイヤーが「土台」を比べます。</p>
+      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → 部品</strong>の3段で組み立てられている。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定の部品に限らず多くの部品に共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
       <div style={styles.tierWrap}>
         {TIERS.map((t, i) => (
           <React.Fragment key={t.k}>
@@ -346,19 +345,19 @@ function PrinciplesVsFoundations() {
       </div>
       <div style={styles.whyBox}>
         <div style={styles.whyTitle}>なぜ土台を比べるのか</div>
-        <p style={styles.tierText}>部品の見た目や数値の違いの多くは、土台の違いから来ています(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、部品ページの比較が「なぜそう違うのか」まで読めます。</p>
-        <p style={styles.tierText}>ただし、<Hl>土台を持つのはAppleとGoogleだけ</Hl>です。W3CとNN groupは土台を持たないため、各トークンページでは、W3Cは「そのトピックに関わる達成基準」、NN groupは「そのトピックの記事(調査に基づく指針)」を比べています。</p>
+        <p style={styles.tierText}>部品の見た目や数値の違いの多くは、土台の違いから来ている(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、部品ページの比較が「なぜそう違うのか」まで読める。</p>
+        <p style={styles.tierText}>ただし、<Hl>土台を持つのはAppleとGoogleだけ</Hl>だ。W3CとNN groupは土台を持たないため、各トークンページでは、W3Cは「そのトピックに関わる達成基準」、NN groupは「そのトピックの記事(調査に基づく指針)」を比べている。</p>
       </div>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページです。";
+const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページだ。";
 const ABOUT = [
   { k: "目的・役割", v: "個々のトークンのページを読む前に、4系列の「基礎」の範囲と分け方の違いを知る" },
   { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、トークン/ファウンデーションの各ページ" },
-  { k: "関連するページ", v: <><PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/principles/comparison">原則比較</PageLink></> },
+  { k: "関連するページ", v: <>ファウンデーション: <PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink>、<PageLink to="/tokens/writing">文章・UXライティング</PageLink>、<PageLink to="/tokens/icon">アイコン</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>/インタラクション: <PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>/<PageLink to="/principles/comparison">原則比較</PageLink></> },
 ];
 
 export default function TokensOverviewPage() {
@@ -407,16 +406,16 @@ export default function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要です(理由は以下のとおり)。この比較サイトの13項目という区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読んでください。
+              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要だ(理由は以下のとおり)。この比較サイトのファウンデーション9ページ・インタラクション3ページという区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読む。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことです。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められています。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになります。
+              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことだ。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められている。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになる。
             </p>
             <p style={styles.synthesisText}>
-              一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下の18トピックとして区別なく並べており、Googleのような二分はしていません。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いています</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違いです(下部の「Foundationsと並列の区分」参照)。
+              一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下のトピックとして区別なく並べており、Googleのような二分はしていない。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いている</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違い(下部の「Foundationsと並列の区分」参照)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持ちません</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱います)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わります</strong>。NN groupは記事をTopicsで分類していますが、値をそろえる仕組みではなく、調査に基づく指針として読みます。
+              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持たない</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱う)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わる</strong>。NN groupは記事をTopicsで分類しているが、値をそろえる仕組みではなく、調査に基づく指針として読む。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -432,7 +431,6 @@ export default function TokensOverviewPage() {
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="本サイトの分類との関係">{s.structuralNote}</InfoBox>
                 <InfoBox label="アクセシビリティの位置づけ">{s.accessibilityNote}</InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -483,7 +481,7 @@ export default function TokensOverviewPage() {
           <section style={styles.parallelSection}>
             <h2 style={styles.diagramTitle}>Foundationsと並列の区分 ― Appleのトップレベル構成</h2>
             <p style={styles.sectionLead}>
-              AppleのHIGは、Foundationsのほかに<strong>Getting started・Patterns・Inputs・Components・Technologies</strong>という区分を並列に持っています。中でも、設計原則(Design principles)がFoundationsではなくGetting startedに置かれている点と、入力手段(Inputs)と体験の流れ(Patterns)がFoundationsから独立している点が、Googleとの大きな違いです。
+              AppleのHIGは、Foundationsのほかに<strong>Getting started・Patterns・Inputs・Components・Technologies</strong>という区分を並列に持っている。中でも、設計原則(Design principles)がFoundationsではなくGetting startedに置かれている点と、入力手段(Inputs)と体験の流れ(Patterns)がFoundationsから独立している点が、Googleとの大きな違い。
             </p>
 
             <div style={styles.swatchCard}>
@@ -502,7 +500,6 @@ export default function TokensOverviewPage() {
                 </div>
               ))}
             </div>
-            <p style={styles.confirmedNote}>HIGのページデータ(トップページと6区分それぞれのJSON)を直接取得して確認(2026-09)。Googleの対応はm3.material.ioのsitemap.xmlのURL構成で確認。</p>
           </section>
 
           <div style={styles.tagsRow}>
@@ -510,11 +507,8 @@ export default function TokensOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleはHIGのページデータ、Googleはsitemap.xmlで区分を直接確認。W3C・NN groupの性質は本サイトの他ページで確認済みの前提を踏襲)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはFoundationsのトップページとDesign principlesのページ、GoogleはFoundations・Styles両方のトップページへのリンクです。W3CはWCAGクイックリファレンス、NN groupは記事一覧とTopicsのページへのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -530,8 +524,8 @@ const styles = {
   tierQ: { fontSize: 12, color: "#565D8A", fontWeight: 700 },
   tierText: { fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "4px 0" },
   tierFoot: { display: "flex", justifyContent: "space-between", gap: 10, flexWrap: "wrap", fontSize: 11 },
-  tierEx: { fontSize: 11, color: "#7E86AC" },
-  tierArrow: { fontSize: 10.5, color: "#9EA4C4" },
+  tierEx: { fontSize: 11, color: "#666D93" },
+  tierArrow: { fontSize: 10.5, color: "#666D93" },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" },
   tierTable: { width: "100%", minWidth: 560, borderCollapse: "collapse", fontSize: 11.5, marginBottom: 14 },
   tierTh: { fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "7px 8px", borderBottom: "1px solid #E1E3F0", textAlign: "left" },
@@ -541,12 +535,12 @@ const styles = {
   whyTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 2 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   categoryPreviewRow: { display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 16 },
   categoryPreviewItem: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, minWidth: 140, textAlign: "left" },
   categoryPreviewName: { fontSize: 11.5, fontWeight: 700, padding: "8px 10px 0" },
@@ -563,13 +557,13 @@ const styles = {
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
   matrixGrid: { display: "grid", gridTemplateColumns: "150px repeat(4, 1fr)", minWidth: 760, border: "1px solid #E1E3F0" },
   labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
@@ -583,7 +577,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   parallelSection: { marginBottom: 26 },
   sectionLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 14px" },
   layerGrid: { display: "grid", gridTemplateColumns: "minmax(78px, 0.8fr) 1fr 1fr", gap: 6, alignItems: "stretch" },

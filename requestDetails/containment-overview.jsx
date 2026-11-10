@@ -43,7 +43,7 @@ const STEPS = [
   { q: "押した部品に関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
 ];
 
-const LEAD = "今の画面の上に重ねて出す部品(オーバーレイ)を並べ、どれを使うかを比べるページです。";
+const LEAD = "今の画面の上に重ねて出す部品(オーバーレイ)を並べ、どれを使うかを比べるページだ。";
 const ABOUT = [
   { k: "目的・役割", v: "似た見た目のオーバーレイを、出る位置・後ろを操作できるか・閉じ方で見分けられるようにする" },
   { k: "扱う部品", v: "モーダルダイアログ、フルスクリーンダイアログ、ボトムシート、サイドシート、ドロワー/サイドナビ、メニュー(ポップオーバー)" },
@@ -125,13 +125,13 @@ export default function ContainmentOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              オーバーレイは、<strong>「後ろの画面を操作できるか(モーダルかどうか)」</strong>と<strong>「どこに出るか」</strong>の2つで見分けると整理しやすくなります。モーダルダイアログとフルスクリーンダイアログは常にモーダルで、ボトムシートとサイドシートは、Googleがモーダルと非モーダル(標準)の両方を用意しています。
+              オーバーレイは、<strong>「後ろの画面を操作できるか(モーダルかどうか)」</strong>と<strong>「どこに出るか」</strong>の2つで見分けると整理しやすくなる。モーダルダイアログとフルスクリーンダイアログは常にモーダルで、ボトムシートとサイドシートは、Googleがモーダルと非モーダル(標準)の両方を用意している。
             </p>
             <p style={styles.synthesisText}>
-              モーダルは作業を止めるため、<strong>本当に必要な場面に絞る</strong>ことは、AppleとNN groupの2系列が明記しています。Appleはモーダルの作業を単純・短く保つよう求め、NN groupは複数ステップの作業はモーダルにせず普通のページにするよう勧めています(詳しくは各ページ)。
+              モーダルは作業を止めるため、<strong>本当に必要な場面に絞る</strong>ことは、AppleとNN groupの2系列が明記している。Appleはモーダルの作業を単純・短く保つよう求め、NN groupは複数ステップの作業はモーダルにせず普通のページにするよう勧めている(詳しくは各ページ)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならrole="dialog"とaria-modal="true"、フォーカスの閉じ込めと、閉じた後に元の場所へ戻すこと</strong>を共通の作り方としています。見た目の種類が違っても、モーダルかどうかで作り方が決まります。
+              W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならrole="dialog"とaria-modal="true"、フォーカスの閉じ込めと、閉じた後に元の場所へ戻すこと</strong>を共通の作り方としている。見た目の種類が違っても、モーダルかどうかで作り方が決まる。
             </p>
           </div>
 
@@ -140,8 +140,8 @@ export default function ContainmentOverviewPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.045で新規作成)</span>
-            <span>このページは既存ページの統合見解で、新しい一次情報の引用は行っていません。系列別の詳細と公式リンクは、各部品のページを参照してください。</span>
+            <span>最終確認: 2026-11</span>
+            <span>このページは既存ページの統合見解で、新しい一次情報の引用は行っていない。系列別の詳細と公式リンクは、各部品のページを参照。</span>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 40, borderRadius: "0 4px 4px 0" },
@@ -186,11 +186,11 @@ const styles = {
   cardIcon: { marginBottom: 10, height: 26, display: "flex", alignItems: "center" },
   cardName: { fontSize: 13.5, fontWeight: 700, color: "#171B36", marginBottom: 4, display: "flex", alignItems: "center", gap: 6 },
   cardOneLiner: { fontSize: 11.5, lineHeight: 1.6, color: "#565D8A", marginBottom: 10 },
-  unbuiltTag: { fontSize: 9.5, fontWeight: 400, color: "#B7BCDA", fontFamily: "'IBM Plex Mono', monospace" },
+  unbuiltTag: { fontSize: 9.5, fontWeight: 400, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" },
   usageRow: { display: "flex", gap: 6, alignItems: "flex-start", marginBottom: 4 },
   usageMark: { flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, width: 30 },
   usageMarkOk: { color: "#2F7D6E" },
   usageMarkNg: { color: "#C0503F" },
   usageText: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, RefList } from "./page-parts";
+import { TagLink, RefList, PageLink } from "./page-parts";
 
 /**
  * 思想レイヤー「アクセシビリティ」ページ(旧「POUR解説」を改称・再構成)。
@@ -19,7 +19,7 @@ const FRAMEWORKS = [
     color: "#C2542A",
     items: [
       { name: "目指す3つの性質", desc: "使いやすい(Intuitive: なじみのある一貫した操作)・知覚できる(Perceivable: 視覚・聴覚・発話・触覚のどれか1つに頼らない)・合わせられる(Adaptable: システムの支援機能や利用者の設定に合わせて変わる)。" },
-      { name: "Vision(視覚)", desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは17pt以下で4.5:1、18pt以上・太字で3:1。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
+      { name: "Vision(視覚)", desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは、17ptまでは4.5:1、18pt以上か太字(大きさを問わない)なら3:1(WCAG AAの値を目安にしているが、大きさは画面の単位ptで示しており、WCAGの「大きな文字」の条件とは別)。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
       { name: "Hearing(聴覚)", desc: "字幕・音声解説・書き起こしなど、文字で受け取れる手段を用意する。音の合図には触覚(ハプティクス)や画面上の印も添える。" },
       { name: "Mobility(運動)", desc: "操作部品は既定44×44pt・最小28×28pt(iOS/iPadOS)。部品の間は、枠のある部品なら約12pt、枠のない部品なら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
       { name: "Speech(発話)", desc: "キーボードだけで操作できるようにし(フルキーボードアクセス)、システムのショートカットを上書きしない。スイッチコントロールに対応する。" },
@@ -27,6 +27,10 @@ const FRAMEWORKS = [
     ],
     extra: "apple",
     url: "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+    refs: [
+      { label: "Accessibility", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility" },
+      { label: "Inclusion", url: "https://developer.apple.com/design/human-interface-guidelines/inclusion" },
+    ],
     confirmedNote: "各分野の見出しに実アンカーあり(例: #Vision)。ページ本体の裏側データを直接取得して確認(2026-11)。Accessibility Nutrition LabelsはApp Store Connectのヘルプで確認。",
   },
   {
@@ -37,7 +41,7 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。タッチの押せる範囲は48×48dp以上(約9mm)、ポインターは44×44dp以上、間隔は8dp以上が目安。" },
+      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、部品どうしの間隔は8dp以上(M3 Structure)。" },
       { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定(ソースコードの順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いた部品にフォーカスを戻す。" },
       { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などの部品名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割(ロール)を割り当てる。" },
       { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つ部品は対象外)。無効状態はコントラストの要件の対象外。" },
@@ -69,7 +73,7 @@ const FRAMEWORKS = [
           { name: "1.1 Text Alternatives", desc: "非テキストコンテンツに代替テキストを用意すべきという指針。", sc: "例: 1.1.1 非テキストコンテンツ(A)" },
           { name: "1.2 Time-based Media", desc: "動画・音声に代替手段を用意すべきという指針。", sc: "例: 1.2.2 キャプション(収録済み)(A)" },
           { name: "1.3 Adaptable", desc: "情報や構造を失わずに異なる形式でも提示できるべきという指針。", sc: "例: 1.3.1 情報及び関係性(A)、1.3.4 表示の向き(AA)" },
-          { name: "1.4 Distinguishable", desc: "前景と背景を区別しやすくすべきという指針(色のみによる区別の禁止など)。", sc: "例: 1.4.1 色の使用(A)、1.4.3 文字のコントラスト4.5:1(AA)、1.4.4 200%まで拡大(AA)、1.4.11 文字以外のコントラスト3:1(AA)" },
+          { name: "1.4 Distinguishable", desc: "前景と背景を区別しやすくすべきという指針(色のみによる区別の禁止など)。", sc: "例: 1.4.1 色の使用(A)、1.4.3 コントラスト(最低限)4.5:1(AA)、1.4.4 200%まで拡大(AA)、1.4.11 非テキストのコントラスト3:1(AA)" },
         ],
       },
       {
@@ -81,7 +85,7 @@ const FRAMEWORKS = [
           { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。", sc: "例: 2.2.1 タイミング調整可能(A)、2.2.2 一時停止・停止・非表示(A)" },
           { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。", sc: "例: 2.3.1 3回の閃光(A)" },
           { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。", sc: "例: 2.4.3 フォーカス順序(A)、2.4.4 リンクの目的(A)、2.4.7 フォーカスの可視化(AA)、2.4.11 フォーカスが隠されない(AA)" },
-          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。", sc: "例: 2.5.1 ポインタのジェスチャ(A)、2.5.7 ドラッグ操作(AA)、2.5.8 ターゲットのサイズ 24×24px(AA・例外あり)" },
+          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。", sc: "例: 2.5.1 ポインタのジェスチャ(A)、2.5.7 ドラッグ動作(AA)、2.5.8 ターゲットサイズ(最低限) 24×24px(AA・例外あり)" },
         ],
       },
       {
@@ -96,7 +100,7 @@ const FRAMEWORKS = [
       },
       {
         name: "Robust(堅牢)",
-        desc: "コンテンツは支援技術を含む様々なユーザーエージェントで確実に解釈できるべきという原則。",
+        desc: "コンテンツは、支援技術(読み上げソフトなど、障害のある人が使う道具)を含む様々なユーザーエージェント(ブラウザなど、内容を読み込んで表示・利用する道具)で確実に解釈できるべきという原則。",
         url: "https://www.w3.org/TR/WCAG22/#robust",
         sub: [
           { name: "4.1 Compatible", desc: "現在・将来のユーザーエージェントとの互換性を最大化すべきという指針。", sc: "例: 4.1.2 名前・役割・値(A)、4.1.3 ステータスメッセージ(AA)" },
@@ -105,6 +109,10 @@ const FRAMEWORKS = [
     ],
     extra: "wcag",
     url: "https://www.w3.org/TR/WCAG22/",
+    refs: [
+      { label: "WCAG 2.2", url: "https://www.w3.org/TR/WCAG22/" },
+      { label: "WAI: Accessibility, Usability, and Inclusion", url: "https://www.w3.org/WAI/fundamentals/accessibility-usability-inclusion/" },
+    ],
     confirmedNote: "4原則・13ガイドラインすべて実アンカーあり。達成基準の数とレベルは仕様書本体で数えて確認(2026-11)。",
   },
   {
@@ -147,10 +155,10 @@ function WcagLevels() {
         {[
           { lv: "原則", n: "4つ", ex: "2 = 操作可能", w: "100%" },
           { lv: "ガイドライン", n: "13", ex: "2.5 = 入力モダリティ", w: "88%" },
-          { lv: "達成基準", n: "86", ex: "2.5.8 = ターゲットのサイズ(最低限)", w: "76%" },
+          { lv: "達成基準", n: "86", ex: "2.5.8 = ターゲットサイズ(最低限)", w: "76%" },
         ].map((r) => (
           <div key={r.lv} style={{ width: r.w, background: "#FBF6E6", borderLeft: "3px solid #A3821F", padding: "5px 8px", borderRadius: "0 3px 3px 0" }}>
-            <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{r.lv}<span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#7E86AC", marginLeft: 6 }}>{r.n}</span></div>
+            <div style={{ fontSize: 11.5, fontWeight: 700, color: "#171B36" }}>{r.lv}<span style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#666D93", marginLeft: 6 }}>{r.n}</span></div>
             <div style={{ fontSize: 10.5, color: "#454C78" }}>例: {r.ex}</div>
           </div>
         ))}
@@ -158,7 +166,7 @@ function WcagLevels() {
       <div style={{ display: "flex", gap: 4, margin: "10px 0 4px" }}>
         {[{ l: "A", n: 31, t: "最低限" }, { l: "AA", n: 24, t: "実務の一般的な目標" }, { l: "AAA", n: 31, t: "より高い水準" }].map((x) => (
           <div key={x.l} style={{ flex: 1, border: "1px solid #E7DDB8", borderRadius: 4, padding: "5px 6px", textAlign: "center" }}>
-            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 12, color: "#A3821F" }}>{x.l}<span style={{ color: "#7E86AC", fontWeight: 500 }}> {x.n}</span></div>
+            <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 12, color: "#A3821F" }}>{x.l}<span style={{ color: "#666D93", fontWeight: 500 }}> {x.n}</span></div>
             <div style={{ fontSize: 10, color: "#454C78", lineHeight: 1.4 }}>{x.t}</div>
           </div>
         ))}
@@ -202,7 +210,7 @@ function FrameworkExtra({ k }) {
 const RELATION_ROWS = [
   { k: "Apple", v: "Accessibilityとは別に「Inclusion」のページを持つ。年齢・ジェンダー・人種・言語と文化・一時的/状況による障害などの観点を挙げ、「不快なものがない」ことと「インクルーシブである」ことは別だとしている" },
   { k: "Google", v: "Accessibility designing(作り方)と、Building for all(多様な人と一緒に作る・人の多様さの観点)を分けて置いている" },
-  { k: "W3C", v: "WCAGは、障害のある人が使えるかを確かめる基準。インクルーシブデザインの全体は扱わない" },
+  { k: "W3C", v: "WCAGは、障害のある人が使えるかを確かめる基準。インクルーシブデザインの全体は扱わない。WAIの解説「Accessibility, Usability, and Inclusion」は、インクルージョンを年齢・言語・文化・通信環境なども含む広い考え方とし、アクセシビリティはあえて障害に絞ることで、障害に合わせた解決策を深められるとしている" },
   { k: "NN group", v: "アクセシビリティは障害のある人への配慮に絞った、インクルーシブデザインより狭い範囲。WCAGがあるので確かめやすいが、それは意味のある体験のための最低限にすぎない、としている" },
 ];
 function InclusionSection() {
@@ -233,7 +241,7 @@ function InclusionSection() {
         <p style={styles.extraText}><strong>1. WCAGで最低限を確かめる</strong> ― 障害のある人が使えるかを、番号付きの基準で検証する(実務の目標はAA)。</p>
         <p style={styles.extraText}><strong>2. 各OSの支援機能に合わせる</strong> ― AppleやGoogleの指針で、読み上げ・文字の拡大・動きを減らすなど、端末の設定に応える。</p>
         <p style={styles.extraText}><strong>3. 障害以外の違いにも広げる</strong> ― 年齢・言語・文化・状況(片手がふさがっている、まぶしい屋外など)の違いを想定し、当事者と一緒に作り、実際の利用者でテストする。</p>
-        <p style={styles.extraNote}>NN groupは、ひとつの解決策ですべての人に使えるようにする「ユニバーサルデザイン」とも区別しています。インクルーシブデザインは、目的を果たせるなら複数のデザインの違い(設定で切り替えるなど)を認める考え方です。</p>
+        <p style={styles.extraNote}>NN groupは、ひとつの解決策ですべての人に使えるようにする「ユニバーサルデザイン」とも区別している。インクルーシブデザインは、目的を果たせるなら複数のデザインの違い(設定で切り替えるなど)を認める考え方だ。</p>
       </div>
     </section>
   );
@@ -269,13 +277,13 @@ export default function PrinciplesAccessibilityPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なります。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義しています。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っています。
+              「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なる。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義している。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っている。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的です。Appleは視覚・聴覚・運動・発話・認知の分野ごとに具体的な数値を示し、さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを開発者に申告させる独自の評価</strong>を持っています。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示しています。
+              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに具体的な数値を示し、さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを開発者に申告させる独自の評価</strong>を持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
             </p>
             <p style={styles.synthesisText}>
-              本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからです。ただし、それが唯一の正解というわけではありません。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になります。
+              本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
             </p>
           </div>
 
@@ -303,7 +311,7 @@ export default function PrinciplesAccessibilityPage() {
               <span>抽象的な心構え</span>
               <span>検証可能な規格</span>
             </div>
-            <p style={styles.diagramNote}>左右は「規格としての厳密さ」の度合いのイメージです。厳密さの高低は優劣を意味しません。詳しい内容は下の「各サイトの詳細」を参照してください。</p>
+            <p style={styles.diagramNote}>左右は「規格としての厳密さ」の度合いのイメージだ。厳密さの高低は優劣を意味しない。詳しい内容は下の「各サイトの詳細」を参照。</p>
           </div>
 
           {/* 各サイトの詳細: mobile card stack */}
@@ -346,7 +354,6 @@ export default function PrinciplesAccessibilityPage() {
                 {f.extra && <FrameworkExtra k={f.extra} />}
                 {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
-                  <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                   <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
                 </div>
               </div>
@@ -390,7 +397,6 @@ export default function PrinciplesAccessibilityPage() {
                   {f.extra && <FrameworkExtra k={f.extra} />}
                   {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
-                    <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                     <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
                   </div>
                 </div>
@@ -400,17 +406,21 @@ export default function PrinciplesAccessibilityPage() {
 
           <InclusionSection />
 
+          <div style={styles.relatedBox}>
+            <span style={styles.memoLabel}>関連するページ</span>
+            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
+              <PageLink to="/tokens/color">カラー</PageLink>(文字・部品のコントラスト)・<PageLink to="/components/actions/button">ボタン</PageLink>(押せる範囲の大きさ。2.5.8の例外)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(フォーカスの見え方)・<PageLink to="/principles/comparison">原則比較</PageLink>
+            </p>
+          </div>
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: Apple・WCAGは各項目に対応する実アンカーを確認済みです。Google・NN groupは、各カードの「参照ページ(公式)」にページ単位で載せています。
-            </span>
           </div>
         </div>
       </div>
@@ -419,6 +429,8 @@ export default function PrinciplesAccessibilityPage() {
 }
 
 const styles = {
+  relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 40 },
+  memoLabel: { display: "block", fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   extraBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 4, padding: "10px 12px", margin: "4px 0 10px" },
   extraTitle: { display: "block", fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   extraText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
@@ -427,7 +439,7 @@ const styles = {
   extraChip: { fontSize: 10.5, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 10, padding: "1px 7px", color: "#454C78" },
   extraLink: { fontSize: 11, color: "#3A4FCF" },
   refBox: { margin: "4px 0 10px" },
-  scLine: { fontSize: 10.5, color: "#7E86AC", marginTop: 2, lineHeight: 1.5 },
+  scLine: { fontSize: 10.5, color: "#666D93", marginTop: 2, lineHeight: 1.5 },
   incWrap: { display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap", marginBottom: 14 },
   incTable: { width: "100%", borderCollapse: "collapse", fontSize: 11.5 },
   incTh: { textAlign: "left", verticalAlign: "top", width: 74, padding: "7px 8px", background: "#F8F9FD", borderBottom: "1px solid #E1E3F0", fontWeight: 700, color: "#454C78" },
@@ -436,7 +448,7 @@ const styles = {
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
@@ -451,8 +463,8 @@ const styles = {
   spectrumPoint: { position: "absolute", top: 0, display: "flex", flexDirection: "column", alignItems: "center", transform: "translateX(-50%)", width: 118 },
   spectrumDot: { width: 10, height: 10, borderRadius: "50%", display: "block", marginBottom: 6 },
   spectrumLabel: { fontSize: 11, fontWeight: 700, color: "#171B36", textAlign: "center", lineHeight: 1.3 },
-  spectrumSub: { fontSize: 10, color: "#7E86AC", textAlign: "center", lineHeight: 1.4, marginTop: 2 },
-  spectrumAxis: { display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "#9EA4C4", fontFamily: "'IBM Plex Mono', monospace" },
+  spectrumSub: { fontSize: 10, color: "#666D93", textAlign: "center", lineHeight: 1.4, marginTop: 2 },
+  spectrumAxis: { display: "flex", justifyContent: "space-between", fontSize: 10.5, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" },
   genSubList: { display: "flex", flexDirection: "column", gap: 8, background: "#F8F9FD", borderRadius: 4, padding: "10px 12px", marginBottom: 4 },
   genSubRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   genSubIndex: { flexShrink: 0, width: 16, height: 16, borderRadius: "50%", color: "#FFFFFF", fontSize: 9.5, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
@@ -460,7 +472,7 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
   sourceName: { fontWeight: 600, fontSize: 15 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   itemList: { display: "flex", flexDirection: "column", gap: 8, marginTop: 10, marginBottom: 10 },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
@@ -472,11 +484,11 @@ const styles = {
   genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
   genDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", margin: "0 0 8px" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 8, paddingTop: 8, borderTop: "1px solid #E1E3F0" },
-  confirmedNote: { fontSize: 10.5, color: "#9EA4C4", maxWidth: 340 },
+  confirmedNote: { fontSize: 10.5, color: "#666D93", maxWidth: 340 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
   desktopGrid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14, marginBottom: 22 },
   desktopCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px", display: "flex", flexDirection: "column" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

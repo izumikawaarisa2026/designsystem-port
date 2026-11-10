@@ -47,13 +47,13 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "専用ページなし(Text fields / Feedbackの記載に含まれる)",
+    doc: "専用ページなし(Entering data / Text fieldsの記載に含まれる)",
     term: <NoData>専用の部品なし(入力の決まりの中で扱う)</NoData>,
     color: "#C2542A",
-    position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。欄ごとのタイミング(フォーカスが外れたときなど)の決まりはない",
-    colorInfo: "色についての明確な規定は確認できていない(視覚的な状態表現は「エラー表示」ページを参照)。",
+    position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。タイミングは内容で変え、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる",
+    colorInfo: <><NoData>記載なし</NoData>(視覚的な状態表現は「エラー表示」ページを参照)。</>,
     stance:
-      <>長いフォームを書き終えてから戻って直すのは利用者の負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題を見つけたらすぐに知らせて、その場で直せるようにするとしている(HIG Entering dataの本文で確認、2026-11)。どの時点で確かめるか(入力中か、欄を離れたときか)は書いていない。</>,
+      <>長いフォームを書き終えてから戻って直すのは利用者の負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題を見つけたらすぐに知らせて、その場で直せるようにするとしている(Entering data)。どの時点で確かめるかは内容によるとし、<Hl>メールアドレスは別の欄に移ったときに確かめ、ユーザー名・パスワードの作成は別の欄に移る前に確かめる</Hl>としている(Text fields)。</>,
     exceptions:
       "数値の欄では、数字だけを受け付けて決まった形で表示する書式(number formatter)を使うとよいとしている。必須の入力がある場合は、入力が済むまで「次へ」などのボタンを使えないようにして、入力が必要なことを伝える。",
     accessibility: <NoData>記載なし</NoData>,
@@ -66,6 +66,7 @@ const SOURCES = [
     url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices",
     refs: [
       { label: "Entering data ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/entering-data#Best-practices" },
+      { label: "Text fields ― Best practices(確かめるタイミング)", url: "https://developer.apple.com/design/human-interface-guidelines/text-fields#Best-practices" },
       { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
     ],
     confirmedNote: "HIG Entering dataの本文で確認(2026-11)。",
@@ -86,12 +87,13 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "検証する欄では、欄の下のサポートテキスト(書式のヒント)を、同じ位置のエラーテキストに入れ替える(レイアウトを動かさないため)。いつ検証するかの決まりは記載なし",
     colorInfo: "エラーテキストはエラーの色で表示し、エラーアイコンも表示することを強く勧めている。",
+    glossary: [{ term: "色", desc: "エラーテキストはエラーの色で表示し、エラーアイコンも表示することを強く勧めている(見た目の詳しい比較は「エラー表示」のページ)。" }],
     stance:
-      "Material Design 3のテキストフィールドは、通常は欄の下の「サポートテキスト」で使い方や書式のヒントを示し、パスワードのように検証する欄では、エラーのときにサポートテキストをエラーテキストに入れ替える。行が増えてレイアウトが動くのを避けるためとしている(M3 Text fieldsのガイドラインで確認、2026-11)。",
+      "Material Design 3のテキストフィールドは、通常は欄の下の「サポートテキスト」で使い方や書式のヒントを示し、パスワードのように検証する欄では、エラーのときにサポートテキストをエラーテキストに入れ替える。行が増えてレイアウトが動くのを避けるためとしている。",
     exceptions:
       "検証をいつ行うか(入力中・欄を離れたとき・送信時)の決まりは、M3のテキストフィールドのページには書かれていない。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― サポートテキストからエラーテキストへの切り替えはテキストによる状態伝達の一種と考えられるが、直接確認はできていない。",
+      <NoData>記載なし</NoData>,
     useCases: [
       "書式のヒントは、エラーが起きる前からサポートテキストとして常に示しておく",
       "検証エラー時は同じ位置のテキストをエラーテキストに置き換える(改行によるレイアウト崩れを避ける)",
@@ -107,7 +109,7 @@ const SOURCES = [
       <svg width="120" height="46" viewBox="0 0 120 46">
         <rect x="1" y="1" width="118" height="20" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
         <text x="8" y="14" fontSize="8.5" fill="#171B36" fontFamily="Jost, Noto Sans JP">パスワード</text>
-        <text x="2" y="30" fontSize="7" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">サポートテキスト(書式ヒント)</text>
+        <text x="2" y="30" fontSize="7" fill="#666D93" fontFamily="Jost, Noto Sans JP">サポートテキスト(書式ヒント)</text>
         <text x="2" y="41" fontSize="7" fill="#2F7D6E" fontFamily="Jost, Noto Sans JP">↓ 検証エラー時は同じ位置でエラーテキストに置換</text>
       </svg>
     ),
@@ -132,7 +134,7 @@ const SOURCES = [
     exceptions:
       "ARIA19のライブリージョンは、ページ読み込み時点でDOM内に空のコンテナとして存在している必要があり、後から動的に追加したコンテナには対応できない支援技術がある、という実装上の注意点がある。",
     accessibility:
-      "堅牢(Robust) ― ARIA19のライブリージョンによる動的な通知、G199の送信結果フィードバックが中心。「いつ検証するか」自体はWCAGの規範的な適合基準ではなく、実装上の判断に委ねられている点に注意してください。3.3.7は「理解可能(Understandable)」の入力支援(3.3)に関わる。",
+      "堅牢(Robust) ― ARIA19のライブリージョンによる動的な通知、G199の送信結果フィードバックが中心。「いつ検証するか」自体はWCAGの規範的な適合基準ではなく、実装上の判断に委ねられている点に注意する。3.3.7は「理解可能(Understandable)」の入力支援(3.3)に関わる。",
     useCases: [
       "エラーメッセージ用のライブリージョンコンテナは、ページ読み込み時点でDOM内に空の状態で用意しておく",
       "検証タイミング自体に絶対的な基準はないため、他系列(特にNN groupの実務指針)を参考に決める",
@@ -142,7 +144,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19",
     refs: [
-      { label: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
+      { label: "ARIA19(role=alertとライブリージョンでエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
       { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
@@ -179,7 +181,7 @@ const SOURCES = [
     searchHint: "unwarranted scolding",
     url: "https://www.nngroup.com/articles/hostile-error-messages/",
     refs: [
-      { label: "Hostile Patterns in Error Messages / 10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/hostile-error-messages/" },
+      { label: "Hostile Patterns in Error Messages", url: "https://www.nngroup.com/articles/hostile-error-messages/" },
       { label: "10 Design Guidelines for Reporting Errors in Forms", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/" },
     ],
     confirmedNote: "両記事とも本文を直接取得して確認済み(2026-09)。",
@@ -210,8 +212,8 @@ const TIMING_MATRIX = [
     key: "hig", name: "Apple",
     cells: {
       before: { m: "none", t: "言及なし" },
-      typing: { m: "good", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる(入力中か離れたときかは記載なし)。数値の欄は数字だけを受け付ける書式を使う" },
-      blur: { m: "none", t: "記載なし(「すぐに知らせる」のみ)" },
+      typing: { m: "good", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる。ユーザー名・パスワードの作成は、別の欄に移る前に確かめる。数値の欄は数字だけを受け付ける書式を使う" },
+      blur: { m: "good", t: "メールアドレスなどは、別の欄に移ったときに確かめる(Text fields)" },
       submit: { m: "none", t: "言及なし(長いフォームの最後にまとめて直させるのは負担としている)" },
       after: { m: "none", t: "言及なし" },
     },
@@ -252,8 +254,8 @@ const MARKS = {
   good: { sym: "◯", label: "推奨・既定", color: "#2F7D6E", bg: "#E6F2EE" },
   cond: { sym: "△", label: "条件付き", color: "#A3821F", bg: "#F7F0DC" },
   avoid: { sym: "✕", label: "原則避ける", color: "#C0503F", bg: "#F8E6E2" },
-  none: { sym: "―", label: "言及なし", color: "#9EA4C4", bg: "#FFFFFF" },
-  unknown: { sym: "?", label: "未確認", color: "#7E86AC", bg: "#F8F9FD" },
+  none: { sym: "―", label: "言及なし", color: "#666D93", bg: "#FFFFFF" },
+  unknown: { sym: "?", label: "未確認", color: "#666D93", bg: "#F8F9FD" },
 };
 
 function TimingLegend() {
@@ -290,7 +292,7 @@ function TimingChart() {
               return (
                 <div key={p.key} style={{ ...styles.timingCell, background: mk.bg }}>
                   <span style={{ ...styles.timingMark, color: mk.color }}>{mk.sym}</span>
-                  <span style={{ ...styles.timingCellText, color: c.m === "none" || c.m === "unknown" ? "#9EA4C4" : "#2E3457" }}>{c.t}</span>
+                  <span style={{ ...styles.timingCellText, color: c.m === "none" || c.m === "unknown" ? "#666D93" : "#2E3457" }}>{c.t}</span>
                 </div>
               );
             })}
@@ -310,7 +312,7 @@ function TimingField({ value, state, caption, cursor }) {
       <div style={{ border: `1.6px solid ${border}`, borderRadius: 5, padding: "6px 8px", fontSize: 11.5, background: "#FFFFFF", color: value ? "#171B36" : "#9EA4C4", minHeight: 28, fontFamily: "'IBM Plex Mono', monospace" }}>
         {value || "name@example.com"}{cursor && <span style={{ color: "#3A4FCF" }}>|</span>}
       </div>
-      <div style={{ fontSize: 10, marginTop: 4, lineHeight: 1.45, color: state === "error" ? "#C0503F" : state === "ok" ? "#2F7D6E" : "#7E86AC" }}>{caption}</div>
+      <div style={{ fontSize: 10, marginTop: 4, lineHeight: 1.45, color: state === "error" ? "#C0503F" : state === "ok" ? "#2F7D6E" : "#666D93" }}>{caption}</div>
     </div>
   );
 }
@@ -448,8 +450,8 @@ function GlossaryNote({ items }) {
 
 function ValidationTimingSwatch() {
   const stages = [
-    { label: "入力中", desc: "多くの場合は検証しない", color: "#B7BCDA" },
-    { label: "フィールドを離れた時", desc: "既定のタイミング(NN group・Apple)", color: "#3A4FCF" },
+    { label: "入力中", desc: "多くの場合は検証しない", color: "#666D93" },
+    { label: "フィールドを離れた時", desc: "既定のタイミング(NN group・Appleはメールアドレスなど)", color: "#3A4FCF" },
     { label: "送信時", desc: "必須項目の見落としを検知", color: "#5A9629" },
   ];
   return (
@@ -458,7 +460,7 @@ function ValidationTimingSwatch() {
         <div key={s.label} style={{ width: 130, textAlign: "center" }}>
           <div style={{ height: 4, borderRadius: 2, background: s.color, marginBottom: 6 }} />
           <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36" }}>{s.label}</div>
-          <div style={{ fontSize: 9.5, color: "#7E86AC", lineHeight: 1.4 }}>{s.desc}</div>
+          <div style={{ fontSize: 9.5, color: "#666D93", lineHeight: 1.4 }}>{s.desc}</div>
         </div>
       ))}
     </div>
@@ -466,7 +468,7 @@ function ValidationTimingSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方です。";
+const LEAD = "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方だ。";
 const ABOUT = [
   { k: "目的・役割", v: "間違いを早めに知らせつつ、入力の途中で邪魔をしないタイミングを選ぶ" },
   { k: "よく使われる場面", v: "メールアドレス・パスワードの確認、会員登録・購入のフォーム" },
@@ -479,10 +481,10 @@ const SPLITS = [
     q: "入力の検証は、いつ行う?",
     sides: [
       { who: "NN group", color: "#7A4F7E", t: "欄の入力を終えて次の欄へ移るまで待つ。入力中にエラーを出すと責められているように感じる。パスワードの条件の一覧のような場面だけは入力中に示してよい" },
-      { who: "Apple", color: "#C2542A", t: "入力されたらすぐに確かめ、問題があればすぐに知らせる。入力中か欄を離れたときかは書いていない" },
+      { who: "Apple", color: "#C2542A", t: "入力されたらすぐに確かめて知らせる。メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる" },
       { who: "W3C・Google", color: "#A3821F", t: "タイミングの決まりはない(W3CのARIA19の例は送信時に確かめる。Googleはエラーテキストの出し方だけを定めている)" },
     ],
-    tip: "「欄を離れたときに確かめる」を基本にすると、Appleの「すぐに知らせる」とNN groupの「入力中は待つ」の両方に沿います。入力中に示すのは、パスワードの条件のように、満たしたかどうかを見ながら入力したい場面だけにします。",
+    tip: "「欄を離れたときに確かめる」を基本にすると、Apple(メールアドレスなど)とNN group(入力中は待つ)の両方に沿う。入力中に示すのは、パスワードの条件のように、満たしたかどうかを見ながら入力したい場面だけにする。",
   },
 ];
 
@@ -514,7 +516,7 @@ export default function TextInputsInputValidationPage() {
           <SummaryCard
             imageLabel="検証タイミングの3つの選択肢"
             image={<><ValidationTimingSwatch /></>}
-            imageNote={<>NN group・Appleとも、「入力中に急いで警告しない」という点で一致している。フィールド離脱時の検証が既定、リアルタイム検証はパスワード要件チェックリストなど特殊な場面に限定される。</>}
+            imageNote={<>NN groupは欄を離れたときの検証を既定とし、Appleもメールアドレスなどは別の欄に移ったときに確かめるとしている。入力中に示すのは、パスワードの条件の一覧(NN group)や、ユーザー名・パスワードの作成(Apple)など、決まった場面に限られる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -524,33 +526,33 @@ export default function TextInputsInputValidationPage() {
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
-          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べました。表は横にスクロールできます。</p>
+          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。表は横にスクロールできる。</p>
           <TimingLegend />
           <TimingChart />
-          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)だけです。Appleは「入力されたらすぐに知らせる」とし、どの時点かは書いていません。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱います。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていません。</p>
+          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
 
           <h3 style={styles.subTitle}>5つのタイミングの解説</h3>
-          <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べました。</p>
+          <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べた。</p>
           <TimingDetails />
 
           <h3 style={styles.subTitle}>入力欄の種類ごとの目安</h3>
-          <p style={styles.diagramNote}>上の各系列の記述を、入力欄の種類ごとに整理し直した目安です(◯=推奨・既定、△=条件付き、✕=原則避ける)。系列名のないセルは、各系列の原則から導いた一般的な実務としての補足です。1つの欄に1つのタイミングだけを選ぶのではなく、組み合わせて使うのが一般的です。</p>
+          <p style={styles.diagramNote}>上の各系列の記述を、入力欄の種類ごとに整理し直した目安だ(◯=推奨・既定、△=条件付き、✕=原則避ける)。系列名のないセルは、各系列の原則から導いた一般的な実務としての補足だ。1つの欄に1つのタイミングだけを選ぶのではなく、組み合わせて使うのが一般的だ。</p>
           <FieldGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              検証タイミングについて最も具体的な指針を持つのはNielsen Norman Groupです。<strong>「入力中(タイピング中)にエラーを出さない」「フィールドを離れた時点で検証する」</strong>を原則としつつ、<strong>パスワードの要件チェックリストのような場面に限りリアルタイム検証を認める</strong>という、原則+例外の形で整理されています。
+              検証タイミングについて最も具体的な指針を持つのはNielsen Norman Groupだ。<strong>「入力中(タイピング中)にエラーを出さない」「フィールドを離れた時点で検証する」</strong>を原則としつつ、<strong>パスワードの要件チェックリストのような場面に限りリアルタイム検証を認める</strong>という、原則+例外の形で整理されている。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>「入力されたらすぐに確かめ、問題があればすぐに知らせる」</strong>としていますが、入力中か欄を離れたときかまでは書いていません。いつ検証するかは系列で分かれます(上の「意見が分かれる点」)。
+              Appleは<strong>「入力されたらすぐに確かめ、問題があればすぐに知らせる」</strong>(Entering data)としたうえで、<strong>メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる</strong>(Text fields)と、内容でタイミングを分けている。いつ検証するかは系列で分かれる(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていません</strong>。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を、G199は送信が成功したことの知らせ方を扱いますが、どちらも検証のタイミングではありません。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立です。
+              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていない</strong>。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を、G199は送信が成功したことの知らせ方を扱うが、どちらも検証のタイミングではない。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立だ。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「サポートテキストをエラーテキストに入れ替える」という見せ方</strong>を定めていますが、いつ検証するかはM3のページに書かれていません。エラーの前から書式のヒントをサポートテキストで示しておく点は、NN groupの「入力途中で急がせない」という考え方と相性のよい作りです。
+              Googleは<strong>「サポートテキストをエラーテキストに入れ替える」という見せ方</strong>を定めているが、いつ検証するかはM3のページに書かれていない。エラーの前から書式のヒントをサポートテキストで示しておく点は、NN groupの「入力途中で急がせない」という考え方と相性のよい作りだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -570,12 +572,10 @@ export default function TextInputsInputValidationPage() {
                 )}
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -608,8 +608,6 @@ export default function TextInputsInputValidationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
@@ -644,11 +642,8 @@ export default function TextInputsInputValidationPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはEntering dataページを基本リンクとし、Feedbackページも併記しています(専用のバリデーションページなし)。WCAGはARIA19を基本リンクとし、Validating InputチュートリアルとG199も併記しています。GoogleはM3のText fieldsのガイドラインへのリンクです。NN groupはHostile Patterns in Error Messagesを基本リンクとし、10 Design Guidelines for Reporting Errors in Formsも併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -661,12 +656,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -675,24 +670,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -717,7 +712,7 @@ const styles = {
   timingHead: { padding: "10px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", textAlign: "center", background: "#FFFFFF" },
   timingStepNo: { display: "inline-block", width: 18, height: 18, lineHeight: "18px", borderRadius: 9, background: "#3A4FCF", color: "#FFFFFF", fontSize: 10, fontWeight: 700, marginBottom: 4 },
   timingHeadName: { fontSize: 11.5, fontWeight: 700, color: "#171B36" },
-  timingHeadSub: { fontSize: 10, color: "#7E86AC" },
+  timingHeadSub: { fontSize: 10, color: "#666D93" },
   timingRowName: { padding: "10px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", background: "#F8F9FD" },
   timingCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, textAlign: "center" },
   timingCellText: { fontSize: 10.5, lineHeight: 1.5 },
@@ -732,9 +727,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

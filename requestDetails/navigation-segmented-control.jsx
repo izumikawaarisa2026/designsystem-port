@@ -40,7 +40,7 @@ const SOURCES = [
     exceptions:
       <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にするとしている(2026-10にHIGの本文で再確認)。全セグメントの幅が同じであるため、内容量が一部のセグメントだけ多い/少ないと見た目が崩れるとして、内容量を揃えることを推奨している。1つのコントロール内でテキストと画像を混在させることも、一貫性を欠き分かりにくくなるため避けるべきとしている。</>,
     accessibility:
-      <span><NoData>記載なし。</NoData>全てのインタラクティブ要素に適用される最小44×44ptのタップ領域基準が、ここにも適用されると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "地図の表示切り替えのように、同じコンテンツの異なるビューを切り替える",
       "iPhoneでは5個以下のセグメントに収める",
@@ -72,7 +72,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "単一選択・複数選択の2種類。2〜5個の選択肢に最適(5個超はチップを推奨)",
     size:
-      "コンテナの高さは40dp。角は完全な丸み(フル角丸)を持つ(M2の「トグルボタン」から刷新)。具体的なセグメント幅や最小タップ領域のdp数値は確認できていない。",
+      "コンテナの高さは40dp。角は完全な丸み(フル角丸)を持つ(M2の「トグルボタン」から刷新)。",
     colorInfo:
       "色の値はデザイントークンを通して実装され、ダイナミックカラーにも対応している。セグメントボタンは類似した部品(セグメント)の集合体であるため、輪郭線は背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。選択状態はチェックマークアイコンと色の変化の両方で示すべきで、色だけに頼るべきではないとしている。",
     glossary: [
@@ -85,10 +85,10 @@ const SOURCES = [
     accessibility:
       "操作可能(Operable) ― アクセシビリティ上、単一選択セグメントボタンはラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱われるとしている(Appleの地図アプリのような「表示切り替え」用途でも、Google独自の実装はTabsパターンではなくradiogroup/checkboxとして扱われる点に注意)。ラベルテキストのないアイコンのみのセグメントには、そのアクションを説明するアクセシビリティラベル(例: 通貨記号→「安価」)を用意すべきとしている。",
     useCases: [
-      "2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
-      "2〜5個の選択肢を、選択必須にせず複数(またはゼロ)選べるようにする(複数選択、例: 価格帯フィルタ)",
+      "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を使う",
+      "既存の実装では、2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
+      "既存の実装では、2〜5個の選択肢を、選択必須にせず複数(またはゼロ)選べるようにする(複数選択、例: 価格帯フィルタ)",
       "5個を超える選択肢にはチップなど別のコンポーネントを使う",
-      "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を検討する",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/segmented-buttons/guidelines",
@@ -99,7 +99,7 @@ const SOURCES = [
     ],
     confirmedNote: "使用法・M2からの変更点・単一選択/複数選択・配置・色のコントラスト・キーボード操作・フォーカス・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文を直接確認済み。具体的なセグメント幅などのspecs数値は未確認。",
     deprecated: true,
-    deprecatedNote: "Material 3の表現力向上(Expressive)アップデート以降、セグメントボタンは推奨されなくなりました。公式には代わりに「接続ボタングループ(Connected button groups)」の使用が案内されている(機能はほぼ同じで、デザインが刷新されているとのこと)。",
+    deprecatedNote: "現行のM3(Expressive)ではセグメントボタンは推奨されず、代わりに接続ボタングループ(Connected button groups)を案内している。",
     illustration: () => (
       <svg width="110" height="26" viewBox="0 0 110 26">
         <rect x="1" y="1" width="108" height="24" rx="12" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -115,6 +115,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "該当コンポーネントなし(作るときはRadio GroupかTabsの型を使う)",
+    none: true,
     term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
@@ -126,12 +127,12 @@ const SOURCES = [
     stance: <NoData>該当なし</NoData>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/",
     refs: [
-      { kind: "apg", label: "APG: Radio Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
-      { kind: "apg", label: "APG: 参考: APG Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
+      { kind: "apg", label: "APG: Radio Groupパターン(参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
+      { kind: "apg", label: "APG: Tabsパターン(参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
       { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
     ],
   },
@@ -139,6 +140,7 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "該当コンポーネントなし(用語集で定義のみ)",
+    none: true,
     term: "Segmented control(用語集の定義のみ)",
     color: "#7A4F7E",
     position: <NoData>該当なし</NoData>,
@@ -150,11 +152,11 @@ const SOURCES = [
     stance: <NoData>該当なし</NoData>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button",
     refs: [
-      { label: "該当コンポーネントなし(用語集で定義のみ)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button" },
+      { label: "UI Elements Glossary: Segmented Button", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Segmented-Button" },
       { label: "UI Elements Glossary: Tab Bar(タブとの違い)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Tab-Bar" },
     ],
   },
@@ -223,20 +225,20 @@ function AppleTabVsSegmented() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>Appleでの、タブバーとセグメントコントロールの使い分け</h2>
-      <p style={styles.atvNote}>Appleでは、どちらも横に並んだ選択肢に見えますが、役割がはっきり分かれています。iOS・iPadOSには画面の中のタブ(Tab view)がないため、画面の中で関係のある表示を切り替えるときは、セグメントコントロールを使います。</p>
+      <p style={styles.atvNote}>Appleでは、どちらも横に並んだ選択肢に見えるが、役割がはっきり分かれている。iOS・iPadOSには画面の中のタブ(Tab view)がないため、画面の中で関係のある表示を切り替えるときは、セグメントコントロールを使う。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.atvTable}>
           <thead><tr>{["", "タブバー(Tab bar)", "セグメントコントロール"].map((h) => (<th key={h} style={styles.atvTh}>{h}</th>))}</tr></thead>
           <tbody>{APPLE_TAB_VS_SEG.map((r) => (<tr key={r[0]}><td style={{ ...styles.atvTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.atvTd}>{r[1]}</td><td style={styles.atvTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.atvNote}>4系列での使い分けは、<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>のページで比べています。</p>
+      <p style={styles.atvNote}>4系列での使い分けは、<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>のページで比べている。</p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品です。";
+const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "少ない選択肢(2〜5個)から1つを選び、同じ内容の見え方(表示形式・期間など)を切り替える" },
   { k: "よく使われる場面", v: "「日・週・月」の切り替え、リスト表示とグリッド表示の切り替え" },
@@ -251,7 +253,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "iPhoneでは約5個まで、広い画面では約5〜7個まで。多いと読み取りにくく、操作に時間がかかる" },
       { who: "Google", color: "#2F7D6E", t: "5個まで。5個を超えるならチップなど別の部品を検討する" },
     ],
-    tip: "スマートフォンでは5個までにそろえれば、AppleとGoogleのどちらにも沿います。6〜7個を並べられるのはAppleの広い画面だけなので、選択肢が増えそうならチップやメニューに切り替えます。",
+    tip: "スマートフォンでは5個までにそろえれば、AppleとGoogleのどちらにも沿う。6〜7個を並べられるのはAppleの広い画面だけなので、選択肢が増えそうならチップやメニューに切り替える。",
   },
 ];
 
@@ -290,9 +292,9 @@ export default function NavigationSegmentedControlPage() {
           <SplitSection splits={SPLITS} />
 
           <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
+            <div style={styles.warningLabel}>⚠ 注記(Google/Material Design 3)</div>
             <p style={styles.warningText}>
-              Material 3の表現力向上(Expressive)アップデート以降、<strong>セグメントボタンは推奨されなくなりました</strong>。Google公式には、代わりに<strong>「接続ボタングループ(Connected button groups)」</strong>の使用が案内されています(機能はほぼ同じで、デザインが刷新されているとのことです)。このページはこれまでの「セグメントボタン」としての情報を扱っています。Material 3の最新版を使う場合は、接続ボタングループの情報もあわせて確認することをおすすめします(下記Google欄の「後継: Connected button groups」リンクを参照)。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しません。
+              現行のM3(Expressive)では<strong>セグメントボタンは推奨されず</strong>、代わりに<strong>接続ボタングループ(Connected button groups)</strong>を案内している。このページのGoogle欄は、既存の実装で使われているセグメントボタンの内容で、新しく作るときは接続ボタングループを使う(Google欄の参照ページ「後継: Connected button groups」)。
             </p>
           </div>
 
@@ -304,16 +306,16 @@ export default function NavigationSegmentedControlPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>W3CとNN groupには、セグメントコントロールに当たる項目はありません</strong>(W3Cは作るときの型、NN groupは用語の定義だけを「メモ」に載せています)。セグメントコントロールは、<strong>Appleが「表示(ビュー)の切り替え」を主な用途として説明する</strong>のに対し、<strong>Googleは「選択・表示切替・並べ替え」とやや広い用途</strong>で説明しており、両者で強調点が異なります。ラジオボタンと同じ「相互排他的な単一選択」を扱える点は共通しています。
+              <strong>W3CとNN groupには、セグメントコントロールに当たる項目はない</strong>(W3Cは作るときの型、NN groupは用語の定義だけを「メモ」に載せている)。セグメントコントロールは、<strong>Appleが「表示(ビュー)の切り替え」を主な用途として説明する</strong>のに対し、<strong>Googleは「選択・表示切替・並べ替え」とやや広い用途</strong>で説明しており、両者で強調点が異なる。ラジオボタンと同じ「相互排他的な単一選択」を扱える点は共通している。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>があります。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされています。
+              <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>がある。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされている。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記しています。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言えます。
+              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言える。
             </p>
             <p style={styles.synthesisText}>
-              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことです(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>と考えられる(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者で考え方が異なります。
+              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者で考え方が異なる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -331,6 +333,9 @@ export default function NavigationSegmentedControlPage() {
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
+                {s.none ? (
+                  <div style={styles.termLine}><span style={styles.termLabel}>名称</span><NoData>独立した部品なし</NoData></div>
+                ) : (<>
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
@@ -339,7 +344,7 @@ export default function NavigationSegmentedControlPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
+                </>)}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -403,11 +408,8 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・WAI-ARIA・Googleとも公式ページ本文を確認済み。Googleのセグメント幅などのspecs数値のみ未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSegmented Controls本体へのリンクです。WCAGはWAI-ARIA Authoring Practices(Radio Group / Tabsパターン)、NN groupは関連記事(チェックボックス vs ラジオボタン)です。Googleは最新版(M3)の公式ページ(Segmented buttons)へリンクしており本文は確認済みですが、specsページ本文(セグメント幅などのdp数値)はまだ確認できていません。後継の「接続ボタングループ」へのリンクも併記しています。
-            </span>
           </div>
         </div>
       </div>
@@ -424,7 +426,7 @@ const styles = {
   atvTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
@@ -432,7 +434,7 @@ const styles = {
   warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -441,24 +443,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -476,5 +478,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

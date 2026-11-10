@@ -53,7 +53,7 @@ const SOURCES = [
     position: "1行(または複数行)のテキストを入力・編集させる標準コントロール",
     size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかの部品と同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
-      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。欄が空のときは、プレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、欄の目的を思い出せるよう別にラベルを置くと役に立つ、としている(HIG Text fieldsの本文で確認、2026-11)。",
+      "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。欄が空のときは、プレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、欄の目的を思い出せるよう別にラベルを置くと役に立つ、としている。",
     exceptions:
       <span>欄が多いときは間隔をそろえ、できるだけ縦に積み、幅をそろえる。エラーの出し方は入力の決まり(Entering data)で扱う(「エラー表示」「バリデーション」ページを参照)。</span>,
     accessibility: <NoData>記載なし</NoData>,
@@ -70,7 +70,7 @@ const SOURCES = [
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <rect x="1" y="1" width="138" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <text x="10" y="17" fontSize="10" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">example@mail.com</text>
+        <text x="10" y="17" fontSize="10" fill="#666D93" fontFamily="Jost, Noto Sans JP">example@mail.com</text>
       </svg>
     ),
     illustrationNote: "枠線+プレースホルダーの標準的なテキストフィールド(概念図・系列識別色)",
@@ -88,7 +88,7 @@ const SOURCES = [
       { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下に表示される補足情報。入力の使われ方などを説明するサポートテキストは、検証エラー時にはエラーテキストに置き換えられる。両方表示する場合はサポートテキストを先に、エラーテキストを後に読み上げさせる。" },
     ],
     stance:
-      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る(M3 Text fieldsのガイドラインで確認、2026-11)。",
+      "Filledテキストフィールドは視覚的な主張が強く、周囲のコンテンツやコンポーネントの中で目立たせたい場合に向くとされている。Outlinedテキストフィールドは主張が弱く、フォームのように多数のテキストフィールドを並べる場面でレイアウトを簡潔に見せるのに役立つとされている。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る。",
     exceptions:
       "サポートテキストとエラーテキストの両方を表示する場合は、サポートテキストを先に、エラーテキストを後に読み上げさせる。エラーメッセージにはalertの役割を付ける。必須の欄はラベルの末尾に「*」を付け、読み上げにも含める。",
     accessibility:
@@ -131,7 +131,7 @@ const SOURCES = [
     exceptions:
       "プレースホルダーテキストやARIAだけによるラベル付けは、この基準を満たすには不十分だとしている。目的は、ユーザーが過度な混乱なくタスクを完了できるだけの情報を提供することで、データ形式・入力例・必須項目の明示などが必要に応じて求められる。",
     accessibility:
-      "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2はガイドライン3.3「入力支援」に属し、POUR原則のうち「理解可能」に対応する。1.3.1(情報と関係性)は「知覚可能」、4.1.2(名前・役割・値)は「堅牢」の基準。3つは別々の原則に属し、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしている。",
+      "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2はガイドライン3.3「入力支援」に属し、POUR原則のうち「理解可能」に対応する。1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前・役割・値)は「堅牢」の基準。3つは別々の原則に属し、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしている。",
     useCases: [
       "全ての入力欄に目に見えるラベルを付ける(必須・任意を問わない)",
       "プレースホルダーやARIAラベルだけに頼らない",
@@ -141,6 +141,9 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html",
     refs: [
       { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+      { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
+      { kind: "sc", level: "AA", label: "1.3.5 入力目的の特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -161,7 +164,7 @@ const SOURCES = [
     position: "ラベル・説明文を入力欄の中(プレースホルダー)に置くのは有害という、調査に基づく指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべき</Hl>だとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好みますが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている(記事本文を直接確認、2026-10)。</>,
+      <><Hl>ラベルや説明文を入力欄の中に置くこと(プレースホルダー頼み)はユーザビリティとアクセシビリティを下げるため避けるべき</Hl>だとしている。デザイナーは視覚的な煩雑さを減らせるという理由でプレースホルダーを好むが、多くのユーザビリティ上の問題を引き起こすとしている。良し悪しを段階で示し、ラベルとヒントを入力欄の外に常に表示する形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントとして使う形を「より良い(Better)」としている。フローティングラベルは従来のプレースホルダーの欠点を一部和らげるものの、場所があるならラベルとヒントを欄の外に置くのが最良だとしている。</>,
     exceptions:
       "長いフォームで入力中にヒントを忘れると、書いた内容を消して確認しないと元のヒントが見えないという記憶の負担が生じるとしている。ラベルなしでは、入力済みかどうかを確認するために各欄を1つずつ消して確認する必要が生じるとしている。アイトラッキング調査では、ユーザーの視線は空欄に引き寄せられるとしている。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、実際のユーザビリティ調査(記憶負荷・確認のしやすさ・視線)に基づく指針。",
@@ -192,33 +195,33 @@ const TEXTAREA_NOTES = [
     name: "Apple",
     position: "テキストフィールドは短い特定の文言専用。複数行・大きな文章の入力には、延長ではなく別コンポーネント「Text view」を使うべきとしている",
     text: "HIGは、テキストフィールドを氏名やメールアドレスなど短い文言のための部品とし、長い文章には別の部品の「Text view」を使うとしている。Text viewは高さを自由に決められ、内容があふれるとスクロールでき、長い文章・編集できる文章・特別な書式の文章を表示するときに使う。少しの文章なら、表示はラベル、編集はテキストフィールドのほうが簡単としている。",
-    confirmedNote: "HIG Text viewsの本文で確認(2026-11)。",
-    url: "https://developer.apple.com/design/human-interface-guidelines/text-views",
+    refs: [{ label: "Text views", url: "https://developer.apple.com/design/human-interface-guidelines/text-views" }],
   },
   {
     key: "material",
     name: "Google",
     position: "別の部品ではなく、同じText fieldの中の「複数行(multi-line)」と「テキストエリア(text area)」",
     text: "M3では、複数行の入力は別の部品ではなく、テキストフィールドの3つの形の中で扱う。1行の欄は長い回答に向かない。複数行の欄は最初は1行で、あふれると下に伸びて画面の要素を押し下げる。テキストエリアは最初から高さがあり、決まった高さを超えるとスクロールする。最初から大きいことで、長い回答を書いてよいと伝える。最大の行数・高さのdpの値は記載なし。",
-    confirmedNote: "M3 Text fieldsのガイドラインの本文で確認(2026-11)。",
-    url: "https://m3.material.io/components/text-fields/guidelines",
+    refs: [{ label: "Text fields ― Guidelines", url: "https://m3.material.io/components/text-fields/guidelines" }],
   },
   {
     key: "wcag",
     name: "W3C",
     position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
     text: "aria-multiline属性は、独自に作ったrole=\"textbox\"の部品が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
-    confirmedNote: "aria-multiline属性の解説はMDN本文を直接確認済み(2026-09)。",
-    url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline",
-    urlSecondary: [{ label: "解説(MDN): aria-multiline", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline" }],
+    refs: [
+      { label: "WAI-ARIA 1.2: aria-multiline", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline" },
+      { kind: "sc", level: "AA", label: "1.4.4 テキストのサイズ変更", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" },
+      { kind: "sc", level: "AA", label: "1.4.10 リフロー", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html" },
+      { kind: "mdn", label: "aria-multiline", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline" },
+    ],
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     position: "入力欄の見た目の大きさ自体が、求められている回答の長さを示す視覚的な手がかりになるという指針",
     text: "短い入力欄は短い回答(郵便番号・年齢など)を、長く大きい入力欄は詳しい入力(住所・説明・コメントなど)を求めていると伝わる、としている。電話番号・市区町村・郵便番号の欄を同じ大きさにそろえて利用者を迷わせた例(NAICのフォーム)を挙げており、テキストエリアの高さは求める回答の長さに合わせる、という実務的な指針になる。",
-    confirmedNote: "記事の本文で確認(2026-09)。テキストエリア専用の記事ではなく、フォーム全般の認知負荷の記事の一節。",
-    url: "https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/",
+    refs: [{ label: "4 Principles to Reduce Cognitive Load in Forms", url: "https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/" }],
   },
 ];
 
@@ -231,9 +234,7 @@ function TextareaNotes() {
             <div style={styles.sourceName}>{s.name}</div>
             <div style={styles.positionBadge}>{s.position}</div>
             <p style={styles.sourceStance}>{s.text}</p>
-            <p style={styles.confirmedNote}>{s.confirmedNote}</p>
-            <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
-            {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.sourceLink, marginLeft: 8 }}>{sl.label} ↗</a>))}
+            <div style={styles.textareaRefs}><RefList refs={s.refs} withW3cNote={s.key === "wcag"} /></div>
           </div>
         ))}
       </div>
@@ -251,13 +252,10 @@ function TextareaNotes() {
             {TEXTAREA_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
             <div style={styles.labelCell}>基本方針</div>
             {TEXTAREA_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.text}</div>))}
-            <div style={styles.labelCell}>確認状況</div>
-            {TEXTAREA_NOTES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.confirmedNote}</div>))}
-            <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+            <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
             {TEXTAREA_NOTES.map((s) => (
               <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>
-                <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-                {s.urlSecondary && s.urlSecondary.map((sl) => (<a key={sl.url} href={sl.url} target="_blank" rel="noreferrer" style={{ ...styles.link, display: "block" }}>{sl.label} ↗</a>))}
+                <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
               </div>
             ))}
           </div>
@@ -303,12 +301,12 @@ function FieldMini({ lead, trail, prefix, suffix, value, placeholder, counter, a
     <div style={{ width: 150 }}>
       <div style={{ display: "flex", alignItems: "center", gap: 5, border: "1.4px solid #9EA4C4", borderRadius: 4, padding: "5px 7px", background: "#FFFFFF", height: 28 }}>
         {lead && <span style={{ fontSize: 11, color: "#565D8A" }}>{lead}</span>}
-        {prefix && <span style={{ fontSize: 11, color: "#7E86AC" }}>{prefix}</span>}
-        <span style={{ flex: 1, fontSize: 11, color: value ? "#171B36" : "#B7BCDA", textAlign: align || "left", letterSpacing: masked ? 2 : 0 }}>{value || placeholder}</span>
-        {suffix && <span style={{ fontSize: 11, color: "#7E86AC" }}>{suffix}</span>}
+        {prefix && <span style={{ fontSize: 11, color: "#666D93" }}>{prefix}</span>}
+        <span style={{ flex: 1, fontSize: 11, color: value ? "#171B36" : "#666D93", textAlign: align || "left", letterSpacing: masked ? 2 : 0 }}>{value || placeholder}</span>
+        {suffix && <span style={{ fontSize: 11, color: "#666D93" }}>{suffix}</span>}
         {trail && <span style={{ fontSize: 11, color: "#565D8A" }}>{trail}</span>}
       </div>
-      {counter && <div style={{ fontSize: 9, color: "#7E86AC", textAlign: "right", marginTop: 2 }}>{counter}</div>}
+      {counter && <div style={{ fontSize: 9, color: "#666D93", textAlign: "right", marginTop: 2 }}>{counter}</div>}
     </div>
   );
 }
@@ -348,7 +346,7 @@ function TextFieldSwatch() {
         <span style={{ position: "absolute", top: -8, left: 10, background: "#FFFFFF", padding: "0 4px", fontSize: 10.5, color: "#3A4FCF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>メールアドレス</span>
         <div style={{ border: "1.6px solid #3A4FCF", borderRadius: 6, padding: "10px 12px", fontSize: 13, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>taro@example.com</div>
       </div>
-      <div style={{ fontSize: 10.5, color: "#7E86AC", padding: "0 4px" }}>正しい形式で入力してください</div>
+      <div style={{ fontSize: 10.5, color: "#666D93", padding: "0 4px" }}>正しい形式で入力してください</div>
     </div>
   );
 }
@@ -362,13 +360,13 @@ function TextareaSwatch() {
           ご質問の詳細をご記入ください。折り返しご連絡いたします。
         </div>
       </div>
-      <div style={{ fontSize: 10.5, color: "#7E86AC", padding: "0 4px" }}>複数行にわたる入力に対応</div>
+      <div style={{ fontSize: 10.5, color: "#666D93", padding: "0 4px" }}>複数行にわたる入力に対応</div>
     </div>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "文字を入力する欄です。1行の欄(テキストフィールド)と、複数行の欄(テキストエリア)を扱います。";
+const LEAD = "文字を入力する欄だ。1行の欄(テキストフィールド)と、複数行の欄(テキストエリア)を扱う。";
 const ABOUT = [
   { k: "目的・役割", v: "名前・メールアドレス・本文など、自由な文字を入力してもらう" },
   { k: "よく使われる場面", v: "会員登録・ログインのフォーム、問い合わせの本文、コメント欄" },
@@ -384,7 +382,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "すべての欄にラベルを付け、常に見せる。ラベルは欄の中に置いてよく、選ぶと上へ移る(フローティングラベル)" },
       { who: "Apple", color: "#C2542A", t: "プレースホルダーで欄の目的を示してよい。ただし入力すると消えるので、別にラベルを置くと役に立つ、としている(必須とはしていない)" },
     ],
-    tip: "ラベルは欄の外に常に表示し、プレースホルダーは入力例(「例: name@example.com」)だけに使う形にすれば、4系列のどれとも食い違いません。場所が足りないときは、Googleのフローティングラベルが次の選択肢です(NN groupは、場所があるなら外に置く方がよいとしています)。",
+    tip: "ラベルは欄の外に常に表示し、プレースホルダーは入力例(「例: name@example.com」)だけに使う形にすれば、4系列のどれとも食い違わない。場所が足りないときは、Googleのフローティングラベルが次の選択肢だ(NN groupは、場所があるなら外に置く方がよいとしている)。",
   },
 ];
 
@@ -424,7 +422,7 @@ export default function TextInputsTextFieldPage() {
                 <div style={styles.swatchPairCaption}>② テキストエリア(複数行)</div>
               </div>
             </div></>}
-            imageNote={<>ラベル・入力欄・補足情報(サポートテキスト/エラーテキスト)の3層構造が、単一行・複数行のどちらにも、4系列で共通して見られる。</>}
+            imageNote={<>ラベル・入力欄・補足情報(サポートテキスト/エラーテキスト)の3層構造は、単一行・複数行のどちらにも、AppleとGoogleに共通して見られる(W3C・NN groupは見た目の構造を定めていない)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -440,13 +438,13 @@ export default function TextInputsTextFieldPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることです。W3Cは適合基準(3.3.2)として「目に見えるラベルまたは説明」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしています。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言えます。
+              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることだ。W3Cは適合基準(3.3.2)として「目に見えるラベルまたは説明」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしている。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言える。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっています。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫です。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としています。
+              Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっている。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫だ。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かります。
+              W3Cは<strong>ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -471,7 +469,6 @@ export default function TextInputsTextFieldPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -535,9 +532,9 @@ export default function TextInputsTextFieldPage() {
             <TextareaSwatch />
             <p style={styles.textareaImageNote}>複数行の文章を入力する欄。ラベル・入力欄・補足情報(文字数など)で構成する。</p>
           </div>
-          <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較です(①のテキストフィールドとは別トピック)。</p>
+          <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較だ(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
-          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なります。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要です。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要です。</p>
+          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要だ。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -545,11 +542,8 @@ export default function TextInputsTextFieldPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Apple・Googleは2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはText fieldsページ本体へのリンクです。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)のガイドラインとアクセシビリティのページへのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -565,18 +559,18 @@ const styles = {
   patternCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" },
   patternName: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 4 },
   patternText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
-  patternSrc: { fontSize: 10, color: "#7E86AC" },
+  patternSrc: { fontSize: 10, color: "#666D93" },
   textareaImage: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", marginBottom: 20, textAlign: "center" },
   textareaImageLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", textAlign: "left", marginBottom: 12 },
-  textareaImageNote: { fontSize: 11, color: "#7E86AC", margin: "12px 0 0", lineHeight: 1.6 },
+  textareaImageNote: { fontSize: 11, color: "#666D93", margin: "12px 0 0", lineHeight: 1.6 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   swatchPairRow: { display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 24 },
   swatchPairItem: { display: "flex", flexDirection: "column", alignItems: "center", gap: 8 },
   swatchPairCaption: { fontSize: 10.5, color: "#565D8A", fontFamily: "'IBM Plex Mono', monospace" },
@@ -591,25 +585,26 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
+  textareaRefs: { marginTop: 8 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -626,5 +621,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

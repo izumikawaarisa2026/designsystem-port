@@ -52,7 +52,7 @@ const SOURCES = [
       "アプリ内の一時的なフィードバックは専用コンポーネントがないため独自実装が必要になる時",
     ],
     stance:
-      "HIGに「トースト」という名前の部品はない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る(HIG Notificationsの本文で確認、2026-11)。アプリの中で短く出て消えるフィードバックの部品はなく、Appleはトーストとスナックバーを区別していない。",
+      "HIGに「トースト」という名前の部品はない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る。アプリの中で短く出て消えるフィードバックの部品はなく、Appleはトーストとスナックバーを区別していない。",
     exceptions:
       "表示時間や同時に出す数の数値の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)ほうがよいとしている。",
     accessibility: <NoData>記載なし</NoData>,
@@ -85,7 +85,7 @@ const SOURCES = [
     m3NotApplicable: true,
     successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当する。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できる。",
     position: "M3の公式コンポーネント一覧には存在しない(旧M1〜M2時代の名残であるAndroidのプラットフォームAPI)。操作に対する簡潔なフィードバックを示す、必要最小限のスペースだけを占める小さなポップアップ。現在の画面はそのまま操作可能",
-    size: <span><NoData>数値は未確認。</NoData>Android 12(API31)以降は最大2行のテキストに制限され、アプリのアイコンがテキストの隣に表示されるとしている。</span>,
+    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は最大2行のテキストに制限され、アプリのアイコンがテキストの隣に表示されるとしている。</span>,
     scenarios: [
       "取り消しや追加操作を必要としない、ごく簡潔な操作結果のフィードバックを出したい時",
       "ユーザー操作(Undoなど)を持たせたい場合はSnackbarを検討したい時",
@@ -96,7 +96,7 @@ const SOURCES = [
     exceptions:
       "カスタムToastビュー(独自レイアウト)はAPI30で非推奨となり、標準のテキストのみのToastかSnackbarへの置き換えが案内されている。表示テキストの行の長さは画面サイズによって変わるため、できるだけ短い文言にすべきとしている。",
     accessibility:
-      <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全です(AI解釈)。Androidのスクリーンリーダー(TalkBack)での読み上げの扱いは、公式の文書では確認できていない。</span>,
+      <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全(AI解釈)。</span>,
     useCases: [
       "makeText()メソッドで標準的なテキストのみのToastを作成する",
       "独自レイアウトが必要な場合はカスタムToastビュー(非推奨)ではなくSnackbarを使う",
@@ -135,7 +135,7 @@ const SOURCES = [
     stance:
       "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
-      "2.2.1(時間制限の調整・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
+      "2.2.1(タイミング調整可能・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
     accessibility:
       "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
     useCases: [
@@ -177,7 +177,7 @@ const SOURCES = [
       "UI Elements Glossaryには「Toast」単独の項目はなく、「Snackbar (Toast)」という1つの項目で扱っている。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動的に消える、一時的な非モーダルの表示)で、通知を「操作が必要」と「受け身(パッシブ)」に分ける枠組みでは受け身の側に入る。",
     exceptions:
       "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針です(Snackbarと共通)。",
+    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針だ(Snackbarと共通)。",
     useCases: [
       "ユーザーの操作を必須にしない、パッシブな通知に使う",
       "重要な情報の唯一の伝達手段にはしない",
@@ -185,7 +185,7 @@ const SOURCES = [
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
     refs: [
-      { label: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar" },
+      { label: "UI Elements Glossary: Snackbar (Toast)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar" },
     ],
     confirmedNote: "用語集本文を直接取得し、「Toast」単独の項目が存在しないこと(「Snackbar (Toast)」という1項目名であること)を確認済み(2026-09)。",
     illustration: () => (
@@ -226,7 +226,7 @@ function ToastSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "短い文を一時的に表示して自動で消える、操作のない通知です(主にAndroidのOSの機能)。";
+const LEAD = "短い文を一時的に表示して自動で消える、操作のない通知だ(主にAndroidのOSの機能)。";
 const ABOUT = [
   { k: "目的・役割", v: "作業を止めずに、ちょっとした結果や状態を一言で知らせる" },
   { k: "よく使われる場面", v: "「コピーしました」「送信しました」などの簡単な知らせ" },
@@ -242,7 +242,7 @@ const SPLITS = [
       { who: "W3C・NN group", color: "#A3821F", t: "載せない。自動で消える通知は読み上げが間に合わないことがある(W3C)。受け身の通知は見落とされやすい(NN group)" },
       { who: "Apple", color: "#C2542A", t: "アプリの中のトーストの部品はない。使っている最中なら、今の画面にさりげなく加える方法を勧めている" },
     ],
-    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使います。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出します。",
+    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使う。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出す。",
   },
 ];
 
@@ -280,9 +280,9 @@ export default function CommunicationToastPage() {
 
           <SplitSection splits={SPLITS} />
           <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(2026-09、Google/Material Design 3)</div>
+            <div style={styles.warningLabel}>⚠ 重要な注記(Google/Material Design 3)</div>
             <p style={styles.warningText}>
-              <strong>Material Design 3の公式コンポーネント一覧に「Toast」という項目は存在しません。</strong>見落としではなく仕様通りです。M1〜M2時代は「Snackbars & Toasts」として2つが並記されていましたが(m1.material.ioに現存)、M3では<strong>Snackbarに統合され、Toastは独立したデザインシステムコンポーネントではなくなりました</strong>。このページでGoogle欄として扱っているのは、M3のコンポーネントではなく、<strong>AndroidのOSレベルAPI(プラットフォーム機能)としてのToast</strong>です。それでも独立ページとして残しているのは、実務でAndroid開発者が今なお頻繁に触れる現役のAPIであり、「スナックバー」ページとの対比(操作の有無)自体が比較材料として価値を持つためです。
+              <strong>Material Design 3の公式コンポーネント一覧に「Toast」という項目は存在しない。</strong>M1〜M2時代は「Snackbars & Toasts」として2つが並記されていたが(m1.material.ioに現存)、M3では<strong>Snackbarに統合され、Toastは独立したデザインシステムコンポーネントではなくなった</strong>。このページでGoogle欄として扱っているのは、M3のコンポーネントではなく、<strong>AndroidのOSレベルAPI(プラットフォーム機能)としてのToast</strong>だ。それでも独立ページとして残しているのは、実務でAndroid開発者が今なお頻繁に触れる現役のAPIであり、「スナックバー」ページとの対比(操作の有無)自体が比較材料として価値を持つためだ。
             </p>
           </div>
 
@@ -292,16 +292,16 @@ export default function CommunicationToastPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>です(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからです。Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっています。
+              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>だ(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからだ。Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっている。
             </p>
             <p style={styles.synthesisText}>
-              興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点です。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言えます。
+              興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点だ。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言える。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要です。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るならrole="status"が基本です。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点です。
+              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要だ。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るならrole="status"が基本だ。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点だ。
             </p>
             <p style={styles.synthesisText}>
-              Google公式は、<strong>前面表示中の軽いフィードバックはToast、アクションを持たせたい場合はSnackbar、背面でユーザーに対応を求めたい場合はNotification</strong>という3段階の使い分けを案内しています。この「アクションの有無」という軸は、「情報伝達の使い分け」ページで整理した判断軸とも一致します。M3のコンポーネントとして同じ役割を再現したい場合は、<strong>Snackbarでアクションボタンを設定しない構成</strong>が事実上の後継に相当し、Toastという名前のコンポーネントが消えても、その機能自体は失われていません。Appleも同様に「トースト」という専用コンポーネントは持たず、この点は「スナックバー」ページのApple欄と同一の一次情報です。
+              Google公式は、<strong>前面表示中の軽いフィードバックはToast、アクションを持たせたい場合はSnackbar、背面でユーザーに対応を求めたい場合はNotification</strong>という3段階の使い分けを案内している。この「アクションの有無」という軸は、「情報伝達の使い分け」ページで整理した判断軸とも一致する。M3のコンポーネントとして同じ役割を再現したい場合は、<strong>Snackbarでアクションボタンを設定しない構成</strong>が事実上の後継に相当し、Toastという名前のコンポーネントが消えても、その機能自体は失われていない。Appleも同様に「トースト」という専用コンポーネントは持たず、この点は「スナックバー」ページのApple欄と同一の一次情報だ。
             </p>
           </div>
 
@@ -332,7 +332,6 @@ export default function CommunicationToastPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -365,7 +364,7 @@ export default function CommunicationToastPage() {
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
                     {(s.m3NotApplicable || s.noDedicatedComponent) ? (
                       <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
-                    ) : (<span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>)}
+                    ) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -373,7 +372,7 @@ export default function CommunicationToastPage() {
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>M3での実質的な後継</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#B7BCDA" }}>―(この観点は対象外)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#666D93" }}>―(この観点は対象外)</span>}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>
@@ -410,11 +409,8 @@ export default function CommunicationToastPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Notificationsを2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはNotificationsページへのリンクです(専用コンポーネントなしのため近似、「スナックバー」ページと同一)。GoogleはAndroid Developers公式ページ(Toasts overview)+Snackbarページへのリンクです。W3CはWCAGの4.1.3を主リンクに、2.2.1・WAI-ARIA仕様のstatusロール・MDNの解説を併記しています。NN groupは用語集内の実アンカー(Snackbar (Toast)項目)です。
-            </span>
           </div>
         </div>
       </div>
@@ -427,7 +423,7 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
@@ -436,7 +432,7 @@ const styles = {
   warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -445,20 +441,20 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -476,9 +472,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

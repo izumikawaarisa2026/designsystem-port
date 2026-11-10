@@ -1,5 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
+import { PageLink } from "./page-parts";
 
 /**
  * サイトのインデックス(トップ)ページ。
@@ -35,7 +36,7 @@ export default function IndexPage() {
           <div style={styles.inner}>
             <div style={styles.metaRow}>
               <span>INDEX</span>
-              <span>最終更新: 2026-10</span>
+              <span>最終更新: 2026-11</span>
             </div>
             <h1 style={styles.title}>DesignSystem Port</h1>
             <p style={styles.tagline}>(サイト名は仮称です)</p>
@@ -62,17 +63,26 @@ export default function IndexPage() {
             {/* サイトの読み方 */}
             <section style={styles.section}>
               <h2 style={styles.h2}>サイトの読み方</h2>
-              <p style={styles.p}>各コンポーネントページは、以下の要素で構成されています。初めて見るページでも、この対応関係が分かれば迷いません。</p>
+              <h3 style={styles.h3}>読む順番</h3>
+              <p style={styles.p}>初めての方は、次の順に読むと全体がつかみやすくなります。</p>
+              <ol style={styles.orderList}>
+                <li><PageLink to="/principles/comparison">原則比較</PageLink> ― 4系列がそれぞれ何を大事にしているか(根本の考え方)。<PageLink to="/principles/accessibility">アクセシビリティ</PageLink>もここに入ります。</li>
+                <li><PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink> ― 色・文字・余白など、どの部品にも効く土台の分け方。そこから<PageLink to="/tokens/color">カラー</PageLink>などの各ページへ。</li>
+                <li>各部品のページ ― グループごとの入口から読むと、似た部品の違いが分かります(<PageLink to="/components/actions/button">ボタン</PageLink>/<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>/<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>/<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)。</li>
+                <li><PageLink to="/cross-view">タグから見る</PageLink> ― エラー処理・通知など、作業の場面からページを探せます。</li>
+              </ol>
+              <h3 style={styles.h3}>各部品のページの構成</h3>
+              <p style={styles.p}>各部品のページは、上から次の順に並んでいます。</p>
               <div style={styles.guideGrid}>
                 {[
-                  ["AI解釈(総括)", "4系列の違いを統合したAIの見解。太字が結論部分。"],
-                  ["四サイト比較図", "4系列の基準を並べた図。数値は実寸に近い縮尺で重ね、決まりの有無は◯(明記)・△(部分的)・―(記載なし)の一覧で示す。"],
-                  ["基準値・基本方針", "各系列の数値と、その数値を定めている考え方。"],
-                  ["例外・許容ケース", "条件付きで緩和される基準がある場合の内容。"],
-                  ["許容レンジの図", "押せる範囲など数値を比べるページで、0〜60を共通スケールにした非推奨(赤)/条件付き(黄)/推奨(緑)の帯。"],
-                  ["アクセシビリティ(WCAG基準)", "WCAGのPOUR(知覚可能・操作可能・理解可能・堅牢)のどれに対応するかの分類。"],
-                  ["公式リンク / ページ内検索ヒント", "可能ならアンカー付きリンク。不可の場合はCmd+F/Ctrl+Fで探せる語を併記。"],
-                  ["タグ", "原則タグ(POUR)とプロセスタグ(12のくくり)。横断ビュー「タグから見る」で、同じタグのページを逆引きできる。"],
+                  ["サマリー", "タイトルの下の1文と、部品のイメージ図・目的と役割・よく使われる場面・似た部品との違いの表。"],
+                  ["意見が分かれる点", "4系列で答えが違う論点。サイズなど図にできるものは図で示す(系列の意見が分かれていないページにはない)。"],
+                  ["四系列デザインシステム比較", "見出しの下に「AI解釈 ― 総括」(4系列の違いを統合したAIの見解。太字が結論)。続けて、スマホでは系列ごとのカード、PCでは項目を行・系列を列にした比較表。図(デザインイメージ)が先頭。"],
+                  ["マーカー", "若草色の下線が付いた太字は、総括で取り上げている違い・共通点。"],
+                  ["メモ", "用語の説明や、1系列だけの補足。"],
+                  ["参照ページ(公式)", "その内容を確かめられる公式のページ。公式で別のページ・節に分かれている内容は、それぞれリンクする。"],
+                  ["関連するページ", "このサイトの中の、関係する部品やトピックのページ。"],
+                  ["タグ", "原則タグ(POUR)とプロセスタグ(12のくくり)。押すと「タグから見る」で同じタグのページを一覧できる。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>
                     <div style={styles.guideTerm}>{term}</div>
@@ -87,6 +97,8 @@ export default function IndexPage() {
                   ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
                   ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=実務で一般的な目標(多くの場合はAAを目指す)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
                   ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、部品の作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
+                  ["W3Cの参照ページのバッジ", "「達成基準 A/AA/AAA」=WCAGに適合するために満たす要件とそのレベル。「参考例 APG」=実装の参考例(適合の要件ではない)。「解説 MDN」=Mozillaによる解説(W3Cの文書ではない補足)。"],
+                  ["グレーの表記", "記載なし=その系列の公式の文書に書かれていない。数値基準なし=考え方はあるが数値は決めていない。該当なし=その系列にこの部品・トピックがない。未確認=こちらで確かめられていない。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>
                     <div style={styles.guideTerm}>{term}</div>
@@ -172,7 +184,7 @@ const styles = {
     justifyContent: "space-between",
     fontFamily: "'IBM Plex Mono', monospace",
     fontSize: 11,
-    color: "#7E86AC",
+    color: "#666D93",
     marginBottom: 14,
   },
   title: {
@@ -186,7 +198,7 @@ const styles = {
     color: "transparent",
     display: "inline-block",
   },
-  tagline: { fontSize: 11, color: "#7E86AC", margin: "0 0 10px" },
+  tagline: { fontSize: 11, color: "#666D93", margin: "0 0 10px" },
   subtitle: { fontSize: 14, lineHeight: 1.8, color: "#2E3457", margin: "0 0 32px" },
   section: { marginBottom: 34 },
   h3: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 14, fontWeight: 700, margin: "18px 0 10px" },
@@ -194,6 +206,7 @@ const styles = {
   p: { fontSize: 13.5, lineHeight: 1.85, color: "#2E3457", margin: "0 0 10px" },
   ul: { margin: 0, paddingLeft: 20, fontSize: 13.5, lineHeight: 1.85, color: "#2E3457" },
   ol: { margin: "0 0 10px", paddingLeft: 20, fontSize: 13.5, lineHeight: 1.85, color: "#2E3457" },
+  orderList: { fontSize: 14, lineHeight: 1.9, color: "#2E3457", margin: "0 0 12px", paddingLeft: 22 },
   guideGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 10 },
   guideItem: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 4, padding: "10px 12px" },
   guideTerm: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 11.5, fontWeight: 600, color: "#3A4FCF", marginBottom: 4 },
@@ -201,7 +214,7 @@ const styles = {
   sourceGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "12px 14px" },
   sourceName: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontWeight: 700, fontSize: 14 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", margin: "2px 0 6px" },
+  sourceDoc: { fontSize: 11, color: "#666D93", margin: "2px 0 6px" },
   sourceDesc: { fontSize: 12, lineHeight: 1.6, color: "#454C78", margin: 0 },
   logGroup: { marginBottom: 16 },
   logDate: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, fontWeight: 600, color: "#171B36", marginBottom: 6 },

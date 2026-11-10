@@ -18,15 +18,14 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttons(visionOS)",
-    term: <NoData>FABに当たる部品なし(visionOSの浮かぶボタンが近い)</NoData>,
+    term: <NoData>該当なし</NoData>,
     color: "#C2542A",
-    position: "iOS/iPadOSには無いが、visionOSには近い概念がある",
-    size: "visionOS: Mini(28pt)/Small(32pt)/Regular(44pt)/Large(52pt)/Extra large(64pt)の5段階。※visionOS固有の概念であり、MaterialのFABと同一の概念ではない点に注意(参考情報として掲載)。",
-    stance:
-      <><Hl>iOS/iPadOSには、画面上に常時浮かぶ円形の主要アクションボタン(FAB相当)への言及はない</Hl>。ボタンは主にツールバー・ナビゲーションバー内に配置する設計が基本。一方でvisionOSにはボタンが空間に浮かんで見える場合はglassマテリアルを背景に使うという明確な指針があり、円形のボタンを空間に浮かせて配置するという点でFABに近い概念が存在する。</>,
-    exceptions:
-      "5段階のサイズは円形・カプセル型・角丸長方形すべてに共通する一般的なボタンサイズの規定であり、「浮かせる」ときだけの専用サイズではない。また、ボタン同士は中心間で60pt以上離すべきという配置の指針もある。なお、macOSにある「Image button(画像ボタン)」は名称が紛らわしいが、これは単なる画像アイコンのボタンでiOS向けではなく、FABの浮遊感・主役性とは異なる概念。",
-    pourDetail: "―(FABという分類自体がHIGに存在しないため、POUR上の分類も定義されていない)",
+    position: <NoData>該当なし(FABに当たる部品はない)</NoData>,
+    size: <NoData>該当なし</NoData>,
+    stance: <><NoData>該当なし</NoData>。主な操作は、ツールバーやナビゲーションバーに置くのが基本。</>,
+    exceptions: <NoData>該当なし</NoData>,
+    memo: "参考: visionOSには、空間に浮かんで見えるボタンの背景にglassマテリアルを使う指針がある(大きさはMini 28〜Extra large 64ptの5段階、ボタンの中心どうしを60pt以上離す)。見た目が近いだけで、画面の主役の操作という役割までは定めていない。",
+    pourDetail: <NoData>該当なし</NoData>,
     searchHint: "floating in space",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS",
     refs: [
@@ -39,7 +38,7 @@ const SOURCES = [
           <line x1="14" y1="20" x2="26" y2="20" stroke="#C2542A" strokeWidth="2" strokeLinecap="round" />
           <line x1="20" y1="14" x2="20" y2="26" stroke="#C2542A" strokeWidth="2" strokeLinecap="round" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>visionOS(参考)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>visionOSの浮かぶボタン(参考)</span>
       </div>
     ),
   },
@@ -59,7 +58,11 @@ const SOURCES = [
     searchHint: "FAB container height",
     url: "https://m3.material.io/components/floating-action-button/specs",
     refs: [
-      { label: "FAB(3サイズ)", url: "https://m3.material.io/components/floating-action-button/specs" },
+      { label: "FAB ― Specs(3サイズ)", url: "https://m3.material.io/components/floating-action-button/specs" },
+      { label: "FAB ― Guidelines", url: "https://m3.material.io/components/floating-action-button/guidelines" },
+      { label: "Extended FAB", url: "https://m3.material.io/components/extended-fab/guidelines" },
+      { label: "FAB menu", url: "https://m3.material.io/components/fab-menu/guidelines" },
+      { label: "Floating action button(Material Components for Android、補足)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/FloatingActionButton.md" },
     ],
     confirmedNote: "56dp/80dp/96dpとアイコンの大きさは、GoogleのMDC Androidのドキュメントで確認(2026-10)。",
     illustration: () => (
@@ -94,7 +97,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="10" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
       </div>
     ),
   },
@@ -165,7 +168,7 @@ function FabSwatch() {
           <line x1={s.cx - s.r * 0.4} y1="46" x2={s.cx + s.r * 0.4} y2="46" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
           <line x1={s.cx} y1={46 - s.r * 0.4} x2={s.cx} y2={46 + s.r * 0.4} stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
           <text x={s.cx} y="94" fontSize="9.5" fontFamily="Jost, Noto Sans JP" fontWeight="600" fill="#171B36" textAnchor="middle">{s.label}</text>
-          <text x={s.cx} y="106" fontSize="8.5" fontFamily="IBM Plex Mono" fill="#7E86AC" textAnchor="middle">{s.dp}</text>
+          <text x={s.cx} y="106" fontSize="8.5" fontFamily="IBM Plex Mono" fill="#666D93" textAnchor="middle">{s.dp}</text>
         </g>
       ))}
     </svg>
@@ -204,7 +207,7 @@ const FAB_KINDS = [
   { t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
   { t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
   { t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
-  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小(56dp)・中・大の3サイズ", tag: "" },
+  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小56dp・中80dp・大96dp(高さ)の3サイズ(Jetpack Composeのトークン)", tag: "" },
   { t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
 ];
 const FAB_CHANGES = [
@@ -222,7 +225,7 @@ function FabGuide() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>FABの種類と使い方(Google)</h2>
-      <p style={styles.fgNote}>FABを部品として定めているのはGoogleです。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たる部品はなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていません。</p>
+      <p style={styles.fgNote}>FABを部品として定めているのはGoogleだ。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たる部品はなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていない。</p>
       <div style={styles.fgGrid}>
         {FAB_KINDS.map((k) => (
           <div key={k.t} style={styles.fgCard}>
@@ -233,6 +236,7 @@ function FabGuide() {
       </div>
       <h3 style={styles.fgSub}>変形するとき</h3>
       {FAB_CHANGES.map((c) => (<p key={c.from} style={styles.fgText}><strong>{c.from}</strong>: {c.d}</p>))}
+      <p style={styles.fgNote}>変形の動き(コンテナの変形)は<PageLink to="/tokens/motion">モーション</PageLink>のページを参照。</p>
       <h3 style={styles.fgSub}>使いどころ</h3>
       <div style={styles.fgGrid}>
         {FAB_USE.map((u) => (
@@ -248,7 +252,7 @@ function FabGuide() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンです。";
+const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンだ。";
 const ABOUT = [
   { k: "目的・役割", v: "その画面の主な操作(新規作成・作成開始など)を、スクロールしても常に押せる位置に置く" },
   { k: "よく使われる場面", v: "メールの新規作成、メモ・予定の追加、地図の現在地へ移動" },
@@ -263,7 +267,7 @@ const SPLITS = [
       { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
       { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たる部品がない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
     ],
-    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形です。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえます。",
+    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形だ。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえる。",
   },
   {
     q: "大きさはどれくらい?",
@@ -272,7 +276,7 @@ const SPLITS = [
       { who: "Apple(visionOS)", color: "#C2542A", t: "ボタン全般の5段階(28〜64pt)。FAB専用の大きさはない" },
       { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
     ],
-    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たします。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつけます(重なりについては「エレベーション」ページ)。",
+    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たす。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
   },
 ];
 
@@ -319,10 +323,10 @@ export default function ActionsFabPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>役割としてのFAB(画面で最も重要な1つの操作を担うボタン)は、Appleにはありません</strong>。visionOSには空間に浮かぶ円形ボタンにglassマテリアルを使う指針がありますが、これは<strong>「空間に浮かべる見た目」が近いだけ</strong>で、主役の操作という役割までは定めていません。
+              <strong>AppleにはFABに当たる部品がない</strong>(visionOSの浮かぶボタンは見た目が近いだけ。比較表のメモ)。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまります。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるでしょう。
+              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -350,6 +354,12 @@ export default function ActionsFabPage() {
                   <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
                   <p style={styles.exceptionText}>{s.pourDetail}</p>
                 </div>
+                {s.memo && (
+                  <div style={styles.exceptionBox}>
+                    <span style={styles.exceptionLabel}>メモ</span>
+                    <p style={styles.exceptionText}>{s.memo}</p>
+                  </div>
+                )}
                 <div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>参照ページ(公式)</span>
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
@@ -385,6 +395,8 @@ export default function ActionsFabPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
+                <div style={styles.labelCell}>メモ</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.memo || <NoData>―</NoData>}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
@@ -396,16 +408,7 @@ export default function ActionsFabPage() {
             </div>
           </div>
 
-          <div style={{ ...styles.diagramCard, maxWidth: 300 }}>
-            <h2 style={styles.diagramTitle}>参考: タップ領域の基準(WCAG一般基準)</h2>
-            <RangeScale scale={RANGE_SCALE} />
-            <div style={styles.legendRow}>
-              <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ok.fill, borderColor: BAND_COLOR.ok.stroke }} />推奨</span>
-              <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.caution.fill, borderColor: BAND_COLOR.caution.stroke }} />条件付き</span>
-              <span style={styles.legendItem}><i style={{ ...styles.legendSwatch, background: BAND_COLOR.ng.fill, borderColor: BAND_COLOR.ng.stroke }} />非推奨</span>
-            </div>
-            <p style={styles.diagramNote}>Material公式のFAB(56dp)は、この一般基準の「推奨」帯に十分収まる。</p>
-          </div>
+          <p style={styles.diagramNote}>押せる範囲の基準(2.5.8・2.5.5の例外を含む)は、<PageLink to="/components/actions/button">ボタン</PageLink>のページの「アクセシビリティ」を参照。Material公式のFAB(56dp)は、どの系列の目安も満たす。</p>
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -413,12 +416,8 @@ export default function ActionsFabPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleのサイズ・アイコンの大きさは、2026-10にMDC Androidのドキュメントで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはButtonsページ内のvisionOSセクションへのアンカー付きリンクです。WCAGはボタンページと同一のUnderstandingページ。NN
-              groupは用語集内の実アンカー(#Floating-Button)。Material Design 3はSpecsページ。サイズ・アイコンの大きさ・「Medium FAB (most recommended)」は、補足の<a href="https://github.com/material-components/material-components-android/blob/master/docs/components/FloatingActionButton.md" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>MDC AndroidのFABのドキュメント ↗</a>で確認できます。アイコンの大きさは実装によって少し違い、Jetpack ComposeではLarge FABが32dpです。
-            </span>
           </div>
         </div>
       </div>
@@ -434,17 +433,17 @@ const styles = {
   fgCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
   fgTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3, display: "flex", alignItems: "center", gap: 6 },
   fgTag: { fontSize: 9.5, fontWeight: 700, color: "#2F7D6E", border: "1px solid #2F7D6E", borderRadius: 3, padding: "0 4px" },
-  fgTagDep: { color: "#9EA4C4", borderColor: "#D5D9EC" },
+  fgTagDep: { color: "#666D93", borderColor: "#D5D9EC" },
   fgText: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", margin: "0 0 6px" },
   fgSub: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "16px 0 8px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 26, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.25 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 10 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -458,7 +457,7 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "10px 0" },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
@@ -468,7 +467,7 @@ const styles = {
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -484,5 +483,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

@@ -37,7 +37,7 @@ const SOURCES = [
       { term: "グラバー(grabber)", desc: "シート上端に表示される小さな水平のインジケーター。ドラッグしてシートの高さを変更できることを示す。" },
     ],
     stance:
-      "シートは、今の画面に関係する、範囲を限った作業(ファイルの添付や保存先の選択など)をしてもらい、終わったら元の画面に戻るためのもの。iOS・iPadOSではモーダルにも非モーダルにもでき、非モーダルのシート(メモの書式設定など)は開いたまま元の画面を操作できる。高さを変えられるシートにはグラバー(上端の小さな横線)を付け、縦のスワイプで閉じられるようにする(HIG Sheetsの本文で確認、2026-11)。",
+      "シートは、今の画面に関係する、範囲を限った作業(ファイルの添付や保存先の選択など)をしてもらい、終わったら元の画面に戻るためのもの。iOS・iPadOSではモーダルにも非モーダルにもでき、非モーダルのシート(メモの書式設定など)は開いたまま元の画面を操作できる。高さを変えられるシートにはグラバー(上端の小さな横線)を付け、縦のスワイプで閉じられるようにする。",
     scenarios: [
       "現在の文脈に密接に関連する、範囲を限定したタスクを行わせたい時",
       "コンテンツのスクロールやグラバーのドラッグで、シートの高さを調整させたい時",
@@ -45,7 +45,7 @@ const SOURCES = [
     exceptions:
       "中デタントのみを指定した場合、シートはそれ以上(全画面)には展開できなくなる。メインの画面から出すシートは一度に1枚にし、シートから別のシートを出すときは最初のシートを閉じてから出す。長く複雑な作業には、シートではなく全画面のモーダルなどを検討する。",
     accessibility:
-      <span><NoData>記載なし。</NoData>標準のシートコントロールを使えば、支援技術には自動的に状態が伝わると考えられる。</span>,
+      <span><NoData>記載なし。</NoData></span>,
     useCases: [
       "現在の文脈に関連する、範囲を限定したタスクに使う(既定はモーダル)",
       "大デタントのみ、または大+中デタントの組み合わせで高さの挙動を選ぶ",
@@ -76,8 +76,8 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "コンパクト・ミディアムのブレークポイントで使う、標準(メイン領域と共存)とモーダル(背景操作を完全にブロック)の2種類を持つ画面下部のシート",
     size:
-      "初期の垂直位置は、上位のアクションにアクセスできるよう画面高さの50%に制限されるとしている。コンテンツが50%を超える場合は、画面全体に伸びて内部スクロールで残りの項目にアクセスできるとしている。上部48dpの領域はサイズ変更用にインタラクティブで、ドラッグハンドルが表示されている場合はユーザーによるサイズ変更が可能だとしている。具体的なdp数値(コンテナ幅など)は文書内に記載がなく確認できていない。",
-    colorInfo: "色の値はデザイントークンを通して実装されるとしている。モーダルボトムシートはスクリム(裏地)の上に敷かれますが、標準ボトムシートにはスクリムがなく、それ以外の仕様は両者共通だとしている。",
+      "初期の垂直位置は、上位のアクションにアクセスできるよう画面高さの50%に制限されるとしている。コンテンツが50%を超える場合は、画面全体に伸びて内部スクロールで残りの項目にアクセスできるとしている。上部48dpの領域はサイズ変更用にインタラクティブで、ドラッグハンドルが表示されている場合はユーザーによるサイズ変更が可能だとしている。",
+    colorInfo: "色の値はデザイントークンを通して実装されるとしている。モーダルボトムシートはスクリム(裏地)の上に敷かれるが、標準ボトムシートにはスクリムがなく、それ以外の仕様は両者共通だとしている。",
     glossary: [
       { term: "標準 / モーダルボトムシート", desc: "標準ボトムシートは画面のメインUI領域と共存し、両方を同時に閲覧・操作できる。モーダルボトムシートはアプリコンテンツの手前に表示され、表示中は他のすべてのアプリ機能を無効化し、確認・閉じる・必要な操作が行われるまで画面上に表示され続ける。" },
     ],
@@ -122,7 +122,7 @@ const SOURCES = [
     size: "ボトムシート専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は閉じるボタンなどの操作要素に適用される。",
     colorInfo: "色の基準はないが、1.4.11(非テキストのコントラスト)がグラバーや境界線に適用され得る。",
     stance:
-      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされる。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしている。また、2.5.7(ドラッグ操作・レベルAA)により、グラバーをドラッグしないと高さを変えられない作りにはせず、グラバーをタップすると高さが切り替わる、などドラッグ以外の方法も用意する。",
+      "背景の操作を完全に遮断するモーダルなボトムシートには、WAI-ARIAのDialog (Modal) Patternが適切とされる。role=\"dialog\"を持ち、aria-modal=\"true\"を設定し、Tab/Shift+Tabでシート外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにすべきとしている。また、2.5.7(ドラッグ動作・レベルAA)により、グラバーをドラッグしないと高さを変えられない作りにはせず、グラバーをタップすると高さが切り替わる、などドラッグ以外の方法も用意する。",
     scenarios: [
       "背景の操作を完全に遮断したいモーダルなボトムシートを実装する時",
       "背景コンテンツを操作可能なまま残したい非モーダルなボトムシート(Googleの「標準」に相当)を実装する時",
@@ -270,13 +270,13 @@ function BottomSheetGuide() {
           <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, whiteSpace: "nowrap" } : {}) }}>{c}</td>))}</tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.bsNote}>W3Cにはボトムシート専用の型はありません。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作ります(比較表のW3C欄)。</p>
+      <p style={styles.bsNote}>W3Cにはボトムシート専用の型はない。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作る(比較表のW3C欄)。</p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルです。";
+const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルだ。";
 const ABOUT = [
   { k: "目的・役割", v: "今の画面を残したまま、選択肢や補助の内容を手の届きやすい下側に出す" },
   { k: "よく使われる場面", v: "共有先の選択、地図の場所の詳細、スマホの絞り込み条件" },
@@ -292,7 +292,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "全画面のモーダルのボトムシートには閉じるボタンを出す。それ以外は、項目を選ぶ・後ろをタップ・下へなぞる・戻るでも閉じられる" },
       { who: "Apple", color: "#C2542A", t: "利用者は縦のスワイプで閉じることを期待する。ボタンはキャンセル(保存せずに閉じる)と完了(作業を終えて閉じる)を使い分ける" },
     ],
-    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿います。スワイプはなぞる操作が苦手な人や読み上げソフトの利用者には使いにくいため、ボタンが代わりの手段になります。",
+    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿う。スワイプはなぞる操作が苦手な人や読み上げソフトの利用者には使いにくいため、ボタンが代わりの手段になる。",
   },
 ];
 
@@ -338,13 +338,13 @@ export default function ContainmentBottomSheetPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>です。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言えます。
+              このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>だ。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言える。
             </p>
             <p style={styles.synthesisText}>
-              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別です。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げています。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現します。
+              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現する。
             </p>
             <p style={styles.synthesisText}>
-              Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示しています。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示しています。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールです。
+              Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示している。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示している。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -371,7 +371,6 @@ export default function ContainmentBottomSheetPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -448,11 +447,8 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。Appleは2026-11に確認し直した。W3Cはドロワー・サイドシートのページと同じDialog(Modal)パターン)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSheetsページへのリンクです。GoogleはBottom sheetsページへのリンクです。WCAGはWAI-ARIA Dialog (Modal) Patternのページ、NN groupは記事ページ単位です。
-            </span>
           </div>
         </div>
       </div>
@@ -468,19 +464,19 @@ const styles = {
   bsTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   bsLine: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 },
   bsKey: { display: "inline-block", fontSize: 10, fontWeight: 700, color: "#565D8A", background: "#F3F6FA", borderRadius: 3, padding: "0 5px", marginRight: 6 },
-  bsSrc: { fontSize: 10, color: "#7E86AC", marginTop: 4 },
+  bsSrc: { fontSize: 10, color: "#666D93", marginTop: 4 },
   bsTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   bsTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   bsTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   bsNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -489,24 +485,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 40 },
@@ -523,9 +519,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

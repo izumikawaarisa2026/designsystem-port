@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, SummaryCard, PageLink, SplitSection, Hl } from "./page-parts";
+import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
@@ -21,11 +21,12 @@ const TAB_ACCESSIBILITY = [
     stance:
       "Buttonsのページでは、ボタンの押せる範囲(ヒット領域)を少なくとも44×44pt(visionOSは60×60pt)にするとしている。Accessibilityのページ(2025年3月の改訂)では、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28ptとしている。小さすぎるコントロールは多くの人にとって選びにくいため、推奨の最小サイズを満たすよう求めている。",
     exceptions:
-      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までの小さいコントロールを最小のサイズとして認めている(macOSは既定28・最小20、tvOSは既定66・最小56、visionOSは既定60・最小28)。あわせて、部品どうしの間隔も大きさと同じくらい重要だとし、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取るとよいとしている。",
+      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までの小さいコントロールを最小のサイズとして認めている(macOSは既定28・最小20、tvOSは既定66・最小56、visionOSは既定60・最小28、watchOSは既定44・最小28)。あわせて、部品どうしの間隔も大きさと同じくらい重要だとし、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取るとよいとしている。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― WCAGのPOUR原則のうち「操作可能」に対応する項目、という分類。",
     searchHint: "Offer sufficiently sized controls",
     url: "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+    refs: [{ label: "Accessibility ― Mobility", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Mobility" }, { label: "Buttons", url: "https://developer.apple.com/design/human-interface-guidelines/buttons" }],
   },
   {
     key: "material",
@@ -37,10 +38,11 @@ const TAB_ACCESSIBILITY = [
       "インタラクティブな要素は最小48×48dpのタッチターゲットを満たすことを基準とする。密度(density)を上げる場合でも、この最小値を下回らないよう明記している。",
     exceptions:
       "アイコン自体の可視サイズ(24dpなど)を小さくすることは認めているが、タップ判定領域そのものを48×48dp未満に縮めることは推奨していない。押せる範囲は48×48を下回らないのが望ましい、という考え方をとっている。",
-    scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 48, type: "caution" }, { from: 48, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 48, label: "48" }], caption: "24dp=可視アイコンの下限 / 48dp=タップ判定領域の下限(この2つは別管理)。" },
+    scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 48, type: "caution" }, { from: 48, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 48, label: "48" }], caption: "24dp=標準のアイコンの大きさ(XSのアイコンボタンは20dp) / 48dp=タップ判定領域の下限(この2つは別管理)。" },
     pourDetail: "操作可能(Operable) ― WCAGのPOUR原則のうち「操作可能」に対応する項目、という分類。",
     searchHint: "touch target",
     url: "https://m3.material.io/components/buttons/accessibility",
+    refs: [{ label: "Buttons ― Accessibility", url: "https://m3.material.io/components/buttons/accessibility" }],
   },
   {
     key: "wcag",
@@ -56,6 +58,7 @@ const TAB_ACCESSIBILITY = [
     pourDetail: "操作可能(Operable) ― POUR原則(WCAGの4原則: 知覚可能・操作可能・理解可能・堅牢)そのものを定義している一次情報。他の3系列が従う分類の出どころ。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+    refs: [{ kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" }, { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" }],
   },
   {
     key: "nn",
@@ -71,6 +74,7 @@ const TAB_ACCESSIBILITY = [
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、フィッツの法則という設計上の根拠(なぜ大きい方がよいか)を示す位置づけ。",
     searchHint: "1cm",
     url: "https://www.nngroup.com/articles/touch-target-size/",
+    refs: [{ label: "Touch Targets on Touchscreens", url: "https://www.nngroup.com/articles/touch-target-size/" }],
   },
 ];
 
@@ -95,11 +99,12 @@ const TAB_STYLES = [
     pourDetail: "―(役割分類そのものはPOURの適合区分ではないが、誤操作防止という点で理解可能性に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
+    refs: [{ label: "Buttons ― Role", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <MiniButton label="Normal" style={{ background: "#EEF1FA", color: "#454C78", border: "1px solid #D5D9EC" }} />
         <MiniButton label="Primary" style={{ background: "#2F6FED", color: "#FFFFFF" }} />
-        <MiniButton label="Cancel" style={{ background: "transparent", color: "#7E86AC", border: "1px solid #C7CCE4" }} />
+        <MiniButton label="Cancel" style={{ background: "transparent", color: "#666D93", border: "1px solid #C7CCE4" }} />
         <MiniButton label="Destructive" style={{ background: "#C0503F", color: "#FFFFFF" }} />
       </div>
     ),
@@ -111,11 +116,12 @@ const TAB_STYLES = [
     term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義している</Hl>。番号は公式の並び順(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明している)。見た目で最も目立つのはFilled。</>,
-    exceptions: "Elevatedは実質的にFilled tonalに影を加えたものと位置づけられており、背景と視覚的に分離する必要がある場合に限って使うべきとしています(影の使いすぎを避けるため)。",
+      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義している</Hl>。番号は公式の並び順(公式のドキュメントは強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明している)。見た目で最も目立つのはFilled。M3 Expressiveでは、大きさをXS 32・S 40・M 56・L 96・XL 136dp(高さ)の5段階、形を丸・四角の2種類から選べ、選ぶと形が変わるトグルボタンや、複数のボタンをまとめるボタングループもある(Jetpack Composeのトークンで確認。角丸の段階は<PageLink to="/tokens/shape">シェイプ</PageLink>のページ)。</>,
+    exceptions: "Elevatedは実質的にFilled tonalに影を加えたものと位置づけられており、背景と視覚的に分離する必要がある場合に限って使うべきとしている(影の使いすぎを避けるため)。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
     url: "https://m3.material.io/components/buttons/guidelines",
+    refs: [{ label: "Buttons ― Guidelines", url: "https://m3.material.io/components/buttons/guidelines" }, { label: "Buttons ― Specs(大きさ・形)", url: "https://m3.material.io/components/buttons/specs" }, { label: "Button groups", url: "https://m3.material.io/components/button-groups/overview" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
         {[
@@ -141,10 +147,11 @@ const TAB_STYLES = [
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
       "ボタンの視覚的な「種類」を分類する基準は持っていない。ただし1.4.11(非テキストのコントラスト)が、ボタンの境界線や状態を周囲の背景から見分けられる十分なコントラスト(3:1以上)で示すことを求めており、種類を問わずすべてのボタンに関わる。",
-    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理。ただし、ラベルの文字そのものには1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかる。",
+    exceptions: "文字だけで表現され、背景との境界線や塗りを持たないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくいという整理。ただし、ラベルの文字そのものには1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。",
     pourDetail: "知覚可能(Perceivable) ― 1.4.11はPOUR原則のうち「知覚可能」に対応する達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
+    refs: [{ kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
@@ -152,7 +159,7 @@ const TAB_STYLES = [
           <span style={{ fontSize: 9, color: "#2F7D6E", fontWeight: 700 }}>◯ 4.6:1</span>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-          <MiniButton label="ボタン" style={{ background: "#D9DEEF", color: "#B7BCDA" }} />
+          <MiniButton label="ボタン" style={{ background: "#D9DEEF", color: "#666D93" }} />
           <span style={{ fontSize: 9, color: "#C0503F", fontWeight: 700 }}>✕ 1.6:1</span>
         </div>
       </div>
@@ -170,10 +177,11 @@ const TAB_STYLES = [
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、視覚的知覚(ゲシュタルトの類同の原理)に基づく設計根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
+    refs: [{ label: "Similarity Principle in Visual Design", url: "https://www.nngroup.com/articles/gestalt-similarity/" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 8 }}>
         <MiniButton label="主要な操作" style={{ background: "#2F6FED", color: "#FFFFFF" }} />
-        <MiniButton label="副次的な操作" style={{ background: "#EEF1FA", color: "#7E86AC" }} />
+        <MiniButton label="副次的な操作" style={{ background: "#EEF1FA", color: "#666D93" }} />
       </div>
     ),
   },
@@ -184,17 +192,18 @@ const TAB_STATES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttonsページ",
-    position: "個別の状態名を列挙せず、システム標準の挙動に委ねる",
+    position: "共通の状態の一覧はなく、プラットフォームごとに定める。独自のボタンには押した状態を必ず用意する",
     stance:
-      <>Enabled/Hover/Pressedのような状態を個別に定義するのではなく、<Hl>システムが提供する標準の見た目・挙動を使うことを基本方針としている</Hl>。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内している。</>,
+      <>システムのボタンには操作に応じた状態が組み込まれている。全プラットフォームに共通する状態の一覧はなく、<Hl>プラットフォームごとに定めている</Hl>(visionOSは4つの状態を見た目で区別する)。<Hl>独自に作るボタンには、押した状態(press state)を必ず用意する</Hl>(ないと反応していないように感じられるため)。処理に時間がかかる操作では、ボタン内にアクティビティインジケーターを表示し、ラベルを一時的に変更する(例:「購入」→「購入中…」)方法を案内している。</>,
     exceptions: "配信中の状態を示す際、ボタンの画像を隠してインジケーターとラベルを表示する、という具体的な切り替え方法が示されている。",
     pourDetail: "理解可能(Understandable) ― 処理中であることを伝える点は理解可能性に関わる。",
     searchHint: "activity indicator",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
+    refs: [{ label: "Buttons", url: "https://developer.apple.com/design/human-interface-guidelines/buttons" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
         <MiniButton label="購入" style={{ background: "#2F6FED", color: "#FFFFFF" }} />
-        <span style={{ fontSize: 11, color: "#9EA4C4" }}>→</span>
+        <span style={{ fontSize: 11, color: "#666D93" }}>→</span>
         <MiniButton label="⟳ 購入中…" style={{ background: "#8FAEEF", color: "#FFFFFF" }} />
       </div>
     ),
@@ -210,6 +219,7 @@ const TAB_STATES = [
     pourDetail: "知覚可能・操作可能 ― 状態を視覚的に区別できることは知覚可能性に、操作可否を伝えることは操作可能性に関わる。",
     searchHint: "state layer",
     url: "https://m3.material.io/foundations/interaction/states/overview",
+    refs: [{ label: "States", url: "https://m3.material.io/foundations/interaction/states/overview" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
         <MiniButton label="Enabled" style={{ background: "#2F7D6E", color: "#FFFFFF" }} />
@@ -217,7 +227,7 @@ const TAB_STATES = [
         <MiniButton label="Focused" style={{ background: "#2F7D6E", color: "#FFFFFF", boxShadow: "0 0 0 2px #A9D6CC" }} />
         <MiniButton label="Pressed" style={{ background: "#1F5A4E", color: "#FFFFFF" }} />
         <MiniButton label="Dragged" style={{ background: "#2F7D6E", color: "#FFFFFF", boxShadow: "0 3px 6px rgba(23,27,54,0.3)" }} />
-        <MiniButton label="Disabled" style={{ background: "#E4E7F2", color: "#B7BCDA" }} />
+        <MiniButton label="Disabled" style={{ background: "#E4E7F2", color: "#666D93" }} />
       </div>
     ),
   },
@@ -227,11 +237,12 @@ const TAB_STATES = [
     doc: "WCAG 4.1.2 / 1.4.11",
     position: "状態を支援技術に正しく伝えることを要求",
     stance:
-      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めている。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求める。",
+      "4.1.2(Name, Role, Value)は、ボタンの現在の状態(押せる・押せない、選択中かどうかなど)が支援技術からプログラム的に取得できることを求めている。1.4.11は状態変化時の見た目(フォーカスリングなど)にも十分なコントラストを求める。2.4.7(フォーカスの可視化・AA)は、キーボードで操作するときにフォーカスの位置が見えることを求める。",
     exceptions: "標準的なHTMLのbutton要素を使っていれば、多くの場合ブラウザが自動的にこれらの情報を提供する。独自にデザインしたカスタムボタンでのみ追加対応が必要。",
     pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」に対応する達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+    refs: [{ kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }, { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" }, { kind: "sc", level: "AA", label: "2.4.7 フォーカスの可視化", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" }],
     illustration: () => (
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <MiniButton label="ボタン" style={{ background: "#171B36", color: "#FFFFFF", boxShadow: "0 0 0 3px #AFC3F5" }} />
@@ -250,13 +261,14 @@ const TAB_STATES = [
     pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、押せる/押せないを正しく伝えるための設計根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
+    refs: [{ label: "Button States: Communicate Interaction", url: "https://www.nngroup.com/articles/button-states-communicate-interaction/" }],
     illustration: () => (
       <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
         <MiniButton label="Enabled" style={{ background: "#7A4F7E", color: "#FFFFFF" }} />
         <MiniButton label="Hover" style={{ background: "#7A4F7E", color: "#FFFFFF", opacity: 0.85 }} />
         <MiniButton label="Focus" style={{ background: "#7A4F7E", color: "#FFFFFF", boxShadow: "0 0 0 2px #D8C6DA" }} />
         <MiniButton label="Pressed" style={{ background: "#5B3B5E", color: "#FFFFFF" }} />
-        <MiniButton label="Disabled" style={{ background: "#E4E7F2", color: "#B7BCDA" }} />
+        <MiniButton label="Disabled" style={{ background: "#E4E7F2", color: "#666D93" }} />
       </div>
     ),
   },
@@ -320,7 +332,7 @@ const SYNTHESIS = {
     <>WCAGは種類そのものを定義しないが、<strong>1.4.11のコントラスト基準はすべての種類のボタンに等しく適用される</strong>。NN groupの「主要操作には専用の色を」という指摘は、AppleのPrimary・GoogleのFilledの両方に共通する考え方と言える。</>,
   ],
   states: [
-    <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleだけは個別の状態を列挙せず、システム標準の挙動に委ねる立場を取っている。</>,
+    <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleは共通の状態の一覧を持たず、プラットフォームごとに定めている(独自のボタンには押した状態を必ず用意する)。</>,
     <>WCAGは見た目そのものより、<strong>状態が支援技術に正しく伝わるか(4.1.2)</strong>を重視する。標準的なHTML要素を使っていれば、多くの場合は自動的に満たされる。</>,
   ],
 };
@@ -351,7 +363,7 @@ function ButtonTabContent({ tabId }) {
               </div>
             )}
           </div>
-          {!tab.hasScale && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
+          {!tab.hasScale && s.term && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
           <p style={styles.sourceStance}>{s.stance}</p>
           <div style={styles.exceptionBox}>
@@ -370,9 +382,9 @@ function ButtonTabContent({ tabId }) {
             <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
             <p style={styles.exceptionText}>{s.pourDetail}</p>
           </div>
-          <div style={styles.sourceFootRow}>
-            <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-            <a href={s.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+          <div style={styles.pourBox}>
+            <span style={styles.exceptionLabel}>参照ページ(公式)</span>
+            <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
           </div>
         </div>
       ))}
@@ -403,8 +415,10 @@ function ButtonTabContent({ tabId }) {
             </>
           ) : (
             <>
+              {SOURCES.some((s) => s.term) && (<>
               <div style={styles.labelCell}>名称</div>
               {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
+              </>)}
               <div style={styles.labelCell}>位置づけ</div>
               {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
               <div style={styles.labelCell}>見た目イメージ</div>
@@ -417,11 +431,10 @@ function ButtonTabContent({ tabId }) {
           {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
           <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
           {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
-          <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>リンク</div>
+          <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
           {SOURCES.map((s) => (
-            <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-              <a href={s.url} target="_blank" rel="noreferrer" style={styles.link}>公式ページへ ↗</a>
-              <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
+            <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, display: "block" }}>
+              <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
             </div>
           ))}
         </div>
@@ -431,7 +444,7 @@ function ButtonTabContent({ tabId }) {
     {tabId === "a11y" && (
       <>
         <div style={styles.diagramCard}>
-          <h2 style={styles.diagramTitle}>参考: 四サイト比較図(実寸オーバーレイ)</h2>
+          <h2 style={styles.diagramTitle}>参考: 四系列比較図(実寸オーバーレイ)</h2>
           <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
             <rect x="8" y="6" width="70" height="70" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
             <rect x="8" y="15" width="61" height="61" fill="none" stroke="#C2542A" strokeWidth="1.6" />
@@ -455,7 +468,7 @@ function ButtonTabContent({ tabId }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "押すとその場で処理を実行する部品です(保存・送信・削除など)。";
+const LEAD = "押すとその場で処理を実行する部品だ(保存・送信・削除など)。";
 const ABOUT = [
   { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
   { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
@@ -471,7 +484,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "どれだけ目立たせるか(優先度)で5つに分ける。Elevated・Filled・Filled tonal・Outlined・Text" },
       { who: "NN group", color: "#7A4F7E", t: "種類の決まりはなく、主要な操作には専用の色を当てて、副次的な操作と見分けられるようにする" },
     ],
-    tip: "「何の操作か(Apple)」と「どれだけ目立たせるか(Google)」は両立します。まず操作の意味を決め、そのうえで画面の中の優先度で見た目を選びます。削除のような操作は、選ばれやすくても目立つ見た目にしない(Apple)点に気をつけます。",
+    tip: "「何の操作か(Apple)」と「どれだけ目立たせるか(Google)」は両立する。まず操作の意味を決め、そのうえで画面の中の優先度で見た目を選ぶ。削除のような操作は、選ばれやすくても目立つ見た目にしない(Apple)点に気をつける。",
   },
   {
     q: "押せる範囲の最小は?",
@@ -481,7 +494,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
       { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
     ],
-    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違います。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにします(詳しくは「アクセシビリティ」のタブ)。",
+    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにする(詳しくは下の「アクセシビリティ」)。",
   },
 ];
 
@@ -562,10 +575,10 @@ export default function ActionsButtonPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(AppleのAccessibility・Buttonsのページは2026-10に本文を再確認し、2025年改訂の最小28ptを反映)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
             <span style={{ marginTop: 4 }}>
-              状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の間隔(2.5.8の直径24pxの円)の図は「レイアウト・スペーシング」ページも参照してください。
+              状態の見た目(重ね色の不透明度など)の詳しい比較は「インタラクション状態」ページ、押せる範囲の間隔(2.5.8の直径24pxの円)の図は「レイアウト・スペーシング」ページも参照。
             </span>
           </div>
         </div>
@@ -582,7 +595,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 18px" },
   segmented: { display: "inline-flex", gap: 4, background: "#F3F6FA", padding: 4, borderRadius: 8, marginBottom: 20, flexWrap: "wrap" },
@@ -590,7 +603,7 @@ const styles = {
   segItemActive: { background: "#171B36", color: "#FFFFFF", fontWeight: 500 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   staticTabTitle: { fontSize: 17, fontWeight: 700, color: "#171B36", margin: "8px 0 12px", paddingTop: 12, borderTop: "2px solid #171B36" },
@@ -604,10 +617,10 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   sourceValueWrap: { textAlign: "right" },
   sourceValue: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 15, color: "#171B36" },
-  sourceUnit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#7E86AC", marginLeft: 3 },
+  sourceUnit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 3 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "8px 0 10px" },
   exceptionBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
@@ -616,7 +629,7 @@ const styles = {
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   matrixScroll: { overflowX: "auto", marginBottom: 20 },
@@ -628,8 +641,8 @@ const styles = {
   textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   value: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 14 },
-  unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#7E86AC", marginLeft: 4 },
+  unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 4 },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

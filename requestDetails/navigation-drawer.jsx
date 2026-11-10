@@ -47,7 +47,7 @@ const DRAWER_SOURCES = [
     stance: <NoData>該当なし</NoData>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
   },
   {
@@ -61,7 +61,7 @@ const DRAWER_SOURCES = [
     size:
       <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使うとしている。Web上では画面幅が320 CSSピクセル未満の場合、ドロワーをナビゲーションバーに置き換えるべきとしている。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
-      <span>色の値はデザイントークンを通して実装される。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしている。<NoData>カラートークンは未確認。</NoData></span>,
+      <span>色の値はデザイントークンを通して実装される。選択中の行き先は塗りつぶしアイコン、非選択は枠線アイコンで区別し、アクティブインジケーター(背景図形)で現在表示中のページを示すとしている。ドロワーの幅は360dp、インジケーターは高さ56dp・Secondary container・角丸Full、モーダルの容器はSurface container low・影Level 1(Jetpack ComposeのNavigationDrawerTokens)。</span>,
     glossary: [
       { term: "Standard / Modal(ドロワー)", desc: "Standardは拡張/大/特大のブレークポイント向けの常時表示(または開閉可能な)ドロワー。Modalはコンパクト/中サイズのブレークポイント向けで、スクリムで背後のコンテンツとの操作を遮断し、画面のレイアウトグリッドには影響を与えない、一時的なドロワー。" },
       { term: "アクティブインジケーター", desc: "現在表示中のページを示す背景図形。選択された行き先には塗りつぶしアイコン、非選択には枠線アイコンを使うことで視覚的に区別する。" },
@@ -80,7 +80,7 @@ const DRAWER_SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/navigation-drawer/guidelines",
     refs: [
-      { label: "Navigation drawer(Modal)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
+      { label: "Navigation drawer", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
       { label: "関連: Navigation rail", url: "https://m3.material.io/components/navigation-rail/guidelines" },
       { label: "MDC Android: Navigation drawer(非推奨化の注記)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationDrawer.md" },
     ],
@@ -136,7 +136,7 @@ const DRAWER_SOURCES = [
           <rect x="1" y="1" width="40" height="58" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <text x="21" y="34" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">dialog?</text>
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>モーダルか常時表示かで役割が変わる</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>モーダルか常時表示かで役割が変わる</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、モーダル/非モーダルで異なる役割の考え方を図示",
@@ -172,7 +172,7 @@ const DRAWER_SOURCES = [
           <line x1="8" y1="20" x2="32" y2="20" stroke="#7A4F7E" strokeWidth="3" strokeLinecap="round" />
           <line x1="8" y1="27" x2="32" y2="27" stroke="#7A4F7E" strokeWidth="3" strokeLinecap="round" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>発見性・速度の低下が調査で確認されている</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>発見性・速度の低下が調査で確認されている</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、系列識別色で図示(調査結果に基づく使い分けの指針)",
@@ -192,7 +192,7 @@ const RAIL_SOURCES = [
       <span><NoData>数値基準なし。</NoData>macOSでは、行の高さ・文字・アイコンの大きさが小・中・大の3段階で、利用者が設定で変えられる。</span>,
     colorInfo: "サイドバーのアイコンは、既定ではアプリのアクセントカラーを使う。macOSでは利用者がシステムのアクセントカラーを変えると、すべてのアプリのサイドバーのアイコンがその色になる。意味を伝えるための固定の色は、控えめに使えばよい(メールのVIPの黄色など)。",
     stance:
-      "サイドバーは、アプリの主な領域への移動に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする(HIG Sidebarsの本文で確認、2026-11)。",
+      "サイドバーは、アプリの主な領域への移動に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする。",
     exceptions:
       "利用者がサイドバーを隠せるようにする(iPadOSは画面の端からのスワイプ、macOSは表示メニューなど)。ただし見つけてもらえるよう、初期状態では隠さない。iPhone向けの隠れたドロワーの部品はない。",
     accessibility: <NoData>記載なし</NoData>,
@@ -226,7 +226,7 @@ const RAIL_SOURCES = [
     color: "#2F7D6E",
     position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。折りたたみ型と、ドロワーの代わりになる展開型がある",
     size: "幅96dp(M3 Expressive。以前は80dp)、項目の最小の高さ64dp(以前は60dp)。",
-    colorInfo: <span>M3 Expressiveで、縦に並ぶ項目の選択中のラベルの色が「on surface variant」から「secondary」に変わった。<NoData>カラートークンの詳細は未確認。</NoData></span>,
+    colorInfo: <span>M3 Expressiveで、縦に並ぶ項目の選択中のラベルの色が「on surface variant」から「secondary」に変わった。</span>,
     stance: <span>ナビゲーションレールは、中くらいの画面でUIの画面を切り替えるための部品。M3 Expressiveで、<Hl>展開できるようになり、展開型がナビゲーションドロワーの代わり</Hl>とされた。展開型は非モーダルで、折りたたみ型に戻せる。M3の本文では、中・拡張のブレークポイントではナビゲーションレール、拡張・大・特大ではStandard(常時表示)のドロワーを使うとしている。</span>,
     exceptions: "ナビゲーションドロワーは、ナビゲーションバーなど他の主要なナビゲーションと併用せず、画面の大きさに合わせて1つを選ぶ(コンパクト→ナビゲーションバー、中・拡張→ナビゲーションレール、拡張・大・特大→Standardドロワー)。",
     accessibility: <NoData>記載なし</NoData>,
@@ -239,7 +239,7 @@ const RAIL_SOURCES = [
     refs: [
       { label: "Navigation rail(折りたたみ型・展開型)", url: "https://m3.material.io/components/navigation-rail/overview" },
       { label: "MDC Android: Navigation rail(M3 Expressiveの変更点)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationRail.md#m3-expressive" },
-      { label: "Navigation drawer(Standard)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
+      { label: "参考: Navigation drawer(標準のドロワー)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
     ],
     confirmedNote: "Material Components for AndroidのNavigation railのドキュメント本文を直接取得して確認(2026-11)。",
     illustration: () => (
@@ -255,7 +255,7 @@ const RAIL_SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Landmark Regions(navigation)/ WCAG 3.2.3",
+    doc: "WAI-ARIA APG ― Landmark Regions(navigation)・WCAG 3.2.3",
     term: "navigation(ランドマークのロール)",
     color: "#A3821F",
     position: "常に表示するサイドナビは、navigationランドマークとして作る",
@@ -264,7 +264,7 @@ const RAIL_SOURCES = [
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出てくるナビゲーションを、毎回同じ相対的な順番で並べることを求める基準。利用者が自分で並びを変えた場合は除く。" },
     ],
-    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、navigationランドマークとして扱うのが適切と考えられる(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ相対的な順番で並べる必要がある。",
+    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、navigationランドマークとして扱うのが適切(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ相対的な順番で並べる必要がある。",
     exceptions: <NoData>記載なし</NoData>,
     accessibility: "知覚可能(Perceivable)・理解可能(Understandable) ― ランドマークで領域の役割を伝えること(1.3.1)と、ナビゲーションの並びをそろえること(3.2.3)が関わる。",
     useCases: [
@@ -274,7 +274,7 @@ const RAIL_SOURCES = [
     searchHint: "navigation",
     url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/",
     refs: [
-      { kind: "apg", label: "APG: Landmark Regions(navigation)/ WCAG 3.2.3", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
+      { kind: "apg", label: "APG: Landmark Regions(navigation)", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
     illustrationNote: "視覚デザインの規定はなく、ランドマークの考え方を図示",
@@ -359,7 +359,7 @@ function DrawerSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の横に、アプリの行き先の一覧を出すナビゲーションです。スマホで一時的に開く「ナビゲーションドロワー」と、タブレット・PCで常に表示する「ナビゲーションレール/サイドバー」を扱います。";
+const LEAD = "画面の横に、アプリの行き先の一覧を出すナビゲーションだ。スマホで一時的に開く「ナビゲーションドロワー」と、タブレット・PCで常に表示する「ナビゲーションレール/サイドバー」を扱う。";
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて移動できるようにする" },
   { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(レール/サイドバー)" },
@@ -393,7 +393,6 @@ function Comparison({ SOURCES }) {
                   <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                   <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                   <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                  {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                   <InfoBox label="参照ページ(公式)">
                     <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                   </InfoBox>
@@ -464,7 +463,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するドロワーやレールにする。ただしM3 Expressiveでは、ドロワーは推奨されず展開型のレールに置き換える" },
       { who: "Apple", color: "#C2542A", t: "iPhone向けの隠れたドロワーはない。まずタブバーを使い、収まらない領域はタブバーのサイドバーの形で見せる。サイドバーは隠せるようにするが、初期状態では隠さない" },
     ],
-    tip: "どの系列も「広い画面では隠さない」で一致します。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立します。",
+    tip: "どの系列も「広い画面では隠さない」で一致する。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立する。",
   },
 ];
 
@@ -506,7 +505,7 @@ export default function NavigationDrawerPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ Googleの注意(M3 Expressive、2025年5月)</div>
             <p style={styles.warningText}>
-              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに展開型のナビゲーションレール(expanded navigation rail)を使う</strong>とされています(M3のNavigation drawerのページとMDC Androidのドキュメントで確認、2026-11)。展開型のレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしています。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読んでください。Apple・W3C・NN groupの内容には影響しません。
+              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに展開型のナビゲーションレール(expanded navigation rail)を使う</strong>とされている。展開型のレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしている。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読む。Apple・W3C・NN groupの内容には影響しない。
             </p>
           </div>
 
@@ -541,16 +540,16 @@ export default function NavigationDrawerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面では常に表示し(ナビゲーションレール/サイドバー)、狭い画面で項目が多いときだけ隠す(ナビゲーションドロワー)</strong>ことです。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めています。
+              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面では常に表示し(ナビゲーションレール/サイドバー)、狭い画面で項目が多いときだけ隠す(ナビゲーションドロワー)</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
             </p>
             <p style={styles.synthesisText}>
-              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っています。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、展開型のナビゲーションレールに置き換える</strong>としています。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告しています。
+              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、展開型のナビゲーションレールに置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告している。
             </p>
             <p style={styles.synthesisText}>
-              広い画面では、Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーションが、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致しています。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めています。
+              広い画面では、Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーションが、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはnavigationランドマーク</strong>として作ります。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められます。
+              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはnavigationランドマーク</strong>として作る。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
             </p>
           </div>
           <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>
@@ -565,11 +564,8 @@ export default function NavigationDrawerPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビューNo.049で、ドロワーとレール/サイドバーに分けて比較。Googleのナビゲーションレール、NN groupの縦型ナビゲーションの記事を追加し、本文を直接確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: ①ドロワーは、GoogleのNavigation drawer、W3CのAPG Dialog(Modal)パターン、NN groupのハンバーガーメニューの記事。②レール/サイドバーは、AppleのSidebars、GoogleのNavigation rail(Material Components for Androidの説明を併記)、W3CのAPG Landmark Regions、NN groupの縦型ナビゲーションの記事へのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -582,12 +578,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -600,24 +596,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -638,5 +634,5 @@ const styles = {
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
   warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
   warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

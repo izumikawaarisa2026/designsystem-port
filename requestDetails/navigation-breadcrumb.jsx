@@ -31,12 +31,11 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
-    stance: "該当なし",
+    stance: <>該当なし。iOSは階層の移動を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近い部品として、macOSにはPath controls(Finderのパスバーのように、階層の中の位置を並べて示す部品。iOSなどでは使えない)がある。</>,
     exceptions: "該当なし",
     accessibility: "該当なし",
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    confirmedNote: "※「パンくずリスト」という名称の専用コンポーネントは見当たらない。iOSは階層の移動を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近い部品として、macOSには「Path controls」がある。Finderのパスバーのように、ファイルなどが階層の中のどこにあるかを並べて示す部品です(iOSなどでは使えない。HIGのページを2026-10に確認)。",
   },
   {
     key: "material",
@@ -48,12 +47,11 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
-    stance: "該当なし",
+    stance: "該当なし(M3の部品の一覧にBreadcrumbsはない)",
     exceptions: "該当なし",
     accessibility: "該当なし",
-    useCases: ["該当なし"],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    confirmedNote: "※M3の部品の一覧(m3.material.ioのサイトマップ)に「Breadcrumbs」はない(2026-11に確認)。",
     pending: true,
   },
   {
@@ -64,7 +62,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
     size: "パンくず専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は個々のリンクにも適用される。",
-    colorInfo: "パンくず専用の色基準はない。リンクの文字には1.4.3(文字のコントラスト。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
+    colorInfo: "パンくず専用の色基準はない。リンクの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
     glossary: [
       { term: "aria-current", desc: "一連の項目の中で「現在の項目」を示すARIA属性。パンくずリストでは、現在のページへのリンクに aria-current=\"page\" を付ける。現在のページがリンクでない場合、この属性は任意とされる。" },
     ],
@@ -83,6 +81,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
     refs: [
       { kind: "apg", label: "APG: Breadcrumb Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/" },
+      { kind: "sc", level: "AAA", label: "2.4.8 現在位置(パンくずリストは満たし方の1つで、置けば自動的に適合するわけではない)", url: "https://www.w3.org/WAI/WCAG22/Understanding/location.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -123,9 +122,9 @@ const SOURCES = [
     illustration: () => (
       <svg width="140" height="26" viewBox="0 0 140 26">
         <text x="14" y="17" fontSize="9.5" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">ホーム</text>
-        <text x="42" y="17" fontSize="9.5" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">&gt;</text>
+        <text x="42" y="17" fontSize="9.5" fill="#666D93" fontFamily="Jost, Noto Sans JP">&gt;</text>
         <text x="56" y="17" fontSize="9.5" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">カテゴリ</text>
-        <text x="94" y="17" fontSize="9.5" fill="#9EA4C4" fontFamily="Jost, Noto Sans JP">&gt;</text>
+        <text x="94" y="17" fontSize="9.5" fill="#666D93" fontFamily="Jost, Noto Sans JP">&gt;</text>
         <text x="106" y="17" fontSize="9.5" fill="#171B36" fontWeight="700" fontFamily="Jost, Noto Sans JP">現在地</text>
       </svg>
     ),
@@ -169,7 +168,7 @@ function BreadcrumbSwatch() {
     <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>
       {items.map((label, i) => (
         <React.Fragment key={label}>
-          {i > 0 && <span style={{ color: "#9EA4C4" }}>&gt;</span>}
+          {i > 0 && <span style={{ color: "#666D93" }}>&gt;</span>}
           <span style={{ color: i === items.length - 1 ? "#171B36" : "#3A4FCF", fontWeight: i === items.length - 1 ? 700 : 400, textDecoration: i === items.length - 1 ? "none" : "underline" }}>
             {label}
           </span>
@@ -180,7 +179,7 @@ function BreadcrumbSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びです。";
+const LEAD = "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びだ。";
 const ABOUT = [
   { k: "目的・役割", v: "今の場所を示し、上の階層へ1回で戻れるようにする" },
   { k: "よく使われる場面", v: "ネットショップの「ホーム > 家電 > 冷蔵庫」、ヘルプサイトの記事の上部" },
@@ -195,7 +194,7 @@ const SPLITS = [
       { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするならaria-current=\"page\"を付ける。リンクにしなければaria-currentは任意" },
       { who: "NN group", color: "#7A4F7E", t: "リンクにしない。何も起きないリンクは置かないため。リンクの項目とは見た目でも区別する" },
     ],
-    tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たります。APGは実装の参考例で、適合の要件ではありません。",
+    tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たる。APGは実装の参考例で、適合の要件ではない。",
   },
 ];
 
@@ -239,13 +238,13 @@ export default function NavigationBreadcrumbPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleとGoogleには、パンくずリストに当たる専用の部品はありません</strong>(Appleは、階層を戻るボタンで行き来するのが基本です)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列です。
+              <strong>AppleとGoogleには、パンくずリストに当たる専用の部品はない</strong>(Appleは、階層を戻るボタンで行き来するのが基本)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列だ。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点です。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものです。
+              Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せません。画面幅に応じてどちらを優先するかは、実装側の判断が必要になります。
+              W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -271,7 +270,6 @@ export default function NavigationBreadcrumbPage() {
                 <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 {!s.notApplicable && (
                   <>
                     <InfoBox label="参照ページ(公式)">
@@ -346,11 +344,8 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(W3C・NN groupは本文確認済み。Apple・Googleは専用の部品がないことをHIGとM3の部品の一覧で確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: WCAGはWAI-ARIA Authoring Practices(Breadcrumbパターン)、NN groupは記事ページ単位です。Apple・Googleは専用コンポーネントページが見当たらなかったため、公式リンクは置いていません(Appleは近い部品として、macOSのPath controlsを参考リンクにしています)。
-            </span>
           </div>
         </div>
       </div>
@@ -363,12 +358,12 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -377,26 +372,26 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  positionBadgeMuted: { color: "#B7BCDA", background: "#F3F4F9" },
-  mutedText: { color: "#B7BCDA" },
+  positionBadgeMuted: { color: "#666D93", background: "#F3F4F9" },
+  mutedText: { color: "#666D93" },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -414,5 +409,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

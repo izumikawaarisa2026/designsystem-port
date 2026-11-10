@@ -33,7 +33,7 @@ const SOURCES = [
     size: "消音モードでは、利用者が自分で始めた音(メディア再生・アラーム・音声/ビデオ通話)だけを鳴らし、キーボードのクリック音・効果音・ゲームのBGMなどは止める。最終的な音量は常にシステムの音量が決め、アプリが全体の音量を変えてはいけない。ヘッドホンを外したら、再生はすぐに一時停止する。用途に応じて5つのオーディオカテゴリ(Solo ambient/Ambient/Playback/Record/Play and record)から選び、それによって消音スイッチに従うか・他の音と混ぜるか・バックグラウンドで鳴るかが決まる。",
     design: "音の作り方(音色など)の指針はほとんどない。具体的なのはvisionOSで、独自のUI要素には独自の音を設計する、繰り返し聞く音は高さと音量をわずかにランダムに変える(仮想キーボードの例)、空間オーディオで音の出どころを物体に結びつける、といった指針がある。tvOSでは、利用者が始めた操作のときだけ音を鳴らし、アラートや通知には音を付けない。",
     stance:
-      "音が体験の中心でも飾りでも、音量や出力先の変更に対して利用者の期待どおりに振る舞うことを求めている。他のアプリの音楽を必要もなく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後は他のアプリに再開してよいと知らせる、などです(ページ本文を直接確認、2026-09)。",
+      "音が体験の中心でも飾りでも、音量や出力先の変更に対して利用者の期待どおりに振る舞うことを求めている。他のアプリの音楽を必要もなく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後は他のアプリに再開してよいと知らせる、などだ。",
     exceptions:
       "visionOSでは逆に「音を鳴らす方を優先する」とし、音のないアプリは味気なく、壊れているようにさえ感じられるとしている。macOSの通知音は、既定で他の音と混ざる。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを推奨している。",
     accessibility:
@@ -46,7 +46,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices",
     refs: [
-      { label: "Playing audio / Accessibility(Hearing)", url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices" },
+      { label: "Playing audio", url: "https://developer.apple.com/design/human-interface-guidelines/playing-audio#Best-practices" },
       { label: "Accessibility ― Hearing", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility#Hearing" },
       { label: "Playing haptics ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/playing-haptics#Best-practices" },
     ],
@@ -61,7 +61,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>音を鳴らさない方がよい場面として、プライバシーや控えめさが求められる画面、利用者が割り込みを望まないと設定している場合、頻繁に行う操作の3つを挙げている。視覚デザインの余白のように「沈黙」を設計に組み込むことは、音を使う場面を知るのと同じくらい重要だとしている。</span>,
     design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSが出す操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分類している。音色は、高音成分の多い明るい音を重要な通知や騒がしい場所向けに、少ない落ち着いた音を優先度の低い音に使い分ける。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的としている。",
     stance:
-      "音の原則は、直感的で機能的な「Informative(情報を伝える)」、ブランドを偽りなく表す「Honest(正直)」、必要なときだけ行動を促し安心感を与える「Reassuring(安心させる)」の3つ。操作や状態の変化に結びつけた音を「イヤコン(earcon)」と呼び、現実の音に似せたもの(カメラのシャッター音など)と抽象的な音に分けている(Material Design 2のページデータを直接取得して確認、2026-09)。",
+      "音の原則は、直感的で機能的な「Informative(情報を伝える)」、ブランドを偽りなく表す「Honest(正直)」、必要なときだけ行動を促し安心感を与える「Reassuring(安心させる)」の3つ。操作や状態の変化に結びつけた音を「イヤコン(earcon)」と呼び、現実の音に似せたもの(カメラのシャッター音など)と抽象的な音に分けている。",
     exceptions:
       "装飾としての音は、感情の高まる場面に限り、頻度を抑えて疲れさせないよう求めている。通知音は、離れた場所や騒がしい環境でも聞こえるよう設計し、装飾のない基本的な音から豊かな音まで利用者が選べるようにすることを勧めている。現行のAndroidの触覚(ハプティクス)の指針では、視覚・音・触覚を同時に設計し、タイミングと印象をそろえるよう強く勧めている。",
     accessibility:
@@ -74,7 +74,7 @@ const SOURCES = [
     searchHint: "When not to use sound",
     url: "https://m2.material.io/design/sound/applying-sound-to-ui.html",
     refs: [
-      { label: "Sound(About sound / Applying sound to UI / Sound attributes)", url: "https://m2.material.io/design/sound/applying-sound-to-ui.html" },
+      { label: "M2: Applying sound to UI", url: "https://m2.material.io/design/sound/applying-sound-to-ui.html" },
       { label: "M2: About sound", url: "https://m2.material.io/design/sound/about-sound.html" },
       { label: "M2: Sound attributes", url: "https://m2.material.io/design/sound/sound-attributes.html" },
       { label: "M2: Sound choreography", url: "https://m2.material.io/design/sound/sound-choreography.html" },
@@ -95,7 +95,7 @@ const SOURCES = [
       { term: "1.4.7 Low or No Background Audio・レベルAAA", desc: "録音済みの音声中心のコンテンツで、背景音をなくす・切れる・20dB以上小さくすることを求める基準。" },
     ],
     stance:
-      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくし、音に気を取られやすい人の妨げにもなるため。1.4.2を満たさない内容はページ全体の利用を妨げうるため、ページ上のすべての内容がこの基準を満たす必要があるとしている(Understandingページの本文を直接確認、2026-09)。",
+      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくし、音に気を取られやすい人の妨げにもなるため。1.4.2を満たさない内容はページ全体の利用を妨げうるため、ページ上のすべての内容がこの基準を満たす必要があるとしている。",
     exceptions:
       "1.4.2は、3秒以内に終わる音には適用されない。1.4.7は、音声CAPTCHA・音声ロゴ・歌やラップなど音楽表現が主な発声には適用されず、レベルAAA。",
     accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7はガイドライン1.4(判別可能)に属し、POURの「知覚可能」。聴覚に障害のある人やスクリーンリーダーを使う人が、必要な音声を聞き分けられることを目的にしている。",
@@ -107,6 +107,8 @@ const SOURCES = [
     searchHint: "independently from the overall system volume",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion",
     refs: [
+      { kind: "sc", level: "A", label: "1.2.1 音声のみ及び映像のみ(収録済)", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html" },
+      { kind: "sc", level: "A", label: "1.2.2 キャプション(収録済)", url: "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html" },
       { kind: "sc", level: "A", label: "1.4.2 音声の制御", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion" },
       { kind: "sc", level: "AAA", label: "1.4.7 小さな背景音、又は背景音なし", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
     ],
@@ -121,7 +123,7 @@ const SOURCES = [
     size: "数値基準ではなく原則としての言及。背景で起きた出来事を知らせる効果音は、ごく静かで邪魔にならないものにし、必ず利用者がオフにできる設定を用意するよう求めている(1995年の記事)。",
     design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが起動の呼びかけを検知した後の2音のビープ)、明示的な言葉、暗黙の手がかり(話している途中で止まり、聞く態勢を示すなど)の3種類に分けている。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音として働くため、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られるとしている。",
     stance:
-      "音の利点は画面とは別のチャネルであることで、画面の情報を隠さずに補足できる。一方、イヤコンが効果的なのは、狭く繰り返しの多い文脈(頻繁なタスクの確認音)か、汎用的な注意喚起に限られ、多くの場合は言葉による手がかりを併用するか、置き換える必要があるとしている(記事本文を直接取得して確認、2026-09)。",
+      "音の利点は画面とは別のチャネルであることで、画面の情報を隠さずに補足できる。一方、イヤコンが効果的なのは、狭く繰り返しの多い文脈(頻繁なタスクの確認音)か、汎用的な注意喚起に限られ、多くの場合は言葉による手がかりを併用するか、置き換える必要があるとしている。",
     exceptions:
       "ボタンを押したときの控えめなクリック音や、移動の方向で対になる音のように、質の良い効果音は体験を大きく高めるとしている。ゲームの研究で、音を良くしただけで、同じ映像なのに「映像が良くなった」と答えた例も紹介している。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティの観察と研究に基づく設計上の根拠。音声のナレーションは、聴覚に障害のある人や外国語の利用者には理解しにくい場合があるため、字幕を勧めている。",
@@ -133,7 +135,7 @@ const SOURCES = [
     searchHint: "Non-speech sound effects",
     url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3",
     refs: [
-      { label: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web", url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3" },
+      { label: "Audio Signifiers for Voice Interaction", url: "https://www.nngroup.com/articles/audio-signifiers-voice-interaction/#toc-nonverbal-sounds-3" },
       { label: "Guidelines for Multimedia on the Web(Audio)", url: "https://www.nngroup.com/articles/guidelines-for-multimedia-on-the-web/" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Guidelines for Multimedia on the Web)のもの。",
@@ -156,9 +158,9 @@ function SoundTypesMap() {
     <svg viewBox="0 0 420 196" width="100%" style={{ maxWidth: 540, display: "block", margin: "0 auto" }} role="img" aria-label="UIの音の種類を、鳴る頻度と目立ち方で配置した概念図">
       <line x1={x0} y1={y1} x2={x1} y2={y1} stroke="#B7BCDA" />
       <line x1={x0} y1={y1} x2={x0} y2={y0} stroke="#B7BCDA" />
-      <text x={x1} y={y1 + 14} fontSize="9" fill="#7E86AC" textAnchor="end" fontFamily={font}>鳴る頻度 → 多い</text>
-      <text x={x0 - 6} y={y0 + 4} fontSize="9" fill="#7E86AC" textAnchor="end" fontFamily={font}>印象的</text>
-      <text x={x0 - 6} y={y1} fontSize="9" fill="#7E86AC" textAnchor="end" fontFamily={font}>控えめ</text>
+      <text x={x1} y={y1 + 14} fontSize="9" fill="#666D93" textAnchor="end" fontFamily={font}>鳴る頻度 → 多い</text>
+      <text x={x0 - 6} y={y0 + 4} fontSize="9" fill="#666D93" textAnchor="end" fontFamily={font}>印象的</text>
+      <text x={x0 - 6} y={y1} fontSize="9" fill="#666D93" textAnchor="end" fontFamily={font}>控えめ</text>
       {pts.map((p) => (
         <g key={p.label}>
           <circle cx={X(p.x)} cy={Y(p.y)} r={5 + p.y * 7} fill="#2F7D6E" fillOpacity="0.18" stroke="#2F7D6E" />
@@ -172,7 +174,7 @@ function SoundTypesMap() {
   );
 }
 
-/* 四サイト比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 音を鳴らすときのルール(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
 const RULE_ROWS = [
   {
     label: "利用者が音を止められる",
@@ -187,7 +189,7 @@ const RULE_ROWS = [
     label: "音だけで情報を伝えない",
     cells: [
       { mark: "◯", note: "字幕・触覚・視覚の手がかりを併用" },
-      { mark: "△", note: "視覚・音・触覚の同時設計(Android)" },
+      { mark: "△", note: "視覚・音・触覚を同時に設計する(Android Developersの触覚の指針。M2の音の指針とは別)" },
       { mark: "◯", note: "音声の代替・字幕(1.2.1・1.2.2)" },
       { mark: "◯", note: "イヤコンには言葉を併用" },
     ],
@@ -303,10 +305,10 @@ function SoundIntro() {
               </div>
             </div>
           ))}
-          <p style={styles.introNote}>音の強みは、画面とは別の「もう1つの通り道」であること。画面の情報を隠さずに補足でき、画面を見ていない人にも届きます(NN group)。</p>
+          <p style={styles.introNote}>音の強みは、画面とは別の「もう1つの通り道」であること。画面の情報を隠さずに補足でき、画面を見ていない人にも届く(NN group)。</p>
         </div>
         <div style={{ minWidth: 0 }}>
-          <div style={styles.introHead}>ルールの概要(4系列の共通点)</div>
+          <div style={styles.introHead}>主なルール</div>
           <ol style={styles.ruleList}>
             {SOUND_RULES.map((r) => (
               <li key={r.k} style={styles.ruleItem}>
@@ -491,7 +493,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "操作や通知に音を付けるかどうか、どう作るか、音に頼れない人への配慮の決まりです。";
+const LEAD = "操作や通知に音を付けるかどうか、どう作るか、音に頼れない人への配慮の決まりだ。";
 const ABOUT = [
   { k: "目的・役割", v: "音で操作の結果や知らせを補い、画面を見ていなくても気づけるようにする" },
   { k: "関わる場面", v: "通知音、キーボードの打鍵音、エラー音、動画・ゲームの音" },
@@ -528,7 +530,7 @@ export default function TokensSoundPage() {
           <SummaryCard
             imageLabel="UIの音の種類(Google・Material Design 2の分類)"
             image={<><SoundTypesMap /></>}
-            imageNote={<>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものです。位置はM2の説明文をもとにした概念図で、数値の基準ではありません。</>}
+            imageNote={<>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものだ。位置はM2の説明文をもとにした概念図で、数値の基準ではない。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -538,24 +540,24 @@ export default function TokensSoundPage() {
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 音を鳴らすときのルール</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 音を鳴らすときのルール</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみです。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
           </div>
 
           <section style={styles.kindSection}>
             <h2 style={styles.diagramTitle}>音の種類と具体的なシーン</h2>
-            <p style={styles.diagramNote}>Google(Material Design 2)の分類をもとに、それぞれの音が「どんな場面で・どのくらいの頻度で・どんな音で」鳴るのかを具体例で並べ、Appleでの扱いを添えました。優先度は、M2の「Sound choreography」の表(1が最も目立たせる音)です。</p>
+            <p style={styles.diagramNote}>Google(Material Design 2)の分類をもとに、それぞれの音が「どんな場面で・どのくらいの頻度で・どんな音で」鳴るのかを具体例で並べ、Appleでの扱いを添えた。優先度は、M2の「Sound choreography」の表(1が最も目立たせる音)だ。</p>
             <SoundKindCatalog />
             <div style={styles.chartCard}>
               <h3 style={styles.subHead}>音の形(旋律)で意味を伝える</h3>
               <MelodyShapes />
-              <p style={styles.chartNote}>Googleは、上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的としています。スイッチのオン/オフのように対になる状態は、同じ音のモチーフを逆向きに鳴らすと「関係があるが反対の働き」だと伝わるとしています(M2 Sound attributes・Sound choreography)。</p>
+              <p style={styles.chartNote}>Googleは、上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的としている。スイッチのオン/オフのように対になる状態は、同じ音のモチーフを逆向きに鳴らすと「関係があるが反対の働き」だと伝わるとしている(M2 Sound attributes・Sound choreography)。</p>
             </div>
             <div style={styles.chartCard}>
               <h3 style={styles.subHead}>シーン別 ― 鳴らす?鳴らさない?</h3>
               <SceneDecisionTable />
-              <p style={styles.chartNote}>◯=鳴らしてよい(条件を守って)、△=条件付き・基本は避ける、✕=鳴らさない。右の名前は根拠にした系列です。</p>
+              <p style={styles.chartNote}>◯=鳴らしてよい(条件を守って)、△=条件付き・基本は避ける、✕=鳴らさない。右の名前は根拠にした系列だ。</p>
             </div>
           </section>
 
@@ -563,16 +565,16 @@ export default function TokensSoundPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点です(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たりません)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めています。
+              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点だ(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たらない)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めている。
             </p>
             <p style={styles.synthesisText}>
-              違いが大きいのは、指針の重心です。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れません。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめていますが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがありません</strong>。
+              違いが大きいのは、指針の重心だ。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れない。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめているが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              「鳴らさない」判断も重要です。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止めます。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘しています。
+              「鳴らさない」判断も重要だ。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止める。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘している。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論です。
+              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -591,7 +593,6 @@ export default function TokensSoundPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -651,7 +652,7 @@ export default function TokensSoundPage() {
                 </div>
               ))}
             </div>
-            <p style={styles.chartNote}>AppleとGoogleはどちらも、音を単独で使うより、視覚・触覚と同時に設計してタイミングと印象をそろえることを勧めています。W3CとNN groupには触覚の指針はありません。</p>
+            <p style={styles.chartNote}>AppleとGoogleはどちらも、音を単独で使うより、視覚・触覚と同時に設計してタイミングと印象をそろえることを勧めている。W3CとNN groupには触覚の指針はない。</p>
           </div>
 
           <div style={styles.tagsRow}>
@@ -660,11 +661,8 @@ export default function TokensSoundPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Apple・W3C・NN groupは本文確認済み。GoogleはMaterial Design 2の音のページをページデータで本文確認、M3には対応ページなし)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Playing audioページの「Best practices」見出しへのアンカー付きリンクで、AccessibilityページのHearingとPlaying hapticsも併記しています。GoogleはM2の「Applying sound to UI」ページ(アンカーなし)と、関連するM2のページ・Androidの触覚の指針です。WCAGは1.4.2・1.4.7の各Understandingページの基準本文です。NN groupはイヤコン(言葉を使わない音)の節と、マルチメディアの指針の記事です。
-            </span>
           </div>
         </div>
       </div>
@@ -678,14 +676,14 @@ const styles = {
   introTitle: { fontSize: 15, fontWeight: 700, color: "#171B36", margin: "0 0 12px" },
   introCols: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", gap: "6px 22px" },
   introHead: { fontSize: 11.5, fontWeight: 700, color: "#3C5A73", margin: "6px 0 8px", letterSpacing: 0.2 },
-  introNote: { fontSize: 11, lineHeight: 1.6, color: "#7E86AC", margin: "6px 0 8px" },
+  introNote: { fontSize: 11, lineHeight: 1.6, color: "#666D93", margin: "6px 0 8px" },
   purposeRow: { display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 8 },
   purposeIcon: { width: 26, height: 26, flexShrink: 0, borderRadius: 13, background: "#EEF1FA", color: "#3C5A73", fontWeight: 700, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center" },
   purposeTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   purposeText: { fontSize: 11, lineHeight: 1.6, color: "#454C78" },
   ruleList: { margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 7 },
   ruleItem: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
-  ruleWho: { display: "inline-block", marginLeft: 6, fontSize: 9.5, color: "#7E86AC", border: "1px solid #E1E3F0", borderRadius: 3, padding: "0 4px" },
+  ruleWho: { display: "inline-block", marginLeft: 6, fontSize: 9.5, color: "#666D93", border: "1px solid #E1E3F0", borderRadius: 3, padding: "0 4px" },
   sceneChips: { display: "flex", flexWrap: "wrap", gap: 6 },
   sceneChip: { fontSize: 11, color: "#2E3457", background: "#F3F6FA", borderRadius: 12, padding: "3px 10px" },
   kindSection: { marginBottom: 8 },
@@ -694,7 +692,7 @@ const styles = {
   kindCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px", background: "#FFFFFF" },
   kindName: { fontSize: 13.5, fontWeight: 700, color: "#171B36" },
   kindSub: { fontSize: 10.5, fontWeight: 400, color: "#565D8A", marginLeft: 6 },
-  kindMeta: { display: "flex", gap: 10, fontSize: 10, color: "#7E86AC", marginTop: 3, alignItems: "center" },
+  kindMeta: { display: "flex", gap: 10, fontSize: 10, color: "#666D93", marginTop: 3, alignItems: "center" },
   levelRow: { display: "inline-flex", gap: 2, marginLeft: 3, verticalAlign: "middle" },
   levelDot: { width: 7, height: 7, borderRadius: 4, display: "inline-block" },
   kindSpec: { fontSize: 11, color: "#2E3457", marginTop: 8, lineHeight: 1.7 },
@@ -707,43 +705,43 @@ const styles = {
   decMark: { fontSize: 16, fontWeight: 700, width: 18, flexShrink: 0, lineHeight: 1.3 },
   decScene: { fontSize: 12, fontWeight: 600, color: "#171B36" },
   decWhy: { fontSize: 11, lineHeight: 1.55, color: "#454C78" },
-  decWho: { marginLeft: 6, fontSize: 9.5, color: "#7E86AC" },
+  decWho: { marginLeft: 6, fontSize: 9.5, color: "#666D93" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   reduceCard: { background: "#F8F9FD", borderRadius: 4, padding: "12px 14px" },
-  reduceLead: { fontSize: 11, color: "#7E86AC", margin: "2px 0 8px" },
+  reduceLead: { fontSize: 11, color: "#666D93", margin: "2px 0 8px" },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -761,7 +759,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   ruleScroll: { overflowX: "auto" },
   ruleGrid: { display: "grid", gridTemplateColumns: "120px repeat(4, minmax(110px, 1fr))", minWidth: 560, border: "1px solid #E1E3F0", borderRadius: 4 },
   ruleHead: { fontSize: 11.5, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#FFFFFF" },

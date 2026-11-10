@@ -11,8 +11,8 @@
 - Chromeは1回だけ起動し、同じ読み込みの中で全ページを順に表示して集める(shell.html の __DSP_STATIC__ の処理)。
 - 各ページはスマホ用のカード(.dsp-mobile-only)とPC用の比較表(.dsp-desktop-only)を両方持つ。人が見たときに通常版と
   同じ見た目になるよう、静的版でも両方を書き出し、画面の幅で切り替える(860px未満=カード、860px以上=比較表)。
-  文字だけで読むAIには同じ内容が2回見えるため、比較表の文字のほぼすべて(90%以上)がカード側にもある比較表には、
-  「カードと同じ内容」という注記を画面には出さずに添える(mark_duplicate_views)。
+  文字だけで読むAIには同じ内容が2回見えるため、カードと比較表の文字が双方向に90%以上重なるときは、カードを省いて
+  比較表だけを書き出し、幅に関係なく表示する(mark_duplicate_views)。重ならないものは両方を残す。
 """
 import html
 import os
@@ -73,26 +73,40 @@ def text_chunks(fragment):
     return [c for c in (html.unescape(x).strip() for x in re.split(r"<[^>]+>", t)) if c]
 
 
-DUP_NOTE = ('<p class="dsp-static-dup-note">(ここからPC用の比較表です。上のスマホ用のカードと同じ内容を'
-            '表の形にしたもので、新しい情報はありません)</p>')
-
-
 def mark_duplicate_views(body):
-    """カードと内容が重なる比較表の直前に、AI向けの注記(画面には出さない)を入れる。入れた数を返す"""
+    """カードと比較表の中身がほぼ同じ(双方向に90%以上)なら、カードを省いて比較表だけを残す。
+
+    文字だけで読むAIに同じ内容が2回見えないようにするため。残した比較表は、画面の幅に関係なく表示する
+    (クラス名を dsp-desktop-only から dsp-static-table に変える)。省いた数を返す。
+    """
     mobile = find_elements(body, "dsp-mobile-only")
     desktop = find_elements(body, "dsp-desktop-only")
     if not mobile or not desktop:
         return body, 0
-    mobile_text = " ".join(" ".join(text_chunks(body[a:b])) for a, b in mobile)
-    dup = []
+    edits = []  # (start, end, replacement)
+    used = set()
     for a, b in desktop:
-        chunks = text_chunks(body[a:b])
-        total = sum(len(c) for c in chunks)
-        if total and sum(len(c) for c in chunks if c in mobile_text) / total >= 0.9:
-            dup.append(a)
-    for a in sorted(dup, reverse=True):
-        body = body[:a] + DUP_NOTE + body[a:]
-    return body, len(dup)
+        prev = [m for m in mobile if m[1] <= a and m not in used]
+        if not prev:
+            continue
+        ma, mb = prev[-1]
+        d_chunks = text_chunks(body[a:b])
+        m_chunks = text_chunks(body[ma:mb])
+        d_text, m_text = " ".join(d_chunks), " ".join(m_chunks)
+        d_total = sum(len(c) for c in d_chunks)
+        m_total = sum(len(c) for c in m_chunks)
+        if not d_total or not m_total:
+            continue
+        d_cov = sum(len(c) for c in d_chunks if c in m_text) / d_total
+        m_cov = sum(len(c) for c in m_chunks if c in d_text) / m_total
+        if d_cov >= 0.9 and m_cov >= 0.9:
+            used.add((ma, mb))
+            edits.append((ma, mb, ""))
+            head_end = body.index(">", a) + 1
+            edits.append((a, head_end, body[a:head_end].replace("dsp-desktop-only", "dsp-static-table")))
+    for a, b, rep in sorted(edits, reverse=True):
+        body = body[:a] + rep + body[b:]
+    return body, len(used)
 
 
 def main():
@@ -147,7 +161,6 @@ def main():
   .dsp-static-note {{ font-family: 'Jost', 'Noto Sans JP', sans-serif; font-size: 12px; color: #454C78; background: #F3F6FA; border-bottom: 1px solid #E1E3F0; padding: 8px 16px; }}
   .dsp-static-note a {{ color: #3A4FCF; }}
   /* AI向けの注記。文字としては読めるが、画面には出さない */
-  .dsp-static-dup-note {{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }}
   /* 静的版はJavaScriptが動かずハンバーガーメニューを開けないため、スマホ幅では固定のバーを隠し、
      サイドバー(<details>で開閉できる)を本文の上に全幅で表示する */
   @container dsp (max-width: 859px) {{

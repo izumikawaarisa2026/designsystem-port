@@ -56,7 +56,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators",
     refs: [
-      { label: "Progress Indicators / Loading", url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators" },
+      { label: "Progress indicators", url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators" },
       { label: "Loading(読み込み中のプレースホルダー指針)", url: "https://developer.apple.com/design/human-interface-guidelines/loading" },
     ],
     confirmedNote: "HIG Progress indicatorsの本文で確認(2026-11)。",
@@ -87,7 +87,7 @@ const SOURCES = [
       "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
       "5秒未満で終わる短い待ち時間にはLoading indicatorを使いたい時",
     ],
-    accessibility: "操作可能・知覚可能 ― 具体的な数値基準は確認できていないが、一般的なM3の状態・モーション関連のアクセシビリティ原則(モーション低減設定への配慮等)が適用されると考えられる(直接確認はできていない)。",
+    accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "配置(端か中央か)に応じてlinear/circularを選ぶ",
       "待ち時間が5秒未満ならLoading indicator、それ以上ならProgress indicatorを検討する",
@@ -96,7 +96,8 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/progress-indicators/overview",
     refs: [
-      { label: "Progress indicators / Loading indicator", url: "https://m3.material.io/components/progress-indicators/overview" },
+      { label: "Progress indicators", url: "https://m3.material.io/components/progress-indicators/overview" },
+      { label: "Loading indicator", url: "https://m3.material.io/components/loading-indicator/overview" },
       { label: "Progress indicators ― Guidelines(使い方)", url: "https://m3.material.io/components/progress-indicators/guidelines" },
       { label: "Loading indicator(新設、短い待ち時間向け)", url: "https://m3.material.io/components/loading-indicator/guidelines" },
     ],
@@ -188,7 +189,7 @@ const SOURCES = [
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: "#7A4F7E", textAlign: "center" }}>
           <div>&lt;1s</div>
-          <div style={{ color: "#B7BCDA" }}>非表示</div>
+          <div style={{ color: "#666D93" }}>非表示</div>
         </div>
         <span style={{ color: "#D8CBDA" }}>→</span>
         <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 9, color: "#7A4F7E", textAlign: "center" }}>
@@ -240,11 +241,11 @@ function ProgressSwatch() {
   return (
     <div style={{ width: 300, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
       <div>
-        <div style={{ fontSize: 10.5, color: "#7E86AC", marginBottom: 6, textAlign: "left" }}>確定的(determinate)― 線形バー</div>
+        <div style={{ fontSize: 10.5, color: "#666D93", marginBottom: 6, textAlign: "left" }}>確定的(determinate)― 線形バー</div>
         <svg width="300" height="10" viewBox="0 0 300 10"><rect x="0.5" y="0.5" width="299" height="9" rx="4.5" fill="#EEF1FA" /><rect x="0.5" y="0.5" width="190" height="9" rx="4.5" fill="#3A4FCF" /></svg>
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-        <div style={{ fontSize: 10.5, color: "#7E86AC", textAlign: "left" }}>不確定(indeterminate)― 円形スピナー</div>
+        <div style={{ fontSize: 10.5, color: "#666D93", textAlign: "left" }}>不確定(indeterminate)― 円形スピナー</div>
         <svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="10" fill="none" stroke="#E1E3F0" strokeWidth="2.8" /><path d="M13 3a10 10 0 0 1 7 3" fill="none" stroke="#3A4FCF" strokeWidth="2.8" strokeLinecap="round" /></svg>
       </div>
     </div>
@@ -271,7 +272,7 @@ function ProgressShapes() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>形の使い分け</h2>
-      <p style={styles.psNote}>終わりが分かるか(確定・不確定)、待ち時間、置く場所の3つで形を選びます。各欄は4系列の内容をまとめたもので、出典の系列を括弧で示しています。</p>
+      <p style={styles.psNote}>終わりが分かるか(確定・不確定)、待ち時間、置く場所の3つで形を選ぶ。各欄は4系列の内容をまとめたもので、出典の系列を括弧で示している。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.psTable}>
           <thead><tr>{["形", "終わりが分かるか", "待ち時間の目安", "置く場所", "各系列の見解"].map((h) => (<th key={h} style={styles.psTh}>{h}</th>))}</tr></thead>
@@ -287,7 +288,7 @@ function ProgressShapes() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示です。";
+const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示だ。";
 const ABOUT = [
   { k: "目的・役割", v: "待ち時間があることと、進み具合(分かる場合)を伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "ファイルのアップロード・ダウンロード、画面の読み込み、送信中の待ち" },
@@ -321,7 +322,7 @@ export default function CommunicationProgressPage() {
           <h1 style={styles.title}>プログレスインジケーター</h1>
           <SummaryCard
             image={<><ProgressSwatch /></>}
-            imageNote={<>所要時間が分かる処理には確定的なバー、分からない処理には不確定なスピナーを使うのが4系列共通の基本的な考え方。</>}
+            imageNote={<>終わりが分かるか(確定/不確定)の区別はApple・Google・W3C・NN groupの4系列にあるが、形(バー/円)とは別の軸だ。Apple・Googleはバーと円のどちらにも確定・不確定があり、NN groupは待ち時間の長さで表示を選ぶ(下の「形の使い分け」を参照)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -332,16 +333,16 @@ export default function CommunicationProgressPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意していますが、その扱い方はレイヤーが異なります。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示しています。
+              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
             </p>
             <p style={styles.synthesisText}>
-              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、1〜10秒はスピナー、10秒超はプログレスバー</strong>という秒数の目安を明言しています。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則は述べていますが、具体的な秒数の閾値は確認できませんでした。
+              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、1〜10秒はスピナー、10秒超はプログレスバー</strong>という秒数の目安を明言している。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
             </p>
             <p style={styles.synthesisText}>
-              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「1〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れます。
+              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「1〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られています。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴です。
+              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴だ。
             </p>
           </div>
           <ProgressShapes />
@@ -370,7 +371,6 @@ export default function CommunicationProgressPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -447,11 +447,8 @@ export default function CommunicationProgressPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(4系列とも本文を確認。AppleはHIG Progress indicators、GoogleはM3のガイドラインを2026-11に確認し直した)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはProgress indicatorsページ(補助的にLoadingページ)、GoogleはM3のProgress indicatorsページ(補助的に新設のLoading indicatorページ)、W3CはWAI-ARIA仕様のprogressbarロール(4.1.3とMDNの解説を併記)、NN groupは「Progress Indicators Make a Slow System Less Insufferable」記事へのリンクです。
-            </span>
           </div>
         </div>
       </div>
@@ -471,13 +468,13 @@ const styles = {
   psRule: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -486,24 +483,24 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -521,9 +518,9 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

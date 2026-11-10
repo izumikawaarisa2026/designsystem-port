@@ -33,7 +33,7 @@ const SOURCES = [
     size: "サブメニューは1階層までにし、項目が約5個を超えるなら別のメニューにする。コンテキストメニューは項目を少なくし、区切り線で分けるグループは約3つまで。プルダウンボタンは3項目以上にする(1〜2項目ならボタンやスイッチで足りる)。iOSのメニューには、上に4つのアイコンだけを並べるsmall、3つのアイコン+短いラベルのmedium、全部をリストで見せるlarge(既定)のレイアウトがある。",
     colorInfo: "ラベルは何をするかを動詞で短く書く。実行する前にさらに入力や選択が必要な項目は、末尾に「…」を付ける。使えない項目は、通常のメニューでは薄く表示し(全部使えなくてもメニュー自体は開けるようにする)、コンテキストメニューでは薄くせずに隠す。アイコンは同じグループの項目すべてに付けるか、どれにも付けないかにそろえる。",
     stance:
-      <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す(ページ本文を直接確認、2026-10)。</>,
+      <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す。</>,
     exceptions:
       "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS・visionOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
     accessibility:
@@ -46,7 +46,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels",
     refs: [
-      { label: "Menus / Context menus / Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels" },
+      { label: "Menus", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Labels" },
       { label: "Menus ― Organization", url: "https://developer.apple.com/design/human-interface-guidelines/menus#Organization" },
       { label: "Context menus ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/context-menus#Best-practices" },
       { label: "Pull-down buttons ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons#Best-practices" },
@@ -60,14 +60,14 @@ const SOURCES = [
     term: "Menu(ドロップダウンメニュー・エクスポーズドドロップダウンメニュー)",
     color: "#2F7D6E",
     position: "一時的な面に選択肢の一覧を出す部品。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
-    size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。</>,
+    size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。M3 Expressiveのメニューは、容器の角丸がLarge(16dp)、項目をまとめるグループの角丸がSmall(8dp)、影はLevel 2(Jetpack Composeのトークン)。</>,
     colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示す(Jetpack Composeのトークン定義)。",
     stance:
-      "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている(Material Components for Androidのドキュメントで直接確認、2026-10)。",
+      "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている。",
     exceptions:
       "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
     accessibility:
-      "知覚可能・操作可能 ― 選んだ項目は、既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど、色以外の手がかりも添えることを勧めている。押せる範囲は48×48dp以上。メニューを開いたら最初の項目にフォーカスを置く(M3 Menusのアクセシビリティのページで確認、2026-11)。",
+      "知覚可能・操作可能 ― 選んだ項目は、既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど、色以外の手がかりも添えることを勧めている。押せる範囲は48×48dp以上。メニューを開いたら最初の項目にフォーカスを置く。",
     useCases: [
       "項目は48dpの高さ、メニューは112〜280dpの幅にする",
       "先頭にアイコン、末尾にショートカットの文字を置ける",
@@ -98,9 +98,9 @@ const SOURCES = [
       { term: "aria-expanded", desc: "メニューが開いているかどうかを伝える属性。開いている間はtrue、閉じているときはfalse。" },
     ],
     stance:
-      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にする。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使う。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している(APGの本文を直接確認、2026-10)。",
+      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にする。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使う。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
     exceptions:
-      "使えない項目はフォーカスできるが実行はできない、としている(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまわない。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしている。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作る方が合うことが多いと考えられる(AI解釈)。",
+      "使えない項目はフォーカスできるが実行はできない、としている(フォーカスを当てて存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてもかまわない。メニューバーに再びフォーカスが入ったときは、前にフォーカスしていた項目に戻してもよいとしている。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作る方が合うことが多い(AI解釈)。",
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― キーボードでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わる。",
     useCases: [
@@ -127,7 +127,7 @@ const SOURCES = [
     size: "コンテキストメニューの項目は10〜12個未満にし、スクロールせずに全部見えるようにする。サブメニューを使うなら、その中からさらにサブメニューを開かない(1階層まで)ようにする。",
     colorInfo: "使えない項目は消さずに薄く表示する。消すと項目の位置が変わって覚えにくく、どこへ行ったのか、どうすれば出てくるのかを探させてしまうため。関係する命令は一式そろえて載せる(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使わない。",
     stance:
-      <>コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、<Hl>よく使う順に上から並べる</Hl>。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めている(記事本文を直接取得して確認、2026-10)。</>,
+      <>コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、<Hl>よく使う順に上から並べる</Hl>。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示して、繰り返し見るうちに覚えてもらうよう勧めている。</>,
     exceptions:
       "ドロップダウンは、スクロールが必要なほど長いリストを避け、入力した方が速い場合(州・国の名前、生年月日など)には使わない。開いている間もラベルが見えるようにする。デスクトップでは、サイトの主要なナビゲーションをドロップダウンの中に隠さない。ほかのメニューの選択によって中身が変わるメニューも避ける。キーボードで文字を打って項目に移れるようにする。",
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、ユーザビリティテストの観察に基づく設計上の根拠。キーボードでの移動を支えることは、目の見えない人の使いやすさにもつながるとしている。",
@@ -139,7 +139,7 @@ const SOURCES = [
     searchHint: "Show keyboard shortcuts in contextual menus",
     url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3",
     refs: [
-      { label: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3" },
+      { label: "Contextual Menus: Delivering Relevant Tools for Tasks", url: "https://www.nngroup.com/articles/contextual-menus/#toc-tips-for-effective-contextual-menus-3" },
       { label: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/#toc-guidelines-for-dropdown-design-1" },
     ],
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Contextual Menus)のもの。",
@@ -193,7 +193,7 @@ function MenuSwatch() {
   );
 }
 
-/* 四サイト比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
+/* 四系列比較図: 何を定めているか(◯=明記/△=部分的・条件付き/―=確認した範囲で記載なし) */
 const MENU_ROWS = [
   {
     label: "ラベル",
@@ -307,7 +307,7 @@ function MiniMenu({ mode }) {
         return (
           <g key={r}>
             <text x="12" y={20 + i * 22} fontSize="10" fill={dim ? "#B7BCDA" : "#171B36"} fontFamily={font}>{r}</text>
-            {mode === "shortcut" && <text x="110" y={20 + i * 22} fontSize="9" fill="#7E86AC" textAnchor="end" fontFamily="'IBM Plex Mono', monospace">{["⌘C", "⌘V", "⌘P"][i]}</text>}
+            {mode === "shortcut" && <text x="110" y={20 + i * 22} fontSize="9" fill="#666D93" textAnchor="end" fontFamily="'IBM Plex Mono', monospace">{["⌘C", "⌘V", "⌘P"][i]}</text>}
           </g>
         );
       })}
@@ -373,7 +373,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品です。";
+const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
@@ -408,35 +408,49 @@ export default function SelectionMenuPage() {
           <SummaryCard
             imageLabel="コンポーネントイメージ(メニューの構成)"
             image={<><MenuSwatch /></>}
-            imageNote={<>ボタンを押すと開くメニューの概念図です。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱います。</>}
+            imageNote={<>ボタンを押すと開くメニューの概念図だ。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱う。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <section style={styles.ruleSection}>
+            <h2 style={styles.diagramTitle}>メニューの種類と使い分け</h2>
+            <p style={styles.diagramNote}>命令を選ぶのか、値を選ぶのかで部品が変わる。下の名前は根拠にした系列だ。</p>
+            <div style={styles.kindGrid}>
+              {KINDS.map((k) => (
+                <div key={k.name} style={styles.kindCard}>
+                  <div style={styles.kindName}>{k.name}</div>
+                  <div style={styles.kindUse}>{k.use}</div>
+                  <div style={styles.kindWho}>{k.who}</div>
+                </div>
+              ))}
+            </div>
+          </section>
 
           <SplitSection splits={SPLITS} />
 
 
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四サイト比較図 ― 何を定めているか</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めています。</p>
+            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=確認した範囲では記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めている。</p>
           </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めています(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めています。W3Cは並べ方ではなく、キーボード操作を定めています。
+              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
             </p>
             <p style={styles.synthesisText}>
-              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆です(上の「意見が分かれる点」)。
+              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めています。
+              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めている。
             </p>
             <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めています。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論です。
+              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めている。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -456,7 +470,6 @@ export default function SelectionMenuPage() {
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -507,19 +520,7 @@ export default function SelectionMenuPage() {
             </div>
           </div>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>メニューの種類と使い分け</h2>
-            <p style={styles.diagramNote}>命令を選ぶのか、値を選ぶのかで部品が変わります。下の名前は根拠にした系列です。</p>
-            <div style={styles.kindGrid}>
-              {KINDS.map((k) => (
-                <div key={k.name} style={styles.kindCard}>
-                  <div style={styles.kindName}>{k.name}</div>
-                  <div style={styles.kindUse}>{k.use}</div>
-                  <div style={styles.kindWho}>{k.who}</div>
-                </div>
-              ))}
-            </div>
-          </section>
+
 
           <div style={styles.linksRow}>
             <a href="/components/selection/select" style={styles.linkCard}>
@@ -534,11 +535,8 @@ export default function SelectionMenuPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映。Apple・W3C・NN groupは本文確認済み。Googleはm3.material.io本文は未確認、Google公式のドキュメント・ソースで確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはHIG Menusページの「Labels」見出しへのアンカー付きリンクで、Organization・Context menus・Pull-down buttonsの見出しも併記しています。GoogleはM3のMenusのGuidelinesページに加え、内容を確認したGitHub上の公式ドキュメント・ソースを併記しています。W3CはAPGのMenu and Menubar Patternのキーボード操作の節を基本リンクとし、役割と属性の節・Menu Button Patternも併記しています。NN groupはContextual Menusの記事のヒントの節と、Dropdownsの記事のガイドラインの節です。
-            </span>
           </div>
         </div>
       </div>
@@ -551,17 +549,17 @@ const styles = {
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6, textAlign: "left" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
-  chartNote: { fontSize: 11, color: "#7E86AC", margin: "10px 0 0", lineHeight: 1.6 },
+  chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
@@ -569,22 +567,22 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, marginBottom: 10, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  confirmedNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -602,11 +600,11 @@ const styles = {
   linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
   linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
   linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#7E86AC" },
+  linkCardDesc: { fontSize: 12, color: "#666D93" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
   ruleScroll: { overflowX: "auto" },
   ruleGrid: { display: "grid", gridTemplateColumns: "120px repeat(4, minmax(120px, 1fr))", minWidth: 640, border: "1px solid #E1E3F0", borderRadius: 4 },
   ruleHead: { fontSize: 11.5, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#FFFFFF" },
@@ -625,5 +623,5 @@ const styles = {
   kindCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
   kindName: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   kindUse: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 4 },
-  kindWho: { fontSize: 9.5, color: "#7E86AC", marginTop: 5 },
+  kindWho: { fontSize: 9.5, color: "#666D93", marginTop: 5 },
 };

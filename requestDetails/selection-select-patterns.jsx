@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { NoData, TagLink } from "./page-parts";
+import { NoData, TagLink, SummaryCard, PageLink } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
@@ -37,14 +37,14 @@ const PATTERNS = [
     desc: "縦(または横)に回転するホイール状のリストから値を選ぶパターン。選択中の値は中央に濃い文字で表示される。高さはおおよそリスト5行分、幅は画面またはその親要素の幅に合わせるとされている。",
     when: "国名や日付のように、順序があり予測しやすい値を選ぶ場面。長すぎるリストには不向きで、その場合はテーブル(索引付きの一覧)を使うべきとされている",
     link: "https://developer.apple.com/design/human-interface-guidelines/pickers",
-    linkLabel: "Apple公式ページへ ↗",
+    linkLabel: "Apple HIG: Pickers ↗",
     illustration: () => (
       <svg width="70" height="40" viewBox="0 0 70 40">
         <rect x="1" y="1" width="68" height="38" rx="4" fill="#F8F9FD" stroke="#E1E3F0" strokeWidth="1" />
         <rect x="3" y="16" width="64" height="8" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1" />
-        <text x="35" y="10" fontSize="8" fill="#B7BCDA" textAnchor="middle" fontFamily="Jost, Noto Sans JP">8月</text>
+        <text x="35" y="10" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">8月</text>
         <text x="35" y="22" fontSize="9" fill="#171B36" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">9月</text>
-        <text x="35" y="34" fontSize="8" fill="#B7BCDA" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
+        <text x="35" y="34" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
       </svg>
     ),
   },
@@ -55,7 +55,7 @@ const PATTERNS = [
     when: "選択肢が多く、スクロールする一覧にしたい場面(選択肢が少なく常に見せたいなら、まずラジオボタン)",
     refs: [{ label: "NN group: Listboxes vs. Dropdown Lists ↗", url: "https://www.nngroup.com/articles/listbox-dropdown/" }],
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/",
-    linkLabel: "WAI-ARIA公式ページへ ↗",
+    linkLabel: "APG: Listboxパターン(参考例) ↗",
     illustration: () => (
       <svg width="70" height="40" viewBox="0 0 70 40">
         <rect x="1" y="1" width="68" height="38" rx="4" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.6" />
@@ -72,7 +72,7 @@ const PATTERNS = [
     desc: "入力部と、それに対応するポップアップ(選択肢の一覧)を組み合わせた部品。文字を入力できる型(editable)と入力できない型(select-only)があり、入力に応じて候補を絞り込む実装もできる(APGのComboboxパターンには、絞り込まない型の例もある)。選択肢が非常に多い場合は、入力で絞り込めるとプルダウンより素早く目的の項目へたどり着ける。",
     when: "選択肢の数が多く、都道府県・国名のようにユーザーがタイピングで絞り込める場面",
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
-    linkLabel: "WAI-ARIA公式ページへ ↗",
+    linkLabel: "APG: Comboboxパターン(参考例) ↗",
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
         <rect x="1" y="1" width="68" height="22" rx="4" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.6" />
@@ -102,6 +102,14 @@ function PatternCards() {
   );
 }
 
+/* タイトル直下の1文と、サマリーの表 */
+const LEAD = "プルダウンのほかにも、決まった選択肢から1つを選ぶ形はいくつかある。代表的な4つの形をまとめた。";
+const ABOUT = [
+  { k: "目的・役割", v: "選択肢の見え方(常に見えるか・開くまで隠れるか)と、絞り込み方(タップだけか・入力もできるか)で、1つを選ぶ形を選び分ける" },
+  { k: "よく使われる場面", v: "日付・国名をホイールで選ぶ、長い一覧から1つ選ぶ、都道府県を入力して絞り込む" },
+  { k: "似た部品との違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、表示の切り替えのように少ない選択肢から1つ選んですぐ反映するなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>。折りたたむ形は<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+];
+
 /* 4系列での扱い。name があれば、その系列での名前(リンク付き)。none は記載なし・未確認 */
 const AVAIL_SYSTEMS = ["Apple", "Google", "W3C", "NN group"];
 const AVAIL = [
@@ -115,7 +123,7 @@ const AVAIL = [
     { name: "Pickers(ホイール)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
     { none: "記載なし" },
     { none: "専用の型なし" },
-    { none: "未確認" },
+    { name: "UI Elements Glossary: Wheel Picker(用語の定義のみ)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Wheel-Picker" },
   ] },
   { pattern: "リストボックス(常時展開)", cells: [
     { none: "記載なし" },
@@ -127,7 +135,7 @@ const AVAIL = [
     { name: "Combo boxes(macOSのみ)", url: "https://developer.apple.com/design/human-interface-guidelines/combo-boxes" },
     { name: "Exposed dropdown menu(入力できる型)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/Menu.md#exposed-dropdown-menu" },
     { name: "Comboboxパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/" },
-    { none: "未確認" },
+    { name: "UI Elements Glossary: Combo Box(用語の定義のみ)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Combo-Box" },
   ] },
 ];
 
@@ -135,7 +143,7 @@ function AvailabilityTable() {
   return (
     <section style={{ marginTop: 40 }}>
       <h2 style={styles.availTitle}>4系列での扱い</h2>
-      <p style={styles.availNote}>◯の欄は、その系列での名前とページへのリンクです。「記載なし」は公式に該当するページがないもの、「未確認」はこちらでまだ確かめていないものです。</p>
+      <p style={styles.availNote}>◯の欄は、その系列での名前とページへのリンクだ。「記載なし」は公式に該当するページがないものだ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.availTable}>
           <thead>
@@ -155,7 +163,7 @@ function AvailabilityTable() {
           </tbody>
         </table>
       </div>
-      <p style={styles.availNote}>AppleのCombo boxesはmacOSだけの部品です(iOS・iPadOSなどでは使えない)。GoogleのExposed dropdown menuは、選択肢から選ぶだけの型と、文字を入力できる型の両方を持つとしています。</p>
+      <p style={styles.availNote}>AppleのCombo boxesはmacOSだけの部品だ(iOS・iPadOSなどでは使えない)。GoogleのExposed dropdown menuは、選択肢から選ぶだけの型と、文字を入力できる型の両方を持つとしている。</p>
     </section>
   );
 }
@@ -181,18 +189,19 @@ export default function SelectionSelectPatternsPage() {
           </div>
 
           <h1 style={styles.title}>セレクトの種類(プルダウン以外)</h1>
-          <p style={styles.subtitle}>単一選択を実現するUIパターンは、プルダウンだけではありません。代表的な4つのパターンをまとめました</p>
+
+          <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンでしたが、単一選択を実現する方法はそれだけではありません。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられます。
+              「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンだったが、単一選択を実現する方法はそれだけではない。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられる。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンです。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にあります。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されています。
+              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
             </p>
             <p style={styles.synthesisText}>
-              選択肢が非常に多い場合は、<strong>タイピングで絞り込める「コンボボックス」がプルダウンより素早い</strong>という点も、実務上重要な判断材料です。
+              選択肢が非常に多い場合は、<strong>タイピングで絞り込める「コンボボックス」がプルダウンより素早い</strong>という点も、実務上重要な判断材料だ。
             </p>
           </div>
 
@@ -204,8 +213,8 @@ export default function SelectionSelectPatternsPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(ドラムロール/ホイールピッカーはApple公式ページ本文を直接確認。リストボックス・コンボボックスはWAI-ARIA公式仕様を確認)</span>
-            <span>このページは4系列横断の比較表ではなく、代表的なパターンをまとめたギャラリー的な補助ページです。プルダウンの4系列比較は「セレクト(プルダウン)」ページを参照してください。</span>
+            <span>最終確認: 2026-11</span>
+            <span>このページは代表的なパターンをまとめた補助ページ。プルダウンの4系列比較は「セレクト(プルダウン)」ページを参照。</span>
           </div>
         </div>
       </div>
@@ -224,7 +233,7 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
@@ -234,10 +243,10 @@ const styles = {
   card: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px" },
   cardIllustration: { marginBottom: 10, height: 40, display: "flex", alignItems: "center" },
   cardName: { fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 3 },
-  cardSystem: { fontSize: 10.5, color: "#7E86AC", marginBottom: 8 },
+  cardSystem: { fontSize: 10.5, color: "#666D93", marginBottom: 8 },
   cardDesc: { fontSize: 12, lineHeight: 1.65, color: "#454C78", margin: "0 0 10px" },
   cardWhenLabel: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#3C5A73", marginBottom: 3 },
   cardWhen: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: "0 0 10px" },
   cardLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

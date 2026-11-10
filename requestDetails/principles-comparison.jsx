@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, NoData } from "./page-parts";
+import { TagLink, NoData, PageLink } from "./page-parts";
 
 /**
  * 思想レイヤー「原則比較」ページ。
@@ -38,8 +38,8 @@ const FRAMEWORKS = [
     name: "Google",
     doc: "Material Design ― 3世代の思想変遷",
     color: "#2F7D6E",
-    count: 3,
-    countLabel: "世代",
+    count: 0,
+    countText: "原則の数ではなく、世代ごとに3つ前後のテーマ(第1〜第3世代)。ほかの系列と同じ数え方では比べない",
     items: [
       {
         name: "第1世代(2014〜)",
@@ -53,14 +53,14 @@ const FRAMEWORKS = [
       },
       {
         name: "第2世代(2021〜、Material You)",
-        desc: "「好みの感じ方は人それぞれ」という前提のもと、重視するテーマを打ち出した(方向性は公式で確認、下の3語の名称は報道による)。公式で確認済みの原則とは同じ数え方で比べない。",
+        desc: "「好みの感じ方は人それぞれ」という前提のもと、重視するテーマを打ち出した(方向性は公式で確認、下の3語の名称は報道による)。公式の原則とは同じ数え方で比べない。",
         sub: [
           { name: "Personal", desc: "自分の端末だと感じられる心地よさを目指す指針。壁紙から配色を抽出するダイナミックカラーが代表例。" },
           { name: "Adaptive", desc: "スマートフォンから折りたたみ端末・大画面まで、一貫した体験を提供する指針。" },
           { name: "Accessible", desc: "すべてのユーザーのニーズに応えるという指針。後付けの配慮ではなく、最初からの中核指針として位置づけられている。" },
         ],
         url: "https://design.google/library/material-design-eras",
-        note: "3指針の名称は、Google I/Oでの発表を報じた報道(9to5google)に基づく。design.google(公式)では同じ方向性の内容を確認済みだが、この3語そのものは未確認。",
+        note: "3指針の名称は、Google I/Oでの発表を報じた報道(9to5google)に基づく。design.google(公式)に同じ方向性の内容はあるが、この3語そのものは見当たらない。",
       },
       {
         name: "第3世代(2025〜、Material 3 Expressive)",
@@ -114,13 +114,17 @@ const FRAMEWORKS = [
 const OVERLAP_ROWS = [
   { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
   { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
-  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。名称は報道による)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
-  { theme: "アクセシビリティを前提とする発想", hig: <>Responsibility<NoData>(関連する考え方だが、直接対応する項目ではない)</NoData></>, material: "Accessible(Material Youで重視されたテーマ。名称は報道による)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
+  { theme: "単純さ・最小限", hig: "Simplicity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし</NoData>, nn: "美的で最小限のデザイン" },
+  { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
+  { theme: "アクセシビリティを前提とする発想", hig: <NoData>直接対応する項目なし(Responsibilityは関連する考え方)</NoData>, material: "Accessible(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
 ];
 
-function CountDots({ count, color, label }) {
+function CountDots({ count, color, label, text }) {
+  if (text) {
+    return <span style={{ fontSize: 12, color: "#666D93", lineHeight: 1.6 }}>{text}</span>;
+  }
   if (!count) {
-    return <span style={{ fontSize: 12, color: "#9EA4C4", fontFamily: "'IBM Plex Mono', monospace" }}>確認中</span>;
+    return <span style={{ fontSize: 12, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" }}>確認中</span>;
   }
   return (
     <div style={{ display: "flex", gap: 4, flexWrap: "wrap", alignItems: "center" }}>
@@ -166,13 +170,13 @@ export default function PrinciplesComparisonPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「原則」という同じ言葉でも、4系列が指している範囲はそれぞれ異なります。AppleとNielsen Norman Groupは製品デザイン全般の心構えを、WCAGは適合判定の規格を指しています。そしてGoogleは、<strong>原則の内容そのものより、3世代にわたる思想の進化の軌跡に独自性</strong>があります。
+              「原則」という同じ言葉でも、4系列が指している範囲はそれぞれ異なる。AppleとNielsen Norman Groupは製品デザイン全般の心構えを、WCAGは適合判定の規格(4つの原則POUR=知覚可能・操作可能・理解可能・堅牢)を指している。そしてGoogleは、<strong>原則の内容そのものより、3世代にわたる思想の進化の軌跡に独自性</strong>がある。
             </p>
             <p style={styles.synthesisText}>
-              Apple HIGの原則は<strong>2026年6月に刷新されたばかり</strong>です。かつての「明瞭性・敬意・奥行き」という3本柱は、現在の公式ページにはもう見当たりません。一次情報は定点観測しないと、古い理解のまま止まってしまうことがよく分かる例です。
+              Apple HIGは、<strong>2026年6月8日に設計原則のページを再び設けた</strong>(HIG Design principlesの更新履歴「Reintroduced design principles」)。今の8つの原則に、以前よく紹介された「明瞭性・敬意・奥行き」の3本柱は含まれていない。
             </p>
             <p style={styles.synthesisText}>
-              実務では、原則は<strong>チェックリストとして使うと効果を発揮します</strong>。たとえばデザインレビューで、Nielsen Norman Groupの10ヒューリスティックを1項目ずつ当てはめて画面を確かめると、抜けている観点を見つけやすくなります。
+              実務では、原則は<strong>チェックリストとして使うと効果を発揮する</strong>。たとえばデザインレビューで、Nielsen Norman Groupの10ヒューリスティック(使いやすさを点検するための経験則)を1項目ずつ当てはめて画面を確かめると、抜けている観点を見つけやすくなる。
             </p>
           </div>
 
@@ -186,15 +190,15 @@ export default function PrinciplesComparisonPage() {
                     <span style={{ width: 8, height: 8, borderRadius: "50%", background: f.color, display: "inline-block", marginRight: 7 }} />
                     {f.name}
                   </div>
-                  <CountDots count={f.count} color={f.color} label={f.countLabel} />
+                  <CountDots count={f.count} color={f.color} label={f.countLabel} text={f.countText} />
                 </div>
               ))}
             </div>
-            <p style={styles.diagramNote}>数の多寡は、網羅性や厳密さの優劣を意味しません。詳しい内容は下の「系列ごとの詳細」を参照してください。</p>
+            <p style={styles.diagramNote}>数の多寡は、網羅性や厳密さの優劣を意味しない。詳しい内容は下の「系列ごとの詳細」を参照。</p>
           </div>
 
           <div style={styles.diagramCard}>
-            <h2 style={styles.diagramTitle}>テーマの重なり(一部抜粋)</h2>
+            <h2 style={styles.diagramTitle}>テーマの重なり(一部抜粋・対応づけはAI解釈)</h2>
             <div style={styles.overlapScroll}>
               <div style={styles.overlapGrid}>
                 <div style={{ ...styles.overlapCell, ...styles.overlapHeaderCell }}>共通テーマ</div>
@@ -264,7 +268,6 @@ export default function PrinciplesComparisonPage() {
                   </div>
                 )}
                 <div style={styles.sourceFootRow}>
-                  <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                   <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
                     公式ページへ ↗
                   </a>
@@ -314,7 +317,6 @@ export default function PrinciplesComparisonPage() {
                     </div>
                   )}
                   <div style={styles.sourceFootRow}>
-                    <span style={styles.confirmedNote}>{f.confirmedNote}</span>
                     <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
                       公式ページへ ↗
                     </a>
@@ -324,17 +326,21 @@ export default function PrinciplesComparisonPage() {
             </div>
           </div>
 
+          <div style={styles.relatedBox}>
+            <span style={styles.memoLabel}>関連するページ</span>
+            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
+              <PageLink to="/principles/accessibility">アクセシビリティ</PageLink>(POURの4原則と各系列の考え方)・<PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink>(原則の次の段の「土台」の分け方)
+            </p>
+          </div>
+
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
             {["設計の原則・使い分け"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: Apple HIG・W3C WCAG・NN groupは各原則に対応する実アンカーを確認済みです。Googleは第1世代(m1.material.io)・第3世代(design.google)は公式ページの本文を確認済み、第2世代のみ報道ベースの情報を含みます(詳細は該当箇所に記載)。
-            </span>
           </div>
         </div>
       </div>
@@ -343,12 +349,14 @@ export default function PrinciplesComparisonPage() {
 }
 
 const styles = {
+  relatedBox: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 40 },
+  memoLabel: { display: "block", fontSize: 12, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
   metaRow: {
     display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace",
-    fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14,
+    fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14,
   },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 6px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
@@ -366,7 +374,7 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
   sourceName: { fontWeight: 600, fontSize: 15 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   itemList: { display: "flex", flexDirection: "column", gap: 8, marginTop: 10, marginBottom: 10 },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
@@ -377,9 +385,9 @@ const styles = {
   genName: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
   genDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", margin: "0 0 8px" },
-  genNote: { fontSize: 10, color: "#9EA4C4", lineHeight: 1.5, margin: "6px 0 0" },
+  genNote: { fontSize: 10, color: "#666D93", lineHeight: 1.5, margin: "6px 0 0" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 8, paddingTop: 8, borderTop: "1px solid #E1E3F0" },
-  confirmedNote: { fontSize: 10.5, color: "#9EA4C4", maxWidth: 340 },
+  confirmedNote: { fontSize: 10.5, color: "#666D93", maxWidth: 340 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
   desktopGrid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14, marginBottom: 22 },
   compareGrid: { display: "flex", flexDirection: "column", gap: 12 },
@@ -391,5 +399,5 @@ const styles = {
   desktopCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px", display: "flex", flexDirection: "column" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };

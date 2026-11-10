@@ -74,7 +74,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "標準・中央揃え・範囲指定の3種類。横/縦・埋め込みアイコンに対応(サイズの詳細は下記「サイズ」を参照)",
     size:
-      "つまみ(handle)の既定タップ領域は48dp。チェックボックス・ラジオボタン・スイッチと同じ48dp基準。5つのサイズバリエーションを持つとしているが、具体的な各サイズのdp数値はこのテキストに含まれておらず未確認。トラック・つまみの見た目の大きさ(dp)も未確認。",
+      "つまみ(handle)の既定タップ領域は48dp。チェックボックス・ラジオボタン・スイッチと同じ48dp基準。M3 Expressiveでは5つの大きさがあり、トラックの太さはXS 16・S 24・M 40・L 56・XL 96dp、つまみの高さはXS〜M 44dp・L 68dp・XL 108dp(Material Components for Androidのトークン)。",
     colorInfo:
       "アクティブなトラック(最小値からつまみまで)と非アクティブなトラック(つまみから最大値まで)を区別して塗り分けるとしている。非アクティブなトラックの端(エンドストップ)は、背景との間で少なくとも3:1のコントラスト比を確保すべきとしており、非アクティブなトラック自体が既にこの比率を満たしていれば、エンドストップは省略できるとしている。",
     glossary: [
@@ -107,7 +107,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示。実際のカラートークンは未確認",
+    illustrationNote: "系列識別色で図示",
   },
   {
     key: "wcag",
@@ -121,11 +121,11 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの視覚的な境界は、周囲との間で3:1以上のコントラスト比を確保すべきとしている。",
     stance:
-      <>スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ操作・レベルAA)は、ドラッグしないと操作できない部品に、<Hl>タップやクリックだけで操作できる方法を求める</Hl>。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。</>,
+      <>スライダーのようにポインタ操作が前提になりやすいコントロールも、キーボードだけですべての機能を操作できなければならないとしている(2.1.1・レベルA)。さらに2.5.7(ドラッグ動作・レベルAA)は、ドラッグしないと操作できない部品に、<Hl>タップやクリックだけで操作できる方法を求める</Hl>。Understanding 2.5.7はスライダーを例に、「トラックをタップするとつまみがその位置へ移動する」「つまみの横に数値の入力欄を置く」といった方法を挙げている。</>,
     exceptions:
       "自由な手書きや水彩画のような、操作の軌跡そのものに意味がある「経路依存の入力」は、この基準の対象外としている。",
     accessibility:
-      "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、キーボードアクセシビリティ(2.1)とドラッグ操作(2.5.7)の達成基準。加えてターゲットサイズ(2.5)・非テキストのコントラスト(1.4.11、知覚可能)も関わる。",
+      "操作可能(Operable) ― POUR原則のうち「操作可能」に対応する、キーボードアクセシビリティ(2.1)とドラッグ動作(2.5.7)の達成基準。加えてターゲットサイズ(2.5)・非テキストのコントラスト(1.4.11、知覚可能)も関わる。",
     useCases: [
       "ドラッグしなくても操作できるようにする(トラックをタップするとつまみが移動する、数値の入力欄を横に置く、など。2.5.7)",
       "経路依存の入力(手書きなど)は対象外とする例外を理解する",
@@ -136,6 +136,7 @@ const SOURCES = [
       { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
       { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
       { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "apg", label: "APG: Slider Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/slider/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -143,7 +144,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#9EA4C4" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
@@ -261,7 +262,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安です(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色です)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはありません。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしています。</p>
+      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
     </div>
   );
 }
@@ -274,7 +275,7 @@ function SliderSwatch() {
         <line x1="4" y1="15" x2="140" y2="15" stroke="#3A4FCF" strokeWidth="4" strokeLinecap="round" />
         <circle cx="140" cy="15" r="9" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="2.5" />
       </svg>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#9EA4C4", fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#666D93", fontFamily: "'IBM Plex Mono', monospace" }}>
         <span>最小</span>
         <span>最大</span>
       </div>
@@ -334,7 +335,7 @@ function SliderTypesSection() {
         ))}
       </div>
       <p style={styles.diagramNote}>
-        3種類の名称・使い分けはGoogle(Material Design 3)の公式ページ本文で確認済みです(2026-09)。Appleはこれほど明確な3分類を示していませんが、見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側・最大値は末尾側/上側に置くという慣習を挙げており、Googleの「横方向配置を基本とする」という指針と方向性は一致しています。
+        3種類の名称・使い分けはGoogle(Material Design 3)の公式ページによる。Appleはこれほど明確な3分類を示していないが、見た目は自由にカスタマイズしてよいものの、最小値は先頭側/下側・最大値は末尾側/上側に置くという慣習を挙げており、Googleの「横方向配置を基本とする」という指針と方向性は一致している。
       </p>
     </div>
   );
@@ -346,6 +347,7 @@ const VALUE_DISPLAY = [
     color: "#C2542A",
     note: "スライダー本体に値表示の規定はなし。特に広い範囲を扱う場合は、外部のテキストフィールドやステッパーを併設し、正確な値を確認・入力できるようにするとよいとしている。",
     url: "https://developer.apple.com/design/human-interface-guidelines/sliders",
+    refs: [{ label: "Sliders", url: "https://developer.apple.com/design/human-interface-guidelines/sliders" }],
     illustration: () => (
       <svg width="140" height="46" viewBox="0 0 140 46">
         <line x1="4" y1="34" x2="90" y2="34" stroke="#F0DACB" strokeWidth="4" strokeLinecap="round" />
@@ -362,6 +364,7 @@ const VALUE_DISPLAY = [
     color: "#2F7D6E",
     note: "つまみを押す/ドラッグしている間、つまみの近くに現在値をポップアップ表示する(範囲指定スライダーでは一度に1つだけ)。値が他の場所に表示されていればこの表示自体は不要。外部の別テキスト入力フィールドを用意し、スライダーと値を自動同期させる方法も案内している(その場合、スライダー直後にタブキーで移動できるようにする)。",
     url: "https://m3.material.io/components/sliders/guidelines",
+    refs: [{ label: "Sliders ― Guidelines", url: "https://m3.material.io/components/sliders/guidelines" }],
     illustration: () => (
       <svg width="140" height="46" viewBox="0 0 140 46">
         <rect x="60" y="2" width="28" height="16" rx="4" fill="#171B36" />
@@ -379,6 +382,7 @@ const VALUE_DISPLAY = [
     color: "#A3821F",
     note: "視覚的な表示方法そのものは規定していないが、現在値が支援技術からプログラム的に取得できることを求めている(4.1.2 Name, Role, Value)。「どこに表示するか」ではなく「値が伝わるか」を重視する基準。",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
+    refs: [{ kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
     illustration: () => (
       <svg width="140" height="46" viewBox="0 0 140 46">
         <line x1="4" y1="34" x2="136" y2="34" stroke="#EDE3C9" strokeWidth="4" strokeLinecap="round" />
@@ -395,6 +399,7 @@ const VALUE_DISPLAY = [
     color: "#7A4F7E",
     note: "値を示すラベルは、つまみの下ではなく上または横に配置すべきとしている。指やポインタでつまみの下が隠れ、値が読めなくなることを避けるため。",
     url: "https://www.nngroup.com/articles/gui-slider-controls/",
+    refs: [{ label: "Slider Design: Rules of Thumb", url: "https://www.nngroup.com/articles/gui-slider-controls/" }],
     illustration: () => (
       <svg width="140" height="46" viewBox="0 0 140 46">
         <text x="74" y="14" fontSize="11" fontWeight="700" fill="#7A4F7E" textAnchor="middle" fontFamily="IBM Plex Mono">42</text>
@@ -418,11 +423,11 @@ function ValueDisplaySection() {
             <div style={styles.typeName}>{v.name}</div>
             {v.illustrationNote && <p style={styles.illustrationNoteSmall}>{v.illustrationNote}</p>}
             <p style={styles.typeDesc}>{v.note}</p>
-            <a href={v.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+            <RefList refs={v.refs} />
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>4系列の違いは<strong>「値をどこに出すか」</strong>です。Googleは操作中に<strong>つまみの近くへ一時的に表示</strong>し、Appleは<strong>スライダーの外に入力欄やステッパー</strong>を置いて正確な値を扱い、W3C(WCAG)は<strong>視覚的な位置を定めず</strong>支援技術に値が伝わることを求め、Nielsen Norman Groupは<strong>ラベルの位置</strong>(つまみの下ではなく上か横)を示しています。</p>
+      <p style={styles.diagramNote}>4系列の違いは<strong>「値をどこに出すか」</strong>だ。Googleは操作中に<strong>つまみの近くへ一時的に表示</strong>し、Appleは<strong>スライダーの外に入力欄やステッパー</strong>を置いて正確な値を扱い、W3C(WCAG)は<strong>視覚的な位置を定めず</strong>支援技術に値が伝わることを求め、Nielsen Norman Groupは<strong>ラベルの位置</strong>(つまみの下ではなく上か横)を示している。</p>
     </div>
   );
 }
@@ -468,13 +473,13 @@ function FitSection() {
           ))}
         </div>
       </div>
-      <p style={styles.fitNote}>使う場合も、値のラベルは指で隠れないよう、スライダーの上か横に出します(NN group)。正確な値も選べるようにしたいときは、入力欄を並べて置き、互いの値をそろえます(Google・Apple)。各系列の内容をまとめたAI解釈で、出典の系列を各項目の下に示しています。</p>
+      <p style={styles.fitNote}>使う場合も、値のラベルは指で隠れないよう、スライダーの上か横に出す(NN group)。正確な値も選べるようにしたいときは、入力欄を並べて置き、互いの値をそろえる(Google・Apple)。各系列の内容をまとめたAI解釈で、出典の系列を各項目の下に示している。</p>
     </section>
   );
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "つまみを横に動かして、範囲の中から値を選ぶ部品です。";
+const LEAD = "つまみを横に動かして、範囲の中から値を選ぶ部品だ。";
 const ABOUT = [
   { k: "目的・役割", v: "正確な数値より、大まかな量や程度を直感的に調整してもらう" },
   { k: "よく使われる場面", v: "音量・明るさの調整、価格帯の絞り込み" },
@@ -490,7 +495,17 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "使ってよいが、広い範囲の値を扱うなら、数値の入力欄やステッパーを横に置いて正確な値を確かめ・入れられるようにする" },
       { who: "W3C", color: "#A3821F", t: "向き不向きは定めないが、ドラッグせずにタップやクリックだけでも操作できる方法を求める(2.5.7・AA)。例として数値の入力欄を横に置く方法を挙げている" },
     ],
-    tip: "正確な値が要るならまず入力欄を使い、スライダーを使うときも入力欄を横に置く、という形にすると、3系列のどれにも沿います。入力欄はW3Cの2.5.7の「ドラッグしない操作」にもなります。",
+    tip: "正確な値が要るならまず入力欄を使い、スライダーを使うときも入力欄を横に置く、という形にすると、3系列のどれにも沿う。入力欄はW3Cの2.5.7の「ドラッグしない操作」にもなる。",
+  },
+  {
+    q: "つまみの押せる範囲は、どのくらいの大きさにする?",
+    figure: <SizeInfographic />,
+    sides: [
+      { who: "Google", color: "#2F7D6E", t: "つまみの既定のタップ領域は48dp" },
+      { who: "W3C", color: "#A3821F", t: "24×24 CSS px以上(2.5.8・AA)、より高い水準では44×44 CSS px以上(2.5.5・AAA)。どちらも例外あり" },
+      { who: "Apple・NN group", color: "#C2542A", t: "スライダーとしての数値はない" },
+    ],
+    tip: "つまみの押せる範囲を48px前後にしておけば、Googleの既定とW3CのAA・AAAのどちらにも届く。",
   },
 ];
 
@@ -538,13 +553,13 @@ export default function SelectionSliderPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スライダーは4系列で扱いの重みがかなり異なります。Apple・Nielsen Norman Groupは実践的な使いどころを示し、WCAGは<strong>キーボードやドラッグ以外の操作でも使えること</strong>に焦点を当てた基準を定めています。
+              スライダーは4系列で扱いの重みがかなり異なる。Apple・Nielsen Norman Groupは実践的な使いどころを示し、WCAGは<strong>キーボードやドラッグ以外の操作でも使えること</strong>に焦点を当てた基準を定めている。
             </p>
             <p style={styles.synthesisText}>
-              <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれます(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類です。
+              <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれる(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類だ。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準です。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めています。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応です。
+              サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準だ。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めている。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -571,7 +586,6 @@ export default function SelectionSliderPage() {
                 {s.icons && <InfoBox label="アイコン" accent="#3A4FCF">{s.icons}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                {s.confirmedNote && <p style={styles.confirmedNote}>{s.confirmedNote}</p>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -613,7 +627,7 @@ export default function SelectionSliderPage() {
                 <div style={styles.labelCell}>例外・許容ケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アイコン</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.icons || <span style={{ color: "#B7BCDA" }}>―(該当する記載なし)</span>}</div>))}
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.icons || <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
@@ -632,7 +646,6 @@ export default function SelectionSliderPage() {
           </div>
 
           <ValueDisplaySection />
-          <SizeInfographic />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -640,11 +653,8 @@ export default function SelectionSliderPage() {
           </div>
 
           <div style={styles.footer}>
-            <span>最終確認: 2026-11(③本人レビュー(1回目)の指摘を反映)/ 初回の確認 2026-09(Googleの使用法・アクセシビリティ本文は確認済み。各サイズのdp数値・カラートークンなどspecs数値は未確認)</span>
+            <span>最終確認: 2026-11</span>
             <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-            <span style={{ marginTop: 4 }}>
-              リンクについて: AppleはSlidersページ本体へのリンクです(セクション単位の実アンカーは未確認)。WCAGはUnderstandingページ、NN groupは記事ページ単位です。Googleは最新版(M3)の公式ページへリンクしていますが、specsページ本文(各サイズのdp数値など)はまだ確認できていません。
-            </span>
           </div>
         </div>
       </div>
@@ -661,16 +671,16 @@ const styles = {
   fitItem: { padding: "7px 0", borderBottom: "1px solid #EEF0F7" },
   fitTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   fitText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 2 },
-  fitSrc: { fontSize: 10, color: "#7E86AC", marginTop: 2 },
+  fitSrc: { fontSize: 10, color: "#666D93", marginTop: 2 },
   fitNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#7E86AC", letterSpacing: 0.3, marginBottom: 14 },
+  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#7E86AC", margin: "14px 0 0", lineHeight: 1.6 },
+  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
   synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
@@ -680,21 +690,21 @@ const styles = {
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
   sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#7E86AC", marginTop: 1 },
+  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#9EA4C4", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#9EA4C4", lineHeight: 1.4 },
+  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
+  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
   infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
   exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#9EA4C4", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
+  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
   glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#9EA4C4", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#7E86AC", margin: "0 0 4px", fontStyle: "italic" },
+  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
+  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
   infographicCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 40 },
   infographicLegend: { display: "flex", flexDirection: "column", gap: 8, margin: "16px 0 4px" },
@@ -709,7 +719,7 @@ const styles = {
   typeName: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 6 },
   typeDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#7E86AC" },
+  searchHint: { fontSize: 10.5, color: "#666D93" },
   searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
   secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
@@ -727,5 +737,5 @@ const styles = {
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#7E86AC", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
+  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
 };
