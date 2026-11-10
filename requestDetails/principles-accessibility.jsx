@@ -94,7 +94,7 @@ const FRAMEWORKS = [
         url: "https://www.w3.org/TR/WCAG22/#understandable",
         sub: [
           { name: "3.1 Readable", desc: "テキストを読みやすく理解しやすくすべきという指針。", sc: "例: 3.1.1 ページの言語(A)" },
-          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。", sc: "例: 3.2.1 フォーカス時に大きく変わらない(A)、3.2.3 一貫したナビゲーション(AA)" },
+          { name: "3.2 Predictable", desc: "見た目や動作を予測可能にすべきという指針。", sc: "例: 3.2.1 オンフォーカス(A)、3.2.3 一貫したナビゲーション(AA)" },
           { name: "3.3 Input Assistance", desc: "入力ミスを避け、修正を助けるべきという指針。", sc: "例: 3.3.1 エラーの特定(A)、3.3.2 ラベル又は説明(A)、3.3.8 認証のしやすさ(AA)" },
         ],
       },

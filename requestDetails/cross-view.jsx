@@ -149,7 +149,7 @@ function PourHeatmap() {
                 const n = pages.filter((p) => p.principles.includes(t)).length;
                 return (
                   <div key={t} style={styles.hmCell}>
-                    <span style={{ ...styles.hmBox, background: n ? `rgba(60, 90, 115, ${0.12 + (n / max) * 0.78})` : "#F3F4F9", color: n / max > 0.45 ? "#FFFFFF" : n ? "#171B36" : "#B7BCDA" }}>{n || "―"}</span>
+                    <span style={{ ...styles.hmBox, background: n ? `rgba(60, 90, 115, ${0.12 + (n / max) * 0.78})` : "#F3F4F9", color: n / max > 0.45 ? "#FFFFFF" : n ? "#171B36" : "#666D93" }}>{n || "―"}</span>
                   </div>
                 );
               })}

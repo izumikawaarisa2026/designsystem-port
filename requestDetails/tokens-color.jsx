@@ -182,6 +182,7 @@ const SOURCES = [
     refs: [
       { label: "Using Color to Enhance Your Design", url: "https://www.nngroup.com/articles/color-enhance-design/" },
       { label: "Guidelines for Visualizing Links", url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/" },
+      { label: "Low-Contrast Text Is Not the Answer", url: "https://www.nngroup.com/articles/low-contrast/" },
     ],
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
     illustration: () => (
@@ -406,7 +407,7 @@ function ColorSwatches({ cell }) {
 }
 
 function KindMark({ mark }) {
-  const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#B7BCDA";
+  const c = mark === "◯" ? "#2F7D6E" : mark === "△" ? "#A3821F" : mark === "✕" ? "#C0503F" : "#666D93";
   return <span style={{ ...styles.kindMark, color: c }}>{mark}</span>;
 }
 

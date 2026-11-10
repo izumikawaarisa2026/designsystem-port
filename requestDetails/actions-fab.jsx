@@ -17,7 +17,7 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Buttons(visionOS)",
+    doc: "該当なし(参考: Human Interface Guidelines ― Buttons(visionOS))",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし(FABに当たる部品はない)</NoData>,

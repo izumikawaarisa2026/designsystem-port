@@ -212,7 +212,7 @@ const CAROUSEL_ROWS = [
     label: "自動送り",
     cells: [
       { mark: "―", note: "" },
-      { mark: "―", note: "確認した資料に記載なし" },
+      { mark: "―", note: "記載なし" },
       { mark: "◯", note: "5秒を超えるなら止める手段(2.2.2)" },
       { mark: "◯", note: "避けるのが基本。スマホでは送らない" },
     ],
@@ -246,7 +246,7 @@ const CAROUSEL_ROWS = [
   },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 function RuleMatrix() {
   const names = ["Apple", "Google", "W3C", "NN group"];

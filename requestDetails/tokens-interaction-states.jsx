@@ -203,7 +203,7 @@ const STATE_ROWS = [
   { key: "loading", label: "読み込み中", num: "スピナー", cells: [{ mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "◯", note: "ラベルの左にスピナー" }] },
 ];
 
-const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#B7BCDA" };
+const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 
 /* 各状態のイメージ図(Googleのトークン値で描いたボタン) */
 function StateMini({ k }) {
