@@ -34,6 +34,11 @@ if os.path.exists(os.path.join(SRC, "cross-view.jsx")):
     from gen_tag_index import write_index
     write_index(SRC)
 
+# 「関連するページ」で使う、全ページの名前と1文の説明を作り直す
+sys.path.insert(0, HERE)
+from gen_page_index import write_index as write_page_index
+write_page_index(SRC)
+
 def convert_parts(fname, src):
     """共通部品のファイル(page-parts.jsx)。export した名前を、全ページから使えるようにする"""
     names = re.findall(r"^export (?:function|const) (\w+)", src, flags=re.M)

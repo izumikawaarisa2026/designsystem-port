@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, PageLink, TagLink } from "./page-parts";
+import { SummaryCard, PageLink, TagLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / オーバーレイの使い分け」ページ。
@@ -134,6 +134,8 @@ export default function ContainmentOverviewPage() {
               W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならrole="dialog"とaria-modal="true"、フォーカスの閉じ込めと、閉じた後に元の場所へ戻すこと</strong>を共通の作り方としている。見た目の種類が違っても、モーダルかどうかで作り方が決まる。
             </p>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/selection/overview", "/components/navigation/tabs-vs-segmented"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}

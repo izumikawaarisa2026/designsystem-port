@@ -567,6 +567,13 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "明るい画面は影、暗い画面は明るさ", d: "暗い画面では手前の面ほど明るくする", who: "Google・Apple・NN group" },
+  { n: 2, t: "段階に役割を決める", d: "貼り付いた面・少し浮いたカード・操作の層・注意を引く部品、と高さを分ける", who: "Google" },
+  { n: 3, t: "操作の層と内容の層を分ける", d: "操作の層は内容の上に重ねる", who: "Apple" },
+];
+
 export default function TokensElevationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -594,7 +601,7 @@ export default function TokensElevationPage() {
           </div>
 
           <h1 style={styles.title}>エレベーション・階層表現(影・半透明素材)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="重なりの表し方(ライトとダーク)"
             image={<><DepthSwatch /></>}
             imageNote={<>明るい画面では影で要素を浮かせられるが、暗い画面では影が背景に溶けて見えない。そのため暗い画面では、手前の面ほど明るい色にして重なりを表す。</>}

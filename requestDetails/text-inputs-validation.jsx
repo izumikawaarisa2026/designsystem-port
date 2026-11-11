@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / エラー表示」ページ。
@@ -236,6 +236,30 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "色だけで伝えない", d: "枠の色に加えて、アイコンと文で伝える", who: "Apple・Google・W3C" },
+  { n: 2, t: "何が問題かを書く", d: "", who: "W3C 3.3.1" },
+  { n: 3, t: "どう直せばよいかを書く", d: "", who: "W3C 3.3.3・NN group" },
+  { n: 4, t: "利用者を責めず、入力した内容は残す", d: "", who: "NN group" },
+  { n: 5, t: "重要な操作は、事前に防ぐ", d: "", who: "W3C 3.3.4" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― エラーの伝え方"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div><div style={{ display: "flex", gap: 5, alignItems: "flex-start", marginTop: 5, fontSize: 12, lineHeight: 1.5, color: "#C0503F" }}><span aria-hidden="true" style={{ flexShrink: 0, width: 15, height: 15, borderRadius: "50%", background: "#C0503F", color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span><span>「@」が入っていません。例: name@example.com</span></div></div>, text: "赤い枠に加えて、エラーのアイコンと、欄の近くに「何が問題で、どう直すか」の文がある。入力した内容も残っている。" },
+              { kind: "bad", label: "悪い例(1)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div></div>, text: "枠が赤くなるだけで、アイコンも文もない。色だけで伝えている。" },
+              { kind: "bad", label: "悪い例(2)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div><div style={{ display: "flex", gap: 5, alignItems: "flex-start", marginTop: 5, fontSize: 12, lineHeight: 1.5, color: "#C0503F" }}><span aria-hidden="true" style={{ flexShrink: 0, width: 15, height: 15, borderRadius: "50%", background: "#C0503F", color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span><span>入力エラーです</span></div></div>, text: "文はあるが「入力エラーです」だけで、何が問題でどう直せばよいか分からない。" },
+            ]}
+            basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラー修正の提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
+          />
+  );
+}
+
 export default function TextInputsValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -261,7 +285,7 @@ export default function TextInputsValidationPage() {
           </div>
 
           <h1 style={styles.title}>エラー表示</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ValidationSwatch /></>}
             imageNote={<>エラー状態の枠線に加え、アイコン・テキストで問題と訂正方法を伝える。色だけに頼らない表示が各系列で共通して求められている。</>}
             lead={LEAD}
@@ -269,6 +293,8 @@ export default function TextInputsValidationPage() {
           />
 
 
+
+          <GoodBadFigure />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -363,12 +389,8 @@ export default function TextInputsValidationPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/input-validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>バリデーション ↗</div>
-              <div style={styles.linkCardDesc}>「いつ検証するか」(リアルタイム/フォーカス離脱時/送信時)というタイミングの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/text-inputs/input-validation", "/components/text-inputs/text-field", "/components/communication/alert", "/tokens/color"]} />
 
           <div style={styles.tagsRow}>
             {["理解可能(POUR)", "知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

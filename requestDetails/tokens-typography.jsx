@@ -540,6 +540,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "名前の付いた段階から選ぶ", d: "文字サイズを自由に決めず、決まった段階から選ぶ", who: "Apple・Google" },
+  { n: 2, t: "本文と最小の大きさ", d: "本文はApple 17pt・Google 16sp、最小はどちらも11", who: "Apple・Google" },
+  { n: 3, t: "利用者の文字サイズの設定に合わせる", d: "設定に連動して大きさが変わるようにする", who: "Apple・Google" },
+  { n: 4, t: "行送りは文字の大きさで変える", d: "大きい文字ほど比率を小さくする。本文はAppleが約1.29倍、Googleが1.5倍。どちらもラテン文字の値で、日本語の長い文章では広めに取り、実際の文章で確かめる(AI解釈)", who: "Apple・Google" },
+];
+
 export default function TokensTypographyPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -567,7 +575,7 @@ export default function TokensTypographyPage() {
           </div>
 
           <h1 style={styles.title}>タイポグラフィ(文字サイズ・行間)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="文字サイズの段階(実寸の60%で表示)"
             image={<><TypeLadder /></>}
             imageNote={<>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みだ。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11だ。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</>}

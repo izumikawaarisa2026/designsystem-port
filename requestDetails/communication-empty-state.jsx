@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態」ページ。
@@ -85,17 +85,17 @@ const SOURCES = [
     doc: "WCAG 4.1.3 ステータスメッセージ",
     term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "空状態専用のロールはない。検索結果0件などの結果は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
+    position: "空状態専用のロールはない。検索結果0件などの結果を、フォーカスを移さずに画面を更新して知らせる場合は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)。",
+      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージだ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせる場合は、ステータスメッセージ(role=\"status\"など)として伝える。結果のページへ移動する場合や、フォーカスを移して見せる場合は対象外で、検索結果の表示すべてにrole=\"status\"を付けるという意味ではない。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索や絞り込みの結果が0件だったことを、画面を見ていない利用者にも伝えたい時",
     ],
     accessibility: "堅牢(Robust) ― 4.1.3は互換性(4.1)の基準で、POUR原則のうち「堅牢」に対応する。",
     useCases: [
-      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)",
+      "その場で結果を書き換えて件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3。フォーカスを移さない場合)",
     ],
     searchHint: "status message",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
@@ -212,7 +212,7 @@ function EmptyWriting() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>空状態の文言 ― どうあるべきか</h2>
-      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなる(AI解釈。例文はAIの作例)。検索結果の件数などは、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝える(W3C 4.1.3)。</p>
+      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなる(AI解釈。例文はAIの作例)。検索結果の件数などをその場で画面を書き換えて知らせる場合は、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝える(W3C 4.1.3)。</p>
       <div style={styles.ewSteps}>
         {EMPTY_STEPS.map((x) => (
           <div key={x.n} style={styles.ewStep}>
@@ -265,6 +265,27 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・Google・W3C・NN groupに共通する考え方" },
+  { n: 2, t: "利用者が自分で埋められる空には、作成のボタンを置く", d: "", who: "AI解釈" },
+  { n: 3, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 空状態の中身"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div>, text: "何もない理由の説明と、次にできる操作のボタンがある。" },
+              { kind: "bad", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><span style={{ fontSize: 13, color: "#454C78" }}>データがありません</span></div>, text: "「データがありません」だけで、なぜ空なのか、次に何をすればよいかが分からない。" },
+            ]}
+            basis="このページの「状況の説明と、次の行動への導線を置く」(Apple・Google・W3C・NN groupに共通する考え方)。文言はAIの作例。"
+          />
+  );
+}
+
 export default function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -290,7 +311,7 @@ export default function CommunicationEmptyStatePage() {
           </div>
 
           <h1 style={styles.title}>空状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><EmptyStateSwatch /></>}
             imageNote={<>「状況の説明+次の行動への導線」が4系列に共通する考え方。</>}
             lead={LEAD}
@@ -300,6 +321,8 @@ export default function CommunicationEmptyStatePage() {
           <SplitSection splits={SPLITS} />
 
 
+
+          <GoodBadFigure />
 
           <EmptyWriting />
 
@@ -313,7 +336,7 @@ export default function CommunicationEmptyStatePage() {
               最も具体的なのはNielsen Norman Groupで、空状態には<strong>「今の状況を伝える」「使い方を教える」「次の行動へ案内する」の3つの役割</strong>があるとしている。AppleのWritingのページも、<strong>次にできる操作を案内し、可能ならそのボタンやリンクを置く</strong>点で同じ考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果は、<strong>ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。
+              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果を<strong>フォーカスを移さずにその場で書き換えて知らせるなら、ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。結果のページへ移動して見せる場合は、4.1.3の対象ではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -403,16 +426,8 @@ export default function CommunicationEmptyStatePage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/loading" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ローディング状態 ↗</div>
-              <div style={styles.linkCardDesc}>読み込み中の見せ方(スケルトン画面など)の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/loading", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

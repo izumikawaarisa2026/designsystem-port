@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / スライダー」ページ。
@@ -509,6 +509,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "おおよその値を選ぶときに使う", d: "正確な値が要るなら、まず入力欄", who: "AI解釈" },
+  { n: 2, t: "使うときも入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "W3C 2.5.7" },
+  { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
+  { n: 4, t: "キーボードでも操作できるようにする", d: "", who: "W3C" },
+];
+
 export default function SelectionSliderPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -534,7 +542,7 @@ export default function SelectionSliderPage() {
           </div>
 
           <h1 style={styles.title}>スライダー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SliderSwatch /></>}
             imageNote={<>最小値〜最大値の範囲を、つまみの位置でおおよそ表す。</>}
             lead={LEAD}
@@ -646,6 +654,8 @@ export default function SelectionSliderPage() {
           </div>
 
           <ValueDisplaySection />
+
+          <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

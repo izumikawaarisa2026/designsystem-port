@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ドロワー/サイドナビ」ページ(旧カテゴリ: Navigation)。
@@ -467,6 +467,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "広い画面では隠さない", d: "常に表示する", who: "Apple・NN group" },
+  { n: 2, t: "狭い画面で行き先が4〜5個までなら、ナビゲーションバーで見せる", d: "", who: "AI解釈" },
+  { n: 3, t: "それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくい", who: "NN group" },
+];
+
 export default function NavigationDrawerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -492,7 +499,7 @@ export default function NavigationDrawerPage() {
           </div>
 
           <h1 style={styles.title}>ドロワー/サイドナビ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(常時表示型の例)"
             image={<><DrawerSwatch /></>}
             imageNote={<>画面の脇に、主要なナビゲーション項目を並べた領域。常時表示する形と、一時的に開閉するモーダル形の2系統がある。</>}
@@ -557,6 +564,8 @@ export default function NavigationDrawerPage() {
 
           <h3 id="rail" style={styles.subTitle}>② ナビゲーションレール/サイドバー(主にタブレット・PC)</h3>
           <Comparison SOURCES={RAIL_SOURCES} />
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/containment/side-sheet", "/components/containment/overview", "/tokens/adaptive"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

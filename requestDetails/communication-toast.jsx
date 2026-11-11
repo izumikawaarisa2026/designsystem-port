@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / トースト」ページ。
@@ -246,6 +246,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見落としても困らない知らせだけに使う", d: "「保存しました」など", who: "AI解釈" },
+  { n: 2, t: "読んでもらう必要のある情報は、消えない場所に出す", d: "", who: "AI解釈" },
+  { n: 3, t: "操作を添えるなら、スナックバーを使う", d: "", who: "Google" },
+];
+
 export default function CommunicationToastPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -271,7 +278,7 @@ export default function CommunicationToastPage() {
           </div>
 
           <h1 style={styles.title}>トースト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<ToastSwatch />}
             imageNote="アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。"
             lead={LEAD}
@@ -396,12 +403,8 @@ export default function CommunicationToastPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/snackbar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>スナックバー ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持てる、Material Design公式のメッセージコンポーネントの4系列比較(アクションボタンを省いた構成がM3でのToastの実質的な後継)</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/snackbar", "/components/communication/alert"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / トグルスイッチ」ページ。
@@ -302,6 +302,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "押した瞬間に効く設定にだけ使う", d: "", who: "Google・NN group" },
+  { n: 2, t: "保存ボタンのあるフォームではチェックボックスにする", d: "", who: "Google・NN group" },
+  { n: 3, t: "相反する2つの選択肢の切り替えには使わない", d: "月額/年額などはボタングループ", who: "Google" },
+  { n: 4, t: "名前・役割・状態を支援技術に伝える", d: "", who: "W3C 4.1.2" },
+  { n: 5, t: "押せる範囲は48×48以上", d: "", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― すぐ反映するか"
+            items={[
+              { kind: "good", fig: <><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>Wi-Fi</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#3A4FCF", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-end" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>Bluetooth</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#8E93B5", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-start" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>切り替えるとすぐに反映</span></>, text: "設定画面で、切り替えた瞬間に反映される。保存ボタンはない。" },
+              { kind: "bad", fig: <><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>ニュースレターを受け取る</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#3A4FCF", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-end" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>新着のお知らせを受け取る</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#8E93B5", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-start" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><span style={{ alignSelf: "flex-end", fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>保存</span></>, text: "保存ボタンで確定するフォームの中にスイッチがある。この場面はチェックボックスにする。" },
+            ]}
+            basis="Google・NN group(保存ボタンなしで、すぐに反映させる。保存や送信で確定する場面ではスイッチではなくチェックボックスを使う)。Appleは、すぐ反映するかを書いていない。"
+          />
+  );
+}
+
 export default function SelectionTogglePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -327,7 +350,7 @@ export default function SelectionTogglePage() {
           </div>
 
           <h1 style={styles.title}>トグルスイッチ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ToggleSwatch /></>}
             imageNote={<>オン・オフの2状態を、送信ボタンなしで即座に切り替えるコントロール。</>}
             lead={LEAD}
@@ -335,6 +358,8 @@ export default function SelectionTogglePage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -432,6 +457,8 @@ export default function SelectionTogglePage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / テキストフィールド」ページ。
@@ -386,6 +386,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "ラベルは欄の外に常に見せる", d: "", who: "W3C 3.3.2・NN group" },
+  { n: 2, t: "プレースホルダーは入力例だけに使う", d: "ラベルの代わりにしない", who: "W3C 3.3.2" },
+  { n: 3, t: "場所が足りないときはフローティングラベル", d: "", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― ラベルとプレースホルダー"
+            items={[
+              { kind: "good", fig: <><div style={{ width: 210 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#666D93" }}>例: name@example.com</div></div></>, text: "ラベルが欄の外に常に見えていて、プレースホルダーは入力例だけ。" },
+              { kind: "bad", fig: <><div style={{ width: 210 }}><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#666D93" }}>メールアドレス</div></div><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>↓ 入力すると</span><div style={{ width: 210 }}><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro@</div></div></>, text: "ラベルがなく、プレースホルダーだけで欄の目的を示している。入力すると消えて、何の欄か分からなくなる。" },
+            ]}
+            basis="W3C 3.3.2(目に見えるラベルか説明が必要。プレースホルダーだけでは足りない)、このページの「4系列のどれとも食い違わない」形の記載。"
+            note="Googleのフローティングラベル(欄の中に置き、選ぶと上へ移る)はラベルが残るので、ここでの悪い例には当たらない。"
+          />
+  );
+}
+
 export default function TextInputsTextFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -411,7 +433,7 @@ export default function TextInputsTextFieldPage() {
           </div>
 
           <h1 style={styles.title}>テキストフィールド・テキストエリア</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><div style={styles.swatchPairRow}>
               <div style={styles.swatchPairItem}>
                 <TextFieldSwatch />
@@ -428,6 +450,8 @@ export default function TextInputsTextFieldPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>① テキストフィールド(単一行)</h2>
           <FieldPatterns />
@@ -535,6 +559,8 @@ export default function TextInputsTextFieldPage() {
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較だ(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
           <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要だ。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
+
+          <RelatedPages paths={["/components/text-inputs/search-field", "/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/selection/select"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

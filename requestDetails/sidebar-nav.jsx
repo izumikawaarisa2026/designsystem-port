@@ -97,6 +97,7 @@ export const NAV_SECTIONS = [
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "カード", path: "/components/containment/card", built: true },
+      { label: "ウィジェット", path: "/components/communication/widget", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
@@ -116,7 +117,6 @@ export const NAV_SECTIONS = [
       { label: "バッジ", path: "/components/communication/badge", built: true },
       { label: "空状態", path: "/components/communication/empty-state", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
-      { label: "ウィジェット", path: "/components/communication/widget", built: true },
     ],
   },
   {

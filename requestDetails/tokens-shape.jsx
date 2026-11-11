@@ -576,6 +576,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/components/containment/card">カード</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内側の角丸は外側に合わせる", d: "内側 = 外側 − 余白(同心)にする", who: "Apple" },
+  { n: 2, t: "決まった段階から選ぶ", d: "角丸は0〜48dpとFullの10段階から選ぶ", who: "Google" },
+  { n: 3, t: "形の種類を場面で使い分ける", d: "固定値の角丸・カプセル・円などを部品に合わせて選ぶ", who: "Apple・Google" },
+  { n: 4, t: "枠だけで押せると伝えるなら差を確かめる", d: "枠が唯一の手がかりなら3:1以上", who: "W3C" },
+];
+
 export default function TokensShapePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -601,7 +609,7 @@ export default function TokensShapePage() {
           </div>
 
           <h1 style={styles.title}>シェイプ・コーナーラジウス(角丸)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同心の角丸(外枠と内側の部品の関係)"
             image={<><ConcentricSwatch /></>}
             imageNote={<>外枠と内側の部品に同じ角丸を使うと、角の部分だけ隙間が広がって見える。内側の角丸を「外側の角丸 − 余白」にすると、隙間が均一になる(Appleがライブアクティビティなどで示している考え方)。</>}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, PageToc } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「文章・UXライティング」ページ。
@@ -551,6 +551,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "短く、平易に、一貫して書く", d: "1語ずつ必要かを確かめる", who: "Apple・Google・NN group" },
+  { n: 2, t: "声は一定、調子は場面で変える", d: "祝う場面と失敗の場面で書き方を変える", who: "Apple・NN group" },
+  { n: 3, t: "同じ操作は同じ言葉で", d: "画面ごとに言い方を変えない", who: "Google" },
+  { n: 4, t: "エラーで感嘆や「私たち」を使わない", d: "「おっと」のような言葉は不誠実に聞こえることがある", who: "Apple" },
+  { n: 5, t: "1行は長くしすぎない", d: "日本語は1行40文字が目安", who: "W3C" },
+];
+
 export default function TokensWritingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -576,13 +585,15 @@ export default function TokensWritingPage() {
           </div>
 
           <h1 style={styles.title}>文章・UXライティング</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="声(voice)は一定、調子(tone)は場面で変える(概念図)"
             image={<><VoiceToneSwatch /></>}
             imageNote={<>AppleとNN groupに共通する考え方だ。アプリの人柄にあたる「声」はどの画面でも変えず、目標の達成と支払いの失敗のように、場面によって「調子」を変える。例文は説明用に作ったものだ(AppleはApple Watchの、深刻な場面と祝う場面の2つの表示を例にしている)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <WritingPhilosophy />
 
@@ -706,16 +717,7 @@ export default function TokensWritingPage() {
             <p style={styles.chartNote}>2008年の記事で、25人のWebの閲覧記録(約4万5千ページ分)を分析した結果だ。言葉を増やしても読まれる量はほとんど増えないため、伝えたいことを先に、短く書く理由になる。</p>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>エラー表示 ↗</div>
-              <div style={styles.linkCardDesc}>エラー文の書き方・見せ方の詳しい比較はこちら</div>
-            </a>
-            <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態 ↗</div>
-              <div style={styles.linkCardDesc}>空の画面で次の行動を示す方法はこちら</div>
-            </a>
-          </div>
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/communication/empty-state", "/tokens/typography"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
@@ -288,6 +288,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "件数に意味があるなら数字、あることだけ伝えるなら点", d: "", who: "AI解釈" },
+  { n: 2, t: "数が大きくなったら「999+」のようにまとめる", d: "", who: "AI解釈" },
+  { n: 3, t: "数字は最大4文字", d: "", who: "Google" },
+  { n: 4, t: "支援技術に伝わる名前に、件数を含める", d: "", who: "W3C 4.1.2。AI解釈" },
+];
+
 export default function CommunicationBadgePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -313,7 +321,7 @@ export default function CommunicationBadgePage() {
           </div>
 
           <h1 style={styles.title}>バッジ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BadgeSwatch /></>}
             imageNote={<>存在の有無だけを示すドット型と、具体的な件数を示す数字型の2種類が、Google(M3)・Apple・NN groupの定義に共通して見られる。</>}
             lead={LEAD}
@@ -331,10 +339,10 @@ export default function CommunicationBadgePage() {
               Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものだ。つまり、バッジ専用の基準ではなく、一般的な名前の付け方を当てはめたものだ。
+              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。対応の<strong>一例</strong>は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに含めるという、ARIA14の手法を当てはめた作り方だ(AI解釈)。4.1.2が求めるのは名前・役割・値をプログラムで取得できることで、この作り方を一律に求めているわけではない。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていない)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまる。
+              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
             </p>
             <p style={styles.synthesisText}>
               総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴だ。
@@ -430,16 +438,8 @@ export default function CommunicationBadgePage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/banner" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>バナー ↗</div>
-              <div style={styles.linkCardDesc}>閉じるまで残り続けるインライン通知の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/navigation/nav-bar", "/components/navigation/tabs", "/tokens/icon"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

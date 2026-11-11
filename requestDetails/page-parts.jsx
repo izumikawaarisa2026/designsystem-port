@@ -9,6 +9,10 @@ import React from "react";
  * - NoData: 比較の中の「記載なし」「数値基準なし」「未確認」など、データがない箇所(薄いグレーの文字で示す)
  * - TagLink / TAG_LIST: ページ末尾のタグ。横断ビューの、そのタグの一覧へのリンクにする
  * - SplitSection: 「意見が分かれる点」(同じ問いに対して、系列によって答えが違う点)
+ * - RelatedPages: ページ末尾の「関連するページ」(名前と1文の説明は、ビルド時に作る PAGE_INDEX から引く)
+ * - PageToc: 長いページの上部に置く目次「このページの内容」(ページの見出しから自動で作る)
+ * - KeyPoints: 「まず押さえる要点」。SummaryCard に keyPoints を渡すと、概要の1行とサマリーの枠の間に出る
+ * - GoodBad: 良い例・悪い例の図(良い/悪いは文字のラベルでも示す)
  *
  * ビルド(build_preview.py)では、このファイルの export した名前が全ページから使えるようになる。
  * 各ページでは import { SummaryCard, RefList, SplitSection } from "./page-parts"; と書いて使う。
@@ -18,10 +22,11 @@ const LINK = "#3A4FCF";
 
 /* タイトルの下のサマリー。タイトル直下に、どんな部品か(lead)の1文。その下の枠の中に、イメージ図 → 目的・役割などの表(グレーの背景)を置く。
    lead は1文の定義(静的版のページ説明にも使われる。class="dsp-lead" を目印にしている)、rows は「目的・役割」などの行 */
-export function SummaryCard({ image, imageLabel, imageNote, lead, rows }) {
+export function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoints, keyPointsTitle }) {
   return (
     <>
       <p className="dsp-lead" style={partStyles.lead}>{lead}</p>
+      {keyPoints && <KeyPoints items={keyPoints} title={keyPointsTitle} />}
       <section style={partStyles.summary}>
         {image && (
           <div style={partStyles.summaryImage}>
@@ -40,6 +45,53 @@ export function SummaryCard({ image, imageLabel, imageNote, lead, rows }) {
         </dl>
       </section>
     </>
+  );
+}
+
+/* 「まず押さえる要点」(2026-11 ⑦本人レビュー)。タイトル → 概要の1行 → この要点 → サマリー の順に置く。
+   形はダークモードのページの要点と同じ(番号・見出し・1文の説明・根拠の系列)。items: [{ n, t, d, who }]。
+   根拠が「AI解釈」のものは、公式の記載ではなくこのサイトの解釈 */
+export function KeyPoints({ items, title }) {
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={partStyles.h2}>{title || "まず押さえる要点"}</h2>
+      <ol style={partStyles.kpList}>
+        {items.map((k) => (
+          <li key={k.n} style={partStyles.kpItem}>
+            <span style={partStyles.kpNum}>{k.n}</span>
+            <div style={{ minWidth: 0 }}>
+              <div style={partStyles.kpTitle}>{k.t}</div>
+              {k.d && <div style={partStyles.kpText}>{k.d}</div>}
+              {k.who && <div style={partStyles.kpWho}>{k.who}</div>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマホの幅では縦)、それぞれに
+   どこが良い/悪いかの1文を添え、最後に根拠(系列名と基準)を置く。良い/悪いは色だけでなく文字のラベルでも示す。
+   items: [{ kind: "good"|"bad", label?, fig, text }]、basis: 根拠の文、note: 注記(任意) */
+export function GoodBad({ title, items, basis, note }) {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={partStyles.h2}>{title}</h2>
+      <div style={partStyles.gbGrid}>
+        {items.map((it, i) => (
+          <div key={i} style={partStyles.gbCard}>
+            <span style={{ ...partStyles.gbLabel, ...(it.kind === "good" ? partStyles.gbGood : partStyles.gbBad) }}>
+              {it.kind === "good" ? "◯ " : "✕ "}{it.label || (it.kind === "good" ? "良い例" : "悪い例")}
+            </span>
+            <div style={partStyles.gbFig}>{it.fig}</div>
+            <p style={partStyles.gbText}>{it.text}</p>
+          </div>
+        ))}
+      </div>
+      {basis && <p style={partStyles.gbBasis}>根拠: {basis}</p>}
+      {note && <p style={partStyles.gbBasis}>{note}</p>}
+    </section>
   );
 }
 
@@ -138,7 +190,357 @@ export function SplitSection({ title, splits }) {
   );
 }
 
+/* サイト内の全ページの名前と1文の説明(各ページの LEAD・lead・サブタイトル)。
+   ビルド時に preview-build/gen_page_index.py が、サイドバーと各ページから作り直す(手で編集しない) */
+/*__PAGE_INDEX_START__*/
+const PAGE_INDEX = {
+ "/principles/comparison": {
+  "label": "原則比較",
+  "lead": "4つのガイドラインが、それぞれ何本の原則を、何のために定めているかを比較する"
+ },
+ "/principles/accessibility": {
+  "label": "アクセシビリティ",
+  "lead": "4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する"
+ },
+ "/tokens/overview": {
+  "label": "ファウンデーションの思想比較",
+  "lead": "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページだ。"
+ },
+ "/tokens/color": {
+  "label": "カラー",
+  "lead": "画面の色の決め方と、文字や部品を読みやすくするための色の差(コントラスト)の基準だ。"
+ },
+ "/tokens/typography": {
+  "label": "タイポグラフィ",
+  "lead": "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりだ。"
+ },
+ "/tokens/writing": {
+  "label": "文章・UXライティング",
+  "lead": "ボタン・見出し・エラーなど、画面に出る言葉の書き方の決まりだ。"
+ },
+ "/tokens/icon": {
+  "label": "アイコン",
+  "lead": "アイコンの大きさ・線の太さなどのスタイルと、意味の伝え方の決まりだ。"
+ },
+ "/tokens/layout-spacing": {
+  "label": "レイアウト・スペーシング",
+  "lead": "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まりだ。"
+ },
+ "/tokens/shape": {
+  "label": "シェイプ・コーナーラジウス",
+  "lead": "部品の角の丸み(角丸)と、形の使い分けの決まりだ。"
+ },
+ "/tokens/elevation": {
+  "label": "エレベーション・階層表現",
+  "lead": "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりだ。"
+ },
+ "/tokens/dark-mode": {
+  "label": "ダークモード",
+  "lead": "暗い背景に明るい文字を置く配色(ダークモード)の切り替え方と作り方の決まりだ。"
+ },
+ "/tokens/adaptive": {
+  "label": "アダプティブ/レスポンシブ",
+  "lead": "画面の広さや向き、ウィンドウの大きさが変わったときに、レイアウトを組み替える考え方だ。"
+ },
+ "/components/actions/button": {
+  "label": "ボタン",
+  "lead": "押すとその場で処理を実行する部品だ(保存・送信・削除など)。"
+ },
+ "/tokens/interaction-states": {
+  "label": "インタラクション状態",
+  "lead": "ホバー・フォーカス・押している最中・使えないなど、部品の状態の見せ方の決まりだ。"
+ },
+ "/components/actions/fab": {
+  "label": "フローティングアクションボタン",
+  "lead": "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンだ。"
+ },
+ "/components/actions/link": {
+  "label": "リンク",
+  "lead": "押すと別のページや同じページの別の場所へ移動する、文字の部品だ。"
+ },
+ "/components/selection/overview": {
+  "label": "Selectionの選び方",
+  "lead": "値や項目を選ぶ部品を並べ、利用者が今何をしたいかから、どれを使うかを選ぶページだ。"
+ },
+ "/components/selection/checkbox": {
+  "label": "チェックボックス",
+  "lead": "四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
+ },
+ "/components/selection/radio": {
+  "label": "ラジオボタン",
+  "lead": "丸いボタンを並べ、選択肢の中から1つだけを選ばせる部品だ。"
+ },
+ "/components/selection/toggle": {
+  "label": "トグルスイッチ",
+  "lead": "押すとオンとオフがすぐに切り替わる、スイッチの形をした部品だ。"
+ },
+ "/components/selection/slider": {
+  "label": "スライダー",
+  "lead": "つまみを横に動かして、範囲の中から値を選ぶ部品だ。"
+ },
+ "/components/selection/chips": {
+  "label": "チップ(Chips)",
+  "lead": "短い言葉を小さな角丸の枠に入れた、選択・絞り込み・入力済みの値などを表す部品だ。"
+ },
+ "/components/selection/select": {
+  "label": "セレクト(プルダウン)",
+  "lead": "押すと選択肢の一覧が開き、その中から値を選ぶ部品だ(プルダウン)。"
+ },
+ "/components/selection/select-patterns": {
+  "label": "セレクトの種類(プルダウン以外)",
+  "lead": "プルダウンのほかにも、決まった選択肢から1つを選ぶ形はいくつかある。代表的な4つの形をまとめた。"
+ },
+ "/components/selection/menu": {
+  "label": "メニュー",
+  "lead": "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品だ。"
+ },
+ "/components/selection/date-time-picker": {
+  "label": "日付/タイムピッカー",
+  "lead": "カレンダーや回転する一覧などで、日付や時刻を選んで入力する部品だ。"
+ },
+ "/components/text-inputs/calendar": {
+  "label": "カレンダー(スケジュール/予定表)",
+  "lead": "予定を日・週・月などの表で見せる画面だ。予定表そのものの指針は、4系列ともない。"
+ },
+ "/components/text-inputs/text-field": {
+  "label": "テキストフィールド・テキストエリア",
+  "lead": "文字を入力する欄だ。1行の欄(テキストフィールド)と、複数行の欄(テキストエリア)を扱う。"
+ },
+ "/components/text-inputs/search-field": {
+  "label": "検索フィールド",
+  "lead": "言葉を入力して、アプリやサイトの中を検索するための入力欄だ。"
+ },
+ "/components/text-inputs/validation": {
+  "label": "エラー表示",
+  "lead": "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示だ。"
+ },
+ "/components/text-inputs/input-validation": {
+  "label": "バリデーション",
+  "lead": "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方だ。"
+ },
+ "/components/text-inputs/wizard": {
+  "label": "ウィザード(ステップ形式の入力)",
+  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形だ。"
+ },
+ "/components/navigation/tabs": {
+  "label": "タブ",
+  "lead": "横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
+ },
+ "/components/navigation/segmented-control": {
+  "label": "セグメントコントロール",
+  "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品だ。"
+ },
+ "/components/navigation/tabs-vs-segmented": {
+  "label": "タブとセグメントの使い分け",
+  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページだ。"
+ },
+ "/components/navigation/nav-bar": {
+  "label": "ナビゲーションバー",
+  "lead": "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーだ。"
+ },
+ "/components/navigation/app-bar": {
+  "label": "アプリバー",
+  "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバーだ。"
+ },
+ "/components/containment/drawer": {
+  "label": "ドロワー/サイドナビ",
+  "lead": "画面の横に、アプリの行き先の一覧を出すナビゲーションだ。スマホで一時的に開く「ナビゲーションドロワー」と、タブレット・PCで常に表示する「ナビゲーションレール/サイドバー」を扱う。"
+ },
+ "/components/navigation/breadcrumb": {
+  "label": "パンくずリスト",
+  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びだ。"
+ },
+ "/components/navigation/pagination": {
+  "label": "ページネーション",
+  "lead": "長い一覧をページに分け、ページ番号などで移動できるようにする部品だ。"
+ },
+ "/components/containment/overview": {
+  "label": "オーバーレイの使い分け",
+  "lead": "今の画面の上に重ねて出す部品(オーバーレイ)を並べ、どれを使うかを比べるページだ。"
+ },
+ "/components/containment/dialog": {
+  "label": "モーダルダイアログ",
+  "lead": "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品だ。"
+ },
+ "/components/containment/fullscreen-dialog": {
+  "label": "フルスクリーンダイアログ",
+  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログだ。"
+ },
+ "/components/containment/side-sheet": {
+  "label": "サイドシート",
+  "lead": "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネルだ。"
+ },
+ "/components/containment/bottom-sheet": {
+  "label": "ボトムシート",
+  "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルだ。"
+ },
+ "/components/containment/card": {
+  "label": "カード",
+  "lead": "1つの話題に関わる情報と操作を、1つの枠にまとめて見せる部品だ。"
+ },
+ "/components/communication/widget": {
+  "label": "ウィジェット",
+  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面だ。"
+ },
+ "/components/containment/list": {
+  "label": "リスト",
+  "lead": "同じ種類の項目を縦に並べて、一覧で見せる部品だ。"
+ },
+ "/components/containment/table": {
+  "label": "表(データテーブル)",
+  "lead": "行と列にデータを並べ、項目どうしを比べられるようにする部品だ。"
+ },
+ "/components/containment/carousel": {
+  "label": "カルーセル",
+  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せる部品だ。"
+ },
+ "/components/containment/accordion": {
+  "label": "アコーディオン(表示コントロール)",
+  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできる部品だ。"
+ },
+ "/components/communication/overview": {
+  "label": "情報伝達の使い分け",
+  "lead": "利用者に何かを知らせる部品を並べ、4つの判断軸と比較表で、どれを使うかを比べるページだ。"
+ },
+ "/components/communication/snackbar": {
+  "label": "スナックバー",
+  "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知だ。"
+ },
+ "/components/communication/toast": {
+  "label": "トースト",
+  "lead": "短い文を一時的に表示して自動で消える、操作のない通知だ(主にAndroidのOSの機能)。"
+ },
+ "/components/communication/tooltip": {
+  "label": "ツールチップ",
+  "lead": "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品だ。"
+ },
+ "/components/communication/progress": {
+  "label": "プログレスインジケーター",
+  "lead": "処理がどこまで進んだか、または処理中であることを示す表示だ。"
+ },
+ "/components/communication/alert": {
+  "label": "ステータスメッセージ(アラート)",
+  "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージだ。"
+ },
+ "/components/communication/banner": {
+  "label": "バナー",
+  "lead": "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせだ。"
+ },
+ "/components/communication/badge": {
+  "label": "バッジ",
+  "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印だ。"
+ },
+ "/components/communication/empty-state": {
+  "label": "空状態",
+  "lead": "表示する中身がない画面(空状態)の見せ方だ。"
+ },
+ "/components/communication/loading": {
+  "label": "ローディング状態",
+  "lead": "中身を読み込んでいる最中の画面の見せ方だ。"
+ },
+ "/tokens/motion": {
+  "label": "モーション/アニメーション",
+  "lead": "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まりだ。"
+ },
+ "/tokens/sound": {
+  "label": "サウンド",
+  "lead": "操作や通知に音を付けるかどうか、どう作るか、音に頼れない人への配慮の決まりだ。"
+ },
+ "/tokens/input-methods": {
+  "label": "入力方法・ジェスチャー",
+  "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなど入力手段の扱い方の決まりだ。"
+ },
+ "/cross-view": {
+  "label": "タグから見る",
+  "lead": "各ページの末尾に付けたタグを逆引きして、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで一覧にする"
+ }
+};
+/*__PAGE_INDEX_END__*/
+
+/* ページ末尾の「関連するページ」(ページ設計ルール1-8)。paths: サイト内のパスの配列。
+   名前と説明は PAGE_INDEX から引くので、リンク先のページの説明を変えても自動で追従する */
+export function RelatedPages({ paths }) {
+  const list = (paths || []).filter((p) => PAGE_INDEX[p]);
+  if (!list.length) return null;
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={partStyles.h2}>関連するページ</h2>
+      <div style={partStyles.relatedGrid}>
+        {list.map((p) => (
+          <a key={p} href={p} style={partStyles.relatedCard}>
+            <span style={partStyles.relatedName}>{PAGE_INDEX[p].label} ↗</span>
+            {PAGE_INDEX[p].lead && <span style={partStyles.relatedLead}>{PAGE_INDEX[p].lead}</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* 長いページの上部に置く、ページ内の目次。表示後にページの見出し(h2)を順に集めて作る。
+   通常版はURLの # でページを切り替えるため、押したときはスクロールだけ行う(静的版では普通のページ内リンク) */
+export function PageToc() {
+  const ref = React.useRef(null);
+  const [items, setItems] = React.useState([]);
+  React.useEffect(() => {
+    const root = ref.current && ref.current.closest(".dsp-inner");
+    if (!root) return;
+    const hs = Array.from(root.querySelectorAll("h2"));
+    // 「A ― B」の見出しは前半だけを出す。ただし前半が短い・系列名・ほかの見出しと重なるときは全文
+    const heads = hs.map((h) => h.textContent.trim().split(" ― ")[0]);
+    setItems(hs.map((h, i) => {
+      if (!h.id) h.id = "sec-" + (i + 1);
+      const full = h.textContent.trim();
+      const head = heads[i];
+      const series = ["Apple", "Google", "W3C", "NN group", "Nielsen Norman Group"].includes(head);
+      const dup = heads.filter((x) => x === head).length > 1;
+      return { id: h.id, label: head.length >= 5 && !series && !dup ? head : full };
+    }));
+  }, []);
+  const go = (e, id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <nav ref={ref} aria-label="このページの内容" style={partStyles.toc}>
+      <span style={partStyles.tocLabel}>このページの内容</span>
+      <ol style={partStyles.tocList}>
+        {items.map((it) => (
+          <li key={it.id} style={partStyles.tocItem}>
+            <a href={"#" + it.id} onClick={(e) => go(e, it.id)} style={partStyles.tocLink}>{it.label}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
 const partStyles = {
+  gbGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 },
+  gbCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF", minWidth: 0 },
+  gbLabel: { display: "inline-block", fontSize: 12, fontWeight: 700, borderRadius: 3, padding: "2px 8px", marginBottom: 10 },
+  gbGood: { color: "#245C30", background: "#E7F3EA", border: "1px solid #B9DBC1" },
+  gbBad: { color: "#9B2F25", background: "#FBEAE8", border: "1px solid #EDBDB7" },
+  gbFig: { border: "1px dashed #C7CBE6", borderRadius: 4, padding: "14px 12px", background: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 90 },
+  gbText: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 0" },
+  gbBasis: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: "10px 0 0" },
+  kpList: { listStyle: "none", margin: 0, padding: "14px 16px", border: "1px solid #E1E3F0", borderRadius: 6, display: "flex", flexDirection: "column", gap: 10 },
+  kpItem: { display: "flex", gap: 10, alignItems: "flex-start" },
+  kpNum: { flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: "#3A4FCF", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
+  kpTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
+  kpText: { fontSize: 12, lineHeight: 1.6, color: "#2E3457" },
+  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#666D93" },
+  relatedGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10 },
+  relatedCard: { display: "flex", flexDirection: "column", gap: 4, textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", color: "inherit" },
+  relatedName: { fontSize: 13.5, fontWeight: 700, color: LINK },
+  relatedLead: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78" },
+  toc: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 16px", marginBottom: 32 },
+  tocLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", marginBottom: 6 },
+  tocList: { margin: 0, padding: "0 0 0 20px", columns: "2 220px", columnGap: 24 },
+  tocItem: { fontSize: 12.5, lineHeight: 1.8, color: "#454C78", breakInside: "avoid" },
+  tocLink: { color: LINK, textDecoration: "none" },
   summary: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 20px 20px", marginBottom: 40 },
   summaryImage: { textAlign: "center", marginBottom: 18 },
   summaryImageLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", textAlign: "left", marginBottom: 18 },

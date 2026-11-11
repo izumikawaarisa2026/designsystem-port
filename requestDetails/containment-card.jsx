@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カード」ページ。
@@ -237,6 +237,12 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "眺めて選ぶ一覧はカード、探す・比べる一覧はリストや表", d: "", who: "AI解釈" },
+  { n: 2, t: "小さく保ち、入れ子にしない", d: "", who: "Apple" },
+];
+
 export default function ContainmentCardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -262,7 +268,7 @@ export default function ContainmentCardPage() {
           </div>
 
           <h1 style={styles.title}>カード</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><CardSwatch /></>}
             imageNote={<>画像・見出し・要約テキストをまとめ、詳細への入り口となるコンテナ。境界線・影・塗りつぶしのいずれかで背景と区別する。</>}
             lead={LEAD}
@@ -369,12 +375,8 @@ export default function ContainmentCardPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/list" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>リスト ↗</div>
-              <div style={styles.linkCardDesc}>検索・比較に適した縦並びの項目群との使い分けはこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/list", "/components/containment/table", "/components/containment/carousel", "/components/communication/widget", "/tokens/elevation"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

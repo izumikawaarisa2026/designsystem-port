@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ツールチップ」ページ。
@@ -384,6 +384,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "アイコンだけのボタンの名前など、短い補足に使う", d: "", who: "Google" },
+  { n: 2, t: "重要な情報を隠さない", d: "", who: "NN group" },
+  { n: 3, t: "キーボードのフォーカスでも出るようにする", d: "", who: "W3C(1.4.13・APGのTooltipパターン)" },
+  { n: 4, t: "スマートフォンでは「?」などの印を置き、押すと開くヒントにする", d: "", who: "NN group・Apple" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― ツールチップに入れる内容"
+      items={[
+        { kind: "good", fig: <><span style={{ background: "#2E3457", color: "#FFFFFF", fontSize: 12, borderRadius: 4, padding: "4px 8px", maxWidth: 200, lineHeight: 1.5 }}>通知</span><span style={{ width: 36, height: 36, borderRadius: "50%", border: "1.5px solid #8E93B5", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinejoin="round" /></svg></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>ホバーでもフォーカスでも出る</span></>, text: "アイコンだけのボタンに、短い補足(名前)が出る。ポインターを重ねたときも、キーボードでフォーカスしたときも出る。" },
+        { kind: "bad", fig: <><span style={{ background: "#2E3457", color: "#FFFFFF", fontSize: 12, borderRadius: 4, padding: "4px 8px", maxWidth: 200, lineHeight: 1.5 }}>8文字以上で、数字と記号を含めてください</span><div style={{ display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 150, border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 8px", fontSize: 12, color: "#666D93" }}>パスワード</span><span aria-hidden="true" style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid #454C78", fontSize: 11, color: "#454C78", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>i</span></div></>, text: "入力の条件のような、操作に欠かせない説明がツールチップの中にしかない。出すまで気づけない。" },
+      ]}
+      basis="NN group・Google(重要な情報をツールチップだけに隠さない)、W3C 1.4.13(ホバーやフォーカスで出る内容は、消せる・上に移っても消えない・勝手に消えない・AA)、APGのTooltipパターン(キーボードのフォーカスでも出す。参考例)。"
+    />
+  );
+}
+
 export default function CommunicationTooltipPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -409,7 +431,7 @@ export default function CommunicationTooltipPage() {
           </div>
 
           <h1 style={styles.title}>ツールチップ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><TooltipSwatch /></>}
             imageNote={<>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</>}
             lead={LEAD}
@@ -421,6 +443,8 @@ export default function CommunicationTooltipPage() {
 
 
           <PlainRichTable />
+          <GoodBadFigure />
+
 
           <TooltipVsPopupTip />
 
@@ -525,6 +549,8 @@ export default function CommunicationTooltipPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/tokens/icon", "/components/containment/overview", "/tokens/input-methods"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

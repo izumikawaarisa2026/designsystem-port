@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, PageLink } from "./page-parts";
+import { TagLink, PageLink, SummaryCard, RelatedPages } from "./page-parts";
 
 /**
  * 「情報伝達の使い分け」ページ。Communicationカテゴリの先頭に置く統合ガイド。
@@ -490,6 +490,13 @@ function RelatedPartsNote() {
   );
 }
 
+const LEAD = "利用者に何かを知らせる部品を並べ、4つの判断軸と比較表で、どれを使うかを比べるページだ。";
+const ABOUT = [
+  { k: "目的・役割", v: "作業を止めるか・対応が要るか・どう消えるか・どこに出すかで、知らせ方の部品を見分けられるようにする" },
+  { k: "扱う部品", v: <><PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、<PageLink to="/components/communication/banner">バナー</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、<PageLink to="/components/communication/toast">トースト</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
+  { k: "関連するページ", v: <>画面の上に重ねて内容や操作を出す部品は<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink></> },
+];
+
 export default function CommunicationOverviewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -513,7 +520,7 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <h1 style={styles.title}>情報伝達の使い分け</h1>
-          <p style={styles.subtitle}>モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ。利用者に何かを知らせる6つの部品を、4つの判断軸と比較表(◯/△/✕)で使い分ける</p>
+          <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>

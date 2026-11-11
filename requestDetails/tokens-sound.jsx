@@ -500,6 +500,13 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "音は補助にする", d: "音だけに頼らず、見た目や触覚でも伝える", who: "Apple・W3C・NN group" },
+  { n: 2, t: "利用者が止められるようにする", d: "自動で3秒を超えて鳴る音は止められるように(W3C)、効果音をオフにする設定を用意", who: "NN group" },
+  { n: 3, t: "端末の設定に従う", d: "消音モードや音量に合わせる", who: "Apple" },
+];
+
 export default function TokensSoundPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -527,7 +534,7 @@ export default function TokensSoundPage() {
           </div>
 
           <h1 style={styles.title}>サウンド(音フィードバック)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="UIの音の種類(Google・Material Design 2の分類)"
             image={<><SoundTypesMap /></>}
             imageNote={<>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものだ。位置はM2の説明文をもとにした概念図で、数値の基準ではない。</>}

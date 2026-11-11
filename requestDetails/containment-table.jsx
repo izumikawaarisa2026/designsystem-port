@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / 表(データテーブル)」ページ。
@@ -403,6 +403,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "比べるための形として使う", d: "", who: "NN group・Apple・Google" },
+  { n: 2, t: "小さい画面では、見出しと最初の列を固定する", d: "", who: "NN group" },
+  { n: 3, t: "横スクロールさせるなら、続きがあると見せる", d: "", who: "NN group" },
+  { n: 4, t: "列が多すぎるなら、見る列を選ばせるか、カード表示へ切り替える", d: "", who: "AI解釈" },
+];
+
 export default function ContainmentTablePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -428,7 +436,7 @@ export default function ContainmentTablePage() {
           </div>
 
           <h1 style={styles.title}>表(データテーブル)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(データテーブルの構成)"
             image={<><TableSwatch /></>}
             imageNote={<>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図だ。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱う。</>}
@@ -541,16 +549,8 @@ export default function ContainmentTablePage() {
             <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めている(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段だ。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めている(1.4.10)。</p>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/list" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>リスト ↗</div>
-              <div style={styles.linkCardDesc}>1列で縦に並べる一覧はこちら</div>
-            </a>
-            <a href="/components/navigation/pagination" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ページネーション ↗</div>
-              <div style={styles.linkCardDesc}>表の下に置くページ送りの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/list", "/components/containment/card", "/components/navigation/pagination"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

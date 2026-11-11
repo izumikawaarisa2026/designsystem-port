@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / パンくずリスト」ページ。
@@ -198,6 +198,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "閲覧の履歴ではなく、サイトの階層を見せる", d: "", who: "NN group" },
+  { n: 2, t: "今いるページはリンクにしない", d: "", who: "NN group。W3CのAPGの作り方の1つ" },
+  { n: 3, t: "アプリでは戻るボタンが基本", d: "Apple・Googleに専用の部品はない", who: "Apple・Google" },
+  { n: 4, t: "リンクの文字は4.5:1以上", d: "", who: "W3C 1.4.3" },
+];
+
 export default function NavigationBreadcrumbPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -223,7 +231,7 @@ export default function NavigationBreadcrumbPage() {
           </div>
 
           <h1 style={styles.title}>パンくずリスト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BreadcrumbSwatch /></>}
             imageNote={<>現在ページの親ページへのリンクを階層順に並べる。この例では、NN groupの推奨どおり現在ページ(最後の項目)をリンクにしていない。</>}
             lead={LEAD}
@@ -337,6 +345,8 @@ export default function NavigationBreadcrumbPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/navigation/app-bar", "/components/navigation/pagination"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

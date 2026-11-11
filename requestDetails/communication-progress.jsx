@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -163,14 +163,14 @@ const SOURCES = [
     term: "Progress indicator",
     color: "#7A4F7E",
     position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
-    size: "1秒未満は表示不要、1〜10秒はループアニメーション(スピナー)、10秒超は達成率表示(プログレスバー)が望ましいとしている。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
+    size: "1秒を超える処理には何か表示する(1秒未満は表示不要)。ループアニメーション(スピナー)は2〜10秒、10秒以上は達成率表示(プログレスバー)が望ましいとしている。1〜2秒にどの表示を使うかは明記していない。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       "進行状況インジケーターは、システムが動作していることを安心させ、おおよその待ち時間を示し、待つ間に見るものを提供するという3つの利点があるとしている。実験では、動く進行状況バーを見たユーザーは、何も表示されなかった場合に比べて平均で3倍長く待つ意思を示したと紹介されている。何も情報を示さない静的な表示は「十分なフィードバックにならない」として避けるべきとし、「しばらくお待ちください、二度押ししないでください」のような注意書きも、ユーザーがほとんど読まないため効果が薄いとしている。",
     exceptions:
       "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしている。",
     scenarios: [
-      "1〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
+      "2〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
       "10秒を超える、または超える可能性がある処理に達成率表示を使いたい時",
       "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
     ],
@@ -255,7 +255,7 @@ function ProgressSwatch() {
 /* No.059: 形の使い分け(終わりが分かるか・待ち時間・置く場所)。出典の系列を括弧で示す */
 const SHAPE_ROWS = [
   { shape: "何も出さない", known: "—", time: "1秒未満(NN group)", where: "—", note: "すぐ終わる処理にはインジケーターを出さない" },
-  { shape: "不確定の円形(スピナー)", known: "分からない", time: "1〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
+  { shape: "不確定の円形(スピナー)", known: "分からない", time: "2〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
   { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
   { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒を超える(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
   { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
@@ -295,6 +295,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー", who: "NN group" },
+  { n: 2, t: "進み具合が分かるなら確定、分からないなら不確定の表示にする", d: "", who: "Apple・Google・W3C・NN group" },
+  { n: 3, t: "止まって見えないようにする", d: "", who: "Apple" },
+];
+
 export default function CommunicationProgressPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -320,7 +327,7 @@ export default function CommunicationProgressPage() {
           </div>
 
           <h1 style={styles.title}>プログレスインジケーター</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ProgressSwatch /></>}
             imageNote={<>終わりが分かるか(確定/不確定)の区別はApple・Google・W3C・NN groupの4系列にあるが、形(バー/円)とは別の軸だ。Apple・Googleはバーと円のどちらにも確定・不確定があり、NN groupは待ち時間の長さで表示を選ぶ(下の「形の使い分け」を参照)。</>}
             lead={LEAD}
@@ -336,10 +343,10 @@ export default function CommunicationProgressPage() {
               4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
             </p>
             <p style={styles.synthesisText}>
-              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、1〜10秒はスピナー、10秒超はプログレスバー</strong>という秒数の目安を明言している。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
+              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
             </p>
             <p style={styles.synthesisText}>
-              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「1〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
+              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
             </p>
             <p style={styles.synthesisText}>
               W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴だ。
@@ -430,16 +437,8 @@ export default function CommunicationProgressPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/loading" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ローディング状態 ↗</div>
-              <div style={styles.linkCardDesc}>コンテンツ読み込み中のプレースホルダー表示・骨組み表示の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/loading", "/tokens/motion"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

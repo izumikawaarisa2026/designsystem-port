@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / メニュー」ページ。
@@ -380,6 +380,14 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "命令を選ぶならメニュー、値を選ぶならセレクト", d: "", who: "Apple(プルダウンボタンは命令、ポップアップボタンは選択肢)" },
+  { n: 2, t: "よく使う項目を上に置く", d: "", who: "Apple・NN group" },
+  { n: 3, t: "サブメニューを深くしない", d: "サブメニューは約5項目まで(Apple)、コンテキストメニューは10〜12項目未満", who: "NN group" },
+  { n: 4, t: "キーボードで操作できるようにする", d: "", who: "W3C" },
+];
+
 export default function SelectionMenuPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -405,7 +413,7 @@ export default function SelectionMenuPage() {
           </div>
 
           <h1 style={styles.title}>メニュー(ドロップダウン・コンテキストメニュー)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(メニューの構成)"
             image={<><MenuSwatch /></>}
             imageNote={<>ボタンを押すと開くメニューの概念図だ。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱う。</>}
@@ -522,12 +530,8 @@ export default function SelectionMenuPage() {
 
 
 
-          <div style={styles.linksRow}>
-            <a href="/components/selection/select" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>セレクト(プルダウン) ↗</div>
-              <div style={styles.linkCardDesc}>値を選んで表示し続ける部品の比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/selection/select", "/components/actions/button", "/components/containment/overview", "/components/containment/bottom-sheet"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

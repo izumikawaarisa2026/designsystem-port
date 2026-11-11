@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「モーション/アニメーション」ページ。
@@ -793,6 +793,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "目的のある動きだけを使う", d: "頻繁な操作には足さない", who: "Apple" },
+  { n: 2, t: "長さの目安", d: "小さな部品の反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "Google・NN group" },
+  { n: 3, t: "緩急を付ける", d: "入る動きは減速、出る動きは加速", who: "Google・NN group" },
+  { n: 4, t: "動きを減らす設定に対応する", d: "移動をフェードにするなど", who: "Apple・Google・W3C" },
+  { n: 5, t: "安全面の上限を守る", d: "5秒を超える自動の動きは止められるようにし、1秒に3回を超えて点滅させない", who: "W3C" },
+];
+
 export default function TokensMotionPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -837,7 +846,9 @@ export default function TokensMotionPage() {
           </div>
 
           <h1 style={styles.title}>モーション/アニメーション</h1>
-          <SummaryCard lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
+          <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
+
+          <PageToc />
 
           <MotionIntro />
 

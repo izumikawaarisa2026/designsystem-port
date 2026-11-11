@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / スナックバー」ページ。
@@ -236,6 +236,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "添える操作は1つだけ", d: "「元に戻す」など", who: "Google" },
+  { n: 2, t: "重要な情報や、必ず必要な操作には使わない", d: "自動で消える通知は見落とされやすい", who: "NN group" },
+  { n: 3, t: "操作を持つものは、利用者が閉じるか操作するまで残す", d: "", who: "AI解釈" },
+];
+
 export default function CommunicationSnackbarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -261,7 +268,7 @@ export default function CommunicationSnackbarPage() {
           </div>
 
           <h1 style={styles.title}>スナックバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SnackbarSwatch /></>}
             imageNote={<>画面下部に一時的に現れ、操作不要で自動的に消える。Undo(元に戻す)など1つの操作ボタンを持てる。</>}
             lead={LEAD}
@@ -371,12 +378,8 @@ export default function CommunicationSnackbarPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/toast" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>トースト ↗</div>
-              <div style={styles.linkCardDesc}>操作不要のOS標準ポップアップ(Toast)の4系列比較。「スナックバー」ページから独立</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/banner", "/components/communication/alert"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

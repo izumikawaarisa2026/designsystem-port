@@ -71,6 +71,14 @@ export default function IndexPage() {
                 <li>各部品のページ ― グループごとの入口から読むと、似た部品の違いが分かります(<PageLink to="/components/actions/button">ボタン</PageLink>/<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>/<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>/<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)。</li>
                 <li><PageLink to="/cross-view">タグから見る</PageLink> ― エラー処理・通知など、作業の場面からページを探せます。</li>
               </ol>
+              <h3 style={styles.h3}>部品を選びたいときの近道</h3>
+              <p style={styles.p}>どの部品を使うか迷ったときは、次の4つの使い分けのページから入ると、似た部品の違いをまとめて比べられます。</p>
+              <ul style={styles.orderList}>
+                <li><PageLink to="/components/selection/overview">Selectionの選び方</PageLink> ― チェックボックス・ラジオボタン・トグルスイッチ・チップなど、値や項目を選ぶ部品</li>
+                <li><PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink> ― 見た目が似ている、表示を切り替える2つの部品</li>
+                <li><PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink> ― ダイアログ・シート・ドロワー・メニューなど、画面の上に重ねて出す部品</li>
+                <li><PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink> ― バナー・スナックバー・トースト・ツールチップなど、利用者に知らせる部品</li>
+              </ul>
               <h3 style={styles.h3}>各部品のページの構成</h3>
               <p style={styles.p}>各部品のページは、上から次の順に並んでいます。</p>
               <div style={styles.guideGrid}>
@@ -81,7 +89,7 @@ export default function IndexPage() {
                   ["マーカー", "若草色の下線が付いた太字は、総括で取り上げている違い・共通点。"],
                   ["メモ", "用語の説明や、1系列だけの補足。"],
                   ["参照ページ(公式)", "その内容を確かめられる公式のページ。公式で別のページ・節に分かれている内容は、それぞれリンクする。"],
-                  ["関連するページ", "このサイトの中の、関係する部品やトピックのページ。"],
+                  ["関連するページ", "ページの末尾に、関係する部品やトピックのページを、名前と1文の説明のカードで並べる。節の多い長いページには、上部に「このページの内容」(目次)もある。"],
                   ["タグ", "原則タグ(POUR)とプロセスタグ(12のくくり)。押すと「タグから見る」で同じタグのページを一覧できる。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>

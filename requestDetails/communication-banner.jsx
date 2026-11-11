@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バナー」ページ。
@@ -233,6 +233,12 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>成功・注意・エラーなど状態の知らせ方は<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見落とすと困るが、緊急ではない情報に使う", d: "", who: "Google" },
+  { n: 2, t: "作業を止めない", d: "画面の移動や操作はふさがない", who: "Google" },
+];
+
 export default function CommunicationBannerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -258,7 +264,7 @@ export default function CommunicationBannerPage() {
           </div>
 
           <h1 style={styles.title}>バナー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><AlertSwatch /></>}
             imageNote={<>画面上部などにインラインで表示され、ユーザーが対応するか明示的に閉じるまで残り続ける。「モーダルダイアログ」ページのように操作をブロックはしない。</>}
             lead={LEAD}
@@ -385,20 +391,8 @@ export default function CommunicationBannerPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>操作を完全にブロックするモーダルな確認・警告の4系列比較</div>
-            </a>
-            <a href="/components/communication/snackbar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>スナックバー ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持てる、操作不要で自動的に消えるパッシブ通知の4系列比較</div>
-            </a>
-            <a href="/components/communication/toast" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>トースト ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持たない、最も簡潔なパッシブ通知の4系列比較(M3では非該当)</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/alert", "/components/communication/snackbar", "/components/communication/toast", "/components/containment/dialog"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

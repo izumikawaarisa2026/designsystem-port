@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, PageToc } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -514,6 +514,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "自動送りは基本的に使わない", d: "", who: "NN group" },
+  { n: 2, t: "続きがあることを見た目で示す", d: "次の項目の端や矢印", who: "AI解釈" },
+  { n: 3, t: "自動で送るなら停止ボタンを置く", d: "5秒より長く続くなら止める手段が要る", who: "W3C 2.2.2" },
+  { n: 4, t: "位置を示す点は約10個まで", d: "", who: "Apple" },
+];
+
 export default function ContainmentCarouselPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -539,13 +547,15 @@ export default function ContainmentCarouselPage() {
           </div>
 
           <h1 style={styles.title}>カルーセル</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(カルーセルの構成)"
             image={<><CarouselSwatch /></>}
             imageNote={<>前へ・次へのボタン、位置を示す点、次の項目の端、自動で回る場合の停止ボタンで構成した概念図だ。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <SplitSection splits={SPLITS} />
 
@@ -678,16 +688,8 @@ export default function ContainmentCarouselPage() {
             </div>
           </section>
 
-          <div style={styles.linksRow}>
-            <a href="/tokens/motion" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>モーション/アニメーション ↗</div>
-              <div style={styles.linkCardDesc}>2.2.2(5秒)など、動きの安全面の上限はこちら</div>
-            </a>
-            <a href="/components/containment/card" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>カード ↗</div>
-              <div style={styles.linkCardDesc}>カルーセルの中に並べることの多いカードの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/components/navigation/pagination", "/tokens/motion"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

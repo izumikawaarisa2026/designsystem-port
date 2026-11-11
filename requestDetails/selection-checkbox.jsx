@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チェックボックス」ページ。
@@ -343,6 +343,28 @@ function SizeRangeScale() {
   );
 }
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "保存ボタンで確定するフォームの中で使う", d: "すぐ反映する設定はスイッチを検討。フォームの中に即時反映のチェックボックスを混ぜない", who: "AI解釈" },
+  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48以上にする", who: "Google・NN group" },
+  { n: 4, t: "一部だけ選ばれた親は「不定」で示す", d: "", who: "Apple・Google・NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― ラベルも押せる"
+            items={[
+              { kind: "good", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 14px", border: "1.5px dashed #2F7D6E", borderRadius: 4 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "四角とラベルの全体が押せる範囲(点線)。ラベルを押しても選べる。" },
+              { kind: "bad", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ display: "inline-flex", padding: 2, border: "1.5px dashed #C0503F", borderRadius: 3 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span></span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さい四角だけが押せる。ラベルを押しても選べず、押し損ねやすい。" },
+            ]}
+            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48)、W3C 2.5.8(24px・AA)・2.5.5(44px・AAA。どちらも例外あり)。"
+          />
+  );
+}
+
 export default function SelectionCheckboxPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -368,7 +390,7 @@ export default function SelectionCheckboxPage() {
           </div>
 
           <h1 style={styles.title}>チェックボックス</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<CheckboxSwatch />}
             imageNote="3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。"
             lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
@@ -377,6 +399,8 @@ export default function SelectionCheckboxPage() {
 
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -479,6 +503,8 @@ export default function SelectionCheckboxPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/radio", "/components/selection/toggle", "/components/selection/chips"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

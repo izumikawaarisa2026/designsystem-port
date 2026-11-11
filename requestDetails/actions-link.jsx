@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -238,6 +238,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "移動はリンク、処理の実行はボタン", d: "役割で使い分ける", who: "このサイトの整理(サマリーの「似た部品との違い」)" },
+  { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
+  { n: 3, t: "下線を省くなら差を確かめる", d: "周りの文字と3:1以上", who: "W3C 1.4.1・G183" },
+  { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― リンクの見分け方"
+            items={[
+              { kind: "good", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF", textDecoration: "underline" }}>料金プランの比較</span>をご覧ください。</p>, text: "本文の中のリンクに色と下線の両方があり、ひと目でリンクと分かる。" },
+              { kind: "bad", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF" }}>料金プランの比較</span>をご覧ください。</p>, text: "色だけで示し、周りの文字(#2E3457)との明るさの差が1.83:1で3:1に届かない。リンクと気づきにくい。" },
+            ]}
+            basis="NN group(色と下線の両方があるのが最も分かりやすい)、W3C 1.4.1・G183(色だけで見分けさせるなら、周りの文字と3:1以上)。比はこのサイトで計算した値。"
+            note="下線を必ず付けるかは系列で違う(NN groupも必須とはしていない)。悪い例は、下線がないことではなく、色の差が足りないことを示している。"
+          />
+  );
+}
+
 export default function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -263,13 +286,15 @@ export default function ActionsLinkPage() {
           </div>
 
           <h1 style={styles.title}>リンク</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<><LinkSwatch /></>}
             imageNote={<>色+下線(濃い青=未訪問)と、彩度を落とした色(訪問済み)の組み合わせ例。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
@@ -391,6 +416,8 @@ export default function ActionsLinkPage() {
             </div>
             <p style={styles.diagramNote}>○=明確に求める / △=条件付き / ―=直接の言及なし</p>
           </div>
+
+          <RelatedPages paths={["/components/actions/button", "/tokens/color", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「カラー(配色・コントラスト基準)」ページ。
@@ -464,6 +464,30 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字と背景の差を確かめる", d: "本文は4.5:1以上、大きな文字と部品は3:1以上", who: "W3C 1.4.3・1.4.11" },
+  { n: 2, t: "色だけで伝えない", d: "色のほかに文字やアイコンでも伝える", who: "W3C 1.4.1" },
+  { n: 3, t: "色は値ではなく役割で指定する", d: "色そのものではなく「意味」で決める", who: "Appleのセマンティックカラー、Googleのカラーロール" },
+  { n: 4, t: "独自の色は濃いめに", d: "最低4.5:1、できれば7:1を目指す", who: "Apple" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― 文字のコントラスト"
+      items={[
+        { kind: "good", label: "良い例(本文)", fig: <><span style={{ fontSize: 14, color: "#171B36" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#171B36 / 白 = 16.85:1</span></>, text: "白い背景に濃い文字。本文に必要な4.5:1を大きく上回る。" },
+        { kind: "bad", label: "悪い例(本文)", fig: <><span style={{ fontSize: 14, color: "#9EA4C4" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#9EA4C4 / 白 = 2.45:1</span></>, text: "薄いグレーの文字は2.45:1で、本文に必要な4.5:1に届かない(枠の中は見本)。" },
+        { kind: "good", label: "良い例(大きい文字)", fig: <><span style={{ fontSize: 24, color: "#8E8E8E" }}>大きい見出し</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#8E8E8E / 白 = 3.28:1</span></>, text: "18pt以上(Webではおよそ24px)の大きい文字は3:1以上でよい。3.28:1で足りる。" },
+        { kind: "bad", label: "悪い例(小さい文字)", fig: <><span style={{ fontSize: 12, color: "#8E8E8E" }}>小さい文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#8E8E8E / 白 = 3.28:1</span></>, text: "同じ3.28:1でも、小さい文字では4.5:1に届かない(枠の中は見本)。" },
+      ]}
+      basis="W3C 1.4.3(本文は4.5:1以上、大きい文字は3:1以上・AA)、Appleの表(17pt以下は4.5:1、18pt以上は3:1)。比は白い背景に対する値(このサイトで計算)。"
+    />
+  );
+}
+
 export default function TokensColorPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -489,7 +513,7 @@ export default function TokensColorPage() {
           </div>
 
           <h1 style={styles.title}>カラー(配色・コントラスト基準)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コントラスト比とは(共通の考え方)"
             image={<><ColorContrastSwatch /></>}
             imageNote={<>文字色と背景色の明るさの差を表す数値。WCAGは本文4.5:1以上を要求しており、この数値がこのページの各系列比較の共通のものさしになる。</>}
@@ -504,6 +528,8 @@ export default function TokensColorPage() {
             <PriorityDiagram />
             <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。NN groupのみ比率ではなく面積の割合。色見本は概念図で、各系列の実際の色の値ではない。</p>
           </div>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

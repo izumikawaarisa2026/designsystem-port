@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / セグメントコントロール」ページ。
@@ -257,6 +257,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内容のまとまりを切り替えるならタブにする", d: "セグメントコントロールは、同じ内容の見え方の切り替えに使う", who: "AI解釈(タブとセグメントの使い分け)" },
+  { n: 2, t: "選択肢は2〜5個", d: "スマートフォンでは5個までにそろえる", who: "AI解釈" },
+  { n: 3, t: "増えそうなら、チップやメニューに切り替える", d: "", who: "AI解釈" },
+];
+
 export default function NavigationSegmentedControlPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -282,7 +289,7 @@ export default function NavigationSegmentedControlPage() {
           </div>
 
           <h1 style={styles.title}>セグメントコントロール</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SegmentedSwatch /></>}
             imageNote={<>横一列の等幅ボタン群。常に全ての選択肢を見せながら、1つ(または表示ビュー)を選ぶ。</>}
             lead={LEAD}
@@ -401,6 +408,8 @@ export default function NavigationSegmentedControlPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/tabs", "/components/selection/radio"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

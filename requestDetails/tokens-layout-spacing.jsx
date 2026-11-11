@@ -362,6 +362,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "端末ではなく、使える広さで切り替える", d: "分割画面やウィンドウの大きさで変わるものとして扱う", who: "Apple・Google" },
+  { n: 2, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
+  { n: 3, t: "狭めても読めるようにする", d: "幅320pxまで狭めても内容を読める", who: "W3C 1.4.10" },
+  { n: 4, t: "切り替える幅の目安", d: "600・840・1200・1600dp", who: "Google。Appleは境界値を示さない" },
+];
+
 export default function TokensLayoutSpacingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -387,7 +395,7 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <h1 style={styles.title}>レイアウト・スペーシング(余白・グリッド)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="余白が「まとまり」を作る(近接の原則)"
             image={<><ProximitySwatch /></>}
             imageNote={<>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見える。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報だ。</>}

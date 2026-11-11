@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / フローティングアクションボタン(FAB)」ページ。
@@ -280,6 +280,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1画面に1つ、主な操作だけ", d: "新規作成など、その画面でいちばん大事な操作に使う", who: "Google" },
+  { n: 2, t: "iOS・iPadOSにはFABがない", d: "ツールバーなどに置く", who: "Appleは該当なし" },
+  { n: 3, t: "OSごとに置き場所を変えても、名前とアイコンはそろえる", d: "", who: "AI解釈" },
+  { n: 4, t: "大きさは56dp以上", d: "いちばん小さいFABでもW3CのAA・AAAを満たす", who: "Google・W3C" },
+];
+
 export default function ActionsFabPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -305,7 +313,7 @@ export default function ActionsFabPage() {
           </div>
 
           <h1 style={styles.title}>フローティングアクションボタン(FAB)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<><FabSwatch /></>}
             imageNote={<>Material 3の3サイズ(2025年5月改訂)。丸いコンテナに塗りつぶしアイコンを乗せる形が共通する。</>}
@@ -409,6 +417,8 @@ export default function ActionsFabPage() {
           </div>
 
           <p style={styles.diagramNote}>押せる範囲の基準(2.5.8・2.5.5の例外を含む)は、<PageLink to="/components/actions/button">ボタン</PageLink>のページの「アクセシビリティ」を参照。Material公式のFAB(56dp)は、どの系列の目安も満たす。</p>
+
+          <RelatedPages paths={["/components/actions/button", "/tokens/motion", "/tokens/shape", "/components/navigation/nav-bar"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

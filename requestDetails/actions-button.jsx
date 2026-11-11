@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList } from "./page-parts";
+import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
@@ -443,6 +443,8 @@ function ButtonTabContent({ tabId }) {
 
     {tabId === "a11y" && (
       <>
+        <GoodBadFigure />
+
         <div style={styles.diagramCard}>
           <h2 style={styles.diagramTitle}>参考: 四系列比較図(実寸オーバーレイ)</h2>
           <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
@@ -498,6 +500,33 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "主なボタンの押せる範囲は44〜48", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+  { n: 2, t: "縮めても24pxを下回らない", d: "足りない分は周りの間隔で補う", who: "W3C 2.5.8" },
+  { n: 3, t: "まず操作の意味を決め、次に目立たせ方を選ぶ", d: "役割(Apple)と優先度(Google)は両立する", who: "AI解釈" },
+  { n: 4, t: "削除のような操作は目立たせすぎない", d: "選ばれやすくても目立つ見た目にしない", who: "Apple" },
+  { n: 5, t: "主な操作と副次的な操作を見分けられるように", d: "主な操作に専用の色を当てる", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+          title="良い例・悪い例 ― 押せる範囲"
+          items={[
+            { kind: "good", fig: <><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">
+          {[30, 100, 170].map((x) => (<g key={x}><rect x={x - 24} y="11" width="48" height="48" fill="none" stroke="#2F7D6E" strokeDasharray="4 3" /><rect x={x - 11} y="24" width="22" height="22" rx="5" fill="#3A4FCF" /></g>))}
+        </svg><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "見た目は小さいボタンでも、押せる範囲(点線)をApple 44×44pt・Google 48×48dp確保し、隣と重ならない。" },
+            { kind: "bad", fig: <><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">
+          {[76, 100, 124].map((x) => (<g key={x}><rect x={x - 24} y="11" width="48" height="48" fill="none" stroke="#C0503F" strokeDasharray="4 3" /><rect x={x - 11} y="24" width="22" height="22" rx="5" fill="#3A4FCF" /></g>))}
+        </svg><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さいボタンが余白なしで並び、押せる範囲が重なる。押し間違えやすい。" },
+          ]}
+          basis="Apple(既定44×44pt。足りない分は周りの余白で補う)、Google(48×48dp)、W3C 2.5.8(24×24 CSS px・AA。例外あり。小さい場合は、中心に描いた直径24pxの円が隣と重ならない間隔で補える)。"
+        />
+  );
+}
+
 export default function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -526,7 +555,7 @@ export default function ActionsButtonPage() {
           </div>
 
           <h1 style={styles.title}>ボタン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<ButtonSwatch />}
             imageNote="優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。"
@@ -568,6 +597,8 @@ export default function ActionsButtonPage() {
           ) : (
             <ButtonTabContent tabId={tabId} />
           )}
+
+          <RelatedPages paths={["/tokens/interaction-states", "/components/actions/fab", "/components/actions/link", "/tokens/shape", "/principles/accessibility"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ボトムシート」ページ。
@@ -296,6 +296,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見える閉じるボタンも置く", d: "スワイプやハンドルだけに頼らない", who: "AI解釈(Google・W3C・NN groupのどれにも沿う形)" },
+  { n: 2, t: "ドラッグしなくても高さを変えられるようにする", d: "", who: "W3C 2.5.7" },
+  { n: 3, t: "モーダルにするなら、フォーカスをシートの中にとどめ、Escキーで閉じられるように", d: "", who: "W3C" },
+];
+
 export default function ContainmentBottomSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -321,7 +328,7 @@ export default function ContainmentBottomSheetPage() {
           </div>
 
           <h1 style={styles.title}>ボトムシート</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BottomSheetSwatch /></>}
             imageNote={<>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</>}
             lead={LEAD}
@@ -430,16 +437,8 @@ export default function ContainmentBottomSheetPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>ポップオーバー・サイドシートなど、画面を覆う/中央や側面に出るオーバーレイの4系列比較</div>
-            </a>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告のため操作を完全にブロックする基本ダイアログの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/side-sheet", "/components/containment/dialog", "/components/selection/menu"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -115,7 +115,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 | 6 | アラート/バナー | ✅ 完成済み。ダイアログとの違い: 画面遷移を止めない・インライン表示。GoogleのBannerはM3の一覧になく、M2仕様を参考掲載(検索で非推奨傾向を確認)。W3C(role="alert"、role="alertdialog"と対比)・NN group(Indicators, Validations, and Notifications)は本文確認済み。Appleは該当なしに近い(検索結果による間接確認) |
 | 7 | バッジ | ✅ 完成済み(2026-09)。4系列中もっとも専用ページが薄いコンポーネント。Google(M3のBadgesコンポーネント、小=ドット/大=数字最大4文字)のみ独立コンポーネントを持つ。Apple(Notifications/Tab Barsの2ページに分散、専用コンポーネントなし)・W3C(専用ARIAロールなし、ARIA14のaria-label手法を援用、本文確認済み)・NN group(UI Elements Glossaryの「Badge」項目、本文確認済み) |
 | 8 | 空状態・ローディング状態 | ✅ 完成済み(2026-09)。Empty state / Loading state。AppleにもGoogleにも現行の「空状態」専用コンポーネントは存在せず(Apple=Writingページの文言指針、Google=旧世代M1のパターンページのみ)、一方でローディング側はApple「Loading」ページ・Google新設「Loading indicator」コンポーネントと手厚く、非対称であることを確認。NN group(空状態記事の3原則、Skeleton Screens 101の秒数目安)・W3C(MDNのaria-busy属性)は本文確認済み |
-| 9 | ウィジェット(ホーム画面ウィジェット) | ✅ 完成済み(2026-10、SPEC No.055、/components/communication/widget)。Apple(HIG Widgets)はページデータ、GoogleはM3にページがなくAndroid Developersのウィジェットのデザインガイド・品質ガイドの本文で確認。W3Cは専用の基準なし(WAI-ARIAのwidgetは別の意味)。NN groupはMobile Microsessionsの本文で確認。2026-10-05、トークン/ファウンデーションレイヤーから移動(AppleのHIGではComponents › System experiencesに属し、情報を一目で伝える部品のため) |
+| 9 | ウィジェット(ホーム画面ウィジェット) | ✅ 完成済み(2026-10、SPEC No.055、/components/communication/widget)。2026-11-11の⑦本人レビューで、サイドバーではContainment(カードの次)へ移した(URLはそのまま)。Apple(HIG Widgets)はページデータ、GoogleはM3にページがなくAndroid Developersのウィジェットのデザインガイド・品質ガイドの本文で確認。W3Cは専用の基準なし(WAI-ARIAのwidgetは別の意味)。NN groupはMobile Microsessionsの本文で確認。2026-10-05、トークン/ファウンデーションレイヤーから移動(AppleのHIGではComponents › System experiencesに属し、情報を一目で伝える部品のため) |
 
 ---
 

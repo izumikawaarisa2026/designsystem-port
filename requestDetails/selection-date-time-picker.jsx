@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / 日付/タイムピッカー」ページ。
@@ -531,6 +531,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "入力欄を基本に、カレンダーは補助にする", d: "", who: "AI解釈(4系列のどれとも食い違わない形)" },
+  { n: 2, t: "カレンダーは近い日付や期間に使う", d: "", who: "NN group" },
+  { n: 3, t: "誕生日のような遠い日付で、カレンダーを先に出さない", d: "", who: "NN group・Google" },
+];
+
 export default function SelectionDateTimePickerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -556,7 +563,7 @@ export default function SelectionDateTimePickerPage() {
           </div>
 
           <h1 style={styles.title}>日付/タイムピッカー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(ホイール型の例)"
             image={<><DateTimePickerSwatch /></>}
             imageNote={<>スクロール可能な値のリストから、中央に表示された値を選ぶ。カレンダー形式・フリーテキスト形式など他の実現方法もある。</>}
@@ -668,6 +675,8 @@ export default function SelectionDateTimePickerPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/calendar", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
