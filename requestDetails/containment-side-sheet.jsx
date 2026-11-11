@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / サイドシート」ページ(旧ページ名「モーダルポップアップ」)。
@@ -231,6 +231,12 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の下から出るのは<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、行き先の一覧を出すのは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "並べて置く標準と、後ろを操作できなくするモーダルの2種類がある", d: "", who: "Google" },
+  { n: 2, t: "Appleにサイドシートに当たる部品はない", d: "", who: "Apple" },
+];
+
 export default function ContainmentSideSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -256,7 +262,7 @@ export default function ContainmentSideSheetPage() {
           </div>
 
           <h1 style={styles.title}>サイドシート</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SideSheetSwatch /></>}
             imageNote={<>画面の一部(中央・側面など)に重ねて表示する補助的なオーバーレイ。下からせり出す「ボトムシート」ページ、確認・警告用の「モーダルダイアログ」ページとは、それぞれ役割が異なる。</>}
             lead={LEAD}
@@ -361,16 +367,8 @@ export default function ContainmentSideSheetPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/bottom-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ボトムシート ↗</div>
-              <div style={styles.linkCardDesc}>下からせり出す半モーダルの4系列比較(このページから独立)</div>
-            </a>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告のため操作を完全にブロックする基本ダイアログの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/bottom-sheet", "/components/containment/drawer", "/components/containment/dialog"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

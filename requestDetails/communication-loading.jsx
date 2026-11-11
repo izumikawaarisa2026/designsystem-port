@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ローディング状態」ページ。
@@ -91,17 +91,17 @@ const SOURCES = [
     position: "「ローディング状態」専用のロールはないが、内容が更新中であることを支援技術に伝えるaria-busy属性がある",
     size: <NoData>数値基準なし</NoData>,
     glossary: [
-      { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間は、ライブリージョンの変更内容の読み上げを更新完了まで遅らせることができる。複数箇所が同時に更新されるスケルトン画面などで、更新途中の不完全な状態が読み上げられてしまうのを防ぐ目的で使う。" },
+      { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間、支援技術は更新が終わるまで変更の読み上げを待つことができる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違い、aria-busyは更新中という状態を示す。" },
     ],
     stance:
-      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueに設定すると、ライブリージョン内で複数の変更が発生する間、更新が完了するまで読み上げを遅らせることができ、フィード(feed)のようなロールでも、rendering(描画中)の変更が読み上げから除外されるとしている。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
+      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱うことができる(MAY)としている。ライブリージョンで複数の変更を1つの読み上げにまとめたいとき、作り手はtrueにしておいて、変更が終わったらfalseに戻せる、という例も示している。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
     exceptions:
       "aria-busyは単独でも、要素が更新中であることを支援技術に示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もある。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる読み込み中の領域を扱いたい時",
-      "更新途中の不完全な状態を支援技術に読み上げさせたくない時",
+      "更新途中の不完全な状態を、支援技術に伝えにくくしたい時(支援技術が待つかどうかは支援技術による)",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝え、不完全な状態の誤った読み上げを防ぐことに関わる。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝えることに関わる(読み上げを必ず防げるわけではない)。",
     useCases: [
       "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
       "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
@@ -130,12 +130,12 @@ const SOURCES = [
     term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
     position: "読み込みの見せ方を、待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーで使い分けるべきとする(秒数の目安あり)",
-    size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスケルトン画面またはスピナー(個別モジュール向け)、10秒超はプログレスバーが望ましいとしている。",
+    size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスピナー(個別モジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバーが望ましいとしている。1〜2秒にどの表示を使うかは明記していない。",
     stance:
       "スケルトン画面は、ページ全体の骨組みをワイヤーフレーム風に示すことで、コンテンツが来ることを予告し体感待ち時間を和らげるパターンだとし、静的/アニメーション/フレーム表示の3タイプがあるとしている。ヘッダー・フッターだけを示す「フレーム表示」型は、空白ページのように見えて離脱を招きかねないため避けるべきだとしている。",
-    exceptions: "スケルトン画面/スピナー/プログレスバーの使い分けには、1秒・10秒という具体的な秒数の目安が示されている。",
+    exceptions: "スケルトン画面/スピナー/プログレスバーの使い分けには、1秒未満・2〜10秒・10秒という具体的な秒数の目安が示されている。",
     scenarios: [
-      "ページ全体の読み込みで、2〜10秒程度ならスケルトン画面を使いたい時",
+      "ページ全体の読み込みで、10秒未満ならスケルトン画面を使いたい時",
     ],
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の体感を和らげるという観点からの設計指針。",
     useCases: [
@@ -155,7 +155,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>スケルトン(2-10s)</span>
       </div>
     ),
-    illustrationNote: "スケルトン画面(2〜10秒の目安。概念図・系列識別色)",
+    illustrationNote: "スケルトン画面(10秒未満の目安。概念図・系列識別色)",
   },
 ];
 
@@ -222,11 +222,19 @@ const SPLITS = [
     q: "待ち時間が何秒なら、どの表示を出す?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "200ミリ秒未満は何も出さない。200ミリ秒〜5秒はLoading indicator。5秒を超えるならProgress indicator" },
-      { who: "NN group", color: "#7A4F7E", t: "1秒・10秒を目安に、スケルトン画面・スピナー・プログレスバーを使い分ける" },
+      { who: "NN group", color: "#7A4F7E", t: "1秒未満は何も出さない。2〜10秒はスピナー、10秒未満ならスケルトン画面も使える。10秒を超えるならプログレスバー(1〜2秒の表示は明記していない)" },
       { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
     ],
-    tip: "区切りの秒数は系列で違うが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通だ。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
+    tip: "区切りの秒数も、勧める表示も系列で違う。GoogleとNN groupはどちらも、ごく短い待ちには何も出さず、長い待ちには進み具合が分かる表示を勧めるが、区切り(Googleは200ミリ秒と5秒、NN groupは1秒と10秒)が違う。Appleは秒数ではなく、まず何かを見せることを勧める。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
   },
+];
+
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "一瞬で終わるなら、何も出さない", d: "", who: "AI解釈。NN groupは1秒未満" },
+  { n: 2, t: "数秒なら、動く表示(スケルトン画面かスピナー)を出す", d: "スピナーは2〜10秒、スケルトン画面は10秒未満", who: "NN group" },
+  { n: 3, t: "長いなら、進み具合を示す", d: "10秒を超えるならプログレスバー(残り時間を必ず出すという意味ではない)", who: "NN group" },
+  { n: 4, t: "できるだけ早く、何かを表示する", d: "", who: "Apple" },
 ];
 
 export default function CommunicationLoadingPage() {
@@ -254,7 +262,7 @@ export default function CommunicationLoadingPage() {
           </div>
 
           <h1 style={styles.title}>ローディング状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><LoadingStateSwatch /></>}
             imageNote={<>実際のレイアウトを模した骨組み(スケルトン)を先に見せる考え方。</>}
             lead={LEAD}
@@ -272,10 +280,10 @@ export default function CommunicationLoadingPage() {
               読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスケルトン画面かスピナー、10秒を超えるならプログレスバー</strong>だ(「プログレスインジケーター」ページの秒数の目安と共通)。
+              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(「プログレスインジケーター」ページの秒数の目安と共通)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝え、不完全な状態が読み上げられるのを防ぐ仕組みを用意している。見た目のスケルトン画面の裏側で、スクリーンリーダーの利用者が途中の内容を読まされないようにするための実装上のポイントだ。
+              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝える仕組みを用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。更新が終わったらfalseに戻す。変更を読み上げさせるのはaria-live(ライブリージョン)の役割で、aria-busyは「今は更新中」という状態を示すだけだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -365,20 +373,8 @@ export default function CommunicationLoadingPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/progress" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>プログレスインジケーター ↗</div>
-              <div style={styles.linkCardDesc}>確定的/不確定な進行状況表示の4系列比較</div>
-            </a>
-            <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態 ↗</div>
-              <div style={styles.linkCardDesc}>表示する中身がない画面の見せ方の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/progress", "/components/communication/empty-state"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

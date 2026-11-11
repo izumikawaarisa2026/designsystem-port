@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink } from "./page-parts";
+import { TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection」カテゴリの先頭に置く、使い分けガイドページ。
@@ -203,6 +203,13 @@ function UseTable() {
   );
 }
 
+const LEAD = "値や項目を選ぶ部品を並べ、利用者が今何をしたいかから、どれを使うかを選ぶページだ。";
+const ABOUT = [
+  { k: "目的・役割", v: "見た目や機能が重なる選択の部品を、利用者の行動(オン/オフ・1つ選ぶ・複数選ぶ・範囲を決めるなど)から選べるようにする" },
+  { k: "扱う部品", v: <><PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/selection/chips">チップ(Chips)</PageLink>、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "関連するページ", v: <>プルダウン以外の選び方は<PageLink to="/components/selection/select-patterns">セレクトの種類</PageLink>、1つを選んで表示を切り替えるなら<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink></> },
+];
+
 export default function SelectionOverviewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -224,7 +231,7 @@ export default function SelectionOverviewPage() {
           </div>
 
           <h1 style={styles.title}>Selectionの選び方</h1>
-          <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・セレクト(プルダウン)。6つのパーツを、ユーザーの行動を起点に使い分ける</p>
+          <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -259,6 +266,8 @@ export default function SelectionOverviewPage() {
               </a>
             ))}
           </div>
+
+          <RelatedPages paths={["/components/selection/select-patterns", "/components/navigation/tabs-vs-segmented", "/components/containment/overview", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}

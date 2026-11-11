@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, RefList, PageLink } from "./page-parts";
+import { TagLink, RefList, PageLink, KeyPoints } from "./page-parts";
 
 /**
  * 思想レイヤー「アクセシビリティ」ページ(旧「POUR解説」を改称・再構成)。
@@ -247,6 +247,20 @@ function InclusionSection() {
   );
 }
 
+/* 公式へのリンクは、飛び先のページ名で示す */
+const LINK_NAMES = {"https://developer.apple.com/design/human-interface-guidelines/accessibility": "HIG: Accessibility", "https://m3.material.io/foundations/overview/principles": "M3: Principles", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.w3.org/TR/WCAG22/#perceivable": "WCAG 2.2: 原則1 知覚可能", "https://www.w3.org/TR/WCAG22/#operable": "WCAG 2.2: 原則2 操作可能", "https://www.w3.org/TR/WCAG22/#understandable": "WCAG 2.2: 原則3 理解可能", "https://www.w3.org/TR/WCAG22/#robust": "WCAG 2.2: 原則4 堅牢", "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/": "Accessibility and Inclusivity: Study Guide"};
+const linkName = (u) => LINK_NAMES[u] || u;
+
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字のコントラスト", d: "本文は4.5:1以上", who: "W3C 1.4.3・AA" },
+  { n: 2, t: "色だけで伝えない", d: "色のほかに文字や形でも伝える", who: "W3C 1.4.1・A" },
+  { n: 3, t: "押せる範囲", d: "24×24px以上。例外あり", who: "W3C 2.5.8・AA" },
+  { n: 4, t: "フォーカスが見える", d: "キーボードで今どこにいるか分かる", who: "W3C 2.4.7・AA" },
+  { n: 5, t: "キーボードで操作できる", d: "すべての操作をキーボードでもできる", who: "W3C 2.1.1・A" },
+  { n: 6, t: "名前・役割・値", d: "部品の名前と状態が支援技術に伝わる", who: "W3C 4.1.2・A" },
+];
+
 export default function PrinciplesAccessibilityPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -273,6 +287,7 @@ export default function PrinciplesAccessibilityPage() {
 
           <h1 style={styles.title}>アクセシビリティ</h1>
           <p style={styles.subtitle}>4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する</p>
+          <KeyPoints items={KP} title="実務でまず見る達成基準" />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -286,6 +301,7 @@ export default function PrinciplesAccessibilityPage() {
               本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
             </p>
           </div>
+
 
           {/* 四系列比較: 性格の違いを一目で示す */}
           <div style={styles.diagramCard}>
@@ -354,7 +370,7 @@ export default function PrinciplesAccessibilityPage() {
                 {f.extra && <FrameworkExtra k={f.extra} />}
                 {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
-                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                 </div>
               </div>
             ))}
@@ -397,7 +413,7 @@ export default function PrinciplesAccessibilityPage() {
                   {f.extra && <FrameworkExtra k={f.extra} />}
                   {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
-                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                   </div>
                 </div>
               ))}

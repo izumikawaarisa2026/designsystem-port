@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「アダプティブ/レスポンシブデザイン」ページ。
@@ -448,6 +448,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内容と機能は同じに保つ", d: "広さが変わっても、見せ方だけを組み替える", who: "Apple・W3C" },
+  { n: 2, t: "端末ではなく、使える広さで切り替える", d: "サイズクラスで判断する", who: "Apple・Google" },
+  { n: 3, t: "ナビゲーションは広さで置き場所を変える", d: "狭い画面は下のバー、広い画面は横のレールやサイドバー", who: "Google・Apple" },
+  { n: 4, t: "広さが変わっても状態を保つ", d: "選択中の項目や開いている詳細を保つ", who: "Google" },
+  { n: 5, t: "320px相当まで狭めても使える", d: "情報と機能を失わない", who: "W3C" },
+];
+
 export default function TokensAdaptivePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -473,13 +482,15 @@ export default function TokensAdaptivePage() {
           </div>
 
           <h1 style={styles.title}>アダプティブ/レスポンシブデザイン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同じ内容を、画面の広さに合わせて組み替える(概念図)"
             image={<><ReflowSwatch /></>}
             imageNote={<>狭い画面では下のナビゲーションと1列、広くなるにつれて横のナビゲーションと複数の区画(ペイン)に組み替える。内容と機能は同じまま、見せ方だけを変えるのが基本だ。ブレークポイントの値や余白は「レイアウト・スペーシング」ページを参照。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
 
 

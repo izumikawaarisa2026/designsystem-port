@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / ラジオボタン」ページ。
@@ -304,6 +304,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1つだけ選ぶときに、すべての選択肢を見せる", d: "", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "縦に並べる", d: "横に並べるのは「はい/いいえ」のような短い2〜3択だけ", who: "Google・NN group" },
+  { n: 3, t: "迷ったら1つを選んでおく", d: "選ばせたくない質問は「該当なし」を足す", who: "NN group。AI解釈" },
+  { n: 4, t: "選択肢は5個以下が目安", d: "多いときはセレクトを検討", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 並べ方"
+            items={[
+              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "選択肢を縦に1行1つで並べ、すべて見える。どの丸がどのラベルか迷わない。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px", maxWidth: 230 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
+            ]}
+            basis="Google(縦に1行1つが基本)、NN group(縦に並べ、すべての選択肢を常に見せる)。"
+            note="「はい/いいえ」のような短い2〜3個なら、横に並べてもよい(このページの記載)。"
+          />
+  );
+}
+
 export default function SelectionRadioPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -329,7 +352,7 @@ export default function SelectionRadioPage() {
           </div>
 
           <h1 style={styles.title}>ラジオボタン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><RadioSwatch /></>}
             imageNote={<>2〜5個のグループで使い、常に1つが選択された状態を基本とする。</>}
             lead={LEAD}
@@ -337,6 +360,8 @@ export default function SelectionRadioPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -434,6 +459,8 @@ export default function SelectionRadioPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/selection/select", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

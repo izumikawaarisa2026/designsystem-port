@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / 検索フィールド」ページ。
@@ -711,6 +711,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "検索が主な使い方なら、欄を開いたまま置く", d: "", who: "NN group・Google" },
+  { n: 2, t: "補助の機能ならアイコンでもよい", d: "押したらすぐ入力できる状態にする", who: "NN group" },
+  { n: 3, t: "入力前に最近の検索、入力中に候補を出す", d: "", who: "Apple・Google" },
+];
+
 export default function TextInputsSearchFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -736,7 +743,7 @@ export default function TextInputsSearchFieldPage() {
           </div>
 
           <h1 style={styles.title}>検索フィールド</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SearchFieldSwatch /></>}
             imageNote={<>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</>}
             lead={LEAD}
@@ -864,6 +871,8 @@ export default function TextInputsSearchFieldPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>虫眼鏡アイコンの位置と挙動</h2>
           <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較する。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)だ。</p>
           <IconNotes />
+
+          <RelatedPages paths={["/components/text-inputs/text-field", "/components/navigation/app-bar", "/components/selection/chips"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ページネーション」ページ。
@@ -243,6 +243,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C: aria-current" },
+  { n: 2, t: "専用の部品はない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
+  { n: 3, t: "AppleのPage controlsは別の部品", d: "少数の画面を点で送るもの", who: "Apple" },
+];
+
 export default function NavigationPaginationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -268,7 +275,7 @@ export default function NavigationPaginationPage() {
           </div>
 
           <h1 style={styles.title}>ページネーション</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(番号付きページネーション)"
             image={<><PaginationSwatch /></>}
             imageNote={<>ページ番号を並べ、任意のページへ直接移動できる。前後の矢印を併設することが多い。</>}
@@ -380,6 +387,8 @@ export default function NavigationPaginationPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/containment/table", "/components/containment/carousel", "/components/navigation/breadcrumb"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

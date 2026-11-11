@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ナビゲーションバー」ページ。
@@ -323,6 +323,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "主な行き先は3〜5個", d: "", who: "Google(5個までならApple・NN groupとも食い違わない)" },
+  { n: 2, t: "3個未満なら使わない", d: "タブを使う", who: "Google" },
+  { n: 3, t: "行き先が増えたときの逃がし先を決めておく", d: "サイドバー(Apple)、ナビゲーションレールやドロワー", who: "Google" },
+];
+
 export default function NavigationNavBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -348,7 +355,7 @@ export default function NavigationNavBarPage() {
           </div>
 
           <h1 style={styles.title}>ナビゲーションバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><NavBarSwatch /></>}
             imageNote={<>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。Appleでは「Tab Bars」、Googleでは「Navigation bar」と呼ばれる、同じ役割のコンポーネント。</>}
             lead={LEAD}
@@ -461,6 +468,8 @@ export default function NavigationNavBarPage() {
           </div>
 
           <TopBarPointerSection />
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/tabs", "/components/containment/drawer", "/components/navigation/app-bar", "/components/communication/badge"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

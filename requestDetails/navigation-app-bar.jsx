@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / アプリバー」ページ(旧ページ名「トップバー」)。
@@ -325,6 +325,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "画面の名前・戻る操作・関連する操作を置く", d: "", who: "Apple・Google" },
+  { n: 2, t: "先頭に戻る/閉じる、末尾に関連する操作", d: "", who: "Apple・Google" },
+  { n: 3, t: "バーの文字とアイコンは、下の内容の上でも読めるように", d: "保てないなら不透明にする", who: "NN group" },
+];
+
 export default function NavigationAppBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -350,7 +357,7 @@ export default function NavigationAppBarPage() {
           </div>
 
           <h1 style={styles.title}>アプリバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><TopBarSwatch /></>}
             imageNote={<>戻るボタン・現在の画面タイトル・関連操作アイコンを持つ、画面ごとの上部バー。「ナビゲーションバー」ページで比較した常設の主要セクション切り替えバーとは別物。</>}
             lead={LEAD}
@@ -465,16 +472,8 @@ export default function NavigationAppBarPage() {
 
           <SearchAppBarSection />
 
-          <div style={styles.linksRow}>
-            <a href="/components/navigation/nav-bar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ナビゲーションバー ↗</div>
-              <div style={styles.linkCardDesc}>常設の主要セクション切り替えバー(3〜5行き先)の4系列比較</div>
-            </a>
-            <a href="/components/text-inputs/search-field" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>検索フィールド ↗</div>
-              <div style={styles.linkCardDesc}>虫眼鏡アイコン・発見性など、検索の入り口全般の4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/text-inputs/search-field", "/components/containment/drawer", "/components/selection/menu"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「アイコン(サイズ・スタイル)」ページ。
@@ -470,6 +470,30 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "隣の文字とそろえる", d: "線の太さと大きさを、横の文字に合わせる", who: "Apple・Google" },
+  { n: 2, t: "文字のラベルを添える", d: "アイコンだけでは意味が1つに決まらないことが多い", who: "NN group" },
+  { n: 3, t: "アイコンだけのボタンには名前を付ける", d: "見えるラベルがなくても、支援技術に伝わる名前が要る", who: "W3C 4.1.2・1.1.1" },
+  { n: 4, t: "背景との差を確かめる", d: "意味を伝えるアイコンは背景と3:1以上", who: "W3C 1.4.11" },
+  { n: 5, t: "押せる範囲はアイコンより広く", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― アイコンとラベル"
+      items={[
+        { kind: "good", fig: <div style={{ display: "flex", gap: 18 }}><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>ホーム</span></div><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13zM15.5 15.5L20 20" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>検索</span></div><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>設定</span></div></div>, text: "アイコンの下に文字のラベルがあり、意味が1つに決まる。ラベルを見せないアイコンにも、支援技術に伝わる名前を付ける。" },
+        { kind: "bad", fig: <div style={{ display: "flex", gap: 18 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.8 6.4.6-4.8 4.3 1.4 6.3L12 16.8 6.4 20l1.4-6.3L3 9.4l6.4-.6z" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5M18 3v4h-4M6 21v-4h4" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></div>, text: "意味が1つに決まらないアイコンだけが並び、見えるラベルも名前もない(お気に入り?更新?共有?)。" },
+      ]}
+      basis="NN group(アイコンには文字のラベルを添える)、W3C 1.1.1(文字でない情報には代わりの文字)・4.1.2(名前)。"
+      note={<>押せる範囲の良い例・悪い例は<PageLink to="/components/actions/button">ボタン</PageLink>のページにある。</>}
+    />
+  );
+}
+
 export default function TokensIconPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -495,7 +519,7 @@ export default function TokensIconPage() {
           </div>
 
           <h1 style={styles.title}>アイコン(サイズ・スタイル)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="サイズの目安(概念図)"
             image={<><IconSwatch /></>}
             imageNote={<>同じ形のアイコンでも、系列・文脈によって最適なサイズ・太さ・スタイルは異なる。実寸の基準は各系列の欄を参照。</>}
@@ -512,6 +536,8 @@ export default function TokensIconPage() {
             <IconStyleTable />
             <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」。</p>
           </section>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>Apple・Googleのサイズと余白(スペーシング)の比較</h2>
           <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べる。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めている。</p>

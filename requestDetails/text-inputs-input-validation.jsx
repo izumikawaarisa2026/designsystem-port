@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / バリデーション」ページ。
@@ -488,6 +488,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "欄を離れたときに確かめるのを基本にする", d: "", who: "NN group。Appleもメールアドレスなどは同じ" },
+  { n: 2, t: "入力の途中でエラーを出さない", d: "", who: "NN group" },
+  { n: 3, t: "入力中に示すのは、パスワードの条件のような場面だけ", d: "", who: "NN group" },
+];
+
 export default function TextInputsInputValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -513,7 +520,7 @@ export default function TextInputsInputValidationPage() {
           </div>
 
           <h1 style={styles.title}>バリデーション</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="検証タイミングの3つの選択肢"
             image={<><ValidationTimingSwatch /></>}
             imageNote={<>NN groupは欄を離れたときの検証を既定とし、Appleもメールアドレスなどは別の欄に移ったときに確かめるとしている。入力中に示すのは、パスワードの条件の一覧(NN group)や、ユーザー名・パスワードの作成(Apple)など、決まった場面に限られる。</>}
@@ -526,7 +533,7 @@ export default function TextInputsInputValidationPage() {
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
-          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。表は横にスクロールできる。</p>
+          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
           <TimingLegend />
           <TimingChart />
           <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
@@ -629,12 +636,8 @@ export default function TextInputsInputValidationPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>エラー表示 ↗</div>
-              <div style={styles.linkCardDesc}>検知したエラーをどう見せるか(文言・視覚表現・訂正案の提示)はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/text-field", "/components/communication/alert", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

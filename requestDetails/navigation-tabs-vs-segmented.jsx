@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, SummaryCard, PageLink } from "./page-parts";
+import { TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブとセグメントの使い分け」ページ。
@@ -321,16 +321,8 @@ export default function NavigationTabsVsSegmentedPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>四系列デザインシステム比較</h2>
           <SystemViews />
 
-          <div style={styles.linksRow}>
-            <a href="/components/navigation/tabs" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>タブ ↗</div>
-              <div style={styles.linkCardDesc}>4系列比較の詳細ページ</div>
-            </a>
-            <a href="/components/navigation/segmented-control" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>セグメントコントロール ↗</div>
-              <div style={styles.linkCardDesc}>4系列比較の詳細ページ</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/navigation/tabs", "/components/navigation/segmented-control", "/components/navigation/nav-bar", "/components/selection/overview"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}

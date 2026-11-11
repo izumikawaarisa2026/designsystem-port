@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブ」ページ。
@@ -377,6 +377,13 @@ function TabSwatch() {
   );
 }
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "まず数を減らす", d: "Appleのタブビューは6個まで、Googleの固定タブは4個まで", who: "Apple・Google" },
+  { n: 2, t: "減らせないときはスクロールできるタブ", d: "続きがあると分かるようにする", who: "Google" },
+  { n: 3, t: "iOS・iPadOSではセグメントコントロールを使う", d: "", who: "Apple" },
+];
+
 export default function NavigationTabsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -402,7 +409,7 @@ export default function NavigationTabsPage() {
           </div>
 
           <h1 style={styles.title}>タブ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<TabSwatch />}
             imageNote="選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。"
             lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
@@ -515,6 +522,8 @@ export default function NavigationTabsPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/segmented-control", "/components/navigation/nav-bar", "/components/containment/accordion"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

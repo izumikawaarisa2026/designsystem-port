@@ -326,6 +326,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>、<PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/containment/carousel">カルーセル</PageLink>、<PageLink to="/components/containment/list">リスト</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "ジェスチャーを唯一の手段にしない", d: "見つけにくいジェスチャーだけに重要な操作を任せない", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "代わりの操作を用意する", d: "複数の指・軌跡・ドラッグ・端末を動かす操作には、別の方法も用意", who: "W3C 2.5.1・2.5.7・2.5.4" },
+  { n: 3, t: "標準のジェスチャーの意味を変えない", d: "タップ・スワイプなどの意味をそろえる", who: "Apple" },
+  { n: 4, t: "離したときに実行する", d: "押した瞬間ではなく、離したときに実行する", who: "W3C" },
+  { n: 5, t: "キーボードだけでも操作できる", d: "", who: "W3C 2.1.1" },
+];
+
 export default function TokensInputMethodsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -351,7 +360,7 @@ export default function TokensInputMethodsPage() {
           </div>
 
           <h1 style={styles.title}>入力方法・ジェスチャー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="よく使われるジェスチャー(概念図)"
             image={<><GestureSwatch /></>}
             imageNote={<>丸は指の位置、矢印は動かす方向だ。タップや長押しは1本指で軌跡がない操作、スワイプ・ドラッグは軌跡がある操作、ピンチ・回転は2本指の操作、振るは端末そのものの動きで、W3Cはこの違いごとに求めることを変えている。</>}

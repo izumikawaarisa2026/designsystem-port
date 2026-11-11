@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / リスト」ページ。
@@ -255,6 +255,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "", who: "AI解釈" },
+  { n: 2, t: "画像が中心で眺めて選ぶ一覧は、カードにする", d: "", who: "AI解釈" },
+  { n: 3, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
+];
+
 export default function ContainmentListPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -280,7 +287,7 @@ export default function ContainmentListPage() {
           </div>
 
           <h1 style={styles.title}>リスト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ListSwatch /></>}
             imageNote={<>テキスト・画像を縦に連続して並べる索引。「カード」ページで比較した、ブラウジング型のカード表示とは使い分けの関係にある。</>}
             lead={LEAD}
@@ -387,12 +394,8 @@ export default function ContainmentListPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/card" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>カード ↗</div>
-              <div style={styles.linkCardDesc}>ブラウジング型の閲覧に適した要約表示との使い分けはこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/table", "/components/containment/accordion"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

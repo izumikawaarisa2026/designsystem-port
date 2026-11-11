@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ダイアログ(基本ダイアログ)」ページ。
@@ -262,6 +262,30 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "本当に重要な場面だけに使う", d: "多用すると読まずに押されるようになる", who: "NN group" },
+  { n: 2, t: "優先度の低い知らせはスナックバーにする", d: "", who: "Google" },
+  { n: 3, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
+  { n: 4, t: "ボタンは2つまで", d: "", who: "Google" },
+  { n: 5, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 確認ボタンのラベル"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>削除</span></div></div>, text: "確認ボタンが「削除」で、押すと何が起きるか分かる。" },
+              { kind: "bad", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>OK</span></div></div>, text: "確認ボタンが「OK」だけで、押すと何が起きるかをタイトルまで読み返さないと分からない。" },
+            ]}
+            basis="Google(確認ボタンのラベルは「削除」のように次に起きることが分かる語にし、「OK」のようなあいまいな語は避ける)。"
+            note="ボタンの並び順(確認が右か左か)は系列で違うので、この図では扱わない。"
+          />
+  );
+}
+
 export default function ContainmentDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -287,7 +311,7 @@ export default function ContainmentDialogPage() {
           </div>
 
           <h1 style={styles.title}>モーダルダイアログ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><DialogSwatch /></>}
             imageNote={<>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</>}
             lead={LEAD}
@@ -295,6 +319,8 @@ export default function ContainmentDialogPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -394,16 +420,8 @@ export default function ContainmentDialogPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/fullscreen-dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>フルスクリーンダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>画面全体を占め、一連のタスク完了に使うダイアログの4系列比較(このページから独立)</div>
-            </a>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告に限らない、より汎用的な重ね表示オーバーレイの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/fullscreen-dialog", "/components/containment/bottom-sheet", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

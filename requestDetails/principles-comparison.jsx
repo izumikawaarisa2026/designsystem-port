@@ -114,6 +114,7 @@ const FRAMEWORKS = [
 const OVERLAP_ROWS = [
   { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
   { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "状況を伝える", hig: "Agency(状況を伝える部分)", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし</NoData>, nn: "システム状態の可視性" },
   { theme: "単純さ・最小限", hig: "Simplicity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし</NoData>, nn: "美的で最小限のデザイン" },
   { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
   { theme: "アクセシビリティを前提とする発想", hig: <NoData>直接対応する項目なし(Responsibilityは関連する考え方)</NoData>, material: "Accessible(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
@@ -135,6 +136,10 @@ function CountDots({ count, color, label, text }) {
     </div>
   );
 }
+
+/* 公式へのリンクは、飛び先のページ名で示す */
+const LINK_NAMES = {"https://developer.apple.com/design/human-interface-guidelines/design-principles": "HIG: Design principles", "https://m1.material.io/material-design/introduction.html": "Material Design 1: Introduction", "https://design.google/library/material-design-eras": "Google Design: Explore First 10 Years of Material Design’s Evolution", "https://design.google/library/expressive-material-design-google-research": "Google Design: Expressive Design: Google's UX Research", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.nngroup.com/articles/ten-usability-heuristics/": "10 Usability Heuristics for User Interface Design"};
+const linkName = (u) => LINK_NAMES[u] || u;
 
 export default function PrinciplesComparisonPage() {
   return (
@@ -238,7 +243,7 @@ export default function PrinciplesComparisonPage() {
                           <div style={styles.genHead}>
                             <span style={styles.genName}>{it.name}</span>
                             {it.url && (
-                              <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>
+                              <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.url)} ↗</a>
                             )}
                             {it.more && (
                               <a href={it.more.url} target="_blank" rel="noreferrer" style={styles.genLink}>{it.more.label} ↗</a>
@@ -268,9 +273,7 @@ export default function PrinciplesComparisonPage() {
                   </div>
                 )}
                 <div style={styles.sourceFootRow}>
-                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                    公式ページへ ↗
-                  </a>
+                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                 </div>
               </div>
             ))}
@@ -291,7 +294,7 @@ export default function PrinciplesComparisonPage() {
                           <div key={it.name} style={styles.genBlock}>
                             <div style={styles.genHead}>
                               <span style={styles.genName}>{it.name}</span>
-                              {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>)}
+                              {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.url)} ↗</a>)}
                             </div>
                             <p style={styles.genDesc}>{it.desc}</p>
                             <div style={styles.genSubList}>
@@ -317,9 +320,7 @@ export default function PrinciplesComparisonPage() {
                     </div>
                   )}
                   <div style={styles.sourceFootRow}>
-                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                      公式ページへ ↗
-                    </a>
+                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                   </div>
                 </div>
               ))}

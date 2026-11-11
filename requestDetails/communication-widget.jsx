@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, PageToc } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ウィジェット(ホーム画面ウィジェット)」ページ。
@@ -59,12 +59,12 @@ const SOURCES = [
     doc: "Android Developers ― Widgets(Sizing・Widget quality guide)",
     term: "App widget(Android)",
     color: "#2F7D6E",
-    position: "ホーム画面のマス数で大きさを決め、品質を3段階のチェックリストで判定する",
+    position: "ホーム画面のマス数で大きさを決め、品質ガイド(Widget quality guide)のチェック項目で作り方を示す",
     size: "2×1〜4×3のマス数と幅・高さの範囲(dp)。主なサイズは上の比較図。最小でも押せる範囲48×48dp",
-    colorInfo: "テーマの色・ライト/ダーク・システムの角丸に対応すると最上位(下の3段階)",
+    colorInfo: "テーマの色・ライト/ダーク・システムの角丸に対応することを、品質ガイドのチェック項目に挙げている",
     stance: "外される主な理由は「ホーム画面でずれて見えること」。マスを端まで埋め、独自の余白を付けない",
     exceptions: "長方形でなくても、向かい合う2辺に接すれば標準。ヘッダーは全面写真や狭い場合は省略できる",
-    accessibility: "知覚可能・操作可能 ― コントラスト不足は低品質。最小サイズで48×48dpを標準の条件にする",
+    accessibility: "知覚可能・操作可能 ― 品質ガイドでは、コントラストが足りないものを避ける例に挙げ、最小サイズでも押せる範囲を48×48dpにすることを挙げている",
     useCases: [
       "1つの主な用途を決め、割り当てられたマスを端まで埋める",
       "2×2・4×1・4×2のいずれかにリサイズでき、大きさで内容を出し入れする",
@@ -90,14 +90,10 @@ const SOURCES = [
     position: "ホーム画面のウィジェットの基準はない。ARIAの「widget」は操作部品全般を指す別の言葉",
     size: "専用の数値なし。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる",
     colorInfo: "―(専用の定めなし。カラー・ボタンのページと同じ基準)",
-    glossary: [
-      { term: "widget(WAI-ARIA)", desc: "利用者が操作できる、独立したUIの部品を表す抽象ロール。button・checkbox・sliderなどがこれに属する。ホーム画面に置くウィジェットとは別の概念。" },
-    ],
     stance: "Webのコンテンツが対象で、OSのホーム画面の部品の見た目や大きさは扱わない",
     exceptions: "―",
     accessibility: "知覚可能・操作可能 ― 1.4.3(コントラスト)・2.5.8(ターゲットサイズ)・1.4.1(色)で確認する",
     useCases: [
-      "「ウィジェット」がホーム画面の部品か、ARIAの操作部品かを取り違えない",
       "ウィジェットの中の文字は、背景と4.5:1以上のコントラストを目安にする",
       "押せる部分は小さくしすぎない(24px以上・Androidの品質基準では48dp)",
     ],
@@ -429,6 +425,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>アプリの中で情報をまとめて見せるのは<PageLink to="/components/containment/card">カード</PageLink>。ウィジェットはアプリの外に置く</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1つの主な目的に絞る", d: "", who: "Apple・Google・NN group" },
+  { n: 2, t: "アプリを開かずに、一目で分かる内容にする", d: "", who: "Apple・Google・NN group" },
+  { n: 3, t: "大きさに合わせて、見せる量を変える", d: "", who: "Apple・Google" },
+];
+
 export default function CommunicationWidgetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -454,13 +457,15 @@ export default function CommunicationWidgetPage() {
           </div>
 
           <h1 style={styles.title}>ウィジェット(ホーム画面ウィジェット)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同じウィジェットでも、大きさで見せる量を変える(概念図)"
             image={<><WidgetSizesSwatch /></>}
             imageNote={<>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やす。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決める(Apple)。寸法はiPhoneの小・中・大の比率で描いている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <WidgetIntro />
 
@@ -481,10 +486,10 @@ export default function CommunicationWidgetPage() {
               Apple・Google・NN groupの3系列がそろって一致しているのは、<strong>1つの主な目的に絞り、アプリを開かずに一目で分かる内容にする</strong>という点だ。Appleは天気の例で「今の最高・最低気温と天気」を挙げ、Googleは「1つの主な用途を選ぶ」ことを最初の手順にし、NN groupは<strong>利用者が追いたい「1つのこと」を見つけ、収まる単位に圧縮できるか</strong>が最大の課題だとしている。
             </p>
             <p style={styles.synthesisText}>
-              大きさの決め方は違う。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定める。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを3段階の品質チェックリストにしている。
+              大きさの決め方は違う。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定める。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを品質ガイドのチェック項目に挙げている。
             </p>
             <p style={styles.synthesisText}>
-              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないものを低品質</strong>としている。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めている。
+              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないもの</strong>を、品質ガイドで避ける例に挙げている。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めている。
             </p>
             <p style={styles.synthesisText}>
               W3Cには<strong>ホーム画面のウィジェットの基準はなく</strong>、WAI-ARIAの「widget」はボタンなどの操作部品全般を指す別の言葉だ。実務では、<strong>主目的を1つに決めて大きさごとに見せる量を設計し、文字のコントラスト・押せる範囲・色だけに頼らない表現を、通常の画面と同じ基準で確かめる</strong>のが、4系列を合わせた結論だ。
@@ -566,6 +571,8 @@ export default function CommunicationWidgetPage() {
             <AppearanceModes />
           </section>
 
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/tokens/adaptive", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

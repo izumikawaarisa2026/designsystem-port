@@ -157,6 +157,7 @@ const NAV_SECTIONS = [
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "カード", path: "/components/containment/card", built: true },
+      { label: "ウィジェット", path: "/components/communication/widget", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
@@ -176,7 +177,6 @@ const NAV_SECTIONS = [
       { label: "バッジ", path: "/components/communication/badge", built: true },
       { label: "空状態", path: "/components/communication/empty-state", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
-      { label: "ウィジェット", path: "/components/communication/widget", built: true },
     ],
   },
   {
@@ -425,7 +425,7 @@ const styles = {
 return SidebarNav;
 })();
 /* ================= page-parts.jsx ================= */
-const { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection } = (function () {
+const { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection, RelatedPages, PageToc } = (function () {
 
 /**
  * 各ページで共通に使う部品(③本人レビュー No.001 で決めたページのひな形)。
@@ -436,6 +436,10 @@ const { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagA
  * - NoData: 比較の中の「記載なし」「数値基準なし」「未確認」など、データがない箇所(薄いグレーの文字で示す)
  * - TagLink / TAG_LIST: ページ末尾のタグ。横断ビューの、そのタグの一覧へのリンクにする
  * - SplitSection: 「意見が分かれる点」(同じ問いに対して、系列によって答えが違う点)
+ * - RelatedPages: ページ末尾の「関連するページ」(名前と1文の説明は、ビルド時に作る PAGE_INDEX から引く)
+ * - PageToc: 長いページの上部に置く目次「このページの内容」(ページの見出しから自動で作る)
+ * - KeyPoints: 「まず押さえる要点」。SummaryCard に keyPoints を渡すと、概要の1行とサマリーの枠の間に出る
+ * - GoodBad: 良い例・悪い例の図(良い/悪いは文字のラベルでも示す)
  *
  * ビルド(build_preview.py)では、このファイルの export した名前が全ページから使えるようになる。
  * 各ページでは import { SummaryCard, RefList, SplitSection } from "./page-parts"; と書いて使う。
@@ -445,10 +449,11 @@ const LINK = "#3A4FCF";
 
 /* タイトルの下のサマリー。タイトル直下に、どんな部品か(lead)の1文。その下の枠の中に、イメージ図 → 目的・役割などの表(グレーの背景)を置く。
    lead は1文の定義(静的版のページ説明にも使われる。class="dsp-lead" を目印にしている)、rows は「目的・役割」などの行 */
-function SummaryCard({ image, imageLabel, imageNote, lead, rows }) {
+function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoints, keyPointsTitle }) {
   return (
     <>
       <p className="dsp-lead" style={partStyles.lead}>{lead}</p>
+      {keyPoints && <KeyPoints items={keyPoints} title={keyPointsTitle} />}
       <section style={partStyles.summary}>
         {image && (
           <div style={partStyles.summaryImage}>
@@ -467,6 +472,53 @@ function SummaryCard({ image, imageLabel, imageNote, lead, rows }) {
         </dl>
       </section>
     </>
+  );
+}
+
+/* 「まず押さえる要点」(2026-11 ⑦本人レビュー)。タイトル → 概要の1行 → この要点 → サマリー の順に置く。
+   形はダークモードのページの要点と同じ(番号・見出し・1文の説明・根拠の系列)。items: [{ n, t, d, who }]。
+   根拠が「AI解釈」のものは、公式の記載ではなくこのサイトの解釈 */
+function KeyPoints({ items, title }) {
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={partStyles.h2}>{title || "まず押さえる要点"}</h2>
+      <ol style={partStyles.kpList}>
+        {items.map((k) => (
+          <li key={k.n} style={partStyles.kpItem}>
+            <span style={partStyles.kpNum}>{k.n}</span>
+            <div style={{ minWidth: 0 }}>
+              <div style={partStyles.kpTitle}>{k.t}</div>
+              {k.d && <div style={partStyles.kpText}>{k.d}</div>}
+              {k.who && <div style={partStyles.kpWho}>{k.who}</div>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマホの幅では縦)、それぞれに
+   どこが良い/悪いかの1文を添え、最後に根拠(系列名と基準)を置く。良い/悪いは色だけでなく文字のラベルでも示す。
+   items: [{ kind: "good"|"bad", label?, fig, text }]、basis: 根拠の文、note: 注記(任意) */
+function GoodBad({ title, items, basis, note }) {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={partStyles.h2}>{title}</h2>
+      <div style={partStyles.gbGrid}>
+        {items.map((it, i) => (
+          <div key={i} style={partStyles.gbCard}>
+            <span style={{ ...partStyles.gbLabel, ...(it.kind === "good" ? partStyles.gbGood : partStyles.gbBad) }}>
+              {it.kind === "good" ? "◯ " : "✕ "}{it.label || (it.kind === "good" ? "良い例" : "悪い例")}
+            </span>
+            <div style={partStyles.gbFig}>{it.fig}</div>
+            <p style={partStyles.gbText}>{it.text}</p>
+          </div>
+        ))}
+      </div>
+      {basis && <p style={partStyles.gbBasis}>根拠: {basis}</p>}
+      {note && <p style={partStyles.gbBasis}>{note}</p>}
+    </section>
   );
 }
 
@@ -565,7 +617,357 @@ function SplitSection({ title, splits }) {
   );
 }
 
+/* サイト内の全ページの名前と1文の説明(各ページの LEAD・lead・サブタイトル)。
+   ビルド時に preview-build/gen_page_index.py が、サイドバーと各ページから作り直す(手で編集しない) */
+/*__PAGE_INDEX_START__*/
+const PAGE_INDEX = {
+ "/principles/comparison": {
+  "label": "原則比較",
+  "lead": "4つのガイドラインが、それぞれ何本の原則を、何のために定めているかを比較する"
+ },
+ "/principles/accessibility": {
+  "label": "アクセシビリティ",
+  "lead": "4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する"
+ },
+ "/tokens/overview": {
+  "label": "ファウンデーションの思想比較",
+  "lead": "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページだ。"
+ },
+ "/tokens/color": {
+  "label": "カラー",
+  "lead": "画面の色の決め方と、文字や部品を読みやすくするための色の差(コントラスト)の基準だ。"
+ },
+ "/tokens/typography": {
+  "label": "タイポグラフィ",
+  "lead": "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりだ。"
+ },
+ "/tokens/writing": {
+  "label": "文章・UXライティング",
+  "lead": "ボタン・見出し・エラーなど、画面に出る言葉の書き方の決まりだ。"
+ },
+ "/tokens/icon": {
+  "label": "アイコン",
+  "lead": "アイコンの大きさ・線の太さなどのスタイルと、意味の伝え方の決まりだ。"
+ },
+ "/tokens/layout-spacing": {
+  "label": "レイアウト・スペーシング",
+  "lead": "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まりだ。"
+ },
+ "/tokens/shape": {
+  "label": "シェイプ・コーナーラジウス",
+  "lead": "部品の角の丸み(角丸)と、形の使い分けの決まりだ。"
+ },
+ "/tokens/elevation": {
+  "label": "エレベーション・階層表現",
+  "lead": "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりだ。"
+ },
+ "/tokens/dark-mode": {
+  "label": "ダークモード",
+  "lead": "暗い背景に明るい文字を置く配色(ダークモード)の切り替え方と作り方の決まりだ。"
+ },
+ "/tokens/adaptive": {
+  "label": "アダプティブ/レスポンシブ",
+  "lead": "画面の広さや向き、ウィンドウの大きさが変わったときに、レイアウトを組み替える考え方だ。"
+ },
+ "/components/actions/button": {
+  "label": "ボタン",
+  "lead": "押すとその場で処理を実行する部品だ(保存・送信・削除など)。"
+ },
+ "/tokens/interaction-states": {
+  "label": "インタラクション状態",
+  "lead": "ホバー・フォーカス・押している最中・使えないなど、部品の状態の見せ方の決まりだ。"
+ },
+ "/components/actions/fab": {
+  "label": "フローティングアクションボタン",
+  "lead": "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンだ。"
+ },
+ "/components/actions/link": {
+  "label": "リンク",
+  "lead": "押すと別のページや同じページの別の場所へ移動する、文字の部品だ。"
+ },
+ "/components/selection/overview": {
+  "label": "Selectionの選び方",
+  "lead": "値や項目を選ぶ部品を並べ、利用者が今何をしたいかから、どれを使うかを選ぶページだ。"
+ },
+ "/components/selection/checkbox": {
+  "label": "チェックボックス",
+  "lead": "四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
+ },
+ "/components/selection/radio": {
+  "label": "ラジオボタン",
+  "lead": "丸いボタンを並べ、選択肢の中から1つだけを選ばせる部品だ。"
+ },
+ "/components/selection/toggle": {
+  "label": "トグルスイッチ",
+  "lead": "押すとオンとオフがすぐに切り替わる、スイッチの形をした部品だ。"
+ },
+ "/components/selection/slider": {
+  "label": "スライダー",
+  "lead": "つまみを横に動かして、範囲の中から値を選ぶ部品だ。"
+ },
+ "/components/selection/chips": {
+  "label": "チップ(Chips)",
+  "lead": "短い言葉を小さな角丸の枠に入れた、選択・絞り込み・入力済みの値などを表す部品だ。"
+ },
+ "/components/selection/select": {
+  "label": "セレクト(プルダウン)",
+  "lead": "押すと選択肢の一覧が開き、その中から値を選ぶ部品だ(プルダウン)。"
+ },
+ "/components/selection/select-patterns": {
+  "label": "セレクトの種類(プルダウン以外)",
+  "lead": "プルダウンのほかにも、決まった選択肢から1つを選ぶ形はいくつかある。代表的な4つの形をまとめた。"
+ },
+ "/components/selection/menu": {
+  "label": "メニュー",
+  "lead": "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品だ。"
+ },
+ "/components/selection/date-time-picker": {
+  "label": "日付/タイムピッカー",
+  "lead": "カレンダーや回転する一覧などで、日付や時刻を選んで入力する部品だ。"
+ },
+ "/components/text-inputs/calendar": {
+  "label": "カレンダー(スケジュール/予定表)",
+  "lead": "予定を日・週・月などの表で見せる画面だ。予定表そのものの指針は、4系列ともない。"
+ },
+ "/components/text-inputs/text-field": {
+  "label": "テキストフィールド・テキストエリア",
+  "lead": "文字を入力する欄だ。1行の欄(テキストフィールド)と、複数行の欄(テキストエリア)を扱う。"
+ },
+ "/components/text-inputs/search-field": {
+  "label": "検索フィールド",
+  "lead": "言葉を入力して、アプリやサイトの中を検索するための入力欄だ。"
+ },
+ "/components/text-inputs/validation": {
+  "label": "エラー表示",
+  "lead": "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示だ。"
+ },
+ "/components/text-inputs/input-validation": {
+  "label": "バリデーション",
+  "lead": "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方だ。"
+ },
+ "/components/text-inputs/wizard": {
+  "label": "ウィザード(ステップ形式の入力)",
+  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形だ。"
+ },
+ "/components/navigation/tabs": {
+  "label": "タブ",
+  "lead": "横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
+ },
+ "/components/navigation/segmented-control": {
+  "label": "セグメントコントロール",
+  "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品だ。"
+ },
+ "/components/navigation/tabs-vs-segmented": {
+  "label": "タブとセグメントの使い分け",
+  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページだ。"
+ },
+ "/components/navigation/nav-bar": {
+  "label": "ナビゲーションバー",
+  "lead": "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーだ。"
+ },
+ "/components/navigation/app-bar": {
+  "label": "アプリバー",
+  "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバーだ。"
+ },
+ "/components/containment/drawer": {
+  "label": "ドロワー/サイドナビ",
+  "lead": "画面の横に、アプリの行き先の一覧を出すナビゲーションだ。スマホで一時的に開く「ナビゲーションドロワー」と、タブレット・PCで常に表示する「ナビゲーションレール/サイドバー」を扱う。"
+ },
+ "/components/navigation/breadcrumb": {
+  "label": "パンくずリスト",
+  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びだ。"
+ },
+ "/components/navigation/pagination": {
+  "label": "ページネーション",
+  "lead": "長い一覧をページに分け、ページ番号などで移動できるようにする部品だ。"
+ },
+ "/components/containment/overview": {
+  "label": "オーバーレイの使い分け",
+  "lead": "今の画面の上に重ねて出す部品(オーバーレイ)を並べ、どれを使うかを比べるページだ。"
+ },
+ "/components/containment/dialog": {
+  "label": "モーダルダイアログ",
+  "lead": "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品だ。"
+ },
+ "/components/containment/fullscreen-dialog": {
+  "label": "フルスクリーンダイアログ",
+  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログだ。"
+ },
+ "/components/containment/side-sheet": {
+  "label": "サイドシート",
+  "lead": "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネルだ。"
+ },
+ "/components/containment/bottom-sheet": {
+  "label": "ボトムシート",
+  "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネルだ。"
+ },
+ "/components/containment/card": {
+  "label": "カード",
+  "lead": "1つの話題に関わる情報と操作を、1つの枠にまとめて見せる部品だ。"
+ },
+ "/components/communication/widget": {
+  "label": "ウィジェット",
+  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面だ。"
+ },
+ "/components/containment/list": {
+  "label": "リスト",
+  "lead": "同じ種類の項目を縦に並べて、一覧で見せる部品だ。"
+ },
+ "/components/containment/table": {
+  "label": "表(データテーブル)",
+  "lead": "行と列にデータを並べ、項目どうしを比べられるようにする部品だ。"
+ },
+ "/components/containment/carousel": {
+  "label": "カルーセル",
+  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せる部品だ。"
+ },
+ "/components/containment/accordion": {
+  "label": "アコーディオン(表示コントロール)",
+  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできる部品だ。"
+ },
+ "/components/communication/overview": {
+  "label": "情報伝達の使い分け",
+  "lead": "利用者に何かを知らせる部品を並べ、4つの判断軸と比較表で、どれを使うかを比べるページだ。"
+ },
+ "/components/communication/snackbar": {
+  "label": "スナックバー",
+  "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知だ。"
+ },
+ "/components/communication/toast": {
+  "label": "トースト",
+  "lead": "短い文を一時的に表示して自動で消える、操作のない通知だ(主にAndroidのOSの機能)。"
+ },
+ "/components/communication/tooltip": {
+  "label": "ツールチップ",
+  "lead": "部品にマウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出す部品だ。"
+ },
+ "/components/communication/progress": {
+  "label": "プログレスインジケーター",
+  "lead": "処理がどこまで進んだか、または処理中であることを示す表示だ。"
+ },
+ "/components/communication/alert": {
+  "label": "ステータスメッセージ(アラート)",
+  "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージだ。"
+ },
+ "/components/communication/banner": {
+  "label": "バナー",
+  "lead": "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせだ。"
+ },
+ "/components/communication/badge": {
+  "label": "バッジ",
+  "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印だ。"
+ },
+ "/components/communication/empty-state": {
+  "label": "空状態",
+  "lead": "表示する中身がない画面(空状態)の見せ方だ。"
+ },
+ "/components/communication/loading": {
+  "label": "ローディング状態",
+  "lead": "中身を読み込んでいる最中の画面の見せ方だ。"
+ },
+ "/tokens/motion": {
+  "label": "モーション/アニメーション",
+  "lead": "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まりだ。"
+ },
+ "/tokens/sound": {
+  "label": "サウンド",
+  "lead": "操作や通知に音を付けるかどうか、どう作るか、音に頼れない人への配慮の決まりだ。"
+ },
+ "/tokens/input-methods": {
+  "label": "入力方法・ジェスチャー",
+  "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなど入力手段の扱い方の決まりだ。"
+ },
+ "/cross-view": {
+  "label": "タグから見る",
+  "lead": "各ページの末尾に付けたタグを逆引きして、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで一覧にする"
+ }
+};
+/*__PAGE_INDEX_END__*/
+
+/* ページ末尾の「関連するページ」(ページ設計ルール1-8)。paths: サイト内のパスの配列。
+   名前と説明は PAGE_INDEX から引くので、リンク先のページの説明を変えても自動で追従する */
+function RelatedPages({ paths }) {
+  const list = (paths || []).filter((p) => PAGE_INDEX[p]);
+  if (!list.length) return null;
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={partStyles.h2}>関連するページ</h2>
+      <div style={partStyles.relatedGrid}>
+        {list.map((p) => (
+          <a key={p} href={p} style={partStyles.relatedCard}>
+            <span style={partStyles.relatedName}>{PAGE_INDEX[p].label} ↗</span>
+            {PAGE_INDEX[p].lead && <span style={partStyles.relatedLead}>{PAGE_INDEX[p].lead}</span>}
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* 長いページの上部に置く、ページ内の目次。表示後にページの見出し(h2)を順に集めて作る。
+   通常版はURLの # でページを切り替えるため、押したときはスクロールだけ行う(静的版では普通のページ内リンク) */
+function PageToc() {
+  const ref = React.useRef(null);
+  const [items, setItems] = React.useState([]);
+  React.useEffect(() => {
+    const root = ref.current && ref.current.closest(".dsp-inner");
+    if (!root) return;
+    const hs = Array.from(root.querySelectorAll("h2"));
+    // 「A ― B」の見出しは前半だけを出す。ただし前半が短い・系列名・ほかの見出しと重なるときは全文
+    const heads = hs.map((h) => h.textContent.trim().split(" ― ")[0]);
+    setItems(hs.map((h, i) => {
+      if (!h.id) h.id = "sec-" + (i + 1);
+      const full = h.textContent.trim();
+      const head = heads[i];
+      const series = ["Apple", "Google", "W3C", "NN group", "Nielsen Norman Group"].includes(head);
+      const dup = heads.filter((x) => x === head).length > 1;
+      return { id: h.id, label: head.length >= 5 && !series && !dup ? head : full };
+    }));
+  }, []);
+  const go = (e, id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  return (
+    <nav ref={ref} aria-label="このページの内容" style={partStyles.toc}>
+      <span style={partStyles.tocLabel}>このページの内容</span>
+      <ol style={partStyles.tocList}>
+        {items.map((it) => (
+          <li key={it.id} style={partStyles.tocItem}>
+            <a href={"#" + it.id} onClick={(e) => go(e, it.id)} style={partStyles.tocLink}>{it.label}</a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
+
 const partStyles = {
+  gbGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 },
+  gbCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF", minWidth: 0 },
+  gbLabel: { display: "inline-block", fontSize: 12, fontWeight: 700, borderRadius: 3, padding: "2px 8px", marginBottom: 10 },
+  gbGood: { color: "#245C30", background: "#E7F3EA", border: "1px solid #B9DBC1" },
+  gbBad: { color: "#9B2F25", background: "#FBEAE8", border: "1px solid #EDBDB7" },
+  gbFig: { border: "1px dashed #C7CBE6", borderRadius: 4, padding: "14px 12px", background: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, minHeight: 90 },
+  gbText: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 0" },
+  gbBasis: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: "10px 0 0" },
+  kpList: { listStyle: "none", margin: 0, padding: "14px 16px", border: "1px solid #E1E3F0", borderRadius: 6, display: "flex", flexDirection: "column", gap: 10 },
+  kpItem: { display: "flex", gap: 10, alignItems: "flex-start" },
+  kpNum: { flexShrink: 0, width: 20, height: 20, borderRadius: "50%", background: "#3A4FCF", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 },
+  kpTitle: { fontSize: 13, fontWeight: 700, color: "#171B36" },
+  kpText: { fontSize: 12, lineHeight: 1.6, color: "#2E3457" },
+  kpWho: { fontSize: 11, lineHeight: 1.5, color: "#666D93" },
+  relatedGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10 },
+  relatedCard: { display: "flex", flexDirection: "column", gap: 4, textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", color: "inherit" },
+  relatedName: { fontSize: 13.5, fontWeight: 700, color: LINK },
+  relatedLead: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78" },
+  toc: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 16px", marginBottom: 32 },
+  tocLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", marginBottom: 6 },
+  tocList: { margin: 0, padding: "0 0 0 20px", columns: "2 220px", columnGap: 24 },
+  tocItem: { fontSize: 12.5, lineHeight: 1.8, color: "#454C78", breakInside: "avoid" },
+  tocLink: { color: LINK, textDecoration: "none" },
   summary: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 20px 20px", marginBottom: 40 },
   summaryImage: { textAlign: "center", marginBottom: 18 },
   summaryImageLabel: { display: "block", fontSize: 11.5, fontWeight: 700, color: "#454C78", textAlign: "left", marginBottom: 18 },
@@ -593,7 +995,7 @@ const partStyles = {
   splitTip: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "6px 10px", marginTop: 10, borderRadius: "0 3px 3px 0" },
 };
 
-return { SummaryCard, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection };
+return { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, TAG_LIST, tagAnchor, TagLink, SplitSection, RelatedPages, PageToc };
 })();
 /* ================= actions-button.jsx ================= */
 const ActionsButtonPage = (function () {
@@ -1042,6 +1444,8 @@ function ButtonTabContent({ tabId }) {
 
     {tabId === "a11y" && (
       <>
+        <GoodBadFigure />
+
         <div style={styles.diagramCard}>
           <h2 style={styles.diagramTitle}>参考: 四系列比較図(実寸オーバーレイ)</h2>
           <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
@@ -1097,6 +1501,33 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "主なボタンの押せる範囲は44〜48", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+  { n: 2, t: "縮めても24pxを下回らない", d: "足りない分は周りの間隔で補う", who: "W3C 2.5.8" },
+  { n: 3, t: "まず操作の意味を決め、次に目立たせ方を選ぶ", d: "役割(Apple)と優先度(Google)は両立する", who: "AI解釈" },
+  { n: 4, t: "削除のような操作は目立たせすぎない", d: "選ばれやすくても目立つ見た目にしない", who: "Apple" },
+  { n: 5, t: "主な操作と副次的な操作を見分けられるように", d: "主な操作に専用の色を当てる", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+          title="良い例・悪い例 ― 押せる範囲"
+          items={[
+            { kind: "good", fig: <><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">
+          {[30, 100, 170].map((x) => (<g key={x}><rect x={x - 24} y="11" width="48" height="48" fill="none" stroke="#2F7D6E" strokeDasharray="4 3" /><rect x={x - 11} y="24" width="22" height="22" rx="5" fill="#3A4FCF" /></g>))}
+        </svg><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "見た目は小さいボタンでも、押せる範囲(点線)をApple 44×44pt・Google 48×48dp確保し、隣と重ならない。" },
+            { kind: "bad", fig: <><svg width="200" height="70" viewBox="0 0 200 70" aria-hidden="true">
+          {[76, 100, 124].map((x) => (<g key={x}><rect x={x - 24} y="11" width="48" height="48" fill="none" stroke="#C0503F" strokeDasharray="4 3" /><rect x={x - 11} y="24" width="22" height="22" rx="5" fill="#3A4FCF" /></g>))}
+        </svg><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さいボタンが余白なしで並び、押せる範囲が重なる。押し間違えやすい。" },
+          ]}
+          basis="Apple(既定44×44pt。足りない分は周りの余白で補う)、Google(48×48dp)、W3C 2.5.8(24×24 CSS px・AA。例外あり。小さい場合は、中心に描いた直径24pxの円が隣と重ならない間隔で補える)。"
+        />
+  );
+}
+
 function ActionsButtonPage() {
   const [tabId, setTabId] = useState("a11y");
   const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
@@ -1121,7 +1552,7 @@ function ActionsButtonPage() {
           </div>
 
           <h1 style={styles.title}>ボタン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<ButtonSwatch />}
             imageNote="優先度の異なる2つの見た目の例(強調 / 中間)。系列によって呼び方や境界は異なる。"
@@ -1163,6 +1594,8 @@ function ActionsButtonPage() {
           ) : (
             <ButtonTabContent tabId={tabId} />
           )}
+
+          <RelatedPages paths={["/tokens/interaction-states", "/components/actions/fab", "/components/actions/link", "/tokens/shape", "/principles/accessibility"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -1527,6 +1960,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1画面に1つ、主な操作だけ", d: "新規作成など、その画面でいちばん大事な操作に使う", who: "Google" },
+  { n: 2, t: "iOS・iPadOSにはFABがない", d: "ツールバーなどに置く", who: "Appleは該当なし" },
+  { n: 3, t: "OSごとに置き場所を変えても、名前とアイコンはそろえる", d: "", who: "AI解釈" },
+  { n: 4, t: "大きさは56dp以上", d: "いちばん小さいFABでもW3CのAA・AAAを満たす", who: "Google・W3C" },
+];
+
 function ActionsFabPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -1548,7 +1989,7 @@ function ActionsFabPage() {
           </div>
 
           <h1 style={styles.title}>フローティングアクションボタン(FAB)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<><FabSwatch /></>}
             imageNote={<>Material 3の3サイズ(2025年5月改訂)。丸いコンテナに塗りつぶしアイコンを乗せる形が共通する。</>}
@@ -1652,6 +2093,8 @@ function ActionsFabPage() {
           </div>
 
           <p style={styles.diagramNote}>押せる範囲の基準(2.5.8・2.5.5の例外を含む)は、<PageLink to="/components/actions/button">ボタン</PageLink>のページの「アクセシビリティ」を参照。Material公式のFAB(56dp)は、どの系列の目安も満たす。</p>
+
+          <RelatedPages paths={["/components/actions/button", "/tokens/motion", "/tokens/shape", "/components/navigation/nav-bar"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -1972,6 +2415,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "移動はリンク、処理の実行はボタン", d: "役割で使い分ける", who: "このサイトの整理(サマリーの「似た部品との違い」)" },
+  { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
+  { n: 3, t: "下線を省くなら差を確かめる", d: "周りの文字と3:1以上", who: "W3C 1.4.1・G183" },
+  { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― リンクの見分け方"
+            items={[
+              { kind: "good", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF", textDecoration: "underline" }}>料金プランの比較</span>をご覧ください。</p>, text: "本文の中のリンクに色と下線の両方があり、ひと目でリンクと分かる。" },
+              { kind: "bad", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF" }}>料金プランの比較</span>をご覧ください。</p>, text: "色だけで示し、周りの文字(#2E3457)との明るさの差が1.83:1で3:1に届かない。リンクと気づきにくい。" },
+            ]}
+            basis="NN group(色と下線の両方があるのが最も分かりやすい)、W3C 1.4.1・G183(色だけで見分けさせるなら、周りの文字と3:1以上)。比はこのサイトで計算した値。"
+            note="下線を必ず付けるかは系列で違う(NN groupも必須とはしていない)。悪い例は、下線がないことではなく、色の差が足りないことを示している。"
+          />
+  );
+}
+
 function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -1993,13 +2459,15 @@ function ActionsLinkPage() {
           </div>
 
           <h1 style={styles.title}>リンク</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ"
             image={<><LinkSwatch /></>}
             imageNote={<>色+下線(濃い青=未訪問)と、彩度を落とした色(訪問済み)の組み合わせ例。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
@@ -2121,6 +2589,8 @@ function ActionsLinkPage() {
             </div>
             <p style={styles.diagramNote}>○=明確に求める / △=条件付き / ―=直接の言及なし</p>
           </div>
+
+          <RelatedPages paths={["/components/actions/button", "/tokens/color", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -2467,6 +2937,15 @@ const ROWS = [
   ["文言", "wording"], ["避けること", "avoid"], ["アクセシビリティ(WCAG基準)", "accessibility"],
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "情報の重さに合わせて、伝え方を変える", d: "", who: "Apple" },
+  { n: 2, t: "状態の知らせは、対象の近くに控えめに置く", d: "", who: "Apple" },
+  { n: 3, t: "作業を止めるのは、取り返しのつかないデータ損失のときだけ", d: "", who: "Apple" },
+  { n: 4, t: "入力の誤りは、欄の近くに出す", d: "", who: "NN group" },
+  { n: 5, t: "見た目だけでなく、支援技術にも伝える", d: "", who: "W3C 4.1.3" },
+];
+
 function CommunicationStatusMessagePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -2488,7 +2967,7 @@ function CommunicationStatusMessagePage() {
           </div>
 
           <h1 style={styles.title}>ステータスメッセージ(アラート)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<StatusSwatch />}
             imageNote="成功・情報・注意・エラーを、色だけでなくアイコンと文字でも区別する。"
             lead={LEAD}
@@ -2576,6 +3055,8 @@ function CommunicationStatusMessagePage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/banner", "/components/communication/snackbar", "/components/text-inputs/validation", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -2944,6 +3425,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "件数に意味があるなら数字、あることだけ伝えるなら点", d: "", who: "AI解釈" },
+  { n: 2, t: "数が大きくなったら「999+」のようにまとめる", d: "", who: "AI解釈" },
+  { n: 3, t: "数字は最大4文字", d: "", who: "Google" },
+  { n: 4, t: "支援技術に伝わる名前に、件数を含める", d: "", who: "W3C 4.1.2。AI解釈" },
+];
+
 function CommunicationBadgePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -2965,7 +3454,7 @@ function CommunicationBadgePage() {
           </div>
 
           <h1 style={styles.title}>バッジ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BadgeSwatch /></>}
             imageNote={<>存在の有無だけを示すドット型と、具体的な件数を示す数字型の2種類が、Google(M3)・Apple・NN groupの定義に共通して見られる。</>}
             lead={LEAD}
@@ -2983,10 +3472,10 @@ function CommunicationBadgePage() {
               Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。実務で広く使われる対応方法は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに畳み込むという、ARIA14の手法を応用したものだ。つまり、バッジ専用の基準ではなく、一般的な名前の付け方を当てはめたものだ。
+              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。対応の<strong>一例</strong>は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに含めるという、ARIA14の手法を当てはめた作り方だ(AI解釈)。4.1.2が求めるのは名前・役割・値をプログラムで取得できることで、この作り方を一律に求めているわけではない。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通し、Appleの実装にも見られるのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方で(W3Cは見た目の区分を定めていない)、これは名称こそ違えどAppleの実装(赤い楕円+数字/感嘆符)にも当てはまる。
+              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
             </p>
             <p style={styles.synthesisText}>
               総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴だ。
@@ -3082,16 +3571,8 @@ function CommunicationBadgePage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/banner" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>バナー ↗</div>
-              <div style={styles.linkCardDesc}>閉じるまで残り続けるインライン通知の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/navigation/nav-bar", "/components/navigation/tabs", "/tokens/icon"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -3408,6 +3889,12 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>成功・注意・エラーなど状態の知らせ方は<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見落とすと困るが、緊急ではない情報に使う", d: "", who: "Google" },
+  { n: 2, t: "作業を止めない", d: "画面の移動や操作はふさがない", who: "Google" },
+];
+
 function CommunicationBannerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -3429,7 +3916,7 @@ function CommunicationBannerPage() {
           </div>
 
           <h1 style={styles.title}>バナー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><AlertSwatch /></>}
             imageNote={<>画面上部などにインラインで表示され、ユーザーが対応するか明示的に閉じるまで残り続ける。「モーダルダイアログ」ページのように操作をブロックはしない。</>}
             lead={LEAD}
@@ -3556,20 +4043,8 @@ function CommunicationBannerPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>操作を完全にブロックするモーダルな確認・警告の4系列比較</div>
-            </a>
-            <a href="/components/communication/snackbar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>スナックバー ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持てる、操作不要で自動的に消えるパッシブ通知の4系列比較</div>
-            </a>
-            <a href="/components/communication/toast" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>トースト ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持たない、最も簡潔なパッシブ通知の4系列比較(M3では非該当)</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/alert", "/components/communication/snackbar", "/components/communication/toast", "/components/containment/dialog"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -3741,17 +4216,17 @@ const SOURCES = [
     doc: "WCAG 4.1.3 ステータスメッセージ",
     term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "空状態専用のロールはない。検索結果0件などの結果は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
+    position: "空状態専用のロールはない。検索結果0件などの結果を、フォーカスを移さずに画面を更新して知らせる場合は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)。",
+      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージだ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせる場合は、ステータスメッセージ(role=\"status\"など)として伝える。結果のページへ移動する場合や、フォーカスを移して見せる場合は対象外で、検索結果の表示すべてにrole=\"status\"を付けるという意味ではない。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索や絞り込みの結果が0件だったことを、画面を見ていない利用者にも伝えたい時",
     ],
     accessibility: "堅牢(Robust) ― 4.1.3は互換性(4.1)の基準で、POUR原則のうち「堅牢」に対応する。",
     useCases: [
-      "結果の件数や「見つかりませんでした」は、ステータスメッセージ(role=\"status\")で伝える(4.1.3)",
+      "その場で結果を書き換えて件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3。フォーカスを移さない場合)",
     ],
     searchHint: "status message",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
@@ -3868,7 +4343,7 @@ function EmptyWriting() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>空状態の文言 ― どうあるべきか</h2>
-      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなる(AI解釈。例文はAIの作例)。検索結果の件数などは、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝える(W3C 4.1.3)。</p>
+      <p style={styles.ewNote}>4系列の内容をまとめると、空状態の文言は次の3つの順で書くと伝わりやすくなる(AI解釈。例文はAIの作例)。検索結果の件数などをその場で画面を書き換えて知らせる場合は、画面に書くだけでなく、ステータスメッセージとして支援技術にも伝える(W3C 4.1.3)。</p>
       <div style={styles.ewSteps}>
         {EMPTY_STEPS.map((x) => (
           <div key={x.n} style={styles.ewStep}>
@@ -3921,6 +4396,27 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・Google・W3C・NN groupに共通する考え方" },
+  { n: 2, t: "利用者が自分で埋められる空には、作成のボタンを置く", d: "", who: "AI解釈" },
+  { n: 3, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 空状態の中身"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div>, text: "何もない理由の説明と、次にできる操作のボタンがある。" },
+              { kind: "bad", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><span style={{ fontSize: 13, color: "#454C78" }}>データがありません</span></div>, text: "「データがありません」だけで、なぜ空なのか、次に何をすればよいかが分からない。" },
+            ]}
+            basis="このページの「状況の説明と、次の行動への導線を置く」(Apple・Google・W3C・NN groupに共通する考え方)。文言はAIの作例。"
+          />
+  );
+}
+
 function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -3942,7 +4438,7 @@ function CommunicationEmptyStatePage() {
           </div>
 
           <h1 style={styles.title}>空状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><EmptyStateSwatch /></>}
             imageNote={<>「状況の説明+次の行動への導線」が4系列に共通する考え方。</>}
             lead={LEAD}
@@ -3952,6 +4448,8 @@ function CommunicationEmptyStatePage() {
           <SplitSection splits={SPLITS} />
 
 
+
+          <GoodBadFigure />
 
           <EmptyWriting />
 
@@ -3965,7 +4463,7 @@ function CommunicationEmptyStatePage() {
               最も具体的なのはNielsen Norman Groupで、空状態には<strong>「今の状況を伝える」「使い方を教える」「次の行動へ案内する」の3つの役割</strong>があるとしている。AppleのWritingのページも、<strong>次にできる操作を案内し、可能ならそのボタンやリンクを置く</strong>点で同じ考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果は、<strong>ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。
+              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果を<strong>フォーカスを移さずにその場で書き換えて知らせるなら、ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。結果のページへ移動して見せる場合は、4.1.3の対象ではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -4055,16 +4553,8 @@ function CommunicationEmptyStatePage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/loading" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ローディング状態 ↗</div>
-              <div style={styles.linkCardDesc}>読み込み中の見せ方(スケルトン画面など)の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/loading", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -4250,17 +4740,17 @@ const SOURCES = [
     position: "「ローディング状態」専用のロールはないが、内容が更新中であることを支援技術に伝えるaria-busy属性がある",
     size: <NoData>数値基準なし</NoData>,
     glossary: [
-      { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間は、ライブリージョンの変更内容の読み上げを更新完了まで遅らせることができる。複数箇所が同時に更新されるスケルトン画面などで、更新途中の不完全な状態が読み上げられてしまうのを防ぐ目的で使う。" },
+      { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間、支援技術は更新が終わるまで変更の読み上げを待つことができる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違い、aria-busyは更新中という状態を示す。" },
     ],
     stance:
-      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueに設定すると、ライブリージョン内で複数の変更が発生する間、更新が完了するまで読み上げを遅らせることができ、フィード(feed)のようなロールでも、rendering(描画中)の変更が読み上げから除外されるとしている。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
+      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱うことができる(MAY)としている。ライブリージョンで複数の変更を1つの読み上げにまとめたいとき、作り手はtrueにしておいて、変更が終わったらfalseに戻せる、という例も示している。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
     exceptions:
       "aria-busyは単独でも、要素が更新中であることを支援技術に示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もある。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる読み込み中の領域を扱いたい時",
-      "更新途中の不完全な状態を支援技術に読み上げさせたくない時",
+      "更新途中の不完全な状態を、支援技術に伝えにくくしたい時(支援技術が待つかどうかは支援技術による)",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝え、不完全な状態の誤った読み上げを防ぐことに関わる。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝えることに関わる(読み上げを必ず防げるわけではない)。",
     useCases: [
       "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
       "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
@@ -4289,12 +4779,12 @@ const SOURCES = [
     term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
     position: "読み込みの見せ方を、待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーで使い分けるべきとする(秒数の目安あり)",
-    size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスケルトン画面またはスピナー(個別モジュール向け)、10秒超はプログレスバーが望ましいとしている。",
+    size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスピナー(個別モジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバーが望ましいとしている。1〜2秒にどの表示を使うかは明記していない。",
     stance:
       "スケルトン画面は、ページ全体の骨組みをワイヤーフレーム風に示すことで、コンテンツが来ることを予告し体感待ち時間を和らげるパターンだとし、静的/アニメーション/フレーム表示の3タイプがあるとしている。ヘッダー・フッターだけを示す「フレーム表示」型は、空白ページのように見えて離脱を招きかねないため避けるべきだとしている。",
-    exceptions: "スケルトン画面/スピナー/プログレスバーの使い分けには、1秒・10秒という具体的な秒数の目安が示されている。",
+    exceptions: "スケルトン画面/スピナー/プログレスバーの使い分けには、1秒未満・2〜10秒・10秒という具体的な秒数の目安が示されている。",
     scenarios: [
-      "ページ全体の読み込みで、2〜10秒程度ならスケルトン画面を使いたい時",
+      "ページ全体の読み込みで、10秒未満ならスケルトン画面を使いたい時",
     ],
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の体感を和らげるという観点からの設計指針。",
     useCases: [
@@ -4314,7 +4804,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>スケルトン(2-10s)</span>
       </div>
     ),
-    illustrationNote: "スケルトン画面(2〜10秒の目安。概念図・系列識別色)",
+    illustrationNote: "スケルトン画面(10秒未満の目安。概念図・系列識別色)",
   },
 ];
 
@@ -4381,11 +4871,19 @@ const SPLITS = [
     q: "待ち時間が何秒なら、どの表示を出す?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "200ミリ秒未満は何も出さない。200ミリ秒〜5秒はLoading indicator。5秒を超えるならProgress indicator" },
-      { who: "NN group", color: "#7A4F7E", t: "1秒・10秒を目安に、スケルトン画面・スピナー・プログレスバーを使い分ける" },
+      { who: "NN group", color: "#7A4F7E", t: "1秒未満は何も出さない。2〜10秒はスピナー、10秒未満ならスケルトン画面も使える。10秒を超えるならプログレスバー(1〜2秒の表示は明記していない)" },
       { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
     ],
-    tip: "区切りの秒数は系列で違うが、「一瞬なら何も出さない」「数秒なら動く表示」「長いなら進み具合と残りを示す」という3段階は共通だ。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
+    tip: "区切りの秒数も、勧める表示も系列で違う。GoogleとNN groupはどちらも、ごく短い待ちには何も出さず、長い待ちには進み具合が分かる表示を勧めるが、区切り(Googleは200ミリ秒と5秒、NN groupは1秒と10秒)が違う。Appleは秒数ではなく、まず何かを見せることを勧める。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
   },
+];
+
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "一瞬で終わるなら、何も出さない", d: "", who: "AI解釈。NN groupは1秒未満" },
+  { n: 2, t: "数秒なら、動く表示(スケルトン画面かスピナー)を出す", d: "スピナーは2〜10秒、スケルトン画面は10秒未満", who: "NN group" },
+  { n: 3, t: "長いなら、進み具合を示す", d: "10秒を超えるならプログレスバー(残り時間を必ず出すという意味ではない)", who: "NN group" },
+  { n: 4, t: "できるだけ早く、何かを表示する", d: "", who: "Apple" },
 ];
 
 function CommunicationLoadingPage() {
@@ -4409,7 +4907,7 @@ function CommunicationLoadingPage() {
           </div>
 
           <h1 style={styles.title}>ローディング状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><LoadingStateSwatch /></>}
             imageNote={<>実際のレイアウトを模した骨組み(スケルトン)を先に見せる考え方。</>}
             lead={LEAD}
@@ -4427,10 +4925,10 @@ function CommunicationLoadingPage() {
               読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスケルトン画面かスピナー、10秒を超えるならプログレスバー</strong>だ(「プログレスインジケーター」ページの秒数の目安と共通)。
+              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(「プログレスインジケーター」ページの秒数の目安と共通)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝え、不完全な状態が読み上げられるのを防ぐ仕組みを用意している。見た目のスケルトン画面の裏側で、スクリーンリーダーの利用者が途中の内容を読まされないようにするための実装上のポイントだ。
+              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝える仕組みを用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。更新が終わったらfalseに戻す。変更を読み上げさせるのはaria-live(ライブリージョン)の役割で、aria-busyは「今は更新中」という状態を示すだけだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -4520,20 +5018,8 @@ function CommunicationLoadingPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/progress" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>プログレスインジケーター ↗</div>
-              <div style={styles.linkCardDesc}>確定的/不確定な進行状況表示の4系列比較</div>
-            </a>
-            <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態 ↗</div>
-              <div style={styles.linkCardDesc}>表示する中身がない画面の見せ方の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/progress", "/components/communication/empty-state"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -5107,6 +5593,13 @@ function RelatedPartsNote() {
   );
 }
 
+const LEAD = "利用者に何かを知らせる部品を並べ、4つの判断軸と比較表で、どれを使うかを比べるページだ。";
+const ABOUT = [
+  { k: "目的・役割", v: "作業を止めるか・対応が要るか・どう消えるか・どこに出すかで、知らせ方の部品を見分けられるようにする" },
+  { k: "扱う部品", v: <><PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、<PageLink to="/components/communication/banner">バナー</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、<PageLink to="/components/communication/toast">トースト</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
+  { k: "関連するページ", v: <>画面の上に重ねて内容や操作を出す部品は<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink></> },
+];
+
 function CommunicationOverviewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -5130,7 +5623,7 @@ function CommunicationOverviewPage() {
           </div>
 
           <h1 style={styles.title}>情報伝達の使い分け</h1>
-          <p style={styles.subtitle}>モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ。利用者に何かを知らせる6つの部品を、4つの判断軸と比較表(◯/△/✕)で使い分ける</p>
+          <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -5339,14 +5832,14 @@ const SOURCES = [
     term: "Progress indicator",
     color: "#7A4F7E",
     position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
-    size: "1秒未満は表示不要、1〜10秒はループアニメーション(スピナー)、10秒超は達成率表示(プログレスバー)が望ましいとしている。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
+    size: "1秒を超える処理には何か表示する(1秒未満は表示不要)。ループアニメーション(スピナー)は2〜10秒、10秒以上は達成率表示(プログレスバー)が望ましいとしている。1〜2秒にどの表示を使うかは明記していない。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       "進行状況インジケーターは、システムが動作していることを安心させ、おおよその待ち時間を示し、待つ間に見るものを提供するという3つの利点があるとしている。実験では、動く進行状況バーを見たユーザーは、何も表示されなかった場合に比べて平均で3倍長く待つ意思を示したと紹介されている。何も情報を示さない静的な表示は「十分なフィードバックにならない」として避けるべきとし、「しばらくお待ちください、二度押ししないでください」のような注意書きも、ユーザーがほとんど読まないため効果が薄いとしている。",
     exceptions:
       "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしている。",
     scenarios: [
-      "1〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
+      "2〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
       "10秒を超える、または超える可能性がある処理に達成率表示を使いたい時",
       "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
     ],
@@ -5431,7 +5924,7 @@ function ProgressSwatch() {
 /* No.059: 形の使い分け(終わりが分かるか・待ち時間・置く場所)。出典の系列を括弧で示す */
 const SHAPE_ROWS = [
   { shape: "何も出さない", known: "—", time: "1秒未満(NN group)", where: "—", note: "すぐ終わる処理にはインジケーターを出さない" },
-  { shape: "不確定の円形(スピナー)", known: "分からない", time: "1〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
+  { shape: "不確定の円形(スピナー)", known: "分からない", time: "2〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
   { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
   { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒を超える(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
   { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
@@ -5471,6 +5964,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー", who: "NN group" },
+  { n: 2, t: "進み具合が分かるなら確定、分からないなら不確定の表示にする", d: "", who: "Apple・Google・W3C・NN group" },
+  { n: 3, t: "止まって見えないようにする", d: "", who: "Apple" },
+];
+
 function CommunicationProgressPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -5492,7 +5992,7 @@ function CommunicationProgressPage() {
           </div>
 
           <h1 style={styles.title}>プログレスインジケーター</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ProgressSwatch /></>}
             imageNote={<>終わりが分かるか(確定/不確定)の区別はApple・Google・W3C・NN groupの4系列にあるが、形(バー/円)とは別の軸だ。Apple・Googleはバーと円のどちらにも確定・不確定があり、NN groupは待ち時間の長さで表示を選ぶ(下の「形の使い分け」を参照)。</>}
             lead={LEAD}
@@ -5508,10 +6008,10 @@ function CommunicationProgressPage() {
               4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
             </p>
             <p style={styles.synthesisText}>
-              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、1〜10秒はスピナー、10秒超はプログレスバー</strong>という秒数の目安を明言している。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
+              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
             </p>
             <p style={styles.synthesisText}>
-              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「1〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
+              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
             </p>
             <p style={styles.synthesisText}>
               W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴だ。
@@ -5602,16 +6102,8 @@ function CommunicationProgressPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/loading" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ローディング状態 ↗</div>
-              <div style={styles.linkCardDesc}>コンテンツ読み込み中のプレースホルダー表示・骨組み表示の4系列比較</div>
-            </a>
-            <a href="/components/communication/overview" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>情報伝達の使い分け ↗</div>
-              <div style={styles.linkCardDesc}>Communication/Containment各パーツを横断する統合ガイド</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/loading", "/tokens/motion"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -5938,6 +6430,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "添える操作は1つだけ", d: "「元に戻す」など", who: "Google" },
+  { n: 2, t: "重要な情報や、必ず必要な操作には使わない", d: "自動で消える通知は見落とされやすい", who: "NN group" },
+  { n: 3, t: "操作を持つものは、利用者が閉じるか操作するまで残す", d: "", who: "AI解釈" },
+];
+
 function CommunicationSnackbarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -5959,7 +6458,7 @@ function CommunicationSnackbarPage() {
           </div>
 
           <h1 style={styles.title}>スナックバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SnackbarSwatch /></>}
             imageNote={<>画面下部に一時的に現れ、操作不要で自動的に消える。Undo(元に戻す)など1つの操作ボタンを持てる。</>}
             lead={LEAD}
@@ -6069,12 +6568,8 @@ function CommunicationSnackbarPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/toast" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>トースト ↗</div>
-              <div style={styles.linkCardDesc}>操作不要のOS標準ポップアップ(Toast)の4系列比較。「スナックバー」ページから独立</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/banner", "/components/communication/alert"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -6403,6 +6898,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見落としても困らない知らせだけに使う", d: "「保存しました」など", who: "AI解釈" },
+  { n: 2, t: "読んでもらう必要のある情報は、消えない場所に出す", d: "", who: "AI解釈" },
+  { n: 3, t: "操作を添えるなら、スナックバーを使う", d: "", who: "Google" },
+];
+
 function CommunicationToastPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -6424,7 +6926,7 @@ function CommunicationToastPage() {
           </div>
 
           <h1 style={styles.title}>トースト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<ToastSwatch />}
             imageNote="アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。"
             lead={LEAD}
@@ -6549,12 +7051,8 @@ function CommunicationToastPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/communication/snackbar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>スナックバー ↗</div>
-              <div style={styles.linkCardDesc}>アクションを持てる、Material Design公式のメッセージコンポーネントの4系列比較(アクションボタンを省いた構成がM3でのToastの実質的な後継)</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/snackbar", "/components/communication/alert"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -7021,6 +7519,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "アイコンだけのボタンの名前など、短い補足に使う", d: "", who: "Google" },
+  { n: 2, t: "重要な情報を隠さない", d: "", who: "NN group" },
+  { n: 3, t: "キーボードのフォーカスでも出るようにする", d: "", who: "W3C(1.4.13・APGのTooltipパターン)" },
+  { n: 4, t: "スマートフォンでは「?」などの印を置き、押すと開くヒントにする", d: "", who: "NN group・Apple" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― ツールチップに入れる内容"
+      items={[
+        { kind: "good", fig: <><span style={{ background: "#2E3457", color: "#FFFFFF", fontSize: 12, borderRadius: 4, padding: "4px 8px", maxWidth: 200, lineHeight: 1.5 }}>通知</span><span style={{ width: 36, height: 36, borderRadius: "50%", border: "1.5px solid #8E93B5", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4zM10 20h4" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinejoin="round" /></svg></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>ホバーでもフォーカスでも出る</span></>, text: "アイコンだけのボタンに、短い補足(名前)が出る。ポインターを重ねたときも、キーボードでフォーカスしたときも出る。" },
+        { kind: "bad", fig: <><span style={{ background: "#2E3457", color: "#FFFFFF", fontSize: 12, borderRadius: 4, padding: "4px 8px", maxWidth: 200, lineHeight: 1.5 }}>8文字以上で、数字と記号を含めてください</span><div style={{ display: "flex", alignItems: "center", gap: 6 }}><span style={{ width: 150, border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 8px", fontSize: 12, color: "#666D93" }}>パスワード</span><span aria-hidden="true" style={{ width: 18, height: 18, borderRadius: "50%", border: "1.5px solid #454C78", fontSize: 11, color: "#454C78", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>i</span></div></>, text: "入力の条件のような、操作に欠かせない説明がツールチップの中にしかない。出すまで気づけない。" },
+      ]}
+      basis="NN group・Google(重要な情報をツールチップだけに隠さない)、W3C 1.4.13(ホバーやフォーカスで出る内容は、消せる・上に移っても消えない・勝手に消えない・AA)、APGのTooltipパターン(キーボードのフォーカスでも出す。参考例)。"
+    />
+  );
+}
+
 function CommunicationTooltipPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -7042,7 +7562,7 @@ function CommunicationTooltipPage() {
           </div>
 
           <h1 style={styles.title}>ツールチップ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><TooltipSwatch /></>}
             imageNote={<>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</>}
             lead={LEAD}
@@ -7054,6 +7574,8 @@ function CommunicationTooltipPage() {
 
 
           <PlainRichTable />
+          <GoodBadFigure />
+
 
           <TooltipVsPopupTip />
 
@@ -7158,6 +7680,8 @@ function CommunicationTooltipPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/tokens/icon", "/components/containment/overview", "/tokens/input-methods"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -7306,12 +7830,12 @@ const SOURCES = [
     doc: "Android Developers ― Widgets(Sizing・Widget quality guide)",
     term: "App widget(Android)",
     color: "#2F7D6E",
-    position: "ホーム画面のマス数で大きさを決め、品質を3段階のチェックリストで判定する",
+    position: "ホーム画面のマス数で大きさを決め、品質ガイド(Widget quality guide)のチェック項目で作り方を示す",
     size: "2×1〜4×3のマス数と幅・高さの範囲(dp)。主なサイズは上の比較図。最小でも押せる範囲48×48dp",
-    colorInfo: "テーマの色・ライト/ダーク・システムの角丸に対応すると最上位(下の3段階)",
+    colorInfo: "テーマの色・ライト/ダーク・システムの角丸に対応することを、品質ガイドのチェック項目に挙げている",
     stance: "外される主な理由は「ホーム画面でずれて見えること」。マスを端まで埋め、独自の余白を付けない",
     exceptions: "長方形でなくても、向かい合う2辺に接すれば標準。ヘッダーは全面写真や狭い場合は省略できる",
-    accessibility: "知覚可能・操作可能 ― コントラスト不足は低品質。最小サイズで48×48dpを標準の条件にする",
+    accessibility: "知覚可能・操作可能 ― 品質ガイドでは、コントラストが足りないものを避ける例に挙げ、最小サイズでも押せる範囲を48×48dpにすることを挙げている",
     useCases: [
       "1つの主な用途を決め、割り当てられたマスを端まで埋める",
       "2×2・4×1・4×2のいずれかにリサイズでき、大きさで内容を出し入れする",
@@ -7337,14 +7861,10 @@ const SOURCES = [
     position: "ホーム画面のウィジェットの基準はない。ARIAの「widget」は操作部品全般を指す別の言葉",
     size: "専用の数値なし。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる",
     colorInfo: "―(専用の定めなし。カラー・ボタンのページと同じ基準)",
-    glossary: [
-      { term: "widget(WAI-ARIA)", desc: "利用者が操作できる、独立したUIの部品を表す抽象ロール。button・checkbox・sliderなどがこれに属する。ホーム画面に置くウィジェットとは別の概念。" },
-    ],
     stance: "Webのコンテンツが対象で、OSのホーム画面の部品の見た目や大きさは扱わない",
     exceptions: "―",
     accessibility: "知覚可能・操作可能 ― 1.4.3(コントラスト)・2.5.8(ターゲットサイズ)・1.4.1(色)で確認する",
     useCases: [
-      "「ウィジェット」がホーム画面の部品か、ARIAの操作部品かを取り違えない",
       "ウィジェットの中の文字は、背景と4.5:1以上のコントラストを目安にする",
       "押せる部分は小さくしすぎない(24px以上・Androidの品質基準では48dp)",
     ],
@@ -7676,6 +8196,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>アプリの中で情報をまとめて見せるのは<PageLink to="/components/containment/card">カード</PageLink>。ウィジェットはアプリの外に置く</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1つの主な目的に絞る", d: "", who: "Apple・Google・NN group" },
+  { n: 2, t: "アプリを開かずに、一目で分かる内容にする", d: "", who: "Apple・Google・NN group" },
+  { n: 3, t: "大きさに合わせて、見せる量を変える", d: "", who: "Apple・Google" },
+];
+
 function CommunicationWidgetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -7697,13 +8224,15 @@ function CommunicationWidgetPage() {
           </div>
 
           <h1 style={styles.title}>ウィジェット(ホーム画面ウィジェット)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同じウィジェットでも、大きさで見せる量を変える(概念図)"
             image={<><WidgetSizesSwatch /></>}
             imageNote={<>小さいサイズは1つの情報(今の天気)、大きくなるほど予報などの情報の層を増やす。小さいウィジェットの内容をそのまま引き伸ばすのではなく、大きさごとに見せる内容を決める(Apple)。寸法はiPhoneの小・中・大の比率で描いている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <WidgetIntro />
 
@@ -7724,10 +8253,10 @@ function CommunicationWidgetPage() {
               Apple・Google・NN groupの3系列がそろって一致しているのは、<strong>1つの主な目的に絞り、アプリを開かずに一目で分かる内容にする</strong>という点だ。Appleは天気の例で「今の最高・最低気温と天気」を挙げ、Googleは「1つの主な用途を選ぶ」ことを最初の手順にし、NN groupは<strong>利用者が追いたい「1つのこと」を見つけ、収まる単位に圧縮できるか</strong>が最大の課題だとしている。
             </p>
             <p style={styles.synthesisText}>
-              大きさの決め方は違う。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定める。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを3段階の品質チェックリストにしている。
+              大きさの決め方は違う。Appleは<strong>端末ごとのpt寸法(iPhoneでは小170×170・中364×170・大364×382pt)</strong>と、<strong>置かれる場所に応じた表示モード(フルカラー・アクセント・バイブラント)</strong>を定める。Googleは<strong>ホーム画面のマス数(2×2・4×2など)と幅・高さの範囲</strong>で決め、<strong>マスを端まで埋める・押せる範囲48dp・コントラスト</strong>などを品質ガイドのチェック項目に挙げている。
             </p>
             <p style={styles.synthesisText}>
-              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないものを低品質</strong>としている。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めている。
+              更新についても考え方は近く、Appleは<strong>ウィジェットはリアルタイムに更新されないため、最終更新の時刻を示す</strong>よう求め、Googleは<strong>古いままの内容や、操作しても更新されないもの</strong>を、品質ガイドで避ける例に挙げている。NN groupは、ウィジェットを<strong>15秒未満の短い利用(マイクロセッション)</strong>を支える仕組みとし、<strong>見出しを途中で切らない</strong>ことを求めている。
             </p>
             <p style={styles.synthesisText}>
               W3Cには<strong>ホーム画面のウィジェットの基準はなく</strong>、WAI-ARIAの「widget」はボタンなどの操作部品全般を指す別の言葉だ。実務では、<strong>主目的を1つに決めて大きさごとに見せる量を設計し、文字のコントラスト・押せる範囲・色だけに頼らない表現を、通常の画面と同じ基準で確かめる</strong>のが、4系列を合わせた結論だ。
@@ -7809,6 +8338,8 @@ function CommunicationWidgetPage() {
             <AppearanceModes />
           </section>
 
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/tokens/adaptive", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -8162,6 +8693,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "各項目が独立していて、一部だけ読めば足りる内容に使う", d: "よくある質問など", who: "NN group" },
+  { n: 2, t: "ほぼ全部を読む内容や、続けて読む記事には使わない", d: "", who: "NN group" },
+  { n: 3, t: "開閉できると分かる印(矢印)を付ける", d: "", who: "NN group" },
+];
+
 function ContainmentAccordionPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -8183,7 +8721,7 @@ function ContainmentAccordionPage() {
           </div>
 
           <h1 style={styles.title}>アコーディオン(表示コントロール)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><AccordionSwatch /></>}
             imageNote={<>見出しをクリックすると、関連するパネル(詳細内容)の表示・非表示が切り替わる。展開可能であることを示すキャレットアイコンを伴うのが一般的。</>}
             lead={LEAD}
@@ -8290,6 +8828,8 @@ function ContainmentAccordionPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs", "/components/containment/list", "/components/communication/tooltip"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -8669,6 +9209,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "見える閉じるボタンも置く", d: "スワイプやハンドルだけに頼らない", who: "AI解釈(Google・W3C・NN groupのどれにも沿う形)" },
+  { n: 2, t: "ドラッグしなくても高さを変えられるようにする", d: "", who: "W3C 2.5.7" },
+  { n: 3, t: "モーダルにするなら、フォーカスをシートの中にとどめ、Escキーで閉じられるように", d: "", who: "W3C" },
+];
+
 function ContainmentBottomSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -8690,7 +9237,7 @@ function ContainmentBottomSheetPage() {
           </div>
 
           <h1 style={styles.title}>ボトムシート</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BottomSheetSwatch /></>}
             imageNote={<>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</>}
             lead={LEAD}
@@ -8799,16 +9346,8 @@ function ContainmentBottomSheetPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>ポップオーバー・サイドシートなど、画面を覆う/中央や側面に出るオーバーレイの4系列比較</div>
-            </a>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告のため操作を完全にブロックする基本ダイアログの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/side-sheet", "/components/containment/dialog", "/components/selection/menu"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -9137,6 +9676,12 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "眺めて選ぶ一覧はカード、探す・比べる一覧はリストや表", d: "", who: "AI解釈" },
+  { n: 2, t: "小さく保ち、入れ子にしない", d: "", who: "Apple" },
+];
+
 function ContainmentCardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -9158,7 +9703,7 @@ function ContainmentCardPage() {
           </div>
 
           <h1 style={styles.title}>カード</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><CardSwatch /></>}
             imageNote={<>画像・見出し・要約テキストをまとめ、詳細への入り口となるコンテナ。境界線・影・塗りつぶしのいずれかで背景と区別する。</>}
             lead={LEAD}
@@ -9265,12 +9810,8 @@ function ContainmentCardPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/list" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>リスト ↗</div>
-              <div style={styles.linkCardDesc}>検索・比較に適した縦並びの項目群との使い分けはこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/list", "/components/containment/table", "/components/containment/carousel", "/components/communication/widget", "/tokens/elevation"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -9866,6 +10407,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "自動送りは基本的に使わない", d: "", who: "NN group" },
+  { n: 2, t: "続きがあることを見た目で示す", d: "次の項目の端や矢印", who: "AI解釈" },
+  { n: 3, t: "自動で送るなら停止ボタンを置く", d: "5秒より長く続くなら止める手段が要る", who: "W3C 2.2.2" },
+  { n: 4, t: "位置を示す点は約10個まで", d: "", who: "Apple" },
+];
+
 function ContainmentCarouselPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -9887,13 +10436,15 @@ function ContainmentCarouselPage() {
           </div>
 
           <h1 style={styles.title}>カルーセル</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(カルーセルの構成)"
             image={<><CarouselSwatch /></>}
             imageNote={<>前へ・次へのボタン、位置を示す点、次の項目の端、自動で回る場合の停止ボタンで構成した概念図だ。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <SplitSection splits={SPLITS} />
 
@@ -10026,16 +10577,8 @@ function ContainmentCarouselPage() {
             </div>
           </section>
 
-          <div style={styles.linksRow}>
-            <a href="/tokens/motion" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>モーション/アニメーション ↗</div>
-              <div style={styles.linkCardDesc}>2.2.2(5秒)など、動きの安全面の上限はこちら</div>
-            </a>
-            <a href="/components/containment/card" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>カード ↗</div>
-              <div style={styles.linkCardDesc}>カルーセルの中に並べることの多いカードの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/components/navigation/pagination", "/tokens/motion"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -10412,6 +10955,30 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "本当に重要な場面だけに使う", d: "多用すると読まずに押されるようになる", who: "NN group" },
+  { n: 2, t: "優先度の低い知らせはスナックバーにする", d: "", who: "Google" },
+  { n: 3, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
+  { n: 4, t: "ボタンは2つまで", d: "", who: "Google" },
+  { n: 5, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 確認ボタンのラベル"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>削除</span></div></div>, text: "確認ボタンが「削除」で、押すと何が起きるか分かる。" },
+              { kind: "bad", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>OK</span></div></div>, text: "確認ボタンが「OK」だけで、押すと何が起きるかをタイトルまで読み返さないと分からない。" },
+            ]}
+            basis="Google(確認ボタンのラベルは「削除」のように次に起きることが分かる語にし、「OK」のようなあいまいな語は避ける)。"
+            note="ボタンの並び順(確認が右か左か)は系列で違うので、この図では扱わない。"
+          />
+  );
+}
+
 function ContainmentDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -10433,7 +11000,7 @@ function ContainmentDialogPage() {
           </div>
 
           <h1 style={styles.title}>モーダルダイアログ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><DialogSwatch /></>}
             imageNote={<>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</>}
             lead={LEAD}
@@ -10441,6 +11008,8 @@ function ContainmentDialogPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -10540,16 +11109,8 @@ function ContainmentDialogPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/fullscreen-dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>フルスクリーンダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>画面全体を占め、一連のタスク完了に使うダイアログの4系列比較(このページから独立)</div>
-            </a>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告に限らない、より汎用的な重ね表示オーバーレイの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/fullscreen-dialog", "/components/containment/bottom-sheet", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -10893,6 +11454,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "キーボード入力が要る、まとまった作業に使う", d: "", who: "Google" },
+  { n: 2, t: "狭い画面でだけ使う", d: "広い画面では基本のダイアログ", who: "Google" },
+  { n: 3, t: "長く、途中で中断もありうる手順は、普通のページのウィザードにする", d: "", who: "AI解釈" },
+];
+
 function ContainmentFullscreenDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -10914,7 +11482,7 @@ function ContainmentFullscreenDialogPage() {
           </div>
 
           <h1 style={styles.title}>フルスクリーンダイアログ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><FullscreenDialogSwatch /></>}
             imageNote={<>画面全体を占め、フォーム入力など一連のタスクをまとめて完了させる。ナビゲーションは閉じる「×」のみで、保存には専用ボタンを使う。</>}
             lead={LEAD}
@@ -11024,16 +11592,8 @@ function ContainmentFullscreenDialogPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>スクリム上に乗る、確認・警告のための基本ダイアログの4系列比較(このページの分割元)</div>
-            </a>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告に限らない、より汎用的な重ね表示オーバーレイの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/dialog", "/components/text-inputs/wizard", "/components/containment/side-sheet"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -11371,6 +11931,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "", who: "AI解釈" },
+  { n: 2, t: "画像が中心で眺めて選ぶ一覧は、カードにする", d: "", who: "AI解釈" },
+  { n: 3, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
+];
+
 function ContainmentListPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -11392,7 +11959,7 @@ function ContainmentListPage() {
           </div>
 
           <h1 style={styles.title}>リスト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ListSwatch /></>}
             imageNote={<>テキスト・画像を縦に連続して並べる索引。「カード」ページで比較した、ブラウジング型のカード表示とは使い分けの関係にある。</>}
             lead={LEAD}
@@ -11499,12 +12066,8 @@ function ContainmentListPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/card" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>カード ↗</div>
-              <div style={styles.linkCardDesc}>ブラウジング型の閲覧に適した要約表示との使い分けはこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/card", "/components/containment/table", "/components/containment/accordion"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -11720,6 +12283,8 @@ function ContainmentOverviewPage() {
               W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならrole="dialog"とaria-modal="true"、フォーカスの閉じ込めと、閉じた後に元の場所へ戻すこと</strong>を共通の作り方としている。見た目の種類が違っても、モーダルかどうかで作り方が決まる。
             </p>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/selection/overview", "/components/navigation/tabs-vs-segmented"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "段階的に見せる"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -12017,6 +12582,12 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>画面の下から出るのは<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、行き先の一覧を出すのは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "並べて置く標準と、後ろを操作できなくするモーダルの2種類がある", d: "", who: "Google" },
+  { n: 2, t: "Appleにサイドシートに当たる部品はない", d: "", who: "Apple" },
+];
+
 function ContainmentSideSheetPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -12038,7 +12609,7 @@ function ContainmentSideSheetPage() {
           </div>
 
           <h1 style={styles.title}>サイドシート</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SideSheetSwatch /></>}
             imageNote={<>画面の一部(中央・側面など)に重ねて表示する補助的なオーバーレイ。下からせり出す「ボトムシート」ページ、確認・警告用の「モーダルダイアログ」ページとは、それぞれ役割が異なる。</>}
             lead={LEAD}
@@ -12143,16 +12714,8 @@ function ContainmentSideSheetPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/bottom-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ボトムシート ↗</div>
-              <div style={styles.linkCardDesc}>下からせり出す半モーダルの4系列比較(このページから独立)</div>
-            </a>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告のため操作を完全にブロックする基本ダイアログの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/bottom-sheet", "/components/containment/drawer", "/components/containment/dialog"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -12638,6 +13201,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "比べるための形として使う", d: "", who: "NN group・Apple・Google" },
+  { n: 2, t: "小さい画面では、見出しと最初の列を固定する", d: "", who: "NN group" },
+  { n: 3, t: "横スクロールさせるなら、続きがあると見せる", d: "", who: "NN group" },
+  { n: 4, t: "列が多すぎるなら、見る列を選ばせるか、カード表示へ切り替える", d: "", who: "AI解釈" },
+];
+
 function ContainmentTablePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -12659,7 +13230,7 @@ function ContainmentTablePage() {
           </div>
 
           <h1 style={styles.title}>表(データテーブル)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(データテーブルの構成)"
             image={<><TableSwatch /></>}
             imageNote={<>列見出し・並べ替えの矢印・選択した行の背景色・識別名の列・ページ送りで構成した概念図だ。1列で縦に並べる一覧は「リスト」ページで扱い、このページは複数の列で値を比べる表を扱う。</>}
@@ -12772,16 +13343,8 @@ function ContainmentTablePage() {
             <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めている(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段だ。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めている(1.4.10)。</p>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/list" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>リスト ↗</div>
-              <div style={styles.linkCardDesc}>1列で縦に並べる一覧はこちら</div>
-            </a>
-            <a href="/components/navigation/pagination" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ページネーション ↗</div>
-              <div style={styles.linkCardDesc}>表の下に置くページ送りの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/list", "/components/containment/card", "/components/navigation/pagination"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -12942,6 +13505,7 @@ const TAG_INDEX = [
   {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "カード", "path": "/components/containment/card", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
+  {"group": "Containment", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
   {"group": "Containment", "label": "リスト", "path": "/components/containment/list", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "表(データテーブル)", "path": "/components/containment/table", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "検索・絞り込み"]},
   {"group": "Containment", "label": "カルーセル", "path": "/components/containment/carousel", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "見つけやすさ・初めての案内"]},
@@ -12956,7 +13520,6 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "空状態", "path": "/components/communication/empty-state", "principles": ["理解可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "Communication", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
   {"group": "インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
   {"group": "インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
@@ -13391,6 +13954,14 @@ function IndexPage() {
                 <li>各部品のページ ― グループごとの入口から読むと、似た部品の違いが分かります(<PageLink to="/components/actions/button">ボタン</PageLink>/<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>/<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>/<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)。</li>
                 <li><PageLink to="/cross-view">タグから見る</PageLink> ― エラー処理・通知など、作業の場面からページを探せます。</li>
               </ol>
+              <h3 style={styles.h3}>部品を選びたいときの近道</h3>
+              <p style={styles.p}>どの部品を使うか迷ったときは、次の4つの使い分けのページから入ると、似た部品の違いをまとめて比べられます。</p>
+              <ul style={styles.orderList}>
+                <li><PageLink to="/components/selection/overview">Selectionの選び方</PageLink> ― チェックボックス・ラジオボタン・トグルスイッチ・チップなど、値や項目を選ぶ部品</li>
+                <li><PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink> ― 見た目が似ている、表示を切り替える2つの部品</li>
+                <li><PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink> ― ダイアログ・シート・ドロワー・メニューなど、画面の上に重ねて出す部品</li>
+                <li><PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink> ― バナー・スナックバー・トースト・ツールチップなど、利用者に知らせる部品</li>
+              </ul>
               <h3 style={styles.h3}>各部品のページの構成</h3>
               <p style={styles.p}>各部品のページは、上から次の順に並んでいます。</p>
               <div style={styles.guideGrid}>
@@ -13401,7 +13972,7 @@ function IndexPage() {
                   ["マーカー", "若草色の下線が付いた太字は、総括で取り上げている違い・共通点。"],
                   ["メモ", "用語の説明や、1系列だけの補足。"],
                   ["参照ページ(公式)", "その内容を確かめられる公式のページ。公式で別のページ・節に分かれている内容は、それぞれリンクする。"],
-                  ["関連するページ", "このサイトの中の、関係する部品やトピックのページ。"],
+                  ["関連するページ", "ページの末尾に、関係する部品やトピックのページを、名前と1文の説明のカードで並べる。節の多い長いページには、上部に「このページの内容」(目次)もある。"],
                   ["タグ", "原則タグ(POUR)とプロセスタグ(12のくくり)。押すと「タグから見る」で同じタグのページを一覧できる。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>
@@ -13870,6 +14441,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "画面の名前・戻る操作・関連する操作を置く", d: "", who: "Apple・Google" },
+  { n: 2, t: "先頭に戻る/閉じる、末尾に関連する操作", d: "", who: "Apple・Google" },
+  { n: 3, t: "バーの文字とアイコンは、下の内容の上でも読めるように", d: "保てないなら不透明にする", who: "NN group" },
+];
+
 function NavigationAppBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -13891,7 +14469,7 @@ function NavigationAppBarPage() {
           </div>
 
           <h1 style={styles.title}>アプリバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><TopBarSwatch /></>}
             imageNote={<>戻るボタン・現在の画面タイトル・関連操作アイコンを持つ、画面ごとの上部バー。「ナビゲーションバー」ページで比較した常設の主要セクション切り替えバーとは別物。</>}
             lead={LEAD}
@@ -14006,16 +14584,8 @@ function NavigationAppBarPage() {
 
           <SearchAppBarSection />
 
-          <div style={styles.linksRow}>
-            <a href="/components/navigation/nav-bar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ナビゲーションバー ↗</div>
-              <div style={styles.linkCardDesc}>常設の主要セクション切り替えバー(3〜5行き先)の4系列比較</div>
-            </a>
-            <a href="/components/text-inputs/search-field" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>検索フィールド ↗</div>
-              <div style={styles.linkCardDesc}>虫眼鏡アイコン・発見性など、検索の入り口全般の4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/text-inputs/search-field", "/components/containment/drawer", "/components/selection/menu"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -14315,6 +14885,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "閲覧の履歴ではなく、サイトの階層を見せる", d: "", who: "NN group" },
+  { n: 2, t: "今いるページはリンクにしない", d: "", who: "NN group。W3CのAPGの作り方の1つ" },
+  { n: 3, t: "アプリでは戻るボタンが基本", d: "Apple・Googleに専用の部品はない", who: "Apple・Google" },
+  { n: 4, t: "リンクの文字は4.5:1以上", d: "", who: "W3C 1.4.3" },
+];
+
 function NavigationBreadcrumbPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -14336,7 +14914,7 @@ function NavigationBreadcrumbPage() {
           </div>
 
           <h1 style={styles.title}>パンくずリスト</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><BreadcrumbSwatch /></>}
             imageNote={<>現在ページの親ページへのリンクを階層順に並べる。この例では、NN groupの推奨どおり現在ページ(最後の項目)をリンクにしていない。</>}
             lead={LEAD}
@@ -14450,6 +15028,8 @@ function NavigationBreadcrumbPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/navigation/app-bar", "/components/navigation/pagination"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -14997,6 +15577,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "広い画面では隠さない", d: "常に表示する", who: "Apple・NN group" },
+  { n: 2, t: "狭い画面で行き先が4〜5個までなら、ナビゲーションバーで見せる", d: "", who: "AI解釈" },
+  { n: 3, t: "それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくい", who: "NN group" },
+];
+
 function NavigationDrawerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -15018,7 +15605,7 @@ function NavigationDrawerPage() {
           </div>
 
           <h1 style={styles.title}>ドロワー/サイドナビ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(常時表示型の例)"
             image={<><DrawerSwatch /></>}
             imageNote={<>画面の脇に、主要なナビゲーション項目を並べた領域。常時表示する形と、一時的に開閉するモーダル形の2系統がある。</>}
@@ -15083,6 +15670,8 @@ function NavigationDrawerPage() {
 
           <h3 id="rail" style={styles.subTitle}>② ナビゲーションレール/サイドバー(主にタブレット・PC)</h3>
           <Comparison SOURCES={RAIL_SOURCES} />
+
+          <RelatedPages paths={["/components/navigation/nav-bar", "/components/containment/side-sheet", "/components/containment/overview", "/tokens/adaptive"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -15491,6 +16080,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "主な行き先は3〜5個", d: "", who: "Google(5個までならApple・NN groupとも食い違わない)" },
+  { n: 2, t: "3個未満なら使わない", d: "タブを使う", who: "Google" },
+  { n: 3, t: "行き先が増えたときの逃がし先を決めておく", d: "サイドバー(Apple)、ナビゲーションレールやドロワー", who: "Google" },
+];
+
 function NavigationNavBarPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -15512,7 +16108,7 @@ function NavigationNavBarPage() {
           </div>
 
           <h1 style={styles.title}>ナビゲーションバー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><NavBarSwatch /></>}
             imageNote={<>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。Appleでは「Tab Bars」、Googleでは「Navigation bar」と呼ばれる、同じ役割のコンポーネント。</>}
             lead={LEAD}
@@ -15625,6 +16221,8 @@ function NavigationNavBarPage() {
           </div>
 
           <TopBarPointerSection />
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/tabs", "/components/containment/drawer", "/components/navigation/app-bar", "/components/communication/badge"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -15959,6 +16557,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C: aria-current" },
+  { n: 2, t: "専用の部品はない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
+  { n: 3, t: "AppleのPage controlsは別の部品", d: "少数の画面を点で送るもの", who: "Apple" },
+];
+
 function NavigationPaginationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -15980,7 +16585,7 @@ function NavigationPaginationPage() {
           </div>
 
           <h1 style={styles.title}>ページネーション</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(番号付きページネーション)"
             image={<><PaginationSwatch /></>}
             imageNote={<>ページ番号を並べ、任意のページへ直接移動できる。前後の矢印を併設することが多い。</>}
@@ -16092,6 +16697,8 @@ function NavigationPaginationPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/containment/table", "/components/containment/carousel", "/components/navigation/breadcrumb"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -16436,6 +17043,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内容のまとまりを切り替えるならタブにする", d: "セグメントコントロールは、同じ内容の見え方の切り替えに使う", who: "AI解釈(タブとセグメントの使い分け)" },
+  { n: 2, t: "選択肢は2〜5個", d: "スマートフォンでは5個までにそろえる", who: "AI解釈" },
+  { n: 3, t: "増えそうなら、チップやメニューに切り替える", d: "", who: "AI解釈" },
+];
+
 function NavigationSegmentedControlPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -16457,7 +17071,7 @@ function NavigationSegmentedControlPage() {
           </div>
 
           <h1 style={styles.title}>セグメントコントロール</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SegmentedSwatch /></>}
             imageNote={<>横一列の等幅ボタン群。常に全ての選択肢を見せながら、1つ(または表示ビュー)を選ぶ。</>}
             lead={LEAD}
@@ -16576,6 +17190,8 @@ function NavigationSegmentedControlPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/tabs", "/components/selection/radio"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -16982,16 +17598,8 @@ function NavigationTabsVsSegmentedPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>四系列デザインシステム比較</h2>
           <SystemViews />
 
-          <div style={styles.linksRow}>
-            <a href="/components/navigation/tabs" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>タブ ↗</div>
-              <div style={styles.linkCardDesc}>4系列比較の詳細ページ</div>
-            </a>
-            <a href="/components/navigation/segmented-control" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>セグメントコントロール ↗</div>
-              <div style={styles.linkCardDesc}>4系列比較の詳細ページ</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/navigation/tabs", "/components/navigation/segmented-control", "/components/navigation/nav-bar", "/components/selection/overview"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -17435,6 +18043,13 @@ function TabSwatch() {
   );
 }
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "まず数を減らす", d: "Appleのタブビューは6個まで、Googleの固定タブは4個まで", who: "Apple・Google" },
+  { n: 2, t: "減らせないときはスクロールできるタブ", d: "続きがあると分かるようにする", who: "Google" },
+  { n: 3, t: "iOS・iPadOSではセグメントコントロールを使う", d: "", who: "Apple" },
+];
+
 function NavigationTabsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -17456,7 +18071,7 @@ function NavigationTabsPage() {
           </div>
 
           <h1 style={styles.title}>タブ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<TabSwatch />}
             imageNote="選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。"
             lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
@@ -17569,6 +18184,8 @@ function NavigationTabsPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs-vs-segmented", "/components/navigation/segmented-control", "/components/navigation/nav-bar", "/components/containment/accordion"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -17893,6 +18510,20 @@ function InclusionSection() {
   );
 }
 
+/* 公式へのリンクは、飛び先のページ名で示す */
+const LINK_NAMES = {"https://developer.apple.com/design/human-interface-guidelines/accessibility": "HIG: Accessibility", "https://m3.material.io/foundations/overview/principles": "M3: Principles", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.w3.org/TR/WCAG22/#perceivable": "WCAG 2.2: 原則1 知覚可能", "https://www.w3.org/TR/WCAG22/#operable": "WCAG 2.2: 原則2 操作可能", "https://www.w3.org/TR/WCAG22/#understandable": "WCAG 2.2: 原則3 理解可能", "https://www.w3.org/TR/WCAG22/#robust": "WCAG 2.2: 原則4 堅牢", "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/": "Accessibility and Inclusivity: Study Guide"};
+const linkName = (u) => LINK_NAMES[u] || u;
+
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字のコントラスト", d: "本文は4.5:1以上", who: "W3C 1.4.3・AA" },
+  { n: 2, t: "色だけで伝えない", d: "色のほかに文字や形でも伝える", who: "W3C 1.4.1・A" },
+  { n: 3, t: "押せる範囲", d: "24×24px以上。例外あり", who: "W3C 2.5.8・AA" },
+  { n: 4, t: "フォーカスが見える", d: "キーボードで今どこにいるか分かる", who: "W3C 2.4.7・AA" },
+  { n: 5, t: "キーボードで操作できる", d: "すべての操作をキーボードでもできる", who: "W3C 2.1.1・A" },
+  { n: 6, t: "名前・役割・値", d: "部品の名前と状態が支援技術に伝わる", who: "W3C 4.1.2・A" },
+];
+
 function PrinciplesAccessibilityPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -17915,6 +18546,7 @@ function PrinciplesAccessibilityPage() {
 
           <h1 style={styles.title}>アクセシビリティ</h1>
           <p style={styles.subtitle}>4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する</p>
+          <KeyPoints items={KP} title="実務でまず見る達成基準" />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -17928,6 +18560,7 @@ function PrinciplesAccessibilityPage() {
               本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
             </p>
           </div>
+
 
           {/* 四系列比較: 性格の違いを一目で示す */}
           <div style={styles.diagramCard}>
@@ -17996,7 +18629,7 @@ function PrinciplesAccessibilityPage() {
                 {f.extra && <FrameworkExtra k={f.extra} />}
                 {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
-                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                 </div>
               </div>
             ))}
@@ -18039,7 +18672,7 @@ function PrinciplesAccessibilityPage() {
                   {f.extra && <FrameworkExtra k={f.extra} />}
                   {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
-                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>公式ページへ ↗</a>
+                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                   </div>
                 </div>
               ))}
@@ -18254,6 +18887,7 @@ const FRAMEWORKS = [
 const OVERLAP_ROWS = [
   { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },
   { theme: "主体性の回復・エラーからの立ち直り", hig: "Agency", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Operableに関連する考え方)</NoData>, nn: "ユーザーによる制御と自由 / エラーの認識・診断・回復の支援" },
+  { theme: "状況を伝える", hig: "Agency(状況を伝える部分)", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし</NoData>, nn: "システム状態の可視性" },
   { theme: "単純さ・最小限", hig: "Simplicity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし</NoData>, nn: "美的で最小限のデザイン" },
   { theme: "端末・状況への適応", hig: "Flexibility", material: "Adaptive(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: <NoData>直接対応する項目なし</NoData>, nn: <NoData>直接対応する項目なし</NoData> },
   { theme: "アクセシビリティを前提とする発想", hig: <NoData>直接対応する項目なし(Responsibilityは関連する考え方)</NoData>, material: "Accessible(Material Youで重視されたテーマ。報道で紹介された呼び方で、公式の名前は未確認)", wcag: "POUR全体がこの発想の規格化", nn: <NoData>直接対応する項目なし</NoData> },
@@ -18275,6 +18909,10 @@ function CountDots({ count, color, label, text }) {
     </div>
   );
 }
+
+/* 公式へのリンクは、飛び先のページ名で示す */
+const LINK_NAMES = {"https://developer.apple.com/design/human-interface-guidelines/design-principles": "HIG: Design principles", "https://m1.material.io/material-design/introduction.html": "Material Design 1: Introduction", "https://design.google/library/material-design-eras": "Google Design: Explore First 10 Years of Material Design’s Evolution", "https://design.google/library/expressive-material-design-google-research": "Google Design: Expressive Design: Google's UX Research", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.nngroup.com/articles/ten-usability-heuristics/": "10 Usability Heuristics for User Interface Design"};
+const linkName = (u) => LINK_NAMES[u] || u;
 
 function PrinciplesComparisonPage() {
   return (
@@ -18374,7 +19012,7 @@ function PrinciplesComparisonPage() {
                           <div style={styles.genHead}>
                             <span style={styles.genName}>{it.name}</span>
                             {it.url && (
-                              <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>
+                              <a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.url)} ↗</a>
                             )}
                             {it.more && (
                               <a href={it.more.url} target="_blank" rel="noreferrer" style={styles.genLink}>{it.more.label} ↗</a>
@@ -18404,9 +19042,7 @@ function PrinciplesComparisonPage() {
                   </div>
                 )}
                 <div style={styles.sourceFootRow}>
-                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                    公式ページへ ↗
-                  </a>
+                  <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                 </div>
               </div>
             ))}
@@ -18427,7 +19063,7 @@ function PrinciplesComparisonPage() {
                           <div key={it.name} style={styles.genBlock}>
                             <div style={styles.genHead}>
                               <span style={styles.genName}>{it.name}</span>
-                              {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>公式ページへ ↗</a>)}
+                              {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.url)} ↗</a>)}
                             </div>
                             <p style={styles.genDesc}>{it.desc}</p>
                             <div style={styles.genSubList}>
@@ -18453,9 +19089,7 @@ function PrinciplesComparisonPage() {
                     </div>
                   )}
                   <div style={styles.sourceFootRow}>
-                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>
-                      公式ページへ ↗
-                    </a>
+                    <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                   </div>
                 </div>
               ))}
@@ -18886,6 +19520,28 @@ function SizeRangeScale() {
   );
 }
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "保存ボタンで確定するフォームの中で使う", d: "すぐ反映する設定はスイッチを検討。フォームの中に即時反映のチェックボックスを混ぜない", who: "AI解釈" },
+  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48以上にする", who: "Google・NN group" },
+  { n: 4, t: "一部だけ選ばれた親は「不定」で示す", d: "", who: "Apple・Google・NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― ラベルも押せる"
+            items={[
+              { kind: "good", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 14px", border: "1.5px dashed #2F7D6E", borderRadius: 4 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "四角とラベルの全体が押せる範囲(点線)。ラベルを押しても選べる。" },
+              { kind: "bad", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ display: "inline-flex", padding: 2, border: "1.5px dashed #C0503F", borderRadius: 3 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span></span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さい四角だけが押せる。ラベルを押しても選べず、押し損ねやすい。" },
+            ]}
+            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48)、W3C 2.5.8(24px・AA)・2.5.5(44px・AAA。どちらも例外あり)。"
+          />
+  );
+}
+
 function SelectionCheckboxPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -18907,7 +19563,7 @@ function SelectionCheckboxPage() {
           </div>
 
           <h1 style={styles.title}>チェックボックス</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<CheckboxSwatch />}
             imageNote="3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。"
             lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
@@ -18916,6 +19572,8 @@ function SelectionCheckboxPage() {
 
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -19018,6 +19676,8 @@ function SelectionCheckboxPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/radio", "/components/selection/toggle", "/components/selection/chips"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -19476,6 +20136,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "入力した値をまとまりで見せる", d: "この使い方は3系列に共通する", who: "Apple・Google・NN group(AI解釈)" },
+  { n: 2, t: "絞り込みや候補に使うのはGoogleの考え方", d: "iOS・macOSでは標準の部品(セグメントコントロールやメニュー)も検討", who: "AI解釈" },
+  { n: 3, t: "主な操作をチップに置き換えない", d: "「次へ」などはボタンにする", who: "Google" },
+];
+
 function SelectionChipsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -19497,7 +20164,7 @@ function SelectionChipsPage() {
           </div>
 
           <h1 style={styles.title}>チップ(Chips)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(Material 3の4種類)"
             image={<><ChipSwatch /></>}
             imageNote={<>アシスト・フィルタ・インプット・サジェスチョンの4種類。角丸長方形(角の半径8dp)のコンテナが共通する。</>}
@@ -19613,6 +20280,8 @@ function SelectionChipsPage() {
           </div>
 
           <SizeInfographic />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/text-inputs/search-field"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -20235,6 +20904,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "入力欄を基本に、カレンダーは補助にする", d: "", who: "AI解釈(4系列のどれとも食い違わない形)" },
+  { n: 2, t: "カレンダーは近い日付や期間に使う", d: "", who: "NN group" },
+  { n: 3, t: "誕生日のような遠い日付で、カレンダーを先に出さない", d: "", who: "NN group・Google" },
+];
+
 function SelectionDateTimePickerPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -20256,7 +20932,7 @@ function SelectionDateTimePickerPage() {
           </div>
 
           <h1 style={styles.title}>日付/タイムピッカー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(ホイール型の例)"
             image={<><DateTimePickerSwatch /></>}
             imageNote={<>スクロール可能な値のリストから、中央に表示された値を選ぶ。カレンダー形式・フリーテキスト形式など他の実現方法もある。</>}
@@ -20368,6 +21044,8 @@ function SelectionDateTimePickerPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/calendar", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -20845,6 +21523,14 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "命令を選ぶならメニュー、値を選ぶならセレクト", d: "", who: "Apple(プルダウンボタンは命令、ポップアップボタンは選択肢)" },
+  { n: 2, t: "よく使う項目を上に置く", d: "", who: "Apple・NN group" },
+  { n: 3, t: "サブメニューを深くしない", d: "サブメニューは約5項目まで(Apple)、コンテキストメニューは10〜12項目未満", who: "NN group" },
+  { n: 4, t: "キーボードで操作できるようにする", d: "", who: "W3C" },
+];
+
 function SelectionMenuPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -20866,7 +21552,7 @@ function SelectionMenuPage() {
           </div>
 
           <h1 style={styles.title}>メニュー(ドロップダウン・コンテキストメニュー)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(メニューの構成)"
             image={<><MenuSwatch /></>}
             imageNote={<>ボタンを押すと開くメニューの概念図だ。値を選んで表示し続けるセレクト(プルダウン)は「セレクト」ページで扱い、このページは命令(操作)の一覧を扱う。</>}
@@ -20983,12 +21669,8 @@ function SelectionMenuPage() {
 
 
 
-          <div style={styles.linksRow}>
-            <a href="/components/selection/select" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>セレクト(プルダウン) ↗</div>
-              <div style={styles.linkCardDesc}>値を選んで表示し続ける部品の比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/selection/select", "/components/actions/button", "/components/containment/overview", "/components/containment/bottom-sheet"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -21295,6 +21977,13 @@ function UseTable() {
   );
 }
 
+const LEAD = "値や項目を選ぶ部品を並べ、利用者が今何をしたいかから、どれを使うかを選ぶページだ。";
+const ABOUT = [
+  { k: "目的・役割", v: "見た目や機能が重なる選択の部品を、利用者の行動(オン/オフ・1つ選ぶ・複数選ぶ・範囲を決めるなど)から選べるようにする" },
+  { k: "扱う部品", v: <><PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/selection/chips">チップ(Chips)</PageLink>、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "関連するページ", v: <>プルダウン以外の選び方は<PageLink to="/components/selection/select-patterns">セレクトの種類</PageLink>、1つを選んで表示を切り替えるなら<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink></> },
+];
+
 function SelectionOverviewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -21316,7 +22005,7 @@ function SelectionOverviewPage() {
           </div>
 
           <h1 style={styles.title}>Selectionの選び方</h1>
-          <p style={styles.subtitle}>チェックボックス・ラジオボタン・トグルスイッチ・スライダー・チップ(Chips)・セレクト(プルダウン)。6つのパーツを、ユーザーの行動を起点に使い分ける</p>
+          <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -21351,6 +22040,8 @@ function SelectionOverviewPage() {
               </a>
             ))}
           </div>
+
+          <RelatedPages paths={["/components/selection/select-patterns", "/components/navigation/tabs-vs-segmented", "/components/containment/overview", "/components/communication/overview"]} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "選択・切り替え"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -21675,6 +22366,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "1つだけ選ぶときに、すべての選択肢を見せる", d: "", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "縦に並べる", d: "横に並べるのは「はい/いいえ」のような短い2〜3択だけ", who: "Google・NN group" },
+  { n: 3, t: "迷ったら1つを選んでおく", d: "選ばせたくない質問は「該当なし」を足す", who: "NN group。AI解釈" },
+  { n: 4, t: "選択肢は5個以下が目安", d: "多いときはセレクトを検討", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 並べ方"
+            items={[
+              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "選択肢を縦に1行1つで並べ、すべて見える。どの丸がどのラベルか迷わない。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px", maxWidth: 230 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
+            ]}
+            basis="Google(縦に1行1つが基本)、NN group(縦に並べ、すべての選択肢を常に見せる)。"
+            note="「はい/いいえ」のような短い2〜3個なら、横に並べてもよい(このページの記載)。"
+          />
+  );
+}
+
 function SelectionRadioPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -21696,7 +22410,7 @@ function SelectionRadioPage() {
           </div>
 
           <h1 style={styles.title}>ラジオボタン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><RadioSwatch /></>}
             imageNote={<>2〜5個のグループで使い、常に1つが選択された状態を基本とする。</>}
             lead={LEAD}
@@ -21704,6 +22418,8 @@ function SelectionRadioPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -21801,6 +22517,8 @@ function SelectionRadioPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/selection/select", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -22093,6 +22811,8 @@ function SelectionSelectPatternsPage() {
 
           <PatternCards />
           <AvailabilityTable />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/select", "/components/selection/radio", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -22389,6 +23109,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "5つ以下で場所があればラジオボタン", d: "全部見えて比べやすい", who: "AI解釈" },
+  { n: 2, t: "それより多いか、場所がなければセレクト", d: "", who: "AI解釈" },
+  { n: 3, t: "数十件を超えるなら、入力して絞り込める欄にする", d: "名前を知っている項目を選ぶとき", who: "AI解釈" },
+  { n: 4, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 選択肢が少ないとき"
+            items={[
+              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>通常配送</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>お急ぎ便</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>店舗で受け取る</span></span></div>, text: "選択肢が少ないときは、ラジオボタンですべて見せる。開かなくても比べられる。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ width: 200, display: "flex", justifyContent: "space-between", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: "#2E3457" }}>選択してください<span aria-hidden="true">▾</span></span></div>, text: "数個しかない選択肢をセレクトの中に隠すと、開くまで何があるか分からない。" },
+            ]}
+            basis="このページのサマリー(選択肢が少なく、すべて見せたいならラジオボタン)と「意見が分かれる点」のAI解釈(5つ以下で場所に余裕があればラジオボタン)。"
+          />
+  );
+}
+
 function SelectionSelectPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -22410,12 +23152,14 @@ function SelectionSelectPage() {
           </div>
 
           <h1 style={styles.title}>セレクト(プルダウン)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SelectSwatch /></>}
             imageNote={<>選択中の項目を1行で表示し、開くと選択肢の一覧が現れる。ラジオボタンと同じ単一選択だが、常時は折りたたまれている点が異なる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
@@ -22514,6 +23258,8 @@ function SelectionSelectPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/select-patterns", "/components/selection/menu", "/components/selection/radio"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -23101,6 +23847,14 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "おおよその値を選ぶときに使う", d: "正確な値が要るなら、まず入力欄", who: "AI解釈" },
+  { n: 2, t: "使うときも入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "W3C 2.5.7" },
+  { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
+  { n: 4, t: "キーボードでも操作できるようにする", d: "", who: "W3C" },
+];
+
 function SelectionSliderPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -23122,7 +23876,7 @@ function SelectionSliderPage() {
           </div>
 
           <h1 style={styles.title}>スライダー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SliderSwatch /></>}
             imageNote={<>最小値〜最大値の範囲を、つまみの位置でおおよそ表す。</>}
             lead={LEAD}
@@ -23234,6 +23988,8 @@ function SelectionSliderPage() {
           </div>
 
           <ValueDisplaySection />
+
+          <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -23635,6 +24391,29 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "押した瞬間に効く設定にだけ使う", d: "", who: "Google・NN group" },
+  { n: 2, t: "保存ボタンのあるフォームではチェックボックスにする", d: "", who: "Google・NN group" },
+  { n: 3, t: "相反する2つの選択肢の切り替えには使わない", d: "月額/年額などはボタングループ", who: "Google" },
+  { n: 4, t: "名前・役割・状態を支援技術に伝える", d: "", who: "W3C 4.1.2" },
+  { n: 5, t: "押せる範囲は48×48以上", d: "", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― すぐ反映するか"
+            items={[
+              { kind: "good", fig: <><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>Wi-Fi</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#3A4FCF", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-end" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>Bluetooth</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#8E93B5", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-start" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>切り替えるとすぐに反映</span></>, text: "設定画面で、切り替えた瞬間に反映される。保存ボタンはない。" },
+              { kind: "bad", fig: <><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>ニュースレターを受け取る</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#3A4FCF", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-end" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: 210 }}><span style={{ fontSize: 13, color: "#2E3457" }}>新着のお知らせを受け取る</span><span style={{ width: 36, height: 20, borderRadius: 10, background: "#8E93B5", display: "inline-flex", alignItems: "center", padding: 2, justifyContent: "flex-start" }}><span style={{ width: 16, height: 16, borderRadius: "50%", background: "#FFFFFF" }} /></span></div><span style={{ alignSelf: "flex-end", fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>保存</span></>, text: "保存ボタンで確定するフォームの中にスイッチがある。この場面はチェックボックスにする。" },
+            ]}
+            basis="Google・NN group(保存ボタンなしで、すぐに反映させる。保存や送信で確定する場面ではスイッチではなくチェックボックスを使う)。Appleは、すぐ反映するかを書いていない。"
+          />
+  );
+}
+
 function SelectionTogglePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -23656,7 +24435,7 @@ function SelectionTogglePage() {
           </div>
 
           <h1 style={styles.title}>トグルスイッチ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ToggleSwatch /></>}
             imageNote={<>オン・オフの2状態を、送信ボタンなしで即座に切り替えるコントロール。</>}
             lead={LEAD}
@@ -23664,6 +24443,8 @@ function SelectionTogglePage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
 
 
@@ -23761,6 +24542,8 @@ function SelectionTogglePage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -23892,6 +24675,7 @@ const TextInputsCalendarPage = (function () {
 const SOURCES = [
   {
     key: "hig",
+    related: <>日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Apple",
     doc: "Human Interface Guidelines ― Pickers(関連)",
     term: <NoData>該当なし</NoData>,
@@ -23935,6 +24719,7 @@ const SOURCES = [
   },
   {
     key: "material",
+    related: <>Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Google",
     doc: "Material Design 3 ― Date pickers(関連)",
     term: <NoData>該当なし</NoData>,
@@ -23977,6 +24762,7 @@ const SOURCES = [
   },
   {
     key: "wcag",
+    related: <>表の形で操作する部品の参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかの部品と同じく満たす。</>,
     name: "W3C",
     doc: "WAI-ARIA APG ― Grid Pattern(関連)",
     term: <NoData>該当なし</NoData>,
@@ -24007,6 +24793,7 @@ const SOURCES = [
   },
   {
     key: "nn",
+    related: <>日付入力の記事で、カレンダーピッカーは近い日付や期間を選ぶのに向くとしている(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields(関連)",
     term: <NoData>該当なし</NoData>,
@@ -24135,96 +24922,26 @@ function TextInputsCalendarPage() {
               自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかの部品を組み合わせて設計する</strong>ことになる(AI解釈)。
             </p>
           </div>
-          <div className="dsp-mobile-only" style={styles.sourceList}>
+          <div style={styles.noneRow}><NoData>4系列とも、予定表の独立した部品・指針はない</NoData></div>
+          <h3 style={styles.relHead}>関連(各系列の近い部品・参考例)</h3>
+          <div style={styles.relGrid}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceHeadRow}>
-                  <div>
-                    <div style={{ ...styles.sourceName, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.name}</div>
-                    <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
-                  </div>
-                </div>
+                <div style={styles.sourceName}>{s.name}</div>
+                <div style={styles.sourceDoc}>{s.doc}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
-                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
-                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
-                <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
-                <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
-                <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
-                <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {!s.notApplicable && (
-                  <>
-                    <InfoBox label="参照ページ(公式)">
-                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                    </InfoBox>
-                    {s.searchHint && (
-                      <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                    )}
-                  </>
-                )}
-                {s.glossary && <GlossaryNote items={s.glossary} />}
+                <p style={styles.sourceStance}>{s.related}</p>
+                <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
               </div>
             ))}
           </div>
 
-          <div className="dsp-desktop-only">
-            <div style={styles.matrixScroll}>
-              <div style={styles.matrixGrid}>
-                <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
-                    <div style={{ ...styles.sourceName, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.name}</div>
-                    <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
-                  </div>
-                ))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : (s.notApplicable ? <span style={styles.mutedText}>該当なし</span> : null)}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
-                <div style={styles.labelCell}>名称</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>ユースケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} muted={s.notApplicable} /></div>))}
-                <div style={styles.labelCell}>参照ページ(公式)</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
-                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                  </div>
-                ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
-              </div>
-            </div>
-          </div>
-
-          <div style={styles.linksRow}>
-            <a href="/components/selection/date-time-picker" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>日付/タイムピッカー ↗</div>
-              <div style={styles.linkCardDesc}>同じカレンダーグリッドを、単一の日付・時刻を選ぶ入力コントロールという角度から詳しく比較</div>
-            </a>
-          </div>
+          <RelatedPages paths={["/components/selection/date-time-picker", "/components/selection/overview", "/components/containment/card", "/components/containment/list"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -24242,6 +24959,9 @@ function TextInputsCalendarPage() {
 }
 
 const styles = {
+  noneRow: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 16px", fontSize: 13.5, fontWeight: 600, marginBottom: 22 },
+  relHead: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
+  relGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12, marginBottom: 40 },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
@@ -24796,6 +25516,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "欄を離れたときに確かめるのを基本にする", d: "", who: "NN group。Appleもメールアドレスなどは同じ" },
+  { n: 2, t: "入力の途中でエラーを出さない", d: "", who: "NN group" },
+  { n: 3, t: "入力中に示すのは、パスワードの条件のような場面だけ", d: "", who: "NN group" },
+];
+
 function TextInputsInputValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -24817,7 +25544,7 @@ function TextInputsInputValidationPage() {
           </div>
 
           <h1 style={styles.title}>バリデーション</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="検証タイミングの3つの選択肢"
             image={<><ValidationTimingSwatch /></>}
             imageNote={<>NN groupは欄を離れたときの検証を既定とし、Appleもメールアドレスなどは別の欄に移ったときに確かめるとしている。入力中に示すのは、パスワードの条件の一覧(NN group)や、ユーザー名・パスワードの作成(Apple)など、決まった場面に限られる。</>}
@@ -24830,7 +25557,7 @@ function TextInputsInputValidationPage() {
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
-          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。表は横にスクロールできる。</p>
+          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
           <TimingLegend />
           <TimingChart />
           <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
@@ -24933,12 +25660,8 @@ function TextInputsInputValidationPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>エラー表示 ↗</div>
-              <div style={styles.linkCardDesc}>検知したエラーをどう見せるか(文言・視覚表現・訂正案の提示)はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/text-field", "/components/communication/alert", "/tokens/writing"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -25754,6 +26477,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "検索が主な使い方なら、欄を開いたまま置く", d: "", who: "NN group・Google" },
+  { n: 2, t: "補助の機能ならアイコンでもよい", d: "押したらすぐ入力できる状態にする", who: "NN group" },
+  { n: 3, t: "入力前に最近の検索、入力中に候補を出す", d: "", who: "Apple・Google" },
+];
+
 function TextInputsSearchFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -25775,7 +26505,7 @@ function TextInputsSearchFieldPage() {
           </div>
 
           <h1 style={styles.title}>検索フィールド</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SearchFieldSwatch /></>}
             imageNote={<>虫眼鏡アイコン+テキスト入力欄の組み合わせが、検索欄の一般的な基本形(概念図)。</>}
             lead={LEAD}
@@ -25903,6 +26633,8 @@ function TextInputsSearchFieldPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>虫眼鏡アイコンの位置と挙動</h2>
           <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較する。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)だ。</p>
           <IconNotes />
+
+          <RelatedPages paths={["/components/text-inputs/text-field", "/components/navigation/app-bar", "/components/selection/chips"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -26385,6 +27117,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "ラベルは欄の外に常に見せる", d: "", who: "W3C 3.3.2・NN group" },
+  { n: 2, t: "プレースホルダーは入力例だけに使う", d: "ラベルの代わりにしない", who: "W3C 3.3.2" },
+  { n: 3, t: "場所が足りないときはフローティングラベル", d: "", who: "Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― ラベルとプレースホルダー"
+            items={[
+              { kind: "good", fig: <><div style={{ width: 210 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#666D93" }}>例: name@example.com</div></div></>, text: "ラベルが欄の外に常に見えていて、プレースホルダーは入力例だけ。" },
+              { kind: "bad", fig: <><div style={{ width: 210 }}><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#666D93" }}>メールアドレス</div></div><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>↓ 入力すると</span><div style={{ width: 210 }}><div style={{ border: "1.5px solid #8E93B5", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro@</div></div></>, text: "ラベルがなく、プレースホルダーだけで欄の目的を示している。入力すると消えて、何の欄か分からなくなる。" },
+            ]}
+            basis="W3C 3.3.2(目に見えるラベルか説明が必要。プレースホルダーだけでは足りない)、このページの「4系列のどれとも食い違わない」形の記載。"
+            note="Googleのフローティングラベル(欄の中に置き、選ぶと上へ移る)はラベルが残るので、ここでの悪い例には当たらない。"
+          />
+  );
+}
+
 function TextInputsTextFieldPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -26406,7 +27160,7 @@ function TextInputsTextFieldPage() {
           </div>
 
           <h1 style={styles.title}>テキストフィールド・テキストエリア</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><div style={styles.swatchPairRow}>
               <div style={styles.swatchPairItem}>
                 <TextFieldSwatch />
@@ -26423,6 +27177,8 @@ function TextInputsTextFieldPage() {
           />
 
           <SplitSection splits={SPLITS} />
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>① テキストフィールド(単一行)</h2>
           <FieldPatterns />
@@ -26530,6 +27286,8 @@ function TextInputsTextFieldPage() {
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較だ(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
           <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要だ。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
+
+          <RelatedPages paths={["/components/text-inputs/search-field", "/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/selection/select"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -26860,6 +27618,30 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "色だけで伝えない", d: "枠の色に加えて、アイコンと文で伝える", who: "Apple・Google・W3C" },
+  { n: 2, t: "何が問題かを書く", d: "", who: "W3C 3.3.1" },
+  { n: 3, t: "どう直せばよいかを書く", d: "", who: "W3C 3.3.3・NN group" },
+  { n: 4, t: "利用者を責めず、入力した内容は残す", d: "", who: "NN group" },
+  { n: 5, t: "重要な操作は、事前に防ぐ", d: "", who: "W3C 3.3.4" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― エラーの伝え方"
+            items={[
+              { kind: "good", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div><div style={{ display: "flex", gap: 5, alignItems: "flex-start", marginTop: 5, fontSize: 12, lineHeight: 1.5, color: "#C0503F" }}><span aria-hidden="true" style={{ flexShrink: 0, width: 15, height: 15, borderRadius: "50%", background: "#C0503F", color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span><span>「@」が入っていません。例: name@example.com</span></div></div>, text: "赤い枠に加えて、エラーのアイコンと、欄の近くに「何が問題で、どう直すか」の文がある。入力した内容も残っている。" },
+              { kind: "bad", label: "悪い例(1)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div></div>, text: "枠が赤くなるだけで、アイコンも文もない。色だけで伝えている。" },
+              { kind: "bad", label: "悪い例(2)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div><div style={{ display: "flex", gap: 5, alignItems: "flex-start", marginTop: 5, fontSize: 12, lineHeight: 1.5, color: "#C0503F" }}><span aria-hidden="true" style={{ flexShrink: 0, width: 15, height: 15, borderRadius: "50%", background: "#C0503F", color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span><span>入力エラーです</span></div></div>, text: "文はあるが「入力エラーです」だけで、何が問題でどう直せばよいか分からない。" },
+            ]}
+            basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラー修正の提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
+          />
+  );
+}
+
 function TextInputsValidationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -26881,7 +27663,7 @@ function TextInputsValidationPage() {
           </div>
 
           <h1 style={styles.title}>エラー表示</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><ValidationSwatch /></>}
             imageNote={<>エラー状態の枠線に加え、アイコン・テキストで問題と訂正方法を伝える。色だけに頼らない表示が各系列で共通して求められている。</>}
             lead={LEAD}
@@ -26889,6 +27671,8 @@ function TextInputsValidationPage() {
           />
 
 
+
+          <GoodBadFigure />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -26983,12 +27767,8 @@ function TextInputsValidationPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/input-validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>バリデーション ↗</div>
-              <div style={styles.linkCardDesc}>「いつ検証するか」(リアルタイム/フォーカス離脱時/送信時)というタイミングの比較はこちら</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/text-inputs/input-validation", "/components/text-inputs/text-field", "/components/communication/alert", "/tokens/color"]} />
 
           <div style={styles.tagsRow}>
             {["理解可能(POUR)", "知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -27302,6 +28082,14 @@ const ROWS = [
   ["中断・保存", "interruption"], ["アクセシビリティ(WCAG基準)", "accessibility"],
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "全体のステップ数と、今の位置を示す", d: "", who: "Google・W3C・NN group" },
+  { n: 2, t: "前の入力で次の内容が変わる手順だけ、ステップに分ける", d: "", who: "AI解釈" },
+  { n: 3, t: "順番に意味がない入力は、1つのフォームにする", d: "", who: "NN groupの考え方。AI解釈" },
+  { n: 4, t: "長く、途中で別の画面を確かめたくなる手順は、普通のページで進める", d: "", who: "NN group" },
+];
+
 function TextInputsWizardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -27323,7 +28111,7 @@ function TextInputsWizardPage() {
           </div>
 
           <h1 style={styles.title}>ウィザード(ステップ形式の入力)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<WizardSwatch />}
             imageNote="全体のステップと今の位置を示し、次にすることが分かる名前のボタンで進む。"
             lead={LEAD}
@@ -27413,6 +28201,8 @@ function TextInputsWizardPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/text-inputs/text-field", "/components/containment/fullscreen-dialog", "/components/text-inputs/input-validation", "/components/communication/progress"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -27933,6 +28723,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内容と機能は同じに保つ", d: "広さが変わっても、見せ方だけを組み替える", who: "Apple・W3C" },
+  { n: 2, t: "端末ではなく、使える広さで切り替える", d: "サイズクラスで判断する", who: "Apple・Google" },
+  { n: 3, t: "ナビゲーションは広さで置き場所を変える", d: "狭い画面は下のバー、広い画面は横のレールやサイドバー", who: "Google・Apple" },
+  { n: 4, t: "広さが変わっても状態を保つ", d: "選択中の項目や開いている詳細を保つ", who: "Google" },
+  { n: 5, t: "320px相当まで狭めても使える", d: "情報と機能を失わない", who: "W3C" },
+];
+
 function TokensAdaptivePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -27954,13 +28753,15 @@ function TokensAdaptivePage() {
           </div>
 
           <h1 style={styles.title}>アダプティブ/レスポンシブデザイン</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同じ内容を、画面の広さに合わせて組み替える(概念図)"
             image={<><ReflowSwatch /></>}
             imageNote={<>狭い画面では下のナビゲーションと1列、広くなるにつれて横のナビゲーションと複数の区画(ペイン)に組み替える。内容と機能は同じまま、見せ方だけを変えるのが基本だ。ブレークポイントの値や余白は「レイアウト・スペーシング」ページを参照。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
 
 
@@ -28647,6 +29448,30 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "文字と背景の差を確かめる", d: "本文は4.5:1以上、大きな文字と部品は3:1以上", who: "W3C 1.4.3・1.4.11" },
+  { n: 2, t: "色だけで伝えない", d: "色のほかに文字やアイコンでも伝える", who: "W3C 1.4.1" },
+  { n: 3, t: "色は値ではなく役割で指定する", d: "色そのものではなく「意味」で決める", who: "Appleのセマンティックカラー、Googleのカラーロール" },
+  { n: 4, t: "独自の色は濃いめに", d: "最低4.5:1、できれば7:1を目指す", who: "Apple" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― 文字のコントラスト"
+      items={[
+        { kind: "good", label: "良い例(本文)", fig: <><span style={{ fontSize: 14, color: "#171B36" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#171B36 / 白 = 16.85:1</span></>, text: "白い背景に濃い文字。本文に必要な4.5:1を大きく上回る。" },
+        { kind: "bad", label: "悪い例(本文)", fig: <><span style={{ fontSize: 14, color: "#9EA4C4" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#9EA4C4 / 白 = 2.45:1</span></>, text: "薄いグレーの文字は2.45:1で、本文に必要な4.5:1に届かない(枠の中は見本)。" },
+        { kind: "good", label: "良い例(大きい文字)", fig: <><span style={{ fontSize: 24, color: "#8E8E8E" }}>大きい見出し</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#8E8E8E / 白 = 3.28:1</span></>, text: "18pt以上(Webではおよそ24px)の大きい文字は3:1以上でよい。3.28:1で足りる。" },
+        { kind: "bad", label: "悪い例(小さい文字)", fig: <><span style={{ fontSize: 12, color: "#8E8E8E" }}>小さい文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#8E8E8E / 白 = 3.28:1</span></>, text: "同じ3.28:1でも、小さい文字では4.5:1に届かない(枠の中は見本)。" },
+      ]}
+      basis="W3C 1.4.3(本文は4.5:1以上、大きい文字は3:1以上・AA)、Appleの表(17pt以下は4.5:1、18pt以上は3:1)。比は白い背景に対する値(このサイトで計算)。"
+    />
+  );
+}
+
 function TokensColorPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -28668,7 +29493,7 @@ function TokensColorPage() {
           </div>
 
           <h1 style={styles.title}>カラー(配色・コントラスト基準)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コントラスト比とは(共通の考え方)"
             image={<><ColorContrastSwatch /></>}
             imageNote={<>文字色と背景色の明るさの差を表す数値。WCAGは本文4.5:1以上を要求しており、この数値がこのページの各系列比較の共通のものさしになる。</>}
@@ -28683,6 +29508,8 @@ function TokensColorPage() {
             <PriorityDiagram />
             <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。NN groupのみ比率ではなく面積の割合。色見本は概念図で、各系列の実際の色の値ではない。</p>
           </div>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -30304,6 +31131,13 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "明るい画面は影、暗い画面は明るさ", d: "暗い画面では手前の面ほど明るくする", who: "Google・Apple・NN group" },
+  { n: 2, t: "段階に役割を決める", d: "貼り付いた面・少し浮いたカード・操作の層・注意を引く部品、と高さを分ける", who: "Google" },
+  { n: 3, t: "操作の層と内容の層を分ける", d: "操作の層は内容の上に重ねる", who: "Apple" },
+];
+
 function TokensElevationPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -30327,7 +31161,7 @@ function TokensElevationPage() {
           </div>
 
           <h1 style={styles.title}>エレベーション・階層表現(影・半透明素材)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="重なりの表し方(ライトとダーク)"
             image={<><DepthSwatch /></>}
             imageNote={<>明るい画面では影で要素を浮かせられるが、暗い画面では影が背景に溶けて見えない。そのため暗い画面では、手前の面ほど明るい色にして重なりを表す。</>}
@@ -31019,6 +31853,30 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "隣の文字とそろえる", d: "線の太さと大きさを、横の文字に合わせる", who: "Apple・Google" },
+  { n: 2, t: "文字のラベルを添える", d: "アイコンだけでは意味が1つに決まらないことが多い", who: "NN group" },
+  { n: 3, t: "アイコンだけのボタンには名前を付ける", d: "見えるラベルがなくても、支援技術に伝わる名前が要る", who: "W3C 4.1.2・1.1.1" },
+  { n: 4, t: "背景との差を確かめる", d: "意味を伝えるアイコンは背景と3:1以上", who: "W3C 1.4.11" },
+  { n: 5, t: "押せる範囲はアイコンより広く", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― アイコンとラベル"
+      items={[
+        { kind: "good", fig: <div style={{ display: "flex", gap: 18 }}><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>ホーム</span></div><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 4a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13zM15.5 15.5L20 20" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>検索</span></div><div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zM12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><span style={{ fontSize: 11, color: "#2E3457" }}>設定</span></div></div>, text: "アイコンの下に文字のラベルがあり、意味が1つに決まる。ラベルを見せないアイコンにも、支援技術に伝わる名前を付ける。" },
+        { kind: "bad", fig: <div style={{ display: "flex", gap: 18 }}><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.8 6.4.6-4.8 4.3 1.4 6.3L12 16.8 6.4 20l1.4-6.3L3 9.4l6.4-.6z" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5M18 3v4h-4M6 21v-4h4" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg><svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h.01M12 12h.01M19 12h.01" fill="none" stroke="#2E3457" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></div>, text: "意味が1つに決まらないアイコンだけが並び、見えるラベルも名前もない(お気に入り?更新?共有?)。" },
+      ]}
+      basis="NN group(アイコンには文字のラベルを添える)、W3C 1.1.1(文字でない情報には代わりの文字)・4.1.2(名前)。"
+      note={<>押せる範囲の良い例・悪い例は<PageLink to="/components/actions/button">ボタン</PageLink>のページにある。</>}
+    />
+  );
+}
+
 function TokensIconPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -31040,7 +31898,7 @@ function TokensIconPage() {
           </div>
 
           <h1 style={styles.title}>アイコン(サイズ・スタイル)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="サイズの目安(概念図)"
             image={<><IconSwatch /></>}
             imageNote={<>同じ形のアイコンでも、系列・文脈によって最適なサイズ・太さ・スタイルは異なる。実寸の基準は各系列の欄を参照。</>}
@@ -31057,6 +31915,8 @@ function TokensIconPage() {
             <IconStyleTable />
             <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」。</p>
           </section>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>Apple・Googleのサイズと余白(スペーシング)の比較</h2>
           <p style={styles.diagramNote}>アイコン本体の大きさ、押せる範囲、部品の大きさの段階、アイコンの周りの余白を比べる。Googleはアイコンボタンの段階ごとに余白まで数値で決めているのに対し、Appleはアイコン自体の大きさを文字に合わせ、押せる範囲(44pt)を中心に定めている。</p>
@@ -31569,6 +32429,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>、<PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/containment/carousel">カルーセル</PageLink>、<PageLink to="/components/containment/list">リスト</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "ジェスチャーを唯一の手段にしない", d: "見つけにくいジェスチャーだけに重要な操作を任せない", who: "Apple・Google・W3C・NN group" },
+  { n: 2, t: "代わりの操作を用意する", d: "複数の指・軌跡・ドラッグ・端末を動かす操作には、別の方法も用意", who: "W3C 2.5.1・2.5.7・2.5.4" },
+  { n: 3, t: "標準のジェスチャーの意味を変えない", d: "タップ・スワイプなどの意味をそろえる", who: "Apple" },
+  { n: 4, t: "離したときに実行する", d: "押した瞬間ではなく、離したときに実行する", who: "W3C" },
+  { n: 5, t: "キーボードだけでも操作できる", d: "", who: "W3C 2.1.1" },
+];
+
 function TokensInputMethodsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -31590,7 +32459,7 @@ function TokensInputMethodsPage() {
           </div>
 
           <h1 style={styles.title}>入力方法・ジェスチャー</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="よく使われるジェスチャー(概念図)"
             image={<><GestureSwatch /></>}
             imageNote={<>丸は指の位置、矢印は動かす方向だ。タップや長押しは1本指で軌跡がない操作、スワイプ・ドラッグは軌跡がある操作、ピンチ・回転は2本指の操作、振るは端末そのものの動きで、W3Cはこの違いごとに求めることを変えている。</>}
@@ -32208,6 +33077,29 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>(フォーカスの移動)、<PageLink to="/tokens/color">カラー</PageLink>(非活性の色)</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "基本の5つの状態をそろえる", d: "有効・ホバー・フォーカス・プレス・無効", who: "NN group・Google" },
+  { n: 2, t: "フォーカスは必ず見えるように", d: "色だけでなく輪郭線で示す", who: "W3C 2.4.7" },
+  { n: 3, t: "状態の見た目は周りと見分けられるように", d: "隣り合う色と3:1以上", who: "W3C" },
+  { n: 4, t: "独自のボタンにも押した状態を用意する", d: "システムの効果に任せるのが基本", who: "Apple" },
+  { n: 5, t: "状態を支援技術にも伝える", d: "見た目だけで終わらせない", who: "W3C" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― フォーカスの見え方"
+      items={[
+        { kind: "good", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600, outline: "3px solid #3A4FCF", outlineOffset: 2 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスした部品の外側に輪郭線(フォーカスリング)が出て、今どこにいるか分かる。" },
+        { kind: "bad", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスしても見た目がほとんど変わらず、キーボードで操作する人には今どこにいるか分からない。" },
+      ]}
+      basis="W3C 2.4.7(フォーカスが見えること・AA)、Google(Webの実装Material Webで太さ3pxのフォーカスリング)、このページの「色だけでなく輪郭線で示す」。"
+    />
+  );
+}
+
 function TokensInteractionStatesPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -32229,7 +33121,7 @@ function TokensInteractionStatesPage() {
           </div>
 
           <h1 style={styles.title}>インタラクション状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="ステートレイヤー(同じボタンに、状態ごとの半透明の色を重ねる)"
             image={<><StateSwatch /></>}
             imageNote={<>Googleのトークン値(ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は文字38%・容器10%)で描いた概念図だ。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えている。</>}
@@ -32244,6 +33136,8 @@ function TokensInteractionStatesPage() {
             <StateMatrix />
             <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。◯=定義・明記されている、△=部分的・条件付き、―=定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
           </div>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -32778,6 +33672,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "端末ではなく、使える広さで切り替える", d: "分割画面やウィンドウの大きさで変わるものとして扱う", who: "Apple・Google" },
+  { n: 2, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
+  { n: 3, t: "狭めても読めるようにする", d: "幅320pxまで狭めても内容を読める", who: "W3C 1.4.10" },
+  { n: 4, t: "切り替える幅の目安", d: "600・840・1200・1600dp", who: "Google。Appleは境界値を示さない" },
+];
+
 function TokensLayoutSpacingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -32799,7 +33701,7 @@ function TokensLayoutSpacingPage() {
           </div>
 
           <h1 style={styles.title}>レイアウト・スペーシング(余白・グリッド)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="余白が「まとまり」を作る(近接の原則)"
             image={<><ProximitySwatch /></>}
             imageNote={<>同じ12個の四角でも、間隔を変えるだけで1つのまとまりにも2つのグループにも見える。余白は見た目を整えるだけでなく、要素どうしの関係を伝える情報だ。</>}
@@ -33774,6 +34676,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "目的のある動きだけを使う", d: "頻繁な操作には足さない", who: "Apple" },
+  { n: 2, t: "長さの目安", d: "小さな部品の反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "Google・NN group" },
+  { n: 3, t: "緩急を付ける", d: "入る動きは減速、出る動きは加速", who: "Google・NN group" },
+  { n: 4, t: "動きを減らす設定に対応する", d: "移動をフェードにするなど", who: "Apple・Google・W3C" },
+  { n: 5, t: "安全面の上限を守る", d: "5秒を超える自動の動きは止められるようにし、1秒に3回を超えて点滅させない", who: "W3C" },
+];
+
 function TokensMotionPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -33814,7 +34725,9 @@ function TokensMotionPage() {
           </div>
 
           <h1 style={styles.title}>モーション/アニメーション</h1>
-          <SummaryCard lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
+          <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
+
+          <PageToc />
 
           <MotionIntro />
 
@@ -35266,6 +36179,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/components/containment/card">カード</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "内側の角丸は外側に合わせる", d: "内側 = 外側 − 余白(同心)にする", who: "Apple" },
+  { n: 2, t: "決まった段階から選ぶ", d: "角丸は0〜48dpとFullの10段階から選ぶ", who: "Google" },
+  { n: 3, t: "形の種類を場面で使い分ける", d: "固定値の角丸・カプセル・円などを部品に合わせて選ぶ", who: "Apple・Google" },
+  { n: 4, t: "枠だけで押せると伝えるなら差を確かめる", d: "枠が唯一の手がかりなら3:1以上", who: "W3C" },
+];
+
 function TokensShapePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -35287,7 +36208,7 @@ function TokensShapePage() {
           </div>
 
           <h1 style={styles.title}>シェイプ・コーナーラジウス(角丸)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="同心の角丸(外枠と内側の部品の関係)"
             image={<><ConcentricSwatch /></>}
             imageNote={<>外枠と内側の部品に同じ角丸を使うと、角の部分だけ隙間が広がって見える。内側の角丸を「外側の角丸 − 余白」にすると、隙間が均一になる(Appleがライブアクティビティなどで示している考え方)。</>}
@@ -36001,6 +36922,13 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "音は補助にする", d: "音だけに頼らず、見た目や触覚でも伝える", who: "Apple・W3C・NN group" },
+  { n: 2, t: "利用者が止められるようにする", d: "自動で3秒を超えて鳴る音は止められるように(W3C)、効果音をオフにする設定を用意", who: "NN group" },
+  { n: 3, t: "端末の設定に従う", d: "消音モードや音量に合わせる", who: "Apple" },
+];
+
 function TokensSoundPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -36024,7 +36952,7 @@ function TokensSoundPage() {
           </div>
 
           <h1 style={styles.title}>サウンド(音フィードバック)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="UIの音の種類(Google・Material Design 2の分類)"
             image={<><SoundTypesMap /></>}
             imageNote={<>頻繁に鳴る音ほど短く控えめに、まれに鳴る音ほど印象的にする、という考え方を図にしたものだ。位置はM2の説明文をもとにした概念図で、数値の基準ではない。</>}
@@ -36811,6 +37739,14 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "名前の付いた段階から選ぶ", d: "文字サイズを自由に決めず、決まった段階から選ぶ", who: "Apple・Google" },
+  { n: 2, t: "本文と最小の大きさ", d: "本文はApple 17pt・Google 16sp、最小はどちらも11", who: "Apple・Google" },
+  { n: 3, t: "利用者の文字サイズの設定に合わせる", d: "設定に連動して大きさが変わるようにする", who: "Apple・Google" },
+  { n: 4, t: "行送りは文字の大きさで変える", d: "大きい文字ほど比率を小さくする。本文はAppleが約1.29倍、Googleが1.5倍。どちらもラテン文字の値で、日本語の長い文章では広めに取り、実際の文章で確かめる(AI解釈)", who: "Apple・Google" },
+];
+
 function TokensTypographyPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -36834,7 +37770,7 @@ function TokensTypographyPage() {
           </div>
 
           <h1 style={styles.title}>タイポグラフィ(文字サイズ・行間)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="文字サイズの段階(実寸の60%で表示)"
             image={<><TypeLadder /></>}
             imageNote={<>AppleもGoogleも、文字サイズを自由に指定するのではなく、名前の付いた段階から選ぶ仕組みだ。<strong>基準(本文の既定)はAppleがBodyの17pt、GoogleがBody Largeの16sp</strong>、最小はどちらも11だ。全段階と使用例は下部の「タイプスケールの段階ごとの使用例」を参照。</>}
@@ -37611,6 +38547,15 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "短く、平易に、一貫して書く", d: "1語ずつ必要かを確かめる", who: "Apple・Google・NN group" },
+  { n: 2, t: "声は一定、調子は場面で変える", d: "祝う場面と失敗の場面で書き方を変える", who: "Apple・NN group" },
+  { n: 3, t: "同じ操作は同じ言葉で", d: "画面ごとに言い方を変えない", who: "Google" },
+  { n: 4, t: "エラーで感嘆や「私たち」を使わない", d: "「おっと」のような言葉は不誠実に聞こえることがある", who: "Apple" },
+  { n: 5, t: "1行は長くしすぎない", d: "日本語は1行40文字が目安", who: "W3C" },
+];
+
 function TokensWritingPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -37632,13 +38577,15 @@ function TokensWritingPage() {
           </div>
 
           <h1 style={styles.title}>文章・UXライティング</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="声(voice)は一定、調子(tone)は場面で変える(概念図)"
             image={<><VoiceToneSwatch /></>}
             imageNote={<>AppleとNN groupに共通する考え方だ。アプリの人柄にあたる「声」はどの画面でも変えず、目標の達成と支払いの失敗のように、場面によって「調子」を変える。例文は説明用に作ったものだ(AppleはApple Watchの、深刻な場面と祝う場面の2つの表示を例にしている)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <PageToc />
 
           <WritingPhilosophy />
 
@@ -37762,16 +38709,7 @@ function TokensWritingPage() {
             <p style={styles.chartNote}>2008年の記事で、25人のWebの閲覧記録(約4万5千ページ分)を分析した結果だ。言葉を増やしても読まれる量はほとんど増えないため、伝えたいことを先に、短く書く理由になる。</p>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/text-inputs/validation" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>エラー表示 ↗</div>
-              <div style={styles.linkCardDesc}>エラー文の書き方・見せ方の詳しい比較はこちら</div>
-            </a>
-            <a href="/components/communication/empty-state" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>空状態 ↗</div>
-              <div style={styles.linkCardDesc}>空の画面で次の行動を示す方法はこちら</div>
-            </a>
-          </div>
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/communication/empty-state", "/tokens/typography"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -37941,6 +38879,7 @@ const PAGES = [
   { id: "components-containment-side-sheet", label: "サイドシート", spec: "025", Component: ContainmentSideSheetPage, path: "/components/containment/side-sheet", fixed: true },
   { id: "components-containment-bottom-sheet", label: "ボトムシート", spec: "029", Component: ContainmentBottomSheetPage, path: "/components/containment/bottom-sheet", fixed: true },
   { id: "components-containment-card", label: "カード", spec: "026", Component: ContainmentCardPage, path: "/components/containment/card", fixed: true },
+  { id: "components-communication-widget", label: "ウィジェット", spec: "055", Component: CommunicationWidgetPage, path: "/components/communication/widget", fixed: true },
   { id: "components-containment-list", label: "リスト", spec: "027", Component: ContainmentListPage, path: "/components/containment/list", fixed: true },
   { id: "components-containment-table", label: "表(データテーブル)", spec: "057", Component: ContainmentTablePage, path: "/components/containment/table", fixed: true },
   { id: "components-containment-carousel", label: "カルーセル", spec: "058", Component: ContainmentCarouselPage, path: "/components/containment/carousel", fixed: true },
@@ -37955,7 +38894,6 @@ const PAGES = [
   { id: "components-communication-badge", label: "バッジ", spec: "037", Component: CommunicationBadgePage, path: "/components/communication/badge", fixed: true },
   { id: "components-communication-empty-state", label: "空状態", spec: "038", Component: CommunicationEmptyStatePage, path: "/components/communication/empty-state", fixed: true },
   { id: "components-communication-loading", label: "ローディング状態", spec: "061", Component: CommunicationLoadingPage, path: "/components/communication/loading", fixed: true },
-  { id: "components-communication-widget", label: "ウィジェット", spec: "055", Component: CommunicationWidgetPage, path: "/components/communication/widget", fixed: true },
   { id: "tokens-motion", label: "モーション/アニメーション", spec: "049", Component: TokensMotionPage, path: "/tokens/motion", fixed: true },
   { id: "tokens-sound", label: "サウンド", spec: "050", Component: TokensSoundPage, path: "/tokens/sound", fixed: true },
   { id: "tokens-input-methods", label: "入力方法・ジェスチャー", spec: "053", Component: TokensInputMethodsPage, path: "/tokens/input-methods", fixed: true },

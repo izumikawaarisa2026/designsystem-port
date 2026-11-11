@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -247,6 +247,28 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "5つ以下で場所があればラジオボタン", d: "全部見えて比べやすい", who: "AI解釈" },
+  { n: 2, t: "それより多いか、場所がなければセレクト", d: "", who: "AI解釈" },
+  { n: 3, t: "数十件を超えるなら、入力して絞り込める欄にする", d: "名前を知っている項目を選ぶとき", who: "AI解釈" },
+  { n: 4, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+            title="良い例・悪い例 ― 選択肢が少ないとき"
+            items={[
+              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>通常配送</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>お急ぎ便</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>店舗で受け取る</span></span></div>, text: "選択肢が少ないときは、ラジオボタンですべて見せる。開かなくても比べられる。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ width: 200, display: "flex", justifyContent: "space-between", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: "#2E3457" }}>選択してください<span aria-hidden="true">▾</span></span></div>, text: "数個しかない選択肢をセレクトの中に隠すと、開くまで何があるか分からない。" },
+            ]}
+            basis="このページのサマリー(選択肢が少なく、すべて見せたいならラジオボタン)と「意見が分かれる点」のAI解釈(5つ以下で場所に余裕があればラジオボタン)。"
+          />
+  );
+}
+
 export default function SelectionSelectPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -272,12 +294,14 @@ export default function SelectionSelectPage() {
           </div>
 
           <h1 style={styles.title}>セレクト(プルダウン)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><SelectSwatch /></>}
             imageNote={<>選択中の項目を1行で表示し、開くと選択肢の一覧が現れる。ラジオボタンと同じ単一選択だが、常時は折りたたまれている点が異なる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
+
+          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
@@ -376,6 +400,8 @@ export default function SelectionSelectPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/select-patterns", "/components/selection/menu", "/components/selection/radio"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

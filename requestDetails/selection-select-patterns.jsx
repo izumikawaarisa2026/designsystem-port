@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { NoData, TagLink, SummaryCard, PageLink } from "./page-parts";
+import { NoData, TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
@@ -207,6 +207,8 @@ export default function SelectionSelectPatternsPage() {
 
           <PatternCards />
           <AvailabilityTable />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/select", "/components/selection/radio", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["選択・切り替え", "入力・フォーム"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}

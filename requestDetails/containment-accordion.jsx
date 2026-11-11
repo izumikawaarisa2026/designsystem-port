@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / アコーディオン(表示コントロール)」ページ。
@@ -228,6 +228,13 @@ const ABOUT = [
   { k: "似た部品との違い", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "各項目が独立していて、一部だけ読めば足りる内容に使う", d: "よくある質問など", who: "NN group" },
+  { n: 2, t: "ほぼ全部を読む内容や、続けて読む記事には使わない", d: "", who: "NN group" },
+  { n: 3, t: "開閉できると分かる印(矢印)を付ける", d: "", who: "NN group" },
+];
+
 export default function ContainmentAccordionPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -253,7 +260,7 @@ export default function ContainmentAccordionPage() {
           </div>
 
           <h1 style={styles.title}>アコーディオン(表示コントロール)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><AccordionSwatch /></>}
             imageNote={<>見出しをクリックすると、関連するパネル(詳細内容)の表示・非表示が切り替わる。展開可能であることを示すキャレットアイコンを伴うのが一般的。</>}
             lead={LEAD}
@@ -360,6 +367,8 @@ export default function ContainmentAccordionPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/navigation/tabs", "/components/containment/list", "/components/communication/tooltip"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

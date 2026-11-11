@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / フルスクリーンダイアログ」ページ。
@@ -262,6 +262,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "キーボード入力が要る、まとまった作業に使う", d: "", who: "Google" },
+  { n: 2, t: "狭い画面でだけ使う", d: "広い画面では基本のダイアログ", who: "Google" },
+  { n: 3, t: "長く、途中で中断もありうる手順は、普通のページのウィザードにする", d: "", who: "AI解釈" },
+];
+
 export default function ContainmentFullscreenDialogPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -287,7 +294,7 @@ export default function ContainmentFullscreenDialogPage() {
           </div>
 
           <h1 style={styles.title}>フルスクリーンダイアログ</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<><FullscreenDialogSwatch /></>}
             imageNote={<>画面全体を占め、フォーム入力など一連のタスクをまとめて完了させる。ナビゲーションは閉じる「×」のみで、保存には専用ボタンを使う。</>}
             lead={LEAD}
@@ -397,16 +404,8 @@ export default function ContainmentFullscreenDialogPage() {
             </div>
           </div>
 
-          <div style={styles.linksRow}>
-            <a href="/components/containment/dialog" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>ダイアログ ↗</div>
-              <div style={styles.linkCardDesc}>スクリム上に乗る、確認・警告のための基本ダイアログの4系列比較(このページの分割元)</div>
-            </a>
-            <a href="/components/containment/side-sheet" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>サイドシート ↗</div>
-              <div style={styles.linkCardDesc}>確認・警告に限らない、より汎用的な重ね表示オーバーレイの4系列比較</div>
-            </a>
-          </div>
+
+          <RelatedPages paths={["/components/containment/overview", "/components/containment/dialog", "/components/text-inputs/wizard", "/components/containment/side-sheet"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

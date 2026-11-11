@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / ウィザード(ステップ形式の入力)」ページ。
@@ -231,6 +231,14 @@ const ROWS = [
   ["中断・保存", "interruption"], ["アクセシビリティ(WCAG基準)", "accessibility"],
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "全体のステップ数と、今の位置を示す", d: "", who: "Google・W3C・NN group" },
+  { n: 2, t: "前の入力で次の内容が変わる手順だけ、ステップに分ける", d: "", who: "AI解釈" },
+  { n: 3, t: "順番に意味がない入力は、1つのフォームにする", d: "", who: "NN groupの考え方。AI解釈" },
+  { n: 4, t: "長く、途中で別の画面を確かめたくなる手順は、普通のページで進める", d: "", who: "NN group" },
+];
+
 export default function TextInputsWizardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -256,7 +264,7 @@ export default function TextInputsWizardPage() {
           </div>
 
           <h1 style={styles.title}>ウィザード(ステップ形式の入力)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<WizardSwatch />}
             imageNote="全体のステップと今の位置を示し、次にすることが分かる名前のボタンで進む。"
             lead={LEAD}
@@ -346,6 +354,8 @@ export default function TextInputsWizardPage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/text-inputs/text-field", "/components/containment/fullscreen-dialog", "/components/text-inputs/input-validation", "/components/communication/progress"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "理解可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

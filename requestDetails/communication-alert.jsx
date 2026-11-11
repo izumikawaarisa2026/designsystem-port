@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ステータスメッセージ(アラート)」ページ。
@@ -266,6 +266,15 @@ const ROWS = [
   ["文言", "wording"], ["避けること", "avoid"], ["アクセシビリティ(WCAG基準)", "accessibility"],
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "情報の重さに合わせて、伝え方を変える", d: "", who: "Apple" },
+  { n: 2, t: "状態の知らせは、対象の近くに控えめに置く", d: "", who: "Apple" },
+  { n: 3, t: "作業を止めるのは、取り返しのつかないデータ損失のときだけ", d: "", who: "Apple" },
+  { n: 4, t: "入力の誤りは、欄の近くに出す", d: "", who: "NN group" },
+  { n: 5, t: "見た目だけでなく、支援技術にも伝える", d: "", who: "W3C 4.1.3" },
+];
+
 export default function CommunicationStatusMessagePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -291,7 +300,7 @@ export default function CommunicationStatusMessagePage() {
           </div>
 
           <h1 style={styles.title}>ステータスメッセージ(アラート)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             image={<StatusSwatch />}
             imageNote="成功・情報・注意・エラーを、色だけでなくアイコンと文字でも区別する。"
             lead={LEAD}
@@ -379,6 +388,8 @@ export default function CommunicationStatusMessagePage() {
               </div>
             </div>
           </div>
+
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/banner", "/components/communication/snackbar", "/components/text-inputs/validation", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

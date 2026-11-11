@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チップ(Chips)」ページ。
@@ -386,6 +386,13 @@ const SPLITS = [
   },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "入力した値をまとまりで見せる", d: "この使い方は3系列に共通する", who: "Apple・Google・NN group(AI解釈)" },
+  { n: 2, t: "絞り込みや候補に使うのはGoogleの考え方", d: "iOS・macOSでは標準の部品(セグメントコントロールやメニュー)も検討", who: "AI解釈" },
+  { n: 3, t: "主な操作をチップに置き換えない", d: "「次へ」などはボタンにする", who: "Google" },
+];
+
 export default function SelectionChipsPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -411,7 +418,7 @@ export default function SelectionChipsPage() {
           </div>
 
           <h1 style={styles.title}>チップ(Chips)</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(Material 3の4種類)"
             image={<><ChipSwatch /></>}
             imageNote={<>アシスト・フィルタ・インプット・サジェスチョンの4種類。角丸長方形(角の半径8dp)のコンテナが共通する。</>}
@@ -527,6 +534,8 @@ export default function SelectionChipsPage() {
           </div>
 
           <SizeInfographic />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/text-inputs/search-field"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

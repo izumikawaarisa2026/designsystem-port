@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「インタラクション状態」ページ。
@@ -409,6 +409,29 @@ const ABOUT = [
   { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>(フォーカスの移動)、<PageLink to="/tokens/color">カラー</PageLink>(非活性の色)</> },
 ];
 
+/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+const KP = [
+  { n: 1, t: "基本の5つの状態をそろえる", d: "有効・ホバー・フォーカス・プレス・無効", who: "NN group・Google" },
+  { n: 2, t: "フォーカスは必ず見えるように", d: "色だけでなく輪郭線で示す", who: "W3C 2.4.7" },
+  { n: 3, t: "状態の見た目は周りと見分けられるように", d: "隣り合う色と3:1以上", who: "W3C" },
+  { n: 4, t: "独自のボタンにも押した状態を用意する", d: "システムの効果に任せるのが基本", who: "Apple" },
+  { n: 5, t: "状態を支援技術にも伝える", d: "見た目だけで終わらせない", who: "W3C" },
+];
+
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+function GoodBadFigure() {
+  return (
+    <GoodBad
+      title="良い例・悪い例 ― フォーカスの見え方"
+      items={[
+        { kind: "good", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600, outline: "3px solid #3A4FCF", outlineOffset: 2 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスした部品の外側に輪郭線(フォーカスリング)が出て、今どこにいるか分かる。" },
+        { kind: "bad", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスしても見た目がほとんど変わらず、キーボードで操作する人には今どこにいるか分からない。" },
+      ]}
+      basis="W3C 2.4.7(フォーカスが見えること・AA)、Google(Webの実装Material Webで太さ3pxのフォーカスリング)、このページの「色だけでなく輪郭線で示す」。"
+    />
+  );
+}
+
 export default function TokensInteractionStatesPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -434,7 +457,7 @@ export default function TokensInteractionStatesPage() {
           </div>
 
           <h1 style={styles.title}>インタラクション状態</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={KP}
             imageLabel="ステートレイヤー(同じボタンに、状態ごとの半透明の色を重ねる)"
             image={<><StateSwatch /></>}
             imageNote={<>Googleのトークン値(ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は文字38%・容器10%)で描いた概念図だ。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えている。</>}
@@ -449,6 +472,8 @@ export default function TokensInteractionStatesPage() {
             <StateMatrix />
             <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。◯=定義・明記されている、△=部分的・条件付き、―=定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
           </div>
+          <GoodBadFigure />
+
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / カレンダー(スケジュール/予定表)」ページ。
@@ -46,6 +46,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
 const SOURCES = [
   {
     key: "hig",
+    related: <>日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Apple",
     doc: "Human Interface Guidelines ― Pickers(関連)",
     term: <NoData>該当なし</NoData>,
@@ -89,6 +90,7 @@ const SOURCES = [
   },
   {
     key: "material",
+    related: <>Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Google",
     doc: "Material Design 3 ― Date pickers(関連)",
     term: <NoData>該当なし</NoData>,
@@ -131,6 +133,7 @@ const SOURCES = [
   },
   {
     key: "wcag",
+    related: <>表の形で操作する部品の参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかの部品と同じく満たす。</>,
     name: "W3C",
     doc: "WAI-ARIA APG ― Grid Pattern(関連)",
     term: <NoData>該当なし</NoData>,
@@ -161,6 +164,7 @@ const SOURCES = [
   },
   {
     key: "nn",
+    related: <>日付入力の記事で、カレンダーピッカーは近い日付や期間を選ぶのに向くとしている(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Nielsen Norman Group",
     doc: "Date-Input Form Fields(関連)",
     term: <NoData>該当なし</NoData>,
@@ -293,96 +297,26 @@ export default function TextInputsCalendarPage() {
               自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかの部品を組み合わせて設計する</strong>ことになる(AI解釈)。
             </p>
           </div>
-          <div className="dsp-mobile-only" style={styles.sourceList}>
+          <div style={styles.noneRow}><NoData>4系列とも、予定表の独立した部品・指針はない</NoData></div>
+          <h3 style={styles.relHead}>関連(各系列の近い部品・参考例)</h3>
+          <div style={styles.relGrid}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceHeadRow}>
-                  <div>
-                    <div style={{ ...styles.sourceName, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.name}</div>
-                    <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
-                  </div>
-                </div>
+                <div style={styles.sourceName}>{s.name}</div>
+                <div style={styles.sourceDoc}>{s.doc}</div>
                 {s.illustration && (
                   <div style={styles.illustrationBox}>
                     {s.illustration()}
                     {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
                   </div>
                 )}
-                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
-                <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
-                <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
-                <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
-                <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
-                <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
-                {!s.notApplicable && (
-                  <>
-                    <InfoBox label="参照ページ(公式)">
-                      <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                    </InfoBox>
-                    {s.searchHint && (
-                      <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                    )}
-                  </>
-                )}
-                {s.glossary && <GlossaryNote items={s.glossary} />}
+                <p style={styles.sourceStance}>{s.related}</p>
+                <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
               </div>
             ))}
           </div>
 
-          <div className="dsp-desktop-only">
-            <div style={styles.matrixScroll}>
-              <div style={styles.matrixGrid}>
-                <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
-                    <div style={{ ...styles.sourceName, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.name}</div>
-                    <div style={{ ...styles.sourceDoc, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.doc}</div>
-                  </div>
-                ))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : (s.notApplicable ? <span style={styles.mutedText}>該当なし</span> : null)}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
-                <div style={styles.labelCell}>名称</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.position}</div>))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
-                <div style={styles.labelCell}>色</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>ユースケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} muted={s.notApplicable} /></div>))}
-                <div style={styles.labelCell}>参照ページ(公式)</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
-                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                  </div>
-                ))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell }}>{s.glossary ? <GlossaryNote items={s.glossary} /> : <NoData>該当なし</NoData>}</div>))}
-              </div>
-            </div>
-          </div>
-
-          <div style={styles.linksRow}>
-            <a href="/components/selection/date-time-picker" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>日付/タイムピッカー ↗</div>
-              <div style={styles.linkCardDesc}>同じカレンダーグリッドを、単一の日付・時刻を選ぶ入力コントロールという角度から詳しく比較</div>
-            </a>
-          </div>
+          <RelatedPages paths={["/components/selection/date-time-picker", "/components/selection/overview", "/components/containment/card", "/components/containment/list"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -400,6 +334,9 @@ export default function TextInputsCalendarPage() {
 }
 
 const styles = {
+  noneRow: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 16px", fontSize: 13.5, fontWeight: 600, marginBottom: 22 },
+  relHead: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
+  relGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12, marginBottom: 40 },
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
