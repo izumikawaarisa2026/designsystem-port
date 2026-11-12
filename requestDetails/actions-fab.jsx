@@ -20,7 +20,7 @@ const SOURCES = [
     doc: "該当なし(参考: Human Interface Guidelines ― Buttons(visionOS))",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
-    position: <NoData>該当なし(FABに当たる部品はない)</NoData>,
+    position: <NoData>該当なし(FABに当たるコンポーネントはない)</NoData>,
     size: <NoData>該当なし</NoData>,
     stance: <><NoData>該当なし</NoData>。主な操作は、ツールバーやナビゲーションバーに置くのが基本。</>,
     exceptions: <NoData>該当なし</NoData>,
@@ -53,7 +53,7 @@ const SOURCES = [
     stance:
       <><Hl>画面上で最も重要な操作に使うボタン</Hl>で、他のすべてのコンテンツより手前に表示される。2025年5月のM3 Expressive更新でサイズ体系が再編された。</>,
     exceptions:
-      "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。なお、アイコンに文字のラベルを添えたい場合は、「Extended FAB」という別の部品が用意されている。",
+      "以前あったSmall FAB(40dp)は非推奨になった。1画面に複数のFABを表示すること、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)への使用は避けるべきとされている。なお、アイコンに文字のラベルを添えたい場合は、「Extended FAB」という別のコンポーネントが用意されている。",
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して最低3:1のコントラスト比を確保すべきとされており、知覚可能性に関わる。フォーカス順序で優先的に扱うべきという点は操作可能性に関わる。",
     searchHint: "FAB container height",
     url: "https://m3.material.io/components/floating-action-button/specs",
@@ -225,7 +225,7 @@ function FabGuide() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>FABの種類と使い方(Google)</h2>
-      <p style={styles.fgNote}>FABを部品として定めているのはGoogleだ。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たる部品はなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていない。</p>
+      <p style={styles.fgNote}>FABをコンポーネントとして定めているのはGoogleだ。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たるコンポーネントはなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていない。</p>
       <div style={styles.fgGrid}>
         {FAB_KINDS.map((k) => (
           <div key={k.t} style={styles.fgCard}>
@@ -252,11 +252,11 @@ function FabGuide() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタンだ。";
+const LEAD = "画面の上に浮かべて置く、その画面でいちばん大事な操作のためのボタン";
 const ABOUT = [
   { k: "目的・役割", v: "その画面の主な操作(新規作成・作成開始など)を、スクロールしても常に押せる位置に置く" },
   { k: "よく使われる場面", v: "メールの新規作成、メモ・予定の追加、地図の現在地へ移動" },
-  { k: "似た部品との違い", v: <>画面の中の普通の操作は<PageLink to="/components/actions/button">ボタン</PageLink>。FABは1画面に1つ、主な操作だけに使う</> },
+  { k: "似たコンポーネントとの違い", v: <>画面の中の普通の操作は<PageLink to="/components/actions/button">ボタン</PageLink>。FABは1画面に1つ、主な操作だけに使う</> },
 ];
 
 /* 意見が分かれる点 */
@@ -265,7 +265,7 @@ const SPLITS = [
     q: "画面に常に浮かぶ、主な操作のボタンを置く?",
     sides: [
       { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
-      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たる部品がない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
+      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たるコンポーネントがない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
     ],
     tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形だ。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえる。",
   },
@@ -331,7 +331,7 @@ export default function ActionsFabPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleにはFABに当たる部品がない</strong>(visionOSの浮かぶボタンは見た目が近いだけ。比較表のメモ)。
+              <strong>AppleにはFABに当たるコンポーネントがない</strong>(visionOSの浮かぶボタンは見た目が近いだけ。比較表のメモ)。
             </p>
             <p style={styles.synthesisText}>
               WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。

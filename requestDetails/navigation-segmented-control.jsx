@@ -74,7 +74,7 @@ const SOURCES = [
     size:
       "コンテナの高さは40dp。角は完全な丸み(フル角丸)を持つ(M2の「トグルボタン」から刷新)。",
     colorInfo:
-      "色の値はデザイントークンを通して実装され、ダイナミックカラーにも対応している。セグメントボタンは類似した部品(セグメント)の集合体であるため、輪郭線は背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。選択状態はチェックマークアイコンと色の変化の両方で示すべきで、色だけに頼るべきではないとしている。",
+      "色の値はデザイントークンを通して実装され、ダイナミックカラーにも対応している。セグメントボタンは類似したコンポーネント(セグメント)の集合体であるため、輪郭線は背景との間で少なくとも3:1のコントラスト比を確保すべきとしている。選択状態はチェックマークアイコンと色の変化の両方で示すべきで、色だけに頼るべきではないとしている。",
     glossary: [
       { term: "単一選択 / 複数選択", desc: "セグメントボタンには2つの公式バリアントがある。単一選択はラジオボタンのように一度に1つだけ選択でき、複数選択はチェックボックスのように複数(またはゼロ)を選択できる。M2では「トグルボタン」という名称だったが、M3でこの2バリアントを持つ「セグメントボタン」として刷新された。" },
     ],
@@ -120,7 +120,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
     glossary: [
-      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールという部品を定めていない。フォームの中で1つの値を選ぶ用途ならRadio Groupパターン(radiogroup/radio)、表示する内容を切り替える用途ならTabsパターン(tablist/tab/tabpanel)が近い。いずれも、名前・役割・状態が支援技術に伝わることが求められる(4.1.2)。Google自身の実装は、表示の切り替えでもradiogroup/checkboxとして扱うとしている。" },
+      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールというコンポーネントを定めていない。フォームの中で1つの値を選ぶ用途ならRadio Groupパターン(radiogroup/radio)、表示する内容を切り替える用途ならTabsパターン(tablist/tab/tabpanel)が近い。いずれも、名前・役割・状態が支援技術に伝わることが求められる(4.1.2)。Google自身の実装は、表示の切り替えでもradiogroup/checkboxとして扱うとしている。" },
     ],
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
@@ -145,7 +145,7 @@ const SOURCES = [
     color: "#7A4F7E",
     position: <NoData>該当なし</NoData>,
     glossary: [
-      { term: "用語集の定義", desc: "UI Elements Glossaryでは「Segmented Button(Segmented Control)」を、同じデータの見せ方の切り替えや、内容の絞り込みに使う、ボタンがつながった部品として定義している。設計の指針を述べた専用の記事はない。" },
+      { term: "用語集の定義", desc: "UI Elements Glossaryでは「Segmented Button(Segmented Control)」を、同じデータの見せ方の切り替えや、内容の絞り込みに使う、ボタンがつながったコンポーネントとして定義している。設計の指針を述べた専用の記事はない。" },
     ],
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
@@ -217,8 +217,8 @@ function SegmentedSwatch() {
 const APPLE_TAB_VS_SEG = [
   ["切り替えるもの", "アプリのまったく別のセクション(時計アプリのアラーム・ストップウォッチ・タイマーなど)", "密接に関係するサブビューや、同じ対象の表示(カレンダーの新規作成で「イベント」と「リマインダー」、ヘルスケアのグラフの期間)"],
   ["置く場所", "iOSは画面の下部、iPadOSは画面の上部近く。アプリのどの画面でも表示し続ける", "画面の中、ツールバー、インスペクタなど、対象の近く"],
-  ["数の目安", "少ないほど移動しやすい。収まらないと「その他」タブになるので避ける", "iPhoneでは5個程度まで、広い画面では5〜7個程度まで"],
-  ["押したときの働き", "移動だけ。今の画面への操作には使わない(操作はツールバー)", "選んだ状態を示すか、操作のボタンの集まり(macOSのメールの返信・全員に返信・転送)。1つのコントロールの中で両方を混ぜない"],
+  ["数の目安", "少ないほど遷移しやすい。収まらないと「その他」タブになるので避ける", "iPhoneでは5個程度まで、広い画面では5〜7個程度まで"],
+  ["押したときの働き", "遷移だけ。今の画面への操作には使わない(操作はツールバー)", "選んだ状態を示すか、操作のボタンの集まり(macOSのメールの返信・全員に返信・転送)。1つのコントロールの中で両方を混ぜない"],
 ];
 
 function AppleTabVsSegmented() {
@@ -238,11 +238,11 @@ function AppleTabVsSegmented() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替える部品だ。";
+const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "少ない選択肢(2〜5個)から1つを選び、同じ内容の見え方(表示形式・期間など)を切り替える" },
   { k: "よく使われる場面", v: "「日・週・月」の切り替え、リスト表示とグリッド表示の切り替え" },
-  { k: "似た部品との違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
+  { k: "似たコンポーネントとの違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -251,7 +251,7 @@ const SPLITS = [
     q: "選択肢はいくつまで並べてよい?",
     sides: [
       { who: "Apple", color: "#C2542A", t: "iPhoneでは約5個まで、広い画面では約5〜7個まで。多いと読み取りにくく、操作に時間がかかる" },
-      { who: "Google", color: "#2F7D6E", t: "5個まで。5個を超えるならチップなど別の部品を検討する" },
+      { who: "Google", color: "#2F7D6E", t: "5個まで。5個を超えるならチップなど別のコンポーネントを検討する" },
     ],
     tip: "スマートフォンでは5個までにそろえれば、AppleとGoogleのどちらにも沿う。6〜7個を並べられるのはAppleの広い画面だけなので、選択肢が増えそうならチップやメニューに切り替える。",
   },
@@ -341,7 +341,7 @@ export default function NavigationSegmentedControlPage() {
                   </div>
                 )}
                 {s.none ? (
-                  <div style={styles.termLine}><span style={styles.termLabel}>名称</span><NoData>独立した部品なし</NoData></div>
+                  <div style={styles.termLine}><span style={styles.termLabel}>名称</span><NoData>独立したコンポーネントなし</NoData></div>
                 ) : (<>
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>

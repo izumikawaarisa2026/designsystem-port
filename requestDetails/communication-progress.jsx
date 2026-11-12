@@ -81,7 +81,7 @@ const SOURCES = [
     stance:
       "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされている。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされている。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしている。",
     exceptions:
-      "200ミリ秒〜5秒の短い待ち時間には、別の部品のLoading indicatorを使う。5秒を超えるならProgress indicatorを使う。処理の進み具合が分かるようになったら、不確定から確定的な表示に切り替える(ただしLoading indicatorから確定的なProgress indicatorへは切り替えない)。",
+      "200ミリ秒〜5秒の短い待ち時間には、別のコンポーネントのLoading indicatorを使う。5秒を超えるならProgress indicatorを使う。処理の進み具合が分かるようになったら、不確定から確定的な表示に切り替える(ただしLoading indicatorから確定的なProgress indicatorへは切り替えない)。",
     scenarios: [
       "コンテナの端(画面上部など)に配置する処理にはlinearインジケーターを使いたい時",
       "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
@@ -259,7 +259,7 @@ const SHAPE_ROWS = [
   { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
   { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒以上(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
   { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
-  { shape: "Loading indicator(Google)", known: "分からない", time: "5秒未満(Google)", where: "—", note: <>短い待ち時間向けに新設された部品(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)</> },
+  { shape: "Loading indicator(Google)", known: "分からない", time: "5秒未満(Google)", where: "—", note: <>短い待ち時間向けに新設されたコンポーネント(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)</> },
 ];
 const SHAPE_RULES = [
   "できるだけ確定(何%か分かる)の表示にする。途中で時間が分かったら、不確定から確定に切り替える(Apple)",
@@ -288,11 +288,11 @@ function ProgressShapes() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示だ。";
+const LEAD = "処理がどこまで進んだか、または処理中であることを示す表示";
 const ABOUT = [
   { k: "目的・役割", v: "待ち時間があることと、進み具合(分かる場合)を伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "ファイルのアップロード・ダウンロード、画面の読み込み、送信中の待ち" },
-  { k: "似た部品との違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */

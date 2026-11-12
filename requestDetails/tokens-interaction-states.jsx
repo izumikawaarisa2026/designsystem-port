@@ -63,11 +63,11 @@ const SOURCES = [
     size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わる。旧版のM2では、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていた。",
     visual: "ステートレイヤーは、要素の文字やアイコンと同じ色を半透明で重ねる方式。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表す(Jetpack Composeのトークン定義)。M2では、ステートレイヤーは同時に1つだけ表示し、影(エレベーション)・色・アイコンの変化と組み合わせることもあるとしていた。",
     stance:
-      "状態は、互いに、また周りのレイアウトとはっきり区別できる必要がある一方、部品の見た目を大きく変えすぎず、すべての部品で一貫して適用することを原則にしている。選択とホバーのように複数の状態が同時に起きたら、両方を示すとしている。",
+      "状態は、互いに、また周りのレイアウトとはっきり区別できる必要がある一方、コンポーネントの見た目を大きく変えすぎず、すべてのコンポーネントで一貫して適用することを原則にしている。選択とホバーのように複数の状態が同時に起きたら、両方を示すとしている。",
     exceptions:
       "M2では、ステートレイヤーの不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保するよう求めていた(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスは他に視覚的な手がかりがないため高くする、という考え方。",
     accessibility:
-      "知覚可能(Perceivable) ― 無効状態は有効時の38%の不透明度で表示し、操作できないことを伝える。WCAGの1.4.11は無効な部品をコントラストの要件から除外しているため、この表現と矛盾しない。",
+      "知覚可能(Perceivable) ― 無効状態は有効時の38%の不透明度で表示し、操作できないことを伝える。WCAGの1.4.11は無効なコンポーネントをコントラストの要件から除外しているため、この表現と矛盾しない。",
     useCases: [
       "ホバー・フォーカス・プレスは、文字色と同じ色を半透明で重ねて表す",
       "無効状態は、文字・アイコン38%、容器10%の不透明度にする",
@@ -90,18 +90,18 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: "状態の種類や見た目は定めず、「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」を求める",
-    size: "部品やその状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下などの状態どうしの差をすべて3:1にすることまでは求めていない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスした部品が他の内容に隠れないこと(2.4.11)。さらに厳しいレベルAAAの2.4.13では、フォーカスの表示が、フォーカスしていない部品の周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
+    size: "コンポーネントやその状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下などの状態どうしの差をすべて3:1にすることまでは求めていない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントが他の内容に隠れないこと(2.4.11)。さらに厳しいレベルAAAの2.4.13では、フォーカスの表示が、フォーカスしていないコンポーネントの周囲を2 CSSピクセルの太さで囲んだ面積以上の大きさで、フォーカス時と非フォーカス時の同じピクセル同士で3:1以上の変化があること(2.4.13・レベルAAA)。",
     visual: "見た目の作り方は自由。ただし、選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする必要がある。隣り合って表示されない状態どうしの色の変化は、3:1でなくてもかまわないとしている(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)を求めている。",
     glossary: [
-      { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UI部品とその状態を見分けるための視覚情報、意味のある図形に、隣接する色との3:1以上のコントラストを求める基準。" },
+      { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UIコンポーネントとその状態を見分けるための視覚情報、意味のある図形に、隣接する色との3:1以上のコントラストを求める基準。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボードで操作するとき、どこにフォーカスがあるかが見えることを求める基準。実務の目標(AA)になる。" },
       { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくした基準。大きさは2 CSSピクセルの外周相当以上、表示前後の変化は3:1以上。" },
-      { term: "4.1.2 Name, Role, Value・レベルA", desc: "UI部品の名前・役割と、状態・値をプログラムで判別でき、変化が支援技術に通知されることを求める基準。" },
+      { term: "4.1.2 Name, Role, Value・レベルA", desc: "UIコンポーネントの名前・役割と、状態・値をプログラムで判別でき、変化が支援技術に通知されることを求める基準。" },
     ],
     stance:
-      "中程度のロービジョンの人でも部品とその状態を見分けられるよう、大きな文字と同じ3:1を求めている。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしている。キーボードの移動順序(2.4.3)は「入力方法・ジェスチャー」ページの「入力手段ごとの対応」のキーボードの行を参照。フォーカスの可視化(2.4.7)はこのページで扱う。",
+      "中程度のロービジョンの人でもコンポーネントとその状態を見分けられるよう、大きな文字と同じ3:1を求めている。3:1はしきい値として扱い、2.999:1のように四捨五入して合格にはできないとしている。キーボードの移動順序(2.4.3)は「入力方法・ジェスチャー」ページの「入力手段ごとの対応」のキーボードの行を参照。フォーカスの可視化(2.4.7)はこのページで扱う。",
     exceptions:
-      "無効(inactive)な部品は、コントラストの要件の対象外。ブラウザ標準の見た目を作者が変更していない部品も対象外。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAA。",
+      "無効(inactive)なコンポーネントは、コントラストの要件の対象外。ブラウザ標準の見た目を作者が変更していないコンポーネントも対象外。2.4.13も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外され、レベルAAA。",
     accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」に属する。目に見える状態と、支援技術に伝わる状態の両方をそろえることが求められる。",
     useCases: [
       "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
@@ -193,7 +193,7 @@ function StateSwatch() {
 
 /* 四系列比較図: どの状態を定義しているか(◯=定義あり/△=部分的・条件付き/―=定義なし) */
 const STATE_ROWS = [
-  { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "◯", note: "visionOS: Idle/tvOS: Unfocused" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "部品を見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
+  { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "◯", note: "visionOS: Idle/tvOS: Unfocused" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "コンポーネントを見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
   { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "visionOS: 視線でハイライト/iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
   { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる。Webの実装(Material Web)では太さ3pxの輪郭線(フォーカスリング)も出す" }, { mark: "◯", note: "フォーカスが見えること(2.4.7・AA)。AAAの2.4.13は2 CSS px相当の外周以上・前後の変化3:1以上とさらに厳しい" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
   { key: "press", label: "プレス", num: "+10%", cells: [{ mark: "◯", note: "独自ボタンにも必須(tvOS: Highlighted)" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "100〜150ms以内に反応を表示" }] },
@@ -285,7 +285,7 @@ function CellMini({ k, sys }) {
     case "selected-apple": body = <g><rect x="6" y="7" width="64" height="20" rx="10" fill="#E5E5EA" /><rect x="8" y="9" width="30" height="16" rx="8" fill="#FFFFFF" /><text x="23" y="20" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily={font}>選択</text><text x="53" y="20" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily={font}>―</text></g>; break;
     case "selected-google": body = <g><rect x="6" y="7" width="58" height="20" rx="6" fill="#E8DEF8" /><path d="M12 17 l3 3 l5 -6" stroke="#1D192B" strokeWidth="1.6" fill="none" /><text x="40" y="20" fontSize="8" fill="#1D192B" textAnchor="middle" fontFamily={font}>チップ</text></g>; break;
     case "selected-wcag": body = <g><rect x="8" y="9" width="16" height="16" rx="3" fill={indigo} /><path d="M11.5 17 l3.5 3.5 l6 -7" stroke="#FFFFFF" strokeWidth="2" fill="none" /><path d="M32 13 h3 l4 -3 v14 l-4 -3 h-3 z" fill="#A3821F" /><text x="43" y="20" fontSize="7" fill="#454C78" fontFamily={mono}>checked</text></g>; break;
-    case "selected-nn": body = <g><rect x="8" y="9" width="14" height="14" rx="3" fill={indigo} /><path d="M11 16 l3 3 l5 -6" stroke="#FFFFFF" strokeWidth="1.8" fill="none" /><circle cx="40" cy="16" r="7" fill="none" stroke={indigo} strokeWidth="1.5" /><circle cx="40" cy="16" r="3.5" fill={indigo} /><text x="52" y="19" fontSize="7" fill="#666D93" fontFamily={font}>部品側</text></g>; break;
+    case "selected-nn": body = <g><rect x="8" y="9" width="14" height="14" rx="3" fill={indigo} /><path d="M11 16 l3 3 l5 -6" stroke="#FFFFFF" strokeWidth="1.8" fill="none" /><circle cx="40" cy="16" r="7" fill="none" stroke={indigo} strokeWidth="1.5" /><circle cx="40" cy="16" r="3.5" fill={indigo} /><text x="52" y="19" fontSize="7" fill="#666D93" fontFamily={font}>コンポーネント側</text></g>; break;
     case "drag-google": body = <g><rect x="14" y="12" width="56" height="20" rx="10" fill="#171B36" opacity="0.18" />{pill(indigo, { x: 8, y: 5, layer: 0.16 })}{tag(70, "+16%", "#2F7D6E")}</g>; break;
     case "disabled-apple": body = pill("#E5E5EA", { tc: "#171B36", to: 0.3, fo: 0.6 }); break;
     case "disabled-google": body = <g>{pill("#1B1B21", { fo: 0.1, tc: "#1B1B21", to: 0.38 })}{tag(70, "38/10%", "#2F7D6E")}</g>; break;
@@ -402,9 +402,9 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ホバー・フォーカス・押している最中・使えないなど、部品の状態の見せ方の決まりだ。";
+const LEAD = "ホバー・フォーカス・押している最中・使えないなど、コンポーネントの状態の見せ方の決まり";
 const ABOUT = [
-  { k: "目的・役割", v: "部品が今どんな状態かを見て分かるようにし、操作が受け付けられたことを伝える" },
+  { k: "目的・役割", v: "コンポーネントが今どんな状態かを見て分かるようにし、操作が受け付けられたことを伝える" },
   { k: "関わる場面", v: "マウスを乗せたとき、キーボードで選んだとき、押したとき、使えないとき" },
   { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>(フォーカスの移動)、<PageLink to="/tokens/color">カラー</PageLink>(非活性の色)</> },
 ];
@@ -424,7 +424,7 @@ function GoodBadFigure() {
     <GoodBad
       title="良い例・悪い例 ― フォーカスの見え方"
       items={[
-        { kind: "good", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600, outline: "3px solid #3A4FCF", outlineOffset: 2 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスした部品の外側に輪郭線(フォーカスリング)が出て、今どこにいるか分かる。" },
+        { kind: "good", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600, outline: "3px solid #3A4FCF", outlineOffset: 2 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスしたコンポーネントの外側に輪郭線(フォーカスリング)が出て、今どこにいるか分かる。" },
         { kind: "bad", fig: <><span style={{ display: "inline-block", padding: "8px 18px", borderRadius: 20, background: "#3A4FCF", color: "#FFFFFF", fontSize: 13, fontWeight: 600 }}>保存する</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>Tabキーでフォーカスしたところ</span></>, text: "フォーカスしても見た目がほとんど変わらず、キーボードで操作する人には今どこにいるか分からない。" },
       ]}
       basis="W3C 2.4.7(フォーカスが見えること・AA)、Google(Webの実装Material Webで太さ3pxのフォーカスリング)、このページの「色だけでなく輪郭線で示す」。"
@@ -485,7 +485,7 @@ export default function TokensInteractionStatesPage() {
               見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としている。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは状態の種類を定めず、<strong>部品や状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求める。無効な部品はコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しない。
+              W3Cは状態の種類を定めず、<strong>コンポーネントや状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求める。無効なコンポーネントはコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しない。
             </p>
             <p style={styles.synthesisText}>
               実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を確実に満たす方法で、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。

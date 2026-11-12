@@ -24,8 +24,8 @@ import { TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
  */
 
 const COMPARE_ROWS = [
-  { label: "選ぶと何が起きるか", tab: "同じページの中で、内容のまとまり(パネル)を切り替える", seg: "同じ場所の見え方や設定が変わる(移動はしない)" },
-  { label: "Appleでの位置づけ", tab: "iOS・iPadOSにはない(Segmented controlを勧める)。macOSにはTab viewがある(画面下部のタブバーはアプリ全体の移動で、別の部品)", seg: "地図の「マップ/交通機関/航空写真」のように、同じデータの異なるビューを切り替える" },
+  { label: "選ぶと何が起きるか", tab: "同じページの中で、内容のまとまり(パネル)を切り替える", seg: "同じ場所の見え方や設定が変わる(遷移はしない)" },
+  { label: "Appleでの位置づけ", tab: "iOS・iPadOSにはない(Segmented controlを勧める)。macOSにはTab viewがある(画面下部のタブバーはアプリ全体の遷移で、別のコンポーネント)", seg: "地図の「マップ/交通機関/航空写真」のように、同じデータの異なるビューを切り替える" },
   { label: "Googleでの位置づけ", tab: "コンテンツを画面・データセットのカテゴリに整理する", seg: "選択・表示切替・並べ替えを助ける(選択肢は2〜5個。5個を超えたらチップ)" },
   { label: "典型的な配置", tab: "画面の上部(コンテンツの見出しとして)", seg: "画面上部やツールバー内、フォームの一部として" },
   { label: "選択肢の数の目安", tab: "固定タブは4個まで、多い場合は横スクロール(Google)", seg: "iPhoneでは約5個まで(Apple)・5個を超えたらチップ(Google)" },
@@ -148,7 +148,7 @@ function ExampleList() {
 }
 
 const SYSTEM_VIEWS = [
-  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab views(macOSの画面の中のタブ)・Tab bars・Segmented controlsを別々のページで区別している。iOS・iPadOSでは画面の中のタブの代わりにSegmented controlを勧め、タブバーは画面下部でアプリのトップレベルのセクション間を移動する専用のナビゲーション要素、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
+  { key: "hig", name: "Apple", color: "#C2542A", text: "Tab views(macOSの画面の中のタブ)・Tab bars・Segmented controlsを別々のページで区別している。iOS・iPadOSでは画面の中のタブの代わりにSegmented controlを勧め、タブバーは画面下部でアプリのトップレベルのセクション間を遷移する専用のナビゲーション要素、セグメントコントロールは同じデータの異なるビューを切り替えるための要素と位置づけている。", links: [
     { label: "Tab bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     { label: "Segmented controls", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
   ] },
@@ -284,10 +284,10 @@ export default function NavigationTabsVsSegmentedPage() {
 
           <h1 style={styles.title}>タブとセグメントの使い分け</h1>
 
-          <SummaryCard lead="見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページだ。" rows={[
+          <SummaryCard lead="見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ" rows={[
             { k: "目的・役割", v: "内容のまとまりを切り替える(タブ)のか、同じ内容の見え方を変える(セグメントコントロール)のかを見分ける" },
             { k: "よく使われる場面", v: "設定画面のセクションの切り替え(タブ)、一覧の表示形式や並び順の切り替え(セグメントコントロール)" },
-            { k: "似た部品との違い", v: <>アプリ全体の行き先を変えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、フォームで1つの値を選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink></> },
+            { k: "似たコンポーネントとの違い", v: <>アプリ全体の行き先を変えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、フォームで1つの値を選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink></> },
           ]} />
 
           <div style={styles.synthesisBox}>
@@ -296,7 +296,7 @@ export default function NavigationTabsVsSegmentedPage() {
               タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントだ。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明している。W3CとNN groupには、この使い分けを直接扱う記載はない。
             </p>
             <p style={styles.synthesisText}>
-              最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>だ。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものだ(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替える部品として定義している)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、移動はせず同じデータの見せ方だけが変わる。
+              最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>だ。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものだ(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替えるコンポーネントとして定義している)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、遷移はせず同じデータの見せ方だけが変わる。
             </p>
             <p style={styles.synthesisText}>
               迷ったときは、<strong>切り替えるものの意味</strong>で見分ける。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>だ。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使う。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになる(つながっていればセグメントコントロール)。

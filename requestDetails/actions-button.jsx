@@ -21,7 +21,7 @@ const TAB_ACCESSIBILITY = [
     stance:
       "Buttonsのページでは、ボタンの押せる範囲(ヒット領域)を少なくとも44×44pt(visionOSは60×60pt)にするとしている。Accessibilityのページ(2025年3月の改訂)では、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28ptとしている。小さすぎるコントロールは多くの人にとって選びにくいため、推奨の最小サイズを満たすよう求めている。",
     exceptions:
-      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までの小さいコントロールを最小のサイズとして認めている(macOSは既定28・最小20、tvOSは既定66・最小56、visionOSは既定60・最小28、watchOSは既定44・最小28)。あわせて、部品どうしの間隔も大きさと同じくらい重要だとし、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取るとよいとしている。",
+      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までの小さいコントロールを最小のサイズとして認めている(macOSは既定28・最小20、tvOSは既定66・最小56、visionOSは既定60・最小28、watchOSは既定44・最小28)。あわせて、コンポーネントどうしの間隔も大きさと同じくらい重要だとし、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取るとよいとしている。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― WCAGのPOUR原則のうち「操作可能」に対応する項目、という分類。",
     searchHint: "Offer sufficiently sized controls",
@@ -470,11 +470,11 @@ function ButtonTabContent({ tabId }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "押すとその場で処理を実行する部品だ(保存・送信・削除など)。";
+const LEAD = "押すとその場で処理(保存・送信・削除など)を実行するコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
   { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
-  { k: "似た部品との違い", v: <>別のページへ移動するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>別のページへ遷移するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -491,7 +491,7 @@ const SPLITS = [
   {
     q: "押せる範囲の最小は?",
     sides: [
-      { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のある部品で約12pt)で補う" },
+      { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のあるコンポーネントで約12pt)で補う" },
       { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
       { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
       { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },

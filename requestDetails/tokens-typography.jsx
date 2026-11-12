@@ -339,7 +339,7 @@ function TypeScaleUsage() {
   return (
     <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
       <ScaleTable k="hig" title="Apple ― テキストスタイル(全11段階)" unit="pt" color="#C2542A" note="iOS/iPadOSの既定の文字サイズ設定(Large)での値(HIGの表)。基準=HIGが示す既定サイズ(Default size)。コントラストは段階ごとの指定ではなく、HIG(Accessibility)の「17pt以下は4.5:1、18pt以上または太字は3:1」を各段階に当てはめた値(Appleの表の値。WCAGでは小さい太字は3:1の対象外)。字間はシステムフォントがサイズに応じて自動で調整する" />
-      <ScaleTable k="material" title="Google ― タイプスケール(全15段階)" unit="sp" color="#2F7D6E" note="基準=Jetpack ComposeのMaterialThemeが文字の既定スタイルに使う段階。太さ・行送り・字間はJetpack Composeのトークン定義(TypeScaleTokens)の値、使用例は標準部品のトークン定義から。コントラスト比は文字の段階には指定がなく、組み合わせる色のロールで決まる(本文のOn Surfaceは7:1、補助のOn Surface Variantは4.5:1)" />
+      <ScaleTable k="material" title="Google ― タイプスケール(全15段階)" unit="sp" color="#2F7D6E" note="基準=Jetpack ComposeのMaterialThemeが文字の既定スタイルに使う段階。太さ・行送り・字間はJetpack Composeのトークン定義(TypeScaleTokens)の値、使用例は標準コンポーネントのトークン定義から。コントラスト比は文字の段階には指定がなく、組み合わせる色のロールで決まる(本文のOn Surfaceは7:1、補助のOn Surface Variantは4.5:1)" />
     </div>
   );
 }
@@ -533,7 +533,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まりだ。";
+const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まり";
 const ABOUT = [
   { k: "目的・役割", v: "見出し・本文などの役割に合った文字の大きさをそろえ、読みやすくする" },
   { k: "関わる場面", v: "見出しと本文の大きさ、行間、利用者が文字を大きくする設定への対応" },
@@ -677,7 +677,7 @@ export default function TokensTypographyPage() {
           <section style={styles.usageSection}>
             <h2 style={styles.diagramTitle}>タイプスケールの段階ごとの使用例(実寸の60%で表示)</h2>
             <p style={styles.sectionLead}>
-              Apple・Googleとも、<strong>基準は「本文」の段階</strong>(Apple=Body 17pt、Google=Body Large 16sp)で、他の段階はそこから上下に広がる。Googleは段階の名前が役割(Display/Headline/Title/Body/Label)を表し、ボタンなどの部品の文字はLabel、見出しはHeadline・Titleを使う。
+              Apple・Googleとも、<strong>基準は「本文」の段階</strong>(Apple=Body 17pt、Google=Body Large 16sp)で、他の段階はそこから上下に広がる。Googleは段階の名前が役割(Display/Headline/Title/Body/Label)を表し、ボタンなどのコンポーネントの文字はLabel、見出しはHeadline・Titleを使う。
             </p>
             <TypeScaleUsage />
           </section>

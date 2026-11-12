@@ -67,29 +67,29 @@ export default function IndexPage() {
               <p style={styles.p}>初めての方は、次の順に読むと全体がつかみやすくなります。</p>
               <ol style={styles.orderList}>
                 <li><PageLink to="/principles/comparison">原則比較</PageLink> ― 4系列がそれぞれ何を大事にしているか(根本の考え方)。<PageLink to="/principles/accessibility">アクセシビリティ</PageLink>もここに入ります。</li>
-                <li><PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink> ― 色・文字・余白など、どの部品にも効く土台の分け方。そこから<PageLink to="/tokens/color">カラー</PageLink>などの各ページへ。</li>
-                <li>各部品のページ ― グループごとの入口から読むと、似た部品の違いが分かります(<PageLink to="/components/actions/button">ボタン</PageLink>/<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>/<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>/<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)。</li>
+                <li><PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink> ― 色・文字・余白など、どのコンポーネントにも効く土台の分け方。そこから<PageLink to="/tokens/color">カラー</PageLink>などの各ページへ。</li>
+                <li>各コンポーネントのページ ― グループごとの入口から読むと、似たコンポーネントの違いが分かります(<PageLink to="/components/actions/button">ボタン</PageLink>/<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>/<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>/<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)。</li>
                 <li><PageLink to="/cross-view">タグから見る</PageLink> ― エラー処理・通知など、作業の場面からページを探せます。</li>
               </ol>
-              <h3 style={styles.h3}>部品を選びたいときの近道</h3>
-              <p style={styles.p}>どの部品を使うか迷ったときは、次の4つの使い分けのページから入ると、似た部品の違いをまとめて比べられます。</p>
+              <h3 style={styles.h3}>コンポーネントを選びたいときの近道</h3>
+              <p style={styles.p}>どのコンポーネントを使うか迷ったときは、次の4つの使い分けのページから入ると、似たコンポーネントの違いをまとめて比べられます。</p>
               <ul style={styles.orderList}>
-                <li><PageLink to="/components/selection/overview">Selectionの選び方</PageLink> ― チェックボックス・ラジオボタン・トグルスイッチ・チップなど、値や項目を選ぶ部品</li>
-                <li><PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink> ― 見た目が似ている、表示を切り替える2つの部品</li>
-                <li><PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink> ― ダイアログ・シート・ドロワー・メニューなど、画面の上に重ねて出す部品</li>
-                <li><PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink> ― バナー・スナックバー・トースト・ツールチップなど、利用者に知らせる部品</li>
+                <li><PageLink to="/components/selection/overview">Selectionの選び方</PageLink> ― チェックボックス・ラジオボタン・トグルスイッチ・チップなど、値や項目を選ぶコンポーネント</li>
+                <li><PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink> ― 見た目が似ている、表示を切り替える2つのコンポーネント</li>
+                <li><PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink> ― ダイアログ・シート・ドロワー・メニューなど、画面の上に重ねて出すコンポーネント</li>
+                <li><PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink> ― バナー・スナックバー・トースト・ツールチップなど、利用者に知らせるコンポーネント</li>
               </ul>
-              <h3 style={styles.h3}>各部品のページの構成</h3>
-              <p style={styles.p}>各部品のページは、上から次の順に並んでいます。</p>
+              <h3 style={styles.h3}>各コンポーネントのページの構成</h3>
+              <p style={styles.p}>各コンポーネントのページは、上から次の順に並んでいます。</p>
               <div style={styles.guideGrid}>
                 {[
-                  ["サマリー", "タイトルの下の1文と、部品のイメージ図・目的と役割・よく使われる場面・似た部品との違いの表。"],
+                  ["サマリー", "タイトルの下の1文と、コンポーネントのイメージ図・目的と役割・よく使われる場面・似たコンポーネントとの違いの表。"],
                   ["意見が分かれる点", "4系列で答えが違う論点。サイズなど図にできるものは図で示す(系列の意見が分かれていないページにはない)。"],
                   ["四系列デザインシステム比較", "見出しの下に「AI解釈 ― 総括」(4系列の違いを統合したAIの見解。太字が結論)。続けて、スマホでは系列ごとのカード、PCでは項目を行・系列を列にした比較表。図(デザインイメージ)が先頭。"],
                   ["マーカー", "若草色の下線が付いた太字は、総括で取り上げている違い・共通点。"],
                   ["メモ", "用語の説明や、1系列だけの補足。"],
                   ["参照ページ(公式)", "その内容を確かめられる公式のページ。公式で別のページ・節に分かれている内容は、それぞれリンクする。"],
-                  ["関連するページ", "ページの末尾に、関係する部品やトピックのページを、名前と1文の説明のカードで並べる。節の多い長いページには、上部に「このページの内容」(目次)もある。"],
+                  ["関連するページ", "ページの末尾に、関係するコンポーネントやトピックのページを、名前と1文の説明のカードで並べる。節の多い長いページには、上部に「このページの内容」(目次)もある。"],
                   ["タグ", "原則タグ(POUR)とプロセスタグ(12のくくり)。押すと「タグから見る」で同じタグのページを一覧できる。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>
@@ -104,9 +104,9 @@ export default function IndexPage() {
                   ["単位(pt・dp・CSS px)", "pt(Apple)・dp(Google)・CSS px(Web)は、それぞれのプラットフォームで使う論理的な単位で、画面の密度に左右されない。ただし、違うプラットフォームの数値を1:1で同じ物理的な大きさとして比べることはできない。44pt・48dp・24pxなどは、各系列の基準値として並べて示している。"],
                   ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
                   ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=実務で一般的な目標(多くの場合はAAを目指す)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
-                  ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、部品の作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
+                  ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、コンポーネントの作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
                   ["W3Cの参照ページのバッジ", "「達成基準 A/AA/AAA」=WCAGに適合するために満たす要件とそのレベル。「参考例 APG」=実装の参考例(適合の要件ではない)。「解説 MDN」=Mozillaによる解説(W3Cの文書ではない補足)。"],
-                  ["グレーの表記", "記載なし=その系列の公式の文書に書かれていない。数値基準なし=考え方はあるが数値は決めていない。該当なし=その系列にこの部品・トピックがない。未確認=こちらで確かめられていない。"],
+                  ["グレーの表記", "記載なし=その系列の公式の文書に書かれていない。数値基準なし=考え方はあるが数値は決めていない。該当なし=その系列にこのコンポーネント・トピックがない。未確認=こちらで確かめられていない。"],
                 ].map(([term, desc]) => (
                   <div key={term} style={styles.guideItem}>
                     <div style={styles.guideTerm}>{term}</div>
@@ -123,7 +123,7 @@ export default function IndexPage() {
                 {[
                   ["Apple", "Human Interface Guidelines", "iOS/iPadOS/macOSなどApple製品の公式デザインガイドライン。"],
                   ["Google", "Material Design 3", "Android/Webを中心としたGoogleの公式デザインシステム。M3に該当ページがない項目は、旧版のMaterial Design 2やAndroid Developersの公式ドキュメントで比較する。"],
-                  ["W3C", "WCAG・WAI-ARIA(APG)", "Webアクセシビリティの国際標準規格(WCAG)と、支援技術に部品の役割を伝える仕様(WAI-ARIA)。数値基準の一次情報として扱う。APGは実装の参考例。"],
+                  ["W3C", "WCAG・WAI-ARIA(APG)", "Webアクセシビリティの国際標準規格(WCAG)と、支援技術にコンポーネントの役割を伝える仕様(WAI-ARIA)。数値基準の一次情報として扱う。APGは実装の参考例。"],
                   ["Nielsen Norman Group", "UXリサーチ", "特定製品に属さない、独立系のユーザビリティ研究機関。"],
                 ].map(([name, doc, desc]) => (
                   <div key={name} style={styles.sourceCard}>

@@ -20,13 +20,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Boxes",
-    term: "Box(Cardという名前の部品はない)",
+    term: "Box(Cardという名前のコンポーネントはない)",
     color: "#C2542A",
     position: "論理的に関連する情報・コンポーネントを視覚的にグループ化するコンテナ(「カード」という名称の専用コンポーネントは見当たらない)",
     size: <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ボックスは、関連する情報や部品をまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途の部品はない。",
+      "ボックスは、関連する情報やコンポーネントをまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途のコンポーネントはない。",
     scenarios: [
       "論理的に関連する情報・コンポーネントを視覚的にグループ化したい場面",
       "「カード」のようなタップ可能な要約表示が必要な場合は、標準コンポーネントの組み合わせで代替する場面",
@@ -42,7 +42,7 @@ const SOURCES = [
     refs: [
       { label: "Boxes", url: "https://developer.apple.com/design/human-interface-guidelines/boxes" },
     ],
-    confirmedNote: "「カード」という名前の部品はなく、最も近いBoxesを載せている。HIG Boxesの本文で確認(2026-11)。",
+    confirmedNote: "「カード」という名前のコンポーネントはなく、最も近いBoxesを載せている。HIG Boxesの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
       <svg width="120" height="70" viewBox="0 0 120 70">
@@ -217,11 +217,11 @@ function CardSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "1つの話題に関わる情報と操作を、1つの枠にまとめて見せる部品だ。";
+const LEAD = "1つの話題に関わる情報と操作を、1つの枠にまとめて見せるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "関連する情報をひとまとまりに見せ、詳しい画面への入り口にする" },
   { k: "よく使われる場面", v: "商品や記事の一覧、ダッシュボードの項目、SNSの投稿" },
-  { k: "似た部品との違い", v: <>同じ形の項目を縦に並べて比べやすくするなら<PageLink to="/components/containment/list">リスト</PageLink>、行と列で比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>同じ形の項目を縦に並べて比べやすくするなら<PageLink to="/components/containment/list">リスト</PageLink>、行と列で比べるなら<PageLink to="/components/containment/table">表</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -231,7 +231,7 @@ const SPLITS = [
     sides: [
       { who: "Google", color: "#2F7D6E", t: "1つの主題についての内容と操作をまとめる。画面が小さいときは、カードの代わりにリストも検討する" },
       { who: "NN group", color: "#7A4F7E", t: "詳細への入り口になる要約。ざっと眺める閲覧に向き、検索や比べる作業には向かない" },
-      { who: "Apple", color: "#C2542A", t: "カードという部品はなく、関連する情報をまとめるボックスがある。小さく保ち、入れ子にしない" },
+      { who: "Apple", color: "#C2542A", t: "カードというコンポーネントはなく、関連する情報をまとめるボックスがある。小さく保ち、入れ子にしない" },
     ],
     tip: "眺めて選んでもらう一覧(おすすめ・特集など)はカード、探したり比べたりする一覧はリストや表、と分けると3系列の考え方がつながる(「リスト」「表」ページ)。",
   },

@@ -30,7 +30,7 @@ const SOURCES = [
     colorInfo:
       <span>色を切り替えて状態を伝える設計ではなく、空(未選択)/チェックマーク(選択)/ダッシュ(不定)という<Hl>形状の違いで状態を区別</Hl>することを基本にしている。塗りの色はシステムのアクセントカラーに従い、個別に色を指定することは想定されていない。</span>,
     stance:
-      <span><Hl>チェックボックスはmacOS向けの部品で、iOS/iPadOSには標準のチェックボックスがない</Hl>(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されている)。チェックボックスは、状態によって表示が変わる正方形のボタンと定義されている。</span>,
+      <span><Hl>チェックボックスはmacOS向けのコンポーネントで、iOS/iPadOSには標準のチェックボックスがない</Hl>(HIG Togglesでは、macOSの節で「macOSはスイッチに加えてチェックボックスに対応する」と説明されている)。チェックボックスは、状態によって表示が変わる正方形のボタンと定義されている。</span>,
     accessibility:
       "理解可能(Understandable) ― 状態(オン・オフ・不定)を見た目で正確に伝えるべきという点は、理解可能性に関わる。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに支援技術向けの記載はない。",
     useCases: [
@@ -113,7 +113,7 @@ const SOURCES = [
     position: "形状を問わず、名前・役割・状態・タップ領域を支援技術/操作性の観点から要求する適合基準の集合",
     glossary:
       [
-      { term: "標準のHTML部品を使う場合", desc: "標準的なHTMLのinput type=\"checkbox\"要素を使っていれば、ブラウザが自動的に名前・役割・状態を提供するため、通常は追加の対応は不要。独自にデザインしたカスタムチェックボックスを実装する場合にのみ、この基準への配慮が必要になる。" },
+      { term: "標準のHTMLコンポーネントを使う場合", desc: "標準的なHTMLのinput type=\"checkbox\"要素を使っていれば、ブラウザが自動的に名前・役割・状態を提供するため、通常は追加の対応は不要。独自にデザインしたカスタムチェックボックスを実装する場合にのみ、この基準への配慮が必要になる。" },
     ],
     choice:
       <NoData>記載なし</NoData>,
@@ -282,7 +282,7 @@ const SPLITS = [
     sides: [
       { who: "Google", color: "#2F7D6E", t: "48×48 CSSピクセルを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
       { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
-      { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSの部品)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
+      { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
     tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
   },
@@ -292,7 +292,7 @@ const SPLITS = [
 const ABOUT = [
   { k: "目的・役割", v: "一覧から、当てはまるものをいくつでも(0個でも)選べるようにする。1つだけでも、同意や通知の希望のように「はい/いいえ」を1つ選ぶ用途に使う" },
   { k: "よく使われる場面", v: "絞り込み検索の条件、メールの受信設定、利用規約への同意、「すべて選択」付きの一覧(親子のチェックボックス)" },
-  { k: "似た部品との違い", v: <>1つだけ選ばせるなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、押した瞬間に設定が切り替わるなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
+  { k: "似たコンポーネントとの違い", v: <>1つだけ選ばせるなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、押した瞬間に設定が切り替わるなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
 function CheckboxSwatch() {
@@ -393,7 +393,7 @@ export default function SelectionCheckboxPage() {
           <SummaryCard keyPoints={KP}
             image={<CheckboxSwatch />}
             imageNote="3つの状態(未選択・選択済み・不定)。「不定」は一部の子項目だけが選択されている状態を示す。"
-            lead="四角い枠にチェックマークを付けて、項目を選んでいるかどうかを示す部品だ。"
+            lead="四角い枠のチェックマークで、項目を選んでいるかどうかを示すコンポーネント"
             rows={ABOUT}
           />
 
@@ -414,7 +414,7 @@ export default function SelectionCheckboxPage() {
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われる。
             </p>
             <p style={styles.synthesisText}>
-              サイズは系列によって基準が違う(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けの部品</strong>で、iOS/iPadOSには標準のチェックボックスがない。
+              サイズは系列によって基準が違う(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
             </p>
             <p style={styles.synthesisText}>
               色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通している。
@@ -442,7 +442,7 @@ export default function SelectionCheckboxPage() {
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="状態(不定を含む)">{s.states}</InfoBox>
-                <InfoBox label="ほかの部品との使い分け">{s.choice}</InfoBox>
+                <InfoBox label="ほかのコンポーネントとの使い分け">{s.choice}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -485,7 +485,7 @@ export default function SelectionCheckboxPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>状態(不定を含む)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.states}</div>))}
-                <div style={styles.labelCell}>ほかの部品との使い分け</div>
+                <div style={styles.labelCell}>ほかのコンポーネントとの使い分け</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.choice}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}

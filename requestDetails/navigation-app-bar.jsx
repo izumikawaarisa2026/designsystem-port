@@ -35,7 +35,7 @@ const SOURCES = [
       "高さの数値の記載なし。タイトルは15文字未満を目安にし、ほかの操作のための場所を残す。項目は見分けて押せるよう、入れすぎない",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の移動を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く。",
+      "ツールバーは、画面の上か下の端に並ぶ操作のまとまりで、今の画面のタイトル、ナビゲーション(戻る・進む、検索フィールド)、操作(ボタン・メニュー)の3種類を持つ。上部のツールバーは階層の遷移を助ける。戻る・閉じるには標準のボタン(記号)を使い、「戻る」「閉じる」の文字にはしない。項目は先頭(戻る・サイドバーの表示)・中央・末尾に置き、主な操作は1つだけ末尾に置く。",
     exceptions:
       "幅が狭くなったときに溢れる項目を決めておく。macOS・iPadOSでは、収まらない項目にシステムが自動でオーバーフローメニューを付けるので、自分では足さない。ウィンドウのタイトルにアプリ名は使わない。",
     accessibility:
@@ -262,7 +262,7 @@ function SearchAppBarSection() {
   return (
     <div style={styles.searchSection}>
       <div style={styles.searchSectionHeadRow}>
-        <span style={styles.searchSectionBadge}>Googleの部品 ― 4系列比較の対象外</span>
+        <span style={styles.searchSectionBadge}>Googleのコンポーネント ― 4系列比較の対象外</span>
         <h2 style={styles.searchSectionTitle}>検索アプリバー(Search app bar)</h2>
       </div>
       <p style={styles.searchSectionIntro}>
@@ -305,11 +305,11 @@ function SearchAppBarSection() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバーだ。";
+const LEAD = "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー";
 const ABOUT = [
   { k: "目的・役割", v: "今いる画面がどこかを示し、前の画面へ戻る手段と、その画面の主な操作を置く" },
   { k: "よく使われる場面", v: "設定画面の見出しと戻るボタン、メール画面の検索・メニューのアイコン" },
-  { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

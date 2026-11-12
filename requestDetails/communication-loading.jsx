@@ -55,7 +55,7 @@ const SOURCES = [
     position: "5秒未満の待ち時間向けに新設された専用コンポーネント「Loading indicator」を持つ",
     size: "200ミリ秒〜5秒の短い待ち時間に使う。寸法の数値の記載なし",
     stance:
-      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す部品。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う。",
+      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示すコンポーネント。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
@@ -209,11 +209,11 @@ function LoadingStateSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "中身を読み込んでいる最中の画面の見せ方だ。";
+const LEAD = "中身を読み込んでいる最中の画面の見せ方";
 const ABOUT = [
   { k: "目的・役割", v: "待っていることと、もうすぐ表示されることを伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "画面を開いた直後の読み込み、一覧の追加読み込み、画像の表示待ち" },
-  { k: "似た部品との違い", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -277,7 +277,7 @@ export default function CommunicationLoadingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けている。
+              読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・コンポーネントを持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>というコンポーネントを設けている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(スケルトン画面の記事の書き方。「プログレスインジケーター」ページで比べた記事では「10秒以上」と書いている)。

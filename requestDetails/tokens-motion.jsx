@@ -64,11 +64,11 @@ const SOURCES = [
     stance:
       "動きを、色や形と同じようにテーマの属性として定義し、アプリ全体で動きの印象をそろえる考え方。時間とイージングは組で使い、独自に時間を変更する場合も「範囲が広いほど長く」を守れば、画面遷移の速さの感覚が一貫するとしている。",
     exceptions:
-      "画面遷移には4つの定型パターン(コンテナ変形・共有軸・フェードスルー・フェード)が用意されている。スプリングは、スイッチなど小さな部品にfast、全画面の遷移にslow、ボトムシートやナビゲーションドロワーのように画面の一部を覆うものにdefaultを使う。",
+      "画面遷移には4つの定型パターン(コンテナ変形・共有軸・フェードスルー・フェード)が用意されている。スプリングは、スイッチなど小さなコンポーネントにfast、全画面の遷移にslow、ボトムシートやナビゲーションドロワーのように画面の一部を覆うものにdefaultを使う。",
     accessibility:
       "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく控えめなフェードにし、視差や形の変形などの装飾的な効果を止める(M3 Applying transitions)。",
     useCases: [
-      "小さな部品の状態変化はShort(50〜200ms)、全画面の遷移はLong以上",
+      "小さなコンポーネントの状態変化はShort(50〜200ms)、全画面の遷移はLong以上",
       "入る動きは減速、出る動きは加速のイージングを使う",
       "色・不透明度の変化には、跳ね返らないeffectsのスプリングを使う",
     ],
@@ -354,9 +354,9 @@ function EasingStrobe() {
 
 /* ③ 場面ごとの目安: 動く範囲が広いほど長く */
 const SCENES = [
-  { key: "toggle", label: "スイッチ・チェック", area: 1, google: "スプリング fast(小さな部品)", nn: "約100ms", apple: "標準の部品の動きに任せる。頻繁な操作に動きを足さない" },
+  { key: "toggle", label: "スイッチ・チェック", area: 1, google: "スプリング fast(小さなコンポーネント)", nn: "約100ms", apple: "標準のコンポーネントの動きに任せる。頻繁な操作に動きを足さない" },
   { key: "menu", label: "メニュー・ボトムシート・ドロワー", area: 2, google: "スプリング default(画面の一部を覆う)", nn: "大きめの画面の変化は200〜300ms(消えるときは少し短く)", apple: "上から出したものを横に払って閉じさせない(ジェスチャーと動きをそろえる)" },
-  { key: "modal", label: "モーダル・ダイアログ", area: 2.5, google: "部品ごとの時間は記載なし。原則は「範囲が広いほど長く」", nn: "出現300ms・消去200〜250msの例", apple: "途中で取り消せるようにし、完了を待たせない" },
+  { key: "modal", label: "モーダル・ダイアログ", area: 2.5, google: "コンポーネントごとの時間は記載なし。原則は「範囲が広いほど長く」", nn: "出現300ms・消去200〜250msの例", apple: "途中で取り消せるようにし、完了を待たせない" },
   { key: "full", label: "全画面の遷移", area: 3, google: "スプリング slow(全画面)・定型の遷移パターン4種", nn: "最大400ms(大画面での大きな移動のみ)", apple: "Reduce Motion時は移動をフェードに置き換える" },
 ];
 
@@ -737,13 +737,13 @@ function GlossaryNote({ items }) {
 
 /* No.016: どのUIで使う動きか(Googleの4つのトランジションの型。Material Components for AndroidのMotionの説明による) */
 const MOTION_UI = [
-  { t: "コンテナ変形(Container transform)", d: "部品の枠が広がって、次の画面になる。2つの要素のつながりを見せる", ex: "カード→詳細画面、リストの項目→詳細画面、FAB→詳細画面、検索バー→検索画面" },
+  { t: "コンテナ変形(Container transform)", d: "コンポーネントの枠が広がって、次の画面になる。2つの要素のつながりを見せる", ex: "カード→詳細画面、リストの項目→詳細画面、FAB→詳細画面、検索バー→検索画面" },
   { t: "共有軸(Shared axis)", d: "位置関係や順番のある画面どうしを、同じ方向(横・縦・奥行き)に動かす", ex: "オンボーディング(横)、ステップの進行(縦)、親子の画面の行き来(奥行き)" },
   { t: "フェードスルー(Fade through)", d: "関係の薄い画面どうしを、いったん消してから次を出す", ex: "ナビゲーションバーの行き先の切り替え、更新、アカウントの切り替え" },
-  { t: "フェード(Fade)", d: "画面の中に現れる・消える部品", ex: "ダイアログ、メニュー、スナックバー、FAB" },
+  { t: "フェード(Fade)", d: "画面の中に現れる・消えるコンポーネント", ex: "ダイアログ、メニュー、スナックバー、FAB" },
 ];
 const MOTION_PARTS = [
-  { t: "部品の状態の変化", ex: <>押したときの反応、選択・ホバーの重ね色(<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>)、スイッチのつまみ</> },
+  { t: "コンポーネントの状態の変化", ex: <>押したときの反応、選択・ホバーの重ね色(<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>)、スイッチのつまみ</> },
   { t: "待ち時間", ex: <>スピナーやバーの動き(<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>・<PageLink to="/components/communication/loading">ローディング状態</PageLink>)</> },
   { t: "項目の送り", ex: <>カルーセルのページ送り(<PageLink to="/components/containment/carousel">カルーセル</PageLink>)</> },
   { t: "シートの出入り", ex: <>下からせり出す・横から出る(<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>)</> },
@@ -753,14 +753,14 @@ function MotionUiMap() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>どのUIで使う動きか</h2>
-      <p style={styles.muNote}>このページで比べる長さ(duration)・緩急(イージング)・動きを減らす配慮は、下のような画面の切り替えや部品の動き全般に共通するルールだ。Googleは、画面の切り替えの動きを4つの型に分けている。</p>
+      <p style={styles.muNote}>このページで比べる長さ(duration)・緩急(イージング)・動きを減らす配慮は、下のような画面の切り替えやコンポーネントの動き全般に共通するルールだ。Googleは、画面の切り替えの動きを4つの型に分けている。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.muTable}>
           <thead><tr>{["型", "どんな動きか", "使うUIの例"].map((h) => (<th key={h} style={styles.muTh}>{h}</th>))}</tr></thead>
           <tbody>{MOTION_UI.map((r) => (<tr key={r.t}><td style={{ ...styles.muTd, fontWeight: 700 }}>{r.t}</td><td style={styles.muTd}>{r.d}</td><td style={styles.muTd}>{r.ex}</td></tr>))}</tbody>
         </table>
       </div>
-      <h3 style={styles.muSub}>部品の中の動き(各ページ)</h3>
+      <h3 style={styles.muSub}>コンポーネントの中の動き(各ページ)</h3>
       <ul style={{ margin: 0, paddingLeft: 18 }}>{MOTION_PARTS.map((m) => (<li key={m.t} style={styles.muLi}><strong>{m.t}</strong>: {m.ex}</li>))}</ul>
       <p style={styles.muNote}>出典: Material Components for Android「Motion ― Transitions」(M3のトランジションの型)。Apple・W3C・NN groupは、動きを型に分けた一覧は示していない。</p>
     </section>
@@ -786,7 +786,7 @@ function EasingImage() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まりだ。";
+const LEAD = "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まり";
 const ABOUT = [
   { k: "目的・役割", v: "動きで画面の変化のつながりを伝え、何が起きたかを分かりやすくする" },
   { k: "関わる場面", v: "画面の切り替え、シートやダイアログの開閉、ボタンを押したときの反応" },
@@ -796,7 +796,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "目的のある動きだけを使う", d: "頻繁な操作には足さない", who: "Apple" },
-  { n: 2, t: "長さの目安", d: "小さな部品の反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "Google・NN group" },
+  { n: 2, t: "長さの目安", d: "小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "Google・NN group" },
   { n: 3, t: "緩急を付ける", d: "入る動きは減速、出る動きは加速", who: "Google・NN group" },
   { n: 4, t: "動きを減らす設定に対応する", d: "移動をフェードにするなど", who: "Apple・Google・W3C" },
   { n: 5, t: "安全面の上限を守る", d: "5秒を超える自動の動きは止められるようにし、1秒に3回を超えて点滅させない", who: "W3C" },
@@ -902,7 +902,7 @@ export default function TokensMotionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              アニメーションの長さをミリ秒で示しているのは、GoogleとNN groupだけだ。Googleは<strong>50〜1000msの16段階</strong>のトークンを持ち、NN groupは<strong>多くは100〜500ms、単純なフィードバックは約100ms</strong>という目安を示す。両者を重ねると、<strong>小さな部品の反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が共通の目安になる。
+              アニメーションの長さをミリ秒で示しているのは、GoogleとNN groupだけだ。Googleは<strong>50〜1000msの16段階</strong>のトークンを持ち、NN groupは<strong>多くは100〜500ms、単純なフィードバックは約100ms</strong>という目安を示す。両者を重ねると、<strong>小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が共通の目安になる。
             </p>
             <p style={styles.synthesisText}>
               使い分けのルールも似ている。Googleは<strong>「動く範囲が広いほど長く」</strong>、NN groupは<strong>「違和感のない範囲で最短に」「現れる動きは消える動きより少し長く」</strong>とし、イージングは両者とも<strong>入る動きは減速、出る動きは加速</strong>で一致している。

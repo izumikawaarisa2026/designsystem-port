@@ -55,7 +55,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Adaptive design / Canonical layouts(Android Developers)",
     color: "#2F7D6E",
-    position: "ウィンドウサイズクラスごとに、ナビゲーションの部品とペイン(画面の区画)の数を切り替える。よく使う形を「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)として3種類用意している",
+    position: "ウィンドウサイズクラスごとに、ナビゲーションのコンポーネントとペイン(画面の区画)の数を切り替える。よく使う形を「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)として3種類用意している",
     size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならナビゲーションバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
     colorInfo: "広さが変わっても状態を保つ。リストと詳細を並べていた画面が狭くなったら、詳細を残してリストを隠す。詳細だけを表示していた画面が広くなったら、リストも並べ、詳細に表示中の項目をリストで選択中として示す。リストだけのときに広くなったら、空の詳細ペインを並べる。",
     stance:
@@ -345,7 +345,7 @@ function OrientationDiagram() {
 
 /* No.014: 公式サイトにあって載せていなかった内容(GoogleはM3 Layoutの本文、AppleはHIGの各ページで確認) */
 const MISSING = [
-  { s: "Google", c: "#2F7D6E", t: "アダプティブとレスポンシブの違い", d: "レスポンシブは1つのレイアウトを画面に合わせて伸び縮みさせること。アダプティブは端末ごとに体験を作り分けること。色・文字・形だけでなく、構造や部品、レイアウト全体を変える", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "アダプティブとレスポンシブの違い", d: "レスポンシブは1つのレイアウトを画面に合わせて伸び縮みさせること。アダプティブは端末ごとに体験を作り分けること。色・文字・形だけでなく、構造やコンポーネント、レイアウト全体を変える", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "組み替え方の5つ", d: "広さが変わったら、要素を「見せる・分ける・大きさを変える・位置を変える・入れ替える」のどれにするかを決める。ペインを内容の上に浮かべる「重ねる(levitate)」もある", ref: { l: "Breakpoints", u: "https://m3.material.io/foundations/layout/breakpoints/overview" } },
@@ -383,12 +383,12 @@ function AdaptiveMissing() {
 function BigChanges() {
   return (
     <section style={styles.ruleSection}>
-      <h2 style={styles.diagramTitle}>画面の広さで大きく変わる部品</h2>
-      <p style={styles.diagramNote}>部品そのものが入れ替わるものをまとめた。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替える。詳しくは各部品のページを参照。</p>
+      <h2 style={styles.diagramTitle}>画面の広さで大きく変わるコンポーネント</h2>
+      <p style={styles.diagramNote}>コンポーネントそのものが入れ替わるものをまとめた。Googleは幅の区分ごと、Appleは広さ(compact/regular)で切り替える。詳しくは各コンポーネントのページを参照。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.bcTable}>
           <thead><tr>
-            <th style={styles.bcTh}>部品</th>
+            <th style={styles.bcTh}>コンポーネント</th>
             <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Google Compact<br /><span style={styles.bcSub}>600dp未満</span></th>
             <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Medium<br /><span style={styles.bcSub}>600〜839dp</span></th>
             <th style={{ ...styles.bcTh, color: "#2F7D6E" }}>Expanded以上<br /><span style={styles.bcSub}>840dp〜</span></th>
@@ -441,7 +441,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の広さや向き、ウィンドウの大きさが変わったときに、レイアウトを組み替える考え方だ。";
+const LEAD = "画面の広さや向き、ウィンドウの大きさに合わせて、レイアウトを組み替える考え方";
 const ABOUT = [
   { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },

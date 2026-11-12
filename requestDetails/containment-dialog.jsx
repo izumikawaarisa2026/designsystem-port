@@ -30,7 +30,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Alerts",
-    term: "Alert(「ダイアログ」という名前の部品はなく、用途が重なるAlertを比べる。作業をさせるモーダルはSheets=ボトムシートのページ)",
+    term: "Alert(「ダイアログ」という名前のコンポーネントはなく、用途が重なるAlertを比べる。作業をさせるモーダルはSheets=ボトムシートのページ)",
     color: "#C2542A",
     position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
     size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
@@ -242,11 +242,11 @@ function DialogSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択を求める部品だ。";
+const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択を求めるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "作業をいったん止めて、大事な確認(削除してよいかなど)や短い選択に答えてもらう" },
   { k: "よく使われる場面", v: "削除・破棄の確認、権限の許可、保存せずに閉じるときの確認" },
-  { k: "似た部品との違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

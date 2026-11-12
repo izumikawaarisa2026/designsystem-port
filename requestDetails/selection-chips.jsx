@@ -39,7 +39,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
-    term: "Token field(macOS)。Chipという名前の部品はない",
+    term: "Token field(macOS)。Chipという名前のコンポーネントはない",
     color: "#C2542A",
     position: "「Chip」という名称の専用コンポーネントはないが、近い発想の「トークンフィールド」がmacOS向けに存在",
     size: <span><NoData>数値基準なし。</NoData>トークンフィールドはmacOSのテキストコントロールの一種として位置づけられている。</span>,
@@ -162,7 +162,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <><NoData>該当なし</NoData>。参考: スタイルガイドの記事で、載せるべき部品の1つに「トークン(チップ)」を挙げ、メールの宛先を1件ずつ分けて1回のクリックで消せるようにする使い方や、詳細検索・タグでの使い方に触れている。</>,
+      <><NoData>該当なし</NoData>。参考: スタイルガイドの記事で、載せるべきコンポーネントの1つに「トークン(チップ)」を挙げ、メールの宛先を1件ずつ分けて1回のクリックで消せるようにする使い方や、詳細検索・タグでの使い方に触れている。</>,
     exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
@@ -366,11 +366,11 @@ function SizeInfographic() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "短い言葉を小さな角丸の枠に入れた、選択・絞り込み・入力済みの値などを表す部品だ。";
+const LEAD = "短い言葉を小さな角丸の枠に入れ、選択・絞り込み・入力済みの値などを表すコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "絞り込みの条件や入力した値などを、小さくまとめて見せ、選んだり外したりできるようにする" },
   { k: "よく使われる場面", v: "検索結果の絞り込み条件、メールの宛先、タグの入力" },
-  { k: "似た部品との違い", v: <>1つの設定のオン・オフなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、移動や実行なら<PageLink to="/components/actions/button">ボタン</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
+  { k: "似たコンポーネントとの違い", v: <>1つの設定のオン・オフなら<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、遷移や実行なら<PageLink to="/components/actions/button">ボタン</PageLink>(比べ方は<PageLink to="/components/selection/overview">Selectionの選び方</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -379,17 +379,17 @@ const SPLITS = [
     q: "チップは何に使う?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "4つの用途に使う。操作の手助け(アシスト)・絞り込み(フィルタ)・入力した値の表示(インプット)・候補の提示(サジェスチョン)。ただし次へ・前へのような主な操作はボタンにする" },
-      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途の部品はない" },
+      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途のコンポーネントはない" },
       { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
     ],
-    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけだ。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準の部品(セグメントコントロールやメニュー)で作れないかも検討する。",
+    tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけだ。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準のコンポーネント(セグメントコントロールやメニュー)で作れないかも検討する。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "入力した値をまとまりで見せる", d: "この使い方は3系列に共通する", who: "Apple・Google・NN group(AI解釈)" },
-  { n: 2, t: "絞り込みや候補に使うのはGoogleの考え方", d: "iOS・macOSでは標準の部品(セグメントコントロールやメニュー)も検討", who: "AI解釈" },
+  { n: 2, t: "絞り込みや候補に使うのはGoogleの考え方", d: "iOS・macOSでは標準のコンポーネント(セグメントコントロールやメニュー)も検討", who: "AI解釈" },
   { n: 3, t: "主な操作をチップに置き換えない", d: "「次へ」などはボタンにする", who: "Google" },
 ];
 

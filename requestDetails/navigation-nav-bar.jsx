@@ -46,18 +46,18 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Tab Bars",
     term: "Tab bar",
     color: "#C2542A",
-    position: "アプリのトップレベルのセクション間を移動するための、画面下部の永続的なナビゲーション専用バー",
+    position: "アプリのトップレベルのセクション間を遷移するための、画面下部の永続的なナビゲーション専用バー",
     size:
-      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど移動しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける。",
+      "タブの数の上限は数値で示しておらず、必要な数のタブを使い、少ないほど遷移しやすいことを踏まえて増やしすぎないよう求めている。収まらないタブが「その他(More)」タブにまとめられると中身が見つけにくくなるため、はみ出しを避ける。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>タブバーは、アプリのトップレベルのセクション間を移動するために使う、画面下部の永続的なバーだとしている。<Hl>厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではない</Hl>としている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。</>,
+      <>タブバーは、アプリのトップレベルのセクション間を遷移するために使う、画面下部の永続的なバーだとしている。<Hl>厳密にナビゲーション専用とし、操作の実行(アクション)には使うべきではない</Hl>としている。画面遷移中も常に表示しておくべきで、非表示にするとユーザーが自分のいる場所を見失うとしている。この役割は、Googleの「Navigation bar」(画面下部・3〜5行き先)と一致する。</>,
     exceptions:
       "機能が一時的に使えない場合でも、タブを削除したり無効化したりすべきではないとしている(インターフェースが不安定・予測不能になるため)。タブが使えない理由は説明し、常に全てのタブを有効にしておくべきとしている。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
-      "アプリのトップレベルセクション間を移動する(タブは必要な数に絞り、はみ出しを避ける)",
+      "アプリのトップレベルセクション間を遷移する(タブは必要な数に絞り、はみ出しを避ける)",
       "画面遷移中も常に表示し、ユーザーが現在地を見失わないようにする",
       "機能が使えない場合もタブは無効化・削除せず、理由を説明する",
     ],
@@ -268,7 +268,7 @@ function TopBarPointerSection() {
 
 /* 名前の対応と、上部・下部の使い分け(No.041) */
 const NAME_MAP = [
-  { sys: "Apple", name: "Tab bar(タブバー)", note: "このページの対象。iOSは画面の下部、iPadOSは画面の上部近く。なお、戻るボタンを持つ上部のバーは、以前「Navigation bar」と呼ばれていた別の部品(→アプリバー)" },
+  { sys: "Apple", name: "Tab bar(タブバー)", note: "このページの対象。iOSは画面の下部、iPadOSは画面の上部近く。なお、戻るボタンを持つ上部のバーは、以前「Navigation bar」と呼ばれていた別のコンポーネント(→アプリバー)" },
   { sys: "Google", name: "Navigation bar(ナビゲーションバー)", note: "このページの対象。画面の下部、コンパクト・中サイズの画面向け" },
   { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "アプリの主な項目を並べるものをタブバー、サイトの上部に主な項目を並べるものをナビゲーションバーと呼び分ける" },
 ];
@@ -283,7 +283,7 @@ function NameAndPosition() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>タブバーとナビゲーションバー ― 名前の違いと、上部・下部の使い分け</h2>
-      <p style={styles.npNote}>同じ役割の部品でも、系列によって呼び名が違う。</p>
+      <p style={styles.npNote}>同じ役割のコンポーネントでも、系列によって呼び名が違う。</p>
       <div style={{ overflowX: "auto", marginBottom: 16 }}>
         <table style={styles.npTable}>
           <thead><tr>{["系列", "呼び名", "メモ"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
@@ -303,11 +303,11 @@ function NameAndPosition() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバーだ。";
+const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバー";
 const ABOUT = [
-  { k: "目的・役割", v: "アプリのいちばん上の階層の行き先を常に見せ、1回で移動できるようにする" },
+  { k: "目的・役割", v: "アプリのいちばん上の階層の行き先を常に見せ、1回で遷移できるようにする" },
   { k: "よく使われる場面", v: "SNS・ショッピングアプリの「ホーム・検索・通知・マイページ」" },
-  { k: "似た部品との違い", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -316,7 +316,7 @@ const SPLITS = [
     q: "行き先はいくつまで置ける?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "3〜5個。5個を超えるならモーダルのナビゲーションレール、3個未満ならタブを使う" },
-      { who: "Apple", color: "#C2542A", t: "数の上限は示さない。少ないほど移動しやすいので増やしすぎず、「その他(More)」に溢れさせない" },
+      { who: "Apple", color: "#C2542A", t: "数の上限は示さない。少ないほど遷移しやすいので増やしすぎず、「その他(More)」に溢れさせない" },
       { who: "NN group", color: "#7A4F7E", t: "数値の上限はないが、5個を超えると十分な押せる範囲を保ちにくい。選択肢の少ないサイト・アプリ向き" },
     ],
     tip: "5個までにしておけば3系列のどれとも食い違わない。行き先が増えるなら、Appleはサイドバーの形に切り替えられるタブバー、Googleはナビゲーションレールやドロワーへ移す、という逃がし先も決めておく。",
@@ -372,10 +372,10 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleの部品は<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用の部品は、Appleにはない。<strong>W3Cは見た目の部品ではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めている。
+              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めている。
             </p>
             <p style={styles.synthesisText}>
-              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど移動しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
+              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど遷移しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
             </p>
             <p style={styles.synthesisText}>
               ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することだ。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出した(末尾のリンクを参照)。

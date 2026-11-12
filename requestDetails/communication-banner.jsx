@@ -20,7 +20,7 @@ const SOURCES = [
     position: "「バナー」という名称の、アプリ内に留まり続けるインラインコンポーネントは見当たらない。最も近いのはOSレベルのバナー通知だが、これは自動的に消える点で本ページの対象とは性質が異なる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーの部品はない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る。",
+      "HIGには、アプリの中で利用者が閉じるまで残り続けるバナーのコンポーネントはない。通知は、ロック画面・ホーム画面などのバナー、アイコンのバッジ、通知センターの項目といった形で出る。",
     exceptions:
       "取り消せない重大な操作の確認には、「モーダルダイアログ」ページで比べたアラート(モーダル)を使う(AI解釈)。",
     accessibility: <NoData>記載なし</NoData>,
@@ -38,7 +38,7 @@ const SOURCES = [
     refs: [
       { label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
     ],
-    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。アプリの中に残り続けるバナーの部品はない。",
+    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。アプリの中に残り続けるバナーのコンポーネントはない。",
     pending: true,
     illustration: () => (
       <svg width="160" height="30" viewBox="0 0 160 30">
@@ -55,11 +55,11 @@ const SOURCES = [
     term: "Banner(Material Design 2)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3に後継の部品はない。同じ用途には、内容の重さに応じてダイアログやスナックバーなどを検討する(AI解釈)。",
+    successorNote: "M3に後継のコンポーネントはない。同じ用途には、内容の重さに応じてダイアログやスナックバーなどを検討する(AI解釈)。",
     position: "重要だが緊急ではないメッセージを、ユーザーが対応・却下するまで画面上部に表示し続けるコンポーネント",
     size: <span><NoData>寸法の数値は記載なし。</NoData>ボタンは文字のボタンを2つまで(閉じる操作は左、もう一方は右)。ボタンはメッセージの下か、収まるなら同じ行に置く。</span>,
     stance:
-      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添える部品。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる。",
+      "バナーは、重要で短いメッセージを出し、利用者が対応する(または閉じる)ための操作を添えるコンポーネント。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視することも操作することもいつでもできる。",
     exceptions:
       "一度に出すバナーは1つまで。ボタンは文字で書き、アイコンにしない。ボタン1つで「確認して閉じる」だけにするのは避ける。下にナビゲーションバーがあっても、バナーは画面上部に置く。原因の状態が解消したら消してもよい。",
     scenarios: [
@@ -78,10 +78,10 @@ const SOURCES = [
     refs: [
       { label: "Banners(M3の一覧からは削除)", url: "https://m2.material.io/components/banners" },
     ],
-    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)にBannerはない(2026-11に確認)。上の決まりはMaterial Design 2 Bannersの本文で確認(2026-11)。",
+    confirmedNote: "M3のコンポーネントの一覧(m3.material.ioのサイトマップ)にBannerはない(2026-11に確認)。上の決まりはMaterial Design 2 Bannersの本文で確認(2026-11)。",
     pending: true,
     deprecated: true,
-    deprecatedNote: "GoogleのBannerはMaterial Design 2の部品で、M3の部品の一覧にはない。",
+    deprecatedNote: "GoogleのBannerはMaterial Design 2のコンポーネントで、M3のコンポーネントの一覧にはない。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="160" height="30" viewBox="0 0 160 30">
@@ -226,17 +226,17 @@ function AlertSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせだ。";
+const LEAD = "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせ";
 const ABOUT = [
   { k: "目的・役割", v: "見落とすと困るが緊急ではない情報を、作業を止めずに伝え続ける" },
   { k: "よく使われる場面", v: "オフラインの知らせ、支払い情報の更新のお願い、サービスのお知らせ" },
-  { k: "似た部品との違い", v: <>成功・注意・エラーなど状態の知らせ方は<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>成功・注意・エラーなど状態の知らせ方は<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "見落とすと困るが、緊急ではない情報に使う", d: "", who: "Google" },
-  { n: 2, t: "作業を止めない", d: "画面の移動や操作はふさがない", who: "Google" },
+  { n: 2, t: "作業を止めない", d: "画面の遷移や操作はふさがない", who: "Google" },
 ];
 
 export default function CommunicationBannerPage() {
@@ -274,7 +274,7 @@ export default function CommunicationBannerPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 重要な注記(Google/Material Design)</div>
             <p style={styles.warningText}>
-              GoogleのBannerコンポーネントは<strong>Material Design 2に存在したが、M3の公式コンポーネント一覧には見当たらない</strong>。M3に後継の部品はなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになる(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記している。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しない。
+              GoogleのBannerコンポーネントは<strong>Material Design 2に存在したが、M3の公式コンポーネント一覧には見当たらない</strong>。M3に後継のコンポーネントはなく、同じ用途には内容の重さに応じて<strong>ダイアログやスナックバーなど</strong>を検討することになる(AI解釈る確認)。このページでは、現在も多くの実装で参考にされているM2時点のBanner仕様を掲載しつつ、この状況を明記している。他の3系列(Apple・W3C・Nielsen Norman Group)の情報には影響しない。
             </p>
           </div>
 
@@ -288,7 +288,7 @@ export default function CommunicationBannerPage() {
               このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知だ。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続ける。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表している。ただし、インラインのバナーをすべてrole="alert"にするわけではない。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にする(W3C欄を参照)。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことだ。M3に後継の部品はなく、同じ用途には既存のダイアログやスナックバーを使うことになる(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されている。
+              最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことだ。M3に後継のコンポーネントはなく、同じ用途には既存のダイアログやスナックバーを使うことになる(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの<strong>「アクション必須(見落とし厳禁)」と「パッシブ(見落としても致命的でない)」という通知の2分類</strong>は、<strong>利用者の対応が必要か</strong>という軸だ。対応を求めるバナーは前者、「スナックバー」「トースト」の各ページの対象は多くが後者に当たる。ただし、表示が続くかどうかとは別の軸なので、<strong>画面に残り続けるバナーでも、必ず対応を求めるとは限らない</strong>(「情報伝達の使い分け」ページと同じ整理)。この分類軸は、Containment・Communication両カテゴリを横断して各コンポーネントの役割を整理する共通の物差しとして機能する。

@@ -46,15 +46,15 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } fro
 const SOURCES = [
   {
     key: "hig",
-    related: <>日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    related: <>日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Apple",
     doc: "Human Interface Guidelines ― Pickers(関連)",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
-    position: <NoData>該当なし(予定表の部品はない)</NoData>,
+    position: <NoData>該当なし(予定表のコンポーネントはない)</NoData>,
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: 日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    stance: <><NoData>該当なし</NoData>。関連: 日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
@@ -90,15 +90,15 @@ const SOURCES = [
   },
   {
     key: "material",
-    related: <>Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    related: <>Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     name: "Google",
     doc: "Material Design 3 ― Date pickers(関連)",
     term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
-    position: <NoData>該当なし(予定表の部品はない)</NoData>,
+    position: <NoData>該当なし(予定表のコンポーネントはない)</NoData>,
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶための部品(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
+    stance: <><NoData>該当なし</NoData>。関連: Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
@@ -133,7 +133,7 @@ const SOURCES = [
   },
   {
     key: "wcag",
-    related: <>表の形で操作する部品の参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかの部品と同じく満たす。</>,
+    related: <>表の形で操作するコンポーネントの参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかのコンポーネントと同じく満たす。</>,
     name: "W3C",
     doc: "WAI-ARIA APG ― Grid Pattern(関連)",
     term: <NoData>該当なし</NoData>,
@@ -141,7 +141,7 @@ const SOURCES = [
     position: <NoData>該当なし(予定表の決まりや実装例はない)</NoData>,
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: 表の形で操作する部品の参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかの部品と同じく満たす。</>,
+    stance: <><NoData>該当なし</NoData>。関連: 表の形で操作するコンポーネントの参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかのコンポーネントと同じく満たす。</>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
@@ -245,11 +245,11 @@ function CalendarSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "予定を日・週・月などの表で見せる画面だ。予定表そのものの指針は、4系列ともない。";
+const LEAD = "予定を日・週・月などの表で見せる画面(予定表そのものの指針は4系列ともない)";
 const ABOUT = [
   { k: "目的・役割", v: "予定や出来事を、日付の並びの中で見渡せるようにする" },
   { k: "よく使われる場面", v: "カレンダーアプリ、会議室・店舗の予約状況、シフト表" },
-  { k: "似た部品との違い", v: <>日付を1つ選んで入力するのは<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>日付を1つ選んで入力するのは<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink></> },
 ];
 
 export default function TextInputsCalendarPage() {
@@ -280,7 +280,7 @@ export default function TextInputsCalendarPage() {
           <SummaryCard
             imageLabel="コンポーネントイメージ(月表示の例)"
             image={<><CalendarSwatch /></>}
-            imageNote={<>部品としてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションだ。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っている。</>}
+            imageNote={<>コンポーネントとしてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションだ。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -291,14 +291,14 @@ export default function TextInputsCalendarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>予定を日・週・月の表で見せる「予定表」の部品や指針は、4系列のどれにもない</strong>。AppleとGoogleが持つ月表示のカレンダーは、どちらも1つの日付(または期間)を選ぶ<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>の形で、予定表とは別物だ。W3CにもGridパターン(表の形で操作する部品の参考例)があるだけで、予定表の実装例はない。
+              <strong>予定を日・週・月の表で見せる「予定表」のコンポーネントや指針は、4系列のどれにもない</strong>。AppleとGoogleが持つ月表示のカレンダーは、どちらも1つの日付(または期間)を選ぶ<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>の形で、予定表とは別物だ。W3CにもGridパターン(表の形で操作するコンポーネントの参考例)があるだけで、予定表の実装例はない。
             </p>
             <p style={styles.synthesisText}>
-              自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかの部品を組み合わせて設計する</strong>ことになる(AI解釈)。
+              自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかのコンポーネントを組み合わせて設計する</strong>ことになる(AI解釈)。
             </p>
           </div>
-          <div style={styles.noneRow}><NoData>4系列とも、予定表の独立した部品・指針はない</NoData></div>
-          <h3 style={styles.relHead}>関連(各系列の近い部品・参考例)</h3>
+          <div style={styles.noneRow}><NoData>4系列とも、予定表の独立したコンポーネント・指針はない</NoData></div>
+          <h3 style={styles.relHead}>関連(各系列の近いコンポーネント・参考例)</h3>
           <div style={styles.relGrid}>
             {SOURCES.map((s) => (
               <div key={s.key} style={styles.sourceCard}>

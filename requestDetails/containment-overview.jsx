@@ -33,20 +33,20 @@ const OVERLAYS = [
   { kind: "bottom", name: "ボトムシート", path: "/components/containment/bottom-sheet", where: "画面の下からせり出す", modal: "モーダル・非モーダルの両方がある", size: "内容に合わせた高さ。段階的に広げられる", close: "下へスワイプ、外側をタップ、×", scene: "共有先の選択、地図の場所の詳細、スマホの絞り込み" },
   { kind: "side", name: "サイドシート", path: "/components/containment/side-sheet", where: "画面の横(主に右)に出る", modal: "非モーダル(標準)・モーダルの両方がある", size: "決まった幅", close: "×、モーダルなら外側をタップ", scene: "一覧の絞り込み、選んだ項目の詳細、編集パネル(主にPC・タブレット)" },
   { kind: "drawer", name: "ドロワー/サイドナビ", path: "/components/containment/drawer", where: "画面の横(主に左)から出る", modal: "スマホは一時的に出すモーダル、PCは常に表示", size: "決まった幅", close: "行き先を選ぶ、外側をタップ", scene: "アプリの主な行き先の一覧(行き先が多いとき)" },
-  { kind: "menu", name: "メニュー(ポップオーバー)", path: "/components/selection/menu", where: "押した部品のすぐ近く", modal: "一時的(外側を押すと閉じる)", size: "内容に合わせた小ささ", close: "項目を選ぶ、外側をタップ", scene: "「…」のその他の操作、右クリックの操作の一覧" },
+  { kind: "menu", name: "メニュー(ポップオーバー)", path: "/components/selection/menu", where: "押したコンポーネントのすぐ近く", modal: "一時的(外側を押すと閉じる)", size: "内容に合わせた小ささ", close: "項目を選ぶ、外側をタップ", scene: "「…」のその他の操作、右クリックの操作の一覧" },
 ];
 
 const STEPS = [
   { q: "今の作業を止めて、答えてもらう必要がある?", a: <>はい、短く答えるだけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>。まとまった入力なら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>(手順が長いなら、重ねずに<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink>の普通のページ)</> },
   { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマホなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
   { q: "アプリの行き先の一覧を出したい?", a: <><PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink>(行き先が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>)</> },
-  { q: "押した部品に関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
+  { q: "押したコンポーネントに関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
 ];
 
-const LEAD = "今の画面の上に重ねて出す部品(オーバーレイ)を並べ、どれを使うかを比べるページだ。";
+const LEAD = "今の画面の上に重ねて出すコンポーネント(オーバーレイ)を並べ、どれを使うかを比べるページ";
 const ABOUT = [
   { k: "目的・役割", v: "似た見た目のオーバーレイを、出る位置・後ろを操作できるか・閉じ方で見分けられるようにする" },
-  { k: "扱う部品", v: "モーダルダイアログ、フルスクリーンダイアログ、ボトムシート、サイドシート、ドロワー/サイドナビ、メニュー(ポップオーバー)" },
+  { k: "扱うコンポーネント", v: "モーダルダイアログ、フルスクリーンダイアログ、ボトムシート、サイドシート、ドロワー/サイドナビ、メニュー(ポップオーバー)" },
   { k: "関連するページ", v: <>知らせ方の違い(スナックバー・バナーなど)は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink></> },
 ];
 
@@ -91,7 +91,7 @@ export default function ContainmentOverviewPage() {
           <div style={{ overflowX: "auto", marginBottom: 40 }}>
             <table style={styles.ovTable}>
               <thead>
-                <tr>{["部品", "出る位置", "後ろの画面", "大きさ", "閉じ方", "よく使う場面"].map((h) => (<th key={h} style={styles.ovTh}>{h}</th>))}</tr>
+                <tr>{["コンポーネント", "出る位置", "後ろの画面", "大きさ", "閉じ方", "よく使う場面"].map((h) => (<th key={h} style={styles.ovTh}>{h}</th>))}</tr>
               </thead>
               <tbody>
                 {OVERLAYS.map((o) => (
@@ -143,7 +143,7 @@ export default function ContainmentOverviewPage() {
 
           <div style={styles.footer}>
             <span>最終確認: 2026-11</span>
-            <span>このページは既存ページの統合見解で、新しい一次情報の引用は行っていない。系列別の詳細と公式リンクは、各部品のページを参照。</span>
+            <span>このページは既存ページの統合見解で、新しい一次情報の引用は行っていない。系列別の詳細と公式リンクは、各コンポーネントのページを参照。</span>
           </div>
         </div>
       </div>

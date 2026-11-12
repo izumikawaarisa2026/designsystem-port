@@ -69,7 +69,7 @@ const PATTERNS = [
   {
     name: "コンボボックス(入力+絞り込み)",
     system: "Google(Exposed dropdown menuの入力対応版)・WAI-ARIA(Comboboxパターン)",
-    desc: "入力部と、それに対応するポップアップ(選択肢の一覧)を組み合わせた部品。文字を入力できる型(editable)と入力できない型(select-only)があり、入力に応じて候補を絞り込む実装もできる(APGのComboboxパターンには、絞り込まない型の例もある)。選択肢が非常に多い場合は、入力で絞り込めるとプルダウンより素早く目的の項目へたどり着ける。",
+    desc: "入力部と、それに対応するポップアップ(選択肢の一覧)を組み合わせたコンポーネント。文字を入力できる型(editable)と入力できない型(select-only)があり、入力に応じて候補を絞り込む実装もできる(APGのComboboxパターンには、絞り込まない型の例もある)。選択肢が非常に多い場合は、入力で絞り込めるとプルダウンより素早く目的の項目へたどり着ける。",
     when: "選択肢の数が多く、都道府県・国名のようにユーザーがタイピングで絞り込める場面",
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
     linkLabel: "APG: Comboboxパターン(参考例) ↗",
@@ -103,11 +103,11 @@ function PatternCards() {
 }
 
 /* タイトル直下の1文と、サマリーの表 */
-const LEAD = "プルダウンのほかにも、決まった選択肢から1つを選ぶ形はいくつかある。代表的な4つの形をまとめた。";
+const LEAD = "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ";
 const ABOUT = [
   { k: "目的・役割", v: "選択肢の見え方(常に見えるか・開くまで隠れるか)と、絞り込み方(タップだけか・入力もできるか)で、1つを選ぶ形を選び分ける" },
   { k: "よく使われる場面", v: "日付・国名をホイールで選ぶ、長い一覧から1つ選ぶ、都道府県を入力して絞り込む" },
-  { k: "似た部品との違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、表示の切り替えのように少ない選択肢から1つ選んですぐ反映するなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>。折りたたむ形は<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、表示の切り替えのように少ない選択肢から1つ選んですぐ反映するなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>。折りたたむ形は<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
 /* 4系列での扱い。name があれば、その系列での名前(リンク付き)。none は記載なし・未確認 */
@@ -163,7 +163,7 @@ function AvailabilityTable() {
           </tbody>
         </table>
       </div>
-      <p style={styles.availNote}>AppleのCombo boxesはmacOSだけの部品だ(iOS・iPadOSなどでは使えない)。GoogleのExposed dropdown menuは、選択肢から選ぶだけの型と、文字を入力できる型の両方を持つとしている。</p>
+      <p style={styles.availNote}>AppleのCombo boxesはmacOSだけのコンポーネントだ(iOS・iPadOSなどでは使えない)。GoogleのExposed dropdown menuは、選択肢から選ぶだけの型と、文字を入力できる型の両方を持つとしている。</p>
     </section>
   );
 }

@@ -203,10 +203,10 @@ function UseTable() {
   );
 }
 
-const LEAD = "値や項目を選ぶ部品を並べ、利用者が今何をしたいかから、どれを使うかを選ぶページだ。";
+const LEAD = "値や項目を選ぶコンポーネントを、利用者が今何をしたいかから選び分けるためのページ";
 const ABOUT = [
-  { k: "目的・役割", v: "見た目や機能が重なる選択の部品を、利用者の行動(オン/オフ・1つ選ぶ・複数選ぶ・範囲を決めるなど)から選べるようにする" },
-  { k: "扱う部品", v: <><PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/selection/chips">チップ(Chips)</PageLink>、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "目的・役割", v: "見た目や機能が重なる選択のコンポーネントを、利用者の行動(オン/オフ・1つ選ぶ・複数選ぶ・範囲を決めるなど)から選べるようにする" },
+  { k: "扱うコンポーネント", v: <><PageLink to="/components/selection/checkbox">チェックボックス</PageLink>、<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>、<PageLink to="/components/selection/slider">スライダー</PageLink>、<PageLink to="/components/selection/chips">チップ(Chips)</PageLink>、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
   { k: "関連するページ", v: <>プルダウン以外の選び方は<PageLink to="/components/selection/select-patterns">セレクトの種類</PageLink>、1つを選んで表示を切り替えるなら<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink></> },
 ];
 

@@ -268,11 +268,11 @@ function BadgeSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印だ。";
+const LEAD = "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印";
 const ABOUT = [
   { k: "目的・役割", v: "見るべきものがあることを、数字または点で控えめに知らせる" },
   { k: "よく使われる場面", v: "未読メールの件数、アプリアイコンの通知数、タブの新着の点" },
-  { k: "似た部品との違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>。バッジは数や有無だけを示す</> },
+  { k: "似たコンポーネントとの違い", v: <>内容そのものを伝えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>や<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>。バッジは数や有無だけを示す</> },
 ];
 
 /* 意見が分かれる点 */
