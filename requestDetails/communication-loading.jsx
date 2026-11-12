@@ -280,7 +280,7 @@ export default function CommunicationLoadingPage() {
               読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・部品を持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>という部品を設けている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(「プログレスインジケーター」ページの秒数の目安と共通)。
+              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(スケルトン画面の記事の書き方。「プログレスインジケーター」ページで比べた記事では「10秒以上」と書いている)。
             </p>
             <p style={styles.synthesisText}>
               W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝える仕組みを用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。更新が終わったらfalseに戻す。変更を読み上げさせるのはaria-live(ライブリージョン)の役割で、aria-busyは「今は更新中」という状態を示すだけだ。

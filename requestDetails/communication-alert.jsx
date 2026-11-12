@@ -76,7 +76,7 @@ const SOURCES = [
     colorIcon: <span><Hl>色だけで状態を伝えない</Hl>(1.4.1)。状態を示すアイコンなどは、周りの色と3:1以上のコントラストにする(1.4.11)。</span>,
     wording: "入力の誤りを見つけたら、どの項目が誤りかを特定し、文字で説明する(3.3.1。詳しくは「エラー表示」ページ)。",
     avoid: "検索結果の一覧そのものは、ステータスメッセージではない(件数などの短い知らせが対象)。",
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 4.1.3は互換性(4.1)の基準で「堅牢」、色の使用(1.4.1)と非テキストのコントラスト(1.4.11)は「知覚可能」に対応する。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 4.1.3は互換性(4.1)の基準で「堅牢」、色の用途(1.4.1)と非テキストのコントラスト(1.4.11)は「知覚可能」に対応する。",
     useCases: [
       "保存完了・検索の件数・入力の誤りなどの短い知らせは、role=\"status\"で読み上げられるようにする",
       "状態を色だけでなく、アイコンや文字でも示す",
@@ -84,7 +84,7 @@ const SOURCES = [
     searchHint: "status message",
     refs: [
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "sc", level: "A", label: "3.3.1 エラーの特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },

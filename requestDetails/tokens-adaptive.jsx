@@ -105,7 +105,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
     refs: [
       { kind: "sc", level: "AA", label: "1.4.10 リフロー", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html" },
-      { kind: "sc", level: "AA", label: "1.3.4 表示の向き", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html" },
+      { kind: "sc", level: "AA", label: "1.3.4 向き(orientation)", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語は1.3.4のページのもの。",
   },

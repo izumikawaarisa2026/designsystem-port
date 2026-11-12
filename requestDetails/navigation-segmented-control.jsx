@@ -133,7 +133,7 @@ const SOURCES = [
     refs: [
       { kind: "apg", label: "APG: Radio Groupパターン(参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
       { kind: "apg", label: "APG: Tabsパターン(参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
     ],
   },
   {

@@ -107,10 +107,10 @@ const SOURCES = [
     searchHint: "independently from the overall system volume",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion",
     refs: [
-      { kind: "sc", level: "A", label: "1.2.1 音声のみ及び映像のみ(収録済)", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html" },
+      { kind: "sc", level: "A", label: "1.2.1 音声だけ及び映像だけ(収録済み)", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html" },
       { kind: "sc", level: "A", label: "1.2.2 キャプション(収録済)", url: "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html" },
       { kind: "sc", level: "A", label: "1.4.2 音声の制御", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html#success-criterion" },
-      { kind: "sc", level: "AAA", label: "1.4.7 小さな背景音、又は背景音なし", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "1.4.7 背景音の小さい又はない音声", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html#success-criterion" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",
   },

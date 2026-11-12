@@ -122,7 +122,7 @@ const SOURCES = [
     size:
       <span>チェックボックス専用の数値基準はないが、WCAG 2.2で追加された一般的なターゲットサイズ基準が適用される。<Hl>2.5.8(レベルAA)は最低24×24 CSSピクセル</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセル</Hl>を求める(どちらも例外あり。詳しくは「ボタン」ページを参照)。いずれもタップ可能な要素全般に適用される基準で、チェックボックス固有の規定ではない。</span>,
     colorInfo:
-      <span>1.4.11(非テキストのコントラスト、レベルAA)により、チェックボックスの境界線や状態を示す視覚的要素は、隣接する色との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1(色の使用、レベルA)により、<Hl>色だけで選択状態を示すことも避けるべき</Hl>としている。</span>,
+      <span>1.4.11(非テキストのコントラスト、レベルAA)により、チェックボックスの境界線や状態を示す視覚的要素は、隣接する色との間で3:1以上のコントラスト比を確保すべきとしている。1.4.1(色の用途、レベルA)により、<Hl>色だけで選択状態を示すことも避けるべき</Hl>としている。</span>,
     stance:
       "チェックボックスのような独自UIコンポーネントは、その名前(ラベル)・役割(チェックボックスであること)・状態が、支援技術から取得・設定できなければならないとしている(4.1.2)。見た目だけでなく、プログラム的にも状態が伝わることを求める基準。",
     accessibility:
@@ -135,11 +135,11 @@ const SOURCES = [
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
-      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットサイズ(拡張)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットのサイズ(高度)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
       { kind: "apg", label: "APG ― Checkbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/" },
       { kind: "apg", label: "APG ― 不定状態(mixed)のチェックボックスの例", url: "https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/examples/checkbox-mixed/" },
     ],

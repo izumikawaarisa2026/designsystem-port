@@ -100,8 +100,8 @@ const SOURCES = [
     searchHint: "not entirely hidden",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion",
     refs: [
-      { kind: "sc", level: "AA", label: "2.4.11 フォーカスが隠されない(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion" },
-      { kind: "sc", level: "AAA", label: "2.4.12 フォーカスが隠されない(高度)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html" },
+      { kind: "sc", level: "AA", label: "2.4.11 隠されないフォーカス(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion" },
+      { kind: "sc", level: "AAA", label: "2.4.12 隠されないフォーカス(高度)", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#adjacent-colors" },
     ],
     confirmedNote: "2つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",

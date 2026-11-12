@@ -135,7 +135,7 @@ const SOURCES = [
     refs: [
       { kind: "sc", level: "A", label: "2.1.1 キーボード", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html" },
       { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
-      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
       { kind: "apg", label: "APG: Slider Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/slider/" },
     ],
     illustration: () => (
@@ -382,7 +382,7 @@ const VALUE_DISPLAY = [
     color: "#A3821F",
     note: "視覚的な表示方法そのものは規定していないが、現在値が支援技術からプログラム的に取得できることを求めている(4.1.2 Name, Role, Value)。「どこに表示するか」ではなく「値が伝わるか」を重視する基準。",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
-    refs: [{ kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
+    refs: [{ kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" }],
     illustration: () => (
       <svg width="140" height="46" viewBox="0 0 140 46">
         <line x1="4" y1="34" x2="136" y2="34" stroke="#EDE3C9" strokeWidth="4" strokeLinecap="round" />

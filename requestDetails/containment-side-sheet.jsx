@@ -123,7 +123,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
     refs: [
       { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { kind: "mdn", label: "aria-haspopup", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup" },
     ],
     illustration: () => (
@@ -233,8 +233,9 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "並べて置く標準と、後ろを操作できなくするモーダルの2種類がある", d: "", who: "Google" },
-  { n: 2, t: "Appleにサイドシートに当たる部品はない", d: "", who: "Apple" },
+  { n: 1, t: "メインの画面を操作しながら見せるなら、標準のサイドシート", d: "メインの領域と並び、メインの内容を操作している間も表示され続ける", who: "Google" },
+  { n: 2, t: "狭い画面では、モーダルのサイドシート", d: "コンパクトな画面向けで、閉じるまで下の内容は操作できない", who: "Google" },
+  { n: 3, t: "Appleにサイドシートに当たる部品はない", d: "", who: "Apple" },
 ];
 
 export default function ContainmentSideSheetPage() {

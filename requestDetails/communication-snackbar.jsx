@@ -101,7 +101,7 @@ const SOURCES = [
       "ユーザーが即座に気づく必要のある重大なエラーにrole=\"alert\"を使いたい時(多用は避ける)",
     ],
     stance:
-      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole="status"(ポライト)とrole="alert"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(タイミング調整可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。スナックバーのような一時的な通知は、見た目ではなく内容の緊急度に応じてrole="status"(ポライト)とrole="alert"(アサーティブ)を使い分ける(WAI-ARIA)。また、「元に戻す」などの操作を持つスナックバーを時間で消すと、操作する時間が足りない人がいる。2.2.1(期限調節可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
     exceptions:
       "role=\"alert\"は読み上げ中の内容を中断するため多用は避けるべきで、緊急性の低い通知に使うと過剰な割り込みになるとしている。なお、操作ボタンを含むスナックバーでは、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるように設計する必要がある(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
@@ -117,7 +117,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
     refs: [
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { kind: "sc", level: "A", label: "2.2.1 タイミング調整可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+      { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
       { label: "WAI-ARIA: alertロール", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" },
       { kind: "mdn", label: "statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },

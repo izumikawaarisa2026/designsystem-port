@@ -26,7 +26,7 @@ export function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoint
   return (
     <>
       <p className="dsp-lead" style={partStyles.lead}>{lead}</p>
-      {keyPoints && <KeyPoints items={keyPoints} title={keyPointsTitle} />}
+      {keyPoints && (Array.isArray(keyPoints) ? <KeyPoints items={keyPoints} title={keyPointsTitle} /> : keyPoints)}
       <section style={partStyles.summary}>
         {image && (
           <div style={partStyles.summaryImage}>
@@ -90,6 +90,7 @@ export function GoodBad({ title, items, basis, note }) {
         ))}
       </div>
       {basis && <p style={partStyles.gbBasis}>根拠: {basis}</p>}
+      <p style={partStyles.gbBasis}>図は概念図。</p>
       {note && <p style={partStyles.gbBasis}>{note}</p>}
     </section>
   );

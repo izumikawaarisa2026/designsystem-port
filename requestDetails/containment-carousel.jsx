@@ -112,7 +112,7 @@ const SOURCES = [
     refs: [
       { kind: "apg", label: "APG: Carousel Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/" },
       { kind: "apg", label: "APG: Carousel ― Keyboard Interaction", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/#keyboard_interaction" },
-      { kind: "sc", level: "A", label: "2.2.2 一時停止、停止、非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html" },
+      { kind: "sc", level: "A", label: "2.2.2 一時停止・停止・非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html" },
       { label: "WAI Carousels Tutorial", url: "https://www.w3.org/WAI/tutorials/carousels/" },
       { kind: "apg", label: "APG: Auto-Rotating Image Carousel(実装例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/examples/carousel-1-prev-next/" },
     ],

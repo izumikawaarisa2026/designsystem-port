@@ -139,7 +139,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
     refs: [
       { kind: "sc", level: "A", label: "1.1.1 非テキストコンテンツ", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html" },
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "sc", level: "A", label: "2.5.3 ラベルを含む名前", url: "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html" },
       { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
