@@ -17,7 +17,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-part
  * 「Styles」側に属する(m3.material.io/stylesで確認)。「Foundations」側にはAccessible
  * design・Adaptive design・Content design・Customizing Material・Design tokens・
  * Usabilityなど、機能横断的なルール・考え方が集められている(m3.material.io/foundations
- * で確認)。つまり本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの
+ * で確認)。つまり本サイトの「Foundation」という1つの括りは、Googleの
  * 実際の区分では「Foundations」と「Styles」という2つの異なるセクションにまたがっている。
  *
  * Apple(HIG)はFoundations配下にAccessibility・Color・Typography・Motion・Layoutなど
@@ -53,9 +53,9 @@ const SOURCES = [
     categories: ["Accessibility", "App icons", "Branding", "Color", "Dark Mode", "Icons", "Images", "Immersive experiences", "Inclusion", "Layout", "Materials", "Motion", "Privacy", "Right to left", "SF Symbols", "Spatial layout", "Typography", "Writing"],
     summary: "Foundations配下にトピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
     stance:
-      "HIGのFoundationsには、Accessibility・Color・Typography・Layout・Writingなどのトピックが、「視覚トークンか機能横断ルールか」という区別なく、アルファベット順に同じ階層で並んでいる。Googleのような「Foundations」と「Styles」の二分はない。一方でHIG全体は6つの区分に分かれており、Foundationsの外に、よくある操作の流れを扱うPatterns、入力手段を扱うInputs、Apple固有の技術を扱うTechnologiesが並列に置かれている。",
-    structuralNote: "本サイトの「トークン / ファウンデーション」(9ページ)と「インタラクション」(3ページ)は、AppleのFoundations(色・文字・レイアウト等)とInputs(入力方法・ジェスチャー)の2区分にまたがる。また「ローディング」「モーダル」のようなAppleのPatternsの一部は、本サイトではコンポーネントページ側で扱っている。",
-    accessibilityNote: "AccessibilityはFoundationsの1トピックとして扱われており、他の視覚トークン(Color・Typography等)と同格に並ぶ。「横断的な前提条件」というより「並列の1トピック」という位置づけに近い。",
+      "Foundationsには、Accessibility・Color・Typography・Layout・Writingなどのトピックが、「見た目のトークンか横断のルールか」の区別なく、アルファベット順に同じ階層で並ぶ。Googleのような「Foundations」と「Styles」の二分はない。HIG全体は6つの区分に分かれ、Foundationsの外に、よくある操作の流れのPatterns、入力手段のInputs、Apple固有の技術のTechnologiesが並ぶ。",
+    structuralNote: "このサイトの「Foundation」(9ページ)と「Interaction」(3ページ)は、AppleのFoundations(色・文字・レイアウトなど)とInputs(入力方法・ジェスチャー)の2区分にまたがる。「ローディング」「モーダル」のようなAppleのPatternsの一部は、このサイトではコンポーネントのページで扱う。",
+    accessibilityNote: "AccessibilityはFoundationsの1トピックで、ほかの見た目のトークン(Color・Typographyなど)と同格に並ぶ。「横断の前提条件」より「並列の1トピック」に近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
     refs: [
       { label: "Foundations", url: "https://developer.apple.com/design/human-interface-guidelines/foundations" },
@@ -76,11 +76,11 @@ const SOURCES = [
     name: "Google",
     color: "#2F7D6E",
     categories: ["Foundations: Overview(原則・支援技術)/ Building for all / Content design / Customization / Design tokens / Designing(色のコントラスト等)/ Interaction / Layout / Usability / Writing / Watches / XR", "Styles: Color / Elevation / Icons / Motion / Shape / Spacing / Typography"],
-    summary: "「Foundations」と「Styles」を明確に別セクションとして分離。色・タイポグラフィ等はStyles側",
+    summary: "「Foundations」と「Styles」をはっきり別のセクションに分ける。色・タイポグラフィなどはStyles側",
     stance:
-      "Material Design 3のサイトは、Foundations・Styles・Components・Develop(実装)という区分に分かれている。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など機能横断的な考え方が集められ、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった視覚的なトークンはStylesに属する。設計原則(principles)もFoundationsの中(Overview配下)に置かれている。",
-    structuralNote: "本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている。つまり本サイトはGoogleの構造をそのまま踏襲してはいない。レイアウトはStylesではなくFoundations側にある点にも注意。",
-    accessibilityNote: "アクセシビリティはFoundations側の複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれており、1トピックというより横断的な前提条件としての位置づけに近い。",
+      "M3のサイトは、Foundations・Styles・Components・Develop(実装)に分かれる。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など横断的な考え方が集まり、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった見た目のトークンはStylesに属する。設計の原則(principles)もFoundationsの中(Overview)にある。",
+    structuralNote: "このサイトの「Foundation」という1つの括りは、Googleでは FoundationsとStylesの2つのセクションにまたがる(Googleの構造をそのまま踏襲していない)。レイアウトはStylesではなくFoundations側にある。",
+    accessibilityNote: "アクセシビリティはFoundationsの複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれ、1トピックより横断の前提条件に近い。",
     url: "https://m3.material.io/foundations",
     refs: [
       { label: "M3 Foundations", url: "https://m3.material.io/foundations" },
@@ -112,8 +112,8 @@ const SOURCES = [
     categories: ["色: 1.4.1 色の用途(A)・1.4.3 コントラスト(最低限)(AA)・1.4.11 非テキストのコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットのサイズ(最低限)(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタジェスチャ(A)・2.5.7 ドラッグ動作(AA)"],
     summary: "土台(ファウンデーション)に当たる括りはない。色・文字などの各トピックに、個別の達成基準が条件として関わる",
     stance:
-      "WCAGは色の値や文字サイズの体系を定める文書ではなく、「できあがった画面が満たすべき条件」を定める基準。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)は持たない。その代わり、色のコントラストや文字の拡大など、各トピックで守るべき最低限の条件が個別の達成基準として散らばっている。各トークンページのW3C欄は、この「トピックに関わる達成基準」を比べている。",
-    structuralNote: "WCAGのPOURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは原則ではなく、土台の各トピックに関わる達成基準(左の一覧)として位置づける。",
+      "WCAGは色の値や文字サイズの体系ではなく、「できあがった画面が満たす条件」を定める。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)はない。代わりに、色のコントラストや文字の拡大など、各トピックの最低限の条件が個別の達成基準として散らばる。各ページのW3Cの欄は、この「トピックに関わる達成基準」を比べている。",
+    structuralNote: "POURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは、土台の各トピックに関わる達成基準(左の一覧)として位置づける。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのもので、「土台の中の1トピック」という位置づけにはならない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     refs: [
@@ -136,9 +136,9 @@ const SOURCES = [
     categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など"],
     summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
     stance:
-      "Nielsen Norman GroupはApple・Googleのような実装者向けデザインシステムではなく、ユーザビリティ調査に基づく記事・レポートの集合体。記事は「Topics」(Visual Design・Writing for the Webなどの分類)で整理されているが、色・文字の値をそろえる仕組みとしての土台は持たない。各トピックの記事は、調査に基づく原則や指針として読む。",
+      "Apple・Googleのような実装者向けのデザインシステムではなく、ユーザビリティ調査にもとづく記事・レポートの集まり。記事は「Topics」(Visual Design・Writing for the Webなど)で整理されるが、色・文字の値をそろえる土台はない。各記事は、調査にもとづく原則や指針として読む。",
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
-    accessibilityNote: "アクセシビリティ単体の記事群はあるが、Foundations的な包括的体系としては提示されていない。",
+    accessibilityNote: "アクセシビリティの記事はあるが、Foundationsのような包括的な体系にはなっていない。",
     url: "https://www.nngroup.com/topics/",
     refs: [
       { label: "Topics(記事の分類)", url: "https://www.nngroup.com/topics/" },
@@ -169,7 +169,7 @@ const LAYERS = [
   {
     key: "foundations",
     label: "基礎",
-    site: "トークン/ファウンデーション",
+    site: "Foundation",
     apple: { name: "Foundations", sub: "色・文字・レイアウト・アクセシビリティなど", highlight: true },
     google: { name: "Foundations + Styles", sub: "考え方はFoundations、視覚トークンはStylesに二分", highlight: true },
   },
@@ -183,7 +183,7 @@ const LAYERS = [
   {
     key: "patterns",
     label: "体験パターン",
-    site: "横断ビュー(プロセスタグ)/一部はコンポーネント",
+    site: "Sitemap(プロセスタグ)/一部はコンポーネント",
     apple: { name: "Patterns", sub: "ローディング・オンボーディング・フィードバック・モーダルなど" },
     google: { name: "独立した区分なし", sub: "該当する内容はFoundationsやComponentsに分散", none: true },
   },
@@ -214,13 +214,13 @@ const APPLE_SECTIONS = [
     name: "Foundations",
     role: "どの画面・コンポーネントにも共通する、見た目と体験の基礎要素",
     items: "Accessibility / Color / Dark Mode / Layout / Materials / Motion / Typography / Writing など",
-    site: "トークン/ファウンデーションレイヤー",
+    site: "Foundation",
   },
   {
     name: "Patterns",
     role: "ユーザーのよくある操作や体験の流れ(複数のコンポーネントにまたがる手順)の設計指針",
     items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など",
-    site: "横断ビュー(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
+    site: "Sitemap(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
   },
   {
     name: "Inputs",
@@ -356,7 +356,7 @@ function PrinciplesVsFoundations() {
 const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方の4系列比較";
 const ABOUT = [
   { k: "目的・役割", v: "個々のトークンのページを読む前に、4系列の「基礎」の範囲と分け方の違いを知る" },
-  { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、トークン/ファウンデーションの各ページ" },
+  { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、Foundationの各ページ" },
   { k: "関連するページ", v: <>ファウンデーション: <PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink>、<PageLink to="/tokens/writing">文章・UXライティング</PageLink>、<PageLink to="/tokens/icon">アイコン</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>/インタラクション: <PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>/<PageLink to="/principles/comparison">原則比較</PageLink></> },
 ];
 
@@ -380,7 +380,7 @@ export default function TokensOverviewPage() {
         <SidebarNav currentPath="/tokens/overview" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>トークン / ファウンデーションの思想比較</span>
+            <span>Foundation / ファウンデーションの思想比較</span>
             <span>SPEC No. 041</span>
           </div>
 
@@ -409,7 +409,7 @@ export default function TokensOverviewPage() {
               以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要だ(理由は以下のとおり)。この比較サイトのファウンデーション9ページ・インタラクション3ページという区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読む。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことだ。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められている。<strong>本サイトの「トークン/ファウンデーション」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになる。
+              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことだ。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められている。<strong>本サイトの「Foundation」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになる。
             </p>
             <p style={styles.synthesisText}>
               一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下のトピックとして区別なく並べており、Googleのような二分はしていない。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いている</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違い(下部の「Foundationsと並列の区分」参照)。

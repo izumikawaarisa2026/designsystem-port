@@ -31,11 +31,11 @@ const SOURCES = [
     term: "Badge(アプリアイコン・タブ)",
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「バッジ」という単独ページはなく、アプリアイコン上の未読件数バッジ(Notificationsページ)と、タブ上のバッジ(Tab Barsページ)という2箇所に説明が分かれている",
+    position: "単独のページはなく、アプリアイコンの未読件数バッジ(Notifications)とタブのバッジ(Tab Bars)の2か所で扱う",
     size: "寸法の数値の記載なし",
     colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
-      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。バッジは未読の通知の数を示すためだけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す。",
+      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。未読の通知の数だけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す。",
     exceptions:
       "利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
     scenarios: [
@@ -46,7 +46,7 @@ const SOURCES = [
     useCases: [
       "重要・新規の情報に限定して使い、多用を避ける",
       "対応済みの情報は速やかにバッジから取り除く",
-      "バッジ単体を情報伝達の主手段にしない(通知本体を補助する位置づけに留める)",
+      "バッジだけで情報を伝えない(通知本体の補助に留める)",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
@@ -78,15 +78,15 @@ const SOURCES = [
     doc: "Material Design 3 ― Badges",
     term: "Badge(小さいバッジ・大きいバッジ)",
     color: "#2F7D6E",
-    position: "アイコン・タブ・ナビゲーション項目に重ねて表示し、通知や件数を示す小さなコンポーネント。小(ドット)/大(数字・テキスト)の2バリエーションが独立コンポーネントとして定義されている",
+    position: "アイコン・タブ・ナビゲーション項目に重ねて通知や件数を示す小さなコンポーネント。小(ドット)/大(数字・テキスト)の2種類を定義",
     size: "大きいバッジの文字は「+」を含めて4文字まで(例: 999+)。小さいバッジは数字のない丸。",
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
-      "小サイズのバッジ(ドット)は存在を示すだけで文字を持たず、大サイズのバッジは数字やテキストで件数を定量的に示すとしている。タブでは小・大どちらのバッジも使え、ナビゲーションレールでは折りたたみ時はアイコンの右上角、展開時はラベルテキストの隣に配置するとされている。ユーザーが該当する内容を確認したら、バッジの値を更新するか非表示にすべきだとしている。",
+      "小さいバッジ(ドット)は存在を示すだけで文字を持たず、大きいバッジは数字やテキストで件数を示す。タブでは両方使え、ナビゲーションレールでは折りたたみ時はアイコンの右上、展開時はラベルの隣に置く。利用者が内容を確認したら、値を更新するか非表示にする。",
     exceptions:
-      "桁数が多い件数は「+」付きで丸めて4文字以内に収めるべきとされ、際限なく数字を伸ばすことは想定されていない。",
+      "桁の多い件数は「+」付きで丸め、4文字以内に収める。",
     glossary: [
-      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したい場面でも、アイコンが小さく数字が重なって読みにくい、置く場所が狭い、といったときは、数字のない小さいバッジ(点)にして、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3 Badgesにある)。" },
+      { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したくても、アイコンが小さく数字が読みにくい・場所が狭いときは、数字のない小さいバッジ(点)にし、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3 Badgesにある)。" },
     ],
     scenarios: [
       "タブ・ナビゲーション項目に未読件数や新着の有無を示したい時",
@@ -129,21 +129,21 @@ const SOURCES = [
     term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
-    position: "「バッジ」に対応する専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
+    position: "専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
     size: "専用の数値基準はない。",
-    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))が必要。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の用途)の違反にはならない。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝える。",
+    colorInfo: "ドットは周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、数字はバッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))。ドットの有無は色以外の手がかりなので、それだけで1.4.1(色の用途)の違反にはならない。ただし色の違いだけで状態を分けない(例: 赤と青のドットで意味を変えない)。ドットで新着を示すときも、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
-      { term: "ARIA14 / aria-label", desc: "視覚的なラベルを置けない要素に対し、aria-label属性でアクセシブルネームを与える手法。バッジ付きのアイコンボタンでは、装飾的なバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、この技法を当てはめた形になる(AI解釈)。" },
+      { term: "ARIA14 / aria-label", desc: "見えるラベルを置けない要素に、aria-labelでアクセシブルネームを与える技法。バッジ付きのアイコンボタンで、装飾のバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、これを当てはめた形(AI解釈)。" },
     ],
     stance:
-      "バッジに対応する専用のロールはない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを画面に置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げている(バッジ専用の技法ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジ自体はaria-hidden=\"true\"で隠す形になる(AI解釈)。こうして名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
+      "専用のロールはない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げる(バッジ専用ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジはaria-hidden=\"true\"で隠す(AI解釈)。名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
     exceptions:
-      "可視のラベル文字列がすでに存在する場合は、WCAG 2.5.3(Label in Name)により、aria-labelにもその可視文字列を含める必要があるとされている(バッジ専用の例外規定ではなく、ラベル全般に共通する規定)。",
+      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、aria-labelにもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
     scenarios: [
       "アイコンに重ねた件数バッジの意味を支援技術に伝えたい時",
       "ドットのバッジで、色の違いだけで状態を分けてしまうのを避けたい時",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値がプログラム的に決定できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)が関わる。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値をプログラムで判別できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)。",
     useCases: [
       "装飾的なバッジ要素にはaria-hidden=\"true\"を設定する",
       "件数などの意味は親要素(アイコンボタン等)のaria-labelに含める",
@@ -176,17 +176,17 @@ const SOURCES = [
     doc: "UI Elements Glossary ― Badge",
     term: "Badge",
     color: "#7A4F7E",
-    position: "アイコンの上に重ねて表示し、通知(主にドット)またはアイテム数(主に数字)を示す小さな要素、という用語集としての定義",
+    position: "アイコンに重ねて、通知(主にドット)か件数(主に数字)を示す小さな要素(用語集の定義)",
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "UI Elements Glossaryは、バッジを、ショッピングカートやメッセージなどのアイコンに重ねて、通知の有無(多くはドット)や件数(多くは数字)を示す小さな要素として定義している。用語集の1項目としての簡潔な定義に留まり、頻度や配色、乱用を避けるための具体的な設計ガイドラインまでは踏み込んでいない。",
+      "UI Elements Glossaryは、バッジを、ショッピングカートやメッセージなどのアイコンに重ねて、通知の有無(多くはドット)や件数(多くは数字)を示す小さな要素と定義する。簡潔な定義に留まり、頻度・配色・乱用を避ける具体的な指針はない。",
     exceptions:
-      "この項目は用語の定義のみで、使用シーンの許容・非許容を示す詳細な基準は記載されていない。",
+      "用語の定義のみで、使ってよい場面・避ける場面の基準はない。",
     scenarios: [
       "アイコン上で通知の有無や件数を簡潔に示したい時",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、用語集としての定義。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、用語集の定義。",
     useCases: [
       "通知の有無を示す場合はドット、件数を示す場合は数字という使い分けの目安として参照する",
     ],
@@ -404,7 +404,7 @@ export default function CommunicationBadgePage() {
                 <div style={styles.labelCell}>専用コンポーネント</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
+                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -464,7 +464,7 @@ const styles = {
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
+  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },

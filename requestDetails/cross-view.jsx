@@ -18,16 +18,16 @@ import { TAG_LIST, tagAnchor } from "./page-parts";
 const TAG_INDEX = [
   {"group": "思想レイヤー", "label": "原則比較", "path": "/principles/comparison", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["設計の原則・使い分け"]},
   {"group": "思想レイヤー", "label": "アクセシビリティ", "path": "/principles/accessibility", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["設計の原則・使い分け"]},
-  {"group": "トークン / ファウンデーション", "label": "ファウンデーションの思想比較", "path": "/tokens/overview", "principles": [], "processes": ["設計の原則・使い分け", "デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "カラー", "path": "/tokens/color", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "タイポグラフィ", "path": "/tokens/typography", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "文章・UXライティング", "path": "/tokens/writing", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["デザインの基礎", "エラー・確認", "入力・フォーム"]},
-  {"group": "トークン / ファウンデーション", "label": "アイコン", "path": "/tokens/icon", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "レイアウト・スペーシング", "path": "/tokens/layout-spacing", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "情報の整理・一覧"]},
-  {"group": "トークン / ファウンデーション", "label": "シェイプ・コーナーラジウス", "path": "/tokens/shape", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "見つけやすさ・初めての案内"]},
-  {"group": "トークン / ファウンデーション", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "ダークモード", "path": "/tokens/dark-mode", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "トークン / ファウンデーション", "label": "アダプティブ/レスポンシブ", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "ファウンデーションの思想比較", "path": "/tokens/overview", "principles": [], "processes": ["設計の原則・使い分け", "デザインの基礎"]},
+  {"group": "Foundation", "label": "カラー", "path": "/tokens/color", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "タイポグラフィ", "path": "/tokens/typography", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "文章・UXライティング", "path": "/tokens/writing", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["デザインの基礎", "エラー・確認", "入力・フォーム"]},
+  {"group": "Foundation", "label": "アイコン", "path": "/tokens/icon", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "レイアウト・スペーシング", "path": "/tokens/layout-spacing", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "情報の整理・一覧"]},
+  {"group": "Foundation", "label": "シェイプ・コーナーラジウス", "path": "/tokens/shape", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "見つけやすさ・初めての案内"]},
+  {"group": "Foundation", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "ダークモード", "path": "/tokens/dark-mode", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "アダプティブ/レスポンシブ", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Actions", "label": "ボタン", "path": "/components/actions/button", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "インタラクション状態", "path": "/tokens/interaction-states", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎", "操作方法(タッチ・キーボード)"]},
   {"group": "Actions", "label": "フローティングアクションボタン", "path": "/components/actions/fab", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
@@ -77,9 +77,9 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "空状態", "path": "/components/communication/empty-state", "principles": ["理解可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "インタラクション", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
-  {"group": "インタラクション", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
-  {"group": "インタラクション", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
+  {"group": "Interaction", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Interaction", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
+  {"group": "Interaction", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
 ];
 /*__TAG_INDEX_END__*/
 
@@ -99,7 +99,7 @@ const CATEGORIES = TAG_LIST; // 番号・アンカーと一緒に page-parts.jsx
 const CATEGORY_TAGS = CATEGORIES.map((c) => c.tag);
 
 /* サイドバーのグループを、サイトの3つの層にまとめる */
-const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group.startsWith("トークン") || group === "インタラクション" ? "トークン / ファウンデーション・インタラクション" : "コンポーネント");
+const LAYER_OF = (group) => (group === "思想レイヤー" ? "思想レイヤー" : group === "Foundation" || group === "Interaction" ? "Foundation・Interaction" : "コンポーネント");
 
 const tagged = TAG_INDEX.filter((p) => p.principles.length || p.processes.length);
 const untagged = TAG_INDEX.filter((p) => !p.principles.length && !p.processes.length);
@@ -114,7 +114,7 @@ const processCounts = CATEGORIES.map((c) => [c.tag, tagged.filter((p) => p.proce
 const undefinedTags = countTags("processes").filter(([t]) => !CATEGORY_TAGS.includes(t));
 const otherPrinciples = principleCounts.filter(([t]) => !POUR_TAGS.includes(t));
 const pourCount = (tag) => (principleCounts.find(([t]) => t === tag) || [tag, 0])[1];
-const groups = [...new Set(TAG_INDEX.map((p) => p.group))].filter((g) => g !== "横断ビュー");
+const groups = [...new Set(TAG_INDEX.map((p) => p.group))].filter((g) => g !== "Sitemap");
 
 /* 画像エリア: タグの見方 */
 function TagLegend() {
@@ -188,7 +188,7 @@ function CategoryGrid({ sel, onSelect }) {
 function TagResult({ sel }) {
   const isPrinciple = principleCounts.some(([t]) => t === sel);
   const hits = tagged.filter((p) => (isPrinciple ? p.principles : p.processes).includes(sel));
-  const byLayer = ["思想レイヤー", "トークン / ファウンデーション・インタラクション", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
+  const byLayer = ["思想レイヤー", "Foundation・Interaction", "コンポーネント"].map((l) => ({ layer: l, pages: hits.filter((p) => LAYER_OF(p.group) === l) })).filter((x) => x.pages.length);
   return (
     <div id={tagAnchor(sel)} style={styles.resultBox} aria-live="polite">
       <div style={styles.resultHead}>
@@ -321,11 +321,11 @@ export default function CrossViewPage() {
         <SidebarNav currentPath="/cross-view" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>横断ビュー / タグから見る</span>
+            <span>Sitemap / タグから見る</span>
             <span>SPEC No. 056</span>
           </div>
 
-          <h1 style={styles.title}>横断ビュー(タグから見る)</h1>
+          <h1 style={styles.title}>タグから見る</h1>
           <p style={styles.subtitle}>各ページのタグから、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで探せる一覧</p>
 
           <div style={styles.swatchCard}>

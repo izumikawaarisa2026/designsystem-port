@@ -11,7 +11,7 @@ import React from "react";
  * - SplitSection: 「意見が分かれる点」(同じ問いに対して、系列によって答えが違う点)
  * - RelatedPages: ページ末尾の「関連するページ」(名前と1文の説明は、ビルド時に作る PAGE_INDEX から引く)
  * - PageToc: 長いページの上部に置く目次「このページの内容」(ページの見出しから自動で作る)
- * - KeyPoints: 「まず押さえる要点」。SummaryCard に keyPoints を渡すと、概要の1行とサマリーの枠の間に出る
+ * - KeyPoints: 「まず押さえる要点」。SummaryCard に keyPoints を渡すと、イメージ図とサマリーの表の間に出る
  * - GoodBad: 良い例・悪い例の図(良い/悪いは文字のラベルでも示す)
  *
  * ビルド(build_preview.py)では、このファイルの export した名前が全ページから使えるようになる。
@@ -20,21 +20,21 @@ import React from "react";
 
 const LINK = "#3A4FCF";
 
-/* タイトルの下のサマリー。タイトル直下に、どんな部品か(lead)の1文。その下の枠の中に、イメージ図 → 目的・役割などの表(グレーの背景)を置く。
+/* タイトルの下のサマリー。タイトル直下に、どんな部品か(lead)の1文。その下に、イメージ図の枠 → まず押さえる要点 → 目的・役割などの表(グレーの背景)の枠を置く(2026-11 ⑦本人レビューでイメージ図を要点の上へ)。
    lead は1文の定義(静的版のページ説明にも使われる。class="dsp-lead" を目印にしている)、rows は「目的・役割」などの行 */
 export function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoints, keyPointsTitle }) {
   return (
     <>
       <p className="dsp-lead" style={partStyles.lead}>{lead}</p>
+      {image && (
+        <section style={{ ...partStyles.summary, ...partStyles.summaryImage, marginBottom: 32 }}>
+          <span style={partStyles.summaryImageLabel}>{imageLabel || "コンポーネントイメージ(共通形状)"}</span>
+          {image}
+          {imageNote && <p style={partStyles.summaryImageNote}>{imageNote}</p>}
+        </section>
+      )}
       {keyPoints && (Array.isArray(keyPoints) ? <KeyPoints items={keyPoints} title={keyPointsTitle} /> : keyPoints)}
       <section style={partStyles.summary}>
-        {image && (
-          <div style={partStyles.summaryImage}>
-            <span style={partStyles.summaryImageLabel}>{imageLabel || "コンポーネントイメージ(共通形状)"}</span>
-            {image}
-            {imageNote && <p style={partStyles.summaryImageNote}>{imageNote}</p>}
-          </div>
-        )}
         <dl style={partStyles.aboutList}>
           {(rows || []).map((a) => (
             <div key={a.k} style={partStyles.aboutRow}>

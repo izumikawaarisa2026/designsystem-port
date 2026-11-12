@@ -48,17 +48,17 @@ const SOURCES = [
     position: "トーストに当たるコンポーネントはない。最も近いのは通知(ロック画面やホーム画面などのバナー、通知センター)",
     size: <NoData>数値基準なし</NoData>,
     scenarios: [
-      "OSレベルの短時間通知を見せたい時(バナー形式)",
-      "アプリ内の一時的なフィードバックは専用コンポーネントがないため独自実装が必要になる時",
+      "OSの短い通知を出したい時(バナー形式)",
+      "アプリ内の一時的なフィードバックを、独自に作る必要がある時(専用のコンポーネントがないため)",
     ],
     stance:
-      "HIGに「トースト」という名前のコンポーネントはない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目といった形で出る。アプリの中で短く出て消えるフィードバックのコンポーネントはなく、Appleはトーストとスナックバーを区別していない。",
+      "「トースト」というコンポーネントはない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目として出る。アプリの中で短く出て消えるフィードバックのコンポーネントはなく、トーストとスナックバーを区別していない。",
     exceptions:
-      "表示時間や同時に出す数の数値の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)ほうがよいとしている。",
+      "表示時間や同時に出す数の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
-      "OSレベルの短時間通知にはバナー形式を使う",
-      "アプリ内の一時的なフィードバック表示に厳密に対応する専用コンポーネントは持たない",
+      "OSの短い通知にはバナー形式を使う",
+      "アプリ内の一時的なフィードバックに当たるコンポーネントはない",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
@@ -83,18 +83,18 @@ const SOURCES = [
     term: "Toast(AndroidのOSの仕組み)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3のコンポーネントとして「操作を必要としないシンプルな通知」を実現したい場合は、Snackbarでアクションボタンを設定しない構成が事実上の後継に相当する。Snackbarはアクション任意のため、Toastが担っていた役割はボタンなしのSnackbarでもほぼ再現できる。",
-    position: "M3の公式コンポーネント一覧には存在しない(旧M1〜M2時代の名残であるAndroidのプラットフォームAPI)。操作に対する簡潔なフィードバックを示す、必要最小限のスペースだけを占める小さなポップアップ。現在の画面はそのまま操作可能",
-    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は最大2行のテキストに制限され、アプリのアイコンがテキストの隣に表示されるとしている。</span>,
+    successorNote: "M3で「操作の要らないシンプルな通知」を出すなら、アクションボタンのないSnackbarが事実上の後継。Snackbarのアクションは任意のため、Toastの役割はほぼ再現できる。",
+    position: "M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる",
+    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る。</span>,
     scenarios: [
-      "取り消しや追加操作を必要としない、ごく簡潔な操作結果のフィードバックを出したい時",
-      "ユーザー操作(Undoなど)を持たせたい場合はSnackbarを検討したい時",
-      "アプリがバックグラウンドにあり、ユーザーに何らかの対応を求めたい場合はNotificationを使いたい時",
+      "取り消しなどの操作が要らない、ごく短い操作結果を知らせたい時",
+      "操作(Undoなど)を持たせたい時はSnackbarにする",
+      "アプリが背面にあり、対応を求めたい時はNotificationにする",
     ],
     stance:
-      "Toastは、操作に対する簡潔なフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、現在の画面はそのまま表示・操作可能な状態を保つとしている。自動的に消えるまでの時間はToast.LENGTH_SHORT等の指定に従うとしている。公式ページは、アプリが前面表示中の場合はSnackbar(アクション性が高い)、背面にある場合はNotification(対応を求める)を検討すべきと案内しており、Toast自体は「取り消し等の操作を伴わない最も簡潔なフィードバック」という位置づけ。",
+      "操作への短いフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、今の画面はそのまま見られて操作できる。消えるまでの時間はToast.LENGTH_SHORTなどの指定に従う。公式は、アプリが前面ならSnackbar(操作を持てる)、背面ならNotification(対応を求める)を案内し、Toastは「取り消しなどの操作を伴わない最も簡潔なフィードバック」という位置づけ。",
     exceptions:
-      "カスタムToastビュー(独自レイアウト)はAPI30で非推奨となり、標準のテキストのみのToastかSnackbarへの置き換えが案内されている。表示テキストの行の長さは画面サイズによって変わるため、できるだけ短い文言にすべきとしている。",
+      "独自レイアウトのカスタムToastビューはAPI30で非推奨になり、標準の文字だけのToastかSnackbarへの置き換えを案内している。行の長さは画面サイズで変わるため、文言はできるだけ短くする。",
     accessibility:
       <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全(AI解釈)。</span>,
     useCases: [
@@ -123,23 +123,23 @@ const SOURCES = [
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
     term: "status(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "フォーカスを移さずに出る状態の知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
+    position: "フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
     glossary: [
-      { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toast内にアイコン等の視覚的要素がある場合に適用され得る。" },
+      { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toastの中にアイコンなどがあればかかり得る。" },
     ],
-    size: "トースト専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は操作可能な要素に適用される(Toast自体は操作不可のため直接の対象にはなりにくい)。",
+    size: "専用の数値基準はない。操作できる要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる(Toast自体は操作できないため、対象になりにくい)。",
     scenarios: [
       "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3、role=\"status\")",
       "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに出る知らせ(「保存しました」など)を、支援技術にも伝えること。Webでトースト風の通知を作るなら、role=\"status\"(ポライト)が基本(「スナックバー」ページと同じ)。自動で消える通知は読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
-      "2.2.1(期限調節可能・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
+      "2.2.1(期限調節可能・レベルA)は、読んだり操作したりする時間が要る時間制限の基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、「関わり得る」に留める。",
     accessibility:
-      "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
+      "堅牢(Robust) ― 主な根拠は4.1.3(Status Messages)。表示の時間では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
     useCases: [
-      "Web実装でトースト風の通知を作る場合はrole=\"status\"を使う",
+      "Webでトースト風の通知を作るならrole=\"status\"を使う",
       "自動で消えるため、読み上げが間に合わないことがある。重要な情報の伝達には使わない",
     ],
     searchHint: "without receiving focus",
@@ -167,20 +167,20 @@ const SOURCES = [
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
     term: "Snackbar(Toast)",
     color: "#7A4F7E",
-    position: "「Toast」を独立した用語としては区別しておらず、用語集では「Snackbar (Toast)」という1つの項目にまとめられている",
+    position: "「Toast」を別の用語として区別せず、用語集の「Snackbar (Toast)」にまとめている",
     size: <NoData>数値基準なし</NoData>,
     scenarios: [
-      "パッシブ通知(見落としても致命的でない)として位置づけたい時",
-      "重要な情報の唯一の伝達手段にはしたくない時",
+      "パッシブな通知(見落としても致命的でない)として出したい時",
+      "重要な情報を、ほかの手段でも伝えている時",
     ],
     stance:
-      "UI Elements Glossaryには「Toast」単独の項目はなく、「Snackbar (Toast)」という1つの項目で扱っている。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動的に消える、一時的な非モーダルの表示)で、通知を「操作が必要」と「受け身(パッシブ)」に分ける枠組みでは受け身の側に入る。",
+      "UI Elements Glossaryに「Toast」単独の項目はなく、「Snackbar (Toast)」で扱う。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動で消える、一時的な非モーダルの表示)で、「アクション必須」と「パッシブ」の分け方ではパッシブに入る。",
     exceptions:
       "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、通知の緊急度・割り込み度に応じた使い分けの指針だ(Snackbarと共通)。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、緊急度と割り込みの強さによる使い分けの指針(Snackbarと共通)。",
     useCases: [
-      "ユーザーの操作を必須にしない、パッシブな通知に使う",
-      "重要な情報の唯一の伝達手段にはしない",
+      "操作を必須にしない、パッシブな通知に使う",
+      "重要な情報をこれだけで伝えない",
     ],
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
@@ -431,7 +431,7 @@ const styles = {
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
   warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
   warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
+  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
   warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },

@@ -15,16 +15,16 @@ const SOURCES = [
     term: <NoData>専用のコンポーネントなし(Writingで空の画面の文言を扱う)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「空状態」という単独のコンポーネントはなく、文章の書き方(Writing)のページで空の画面の文言に触れている",
+    position: "単独のコンポーネントはなく、Writingのページで空の画面の文言に触れる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "完了済みのToDoリストや空のブックマークフォルダのような空の画面を、歓迎の気持ちを伝えたりアプリの使い方を伝えたりする機会にでき、次にできる操作を案内し、可能ならそのためのボタンやリンクを置くよう勧めている。",
+      "完了したToDoリストや空のブックマークフォルダのような空の画面は、歓迎やアプリの使い方を伝える機会になる。次にできる操作を案内し、できればそのボタンやリンクを置く。",
     exceptions:
-      "空状態は基本的に一時的なものなので、消えてしまう可能性のある重要な情報をそこに置くべきではないとしている。なお、Tab barsのページは、機能が一時的に使えないときもタブを消したり無効にしたりしないよう求めている。",
+      "空状態は一時的なものなので、消えるおそれのある重要な情報は置かない。なおTab barsのページは、機能が一時的に使えなくても、タブを消したり無効にしたりしないとする。",
     scenarios: [
       "ToDoリストや保存済みアイテムが1件もない画面で、次にできる操作を案内したい時",
     ],
-    accessibility: <span><NoData>記載なし。</NoData>Writingのページは、誰にでも伝わるように、平易な言葉でアクセシビリティとローカライズを意識して書くよう勧めている。</span>,
+    accessibility: <span><NoData>記載なし。</NoData>Writingのページは、誰にでも伝わるよう、平易な言葉で、アクセシビリティとローカライズを意識して書くとする。</span>,
     useCases: [
       "空の画面では次にできる操作を案内し、可能ならそのボタンやリンクを置く",
       "消えてしまう可能性のある重要な情報は空状態に置かない",
@@ -50,19 +50,19 @@ const SOURCES = [
     term: "Empty state(Material Design 1のパターン)",
     color: "#2F7D6E",
     noDedicatedComponent: true,
-    position: "現行M3の一覧には「空状態」の正式なコンポーネント・パターンはなく、旧世代(M1)のパターンページにのみ記述がある",
+    position: "現行M3に正式なコンポーネント・パターンはなく、旧世代(M1)のパターンページにだけ記述がある",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "M1のパターンページでは、「リストに項目が1件もない」「検索結果が0件」といった場面での基本形が、操作のない画像+短い説明文だとし、見出しは短く分かりやすくし、ユーザーを責めるような表現は避けるべきだとしている。",
+      "M1のパターンページは、「リストに項目が1件もない」「検索結果が0件」の基本形を、操作のない画像+短い説明文とする。見出しは短く分かりやすくし、利用者を責める表現は避ける。",
     exceptions:
-      "現行M3のコンポーネント一覧には「空状態」の正式コンポーネントがないため、上記はM1時代の古いパターンページの内容で、現行M3が保証している内容ではない。",
+      "現行M3に正式なコンポーネントはなく、上記はM1の古いパターンページの内容で、現行M3が保証するものではない。",
     scenarios: [
       "検索結果が0件、リストに項目が1件もない画面の基本形を検討したい時(M1由来の参考情報)",
     ],
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "空状態の文言は責めるような表現を避け、次の行動を促す(M1由来の参考情報)",
-      "現行M3に空状態の正式な一次情報がないことを踏まえ、実装時は自社の判断で設計する",
+      "現行M3に正式な一次情報がないため、実装では自社の判断で設計する",
     ],
     searchHint: "",
     url: "https://m1.material.io/patterns/empty-states.html",
@@ -85,15 +85,15 @@ const SOURCES = [
     doc: "WCAG 4.1.3 ステータスメッセージ",
     term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "空状態専用のロールはない。検索結果0件などの結果を、フォーカスを移さずに画面を更新して知らせる場合は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
+    position: "専用のロールはない。検索結果0件などを、フォーカスを移さずに画面を更新して知らせるなら、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージだ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせる場合は、ステータスメッセージ(role=\"status\"など)として伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外で、検索結果の表示すべてにrole=\"status\"を付けるという意味ではない。",
+      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外(検索結果すべてにrole=\"status\"を付けるという意味ではない)。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索や絞り込みの結果が0件だったことを、画面を見ていない利用者にも伝えたい時",
     ],
-    accessibility: "堅牢(Robust) ― 4.1.3は互換性(4.1)の基準で、POUR原則のうち「堅牢」に対応する。",
+    accessibility: "堅牢(Robust) ― 4.1.3は互換性(4.1)の基準。",
     useCases: [
       "その場で結果を書き換えて件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3。フォーカスを移さない場合)",
     ],
@@ -117,19 +117,19 @@ const SOURCES = [
     doc: "Designing Empty States in Complex Applications",
     term: "Empty state",
     color: "#7A4F7E",
-    position: "空状態を「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」という3つの役割を持つ設計対象として位置づける(数値基準ではなく原則)",
+    position: "空状態に「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」の3つの役割を持たせる(数値基準ではなく原則)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "(1)「該当期間のレコードがありません」のように状況を明示して、読み込み中なのか本当にデータがないのかの混乱を避ける、(2)「お気に入りに追加するとここに表示されます」のように操作方法を教える学習機会として使う、(3)「作成」ボタンなど次に取るべき行動への直接の導線を用意する、という3つの指針を挙げている。",
+      "(1)「該当期間のレコードがありません」のように状況を示し、読み込み中か本当にデータがないかの混乱を避ける、(2)「お気に入りに追加するとここに表示されます」のように操作を教える機会にする、(3)「作成」ボタンなど次の行動への導線を置く、の3つ。",
     exceptions: "3つの指針は数値基準ではなく、原則としての言及。",
     scenarios: [
-      "検索結果0件やリスト未設定など、データがない理由をユーザーに明示したい時",
+      "検索結果0件やリスト未設定など、データがない理由を示したい時",
       "初めて使う機能の使い方を、空状態の文言を通じて教えたい時",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、システム状態の伝達・学習支援・タスク導線という観点からの設計指針。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、状態の伝達・学習の支援・タスクへの導線という観点の設計指針。",
     useCases: [
       "空欄を放置せず、状況を明示するメッセージを必ず入れる",
-      "ユーザーを責めるトーンを避け、次の行動を案内する",
+      "利用者を責めるトーンを避け、次の行動を案内する",
     ],
     searchHint: "empty states",
     url: "https://www.nngroup.com/articles/empty-state-interface-design/",
@@ -394,7 +394,7 @@ export default function CommunicationEmptyStatePage() {
                 <div style={styles.labelCell}>専用コンポーネント</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
+                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -463,7 +463,7 @@ const styles = {
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
+  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },

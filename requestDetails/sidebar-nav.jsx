@@ -26,7 +26,7 @@ export const NAV_SECTIONS = [
     ],
   },
   {
-    title: "トークン / ファウンデーション",
+    title: "Foundation",
     items: [
       { label: "ファウンデーションの思想比較", path: "/tokens/overview", built: true },
       { label: "カラー", path: "/tokens/color", built: true },
@@ -120,7 +120,7 @@ export const NAV_SECTIONS = [
     ],
   },
   {
-    title: "インタラクション",
+    title: "Interaction",
     items: [
       { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
       { label: "サウンド", path: "/tokens/sound", built: true },
@@ -128,7 +128,7 @@ export const NAV_SECTIONS = [
     ],
   },
   {
-    title: "横断ビュー",
+    title: "Sitemap",
     items: [{ label: "タグから見る", path: "/cross-view", built: true }],
   },
 ];
