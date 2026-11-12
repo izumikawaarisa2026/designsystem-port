@@ -23,13 +23,13 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "該当コンポーネントなし(番号付きページネーションとしては)",
-    term: <NoData>該当なし(近い部品: Page control)</NoData>,
+    term: <NoData>該当なし(近いコンポーネント: Page control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Page Controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" }],
     position: "該当なし",
     size: "該当なし",
-    stance: <>該当なし。関連: Page controls(ドット表示)は、少数の決まった画面を順に送る部品で、検索結果のような長さの変わる一覧を分ける番号付きのページ送りとは対象が違う(上の「ページ送りの種類と使い分け」)。ドットは順序のあるページの移動に使い、10個ほどを超えると数えにくいとしている。</>,
+    stance: <>該当なし。関連: Page controls(ドット表示)は、少数の決まった画面を順に送るコンポーネントで、検索結果のような長さの変わる一覧を分ける番号付きのページ送りとは対象が違う(上の「ページ送りの種類と使い分け」)。ドットは順序のあるページの遷移に使い、10個ほどを超えると数えにくいとしている。</>,
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
@@ -45,7 +45,7 @@ const SOURCES = [
     notApplicable: true,
     position: "該当なし",
     size: "該当なし",
-    stance: "該当なし(M3の部品の一覧にPaginationはない。長い一覧の分割は、リストや表などを組み合わせる想定とみられる。AI解釈)",
+    stance: "該当なし(M3のコンポーネントの一覧にPaginationはない。長い一覧の分割は、リストや表などを組み合わせる想定とみられる。AI解釈)",
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
@@ -62,10 +62,10 @@ const SOURCES = [
     size: "ページネーション専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)は各ページ番号のリンク/ボタンにも適用される。",
     glossary: [
       { term: "色", desc: "ページネーション専用の色基準はないが、1.4.11(非テキストのコントラスト)は現在ページを示す枠線・背景色などの視覚的要素に適用され得る。" },
-      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要な部品(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装するのが一般的(AI解釈)。" },
+      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAには「ページネーション」という名前の専用ウィジェット・ロールは定義されていない。必要なコンポーネント(nav landmark、リスト、リンク/ボタン、aria-current)がすでに存在するため、それらを組み合わせて実装するのが一般的(AI解釈)。" },
     ],
     stance:
-      "ページネーションには専用のARIAロールやパターンは定義されていない。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的だ(AI解釈。専用のパターンがないため、既存の部品を組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になる。",
+      "ページネーションには専用のARIAロールやパターンは定義されていない。代わりに、ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各ページ番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、現在のページにはaria-current=\"page\"を設定するという組み合わせで実装するのが一般的だ(AI解釈。専用のパターンがないため、既存のコンポーネントを組み合わせる)。W3Cの一次情報としては、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)がこの組み合わせの根拠になる。",
     exceptions:
       "現在のページ番号は、リンクではなく単なるテキスト(span等)として実装し、その要素にaria-current=\"page\"を設定することが多いとされている。単一ページアプリで画面遷移せずにコンテンツだけを切り替える場合は、切り替えをライブリージョンなどで支援技術に通知する配慮も必要。",
     accessibility:
@@ -83,7 +83,7 @@ const SOURCES = [
       { kind: "sc", level: "A", label: "2.4.4 リンクの目的(コンテキスト内)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
       { kind: "mdn", label: "aria-current", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current" },
     ],
-    confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはない(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存の部品を組み合わせる一般的な作り方です(AI解釈)。",
+    confirmedNote: "WAI-ARIA仕様にpaginationという役割はなく、APGにも専用のパターンはない(2026-10に確認)。nav+リスト+aria-currentの組み合わせは、既存のコンポーネントを組み合わせる一般的な作り方です(AI解釈)。",
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="24" viewBox="0 0 120 24">
@@ -188,7 +188,7 @@ function PaginationSwatch() {
 const PAGINATION_TYPES = [
   {
     name: "番号付きページネーション",
-    desc: "1・2・3のようにページ番号を並べ、任意のページへ直接移動できる形。検索結果一覧・商品一覧など、位置を把握しながら精密に移動したい場合に向く。",
+    desc: "1・2・3のようにページ番号を並べ、任意のページへ直接遷移できる形。検索結果一覧・商品一覧など、位置を把握しながら精密に遷移したい場合に向く。",
     illustration: () => (
       <div style={{ display: "inline-flex", alignItems: "center", gap: 4, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11 }}>
         {[1, 2, 3].map((n) => (
@@ -236,18 +236,18 @@ function PaginationTypesSection() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "長い一覧をページに分け、ページ番号などで移動できるようにする部品だ。";
+const LEAD = "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "多くの結果を一定の数ずつに分け、今どこを見ているかと、ほかのページへの行き方を示す" },
   { k: "よく使われる場面", v: "検索結果、ネットショップの商品一覧、ブログの記事一覧" },
-  { k: "似た部品との違い", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C: aria-current" },
-  { n: 2, t: "専用の部品はない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
-  { n: 3, t: "AppleのPage controlsは別の部品", d: "少数の画面を点で送るもの", who: "Apple" },
+  { n: 2, t: "専用のコンポーネントはない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
+  { n: 3, t: "AppleのPage controlsは別のコンポーネント", d: "少数の画面を点で送るもの", who: "Apple" },
 ];
 
 export default function NavigationPaginationPage() {
@@ -278,7 +278,7 @@ export default function NavigationPaginationPage() {
           <SummaryCard keyPoints={KP}
             imageLabel="コンポーネントイメージ(番号付きページネーション)"
             image={<><PaginationSwatch /></>}
-            imageNote={<>ページ番号を並べ、任意のページへ直接移動できる。前後の矢印を併設することが多い。</>}
+            imageNote={<>ページ番号を並べ、任意のページへ直接遷移できる。前後の矢印を併設することが多い。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -291,10 +291,10 @@ export default function NavigationPaginationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleとGoogleには、番号付きページネーションに当たる専用の部品はない</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別の部品)。
+              <strong>AppleとGoogleには、番号付きページネーションに当たる専用のコンポーネントはない</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別のコンポーネント)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作る。ページネーションは独立した部品というより、既存の部品を組み合わせる実装パターンとして扱われている。
+              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作る。ページネーションは独立したコンポーネントというより、既存のコンポーネントを組み合わせる実装パターンとして扱われている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。

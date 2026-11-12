@@ -243,11 +243,11 @@ function FullscreenDialogSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログだ。";
+const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ";
 const ABOUT = [
   { k: "目的・役割", v: "まとまった入力(予定の作成など)を、元の画面から切り離して集中して行えるようにする" },
   { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマホでの長めのフォーム" },
-  { k: "似た部品との違い", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

@@ -48,7 +48,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "専用ページなし(Entering data / Text fieldsの記載に含まれる)",
-    term: <NoData>専用の部品なし(入力の決まりの中で扱う)</NoData>,
+    term: <NoData>専用のコンポーネントなし(入力の決まりの中で扱う)</NoData>,
     color: "#C2542A",
     position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。タイミングは内容で変え、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる",
     colorInfo: <><NoData>記載なし</NoData>(視覚的な状態表現は「エラー表示」ページを参照)。</>,
@@ -468,11 +468,11 @@ function ValidationTimingSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方だ。";
+const LEAD = "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方";
 const ABOUT = [
   { k: "目的・役割", v: "間違いを早めに知らせつつ、入力の途中で邪魔をしないタイミングを選ぶ" },
   { k: "よく使われる場面", v: "メールアドレス・パスワードの確認、会員登録・購入のフォーム" },
-  { k: "似た部品との違い", v: <>見つけたエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>見つけたエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

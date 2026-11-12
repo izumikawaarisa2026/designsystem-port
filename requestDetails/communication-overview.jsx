@@ -267,7 +267,7 @@ const COMPARISON_ROWS = [
   { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作があれば消さない)", actionButton: "△(1つまで)", error: "✕", hint: "✕", place: "画面下部" },
   { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "操作した場所の近く" },
   { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", place: "画面下部" },
-  { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインター・フォーカスが離れたら)", actionButton: "✕", error: "✕", hint: "○", place: "指している部品の近く" },
+  { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインター・フォーカスが離れたら)", actionButton: "✕", error: "✕", hint: "○", place: "指しているコンポーネントの近く" },
 ];
 
 const COMPARISON_COLUMNS = [
@@ -336,10 +336,10 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#666D93", lineHeight: 1.5 },
 };
 
-const DETAIL_1 = <>モーダルダイアログは、答えを得るまで後ろの画面を操作させない。ほかの5つは、作業を止めずに知らせる。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出す部品の使い分けは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>で比べている。下の比較表の「作業を止める」列に対応する。</>;
+const DETAIL_1 = <>モーダルダイアログは、答えを得るまで後ろの画面を操作させない。ほかの5つは、作業を止めずに知らせる。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出すコンポーネントの使い分けは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>で比べている。下の比較表の「作業を止める」列に対応する。</>;
 const DETAIL_2 = "「利用者の対応が必要か」は、表示がどれだけ続くか・どれだけ急ぎか(緊急度)とは別の軸だ。画面に残り続けるバナーでも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、この対応の必要性の軸として読む。スナックバーの操作(元に戻すなど)は任意で、押さなくても作業は続けられる。";
 const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーとモーダルダイアログは、閉じるか対応するまで残る。ステータスメッセージは内容で変わり、入力の誤りは直すまで問題の場所の近くに残す(NN group)。";
-const DETAIL_4 = "モーダルダイアログ=中央、バナー=上部、スナックバー/トースト=下部、ステータスメッセージ=操作した場所や問題の場所の近く、ツールチップ=指している部品の近く。";
+const DETAIL_4 = "モーダルダイアログ=中央、バナー=上部、スナックバー/トースト=下部、ステータスメッセージ=操作した場所や問題の場所の近く、ツールチップ=指しているコンポーネントの近く。";
 
 /* 4つの判断軸(No.055で図にした)。各軸で6つの部品をグループに分けて示し、詳しい説明は開いて読む */
 const AXES = [
@@ -379,7 +379,7 @@ function PositionMap() {
       <text x="110" y="87" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
       <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
       <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: スナックバー・トースト</text>
-      {tag(26, 34, "ツールチップ(部品の近く)", "#A3821F")}
+      {tag(26, 34, "ツールチップ(コンポーネントの近く)", "#A3821F")}
       {tag(26, 100, "ステータスメッセージ", "#2F7D3B")}
     </svg>
   );
@@ -448,7 +448,7 @@ function ComparisonTable() {
   return (
     <div style={styles.matrixScroll}>
       <div className="dsp-ovw-matrix" style={styles.matrixGrid}>
-        <div style={styles.headerCell}>部品</div>
+        <div style={styles.headerCell}>コンポーネント</div>
         {COMPARISON_COLUMNS.map((c) => (<div key={c.key} style={styles.headerCell}>{c.label}</div>))}
         {COMPARISON_ROWS.map((r) => (
           <React.Fragment key={r.key}>
@@ -463,7 +463,7 @@ function ComparisonTable() {
 }
 
 const RELATED_PARTS = [
-  { name: "オーバーレイの使い分け", path: "/components/containment/overview", note: "画面の上に重ねて内容や操作を出す部品(フルスクリーンダイアログ・ボトムシート・サイドシートなど)の比較" },
+  { name: "オーバーレイの使い分け", path: "/components/containment/overview", note: "画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)の比較" },
   { name: "アコーディオン", path: "/components/containment/accordion", note: "同じ場所で開閉して、詳しい内容を見せる" },
   { name: "プログレスインジケーター", path: "/components/communication/progress", note: "処理の進行状況(待ち時間)を示す" },
   { name: "バッジ", path: "/components/communication/badge", note: "件数・存在の有無を示す小さな装飾要素" },
@@ -474,9 +474,9 @@ const RELATED_PARTS = [
 function RelatedPartsNote() {
   return (
     <div style={styles.relatedBox}>
-      <div style={styles.relatedLabel}>関連するページ(この比較には含めていない部品)</div>
+      <div style={styles.relatedLabel}>関連するページ(この比較には含めていないコンポーネント)</div>
       <p style={styles.relatedText}>
-        画面の上に重ねて内容や操作を出す部品(フルスクリーンダイアログ・ボトムシート・サイドシートなど)は「オーバーレイの使い分け」で、同じ場所で開閉して詳しい内容を見せる部品は「アコーディオン」で比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、何かが起きたことを知らせるのではなく<strong>「今どんな状態か」を示すこと自体が目的</strong>のため、この比較には含めていない。
+        画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)は「オーバーレイの使い分け」で、同じ場所で開閉して詳しい内容を見せるコンポーネントは「アコーディオン」で比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、何かが起きたことを知らせるのではなく<strong>「今どんな状態か」を示すこと自体が目的</strong>のため、この比較には含めていない。
       </p>
       <div style={styles.relatedLinks}>
         {RELATED_PARTS.map((it) => (
@@ -490,11 +490,11 @@ function RelatedPartsNote() {
   );
 }
 
-const LEAD = "利用者に何かを知らせる部品を並べ、4つの判断軸と比較表で、どれを使うかを比べるページだ。";
+const LEAD = "利用者に何かを知らせるコンポーネントを、4つの判断軸と比較表で選び分けるためのページ";
 const ABOUT = [
-  { k: "目的・役割", v: "作業を止めるか・対応が要るか・どう消えるか・どこに出すかで、知らせ方の部品を見分けられるようにする" },
-  { k: "扱う部品", v: <><PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、<PageLink to="/components/communication/banner">バナー</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、<PageLink to="/components/communication/toast">トースト</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
-  { k: "関連するページ", v: <>画面の上に重ねて内容や操作を出す部品は<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink></> },
+  { k: "目的・役割", v: "作業を止めるか・対応が要るか・どう消えるか・どこに出すかで、知らせ方のコンポーネントを見分けられるようにする" },
+  { k: "扱うコンポーネント", v: <><PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、<PageLink to="/components/communication/banner">バナー</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、<PageLink to="/components/communication/toast">トースト</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
+  { k: "関連するページ", v: <>画面の上に重ねて内容や操作を出すコンポーネントは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink></> },
 ];
 
 export default function CommunicationOverviewPage() {
@@ -528,22 +528,22 @@ export default function CommunicationOverviewPage() {
               6つの知らせ方は、<strong>①作業を止めるか ②利用者の対応が要るか ③どう消えるか ④画面のどこに出すか</strong>という4つの軸で整理できる(詳しくは下の「4つの判断軸」を参照)。<strong>作業を止めるのはモーダルダイアログだけ</strong>で、答えを得るまで先へ進ませたくない場面に限って使う。ほかの5つは作業を止めずに知らせる。
             </p>
             <p style={styles.synthesisText}>
-              スナックバーとトーストの違いは<strong>取り消しなどの操作を持たせるか</strong>。バナーは<strong>自動で消えず、画面に残り続ける</strong>お知らせだ。ステータスメッセージは成功・情報・注意・エラーという<strong>状態の伝え方</strong>そのもので、バナーやスナックバーの形で出すこともある(AI解釈)。ツールチップは、知らせるというより部品の意味を補う短い説明だ。
+              スナックバーとトーストの違いは<strong>取り消しなどの操作を持たせるか</strong>。バナーは<strong>自動で消えず、画面に残り続ける</strong>お知らせだ。ステータスメッセージは成功・情報・注意・エラーという<strong>状態の伝え方</strong>そのもので、バナーやスナックバーの形で出すこともある(AI解釈)。ツールチップは、知らせるというよりコンポーネントの意味を補う短い説明だ。
             </p>
             <p style={styles.synthesisText}>
-              ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限らない(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸)。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出す部品の使い分けは「オーバーレイの使い分け」ページで比べている。
+              ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限らない(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸)。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出すコンポーネントの使い分けは「オーバーレイの使い分け」ページで比べている。
             </p>
           </div>
 
           <h2 style={styles.diagramTitle}>4つの判断軸</h2>
           <AxisSummary />
 
-          <h2 style={styles.diagramTitle}>6つの部品</h2>
+          <h2 style={styles.diagramTitle}>6つのコンポーネント</h2>
           <PartCards />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
           <ComparisonTable />
-          <p style={styles.diagramNote}>◯=あてはまる、△=条件付き(場面による)、✕=あてはまらない。この表は各部品のページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
+          <p style={styles.diagramNote}>◯=あてはまる、△=条件付き(場面による)、✕=あてはまらない。この表は各コンポーネントのページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
 
           <RelatedPartsNote />
 
@@ -553,7 +553,7 @@ export default function CommunicationOverviewPage() {
 
           <div style={styles.footer}>
             <span>最終確認: 2026-11</span>
-            <span>このページは各部品のページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各部品のページを参照。</span>
+            <span>このページは各コンポーネントのページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各コンポーネントのページを参照。</span>
           </div>
         </div>
       </div>

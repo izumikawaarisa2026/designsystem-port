@@ -189,10 +189,10 @@ const LAYERS = [
   },
   {
     key: "components",
-    label: "部品",
+    label: "コンポーネント",
     site: "コンポーネントレイヤー",
     apple: { name: "Components", sub: "8グループ(Content、Menus and actionsなど)" },
-    google: { name: "Components", sub: "ボタン・ダイアログなど部品ごとのページ" },
+    google: { name: "Components", sub: "ボタン・ダイアログなどコンポーネントごとのページ" },
   },
   {
     key: "tech",
@@ -212,13 +212,13 @@ const APPLE_SECTIONS = [
   },
   {
     name: "Foundations",
-    role: "どの画面・部品にも共通する、見た目と体験の基礎要素",
+    role: "どの画面・コンポーネントにも共通する、見た目と体験の基礎要素",
     items: "Accessibility / Color / Dark Mode / Layout / Materials / Motion / Typography / Writing など",
     site: "トークン/ファウンデーションレイヤー",
   },
   {
     name: "Patterns",
-    role: "ユーザーのよくある操作や体験の流れ(複数の部品にまたがる手順)の設計指針",
+    role: "ユーザーのよくある操作や体験の流れ(複数のコンポーネントにまたがる手順)の設計指針",
     items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など",
     site: "横断ビュー(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
   },
@@ -230,7 +230,7 @@ const APPLE_SECTIONS = [
   },
   {
     name: "Components",
-    role: "システムが用意する部品の使い方とカスタマイズ",
+    role: "システムが用意するコンポーネントの使い方とカスタマイズ",
     items: "Content / Layout and organization / Menus and actions / Navigation and search / Presentation / Selection and input / Status / System experiences の8グループ",
     site: "コンポーネントレイヤー",
   },
@@ -299,21 +299,21 @@ function InfoBox({ label, accent, children }) {
 /* No.005: 原則と土台(ファウンデーション)の構造の違い */
 const TIERS = [
   { k: "原則", q: "なぜ・何を大事にするか", d: "判断のよりどころ。数値はなく、迷ったときに立ち返る考え方", ex: "例: 知覚できるようにする", color: "#7A4F7E", page: { to: "/principles/comparison", label: "思想レイヤー" } },
-  { k: "土台(ファウンデーション)", q: "どの画面にも共通する決まり", d: "原則を、色・文字・余白・動きなどの具体的な値やルールにしたもの。トークンとして部品に配る", ex: "例: 本文の文字色と背景のコントラスト4.5:1以上", color: "#3A4FCF", page: { to: "/tokens/color", label: "このレイヤー(カラーなど)" } },
-  { k: "部品(コンポーネント)", q: "土台を組み合わせた完成品", d: "ボタン・ダイアログなど。色・文字・形・動きを土台から受け取って作る", ex: "例: ボタンのラベルの色", color: "#2F7D6E", page: { to: "/components/actions/button", label: "コンポーネントレイヤー(ボタンなど)" } },
+  { k: "土台(ファウンデーション)", q: "どの画面にも共通する決まり", d: "原則を、色・文字・余白・動きなどの具体的な値やルールにしたもの。トークンとしてコンポーネントに配る", ex: "例: 本文の文字色と背景のコントラスト4.5:1以上", color: "#3A4FCF", page: { to: "/tokens/color", label: "このレイヤー(カラーなど)" } },
+  { k: "コンポーネント", q: "土台を組み合わせた完成品", d: "ボタン・ダイアログなど。色・文字・形・動きを土台から受け取って作る", ex: "例: ボタンのラベルの色", color: "#2F7D6E", page: { to: "/components/actions/button", label: "コンポーネントレイヤー(ボタンなど)" } },
 ];
 const SYSTEM_TIERS = [
   { k: "Apple", c: "#C2542A", p: "Design principles(Getting started)", f: "Foundations", m: "Components" },
   { k: "Google", c: "#2F7D6E", p: "Principles(Foundationsの中)", f: "Foundations + Styles", m: "Components" },
   { k: "W3C", c: "#A3821F", p: "POURの4原則", f: null, fNote: "なし(各トピックに達成基準が関わる)", m: null, mNote: "なし(APGは実装の参考例)" },
-  { k: "NN group", c: "#7A4F7E", p: "10のユーザビリティヒューリスティック", f: null, fNote: "なし(Visual Designなどの記事)", m: null, mNote: "なし(部品ごとの記事)" },
+  { k: "NN group", c: "#7A4F7E", p: "10のユーザビリティヒューリスティック", f: null, fNote: "なし(Visual Designなどの記事)", m: null, mNote: "なし(コンポーネントごとの記事)" },
 ];
 
 function PrinciplesVsFoundations() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
-      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → 部品</strong>の3段で組み立てられている。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定の部品に限らず多くの部品に共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
+      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → コンポーネント</strong>の3段で組み立てられている。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定のコンポーネントに限らず多くのコンポーネントに共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
       <div style={styles.tierWrap}>
         {TIERS.map((t, i) => (
           <React.Fragment key={t.k}>
@@ -330,7 +330,7 @@ function PrinciplesVsFoundations() {
       <h3 style={styles.subHead}>4系列は、どの段を持っているか</h3>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tierTable}>
-          <thead><tr><th style={styles.tierTh} />{["原則", "土台", "部品"].map((h) => (<th key={h} style={styles.tierTh}>{h}</th>))}</tr></thead>
+          <thead><tr><th style={styles.tierTh} />{["原則", "土台", "コンポーネント"].map((h) => (<th key={h} style={styles.tierTh}>{h}</th>))}</tr></thead>
           <tbody>
             {SYSTEM_TIERS.map((r) => (
               <tr key={r.k}>
@@ -345,7 +345,7 @@ function PrinciplesVsFoundations() {
       </div>
       <div style={styles.whyBox}>
         <div style={styles.whyTitle}>なぜ土台を比べるのか</div>
-        <p style={styles.tierText}>部品の見た目や数値の違いの多くは、土台の違いから来ている(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、部品ページの比較が「なぜそう違うのか」まで読める。</p>
+        <p style={styles.tierText}>コンポーネントの見た目や数値の違いの多くは、土台の違いから来ている(例: ボタンの角丸の違いはシェイプの決まりの違い)。土台を先に知っておくと、コンポーネントページの比較が「なぜそう違うのか」まで読める。</p>
         <p style={styles.tierText}>ただし、<Hl>土台を持つのはAppleとGoogleだけ</Hl>だ。W3CとNN groupは土台を持たないため、各トークンページでは、W3Cは「そのトピックに関わる達成基準」、NN groupは「そのトピックの記事(調査に基づく指針)」を比べている。</p>
       </div>
     </section>
@@ -353,7 +353,7 @@ function PrinciplesVsFoundations() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方を4系列で比べるページだ。";
+const LEAD = "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方の4系列比較";
 const ABOUT = [
   { k: "目的・役割", v: "個々のトークンのページを読む前に、4系列の「基礎」の範囲と分け方の違いを知る" },
   { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、トークン/ファウンデーションの各ページ" },

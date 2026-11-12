@@ -36,9 +36,9 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "マテリアルは、背景の色を前景へ透過させることで、文字や操作部品を背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしている。",
+      "マテリアルは、背景の色を前景へ透過させることで、文字や操作コンポーネントを背景の内容から視覚的に分け、今どこにいるかの感覚を保つためのものとしている。",
     exceptions:
-      "Liquid Glassの効果は目立つため、独自の部品に使う場合は最も重要な操作に限り、控えめに使うよう求めている。背後の内容が十分に暗い場合や、独自の暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷く必要はないとしている。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせる。",
+      "Liquid Glassの効果は目立つため、独自のコンポーネントに使う場合は最も重要な操作に限り、控えめに使うよう求めている。背後の内容が十分に暗い場合や、独自の暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷く必要はないとしている。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせる。",
     accessibility:
       "知覚可能(Perceivable) ― 透明度を下げる設定(Reduce Transparency)やコントラストを上げる設定(Increase Contrast)を有効にすると、Liquid Glassの見え方が変わるとしている。半透明の素材の上でも文字を読めるよう、システムのバイブラントカラーを使うことが前提。",
     useCases: null,
@@ -62,7 +62,7 @@ const SOURCES = [
     stance:
       "ダークテーマの背景を真っ黒ではなく濃いグレーにしているのは、影を見えやすくし、明るい文字による目の負担を減らすためだと説明している。",
     exceptions:
-      "どの部品がどのレベルを使うか、ホバーやドラッグで高さがどう変わるかは、Jetpack Composeの各部品のトークン(ContainerElevationなど)で決まっている(下の対応図)。",
+      "どのコンポーネントがどのレベルを使うか、ホバーやドラッグで高さがどう変わるかは、Jetpack Composeの各コンポーネントのトークン(ContainerElevationなど)で決まっている(下の対応図)。",
     accessibility:
       "―(エレベーションそのものについての専用のアクセシビリティ基準はない)。影だけで層を区別すると、暗い画面や低いコントラストでは違いが伝わりにくいため、ダークテーマでは色の明るさでも区別する設計になっている。",
     useCases: null,
@@ -80,12 +80,12 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.4.11 Focus Not Obscured (Minimum) / 1.4.11 Non-text Contrast",
     color: "#A3821F",
-    position: "重なりの表現方法は規定しない。上に重なった要素によって、キーボードでフォーカスした部品が完全に隠れないことを求める",
-    size: "影・重なりについての数値基準はない。2.4.11(レベルAA): 部品がキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、その部品が完全に隠れないこと。2.4.12(レベルAAA)では、一部も隠れないこと。",
-    colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部とみなしてコントラストを計算するとしている。つまり影は部品を識別する手がかりとしては数えられず、影があってもなくても、部品の境界や中身そのものが識別できる必要がある。",
+    position: "重なりの表現方法は規定しない。上に重なった要素によって、キーボードでフォーカスしたコンポーネントが完全に隠れないことを求める",
+    size: "影・重なりについての数値基準はない。2.4.11(レベルAA): コンポーネントがキーボードのフォーカスを受けたとき、制作者が作ったコンテンツ(固定ヘッダー、画面下に固定されたバナー、非モーダルのダイアログなど)によって、そのコンポーネントが完全に隠れないこと。2.4.12(レベルAAA)では、一部も隠れないこと。",
+    colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部とみなしてコントラストを計算するとしている。つまり影はコンポーネントを識別する手がかりとしては数えられず、影があってもなくても、コンポーネントの境界や中身そのものが識別できる必要がある。",
     glossary: [
-      { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスを受けた部品が、固定ヘッダーやバナーなど制作者が作った重なりによって完全に隠れないことを求める基準。一部が隠れるのはこの基準では許容される。" },
-      { term: "1.4.11 Non-text Contrast・レベルAA", desc: "部品の識別や状態の把握に必要な視覚情報に、隣接色との3:1以上のコントラストを求める基準。" },
+      { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスを受けたコンポーネントが、固定ヘッダーやバナーなど制作者が作った重なりによって完全に隠れないことを求める基準。一部が隠れるのはこの基準では許容される。" },
+      { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントの識別や状態の把握に必要な視覚情報に、隣接色との3:1以上のコントラストを求める基準。" },
     ],
     stance:
       "WCAGは、影や半透明の素材で層を表すこと自体は問わない。問題にするのは、重なった層の結果として、キーボードで操作している人が今どこにフォーカスがあるかを見失うこと。画面上部に固定したヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなる、というのが典型的な失敗。",
@@ -94,8 +94,8 @@ const SOURCES = [
     accessibility: "操作可能(Operable) ― 2.4.11はPOURの「操作可能」に属し、キーボードや代替入力で操作する人が、フォーカスの位置を目で追えることを目的としている。1.4.11は「知覚可能」に属する。",
     useCases: [
       "固定ヘッダー・固定フッターの下にフォーカスが隠れないよう、スクロール位置を調整する(scroll-paddingなど)",
-      "Cookieバナーなど固定表示の要素が、フォーカス中の部品を完全に覆わないか確認する",
-      "影だけに頼らず、部品の境界や中身で識別できるようにする",
+      "Cookieバナーなど固定表示の要素が、フォーカス中のコンポーネントを完全に覆わないか確認する",
+      "影だけに頼らず、コンポーネントの境界や中身で識別できるようにする",
     ],
     searchHint: "not entirely hidden",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion",
@@ -344,7 +344,7 @@ function TierMap() {
           </div>
         ))}
       </div>
-      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0の部品は影なしでこの面に貼り付く(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)だ。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色だ。Level 5(12dp)は段階としては定義されているが、標準部品の既定値では使われていない。Appleの図は層の関係を示す概念図だ。この対応は役割の近さでAIが並べたもので、公式の対応表ではない。</p>
+      <p style={styles.chartNote}><strong>基準(地)</strong>: Googleの地は画面の背景色のSurface(ライト#FEF7FF/ダーク#141218。基準の配色)で、Level 0のコンポーネントは影なしでこの面に貼り付く(点線の枠)。Appleの地はシステムの背景色で、標準マテリアルの既定の厚さはregular(iOS/iPadOS)だ。Googleの白いカードは実際の影の値で描画し、その下はダークテーマでの面の色だ。Level 5(12dp)は段階としては定義されているが、標準コンポーネントの既定値では使われていない。Appleの図は層の関係を示す概念図だ。この対応は役割の近さでAIが並べたもので、公式の対応表ではない。</p>
     </>
   );
 }
@@ -353,7 +353,7 @@ function TierMap() {
 const RULE_AXES = [
   { axis: "高さを何で表すか", g: "影の深さ(面の高さ dp)", a: "素材の透け具合(半透明の層)" },
   { axis: "段階", g: "Level 0〜5 = 0 / 1 / 3 / 6 / 8 / 12dp の6段階", a: "層が2つ(機能の層=Liquid Glass / コンテンツの層=標準マテリアル)+標準マテリアルの厚さ4段階(ultraThin・thin・regular・thick)。数値はなし" },
-  { axis: "段階の選び方", g: "部品ごとに既定のLevelが決まっている(上の対応図)", a: "見た目の色ではなく、意味と推奨用途で選ぶ。iOS/iPadOSは厚さを用途別に指定しておらず、既定はregular" },
+  { axis: "段階の選び方", g: "コンポーネントごとに既定のLevelが決まっている(上の対応図)", a: "見た目の色ではなく、意味と推奨用途で選ぶ。iOS/iPadOSは厚さを用途別に指定しておらず、既定はregular" },
   { axis: "面の色・上の文字", g: "段階ごとにSurface Containerの色がセットで決まる", a: "素材は背景の色を透過する。上に載せる文字・塗りはバイブラントカラー(文字4段階・塗り3段階・区切り線1段階)を使う" },
   { axis: "影", g: "全段階で2枚重ね(真下の濃い影30%+周囲の薄い影15%)。段階が上がるほど下にずれ、ぼかしが広がる", a: "基本はシステムが付ける(macOSのウィンドウ、iPadOSのリフト効果、tvOSのフォーカス中のタブ、visionOSのウィンドウ)。独自に付けるなら影だけにせず拡大と組み合わせる" },
   { axis: "ダークモード", g: "影は黒のままで見えにくいため、上の面ほど明るいトーンにする(6→10→12→17→22)", a: "背景色をbase(暗)とelevated(明)の2組で持ち、前面に出た画面は自動でelevatedになる" },
@@ -386,7 +386,7 @@ function RuleAxesTable() {
               重なりの表し方は、GoogleとAppleで<strong>手段がまったく違う</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分ける。
             </p>
             <p style={styles.synthesisText}>
-              段階ごとの役割もはっきりしている。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引く部品(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変える。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしている。</p>
+              段階ごとの役割もはっきりしている。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引くコンポーネント(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変える。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしている。</p>
             <p style={styles.synthesisText}>
               ところが暗い画面になると、答えがそろう。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 6→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めている。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出している。
             </p>
@@ -412,12 +412,12 @@ function RuleAxesTable() {
 
 /* 詳しい値(常に表示) */
 const G_LEVELS = [
-  { lv: 0, dp: 0, key: "なし", amb: "なし", color: "部品の色そのまま(Surface など)", dark: "#141218" },
+  { lv: 0, dp: 0, key: "なし", amb: "なし", color: "コンポーネントの色そのまま(Surface など)", dark: "#141218" },
   { lv: 1, dp: 1, key: "0 1px 2px 0", amb: "0 1px 3px 1px", color: "Surface Container Low", dark: "#1D1B20" },
   { lv: 2, dp: 3, key: "0 1px 2px 0", amb: "0 2px 6px 2px", color: "Surface Container", dark: "#211F26" },
   { lv: 3, dp: 6, key: "0 1px 3px 0", amb: "0 4px 8px 3px", color: "Surface Container High(FABはPrimary Container、スナックバーはInverse Surface)", dark: "#2B2930" },
   { lv: 4, dp: 8, key: "0 2px 3px 0", amb: "0 6px 10px 4px", color: "(状態の変化で一時的に使う)", dark: null },
-  { lv: 5, dp: 12, key: "0 4px 4px 0", amb: "0 8px 12px 6px", color: "―(標準部品の既定値では未使用)", dark: null },
+  { lv: 5, dp: 12, key: "0 4px 4px 0", amb: "0 8px 12px 6px", color: "―(標準コンポーネントの既定値では未使用)", dark: null },
 ];
 
 function GoogleLevelTable() {
@@ -497,7 +497,7 @@ const A_SHADOWS = [
   { where: "iPadOS のポインター(リフト効果)", rule: "要素を少し拡大し、下に影・上に光沢を付けて持ち上がったように見せる" },
   { where: "独自のホバー効果", rule: "影だけを付けず、必ず拡大と組み合わせる。拡大しないと影があっても近づいて見えない。周りに余白がない要素は影と拡大を使わず色味(tint)だけにする" },
   { where: "tvOS のタブバー", rule: "フォーカスした状態で、選択中のタブに影を付けて強調する" },
-  { where: "visionOS のウィンドウ", rule: "ガラスの背景と、システムが付ける光沢・影で、ウィンドウの大きさと位置、部品の奥行きを伝える" },
+  { where: "visionOS のウィンドウ", rule: "ガラスの背景と、システムが付ける光沢・影で、ウィンドウの大きさと位置、コンポーネントの奥行きを伝える" },
 ];
 
 function AppleShadowRules() {
@@ -560,7 +560,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "影や半透明の素材で、要素が手前にあるか奥にあるか(重なり)を表す決まりだ。";
+const LEAD = "影や半透明の素材で、要素の重なり(手前か奥か)を表す決まり";
 const ABOUT = [
   { k: "目的・役割", v: "重なりの順番を見せ、どれが手前で操作の対象かを分かりやすくする" },
   { k: "関わる場面", v: "ダイアログ・メニュー・シートの重なり、カードの影、上部バーの区切り" },
@@ -570,7 +570,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "明るい画面は影、暗い画面は明るさ", d: "暗い画面では手前の面ほど明るくする", who: "Google・Apple・NN group" },
-  { n: 2, t: "段階に役割を決める", d: "貼り付いた面・少し浮いたカード・操作の層・注意を引く部品、と高さを分ける", who: "Google" },
+  { n: 2, t: "段階に役割を決める", d: "貼り付いた面・少し浮いたカード・操作の層・注意を引くコンポーネント、と高さを分ける", who: "Google" },
   { n: 3, t: "操作の層と内容の層を分ける", d: "操作の層は内容の上に重ねる", who: "Apple" },
 ];
 
@@ -614,7 +614,7 @@ export default function TokensElevationPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 重なりの表し方</h2>
             <ElevationChart />
-            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)で部品を浮かせる。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねる。W3Cは表し方を定めず、重なりでフォーカス中の部品が完全に隠れないこと(2.4.11)を求める。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めている。ダークでの面の色は下の対応図を参照。図は概念図だ(Googleの影は実際の値を簡略化)。</p>
+            <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)でコンポーネントを浮かせる。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねる。W3Cは表し方を定めず、重なりでフォーカス中のコンポーネントが完全に隠れないこと(2.4.11)を求める。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めている。ダークでの面の色は下の対応図を参照。図は概念図だ(Googleの影は実際の値を簡略化)。</p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -685,7 +685,7 @@ export default function TokensElevationPage() {
             <h2 style={styles.diagramTitle}>Google・Appleの階層ルール ― 役割ごとに並べて比較</h2>
             <p style={styles.diagramNote}>Googleは「影の高さ(Level)」、Appleは「層と素材」と表し方は違うが、どの役割の面をどう浮かせるかで並べると対応関係が見える。①役割ごとの対応図 → ②同じ観点で並べたルール → ③詳しい値、の順に読めるようにしている。</p>
             <h3 style={styles.subTitle}>① 役割ごとの対応図(奥 → 手前)</h3>
-            <p style={styles.diagramNote}>Googleの部品ごとのLevelは、Jetpack Composeの各部品のトークン(ContainerElevation・ContainerColor)の値。</p>
+            <p style={styles.diagramNote}>GoogleのコンポーネントごとのLevelは、Jetpack Composeの各コンポーネントのトークン(ContainerElevation・ContainerColor)の値。</p>
             <TierMap />
             <h3 style={styles.subTitle}>② ルールを同じ観点で比較</h3>
             <RuleAxesTable />

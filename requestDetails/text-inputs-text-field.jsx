@@ -51,7 +51,7 @@ const SOURCES = [
     term: "Text field(複数行はText view)",
     color: "#C2542A",
     position: "1行(または複数行)のテキストを入力・編集させる標準コントロール",
-    size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかの部品と同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
+    size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかのコンポーネントと同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
       "テキストフィールドは、1行のテキストを入力・編集できる矩形の領域だとされている。欄が空のときは、プレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、欄の目的を思い出せるよう別にラベルを置くと役に立つ、としている。",
     exceptions:
@@ -194,21 +194,21 @@ const TEXTAREA_NOTES = [
     key: "hig",
     name: "Apple",
     position: "テキストフィールドは短い特定の文言専用。複数行・大きな文章の入力には、延長ではなく別コンポーネント「Text view」を使うべきとしている",
-    text: "HIGは、テキストフィールドを氏名やメールアドレスなど短い文言のための部品とし、長い文章には別の部品の「Text view」を使うとしている。Text viewは高さを自由に決められ、内容があふれるとスクロールでき、長い文章・編集できる文章・特別な書式の文章を表示するときに使う。少しの文章なら、表示はラベル、編集はテキストフィールドのほうが簡単としている。",
+    text: "HIGは、テキストフィールドを氏名やメールアドレスなど短い文言のためのコンポーネントとし、長い文章には別のコンポーネントの「Text view」を使うとしている。Text viewは高さを自由に決められ、内容があふれるとスクロールでき、長い文章・編集できる文章・特別な書式の文章を表示するときに使う。少しの文章なら、表示はラベル、編集はテキストフィールドのほうが簡単としている。",
     refs: [{ label: "Text views", url: "https://developer.apple.com/design/human-interface-guidelines/text-views" }],
   },
   {
     key: "material",
     name: "Google",
-    position: "別の部品ではなく、同じText fieldの中の「複数行(multi-line)」と「テキストエリア(text area)」",
-    text: "M3では、複数行の入力は別の部品ではなく、テキストフィールドの3つの形の中で扱う。1行の欄は長い回答に向かない。複数行の欄は最初は1行で、あふれると下に伸びて画面の要素を押し下げる。テキストエリアは最初から高さがあり、決まった高さを超えるとスクロールする。最初から大きいことで、長い回答を書いてよいと伝える。最大の行数・高さのdpの値は記載なし。",
+    position: "別のコンポーネントではなく、同じText fieldの中の「複数行(multi-line)」と「テキストエリア(text area)」",
+    text: "M3では、複数行の入力は別のコンポーネントではなく、テキストフィールドの3つの形の中で扱う。1行の欄は長い回答に向かない。複数行の欄は最初は1行で、あふれると下に伸びて画面の要素を押し下げる。テキストエリアは最初から高さがあり、決まった高さを超えるとスクロールする。最初から大きいことで、長い回答を書いてよいと伝える。最大の行数・高さのdpの値は記載なし。",
     refs: [{ label: "Text fields ― Guidelines", url: "https://m3.material.io/components/text-fields/guidelines" }],
   },
   {
     key: "wcag",
     name: "W3C",
     position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
-    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"の部品が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
+    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"のコンポーネントが複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
     refs: [
       { label: "WAI-ARIA 1.2: aria-multiline", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline" },
       { kind: "sc", level: "AA", label: "1.4.4 テキストのサイズ変更", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" },
@@ -366,11 +366,11 @@ function TextareaSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "文字を入力する欄だ。1行の欄(テキストフィールド)と、複数行の欄(テキストエリア)を扱う。";
+const LEAD = "文字を入力する欄(1行のテキストフィールドと、複数行のテキストエリア)";
 const ABOUT = [
   { k: "目的・役割", v: "名前・メールアドレス・本文など、自由な文字を入力してもらう" },
   { k: "よく使われる場面", v: "会員登録・ログインのフォーム、問い合わせの本文、コメント欄" },
-  { k: "似た部品との違い", v: <>検索のための欄は<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>検索のための欄は<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

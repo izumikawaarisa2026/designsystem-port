@@ -170,7 +170,7 @@ export default function PrinciplesComparisonPage() {
           </div>
 
           <h1 style={styles.title}>原則比較</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、それぞれ何本の原則を、何のために定めているかを比較する</p>
+          <p style={styles.subtitle}>4系列がそれぞれ何本の原則を、何のために定めているかの比較</p>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>

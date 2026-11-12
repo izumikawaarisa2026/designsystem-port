@@ -26,7 +26,7 @@ const SOURCES = [
     term: "Tab view(macOSの画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
     color: "#C2542A",
     position:
-      <span>Tab viewはmacOSの部品で、iOS・iPadOS・tvOS・visionOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の移動)は別の部品で、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
+      <span>Tab viewはmacOSのコンポーネントで、iOS・iPadOS・tvOS・visionOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の遷移)は別のコンポーネントで、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
     structure:
       "タブの並び(タブのコントロール)は、内容の領域の上端に置く。ウィンドウの端との間には余白を取る。プログラムで切り替えるアプリでは、タブの並びを隠してもよい。",
     count:
@@ -50,7 +50,7 @@ const SOURCES = [
     refs: [
       { label: "Tab views", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
       { label: "Segmented controls(iOS・iPadOSでの代わり)", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
-      { label: "参考: Tab bars(アプリ全体の移動)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
+      { label: "参考: Tab bars(アプリ全体の遷移)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
@@ -131,8 +131,8 @@ const SOURCES = [
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中のタブを示す下線や背景などの視覚的要素は3:1以上のコントラスト比を確保すべきとしている。",
     glossary: [
-      { term: "3.2.1 On Focus・レベルA", desc: "部品にフォーカスが当たっただけで、文脈の変化(新しいウィンドウ・ページの移動・フォーカスの移動など)を起こさないことを求める基準。" },
-      { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別の部品に移す、別のページへ移動する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
+      { term: "3.2.1 On Focus・レベルA", desc: "コンポーネントにフォーカスが当たっただけで、文脈の変化(新しいウィンドウ・ページの遷移・フォーカスの移動など)を起こさないことを求める基準。" },
+      { term: "文脈の変化(change of context)", desc: "利用者が気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別のコンポーネントに移す、別のページへ遷移する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
       "WCAGの要件は、タブの名前・役割・状態が支援技術に伝わること(4.1.2)と、キーボードで操作できること(2.1.1)。作り方は、W3CのAPG(実装の参考例。適合の要件ではない)のTabsパターンが示している。",
@@ -239,7 +239,7 @@ function GlossaryNote({ items }) {
 const ABOUT = [
   { k: "目的・役割", v: "同じ画面の中で、関連する内容のまとまり(セクション・カテゴリ)を切り替えて見せる。今どのまとまりを見ているかを、選択中のタブで示す" },
   { k: "よく使われる場面", v: "商品ページの「概要・仕様・レビュー」、設定画面のカテゴリ、SNSの「おすすめ・フォロー中」" },
-  { k: "似た部品との違い", v: <>同じ内容の見え方(表示形式・絞り込み)を切り替えるなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>(<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)。アプリ全体の行き先を切り替えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>(Appleのタブバーはこちらに相当)</> },
+  { k: "似たコンポーネントとの違い", v: <>同じ内容の見え方(表示形式・絞り込み)を切り替えるなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>(<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)。アプリ全体の行き先を切り替えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>(Appleのタブバーはこちらに相当)</> },
 ];
 
 /* 意見が分かれる2点の図 */
@@ -271,11 +271,11 @@ function MiniTabs({ mode }) {
 
 /* タブの種類(4系列のまとめ)と、NN groupによる2種類の違い */
 const TAB_KINDS = [
-  { kind: "ナビゲーションのタブ(主な場所へ移動)", cells: [
+  { kind: "ナビゲーションのタブ(主な場所へ遷移)", cells: [
     "Tab bar。iOSは画面の下部に浮かび、iPadOSは画面の上部近くに出る(サイドバーに切り替えられる)",
-    <>タブではなく<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>という別の部品</>,
+    <>タブではなく<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>という別のコンポーネント</>,
     <NoData>記載なし</NoData>,
-    "Navigation tabs。別のページへ移動する。画面の上部か左に置き、モバイルでは下部が多い",
+    "Navigation tabs。別のページへ遷移する。画面の上部か左に置き、モバイルでは下部が多い",
   ] },
   { kind: "ページ内のタブ(同じ画面の中で切り替え)", cells: [
     <>Tab view(macOSのみ。内容の領域の上端に置く)。iOS・iPadOSでは<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>を使う</>,
@@ -309,7 +309,7 @@ function TabKinds() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>タブの種類</h2>
-      <p style={styles.diagramNote}>「主な場所へ移動するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものだ。このページの比較は、後者(ページ内のタブ)が対象だ。</p>
+      <p style={styles.diagramNote}>「主な場所へ遷移するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものだ。このページの比較は、後者(ページ内のタブ)が対象だ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.kindTable}>
           <thead><tr><th style={styles.kindTh}>種類</th>{systems.map((n) => (<th key={n} style={styles.kindTh}>{n}</th>))}</tr></thead>
@@ -412,7 +412,7 @@ export default function NavigationTabsPage() {
           <SummaryCard keyPoints={KP}
             image={<TabSwatch />}
             imageNote="選択中のタブを下線などで示し、タップすると対応するコンテンツ領域に切り替わる。"
-            lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替える部品だ。"
+            lead="横に並んだ見出しを押して、同じ画面の中の内容を切り替えるコンポーネント"
             rows={ABOUT}
           />
 
@@ -424,7 +424,7 @@ export default function NavigationTabsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替える部品</strong>だ。Google・W3C・NN groupはこの意味のタブを扱い、AppleはmacOSの<strong>Tab view</strong>がこれに当たる(<strong>iOS・iPadOSではSegmented controlを勧める</strong>)。画面下部のAppleのタブバーはアプリ全体のナビゲーションで、別の部品だ(<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ているが、<strong>「内容のまとまりが切り替わる」のがタブ、「同じ内容の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質だ(詳しくは「タブとセグメントの使い分け」を参照)。
+              タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替えるコンポーネント</strong>だ。Google・W3C・NN groupはこの意味のタブを扱い、AppleはmacOSの<strong>Tab view</strong>がこれに当たる(<strong>iOS・iPadOSではSegmented controlを勧める</strong>)。画面下部のAppleのタブバーはアプリ全体のナビゲーションで、別のコンポーネントだ(<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ているが、<strong>「内容のまとまりが切り替わる」のがタブ、「同じ内容の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質だ(詳しくは「タブとセグメントの使い分け」を参照)。
             </p>
             <p style={styles.synthesisText}>
               タブの数は、Google・Apple・NN groupとも<strong>「増やしすぎない」方向で共通</strong>している(Googleは固定タブ4個まで、AppleのTab viewは6個まで)。画面に収まらないときの扱いは系列で分かれる(「意見が分かれる点」を参照)。

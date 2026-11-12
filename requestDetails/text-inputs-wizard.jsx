@@ -16,7 +16,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Modality",
     term: "専用の名称なし(複数ステップの作業は全画面のモーダルで扱う)",
     color: "#C2542A",
-    position: "ウィザード専用の部品はない。コンテンツの編集のような複数ステップの作業は、全画面のモーダルで支えられるとしている",
+    position: "ウィザード専用のコンポーネントはない。コンテンツの編集のような複数ステップの作業は、全画面のモーダルで支えられるとしている",
     stance: <span>複数ステップの作業(文書への書き込み・写真の編集など)には、気が散りにくい<Hl>全画面のモーダルを使うことを検討できる</Hl>としている。一方で、モーダルの作業は<Hl>単純・短く・すっきりと</Hl>保つよう求めている(複雑すぎると、中断した元の作業を見失うため)。</span>,
     progress: "モーダルに入ると元の場所から離れるため、作業名をタイトルに書き、必要なら説明を添えて、今どこで何をしているかを分かるようにする。",
     order: "モーダルの中に画面の階層を作ると、戻り方が分からなくなるとしている。サブビューが必要なら、たどる道を1本にし、閉じるボタンと間違えるようなボタンを置かない。",
@@ -40,7 +40,7 @@ const SOURCES = [
     doc: "Material Design 1 ― Steppers(参考。現行M3には該当なし)",
     term: "Steppers(M1)",
     color: "#2F7D6E",
-    position: "番号付きのステップで進み具合を示すStepperがM1にあった。現行M3のコンポーネント一覧にはなく、代わりの部品もない",
+    position: "番号付きのステップで進み具合を示すStepperがM1にあった。現行M3のコンポーネント一覧にはなく、代わりのコンポーネントもない",
     stance: <span>手順を番号付きのステップに分けて、進み具合を示す。<Hl>ある入力によって次の入力が決まる場合に使う</Hl>。短いフォームを区切るために使ったり、1ページに複数置いたり、入れ子にしたりしない。</span>,
     progress: "画面の幅に合わせて、横型(前のステップの内容で次が決まる場合)と縦型(狭い画面向け)を使い分ける。モバイルでは、ステップを文字・点・プログレスバーで示し、ステップが多いときや途中で増えるときはプログレスバーにする。",
     order: <span>順に終えないと進めない型(linear)に加え、<Hl>好きな順に入れられる型(non-linear)</Hl>もある。順に進む流れの中の任意のステップは、「任意」と示す。</span>,
@@ -219,11 +219,11 @@ const SPLITS = [
 ];
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形だ。";
+const LEAD = "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式";
 const ABOUT = [
   { k: "目的・役割", v: "長く複雑な入力を小さなまとまりに分け、迷わず最後まで進めるようにする" },
   { k: "よく使われる場面", v: "会員登録、購入手続き(お届け先→支払い→確認)、アプリの初期設定" },
-  { k: "似た部品との違い", v: <>1画面で済む入力は<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>などを並べたフォーム、1つの作業を全画面で行うのは<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>1画面で済む入力は<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>などを並べたフォーム、1つの作業を全画面で行うのは<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink></> },
 ];
 
 const ROWS = [
@@ -277,7 +277,7 @@ export default function TextInputsWizardPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>ウィザード専用の部品を、現行のガイドラインとして持つ系列はない</strong>。Appleは全画面のモーダルの中で扱い、GoogleはMaterial Design 1にStepperがあったが現行のM3にはない。最も具体的なのはNN groupの記事と、W3Cの複数ページのフォームのチュートリアルだ。
+              <strong>ウィザード専用のコンポーネントを、現行のガイドラインとして持つ系列はない</strong>。Appleは全画面のモーダルの中で扱い、GoogleはMaterial Design 1にStepperがあったが現行のM3にはない。最も具体的なのはNN groupの記事と、W3Cの複数ページのフォームのチュートリアルだ。
             </p>
             <p style={styles.synthesisText}>
               共通しているのは、<strong>全体のステップ数と今の位置を示す</strong>ことだ。NN groupはステップの一覧や図で今のステップを強調するよう求め、W3Cは最初に全体の数を伝え、見出しやtitleに「ステップ2/4」と入れることを勧めている。また、<strong>途中で中断しても作業を失わないようにする</strong>ことも、Apple・W3C・NN groupの3系列が触れている(閉じる前の確認・制限時間の延長・途中保存)。

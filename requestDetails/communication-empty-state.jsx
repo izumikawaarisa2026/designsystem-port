@@ -12,7 +12,7 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Writing(空の画面の文言)",
-    term: <NoData>専用の部品なし(Writingで空の画面の文言を扱う)</NoData>,
+    term: <NoData>専用のコンポーネントなし(Writingで空の画面の文言を扱う)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
     position: "「空状態」という単独のコンポーネントはなく、文章の書き方(Writing)のページで空の画面の文言に触れている",
@@ -69,7 +69,7 @@ const SOURCES = [
     refs: [
       { label: "Empty states(参考。現行M3には該当なし)", url: "https://m1.material.io/patterns/empty-states.html" },
     ],
-    confirmedNote: "M3の部品の一覧(m3.material.ioのサイトマップ)に「空状態」はない(2026-11に確認)。",
+    confirmedNote: "M3のコンポーネントの一覧(m3.material.ioのサイトマップ)に「空状態」はない(2026-11に確認)。",
     pending: true,
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -88,7 +88,7 @@ const SOURCES = [
     position: "空状態専用のロールはない。検索結果0件などの結果を、フォーカスを移さずに画面を更新して知らせる場合は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージだ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせる場合は、ステータスメッセージ(role=\"status\"など)として伝える。結果のページへ移動する場合や、フォーカスを移して見せる場合は対象外で、検索結果の表示すべてにrole=\"status\"を付けるという意味ではない。",
+      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージだ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせる場合は、ステータスメッセージ(role=\"status\"など)として伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外で、検索結果の表示すべてにrole=\"status\"を付けるという意味ではない。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索や絞り込みの結果が0件だったことを、画面を見ていない利用者にも伝えたい時",
@@ -246,11 +246,11 @@ function EmptyWriting() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "表示する中身がない画面(空状態)の見せ方だ。";
+const LEAD = "表示する中身がない画面(空状態)の見せ方";
 const ABOUT = [
   { k: "目的・役割", v: "中身がない理由を伝え、次にできることへ案内する" },
   { k: "よく使われる場面", v: "初めて使うときの空の一覧、検索結果0件、完了済みのToDoリスト" },
-  { k: "似た部品との違い", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -336,7 +336,7 @@ export default function CommunicationEmptyStatePage() {
               最も具体的なのはNielsen Norman Groupで、空状態には<strong>「今の状況を伝える」「使い方を教える」「次の行動へ案内する」の3つの役割</strong>があるとしている。AppleのWritingのページも、<strong>次にできる操作を案内し、可能ならそのボタンやリンクを置く</strong>点で同じ考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果を<strong>フォーカスを移さずにその場で書き換えて知らせるなら、ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。結果のページへ移動して見せる場合は、4.1.3の対象ではない。
+              W3Cには空状態の専用の決まりはないが、検索結果0件のような結果を<strong>フォーカスを移さずにその場で書き換えて知らせるなら、ステータスメッセージとして支援技術にも伝える</strong>(4.1.3)必要がある。結果のページへ遷移して見せる場合は、4.1.3の対象ではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

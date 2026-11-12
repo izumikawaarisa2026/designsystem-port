@@ -59,11 +59,11 @@ const SOURCES = [
     doc: "Material Design 3 ― Menus",
     term: "Menu(ドロップダウンメニュー・エクスポーズドドロップダウンメニュー)",
     color: "#2F7D6E",
-    position: "一時的な面に選択肢の一覧を出す部品。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
+    position: "一時的な面に選択肢の一覧を出すコンポーネント。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
     size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。M3 Expressiveのメニューは、容器の角丸がLarge(16dp)、項目をまとめるグループの角丸がSmall(8dp)、影はLevel 2(Jetpack Composeのトークン)。</>,
     colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示す(Jetpack Composeのトークン定義)。",
     stance:
-      "メニューは、ボタン・操作・ほかの部品を操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択の部品より目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている。",
+      "メニューは、ボタン・操作・ほかのコンポーネントを操作したときに現れ、複数の選択肢から選ばせるもの。ラジオボタンの組のような選択のコンポーネントより目立たず、場所を取らないとしている。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)のそれぞれにスタイルが用意されている。",
     exceptions:
       "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
     accessibility:
@@ -89,7 +89,7 @@ const SOURCES = [
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
     term: "menu・menubar・menuitem(WAI-ARIAのロール)",
     color: "#A3821F",
-    position: "OSのメニューのように振る舞う「選択肢の一覧」の部品について、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に表示されるmenubarを扱う",
+    position: "OSのメニューのように振る舞う「選択肢の一覧」のコンポーネントについて、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に表示されるmenubarを扱う",
     size: "メニュー専用の数値基準はない。項目を押す範囲には、一般的なターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)が当てはまる。",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
@@ -123,7 +123,7 @@ const SOURCES = [
     doc: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines",
     term: "Contextual menu・Dropdown",
     color: "#7A4F7E",
-    position: "対象に関係する少数の操作を出すコンテキストメニューと、命令・移動・入力・属性の選択に使われるドロップダウンについての実務指針(適合基準ではない)",
+    position: "対象に関係する少数の操作を出すコンテキストメニューと、命令・遷移・入力・属性の選択に使われるドロップダウンについての実務指針(適合基準ではない)",
     size: "コンテキストメニューの項目は10〜12個未満にし、スクロールせずに全部見えるようにする。サブメニューを使うなら、その中からさらにサブメニューを開かない(1階層まで)ようにする。",
     colorInfo: "使えない項目は消さずに薄く表示する。消すと項目の位置が変わって覚えにくく、どこへ行ったのか、どうすれば出てくるのかを探させてしまうため。関係する命令は一式そろえて載せる(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使わない。",
     stance:
@@ -373,11 +373,11 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せる部品だ。";
+const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
-  { k: "似た部品との違い", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "似たコンポーネントとの違い", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -423,7 +423,7 @@ export default function SelectionMenuPage() {
 
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>メニューの種類と使い分け</h2>
-            <p style={styles.diagramNote}>命令を選ぶのか、値を選ぶのかで部品が変わる。下の名前は根拠にした系列だ。</p>
+            <p style={styles.diagramNote}>命令を選ぶのか、値を選ぶのかでコンポーネントが変わる。下の名前は根拠にした系列だ。</p>
             <div style={styles.kindGrid}>
               {KINDS.map((k) => (
                 <div key={k.name} style={styles.kindCard}>
@@ -449,7 +449,7 @@ export default function SelectionMenuPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線を部品として持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
+              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線をコンポーネントとして持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
             </p>
             <p style={styles.synthesisText}>
               一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。

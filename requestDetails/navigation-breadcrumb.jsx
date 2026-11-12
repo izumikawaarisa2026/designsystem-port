@@ -23,15 +23,15 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "該当コンポーネントなし(近い部品: macOSのPath controls)",
-    term: <NoData>該当なし(近い部品: macOSのPath control)</NoData>,
+    doc: "該当コンポーネントなし(近いコンポーネント: macOSのPath controls)",
+    term: <NoData>該当なし(近いコンポーネント: macOSのPath control)</NoData>,
     color: "#C2542A",
     notApplicable: true,
     urlSecondary: [{ label: "参考: Path controls(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/path-controls" }],
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
-    stance: <>該当なし。iOSは階層の移動を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近い部品として、macOSにはPath controls(Finderのパスバーのように、階層の中の位置を並べて示す部品。iOSなどでは使えない)がある。</>,
+    stance: <>該当なし。iOSは階層の遷移を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近いコンポーネントとして、macOSにはPath controls(Finderのパスバーのように、階層の中の位置を並べて示すコンポーネント。iOSなどでは使えない)がある。</>,
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
@@ -47,7 +47,7 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     colorInfo: "該当なし",
-    stance: "該当なし(M3の部品の一覧にBreadcrumbsはない)",
+    stance: "該当なし(M3のコンポーネントの一覧にBreadcrumbsはない)",
     exceptions: "該当なし",
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
@@ -179,11 +179,11 @@ function BreadcrumbSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並びだ。";
+const LEAD = "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並び";
 const ABOUT = [
   { k: "目的・役割", v: "今の場所を示し、上の階層へ1回で戻れるようにする" },
   { k: "よく使われる場面", v: "ネットショップの「ホーム > 家電 > 冷蔵庫」、ヘルプサイトの記事の上部" },
-  { k: "似た部品との違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>。パンくずは補助の案内</> },
+  { k: "似たコンポーネントとの違い", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>。パンくずは補助の案内</> },
 ];
 
 /* 意見が分かれる点 */
@@ -202,7 +202,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "閲覧の履歴ではなく、サイトの階層を見せる", d: "", who: "NN group" },
   { n: 2, t: "今いるページはリンクにしない", d: "", who: "NN group。W3CのAPGの作り方の1つ" },
-  { n: 3, t: "アプリでは戻るボタンが基本", d: "Apple・Googleに専用の部品はない", who: "Apple・Google" },
+  { n: 3, t: "アプリでは戻るボタンが基本", d: "Apple・Googleに専用のコンポーネントはない", who: "Apple・Google" },
   { n: 4, t: "リンクの文字は4.5:1以上", d: "", who: "W3C 1.4.3" },
 ];
 
@@ -246,7 +246,7 @@ export default function NavigationBreadcrumbPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleとGoogleには、パンくずリストに当たる専用の部品はない</strong>(Appleは、階層を戻るボタンで行き来するのが基本)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列だ。
+              <strong>AppleとGoogleには、パンくずリストに当たる専用のコンポーネントはない</strong>(Appleは、階層を戻るボタンで行き来するのが基本)。専用の内容を持つのは、W3C(WAI-ARIA)とNielsen Norman Groupの2系列だ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。

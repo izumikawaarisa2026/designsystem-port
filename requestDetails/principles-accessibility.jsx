@@ -21,7 +21,7 @@ const FRAMEWORKS = [
       { name: "目指す3つの性質", desc: "使いやすい(Intuitive: なじみのある一貫した操作)・知覚できる(Perceivable: 視覚・聴覚・発話・触覚のどれか1つに頼らない)・合わせられる(Adaptable: システムの支援機能や利用者の設定に合わせて変わる)。" },
       { name: "Vision(視覚)", desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは、17ptまでは4.5:1、18pt以上か太字(大きさを問わない)なら3:1(WCAG AAの値を目安にしているが、大きさは画面の単位ptで示しており、WCAGの「大きな文字」の条件とは別)。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
       { name: "Hearing(聴覚)", desc: "字幕・音声解説・書き起こしなど、文字で受け取れる手段を用意する。音の合図には触覚(ハプティクス)や画面上の印も添える。" },
-      { name: "Mobility(運動)", desc: "操作部品は既定44×44pt・最小28×28pt(iOS/iPadOS)。部品の間は、枠のある部品なら約12pt、枠のない部品なら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
+      { name: "Mobility(運動)", desc: "操作コンポーネントは既定44×44pt・最小28×28pt(iOS/iPadOS)。コンポーネントの間は、枠のあるコンポーネントなら約12pt、枠のないコンポーネントなら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
       { name: "Speech(発話)", desc: "キーボードだけで操作できるようにし(フルキーボードアクセス)、システムのショートカットを上書きしない。スイッチコントロールに対応する。" },
       { name: "Cognitive(認知)", desc: "操作は単純で一貫させ、時間で自動的に消える表示は控える。音声・動画の自動再生を避け、点滅や速い動きは「視差効果を減らす」設定に合わせて減らす。アシスティブアクセス(機能をしぼった表示)にも対応する。" },
     ],
@@ -41,10 +41,10 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、部品どうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定(ソースコードの順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いた部品にフォーカスを戻す。" },
-      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などの部品名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割(ロール)を割り当てる。" },
-      { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つ部品は対象外)。無効状態はコントラストの要件の対象外。" },
+      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定(ソースコードの順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割(ロール)を割り当てる。" },
+      { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
     ],
     extra: "google",
     url: "https://m3.material.io/foundations/overview/principles",
@@ -192,7 +192,7 @@ function FrameworkExtra({ k }) {
       <div style={styles.extraTitle}>人の多様さを見る観点(Building for all)</div>
       <p style={styles.extraText}>調査・設計・テストのときに思い浮かべる観点として、次の一覧を挙げている(増えていく一覧としている)。障害は観点の1つ。</p>
       <div style={styles.extraChips}>{GOOGLE_DIMENSIONS.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
-      <p style={styles.extraText}>Material の考え方はWCAGと業界のよい実践を土台にしている。標準の部品(Webでは意味のあるHTML)を使えば、支援技術に必要な情報が自動で入るため、独自の部品は余分なテストが必要になる。</p>
+      <p style={styles.extraText}>Material の考え方はWCAGと業界のよい実践を土台にしている。標準のコンポーネント(Webでは意味のあるHTML)を使えば、支援技術に必要な情報が自動で入るため、独自のコンポーネントは余分なテストが必要になる。</p>
     </div>
   );
   if (k === "wcag") return (<div style={styles.extraBox}><WcagLevels /></div>);
@@ -258,7 +258,7 @@ const KP = [
   { n: 3, t: "押せる範囲", d: "24×24px以上。例外あり", who: "W3C 2.5.8・AA" },
   { n: 4, t: "フォーカスが見える", d: "キーボードで今どこにいるか分かる", who: "W3C 2.4.7・AA" },
   { n: 5, t: "キーボードで操作できる", d: "すべての操作をキーボードでもできる", who: "W3C 2.1.1・A" },
-  { n: 6, t: "名前(name)・役割(role)・値(value)", d: "部品の名前と状態が支援技術に伝わる", who: "W3C 4.1.2・A" },
+  { n: 6, t: "名前(name)・役割(role)・値(value)", d: "コンポーネントの名前と状態が支援技術に伝わる", who: "W3C 4.1.2・A" },
 ];
 
 export default function PrinciplesAccessibilityPage() {
@@ -286,7 +286,7 @@ export default function PrinciplesAccessibilityPage() {
           </div>
 
           <h1 style={styles.title}>アクセシビリティ</h1>
-          <p style={styles.subtitle}>4つのガイドラインが、アクセシビリティという概念をどう捉え、どう体系立てているかを比較する</p>
+          <p style={styles.subtitle}>4系列がアクセシビリティをどう捉え、どう体系立てているかの比較</p>
           <KeyPoints items={KP} title="実務でまず見る達成基準" />
 
           <div style={styles.synthesisBox}>
@@ -425,7 +425,7 @@ export default function PrinciplesAccessibilityPage() {
           <div style={styles.relatedBox}>
             <span style={styles.memoLabel}>関連するページ</span>
             <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/tokens/color">カラー</PageLink>(文字・部品のコントラスト)・<PageLink to="/components/actions/button">ボタン</PageLink>(押せる範囲の大きさ。2.5.8の例外)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(フォーカスの見え方)・<PageLink to="/principles/comparison">原則比較</PageLink>
+              <PageLink to="/tokens/color">カラー</PageLink>(文字・コンポーネントのコントラスト)・<PageLink to="/components/actions/button">ボタン</PageLink>(押せる範囲の大きさ。2.5.8の例外)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(フォーカスの見え方)・<PageLink to="/principles/comparison">原則比較</PageLink>
             </p>
           </div>
 

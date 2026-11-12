@@ -293,13 +293,13 @@ function TrendSummary() {
     <div style={styles.synthesisBox}>
       <div style={styles.synthesisLabel}>AI解釈 ― タグから見える傾向</div>
       <p style={styles.synthesisText}>
-        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けている。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトが部品を「どんな作業で使うか」の単位で比べていることが分かる。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}だ。
+        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けている。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトがコンポーネントを「どんな作業で使うか」の単位で比べていることが分かる。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}だ。
       </p>
       <p style={styles.synthesisText}>
         原則タグで最も多いのは<strong>「{top.short}」({pourCount(top.tag)}ページ)</strong>、最も少ないのは<strong>「{low.short}」({pourCount(low.tag)}ページ)</strong>だ。比較の中心は、見え方や操作のしやすさ、支援技術への伝わり方に関わる基準だ。
       </p>
       <p style={styles.synthesisText}>
-        使い方としては、<strong>まず12のくくりから作業を選び、同じくくりのページを層をまたいで読む</strong>のがおすすめだ。たとえば「入力・フォーム」では、テキストフィールド・選択部品・エラー表示・バリデーションを続けて確認できる。
+        使い方としては、<strong>まず12のくくりから作業を選び、同じくくりのページを層をまたいで読む</strong>のがおすすめだ。たとえば「入力・フォーム」では、テキストフィールド・選択コンポーネント・エラー表示・バリデーションを続けて確認できる。
       </p>
     </div>
   );
@@ -326,7 +326,7 @@ export default function CrossViewPage() {
           </div>
 
           <h1 style={styles.title}>横断ビュー(タグから見る)</h1>
-          <p style={styles.subtitle}>各ページの末尾に付けたタグを逆引きして、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで一覧にする</p>
+          <p style={styles.subtitle}>各ページのタグから、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで探せる一覧</p>
 
           <div style={styles.swatchCard}>
             <span style={styles.swatchLabel}>タグの見方</span>
