@@ -110,7 +110,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html#success-criterion",
     refs: [
       { kind: "sc", level: "AAA", label: "2.3.3 インタラクションによるアニメーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html#success-criterion" },
-      { kind: "sc", level: "A", label: "2.2.2 一時停止、停止、非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html#success-criterion" },
+      { kind: "sc", level: "A", label: "2.2.2 一時停止・停止・非表示", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html#success-criterion" },
       { kind: "sc", level: "A", label: "2.3.1 3回の閃光、又は閾値以下", url: "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は2.3.3のページのもの。",

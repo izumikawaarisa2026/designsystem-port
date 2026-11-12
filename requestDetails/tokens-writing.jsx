@@ -100,7 +100,7 @@ const SOURCES = [
       "見出しが明確なら、利用者は探している情報を見つけやすく、内容の部分どうしの関係もつかみやすくなる。ページのタイトルは、内容を読まなくても今どこにいるかを示し、検索結果やブラウザのタブで区別する手がかりになる。リンクの文言と、行き先のページのタイトルをそろえると、つながりが分かりやすいとしている。読解障害のある人には、専門知識のある読み手でも、易しい文が役に立つ。形や位置だけの説明は、画面の見えない人や見えにくい人には伝わらないため、部品の名前も添える(1.3.3)。形や位置の手がかり自体は認知に障害のある人などにも役立つため、使うこと自体は妨げないとしている。",
     exceptions:
       "2.4.6は見出しやラベルを置くことは求めず、置いたなら内容を表していることを求める。見出しのマークアップが正しいか(1.3.1)や、部品のアクセシブルな名前(4.1.2)は別の基準。3.3.2は説明でページを散らかすことを求めておらず、多すぎる説明は少なすぎるのと同じく害になるとしている。1.3.3では、読む順番どおりに並んでいて指すものがはっきりしていれば、「下のリンクから選ぶ」「以上のすべて」のような上下の言い方は認められる。3.1.5はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable)・理解可能(Understandable) ― 1.3.3は「知覚可能」、2.4.2・2.4.6はガイドライン2.4(ナビゲーション可能)で「操作可能」、3.3.2(入力支援)・3.1.5(読みやすさ)は「理解可能」に属する。",
+    accessibility: "知覚可能(Perceivable)・操作可能(Operable)・理解可能(Understandable) ― 1.3.3は「知覚可能」、2.4.2・2.4.6はガイドライン2.4(ナビゲーション可能)で「操作可能」、3.3.2(ラベル又は指示)・3.1.5(読解レベル)は「理解可能」に属する。",
     useCases: [
       "見出し・ボタン・入力欄のラベルは、主題や目的が分かる言葉にする(2.4.6)",
       "画面ごとに、内容を表すタイトルを付ける(2.4.2)",
@@ -112,8 +112,8 @@ const SOURCES = [
     refs: [
       { kind: "sc", level: "AA", label: "2.4.6 見出し及びラベル", url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html" },
       { kind: "sc", level: "A", label: "2.4.2 ページタイトル", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html" },
-      { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
-      { kind: "sc", level: "A", label: "1.3.3 感覚的な特徴", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html" },
+      { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+      { kind: "sc", level: "A", label: "1.3.3 感覚による特性", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html" },
       { kind: "sc", level: "AAA", label: "3.1.5 読解レベル", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html" },
     ],
     confirmedNote: "5つのUnderstandingページの本文を直接取得して確認済み(2026-10)。ページ内検索の語は2.4.6のページのもの。",
@@ -478,7 +478,7 @@ const PHILOSOPHY = [
       { t: "目的から書き始める", d: "目的→操作の順に書き、詳しい説明は必要になったときに見せる" },
     ],
     ref: { label: "Writing(Material Design 2)", url: "https://m2.material.io/design/communication/writing.html" } },
-  { k: "W3C", c: "#A3821F", title: null, lead: null, none: "ライティングの考え方は定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は説明・A、3.1.5 読解レベル・AAA など)", points: [], ref: null },
+  { k: "W3C", c: "#A3821F", title: null, lead: null, none: "ライティングの考え方は定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は指示・A、3.1.5 読解レベル・AAA など)", points: [], ref: null },
   { k: "NN group", c: "#7A4F7E", title: "言葉で行うデザイン", lead: "UXライティングは、利用者の状況・ニーズ・行動に合わせて情報を書くこと。ピクセルの代わりに言葉を使う点以外は、見た目や操作のデザインと同じ技能が要る、という立場。",
     points: [
       { t: "前提: 画面の文章は読まれない", d: "利用者は印刷物と違い、文章を拾い読みする(F字型・見出しを追う層状のパターンなど)。平均的なページで読まれるのは約20%" },

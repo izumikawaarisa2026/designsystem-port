@@ -86,7 +86,7 @@ const SOURCES = [
     refs: [
       { kind: "sc", level: "A", label: "2.4.4 リンクの目的(コンテキスト内)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html" },
       { kind: "sc", level: "AAA", label: "2.4.9 リンクの目的(リンクのみ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
@@ -118,7 +118,7 @@ const SOURCES = [
       <>記事の本文は、リンクだと分かる「見た目上の手がかり」を最大化するには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>としている。また、訪問済みリンクと未訪問リンクは彩度の異なる同系色で区別し、未訪問側をより鮮やかにすることを推奨している。</>,
     exceptions:
       "ナビゲーションメニューなど、リンクの集まりであることが明確な領域に限り、下線を省略してもよいとする例外がある。ただし赤や緑など色覚異常の影響を受けやすい色を使う場合や、低視力ユーザーへの配慮を優先する場合は、下線を必ず残すべきとしている。2026年3月の編注では、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)と補足し、記事の見た目の推奨は出発点として扱うよう書いている。なお、現在のW3CのG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版にあった条件。",
-    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色の使用)を関連基準として明示的に引用している。",
+    pourDetail: "根拠となる原則 ― POURのような適合区分ではなく、この記事自体がWCAG 1.4.1(色の用途)を関連基準として明示的に引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
     refs: [

@@ -280,7 +280,7 @@ function GoodBadFigure() {
               { kind: "good", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>削除</span></div></div>, text: "確認ボタンが「削除」で、押すと何が起きるか分かる。" },
               { kind: "bad", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>OK</span></div></div>, text: "確認ボタンが「OK」だけで、押すと何が起きるかをタイトルまで読み返さないと分からない。" },
             ]}
-            basis="Google(確認ボタンのラベルは「削除」のように次に起きることが分かる語にし、「OK」のようなあいまいな語は避ける)。"
+            basis="Apple・Google・NN group(ボタンの名前を具体的にし、押すと何が起きるか分かる語にする)。Googleは、確認ボタンのラベルを「削除」のように次に起きることが分かる語にし、「OK」のようなあいまいな語を避けるとしている。"
             note="ボタンの並び順(確認が右か左か)は系列で違うので、この図では扱わない。"
           />
   );

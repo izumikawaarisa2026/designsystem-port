@@ -93,7 +93,7 @@ const SOURCES = [
       "存在の有無だけを伝えたい時は小サイズ(ドット)を使う",
       "具体的な件数を伝えたい時は大サイズ(数字・最大4文字)を使う",
     ],
-    accessibility: <span><NoData>数値基準なし。</NoData>バッジが伝える件数・状態は、バッジを付けたボタンなどの名前に含めて支援技術にも伝える(4.1.2 名前・役割・値)。色の違いだけで状態を伝えない(1.4.1 色の使用)。</span>,
+    accessibility: <span><NoData>数値基準なし。</NoData>バッジが伝える件数・状態は、バッジを付けたボタンなどの名前に含めて支援技術にも伝える(4.1.2 名前(name)・役割(role)・値(value))。色の違いだけで状態を伝えない(1.4.1 色の用途)。</span>,
     useCases: [
       "存在のみを示す場合は小(ドット)、件数を示す場合は大(数字)を使い分ける",
       "件数は「+」付きで4文字以内に丸める",
@@ -131,12 +131,12 @@ const SOURCES = [
     noDedicatedComponent: true,
     position: "「バッジ」に対応する専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
     size: "専用の数値基準はない。",
-    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))が必要。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の使用)の違反にはならない。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝える。",
+    colorInfo: "ドットのバッジは、周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、バッジの中の数字は、バッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))が必要。ドットがあるかないか自体は色以外の手がかりなので、直ちに1.4.1(色の用途)の違反にはならない。ただし、色の違いだけで状態を分けない(例: 赤いドットと青いドットで意味を変えない)ようにし、ドットで新着を示す場合も、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
       { term: "ARIA14 / aria-label", desc: "視覚的なラベルを置けない要素に対し、aria-label属性でアクセシブルネームを与える手法。バッジ付きのアイコンボタンでは、装飾的なバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、この技法を当てはめた形になる(AI解釈)。" },
     ],
     stance:
-      "バッジに対応する専用のロールはない。関わるのは、達成基準4.1.2(名前・役割・値)と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを画面に置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げている(バッジ専用の技法ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジ自体はaria-hidden=\"true\"で隠す形になる(AI解釈)。こうして名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
+      "バッジに対応する専用のロールはない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを画面に置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げている(バッジ専用の技法ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジ自体はaria-hidden=\"true\"で隠す形になる(AI解釈)。こうして名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
     exceptions:
       "可視のラベル文字列がすでに存在する場合は、WCAG 2.5.3(Label in Name)により、aria-labelにもその可視文字列を含める必要があるとされている(バッジ専用の例外規定ではなく、ラベル全般に共通する規定)。",
     scenarios: [
@@ -153,11 +153,11 @@ const SOURCES = [
     searchHint: "programmatically determined",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
     ],
     confirmedNote: "ARIA14・4.1.2解説ページとも本文を直接確認しました(2026-09)。いずれもバッジ専用の一次文書ではなく、一般的なラベリング手法・達成基準をバッジに適用した間接的な整理。",
     illustration: () => (

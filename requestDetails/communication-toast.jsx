@@ -135,7 +135,7 @@ const SOURCES = [
     stance:
       "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせ(「保存しました」など)を、支援技術にも伝えることを求める。Webでトースト風の通知を作るなら、内容の緊急度に応じてrole=\"status\"(ポライト)を使うのが基本(「スナックバー」ページと同じ考え方)。自動で消える通知は、読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
-      "2.2.1(タイミング調整可能・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
+      "2.2.1(期限調節可能・レベルA)は、利用者が読んだり操作したりする時間を必要とする時間制限についての基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、ここでは「関わり得る」とだけ書く。",
     accessibility:
       "堅牢(Robust) ― 4.1.3(Status Messages)が主な根拠。表示の時間という観点では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
     useCases: [
@@ -146,7 +146,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
     refs: [
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { kind: "sc", level: "A", label: "2.2.1 タイミング調整可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+      { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
       { kind: "mdn", label: "statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
     ],

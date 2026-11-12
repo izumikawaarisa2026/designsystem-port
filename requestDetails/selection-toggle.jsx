@@ -125,10 +125,10 @@ const SOURCES = [
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
       { kind: "sc", level: "A", label: "3.2.2 入力時", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
       { kind: "apg", label: "APG: Switch Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/switch/" },
     ],
     confirmedNote: "3.2.2はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",

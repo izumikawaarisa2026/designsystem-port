@@ -110,7 +110,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html#success-criterion",
     refs: [
       { kind: "sc", level: "AA", label: "1.4.10 リフロー", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html#success-criterion" },
-      { kind: "sc", level: "AA", label: "2.5.8 ターゲットサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#spacing" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html#spacing" },
       { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。",

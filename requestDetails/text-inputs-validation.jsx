@@ -8,7 +8,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, Good
  * このページの発見: Appleには「バリデーション」という名称の専用ガイドラインページは
  * 見当たらず、テキストフィールド全般の記載の中に埋め込まれている。一方W3C(WCAG)は
  * この領域で最も具体的・体系的な基準を持ち、「エラーの特定(3.3.1)」「訂正案の提示
- * (3.3.3)」「重要な操作でのエラー防止(3.3.4)」という3段階の要求を積み上げている。
+ * (3.3.3)」「重要な操作での誤り防止(3.3.4)」という3段階の要求を積み上げている。
  * Nielsen Norman Groupは、この3段階の要求と方向性が一致する実務的な文章表現の
  * ガイドラインを提供しており、両者は補完関係にある。
  *
@@ -110,8 +110,8 @@ const SOURCES = [
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
     term: "aria-invalid・role=\"alert\"(エラーを伝えるしくみ)",
     color: "#A3821F",
-    position: "エラーの検知・説明(レベルA)、訂正案の提示(レベルAA)、重要操作での防止策(レベルAA)という3段階の達成基準",
-    colorInfo: "1.4.1(色の使用・レベルA)により、エラーを色の違いだけで伝えてはいけない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求める。エラーは視覚的表示だけでなく、必ずテキストで説明する必要がある(3.3.1)。",
+    position: "エラーの特定(レベルA)、エラーの修正提案(レベルAA)、誤り防止(法的・金融・データ。レベルAA)という3段階の達成基準",
+    colorInfo: "1.4.1(色の用途・レベルA)により、エラーを色の違いだけで伝えてはいけない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は役割が別で、エラーを示す枠線やアイコンなどの視覚的要素に3:1以上のコントラスト比を求める。エラーは視覚的表示だけでなく、必ずテキストで説明する必要がある(3.3.1)。",
     glossary: [
       { term: "サイズ", desc: "サイズ専用の数値基準はないが、一般的なターゲットサイズ基準(WCAG 2.5.8/2.5.5。どちらも例外あり)はエラー訂正のためのUI要素にも適用される。" },
       { term: "3.3.1 Error Identification(レベルA)", desc: "入力エラーが自動検出された場合、エラーの項目を特定し、エラーの内容をテキストでユーザーに説明しなければならないという基準。視覚的な表示だけでは不十分とされる。" },
@@ -121,7 +121,7 @@ const SOURCES = [
     stance:
       <>3.3.1は、入力エラーが自動検出された場合、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。必須項目の未入力にはaria-invalid等での特定、書式が不正な入力にはARIAのアラートやライブリージョンでの説明が代表的な実装手法とされている。3.3.3はこれを一段進め、訂正方法が分かっている場合はその訂正案自体を提示することを求める(レベルAA、例: 月の名前を入れる欄に「12」と入力されたら、月名の一覧を示すか、「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面において、取消可能・入力エラーの検査と訂正機会・送信前の確認という3つの手段のいずれかを備えることを求める(レベルAA)。</>,
     exceptions:
-      "3.3.3の訂正案の提示は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしている。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定される。",
+      "3.3.3のエラーの修正提案は、それによってセキュリティや機能の目的が損なわれる場合(パスワード入力欄など)は除外されるとしている。3.3.4は全てのページに適用されるわけではなく、法的確約・金融取引・データの変更や削除・試験の回答送信を伴うページに限定される。",
     accessibility:
       "理解可能(Understandable) ― 3.3.1・3.3.3・3.3.4はガイドライン3.3「入力支援」の基準で、POUR原則のうち「理解可能」に属する。補助として、色だけに頼らないこと(1.4.1)とエラー表示のコントラスト(1.4.11)は「知覚可能」に属する。認知障害・視覚障害・運動障害のあるユーザーが、エラーによってフォームの送信を断念せずに済むようにするという意図が明記されている。",
     useCases: [
@@ -133,9 +133,9 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html",
     refs: [
       { kind: "sc", level: "A", label: "3.3.1 エラーの特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" },
-      { kind: "sc", level: "AA", label: "3.3.3 エラー修正の提案", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html" },
-      { kind: "sc", level: "AA", label: "3.3.4 エラー回避(法的、金融、データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "AA", label: "3.3.3 エラーの修正提案", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html" },
+      { kind: "sc", level: "AA", label: "3.3.4 誤り防止(法的・金融・データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { label: "ARIA21(aria-invalidでエラーの欄を示す技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21" },
       { label: "ARIA19(role=\"alert\"でエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
     ],
@@ -255,7 +255,7 @@ function GoodBadFigure() {
               { kind: "bad", label: "悪い例(1)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div></div>, text: "枠が赤くなるだけで、アイコンも文もない。色だけで伝えている。" },
               { kind: "bad", label: "悪い例(2)", fig: <div style={{ width: 220 }}><div style={{ fontSize: 12, fontWeight: 700, color: "#2E3457", marginBottom: 4 }}>メールアドレス</div><div style={{ border: "2px solid #C0503F", borderRadius: 4, padding: "7px 10px", fontSize: 13, color: "#171B36" }}>taro.example.com</div><div style={{ display: "flex", gap: 5, alignItems: "flex-start", marginTop: 5, fontSize: 12, lineHeight: 1.5, color: "#C0503F" }}><span aria-hidden="true" style={{ flexShrink: 0, width: 15, height: 15, borderRadius: "50%", background: "#C0503F", color: "#FFFFFF", fontSize: 10, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>!</span><span>入力エラーです</span></div></div>, text: "文はあるが「入力エラーです」だけで、何が問題でどう直せばよいか分からない。" },
             ]}
-            basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラー修正の提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
+            basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラーの修正提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
           />
   );
 }
@@ -300,16 +300,16 @@ export default function TextInputsValidationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も体系的なのはW3Cだ。<strong>「エラーの特定(3.3.1・レベルA)」→「訂正案の提示(3.3.3・レベルAA)」→「重要操作でのエラー防止(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっている。
+              このコンポーネントで最も体系的なのはW3Cだ。<strong>「エラーの特定(3.3.1・レベルA)」→「エラーの修正提案(3.3.3・レベルAA)」→「誤り防止(法的・金融・データ)(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「訂正案の提示」を実際にどう書くかという具体化と言える。
+              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「エラーの修正提案」(3.3.3)を実際にどう書くかという具体化と言える。
             </p>
             <p style={styles.synthesisText}>
               興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことだ。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としての独立したページはない。
             </p>
             <p style={styles.synthesisText}>
-              Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の使用+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言える。
+              Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の用途+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

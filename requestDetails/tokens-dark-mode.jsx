@@ -538,7 +538,7 @@ export default function TokensDarkModePage() {
           </div>
 
           <h1 style={styles.title}>ダークモード</h1>
-          <SummaryCard
+          <SummaryCard keyPoints={<DarkKeyPoints />}
             imageLabel="ライトとダーク(同じ役割の色の明るさを入れ替える)"
             image={<><ModeSwatch /></>}
             imageNote={<>ダークモードは色の反転ではない。背景は暗く、文字は明るくしつつ、ボタンの色などは暗い背景に合う明るさに作り直す(図の配色はGoogleの基準の考え方を参考にした概念図)。</>}
@@ -546,7 +546,6 @@ export default function TokensDarkModePage() {
             rows={ABOUT}
           />
 
-          <DarkKeyPoints />
 
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>

@@ -171,7 +171,7 @@ const SOURCES = [
       "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしている。",
     scenarios: [
       "2〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
-      "10秒を超える、または超える可能性がある処理に達成率表示を使いたい時",
+      "10秒以上かかる、またはかかる可能性がある処理に達成率表示を使いたい時",
       "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
     ],
     accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の長さに応じた表示方法の使い分けというユーザー心理に基づく指針。",
@@ -257,7 +257,7 @@ const SHAPE_ROWS = [
   { shape: "何も出さない", known: "—", time: "1秒未満(NN group)", where: "—", note: "すぐ終わる処理にはインジケーターを出さない" },
   { shape: "不確定の円形(スピナー)", known: "分からない", time: "2〜10秒(NN group)", where: "要素の中央(Google)", note: "どの環境にもある形(Apple)。止まって見えると固まったと思われるので、動かし続ける(Apple)" },
   { shape: "不確定のバー(線形)", known: "分からない", time: "—", where: "コンテナの端(Google)", note: "Appleでは、macOSだけが不確定のバーを持つ" },
-  { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒を超える(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
+  { shape: "確定のバー(線形)", known: "分かる(何%か)", time: "10秒以上(NN group)", where: "コンテナの端(Google)", note: "進み方をなるべく均等にする。キャンセル・一時停止を用意する(Apple)。10秒未満でも、書類の一括処理なら使ってよい(NN group)" },
   { shape: "確定の円形", known: "分かる(何%か)", time: "—", where: "要素の中央(Google)", note: "時計回りに塗り進める(Apple・Google)" },
   { shape: "Loading indicator(Google)", known: "分からない", time: "5秒未満(Google)", where: "—", note: <>短い待ち時間向けに新設された部品(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)</> },
 ];

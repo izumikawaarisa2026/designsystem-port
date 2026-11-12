@@ -105,8 +105,8 @@ const SOURCES = [
     searchHint: "single pointer",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html",
     refs: [
-      { kind: "sc", level: "A", label: "2.5.1 ポインタのジェスチャ", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html" },
-      { kind: "sc", level: "A", label: "2.5.2 ポインタのキャンセル", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html" },
+      { kind: "sc", level: "A", label: "2.5.1 ポインタジェスチャ", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html" },
+      { kind: "sc", level: "A", label: "2.5.2 ポインタキャンセル", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html" },
       { kind: "sc", level: "A", label: "2.5.4 動きによる起動", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html" },
       { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
       { kind: "sc", level: "AAA", label: "2.5.6 入力メカニズムの共存", url: "https://www.w3.org/WAI/WCAG22/Understanding/concurrent-input-mechanisms.html" },

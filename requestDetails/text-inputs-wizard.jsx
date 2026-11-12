@@ -71,7 +71,7 @@ const SOURCES = [
     progress: <span>最初のステップで<Hl>全部で何ステップあるかを伝え</Hl>、各ステップで進み具合を伝える。ページのtitleと見出しに「ステップ2/4」のように入れる。ステップ数が決まっていれば、手順の一覧(順序付きリスト)で、完了・現在のステップを支援技術にも分かるように示す。</span>,
     order: "任意のステップは分かるようにし、飛ばせるようにする。全体の説明は各ページで繰り返す。",
     interruption: "できれば制限時間を設けない。設ける場合は、延長・調整できるようにする(2.2.1)。",
-    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(冗長な入力)と3.3.2(ラベル又は説明)は「理解可能」、2.2.1(タイミング調整可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
+    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(冗長な入力)と3.3.2(ラベル又は指示)は「理解可能」、2.2.1(期限調節可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
     useCases: [
       "最初に全体のステップ数を伝え、ページの見出しとtitleに「ステップ2/4」を入れる",
       "前のステップで入力した情報は、自動で入れるか選べるようにする(3.3.7)",
@@ -79,8 +79,8 @@ const SOURCES = [
     searchHint: "Indicating progress",
     refs: [
       { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
-      { kind: "sc", level: "A", label: "2.2.1 タイミング調整可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
-      { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+      { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
+      { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
       { label: "Forms Tutorial ― Multi-page Forms(チュートリアル。要件ではない)", url: "https://www.w3.org/WAI/tutorials/forms/multi-page/" },
     ],
     illustration: () => <StepMini color="#A3821F" steps={4} current={1} label="ステップ2/4" />,
@@ -233,7 +233,7 @@ const ROWS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "全体のステップ数と、今の位置を示す", d: "", who: "Google・W3C・NN group" },
+  { n: 1, t: "全体のステップ数と、今の位置を示す", d: "", who: "Google(M1)・W3C・NN group" },
   { n: 2, t: "前の入力で次の内容が変わる手順だけ、ステップに分ける", d: "", who: "AI解釈" },
   { n: 3, t: "順番に意味がない入力は、1つのフォームにする", d: "", who: "NN groupの考え方。AI解釈" },
   { n: 4, t: "長く、途中で別の画面を確かめたくなる手順は、普通のページで進める", d: "", who: "NN group" },

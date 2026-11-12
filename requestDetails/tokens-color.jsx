@@ -142,7 +142,7 @@ const SOURCES = [
     refs: [
       { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
-      { kind: "sc", level: "A", label: "1.4.1 色の使用", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
+      { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { label: "G183(達成方法: 色だけで区別するリンクは周りの文字と3:1)", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G183" },
       { label: "F73(失敗例: 色の違いだけで見分けるリンク)", url: "https://www.w3.org/WAI/WCAG22/Techniques/failures/F73" },
       { label: "F81(失敗例: 必須項目やエラーを色の違いだけで示す)", url: "https://www.w3.org/WAI/WCAG22/Techniques/failures/F81" },

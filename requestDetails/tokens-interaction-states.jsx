@@ -114,7 +114,7 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion" },
       { kind: "sc", level: "AA", label: "2.4.7 フォーカスの可視化", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" },
       { kind: "sc", level: "AAA", label: "2.4.13 フォーカスの外観", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html#success-criterion" },
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html#success-criterion" },
     ],
     confirmedNote: "3つのUnderstandingページの本文を直接取得して確認済み(2026-09)。ページ内検索の語は1.4.11のページのもの。",
   },

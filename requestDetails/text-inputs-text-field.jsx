@@ -121,17 +121,17 @@ const SOURCES = [
     doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
     term: "textbox(WAI-ARIAのロール)/ HTMLのinput要素",
     color: "#A3821F",
-    position: "入力を求めるコンテンツには、目に見えるラベルまたは説明を提供することを要求(レベルA)",
+    position: "入力を求めるコンテンツには、目に見えるラベル又は指示を提供することを要求(レベルA)",
     glossary: [
       { term: "色", desc: "1.4.11(非テキストのコントラスト)により、入力欄の境界線やフォーカス状態を示す視覚的要素は3:1以上のコントラスト比を確保すべきとしている。" },
     ],
     size: "テキストフィールド専用の数値基準はないが、一般的なターゲットサイズ基準(2.5.8/2.5.5。どちらも例外あり)は関連する操作要素(送信ボタンなど)に適用される。",
     stance:
-      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベルまたは説明を提供しなければならない</Hl>としている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。</>,
+      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベル又は指示を提供しなければならない</Hl>としている。この基準は、コントロールとラベルのマークアップ上の関連付け(1.3.1)や、支援技術だけに伝わる名前(4.1.2)とは異なり、「全てのユーザーに見える形」であることを重視している。ラベルは全ユーザーに提示されるのに対し、名前(name)は支援技術によってのみ露出される場合がある、という区別が明記されている。</>,
     exceptions:
       "プレースホルダーテキストやARIAだけによるラベル付けは、この基準を満たすには不十分だとしている。目的は、ユーザーが過度な混乱なくタスクを完了できるだけの情報を提供することで、データ形式・入力例・必須項目の明示などが必要に応じて求められる。",
     accessibility:
-      "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2はガイドライン3.3「入力支援」に属し、POUR原則のうち「理解可能」に対応する。1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前・役割・値)は「堅牢」の基準。3つは別々の原則に属し、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしている。",
+      "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2はガイドライン3.3「入力支援」に属し、POUR原則のうち「理解可能」に対応する。1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前(name)・役割(role)・値(value))は「堅牢」の基準。3つは別々の原則に属し、ラベルの「見え方」「マークアップ」「支援技術への伝達」という3つの異なる側面を別々の基準でカバーしている。",
     useCases: [
       "全ての入力欄に目に見えるラベルを付ける(必須・任意を問わない)",
       "プレースホルダーやARIAラベルだけに頼らない",
@@ -140,10 +140,10 @@ const SOURCES = [
     searchHint: "undue confusion",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html",
     refs: [
-      { kind: "sc", level: "A", label: "3.3.2 ラベル又は説明", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+      { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
       { kind: "sc", level: "A", label: "1.3.1 情報及び関係性", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html" },
       { kind: "sc", level: "AA", label: "1.3.5 入力目的の特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html" },
-      { kind: "sc", level: "A", label: "4.1.2 名前・役割・値", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
+      { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -462,7 +462,7 @@ export default function TextInputsTextFieldPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることだ。W3Cは適合基準(3.3.2)として「目に見えるラベルまたは説明」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしている。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言える。
+              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることだ。W3Cは適合基準(3.3.2)として「目に見えるラベル又は指示」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしている。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言える。
             </p>
             <p style={styles.synthesisText}>
               Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっている。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫だ。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としている。
