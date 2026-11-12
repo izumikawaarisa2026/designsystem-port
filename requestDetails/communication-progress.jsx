@@ -39,9 +39,9 @@ const SOURCES = [
     size: "寸法の数値の記載なし",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>進行状況インジケーターは、処理中でアプリが停止していないことを伝える一時的な表示で、処理が終わると消えるとしている。所要時間が分かるタスクには確定的なプログレスバー、所要時間が見積もれないタスク(読み込み・同期など)には不確定なインジケーターを使うべきで、<Hl>可能な限り確定的な表示を優先すべき</Hl>だとしている。また、常に同じ場所に表示して見つけやすくすること、「読み込み中」「認証中」のような曖昧な文言を避けること、円形(スピナー)からバー形状へ表示中に切り替えて混乱させないことを求めている。</>,
+      <>処理中でアプリが止まっていないことを伝える一時的な表示で、処理が終わると消える。所要時間が分かる作業には確定的なプログレスバー、見積もれない作業(読み込み・同期など)には不確定なインジケーターを使い、<Hl>できるだけ確定的な表示を優先する</Hl>。いつも同じ場所に出して見つけやすくし、「読み込み中」「認証中」のような曖昧な文言を避け、表示中に円形(スピナー)からバーへ切り替えない。</>,
     exceptions:
-      "処理が避けられないほど長くかかる場合は、ゲームのヒントや短い映像、参考になるプレースホルダー画像など、待っている間に見てもらえるものを用意することを勧めている。また、コンテンツ読み込み中はプレースホルダーのテキスト・グラフィック・アニメーションを表示し、読み込み完了後に実際のコンテンツへ差し替えるべきだとしている(詳細は「ローディング状態」ページ参照)。",
+      "どうしても長くかかるなら、ゲームのヒントや短い映像、プレースホルダー画像など、待つ間に見てもらえるものを用意する。読み込み中はプレースホルダーの文字・画像・アニメーションを出し、完了したら実際の内容に差し替える(詳しくは「ローディング状態」ページ)。",
     scenarios: [
       "所要時間が分かるダウンロード・ファイル変換などにプログレスバー(確定的)を使いたい時",
       "所要時間が見積もれない読み込み・同期処理にスピナー(不確定)を使いたい時",
@@ -75,17 +75,17 @@ const SOURCES = [
     doc: "Material Design 3 ― Progress indicators / Loading indicator",
     term: "Progress indicator(線形・円形)",
     color: "#2F7D6E",
-    position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせて使うコンポーネント群。5秒未満の短い待ち時間向けに新設された専用の「Loading indicator」も持つ",
+    position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせる。5秒未満の待ち時間向けに新設した「Loading indicator」もある",
     size: <span><NoData>寸法の数値は記載なし。</NoData>動く部分(アクティブインジケーター)の形はflat(直線)とwavy(波)の2つで、製品の雰囲気に合わせて選ぶ。wavyは全体の高さが増え、とても小さいと見えにくい。線形の確定的なインジケーターの終わりには、直径4dpの丸(ストップインジケーター)を置く。</span>,
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
-      "linearインジケーターはコンテナの端に配置するのに適し、トラック上をリーディング側からトレーリング側へ帯がアニメーションするとされている。circularインジケーターは要素の中央に配置するのに適し、確定的な場合は0〜360度で色を塗り進め、不確定な場合はトラック上を動きながら伸縮するとされている。波形(wavy)の形状は、長い処理を単調に感じさせないための、より表現力のあるスタイルとして選べるとしている。",
+      "linearはコンテナの端に置くのに向き、トラックの上を始端から終端へ帯が動く。circularは要素の中央に置くのに向き、確定的なら0〜360度を塗り進め、不確定ならトラックの上を動きながら伸び縮みする。波形(wavy)は、長い処理を単調に感じさせない、表現力のあるスタイルとして選べる。",
     exceptions:
       "200ミリ秒〜5秒の短い待ち時間には、別のコンポーネントのLoading indicatorを使う。5秒を超えるならProgress indicatorを使う。処理の進み具合が分かるようになったら、不確定から確定的な表示に切り替える(ただしLoading indicatorから確定的なProgress indicatorへは切り替えない)。",
     scenarios: [
-      "コンテナの端(画面上部など)に配置する処理にはlinearインジケーターを使いたい時",
-      "要素の中央に配置する処理にはcircularインジケーターを使いたい時",
-      "5秒未満で終わる短い待ち時間にはLoading indicatorを使いたい時",
+      "コンテナの端(画面上部など)に置く時(linear)",
+      "要素の中央に置く時(circular)",
+      "5秒未満で終わる短い待ち時間の時(Loading indicator)",
     ],
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
@@ -117,22 +117,22 @@ const SOURCES = [
     doc: "WAI-ARIA ― role=\"progressbar\"",
     term: "progressbar(WAI-ARIAのロール)/ HTMLのprogress要素",
     color: "#A3821F",
-    position: "処理の進行状況を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表現する",
-    size: "プログレスバー専用の数値基準はないが、値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定するとしている。",
+    position: "進み具合を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表す",
+    size: "専用の数値基準はない。値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定する。",
     colorInfo: "色についての専用基準はない。",
     glossary: [
-      { term: "aria-valuenow / aria-valuetext", desc: "aria-valuenowは現在値。不確定な処理では値自体が存在しないため、0に設定するのではなく属性ごと省略すべきとされる。aria-valuetextは、値をパーセンテージとして提示すると誤解を招く場合に、支援技術に伝える文言を上書きするための属性。" },
+      { term: "aria-valuenow / aria-valuetext", desc: "aria-valuenowは現在の値。不確定な処理では値がないため、0にせず属性ごと省く。aria-valuetextは、パーセンテージで伝えると誤解を招くときに、支援技術に伝える文言を上書きする属性。" },
     ],
     stance:
-      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定するとしている。要素にはaria-labelまたはaria-labelledbyによるアクセシブルネームが必須。可能な場合はこのロールを使わず、ネイティブの<progress>要素を使うことを勧めている(なお、量を示すだけなら<meter>という別の要素がある。<input type=\"range\">は値を動かすスライダーで、進捗の表示には使わない)。progressbar内の子要素はすべてプレゼンテーション扱いとなり、アクセシビリティツリーからは取り除かれる。",
+      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定する。aria-labelかaria-labelledbyによるアクセシブルネームが必須。できればこのロールではなく、ネイティブの<progress>要素を使う(量を示すだけなら別の<meter>要素がある。<input type=\"range\">は値を動かすスライダーで、進み具合の表示には使わない)。progressbarの子要素はすべてプレゼンテーション扱いになり、アクセシビリティツリーから除かれる。",
     exceptions:
-      "不確定な処理を表現する場合は、aria-valuenowを0や特定の値に設定するのではなく、属性そのものを省略すべきだとしている。0を設定すると「進捗0%」という誤った情報を支援技術に伝えてしまうため。",
+      "不確定な処理では、aria-valuenowを0などにせず、属性ごと省く。0にすると「進み具合0%」という誤った情報が支援技術に伝わるため。",
     scenarios: [
       "確定的な進行状況を伝えたい時はaria-valuenow/min/maxを設定する",
       "パーセンテージ表示が実態に合わない時はaria-valuetextで文言を上書きする",
       "可能な場合はrole属性ではなくネイティブの<progress>要素を使う",
     ],
-    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進行状況が支援技術にプログラム的に伝わることを保証する。アクセシブルネームは必須。",
+    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合をプログラムで支援技術に伝える。アクセシブルネームは必須。",
     useCases: [
       "不確定な処理ではaria-valuenowを省略する(0にしない)",
       "可能な限りネイティブの<progress>要素を使い、role=\"progressbar\"は代替手段として扱う",
@@ -162,19 +162,19 @@ const SOURCES = [
     doc: "Progress Indicators Make a Slow System Less Insufferable",
     term: "Progress indicator",
     color: "#7A4F7E",
-    position: "待ち時間の長さそのものを基準に、表示すべきインジケーターの種類を決めるべきという時間ベースの指針(数値の目安あり)",
-    size: "1秒を超える処理には何か表示する(1秒未満は表示不要)。ループアニメーション(スピナー)は2〜10秒、10秒以上は達成率表示(プログレスバー)が望ましいとしている。1〜2秒にどの表示を使うかは明記していない。所要時間が読めない場合は、目安より早めにパーセンテージ表示へ切り替えるべきだとしている。",
+    position: "待ち時間の長さで、インジケーターの種類を決める(数値の目安あり)",
+    size: "1秒を超える処理には何か出す(1秒未満は不要)。ループアニメーション(スピナー)は2〜10秒、10秒以上は達成率の表示(プログレスバー)。1〜2秒の扱いは明記なし。所要時間が読めないなら、目安より早めにパーセンテージ表示へ切り替える。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "進行状況インジケーターは、システムが動作していることを安心させ、おおよその待ち時間を示し、待つ間に見るものを提供するという3つの利点があるとしている。実験では、動く進行状況バーを見たユーザーは、何も表示されなかった場合に比べて平均で3倍長く待つ意思を示したと紹介されている。何も情報を示さない静的な表示は「十分なフィードバックにならない」として避けるべきとし、「しばらくお待ちください、二度押ししないでください」のような注意書きも、ユーザーがほとんど読まないため効果が薄いとしている。",
+      "利点は、システムが動いていると安心させる、おおよその待ち時間を示す、待つ間に見るものを与える、の3つ。実験では、動くプログレスバーを見た利用者は、何も出ない場合より平均3倍長く待とうとした。情報のない静的な表示は十分なフィードバックにならず、「しばらくお待ちください、二度押ししないでください」のような注意書きもほとんど読まれない。",
     exceptions:
-      "10秒未満の処理でも、複数の書類や台帳をまとめて処理するような場合は、達成率表示(プログレスバー)を使ってよいとしている。",
+      "10秒未満でも、複数の書類や台帳をまとめて処理するなら、達成率の表示(プログレスバー)を使ってよい。",
     scenarios: [
       "2〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
       "10秒以上かかる、またはかかる可能性がある処理に達成率表示を使いたい時",
       "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の長さに応じた表示方法の使い分けというユーザー心理に基づく指針。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、待ち時間の長さで表示を使い分けるという、利用者の心理にもとづく指針。",
     useCases: [
       "1秒未満の処理にはインジケーターを表示しない",
       "何も情報を示さない静的な表示や「二度押ししないでください」の注意書きは避ける",
@@ -470,7 +470,7 @@ const styles = {
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
+  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },

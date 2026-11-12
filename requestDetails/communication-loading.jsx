@@ -17,14 +17,14 @@ const SOURCES = [
     term: "Loading(プレースホルダー・Progress indicator)",
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "「ローディング状態」という単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱っている",
+    position: "単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱う",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "できるだけ早く何かを表示するよう求めている。何も出さずに読み込みの完了を待たせると、アプリの不具合だと受け取られかねないため、読み込み中はプレースホルダーの文字・画像・アニメーションを出し、内容が用意できたら差し替えるとしている。待っている間にほかの操作ができるようにし、どうしても時間がかかるなら、ヒントや新機能の紹介など見ていて楽しいものを出すよう勧めている。読み込みが一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの時間の見込みを伝える(時間が分かるなら確定的、分からないなら不確定のインジケーター)。",
+      "できるだけ早く何かを表示する。何も出さないと不具合と受け取られかねないため、読み込み中はプレースホルダー(文字・画像・アニメーション)を出し、用意できたら差し替える。待つ間もほかの操作をできるようにし、長くかかるならヒントや新機能の紹介など楽しめるものを出す。一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの見込みを伝える(時間が分かれば確定的、分からなければ不確定)。",
     exceptions:
-      "watchOSでは、できるだけ読み込み中の表示を出さずにすぐ内容を見せ、1〜2秒かかるなら空白の画面よりはインジケーターを出すほうがよいとしている。",
+      "watchOSでは、読み込み中の表示はなるべく出さずにすぐ内容を見せる。1〜2秒かかるなら、空白の画面よりインジケーターを出す。",
     scenarios: [
-      "コンテンツの読み込みが一瞬で終わらない時に、プレースホルダー表示で体感速度を保ちたい時",
+      "読み込みが一瞬で終わらず、プレースホルダーで体感速度を保ちたい時",
     ],
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
@@ -52,13 +52,13 @@ const SOURCES = [
     doc: "Material Design 3 ― Loading indicator",
     term: "Loading indicator",
     color: "#2F7D6E",
-    position: "5秒未満の待ち時間向けに新設された専用コンポーネント「Loading indicator」を持つ",
-    size: "200ミリ秒〜5秒の短い待ち時間に使う。寸法の数値の記載なし",
+    position: "5秒未満の待ち時間向けに、専用コンポーネント「Loading indicator」を新設",
+    size: "200ミリ秒〜5秒の待ち時間に使う。寸法の記載なし",
     stance:
-      "Loading indicatorは、アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示すコンポーネント。進み具合が分からないときや、どれだけかかるかを示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは似ているが、200ミリ秒〜5秒の短い処理にはこちらのほうがよい。待ち時間が200ミリ秒未満なら表示を出さずにすぐ内容を見せ、5秒を超えるならProgress indicatorを使う。",
+      "アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す。進み具合が分からないとき・示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは近いが、200ミリ秒〜5秒の処理にはこちらが向く。200ミリ秒未満なら何も出さずに内容を見せ、5秒を超えるならProgress indicatorを使う。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
-      "5秒未満で終わる短い読み込みにLoading indicatorを使いたい時",
+      "5秒未満で終わる短い読み込みの時",
     ],
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
@@ -88,20 +88,20 @@ const SOURCES = [
     doc: "WAI-ARIA ― aria-busy属性(更新中であることを示す)",
     term: "aria-busy(WAI-ARIAの状態)",
     color: "#A3821F",
-    position: "「ローディング状態」専用のロールはないが、内容が更新中であることを支援技術に伝えるaria-busy属性がある",
+    position: "専用のロールはないが、更新中であることを支援技術に伝えるaria-busy属性がある",
     size: <NoData>数値基準なし</NoData>,
     glossary: [
-      { term: "aria-busy", desc: "要素が現在更新中であることを示すグローバルなARIA状態。既定値はfalse。trueの間、支援技術は更新が終わるまで変更の読み上げを待つことができる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違い、aria-busyは更新中という状態を示す。" },
+      { term: "aria-busy", desc: "要素が更新中であることを示すグローバルなARIAの状態(既定値はfalse)。trueの間、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違う。" },
     ],
     stance:
-      "aria-busy属性は、要素が現在更新中であることを示すグローバルな状態で、既定値はfalseだとしている。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱うことができる(MAY)としている。ライブリージョンで複数の変更を1つの読み上げにまとめたいとき、作り手はtrueにしておいて、変更が終わったらfalseに戻せる、という例も示している。更新が完了したらfalseに戻すという使い方が基本パターンとして示されている。",
+      "aria-busyは、要素が更新中であることを示すグローバルな状態(既定値はfalse)。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱える(MAY)。ライブリージョンの複数の変更を1回の読み上げにまとめたいときは、trueにしておき、更新が終わったらfalseに戻す。",
     exceptions:
-      "aria-busyは単独でも、要素が更新中であることを支援技術に示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる、という使い方もある。",
+      "単独でも更新中であることを示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる。",
     scenarios: [
-      "スケルトン画面など、複数箇所が同時に書き換わる読み込み中の領域を扱いたい時",
-      "更新途中の不完全な状態を、支援技術に伝えにくくしたい時(支援技術が待つかどうかは支援技術による)",
+      "スケルトン画面など、複数箇所が同時に書き換わる領域を読み込む時",
+      "更新途中の状態を支援技術に伝えにくくしたい時(待つかどうかは支援技術による)",
     ],
-    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― コンテンツが更新中であることをプログラム的に伝えることに関わる(読み上げを必ず防げるわけではない)。",
+    accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 更新中であることをプログラムで伝える(読み上げを必ず防げるとは限らない)。",
     useCases: [
       "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
       "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
@@ -129,15 +129,15 @@ const SOURCES = [
     doc: "Skeleton Screens 101",
     term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
-    position: "読み込みの見せ方を、待ち時間の長さに応じてスケルトン画面/スピナー/プログレスバーで使い分けるべきとする(秒数の目安あり)",
-    size: "待ち時間の目安: 1秒未満は表示不要、2〜10秒はスピナー(個別モジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバーが望ましいとしている。1〜2秒にどの表示を使うかは明記していない。",
+    position: "待ち時間の長さで、スケルトン画面/スピナー/プログレスバーを使い分ける(秒数の目安あり)",
+    size: "1秒未満は表示不要、2〜10秒はスピナー(個別のモジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバー。1〜2秒の扱いは明記なし。",
     stance:
-      "スケルトン画面は、ページ全体の骨組みをワイヤーフレーム風に示すことで、コンテンツが来ることを予告し体感待ち時間を和らげるパターンだとし、静的/アニメーション/フレーム表示の3タイプがあるとしている。ヘッダー・フッターだけを示す「フレーム表示」型は、空白ページのように見えて離脱を招きかねないため避けるべきだとしている。",
-    exceptions: "スケルトン画面/スピナー/プログレスバーの使い分けには、1秒未満・2〜10秒・10秒という具体的な秒数の目安が示されている。",
+      "スケルトン画面は、ページの骨組みをワイヤーフレーム風に示してコンテンツが来ることを予告し、体感の待ち時間を和らげる。静的・アニメーション・フレーム表示の3タイプがある。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えて離脱を招きかねないため避ける。",
+    exceptions: "使い分けに、1秒未満・2〜10秒・10秒という秒数の目安がある。",
     scenarios: [
-      "ページ全体の読み込みで、10秒未満ならスケルトン画面を使いたい時",
+      "ページ全体を読み込む時(10秒未満ならスケルトン画面)",
     ],
-    accessibility: "根拠となる原則 ― POURのような適合区分ではなく、待ち時間の体感を和らげるという観点からの設計指針。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、待ち時間の体感を和らげるための設計指針。",
     useCases: [
       "待ち時間の長さに応じて、スケルトン画面・スピナー・プログレスバーを使い分ける",
       "ヘッダー・フッターだけの「フレーム表示」型スケルトンは避ける",
@@ -341,7 +341,7 @@ export default function CommunicationLoadingPage() {
                 <div style={styles.labelCell}>専用コンポーネント</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
+                    {s.noDedicatedComponent ? (<span style={styles.notApplicableChip}>専用コンポーネントなし</span>) : (<span style={{ color: "#666D93" }}>―</span>)}
                   </div>
                 ))}
                 <div style={styles.labelCell}>名称</div>
@@ -399,7 +399,7 @@ const styles = {
   metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
   title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
   subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#8A6210", background: "#FFF6E5", border: "1px solid #F0DBA6", padding: "3px 8px", borderRadius: 3, marginTop: 8, letterSpacing: 0.2 },
+  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
   swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
   swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
   swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
