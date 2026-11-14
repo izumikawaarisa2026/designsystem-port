@@ -474,7 +474,7 @@ const LEAD = "押すとその場で処理(保存・送信・削除など)を実�
 const ABOUT = [
   { k: "目的・役割", v: "利用者が選んだ操作を、押した瞬間に実行する" },
   { k: "よく使われる場面", v: "フォームの送信、ダイアログの「OK」「キャンセル」、画面の主な操作(購入・保存)" },
-  { k: "似たコンポーネントとの違い", v: <>別のページへ遷移するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+  { k: "似たコンポーネント", v: <>別のページへ遷移するなら<PageLink to="/components/actions/link">リンク</PageLink>、画面の上に浮かべて主な操作を1つだけ置くなら<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
 /* 意見が分かれる点 */

@@ -170,7 +170,6 @@ function UseCaseList({ items, muted }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -225,7 +224,7 @@ const LEAD = "見出しを押すと、その下の内容を開いたり閉じた
 const ABOUT = [
   { k: "目的・役割", v: "必要な部分だけを開いて読めるようにし、長いページを短く見せる" },
   { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマホでの長い説明の折りたたみ" },
-  { k: "似たコンポーネントとの違い", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
+  { k: "似たコンポーネント", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -422,7 +421,7 @@ const styles = {
   confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },

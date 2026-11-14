@@ -216,7 +216,6 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -246,7 +245,7 @@ const LEAD = "画面の上に小さな枠を重ねて表示し、確認や選択
 const ABOUT = [
   { k: "目的・役割", v: "作業をいったん止めて、大事な確認(削除してよいかなど)や短い選択に答えてもらう" },
   { k: "よく使われる場面", v: "削除・破棄の確認、権限の許可、保存せずに閉じるときの確認" },
-  { k: "似たコンポーネントとの違い", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
+  { k: "似たコンポーネント", v: <>画面全体を使って一連の入力をさせるなら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>、作業を止めずに知らせるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -469,7 +468,7 @@ const styles = {
   confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
