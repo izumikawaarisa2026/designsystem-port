@@ -204,7 +204,6 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -233,7 +232,7 @@ const LEAD = "入力の間違いを見つけたときに、何が問題でどう
 const ABOUT = [
   { k: "目的・役割", v: "間違いの場所と理由、直し方を伝え、入力をやり直せるようにする" },
   { k: "よく使われる場面", v: "フォームの入力欄の下のエラー文、送信後のエラーのまとめ" },
-  { k: "似たコンポーネントとの違い", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
+  { k: "似たコンポーネント", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -438,7 +437,7 @@ const styles = {
   confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },

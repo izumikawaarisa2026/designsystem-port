@@ -334,7 +334,6 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -363,7 +362,7 @@ const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲー
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて遷移できるようにする" },
   { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(レール/サイドバー)" },
-  { k: "似たコンポーネントとの違い", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
 ];
 
 /* 4系列の比較(カード・比較表)。ドロワーとレール/サイドバーで同じ形を2回使う */
@@ -617,7 +616,7 @@ const styles = {
   confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },

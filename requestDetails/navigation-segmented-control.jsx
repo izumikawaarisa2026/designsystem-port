@@ -182,7 +182,6 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -242,7 +241,7 @@ const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕
 const ABOUT = [
   { k: "目的・役割", v: "少ない選択肢(2〜5個)から1つを選び、同じ内容の見え方(表示形式・期間など)を切り替える" },
   { k: "よく使われる場面", v: "「日・週・月」の切り替え、リスト表示とグリッド表示の切り替え" },
-  { k: "似たコンポーネントとの違い", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>内容の違う画面へ切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>(比べ方は<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -464,7 +463,7 @@ const styles = {
   confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },

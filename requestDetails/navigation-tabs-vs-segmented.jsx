@@ -287,7 +287,7 @@ export default function NavigationTabsVsSegmentedPage() {
           <SummaryCard lead="見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ" rows={[
             { k: "目的・役割", v: "内容のまとまりを切り替える(タブ)のか、同じ内容の見え方を変える(セグメントコントロール)のかを見分ける" },
             { k: "よく使われる場面", v: "設定画面のセクションの切り替え(タブ)、一覧の表示形式や並び順の切り替え(セグメントコントロール)" },
-            { k: "似たコンポーネントとの違い", v: <>アプリ全体の行き先を変えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、フォームで1つの値を選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink></> },
+            { k: "似たコンポーネント", v: <>アプリ全体の行き先を変えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、フォームで1つの値を選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink></> },
           ]} />
 
           <div style={styles.synthesisBox}>

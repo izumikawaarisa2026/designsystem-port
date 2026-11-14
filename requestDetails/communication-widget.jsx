@@ -350,7 +350,6 @@ function UseCaseList({ items }) {
 function GlossaryNote({ items }) {
   return (
     <div style={styles.glossaryNoteBox}>
-      <span style={styles.glossaryNoteLabel}>メモ</span>
       {items.map((it) => (
         <p key={it.term} style={styles.glossaryNoteLine}>
           <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
@@ -422,7 +421,7 @@ const LEAD = "ホーム画面などに置き、アプリを開かずに情報を
 const ABOUT = [
   { k: "目的・役割", v: "よく見る情報(天気・予定など)を、アプリを開く手間なしに一目で見せる" },
   { k: "よく使われる場面", v: "天気・カレンダー・歩数・音楽の操作をホーム画面やロック画面に置く" },
-  { k: "似たコンポーネントとの違い", v: <>アプリの中で情報をまとめて見せるのは<PageLink to="/components/containment/card">カード</PageLink>。ウィジェットはアプリの外に置く</> },
+  { k: "似たコンポーネント", v: <>アプリの中で情報をまとめて見せるのは<PageLink to="/components/containment/card">カード</PageLink>。ウィジェットはアプリの外に置く</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -647,7 +646,7 @@ const styles = {
   confirmedNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.5, fontStyle: "italic", marginTop: 4 },
   useCaseList: { margin: 0, padding: "0 0 0 16px" },
   useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10, paddingTop: 8, borderTop: "1px dashed #E1E3F0" },
+  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
   glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
   glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
   glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },

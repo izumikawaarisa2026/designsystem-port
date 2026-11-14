@@ -107,7 +107,7 @@ const LEAD = "プルダウン以外で、決まった選択肢から1つを選�
 const ABOUT = [
   { k: "目的・役割", v: "選択肢の見え方(常に見えるか・開くまで隠れるか)と、絞り込み方(タップだけか・入力もできるか)で、1つを選ぶ形を選び分ける" },
   { k: "よく使われる場面", v: "日付・国名をホイールで選ぶ、長い一覧から1つ選ぶ、都道府県を入力して絞り込む" },
-  { k: "似たコンポーネントとの違い", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、表示の切り替えのように少ない選択肢から1つ選んですぐ反映するなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>。折りたたむ形は<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "似たコンポーネント", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、表示の切り替えのように少ない選択肢から1つ選んですぐ反映するなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>。折りたたむ形は<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
 ];
 
 /* 4系列での扱い。name があれば、その系列での名前(リンク付き)。none は記載なし・未確認 */

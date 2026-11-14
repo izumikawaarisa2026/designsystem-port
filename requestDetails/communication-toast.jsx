@@ -230,7 +230,7 @@ const LEAD = "短い文を一時的に表示して自動で消える、操作の
 const ABOUT = [
   { k: "目的・役割", v: "作業を止めずに、ちょっとした結果や状態を一言で知らせる" },
   { k: "よく使われる場面", v: "「コピーしました」「送信しました」などの簡単な知らせ" },
-  { k: "似たコンポーネントとの違い", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
