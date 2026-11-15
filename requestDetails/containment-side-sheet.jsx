@@ -95,29 +95,29 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
-    term: "dialog(専用のロールなし)",
+    term: "ダイアログ(専用の役割なし)",
     color: "#A3821F",
-    position: "シート本体はdialogとして作り、ラベルとフォーカスの移動を設計する。背景を操作できないようにするときだけaria-modal=\"true\"",
+    position: "シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。背景を操作できないときだけモーダルと伝える",
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
-      { term: "aria-modal", desc: "ダイアログが表示されている間、背景の内容を操作できないことを支援技術に伝える属性。背景を操作できる(非モーダルの)シートには付けない。" },
-      { term: "aria-haspopup", desc: "シートを開く側のボタンに付けて、どの種類のポップアップ(menu/listbox/tree/grid/dialog)を開くかを支援技術に伝える属性。シート本体の作り方ではない。" },
+      { term: "モーダルであること", desc: "ダイアログが出ている間、背景の内容を操作できないことを支援技術に伝える。背景を操作できる(非モーダルの)シートでは伝えない。" },
+      { term: "開く側のボタン", desc: "シートを開くボタンで、何(メニュー・一覧・ダイアログなど)が開くかを支援技術に伝えることもできる。シート本体の扱いではない。" },
     ],
     stance:
-      "W3Cはサイドシートを定めていないため、シート本体はAPGのDialogパターンを参考にdialogとして作るのが基本(AI解釈)。role=\"dialog\"とaria-labelledby(またはaria-label)で名前を付け、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できないようにする(モーダルの)シートだけにaria-modal=\"true\"を付ける。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けることもできる(開く側の属性で、シート本体の作り方ではない)。",
+      "W3Cはサイドシートを定めていないため、シート本体はAPGのDialogパターンを参考にダイアログとして扱うのが基本(AI解釈)。ダイアログであることと名前を伝え、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できない(モーダルの)シートだけ、モーダルと伝える。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンで、ダイアログが開くことを伝えることもできる。",
     scenarios: [
-      "シート本体をdialogとして作り、名前とフォーカスの移動を設計したい時",
-      "後ろの内容を操作できるまま残したいなら、aria-modalを付けない非モーダルとして扱う",
+      "シート本体をダイアログとして扱い、名前とフォーカスの移動を設計したい時",
+      "後ろの内容を操作できるまま残したいなら、モーダルと伝えない非モーダルとして扱う",
     ],
-    exceptions: "APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。ARIAの属性だけでは動かないため、キーボードでの開閉・フォーカスの移動はJavaScriptで実装する。",
+    exceptions: "APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。支援技術に役割を伝えるだけでは動かないため、キーボードでの開閉・フォーカスの移動も設計する。",
     accessibility:
       "堅牢(Robust) ― 名前・役割・状態を支援技術に伝えること(4.1.2)が中心。フォーカスの移動やキーボードでの開閉は「操作可能」(2.1.1・2.4.3)にも関わる。",
     useCases: [
-      "シート本体にrole=\"dialog\"と名前(aria-labelledbyなど)を付ける",
+      "シート本体をダイアログとして伝え、名前を付ける",
       "開いたらシートの中へ、閉じたら開いたボタンへフォーカスを移す",
-      "背景を操作できないモーダルのシートだけにaria-modal=\"true\"を付ける",
-      "開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けてもよい",
+      "背景を操作できないモーダルのシートだけ、モーダルと伝える",
+      "開く側のボタンで、ダイアログが開くことを伝えてもよい",
     ],
     searchHint: "aria-modal",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
@@ -130,12 +130,12 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
+          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
           <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">+ 名前・フォーカス</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性・役割の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、役割の考え方を図示",
   },
   {
     key: "nn",
@@ -281,7 +281,7 @@ export default function ContainmentSideSheetPage() {
               <strong>Appleには、サイドシートに当たるコンポーネントはない</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介している)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義している。
             </p>
             <p style={styles.synthesisText}>
-              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付ける。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、モーダルと伝える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

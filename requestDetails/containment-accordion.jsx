@@ -31,7 +31,7 @@ const SOURCES = [
     stance:
       "詳細を必要になるまで隠しておくために使う。よく使うコントロールを上に置いていつも見せ、高度な機能は既定で隠すと、選択肢に圧倒されずに大事な情報を見つけられる。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にし、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付ける。",
     exceptions:
-      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えない。",
+      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOS・visionOSで使え、tvOS・watchOSでは使えない。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -80,22 +80,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
     term: "Accordion(APGのパターン)",
     color: "#A3821F",
-    position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
+    position: "見出しをボタンとして押せるようにし、開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える",
     size: "専用の数値基準はない。見出しのボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。隠れているときは右向き、見えているときは下向きの矢印などで状態を示す例がある。",
     glossary: [
-      { term: "aria-expanded", desc: "見出しのボタンの状態を示す属性。パネルが見えているときはtrue、隠れているときはfalse。" },
-      { term: "aria-controls", desc: "ボタンが、どのパネルを開閉するかを示す属性。値はパネルのIDにする。" },
+      { term: "開閉の状態", desc: "見出しのボタンが、パネルを開いているか閉じているかを支援技術に伝える。" },
+      { term: "対応するパネル", desc: "ボタンが、どのパネルを開閉するかを支援技術に伝える。" },
     ],
     stance:
-      "縦に並んだ見出しが、それぞれ対応する内容(パネル)を表示・非表示にする(APGのAccordion Pattern)。見出しの文字は、見出し要素(h2など、ページの構成に合ったレベル)の中のbutton要素(またはbuttonの役割の要素)にし、見出しの中にはそのボタンだけを入れる。パネルが見えているときはaria-expanded=\"true\"、隠れているときは\"false\"にし、aria-controlsでパネルのIDを指す。ネイティブの<button>要素を使うなら、role=\"button\"を足す必要はない。",
+      "縦に並んだ見出しが、それぞれ対応する内容(パネル)を表示・非表示にする(APGのAccordion Pattern)。見出しはページの構成に合ったレベルの見出しとし、その見出し自体をボタンとして押せるようにする。パネルが見えているか隠れているかと、どのパネルを開閉するかを支援技術に伝える。",
     exceptions:
-      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンにaria-disabled=\"true\"を付ける。パネルにregionの役割を付けてもよいが、同時に開けるパネルが6個程度を超えるなら、ランドマークが増えすぎるため避ける。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になる。",
+      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンを、押せないことが伝わる状態にする。パネルを1つの領域として示してもよいが、同時に開けるパネルが6個程度を超えるなら、領域の目印が増えすぎるため避ける。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になる。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 開閉の状態は、aria-expandedで支援技術に伝える(4.1.2)。",
+      "操作可能(Operable)・堅牢(Robust) ― 開閉の状態を支援技術に伝える(4.1.2)。",
     useCases: [
-      "見出し要素(h2など)の中にbutton要素を置き、そのボタンで開閉する",
-      "ボタンにaria-expanded(true/false)とaria-controls(パネルのID)を付ける",
+      "見出しをボタンとして押せるようにし、それで開閉する",
+      "開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える",
     ],
     searchHint: "aria-expanded",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/accordion/",
@@ -107,11 +107,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="60" viewBox="0 0 120 60">
           <rect x="1" y="1" width="118" height="16" rx="3" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="12" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-expanded="true"</text>
+          <text x="60" y="12" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">開いている状態を伝える</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性・役割の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、状態・役割の考え方を図示",
   },
   {
     key: "nn",
@@ -277,7 +277,7 @@ export default function ContainmentAccordionPage() {
               このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupだ。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っている。
             </p>
             <p style={styles.synthesisText}>
-              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
             </p>
             <p style={styles.synthesisText}>
               <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1時代には「Expansion panel」という独立コンポーネントがあったが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされている。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情だ。

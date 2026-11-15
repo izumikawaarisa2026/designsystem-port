@@ -55,25 +55,25 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
-    term: "navigation+aria-current=\"page\"(専用のロールなし)",
+    doc: "WAI-ARIA(ナビゲーション領域+今のページ。専用の役割なし)",
+    term: "ナビゲーション領域+今のページ(専用の役割なし)",
     color: "#A3821F",
-    position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
+    position: "専用の役割はない。ナビゲーションの領域・リスト・今のページを伝えることを組み合わせる",
     size: "専用の数値基準はない。各ページ番号のリンク/ボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     glossary: [
       { term: "色", desc: "専用の色の基準はない。今のページを示す枠線・背景色などには1.4.11(非テキストのコントラスト)がかかり得る。" },
-      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAに「ページネーション」のウィジェット・ロールはない。必要なもの(nav landmark、リスト、リンク/ボタン、aria-current)がすでにあるため、組み合わせて作るのが一般的(AI解釈)。" },
+      { term: "専用の役割はない", desc: "WAI-ARIAに「ページネーション」の役割はない。必要なもの(ナビゲーションの領域、リスト、リンク/ボタン、今の項目を伝える仕組み)がすでにあるため、組み合わせるのが一般的(AI解釈)。" },
     ],
     stance:
-      "専用のARIAロールやパターンはない。ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、今のページにaria-current=\"page\"を設定する、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)。",
+      "専用の役割やパターンはない。ページ番号の一覧を名前の付いたナビゲーションの領域として示し、各番号に「3ページ目に移動」のような分かりやすい名前を付け、今のページを支援技術に伝える、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様(今の項目を伝える仕組み)、APGのLandmark Regions(ナビゲーション領域)、WCAG 2.4.4(リンクの目的)。",
     exceptions:
-      "今のページ番号は、リンクではなく文字(spanなど)にし、aria-current=\"page\"を設定することが多い。単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えをライブリージョンなどで支援技術に知らせる。",
+      "今のページ番号は、リンクではなく文字にし、今のページだと伝えることが多い。単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えを支援技術に知らせる。",
     accessibility:
-      "知覚可能・堅牢 ― 中心は、nav要素のランドマーク、各リンクの分かりやすい名前、aria-current=\"page\"による現在位置の明示。アイコンだけの「前へ/次へ」ボタンには、文字のアクセシビリティ名を別に用意する。",
+      "知覚可能・堅牢 ― 中心は、ナビゲーションの領域として示すこと、各リンクの分かりやすい名前、今のページを伝えること。アイコンだけの「前へ/次へ」ボタンには、文字の名前を別に用意する。",
     useCases: [
-      "ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲む",
+      "ページ番号の一覧を、名前の付いたナビゲーションの領域として示す",
       "各ページ番号に「○ページ目に移動」など分かりやすい名前を付ける",
-      "今のページにaria-current=\"page\"を設定する(リンクにしない場合が多い)",
+      "今のページだと支援技術に伝える(リンクにしない場合が多い)",
     ],
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
@@ -88,7 +88,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="24" viewBox="0 0 120 24">
           <rect x="1" y="1" width="118" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">nav[aria-label] + aria-current</text>
+          <text x="60" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">領域の名前 + 今のページ</text>
         </svg>
       </div>
     ),
@@ -244,8 +244,8 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C: aria-current" },
-  { n: 2, t: "専用のコンポーネントはない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
+  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C(今のページを伝える)" },
+  { n: 2, t: "専用のコンポーネントはない", d: "ナビゲーションの領域・リスト・リンクを組み合わせる", who: "W3C" },
   { n: 3, t: "AppleのPage controlsは別のコンポーネント", d: "少数の画面を点で送るもの", who: "Apple" },
 ];
 
@@ -293,7 +293,7 @@ export default function NavigationPaginationPage() {
               <strong>AppleとGoogleには、番号付きページネーションに当たる専用のコンポーネントはない</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別のコンポーネント)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作る。ページネーションは独立したコンポーネントというより、既存のコンポーネントを組み合わせる実装パターンとして扱われている。
+              W3C(WAI-ARIA)にも<strong>専用の役割はなく</strong>、ナビゲーションの領域・リスト・リンク・今のページを伝える仕組みを組み合わせる。ページネーションは独立したコンポーネントというより、既存のものを組み合わせるパターンとして扱われている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。

@@ -100,7 +100,7 @@ const DRAWER_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal)パターン / WCAG 3.2.3",
-    term: "navigation(ランドマークのロール)",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
     position:
       "「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、ダイアログ(モーダル)として作る",
@@ -112,15 +112,15 @@ const DRAWER_SOURCES = [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "後ろの操作を完全に遮るモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが合う。role=\"dialog\"を持ち、Tab/Shift+Tabでドロワーの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられ、aria-labelledbyかaria-labelでラベルを付け、見える閉じるボタン(role=\"button\")を持つ。aria-modal=\"true\"は、後ろの操作を完全に遮り、見た目でも覆っている場合だけ設定する。中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ順番で並べる(利用者が並びを変えた場合を除く)。",
+      "後ろの操作を完全に遮るモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが合う。ダイアログであることを伝え、Tab/Shift+Tabでドロワーの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられ、名前を付け、見える閉じるボタンを持つ。モーダルと伝えるのは、後ろの操作を完全に遮り、見た目でも覆っている場合だけ。中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ順番で並べる(利用者が並びを変えた場合を除く)。",
     exceptions:
-      "後ろを完全に遮り、見た目でも覆っていないなら、aria-modal=\"true\"を設定しない。",
+      "後ろを完全に遮り、見た目でも覆っていないなら、モーダルと伝えない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― フォーカスの閉じ込め・Escで閉じる・ラベル付け(4.1.2、2.1.1)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases:
       [
       "モーダル(後ろを遮る)ドロワーにはDialog(Modal)パターンを使う",
-      "後ろを完全に遮り、見た目でも覆う場合だけaria-modal=\"true\"を設定する",
+      "後ろを完全に遮り、見た目でも覆う場合だけ、モーダルと伝える",
       "どのページで開いても、ドロワーの項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "Tab and Shift + Tab do not move focus",
@@ -255,20 +255,20 @@ const RAIL_SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Landmark Regions(navigation)・WCAG 3.2.3",
-    term: "navigation(ランドマークのロール)",
+    doc: "WAI-ARIA APG ― Landmark Regions(ナビゲーション領域)・WCAG 3.2.3",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "常に表示するサイドナビは、navigationランドマークとして作る",
+    position: "常に表示するサイドナビは、ナビゲーションの領域(目印)として示す",
     size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
-    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、navigationランドマークとして扱うのが合う(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ順番で並べる。",
+    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、ナビゲーションの領域として扱うのが合う(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ順番で並べる。",
     exceptions: <NoData>記載なし</NoData>,
-    accessibility: "知覚可能(Perceivable)・理解可能(Understandable) ― ランドマークで領域の役割を伝えること(1.3.1)と、ナビゲーションの並びをそろえること(3.2.3)が関わる。",
+    accessibility: "知覚可能(Perceivable)・理解可能(Understandable) ― 領域の役割を伝えること(1.3.1)と、ナビゲーションの並びをそろえること(3.2.3)が関わる。",
     useCases: [
-      "常に表示するサイドナビは、nav要素(navigationランドマーク)にする",
+      "常に表示するサイドナビは、ナビゲーションの領域として示す",
       "どのページでも、項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "navigation",
@@ -277,7 +277,7 @@ const RAIL_SOURCES = [
       { kind: "apg", label: "APG: Landmark Regions(navigation)", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
-    illustrationNote: "視覚デザインの規定はなく、ランドマークの考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印の考え方を図示",
   },
   {
     key: "nn",
@@ -536,7 +536,7 @@ export default function NavigationDrawerPage() {
                   <td style={styles.kindTd}>タブレット・PCなど広い画面</td>
                   <td style={styles.kindTd}>画面の脇に常に表示する(モーダルではない)。折りたためる</td>
                   <td style={styles.kindTd}>広い画面で、主な行き先を常に見せたいとき</td>
-                  <td style={styles.kindTd}>Apple: Sidebars / Google: Navigation rail(折りたたみ型・展開型) / W3C: navigationランドマーク / NN group: 左側の縦型ナビゲーション</td>
+                  <td style={styles.kindTd}>Apple: Sidebars / Google: Navigation rail(折りたたみ型・展開型) / W3C: ナビゲーションの領域 / NN group: 左側の縦型ナビゲーション</td>
                 </tr>
               </tbody>
             </table>
@@ -555,7 +555,7 @@ export default function NavigationDrawerPage() {
               広い画面では、Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーションが、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはnavigationランドマーク</strong>として作る。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
+              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
             </p>
           </div>
           <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>

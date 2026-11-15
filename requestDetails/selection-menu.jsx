@@ -87,24 +87,24 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
-    term: "menu・menubar・menuitem(WAI-ARIAのロール)",
+    term: "メニュー・メニューバー・メニュー項目(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "OSのメニューのように振る舞う選択肢の一覧の、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に出ているmenubarを扱う",
+    position: "OSのメニューのように振る舞う選択肢の一覧の、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なメニューと、常に出ているメニューバーを扱う",
     size: "専用の数値基準はない。項目には一般のターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)がかかる。",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
-      { term: "menu・menuitem", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目はmenuitemcheckbox、1つだけ選ぶ項目はmenuitemradioを使う。" },
-      { term: "aria-haspopup", desc: "押すとメニューなどが開くことを伝える属性。メニューボタンにはmenu(またはtrue)を設定する。" },
-      { term: "aria-expanded", desc: "メニューが開いているかを伝える属性(開いている間はtrue、閉じているときはfalse)。" },
+      { term: "メニュー・メニュー項目", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目と、1つだけ選ぶ項目は、それぞれの種類の項目として伝える。" },
+      { term: "開くことを伝える", desc: "押すとメニューなどが開くことを、メニューボタンで支援技術に伝える。" },
+      { term: "開閉の状態", desc: "メニューが開いているか閉じているかを支援技術に伝える。" },
     ],
     stance:
-      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にする。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使う。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
+      "メニューボタンは、メニューが開くことと、今開いているかを支援技術に伝える。開いたメニューはメニューとして、項目はメニュー項目(オン/オフの項目、1つだけ選ぶ項目を含む)として伝える。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
     exceptions:
       "使えない項目はフォーカスできるが実行はできない(フォーカスして存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてよい。メニューバーに再びフォーカスが入ったら、前の項目に戻してもよい。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作るほうが合うことが多い(AI解釈)。",
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― キーボードでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わる。",
     useCases: [
-      "メニューボタンにaria-haspopupと、開閉に合わせたaria-expandedを付ける",
+      "メニューボタンで、メニューが開くことと開閉の状態を伝える",
       "使えない項目もフォーカスできるようにし、実行だけできなくする",
     ],
     searchHint: "Disabled menu items are focusable",
@@ -187,7 +187,7 @@ function MenuSwatch() {
         <text x="222" y="142">← 「›」はサブメニュー</text>
         <text x="222" y="166">← 使えない項目</text>
         <text x="222" y="200">← 破壊的な項目は最後</text>
-        <text x="222" y="24">← aria-haspopup / expanded</text>
+        <text x="222" y="24">← 開くこと・開閉の状態を伝える</text>
       </g>
     </svg>
   );
@@ -263,7 +263,7 @@ const MENU_ROWS = [
     cells: [
       { mark: "◯", note: "コンテキストメニューの項目はメインの画面にも" },
       { mark: "―", note: "" },
-      { mark: "◯", note: "aria-haspopupで開くことを伝える" },
+      { mark: "◯", note: "メニューが開くことを伝える" },
       { mark: "◯", note: "三点・下向き矢印で示す。メインのメニューにも" },
     ],
   },
@@ -338,7 +338,7 @@ const SPLITS = [
 const KINDS = [
   { name: "プルダウンボタン/ドロップダウンメニュー", use: "ボタンの操作に関係する命令を選ぶ(「追加」で追加するものを選ぶ、「並べ替え」で基準を選ぶ)", who: "Apple・Google・NN group" },
   { name: "コンテキストメニュー", use: "選んだ対象・場所に関係する、よく使う少数の操作。長押し・右クリック・副ボタンで開く", who: "Apple・Google・NN group" },
-  { name: "メニューバー", use: "アプリのすべての命令を常に並べる(macOS・iPadOS)。ショートカットを表示する場所", who: "Apple・W3C(menubar)" },
+  { name: "メニューバー", use: "アプリのすべての命令を常に並べる(macOS・iPadOS)。ショートカットを表示する場所", who: "Apple・W3C(メニューバー)" },
   { name: "ポップアップボタン/エクスポーズドドロップダウン", use: "命令ではなく、排他的な選択肢から値を選ぶ。選んだ値を表示し続ける(→「セレクト」ページ)", who: "Apple・Google" },
 ];
 
@@ -454,7 +454,7 @@ export default function SelectionMenuPage() {
               一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めている。
+              W3Cは見た目ではなく、<strong>メニューが開くことと開閉の状態</strong>を伝えることなど、役割と状態を定めている。
             </p>
             <p style={styles.synthesisText}>
               また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めている。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論だ。

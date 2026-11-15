@@ -114,35 +114,35 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― role=\"progressbar\"",
-    term: "progressbar(WAI-ARIAのロール)/ HTMLのprogress要素",
+    doc: "WAI-ARIA ― プログレスバーの役割",
+    term: "プログレスバー(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "進み具合を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表す",
-    size: "専用の数値基準はない。値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定する。",
+    position: "進み具合を支援技術に伝える役割。今の値を伝えるかどうかで、確定的/不確定を表す",
+    size: "専用の数値基準はない。値は最小(既定0)〜最大(既定100)の範囲で伝える。",
     colorInfo: "色についての専用基準はない。",
     glossary: [
-      { term: "aria-valuenow / aria-valuetext", desc: "aria-valuenowは現在の値。不確定な処理では値がないため、0にせず属性ごと省く。aria-valuetextは、パーセンテージで伝えると誤解を招くときに、支援技術に伝える文言を上書きする属性。" },
+      { term: "今の値/値の言い換え", desc: "今の値は、不確定な処理では存在しないため、0とせず伝えない。パーセンテージで伝えると誤解を招くときは、支援技術に伝える文言を言い換えられる。" },
     ],
     stance:
-      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定する。aria-labelかaria-labelledbyによるアクセシブルネームが必須。できればこのロールではなく、ネイティブの<progress>要素を使う(量を示すだけなら別の<meter>要素がある。<input type=\"range\">は値を動かすスライダーで、進み具合の表示には使わない)。progressbarの子要素はすべてプレゼンテーション扱いになり、アクセシビリティツリーから除かれる。",
+      "プログレスバーは、今の値(不確定でない限り必須)・最小(既定0)・最大(既定100)・値の言い換え(任意)を支援技術に伝える。何の進み具合かを示す名前が必須。量を示すだけのものや、値を動かすスライダーとは別のもので、進み具合の表示にはスライダーを使わない。中の要素は読み上げの対象にならない。",
     exceptions:
-      "不確定な処理では、aria-valuenowを0などにせず、属性ごと省く。0にすると「進み具合0%」という誤った情報が支援技術に伝わるため。",
+      "不確定な処理では、今の値を0などにせず、伝えない。0にすると「進み具合0%」という誤った情報が支援技術に伝わるため。",
     scenarios: [
-      "確定的な進行状況を伝えたい時はaria-valuenow/min/maxを設定する",
-      "パーセンテージ表示が実態に合わない時はaria-valuetextで文言を上書きする",
-      "可能な場合はrole属性ではなくネイティブの<progress>要素を使う",
+      "確定的な進み具合を、今の値・最小・最大で伝えたい時",
+      "パーセンテージが実態に合わず、伝える文言を言い換えたい時",
+      "進み具合を支援技術にも伝えたい時",
     ],
-    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合をプログラムで支援技術に伝える。アクセシブルネームは必須。",
+    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合をプログラムで支援技術に伝える。何の進み具合かを示す名前は必須。",
     useCases: [
-      "不確定な処理ではaria-valuenowを省略する(0にしない)",
-      "可能な限りネイティブの<progress>要素を使い、role=\"progressbar\"は代替手段として扱う",
-      "aria-labelまたはaria-labelledbyで必ずアクセシブルネームを与える",
-      "完了や失敗は、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3)",
+      "不確定な処理では今の値を伝えない(0にしない)",
+      "何の進み具合かが分かる名前を付ける",
+      "値の最小・最大と今の値を伝える(確定的な場合)",
+      "完了や失敗は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     ],
     searchHint: "aria-valuenow",
     url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar",
     refs: [
-      { label: "role=\"progressbar\"", url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar" },
+      { label: "WAI-ARIA: progressbar(プログレスバーの役割)", url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar" },
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
       { kind: "mdn", label: "progressbarロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/progressbar_role" },
     ],
@@ -150,11 +150,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="150" height="24" viewBox="0 0 150 24">
           <rect x="1" y="1" width="148" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="75" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-valuenow=&quot;60&quot;(省略で不確定)</text>
+          <text x="75" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">今の値 60(伝えないと不確定)</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性の有無による確定/不確定の切り替えを図示",
+    illustrationNote: "視覚デザインの規定はなく、今の値を伝えるかどうかによる確定/不確定の切り替えを図示",
   },
   {
     key: "nn",
@@ -264,7 +264,7 @@ const SHAPE_RULES = [
   "できるだけ確定(何%か分かる)の表示にする。途中で時間が分かったら、不確定から確定に切り替える(Apple)",
   "円形とバーの間では切り替えない。形と大きさが違うため、画面が乱れる(Apple)",
   "「読み込み中」のような、あいまいな説明は避ける(Apple)。何も情報のない静的な表示や「二度押ししないで」の注意書きも効果が薄い(NN group)",
-  "支援技術には、確定ならaria-valuenowで今の値を伝え、不確定なら値を付けない(W3C)",
+  "支援技術には、確定なら今の値を伝え、不確定なら値を伝えない(W3C)",
 ];
 
 function ProgressShapes() {
@@ -339,7 +339,7 @@ export default function CommunicationProgressPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
+              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>今の値を支援技術に伝えるかどうか</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
             </p>
             <p style={styles.synthesisText}>
               最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
@@ -348,7 +348,7 @@ export default function CommunicationProgressPage() {
               興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴だ。
+              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理では今の値を<strong>0とせず、伝えない</strong>という注意点は、見た目の設計だけでは気づきにくい落とし穴だ。
             </p>
           </div>
           <ProgressShapes />

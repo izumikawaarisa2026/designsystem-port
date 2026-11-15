@@ -128,22 +128,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
     term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
-    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはrole=\"dialog\"内のrole=\"grid\"で",
+    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはダイアログの中の、矢印キーで移動できる表(グリッド)で",
     size:
       "専用の数値基準はない。各日付のボタンにも、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択中の日付を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
-      { term: "ローミングtabindex", desc: "グリッドの中でいつも1つのセルだけをtabindex=\"0\"にし、残りを-1にする実装方法。" },
+      { term: "グリッドの中のフォーカス", desc: "Tabキーではグリッドの中の1つのセル(選択中の日など)にだけ止まり、グリッドの中は矢印キーで移動する考え方。" },
     ],
     stance:
-      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装する。月・年の見出しにはaria-live="polite"を設定し、変化を支援技術に知らせる。</>,
+      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーは、行・列の見出し・日付のセルを持つ表(グリッド)として扱う。月・年の見出しが変わったら、変化を支援技術に知らせる。</>,
     exceptions:
       "ダイアログを開いたとき、入力欄が空か無効な日付なら今日に、有効な日付が入っていればカレンダーのその日にフォーカスを当てる。Esc・OK・Cancelのどれでも閉じられ、閉じたらきっかけのボタンにフォーカスが戻る。APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差があるとも書かれている)。実装したら実際の支援技術で確かめる。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドロールとローミングtabindexによるキーボード操作(2.1.1)と、aria-liveによる変化の通知(4.1.3)。",
+      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドの中を矢印キーで移動できるキーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
     useCases: [
       "日付を文字で入力できる欄(形式の説明付き)を置き、カレンダーは補助として開けるようにする",
-      "カレンダー本体にはgrid roleとローミングtabindexを使う",
+      "カレンダー本体は表(グリッド)として扱い、Tabでは1つのセルにだけ止め、中は矢印キーで移動させる",
       "上下=週・左右=日、Page Up/Down=月(Shiftで年)、Home/End=週の始点/終点というキー操作を実装する",
       "ダイアログを閉じたらトリガーボタンにフォーカスを戻す",
     ],
@@ -157,7 +157,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="90" height="46" viewBox="0 0 90 46">
           <rect x="1" y="1" width="88" height="44" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="45" y="26" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="grid"</text>
+          <text x="45" y="26" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">表(グリッド)</text>
         </svg>
       </div>
     ),

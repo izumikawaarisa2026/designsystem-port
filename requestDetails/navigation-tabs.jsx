@@ -119,11 +119,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5(WAI-ARIA Tabsパターン) / 3.2.1",
-    term: "tablist・tab・tabpanel(WAI-ARIAのロール)。APGでは Tabs",
+    term: "タブの並び・タブ・タブのパネル(WAI-ARIAの役割)。APGでは Tabs",
     color: "#A3821F",
-    position: "role=\"tablist\"/\"tab\"/\"tabpanel\"で、名前・役割・状態とキーボード操作を求める一般の基準",
+    position: "タブの並び・タブ・対応するパネルの役割を伝え、名前・役割・状態とキーボード操作を求める一般の基準",
     structure:
-      <span>APGでは、<Hl>タブの並びを囲む要素にrole="tablist"、各タブにrole="tab"、対応するコンテンツ領域にrole="tabpanel"を割り当て</Hl>、選択中のタブにはaria-selected="true"を設定するとしている。</span>,
+      <span>APGでは、<Hl>タブの並び・各タブ・対応する内容の領域を、それぞれの役割として支援技術に伝え</Hl>、どのタブが選ばれているかも伝える。</span>,
     count:
       <NoData>記載なし</NoData>,
     size:
@@ -141,8 +141,8 @@ const SOURCES = [
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)、キーボード操作(2.1.1)、ターゲットサイズ(2.5)。3.2.1は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "タブの並びにrole=\"tablist\"、各タブにrole=\"tab\"を割り当てる",
-      "対応するコンテンツ領域にrole=\"tabpanel\"を割り当てる",
+      "タブの並びと各タブを、タブとして支援技術に伝える",
+      "対応する内容の領域をタブのパネルとして伝え、選ばれているタブも伝える",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
@@ -432,7 +432,7 @@ export default function NavigationTabsPage() {
               <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>がある(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab view(1階層のみ)にはない考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な作り方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
+              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがタブの並び・タブ・パネルの役割を伝える考え方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
             </p>
           </div>
 

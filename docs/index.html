@@ -1145,7 +1145,7 @@ const TAB_STYLES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.11",
-    term: "button(WAI-ARIAのロール)/ HTMLのbutton要素",
+    term: "ボタン(WAI-ARIAの役割)",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
       "ボタンの見た目の種類を分ける基準はない。ただし1.4.11(非テキストのコントラスト)は、ボタンの境界や状態を背景から見分けられるコントラスト(3:1以上)を求め、種類を問わずすべてのボタンに関わる。",
@@ -1240,7 +1240,7 @@ const TAB_STATES = [
     position: "状態を支援技術に正しく伝える",
     stance:
       "4.1.2(Name, Role, Value)は、ボタンの今の状態(押せるか、選択中かなど)を支援技術がプログラムで取得できること。1.4.11は、状態の見た目(フォーカスリングなど)にも十分なコントラストを求める。2.4.7(フォーカスの可視化・AA)は、キーボード操作でフォーカスの位置が見えること。",
-    exceptions: "標準のHTMLのbutton要素なら、多くの場合ブラウザがこれらの情報を自動で渡す。独自に作ったボタンだけ追加の対応が要る。",
+    exceptions: "ブラウザ標準のボタンなら、多くの場合これらの情報は自動で伝わる。独自に作ったボタンだけ追加の対応が要る。",
     pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」の達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
@@ -1335,7 +1335,7 @@ const SYNTHESIS = {
   ],
   states: [
     <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleは共通の状態の一覧を持たず、プラットフォームごとに定めている(独自のボタンには押した状態を必ず用意する)。</>,
-    <>WCAGは見た目そのものより、<strong>状態が支援技術に正しく伝わるか(4.1.2)</strong>を重視する。標準的なHTML要素を使っていれば、多くの場合は自動的に満たされる。</>,
+    <>WCAGは見た目そのものより、<strong>状態が支援技術に正しく伝わるか(4.1.2)</strong>を重視する。ブラウザ標準のボタンなら、多くの場合は自動的に満たされる。</>,
   ],
 };
 
@@ -2251,7 +2251,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.4.4 / 2.4.9 / 1.4.1 / 3.2.4",
-    term: "link(WAI-ARIAのロール)/ HTMLのa要素",
+    term: "リンク(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
@@ -2740,17 +2740,17 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 Status Messages(ステータスメッセージ)",
-    term: "Status message(ステータスメッセージ)。WAI-ARIAでは status / alert ロール",
+    term: "Status message(ステータスメッセージ)",
     color: "#A3821F",
     position: "画面の見た目は定めず、ステータスメッセージを支援技術にも伝えることを求める",
     statuses: <span>ステータスメッセージを、<Hl>操作の成功や結果・待ち状態・処理の進み具合・エラーの有無</Hl>を伝え、文脈の変化(フォーカスの移動など)を伴わないもの、と定義する。</span>,
-    delivery: <span>フォーカスを移さずに表示するメッセージ(「5件見つかりました」「入力が正しくありません」など)は、<Hl>role="status"などで支援技術にも伝える</Hl>(4.1.3)。新しく出た緊急の警告にはrole="alert"を使う。</span>,
+    delivery: <span>フォーカスを移さずに表示するメッセージ(「5件見つかりました」「入力が正しくありません」など)は、<Hl>支援技術にも伝える</Hl>(4.1.3)。控えめな知らせは読み上げ中の内容の後に、新しく出た緊急の警告はすぐに読み上げられるようにする。</span>,
     colorIcon: <span><Hl>色だけで状態を伝えない</Hl>(1.4.1)。状態を示すアイコンなどは、周りの色と3:1以上のコントラストにする(1.4.11)。</span>,
     wording: "入力の誤りを見つけたら、どの項目が誤りかを特定し、文字で説明する(3.3.1。詳しくは「エラー表示」ページ)。",
     avoid: "検索結果の一覧そのものは、ステータスメッセージではない(件数などの短い知らせが対象)。",
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 4.1.3は互換性(4.1)の基準で「堅牢」、色の用途(1.4.1)と非テキストのコントラスト(1.4.11)は「知覚可能」。",
     useCases: [
-      "保存完了・検索の件数・入力の誤りなどの短い知らせは、role=\"status\"で読み上げられるようにする",
+      "保存完了・検索の件数・入力の誤りなどの短い知らせは、支援技術でも読み上げられるようにする",
       "状態を色だけでなく、アイコンや文字でも示す",
     ],
     searchHint: "status message",
@@ -3262,28 +3262,28 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― 専用ロールなし(ARIA14のaria-label手法を援用)",
-    term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
+    doc: "WAI-ARIA ― 専用の役割なし(技法ARIA14を援用)",
+    term: <NoData>専用の役割なし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
-    position: "専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
+    position: "専用の役割はない。件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
     size: "専用の数値基準はない。",
     colorInfo: "ドットは周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、数字はバッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))。ドットの有無は色以外の手がかりなので、それだけで1.4.1(色の用途)の違反にはならない。ただし色の違いだけで状態を分けない(例: 赤と青のドットで意味を変えない)。ドットで新着を示すときも、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
-      { term: "ARIA14 / aria-label", desc: "見えるラベルを置けない要素に、aria-labelでアクセシブルネームを与える技法。バッジ付きのアイコンボタンで、装飾のバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、これを当てはめた形(AI解釈)。" },
+      { term: "ARIA14", desc: "見えるラベルを置けないものに、支援技術向けの名前を与える技法。バッジ付きのアイコンボタンで、装飾のバッジは読み上げず、件数をボタンの名前に含める(例: 「通知(4件)」と読み上げる)のは、これを当てはめた形(AI解釈)。" },
     ],
     stance:
-      "専用のロールはない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げる(バッジ専用ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジはaria-hidden=\"true\"で隠す(AI解釈)。名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
+      "専用の役割はない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(見えるラベルのないものに名前を付ける)。ARIA14は、記号だけの閉じるボタンなどを例に挙げる技法で、バッジ専用ではない。バッジ付きのアイコンボタンに当てはめると、件数をボタンの名前に含め(例: 「通知(4件)」と読み上げる)、バッジ自体は読み上げない(AI解釈)。名前と値を支援技術が取得できるようにすることが、4.1.2の求めに当たる。",
     exceptions:
-      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、aria-labelにもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
+      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、支援技術向けの名前にもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
     scenarios: [
       "アイコンに重ねた件数バッジの意味を支援技術に伝えたい時",
       "ドットのバッジで、色の違いだけで状態を分けてしまうのを避けたい時",
     ],
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値をプログラムで判別できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)。",
     useCases: [
-      "装飾的なバッジ要素にはaria-hidden=\"true\"を設定する",
-      "件数などの意味は親要素(アイコンボタン等)のaria-labelに含める",
+      "装飾のバッジ自体は読み上げさせない",
+      "件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含める",
       "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
       "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
     ],
@@ -3291,7 +3291,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
       { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
-      { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
+      { label: "技法ARIA14: 見えるラベルのないものに名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
       { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
@@ -3301,11 +3301,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="180" height="24" viewBox="0 0 180 24">
           <rect x="1" y="1" width="178" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="90" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-label=&quot;通知(4件)&quot;</text>
+          <text x="90" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">名前「通知(4件)」</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、アクセシブルネームへの畳み込み方を図示",
+    illustrationNote: "視覚デザインの規定はなく、件数をボタンの名前に含める考え方を図示",
   },
   {
     key: "nn",
@@ -3471,7 +3471,7 @@ function CommunicationBadgePage() {
               Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。対応の<strong>一例</strong>は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに含めるという、ARIA14の手法を当てはめた作り方だ(AI解釈)。4.1.2が求めるのは名前・役割・値をプログラムで取得できることで、この作り方を一律に求めているわけではない。
+              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、ARIA14の考え方を当てはめた形だ(AI解釈)。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
@@ -3752,32 +3752,32 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― alert / status / alertdialog の使い分け、WCAG 4.1.3",
-    term: "status・alert(WAI-ARIAのロール)",
+    doc: "WAI-ARIA ― 緊急の警告・控えめな知らせ・警告のダイアログの使い分け、WCAG 4.1.3",
+    term: "控えめな知らせ・緊急の警告(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけalert、緊急でない更新はstatus、最初から表示されているバナーは見出しやラベル付きの領域、モーダルで確認を求めるならalertdialog",
+    position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけすぐ読み上げ、緊急でない更新は控えめに知らせ、最初から出ているバナーは見出しやラベルの付いた領域にし、モーダルで確認を求めるなら警告のダイアログにする",
     size: "バナー専用の数値基準はない。ボタンなどの操作要素には、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     glossary: [
       { term: "色", desc: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどは3:1以上のコントラスト比にする。" },
-      { term: "role=\"alert\" / role=\"status\" / role=\"alertdialog\"", desc: "role=\"alert\"は、新しく出たら読み上げ中の内容を中断してでもすぐ読み上げられる(aria-live=\"assertive\"相当)ライブリージョン。role=\"status\"は、読み上げ中の内容を終えてから読み上げられる(polite相当)。role=\"alertdialog\"はフォーカスを閉じ込め、応答を求めるモーダルのダイアログ(「モーダルダイアログ」ページ参照)。" },
+      { term: "緊急の警告/控えめな知らせ/警告のダイアログ", desc: "緊急の警告は、新しく出たら読み上げ中の内容を中断してでもすぐ読み上げる。控えめな知らせは、読み上げ中の内容を終えてから読み上げる。警告のダイアログは、フォーカスを閉じ込めて応答を求めるモーダル(「モーダルダイアログ」ページ参照)。" },
     ],
     stance:
-      "バナーをひとまとめにrole=\"alert\"にせず、条件で分ける。①操作の結果として新しく出た、緊急の警告だけをrole=\"alert\"にする(新しく出たときに読み上げられる)。②緊急でない更新(「保存しました」など)はrole=\"status\"にする(4.1.3のステータスメッセージ)。③ページを開いたときから表示されているバナーは、ライブリージョンにする必要はなく、見出しやラベル付きの領域として読めるようにする。④モーダルで確認を求めるならrole=\"alertdialog\"にする(「モーダルダイアログ」ページ参照)。",
+      "バナーをひとまとめに緊急の警告にせず、条件で分ける。①操作の結果として新しく出た緊急の警告だけを、すぐ読み上げる(新しく出たときに読み上げられる)。②緊急でない更新(「保存しました」など)は控えめに知らせる(4.1.3のステータスメッセージ)。③ページを開いたときから出ているバナーは、読み上げさせる必要はなく、見出しやラベルの付いた領域として読めるようにする。④モーダルで確認を求めるなら警告のダイアログにする(「モーダルダイアログ」ページ参照)。",
     exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため、重大な内容に限る(多用すると割り込みが多すぎる)。alertは操作のあとなどに動的に出る内容のためのもので、ページを開いたときからある内容には使わない(ライブリージョンは内容が変わったときだけ読み上げられるため。MDNの解説)。",
+      "緊急の警告は読み上げ中の内容を中断するため、重大な内容に限る(多用すると割り込みが多すぎる)。操作のあとなどに新しく出る内容のためのもので、ページを開いたときからある内容には使わない(変化を読み上げる仕組みは、内容が変わったときだけ読み上げるため。MDNの解説)。",
     scenarios: [
-      "操作の結果として新しく出た、緊急の警告を伝えたい時にrole=\"alert\"を使う",
-      "緊急でない更新を伝えたい時はrole=\"status\"を使う",
+      "操作の結果として新しく出た、緊急の警告をすぐ読み上げたい時",
+      "緊急でない更新を控えめに知らせたい時",
       "最初から表示されているバナーは、見出しやラベル付きの領域として読めるようにする",
-      "モーダルで確認を求めたい時はrole=\"alertdialog\"を使う(「モーダルダイアログ」ページ参照)",
+      "モーダルで確認を求めたい時(警告のダイアログ。「モーダルダイアログ」ページ参照)",
     ],
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― ライブリージョンによる読み上げ(4.1.3)、非テキストのコントラスト(1.4.11)、ターゲットサイズ(2.5)。alertかalertdialogかで、フォーカス管理の要件が大きく変わる。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― 変化の読み上げ(4.1.3)、非テキストのコントラスト(1.4.11)、ターゲットサイズ(2.5)。緊急の警告か警告のダイアログかで、フォーカスの扱いが大きく変わる。",
     useCases: [
-      "新しく出た緊急の警告だけrole=\"alert\"にする",
-      "緊急でない更新はrole=\"status\"にする(4.1.3)",
-      "最初から表示されているバナーは、見出しやラベル付きの領域にする(ライブリージョンにしない)",
-      "モーダルで確認を求める警告はrole=\"alertdialog\"にする",
+      "新しく出た緊急の警告だけを、すぐ読み上げる",
+      "緊急でない更新は控えめに知らせる(4.1.3)",
+      "最初から出ているバナーは、見出しやラベルの付いた領域にする(読み上げさせない)",
+      "モーダルで確認を求める警告は、警告のダイアログにする",
     ],
     searchHint: "assertive",
     url: "https://www.w3.org/TR/wai-aria-1.2/#alert",
@@ -3793,11 +3793,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="160" height="30" viewBox="0 0 160 30">
           <rect x="1" y="1" width="158" height="28" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="80" y="19" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">alert / status / 領域</text>
+          <text x="80" y="19" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">警告 / 知らせ / 領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、role=\"alertdialog\"との対比を図示",
+    illustrationNote: "視覚デザインの規定はなく、警告のダイアログとの対比を図示",
   },
   {
     key: "nn",
@@ -3935,7 +3935,7 @@ function CommunicationBannerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知だ。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続ける。W3Cの<strong>role="alert"(新しく出た緊急の警告)とrole="alertdialog"(ダイアログページ)</strong>という2つのロールの対比が、この違いを最も的確に表している。ただし、インラインのバナーをすべてrole="alert"にするわけではない。<strong>緊急でない更新はrole="status"、ページを開いたときから表示されているバナーは見出しやラベル付きの領域</strong>にする(W3C欄を参照)。
+              このページの対象は、<strong>「ダイアログ」(操作をブロックし、閉じるまで先に進めない)</strong>とも<strong>「スナックバー」「トースト」(操作不要で自動的に消える)</strong>とも異なる、<strong>第三の性質</strong>を持つ通知だ。画面遷移や操作はブロックしないものの、ユーザーが対応するか明示的に閉じるまでインラインに残り続ける。W3Cの<strong>「緊急の警告」(新しく出たらすぐ読み上げる)と「警告のダイアログ」(ダイアログページ)</strong>という2つの役割の対比が、この違いを最もよく表している。ただし、インラインのバナーをすべて緊急の警告にするわけではない。<strong>緊急でない更新は控えめな知らせ、ページを開いたときから出ているバナーは見出しやラベルの付いた領域</strong>にする(W3Cの欄を参照)。
             </p>
             <p style={styles.synthesisText}>
               最も大きな点は、<strong>Googleの「Banner」コンポーネントがMaterial Design 2止まりで、M3の公式コンポーネント一覧からは姿を消している</strong>ことだ。M3に後継のコンポーネントはなく、同じ用途には既存のダイアログやスナックバーを使うことになる(AI解釈)。なお、セグメントボタン(M3の公式ページ)やナビゲーションドロワー(Googleの公式ドキュメント「MDC AndroidのNavigation drawer」)は、M3 Expressiveで非推奨・非推奨化が公式に示されている。
@@ -4214,17 +4214,17 @@ const SOURCES = [
     doc: "WCAG 4.1.3 ステータスメッセージ",
     term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "専用のロールはない。検索結果0件などを、フォーカスを移さずに画面を更新して知らせるなら、ステータスメッセージとして支援技術にも伝える(4.1.3)",
+    position: "専用の役割はない。検索結果0件などを、フォーカスを移さずに画面を更新して知らせるなら、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外(検索結果すべてにrole=\"status\"を付けるという意味ではない)。",
+      "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせるなら、ステータスメッセージとして支援技術にも伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外(検索結果をすべて読み上げさせるという意味ではない)。",
     exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索や絞り込みの結果が0件だったことを、画面を見ていない利用者にも伝えたい時",
     ],
     accessibility: "堅牢(Robust) ― 4.1.3は互換性(4.1)の基準。",
     useCases: [
-      "その場で結果を書き換えて件数や「見つかりませんでした」を知らせるなら、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3。フォーカスを移さない場合)",
+      "その場で結果を書き換えて件数や「見つかりませんでした」を知らせるなら、ステータスメッセージとして支援技術にも伝える(4.1.3。フォーカスを移さない場合)",
     ],
     searchHint: "status message",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
@@ -4731,27 +4731,27 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― aria-busy属性(更新中であることを示す)",
-    term: "aria-busy(WAI-ARIAの状態)",
+    doc: "WAI-ARIA ― 更新中であることを示す状態",
+    term: "更新中の状態(WAI-ARIA)",
     color: "#A3821F",
-    position: "専用のロールはないが、更新中であることを支援技術に伝えるaria-busy属性がある",
+    position: "専用の役割はないが、更新中であることを支援技術に伝える仕組みがある",
     size: <NoData>数値基準なし</NoData>,
     glossary: [
-      { term: "aria-busy", desc: "要素が更新中であることを示すグローバルなARIAの状態(既定値はfalse)。trueの間、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違う。" },
+      { term: "更新中の状態", desc: "内容が更新中であることを支援技術に伝える状態。更新中は、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせる仕組みとは役割が違う。" },
     ],
     stance:
-      "aria-busyは、要素が更新中であることを示すグローバルな状態(既定値はfalse)。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱える(MAY)。ライブリージョンの複数の変更を1回の読み上げにまとめたいときは、trueにしておき、更新が終わったらfalseに戻す。",
+      "内容が更新中であることを支援技術に伝える状態を定めている。更新中は、支援技術は中の変更を無視し、更新が終わったときにまとめて1回の更新として扱える(MAY)。複数の変更を1回の読み上げにまとめたいときは、更新中と伝えておき、終わったら戻す。",
     exceptions:
-      "単独でも更新中であることを示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる。",
+      "単独でも更新中であることを示せる。変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる領域を読み込む時",
       "更新途中の状態を支援技術に伝えにくくしたい時(待つかどうかは支援技術による)",
     ],
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 更新中であることをプログラムで伝える(読み上げを必ず防げるとは限らない)。",
     useCases: [
-      "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
-      "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
-      "ライブリージョン(aria-live)に付けて、更新の通知を完了までまとめる(任意)",
+      "読み込み中・骨組みの表示の間は、更新中であることを支援技術に伝える",
+      "実際の内容に差し替わったら、更新中の状態を解く",
+      "変更を読み上げる領域と組み合わせ、更新の知らせを完了までまとめる(任意)",
     ],
     searchHint: "aria-busy",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
@@ -4764,7 +4764,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
         <div style={{ width: 46, height: 6, borderRadius: 3, background: "#F3EBD0" }} />
         <div style={{ width: 32, height: 6, borderRadius: 3, background: "#F3EBD0" }} />
-        <span style={{ fontSize: 8, color: "#A3821F" }}>aria-busy=true</span>
+        <span style={{ fontSize: 8, color: "#A3821F" }}>更新中を伝える</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、更新中/完了の状態遷移を図示",
@@ -4924,7 +4924,7 @@ function CommunicationLoadingPage() {
               Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(スケルトン画面の記事の書き方。「プログレスインジケーター」ページで比べた記事では「10秒以上」と書いている)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝える仕組みを用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。更新が終わったらfalseに戻す。変更を読み上げさせるのはaria-live(ライブリージョン)の役割で、aria-busyは「今は更新中」という状態を示すだけだ。
+              W3Cは、内容が書き換わっている最中であることを<strong>支援技術に伝える仕組み</strong>を用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。変更を読み上げさせるのは別の仕組みの役割で、こちらは「今は更新中」という状態を示すだけだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -5779,35 +5779,35 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― role=\"progressbar\"",
-    term: "progressbar(WAI-ARIAのロール)/ HTMLのprogress要素",
+    doc: "WAI-ARIA ― プログレスバーの役割",
+    term: "プログレスバー(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "進み具合を伝える範囲(range)系のロール。aria-valuenowの有無で確定的/不確定を表す",
-    size: "専用の数値基準はない。値はaria-valuemin(既定0)〜aria-valuemax(既定100)の範囲で設定する。",
+    position: "進み具合を支援技術に伝える役割。今の値を伝えるかどうかで、確定的/不確定を表す",
+    size: "専用の数値基準はない。値は最小(既定0)〜最大(既定100)の範囲で伝える。",
     colorInfo: "色についての専用基準はない。",
     glossary: [
-      { term: "aria-valuenow / aria-valuetext", desc: "aria-valuenowは現在の値。不確定な処理では値がないため、0にせず属性ごと省く。aria-valuetextは、パーセンテージで伝えると誤解を招くときに、支援技術に伝える文言を上書きする属性。" },
+      { term: "今の値/値の言い換え", desc: "今の値は、不確定な処理では存在しないため、0とせず伝えない。パーセンテージで伝えると誤解を招くときは、支援技術に伝える文言を言い換えられる。" },
     ],
     stance:
-      "role=\"progressbar\"には、aria-valuenow(不確定でない限り必須)・aria-valuemin(既定0)・aria-valuemax(既定100)・aria-valuetext(任意)を設定する。aria-labelかaria-labelledbyによるアクセシブルネームが必須。できればこのロールではなく、ネイティブの<progress>要素を使う(量を示すだけなら別の<meter>要素がある。<input type=\"range\">は値を動かすスライダーで、進み具合の表示には使わない)。progressbarの子要素はすべてプレゼンテーション扱いになり、アクセシビリティツリーから除かれる。",
+      "プログレスバーは、今の値(不確定でない限り必須)・最小(既定0)・最大(既定100)・値の言い換え(任意)を支援技術に伝える。何の進み具合かを示す名前が必須。量を示すだけのものや、値を動かすスライダーとは別のもので、進み具合の表示にはスライダーを使わない。中の要素は読み上げの対象にならない。",
     exceptions:
-      "不確定な処理では、aria-valuenowを0などにせず、属性ごと省く。0にすると「進み具合0%」という誤った情報が支援技術に伝わるため。",
+      "不確定な処理では、今の値を0などにせず、伝えない。0にすると「進み具合0%」という誤った情報が支援技術に伝わるため。",
     scenarios: [
-      "確定的な進行状況を伝えたい時はaria-valuenow/min/maxを設定する",
-      "パーセンテージ表示が実態に合わない時はaria-valuetextで文言を上書きする",
-      "可能な場合はrole属性ではなくネイティブの<progress>要素を使う",
+      "確定的な進み具合を、今の値・最小・最大で伝えたい時",
+      "パーセンテージが実態に合わず、伝える文言を言い換えたい時",
+      "進み具合を支援技術にも伝えたい時",
     ],
-    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合をプログラムで支援技術に伝える。アクセシブルネームは必須。",
+    accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合をプログラムで支援技術に伝える。何の進み具合かを示す名前は必須。",
     useCases: [
-      "不確定な処理ではaria-valuenowを省略する(0にしない)",
-      "可能な限りネイティブの<progress>要素を使い、role=\"progressbar\"は代替手段として扱う",
-      "aria-labelまたはaria-labelledbyで必ずアクセシブルネームを与える",
-      "完了や失敗は、ステータスメッセージ(role=\"status\"など)で伝える(4.1.3)",
+      "不確定な処理では今の値を伝えない(0にしない)",
+      "何の進み具合かが分かる名前を付ける",
+      "値の最小・最大と今の値を伝える(確定的な場合)",
+      "完了や失敗は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
     ],
     searchHint: "aria-valuenow",
     url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar",
     refs: [
-      { label: "role=\"progressbar\"", url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar" },
+      { label: "WAI-ARIA: progressbar(プログレスバーの役割)", url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar" },
       { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
       { kind: "mdn", label: "progressbarロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/progressbar_role" },
     ],
@@ -5815,11 +5815,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="150" height="24" viewBox="0 0 150 24">
           <rect x="1" y="1" width="148" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="75" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-valuenow=&quot;60&quot;(省略で不確定)</text>
+          <text x="75" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">今の値 60(伝えないと不確定)</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性の有無による確定/不確定の切り替えを図示",
+    illustrationNote: "視覚デザインの規定はなく、今の値を伝えるかどうかによる確定/不確定の切り替えを図示",
   },
   {
     key: "nn",
@@ -5929,7 +5929,7 @@ const SHAPE_RULES = [
   "できるだけ確定(何%か分かる)の表示にする。途中で時間が分かったら、不確定から確定に切り替える(Apple)",
   "円形とバーの間では切り替えない。形と大きさが違うため、画面が乱れる(Apple)",
   "「読み込み中」のような、あいまいな説明は避ける(Apple)。何も情報のない静的な表示や「二度押ししないで」の注意書きも効果が薄い(NN group)",
-  "支援技術には、確定ならaria-valuenowで今の値を伝え、不確定なら値を付けない(W3C)",
+  "支援技術には、確定なら今の値を伝え、不確定なら値を伝えない(W3C)",
 ];
 
 function ProgressShapes() {
@@ -6000,7 +6000,7 @@ function CommunicationProgressPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>aria-valuenow属性の有無という技術的な表現方法</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
+              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>今の値を支援技術に伝えるかどうか</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
             </p>
             <p style={styles.synthesisText}>
               最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
@@ -6009,7 +6009,7 @@ function CommunicationProgressPage() {
               興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理ではaria-valuenowを<strong>0に設定するのではなく属性ごと省略すべき</strong>という具体的な注意点は、見た目の設計だけでは気づきにくい実装上の落とし穴だ。
+              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理では今の値を<strong>0とせず、伝えない</strong>という注意点は、見た目の設計だけでは気づきにくい落とし穴だ。
             </p>
           </div>
           <ProgressShapes />
@@ -6275,30 +6275,30 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA ― role=\"status\" / role=\"alert\"(ライブリージョン)",
-    term: "status・alert(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
+    doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA(控えめな知らせ・緊急の警告)",
+    term: "控えめな知らせ・緊急の警告(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "内容の緊急度で、控えめな通知はrole=\"status\"、すぐ伝えるべき警告はrole=\"alert\"にする。操作を持つなら時間で消さない(2.2.1)",
+    position: "内容の緊急度で、控えめな通知は読み上げ中の内容の後に、すぐ伝えるべき警告は割り込んで読み上げる。操作を持つなら時間で消さない(2.2.1)",
     size: "専用の数値基準はない。アクションボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどは3:1以上のコントラスト比にする。",
     glossary: [
-      { term: "role=\"status\"", desc: "aria-live=\"polite\"相当のライブリージョン。読み上げ中の内容を終えてから新しい文を読み上げる。確認メッセージなど緊急でない通知向け。" },
-      { term: "role=\"alert\"", desc: "aria-live=\"assertive\"相当。読み上げ中の内容を中断してでもすぐ読み上げる。すぐ気づく必要のある重大なエラーに限る。" },
+      { term: "控えめな知らせ", desc: "読み上げ中の内容を終えてから新しい文を読み上げる。確認メッセージなど緊急でない通知向け。" },
+      { term: "緊急の警告", desc: "読み上げ中の内容を中断してでもすぐ読み上げる。すぐ気づく必要のある重大なエラーに限る。" },
     ],
     scenarios: [
-      "確認メッセージや処理結果を知らせる時(role=\"status\")",
-      "すぐ気づく必要のある重大なエラーの時(role=\"alert\"。多用しない)",
+      "確認メッセージや処理結果を控えめに知らせる時",
+      "すぐ気づく必要のある重大なエラーを割り込んで知らせる時(多用しない)",
     ],
     stance:
-      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度でrole="status"(ポライト)とrole="alert"(アサーティブ)を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
     exceptions:
-      "role=\"alert\"は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(ライブリージョンは知らせるだけで、ボタンへの移動は助けないため)。",
+      "割り込む警告は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(読み上げは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― 中心はライブリージョンの読み上げ(4.1.3 Status Messages)。時間で消える操作(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」。",
+      "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― 中心は知らせの読み上げ(4.1.3 Status Messages)。時間で消える操作(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」。",
     useCases: [
-      "確認・処理完了などの通知にはrole=\"status\"を使う",
-      "即座の対応が必要な重大なエラーにはrole=\"alert\"を使う",
-      "role=\"alert\"の多用を避け、読み上げの割り込みを最小限にする",
+      "確認・処理完了などは控えめに知らせる",
+      "すぐの対応が必要な重大なエラーは割り込んで知らせる",
+      "読み上げの割り込みは最小限にする",
       "「元に戻す」などの操作を持つなら、時間で消さないか、延長・解除できるようにする(2.2.1)",
       "操作ボタンを含む場合は、キーボードや支援技術でボタンにたどり着けるようにする",
     ],
@@ -6315,7 +6315,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="30" viewBox="0 0 140 30">
           <rect x="1" y="1" width="138" height="28" rx="6" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="70" y="19" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="status" / "alert"</text>
+          <text x="70" y="19" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">控えめな知らせ / 緊急の警告</text>
         </svg>
       </div>
     ),
@@ -6473,7 +6473,7 @@ function CommunicationSnackbarPage() {
               Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内している。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけている。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではない</strong>(重要な確認には「モーダルダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>role="status"(控えめ)とrole="alert"(即時)を使い分けるべき</strong>としており、スナックバーの多くはrole="status"に該当する。
+              Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけている。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではない</strong>(重要な確認には「モーダルダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>控えめな知らせと、すぐ読み上げる警告を使い分ける</strong>としており、スナックバーの多くは控えめな知らせに当たる。
             </p>
             <p style={styles.synthesisText}>
               なお、Nielsen Norman Groupの用語集では<strong>「Snackbar (Toast)」として1つの項目</strong>にまとめられており、両者を明確に別コンポーネントとして区別しているのは実質<strong>Google(別API)だけ</strong>だという点も付記しておく。
@@ -6738,14 +6738,14 @@ const SOURCES = [
       "アプリが背面にあり、対応を求めたい時はNotificationにする",
     ],
     stance:
-      "操作への短いフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、今の画面はそのまま見られて操作できる。消えるまでの時間はToast.LENGTH_SHORTなどの指定に従う。公式は、アプリが前面ならSnackbar(操作を持てる)、背面ならNotification(対応を求める)を案内し、Toastは「取り消しなどの操作を伴わない最も簡潔なフィードバック」という位置づけ。",
+      "操作への短いフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、今の画面はそのまま見られて操作できる。消えるまでの時間は、短い・長いの2つの既定値から選ぶ。公式は、アプリが前面ならSnackbar(操作を持てる)、背面ならNotification(対応を求める)を案内し、Toastは「取り消しなどの操作を伴わない最も簡潔なフィードバック」という位置づけ。",
     exceptions:
       "独自レイアウトのカスタムToastビューはAPI30で非推奨になり、標準の文字だけのToastかSnackbarへの置き換えを案内している。行の長さは画面サイズで変わるため、文言はできるだけ短くする。",
     accessibility:
       <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全(AI解釈)。</span>,
     useCases: [
-      "makeText()メソッドで標準的なテキストのみのToastを作成する",
-      "独自レイアウトが必要な場合はカスタムToastビュー(非推奨)ではなくSnackbarを使う",
+      "標準の、文字だけのToastを使う",
+      "独自のレイアウトが要るなら、独自のToast(非推奨)ではなくSnackbarを使う",
       "表示文言はできるだけ短くする(画面サイズにより行の折り返し方が変わるため)",
     ],
     searchHint: "makeText",
@@ -6767,25 +6767,25 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
-    term: "status(WAI-ARIAのロール。4.1.3のステータスメッセージ)",
+    term: "控えめな知らせ(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るならrole=\"status\"が基本",
+    position: "フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るなら、読み上げ中の内容の後に読み上げる控えめな知らせが基本",
     glossary: [
       { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toastの中にアイコンなどがあればかかり得る。" },
     ],
     size: "専用の数値基準はない。操作できる要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる(Toast自体は操作できないため、対象になりにくい)。",
     scenarios: [
-      "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3、role=\"status\")",
+      "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3)",
       "自動で消える通知に、重要な情報を載せてよいか判断したい時",
     ],
     stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに出る知らせ(「保存しました」など)を、支援技術にも伝えること。Webでトースト風の通知を作るなら、role=\"status\"(ポライト)が基本(「スナックバー」ページと同じ)。自動で消える通知は読み上げが間に合わないことがあるため、重要な情報には使わない。",
+      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに出る知らせ(「保存しました」など)を、支援技術にも伝えること。Webでトースト風の通知を作るなら、控えめな知らせとして読み上げるのが基本(「スナックバー」ページと同じ)。自動で消える通知は読み上げが間に合わないことがあるため、重要な情報には使わない。",
     exceptions:
       "2.2.1(期限調節可能・レベルA)は、読んだり操作したりする時間が要る時間制限の基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、「関わり得る」に留める。",
     accessibility:
       "堅牢(Robust) ― 主な根拠は4.1.3(Status Messages)。表示の時間では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
     useCases: [
-      "Webでトースト風の通知を作るならrole=\"status\"を使う",
+      "Webでトースト風の通知は、控えめな知らせとして支援技術にも伝える",
       "自動で消えるため、読み上げが間に合わないことがある。重要な情報の伝達には使わない",
     ],
     searchHint: "without receiving focus",
@@ -6801,7 +6801,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="26" viewBox="0 0 140 26">
           <rect x="1" y="1" width="138" height="24" rx="6" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="status"(4.1.3)</text>
+          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">控えめな知らせ(4.1.3)</text>
         </svg>
       </div>
     ),
@@ -6947,7 +6947,7 @@ function CommunicationToastPage() {
               興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点だ。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言える。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要だ。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るならrole="status"が基本だ。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点だ。
+              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要だ。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るなら、控えめな知らせとして伝えるのが基本だ。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点だ。
             </p>
             <p style={styles.synthesisText}>
               Google公式は、<strong>前面表示中の軽いフィードバックはToast、アクションを持たせたい場合はSnackbar、背面でユーザーに対応を求めたい場合はNotification</strong>という3段階の使い分けを案内している。この「アクションの有無」という軸は、「情報伝達の使い分け」ページで整理した判断軸とも一致する。M3のコンポーネントとして同じ役割を再現したい場合は、<strong>Snackbarでアクションボタンを設定しない構成</strong>が事実上の後継に相当し、Toastという名前のコンポーネントが消えても、その機能自体は失われていない。Appleも同様に「トースト」という専用コンポーネントは持たず、この点は「スナックバー」ページのApple欄と同一の一次情報だ。
@@ -7233,7 +7233,7 @@ const SOURCES = [
       "新機能の紹介など、ページを開いたときに説明を出し続けたい時(永続的なリッチツールチップ)",
     ],
     accessibility:
-      "操作可能(Operable) ― 支援技術の利用者がメッセージを受け取れ、キーボードやスイッチ入力でツールチップを出せること。堅牢(Robust) ― Tooltipロール(またはそれに類するロール)を設定する。リッチツールチップの中のフォーカスは操作できる要素を上から下へたどるが、スクリーンリーダーやキーボードのフォーカスが中に閉じ込められないようにし、ページの残りを直線的に移動できるようにする。",
+      "操作可能(Operable) ― 支援技術の利用者がメッセージを受け取れ、キーボードやスイッチ入力でツールチップを出せること。堅牢(Robust) ― ツールチップであることを支援技術に伝える。リッチツールチップの中のフォーカスは操作できる要素を上から下へたどるが、スクリーンリーダーやキーボードのフォーカスが中に閉じ込められないようにし、ページの残りを直線的に移動できるようにする。",
     useCases: [
       "アイコンだけのボタンなど文字のない要素には、プレーンツールチップでラベルを補う",
       "定義や機能の値など詳しい情報には、リッチツールチップ(小見出し・リンク・2つまでのボタン)を使う",
@@ -7262,17 +7262,17 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
-    term: "tooltip(WAI-ARIAのロール)",
+    term: "ツールチップ(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
     size: "専用の数値基準はない。きっかけになる要素には、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
       { term: "1.4.13 Content on Hover or Focus・レベルAA", desc: "ホバーやフォーカスで出る内容に、ポインターを動かさずに消せる(Escなど)、内容の上にポインターを移しても消えない、離れるか消すまで勝手に消えない、の3点を求める。" },
-      { term: "role=\"tooltip\"", desc: "ツールチップに付けるARIAロール。ツールチップ自体はフォーカスを受け取らず、きっかけの要素からaria-describedbyで参照する。" },
+      { term: "ツールチップの役割", desc: "ツールチップであることを支援技術に伝える役割。ツールチップ自体はフォーカスを受け取らず、きっかけの要素の説明として読み上げられる。" },
     ],
     stance:
-      "主な根拠は1.4.13(ホバー又はフォーカスで表示されるコンテンツ・レベルAA)。ツールチップは、①ポインターを動かさずに消せる(Escキーなど)、②上にポインターを移しても消えない、③ホバーやフォーカスを外すか消すまで勝手に消えない、の3点を満たす。実装の参考として、APGのTooltipパターン(検討中)が、role=\"tooltip\"とaria-describedbyでの関連付け、Escで閉じること、フォーカスはきっかけの要素に留めることを示している。",
+      "主な根拠は1.4.13(ホバー又はフォーカスで表示されるコンテンツ・レベルAA)。ツールチップは、①ポインターを動かさずに消せる(Escキーなど)、②上にポインターを移しても消えない、③ホバーやフォーカスを外すか消すまで勝手に消えない、の3点を満たす。参考として、APGのTooltipパターン(検討中)が、きっかけの要素の説明として結び付けること、Escで閉じること、フォーカスはきっかけの要素に留めることを示している。",
     exceptions:
       "ツールチップ自体はフォーカスを受け取らない。リンクやボタンなど操作できる内容を入れるなら、非モーダルなダイアログを使う。このパターンは、ワーキンググループでまだ合意に至っていない検討中のもの。",
     scenarios: [
@@ -7281,10 +7281,10 @@ const SOURCES = [
       "操作できる内容(リンク・ボタンなど)を入れたいなら非モーダルなダイアログにする",
     ],
     accessibility:
-      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 1.4.13は「知覚可能」。フォーカスとホバーの両方で出すことと、Escapeキーで閉じることは「操作可能」、aria-describedbyでの関連付けは「堅牢」。",
+      "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― 1.4.13は「知覚可能」。フォーカスとホバーの両方で出すことと、Escapeキーで閉じることは「操作可能」、きっかけの要素との結び付けは「堅牢」。",
     useCases: [
       "ポインターを動かさずに消せる(Escなど)・ツールチップの上にポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13)",
-      "role=\"tooltip\"を使い、トリガー要素からaria-describedbyで参照する(APG)",
+      "ツールチップを、きっかけの要素の説明として支援技術に結び付ける(APG)",
       "キーボードのフォーカスとマウスのホバーの両方で出せるようにする",
       "操作できる内容(リンク・ボタンなど)を入れたいなら非モーダルなダイアログにする",
     ],
@@ -7298,7 +7298,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="40" viewBox="0 0 120 40">
           <rect x="20" y="2" width="80" height="16" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="13" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="tooltip"</text>
+          <text x="60" y="13" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">説明として結び付ける</text>
           <polygon points="55,18 65,18 60,24" fill="none" stroke="#A3821F" strokeWidth="1.2" />
         </svg>
       </div>
@@ -7424,7 +7424,7 @@ const PLAIN_RICH_ROWS = [
   {
     key: "wcag",
     name: "W3C",
-    plain: "role=\"tooltip\" ― 非対話的な補足情報のみを想定するパターンとして定義",
+    plain: "ツールチップ ― 操作できる要素を持たない補足の情報だけを想定するパターンとして定義",
     rich: "「リッチツールチップ」に相当するパターンは定義していない ― 対話的な内容(リンク・ボタン等)を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきとしている",
   },
   {
@@ -7460,7 +7460,7 @@ function PlainRichTable() {
         </table>
       </div>
       <p style={styles.prTableNote}>
-        Googleは「プレーン/リッチ」を公式に2種類のコンポーネントとして定義しているが、Appleは「ヘルプタグ」と「TipKit」という<strong>別フレームワーク</strong>として実装が分かれている。一方W3C・Nielsen Norman Groupは、ツールチップという1つのパターンに<strong>リッチな内容を持ち込むこと自体に慎重</strong>で、対話的・複雑な内容は非モーダルダイアログや可視化されたUIへ逃がすべきという立場を取っている。<strong>Googleのリッチツールチップ(ボタンやリンクを含められる)と、W3Cのrole="tooltip"(操作できる要素を持たない補足の説明)は別のもの</strong>で、名前が同じでも同じコンポーネントとして扱わない(AI解釈)。
+        Googleは「プレーン/リッチ」を公式に2種類のコンポーネントとして定義しているが、Appleは「ヘルプタグ」と「TipKit」という<strong>別フレームワーク</strong>として実装が分かれている。一方W3C・Nielsen Norman Groupは、ツールチップという1つのパターンに<strong>リッチな内容を持ち込むこと自体に慎重</strong>で、対話的・複雑な内容は非モーダルダイアログや可視化されたUIへ逃がすべきという立場を取っている。<strong>Googleのリッチツールチップ(ボタンやリンクを含められる)と、W3Cのツールチップ(操作できる要素を持たない補足の説明)は別のもの</strong>で、名前が同じでも同じコンポーネントとして扱わない(AI解釈)。
       </p>
     </div>
   );
@@ -8488,7 +8488,7 @@ const SOURCES = [
     stance:
       "詳細を必要になるまで隠しておくために使う。よく使うコントロールを上に置いていつも見せ、高度な機能は既定で隠すと、選択肢に圧倒されずに大事な情報を見つけられる。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にし、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付ける。",
     exceptions:
-      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOS・visionOSではSwiftUIのDisclosureGroupで使え、tvOS・watchOSでは使えない。",
+      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOS・visionOSで使え、tvOS・watchOSでは使えない。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -8537,22 +8537,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
     term: "Accordion(APGのパターン)",
     color: "#A3821F",
-    position: "見出し要素(h2など)の中にボタンを置き、aria-expanded・aria-controlsで開閉の状態と対応するパネルを示す",
+    position: "見出しをボタンとして押せるようにし、開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える",
     size: "専用の数値基準はない。見出しのボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。隠れているときは右向き、見えているときは下向きの矢印などで状態を示す例がある。",
     glossary: [
-      { term: "aria-expanded", desc: "見出しのボタンの状態を示す属性。パネルが見えているときはtrue、隠れているときはfalse。" },
-      { term: "aria-controls", desc: "ボタンが、どのパネルを開閉するかを示す属性。値はパネルのIDにする。" },
+      { term: "開閉の状態", desc: "見出しのボタンが、パネルを開いているか閉じているかを支援技術に伝える。" },
+      { term: "対応するパネル", desc: "ボタンが、どのパネルを開閉するかを支援技術に伝える。" },
     ],
     stance:
-      "縦に並んだ見出しが、それぞれ対応する内容(パネル)を表示・非表示にする(APGのAccordion Pattern)。見出しの文字は、見出し要素(h2など、ページの構成に合ったレベル)の中のbutton要素(またはbuttonの役割の要素)にし、見出しの中にはそのボタンだけを入れる。パネルが見えているときはaria-expanded=\"true\"、隠れているときは\"false\"にし、aria-controlsでパネルのIDを指す。ネイティブの<button>要素を使うなら、role=\"button\"を足す必要はない。",
+      "縦に並んだ見出しが、それぞれ対応する内容(パネル)を表示・非表示にする(APGのAccordion Pattern)。見出しはページの構成に合ったレベルの見出しとし、その見出し自体をボタンとして押せるようにする。パネルが見えているか隠れているかと、どのパネルを開閉するかを支援技術に伝える。",
     exceptions:
-      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンにaria-disabled=\"true\"を付ける。パネルにregionの役割を付けてもよいが、同時に開けるパネルが6個程度を超えるなら、ランドマークが増えすぎるため避ける。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になる。",
+      "パネルを閉じられないアコーディオンでは、開いているパネルのボタンを、押せないことが伝わる状態にする。パネルを1つの領域として示してもよいが、同時に開けるパネルが6個程度を超えるなら、領域の目印が増えすぎるため避ける。1つだけを開閉するなら、Disclosure(Show/Hide)パターンが参考になる。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 開閉の状態は、aria-expandedで支援技術に伝える(4.1.2)。",
+      "操作可能(Operable)・堅牢(Robust) ― 開閉の状態を支援技術に伝える(4.1.2)。",
     useCases: [
-      "見出し要素(h2など)の中にbutton要素を置き、そのボタンで開閉する",
-      "ボタンにaria-expanded(true/false)とaria-controls(パネルのID)を付ける",
+      "見出しをボタンとして押せるようにし、それで開閉する",
+      "開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える",
     ],
     searchHint: "aria-expanded",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/accordion/",
@@ -8564,11 +8564,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="60" viewBox="0 0 120 60">
           <rect x="1" y="1" width="118" height="16" rx="3" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="12" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-expanded="true"</text>
+          <text x="60" y="12" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">開いている状態を伝える</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性・役割の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、状態・役割の考え方を図示",
   },
   {
     key: "nn",
@@ -8730,7 +8730,7 @@ function ContainmentAccordionPage() {
               このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupだ。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っている。
             </p>
             <p style={styles.synthesisText}>
-              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出し要素の中にボタンを置き、aria-expanded(表示時true/非表示時false)とaria-controlsで開閉の状態と対応するパネルを示す</strong>という作り方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
             </p>
             <p style={styles.synthesisText}>
               <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1時代には「Expansion panel」という独立コンポーネントがあったが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされている。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情だ。
@@ -9020,24 +9020,24 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
-    term: "dialog(モーダルの場合。専用のロールなし)",
+    term: "ダイアログ(モーダルの場合。専用の役割なし)",
     color: "#A3821F",
-    position: "専用のロール・パターンはなく、モーダルか非モーダルかで当てはめる考え方が変わる",
+    position: "専用の役割・パターンはなく、モーダルか非モーダルかで当てはめる考え方が変わる",
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。グラバーや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      "後ろの操作を完全に遮るモーダルなシートには、WAI-ARIAのDialog (Modal) Patternが合う。role=\"dialog\"とaria-modal=\"true\"を設定し、Tab/Shift+Tabでシートの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにする。2.5.7(ドラッグ動作・レベルAA)により、ドラッグしないと高さを変えられない作りにせず、グラバーを押すと高さが切り替わる、などドラッグ以外の方法も用意する。",
+      "後ろの操作を完全に遮るモーダルなシートには、WAI-ARIAのDialog (Modal) Patternが合う。ダイアログであることと後ろを操作できないことを支援技術に伝え、Tab/Shift+Tabでシートの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにする。2.5.7(ドラッグ動作・レベルAA)により、ドラッグしないと高さを変えられない作りにせず、グラバーを押すと高さが切り替わる、などドラッグ以外の方法も用意する。",
     scenarios: [
       "後ろの操作を完全に遮るモーダルなシートを作る時",
       "後ろの内容を操作できるまま残す非モーダルなシート(Googleの「標準」に相当)を作る時",
     ],
     exceptions:
-      "後ろを完全に遮り、見た目でも覆っていないなら、aria-modal=\"true\"を設定しない。",
+      "後ろを完全に遮り、見た目でも覆っていないなら、モーダルとして伝えない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― モーダルならフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)、非モーダルなら後ろの操作を妨げない実装。ドラッグ以外の操作方法(2.5.7)も「操作可能」の基準。",
     useCases: [
-      "後ろを完全に止めるシートにはrole=\"dialog\"+aria-modal=\"true\"を使う",
-      "後ろを操作できるシートではaria-modalを設定しない",
+      "後ろを完全に止めるシートは、モーダルのダイアログとして支援技術に伝える",
+      "後ろを操作できるシートは、モーダルとして伝えない",
       "ドラッグしなくても高さを変えられるようにする(グラバーのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
@@ -9050,7 +9050,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="38" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal?</text>
+          <text x="60" y="38" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルか?</text>
         </svg>
       </div>
     ),
@@ -9247,7 +9247,7 @@ function ContainmentBottomSheetPage() {
               このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>だ。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言える。
             </p>
             <p style={styles.synthesisText}>
-              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現する。
+              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも同じ区別を持ち、<strong>モーダルであることを支援技術に伝えるかどうか</strong>でこの違いを表す。
             </p>
             <p style={styles.synthesisText}>
               Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示している。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示している。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールだ。
@@ -9529,26 +9529,25 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― article role",
-    term: "article(WAI-ARIAのロール。カードの決まりはない)",
+    doc: "WAI-ARIA ― 記事の役割",
+    term: "記事(WAI-ARIAの役割。カードの決まりはない)",
     color: "#A3821F",
-    position: "W3Cはカードを定めていない。カードの内容が単独でも意味を持つ記事・投稿などなら、article要素(role=\"article\")が一つの例(AI解釈)",
+    position: "W3Cはカードを定めていない。カードの内容が単独でも意味を持つ記事・投稿などなら、「記事」の役割で示すのが一つの例(AI解釈)",
     size: "専用の数値基準はない。押せるカードにも一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      "articleロールは、ページの中で独立した領域(ブログ記事・フォーラムの投稿・文書の中の自己完結したセクションなど)を示す。ラベルはaria-labelledby(タイトル要素を参照)かaria-labelで付ける。articleは入れ子にもできる。",
+      "「記事」の役割は、ページの中で独立した領域(ブログ記事・フォーラムの投稿・文書の中の自己完結したセクションなど)を示す。名前はタイトルを使って付ける。記事は入れ子にもできる。",
     scenarios: [
-      "カードを、見出しを持つ独立したセクションとして示したい場面",
+      "カードを、見出しを持つ独立したまとまりとして示したい場面",
     ],
     exceptions:
-      "articleはランドマークではなく文書構造のロール(ナビゲーションの目印にはならない)。HTML5のarticle要素があるなら、role属性を書かずにHTMLの意味を優先する。",
+      "「記事」はページの領域の目印ではなく、文書の構造の役割(ナビゲーションの目印にはならない)。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― article要素・ロールによる構造の明示、aria-labelledby/aria-labelによるラベル付けが中心。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― 構造を示すことと、タイトルを使った名前付けが中心。",
     useCases: [
-      "カードの内容が単独でも意味を持つ記事・投稿などなら、article要素を検討する(一つの例・AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別のHTMLを選ぶ",
+      "カードの内容が単独でも意味を持つ記事・投稿などなら、「記事」として示すことを検討する(一つの例・AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別の構造にする",
       "カード全体を押せるなら、中に別のボタンやリンクを入れ子にしない(支援技術で正しく扱えないため)",
-      "カードのタイトル要素をaria-labelledbyで参照するか、aria-labelでラベル付けする",
-      "article要素があるならrole属性を書かず、HTMLの意味を優先する",
+      "カードのタイトルを、カードの名前として支援技術に伝える",
     ],
     searchHint: "independent part",
     url: "https://www.w3.org/TR/wai-aria-1.2/#article",
@@ -9559,7 +9558,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="38" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="article"</text>
+          <text x="60" y="38" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">記事として示す</text>
         </svg>
       </div>
     ),
@@ -9713,7 +9712,7 @@ function ContainmentCardPage() {
               Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けだ。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cはカードについて定めていない。<strong>articleロール(独立した構成をなす領域)</strong>は、カードの内容が単独でも意味を持つ記事・投稿などの場合に使える<strong>一つの例</strong>だ(AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別のHTMLを選ぶ。また、<strong>カード全体を押せるようにするなら、中に別のボタンやリンクを入れ子にしない</strong>のが安全だ(支援技術で正しく扱えないため)。これは、NN groupが定義する「完全な情報ではなく詳細への入り口となる要約」という性質と、意味的に近い関係にある。
+              W3Cはカードについて定めていない。<strong>「記事」の役割(独立した領域)</strong>は、カードの内容が単独でも意味を持つ記事・投稿などの場合に使える<strong>一つの例</strong>だ(AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別の構造にする。また、<strong>カード全体を押せるようにするなら、中に別のボタンやリンクを入れ子にしない</strong>のが安全だ(支援技術で正しく扱えないため)。これは、NN groupが定義する「完全な情報ではなく詳細への入り口となる要約」という性質と、意味的に近い関係にある。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -9968,26 +9967,26 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG Carousel Pattern / WCAG 2.2.2 Pause, Stop, Hide / WAI Carousels Tutorial",
-    term: "Carousel(APGのパターン。aria-roledescription=\"carousel\")",
+    term: "Carousel(APGのパターン)",
     color: "#A3821F",
     position: "自動で回るカルーセルを誰でも止められ、回転に振り回されないことを中心に求める。見た目の決まりは持たない",
     size: "カルーセル専用の時間の基準はない。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要。",
     colorInfo: "必要な操作コンポーネントは、前へ・次へのボタンと、任意でスライドを選ぶコンポーネント(点など)。自動で回るなら、さらに回転の停止・再開のボタンを置き、キーボードのフォーカスがカルーセルに入ったら回転を止め(利用者が求めるまで再開しない)、マウスを乗せている間も止める。停止ボタンは、カルーセルの中でTabの順番の最初に置く。",
     glossary: [
       { term: "2.2.2 Pause, Stop, Hide・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロール、自動更新される情報を、止めたり隠したりできることを求める基準。" },
-      { term: "aria-roledescription", desc: "要素の役割の呼び名を変える属性。カルーセル全体にcarousel、各スライドにslideを設定し、スクリーンリーダーにカルーセルであることを伝える。" },
-      { term: "ライブリージョン(aria-live)", desc: "中身が変わったときにスクリーンリーダーが読み上げる領域。自動で回っている間はoff、利用者が送るときはpoliteにする。" },
+      { term: "役割の呼び名", desc: "全体を「カルーセル」、各スライドを「スライド」と呼んで、スクリーンリーダーにカルーセルであることを伝える。" },
+      { term: "変化の読み上げ", desc: "中身が変わったときにスクリーンリーダーが読み上げる仕組み。自動で回っている間は読み上げず、利用者が送ったときは控えめに読み上げる。" },
     ],
     stance:
       "見えていないスライドの隠し方を誤ったり、知らないうちに回ったりすると、スクリーンリーダーの利用者はスライド1の続きのつもりで、前触れなくスライド2を聞くことになり混乱する。動きに気を取られる人や読むのに時間がかかる人も、止められれば読める。",
     exceptions:
-      "構造として、カルーセル全体をregionかgroupにしてaria-roledescription=\"carousel\"を付け、ラベルには「カルーセル」の語を含めない(役割の呼び名と重複するため)。各スライドに名前がなければ「3/10」のように番号と総数を名前にする。停止ボタンのラベルは「スライドの回転を停止」「開始」のように動作に合わせて変える。前へ・次へを押してもフォーカスは動かさず、何度でも押せるようにする。スライドを選ぶ点を1つずつボタンにすると、Tabで止まる場所が増え、キーボードの利用者には最も不便な形になる。APGの例では、OSで「視差効果を減らす/動きを減らす」が設定されていれば自動回転を最初から止め、停止ボタンはどの入力の人にも見えるよういつも出している。",
+      "構造として、カルーセル全体を1つのまとまりにして「カルーセル」という呼び名で伝え、名前には「カルーセル」の語を含めない(呼び名と重なるため)。各スライドに名前がなければ「3/10」のように番号と総数を名前にする。停止ボタンのラベルは「スライドの回転を停止」「開始」のように動作に合わせて変える。前へ・次へを押してもフォーカスは動かさず、何度でも押せるようにする。スライドを選ぶ点を1つずつボタンにすると、Tabで止まる場所が増え、キーボードの利用者には最も不便な形になる。APGの例では、OSで「視差効果を減らす/動きを減らす」が設定されていれば自動回転を最初から止め、停止ボタンはどの入力の人にも見えるよういつも出している。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― 2.2.2(止められる)とキーボードでの操作は「操作可能」、役割の呼び名やライブリージョンで状態を伝えることは「堅牢」に関わる。",
+      "操作可能(Operable)・堅牢(Robust) ― 2.2.2(止められる)とキーボードでの操作は「操作可能」、役割の呼び名や変化の読み上げで状態を伝えることは「堅牢」に関わる。",
     useCases: [
       "自動で回すなら、停止・再開のボタンをカルーセルの最初に置く",
       "フォーカスが入ったら・マウスを乗せたら回転を止める",
-      "スライドを包む要素は、自動回転中はaria-live=\"off\"、そうでなければ\"polite\"",
+      "自動回転中はスライドの変化を読み上げず、利用者が送ったときは控えめに読み上げる",
     ],
     searchHint: "Stops rotating when keyboard focus enters",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/",
@@ -10122,7 +10121,7 @@ const CAROUSEL_ROWS = [
     cells: [
       { mark: "―", note: "" },
       { mark: "―", note: "" },
-      { mark: "◯", note: "carousel/slideの役割の呼び名、aria-live" },
+      { mark: "◯", note: "カルーセル/スライドの役割の呼び名、変化の読み上げ" },
       { mark: "―", note: "" },
     ],
   },
@@ -10295,7 +10294,7 @@ const DEVICE_ROWS = [
   {
     aspect: "送る操作",
     sp: "スワイプが中心。ただしスワイプは軌跡のあるジェスチャーなので、前へ・次へのボタンなど1回のタップでできる代わりも用意する(W3C 2.5.1・APG)。iOSのページコントロールは点の左右をタップ/なぞる(Apple)",
-    pc: "前へ・次へのボタンをクリック、キーボードはTabでボタンに移ってEnter(APG)。macOSはページコントロールに対応していない(Apple)",
+    pc: "前へ・次へのボタンをクリック、キーボードはTabでボタンに移って決定(APG)。macOSはページコントロールに対応していない(Apple)",
   },
   {
     aspect: "自動送り",
@@ -10770,7 +10769,7 @@ const SOURCES = [
     exceptions:
       "操作は2つまで。1つなら確認、2つなら確認と却下にする。確認ボタンは末尾に置く。中で選択肢を選ばせるなら、選ぶまで確認ボタンを押せなくするが、閉じる操作は無効にしない(「削除しますか?」のような単純な確認では、確認ボタンを無効にしない)。否定の操作を肯定の操作の右(末尾側)に置かない。「詳細を見る」のような3つ目の操作は、作業が終わらないままダイアログを離れてしまうため勧めず、インラインで開いて情報を示す。確認のラベルは「送信」「作成」など次に起きることがはっきり分かる語にし、「完了」「OK」「閉じる」のような曖昧な語は避ける。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― 出たら、フォーカスは自動でダイアログの中の最初の操作要素に移動する。アクセシビリティラベルは通常タイトルと同じで、Webの基本ダイアログにはalertdialogロールを与えるとする(W3Cの区別では、削除の確認のようにすぐ応答を求める警告がalertdialog、それ以外はdialog。W3Cの欄を参照)。文字を200%に拡大しても見出しが4行以内に収まるよう短くする。",
+      "操作可能(Operable)・理解可能(Understandable) ― 出たら、フォーカスは自動でダイアログの中の最初の操作要素に移動する。アクセシビリティラベルは通常タイトルと同じで、Webの基本ダイアログは警告のダイアログとして伝えるとする(W3Cの区別では、削除の確認のようにすぐ応答を求めるものが警告のダイアログ、それ以外は通常のダイアログ。W3Cの欄を参照)。文字を200%に拡大しても見出しが4行以内に収まるよう短くする。",
     useCases: [
       "重要な情報・判断・1つの作業の確認には基本ダイアログを使う(優先度の低い情報にはスナックバー)",
       "操作は2つまで(確認+却下、または確認のみ)にし、確認ボタンを末尾に置く",
@@ -10796,27 +10795,27 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
-    term: "dialog・alertdialog(WAI-ARIAのロール)/ HTMLのdialog要素",
+    term: "ダイアログ・警告のダイアログ(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"dialog\" + aria-modal=\"true\"で示す、後ろの内容を操作できなくして重ねて出す領域",
+    position: "後ろの内容を操作できなくして重ねて出す領域。ダイアログであることと、後ろを操作できないことを支援技術に伝える",
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
-      { term: "aria-modal", desc: "見た目で覆うこと(スクリムなど)と操作を止めることの両方を実装したときだけtrueにする属性。ダイアログの外の内容をスクリーンリーダーからも隠す。" },
+      { term: "モーダルであること", desc: "見た目で覆うこと(スクリムなど)と操作を止めることの両方があるときだけ、支援技術にモーダルと伝える。伝えると、ダイアログの外の内容はスクリーンリーダーからも隠れる。" },
     ],
     stance:
-      "後ろの内容を操作できなくして重ねて出す領域。role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyかaria-labelでのラベル付けが必須。フォーカスはダイアログの中に閉じ込め、Tabキーで循環させる。削除の確認のようにすぐ応答を求める警告にはalertdialog(APGのAlert Dialogパターン)、それ以外はdialogを使う。",
+      "後ろの内容を操作できなくして重ねて出す領域。ダイアログであること、モーダルであること、名前(タイトル)を支援技術に伝えることが必須。フォーカスはダイアログの中に閉じ込め、Tabキーで循環させる。削除の確認のようにすぐ応答を求めるものは警告のダイアログ(APGのAlert Dialogパターン)、それ以外は通常のダイアログにする。",
     scenarios: [
-      "見た目で覆うことと操作を止めることの両方を実装したら、aria-modal=\"true\"を設定する",
+      "見た目で覆うことと操作を止めることの両方があるなら、モーダルと伝える",
       "リストや表など複雑な内容を含むダイアログで、最初のフォーカスの位置を決める時",
     ],
     exceptions:
-      "最初のフォーカスの位置は内容で変える。リストや表など複雑な内容ならtabindex=\"-1\"を付けた最初の静的な要素に、内容が多いならスクロールで見えなくなるのを避けるためタイトルに置く。aria-describedbyは説明が単純な場合だけ使い、複雑な構造なら省く。",
+      "最初のフォーカスの位置は内容で変える。リストや表など複雑な内容なら最初の文に、内容が多いならスクロールで見えなくなるのを避けるためタイトルに置く。ダイアログの説明を読み上げさせるのは説明が単純な場合だけにし、複雑な構造なら省く。",
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログの中に閉じ込め、Shift+Tabで逆順に循環させる。Escapeキーで閉じられるようにし、閉じたら通常、開いた要素にフォーカスを戻す。",
     useCases: [
-      "role=\"dialog\"とaria-modal=\"true\"を設定し、見た目で覆うことと操作を止めることを両方実装する",
-      "タイトル要素をaria-labelledbyで参照するか、aria-labelでラベル付けする",
+      "ダイアログであることとモーダルであることを伝え、見た目で覆うことと操作を止めることを両方行う",
+      "タイトルを、ダイアログの名前として支援技術に伝える",
       "Tabキーでフォーカスをダイアログの中に閉じ込め、Escapeで閉じられるようにする",
     ],
     searchHint: "Escape",
@@ -10829,8 +10828,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal="true"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダル</text>
         </svg>
       </div>
     ),
@@ -11010,7 +11009,7 @@ function ContainmentDialogPage() {
               ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っている。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にある。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致している。
+              W3Cは、<strong>フォーカスの扱い(ダイアログであること・モーダルであることを伝える・Tabキーでの閉じ込め・Escapeキーで閉じる)</strong>を具体的に定めており、Googleの「最初のフォーカスは最初の操作要素に自動で移動する」という挙動と一致している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -11294,15 +11293,15 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
-    term: "dialog(WAI-ARIAのロール。大きさによる区別なし)",
+    term: "ダイアログ(WAI-ARIAの役割。大きさによる区別なし)",
     color: "#A3821F",
-    position: "role=\"dialog\" + aria-modal=\"true\"で示す、後ろの内容を操作できなくして重ねて出す領域。大きさによる区別はない",
+    position: "後ろの内容を操作できなくして重ねて出す領域(ダイアログ・モーダルであることを支援技術に伝える)。大きさによる区別はない",
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      "WAI-ARIAのDialog (Modal) Patternは、見た目の大きさ(画面全体か、中央の小さいものか)で区別しない。「モーダルダイアログ」ページの基本ダイアログと同じ実装の要件が当てはまる。",
+      "WAI-ARIAのDialog (Modal) Patternは、見た目の大きさ(画面全体か、中央の小さいものか)で区別しない。「モーダルダイアログ」ページの基本ダイアログと同じ要件が当てはまる。",
     scenarios: [
-      "画面全体を占めるダイアログでも、基本ダイアログと同じrole=\"dialog\"・aria-modal=\"true\"・フォーカストラップを実装する",
+      "画面全体を占めるダイアログでも、基本ダイアログと同じく、ダイアログ・モーダルであることを伝え、フォーカスを閉じ込める",
       "全画面ダイアログの上に別のダイアログを重ねる時、フォーカストラップの対象を最前面に正しく移す",
     ],
     exceptions:
@@ -11310,7 +11309,7 @@ const SOURCES = [
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログの中に閉じ込め、Escapeキーで閉じられるようにし、閉じたら開いた要素にフォーカスを戻す(「モーダルダイアログ」ページと共通)。",
     useCases: [
-      "role=\"dialog\"とaria-modal=\"true\"を設定する(基本ダイアログと同じ実装)",
+      "ダイアログ・モーダルであることを支援技術に伝える(基本ダイアログと同じ)",
       "ダイアログを重ねるなら、フォーカストラップの対象を最前面に正しく移す",
       "Escapeキーで閉じ、閉じたら開いた要素にフォーカスを戻す",
     ],
@@ -11323,8 +11322,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="0" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal="true"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダル</text>
         </svg>
       </div>
     ),
@@ -11492,7 +11491,7 @@ function ContainmentFullscreenDialogPage() {
               最も踏み込んだ主張をしているのはNielsen Norman Groupだ。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしている。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になる。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確だ。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じrole="dialog"・aria-modal・フォーカストラップの要件がそのまま適用され、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
+              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じ要件(ダイアログ・モーダルであることを伝える、フォーカスの閉じ込め)がそのまま当てはまり、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -11772,27 +11771,27 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
-    term: "list・listitem(WAI-ARIAのロール)/ HTMLのul・ol・li",
+    doc: "WCAG 1.3.1 / WAI-ARIA ― リストの役割 / APG Listbox",
+    term: "リスト・リスト項目(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で示す、操作しない項目の集まり",
+    position: "操作しない項目の集まりを、リストとして支援技術に伝える",
     size: "専用の数値基準はない。項目の中の操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。区切り線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      <>listロールは0個以上のlistitemだけを含む入れ物で、支援技術にリストの構造を伝える。<Hl>可能な限りHTMLのセマンティック要素</Hl>(順序がない場合はul+li、順序が重要な場合はol+li)を優先し、ARIAのlist/listitemは、HTMLを直接変えられない場合やJavaScriptで後からアクセシビリティを加える場合だけに使う。</>,
+      <>リストは0個以上の項目だけを含む入れ物で、支援技術にリストの構造を伝える。<Hl>何項目あり今どれかが伝わるよう、一覧は一覧として構造で示し</Hl>、順序に意味があるかどうかも区別して伝える。</>,
     scenarios: [
-      "支援技術にリストの構造をはっきり伝えたい場面(特にHTMLを直接変えられない場合)",
+      "支援技術にリストの構造をはっきり伝えたい場面",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
     ],
     exceptions:
-      "ARIAのlistは順序あり/なしを区別しないため、順序に意味があるならHTMLのol要素を使う。タブとして働くリストには、list/listitemではなくtablist/tab/tabpanelを使う。",
+      "順序に意味があるなら、順序のあるリストとして伝える。タブとして働くリストは、リストではなくタブとして伝える。",
     accessibility:
-      "知覚可能(Perceivable) ― 中心は、見た目で伝わる一覧の構造を支援技術にも伝えること(1.3.1 情報及び関係性)。HTMLの意味のある要素(ul/ol/li)を使えば構造は自動で伝わる。ARIAはHTMLを直接変えられない場合の代わり。",
+      "知覚可能(Perceivable) ― 中心は、見た目で伝わる一覧の構造を支援技術にも伝えること(1.3.1 情報及び関係性)。一覧を一覧として構造で示せば、項目の数や位置も伝わる。",
     useCases: [
-      "できるだけHTMLのul/ol + liを使い、ARIAのlist/listitemはHTMLを変えられない場合の代わりにする",
-      "順序に意味があるなら、ul(順序なし)ではなくol(順序あり)を使う",
-      "タブとして働くリストには、list/listitemではなくtablist/tab/tabpanelを使う",
-      "項目を選べるリストはAPGのListboxパターン(role=\"listbox\"/\"option\")で作る。list/listitem(ul/ol/li)は読むだけの一覧用",
+      "見た目が一覧なら、構造でも一覧として伝える",
+      "順序に意味があるなら、順序のあるリストとして伝える",
+      "タブとして働くリストは、リストではなくタブとして伝える",
+      "項目を選べるリストは、選択肢の一覧(APGのListboxパターン)として伝える。リストは読むだけの一覧用",
     ],
     searchHint: "listitem",
     url: "https://www.w3.org/TR/wai-aria-1.2/#list",
@@ -11807,8 +11806,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="list"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="listitem"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">リスト</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">リスト項目</text>
         </svg>
       </div>
     ),
@@ -11965,7 +11964,7 @@ function ContainmentListPage() {
               Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点だ。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されている。
+              W3Cが強調するのは、<strong>見た目の一覧を、構造でも一覧として支援技術に伝える</strong>こと(1.3.1)だ。順序に意味があるかどうかも区別して伝える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -12265,7 +12264,7 @@ function ContainmentOverviewPage() {
               モーダルは作業を止めるため、<strong>本当に必要な場面に絞る</strong>ことは、AppleとNN groupの2系列が明記している。Appleはモーダルの作業を単純・短く保つよう求め、NN groupは複数ステップの作業はモーダルにせず普通のページにするよう勧めている(詳しくは各ページ)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならrole="dialog"とaria-modal="true"、フォーカスの閉じ込めと、閉じた後に元の場所へ戻すこと</strong>を共通の作り方としている。見た目の種類が違っても、モーダルかどうかで作り方が決まる。
+              W3Cはオーバーレイの種類ごとの区別は設けず、<strong>モーダルならダイアログ・モーダルであることを支援技術に伝え、フォーカスを閉じ込め、閉じた後に元の場所へ戻すこと</strong>を共通の考え方としている。見た目の種類が違っても、モーダルかどうかで扱いが決まる。
             </p>
           </div>
 
@@ -12431,29 +12430,29 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
-    term: "dialog(専用のロールなし)",
+    term: "ダイアログ(専用の役割なし)",
     color: "#A3821F",
-    position: "シート本体はdialogとして作り、ラベルとフォーカスの移動を設計する。背景を操作できないようにするときだけaria-modal=\"true\"",
+    position: "シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。背景を操作できないときだけモーダルと伝える",
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
-      { term: "aria-modal", desc: "ダイアログが表示されている間、背景の内容を操作できないことを支援技術に伝える属性。背景を操作できる(非モーダルの)シートには付けない。" },
-      { term: "aria-haspopup", desc: "シートを開く側のボタンに付けて、どの種類のポップアップ(menu/listbox/tree/grid/dialog)を開くかを支援技術に伝える属性。シート本体の作り方ではない。" },
+      { term: "モーダルであること", desc: "ダイアログが出ている間、背景の内容を操作できないことを支援技術に伝える。背景を操作できる(非モーダルの)シートでは伝えない。" },
+      { term: "開く側のボタン", desc: "シートを開くボタンで、何(メニュー・一覧・ダイアログなど)が開くかを支援技術に伝えることもできる。シート本体の扱いではない。" },
     ],
     stance:
-      "W3Cはサイドシートを定めていないため、シート本体はAPGのDialogパターンを参考にdialogとして作るのが基本(AI解釈)。role=\"dialog\"とaria-labelledby(またはaria-label)で名前を付け、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できないようにする(モーダルの)シートだけにaria-modal=\"true\"を付ける。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けることもできる(開く側の属性で、シート本体の作り方ではない)。",
+      "W3Cはサイドシートを定めていないため、シート本体はAPGのDialogパターンを参考にダイアログとして扱うのが基本(AI解釈)。ダイアログであることと名前を伝え、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。背景を操作できない(モーダルの)シートだけ、モーダルと伝える。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)。開く側のボタンで、ダイアログが開くことを伝えることもできる。",
     scenarios: [
-      "シート本体をdialogとして作り、名前とフォーカスの移動を設計したい時",
-      "後ろの内容を操作できるまま残したいなら、aria-modalを付けない非モーダルとして扱う",
+      "シート本体をダイアログとして扱い、名前とフォーカスの移動を設計したい時",
+      "後ろの内容を操作できるまま残したいなら、モーダルと伝えない非モーダルとして扱う",
     ],
-    exceptions: "APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。ARIAの属性だけでは動かないため、キーボードでの開閉・フォーカスの移動はJavaScriptで実装する。",
+    exceptions: "APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。支援技術に役割を伝えるだけでは動かないため、キーボードでの開閉・フォーカスの移動も設計する。",
     accessibility:
       "堅牢(Robust) ― 名前・役割・状態を支援技術に伝えること(4.1.2)が中心。フォーカスの移動やキーボードでの開閉は「操作可能」(2.1.1・2.4.3)にも関わる。",
     useCases: [
-      "シート本体にrole=\"dialog\"と名前(aria-labelledbyなど)を付ける",
+      "シート本体をダイアログとして伝え、名前を付ける",
       "開いたらシートの中へ、閉じたら開いたボタンへフォーカスを移す",
-      "背景を操作できないモーダルのシートだけにaria-modal=\"true\"を付ける",
-      "開く側のボタンには、補助としてaria-haspopup=\"dialog\"を付けてもよい",
+      "背景を操作できないモーダルのシートだけ、モーダルと伝える",
+      "開く側のボタンで、ダイアログが開くことを伝えてもよい",
     ],
     searchHint: "aria-modal",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
@@ -12466,12 +12465,12 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
+          <text x="60" y="32" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
           <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">+ 名前・フォーカス</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、属性・役割の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、役割の考え方を図示",
   },
   {
     key: "nn",
@@ -12613,7 +12612,7 @@ function ContainmentSideSheetPage() {
               <strong>Appleには、サイドシートに当たるコンポーネントはない</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介している)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義している。
             </p>
             <p style={styles.synthesisText}>
-              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にdialogとして作り、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、aria-modal="true"を付ける。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、モーダルと伝える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -12864,27 +12863,27 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern",
-    term: "table・grid(WAI-ARIAのロール)/ HTMLのtable要素",
+    term: "表・グリッド(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "見た目の決まりは持たず、見出しセルとデータセルの関係を構造として支援技術に伝えることを求める",
     size: "表専用の数値基準はない。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められている(「アダプティブ/レスポンシブ」ページを参照)。",
-    colorInfo: "見出しセルは<th>、データセルは<td>で書く。行と列の両方に見出しがあるならscope=\"col\"/\"row\"で向きを示し、複数の見出しが1つのセルにかかる複雑な表はidとheaders属性で関係を明示する。表の題名は<caption>で付け、見出しのように働いて多くのスクリーンリーダーが読み上げる。",
+    colorInfo: "見出しのセルとデータのセルを区別して伝える。行と列の両方に見出しがあるなら、どちら向きの見出しかを示し、複数の見出しが1つのセルにかかる複雑な表は、その関係もはっきり示す。表には題名を付ける(多くのスクリーンリーダーが見出しのように読み上げる)。",
     glossary: [
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で伝えている構造や関係(表の見出しとデータの関係など)を、マークアップなどでプログラムからも判別できるようにすることを求める基準。" },
-      { term: "scope属性", desc: "見出しセル(th)が列の見出しか行の見出しかを示す属性。col・row・colgroup・rowgroupの値を取る。" },
-      { term: "aria-sort", desc: "並べ替えている列(または行)の見出しセルに付け、昇順・降順などの並べ替えの状態を支援技術に伝える属性。" },
+      { term: "見出しの向き", desc: "見出しのセルが、列の見出しか行の見出しか(またはその集まりの見出しか)を示す。" },
+      { term: "並べ替えの状態", desc: "並べ替えている列(または行)の見出しで、昇順・降順などの状態を支援技術に伝える。" },
       { term: "Gridパターン", desc: "表の形をした、操作するコンポーネント(セルにフォーカスでき、矢印キーで移動する)を作るためのAPGのパターン。読むだけの表はTableパターンを使う。" },
     ],
     stance:
-      "見た目の手がかりだけでは表は使えない。構造をマークアップすれば、スクリーンリーダーは1セルずつ読むときに行と列の見出しも読み上げ、文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストに組み直したりする人もいて、正しい構造はその前提にもなる。",
+      "見た目の手がかりだけでは表は使えない。構造を示せば、スクリーンリーダーは1セルずつ読むときに行と列の見出しも読み上げ、文脈を見失わない。独自のスタイルシートで見出しを目立たせたり、表をリストに組み直したりする人もいて、正しい構造はその前提にもなる。",
     exceptions:
-      "APGのTableパターンは操作するコンポーネントではなく、セルはフォーカスできない。表の中にボタンなどの操作コンポーネントが多い場合は、1つのコンポーネントとして扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しにaria-sortを付け、見出しの文字をボタンで包む(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトのために使わない。",
+      "APGのTableパターンは操作するコンポーネントではなく、セルはフォーカスできない。表の中にボタンなどの操作コンポーネントが多い場合は、1つのコンポーネントとして扱えるGridパターンに替えると、Tabを押す回数を大きく減らせる。並べ替えできる表では、並べ替えている列の見出しで状態を伝え、見出しの文字をボタンにする(APGのSortable Tableの例)。並べ替えできない列と区別するアイコンを付けるなら、並べ替えの向きの矢印とは色や大きさだけでなく形でも違いを出す。表をレイアウトのために使わない。",
     accessibility:
-      "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、aria-sortなどで状態を支援技術に伝えることは「堅牢」に関わる。並べ替えのボタンをキーボードで操作できることは「操作可能」。",
+      "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係を構造で示す1.3.1は「知覚可能」、並べ替えなどの状態を支援技術に伝えることは「堅牢」に関わる。並べ替えのボタンをキーボードで操作できることは「操作可能」。",
     useCases: [
-      "見出しは<th>、データは<td>で書き、必要ならscopeで向きを示す",
-      "表には<caption>で題名を付ける",
-      "並べ替えできる見出しはボタンにし、並べ替えている列にaria-sortを付ける",
+      "見出しのセルとデータのセルを区別し、必要なら見出しの向きを示す",
+      "表には題名を付ける",
+      "並べ替えできる見出しはボタンにし、並べ替えている列の状態を伝える",
     ],
     searchHint: "Header cells must be marked up",
     url: "https://www.w3.org/WAI/tutorials/tables/",
@@ -12981,7 +12980,7 @@ const TABLE_ROWS = [
     cells: [
       { mark: "◯", note: "名詞か短い名詞句。末尾に句読点なし" },
       { mark: "◯", note: "中くらいの太さ。長いと「…」で省略し、ツールチップで全文" },
-      { mark: "◯", note: "<th>で書き、scopeで列/行の向き(1.3.1)" },
+      { mark: "◯", note: "見出しのセルとして示し、列/行の向きも伝える(1.3.1)" },
       { mark: "◯", note: "大きい表では見出し行を固定する" },
     ],
   },
@@ -12990,7 +12989,7 @@ const TABLE_ROWS = [
     cells: [
       { mark: "◯", note: "見出しをクリック、もう一度で逆順(macOS)" },
       { mark: "◯", note: "見出しの横に矢印。押すと逆順・矢印も反転。処理中はプログレス" },
-      { mark: "◯", note: "見出しをボタンにし、aria-sortで状態を伝える(APG)" },
+      { mark: "◯", note: "見出しをボタンにし、並べ替えの状態を伝える(APG)" },
       { mark: "◯", note: "並べ替え・列の非表示や並べ替えを簡単に" },
     ],
   },
@@ -13242,10 +13241,10 @@ function ContainmentTablePage() {
               違いは決めている層だ。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>見出しセル(th)とデータセル(td)の関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。並べ替えの状態も<strong>aria-sort</strong>で伝える。
+              W3Cは見た目ではなく、<strong>見出しのセルとデータのセルの関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。<strong>並べ替えの状態</strong>も伝える。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いている。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造はW3Cのth/td・aria-sortで正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論だ。
+              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いている。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造(見出しとデータの関係・並べ替えの状態)はW3Cに沿って正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -14207,10 +14206,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6",
-    term: "banner(ランドマークのロール)/ HTMLのheader要素",
+    doc: "WAI-ARIA(バナー領域)/ WCAG 1.4.11 / 3.2.3 / 3.2.6",
+    term: "バナー領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"banner\"(またはheader要素)で示す、サイト全体で共通のヘッダー領域のランドマーク",
+    position: "サイト全体で共通のヘッダーを、1つの領域として支援技術に伝える(領域の目印)",
     size: "専用の数値基準はない。個々のアイコン・リンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、アイコンや区切り線などは3:1以上のコントラスト比にする。",
     glossary: [
@@ -14218,14 +14217,14 @@ const SOURCES = [
       { term: "3.2.6 Consistent Help・レベルA", desc: "問い合わせ先・問い合わせの手段・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(WCAG 2.2で追加)。ヘルプを置くこと自体は求めない。" },
     ],
     stance:
-      "bannerランドマークは、ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返し出るヘッダーの内容を指す。HTMLのheader要素は、article/aside/main/nav/sectionの中になければ、bannerに相当する。bannerは通常1ページに1つ。ヘッダーには全ページ共通のナビゲーションやヘルプを置くことが多く、3.2.3(レベルAA)はその並びをページ間でそろえること。WCAG 2.2で加わった3.2.6(レベルA)は、問い合わせ先・チャット・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(ヘルプを置くこと自体は求めない)。",
+      "バナー領域は、ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返し出るヘッダーの内容を指す。通常1ページに1つ。ヘッダーには全ページ共通のナビゲーションやヘルプを置くことが多く、3.2.3(レベルAA)はその並びをページ間でそろえること。WCAG 2.2で加わった3.2.6(レベルA)は、問い合わせ先・チャット・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(ヘルプを置くこと自体は求めない)。",
     exceptions:
-      "article/aside/main/nav/sectionの中のheader要素はbannerにならず、一般の役割(generic)になる。Appleの「画面ごとの戻るボタン+タイトル」と違い、サイト/アプリ全体で共通のヘッダーという、より広い単位の概念。",
+      "記事やセクションの中の見出し部分はバナー領域にならない。Appleの「画面ごとの戻るボタン+タイトル」と違い、サイト/アプリ全体で共通のヘッダーという、より広い単位の概念。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― bannerランドマークによる識別、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)。3.2.3・3.2.6は「理解可能(Understandable)」の予測可能(3.2)。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― バナー領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)。3.2.3・3.2.6は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "サイト/アプリ全体で共通のヘッダーは、header要素(またはrole=\"banner\")で1つだけ示す",
-      "article/aside/main/nav/sectionの中のheader要素はbannerにならない",
+      "サイト/アプリ全体で共通のヘッダーは、バナー領域として1つだけ示す",
+      "記事やセクションの中の見出し部分は、バナー領域として扱わない",
       "アイコン・リンクにも一般のターゲットサイズの基準を当てはめる",
       "ヘッダーのヘルプ(問い合わせ・FAQ等)は、どのページでも同じ位置に置く(3.2.6)",
     ],
@@ -14244,11 +14243,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="banner"</text>
+          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">バナー領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、ランドマーク(役割)の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印(役割)の考え方を図示",
   },
   {
     key: "nn",
@@ -14470,7 +14469,7 @@ function NavigationAppBarPage() {
               Appleが以前「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタン+画面タイトルを持つ上部バーは、Googleの<strong>「アプリバー」(旧Top app bar)がほぼ正確な対応コンポーネント</strong>だ。両者とも、画面ごとにタイトルを示し、先頭に戻る/閉じるためのアイコン、末尾に関連操作アイコンを置くという構造が共通している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはないが、<strong>bannerランドマーク</strong>が最も近い関連概念だ。ただしbannerは、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱わない</strong>。1ページに複数のbannerランドマークを置くべきではない、という点も実装上の注意点だ。
+              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはないが、<strong>バナー領域</strong>が最も近い概念だ。ただしバナー領域は、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱わない</strong>。バナー領域を1ページに複数置かない、という点も注意点だ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupにも「上部バー」という名前の専用記事はないが、<strong>常設ヘッダー全般の費用対効果を問う「Sticky Headers」</strong>が関連する実務的知見を提供している。<strong>「コンテンツとchromeの比率」</strong>(良い例で13:1、悪い例で2:1)という具体的な目安は、Apple・Googleどちらのアプリバーにも当てはまる、実装時の判断材料だ。
@@ -14730,22 +14729,22 @@ const SOURCES = [
     doc: "WAI-ARIA Breadcrumbパターン",
     term: "Breadcrumb(APGのパターン)",
     color: "#A3821F",
-    position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
+    position: "ナビゲーションの領域として示し、順序のあるリストで並べ、今のページを支援技術に伝える",
     size: "専用の数値基準はない。個々のリンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。リンクの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
     glossary: [
-      { term: "aria-current", desc: "一連の項目の中で「今の項目」を示すARIA属性。パンくずリストでは、今のページへのリンクに aria-current=\"page\" を付ける。今のページがリンクでなければ任意。" },
+      { term: "今の項目", desc: "一連の項目の中で「今の項目」を支援技術に伝える。パンくずリストでは、今のページへのリンクを「今のページ」と伝える。今のページがリンクでなければ任意。" },
     ],
     stance:
-      "今のページの親ページへのリンクを、階層の順に並べたリスト。ナビゲーションのランドマーク(nav要素。aria-labelかaria-labelledbyでラベルを付ける)として作り、リンクは順序リスト(ol)で並べる。多くはページ本文の直前に横に置く。",
+      "今のページの親ページへのリンクを、階層の順に並べたリスト。名前を付けたナビゲーションの領域として示し、リンクは順序のあるリストで並べる。多くはページ本文の直前に横に置く。",
     exceptions:
-      "APGは、今のページをリンクにする作りも、しない作りも認める(リンクならaria-current=\"page\"を付け、リンクでなければ任意)。リンクにしないのはNN groupの推奨。キーボード操作が「適用なし(Not applicable)」なのは、普通のリンクの並びで特別なキー操作が要らないため。",
+      "APGは、今のページをリンクにする作りも、しない作りも認める(リンクなら「今のページ」と伝え、リンクでなければ任意)。リンクにしないのはNN groupの推奨。キーボード操作が「適用なし(Not applicable)」なのは、普通のリンクの並びで特別なキー操作が要らないため。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― nav要素によるランドマーク(支援技術がページ内を移動しやすくする)、aria-current=\"page\"による現在位置の明示が中心。区切り記号(> や / など)は装飾で、支援技術に読み上げさせる必要はない。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― ナビゲーションの領域として示すこと(支援技術がページ内を移動しやすくする)と、今のページを伝えることが中心。区切り記号(> や / など)は装飾で、支援技術に読み上げさせる必要はない。",
     useCases: [
-      "nav要素(aria-label付き)でパンくずリスト全体を囲む",
-      "リンクを順序リスト(ol)で並べる",
-      "今のページへのリンクにはaria-current=\"page\"を付ける(リンクにしないなら任意)",
+      "パンくずリスト全体を、名前の付いたナビゲーションの領域として示す",
+      "リンクを、順序のあるリストとして並べる",
+      "今のページへのリンクは「今のページ」と伝える(リンクにしないなら任意)",
     ],
     searchHint: "Not applicable",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
@@ -14757,7 +14756,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">nav &gt; ol &gt; aria-current</text>
+          <text x="60" y="17" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">領域 &gt; 順序 &gt; 今のページ</text>
         </svg>
       </div>
     ),
@@ -14860,7 +14859,7 @@ const SPLITS = [
   {
     q: "今いるページ(末尾の項目)を、リンクにする?",
     sides: [
-      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするならaria-current=\"page\"を付ける。リンクにしなければaria-currentは任意" },
+      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするなら「今のページ」と伝える。リンクにしなければ任意" },
       { who: "NN group", color: "#7A4F7E", t: "リンクにしない。何も起きないリンクは置かないため。リンクの項目とは見た目でも区別する" },
     ],
     tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たる。APGは実装の参考例で、適合の要件ではない。",
@@ -14917,7 +14916,7 @@ function NavigationBreadcrumbPage() {
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
+              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -15192,7 +15191,7 @@ const DRAWER_SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal)パターン / WCAG 3.2.3",
-    term: "navigation(ランドマークのロール)",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
     position:
       "「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、ダイアログ(モーダル)として作る",
@@ -15204,15 +15203,15 @@ const DRAWER_SOURCES = [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "後ろの操作を完全に遮るモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが合う。role=\"dialog\"を持ち、Tab/Shift+Tabでドロワーの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられ、aria-labelledbyかaria-labelでラベルを付け、見える閉じるボタン(role=\"button\")を持つ。aria-modal=\"true\"は、後ろの操作を完全に遮り、見た目でも覆っている場合だけ設定する。中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ順番で並べる(利用者が並びを変えた場合を除く)。",
+      "後ろの操作を完全に遮るモーダルなドロワーには、WAI-ARIAのDialog(Modal)パターンが合う。ダイアログであることを伝え、Tab/Shift+Tabでドロワーの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられ、名前を付け、見える閉じるボタンを持つ。モーダルと伝えるのは、後ろの操作を完全に遮り、見た目でも覆っている場合だけ。中身が複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページで開いても項目を同じ順番で並べる(利用者が並びを変えた場合を除く)。",
     exceptions:
-      "後ろを完全に遮り、見た目でも覆っていないなら、aria-modal=\"true\"を設定しない。",
+      "後ろを完全に遮り、見た目でも覆っていないなら、モーダルと伝えない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― フォーカスの閉じ込め・Escで閉じる・ラベル付け(4.1.2、2.1.1)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases:
       [
       "モーダル(後ろを遮る)ドロワーにはDialog(Modal)パターンを使う",
-      "後ろを完全に遮り、見た目でも覆う場合だけaria-modal=\"true\"を設定する",
+      "後ろを完全に遮り、見た目でも覆う場合だけ、モーダルと伝える",
       "どのページで開いても、ドロワーの項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "Tab and Shift + Tab do not move focus",
@@ -15347,20 +15346,20 @@ const RAIL_SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA APG ― Landmark Regions(navigation)・WCAG 3.2.3",
-    term: "navigation(ランドマークのロール)",
+    doc: "WAI-ARIA APG ― Landmark Regions(ナビゲーション領域)・WCAG 3.2.3",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "常に表示するサイドナビは、navigationランドマークとして作る",
+    position: "常に表示するサイドナビは、ナビゲーションの領域(目印)として示す",
     size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
-    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、navigationランドマークとして扱うのが合う(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ順番で並べる。",
+    stance: "Appleのサイドバーのような、常に表示するモーダルではないナビゲーションは、ダイアログではなく、ナビゲーションの領域として扱うのが合う(AI解釈)。複数のページで共通のナビゲーションなら、3.2.3(レベルAA)により、どのページでも項目を同じ順番で並べる。",
     exceptions: <NoData>記載なし</NoData>,
-    accessibility: "知覚可能(Perceivable)・理解可能(Understandable) ― ランドマークで領域の役割を伝えること(1.3.1)と、ナビゲーションの並びをそろえること(3.2.3)が関わる。",
+    accessibility: "知覚可能(Perceivable)・理解可能(Understandable) ― 領域の役割を伝えること(1.3.1)と、ナビゲーションの並びをそろえること(3.2.3)が関わる。",
     useCases: [
-      "常に表示するサイドナビは、nav要素(navigationランドマーク)にする",
+      "常に表示するサイドナビは、ナビゲーションの領域として示す",
       "どのページでも、項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "navigation",
@@ -15369,7 +15368,7 @@ const RAIL_SOURCES = [
       { kind: "apg", label: "APG: Landmark Regions(navigation)", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
     ],
-    illustrationNote: "視覚デザインの規定はなく、ランドマークの考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印の考え方を図示",
   },
   {
     key: "nn",
@@ -15624,7 +15623,7 @@ function NavigationDrawerPage() {
                   <td style={styles.kindTd}>タブレット・PCなど広い画面</td>
                   <td style={styles.kindTd}>画面の脇に常に表示する(モーダルではない)。折りたためる</td>
                   <td style={styles.kindTd}>広い画面で、主な行き先を常に見せたいとき</td>
-                  <td style={styles.kindTd}>Apple: Sidebars / Google: Navigation rail(折りたたみ型・展開型) / W3C: navigationランドマーク / NN group: 左側の縦型ナビゲーション</td>
+                  <td style={styles.kindTd}>Apple: Sidebars / Google: Navigation rail(折りたたみ型・展開型) / W3C: ナビゲーションの領域 / NN group: 左側の縦型ナビゲーション</td>
                 </tr>
               </tbody>
             </table>
@@ -15643,7 +15642,7 @@ function NavigationDrawerPage() {
               広い画面では、Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーションが、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはnavigationランドマーク</strong>として作る。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
+              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
             </p>
           </div>
           <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>
@@ -15860,10 +15859,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
-    term: "navigation(ランドマークのロール)/ HTMLのnav要素",
+    doc: "WAI-ARIA Landmark Regions(ナビゲーション領域)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"navigation\"(またはnav要素)で示す、ナビゲーションのリンクのまとまりのランドマーク",
+    position: "ナビゲーションのリンクのまとまりを、1つの領域(目印)として支援技術に伝える",
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
@@ -15872,15 +15871,15 @@ const SOURCES = [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "ナビゲーションのリンクのまとまりは、nav要素かrole=\"navigation\"でランドマークにする。1ページに複数あるなら、それぞれに別のラベル(aria-labelなど)を付ける(リンクがまったく同じなら同じラベルでよい)。3.2.3(レベルAA)は、複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むのは認められる。",
+      "ナビゲーションのリンクのまとまりは、ナビゲーションの領域として示す。1ページに複数あるなら、それぞれに別の名前を付ける(リンクがまったく同じなら同じ名前でよい)。3.2.3(レベルAA)は、複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むのは認められる。",
     exceptions:
-      "リンクがほかのnavigationランドマークとまったく同じ場合だけ、同じラベルでよい。それ以外は別のラベルが要る。",
+      "リンクがほかのナビゲーション領域とまったく同じ場合だけ、同じ名前でよい。それ以外は別の名前が要る。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― ランドマークによる識別、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
+      "堅牢(Robust)・操作可能(Operable) ― 領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "ナビゲーションのリンクをnav要素かrole=\"navigation\"で囲む",
-      "navigationランドマークが1ページに複数あるなら、別々のラベルを付ける",
-      "リンクがまったく同じ場合だけ、同じラベルでよい",
+      "ナビゲーションのリンクを、ナビゲーションの領域として示す",
+      "ナビゲーションの領域が1ページに複数あるなら、別々の名前を付ける",
+      "リンクがまったく同じ場合だけ、同じ名前でよい",
       "全ページで、ナビゲーションの項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "unique label",
@@ -15897,11 +15896,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="navigation"</text>
+          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ナビゲーション領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、ランドマーク(役割)の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印(役割)の考え方を図示",
   },
   {
     key: "nn",
@@ -15993,7 +15992,7 @@ function TopBarPointerSection() {
         <span style={styles.columnTitle}>Appleが別に「ナビゲーションバー」と呼んでいたもの</span>
       </div>
       <p style={styles.columnIntro}>
-        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(bannerランドマーク)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
+        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(バナー領域)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
       </p>
       <a href="/components/navigation/app-bar" style={styles.linkCard}>
         <div style={styles.linkCardTitle}>アプリバー ↗</div>
@@ -16105,7 +16104,7 @@ function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めている。
+              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンクの集まりであることを伝える構造(ナビゲーションの領域)</strong>を定めている。
             </p>
             <p style={styles.synthesisText}>
               <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど遷移しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
@@ -16117,7 +16116,7 @@ function NavigationNavBarPage() {
               Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げている。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしている。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じだ。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できた(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てている。特に、navigationランドマークが1ページに複数あるなら、別々のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点だ。
+              W3Cは他系列と異なり、<strong>見た目やサイズではなく「領域としての見分けられ方」</strong>に焦点を当てている。特に、ナビゲーションの領域が1ページに複数あるなら別々の名前を付ける、という指摘は、Apple/Googleどちらにも当てはまる重要な注意点だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -16349,25 +16348,25 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA(nav landmark + aria-current、専用ウィジェットなし)",
-    term: "navigation+aria-current=\"page\"(専用のロールなし)",
+    doc: "WAI-ARIA(ナビゲーション領域+今のページ。専用の役割なし)",
+    term: "ナビゲーション領域+今のページ(専用の役割なし)",
     color: "#A3821F",
-    position: "role=\"pagination\"は存在しない。nav要素+リスト+aria-current=\"page\"の組み合わせで実装する",
+    position: "専用の役割はない。ナビゲーションの領域・リスト・今のページを伝えることを組み合わせる",
     size: "専用の数値基準はない。各ページ番号のリンク/ボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     glossary: [
       { term: "色", desc: "専用の色の基準はない。今のページを示す枠線・背景色などには1.4.11(非テキストのコントラスト)がかかり得る。" },
-      { term: "role=\"pagination\"は存在しない", desc: "WAI-ARIAに「ページネーション」のウィジェット・ロールはない。必要なもの(nav landmark、リスト、リンク/ボタン、aria-current)がすでにあるため、組み合わせて作るのが一般的(AI解釈)。" },
+      { term: "専用の役割はない", desc: "WAI-ARIAに「ページネーション」の役割はない。必要なもの(ナビゲーションの領域、リスト、リンク/ボタン、今の項目を伝える仕組み)がすでにあるため、組み合わせるのが一般的(AI解釈)。" },
     ],
     stance:
-      "専用のARIAロールやパターンはない。ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲み、各番号に「3ページ目に移動」のような分かりやすいアクセシビリティ名を付け、今のページにaria-current=\"page\"を設定する、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様のaria-current、APGのLandmark Regions(navigationランドマーク)、WCAG 2.4.4(リンクの目的)。",
+      "専用の役割やパターンはない。ページ番号の一覧を名前の付いたナビゲーションの領域として示し、各番号に「3ページ目に移動」のような分かりやすい名前を付け、今のページを支援技術に伝える、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様(今の項目を伝える仕組み)、APGのLandmark Regions(ナビゲーション領域)、WCAG 2.4.4(リンクの目的)。",
     exceptions:
-      "今のページ番号は、リンクではなく文字(spanなど)にし、aria-current=\"page\"を設定することが多い。単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えをライブリージョンなどで支援技術に知らせる。",
+      "今のページ番号は、リンクではなく文字にし、今のページだと伝えることが多い。単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えを支援技術に知らせる。",
     accessibility:
-      "知覚可能・堅牢 ― 中心は、nav要素のランドマーク、各リンクの分かりやすい名前、aria-current=\"page\"による現在位置の明示。アイコンだけの「前へ/次へ」ボタンには、文字のアクセシビリティ名を別に用意する。",
+      "知覚可能・堅牢 ― 中心は、ナビゲーションの領域として示すこと、各リンクの分かりやすい名前、今のページを伝えること。アイコンだけの「前へ/次へ」ボタンには、文字の名前を別に用意する。",
     useCases: [
-      "ラベル付きのnav要素(例: aria-label=\"Pagination\")でページ番号の一覧を囲む",
+      "ページ番号の一覧を、名前の付いたナビゲーションの領域として示す",
       "各ページ番号に「○ページ目に移動」など分かりやすい名前を付ける",
-      "今のページにaria-current=\"page\"を設定する(リンクにしない場合が多い)",
+      "今のページだと支援技術に伝える(リンクにしない場合が多い)",
     ],
     searchHint: "",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-current",
@@ -16382,7 +16381,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="24" viewBox="0 0 120 24">
           <rect x="1" y="1" width="118" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">nav[aria-label] + aria-current</text>
+          <text x="60" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">領域の名前 + 今のページ</text>
         </svg>
       </div>
     ),
@@ -16538,8 +16537,8 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C: aria-current" },
-  { n: 2, t: "専用のコンポーネントはない", d: "nav要素・リスト・リンクを組み合わせて作る", who: "W3C" },
+  { n: 1, t: "今どのページにいるかを示す", d: "", who: "W3C(今のページを伝える)" },
+  { n: 2, t: "専用のコンポーネントはない", d: "ナビゲーションの領域・リスト・リンクを組み合わせる", who: "W3C" },
   { n: 3, t: "AppleのPage controlsは別のコンポーネント", d: "少数の画面を点で送るもの", who: "Apple" },
 ];
 
@@ -16583,7 +16582,7 @@ function NavigationPaginationPage() {
               <strong>AppleとGoogleには、番号付きページネーションに当たる専用のコンポーネントはない</strong>(AppleのPage Controlsは、オンボーディングのような少数の画面をドットで送る別のコンポーネント)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WAI-ARIA)にも<strong>専用のロールはなく</strong>、nav要素・リスト・リンク・aria-currentを組み合わせて作る。ページネーションは独立したコンポーネントというより、既存のコンポーネントを組み合わせる実装パターンとして扱われている。
+              W3C(WAI-ARIA)にも<strong>専用の役割はなく</strong>、ナビゲーションの領域・リスト・リンク・今のページを伝える仕組みを組み合わせる。ページネーションは独立したコンポーネントというより、既存のものを組み合わせるパターンとして扱われている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。
@@ -16848,7 +16847,7 @@ const SOURCES = [
     exceptions:
       <>セグメントは5個まで。<Hl>5個を超えるならチップなど別のコンポーネントを検討する</Hl>。画面やフレームの端から十分な余白を取り、広い画面の幅いっぱいに広げない(ラベルの周りの余白が大きくなりすぎて使いにくいため)。</>,
     accessibility:
-      "操作可能(Operable) ― 単一選択はラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱う(Appleの地図アプリのような表示の切り替えでも、GoogleはTabsパターンではなくradiogroup/checkboxとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明するアクセシビリティラベル(例: 通貨記号→「安価」)を付ける。",
+      "操作可能(Operable) ― 単一選択はラジオボタンの組、複数選択はチェックボックスとして支援技術に伝える(Appleの地図アプリのような表示の切り替えでも、Googleはタブではなくラジオボタン/チェックボックスとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明する名前(例: 通貨記号→「安価」)を付ける。",
     useCases: [
       "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を使う",
       "既存の実装では、2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
@@ -16885,7 +16884,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
     glossary: [
-      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールを定めていない。フォームの中で1つの値を選ぶならRadio Groupパターン(radiogroup/radio)、表示する内容を切り替えるならTabsパターン(tablist/tab/tabpanel)が近い。どちらも名前・役割・状態を支援技術に伝える(4.1.2)。Google自身の実装は、表示の切り替えでもradiogroup/checkboxとして扱う。" },
+      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールを定めていない。フォームの中で1つの値を選ぶならラジオボタンの組(Radio Groupパターン)、表示する内容を切り替えるならタブ(Tabsパターン)が近い。どちらも名前・役割・状態を支援技術に伝える(4.1.2)。Google自身は、表示の切り替えでもラジオボタン/チェックボックスとして扱う。" },
     ],
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
@@ -17082,7 +17081,7 @@ function NavigationSegmentedControlPage() {
               Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言える。
             </p>
             <p style={styles.synthesisText}>
-              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者で考え方が異なる。
+              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身は表示の切り替えでもタブではなくラジオボタン/チェックボックスとして扱うとしており、両者で考え方が異なる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -17285,7 +17284,7 @@ const COMPARE_ROWS = [
   { label: "典型的な配置", tab: "画面の上部(コンテンツの見出しとして)", seg: "画面上部やツールバー内、フォームの一部として" },
   { label: "選択肢の数の目安", tab: "固定タブは4個まで、多い場合は横スクロール(Google)", seg: "iPhoneでは約5個まで(Apple)・5個を超えたらチップ(Google)" },
   { label: "切り替えるもの", tab: "内容のまとまり(別の一覧・別のセクション)。同じページの中でパネルを切り替える", seg: "同じ内容の見せ方・並び順・設定" },
-  { label: "代表的なARIAパターン", tab: "role=\"tablist\"/\"tab\"/\"tabpanel\"", seg: "用途により role=\"radiogroup\"/\"radio\" または \"tablist\"/\"tab\"" },
+  { label: "支援技術への伝え方", tab: "タブの並び・タブ・パネルとして伝える", seg: "用途により、ラジオボタンの組かタブとして伝える" },
 ];
 
 const EXAMPLES = [
@@ -17411,7 +17410,7 @@ const SYSTEM_VIEWS = [
     { label: "Tabs ― Guidelines", url: "https://m3.material.io/components/tabs/guidelines" },
     { label: "Segmented buttons ― Guidelines", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
   ] },
-  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブ(tablist/tab)の型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
+  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブの型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
     { label: "APG: Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
     { label: "APG: Radio Groupパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
   ] },
@@ -17763,11 +17762,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5(WAI-ARIA Tabsパターン) / 3.2.1",
-    term: "tablist・tab・tabpanel(WAI-ARIAのロール)。APGでは Tabs",
+    term: "タブの並び・タブ・タブのパネル(WAI-ARIAの役割)。APGでは Tabs",
     color: "#A3821F",
-    position: "role=\"tablist\"/\"tab\"/\"tabpanel\"で、名前・役割・状態とキーボード操作を求める一般の基準",
+    position: "タブの並び・タブ・対応するパネルの役割を伝え、名前・役割・状態とキーボード操作を求める一般の基準",
     structure:
-      <span>APGでは、<Hl>タブの並びを囲む要素にrole="tablist"、各タブにrole="tab"、対応するコンテンツ領域にrole="tabpanel"を割り当て</Hl>、選択中のタブにはaria-selected="true"を設定するとしている。</span>,
+      <span>APGでは、<Hl>タブの並び・各タブ・対応する内容の領域を、それぞれの役割として支援技術に伝え</Hl>、どのタブが選ばれているかも伝える。</span>,
     count:
       <NoData>記載なし</NoData>,
     size:
@@ -17785,8 +17784,8 @@ const SOURCES = [
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)、キーボード操作(2.1.1)、ターゲットサイズ(2.5)。3.2.1は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "タブの並びにrole=\"tablist\"、各タブにrole=\"tab\"を割り当てる",
-      "対応するコンテンツ領域にrole=\"tabpanel\"を割り当てる",
+      "タブの並びと各タブを、タブとして支援技術に伝える",
+      "対応する内容の領域をタブのパネルとして伝え、選ばれているタブも伝える",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/",
@@ -18072,7 +18071,7 @@ function NavigationTabsPage() {
               <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>がある(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab view(1階層のみ)にはない考え方だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがrole="tablist"/"tab"/"tabpanel"という具体的な作り方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
+              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがタブの並び・タブ・パネルの役割を伝える考え方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
             </p>
           </div>
 
@@ -18281,9 +18280,9 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webではランドマーク(navigation・main など8種類)と見出し(H1〜H6を飛ばさない)で構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定(ソースコードの順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
-      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割(ロール)を割り当てる。" },
+      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
       { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
     ],
     extra: "google",
@@ -18432,7 +18431,7 @@ function FrameworkExtra({ k }) {
       <div style={styles.extraTitle}>人の多様さを見る観点(Building for all)</div>
       <p style={styles.extraText}>調査・設計・テストのときに思い浮かべる観点として、次の一覧を挙げている(増えていく一覧としている)。障害は観点の1つ。</p>
       <div style={styles.extraChips}>{GOOGLE_DIMENSIONS.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
-      <p style={styles.extraText}>Material の考え方はWCAGと業界のよい実践を土台にしている。標準のコンポーネント(Webでは意味のあるHTML)を使えば、支援技術に必要な情報が自動で入るため、独自のコンポーネントは余分なテストが必要になる。</p>
+      <p style={styles.extraText}>Material の考え方はWCAGと業界のよい実践を土台にしている。標準のコンポーネントを使えば、支援技術に必要な情報が自動で入るため、独自のコンポーネントは余分なテストが必要になる。</p>
     </div>
   );
   if (k === "wcag") return (<div style={styles.extraBox}><WcagLevels /></div>);
@@ -19262,12 +19261,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
-    term: "checkbox(WAI-ARIAのロール)/ HTMLの input type=\"checkbox\"",
+    term: "チェックボックス(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "形を問わず、名前・役割・状態・押せる範囲を求める達成基準の集まり",
     glossary:
       [
-      { term: "標準のHTMLコンポーネントを使う場合", desc: "標準のinput type=\"checkbox\"なら、ブラウザが名前・役割・状態を自動で渡すため、通常は追加の対応は不要。独自に作ったチェックボックスだけ配慮が要る。" },
     ],
     choice:
       <NoData>記載なし</NoData>,
@@ -19842,7 +19840,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.1.1 / 2.5.8 / 2.5.5 / 1.4.11 / 1.4.1",
-    term: "button(WAI-ARIAのロール。選択式はaria-pressedなどで状態を伝える)",
+    term: "ボタン(WAI-ARIAの役割。選択式は押された状態も伝える)",
     color: "#A3821F",
     position: "形を問わず、ボタン/トグルボタンとしての名前・役割・状態・操作性を求める一般の基準",
     size:
@@ -19852,7 +19850,7 @@ const SOURCES = [
     stance:
       "チップは実装ではボタンかトグルボタンとして扱うことが多く、名前・役割・状態を支援技術から取得できること(4.1.2)。複数並ぶなら、キーボードだけで移動・選択できること(2.1.1)。",
     exceptions:
-      "標準のbutton要素やARIAのボタン/トグルボタンのロールなら、通常は追加の対応は不要。独自に描いたチップだけ配慮が要る。",
+      "ブラウザ標準のボタンなら、これらの情報は自動で伝わる。独自に描いたチップだけ配慮が要る。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)、キーボード操作(2.1.1)、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。",
     useCases: [
@@ -20476,22 +20474,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
     term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
-    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはrole=\"dialog\"内のrole=\"grid\"で",
+    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはダイアログの中の、矢印キーで移動できる表(グリッド)で",
     size:
       "専用の数値基準はない。各日付のボタンにも、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択中の日付を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
-      { term: "ローミングtabindex", desc: "グリッドの中でいつも1つのセルだけをtabindex=\"0\"にし、残りを-1にする実装方法。" },
+      { term: "グリッドの中のフォーカス", desc: "Tabキーではグリッドの中の1つのセル(選択中の日など)にだけ止まり、グリッドの中は矢印キーで移動する考え方。" },
     ],
     stance:
-      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーはgrid roleを持つtable要素(tr/th/tdがrow/columnheader/gridcellの役割を兼ねる)で実装する。月・年の見出しにはaria-live="polite"を設定し、変化を支援技術に知らせる。</>,
+      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーは、行・列の見出し・日付のセルを持つ表(グリッド)として扱う。月・年の見出しが変わったら、変化を支援技術に知らせる。</>,
     exceptions:
       "ダイアログを開いたとき、入力欄が空か無効な日付なら今日に、有効な日付が入っていればカレンダーのその日にフォーカスを当てる。Esc・OK・Cancelのどれでも閉じられ、閉じたらきっかけのボタンにフォーカスが戻る。APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差があるとも書かれている)。実装したら実際の支援技術で確かめる。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドロールとローミングtabindexによるキーボード操作(2.1.1)と、aria-liveによる変化の通知(4.1.3)。",
+      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドの中を矢印キーで移動できるキーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
     useCases: [
       "日付を文字で入力できる欄(形式の説明付き)を置き、カレンダーは補助として開けるようにする",
-      "カレンダー本体にはgrid roleとローミングtabindexを使う",
+      "カレンダー本体は表(グリッド)として扱い、Tabでは1つのセルにだけ止め、中は矢印キーで移動させる",
       "上下=週・左右=日、Page Up/Down=月(Shiftで年)、Home/End=週の始点/終点というキー操作を実装する",
       "ダイアログを閉じたらトリガーボタンにフォーカスを戻す",
     ],
@@ -20505,7 +20503,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="90" height="46" viewBox="0 0 90 46">
           <rect x="1" y="1" width="88" height="44" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="45" y="26" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="grid"</text>
+          <text x="45" y="26" fontSize="8.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">表(グリッド)</text>
         </svg>
       </div>
     ),
@@ -21204,24 +21202,24 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
-    term: "menu・menubar・menuitem(WAI-ARIAのロール)",
+    term: "メニュー・メニューバー・メニュー項目(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "OSのメニューのように振る舞う選択肢の一覧の、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なmenuと、常に出ているmenubarを扱う",
+    position: "OSのメニューのように振る舞う選択肢の一覧の、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なメニューと、常に出ているメニューバーを扱う",
     size: "専用の数値基準はない。項目には一般のターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)がかかる。",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
-      { term: "menu・menuitem", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目はmenuitemcheckbox、1つだけ選ぶ項目はmenuitemradioを使う。" },
-      { term: "aria-haspopup", desc: "押すとメニューなどが開くことを伝える属性。メニューボタンにはmenu(またはtrue)を設定する。" },
-      { term: "aria-expanded", desc: "メニューが開いているかを伝える属性(開いている間はtrue、閉じているときはfalse)。" },
+      { term: "メニュー・メニュー項目", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目と、1つだけ選ぶ項目は、それぞれの種類の項目として伝える。" },
+      { term: "開くことを伝える", desc: "押すとメニューなどが開くことを、メニューボタンで支援技術に伝える。" },
+      { term: "開閉の状態", desc: "メニューが開いているか閉じているかを支援技術に伝える。" },
     ],
     stance:
-      "メニューボタンはrole=\"button\"にaria-haspopup=\"menu\"(またはtrue)を付け、メニューが開いている間はaria-expanded=\"true\"にする。開いたメニューにはrole=\"menu\"、項目にはmenuitem・menuitemcheckbox・menuitemradioを使う。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
+      "メニューボタンは、メニューが開くことと、今開いているかを支援技術に伝える。開いたメニューはメニューとして、項目はメニュー項目(オン/オフの項目、1つだけ選ぶ項目を含む)として伝える。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
     exceptions:
       "使えない項目はフォーカスできるが実行はできない(フォーカスして存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてよい。メニューバーに再びフォーカスが入ったら、前の項目に戻してもよい。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作るほうが合うことが多い(AI解釈)。",
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― キーボードでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わる。",
     useCases: [
-      "メニューボタンにaria-haspopupと、開閉に合わせたaria-expandedを付ける",
+      "メニューボタンで、メニューが開くことと開閉の状態を伝える",
       "使えない項目もフォーカスできるようにし、実行だけできなくする",
     ],
     searchHint: "Disabled menu items are focusable",
@@ -21304,7 +21302,7 @@ function MenuSwatch() {
         <text x="222" y="142">← 「›」はサブメニュー</text>
         <text x="222" y="166">← 使えない項目</text>
         <text x="222" y="200">← 破壊的な項目は最後</text>
-        <text x="222" y="24">← aria-haspopup / expanded</text>
+        <text x="222" y="24">← 開くこと・開閉の状態を伝える</text>
       </g>
     </svg>
   );
@@ -21380,7 +21378,7 @@ const MENU_ROWS = [
     cells: [
       { mark: "◯", note: "コンテキストメニューの項目はメインの画面にも" },
       { mark: "―", note: "" },
-      { mark: "◯", note: "aria-haspopupで開くことを伝える" },
+      { mark: "◯", note: "メニューが開くことを伝える" },
       { mark: "◯", note: "三点・下向き矢印で示す。メインのメニューにも" },
     ],
   },
@@ -21455,7 +21453,7 @@ const SPLITS = [
 const KINDS = [
   { name: "プルダウンボタン/ドロップダウンメニュー", use: "ボタンの操作に関係する命令を選ぶ(「追加」で追加するものを選ぶ、「並べ替え」で基準を選ぶ)", who: "Apple・Google・NN group" },
   { name: "コンテキストメニュー", use: "選んだ対象・場所に関係する、よく使う少数の操作。長押し・右クリック・副ボタンで開く", who: "Apple・Google・NN group" },
-  { name: "メニューバー", use: "アプリのすべての命令を常に並べる(macOS・iPadOS)。ショートカットを表示する場所", who: "Apple・W3C(menubar)" },
+  { name: "メニューバー", use: "アプリのすべての命令を常に並べる(macOS・iPadOS)。ショートカットを表示する場所", who: "Apple・W3C(メニューバー)" },
   { name: "ポップアップボタン/エクスポーズドドロップダウン", use: "命令ではなく、排他的な選択肢から値を選ぶ。選んだ値を表示し続ける(→「セレクト」ページ)", who: "Apple・Google" },
 ];
 
@@ -21567,7 +21565,7 @@ function SelectionMenuPage() {
               一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>aria-haspopup・aria-expanded</strong>でメニューの開閉を伝えることなど、役割と状態を定めている。
+              W3Cは見た目ではなく、<strong>メニューが開くことと開閉の状態</strong>を伝えることなど、役割と状態を定めている。
             </p>
             <p style={styles.synthesisText}>
               また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めている。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論だ。
@@ -22134,7 +22132,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
-    term: "radio(WAI-ARIAのロール)/ HTMLの input type=\"radio\"",
+    term: "ラジオボタン(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "状態と「1つだけ選べること」を支援技術に正しく伝える",
     size:
@@ -22144,7 +22142,7 @@ const SOURCES = [
     stance:
       <>独自のUIコンポーネントは、名前(ラベル)・役割(ラジオボタンであること)・状態(選択・未選択)と、<Hl>グループの中で1つだけ選べること</Hl>を、支援技術から取得・設定できること。</>,
     exceptions:
-      "標準のinput type=\"radio\"を同じname属性でまとめれば、ブラウザがこれらの情報を自動で渡すため、通常は追加の対応は不要。独自に作ったラジオボタンだけ配慮が要る。",
+      "ブラウザ標準のラジオボタンなら、これらの情報は自動で伝わる。独自に作ったラジオボタンだけ配慮が要る。",
     accessibility:
       "堅牢(Robust) ― 互換性(4.1)の達成基準。ほかに、操作可能(Operable)のターゲットサイズ(2.5)、知覚可能(Perceivable)の非テキストのコントラスト(1.4.11)も関わる。",
     useCases: [
@@ -22934,9 +22932,9 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1 / 3.2.1 / 3.2.2、APG Comboboxパターン(Select-Only)",
-    term: "combobox(Select-Only)・listbox(WAI-ARIAのロール)/ HTMLのselect要素",
+    term: "コンボボックス(選ぶだけの形)・選択肢の一覧(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "名前・役割・状態とキーボード操作を求める一般の基準。標準のselect要素か独自の実装かで対応が変わる",
+    position: "名前・役割・状態とキーボード操作を求める一般の基準。ブラウザ標準のものか独自に作るかで対応が変わる",
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
     colorInfo:
@@ -22947,14 +22945,14 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別のコンポーネントに移す、別のページへ遷移する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "標準のselect要素なら、ブラウザが名前・役割・状態を支援技術に自動で伝える。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)。独自の実装の作り方は、W3CのAPG(実装の参考例。適合の要件ではない)が示す。折りたたみ式のプルダウンの型はComboboxパターンの「Select-Only Combobox」(select要素と同じ働きの例)。Listboxは、いつも出している一覧や、開いたポップアップの中身に使う型。選んだだけで別のページへ遷移したりフォームを送信したりすると、予期しない文脈の変化になる。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示す。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求め、キーボードで選択肢の上を移動しているだけではページを遷移させない。",
+      "ブラウザ標準のプルダウンなら、名前・役割・状態は支援技術に自動で伝わる。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)。独自に作るときの考え方は、W3CのAPG(参考例。適合の要件ではない)が示す。折りたたみ式のプルダウンの型はComboboxパターンの「Select-Only Combobox」(標準のプルダウンと同じ働きの例)。Listboxは、いつも出している一覧や、開いたポップアップの中身に使う型。選んだだけで別のページへ遷移したりフォームを送信したりすると、予期しない文脈の変化になる。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示す。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求め、キーボードで選択肢の上を移動しているだけではページを遷移させない。",
     exceptions:
       "APGの勧め: 選択肢の名前が長すぎる・同じ語で始まる選択肢が並ぶと、スクリーンリーダーでは分かりにくいため避ける。7個を超えるなら、先頭の文字を打ってジャンプできる機能(タイプアヘッド)を用意する(どちらもWCAGの要件ではない)。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)とキーボード操作(2.1.1)。3.2.1・3.2.2は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "標準のselect要素を使い、ブラウザ標準のアクセシビリティに任せる",
-      "独自に実装するなら、APGのSelect-Only Comboboxの例を参考にする(開いた一覧はrole=\"listbox\"/\"option\"とaria-selected)",
+      "できればブラウザ標準のプルダウンを使い、標準のアクセシビリティに任せる",
+      "独自に作るなら、APGのSelect-Only Comboboxの例を参考にする(開いた一覧は選択肢の一覧として伝え、選ばれている項目も伝える)",
       "7個を超える選択肢には、タイプアヘッドでのジャンプ機能を用意する(APGの勧め)",
       "選んだだけでページの遷移や送信をせず、「移動」「送信」ボタンで実行する(3.2.2)",
     ],
@@ -22975,7 +22973,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="90" height="26" viewBox="0 0 90 26">
           <rect x="1" y="1" width="88" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="10" y="17" fontSize="9.5" fill="#A3821F" fontFamily="Jost, Noto Sans JP">role="combobox"</text>
+          <text x="10" y="17" fontSize="9.5" fill="#A3821F" fontFamily="Jost, Noto Sans JP">コンボボックス</text>
         </svg>
         <span style={{ fontSize: 9, color: "#666D93" }}>視覚デザインの規定はなく、役割の考え方を図示</span>
       </div>
@@ -23147,7 +23145,7 @@ function SelectionSelectPage() {
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>標準のHTML select要素を使えばブラウザが自動的に対応する</strong>。HTMLの標準のselect要素を使うと、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば自動的に対応する</strong>。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -23422,7 +23420,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.1.1 / 2.5.7 / 2.5.8 / 2.5.5 / 1.4.11",
-    term: "slider(WAI-ARIAのロール)/ HTMLの input type=\"range\"",
+    term: "スライダー(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "キーボードで操作できることを求める(レベルA)",
     size:
@@ -23697,7 +23695,7 @@ const VALUE_DISPLAY = [
         <line x1="4" y1="34" x2="74" y2="34" stroke="#A3821F" strokeWidth="4" strokeLinecap="round" />
         <circle cx="74" cy="34" r="7" fill="#FFFFFF" stroke="#A3821F" strokeWidth="2.2" />
         <rect x="94" y="6" width="42" height="14" rx="3" fill="none" stroke="#A3821F" strokeDasharray="2 2" strokeWidth="1.2" />
-        <text x="115" y="16" fontSize="7" fontWeight="700" fill="#A3821F" textAnchor="middle" fontFamily="IBM Plex Mono">aria-value</text>
+        <text x="115" y="16" fontSize="7" fontWeight="700" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">値を伝える</text>
       </svg>
     ),
     illustrationNote: "視覚的な位置は規定せず、支援技術への値の伝達(プログラム的取得)を図示",
@@ -24159,7 +24157,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11 / 3.2.2",
-    term: "switch(WAI-ARIAのロール)。HTMLには標準のコンポーネントなし",
+    term: "スイッチ(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "形を問わず、状態を支援技術に正しく伝える",
     size:
@@ -24173,11 +24171,11 @@ const SOURCES = [
     stance:
       <>独自のUIコンポーネントは、名前(ラベル)・役割・状態(オン・オフ)を支援技術から取得・設定できること。見た目はボタンやチェックボックスと違っても、WCAGは形を問わず同じ基準を適用する。切り替えは「設定の変更」に当たるため、<Hl>3.2.2(レベルA)</Hl>により、切り替えただけで別の画面へ遷移したり新しいウィンドウを開いたりするなら、事前に知らせる。設定がその場で反映されるだけなら、内容の変化で文脈の変化ではない。</>,
     exceptions:
-      "HTMLには広く使える標準のスイッチがなく、Webのスイッチの多くは独自の実装になる。その場合はrole=\"switch\"とaria-checkedなどで、スイッチであることと状態(オン・オフ)を支援技術に伝える。",
+      "Webには広く使える標準のスイッチがなく、多くは独自に作ることになる。その場合も、スイッチであることと状態(オン・オフ)を支援技術に伝える。",
     accessibility:
       "堅牢(Robust) ― 互換性(4.1)の達成基準。ほかに、操作可能(Operable)のターゲットサイズ(2.5)、知覚可能(Perceivable)の非テキストのコントラスト(1.4.11)も関わる。3.2.2は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "ARIAのswitchロールなどで支援技術にスイッチであることを伝える",
+      "支援技術にスイッチであることを伝える",
       "オン・オフをプログラムで伝える",
       "切り替えただけで画面の遷移や新しいウィンドウを起こさない(起こすなら事前に知らせる、3.2.2)",
     ],
@@ -24753,7 +24751,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="grid"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">表(グリッド)</text>
           <text x="60" y="44" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(汎用パターンの転用)</text>
         </svg>
       </div>
@@ -25114,25 +25112,25 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI「Validating Input」チュートリアル / ARIA19(role=alert・ライブリージョン) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
+    doc: "WAI「Validating Input」チュートリアル / ARIA19(エラーを読み上げで知らせる) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
     term: "Validating Input(WAIのチュートリアル)",
     color: "#A3821F",
-    position: "検証を「いつ行うか」の基準はない。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を示すが、タイミングは作り手の判断。G199は、送信が成功したときのフィードバックを勧める、数少ない「タイミング」に触れた技法",
+    position: "検証を「いつ行うか」の基準はない。ARIA19はエラーを読み上げで知らせる仕組みを示すが、タイミングは作り手の判断。G199は、送信が成功したときのフィードバックを勧める、数少ない「タイミング」に触れた技法",
     colorInfo: "3つの資料に色の規定はない(見た目の状態は「エラー表示」ページを参照)。",
     glossary: [
       { term: "サイズ", desc: "検証タイミング専用の数値基準はない。" },
-      { term: "ARIA19", desc: "role=\"alert\"かaria-liveを持つライブリージョンに、JavaScriptでエラーメッセージを入れ、スクリーンリーダーに変化を知らせる技法。ライブリージョンの入れ物は、ページを開いた時点でDOMにある必要がある。" },
+      { term: "ARIA19", desc: "エラーメッセージを、変化を読み上げる領域に出して、スクリーンリーダーに知らせる技法。読み上げる領域は、ページを開いた時点から用意しておく必要がある。" },
       { term: "G199", desc: "送信が成功したとき、成功したことをはっきり伝えるフィードバック(「正常にログインしました」など)を出す技法。" },
       { term: "3.3.7 Redundant Entry・レベルA", desc: "同じ手続きの中で、すでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(WCAG 2.2で追加)。" },
     ],
     stance:
-      "WAIのチュートリアル「Validating Input」は、クライアント側の検証は一般に良い体験につながり、エラーを解決しやすくするとするが、「いつ」検証するか(リアルタイム/フォーカスが離れたとき/送信時)は指定していない。できるだけ入力を確かめて直す機会を持てるように、という一般の原則に留まる。ARIA19(role=\"alert\"かライブリージョンでエラーを示す技法)は、エラーメッセージをライブリージョンに入れてスクリーンリーダーに知らせる仕組みを定めるが、いつ入れるかは作り手の判断で、例は送信時に検証し500ミリ秒待ってから入れるものだけ。G199(送信成功のフィードバック)は、成功をはっきり伝える技法で、検証のタイミングより送信「後」の結果の知らせ。WCAG 2.2で加わった3.3.7(レベルA)は、同じ手続きの中ですでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力を消さない)。ブラウザの自動入力だけでは満たさず、サイト側で前の入力を引き継ぐ。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように入れ直すこと自体が目的の場合、前の情報が無効になった場合は例外。",
+      "WAIのチュートリアル「Validating Input」は、クライアント側の検証は一般に良い体験につながり、エラーを解決しやすくするとするが、「いつ」検証するか(リアルタイム/フォーカスが離れたとき/送信時)は指定していない。できるだけ入力を確かめて直す機会を持てるように、という一般の原則に留まる。ARIA19(エラーを読み上げで知らせる技法)は、エラーメッセージを変化を読み上げる領域に出してスクリーンリーダーに知らせる仕組みを定めるが、いつ出すかは作り手の判断で、例は送信時に検証し500ミリ秒待ってから出すものだけ。G199(送信成功のフィードバック)は、成功をはっきり伝える技法で、検証のタイミングより送信「後」の結果の知らせ。WCAG 2.2で加わった3.3.7(レベルA)は、同じ手続きの中ですでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力を消さない)。ブラウザの自動入力だけでは満たさず、サイト側で前の入力を引き継ぐ。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように入れ直すこと自体が目的の場合、前の情報が無効になった場合は例外。",
     exceptions:
-      "ARIA19のライブリージョンは、ページを開いた時点で空の入れ物としてDOMにある必要がある(後から加えた入れ物に対応できない支援技術がある)。",
+      "ARIA19の読み上げる領域は、ページを開いた時点から空のまま用意しておく必要がある(後から加えた領域に対応できない支援技術がある)。",
     accessibility:
-      "堅牢(Robust) ― 中心はARIA19のライブリージョンによる通知と、G199の送信結果のフィードバック。「いつ検証するか」はWCAGの適合基準ではなく、実装の判断。3.3.7は「理解可能(Understandable)」の入力支援(3.3)。",
+      "堅牢(Robust) ― 中心はARIA19の読み上げによる通知と、G199の送信結果のフィードバック。「いつ検証するか」はWCAGの適合基準ではなく、実装の判断。3.3.7は「理解可能(Understandable)」の入力支援(3.3)。",
     useCases: [
-      "エラーメッセージのライブリージョンは、ページを開いた時点で空のままDOMに用意しておく",
+      "エラーメッセージを読み上げる領域は、ページを開いた時点から用意しておく",
       "検証のタイミングに決まった基準はないため、ほかの系列(特にNN groupの実務指針)を参考に決める",
       "送信が成功したときも、成功をはっきり知らせる(G199)",
       "エラーで送り返しても、入力済みの内容を消さない(3.3.7)",
@@ -25140,7 +25138,7 @@ const SOURCES = [
     searchHint: "",
     url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19",
     refs: [
-      { label: "ARIA19(role=alertとライブリージョンでエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
+      { label: "ARIA19(エラーを読み上げで知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
       { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
@@ -25150,11 +25148,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="30" viewBox="0 0 120 30">
           <rect x="1" y="1" width="118" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="15" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-live(タイミングは規定なし)</text>
+          <text x="60" y="15" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">読み上げで知らせる(タイミングは規定なし)</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザイン・タイミングの規定はなく、通知の仕組み(ライブリージョン)のみを図示",
+    illustrationNote: "視覚デザイン・タイミングの規定はなく、読み上げで知らせる仕組みのみを図示",
   },
   {
     key: "nn",
@@ -25230,7 +25228,7 @@ const TIMING_MATRIX = [
       before: { m: "none", t: "タイミングの規定なし" },
       typing: { m: "none", t: "タイミングの規定なし" },
       blur: { m: "none", t: "タイミングの規定なし" },
-      submit: { m: "cond", t: "ARIA19の例は送信時に検証してライブリージョンで通知" },
+      submit: { m: "cond", t: "ARIA19の例は送信時に検証して読み上げで通知" },
       after: { m: "good", t: "送信の成功をはっきり伝える(G199)" },
     },
   },
@@ -25348,7 +25346,7 @@ const TIMING_DETAILS = [
     what: "送信ボタンを押した時点でフォーム全体を検証し、問題のある欄をまとめて示す。",
     good: "未入力の必須項目など、欄を離れた時点では判断できない問題を確実に見つけられる。",
     care: "長いフォームの最後にまとめて戻って直させるのは負担が大きい(Apple)。",
-    who: "NN group(必須項目の未入力は送信を試みた後に示す)、W3C(ARIA19の例は送信時に検証してライブリージョンで通知)",
+    who: "NN group(必須項目の未入力は送信を試みた後に示す)、W3C(ARIA19の例は送信時に検証して読み上げで通知)",
   },
   {
     key: "after",
@@ -25527,7 +25525,7 @@ function TextInputsInputValidationPage() {
           <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
           <TimingLegend />
           <TimingChart />
-          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、通知の仕組み(ライブリージョン)と送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
+          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、読み上げで知らせる仕組みと送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
 
           <h3 style={styles.subTitle}>5つのタイミングの解説</h3>
           <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べた。</p>
@@ -25547,7 +25545,7 @@ function TextInputsInputValidationPage() {
               Appleは<strong>「入力されたらすぐに確かめ、問題があればすぐに知らせる」</strong>(Entering data)としたうえで、<strong>メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる</strong>(Text fields)と、内容でタイミングを分けている。いつ検証するかは系列で分かれる(上の「意見が分かれる点」)。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていない</strong>。ARIA19はエラーを動的に知らせる仕組み(ライブリージョン)を、G199は送信が成功したことの知らせ方を扱うが、どちらも検証のタイミングではない。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立だ。
+              W3C(WCAG)は、<strong>「いつ検証すべきか」を定めていない</strong>。ARIA19はエラーを読み上げで知らせる仕組みを、G199は送信が成功したことの知らせ方を扱うが、どちらも検証のタイミングではない。WCAGは「エラーをどう伝えるか」(「エラー表示」ページで扱う3.3.1・3.3.3・3.3.4)には具体的で、「いつ」には中立だ。
             </p>
             <p style={styles.synthesisText}>
               Googleは<strong>「サポートテキストをエラーテキストに入れ替える」という見せ方</strong>を定めているが、いつ検証するかはM3のページに書かれていない。エラーの前から書式のヒントをサポートテキストで示しておく点は、NN groupの「入力途中で急がせない」という考え方と相性のよい作りだ。
@@ -25867,24 +25865,24 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA search landmark / APG Combobox Pattern / WCAG 2.4.5",
-    term: "search(ランドマークのロール)/ HTMLのsearch要素・input type=\"search\"",
+    doc: "WAI-ARIA(検索領域)/ APG Combobox Pattern / WCAG 2.4.5",
+    term: "検索領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"search\"(またはHTMLのsearch要素)で検索機能一式をランドマークとして示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
+    position: "検索機能一式を「検索」の領域(目印)として示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
     size: "専用の数値基準はない。検索ボタンなどの操作要素には一般のターゲットサイズの基準(2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、検索アイコンや入力欄の境界線だけが見分ける手がかりなら、3:1以上のコントラスト比が要る。",
     glossary: [
-      { term: "コンボボックス(combobox)", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせたコンポーネント。APGは、検索欄で以前の検索や似た検索を候補に出す使い方を代表例に挙げる。" },
+      { term: "コンボボックス", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせたコンポーネント。APGは、検索欄で以前の検索や似た検索を候補に出す使い方を代表例に挙げる。" },
     ],
     stance:
-      "searchランドマークは、検索機能の要素一式を囲むコンテナに付ける役割。input type=\"search\"だけではランドマークにならず、検索のフォームには汎用のformではなくsearchを使う。できればHTMLのsearch要素を使う。候補を出す検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を実装する。2.4.5(レベルAA)は、ページにたどり着く方法を2つ以上用意すること。ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方(画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索のほうが早く着ける人がいるため)。",
+      "検索領域は、検索機能の要素一式をまとめて示す役割。検索の入力欄だけでは領域にならないため、入力欄・ボタンなどを含めた検索のまとまり全体を検索領域として示す。候補を出す検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を決める。2.4.5(レベルAA)は、ページにたどり着く方法を2つ以上用意すること。ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方(画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索のほうが早く着ける人がいるため)。",
     exceptions:
-      "1ページに複数のsearchランドマークがあるなら、区別できるラベルを付ける。同じ検索をページの上下に置くなら同じラベルにする。ランドマークが多すぎると、スクリーンリーダーで全体の構造が分かりにくい。2.4.5は、手続きの途中や結果の画面にはかからない。3〜4ページの小さなサイトなら、トップから全ページへのリンク(サイトマップの代わり)だけで満たせる場合がある。",
+      "1ページに検索領域が複数あるなら、区別できる名前を付ける。同じ検索をページの上下に置くなら同じ名前にする。領域の目印が多すぎると、スクリーンリーダーで全体の構造が分かりにくい。2.4.5は、手続きの途中や結果の画面にはかからない。3〜4ページの小さなサイトなら、トップから全ページへのリンク(サイトマップの代わり)だけで満たせる場合がある。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― searchランドマークによる識別、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)、結果の件数などのステータスメッセージ(4.1.3)。2.4.5は「操作可能」(ナビゲーション可能)。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― 検索領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)、結果の件数などのステータスメッセージ(4.1.3)。2.4.5は「操作可能」(ナビゲーション可能)。",
     useCases: [
-      "検索フォームには、汎用のformではなくsearch要素(またはrole=\"search\")を使う",
-      "searchランドマークが複数あるなら、区別できるラベルを付ける",
+      "検索のまとまり全体を、検索領域として示す",
+      "検索領域が複数あるなら、区別できる名前を付ける",
       "候補を出すなら、APGのコンボボックスのパターンで役割とキーボード操作を実装する",
       "ナビゲーションに加えてサイト内検索を置き、ページへの行き方を2つ以上にする(2.4.5)",
     ],
@@ -25901,11 +25899,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="140" height="26" viewBox="0 0 140 26">
           <rect x="1" y="1" width="138" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="search"</text>
+          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">検索領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、ランドマーク(役割)の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印(役割)の考え方を図示",
   },
   {
     key: "nn",
@@ -25964,8 +25962,8 @@ const ICON_NOTES = [
   {
     key: "wcag",
     name: "W3C",
-    position: "アイコンの視覚的な位置・挙動についての規定はない。role=\"search\"は検索機能一式を示すランドマークであり、アイコンの配置とは別の関心事",
-    text: "WAI-ARIAのsearchランドマークは、検索フォームを構成する要素をまとめて示す役割であり、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
+    position: "アイコンの見た目の位置・挙動の規定はない。検索領域は検索機能一式を示す目印で、アイコンの配置とは別の話",
+    text: "WAI-ARIAの検索領域は、検索のまとまりの要素をまとめて示す役割で、虫眼鏡アイコンの視覚的な位置(左右)やアニメーションについての規定はない。アイコンをボタンとして作る場合は、ほかの操作できる要素と同じくフォーカスできるようにし、役割と名前を伝える。",
     refs: [{ label: "WAI-ARIA: search", url: "https://www.w3.org/TR/wai-aria-1.2/#search" }, { kind: "mdn", label: "search role", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/search_role" }],
   },
   {
@@ -25986,7 +25984,7 @@ const SCENES = [
     cells: {
       hig: "iOSでは入り口を3か所から選ぶ: タブバーのタブ(通常のタブ=検索用の画面へ遷移/ボタン表示=すぐ入力を開始)、ツールバー(余裕があれば画面下が推奨、上部はボタンとして置く)、一覧の上などのインライン。iPad・Macはツールバーの末尾側かサイドバーの上部。",
       material: "検索バー(画面内の検索)、検索アプリバー(主要なグローバル機能)、検索アイコンボタン(補助的な操作)の3つ。検索バーは高さ56dpで画面上部に置き、スクロールで隠して戻すか、上部に固定する。",
-      wcag: "search要素(またはrole=\"search\")で検索機能一式をランドマークにし、ラベルを付ける。入り口の見た目や配置は規定しない。",
+      wcag: "検索機能一式を検索領域として示し、名前を付ける。入り口の見た目や配置は規定しない。",
       nn: "入力欄を開いたままページの右上に置く。固定幅なら27文字分以上。アイコンだけにするのはスマートフォンなど小さな画面に限る。",
     },
   },
@@ -26098,7 +26096,7 @@ function IconBehaviorDiagram({ k }) {
     <g>
       {step(12, "構造(見た目の規定なし)")}
       <rect x="8" y="20" width="164" height="62" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" />
-      {T(14, 30, "<search> または role=\"search\"", { s: 7, c: "#A3821F", w: 600 })}
+      {T(14, 30, "検索領域として示す", { s: 7, c: "#A3821F", w: 600 })}
       {T(16, 44, "ラベル: このサイト内を検索", { s: 7 })}
       <rect x="16" y="50" width="110" height="18" rx="3" fill="#FFFFFF" stroke="#949494" />
       <rect x="130" y="50" width="34" height="18" rx="3" fill="#FFFFFF" stroke="#949494" />
@@ -26495,7 +26493,7 @@ function TextInputsSearchFieldPage() {
               Nielsen Norman Groupは、<strong>「虫眼鏡アイコンだけにすると検索が見つけにくくなる」</strong>と指摘し、デスクトップでは入力欄を開いたまま右上に置くよう勧めている。予測候補についても、<strong>良い結果につながらない候補は出さない、入力した文字と候補を書体で見分けられるようにする</strong>という品質面の注意を示しており、見た目の仕様が中心のApple・Googleを補う内容だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目を定めず、<strong>検索フォームはsearchランドマークで示し、候補を出すならコンボボックスの役割とキー操作で組み立てる</strong>ことを求める。Googleが「候補が出たらスクリーンリーダーで知らせる」「矢印キーで結果を移動する」としている点は、このW3Cのパターンと対応している。
+              W3Cは見た目を定めず、<strong>検索のまとまりは検索領域として示し、候補を出すならコンボボックスの役割とキー操作で組み立てる</strong>ことを求める。Googleが「候補が出たらスクリーンリーダーで知らせる」「矢印キーで結果を移動する」としている点は、このW3Cのパターンと対応している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -26816,7 +26814,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
-    term: "textbox(WAI-ARIAのロール)/ HTMLのinput要素",
+    term: "テキスト入力欄(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "入力を求めるコンテンツに、目に見えるラベル又は指示を求める(レベルA)",
     glossary: [
@@ -26826,12 +26824,12 @@ const SOURCES = [
     stance:
       <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベル又は指示を提供しなければならない</Hl>。この基準は、マークアップでの関連付け(1.3.1)や支援技術だけに伝わる名前(4.1.2)とは違い、「すべての人に見える形」を重視する。ラベルはすべての人に示され、名前(name)は支援技術にだけ伝わる場合がある、と区別している。</>,
     exceptions:
-      "プレースホルダーやARIAだけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。",
+      "プレースホルダーや、支援技術向けの名前だけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。",
     accessibility:
       "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2は「入力支援」(3.3)で「理解可能」、1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前(name)・役割(role)・値(value))は「堅牢」。ラベルの「見え方」「マークアップ」「支援技術への伝達」を、別々の基準が扱う。",
     useCases: [
       "すべての入力欄に目に見えるラベルを付ける(必須・任意を問わない)",
-      "プレースホルダーやARIAラベルだけに頼らない",
+      "プレースホルダーや、支援技術向けの名前だけに頼らない",
       "データ形式・入力例・必須項目の明示など、必要な補足情報を添える",
     ],
     searchHint: "undue confusion",
@@ -26904,8 +26902,8 @@ const TEXTAREA_NOTES = [
   {
     key: "wcag",
     name: "W3C",
-    position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
-    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"のコンポーネントが複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
+    position: "複数行かどうかを伝える仕組みは、独自に作った入力欄にだけ関わる。ブラウザ標準の複数行の入力欄なら自動で伝わる",
+    text: "複数行かどうかを伝える仕組みは、独自に作った入力欄が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ブラウザ標準の複数行の入力欄には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
     refs: [
       { label: "WAI-ARIA 1.2: aria-multiline", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline" },
       { kind: "sc", level: "AA", label: "1.4.4 テキストのサイズ変更", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" },
@@ -27250,7 +27248,7 @@ function TextInputsTextFieldPage() {
           </div>
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較だ(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
-          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要だ。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
+          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ブラウザ標準の複数行の入力欄なら、複数行であることを伝える追加の対応(WCAGの要件ではなく、独自の入力欄のためのもの)は要らない。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
 
           <RelatedPages paths={["/components/text-inputs/search-field", "/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/selection/select"]} />
 
@@ -27455,7 +27453,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
-    term: "aria-invalid・role=\"alert\"(エラーを伝えるしくみ)",
+    term: "誤りのある項目・エラーの知らせ(エラーを伝えるしくみ)",
     color: "#A3821F",
     position: "エラーの特定(レベルA)、エラーの修正提案(レベルAA)、誤り防止(法的・金融・データ。レベルAA)という3段階の達成基準",
     colorInfo: "1.4.1(色の用途・レベルA)により、エラーを色の違いだけで伝えない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は別の役割で、エラーを示す枠線やアイコンに3:1以上を求める。エラーは見た目だけでなく、必ず文字で説明する(3.3.1)。",
@@ -27466,7 +27464,7 @@ const SOURCES = [
       { term: "3.3.4 Error Prevention(レベルAA)", desc: "法的・金融的な確約、データの変更・削除、試験の回答の送信を伴うページでは、「取り消せる」「入力エラーを検査して直す機会を与える」「送信前に確認・訂正できる」のどれかを満たすこと。" },
     ],
     stance:
-      <>3.3.1は、入力エラーを自動で見つけたら、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。代表的な実装は、必須項目の未入力ならaria-invalidなどで特定、書式の誤りならARIAのアラートやライブリージョンで説明。3.3.3はさらに、直し方が分かっていれば訂正案を示す(レベルAA。例: 月の名前の欄に「12」と入れたら、月名の一覧を示すか「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面で、取り消せる・検査して直す機会を与える・送信前に確認する、のどれかを備える(レベルAA)。</>,
+      <>3.3.1は、入力エラーを自動で見つけたら、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。代表的な方法は、必須項目の未入力なら誤りのある項目だと支援技術に伝えて特定し、書式の誤りなら読み上げで知らせて説明する。3.3.3はさらに、直し方が分かっていれば訂正案を示す(レベルAA。例: 月の名前の欄に「12」と入れたら、月名の一覧を示すか「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面で、取り消せる・検査して直す機会を与える・送信前に確認する、のどれかを備える(レベルAA)。</>,
     exceptions:
       "3.3.3は、セキュリティや目的を損なう場合(パスワードの欄など)は除外。3.3.4は、法的確約・金融取引・データの変更や削除・試験の回答の送信を伴うページだけにかかる。",
     accessibility:
@@ -27484,7 +27482,7 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "3.3.4 誤り防止(法的・金融・データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
       { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { label: "ARIA21(aria-invalidでエラーの欄を示す技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21" },
-      { label: "ARIA19(role=\"alert\"でエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
+      { label: "ARIA19(エラーを読み上げで知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -30616,7 +30614,7 @@ const SOURCES = [
       "利用者が自分で開いた内容(メニューなど)がフォーカスを隠していても、フォーカスを移さずに閉じたり動かしたりできれば、隠れているとはみなさない。利用者が動かせる要素は、最初の位置で判定する。",
     accessibility: "操作可能(Operable) ― 2.4.11は「操作可能」で、キーボードや代わりの入力で操作する人が、フォーカスの位置を目で追えるようにする。1.4.11は「知覚可能」。",
     useCases: [
-      "固定ヘッダー・固定フッターの下にフォーカスが隠れないよう、スクロール位置を調整する(scroll-paddingなど)",
+      "固定ヘッダー・固定フッターの下にフォーカスが隠れないよう、スクロールしたときの位置を調整する",
       "Cookieバナーなど固定の要素が、フォーカス中のコンポーネントを完全に覆わないか確かめる",
       "影だけに頼らず、コンポーネントの境界や中身で識別できるようにする",
     ],
@@ -31458,7 +31456,7 @@ const SOURCES = [
     colorInfo: "1.4.11により、UIコンポーネントを見分けるのに必要な見た目(境界線・フォーカス表示・選択状態など)と、情報を伝えるのに必要な図の一部(アイコン・図表の線など)は、隣の色と3:1以上にする(無効な要素は除外)。ロゴ・旗・写真など、見た目そのものが意味を持つものは例外。",
     glossary: [
       { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える文字以外のコンテンツ(アイコン・画像など)に、同じ目的を果たす文字の代替を用意すること。アイコンが操作要素(ボタンなど)なら、見た目の説明ではなく「その操作の目的を説明する名前」が要る。" },
-      { term: "4.1.2 Name, Role, Value(レベルA)", desc: "すべてのUIコンポーネントの名前と役割を、プログラムで判別できるようにすること。名前は見えなくてもよいが、支援技術が取得・通知できる形で必要。アイコンだけのボタンに aria-label などで名前を与えるのが代表的な実装。" },
+      { term: "4.1.2 Name, Role, Value(レベルA)", desc: "すべてのUIコンポーネントの名前と役割を、プログラムで判別できるようにすること。名前は見えなくてもよいが、支援技術が取得・通知できる形で必要。アイコンだけのボタンに、支援技術向けの名前を付けるのが代表例。" },
       { term: "1.4.11 Non-text Contrast(レベルAA)", desc: "UIコンポーネントを見分けるのに必要な見た目と、理解に必要な図の一部に、隣の色と3:1以上を求める。2.999:1のようなわずかな未達も不合格になる厳密な基準。" },
       { term: "3.2.4 Consistent Identification・レベルAA", desc: "ページをまたいで出てくる同じ働きのコンポーネントを、一貫して識別できること。文言が完全に同じでなくてよい。" },
       { term: "2.5.3 Label in Name(レベルA)", desc: "見えるラベル(文字)があるコンポーネントは、支援技術向けの名前にもその言葉を含めること。食い違うと、音声入力でラベルの言葉を言っても反応しない。" },
@@ -31471,10 +31469,10 @@ const SOURCES = [
       "知覚可能(Perceivable)・堅牢(Robust) ― 1.1.1(文字の代替)と1.4.11(見分けやすさ)は「知覚可能」、4.1.2(支援技術に伝える)は「堅牢」で、それぞれ別の失敗を防ぐ。3.2.4は「理解可能(Understandable)」の予測可能(3.2)、2.5.3は「操作可能(Operable)」の入力方法(2.5)。",
     useCases: [
       "意味を持つアイコンには代替テキストを用意する(装飾目的のみの場合は不要)",
-      "アイコンだけのボタン・リンクには、aria-label などで名前を必ず付ける",
+      "アイコンだけのボタン・リンクには、支援技術向けの名前を必ず付ける",
       "UIコンポーネントとして働くアイコン・境界線は、隣の色と3:1以上にする(無効な状態・ロゴなどの例外を除く)",
       "全ページ共通のアイコンボタンには、どのページでも同じ意味が伝わる名前を付ける(3.2.4)",
-      "見えるラベルを付けたアイコンは、支援技術向けの名前(aria-labelなど)にも同じ言葉を含める(2.5.3)。食い違うと、音声入力でラベルの言葉を言っても反応しない",
+      "見えるラベルを付けたアイコンは、支援技術向けの名前にも同じ言葉を含める(2.5.3)。食い違うと、音声入力でラベルの言葉を言っても反応しない",
     ],
     searchHint: "describes its purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
@@ -32730,7 +32728,7 @@ const SOURCES = [
     useCases: [
       "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
       "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
-      "aria-pressed・aria-expandedなどで、状態を支援技術に伝える",
+      "押されているか・開いているかなどの状態を、支援技術に伝える",
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
@@ -32753,7 +32751,7 @@ const SOURCES = [
     stance:
       "押せるのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押す。状態は小さな手がかりで伝えるため、実際の利用者で見分けられるかテストする。",
     exceptions:
-      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンに aria-disabled=\"true\" を付けると、タブでフォーカスできるまま、スクリーンリーダーに無効と伝わる。",
+      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンも、タブでフォーカスできるまま「無効」と支援技術に伝えれば、スクリーンリーダーで存在と状態が分かる。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察にもとづく設計の根拠。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合がある。",
     useCases: [
       "ホバーには150〜200msの遅延を入れる",
@@ -32914,7 +32912,7 @@ function CellMini({ k, sys }) {
     case "disabled-apple": body = pill("#E5E5EA", { tc: "#171B36", to: 0.3, fo: 0.6 }); break;
     case "disabled-google": body = <g>{pill("#1B1B21", { fo: 0.1, tc: "#1B1B21", to: 0.38 })}{tag(70, "38/10%", "#2F7D6E")}</g>; break;
     case "disabled-wcag": body = <g>{pill("#1B1B21", { fo: 0.1, tc: "#1B1B21", to: 0.38 })}{tag(70, "対象外", "#A3821F")}</g>; break;
-    case "disabled-nn": body = <g>{pill("#9EA4C4", { tc: "#FFFFFF", to: 0.85 })}{tag(70, "aria-", "#7A4F7E")}</g>; break;
+    case "disabled-nn": body = <g>{pill("#9EA4C4", { tc: "#FFFFFF", to: 0.85 })}{tag(70, "無効と伝える", "#7A4F7E")}</g>; break;
     case "loading-nn": body = <g>{pill(indigo, { tx: 6 })}<circle cx="22" cy="17" r="4.5" fill="none" stroke="#FFFFFF" strokeOpacity="0.35" strokeWidth="1.8" /><path d="M22 12.5 a4.5 4.5 0 0 1 4.5 4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" /></g>; break;
     default: return null;
   }
@@ -33926,7 +33924,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "動きの長さやイージングの基準はなく、「動きで人を傷つけない・気を散らさない」ための上限と、止める手段を求める",
     size: "時間の数値は2つ。自動で始まり、5秒より長く続き、ほかの内容と並んで出る動き・点滅・スクロールには、一時停止・停止・非表示の手段を用意する(2.2.2・レベルA)。どの1秒間にも3回を超えて点滅しない(2.3.1・レベルA。明るさや面積が閾値以下なら可)。",
-    easing: "イージングや動きの作り方は定めない。操作をきっかけに起きる動き(スクロールに合わせて装飾が動く、視差スクロールなど)は、機能や情報に欠かせない場合を除き、無効にできること(2.3.3・レベルAAA)。満たし方は、不要な動きを使わない・動きを切る設定を用意する・OSやブラウザの「動きを減らす」設定(prefers-reduced-motion)に従う、の3つ。",
+    easing: "イージングや動きの作り方は定めない。操作をきっかけに起きる動き(スクロールに合わせて装飾が動く、視差スクロールなど)は、機能や情報に欠かせない場合を除き、無効にできること(2.3.3・レベルAAA)。満たし方は、不要な動きを使わない・動きを切る設定を用意する・OSやブラウザの「動きを減らす」設定に従う、の3つ。",
     glossary: [
       { term: "2.3.3 Animation from Interactions・レベルAAA", desc: "操作をきっかけに起きる動きを、欠かせない場合を除いて無効にできること。" },
       { term: "2.2.2 Pause, Stop, Hide・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロールや、自動で更新される情報を、止めたり隠したりできること。" },
@@ -33940,7 +33938,7 @@ const SOURCES = [
     accessibility: "操作可能(Operable) ― 2.2.2は「十分な時間」(2.2)、2.3.1・2.3.3は「発作と身体的反応」(2.3)で、どれも「操作可能」。",
     useCases: [
       "自動で動くカルーセルなどは、5秒を超えるなら停止ボタンを付ける",
-      "prefers-reduced-motionが有効なら、装飾的な動きを止める",
+      "OS・ブラウザの「動きを減らす」設定が有効なら、装飾的な動きを止める",
       "1秒間に3回を超える点滅を使わない",
     ],
     searchHint: "reduce motion feature",
@@ -34089,7 +34087,7 @@ const REDUCE_MOTION = [
     items: [
       "不要なアニメーションを使わない",
       "操作で起きる装飾的な動きを切る設定を用意する",
-      "OS・ブラウザの「動きを減らす」設定(prefers-reduced-motion)に従う",
+      "OS・ブラウザの「動きを減らす」設定に従う",
     ],
   },
 ];
@@ -35883,7 +35881,7 @@ const SHAPE_GROUPS = [
           { k: "計算で同心", v: "ライブアクティビティ・ウィジェットの中のコンポーネント(外側の角丸 − 余白)" },
           { k: "システムがマスク", v: "アプリアイコンは正方形で書き出し、端末の画面の角とそろうようシステムが角丸にする(tvOSは長方形で、同じく同心の角)。Walletのパスのアイコンも正方形で用意し、角丸はシステムが付ける" },
           { k: "形をそろえる", v: "コンテキストメニューのプレビューは、切り抜きを画像の形に合わせ、表示のアニメーション中に角丸が変わって見えないようにする" },
-          { k: "ウィジェット", v: "中の内容の角丸をウィジェットの角丸に合わせる。SwiftUIのコンテナを使うと正しい角丸が付く" },
+          { k: "ウィジェット", v: "中の内容の角丸をウィジェットの角丸に合わせる。システムの入れ物を使えば正しい角丸になる" },
         ],
       },
     ],
@@ -35924,7 +35922,7 @@ const SHAPE_GROUPS = [
         use: "状況とプラットフォームに合わせて形を選ばせる",
         g: null, gNone: "自動で選ぶ形はない(コンポーネントごとに既定の形が決まっている。ボタンは丸型)",
         a: [
-          { k: "既定", v: "標準のボタン。SwiftUIのボタンの形は自動・カプセル・円・角丸長方形から選べ、既定は自動" },
+          { k: "既定", v: "標準のボタン。ボタンの形は自動・カプセル・円・角丸長方形から選べ、既定は自動" },
           { k: "フォーカスの輪", v: "iPadOS・macOSのフォーカスリング(halo)は、コンポーネントの形から自動で形が決まる。合わないときは角丸やベジェ曲線の形に合わせて調整する" },
           { k: "ポインタのリフト効果", v: "iPadOSで要素を持ち上げる効果では、ポインタがシステム既定の角丸長方形に変形する。円など違う形の独自コンポーネントは、角丸の値を指定する" },
         ],

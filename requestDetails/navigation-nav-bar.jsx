@@ -122,10 +122,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA Landmark Regions(navigationランドマーク)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
-    term: "navigation(ランドマークのロール)/ HTMLのnav要素",
+    doc: "WAI-ARIA Landmark Regions(ナビゲーション領域)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
+    term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"navigation\"(またはnav要素)で示す、ナビゲーションのリンクのまとまりのランドマーク",
+    position: "ナビゲーションのリンクのまとまりを、1つの領域(目印)として支援技術に伝える",
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
@@ -134,15 +134,15 @@ const SOURCES = [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "ナビゲーションのリンクのまとまりは、nav要素かrole=\"navigation\"でランドマークにする。1ページに複数あるなら、それぞれに別のラベル(aria-labelなど)を付ける(リンクがまったく同じなら同じラベルでよい)。3.2.3(レベルAA)は、複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むのは認められる。",
+      "ナビゲーションのリンクのまとまりは、ナビゲーションの領域として示す。1ページに複数あるなら、それぞれに別の名前を付ける(リンクがまったく同じなら同じ名前でよい)。3.2.3(レベルAA)は、複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むのは認められる。",
     exceptions:
-      "リンクがほかのnavigationランドマークとまったく同じ場合だけ、同じラベルでよい。それ以外は別のラベルが要る。",
+      "リンクがほかのナビゲーション領域とまったく同じ場合だけ、同じ名前でよい。それ以外は別の名前が要る。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― ランドマークによる識別、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
+      "堅牢(Robust)・操作可能(Operable) ― 領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "ナビゲーションのリンクをnav要素かrole=\"navigation\"で囲む",
-      "navigationランドマークが1ページに複数あるなら、別々のラベルを付ける",
-      "リンクがまったく同じ場合だけ、同じラベルでよい",
+      "ナビゲーションのリンクを、ナビゲーションの領域として示す",
+      "ナビゲーションの領域が1ページに複数あるなら、別々の名前を付ける",
+      "リンクがまったく同じ場合だけ、同じ名前でよい",
       "全ページで、ナビゲーションの項目を同じ順番に並べる(3.2.3)",
     ],
     searchHint: "unique label",
@@ -159,11 +159,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="navigation"</text>
+          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ナビゲーション領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、ランドマーク(役割)の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印(役割)の考え方を図示",
   },
   {
     key: "nn",
@@ -255,7 +255,7 @@ function TopBarPointerSection() {
         <span style={styles.columnTitle}>Appleが別に「ナビゲーションバー」と呼んでいたもの</span>
       </div>
       <p style={styles.columnIntro}>
-        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(bannerランドマーク)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
+        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(バナー領域)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
       </p>
       <a href="/components/navigation/app-bar" style={styles.linkCard}>
         <div style={styles.linkCardTitle}>アプリバー ↗</div>
@@ -371,7 +371,7 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンク群であることを伝える意味の構造(navigationランドマーク)</strong>を定めている。
+              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンクの集まりであることを伝える構造(ナビゲーションの領域)</strong>を定めている。
             </p>
             <p style={styles.synthesisText}>
               <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど遷移しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
@@ -383,7 +383,7 @@ export default function NavigationNavBarPage() {
               Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げている。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしている。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じだ。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できた(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは他系列と異なり、<strong>見た目やサイズではなく「ランドマークとしての識別のされ方」</strong>に焦点を当てている。特に、navigationランドマークが1ページに複数あるなら、別々のラベルを付けるべきという指摘は、Apple/Googleどちらの実装にも共通して当てはまる、実装上の重要な注意点だ。
+              W3Cは他系列と異なり、<strong>見た目やサイズではなく「領域としての見分けられ方」</strong>に焦点を当てている。特に、ナビゲーションの領域が1ページに複数あるなら別々の名前を付ける、という指摘は、Apple/Googleどちらにも当てはまる重要な注意点だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

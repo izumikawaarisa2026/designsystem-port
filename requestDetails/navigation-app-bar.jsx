@@ -107,10 +107,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA banner landmark / WCAG 1.4.11 / 3.2.3 / 3.2.6",
-    term: "banner(ランドマークのロール)/ HTMLのheader要素",
+    doc: "WAI-ARIA(バナー領域)/ WCAG 1.4.11 / 3.2.3 / 3.2.6",
+    term: "バナー領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"banner\"(またはheader要素)で示す、サイト全体で共通のヘッダー領域のランドマーク",
+    position: "サイト全体で共通のヘッダーを、1つの領域として支援技術に伝える(領域の目印)",
     size: "専用の数値基準はない。個々のアイコン・リンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、アイコンや区切り線などは3:1以上のコントラスト比にする。",
     glossary: [
@@ -118,14 +118,14 @@ const SOURCES = [
       { term: "3.2.6 Consistent Help・レベルA", desc: "問い合わせ先・問い合わせの手段・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(WCAG 2.2で追加)。ヘルプを置くこと自体は求めない。" },
     ],
     stance:
-      "bannerランドマークは、ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返し出るヘッダーの内容を指す。HTMLのheader要素は、article/aside/main/nav/sectionの中になければ、bannerに相当する。bannerは通常1ページに1つ。ヘッダーには全ページ共通のナビゲーションやヘルプを置くことが多く、3.2.3(レベルAA)はその並びをページ間でそろえること。WCAG 2.2で加わった3.2.6(レベルA)は、問い合わせ先・チャット・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(ヘルプを置くこと自体は求めない)。",
+      "バナー領域は、ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返し出るヘッダーの内容を指す。通常1ページに1つ。ヘッダーには全ページ共通のナビゲーションやヘルプを置くことが多く、3.2.3(レベルAA)はその並びをページ間でそろえること。WCAG 2.2で加わった3.2.6(レベルA)は、問い合わせ先・チャット・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(ヘルプを置くこと自体は求めない)。",
     exceptions:
-      "article/aside/main/nav/sectionの中のheader要素はbannerにならず、一般の役割(generic)になる。Appleの「画面ごとの戻るボタン+タイトル」と違い、サイト/アプリ全体で共通のヘッダーという、より広い単位の概念。",
+      "記事やセクションの中の見出し部分はバナー領域にならない。Appleの「画面ごとの戻るボタン+タイトル」と違い、サイト/アプリ全体で共通のヘッダーという、より広い単位の概念。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― bannerランドマークによる識別、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)。3.2.3・3.2.6は「理解可能(Understandable)」の予測可能(3.2)。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― バナー領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)。3.2.3・3.2.6は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
-      "サイト/アプリ全体で共通のヘッダーは、header要素(またはrole=\"banner\")で1つだけ示す",
-      "article/aside/main/nav/sectionの中のheader要素はbannerにならない",
+      "サイト/アプリ全体で共通のヘッダーは、バナー領域として1つだけ示す",
+      "記事やセクションの中の見出し部分は、バナー領域として扱わない",
       "アイコン・リンクにも一般のターゲットサイズの基準を当てはめる",
       "ヘッダーのヘルプ(問い合わせ・FAQ等)は、どのページでも同じ位置に置く(3.2.6)",
     ],
@@ -144,11 +144,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="banner"</text>
+          <text x="60" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">バナー領域</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、ランドマーク(役割)の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、領域の目印(役割)の考え方を図示",
   },
   {
     key: "nn",
@@ -374,7 +374,7 @@ export default function NavigationAppBarPage() {
               Appleが以前「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタン+画面タイトルを持つ上部バーは、Googleの<strong>「アプリバー」(旧Top app bar)がほぼ正確な対応コンポーネント</strong>だ。両者とも、画面ごとにタイトルを示し、先頭に戻る/閉じるためのアイコン、末尾に関連操作アイコンを置くという構造が共通している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはないが、<strong>bannerランドマーク</strong>が最も近い関連概念だ。ただしbannerは、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱わない</strong>。1ページに複数のbannerランドマークを置くべきではない、という点も実装上の注意点だ。
+              W3Cには、この「画面ごとの戻るボタン+タイトル」に完全に対応する専用パターンはないが、<strong>バナー領域</strong>が最も近い概念だ。ただしバナー領域は、サイト/アプリ全体で共通するグローバルヘッダー(ロゴ・全体ナビゲーションなど)を指すためのもので、<strong>「1画面ごとに変わるタイトル」という粒度までは扱わない</strong>。バナー領域を1ページに複数置かない、という点も注意点だ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupにも「上部バー」という名前の専用記事はないが、<strong>常設ヘッダー全般の費用対効果を問う「Sticky Headers」</strong>が関連する実務的知見を提供している。<strong>「コンテンツとchromeの比率」</strong>(良い例で13:1、悪い例で2:1)という具体的な目安は、Apple・Googleどちらのアプリバーにも当てはまる、実装時の判断材料だ。

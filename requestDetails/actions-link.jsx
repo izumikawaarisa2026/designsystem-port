@@ -73,7 +73,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.4.4 / 2.4.9 / 1.4.1 / 3.2.4",
-    term: "link(WAI-ARIAのロール)/ HTMLのa要素",
+    term: "リンク(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:

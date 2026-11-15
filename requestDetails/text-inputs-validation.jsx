@@ -108,7 +108,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.1 Error Identification / 3.3.3 Error Suggestion / 3.3.4 Error Prevention / 1.4.1",
-    term: "aria-invalid・role=\"alert\"(エラーを伝えるしくみ)",
+    term: "誤りのある項目・エラーの知らせ(エラーを伝えるしくみ)",
     color: "#A3821F",
     position: "エラーの特定(レベルA)、エラーの修正提案(レベルAA)、誤り防止(法的・金融・データ。レベルAA)という3段階の達成基準",
     colorInfo: "1.4.1(色の用途・レベルA)により、エラーを色の違いだけで伝えない(アイコンや文字も添える)。1.4.11(非テキストのコントラスト)は別の役割で、エラーを示す枠線やアイコンに3:1以上を求める。エラーは見た目だけでなく、必ず文字で説明する(3.3.1)。",
@@ -119,7 +119,7 @@ const SOURCES = [
       { term: "3.3.4 Error Prevention(レベルAA)", desc: "法的・金融的な確約、データの変更・削除、試験の回答の送信を伴うページでは、「取り消せる」「入力エラーを検査して直す機会を与える」「送信前に確認・訂正できる」のどれかを満たすこと。" },
     ],
     stance:
-      <>3.3.1は、入力エラーを自動で見つけたら、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。代表的な実装は、必須項目の未入力ならaria-invalidなどで特定、書式の誤りならARIAのアラートやライブリージョンで説明。3.3.3はさらに、直し方が分かっていれば訂正案を示す(レベルAA。例: 月の名前の欄に「12」と入れたら、月名の一覧を示すか「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面で、取り消せる・検査して直す機会を与える・送信前に確認する、のどれかを備える(レベルAA)。</>,
+      <>3.3.1は、入力エラーを自動で見つけたら、<Hl>エラーのある項目を特定し、エラーの内容をテキストで説明すること</Hl>を求める(レベルA)。代表的な方法は、必須項目の未入力なら誤りのある項目だと支援技術に伝えて特定し、書式の誤りなら読み上げで知らせて説明する。3.3.3はさらに、直し方が分かっていれば訂正案を示す(レベルAA。例: 月の名前の欄に「12」と入れたら、月名の一覧を示すか「12月(December)のことですか?」と提案する)。3.3.4は、法的・金融的な確約やデータの変更・削除、試験の回答の送信を伴う場面で、取り消せる・検査して直す機会を与える・送信前に確認する、のどれかを備える(レベルAA)。</>,
     exceptions:
       "3.3.3は、セキュリティや目的を損なう場合(パスワードの欄など)は除外。3.3.4は、法的確約・金融取引・データの変更や削除・試験の回答の送信を伴うページだけにかかる。",
     accessibility:
@@ -137,7 +137,7 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "3.3.4 誤り防止(法的・金融・データ)", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html" },
       { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
       { label: "ARIA21(aria-invalidでエラーの欄を示す技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA21" },
-      { label: "ARIA19(role=\"alert\"でエラーを知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
+      { label: "ARIA19(エラーを読み上げで知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>

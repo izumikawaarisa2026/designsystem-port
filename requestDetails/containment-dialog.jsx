@@ -89,7 +89,7 @@ const SOURCES = [
     exceptions:
       "操作は2つまで。1つなら確認、2つなら確認と却下にする。確認ボタンは末尾に置く。中で選択肢を選ばせるなら、選ぶまで確認ボタンを押せなくするが、閉じる操作は無効にしない(「削除しますか?」のような単純な確認では、確認ボタンを無効にしない)。否定の操作を肯定の操作の右(末尾側)に置かない。「詳細を見る」のような3つ目の操作は、作業が終わらないままダイアログを離れてしまうため勧めず、インラインで開いて情報を示す。確認のラベルは「送信」「作成」など次に起きることがはっきり分かる語にし、「完了」「OK」「閉じる」のような曖昧な語は避ける。",
     accessibility:
-      "操作可能(Operable)・理解可能(Understandable) ― 出たら、フォーカスは自動でダイアログの中の最初の操作要素に移動する。アクセシビリティラベルは通常タイトルと同じで、Webの基本ダイアログにはalertdialogロールを与えるとする(W3Cの区別では、削除の確認のようにすぐ応答を求める警告がalertdialog、それ以外はdialog。W3Cの欄を参照)。文字を200%に拡大しても見出しが4行以内に収まるよう短くする。",
+      "操作可能(Operable)・理解可能(Understandable) ― 出たら、フォーカスは自動でダイアログの中の最初の操作要素に移動する。アクセシビリティラベルは通常タイトルと同じで、Webの基本ダイアログは警告のダイアログとして伝えるとする(W3Cの区別では、削除の確認のようにすぐ応答を求めるものが警告のダイアログ、それ以外は通常のダイアログ。W3Cの欄を参照)。文字を200%に拡大しても見出しが4行以内に収まるよう短くする。",
     useCases: [
       "重要な情報・判断・1つの作業の確認には基本ダイアログを使う(優先度の低い情報にはスナックバー)",
       "操作は2つまで(確認+却下、または確認のみ)にし、確認ボタンを末尾に置く",
@@ -115,27 +115,27 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
-    term: "dialog・alertdialog(WAI-ARIAのロール)/ HTMLのdialog要素",
+    term: "ダイアログ・警告のダイアログ(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"dialog\" + aria-modal=\"true\"で示す、後ろの内容を操作できなくして重ねて出す領域",
+    position: "後ろの内容を操作できなくして重ねて出す領域。ダイアログであることと、後ろを操作できないことを支援技術に伝える",
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
-      { term: "aria-modal", desc: "見た目で覆うこと(スクリムなど)と操作を止めることの両方を実装したときだけtrueにする属性。ダイアログの外の内容をスクリーンリーダーからも隠す。" },
+      { term: "モーダルであること", desc: "見た目で覆うこと(スクリムなど)と操作を止めることの両方があるときだけ、支援技術にモーダルと伝える。伝えると、ダイアログの外の内容はスクリーンリーダーからも隠れる。" },
     ],
     stance:
-      "後ろの内容を操作できなくして重ねて出す領域。role=\"dialog\"、aria-modal=\"true\"、aria-labelledbyかaria-labelでのラベル付けが必須。フォーカスはダイアログの中に閉じ込め、Tabキーで循環させる。削除の確認のようにすぐ応答を求める警告にはalertdialog(APGのAlert Dialogパターン)、それ以外はdialogを使う。",
+      "後ろの内容を操作できなくして重ねて出す領域。ダイアログであること、モーダルであること、名前(タイトル)を支援技術に伝えることが必須。フォーカスはダイアログの中に閉じ込め、Tabキーで循環させる。削除の確認のようにすぐ応答を求めるものは警告のダイアログ(APGのAlert Dialogパターン)、それ以外は通常のダイアログにする。",
     scenarios: [
-      "見た目で覆うことと操作を止めることの両方を実装したら、aria-modal=\"true\"を設定する",
+      "見た目で覆うことと操作を止めることの両方があるなら、モーダルと伝える",
       "リストや表など複雑な内容を含むダイアログで、最初のフォーカスの位置を決める時",
     ],
     exceptions:
-      "最初のフォーカスの位置は内容で変える。リストや表など複雑な内容ならtabindex=\"-1\"を付けた最初の静的な要素に、内容が多いならスクロールで見えなくなるのを避けるためタイトルに置く。aria-describedbyは説明が単純な場合だけ使い、複雑な構造なら省く。",
+      "最初のフォーカスの位置は内容で変える。リストや表など複雑な内容なら最初の文に、内容が多いならスクロールで見えなくなるのを避けるためタイトルに置く。ダイアログの説明を読み上げさせるのは説明が単純な場合だけにし、複雑な構造なら省く。",
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログの中に閉じ込め、Shift+Tabで逆順に循環させる。Escapeキーで閉じられるようにし、閉じたら通常、開いた要素にフォーカスを戻す。",
     useCases: [
-      "role=\"dialog\"とaria-modal=\"true\"を設定し、見た目で覆うことと操作を止めることを両方実装する",
-      "タイトル要素をaria-labelledbyで参照するか、aria-labelでラベル付けする",
+      "ダイアログであることとモーダルであることを伝え、見た目で覆うことと操作を止めることを両方行う",
+      "タイトルを、ダイアログの名前として支援技術に伝える",
       "Tabキーでフォーカスをダイアログの中に閉じ込め、Escapeで閉じられるようにする",
     ],
     searchHint: "Escape",
@@ -148,8 +148,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal="true"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダル</text>
         </svg>
       </div>
     ),
@@ -333,7 +333,7 @@ export default function ContainmentDialogPage() {
               ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っている。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にある。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカス管理の技術要件(role="dialog"・aria-modal・Tabキーの閉じ込め・Escapeキーでの終了)</strong>を具体的に定めており、Googleの初期フォーカスは最初のインタラクティブ要素に自動的に移動するという挙動と実装レベルで一致している。
+              W3Cは、<strong>フォーカスの扱い(ダイアログであること・モーダルであることを伝える・Tabキーでの閉じ込め・Escapeキーで閉じる)</strong>を具体的に定めており、Googleの「最初のフォーカスは最初の操作要素に自動で移動する」という挙動と一致している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

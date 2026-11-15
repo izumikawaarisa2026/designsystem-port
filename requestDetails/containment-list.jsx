@@ -110,27 +110,27 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WCAG 1.3.1 / WAI-ARIA ― list role / listitem role / APG Listbox",
-    term: "list・listitem(WAI-ARIAのロール)/ HTMLのul・ol・li",
+    doc: "WCAG 1.3.1 / WAI-ARIA ― リストの役割 / APG Listbox",
+    term: "リスト・リスト項目(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "role=\"list\" + role=\"listitem\"(またはHTMLのul/ol + li)で示す、操作しない項目の集まり",
+    position: "操作しない項目の集まりを、リストとして支援技術に伝える",
     size: "専用の数値基準はない。項目の中の操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。区切り線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      <>listロールは0個以上のlistitemだけを含む入れ物で、支援技術にリストの構造を伝える。<Hl>可能な限りHTMLのセマンティック要素</Hl>(順序がない場合はul+li、順序が重要な場合はol+li)を優先し、ARIAのlist/listitemは、HTMLを直接変えられない場合やJavaScriptで後からアクセシビリティを加える場合だけに使う。</>,
+      <>リストは0個以上の項目だけを含む入れ物で、支援技術にリストの構造を伝える。<Hl>何項目あり今どれかが伝わるよう、一覧は一覧として構造で示し</Hl>、順序に意味があるかどうかも区別して伝える。</>,
     scenarios: [
-      "支援技術にリストの構造をはっきり伝えたい場面(特にHTMLを直接変えられない場合)",
+      "支援技術にリストの構造をはっきり伝えたい場面",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
     ],
     exceptions:
-      "ARIAのlistは順序あり/なしを区別しないため、順序に意味があるならHTMLのol要素を使う。タブとして働くリストには、list/listitemではなくtablist/tab/tabpanelを使う。",
+      "順序に意味があるなら、順序のあるリストとして伝える。タブとして働くリストは、リストではなくタブとして伝える。",
     accessibility:
-      "知覚可能(Perceivable) ― 中心は、見た目で伝わる一覧の構造を支援技術にも伝えること(1.3.1 情報及び関係性)。HTMLの意味のある要素(ul/ol/li)を使えば構造は自動で伝わる。ARIAはHTMLを直接変えられない場合の代わり。",
+      "知覚可能(Perceivable) ― 中心は、見た目で伝わる一覧の構造を支援技術にも伝えること(1.3.1 情報及び関係性)。一覧を一覧として構造で示せば、項目の数や位置も伝わる。",
     useCases: [
-      "できるだけHTMLのul/ol + liを使い、ARIAのlist/listitemはHTMLを変えられない場合の代わりにする",
-      "順序に意味があるなら、ul(順序なし)ではなくol(順序あり)を使う",
-      "タブとして働くリストには、list/listitemではなくtablist/tab/tabpanelを使う",
-      "項目を選べるリストはAPGのListboxパターン(role=\"listbox\"/\"option\")で作る。list/listitem(ul/ol/li)は読むだけの一覧用",
+      "見た目が一覧なら、構造でも一覧として伝える",
+      "順序に意味があるなら、順序のあるリストとして伝える",
+      "タブとして働くリストは、リストではなくタブとして伝える",
+      "項目を選べるリストは、選択肢の一覧(APGのListboxパターン)として伝える。リストは読むだけの一覧用",
     ],
     searchHint: "listitem",
     url: "https://www.w3.org/TR/wai-aria-1.2/#list",
@@ -145,8 +145,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="list"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="listitem"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">リスト</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">リスト項目</text>
         </svg>
       </div>
     ),
@@ -307,7 +307,7 @@ export default function ContainmentListPage() {
               Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なる。
             </p>
             <p style={styles.synthesisText}>
-              W3Cが強調する<strong>できるだけARIAのlist/listitemロールではなくHTMLのul/ol+liを使う</strong>という原則は、他のコンポーネントページではあまり見られない実装上の注意点だ。順序の有無(ul/ol)を区別できるのはHTMLのセマンティック要素側だけで、ARIAロールだけでは表現できないという技術的な限界も示されている。
+              W3Cが強調するのは、<strong>見た目の一覧を、構造でも一覧として支援技術に伝える</strong>こと(1.3.1)だ。順序に意味があるかどうかも区別して伝える。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

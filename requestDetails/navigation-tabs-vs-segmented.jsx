@@ -30,7 +30,7 @@ const COMPARE_ROWS = [
   { label: "典型的な配置", tab: "画面の上部(コンテンツの見出しとして)", seg: "画面上部やツールバー内、フォームの一部として" },
   { label: "選択肢の数の目安", tab: "固定タブは4個まで、多い場合は横スクロール(Google)", seg: "iPhoneでは約5個まで(Apple)・5個を超えたらチップ(Google)" },
   { label: "切り替えるもの", tab: "内容のまとまり(別の一覧・別のセクション)。同じページの中でパネルを切り替える", seg: "同じ内容の見せ方・並び順・設定" },
-  { label: "代表的なARIAパターン", tab: "role=\"tablist\"/\"tab\"/\"tabpanel\"", seg: "用途により role=\"radiogroup\"/\"radio\" または \"tablist\"/\"tab\"" },
+  { label: "支援技術への伝え方", tab: "タブの並び・タブ・パネルとして伝える", seg: "用途により、ラジオボタンの組かタブとして伝える" },
 ];
 
 const EXAMPLES = [
@@ -156,7 +156,7 @@ const SYSTEM_VIEWS = [
     { label: "Tabs ― Guidelines", url: "https://m3.material.io/components/tabs/guidelines" },
     { label: "Segmented buttons ― Guidelines", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
   ] },
-  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブ(tablist/tab)の型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
+  { key: "wcag", name: "W3C", color: "#A3821F", none: true, text: "タブとセグメントコントロールの使い分けの記載なし。WAI-ARIAにはタブの型はあるが、セグメントコントロール専用の型はない。作るときは、動き(内容を切り替えるか、選択状態を保つか)に合わせて、タブかラジオグループの型を選ぶことになる(AI解釈)。", links: [
     { label: "APG: Tabsパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" },
     { label: "APG: Radio Groupパターン", url: "https://www.w3.org/WAI/ARIA/apg/patterns/radio/" },
   ] },

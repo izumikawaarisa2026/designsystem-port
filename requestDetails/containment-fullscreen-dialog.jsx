@@ -115,15 +115,15 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
-    term: "dialog(WAI-ARIAのロール。大きさによる区別なし)",
+    term: "ダイアログ(WAI-ARIAの役割。大きさによる区別なし)",
     color: "#A3821F",
-    position: "role=\"dialog\" + aria-modal=\"true\"で示す、後ろの内容を操作できなくして重ねて出す領域。大きさによる区別はない",
+    position: "後ろの内容を操作できなくして重ねて出す領域(ダイアログ・モーダルであることを支援技術に伝える)。大きさによる区別はない",
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      "WAI-ARIAのDialog (Modal) Patternは、見た目の大きさ(画面全体か、中央の小さいものか)で区別しない。「モーダルダイアログ」ページの基本ダイアログと同じ実装の要件が当てはまる。",
+      "WAI-ARIAのDialog (Modal) Patternは、見た目の大きさ(画面全体か、中央の小さいものか)で区別しない。「モーダルダイアログ」ページの基本ダイアログと同じ要件が当てはまる。",
     scenarios: [
-      "画面全体を占めるダイアログでも、基本ダイアログと同じrole=\"dialog\"・aria-modal=\"true\"・フォーカストラップを実装する",
+      "画面全体を占めるダイアログでも、基本ダイアログと同じく、ダイアログ・モーダルであることを伝え、フォーカスを閉じ込める",
       "全画面ダイアログの上に別のダイアログを重ねる時、フォーカストラップの対象を最前面に正しく移す",
     ],
     exceptions:
@@ -131,7 +131,7 @@ const SOURCES = [
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― Tabキーでフォーカスをダイアログの中に閉じ込め、Escapeキーで閉じられるようにし、閉じたら開いた要素にフォーカスを戻す(「モーダルダイアログ」ページと共通)。",
     useCases: [
-      "role=\"dialog\"とaria-modal=\"true\"を設定する(基本ダイアログと同じ実装)",
+      "ダイアログ・モーダルであることを支援技術に伝える(基本ダイアログと同じ)",
       "ダイアログを重ねるなら、フォーカストラップの対象を最前面に正しく移す",
       "Escapeキーで閉じ、閉じたら開いた要素にフォーカスを戻す",
     ],
@@ -144,8 +144,8 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="0" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">role="dialog"</text>
-          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal="true"</text>
+          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ダイアログ</text>
+          <text x="60" y="44" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダル</text>
         </svg>
       </div>
     ),
@@ -317,7 +317,7 @@ export default function ContainmentFullscreenDialogPage() {
               最も踏み込んだ主張をしているのはNielsen Norman Groupだ。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしている。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になる。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確だ。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じrole="dialog"・aria-modal・フォーカストラップの要件がそのまま適用され、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
+              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じ要件(ダイアログ・モーダルであることを伝える、フォーカスの閉じ込め)がそのまま当てはまり、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
