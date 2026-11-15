@@ -125,7 +125,7 @@ const SOURCES = [
     doc: "WAI-ARIA Landmark Regions(ナビゲーション領域)/ WCAG 1.4.11 / 2.5.8 / 2.5.5 / 3.2.3",
     term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "ナビゲーションのリンクのまとまりを、1つの領域(目印)として支援技術に伝える",
+    position: <>ナビゲーションのリンクのまとまりを、<Hl>1つの領域(目印)として支援技術に伝える</Hl></>,
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
@@ -171,7 +171,7 @@ const SOURCES = [
     doc: "Basic Patterns for Mobile Navigation: A Primer",
     term: "Tab bar・Navigation bar(上部・下部のバー)",
     color: "#7A4F7E",
-    position: "上と下のどちらに置くかで一長一短があり、選択肢が少ない場合に向く(数値基準ではなく使い分けの指針)",
+    position: <>上と下のどちらに置くかで一長一短があり、<Hl>選択肢が少ない場合に向く</Hl>(数値基準ではなく使い分けの指針)</>,
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分な押せる範囲を保つのが難しい。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
@@ -536,7 +536,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

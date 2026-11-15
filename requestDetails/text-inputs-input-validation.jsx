@@ -85,7 +85,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Text fields(サポートテキスト/エラーテキストの切り替え)",
     term: "Supporting text → Error text",
     color: "#2F7D6E",
-    position: "検証する欄では、欄の下のサポートテキスト(書式のヒント)を、同じ位置のエラーテキストに入れ替える(レイアウトを動かさないため)。いつ検証するかの決まりは記載なし",
+    position: <>検証する欄では、欄の下のサポートテキスト(書式のヒント)を、<Hl>同じ位置のエラーテキストに入れ替える</Hl>(レイアウトを動かさないため)。いつ検証するかの決まりは記載なし</>,
     colorInfo: "エラーテキストはエラーの色で出し、エラーアイコンも出すことを強く勧める。",
     glossary: [{ term: "色", desc: "エラーテキストはエラーの色で出し、エラーアイコンも出すことを強く勧める(見た目の比較は「エラー表示」のページ)。" }],
     stance:
@@ -121,7 +121,7 @@ const SOURCES = [
     doc: "WAI「Validating Input」チュートリアル / ARIA19(エラーを読み上げで知らせる) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
     term: "Validating Input(WAIのチュートリアル)",
     color: "#A3821F",
-    position: "検証を「いつ行うか」の基準はない。ARIA19はエラーを読み上げで知らせる仕組みを示すが、タイミングは作り手の判断。G199は、送信が成功したときのフィードバックを勧める、数少ない「タイミング」に触れた技法",
+    position: <><Hl>検証を「いつ行うか」の基準はない</Hl>。ARIA19はエラーを読み上げで知らせる仕組みを示すが、タイミングは作り手の判断。G199は、送信が成功したときのフィードバックを勧める、数少ない「タイミング」に触れた技法</>,
     colorInfo: "3つの資料に色の規定はない(見た目の状態は「エラー表示」ページを参照)。",
     glossary: [
       { term: "サイズ", desc: "検証タイミング専用の数値基準はない。" },
@@ -699,7 +699,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

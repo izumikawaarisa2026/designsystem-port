@@ -50,7 +50,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Text fields",
     term: "Text field(複数行はText view)",
     color: "#C2542A",
-    position: "1行(または複数行)のテキストを入力・編集させる標準コントロール",
+    position: <><Hl>1行(または複数行)のテキストを入力・編集させる</Hl>標準コントロール</>,
     size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかのコンポーネントと同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
       "1行の文字を入力・編集できる長方形の領域。空のときはプレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、目的を思い出せるよう別にラベルを置くとよい。",
@@ -81,7 +81,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Text fields(Filled / Outlined)",
     term: "Text field(Filled・Outlined)",
     color: "#2F7D6E",
-    position: "Filled(塗りつぶし)とOutlined(枠線)の2種類。フローティングラベル+サポートテキスト/エラーテキストの構造を持つ",
+    position: <><Hl>Filled(塗りつぶし)とOutlined(枠線)の2種類</Hl>。フローティングラベル+サポートテキスト/エラーテキストの構造を持つ</>,
     size: "欄の高さは56dp(Jetpack Composeのトークン)。押せる範囲の決まりは、テキストフィールドのページには記載なし。",
     glossary: [
       { term: "フローティングラベル", desc: "入力欄の中に出て、フォーカスや入力で上に移り、いつも見えるラベル。空のときも欄の中で「何を求められているか」を示す。" },
@@ -638,7 +638,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

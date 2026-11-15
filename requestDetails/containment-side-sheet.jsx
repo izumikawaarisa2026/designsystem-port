@@ -97,7 +97,7 @@ const SOURCES = [
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
     term: "ダイアログ(専用の役割なし)",
     color: "#A3821F",
-    position: "シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。背景を操作できないときだけモーダルと伝える",
+    position: <>シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl></>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -431,7 +431,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

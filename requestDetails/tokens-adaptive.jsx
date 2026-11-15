@@ -26,7 +26,7 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Layout(Adaptability・Size classes)/ Tab bars / Split views",
     color: "#C2542A",
-    position: "端末の種類や向きではなく、システムが判定する「サイズクラス」(compact/regular)で見せ方を変える。機能は変えず、画面に見せる量とナビゲーションの形だけを変える",
+    position: <>端末の種類や向きではなく、システムが判定する「サイズクラス」(compact/regular)で見せ方を変える。<Hl>機能は変えず、画面に見せる量とナビゲーションの形だけを変える</Hl></>,
     size: "広さの区分は横・縦それぞれcompact/regularの2つで、境界値は公開されていない。対応する変化として、画面サイズ、向きと縦横比、Dynamic Islandなどのシステムの機能、外部ディスプレイ・画面の拡大・iPadとMacのウィンドウのリサイズ、文字サイズの変更、地域の設定(右から左の表記・日付や数字の書式・文字の長さ)を挙げる。",
     colorInfo: "広い画面では、タブバーをサイドバーに切り替えたり、オーバーフローメニューにまとめていた機能を表に出したりしてよい。iPadOSでは、サイドバーに切り替えるボタン付きのタブバーを出せる。スプリットビューはiPadOSで2列(メールのように)か3列(Keynoteのように)。iPhoneの縦向きのようなcompactでは、スプリットビューを使わない。",
     stance:
@@ -55,7 +55,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Adaptive design / Canonical layouts(Android Developers)",
     color: "#2F7D6E",
-    position: "ウィンドウサイズクラスごとに、ナビゲーションのコンポーネントとペイン(画面の区画)の数を切り替える。よく使う形として「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)が3種類ある",
+    position: <>ウィンドウサイズクラスごとに、<Hl>ナビゲーションのコンポーネントとペイン(画面の区画)の数を切り替える</Hl>。よく使う形として「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)が3種類ある</>,
     size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならナビゲーションバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
     colorInfo: "広さが変わっても状態を保つ。リストと詳細を並べていた画面が狭くなったら、詳細を残してリストを隠す。詳細だけを表示していた画面が広くなったら、リストも並べ、詳細に表示中の項目をリストで選択中として示す。リストだけのときに広くなったら、空の詳細ペインを並べる。",
     stance:
@@ -84,7 +84,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.10 Reflow / 1.3.4 Orientation",
     color: "#A3821F",
-    position: "どの広さで何に切り替えるかは定めず、「狭くしても・向きを変えても、情報と機能が失われないこと」を求める",
+    position: <>どの広さで何に切り替えるかは定めず、<Hl>「狭くしても・向きを変えても、情報と機能が失われないこと」</Hl>を求める</>,
     size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSSピクセル相当、横にスクロールする内容は高さ256 CSSピクセル相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
     colorInfo: "見た目の切り替え方は自由。求めるのは結果で、拡大して幅が狭くなったら1列に組み替わり、横スクロールせずに読めること。向きは、利用者が好む向きで表示できるようにする。",
     glossary: [
@@ -114,7 +114,7 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Breakpoints in Responsive Design",
     color: "#7A4F7E",
-    position: "Webのレスポンシブデザインで、ブレークポイント(レイアウトを切り替える幅)を4段階で考える(適合基準ではない)",
+    position: <>Webのレスポンシブデザインで、<Hl>ブレークポイント(レイアウトを切り替える幅)を4段階で考える</Hl>(適合基準ではない)</>,
     size: "標準はないとしたうえで、よく使う目安としてExtra-small 500pxまで(スマートフォン・4列のグリッド)、Small 500〜1200px(タブレット・8列)、Medium 1200〜1400px(ノートパソコン・12列)、Large 1400px以上(外部モニター・12列)を挙げる。実際は2〜3個のブレークポイントに対応するのが一般的。",
     colorInfo: "典型的な変化は、ナビゲーションを変える(左のナビゲーションをハンバーガーメニューに畳む)、列を畳む(右の列を本文に入れる・別の場所に移す)、1行に見える要素の数を変える、の3つ。例として、広い画面で一覧と地図を並べ、タブレットでは地図をボタンの奥に隠すサイトを紹介する。",
     stance:
@@ -672,7 +672,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

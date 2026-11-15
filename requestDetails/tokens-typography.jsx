@@ -34,10 +34,10 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Typography",
     color: "#C2542A",
     position: "Large Title〜Caption 2の11段階の「テキストスタイル」にサイズ・行送りを定め、Dynamic Type(利用者の文字サイズの設定)で全体が連動して拡大縮小する",
-    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定でxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズの最大(AX5)の53ptまで変わる。プラットフォーム別の既定/最小はmacOS 13/10pt、tvOS 29/23pt、visionOS 17/12pt、watchOS 16/12pt。",
+    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定でxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズの最大(AX5)の53ptまで変わる。プラットフォーム別の既定/最小はmacOS 13/10pt、watchOS 16/12pt。",
     colorInfo: "テキストスタイルごとに行送り(leading)を決める。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定のサイズでの比率は約1.18〜1.39倍。字間(tracking)はシステムフォントがサイズごとに自動で調整するため、通常は指定しない。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べるが、3行以上では詰めた行送りを避ける。",
     stance:
-      "固定のフォントサイズではなく、システムのテキストスタイルを使う。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、利用者が文字サイズを変えると全体が比例して拡大縮小する。大きくしたときにレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避ける。",
+      <>固定のフォントサイズではなく、システムのテキストスタイルを使う。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、<Hl>利用者が文字サイズを変えると全体が比例して拡大縮小する</Hl>。大きくしたときにレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避ける。</>,
     exceptions:
       "独自のフォントでも、既定・最小のサイズの推奨値に従い、Dynamic TypeやBold Text(文字を太くする設定)に自分で対応する。大きくしたとき、すべての文字を同じように大きくする必要はなく、利用者が読みたい主な内容を優先してよい(例: タブのタイトルは拡大しなくてよい)。",
     accessibility:
@@ -65,7 +65,7 @@ const SOURCES = [
     size: "Display 57 / 45 / 36、Headline 32 / 28 / 24、Title 22 / 16 / 14、Body 16 / 14 / 12、Label 14 / 12 / 11(いずれもLarge/Medium/Smallの順、単位sp)。本文の既定はBody Large 16sp(Jetpack ComposeのMaterialThemeの既定)、最小はLabel Small 11sp。本文の文字色(On Surface)は背景に対して7:1が目標。spはAndroidの文字サイズの設定に合わせて拡縮する単位。",
     colorInfo: "行送り(line height)は、Display Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとの固定値。比率はBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど比率が小さい(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせのトークン。",
     stance:
-      "UI全体の文字の段階を15の名前付きトークンに絞り、コンポーネントはトークンを参照する。ブランドに合わせてフォントやサイズを変えるときも、トークンの値を替えれば全体に反映される。Emphasized版は、選択状態・操作・見出しなど、強調して階層を作りたい箇所に使う。",
+      <><Hl>UI全体の文字の段階を15の名前付きトークンに絞り</Hl>、コンポーネントはトークンを参照する。ブランドに合わせてフォントやサイズを変えるときも、トークンの値を替えれば全体に反映される。Emphasized版は、選択状態・操作・見出しなど、強調して階層を作りたい箇所に使う。</>,
     exceptions:
       "トークンの値はブランドに合わせて変えられる前提(例として、Display Smallを64spに変える例がある)。",
     accessibility:
@@ -98,7 +98,7 @@ const SOURCES = [
       { term: "1.4.8 Visual Presentation・レベルAAA", desc: "文章のかたまりの色・行の幅・揃え方・行間・拡大を、利用者が調整できる仕組みを求める、最上位レベルの基準。" },
     ],
     stance:
-      "WCAGの数値はデザインの初期値ではない。1.4.12・1.4.8には「コンテンツがこの値を使う必要はない」とあり、求めるのは、利用者が見やすい値に変えたときに文字が重なったり切れたりしないこと。1.4.4も、拡大の大部分はブラウザなどのユーザーエージェントの役割とし、ページ全体のズームで満たす方法も認める。",
+      <><Hl>WCAGの数値はデザインの初期値ではない</Hl>。1.4.12・1.4.8には「コンテンツがこの値を使う必要はない」とあり、求めるのは、利用者が見やすい値に変えたときに文字が重なったり切れたりしないこと。1.4.4も、拡大の大部分はブラウザなどのユーザーエージェントの役割とし、ページ全体のズームで満たす方法も認める。</>,
     exceptions:
       "1.4.4は字幕と文字画像を除外する。1.4.12は、その言語・文字体系でもともと使わない間隔(例: 単語の間にスペースを入れない言語の単語間隔)は、あるものだけで適合してよい。1.4.8はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
     accessibility: "知覚可能(Perceivable) ― 1.4.4・1.4.12・1.4.8はどれも「知覚可能」。弱視・ディスレクシア(読字障害)・高齢などで文字が読みにくい人が、自分に合った大きさ・間隔に調整して読めるようにする。",
@@ -125,7 +125,7 @@ const SOURCES = [
     size: "原則としての言及が中心。2015年の記事は、文字を小さくして目立たなくする場合も8pt以上は確保するとする。2002年の記事は、既定の文字サイズを十分に大きく(10pt以上)、高齢者向けには12pt以上、画像の中の文字も12pt以上にするとする。352人が16書体を読んだ調査では、同じ人でも最も速い書体は最も遅い書体より平均35%速く、20歳年をとるごとに読む速さが約11%遅くなった。",
     colorInfo: "確認した記事に、行間・行の長さの数値はない。判読性の条件として、前景と背景の高いコントラスト、すっきりした書体、十分に大きい既定のサイズ、利用者が文字サイズを変えられることを挙げる。",
     stance:
-      "小さい文字は判読性を下げ、どこからが「小さすぎる」かは視力で人それぞれで、視力は年齢とともに落ちる。そのため、十分に大きい既定のサイズにしたうえで、利用者が文字サイズを変えられるようにする。書体の調査では、すべての人に最適な書体はなく、人は自分が最も速く読める書体を選べない(好みと読む速さが一致しない)。",
+      <>小さい文字は判読性を下げ、どこからが「小さすぎる」かは視力で人それぞれで、視力は年齢とともに落ちる。そのため、<Hl>十分に大きい既定のサイズにしたうえで、利用者が文字サイズを変えられるようにする</Hl>。書体の調査では、すべての人に最適な書体はなく、人は自分が最も速く読める書体を選べない(好みと読む速さが一致しない)。</>,
     exceptions:
       "10pt・12ptは2002年の記事の値で、当時のデスクトップのWebが前提。今のスマートフォンの単位(pt/sp)とそのまま比べられない。書体の調査は英語の文章が対象。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザーテストと読む速さの調査にもとづく設計の根拠。",
@@ -426,7 +426,7 @@ function TypeLadder() {
 const FONT_COLS = ["Apple", "Google", "W3C", "NN group"];
 const FONT_ROWS = [
   { k: "システムの既定のフォント", v: [
-    <>San Francisco(SF、サンセリフ)。iOS・iPadOS・macOS・tvOS・visionOSはSF Pro、watchOSはSF Compact</>,
+    <>San Francisco(SF、サンセリフ)。iOS・iPadOS・macOSはSF Pro、watchOSはSF Compact</>,
     <>Roboto(Androidの既定。M3のタイプスケールで使う)</>,
     <NoData>記載なし(フォントを指定しない)</NoData>,
     <NoData>記載なし</NoData>,
@@ -758,7 +758,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

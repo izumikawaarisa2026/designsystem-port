@@ -30,13 +30,13 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Buttons / Focus and selection / Pointing devices",
     color: "#C2542A",
-    position: "状態の見た目はシステムのコンポーネントに組み込まれ、標準の効果に任せるのが基本。状態の種類はプラットフォームと入力方法ごとに定める",
-    size: "共通の一覧はなく、プラットフォームごとに定める。tvOSのフォーカスできる項目は5状態(Unfocused/Focused/Highlighted/Selected/Unavailable)、visionOSのボタンは4状態(Idle/Hover/Selected/Unavailable)。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意する。",
-    visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分ける。tvOSはフォーカスした項目を拡大・浮き上がり・光・動きで目立たせ、visionOSは視線を向けた要素をハイライト(hover effect)で示す。白い塗りと黒い文字は、システムがトグルのオン状態の見た目として予約しているため、独自のボタンに使わない(visionOS)。",
+    position: <>状態の見た目はシステムのコンポーネントに組み込まれ、<Hl>標準の効果に任せるのが基本</Hl>。状態の種類はプラットフォームと入力方法ごとに定める</>,
+    size: "共通の一覧はなく、プラットフォームごとに定める。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意する。",
+    visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分ける。",
     stance:
       "システムの効果はAppleのデバイスに合わせて調整されていて、一貫性と予測しやすさが得られるため、独自のフォーカス効果は本当に必要な場合だけにする。利用者の操作なしにフォーカスを移動させない。",
     exceptions:
-      "iOSとwatchOSには、フォーカスの仕組みがない。iPadOS・macOSのフルキーボードアクセスでは、ボタンやスライダーなどのコントロールにはシステムがフォーカスを届けるため、アプリが対応させるのは、リスト項目・テキストフィールド・検索フィールドなどの内容の要素だけでよい。visionOSのボタンは、独自のhover effectに対応しない。",
+      "iOSとwatchOSには、フォーカスの仕組みがない。iPadOS・macOSのフルキーボードアクセスでは、ボタンやスライダーなどのコントロールにはシステムがフォーカスを届けるため、アプリが対応させるのは、リスト項目・テキストフィールド・検索フィールドなどの内容の要素だけでよい。",
     accessibility:
       "知覚可能・操作可能(Perceivable/Operable) ― 押した状態がないボタンは反応していないように感じられ、入力が受け付けられたか分からない。フォーカスの見た目は、キーボード・リモコン・ゲームコントローラーで操作する人が、いまどこにいるかを知る手がかり。",
     useCases: [
@@ -49,7 +49,6 @@ const SOURCES = [
     refs: [
       { label: "Focus and selection", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#Best-practices" },
       { label: "Buttons ― Best practices(press state)", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Best-practices" },
-      { label: "Focus and selection ― tvOS(5つの状態)", url: "https://developer.apple.com/design/human-interface-guidelines/focus-and-selection#tvOS" },
       { label: "Pointing devices ― Pointer shape and content effects", url: "https://developer.apple.com/design/human-interface-guidelines/pointing-devices#Pointer-shape-and-content-effects" },
     ],
     confirmedNote: "HIGのページデータを直接取得し、本文・見出しアンカーを確認済み(2026-09)。tvOS・visionOSの状態名は、ページデータ内の画像名・代替テキストで確認。",
@@ -59,7 +58,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Interaction states(State layers)",
     color: "#2F7D6E",
-    position: "状態を「ステートレイヤー」という半透明の重ね色で表し、状態ごとの不透明度をトークンで数値化",
+    position: <>状態を「ステートレイヤー」という半透明の重ね色で表し、<Hl>状態ごとの不透明度をトークンで数値化</Hl></>,
     size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わる。旧版のM2は、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていた。",
     visual: "ステートレイヤーは、文字やアイコンと同じ色を半透明で重ねる。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表す(Jetpack Composeのトークン定義)。M2では、ステートレイヤーは同時に1つだけ出し、影(エレベーション)・色・アイコンの変化と組み合わせることもあった。",
     stance:
@@ -89,7 +88,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
-    position: "状態の種類や見た目は定めず、「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」を求める",
+    position: <>状態の種類や見た目は定めず、<Hl>「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」</Hl>を求める</>,
     size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2 CSSピクセルの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
     visual: "見た目の作り方は自由。ただし選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする。隣り合って表示されない状態どうしの色の変化は3:1でなくてよい(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)。",
     glossary: [
@@ -123,7 +122,7 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Button States: Communicate Interaction",
     color: "#7A4F7E",
-    position: "ボタンの状態を、デザインシステムに入れる基本セットとして整理し、表示までの時間の目安も示す(適合基準ではない)",
+    position: <>ボタンの状態を、デザインシステムに入れる基本セットとして整理し、<Hl>表示までの時間の目安も示す</Hl>(適合基準ではない)</>,
     size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態。表示の目安は、ホバーが約150〜200msの遅延(マウスが通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内。",
     visual: "有効はコントラストが高く読みやすく、無効はグレーなど彩度を落とした低いコントラスト(ただし読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に。フォーカスは色の変化だけでなく輪郭線(アウトライン)で示すことを強く勧める。読み込み中はラベルの左にスピナー。選択はチェックボックスやラジオボタンの状態で、ボタンのプレスとは別物。",
     stance:
@@ -193,11 +192,11 @@ function StateSwatch() {
 
 /* 四系列比較図: どの状態を定義しているか(◯=定義あり/△=部分的・条件付き/―=定義なし) */
 const STATE_ROWS = [
-  { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "◯", note: "visionOS: Idle/tvOS: Unfocused" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "コンポーネントを見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
-  { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "visionOS: 視線でハイライト/iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
+  { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "△", note: "標準のコントロールに組み込み(共通の定義なし)" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "コンポーネントを見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
+  { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
   { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる。Webの実装(Material Web)では太さ3pxの輪郭線(フォーカスリング)も出す" }, { mark: "◯", note: "フォーカスが見えること(2.4.7・AA)。AAAの2.4.13は2 CSS px相当の外周以上・前後の変化3:1以上とさらに厳しい" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
-  { key: "press", label: "プレス", num: "+10%", cells: [{ mark: "◯", note: "独自ボタンにも必須(tvOS: Highlighted)" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "100〜150ms以内に反応を表示" }] },
-  { key: "selected", label: "選択", num: "オン/オフ", cells: [{ mark: "◯", note: "Selected(tvOS・visionOS)" }, { mark: "△", note: "M2で定義(Selected・Activated)。選択とホバーが重なれば両方を示す" }, { mark: "◯", note: "状態を示す印や枠は隣の色と3:1(1.4.11)+状態を支援技術へ(4.1.2)" }, { mark: "△", note: "ボタンではなく、チェックボックス・ラジオの状態" }] },
+  { key: "press", label: "プレス", num: "+10%", cells: [{ mark: "◯", note: "独自ボタンにも必須" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "100〜150ms以内に反応を表示" }] },
+  { key: "selected", label: "選択", num: "オン/オフ", cells: [{ mark: "―", note: "" }, { mark: "△", note: "M2で定義(Selected・Activated)。選択とホバーが重なれば両方を示す" }, { mark: "◯", note: "状態を示す印や枠は隣の色と3:1(1.4.11)+状態を支援技術へ(4.1.2)" }, { mark: "△", note: "ボタンではなく、チェックボックス・ラジオの状態" }] },
   { key: "drag", label: "ドラッグ", num: "+16%・影", cells: [{ mark: "―", note: "" }, { mark: "◯", note: "文字色を16%重ねる(影と組み合わせることも)" }, { mark: "―", note: "" }, { mark: "―", note: "" }] },
   { key: "disabled", label: "無効", num: "文字38%・容器10%", cells: [{ mark: "◯", note: "Unavailable" }, { mark: "◯", note: "文字・アイコン38%、塗りの容器10%の不透明度" }, { mark: "△", note: "コントラストの要件の対象外" }, { mark: "◯", note: "彩度を落とした低コントラスト(読める程度)+aria-disabled" }] },
   { key: "loading", label: "読み込み中", num: "スピナー", cells: [{ mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "―", note: "" }, { mark: "◯", note: "ラベルの左にスピナー" }] },
@@ -478,7 +477,7 @@ export default function TokensInteractionStatesPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列で共通する中心の状態は、<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。NN groupはこれをボタンの基本セットとし、Googleもこの5つ(+ドラッグ)にトークンを定義している。Appleは共通の一覧を持たず、<strong>tvOSは5状態・visionOSは4状態</strong>のように、プラットフォームと入力方法ごとに定義している。
+              4系列で共通する中心の状態は、<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。NN groupはこれをボタンの基本セットとし、Googleもこの5つ(+ドラッグ)にトークンを定義している。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
             </p>
             <p style={styles.synthesisText}>
               見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としている。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めている。
@@ -621,7 +620,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

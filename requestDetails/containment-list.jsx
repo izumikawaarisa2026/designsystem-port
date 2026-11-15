@@ -24,13 +24,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Lists and Tables",
     term: "List(Lists and tables)",
     color: "#C2542A",
-    position: "グループや階層に分かれたデータを、行の形で並べて見せるコンポーネント。選択・追加・削除・並べ替えにも対応できる",
+    position: <>グループや階層に分かれたデータを、<Hl>行の形で並べて見せる</Hl>コンポーネント。選択・追加・削除・並べ替えにも対応できる</>,
     size: "Lists and tablesのページにリスト固有の数値(pt)はない。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <span><NoData>記載なし。</NoData>macOSには、行の背景色を交互に変えて大きな表を使いやすくする枠付きのスタイルがある。</span>,
     stance:
       "グループや階層に分かれたデータを表すコンポーネントで、選択・追加・削除・並べ替えにも対応できる。行の形は文字を読みやすく、ざっと見るのに向くため、文字はリストやテーブルで見せる(大きさがばらばらの項目や画像が多いならコレクションを検討)。選んだときのフィードバックは、別の画面に進むのか、状態が切り替わるのかで変え、階層を進むリストでは選んだ行を強調し続ける。項目の文字は短くし、長い内容はタイトルだけを並べて詳細の画面で見せる。",
     exceptions:
-      "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る。並べ替えだけでもできると喜ばれる。iOS・iPadOS・visionOSでは、情報ボタン(行の中では詳細開示ボタン)は行の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使う。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けない(どちらも末尾にあり、誤操作しやすいため)。",
+      "iOS/iPadOSでは、項目を選ぶ前に編集モードに入る。並べ替えだけでもできると喜ばれる。iOS・iPadOSでは、情報ボタン(行の中では詳細開示ボタン)は行の追加情報を見せるためだけに使い、階層を進むには開示インジケーターを使う。行の末尾に開示インジケーターのような操作がある表には、索引(アルファベットの縦並び)を付けない(どちらも末尾にあり、誤操作しやすいため)。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     scenarios: [
@@ -66,7 +66,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Lists(表現力豊かなリスト / ベースライン)",
     term: "List",
     color: "#2F7D6E",
-    position: "文字・画像を縦に並べた索引。特定の項目を見つけて操作するために使う。2025年12月のM3 Expressiveで「表現力豊かなリスト」が加わった",
+    position: <>文字・画像を縦に並べた索引。<Hl>特定の項目を見つけて操作するために使う</Hl>。2025年12月のM3 Expressiveで「表現力豊かなリスト」が加わった</>,
     size: "項目の高さは、中の最も高い要素で56dp・72dp・88dpのどれかに決まる。中央揃えが基本だが、高さが88dp以上か、3行以上の文字を含むなら上揃え。スロットの中のターゲットサイズは48×48dp以上。",
     colorInfo: "色の値はデザイントークンで実装する。項目に画像があるなら、内容にもとづく配色でコンテナの色を変えることを検討する。",
     glossary: [
@@ -456,7 +456,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

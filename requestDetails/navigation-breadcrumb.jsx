@@ -60,7 +60,7 @@ const SOURCES = [
     doc: "WAI-ARIA Breadcrumbパターン",
     term: "Breadcrumb(APGのパターン)",
     color: "#A3821F",
-    position: "ナビゲーションの領域として示し、順序のあるリストで並べ、今のページを支援技術に伝える",
+    position: <>ナビゲーションの領域として示し、順序のあるリストで並べ、<Hl>今のページを支援技術に伝える</Hl></>,
     size: "専用の数値基準はない。個々のリンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。リンクの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
     glossary: [
@@ -410,7 +410,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

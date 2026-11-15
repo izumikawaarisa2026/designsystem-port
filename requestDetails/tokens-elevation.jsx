@@ -32,13 +32,13 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Materials / Dark Mode",
     color: "#C2542A",
-    position: "影の段階ではなく、背景が透ける「素材(マテリアル)」で層を表す。操作の部分はLiquid Glass、内容の中は標準のマテリアル(4段階の厚さ)を使う",
+    position: <><Hl>影の段階ではなく、背景が透ける「素材(マテリアル)」で層を表す</Hl>。操作の部分はLiquid Glass、内容の中は標準のマテリアル(4段階の厚さ)を使う</>,
     size: null,
     colorInfo: null,
     stance:
       "マテリアルは背景の色を手前に透かし、文字や操作のコンポーネントを背景の内容から見た目で分け、今どこにいるかの感覚を保つ。",
     exceptions:
-      "Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限って控えめに使う。後ろの内容が十分に暗い場合や、暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷かなくてよい。visionOSには独立したダークモードがなく、ウィンドウのガラス素材が周囲の明るさに自動で合わせる。",
+      "Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限って控えめに使う。後ろの内容が十分に暗い場合や、暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷かなくてよい。",
     accessibility:
       "知覚可能(Perceivable) ― 透明度を下げる設定(Reduce Transparency)やコントラストを上げる設定(Increase Contrast)で、Liquid Glassの見え方が変わる。半透明の素材の上でも文字を読めるよう、システムのバイブラントカラーを使う前提。",
     useCases: null,
@@ -56,7 +56,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Elevation / Dark theme",
     color: "#2F7D6E",
-    position: "面の高さを6段階のエレベーション(dp)で表し、影の深さで重なりを示す方式。ダークテーマでは影が見えにくいため、上の面ほど明るい色(トーン)にする",
+    position: <><Hl>面の高さを6段階のエレベーション(dp)で表し</Hl>、影の深さで重なりを示す方式。ダークテーマでは影が見えにくいため、上の面ほど明るい色(トーン)にする</>,
     size: null,
     colorInfo: null,
     stance:
@@ -88,7 +88,7 @@ const SOURCES = [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目に、隣の色と3:1以上を求める。" },
     ],
     stance:
-      "影や半透明の素材で層を表すこと自体は問わない。問うのは、重なった層のせいで、キーボードで操作する人がフォーカスの位置を見失うこと。典型的な失敗は、上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなること。",
+      <><Hl>影や半透明の素材で層を表すこと自体は問わない</Hl>。問うのは、重なった層のせいで、キーボードで操作する人がフォーカスの位置を見失うこと。典型的な失敗は、上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなること。</>,
     exceptions:
       "利用者が自分で開いた内容(メニューなど)がフォーカスを隠していても、フォーカスを移さずに閉じたり動かしたりできれば、隠れているとはみなさない。利用者が動かせる要素は、最初の位置で判定する。",
     accessibility: "操作可能(Operable) ― 2.4.11は「操作可能」で、キーボードや代わりの入力で操作する人が、フォーカスの位置を目で追えるようにする。1.4.11は「知覚可能」。",
@@ -115,7 +115,7 @@ const SOURCES = [
     size: "原則としての言及。完全にフラットではなく、控えめな影・ハイライト・重なりで奥行きを加えた「フラット2.0(セミフラット)」を、多くの製品に勧める。",
     colorInfo: "ダークモードでは、白い要素に暗い影を付ける表現はそのまま使えず、黒い背景の黒い要素に明るい影を付けると、影ではなく光って見える。暗い画面で奥行きを出すには、一番下の面を最も暗く、手前の要素ほど明るくする。",
     stance:
-      "フラットデザインは押せる手がかりを失いやすいため、控えめな3Dの影や重なりで要素の関係をはっきりさせる。Material Designが影と層のルールを体系化した点を評価しつつ、実際には理解を助けるためではなく、見た目のためだけに使われることが多いと指摘する。",
+      <>フラットデザインは押せる手がかりを失いやすいため、控えめな3Dの影や重なりで要素の関係をはっきりさせる。Material Designが影と層のルールを体系化した点を評価しつつ、実際には理解を助けるためではなく、<Hl>見た目のためだけに使われることが多い</Hl>と指摘する。</>,
     exceptions:
       "モーダルと背景を分ける暗い半透明の幕(スクリム)は、ダークモードでは背景との差が小さく、ほとんど見えなくなることがある。浮かせたい要素(フローティングボタンなど)は、ライト・ダークの両方で同じように目立つか確かめる。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティテストと視線計測にもとづく設計の根拠。",
@@ -355,7 +355,7 @@ const RULE_AXES = [
   { axis: "段階", g: "Level 0〜5 = 0 / 1 / 3 / 6 / 8 / 12dp の6段階", a: "層が2つ(機能の層=Liquid Glass / コンテンツの層=標準マテリアル)+標準マテリアルの厚さ4段階(ultraThin・thin・regular・thick)。数値はなし" },
   { axis: "段階の選び方", g: "コンポーネントごとに既定のLevelが決まっている(上の対応図)", a: "見た目の色ではなく、意味と推奨用途で選ぶ。iOS/iPadOSは厚さを用途別に指定しておらず、既定はregular" },
   { axis: "面の色・上の文字", g: "段階ごとにSurface Containerの色がセットで決まる", a: "素材は背景の色を透過する。上に載せる文字・塗りはバイブラントカラー(文字4段階・塗り3段階・区切り線1段階)を使う" },
-  { axis: "影", g: "全段階で2枚重ね(真下の濃い影30%+周囲の薄い影15%)。段階が上がるほど下にずれ、ぼかしが広がる", a: "基本はシステムが付ける(macOSのウィンドウ、iPadOSのリフト効果、tvOSのフォーカス中のタブ、visionOSのウィンドウ)。独自に付けるなら影だけにせず拡大と組み合わせる" },
+  { axis: "影", g: "全段階で2枚重ね(真下の濃い影30%+周囲の薄い影15%)。段階が上がるほど下にずれ、ぼかしが広がる", a: "基本はシステムが付ける(macOSのウィンドウ、iPadOSのリフト効果)。独自に付けるなら影だけにせず拡大と組み合わせる" },
   { axis: "ダークモード", g: "影は黒のままで見えにくいため、上の面ほど明るいトーンにする(6→10→12→17→22)", a: "背景色をbase(暗)とelevated(明)の2組で持ち、前面に出た画面は自動でelevatedになる" },
   { axis: "状態の変化", g: "ホバーで1段上がる(浮いたカード1→2、FAB 3→4)。ドラッグ中は3〜4。押した瞬間は上げない", a: "ポインターのホバーでリフト効果(拡大+影+光沢)。周りに余白がない要素は影と拡大を使わず色味(tint)だけ" },
 ];
@@ -454,10 +454,10 @@ function GoogleLevelTable() {
 }
 
 const A_THICKNESS = [
-  { name: "ultraThin", op: 0.25, view: "最も透ける", tv: "ライトの配色が必要な全画面のビュー", vision: "―", note: "Quaternary(4段階目)の文字は使わない" },
-  { name: "thin", op: 0.45, view: "よく透ける", tv: "画面の一部を覆うオーバーレイ(ライトの配色)", vision: "ボタンや選択中の項目など、操作できる要素に注意を向ける", note: "Quaternaryの文字は使わない" },
-  { name: "regular", op: 0.65, view: "標準(iOS/iPadOSの既定)", tv: "画面の一部を覆うオーバーレイ", vision: "サイドバーやグループ化した表など、セクションを分ける", note: "" },
-  { name: "thick", op: 0.85, view: "最も不透明", tv: "画面の一部を覆うオーバーレイ(ダークの配色)", vision: "通常の背景の上でも目立つ、暗い要素を作る", note: "" },
+  { name: "ultraThin", op: 0.25, view: "最も透ける", note: "Quaternary(4段階目)の文字は使わない" },
+  { name: "thin", op: 0.45, view: "よく透ける", note: "Quaternaryの文字は使わない" },
+  { name: "regular", op: 0.65, view: "標準(iOS/iPadOSの既定)", note: "" },
+  { name: "thick", op: 0.85, view: "最も不透明", note: "" },
 ];
 
 function AppleThicknessDetail() {
@@ -474,20 +474,7 @@ function AppleThicknessDetail() {
           </div>
         ))}
       </div>
-      <div style={styles.matrixScroll}>
-        <div style={styles.apTable}>
-          {["厚さ", "tvOSでの推奨用途", "visionOSでの使い方", "文字の注意"].map((h) => (<div key={h} style={styles.lvHead}>{h}</div>))}
-          {A_THICKNESS.map((t) => (
-            <React.Fragment key={t.name}>
-              <div style={styles.lvCellStrong}>{t.name}</div>
-              <div style={styles.lvCell}>{t.tv}</div>
-              <div style={styles.lvCell}>{t.vision}</div>
-              <div style={styles.lvCell}>{t.note || "―"}</div>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-      <p style={styles.chartNote}>厚さごとの推奨用途が具体的に書かれているのはtvOSとvisionOSだ。macOSは用途ごとに名前の付いた標準マテリアルがあり、背景の混ぜ方をウィンドウの後ろ(behind window)とウィンドウ内(within window)から選ぶ。透け具合の図は概念図だ。</p>
+      <p style={styles.chartNote}>文字の注意: ultraThin・thinの上では、4段階目(Quaternary)の薄い文字を使わない。macOSは用途ごとに名前の付いた標準マテリアルがあり、背景の混ぜ方をウィンドウの後ろ(behind window)とウィンドウ内(within window)から選ぶ。透け具合の図は概念図だ。</p>
     </>
   );
 }
@@ -496,8 +483,6 @@ const A_SHADOWS = [
   { where: "macOS のウィンドウ", rule: "最前面のウィンドウが後ろのウィンドウに影を落とし、重なりの順番を示す(システムが自動で付ける)" },
   { where: "iPadOS のポインター(リフト効果)", rule: "要素を少し拡大し、下に影・上に光沢を付けて持ち上がったように見せる" },
   { where: "独自のホバー効果", rule: "影だけを付けず、必ず拡大と組み合わせる。拡大しないと影があっても近づいて見えない。周りに余白がない要素は影と拡大を使わず色味(tint)だけにする" },
-  { where: "tvOS のタブバー", rule: "フォーカスした状態で、選択中のタブに影を付けて強調する" },
-  { where: "visionOS のウィンドウ", rule: "ガラスの背景と、システムが付ける光沢・影で、ウィンドウの大きさと位置、コンポーネントの奥行きを伝える" },
 ];
 
 function AppleShadowRules() {
@@ -806,7 +791,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

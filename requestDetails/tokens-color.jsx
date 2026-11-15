@@ -37,7 +37,7 @@ const SOURCES = [
     size: "Dark Modeのページは、色どうしのコントラスト比を4.5:1以上にし、独自の文字色・背景色では特に小さい文字で7:1を目指すとする。Accessibilityのページは、Xcodeの検査ツール(Accessibility Inspector)がWCAG AAの値を目安に判定するとして、17pt以下は4.5:1、18pt以上は3:1、太字はサイズを問わず3:1という表を示す(Colorのページに数値はない)。これはAppleの表の値で、WCAGの「大きな文字」(18pt以上、または14pt以上の太字)とは条件が違い、WCAGでは小さい太字は3:1の対象にならない。",
     colorInfo: "systemBlue・systemRed・label・secondaryLabel・systemBackgroundなど、意味ごとに名前の付いた「セマンティックカラー」がある。各色は、ライト/ダーク/Increase Contrast/Reduce Transparencyなどの設定で値が自動で変わる「ダイナミックカラー」。",
     stance:
-      "固定の色の値ではなくセマンティックカラーを使う。iOS/macOSのシステムカラーは、VibrancyやIncrease Contrast、Reduce Transparencyなどの設定に自動で合わせて変わる。意味を独自に定義し直さずに意図どおり使えば、ライト/ダークのどちらでも、どの場面でも見た目とコントラストがそろう。独自の色を作るなら、ライト・ダークの版と、それぞれのコントラストを上げる設定(Increase Contrast)用の版を用意する。",
+      <><Hl>固定の色の値ではなくセマンティックカラーを使う</Hl>。iOS/macOSのシステムカラーは、VibrancyやIncrease Contrast、Reduce Transparencyなどの設定に自動で合わせて変わる。意味を独自に定義し直さずに意図どおり使えば、ライト/ダークのどちらでも、どの場面でも見た目とコントラストがそろう。独自の色を作るなら、ライト・ダークの版と、それぞれのコントラストを上げる設定(Increase Contrast)用の版を用意する。</>,
     exceptions:
       "外観が1つだけのアプリでも、Liquid Glassの見え方に対応するため、ライトとダークの両方の色を用意する。色覚に特性のある人が区別しにくい組み合わせや、コントラスト不足でアイコンや文字が背景に溶け込むことを避ける。",
     accessibility: "知覚可能(Perceivable) ― 4.5:1はWCAG 1.4.3(AA)、独自の色で目指す7:1はWCAG 1.4.6(AAA)の本文の基準と同じ値。システムカラーはIncrease Contrastなどの設定にも自動で対応する。",
@@ -72,7 +72,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Color roles / Dynamic color",
     color: "#2F7D6E",
-    position: "primary/secondary/tertiary/error/surfaceなどの「カラーロール」で色の意味を体系化(一覧は下の図)。利用者の壁紙などから配色を作る「ダイナミックカラー」の仕組みがある",
+    position: <>primary/secondary/tertiary/error/surfaceなどの「カラーロール」で色の意味を体系化(一覧は下の図)。<Hl>利用者の壁紙などから配色を作る「ダイナミックカラー」</Hl>の仕組みがある</>,
     size: "公式の配色ライブラリ(material-color-utilities)の2021年版の仕様では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標に色を作る。コントラストを上げる設定(中・高)にすると、目標が段階的に上がる(例: on-surfaceは11:1・21:1)。",
     colorInfo: "1つのシードカラー(配色の元の1色)から、HCT(色相・鮮やかさ・明るさで表す、人の見え方に合わせた色空間)でprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを作り、それぞれ0(黒)〜100(白)の13段階のトーンパレットにする。カラーロールはこのパレットの決まったトーンを使う。errorは、ダイナミックカラーでも変わらない固定の色。",
     stance:
@@ -128,7 +128,7 @@ const SOURCES = [
       { term: "1.4.1 Use of Color・レベルA", desc: "色を情報を伝える唯一の手段にしない。色覚に特性のある人や白黒表示の人にも伝わるよう、アイコンや文字などほかの手がかりも添える。" },
     ],
     stance:
-      "1.4.3は本文と画像化された文字のコントラスト比の基準。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1を求める。1.4.1は、色を、情報を伝える・操作を示す・応答を促す・要素を見分ける唯一の手段にせず、色覚に特性のある人や白黒表示の人にも同じ情報が伝わるようにする。",
+      <>1.4.3は本文と画像化された文字のコントラスト比の基準。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1を求める。1.4.1は、<Hl>色を、情報を伝える・操作を示す・応答を促す・要素を見分ける唯一の手段にせず</Hl>、色覚に特性のある人や白黒表示の人にも同じ情報が伝わるようにする。</>,
     exceptions:
       "1.4.3は、無効なコンポーネントの一部・純粋な装飾・見えない文字・ロゴの文字を除外する。1.4.11も、無効なコンポーネントと、ユーザーエージェントが決めて変えていない見た目を除外する。ロゴ・国旗・写真など、見た目そのものが伝えたい情報である図も除外されうる。",
     accessibility: "知覚可能(Perceivable) ― 1.4.3・1.4.11・1.4.1はどれも「知覚可能」。視覚・色覚に特性のある人が、文字・UIコンポーネント・色分けされた情報を見分けられるようにする。",
@@ -168,7 +168,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: "「60%を基調色、30%を第二色、10%をアクセントカラーに」という60-30-10ルール(面積の割合)を勧め、パレットは3色程度に絞り、見た目の階層とコントラストを強める。色覚の特性(color blindness)への配慮とコントラストのテストを勧め、文字と背景の確認にaccessible-colors.comのようなツールを挙げる(WCAGの比率には触れていない)。",
     stance:
-      "「60%基調色・30%第二色・10%アクセントカラー」の配分でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと色の意味を誤解される)。コントラストと色覚の特性の両方を確かめる。例として、UberEatsの緑のロゴがオレンジの背景で読みにくかった事例を挙げる。",
+      <><Hl>「60%基調色・30%第二色・10%アクセントカラー」の配分</Hl>でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと色の意味を誤解される)。コントラストと色覚の特性の両方を確かめる。例として、UberEatsの緑のロゴがオレンジの背景で読みにくかった事例を挙げる。</>,
     exceptions:
       "色の文化的な意味の違いにも注意する(赤は世界的に「停止」が多い一方、お金の色は中国では赤、米国では緑など)。グレーのボタンが意図せず「無効」に見えることも、実際のユーザーテストで確かめる。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティと読みやすさのテスト結果にもとづく実務の指針。",
@@ -767,7 +767,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

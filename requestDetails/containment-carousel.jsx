@@ -34,7 +34,7 @@ const SOURCES = [
     stance:
       "関連(Page controls): ページコントロールは、順番に並んだページの間の遷移を表すもので、階層や順不同の関係は表さない。より複雑な遷移にはサイドバーや分割ビューを使う。どこにあるか迷わないよう、ビューの下部中央に置く。なぞってめくるときは素早く何枚も進むため、ページ切り替えのアニメーションはタップのときだけにする。",
     exceptions:
-      "macOSは非対応。visionOSでは表示だけで操作できない。tvOSでは、内容の多い全画面のページの集まりに使う。iOSの背景は3種類で、操作したときだけ出す(automatic)、いつも出す(prominent。主なナビゲーションのときだけ)、出さない(minimal)。minimalではなぞる操作を使わない。",
+      "macOSは非対応。iOSの背景は3種類で、操作したときだけ出す(automatic)、いつも出す(prominent。主なナビゲーションのときだけ)、出さない(minimal)。minimalではなぞる操作を使わない。",
     accessibility:
       <span><NoData>記載なし。</NoData>点の色をシステムに任せる理由は、今のページの点とほかの点の区別(コントラスト)で、見分けやすさ(知覚可能)に関わる。</span>,
     useCases: [
@@ -56,7 +56,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Carousel",
     term: "Carousel(マルチブラウズ・アンコンテインド・ヒーロー・全画面)",
     color: "#2F7D6E",
-    position: "画像が中心の項目を並べ、画面の内外へ出入りさせるコンポーネント。4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ",
+    position: <>画像が中心の項目を並べ、画面の内外へ出入りさせるコンポーネント。<Hl>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ</Hl></>,
     size: "大・中・小の項目を並べるレイアウトでは、小さい項目の幅を40〜56dpの範囲で決める(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、横向きのカルーセルでは幅が高さの最大2倍で、画面が広くなると大きい項目の数が増える。",
     colorInfo: "マルチブラウズは大・中・小の項目が並び、写真のサムネイルのように多くを素早く見るとき(既定)。アンコンテインドは同じ大きさの項目が画面の端から流れ出し、項目の縦横比を保ちたいとき。ヒーローは1つの大きな項目に注目させ、次の小さな項目をのぞかせるとき(映画など)。全画面は1項目を端から端まで見せて縦にスクロールし、縦長の内容に向く。",
     stance:
@@ -88,7 +88,7 @@ const SOURCES = [
     doc: "APG Carousel Pattern / WCAG 2.2.2 Pause, Stop, Hide / WAI Carousels Tutorial",
     term: "Carousel(APGのパターン)",
     color: "#A3821F",
-    position: "自動で回るカルーセルを誰でも止められ、回転に振り回されないことを中心に求める。見た目の決まりは持たない",
+    position: <><Hl>自動で回るカルーセルを誰でも止められ</Hl>、回転に振り回されないことを中心に求める。見た目の決まりは持たない</>,
     size: "カルーセル専用の時間の基準はない。2.2.2(レベルA)により、自動で始まり、5秒より長く続き、ほかの内容と並んで表示される動きには、一時停止・停止・非表示のいずれかの手段が必要。",
     colorInfo: "必要な操作コンポーネントは、前へ・次へのボタンと、任意でスライドを選ぶコンポーネント(点など)。自動で回るなら、さらに回転の停止・再開のボタンを置き、キーボードのフォーカスがカルーセルに入ったら回転を止め(利用者が求めるまで再開しない)、マウスを乗せている間も止める。停止ボタンは、カルーセルの中でTabの順番の最初に置く。",
     glossary: [
@@ -229,7 +229,7 @@ const CAROUSEL_ROWS = [
   {
     label: "項目の形",
     cells: [
-      { mark: "△", note: "全画面のページの集まり(tvOS)" },
+      { mark: "―", note: "" },
       { mark: "◯", note: "4つのレイアウト。小さい項目は40〜56dp" },
       { mark: "―", note: "" },
       { mark: "◯", note: "読みやすい文字と画像。押せるボタンは中身が分かる見た目に" },
@@ -753,7 +753,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

@@ -18,7 +18,7 @@ const SOURCES = [
     position: "単独のコンポーネントはなく、Writingのページで空の画面の文言に触れる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "完了したToDoリストや空のブックマークフォルダのような空の画面は、歓迎やアプリの使い方を伝える機会になる。次にできる操作を案内し、できればそのボタンやリンクを置く。",
+      <>完了したToDoリストや空のブックマークフォルダのような空の画面は、歓迎やアプリの使い方を伝える機会になる。<Hl>次にできる操作を案内し、できればそのボタンやリンクを置く</Hl>。</>,
     exceptions:
       "空状態は一時的なものなので、消えるおそれのある重要な情報は置かない。なおTab barsのページは、機能が一時的に使えなくても、タブを消したり無効にしたりしないとする。",
     scenarios: [
@@ -50,7 +50,7 @@ const SOURCES = [
     term: "Empty state(Material Design 1のパターン)",
     color: "#2F7D6E",
     noDedicatedComponent: true,
-    position: "現行M3に正式なコンポーネント・パターンはなく、旧世代(M1)のパターンページにだけ記述がある",
+    position: <>現行M3に正式なコンポーネント・パターンはなく、<Hl>旧世代(M1)のパターンページにだけ記述がある</Hl></>,
     size: <NoData>数値基準なし</NoData>,
     stance:
       "M1のパターンページは、「リストに項目が1件もない」「検索結果が0件」の基本形を、操作のない画像+短い説明文とする。見出しは短く分かりやすくし、利用者を責める表現は避ける。",
@@ -85,7 +85,7 @@ const SOURCES = [
     doc: "WCAG 4.1.3 ステータスメッセージ",
     term: "status(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "専用の役割はない。検索結果0件などを、フォーカスを移さずに画面を更新して知らせるなら、ステータスメッセージとして支援技術にも伝える(4.1.3)",
+    position: <>専用の役割はない。検索結果0件などを、フォーカスを移さずに画面を更新して知らせるなら、<Hl>ステータスメッセージとして支援技術にも伝える(4.1.3)</Hl></>,
     size: <NoData>数値基準なし</NoData>,
     stance:
       "4.1.3の対象は、フォーカスを移さずに表示・更新されるステータスメッセージ。検索や絞り込みでその場の結果だけを書き換え、件数や「見つかりませんでした」を知らせるなら、ステータスメッセージとして支援技術にも伝える。結果のページへ遷移する場合や、フォーカスを移して見せる場合は対象外(検索結果をすべて読み上げさせるという意味ではない)。",
@@ -117,7 +117,7 @@ const SOURCES = [
     doc: "Designing Empty States in Complex Applications",
     term: "Empty state",
     color: "#7A4F7E",
-    position: "空状態に「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」の3つの役割を持たせる(数値基準ではなく原則)",
+    position: <>空状態に<Hl>「システムの状態を伝える」「学習の機会にする」「主なタスクへ導く」の3つの役割</Hl>を持たせる(数値基準ではなく原則)</>,
     size: <NoData>数値基準なし</NoData>,
     stance:
       "(1)「該当期間のレコードがありません」のように状況を示し、読み込み中か本当にデータがないかの混乱を避ける、(2)「お気に入りに追加するとここに表示されます」のように操作を教える機会にする、(3)「作成」ボタンなど次の行動への導線を置く、の3つ。",
@@ -501,7 +501,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

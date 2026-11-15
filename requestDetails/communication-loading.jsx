@@ -20,7 +20,7 @@ const SOURCES = [
     position: "単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱う",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "できるだけ早く何かを表示する。何も出さないと不具合と受け取られかねないため、読み込み中はプレースホルダー(文字・画像・アニメーション)を出し、用意できたら差し替える。待つ間もほかの操作をできるようにし、長くかかるならヒントや新機能の紹介など楽しめるものを出す。一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの見込みを伝える(時間が分かれば確定的、分からなければ不確定)。",
+      <><Hl>できるだけ早く何かを表示する</Hl>。何も出さないと不具合と受け取られかねないため、読み込み中はプレースホルダー(文字・画像・アニメーション)を出し、用意できたら差し替える。待つ間もほかの操作をできるようにし、長くかかるならヒントや新機能の紹介など楽しめるものを出す。一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの見込みを伝える(時間が分かれば確定的、分からなければ不確定)。</>,
     exceptions:
       "watchOSでは、読み込み中の表示はなるべく出さずにすぐ内容を見せる。1〜2秒かかるなら、空白の画面よりインジケーターを出す。",
     scenarios: [
@@ -52,7 +52,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Loading indicator",
     term: "Loading indicator",
     color: "#2F7D6E",
-    position: "5秒未満の待ち時間向けに、専用コンポーネント「Loading indicator」を新設",
+    position: <><Hl>5秒未満の待ち時間向けに、専用コンポーネント「Loading indicator」を新設</Hl></>,
     size: "200ミリ秒〜5秒の待ち時間に使う。寸法の記載なし",
     stance:
       "アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す。進み具合が分からないとき・示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは近いが、200ミリ秒〜5秒の処理にはこちらが向く。200ミリ秒未満なら何も出さずに内容を見せ、5秒を超えるならProgress indicatorを使う。",
@@ -88,7 +88,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― 更新中であることを示す状態",
     term: "更新中の状態(WAI-ARIA)",
     color: "#A3821F",
-    position: "専用の役割はないが、更新中であることを支援技術に伝える仕組みがある",
+    position: <>専用の役割はないが、<Hl>更新中であることを支援技術に伝える仕組みがある</Hl></>,
     size: <NoData>数値基準なし</NoData>,
     glossary: [
       { term: "更新中の状態", desc: "内容が更新中であることを支援技術に伝える状態。更新中は、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせる仕組みとは役割が違う。" },
@@ -129,7 +129,7 @@ const SOURCES = [
     doc: "Skeleton Screens 101",
     term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
-    position: "待ち時間の長さで、スケルトン画面/スピナー/プログレスバーを使い分ける(秒数の目安あり)",
+    position: <><Hl>待ち時間の長さで、スケルトン画面/スピナー/プログレスバーを使い分ける</Hl>(秒数の目安あり)</>,
     size: "1秒未満は表示不要、2〜10秒はスピナー(個別のモジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバー。1〜2秒の扱いは明記なし。",
     stance:
       "スケルトン画面は、ページの骨組みをワイヤーフレーム風に示してコンテンツが来ることを予告し、体感の待ち時間を和らげる。静的・アニメーション・フレーム表示の3タイプがある。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えて離脱を招きかねないため避ける。",
@@ -437,7 +437,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

@@ -22,7 +22,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Boxes",
     term: "Box(Cardという名前のコンポーネントはない)",
     color: "#C2542A",
-    position: "関連する情報・コンポーネントを見た目でまとめるコンテナ(「カード」というコンポーネントはない)",
+    position: <><Hl>関連する情報・コンポーネントを見た目でまとめるコンテナ</Hl>(「カード」というコンポーネントはない)</>,
     size: <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
@@ -103,7 +103,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― 記事の役割",
     term: "記事(WAI-ARIAの役割。カードの決まりはない)",
     color: "#A3821F",
-    position: "W3Cはカードを定めていない。カードの内容が単独でも意味を持つ記事・投稿などなら、「記事」の役割で示すのが一つの例(AI解釈)",
+    position: "W3Cはカードを定めていない",
     size: "専用の数値基準はない。押せるカードにも一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
@@ -436,7 +436,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

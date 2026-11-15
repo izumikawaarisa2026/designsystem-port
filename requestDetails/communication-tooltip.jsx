@@ -34,8 +34,8 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Offering help(Tooltips・Tips)",
     term: "Tooltip(利用者向けの説明ではHelp tag)・TipKitのTip",
     color: "#C2542A",
-    position: "ポインターを重ねると出る文字だけの「ヘルプタグ(プレーン相当)」と、タイトル・メッセージ・任意の画像・アクションボタンを持てる別フレームワーク「TipKit」の「Tip(リッチ相当)」という、実装の違う2系統がある",
-    size: "文字数は60〜75文字までを目安にする(多言語化で長さが変わることにも注意)。macOS・visionOS",
+    position: <>ポインターを重ねると出る文字だけの「ヘルプタグ(プレーン相当)」と、タイトル・メッセージ・任意の画像・アクションボタンを持てる別フレームワーク「TipKit」の「Tip(リッチ相当)」という、<Hl>実装の違う2系統がある</Hl></>,
+    size: "文字数は60〜75文字までを目安にする(多言語化で長さが変わることにも注意)。macOS",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "ポップオーバー(Popovers)", desc: "コントロールを押すと、出どころを指す矢印とともにほかの内容の上に出る一時的なビュー(主にiPad向け)。ボタンなども置ける。不要になったら自動で閉じるのが基本で、閉じるボタンは原則置かない(保存する/しないを明確にする場面ではキャンセル・完了を置いてよい)。範囲外を押して閉じたら作業内容を保存し、明示的にキャンセルしたときだけ破棄する。" },
@@ -87,7 +87,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Tooltips(プレーン/リッチ)",
     term: "Tooltip(プレーン・リッチ)",
     color: "#2F7D6E",
-    position: "アイコンだけのボタンなどにラベルを補う「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類。文字のラベルがある要素にプレーンツールチップは不要。",
+    position: <>アイコンだけのボタンなどにラベルを補う<Hl>「プレーンツールチップ」と、見出し・リンク・ボタンを持てる「リッチツールチップ」の2種類</Hl>。文字のラベルがある要素にプレーンツールチップは不要。</>,
     size: "境界のある要素(ボタンなど)から4dp、境界のない要素(テキストのベースラインなど)から8dp離す。画面の端にはみ出すなら8dp刻みで位置を調整する。",
     colorInfo: "色の値はデザイントークンで実装する。",
     glossary: [
@@ -135,7 +135,7 @@ const SOURCES = [
     doc: "WCAG 1.4.13 Content on Hover or Focus(主な根拠)/ APG Tooltip Pattern(検討中のパターン)",
     term: "ツールチップ(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "ホバーやフォーカスで出る内容は、消せる・ポインターを移しても消えない・勝手に消えない、の3点を満たす(1.4.13・レベルAA)",
+    position: <>ホバーやフォーカスで出る内容は、<Hl>消せる・ポインターを移しても消えない・勝手に消えない、の3点</Hl>を満たす(1.4.13・レベルAA)</>,
     size: "専用の数値基準はない。きっかけになる要素には、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -377,7 +377,7 @@ const SPLITS = [
     sides: [
       { who: "Google", color: "#2F7D6E", t: "使う。デスクトップではポインターを重ねる、モバイルでは要素を長押しすると出る" },
       { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
-      { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)とvisionOSのもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
+      { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)のもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
     ],
     tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要なコンポーネントに「?」などの印を置き、押すと開くヒントにするのが確実だ(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13)。",
   },
@@ -623,7 +623,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

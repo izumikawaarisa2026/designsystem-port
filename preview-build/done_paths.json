@@ -64,5 +64,6 @@
   "/components/communication/loading",
   "/components/communication/banner",
   "/components/text-inputs/wizard",
-  "/components/containment/overview"
+  "/components/containment/overview",
+  "/principles/wcag-criteria"
 ]

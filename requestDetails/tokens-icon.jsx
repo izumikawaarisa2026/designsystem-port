@@ -33,7 +33,7 @@ const SOURCES = [
     size: "スケールは3段階(small / medium(既定) / large)で、San Franciscoのキャップハイト(大文字の高さ)が基準。シンボルは隣の文字のポイントサイズに合わせて表示し、スケールで文字に対する強弱を調整する。スケールごとのptの数値はない。",
     colorInfo: "4つのレンダリングモードで色の付け方が変わる。モノクローム(単色、最も中立的)・階層的(1つの色相の濃淡で奥行きを表す)・パレット(2色以上のコントラストで要素を強調)・マルチカラー(シンボル自体が複数の色を持つ)。",
     stance:
-      "ウルトラライトからブラックまでの9段階のウェイトが、隣の文字のSan Franciscoのウェイトと対応し、シンボルと文字が調和する。スケール(small/medium(既定)/large)はキャップハイトが基準で、同じポイントサイズの文字とのウェイトの対応を崩さずに強弱を調整できる。選択状態はfill、使えない状態はslashといった種類で表せる。",
+      <>ウルトラライトからブラックまでの9段階のウェイトが、<Hl>隣の文字のSan Franciscoのウェイトと対応し</Hl>、シンボルと文字が調和する。スケール(small/medium(既定)/large)はキャップハイトが基準で、同じポイントサイズの文字とのウェイトの対応を崩さずに強弱を調整できる。選択状態はfill、使えない状態はslashといった種類で表せる。</>,
     exceptions:
       "どのモードを使うかの決まりはない。サイズや背景とのコントラストで細部の見えやすさが変わるため、使う場所ごとに見え方を確かめる。自動設定でシンボルごとの推奨モードも使える。可変カラー(Variable color)は量や強さの変化を表すもので、奥行きには使わない(奥行きは階層的モード)。",
     accessibility: "知覚可能(Perceivable) ― 専用の数値基準はないが、どのモードでもシステムカラーを使えば、アクセシビリティの設定やダークモードに自動で追従する。アイコン単体の意味の伝え方はW3C(1.1.1/4.1.2)を参照。",
@@ -76,7 +76,7 @@ const SOURCES = [
       { term: "weight軸・grade軸", desc: "weightは線の太さで、thin(100)〜bold(700)の範囲。gradeはweightより細かい太さの調整で、アイコンの大きさへの影響が小さい。暗い背景の明るいアイコンのにじみを抑えるには低いgrade(例: -25)、強調には高いgrade(例: 200)を使う。" },
     ],
     stance:
-      "Material Symbolsは、Outlined(密なUIに向く軽く整ったスタイル)・Rounded(角丸で、太めの文字やロゴと調和)・Sharp(直線的で、小さくても見やすい)の3スタイル。別の「Filled」フォントはなく、各スタイルのfill軸で塗りを表す。fill・weight・grade・optical sizeの4軸で、1つのフォントファイルで幅広い見た目を表せる。",
+      <>Material Symbolsは、Outlined(密なUIに向く軽く整ったスタイル)・Rounded(角丸で、太めの文字やロゴと調和)・Sharp(直線的で、小さくても見やすい)の3スタイル。別の「Filled」フォントはなく、各スタイルのfill軸で塗りを表す。fill・weight・grade・optical sizeの4軸で、<Hl>1つのフォントファイルで幅広い見た目を表せる</Hl>。</>,
     exceptions: "gradeは、暗い背景の明るいアイコンのにじみを抑えるなら低い値(例: -25)、強調したいなら高い値(例: 200)にする。文字のフォントがgrade軸を持つなら、文字とアイコンのgradeをそろえると調和する。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝え方はW3C(1.1.1/4.1.2)を参照。Material Symbols専用のアクセシビリティの数値基準はない。",
@@ -123,7 +123,7 @@ const SOURCES = [
       { term: "2.5.3 Label in Name(レベルA)", desc: "見えるラベル(文字)があるコンポーネントは、支援技術向けの名前にもその言葉を含めること。食い違うと、音声入力でラベルの言葉を言っても反応しない。" },
     ],
     stance:
-      "1.1.1は、意味を伝える文字以外のコンテンツに、同じ情報を別の形(視覚・聴覚・触覚のどれでも認識できる形)で伝える代替テキストを求める。短い代替で伝えきれればそれでよいが、複雑な図表などでは長い説明が要る。アイコンが操作要素なら、見た目の説明ではなく「その操作が何をするか」を説明する名前が要る。4.1.2は、すべてのUIコンポーネントの名前・役割をプログラムで判別できるようにすること(名前は見えなくてもよいが、支援技術にはいつも伝わる必要がある)。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1以上を求める。3.2.4(レベルAA)は、ページをまたいで出てくる同じ働きのコンポーネントを一貫して識別できること。全ページ共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ意味が伝わる名前(代替テキスト)を付ける。",
+      <>1.1.1は、意味を伝える文字以外のコンテンツに、同じ情報を別の形(視覚・聴覚・触覚のどれでも認識できる形)で伝える代替テキストを求める。短い代替で伝えきれればそれでよいが、複雑な図表などでは長い説明が要る。アイコンが操作要素なら、<Hl>見た目の説明ではなく「その操作が何をするか」を説明する名前が要る</Hl>。4.1.2は、すべてのUIコンポーネントの名前・役割をプログラムで判別できるようにすること(名前は見えなくてもよいが、支援技術にはいつも伝わる必要がある)。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1以上を求める。3.2.4(レベルAA)は、ページをまたいで出てくる同じ働きのコンポーネントを一貫して識別できること。全ページ共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ意味が伝わる名前(代替テキスト)を付ける。</>,
     exceptions:
       "1.4.11は、無効(非アクティブ)なコンポーネントにはかからない。ロゴ・旗・写真など、見た目そのものが情報として欠かせない場合も例外。1.1.1も、装飾だけで情報を持たない画像は対象外。",
     accessibility:
@@ -165,7 +165,7 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>押すのに十分な大きさを持たせつつ場所を節約できる点を、アイコンの利点に挙げる。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "アイコンは押しやすく、場所を節約でき、見慣れたものなら素早く分かり、言語を越えて通じ、見た目を一貫させる。一方「アイコンの理解は過去の経験にもとづく」ため、多くのアイコンは意味が標準化されておらず曖昧になる。例は、ハンバーガーメニュー(一覧を表す場合もある)やハート(お気に入り・保存・評価など用途がまちまち)。そのため、ほぼすべてのアイコンに意味を補う文字のラベルが要り、ホバーなどの操作なしでいつも見せる。標準的なアイコンでも、見た目を少し変えたならラベルを付けるほうが安全。",
+      <>アイコンは押しやすく、場所を節約でき、見慣れたものなら素早く分かり、言語を越えて通じ、見た目を一貫させる。一方「アイコンの理解は過去の経験にもとづく」ため、多くのアイコンは意味が標準化されておらず曖昧になる。例は、ハンバーガーメニュー(一覧を表す場合もある)やハート(お気に入り・保存・評価など用途がまちまち)。そのため、<Hl>ほぼすべてのアイコンに意味を補う文字のラベルが要り</Hl>、ホバーなどの操作なしでいつも見せる。標準的なアイコンでも、見た目を少し変えたならラベルを付けるほうが安全。</>,
     exceptions:
       "ふさわしいアイコンを思いつくのに5秒以上かかるなら、アイコンで意味を伝えるのは難しい(5秒ルール)。デザインはシンプルで図式的にし、小さくすると潰れる細部は避ける。競合やプラットフォームの慣習を先に調べる(利用者の期待は既存のパターンに従いやすい)。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、認識しやすさ(recognizability)・覚えやすさ(memorability)のユーザビリティ調査にもとづく指針。",
@@ -284,9 +284,6 @@ const G_ICON_BUTTONS = [
   { name: "L", h: 96, icon: 32, pad: 32, narrow: 16, wide: 48 },
   { name: "XL", h: 136, icon: 40, pad: 48, narrow: 32, wide: 72 },
 ];
-const A_VISION_BUTTONS = [
-  { name: "Mini", h: 28 }, { name: "Small", h: 32 }, { name: "Regular", h: 44 }, { name: "Large", h: 52 }, { name: "Extra large", h: 64 },
-];
 
 function IconSizeChart() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
@@ -309,19 +306,6 @@ function IconSizeChart() {
       </g>
     );
   });
-  let ax = 96;
-  const aItems = A_VISION_BUTTONS.map((b) => {
-    const d = b.h * k, x = ax, y = 236 - d;
-    ax += d + 26;
-    return (
-      <g key={b.name}>
-        <circle cx={x + d / 2} cy={y + d / 2} r={d / 2} fill="#F4DDD3" />
-        <path d={starPath(x + d / 2, y + d / 2 + 0.5, d * 0.24)} fill="#C2542A" />
-        <text x={x + d / 2} y={252} fontSize="8" fill="#454C78" textAnchor="middle" fontFamily={mono}>{b.h}pt</text>
-        <text x={x + d / 2} y={262} fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily={font}>{b.name}</text>
-      </g>
-    );
-  });
   const tx = 470;
   return (
     <svg viewBox="0 0 640 300" width="100%" style={{ maxWidth: 700, display: "block", margin: "0 auto" }} role="img" aria-label="Apple・Googleのアイコンボタンの大きさと余白の比較図">
@@ -335,15 +319,11 @@ function IconSizeChart() {
       <text x={tx + 60 + 24 * k} y={146} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>押せる範囲の最小</text>
       <line x1="0" x2="640" y1="176" y2="176" stroke="#E1E3F0" />
       <text x="0" y="200" fontSize="11.5" fill="#171B36" fontWeight="600" fontFamily={font}>Apple</text>
-      <text x="0" y="214" fontSize="8.5" fill="#666D93" fontFamily={font}>visionOSの</text>
-      <text x="0" y="225" fontSize="8.5" fill="#666D93" fontFamily={font}>ボタン5サイズ</text>
-      {aItems}
+      <text x="0" y="214" fontSize="8.5" fill="#666D93" fontFamily={font}>アイコンボタンの</text>
+      <text x="0" y="225" fontSize="8.5" fill="#666D93" fontFamily={font}>段階はなし</text>
       <rect x={tx + 60} y={236 - 44 * k} width={44 * k} height={44 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
       <text x={tx + 60 + 22 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>44pt</text>
       <text x={tx + 60 + 22 * k} y={262} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>押せる範囲の最小</text>
-      <rect x={tx + 110} y={236 - 60 * k} width={60 * k} height={60 * k} fill="none" stroke="#C2542A" strokeDasharray="3 2" />
-      <text x={tx + 110 + 30 * k} y={252} fontSize="8" fill="#C2542A" textAnchor="middle" fontFamily={mono}>60pt</text>
-      <text x={tx + 110 + 30 * k} y={262} fontSize="7.5" fill="#454C78" textAnchor="middle" fontFamily={font}>visionOS</text>
       <text x="96" y="282" fontSize="8.5" fill="#666D93" fontFamily={font}>図は実寸の55%。緑・オレンジの星はアイコン本体(Appleはアイコンの大きさの規定がないため目安として描画)。</text>
       <text x="96" y="294" fontSize="8.5" fill="#666D93" fontFamily={font}>金色の線は、容器の端からアイコンまでの余白。点線の枠は押せる範囲の最小。</text>
     </svg>
@@ -358,12 +338,12 @@ const ICON_SPEC_ROWS = [
   },
   {
     label: "押せる範囲の最小",
-    hig: "44×44pt(visionOSは60×60pt)。指・ポインタ・視線・リモコンのどれでも選びやすくするため(Buttons)。Accessibilityのページでは、iOS/iPadOSの既定44×44pt・最小28×28ptという2段階を示している(2025年改訂)。",
+    hig: "44×44pt。指・ポインタのどちらでも選びやすくするため(Buttons)。Accessibilityのページでは、iOS/iPadOSの既定44×44pt・最小28×28ptという2段階を示している(2025年改訂)。",
     material: "48×48dp。見た目が小さいコンポーネントでも、押せる範囲は48dpまで自動で確保される(Jetpack Compose)。",
   },
   {
     label: "コンポーネントの大きさの段階",
-    hig: "visionOSのボタンは Mini 28 / Small 32 / Regular 44 / Large 52 / Extra large 64pt の5段階。iOS/iPadOSのアイコンボタンの段階は示されていない。",
+    hig: "iOS/iPadOSのアイコンボタンの段階は示されていない。",
     material: "アイコンボタンは XS 32 / S 40 / M 56 / L 96 / XL 136dp(容器の高さ)の5段階(M3 Expressive)。",
   },
   {
@@ -373,7 +353,7 @@ const ICON_SPEC_ROWS = [
   },
   {
     label: "並べるときの間隔",
-    hig: "visionOSでは、ボタンの中心どうしを60pt以上離す。60pt以上のボタンには、ホバー効果が重ならないよう周りに4ptの余白を取る。",
+    hig: <NoData>記載なし</NoData>,
     material: "アイコンボタン自体の間隔の数値は記載なし(押せる範囲48dpを確保すれば重ならない)。",
   },
 ];
@@ -707,7 +687,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

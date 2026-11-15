@@ -26,7 +26,7 @@ const SOURCES = [
     term: "Tab view(macOSの画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
     color: "#C2542A",
     position:
-      <span>Tab viewはmacOSのコンポーネントで、iOS・iPadOS・tvOS・visionOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の遷移)は別のコンポーネントで、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
+      <span>Tab viewはmacOSのコンポーネントで、iOS・iPadOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の遷移)は別のコンポーネントで、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
     structure:
       "タブの並び(タブのコントロール)は、内容の領域の上端に置く。ウィンドウの端との間には余白を取る。プログラムで切り替えるアプリでは、タブの並びを隠してもよい。",
     count:
@@ -586,7 +586,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },

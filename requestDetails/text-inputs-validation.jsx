@@ -44,7 +44,7 @@ const SOURCES = [
     position: "エラー表示・バリデーションのページはなく、テキストフィールドなどの記載に含まれる",
     colorInfo: "エラー専用の色の規定はない。全体の方針として、色だけに頼らず、形やアイコンなどの手がかりを足す(HIG Accessibility)。",
     stance:
-      "エラー表示の専用ページはない。Entering dataで、値は入力されたらすぐ確かめ、問題があればすぐ知らせて、その場で直せるようにするとする。表示のタイミングは「バリデーション」ページで比べる。",
+      <>エラー表示の専用ページはない。Entering dataで、値は入力されたらすぐ確かめ、<Hl>問題があればすぐ知らせて、その場で直せるようにする</Hl>とする。表示のタイミングは「バリデーション」ページで比べる。</>,
     exceptions:
       "エラーは問題の場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ(HIG Writing)。",
     accessibility: <span><NoData>記載なし。</NoData>一般の原則として、色だけに頼らずに状態を示す。</span>,
@@ -452,7 +452,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

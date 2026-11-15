@@ -29,13 +29,13 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Playing audio / Accessibility(Hearing)",
     color: "#C2542A",
-    position: "中心は、音は端末の消音・音量・出力先の設定に必ず従う、という「利用者の期待どおりに振る舞う」こと。音の作り方より鳴らし方のルールを詳しく定める",
+    position: <>中心は、<Hl>音は端末の消音・音量・出力先の設定に必ず従う</Hl>、という「利用者の期待どおりに振る舞う」こと。音の作り方より鳴らし方のルールを詳しく定める</>,
     size: "消音モードでは、利用者が自分で始めた音(メディア再生・アラーム・音声/ビデオ通話)だけを鳴らし、キーボードのクリック音・効果音・ゲームのBGMなどは止める。最終的な音量はいつもシステムの音量が決め、アプリが全体の音量を変えない。ヘッドホンを外したら再生をすぐ一時停止する。用途で5つのオーディオカテゴリ(Solo ambient/Ambient/Playback/Record/Play and record)から選び、消音スイッチに従うか・ほかの音と混ぜるか・バックグラウンドで鳴るかが決まる。",
-    design: "音の作り方(音色など)の指針はほとんどない。具体的なのはvisionOSで、独自のUI要素には独自の音を作る、繰り返し聞く音は高さと音量をわずかにランダムに変える(仮想キーボードの例)、空間オーディオで音の出どころを物体に結びつける。tvOSでは、利用者が始めた操作のときだけ音を鳴らし、アラートや通知には音を付けない。",
+    design: "音の作り方(音色など)の指針はほとんどない。",
     stance:
       "音が体験の中心でも飾りでも、音量や出力先の変更に期待どおりに振る舞う。ほかのアプリの音楽を必要なく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後はほかのアプリに再開してよいと知らせる、など。",
     exceptions:
-      "visionOSでは逆に「音を鳴らすほうを優先する」とし、音のないアプリは味気なく、壊れているようにさえ感じられるとする。macOSの通知音は既定でほかの音と混ざる。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを勧める。",
+      "macOSの通知音は既定でほかの音と混ざる。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを勧める。",
     accessibility:
       "知覚可能(Perceivable) ― 会話や重要な情報を音だけで伝えず、字幕・キャプション・音声解説・書き起こしを用意する。成功音やエラー音には同じ意味の触覚(ハプティクス)を組み合わせ、音で誘導するときは見た目の手がかりも添える。",
     useCases: [
@@ -57,7 +57,7 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 2 ― Sound(About sound / Applying sound to UI / Sound attributes)",
     color: "#2F7D6E",
-    position: "UIの音の役割と作り方を最も体系的にまとめているが、Material Design 2(旧版)の指針で、M3には対応するページがない",
+    position: <><Hl>UIの音の役割と作り方を最も体系的にまとめている</Hl>が、Material Design 2(旧版)の指針で、M3には対応するページがない</>,
     size: <span><NoData>数値基準なし。</NoData>音を鳴らさないほうがよい場面は、プライバシーや控えめさが要る画面、利用者が割り込みを望まない設定にしている場合、頻繁に行う操作の3つ。見た目の余白のように「沈黙」を設計に組み込むことは、音を使う場面を知るのと同じくらい重要。</span>,
     design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSの操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分ける。音色は、高音の多い明るい音を重要な通知や騒がしい場所に、少ない落ち着いた音を優先度の低い音に使う。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的。",
     stance:
@@ -87,7 +87,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.2 Audio Control / 1.4.7 Low or No Background Audio",
     color: "#A3821F",
-    position: "効果音そのものの基準はなく、「自動で鳴る音を止められること」と「音声の聞き取りを妨げないこと」を求める",
+    position: <>効果音そのものの基準はなく、<Hl>「自動で鳴る音を止められること」</Hl>と「音声の聞き取りを妨げないこと」を求める</>,
     size: "ページで自動で3秒より長く鳴る音には、一時停止・停止の手段か、システム全体とは別に音量を調整できる手段を用意する(1.4.2・レベルA)。録音した音声が中心の内容では、背景音をなくす・切れるようにする・音声より20デシベル以上小さくする、のどれかを満たす(1.4.7・レベルAAA)。",
     design: "音色や効果音の設計は定めない。録音した音声だけの内容に代わりのもの(書き起こしなど、1.2.1)、動画の音声に字幕(1.2.2)を求め、音を唯一の伝え方にしない考え方はほかの系列と共通。",
     glossary: [
@@ -119,7 +119,7 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web",
     color: "#7A4F7E",
-    position: "効果音は画面とは別の補助の手段として役立つが、意味が伝わりにくいため控えめに使い、言葉と組み合わせる(適合基準ではない)",
+    position: <>効果音は画面とは別の補助の手段として役立つが、<Hl>意味が伝わりにくいため控えめに使い、言葉と組み合わせる</Hl>(適合基準ではない)</>,
     size: "原則としての言及。背景の出来事を知らせる効果音はごく静かで邪魔にならないものにし、必ずオフにできる設定を用意する(1995年の記事)。",
     design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが呼びかけを検知した後の2音のビープ)、はっきりした言葉、暗黙の手がかり(話の途中で止まり、聞く態勢を示すなど)の3種類に分ける。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音なので、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られる。",
     stance:
@@ -197,7 +197,7 @@ const RULE_ROWS = [
   {
     label: "鳴らさない場面を示す",
     cells: [
-      { mark: "◯", note: "消音中は効果音を止める・tvOSは通知音なし" },
+      { mark: "◯", note: "消音中は効果音を止める" },
       { mark: "◯", note: "控えめさが必要な画面・割り込み拒否・頻繁な操作" },
       { mark: "―", note: "" },
       { mark: "△", note: "背景の音はごく静かに" },
@@ -206,7 +206,7 @@ const RULE_ROWS = [
   {
     label: "音の種類・作り方",
     cells: [
-      { mark: "△", note: "visionOSのみ具体的" },
+      { mark: "―", note: "" },
       { mark: "◯", note: "5分類・音色・旋律・音の減衰(M2)" },
       { mark: "―", note: "" },
       { mark: "△", note: "音の手がかりの3種類" },
@@ -286,7 +286,7 @@ const SOUND_RULES = [
   { k: "鳴らさない場面を決める", t: "プライバシーや控えめさが必要な画面、割り込みを望まない設定の利用者、頻繁に行う操作には音を付けない", who: "Google(M2)" },
   { k: "音だけに頼らない", t: "同じ意味を、文字・アイコン・触覚(振動)でも伝える。会話や重要な情報には字幕・書き起こしを用意", who: "Apple・W3C・NN group" },
   { k: "止められるようにする", t: "自動で3秒を超えて鳴る音には停止か音量調整の手段を。効果音はオフにする設定を必ず用意", who: "W3C・NN group" },
-  { k: "頻度が高いほど控えめに", t: "何度も聞く音ほど短く静かに、まれな音ほど印象的に。繰り返す音はわずかに変化させて耳障りにしない", who: "Google(M2)・Apple(visionOS)" },
+  { k: "頻度が高いほど控えめに", t: "何度も聞く音ほど短く静かに、まれな音ほど印象的に。繰り返す音はわずかに変化させて耳障りにしない", who: "Google(M2)" },
 ];
 
 function SoundIntro() {
@@ -342,12 +342,12 @@ const SOUND_KINDS = [
   {
     key: "alert", name: "通知・アラート", sub: "注意を向けさせる", prio: 3, freq: 2, len: "短め・繰り返し聞ける", timbre: "明るい音色(緊急ほどエネルギッシュに)",
     scenes: ["プッシュ通知(操作できる通知に独自の音)", "緊急の知らせ(明るく目立つ音)", "着信音・アラーム・タイマー(好みで選べる/穏やか〜急な音)"],
-    apple: "アラーム・通話は利用者が始めたものとして消音中も鳴る。macOSの通知音は既定で他の音と混ざる。tvOSは通知・アラートに音を付けない",
+    apple: "アラーム・通話は利用者が始めたものとして消音中も鳴る。macOSの通知音は既定で他の音と混ざる",
   },
   {
     key: "primary", name: "プライマリ UX", sub: "操作音", prio: 4, freq: 3, len: "ごく短い", timbre: "シンプルで控えめ",
     scenes: ["メニューの移動", "直接の操作の確認(選択・タップ)", "データ入力(キーボードのクリック音など)"],
-    apple: "キーボードのクリック音は消音中は鳴らさない。visionOSの仮想キーボードは、繰り返し聞くため音の高さ・音量をわずかにランダムに変える",
+    apple: "キーボードのクリック音は消音中は鳴らさない",
   },
   {
     key: "secondary", name: "セカンダリ UX", sub: "状態の変化", prio: 5, freq: 2, len: "短い", timbre: "機能的・控えめ",
@@ -357,7 +357,7 @@ const SOUND_KINDS = [
   {
     key: "ambient", name: "アンビエント", sub: "雰囲気の層", prio: null, freq: 1, len: "流れ続ける", timbre: "作業の邪魔をしない装飾",
     scenes: ["起動時の流れで、利用者を体験に迎え入れる", "ホーム画面の伴奏として、感情のトーンや今いる場所を表す"],
-    apple: "ゲームのBGMは消音中は止める。visionOSでは空間オーディオで音の出どころを物体に結びつける",
+    apple: "ゲームのBGMは消音中は止める",
   },
 ];
 
@@ -441,7 +441,6 @@ const SCENE_DECISIONS = [
   { scene: "受信トレイの項目をすべて片付けた", mark: "◯", why: "大事な達成はヒーローサウンドで祝ってよい(まれに・一貫して)", who: "Google(M2)" },
   { scene: "ページを開いたら、BGMが自動で流れ始める", mark: "△", why: "避けるのが基本。3秒を超えるなら停止か音量調整の手段が必須", who: "W3C" },
   { scene: "裏で処理が終わったことを知らせる", mark: "△", why: "ごく静かな音にし、オフにできる設定を用意する", who: "NN group" },
-  { scene: "テレビ(tvOS)で通知が届いた", mark: "✕", why: "通知・アラートには音を付けない(利用者が始めた操作だけに音)", who: "Apple" },
   { scene: "送信に失敗した", mark: "◯", why: "音を鳴らすなら、同じ意味の触覚と画面上の表示を必ず添える", who: "Apple・NN group" },
 ];
 const DEC_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "✕": "#A33A2E" };
@@ -757,7 +756,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

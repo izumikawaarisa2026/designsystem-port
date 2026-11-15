@@ -84,7 +84,7 @@ const SOURCES = [
     color: "#2F7D6E",
     m3NotApplicable: true,
     successorNote: "M3で「操作の要らないシンプルな通知」を出すなら、アクションボタンのないSnackbarが事実上の後継。Snackbarのアクションは任意のため、Toastの役割はほぼ再現できる。",
-    position: "M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる",
+    position: <><Hl>M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)</Hl>。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる</>,
     size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る。</span>,
     scenarios: [
       "取り消しなどの操作が要らない、ごく短い操作結果を知らせたい時",
@@ -123,7 +123,7 @@ const SOURCES = [
     doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
     term: "控えめな知らせ(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)。Webでトースト風の通知を作るなら、読み上げ中の内容の後に読み上げる控えめな知らせが基本",
+    position: <><Hl>フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)</Hl>。Webでトースト風の通知を作るなら、読み上げ中の内容の後に読み上げる控えめな知らせが基本</>,
     glossary: [
       { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toastの中にアイコンなどがあればかかり得る。" },
     ],
@@ -167,7 +167,7 @@ const SOURCES = [
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
     term: "Snackbar(Toast)",
     color: "#7A4F7E",
-    position: "「Toast」を別の用語として区別せず、用語集の「Snackbar (Toast)」にまとめている",
+    position: <>「Toast」を別の用語として区別せず、<Hl>用語集の「Snackbar (Toast)」にまとめている</Hl></>,
     size: <NoData>数値基準なし</NoData>,
     scenarios: [
       "パッシブな通知(見落としても致命的でない)として出したい時",
@@ -467,7 +467,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

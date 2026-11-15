@@ -422,7 +422,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
   },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start" },
   exceptionCell: { background: "#F8F9FD" },
   value: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 14 },
   unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#7E86AC", marginLeft: 4 },

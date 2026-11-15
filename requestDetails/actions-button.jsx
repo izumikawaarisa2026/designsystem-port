@@ -19,9 +19,9 @@ const TAB_ACCESSIBILITY = [
     value: "44 × 44",
     unit: "pt",
     stance:
-      "Buttonsのページは、押せる範囲(ヒット領域)を44×44pt以上(visionOSは60×60pt)とする。Accessibilityのページ(2025年3月の改訂)は、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28pt。小さすぎるコントロールは選びにくいため、推奨の最小サイズを満たす。",
+      "Buttonsのページは、押せる範囲(ヒット領域)を44×44pt以上とする。Accessibilityのページ(2025年3月の改訂)は、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28pt。小さすぎるコントロールは選びにくいため、推奨の最小サイズを満たす。",
     exceptions:
-      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までを最小のサイズとして認める(macOSは既定28・最小20、tvOSは既定66・最小56、visionOSは既定60・最小28、watchOSは既定44・最小28)。コンポーネントどうしの間隔も大きさと同じくらい重要で、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取る。",
+      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までを最小のサイズとして認める(macOSは既定28・最小20、watchOSは既定44・最小28)。コンポーネントどうしの間隔も大きさと同じくらい重要で、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取る。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "Offer sufficiently sized controls",
@@ -194,7 +194,7 @@ const TAB_STATES = [
     doc: "Human Interface Guidelines ― Buttonsページ",
     position: "共通の状態の一覧はなく、プラットフォームごとに定める。独自のボタンには押した状態を必ず用意する",
     stance:
-      <>システムのボタンには状態が組み込まれている。共通の状態の一覧はなく、<Hl>プラットフォームごとに定めている</Hl>(visionOSは4つの状態を見た目で区別する)。<Hl>独自に作るボタンには、押した状態(press state)を必ず用意する</Hl>(ないと反応していないように感じられるため)。時間がかかる処理では、ボタンの中にアクティビティインジケーターを出し、ラベルを一時的に変える(例:「購入」→「購入中…」)。</>,
+      <>システムのボタンには状態が組み込まれている。共通の状態の一覧はなく、<Hl>プラットフォームごとに定めている</Hl>。<Hl>独自に作るボタンには、押した状態(press state)を必ず用意する</Hl>(ないと反応していないように感じられるため)。時間がかかる処理では、ボタンの中にアクティビティインジケーターを出し、ラベルを一時的に変える(例:「購入」→「購入中…」)。</>,
     exceptions: "処理中は、ボタンの画像を隠してインジケーターとラベルを出す、という切り替え方を示している。",
     pourDetail: "理解可能(Understandable) ― 処理中であることを伝える。",
     searchHint: "activity indicator",
@@ -669,7 +669,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   value: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 14 },
   unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 4 },

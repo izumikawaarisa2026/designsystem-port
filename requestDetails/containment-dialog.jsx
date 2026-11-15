@@ -32,7 +32,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Alerts",
     term: "Alert(「ダイアログ」という名前のコンポーネントはなく、用途が重なるAlertを比べる。作業をさせるモーダルはSheets=ボトムシートのページ)",
     color: "#C2542A",
-    position: "取り消せない重大な操作の前などに、ユーザーへ注意を促すモーダルの警告メッセージ",
+    position: <><Hl>取り消せない重大な操作の前など</Hl>に、ユーザーへ注意を促すモーダルの警告メッセージ</>,
     size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
     colorInfo: <span><NoData>記載なし。</NoData></span>,
     stance:
@@ -117,7 +117,7 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern",
     term: "ダイアログ・警告のダイアログ(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "後ろの内容を操作できなくして重ねて出す領域。ダイアログであることと、後ろを操作できないことを支援技術に伝える",
+    position: <>後ろの内容を操作できなくして重ねて出す領域。<Hl>ダイアログであることと、後ろを操作できないことを支援技術に伝える</Hl></>,
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -482,7 +482,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

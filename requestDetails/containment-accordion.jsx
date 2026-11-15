@@ -25,13 +25,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Disclosure Controls",
     term: "Disclosure control(開示三角形・開示ボタン)",
     color: "#C2542A",
-    position: "ビューやリストに関連する情報・機能を表示・非表示するコンポーネント。開示三角形と開示ボタンの2種類",
+    position: <>ビューやリストに関連する情報・機能を表示・非表示するコンポーネント。<Hl>開示三角形と開示ボタンの2種類</Hl></>,
     size: "Disclosure controlsのページにサイズの規定はない。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       "詳細を必要になるまで隠しておくために使う。よく使うコントロールを上に置いていつも見せ、高度な機能は既定で隠すと、選択肢に圧倒されずに大事な情報を見つけられる。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にし、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付ける。",
     exceptions:
-      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOS・visionOSで使え、tvOS・watchOSでは使えない。",
+      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOSでも使え、watchOSでは使えない。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -44,7 +44,7 @@ const SOURCES = [
     refs: [
       { label: "Disclosure Controls", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles" },
       { label: "Disclosure controls ― Disclosure buttons", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-buttons" },
-      { label: "Disclosure controls ― iOS・iPadOS・visionOS(DisclosureGroup)", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
+      { label: "Disclosure controls ― iOS・iPadOS", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
     ],
     confirmedNote: "HIGのページデータ(Disclosure controlsのJSON)を直接取得して本文を確認(2026-10)。",
     illustration: () => (
@@ -80,7 +80,7 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Accordion Pattern(単体の開閉はDisclosure Pattern)",
     term: "Accordion(APGのパターン)",
     color: "#A3821F",
-    position: "見出しをボタンとして押せるようにし、開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える",
+    position: <><Hl>見出しをボタンとして押せるようにし</Hl>、開いているか閉じているかと、どのパネルを開閉するかを支援技術に伝える</>,
     size: "専用の数値基準はない。見出しのボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。隠れているときは右向き、見えているときは下向きの矢印などで状態を示す例がある。",
     glossary: [
@@ -435,7 +435,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
