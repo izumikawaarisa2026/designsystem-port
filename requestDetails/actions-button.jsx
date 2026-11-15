@@ -143,7 +143,7 @@ const TAB_STYLES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 1.4.11",
-    term: "button(WAI-ARIAのロール)/ HTMLのbutton要素",
+    term: "ボタン(WAI-ARIAの役割)",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
       "ボタンの見た目の種類を分ける基準はない。ただし1.4.11(非テキストのコントラスト)は、ボタンの境界や状態を背景から見分けられるコントラスト(3:1以上)を求め、種類を問わずすべてのボタンに関わる。",
@@ -238,7 +238,7 @@ const TAB_STATES = [
     position: "状態を支援技術に正しく伝える",
     stance:
       "4.1.2(Name, Role, Value)は、ボタンの今の状態(押せるか、選択中かなど)を支援技術がプログラムで取得できること。1.4.11は、状態の見た目(フォーカスリングなど)にも十分なコントラストを求める。2.4.7(フォーカスの可視化・AA)は、キーボード操作でフォーカスの位置が見えること。",
-    exceptions: "標準のHTMLのbutton要素なら、多くの場合ブラウザがこれらの情報を自動で渡す。独自に作ったボタンだけ追加の対応が要る。",
+    exceptions: "ブラウザ標準のボタンなら、多くの場合これらの情報は自動で伝わる。独自に作ったボタンだけ追加の対応が要る。",
     pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」の達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
@@ -333,7 +333,7 @@ const SYNTHESIS = {
   ],
   states: [
     <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleは共通の状態の一覧を持たず、プラットフォームごとに定めている(独自のボタンには押した状態を必ず用意する)。</>,
-    <>WCAGは見た目そのものより、<strong>状態が支援技術に正しく伝わるか(4.1.2)</strong>を重視する。標準的なHTML要素を使っていれば、多くの場合は自動的に満たされる。</>,
+    <>WCAGは見た目そのものより、<strong>状態が支援技術に正しく伝わるか(4.1.2)</strong>を重視する。ブラウザ標準のボタンなら、多くの場合は自動的に満たされる。</>,
   ],
 };
 

@@ -113,7 +113,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 2.1.1 / 2.5.7 / 2.5.8 / 2.5.5 / 1.4.11",
-    term: "slider(WAI-ARIAのロール)/ HTMLの input type=\"range\"",
+    term: "スライダー(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "キーボードで操作できることを求める(レベルA)",
     size:
@@ -388,7 +388,7 @@ const VALUE_DISPLAY = [
         <line x1="4" y1="34" x2="74" y2="34" stroke="#A3821F" strokeWidth="4" strokeLinecap="round" />
         <circle cx="74" cy="34" r="7" fill="#FFFFFF" stroke="#A3821F" strokeWidth="2.2" />
         <rect x="94" y="6" width="42" height="14" rx="3" fill="none" stroke="#A3821F" strokeDasharray="2 2" strokeWidth="1.2" />
-        <text x="115" y="16" fontSize="7" fontWeight="700" fill="#A3821F" textAnchor="middle" fontFamily="IBM Plex Mono">aria-value</text>
+        <text x="115" y="16" fontSize="7" fontWeight="700" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">値を伝える</text>
       </svg>
     ),
     illustrationNote: "視覚的な位置は規定せず、支援技術への値の伝達(プログラム的取得)を図示",

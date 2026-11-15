@@ -85,27 +85,27 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― aria-busy属性(更新中であることを示す)",
-    term: "aria-busy(WAI-ARIAの状態)",
+    doc: "WAI-ARIA ― 更新中であることを示す状態",
+    term: "更新中の状態(WAI-ARIA)",
     color: "#A3821F",
-    position: "専用のロールはないが、更新中であることを支援技術に伝えるaria-busy属性がある",
+    position: "専用の役割はないが、更新中であることを支援技術に伝える仕組みがある",
     size: <NoData>数値基準なし</NoData>,
     glossary: [
-      { term: "aria-busy", desc: "要素が更新中であることを示すグローバルなARIAの状態(既定値はfalse)。trueの間、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせるaria-live(ライブリージョン)とは役割が違う。" },
+      { term: "更新中の状態", desc: "内容が更新中であることを支援技術に伝える状態。更新中は、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせる仕組みとは役割が違う。" },
     ],
     stance:
-      "aria-busyは、要素が更新中であることを示すグローバルな状態(既定値はfalse)。trueの間、支援技術は要素の中の変更を無視し、falseに戻ったときにまとめて1回の更新として扱える(MAY)。ライブリージョンの複数の変更を1回の読み上げにまとめたいときは、trueにしておき、更新が終わったらfalseに戻す。",
+      "内容が更新中であることを支援技術に伝える状態を定めている。更新中は、支援技術は中の変更を無視し、更新が終わったときにまとめて1回の更新として扱える(MAY)。複数の変更を1回の読み上げにまとめたいときは、更新中と伝えておき、終わったら戻す。",
     exceptions:
-      "単独でも更新中であることを示せる。ライブリージョン(aria-live)に付けると、更新の通知を完了までまとめられる。",
+      "単独でも更新中であることを示せる。変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる領域を読み込む時",
       "更新途中の状態を支援技術に伝えにくくしたい時(待つかどうかは支援技術による)",
     ],
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 更新中であることをプログラムで伝える(読み上げを必ず防げるとは限らない)。",
     useCases: [
-      "読み込み中・骨組み表示の間はaria-busy=\"true\"を設定する",
-      "実際のコンテンツに差し替わったらaria-busy=\"false\"に戻す",
-      "ライブリージョン(aria-live)に付けて、更新の通知を完了までまとめる(任意)",
+      "読み込み中・骨組みの表示の間は、更新中であることを支援技術に伝える",
+      "実際の内容に差し替わったら、更新中の状態を解く",
+      "変更を読み上げる領域と組み合わせ、更新の知らせを完了までまとめる(任意)",
     ],
     searchHint: "aria-busy",
     url: "https://www.w3.org/TR/wai-aria-1.2/#aria-busy",
@@ -118,7 +118,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
         <div style={{ width: 46, height: 6, borderRadius: 3, background: "#F3EBD0" }} />
         <div style={{ width: 32, height: 6, borderRadius: 3, background: "#F3EBD0" }} />
-        <span style={{ fontSize: 8, color: "#A3821F" }}>aria-busy=true</span>
+        <span style={{ fontSize: 8, color: "#A3821F" }}>更新中を伝える</span>
       </div>
     ),
     illustrationNote: "視覚デザインの規定はなく、更新中/完了の状態遷移を図示",
@@ -282,7 +282,7 @@ export default function CommunicationLoadingPage() {
               Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(スケルトン画面の記事の書き方。「プログレスインジケーター」ページで比べた記事では「10秒以上」と書いている)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>aria-busy</strong>で、内容が書き換わっている最中であることを支援技術に伝える仕組みを用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。更新が終わったらfalseに戻す。変更を読み上げさせるのはaria-live(ライブリージョン)の役割で、aria-busyは「今は更新中」という状態を示すだけだ。
+              W3Cは、内容が書き換わっている最中であることを<strong>支援技術に伝える仕組み</strong>を用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。変更を読み上げさせるのは別の仕組みの役割で、こちらは「今は更新中」という状態を示すだけだ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

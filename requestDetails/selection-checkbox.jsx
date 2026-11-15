@@ -108,12 +108,11 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 1.4.11",
-    term: "checkbox(WAI-ARIAのロール)/ HTMLの input type=\"checkbox\"",
+    term: "チェックボックス(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "形を問わず、名前・役割・状態・押せる範囲を求める達成基準の集まり",
     glossary:
       [
-      { term: "標準のHTMLコンポーネントを使う場合", desc: "標準のinput type=\"checkbox\"なら、ブラウザが名前・役割・状態を自動で渡すため、通常は追加の対応は不要。独自に作ったチェックボックスだけ配慮が要る。" },
     ],
     choice:
       <NoData>記載なし</NoData>,

@@ -83,7 +83,7 @@ const SOURCES = [
     exceptions:
       <>セグメントは5個まで。<Hl>5個を超えるならチップなど別のコンポーネントを検討する</Hl>。画面やフレームの端から十分な余白を取り、広い画面の幅いっぱいに広げない(ラベルの周りの余白が大きくなりすぎて使いにくいため)。</>,
     accessibility:
-      "操作可能(Operable) ― 単一選択はラジオボタンと同じ「radiogroup」、複数選択はチェックボックスと同じ「checkbox」として扱う(Appleの地図アプリのような表示の切り替えでも、GoogleはTabsパターンではなくradiogroup/checkboxとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明するアクセシビリティラベル(例: 通貨記号→「安価」)を付ける。",
+      "操作可能(Operable) ― 単一選択はラジオボタンの組、複数選択はチェックボックスとして支援技術に伝える(Appleの地図アプリのような表示の切り替えでも、Googleはタブではなくラジオボタン/チェックボックスとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明する名前(例: 通貨記号→「安価」)を付ける。",
     useCases: [
       "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を使う",
       "既存の実装では、2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
@@ -120,7 +120,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <NoData>該当なし</NoData>,
     glossary: [
-      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールを定めていない。フォームの中で1つの値を選ぶならRadio Groupパターン(radiogroup/radio)、表示する内容を切り替えるならTabsパターン(tablist/tab/tabpanel)が近い。どちらも名前・役割・状態を支援技術に伝える(4.1.2)。Google自身の実装は、表示の切り替えでもradiogroup/checkboxとして扱う。" },
+      { term: "作るときの型(AI解釈)", desc: "W3Cはセグメントコントロールを定めていない。フォームの中で1つの値を選ぶならラジオボタンの組(Radio Groupパターン)、表示する内容を切り替えるならタブ(Tabsパターン)が近い。どちらも名前・役割・状態を支援技術に伝える(4.1.2)。Google自身は、表示の切り替えでもラジオボタン/チェックボックスとして扱う。" },
     ],
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
@@ -321,7 +321,7 @@ export default function NavigationSegmentedControlPage() {
               Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言える。
             </p>
             <p style={styles.synthesisText}>
-              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるARIAパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身の実装は表示切り替え用途でもTabsパターンではなくradiogroup/checkboxとして扱われるとしており、両者で考え方が異なる。
+              最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身は表示の切り替えでもタブではなくラジオボタン/チェックボックスとして扱うとしており、両者で考え方が異なる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

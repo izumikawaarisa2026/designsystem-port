@@ -106,7 +106,7 @@ const SOURCES = [
     useCases: [
       "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
       "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
-      "aria-pressed・aria-expandedなどで、状態を支援技術に伝える",
+      "押されているか・開いているかなどの状態を、支援技術に伝える",
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
@@ -129,7 +129,7 @@ const SOURCES = [
     stance:
       "押せるのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押す。状態は小さな手がかりで伝えるため、実際の利用者で見分けられるかテストする。",
     exceptions:
-      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンに aria-disabled=\"true\" を付けると、タブでフォーカスできるまま、スクリーンリーダーに無効と伝わる。",
+      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンも、タブでフォーカスできるまま「無効」と支援技術に伝えれば、スクリーンリーダーで存在と状態が分かる。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察にもとづく設計の根拠。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合がある。",
     useCases: [
       "ホバーには150〜200msの遅延を入れる",
@@ -290,7 +290,7 @@ function CellMini({ k, sys }) {
     case "disabled-apple": body = pill("#E5E5EA", { tc: "#171B36", to: 0.3, fo: 0.6 }); break;
     case "disabled-google": body = <g>{pill("#1B1B21", { fo: 0.1, tc: "#1B1B21", to: 0.38 })}{tag(70, "38/10%", "#2F7D6E")}</g>; break;
     case "disabled-wcag": body = <g>{pill("#1B1B21", { fo: 0.1, tc: "#1B1B21", to: 0.38 })}{tag(70, "対象外", "#A3821F")}</g>; break;
-    case "disabled-nn": body = <g>{pill("#9EA4C4", { tc: "#FFFFFF", to: 0.85 })}{tag(70, "aria-", "#7A4F7E")}</g>; break;
+    case "disabled-nn": body = <g>{pill("#9EA4C4", { tc: "#FFFFFF", to: 0.85 })}{tag(70, "無効と伝える", "#7A4F7E")}</g>; break;
     case "loading-nn": body = <g>{pill(indigo, { tx: 6 })}<circle cx="22" cy="17" r="4.5" fill="none" stroke="#FFFFFF" strokeOpacity="0.35" strokeWidth="1.8" /><path d="M22 12.5 a4.5 4.5 0 0 1 4.5 4.5" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" /></g>; break;
     default: return null;
   }

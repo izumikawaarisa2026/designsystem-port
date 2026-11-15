@@ -125,28 +125,28 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― 専用ロールなし(ARIA14のaria-label手法を援用)",
-    term: <NoData>専用のロールなし(名前・状態で伝える)</NoData>,
+    doc: "WAI-ARIA ― 専用の役割なし(技法ARIA14を援用)",
+    term: <NoData>専用の役割なし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
-    position: "専用のARIAロールはない。件数などの意味は、親の要素(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
+    position: "専用の役割はない。件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
     size: "専用の数値基準はない。",
     colorInfo: "ドットは周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、数字はバッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))。ドットの有無は色以外の手がかりなので、それだけで1.4.1(色の用途)の違反にはならない。ただし色の違いだけで状態を分けない(例: 赤と青のドットで意味を変えない)。ドットで新着を示すときも、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
-      { term: "ARIA14 / aria-label", desc: "見えるラベルを置けない要素に、aria-labelでアクセシブルネームを与える技法。バッジ付きのアイコンボタンで、装飾のバッジをaria-hidden=\"true\"で隠し、件数を親のボタンのaria-labelに含める実装(例: aria-label=\"通知(4件)\")は、これを当てはめた形(AI解釈)。" },
+      { term: "ARIA14", desc: "見えるラベルを置けないものに、支援技術向けの名前を与える技法。バッジ付きのアイコンボタンで、装飾のバッジは読み上げず、件数をボタンの名前に含める(例: 「通知(4件)」と読み上げる)のは、これを当てはめた形(AI解釈)。" },
     ],
     stance:
-      "専用のロールはない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(aria-labelで名前を付ける)。ARIA14は、文字のラベルを置けない要素にaria-labelで名前を付ける技法で、記号だけの閉じるボタンなどを例に挙げる(バッジ専用ではない)。バッジ付きのアイコンボタンに当てはめると、件数を親のボタンの名前に含め(例: aria-label=\"通知(4件)\")、バッジはaria-hidden=\"true\"で隠す(AI解釈)。名前と値をプログラムで取得できるようにすることが、4.1.2の求めに当たる。",
+      "専用の役割はない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(見えるラベルのないものに名前を付ける)。ARIA14は、記号だけの閉じるボタンなどを例に挙げる技法で、バッジ専用ではない。バッジ付きのアイコンボタンに当てはめると、件数をボタンの名前に含め(例: 「通知(4件)」と読み上げる)、バッジ自体は読み上げない(AI解釈)。名前と値を支援技術が取得できるようにすることが、4.1.2の求めに当たる。",
     exceptions:
-      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、aria-labelにもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
+      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、支援技術向けの名前にもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
     scenarios: [
       "アイコンに重ねた件数バッジの意味を支援技術に伝えたい時",
       "ドットのバッジで、色の違いだけで状態を分けてしまうのを避けたい時",
     ],
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値をプログラムで判別できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)。",
     useCases: [
-      "装飾的なバッジ要素にはaria-hidden=\"true\"を設定する",
-      "件数などの意味は親要素(アイコンボタン等)のaria-labelに含める",
+      "装飾のバッジ自体は読み上げさせない",
+      "件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含める",
       "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
       "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
     ],
@@ -154,7 +154,7 @@ const SOURCES = [
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
     refs: [
       { kind: "sc", level: "A", label: "4.1.2 名前(name)・役割(role)・値(value)", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html" },
-      { label: "技法ARIA14: aria-labelで名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
+      { label: "技法ARIA14: 見えるラベルのないものに名前を付ける(バッジ専用ではない一般的な技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14" },
       { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
       { kind: "sc", level: "AA", label: "1.4.3 コントラスト(最低限)", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" },
       { kind: "sc", level: "A", label: "1.4.1 色の用途", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html" },
@@ -164,11 +164,11 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="180" height="24" viewBox="0 0 180 24">
           <rect x="1" y="1" width="178" height="22" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="90" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-label=&quot;通知(4件)&quot;</text>
+          <text x="90" y="15" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">名前「通知(4件)」</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、アクセシブルネームへの畳み込み方を図示",
+    illustrationNote: "視覚デザインの規定はなく、件数をボタンの名前に含める考え方を図示",
   },
   {
     key: "nn",
@@ -338,7 +338,7 @@ export default function CommunicationBadgePage() {
               Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用のARIAロールがそもそも存在しない</strong>。対応の<strong>一例</strong>は、装飾的なバッジ要素をaria-hiddenで隠し、件数などの意味を親のアイコンボタン側のaria-labelに含めるという、ARIA14の手法を当てはめた作り方だ(AI解釈)。4.1.2が求めるのは名前・役割・値をプログラムで取得できることで、この作り方を一律に求めているわけではない。
+              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、ARIA14の考え方を当てはめた形だ(AI解釈)。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。

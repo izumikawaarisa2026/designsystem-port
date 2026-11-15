@@ -60,22 +60,22 @@ const SOURCES = [
     doc: "WAI-ARIA Breadcrumbパターン",
     term: "Breadcrumb(APGのパターン)",
     color: "#A3821F",
-    position: "nav要素(ランドマーク)+ 順序リスト(ol)+ 現在ページへのaria-current=\"page\"",
+    position: "ナビゲーションの領域として示し、順序のあるリストで並べ、今のページを支援技術に伝える",
     size: "専用の数値基準はない。個々のリンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。リンクの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。区切り記号(> や / など)は装飾のため、1.4.11(非テキストのコントラスト)の対象外。",
     glossary: [
-      { term: "aria-current", desc: "一連の項目の中で「今の項目」を示すARIA属性。パンくずリストでは、今のページへのリンクに aria-current=\"page\" を付ける。今のページがリンクでなければ任意。" },
+      { term: "今の項目", desc: "一連の項目の中で「今の項目」を支援技術に伝える。パンくずリストでは、今のページへのリンクを「今のページ」と伝える。今のページがリンクでなければ任意。" },
     ],
     stance:
-      "今のページの親ページへのリンクを、階層の順に並べたリスト。ナビゲーションのランドマーク(nav要素。aria-labelかaria-labelledbyでラベルを付ける)として作り、リンクは順序リスト(ol)で並べる。多くはページ本文の直前に横に置く。",
+      "今のページの親ページへのリンクを、階層の順に並べたリスト。名前を付けたナビゲーションの領域として示し、リンクは順序のあるリストで並べる。多くはページ本文の直前に横に置く。",
     exceptions:
-      "APGは、今のページをリンクにする作りも、しない作りも認める(リンクならaria-current=\"page\"を付け、リンクでなければ任意)。リンクにしないのはNN groupの推奨。キーボード操作が「適用なし(Not applicable)」なのは、普通のリンクの並びで特別なキー操作が要らないため。",
+      "APGは、今のページをリンクにする作りも、しない作りも認める(リンクなら「今のページ」と伝え、リンクでなければ任意)。リンクにしないのはNN groupの推奨。キーボード操作が「適用なし(Not applicable)」なのは、普通のリンクの並びで特別なキー操作が要らないため。",
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― nav要素によるランドマーク(支援技術がページ内を移動しやすくする)、aria-current=\"page\"による現在位置の明示が中心。区切り記号(> や / など)は装飾で、支援技術に読み上げさせる必要はない。",
+      "堅牢(Robust)・知覚可能(Perceivable) ― ナビゲーションの領域として示すこと(支援技術がページ内を移動しやすくする)と、今のページを伝えることが中心。区切り記号(> や / など)は装飾で、支援技術に読み上げさせる必要はない。",
     useCases: [
-      "nav要素(aria-label付き)でパンくずリスト全体を囲む",
-      "リンクを順序リスト(ol)で並べる",
-      "今のページへのリンクにはaria-current=\"page\"を付ける(リンクにしないなら任意)",
+      "パンくずリスト全体を、名前の付いたナビゲーションの領域として示す",
+      "リンクを、順序のあるリストとして並べる",
+      "今のページへのリンクは「今のページ」と伝える(リンクにしないなら任意)",
     ],
     searchHint: "Not applicable",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/",
@@ -87,7 +87,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="26" viewBox="0 0 120 26">
           <rect x="1" y="1" width="118" height="24" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="17" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">nav &gt; ol &gt; aria-current</text>
+          <text x="60" y="17" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">領域 &gt; 順序 &gt; 今のページ</text>
         </svg>
       </div>
     ),
@@ -190,7 +190,7 @@ const SPLITS = [
   {
     q: "今いるページ(末尾の項目)を、リンクにする?",
     sides: [
-      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするならaria-current=\"page\"を付ける。リンクにしなければaria-currentは任意" },
+      { who: "W3C(APG)", color: "#A3821F", t: "どちらの作りも認めている。リンクにするなら「今のページ」と伝える。リンクにしなければ任意" },
       { who: "NN group", color: "#7A4F7E", t: "リンクにしない。何も起きないリンクは置かないため。リンクの項目とは見た目でも区別する" },
     ],
     tip: "今いるページはリンクにせず文字だけにし、「現在のページ」と分かるようにすると、NN groupの勧めに沿い、W3CのAPGの作り方の1つにも当たる。APGは実装の参考例で、適合の要件ではない。",
@@ -251,7 +251,7 @@ export default function NavigationBreadcrumbPage() {
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの実装パターン(nav要素 + 順序リスト + 現在ページへのaria-current="page")と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
+              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

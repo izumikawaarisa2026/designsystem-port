@@ -116,24 +116,24 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
-    term: "dialog(モーダルの場合。専用のロールなし)",
+    term: "ダイアログ(モーダルの場合。専用の役割なし)",
     color: "#A3821F",
-    position: "専用のロール・パターンはなく、モーダルか非モーダルかで当てはめる考え方が変わる",
+    position: "専用の役割・パターンはなく、モーダルか非モーダルかで当てはめる考え方が変わる",
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。グラバーや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      "後ろの操作を完全に遮るモーダルなシートには、WAI-ARIAのDialog (Modal) Patternが合う。role=\"dialog\"とaria-modal=\"true\"を設定し、Tab/Shift+Tabでシートの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにする。2.5.7(ドラッグ動作・レベルAA)により、ドラッグしないと高さを変えられない作りにせず、グラバーを押すと高さが切り替わる、などドラッグ以外の方法も用意する。",
+      "後ろの操作を完全に遮るモーダルなシートには、WAI-ARIAのDialog (Modal) Patternが合う。ダイアログであることと後ろを操作できないことを支援技術に伝え、Tab/Shift+Tabでシートの外にフォーカスが出ないようにし(フォーカストラップ)、Escキーで閉じられるようにする。2.5.7(ドラッグ動作・レベルAA)により、ドラッグしないと高さを変えられない作りにせず、グラバーを押すと高さが切り替わる、などドラッグ以外の方法も用意する。",
     scenarios: [
       "後ろの操作を完全に遮るモーダルなシートを作る時",
       "後ろの内容を操作できるまま残す非モーダルなシート(Googleの「標準」に相当)を作る時",
     ],
     exceptions:
-      "後ろを完全に遮り、見た目でも覆っていないなら、aria-modal=\"true\"を設定しない。",
+      "後ろを完全に遮り、見た目でも覆っていないなら、モーダルとして伝えない。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― モーダルならフォーカストラップ・Escキー・ラベル付け(4.1.2、2.1.1)、非モーダルなら後ろの操作を妨げない実装。ドラッグ以外の操作方法(2.5.7)も「操作可能」の基準。",
     useCases: [
-      "後ろを完全に止めるシートにはrole=\"dialog\"+aria-modal=\"true\"を使う",
-      "後ろを操作できるシートではaria-modalを設定しない",
+      "後ろを完全に止めるシートは、モーダルのダイアログとして支援技術に伝える",
+      "後ろを操作できるシートは、モーダルとして伝えない",
       "ドラッグしなくても高さを変えられるようにする(グラバーのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
@@ -146,7 +146,7 @@ const SOURCES = [
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="38" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">aria-modal?</text>
+          <text x="60" y="38" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルか?</text>
         </svg>
       </div>
     ),
@@ -347,7 +347,7 @@ export default function ContainmentBottomSheetPage() {
               このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>だ。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言える。
             </p>
             <p style={styles.synthesisText}>
-              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも技術的に同じ区別を持ち、<strong>aria-modal属性を設定するかどうか</strong>でこの違いを表現する。
+              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも同じ区別を持ち、<strong>モーダルであることを支援技術に伝えるかどうか</strong>でこの違いを表す。
             </p>
             <p style={styles.synthesisText}>
               Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示している。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示している。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールだ。

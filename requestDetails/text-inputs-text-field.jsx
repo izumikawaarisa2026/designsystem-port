@@ -119,7 +119,7 @@ const SOURCES = [
     key: "wcag",
     name: "W3C",
     doc: "WCAG 3.3.2 Labels or Instructions / 1.3.1 / 4.1.2",
-    term: "textbox(WAI-ARIAのロール)/ HTMLのinput要素",
+    term: "テキスト入力欄(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "入力を求めるコンテンツに、目に見えるラベル又は指示を求める(レベルA)",
     glossary: [
@@ -129,12 +129,12 @@ const SOURCES = [
     stance:
       <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベル又は指示を提供しなければならない</Hl>。この基準は、マークアップでの関連付け(1.3.1)や支援技術だけに伝わる名前(4.1.2)とは違い、「すべての人に見える形」を重視する。ラベルはすべての人に示され、名前(name)は支援技術にだけ伝わる場合がある、と区別している。</>,
     exceptions:
-      "プレースホルダーやARIAだけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。",
+      "プレースホルダーや、支援技術向けの名前だけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。",
     accessibility:
       "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2は「入力支援」(3.3)で「理解可能」、1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前(name)・役割(role)・値(value))は「堅牢」。ラベルの「見え方」「マークアップ」「支援技術への伝達」を、別々の基準が扱う。",
     useCases: [
       "すべての入力欄に目に見えるラベルを付ける(必須・任意を問わない)",
-      "プレースホルダーやARIAラベルだけに頼らない",
+      "プレースホルダーや、支援技術向けの名前だけに頼らない",
       "データ形式・入力例・必須項目の明示など、必要な補足情報を添える",
     ],
     searchHint: "undue confusion",
@@ -207,8 +207,8 @@ const TEXTAREA_NOTES = [
   {
     key: "wcag",
     name: "W3C",
-    position: "aria-multiline属性は独自実装のrole=\"textbox\"にのみ関わる。ネイティブの<textarea>要素はこの属性なしで複数行の意味が伝わる",
-    text: "aria-multiline属性は、独自に作ったrole=\"textbox\"のコンポーネントが複数行の入力を受け付けるかを支援技術に伝えるためのもの。ARIAは要素の動作そのものは変えないため、HTMLのtextarea要素には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
+    position: "複数行かどうかを伝える仕組みは、独自に作った入力欄にだけ関わる。ブラウザ標準の複数行の入力欄なら自動で伝わる",
+    text: "複数行かどうかを伝える仕組みは、独自に作った入力欄が複数行の入力を受け付けるかを支援技術に伝えるためのもの。ブラウザ標準の複数行の入力欄には不要(MDNの解説)。高さを固定して内容を隠す作りは、1.4.4(テキストのサイズ変更)・1.4.10(リフロー)に反するおそれがある(どちらもテキストエリア専用ではない一般的な達成基準)。",
     refs: [
       { label: "WAI-ARIA 1.2: aria-multiline", url: "https://www.w3.org/TR/wai-aria-1.2/#aria-multiline" },
       { kind: "sc", level: "AA", label: "1.4.4 テキストのサイズ変更", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html" },
@@ -557,7 +557,7 @@ export default function TextInputsTextFieldPage() {
           </div>
           <p style={styles.diagramNote}>ここから先は、複数行のテキストエリアに関する4系列比較だ(①のテキストフィールドとは別トピック)。</p>
           <TextareaNotes />
-          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ネイティブの<code>&lt;textarea&gt;</code>要素であれば、WAI-ARIA仕様のaria-multiline(WCAGの要件ではなく、独自の入力欄で使う属性)は追加対応なしで済む点が実務上重要だ。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
+          <p style={styles.diagramNote}>Appleは複数行入力を「Text view」という別コンポーネントとして独立させている一方、Googleは同じText Fieldsコンポーネントの複数行バリアントとして扱っており、系列によって捉え方が異なる。ブラウザ標準の複数行の入力欄なら、複数行であることを伝える追加の対応(WCAGの要件ではなく、独自の入力欄のためのもの)は要らない。NN groupが指摘する通り、入力欄の高さ自体が求める回答の長さを示す手がかりになるため、短い回答を求める欄をテキストエリアサイズにしない(逆も同様)という配慮が必要だ。</p>
 
           <RelatedPages paths={["/components/text-inputs/search-field", "/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/selection/select"]} />
 
