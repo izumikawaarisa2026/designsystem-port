@@ -17,28 +17,25 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "該当なし(参考: Human Interface Guidelines ― Buttons(visionOS))",
+    doc: "該当なし(参考: Human Interface Guidelines ― Buttons)",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
     position: <NoData>該当なし(FABに当たるコンポーネントはない)</NoData>,
     size: <NoData>該当なし</NoData>,
     stance: <><NoData>該当なし</NoData>。主な操作は、ツールバーやナビゲーションバーに置くのが基本。</>,
     exceptions: <NoData>該当なし</NoData>,
-    memo: "参考: visionOSには、浮かんで見えるボタンの背景にglassマテリアルを使う指針がある(大きさはMini 28〜Extra large 64ptの5段階、中心どうしを60pt以上離す)。見た目が近いだけで、画面の主役の操作という役割はない。",
     pourDetail: <NoData>該当なし</NoData>,
-    searchHint: "floating in space",
-    url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS",
+    searchHint: "",
+    url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
     refs: [
-      { label: "Buttons(visionOS)", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#visionOS" },
+      { label: "Buttons", url: "https://developer.apple.com/design/human-interface-guidelines/buttons" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="40" height="40" viewBox="0 0 40 40">
-          <circle cx="20" cy="20" r="18" fill="rgba(194,84,42,0.15)" stroke="#C2542A" strokeWidth="1.5" />
-          <line x1="14" y1="20" x2="26" y2="20" stroke="#C2542A" strokeWidth="2" strokeLinecap="round" />
-          <line x1="20" y1="14" x2="20" y2="26" stroke="#C2542A" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="20" cy="20" r="18" fill="none" stroke="#C9CDE0" strokeWidth="1.5" strokeDasharray="3 3" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>visionOSの浮かぶボタン(参考)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>該当なし</span>
       </div>
     ),
   },
@@ -107,7 +104,7 @@ const SOURCES = [
     doc: "UI Elements Glossary",
     term: "Floating Button(Floating Action Button、FAB)",
     color: "#7A4F7E",
-    position: "用語集の定義のみ(数値基準なし)",
+    position: <><Hl>用語集の定義のみ</Hl>(数値基準なし)</>,
     size: "―(用語集にサイズの数値記載なし)",
     stance:
       "用語集の「Floating Button(Floating Action Button, FAB)」。画面に浮かび、スクロールしても残る、最もよく使う重要な操作のためのボタンと定義する。モバイルで主要な操作へすばやく届くようにする用途が多い。",
@@ -225,7 +222,7 @@ function FabGuide() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>FABの種類と使い方(Google)</h2>
-      <p style={styles.fgNote}>FABをコンポーネントとして定めているのはGoogleだ。AppleにはiOS・iPadOSで常に画面に浮かぶFABに当たるコンポーネントはなく(visionOSには近い考え方がある。比較表のApple欄)、W3CとNN groupも、FABの見た目や種類は定めていない。</p>
+      <p style={styles.fgNote}>FABをコンポーネントとして定めているのはGoogleだ。AppleにはFABに当たるコンポーネントはなく、W3CとNN groupも、FABの見た目や種類は定めていない。</p>
       <div style={styles.fgGrid}>
         {FAB_KINDS.map((k) => (
           <div key={k.t} style={styles.fgCard}>
@@ -265,7 +262,7 @@ const SPLITS = [
     q: "画面に常に浮かぶ、主な操作のボタンを置く?",
     sides: [
       { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
-      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たるコンポーネントがない。主な操作はツールバーやナビゲーションバーに置く。visionOSには空間に浮かぶ円形のボタンがあるが、主役の操作という役割までは定めていない" },
+      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たるコンポーネントがない。主な操作はツールバーやナビゲーションバーに置く" },
     ],
     tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形だ。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえる。",
   },
@@ -273,7 +270,6 @@ const SPLITS = [
     q: "大きさはどれくらい?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
-      { who: "Apple(visionOS)", color: "#C2542A", t: "ボタン全般の5段階(28〜64pt)。FAB専用の大きさはない" },
       { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
     ],
     tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たす。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
@@ -331,10 +327,10 @@ export default function ActionsFabPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleにはFABに当たるコンポーネントがない</strong>(visionOSの浮かぶボタンは見た目が近いだけ。比較表のメモ)。
+              <strong>AppleにはFABに当たるコンポーネントがない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIやvisionOS的な空間UIでFABに近い表現を使い、通常のiOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。
+              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIではFABを使い、iOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -403,8 +399,6 @@ export default function ActionsFabPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
-                <div style={styles.labelCell}>メモ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.memo || <NoData>―</NoData>}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
@@ -486,7 +480,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
   lastRowCell: { borderBottom: "none" },

@@ -35,7 +35,7 @@ const SOURCES = [
     stance:
       <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す。</>,
     exceptions:
-      "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS・visionOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
+      "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
     accessibility:
       <span><NoData>記載なし。</NoData>使えない項目があってもメニュー自体は開けるようにし、どんな命令があるかを知れるようにする点は、分かりやすさ(理解可能)に関わる。</span>,
     useCases: [
@@ -89,7 +89,7 @@ const SOURCES = [
     doc: "APG Menu and Menubar Pattern / Menu Button Pattern",
     term: "メニュー・メニューバー・メニュー項目(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "OSのメニューのように振る舞う選択肢の一覧の、役割・状態とキーボード操作を定める。メニューボタンで開く一時的なメニューと、常に出ているメニューバーを扱う",
+    position: <>OSのメニューのように振る舞う選択肢の一覧の、<Hl>役割・状態とキーボード操作を定める</Hl>。メニューボタンで開く一時的なメニューと、常に出ているメニューバーを扱う</>,
     size: "専用の数値基準はない。項目には一般のターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)がかかる。",
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
@@ -595,7 +595,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

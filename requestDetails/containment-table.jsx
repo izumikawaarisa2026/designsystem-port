@@ -27,7 +27,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Lists and tables",
     term: "Table(Lists and tables)",
     color: "#C2542A",
-    position: "1列のリストと複数列の表を1つのページで扱う。数値の基準は持たず、macOSの複数列の表では、列ごとの並べ替え・列幅の変更・行の色の交互表示を求める",
+    position: <>1列のリストと複数列の表を1つのページで扱う。数値の基準は持たず、macOSの複数列の表では、<Hl>列ごとの並べ替え・列幅の変更・行の色の交互表示</Hl>を求める</>,
     size: <span><NoData>数値基準なし。</NoData>行の文字は短くし、省略や折り返しを減らす。1項目の文が長いなら、一覧には題名だけを出し、選ぶと詳細画面で全文を見せる。</span>,
     colorInfo: "macOSの縦横に広い表では、行ごとに背景色を交互に変えると、列をまたいで同じ行を目で追いやすい(bordered style)。iOS/iPadOSのgrouped styleは、見出し・脚注・余白でデータのまとまりを分ける。",
     stance:
@@ -83,7 +83,7 @@ const SOURCES = [
     doc: "WAI Tables Tutorial / WCAG 1.3.1 Info and Relationships / APG Table Pattern",
     term: "表・グリッド(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "見た目の決まりは持たず、見出しセルとデータセルの関係を構造として支援技術に伝えることを求める",
+    position: <>見た目の決まりは持たず、<Hl>見出しセルとデータセルの関係を構造として支援技術に伝える</Hl>ことを求める</>,
     size: "表専用の数値基準はない。1.4.10(リフロー)では、データ表は理解に2次元の配置が必要な部分として、横スクロールが例外として認められている(「アダプティブ/レスポンシブ」ページを参照)。",
     colorInfo: "見出しのセルとデータのセルを区別して伝える。行と列の両方に見出しがあるなら、どちら向きの見出しかを示し、複数の見出しが1つのセルにかかる複雑な表は、その関係もはっきり示す。表には題名を付ける(多くのスクリーンリーダーが見出しのように読み上げる)。",
     glossary: [
@@ -614,7 +614,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

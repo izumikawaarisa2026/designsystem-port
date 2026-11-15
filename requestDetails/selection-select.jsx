@@ -26,7 +26,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Pop-up buttons / Pull-down buttons",
     term: "Pop-up button(選んだ値を表示)/ Pull-down button(操作の一覧)",
     color: "#C2542A",
-    position: "1つだけを選ぶ「Pop-upボタン」と、関連する操作をまとめる「Pull-downボタン」に分かれる",
+    position: <><Hl>1つだけを選ぶ「Pop-upボタン」</Hl>と、関連する操作をまとめる「Pull-downボタン」に分かれる</>,
     size:
       "Pop-up buttonsのページにサイズの規定はない(ネイティブのコントロールとしてシステムが描く)。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <NoData>記載なし</NoData>,
@@ -102,7 +102,7 @@ const SOURCES = [
     doc: "WCAG 4.1.2 / 2.5.8 / 2.5.5 / 2.1.1 / 3.2.1 / 3.2.2、APG Comboboxパターン(Select-Only)",
     term: "コンボボックス(選ぶだけの形)・選択肢の一覧(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "名前・役割・状態とキーボード操作を求める一般の基準。ブラウザ標準のものか独自に作るかで対応が変わる",
+    position: <>名前・役割・状態とキーボード操作を求める一般の基準。<Hl>ブラウザ標準のものか独自に作るかで対応が変わる</Hl></>,
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
     colorInfo:
@@ -463,7 +463,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

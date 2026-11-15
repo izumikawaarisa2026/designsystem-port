@@ -48,7 +48,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Snackbar",
     term: "Snackbar",
     color: "#2F7D6E",
-    position: "画面下部に一時的に出し、アプリが実行した(またはこれから実行する)処理を知らせる非モーダルなメッセージ。同時に1つだけ",
+    position: <>画面下部に一時的に出し、アプリが実行した(またはこれから実行する)処理を知らせる非モーダルなメッセージ。<Hl>同時に1つだけ</Hl></>,
     size: "コンパクトなブレークポイントでは、1〜2行を収めるため高さを48dpから64dpまで広げる。タブレット・デスクトップなど中〜大のブレークポイントでは横に伸縮させ、1行40〜60文字程度を目安にする。幅の広いレイアウトで下部の位置が一定なら、左揃え・中央揃えのどちらでもよい。",
     colorInfo: "コンテナは不透明なグレーの長方形が基本で、影付きの単色の背景でラベルを読みやすくする。文字がはっきり読めるならわずかな透明度も許されるが、ラベルの色を文字のボタンの色と同じにしない。",
     scenarios: [
@@ -441,7 +441,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

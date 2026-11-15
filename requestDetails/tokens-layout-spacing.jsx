@@ -27,11 +27,11 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Layout",
     color: "#C2542A",
     position: "余白の刻みは定めず、システムのマージン・レイアウトガイド・セーフエリアに従って配置する。画面の広さはcompact/regularの「サイズクラス」で判断する",
-    size: "iOS/iPadOSに余白や列の数値はない(システムのマージンとセーフエリアを使う前提)。固定値は一部だけで、tvOSはセーフエリアとして上下60pt・左右80ptの内側に主な内容を置き、グリッドの列間40pt・行間100pt以上。visionOSはボタンの中心どうしを60pt以上離す。watchOSは1行のボタンをアイコンなら3つ・文字なら2つまで。",
+    size: "iOS/iPadOSに余白や列の数値はない(システムのマージンとセーフエリアを使う前提)。固定値は一部だけで、watchOSは1行のボタンをアイコンなら3つ・文字なら2つまで。",
     colorInfo: "サイズクラスは横・縦それぞれがcompact(狭い/低い)かregular(広い/高い)で、システムが端末・ウィンドウ・マルチタスクの状態から決める。レイアウトは端末の種類や向きではなくサイズクラスで決める。広い画面でタブバーをサイドバーに切り替えるなど見せ方は変えてよいが、使える機能は変えない。",
     structure: "関連する項目は、余白・容器の形・区切り線でまとめ、関係のない項目と見分けられるようにする(HIG Layout)。",
     stance:
-      "重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応し、特にDynamic Typeで文字が大きくなったら、横並びを縦に積み直すなどして文字の切れや重なりを防ぐ。",
+      <>重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応し、特にDynamic Typeで文字が大きくなったら、<Hl>横並びを縦に積み直すなどして文字の切れや重なりを防ぐ</Hl>。</>,
     exceptions:
       "横向き専用のゲームのように向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応する。背景の画像は、画面の縦横比が変わっても縦横比を保ったまま拡大して画面を埋める。",
     accessibility:
@@ -61,7 +61,7 @@ const SOURCES = [
     colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよい。ただしスマートフォンを横にしたときのように、幅がMediumでも高さがCompactなら2ペインは実用的でないため、高さも考える。",
     structure: "まとまりは余白で示す。線・区切り線・影で囲む明示的なまとめ方と、近さと空きで示す暗黙のまとめ方がある(カルーセルの項目を近づけ、周りを空けるなど)(M3 Spacing)。",
     stance:
-      "ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズで実行中にも変わる。そのため「タブレットかどうか」の判定には使わない、と明言している。区分は典型的な端末の大多数に合うよう選ばれ、例えばCompact幅は縦向きのスマートフォンの99.96%にあたる。",
+      <>ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズで実行中にも変わる。そのため<Hl>「タブレットかどうか」の判定には使わない</Hl>、と明言している。区分は典型的な端末の大多数に合うよう選ばれ、例えばCompact幅は縦向きのスマートフォンの99.96%にあたる。</>,
     exceptions:
       "Large・Extra-largeは、デスクトップや外部ディスプレイのために、元の区分(Compact/Medium/Expanded)に後から加えたもの。",
     accessibility:
@@ -97,7 +97,7 @@ const SOURCES = [
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で表している構造や関係を、見出し・リスト・グループなどのマークアップでも表すこと。" },
     ],
     stance:
-      "余白の大きさやグリッドの列数は指定しない。代わりに、拡大して幅が狭くなったら1列に組み替わること(1.4.10)、小さな対象どうしを近づけすぎないこと(2.5.8)、余白で表したまとまりを構造でも伝えること(1.3.1)という、結果としての使いやすさを求める。",
+      <><Hl>余白の大きさやグリッドの列数は指定しない</Hl>。代わりに、拡大して幅が狭くなったら1列に組み替わること(1.4.10)、小さな対象どうしを近づけすぎないこと(2.5.8)、余白で表したまとまりを構造でも伝えること(1.3.1)という、結果としての使いやすさを求める。</>,
     exceptions:
       "1.4.10は、地図・図・動画・ゲーム・プレゼンテーション・データ表、操作中に出し続けるツールバーなど、2次元の配置が欠かせない部分を例外とする。2.5.8は、同じ機能の十分な大きさの操作が別にある場合、文中のリンク、ブラウザが大きさを決めるコンポーネント、見た目が欠かせない場合を例外とする。",
     accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.10と1.3.1は「知覚可能」、2.5.8は「操作可能」。拡大して使う弱視の人、細かい操作が難しい人、スクリーンリーダーの利用者が、同じ情報と操作にたどり着けるようにする。",
@@ -125,7 +125,7 @@ const SOURCES = [
     colorInfo: <NoData>記載なし</NoData>,
     structure: "近接は最も強いまとまりの原則の1つで、色や形の似ていることなどほかの手がかりより優先されることがある。見出しは、前の節の本文より自分の節の本文に近く置く。",
     stance:
-      "関連する要素は近くに、関係のない要素は離して置く。関係のない要素が近いと、1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれる。逆に関連する操作が離れていると、作業に集中している人は目の前にあっても見落とす(いわゆる「トンネル視」)。例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあり、登録が必須だと誤解された事例を挙げる。",
+      <><Hl>関連する要素は近くに、関係のない要素は離して置く</Hl>。関係のない要素が近いと、1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれる。逆に関連する操作が離れていると、作業に集中している人は目の前にあっても見落とす(いわゆる「トンネル視」)。例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあり、登録が必須だと誤解された事例を挙げる。</>,
     exceptions:
       "レスポンシブデザインでは幅で要素の近さが変わり、広い画面で余白で分けていたものが、狭い画面で同じグループに見えることがある。その場合は配置そのものを変える(例: 検索を別の場所へ移す)。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、見た目のまとまりの知覚についての心理学の原則とユーザーテストにもとづく設計の根拠。",
@@ -252,7 +252,7 @@ function AppleLayoutDiagram() {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const mono = "'IBM Plex Mono', monospace";
   return (
-    <svg viewBox="0 0 400 130" style={{ width: "100%", maxWidth: 520, display: "block" }} role="img" aria-label="Appleの分割ビューとtvOSのセーフエリアの図">
+    <svg viewBox="0 0 200 130" style={{ width: "100%", maxWidth: 280, display: "block" }} role="img" aria-label="Appleの分割ビューの図">
       <text x="0" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>分割ビュー(iPadOS・macOS)</text>
       <rect x="0" y="20" width="190" height="96" rx="6" fill="#FFFFFF" stroke="#7E86AC" />
       <rect x="4" y="24" width="48" height="88" rx="3" fill="#F4DDD3" />
@@ -262,11 +262,6 @@ function AppleLayoutDiagram() {
       <text x="82" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
       <text x="149" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
       <text x="0" y="128" fontSize="7.5" fill="#666D93" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
-      <text x="216" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>tvOSのセーフエリア</text>
-      <rect x="216" y="20" width="176" height="99" rx="4" fill="#FFFFFF" stroke="#7E86AC" />
-      <rect x={216 + 176 * (80 / 1920)} y={20 + 99 * (60 / 1080)} width={176 * (1 - 160 / 1920)} height={99 * (1 - 120 / 1080)} fill="#F8ECE6" stroke="#C2542A" strokeDasharray="3 2" />
-      <text x="304" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>主な内容はこの内側</text>
-      <text x="304" y="78" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={mono}>上下60pt・左右80pt</text>
     </svg>
   );
 }
@@ -303,9 +298,9 @@ function LayoutVisuals() {
       <h3 style={styles.lvSub}>Google ― 画面の幅ごとの余白とペイン(dp)</h3>
       <div style={styles.lvCard}><MarginDiagram /></div>
       <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図だ(出典: M3「Breakpoints」「Panes」)。</p>
-      <h3 style={styles.lvSub}>Apple ― 分割ビューとtvOSのセーフエリア</h3>
+      <h3 style={styles.lvSub}>Apple ― 分割ビュー</h3>
       <div style={styles.lvCard}><AppleLayoutDiagram /></div>
-      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせる。固定の数値があるのはtvOSなど一部だ(出典: HIG「Layout」「Split views」)。</p>
+      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせる(出典: HIG「Layout」「Split views」)。</p>
       <h3 style={styles.lvSub}>レイアウトのパターン</h3>
       <div style={styles.lvGrid}>
         {LAYOUT_PATTERNS.map((p) => (
@@ -419,7 +414,7 @@ export default function TokensLayoutSpacingPage() {
               AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言している。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱う。
             </p>
             <p style={styles.synthesisText}>
-              違いは数値の公開の仕方だ。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示している。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式だ。固定値が出てくるのはtvOS(上下60pt・左右80pt)やvisionOS(ボタンの中心を60pt以上離す)など一部に限られる。
+              違いは数値の公開の仕方だ。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示している。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式だ。
             </p>
             <p style={styles.synthesisText}>
               W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求める。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値だ。
@@ -559,7 +554,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

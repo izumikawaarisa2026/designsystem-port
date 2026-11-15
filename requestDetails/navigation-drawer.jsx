@@ -57,7 +57,7 @@ const DRAWER_SOURCES = [
     term: "Navigation drawer(Modal)",
     color: "#2F7D6E",
     position:
-      "コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。5つ以上の主な行き先、または2階層を超える場合に使う",
+      <>コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。<Hl>5つ以上の主な行き先、または2階層を超える場合に使う</Hl></>,
     size:
       <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使う。Webでは画面幅が320 CSSピクセル未満なら、ナビゲーションバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
@@ -103,7 +103,7 @@ const DRAWER_SOURCES = [
     term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
     position:
-      "「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、ダイアログ(モーダル)として作る",
+      <>「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、<Hl>ダイアログ(モーダル)として作る</Hl></>,
     size:
       "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
@@ -147,7 +147,7 @@ const DRAWER_SOURCES = [
     doc: "Hamburger Menus and Hidden Navigation Hurt UX Metrics",
     term: "Hamburger menu・Hidden navigation",
     color: "#7A4F7E",
-    position: "隠れたナビゲーション(ドロワー)は見つけやすさ・作業の速さ・満足度を下げる、という調査にもとづく指針",
+    position: <>隠れたナビゲーション(ドロワー)は<Hl>見つけやすさ・作業の速さ・満足度を下げる</Hl>、という調査にもとづく指針</>,
     size: "モバイルでは、項目が4個以下なら常に見せる。5個以上(4個を超える)ならやむを得ず隠すが、重要な情報へのページ内リンクも置く。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
@@ -631,7 +631,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

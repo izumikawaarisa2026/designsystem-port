@@ -45,7 +45,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Pickers",
     term: "Date picker(Pickersの一種)",
     color: "#C2542A",
-    position: "iOS/iPadOSの日付ピッカーは、コンパクト・インライン・ホイール・自動の4スタイルと、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル",
+    position: <>iOS/iPadOSの日付ピッカーは、<Hl>コンパクト・インライン・ホイール・自動の4スタイル</Hl>と、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル</>,
     size:
       "寸法(pt)の記載なし。分の選択肢は既定で60個(0〜59)で、60を割り切れる間隔(例: 15分刻み)に減らせる。",
     colorInfo: "コンパクトスタイルのボタンは、今の値をアプリのアクセントカラーで表示する。ほかの色の規定はない。",
@@ -84,7 +84,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Date pickers / Time pickers",
     term: "Date picker・Time picker",
     color: "#2F7D6E",
-    position: "日付はドッキング・モーダル・モーダル入力の3種類(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類",
+    position: <>日付は<Hl>ドッキング・モーダル・モーダル入力の3種類</Hl>(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類</>,
     size: "モーダルの日付ピッカーは360×568dp、日付の丸は40×40dp、見出し部分の高さは120dp(Jetpack Composeのトークン)。容器の角丸はExtra large(28dp)。",
     colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
     glossary: [
@@ -757,7 +757,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

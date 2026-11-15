@@ -119,6 +119,9 @@ export function RefList({ refs, withW3cNote }) {
           <li key={r.url} style={partStyles.refItem}>
             {r.kind && <span style={{ ...partStyles.refBadge, ...REF_KIND[r.kind].style }}>{REF_KIND[r.kind].text(r)}</span>}
             <a href={r.url} target="_blank" rel="noreferrer" style={{ color: LINK, textDecoration: "underline" }}>{r.label} ↗</a>
+            {r.kind === "sc" && /^\d+\.\d+\.\d+/.test(r.label) && (
+              <a href={"/principles/wcag-criteria#sc-" + r.label.match(/^(\d+\.\d+\.\d+)/)[1].replace(/\./g, "-")} style={partStyles.refSiteLink}>このサイトの解説</a>
+            )}
           </li>
         ))}
       </ul>
@@ -203,6 +206,10 @@ const PAGE_INDEX = {
   "label": "アクセシビリティ",
   "lead": "4系列がアクセシビリティをどう捉え、どう体系立てているかの比較"
  },
+ "/principles/wcag-criteria": {
+  "label": "WCAGの達成基準",
+  "lead": "各ページに出てくるWCAGの達成基準を、デザインで気をつけることに絞ってまとめた一覧"
+ },
  "/tokens/overview": {
   "label": "ファウンデーションの思想比較",
   "lead": "色や文字などの基礎(ファウンデーション)として何を扱うか、その分け方の4系列比較"
@@ -210,6 +217,10 @@ const PAGE_INDEX = {
  "/tokens/color": {
   "label": "カラー",
   "lead": "画面の色の決め方と、文字やコンポーネントを読みやすくするための色の差(コントラスト)の基準"
+ },
+ "/tokens/dark-mode": {
+  "label": "ダークモード",
+  "lead": "暗い背景に明るい文字を置く配色(ダークモード)の、切り替え方と作り方の決まり"
  },
  "/tokens/typography": {
   "label": "タイポグラフィ",
@@ -227,6 +238,10 @@ const PAGE_INDEX = {
   "label": "レイアウト・スペーシング",
   "lead": "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まり"
  },
+ "/tokens/adaptive": {
+  "label": "アダプティブ/レスポンシブ",
+  "lead": "画面の広さや向き、ウィンドウの大きさに合わせて、レイアウトを組み替える考え方"
+ },
  "/tokens/shape": {
   "label": "シェイプ・コーナーラジウス",
   "lead": "コンポーネントの角の丸み(角丸)と、形の使い分けの決まり"
@@ -234,14 +249,6 @@ const PAGE_INDEX = {
  "/tokens/elevation": {
   "label": "エレベーション・階層表現",
   "lead": "影や半透明の素材で、要素の重なり(手前か奥か)を表す決まり"
- },
- "/tokens/dark-mode": {
-  "label": "ダークモード",
-  "lead": "暗い背景に明るい文字を置く配色(ダークモード)の、切り替え方と作り方の決まり"
- },
- "/tokens/adaptive": {
-  "label": "アダプティブ/レスポンシブ",
-  "lead": "画面の広さや向き、ウィンドウの大きさに合わせて、レイアウトを組み替える考え方"
  },
  "/components/actions/button": {
   "label": "ボタン",
@@ -275,14 +282,6 @@ const PAGE_INDEX = {
   "label": "トグルスイッチ",
   "lead": "押すとオンとオフがすぐに切り替わる、スイッチの形のコンポーネント"
  },
- "/components/selection/slider": {
-  "label": "スライダー",
-  "lead": "つまみを横に動かして、範囲の中から値を選ぶコンポーネント"
- },
- "/components/selection/chips": {
-  "label": "チップ(Chips)",
-  "lead": "短い言葉を小さな角丸の枠に入れ、選択・絞り込み・入力済みの値などを表すコンポーネント"
- },
  "/components/selection/select": {
   "label": "セレクト(プルダウン)",
   "lead": "押すと選択肢の一覧が開き、その中から値を選ぶコンポーネント(プルダウン)"
@@ -294,6 +293,14 @@ const PAGE_INDEX = {
  "/components/selection/menu": {
   "label": "メニュー",
   "lead": "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せるコンポーネント"
+ },
+ "/components/selection/chips": {
+  "label": "チップ(Chips)",
+  "lead": "短い言葉を小さな角丸の枠に入れ、選択・絞り込み・入力済みの値などを表すコンポーネント"
+ },
+ "/components/selection/slider": {
+  "label": "スライダー",
+  "lead": "つまみを横に動かして、範囲の中から値を選ぶコンポーネント"
  },
  "/components/selection/date-time-picker": {
   "label": "日付/タイムピッカー",
@@ -307,10 +314,6 @@ const PAGE_INDEX = {
   "label": "テキストフィールド・テキストエリア",
   "lead": "文字を入力する欄(1行のテキストフィールドと、複数行のテキストエリア)"
  },
- "/components/text-inputs/search-field": {
-  "label": "検索フィールド",
-  "lead": "言葉を入力して、アプリやサイトの中を検索するための入力欄"
- },
  "/components/text-inputs/validation": {
   "label": "エラー表示",
   "lead": "入力の間違いを見つけたときに、何が問題でどう直せばよいかを伝える表示"
@@ -319,9 +322,25 @@ const PAGE_INDEX = {
   "label": "バリデーション",
   "lead": "入力が正しいかを、いつ確かめるか(入力中・欄を離れたとき・送信時)の考え方"
  },
+ "/components/text-inputs/search-field": {
+  "label": "検索フィールド",
+  "lead": "言葉を入力して、アプリやサイトの中を検索するための入力欄"
+ },
  "/components/text-inputs/wizard": {
   "label": "ウィザード(ステップ形式の入力)",
   "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ },
+ "/components/navigation/nav-bar": {
+  "label": "ナビゲーションバー",
+  "lead": "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバー"
+ },
+ "/components/containment/drawer": {
+  "label": "ドロワー/サイドナビ",
+  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するナビゲーションレール/サイドバー)"
+ },
+ "/components/navigation/app-bar": {
+  "label": "アプリバー",
+  "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
  },
  "/components/navigation/tabs": {
   "label": "タブ",
@@ -334,18 +353,6 @@ const PAGE_INDEX = {
  "/components/navigation/tabs-vs-segmented": {
   "label": "タブとセグメントの使い分け",
   "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
- },
- "/components/navigation/nav-bar": {
-  "label": "ナビゲーションバー",
-  "lead": "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバー"
- },
- "/components/navigation/app-bar": {
-  "label": "アプリバー",
-  "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
- },
- "/components/containment/drawer": {
-  "label": "ドロワー/サイドナビ",
-  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するナビゲーションレール/サイドバー)"
  },
  "/components/navigation/breadcrumb": {
   "label": "パンくずリスト",
@@ -363,25 +370,21 @@ const PAGE_INDEX = {
   "label": "モーダルダイアログ",
   "lead": "画面の上に小さな枠を重ねて表示し、確認や選択を求めるコンポーネント"
  },
- "/components/containment/fullscreen-dialog": {
-  "label": "フルスクリーンダイアログ",
-  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
+ "/components/containment/bottom-sheet": {
+  "label": "ボトムシート",
+  "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネル"
  },
  "/components/containment/side-sheet": {
   "label": "サイドシート",
   "lead": "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネル"
  },
- "/components/containment/bottom-sheet": {
-  "label": "ボトムシート",
-  "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネル"
+ "/components/containment/fullscreen-dialog": {
+  "label": "フルスクリーンダイアログ",
+  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
  },
  "/components/containment/card": {
   "label": "カード",
   "lead": "1つの話題に関わる情報と操作を、1つの枠にまとめて見せるコンポーネント"
- },
- "/components/communication/widget": {
-  "label": "ウィジェット",
-  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面"
  },
  "/components/containment/list": {
   "label": "リスト",
@@ -391,33 +394,21 @@ const PAGE_INDEX = {
   "label": "表(データテーブル)",
   "lead": "行と列にデータを並べ、項目どうしを比べられるようにするコンポーネント"
  },
- "/components/containment/carousel": {
-  "label": "カルーセル",
-  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せるコンポーネント"
- },
  "/components/containment/accordion": {
   "label": "アコーディオン(表示コントロール)",
   "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
  },
+ "/components/containment/carousel": {
+  "label": "カルーセル",
+  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せるコンポーネント"
+ },
+ "/components/communication/widget": {
+  "label": "ウィジェット",
+  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面"
+ },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",
   "lead": "利用者に何かを知らせるコンポーネントを、4つの判断軸と比較表で選び分けるためのページ"
- },
- "/components/communication/snackbar": {
-  "label": "スナックバー",
-  "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
- },
- "/components/communication/toast": {
-  "label": "トースト",
-  "lead": "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)"
- },
- "/components/communication/tooltip": {
-  "label": "ツールチップ",
-  "lead": "マウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出すコンポーネント"
- },
- "/components/communication/progress": {
-  "label": "プログレスインジケーター",
-  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
  },
  "/components/communication/alert": {
   "label": "ステータスメッセージ(アラート)",
@@ -427,17 +418,37 @@ const PAGE_INDEX = {
   "label": "バナー",
   "lead": "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせ"
  },
- "/components/communication/badge": {
-  "label": "バッジ",
-  "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印"
+ "/components/communication/snackbar": {
+  "label": "スナックバー",
+  "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
+ },
+ "/components/communication/toast": {
+  "label": "トースト",
+  "lead": "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)"
+ },
+ "/components/communication/progress": {
+  "label": "プログレスインジケーター",
+  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
+ },
+ "/components/communication/loading": {
+  "label": "ローディング状態",
+  "lead": "中身を読み込んでいる最中の画面の見せ方"
  },
  "/components/communication/empty-state": {
   "label": "空状態",
   "lead": "表示する中身がない画面(空状態)の見せ方"
  },
- "/components/communication/loading": {
-  "label": "ローディング状態",
-  "lead": "中身を読み込んでいる最中の画面の見せ方"
+ "/components/communication/badge": {
+  "label": "バッジ",
+  "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印"
+ },
+ "/components/communication/tooltip": {
+  "label": "ツールチップ",
+  "lead": "マウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出すコンポーネント"
+ },
+ "/tokens/input-methods": {
+  "label": "入力方法・ジェスチャー",
+  "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなどの入力手段の扱い方の決まり"
  },
  "/tokens/motion": {
   "label": "モーション/アニメーション",
@@ -446,10 +457,6 @@ const PAGE_INDEX = {
  "/tokens/sound": {
   "label": "サウンド",
   "lead": "操作や通知に音を付けるかどうか、音の作り方、音に頼れない人への配慮の決まり"
- },
- "/tokens/input-methods": {
-  "label": "入力方法・ジェスチャー",
-  "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなどの入力手段の扱い方の決まり"
  },
  "/cross-view": {
   "label": "タグから見る",
@@ -460,6 +467,11 @@ const PAGE_INDEX = {
 
 /* ページ末尾の「関連するページ」(ページ設計ルール1-8)。paths: サイト内のパスの配列。
    名前と説明は PAGE_INDEX から引くので、リンク先のページの説明を変えても自動で追従する */
+/* ページの名前(PAGE_INDEXから)。見つからなければ null */
+export function pageLabel(p) {
+  return PAGE_INDEX[p] ? PAGE_INDEX[p].label : null;
+}
+
 export function RelatedPages({ paths }) {
   const list = (paths || []).filter((p) => PAGE_INDEX[p]);
   if (!list.length) return null;
@@ -554,6 +566,7 @@ const partStyles = {
   refList: { listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 5 },
   refItem: { fontSize: 11, lineHeight: 1.6 },
   refBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 600, padding: "0 5px", marginRight: 6, borderRadius: 3, whiteSpace: "nowrap", lineHeight: 1.6, fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
+  refSiteLink: { marginLeft: 8, fontSize: 10, color: LINK, whiteSpace: "nowrap" },
   refNote: { fontSize: 10, lineHeight: 1.55, color: "#666D93", margin: "6px 0 0" },
   hl: { fontWeight: 700, color: "#171B36", background: "linear-gradient(transparent 58%, #E2EFC4 58%)" },
   noData: { color: "#666D93" },

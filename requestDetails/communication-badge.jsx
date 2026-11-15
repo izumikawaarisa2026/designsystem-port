@@ -31,7 +31,7 @@ const SOURCES = [
     term: "Badge(アプリアイコン・タブ)",
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "単独のページはなく、アプリアイコンの未読件数バッジ(Notifications)とタブのバッジ(Tab Bars)の2か所で扱う",
+    position: <>単独のページはなく、<Hl>アプリアイコンの未読件数バッジ(Notifications)とタブのバッジ(Tab Bars)の2か所で扱う</Hl></>,
     size: "寸法の数値の記載なし",
     colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
@@ -78,7 +78,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Badges",
     term: "Badge(小さいバッジ・大きいバッジ)",
     color: "#2F7D6E",
-    position: "アイコン・タブ・ナビゲーション項目に重ねて通知や件数を示す小さなコンポーネント。小(ドット)/大(数字・テキスト)の2種類を定義",
+    position: <>アイコン・タブ・ナビゲーション項目に重ねて通知や件数を示す小さなコンポーネント。<Hl>小(ドット)/大(数字・テキスト)の2種類を定義</Hl></>,
     size: "大きいバッジの文字は「+」を含めて4文字まで(例: 999+)。小さいバッジは数字のない丸。",
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
@@ -129,7 +129,7 @@ const SOURCES = [
     term: <NoData>専用の役割なし(名前・状態で伝える)</NoData>,
     color: "#A3821F",
     noDedicatedComponent: true,
-    position: "専用の役割はない。件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含めて伝える(4.1.2と技法ARIA14を当てはめたAI解釈)",
+    position: <>専用の役割はない。件数などの意味は、<Hl>バッジが付いたもの(アイコンボタンなど)の名前に含めて伝える</Hl>(4.1.2と技法ARIA14を当てはめたAI解釈)</>,
     size: "専用の数値基準はない。",
     colorInfo: "ドットは周りの色に対して3:1以上(1.4.11 非テキストのコントラスト)、数字はバッジの背景に対して4.5:1以上(1.4.3 コントラスト(最低限))。ドットの有無は色以外の手がかりなので、それだけで1.4.1(色の用途)の違反にはならない。ただし色の違いだけで状態を分けない(例: 赤と青のドットで意味を変えない)。ドットで新着を示すときも、支援技術には親要素の名前などで同じ意味を伝える。",
     glossary: [
@@ -176,7 +176,7 @@ const SOURCES = [
     doc: "UI Elements Glossary ― Badge",
     term: "Badge",
     color: "#7A4F7E",
-    position: "アイコンに重ねて、通知(主にドット)か件数(主に数字)を示す小さな要素(用語集の定義)",
+    position: <>アイコンに重ねて、<Hl>通知(主にドット)か件数(主に数字)</Hl>を示す小さな要素(用語集の定義)</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
@@ -502,7 +502,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

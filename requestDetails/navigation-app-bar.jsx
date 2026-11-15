@@ -30,7 +30,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
     term: "Toolbar(iOSではナビゲーションバーとも呼ぶ)",
     color: "#C2542A",
-    position: "画面の上部で、今の画面のタイトル・戻るなどのナビゲーション・操作をまとめるバー。iOSでは、ナビゲーションを持つ上部のツールバーをナビゲーションバーとも呼ぶ",
+    position: <>画面の上部で、<Hl>今の画面のタイトル・戻るなどのナビゲーション・操作をまとめる</Hl>バー。iOSでは、ナビゲーションを持つ上部のツールバーをナビゲーションバーとも呼ぶ</>,
     size:
       "高さの数値の記載なし。タイトルは15文字未満を目安にし、ほかの操作のための場所を残す。項目は見分けて押せるよう、入れすぎない",
     colorInfo: <NoData>記載なし</NoData>,
@@ -110,7 +110,7 @@ const SOURCES = [
     doc: "WAI-ARIA(バナー領域)/ WCAG 1.4.11 / 3.2.3 / 3.2.6",
     term: "バナー領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "サイト全体で共通のヘッダーを、1つの領域として支援技術に伝える(領域の目印)",
+    position: <><Hl>サイト全体で共通のヘッダー</Hl>を、1つの領域として支援技術に伝える(領域の目印)</>,
     size: "専用の数値基準はない。個々のアイコン・リンクには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、アイコンや区切り線などは3:1以上のコントラスト比にする。",
     glossary: [
@@ -544,7 +544,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

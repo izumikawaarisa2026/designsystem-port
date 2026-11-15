@@ -28,7 +28,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Sheets(デタント)",
     term: "Sheet",
     color: "#C2542A",
-    position: "大(large)・中(medium)の2段階の高さ(デタント)で止まるシート。iOS・iPadOSではモーダルにも非モーダルにもできる",
+    position: <><Hl>大(large)・中(medium)の2段階の高さ(デタント)で止まる</Hl>シート。iOS・iPadOSではモーダルにも非モーダルにもできる</>,
     size:
       "大デタントは開いたときの全高、中デタントはおよそ半分の高さ。既定は大デタントだけで、中を加えると両方の高さで止まれる。中だけを指定すると全高までは開けない。",
     colorInfo: <NoData>記載なし</NoData>,
@@ -118,7 +118,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
     term: "ダイアログ(モーダルの場合。専用の役割なし)",
     color: "#A3821F",
-    position: "専用の役割・パターンはなく、モーダルか非モーダルかで当てはめる考え方が変わる",
+    position: <>専用の役割・パターンはなく、<Hl>モーダルか非モーダルかで当てはめる考え方が変わる</Hl></>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。グラバーや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
@@ -158,7 +158,7 @@ const SOURCES = [
     doc: "Bottom Sheets: Definition and UX Guidelines",
     term: "Bottom sheet",
     color: "#7A4F7E",
-    position: "モバイルの画面下部に固定され、段階的に情報を見せる、短い利用向けのオーバーレイ(数値基準ではなく実装の指針)",
+    position: <>モバイルの画面下部に固定され、段階的に情報を見せる、<Hl>短い利用向けのオーバーレイ</Hl>(数値基準ではなく実装の指針)</>,
     size: "モバイルの押せる範囲の一般の目安に触れるが、ボトムシート専用の数値ではない。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
@@ -509,7 +509,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

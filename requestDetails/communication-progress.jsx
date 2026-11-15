@@ -75,7 +75,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Progress indicators / Loading indicator",
     term: "Progress indicator(線形・円形)",
     color: "#2F7D6E",
-    position: "linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせる。5秒未満の待ち時間向けに新設した「Loading indicator」もある",
+    position: <>linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせる。<Hl>5秒未満の待ち時間向けに新設した「Loading indicator」もある</Hl></>,
     size: <span><NoData>寸法の数値は記載なし。</NoData>動く部分(アクティブインジケーター)の形はflat(直線)とwavy(波)の2つで、製品の雰囲気に合わせて選ぶ。wavyは全体の高さが増え、とても小さいと見えにくい。線形の確定的なインジケーターの終わりには、直径4dpの丸(ストップインジケーター)を置く。</span>,
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
@@ -117,7 +117,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― プログレスバーの役割",
     term: "プログレスバー(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "進み具合を支援技術に伝える役割。今の値を伝えるかどうかで、確定的/不確定を表す",
+    position: <>進み具合を支援技術に伝える役割。<Hl>今の値を伝えるかどうかで、確定的/不確定を表す</Hl></>,
     size: "専用の数値基準はない。値は最小(既定0)〜最大(既定100)の範囲で伝える。",
     colorInfo: "色についての専用基準はない。",
     glossary: [
@@ -162,7 +162,7 @@ const SOURCES = [
     doc: "Progress Indicators Make a Slow System Less Insufferable",
     term: "Progress indicator",
     color: "#7A4F7E",
-    position: "待ち時間の長さで、インジケーターの種類を決める(数値の目安あり)",
+    position: <><Hl>待ち時間の長さで、インジケーターの種類を決める</Hl>(数値の目安あり)</>,
     size: "1秒を超える処理には何か出す(1秒未満は不要)。ループアニメーション(スピナー)は2〜10秒、10秒以上は達成率の表示(プログレスバー)。1〜2秒の扱いは明記なし。所要時間が読めないなら、目安より早めにパーセンテージ表示へ切り替える。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
@@ -508,7 +508,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

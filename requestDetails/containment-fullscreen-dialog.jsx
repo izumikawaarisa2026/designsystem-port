@@ -32,7 +32,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Modality / Sheets",
     term: "Full-screen modal(Modalityの中の表示の形)",
     color: "#C2542A",
-    position: "一時的に没入させたり、複数ステップの作業(内容の編集など)に集中させたりする全画面のモーダル",
+    position: <>一時的に没入させたり、<Hl>複数ステップの作業(内容の編集など)に集中させたり</Hl>する全画面のモーダル</>,
     size: "寸法の数値の記載なし(画面またはウィンドウ全体を使う)",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
@@ -117,7 +117,7 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Dialog (Modal) Pattern(基本ダイアログと共通)",
     term: "ダイアログ(WAI-ARIAの役割。大きさによる区別なし)",
     color: "#A3821F",
-    position: "後ろの内容を操作できなくして重ねて出す領域(ダイアログ・モーダルであることを支援技術に伝える)。大きさによる区別はない",
+    position: <>後ろの内容を操作できなくして重ねて出す領域(ダイアログ・モーダルであることを支援技術に伝える)。<Hl>大きさによる区別はない</Hl></>,
     size: "専用の数値基準はない。ボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。フォーカスの表示やボタンの境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
@@ -467,7 +467,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

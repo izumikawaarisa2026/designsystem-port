@@ -56,7 +56,7 @@ const SOURCES = [
     color: "#2F7D6E",
     m3NotApplicable: true,
     successorNote: "M3に後継のコンポーネントはない。同じ用途には、内容の重さに応じてダイアログやスナックバーなどを検討する(AI解釈)。",
-    position: "重要だが緊急ではないメッセージを、利用者が対応するか閉じるまで画面上部に出し続けるコンポーネント",
+    position: <>重要だが緊急ではないメッセージを、<Hl>利用者が対応するか閉じるまで画面上部に出し続ける</Hl>コンポーネント</>,
     size: <span><NoData>寸法の数値は記載なし。</NoData>ボタンは文字のボタンを2つまで(閉じる操作は左、もう一方は右)。ボタンはメッセージの下か、収まるなら同じ行に置く。</span>,
     stance:
       "重要で短いメッセージに、対応する(または閉じる)ための操作を添える。閉じるには利用者の操作が要る。画面上部のアプリバーの下に出し、消えずに残るが非モーダルで、無視も操作もいつでもできる。",
@@ -100,7 +100,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― 緊急の警告・控えめな知らせ・警告のダイアログの使い分け、WCAG 4.1.3",
     term: "控えめな知らせ・緊急の警告(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "条件で分ける: 操作の結果として新しく出た緊急の警告だけすぐ読み上げ、緊急でない更新は控えめに知らせ、最初から出ているバナーは見出しやラベルの付いた領域にし、モーダルで確認を求めるなら警告のダイアログにする",
+    position: <><Hl>条件で分ける</Hl>: 操作の結果として新しく出た緊急の警告だけすぐ読み上げ、緊急でない更新は控えめに知らせ、最初から出ているバナーは見出しやラベルの付いた領域にし、モーダルで確認を求めるなら警告のダイアログにする</>,
     size: "バナー専用の数値基準はない。ボタンなどの操作要素には、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     glossary: [
       { term: "色", desc: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどは3:1以上のコントラスト比にする。" },
@@ -150,7 +150,7 @@ const SOURCES = [
     doc: "Indicators, Validations, and Notifications",
     term: "Banner",
     color: "#7A4F7E",
-    position: "通知を「アクション必須」と「パッシブ」に分け、対応が必要かで判断する(数値基準ではない)",
+    position: <><Hl>通知を「アクション必須」と「パッシブ」に分け</Hl>、対応が必要かで判断する(数値基準ではない)</>,
     size: <NoData>数値基準なし</NoData>,
     stance:
       "通知を「アクション必須(Action-required)」と「パッシブ(Passive)」に分ける。軸は「利用者の対応が必要か」で、表示がどれだけ続くかとは別。残り続けるバナーでも対応が必要とは限らず、必要なものだけがアクション必須に当たる(AI解釈。「情報伝達の使い分け」ページと同じ整理)。アクション必須は、作業を進めるために対応が必要な情報を伝える。",
@@ -458,7 +458,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

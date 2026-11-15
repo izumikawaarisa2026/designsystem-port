@@ -53,7 +53,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Search fields",
     term: "Search field",
     color: "#C2542A",
-    position: "検索アイコン・クリアボタン・プレースホルダーを持つ、編集できるテキストフィールド。スコープバーとトークンで検索範囲を絞り込める。iOSでは入り口をタブ・ツールバー・インラインの3か所から選ぶ",
+    position: <>検索アイコン・クリアボタン・プレースホルダーを持つ、編集できるテキストフィールド。<Hl>スコープバーとトークンで検索範囲を絞り込める</Hl>。iOSでは入り口をタブ・ツールバー・インラインの3か所から選ぶ</>,
     size: "寸法(pt)の記載なし。",
     colorInfo: "色の規定はない。",
     stance:
@@ -137,7 +137,7 @@ const SOURCES = [
     doc: "WAI-ARIA(検索領域)/ APG Combobox Pattern / WCAG 2.4.5",
     term: "検索領域(WAI-ARIAの役割)",
     color: "#A3821F",
-    position: "検索機能一式を「検索」の領域(目印)として示す。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる",
+    position: <><Hl>検索機能一式を「検索」の領域(目印)として示す</Hl>。候補を出す検索欄は、APGのコンボボックスのパターンで組み立てる</>,
     size: "専用の数値基準はない。検索ボタンなどの操作要素には一般のターゲットサイズの基準(2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、検索アイコンや入力欄の境界線だけが見分ける手がかりなら、3:1以上のコントラスト比が要る。",
     glossary: [
@@ -948,7 +948,7 @@ const styles = {
   headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
+  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
   exceptionCell: { background: "#F8F9FD" },
   sizeCell: { background: "#F0F4F8" },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
