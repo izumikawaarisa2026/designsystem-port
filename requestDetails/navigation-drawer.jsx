@@ -358,10 +358,10 @@ function DrawerSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するナビゲーションレール/サイドバー)";
+const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)";
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて遷移できるようにする" },
-  { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(レール/サイドバー)" },
+  { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
   { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
 ];
 
@@ -459,7 +459,7 @@ const SPLITS = [
     q: "主な行き先を、ボタンで開くメニュー(ドロワー)に隠してよい?",
     sides: [
       { who: "NN group", color: "#7A4F7E", t: "デスクトップでは隠さない。スマートフォンでも4個以下なら見せる。4個を超えて隠すなら、重要な情報へのページ内のリンクを添える" },
-      { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するドロワーやレールにする。ただしM3 Expressiveでは、ドロワーは推奨されず展開型のレールに置き換える" },
+      { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するサイドナビ(ナビゲーションレール)にする。M3 Expressiveでは、ナビゲーションドロワーは推奨されず、広げると項目名まで並ぶナビゲーションレールに置き換える" },
       { who: "Apple", color: "#C2542A", t: "iPhone向けの隠れたドロワーはない。まずタブバーを使い、収まらない領域はタブバーのサイドバーの形で見せる。サイドバーは隠せるようにするが、初期状態では隠さない" },
     ],
     tip: "どの系列も「広い画面では隠さない」で一致する。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立する。",
@@ -468,10 +468,54 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "広い画面では隠さない", d: "常に表示する", who: "Apple・NN group" },
-  { n: 2, t: "狭い画面で行き先が4〜5個までなら、ナビゲーションバーで見せる", d: "", who: "AI解釈" },
-  { n: 3, t: "それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくい", who: "NN group" },
+  { n: 1, t: "広い画面では隠さない", d: "サイドナビとして常に表示する", who: "Apple・NN group" },
+  { n: 2, t: "狭い画面では、行き先が4〜5個までならナビゲーションバー、それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくいため", who: "AI解釈(見つけにくさはNN group)" },
 ];
+
+
+/* 2つの種類と使用シーン(2026-11 ⑦本人レビューNo.049で、表をイメージ図付きのカードに変更。呼び名を「ナビゲーションドロワー」と「サイドナビ」にそろえた) */
+const KINDS = [
+  { id: "drawer", name: "① ナビゲーションドロワー", screen: "スマートフォンなど狭い画面", show: "ボタン(≡)を押して一時的に開く。後ろの画面を覆う(モーダル)", when: "行き先が多く、ナビゲーションバー(3〜5か所)に収まらないとき", names: "Google: Navigation drawer(Modal) / NN group: 隠れたナビゲーション(ハンバーガーメニュー) / Apple: 該当なし" },
+  { id: "rail", name: "② サイドナビ(常に表示)", screen: "タブレット・PCなど広い画面", show: "画面の脇に常に表示する(モーダルではない)。折りたためる", when: "広い画面で、主な行き先をいつも見せたいとき", names: "Apple: サイドバー(Sidebars) / Google: ナビゲーションレール(Navigation rail) / NN group: 左側の縦型ナビゲーション" },
+];
+function KindFigure({ id }) {
+  if (id === "drawer") return (
+    <svg width="130" height="150" viewBox="0 0 130 150" aria-hidden="true">
+      <rect x="30" y="2" width="70" height="126" rx="10" fill="#FFFFFF" stroke="#7E86AC" />
+      {[24, 36, 48, 60].map((y) => (<rect key={y} x="40" y={y} width="50" height="6" rx="2" fill="#D5D9EC" />))}
+      <rect x="30" y="2" width="70" height="126" rx="10" fill="#171B36" opacity="0.3" />
+      <rect x="30" y="2" width="48" height="126" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
+      {[22, 36, 50, 64, 78].map((y, k) => (<rect key={y} x="36" y={y} width="36" height="8" rx="3" fill={k === 0 ? "#E3EDE9" : "#F3F6FA"} />))}
+      <text x="65" y="144" fontSize="9" textAnchor="middle" fill="#2F7D6E">押すと開く・後ろを覆う</text>
+    </svg>
+  );
+  return (
+    <svg width="190" height="150" viewBox="0 0 190 150" aria-hidden="true">
+      <rect x="2" y="2" width="186" height="120" rx="8" fill="#FFFFFF" stroke="#7E86AC" />
+      <rect x="2" y="2" width="44" height="120" rx="8" fill="#E3EDE9" stroke="#2F7D6E" />
+      {[16, 32, 48, 64].map((y, k) => (<rect key={y} x="9" y={y} width="30" height="9" rx="3" fill={k === 0 ? "#2F7D6E" : "#FFFFFF"} />))}
+      {[16, 30, 44, 58, 72].map((y) => (<rect key={y} x="56" y={y} width="120" height="7" rx="2" fill="#D5D9EC" />))}
+      <text x="95" y="144" fontSize="9" textAnchor="middle" fill="#2F7D6E">脇に常に表示・内容と並ぶ</text>
+    </svg>
+  );
+}
+function TwoKinds() {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12, marginBottom: 40 }}>
+      {KINDS.map((k) => (
+        <a key={k.id} href={"#" + k.id} style={{ display: "block", textDecoration: "none", color: "inherit", border: "1px solid #E1E3F0", borderRadius: 8, padding: "14px 16px" }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 8 }}>{k.name}</div>
+          <div style={{ display: "flex", justifyContent: "center", margin: "4px 0 10px" }}><KindFigure id={k.id} /></div>
+          {[["主な画面", k.screen], ["見せ方", k.show], ["向いている場面", k.when], ["各系列の呼び名", k.names]].map(([a, b]) => (
+            <div key={a} style={{ display: "flex", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 }}>
+              <span style={{ flex: "0 0 84px", fontWeight: 700, color: "#454C78" }}>{a}</span><span style={{ flex: 1, minWidth: 0 }}>{b}</span>
+            </div>
+          ))}
+        </a>
+      ))}
+    </div>
+  );
+}
 
 export default function NavigationDrawerPage() {
   return (
@@ -518,41 +562,19 @@ export default function NavigationDrawerPage() {
 
 
           <h2 style={styles.diagramTitle}>2つの種類と使用シーン</h2>
-          <div style={{ overflowX: "auto", marginBottom: 40 }}>
-            <table style={styles.kindTable}>
-              <thead>
-                <tr>{["種類", "主な画面", "表示のしかた", "向いている場面", "各系列の呼び名"].map((h) => (<th key={h} style={styles.kindTh}>{h}</th>))}</tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td style={{ ...styles.kindTd, fontWeight: 700 }}>① ナビゲーションドロワー</td>
-                  <td style={styles.kindTd}>スマホなど狭い画面</td>
-                  <td style={styles.kindTd}>ボタン(≡)を押して一時的に開く。後ろの画面を覆う(モーダル)</td>
-                  <td style={styles.kindTd}>行き先が多く、ナビゲーションバー(3〜5か所)に収まらないとき</td>
-                  <td style={styles.kindTd}>Apple: <NoData>該当なし</NoData> / Google: Modal navigation drawer / W3C: ダイアログ(モーダル)として作る / NN group: 隠れたナビゲーション(ハンバーガーメニュー)</td>
-                </tr>
-                <tr>
-                  <td style={{ ...styles.kindTd, fontWeight: 700 }}>② ナビゲーションレール/サイドバー</td>
-                  <td style={styles.kindTd}>タブレット・PCなど広い画面</td>
-                  <td style={styles.kindTd}>画面の脇に常に表示する(モーダルではない)。折りたためる</td>
-                  <td style={styles.kindTd}>広い画面で、主な行き先を常に見せたいとき</td>
-                  <td style={styles.kindTd}>Apple: Sidebars / Google: Navigation rail(折りたたみ型・展開型) / W3C: ナビゲーションの領域 / NN group: 左側の縦型ナビゲーション</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <TwoKinds />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面では常に表示し(ナビゲーションレール/サイドバー)、狭い画面で項目が多いときだけ隠す(ナビゲーションドロワー)</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
+              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面ではサイドナビとして常に表示し、狭い画面で項目が多いときだけナビゲーションドロワーに隠す</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
             </p>
             <p style={styles.synthesisText}>
-              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、展開型のナビゲーションレールに置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告している。
+              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告している。
             </p>
             <p style={styles.synthesisText}>
-              広い画面では、Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーションが、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
+              広い画面では、サイドナビ(Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーション)が、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
             </p>
             <p style={styles.synthesisText}>
               W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
@@ -561,7 +583,7 @@ export default function NavigationDrawerPage() {
           <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>
           <Comparison SOURCES={DRAWER_SOURCES} />
 
-          <h3 id="rail" style={styles.subTitle}>② ナビゲーションレール/サイドバー(主にタブレット・PC)</h3>
+          <h3 id="rail" style={styles.subTitle}>② サイドナビ(常に表示。主にタブレット・PC)</h3>
           <Comparison SOURCES={RAIL_SOURCES} />
 
           <RelatedPages paths={["/components/navigation/nav-bar", "/components/containment/side-sheet", "/components/containment/overview", "/tokens/adaptive"]} />

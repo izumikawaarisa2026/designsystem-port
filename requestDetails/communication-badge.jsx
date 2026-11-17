@@ -191,7 +191,7 @@ const SOURCES = [
       "通知の有無を示す場合はドット、件数を示す場合は数字という使い分けの目安として参照する",
     ],
     searchHint: "Badge",
-    url: "https://www.nngroup.com/articles/ui-elements-glossary/",
+    url: "https://www.nngroup.com/articles/ui-elements-glossary/#Badge",
     refs: [
       { label: "UI Elements Glossary: Badge", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Badge" },
     ],
@@ -290,9 +290,8 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "件数に意味があるなら数字、あることだけ伝えるなら点", d: "", who: "AI解釈" },
-  { n: 2, t: "数が大きくなったら「999+」のようにまとめる", d: "", who: "AI解釈" },
-  { n: 3, t: "数字は最大4文字", d: "", who: "Google" },
-  { n: 4, t: "支援技術に伝わる名前に、件数を含める", d: "", who: "W3C 4.1.2。AI解釈" },
+  { n: 2, t: "数字は最大4文字。数が大きくなったら「999+」のようにまとめる", d: "", who: "Google" },
+  { n: 3, t: "読み上げソフトでも件数が分かるようにする", d: "例: 数字の「3」だけでなく「通知 3件」と読み上げられるようにする", who: "W3C 4.1.2。AI解釈" },
 ];
 
 export default function CommunicationBadgePage() {

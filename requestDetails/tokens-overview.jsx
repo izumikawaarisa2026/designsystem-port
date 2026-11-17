@@ -51,9 +51,9 @@ const SOURCES = [
     name: "Apple",
     color: "#C2542A",
     categories: ["Accessibility", "App icons", "Branding", "Color", "Dark Mode", "Icons", "Images", "Immersive experiences", "Inclusion", "Layout", "Materials", "Motion", "Privacy", "Right to left", "SF Symbols", "Spatial layout", "Typography", "Writing"],
-    summary: "Foundations配下にトピックを区別せず並列に配置。Foundationsと並列にPatterns・Inputs・Technologiesなどの区分がある",
+    summary: <><Hl>Foundationsの中に、トピックを区別せず並べる</Hl>。Foundationsと並んで、Patterns・Inputs・Technologiesなどの区分がある</>,
     stance:
-      <>Foundationsには、Accessibility・Color・Typography・Layout・Writingなどのトピックが、「見た目のトークンか横断のルールか」の区別なく、アルファベット順に同じ階層で並ぶ。<Hl>Googleのような「Foundations」と「Styles」の二分はない</Hl>。HIG全体は6つの区分に分かれ、Foundationsの外に、よくある操作の流れのPatterns、入力手段のInputs、Apple固有の技術のTechnologiesが並ぶ。</>,
+      <>Accessibility・Color・Typography・Layout・Writingなどが、見た目か横断のルールかの区別なく、アルファベット順に並ぶ。<Hl>Googleのような「Foundations」と「Styles」の二分はない</Hl>。</>,
     structuralNote: "このサイトの「Foundation」(9ページ)と「Interaction」(3ページ)は、AppleのFoundations(色・文字・レイアウトなど)とInputs(入力方法・ジェスチャー)の2区分にまたがる。「ローディング」「モーダル」のようなAppleのPatternsの一部は、このサイトではコンポーネントのページで扱う。",
     accessibilityNote: "AccessibilityはFoundationsの1トピックで、ほかの見た目のトークン(Color・Typographyなど)と同格に並ぶ。「横断の前提条件」より「並列の1トピック」に近い。",
     url: "https://developer.apple.com/design/human-interface-guidelines/foundations",
@@ -75,10 +75,10 @@ const SOURCES = [
     key: "material",
     name: "Google",
     color: "#2F7D6E",
-    categories: ["Foundations: Overview(原則・支援技術)/ Building for all / Content design / Customization / Design tokens / Designing(色のコントラスト等)/ Interaction / Layout / Usability / Writing / Watches / XR", "Styles: Color / Elevation / Icons / Motion / Shape / Spacing / Typography"],
-    summary: "「Foundations」と「Styles」をはっきり別のセクションに分ける。色・タイポグラフィなどはStyles側",
+    categories: [{ h: "Foundations", sub: ["Overview(原則・支援技術)", "Building for all", "Content design", "Customization", "Design tokens", "Designing(色のコントラストなど)", "Interaction", "Layout", "Usability", "Writing", "Watches", "XR"] }, { h: "Styles", sub: ["Color", "Elevation", "Icons", "Motion", "Shape", "Spacing", "Typography"] }],
+    summary: <><Hl>「Foundations」と「Styles」を別のセクションに分ける</Hl>。色・文字などはStyles側</>,
     stance:
-      <>M3のサイトは、Foundations・Styles・Components・Develop(実装)に分かれる。Foundationsには原則・アクセシビリティ・レイアウト・操作(Interaction)・文章など横断的な考え方が集まり、色・タイポグラフィ・シェイプ・モーション・エレベーション・アイコン・余白といった<Hl>見た目のトークンはStylesに属する</Hl>。設計の原則(principles)もFoundationsの中(Overview)にある。</>,
+      <>Foundationsには原則・アクセシビリティ・レイアウト・操作・文章など横断的な考え方が集まり、<Hl>色・文字・シェイプ・モーションなど見た目のトークンはStylesに属する</Hl>。</>,
     structuralNote: "このサイトの「Foundation」という1つの括りは、Googleでは FoundationsとStylesの2つのセクションにまたがる(Googleの構造をそのまま踏襲していない)。レイアウトはStylesではなくFoundations側にある。",
     accessibilityNote: "アクセシビリティはFoundationsの複数の区分(Overviewの支援技術、Building for all、Designingの色のコントラストなど)に分かれて置かれ、1トピックより横断の前提条件に近い。",
     url: "https://m3.material.io/foundations",
@@ -110,10 +110,10 @@ const SOURCES = [
     name: "W3C",
     color: "#A3821F",
     categories: ["色: 1.4.1 色の用途(A)・1.4.3 コントラスト(最低限)(AA)・1.4.11 非テキストのコントラスト(AA)", "文字: 1.4.4 テキストのサイズ変更(AA)・1.4.12 テキストの間隔(AA)", "レイアウト: 1.4.10 リフロー(AA)・2.5.8 ターゲットのサイズ(最低限)(AA・例外あり)", "動き: 2.2.2 一時停止・停止・非表示(A)・2.3.3 インタラクションによるアニメーション(AAA)", "文章: 2.4.6 見出し及びラベル(AA)・3.1.5 読解レベル(AAA)", "アイコン・画像: 1.1.1 非テキストコンテンツ(A)", "入力: 2.1.1 キーボード(A)・2.5.1 ポインタジェスチャ(A)・2.5.7 ドラッグ動作(AA)"],
-    summary: "土台(ファウンデーション)に当たる括りはない。色・文字などの各トピックに、個別の達成基準が条件として関わる",
+    summary: <><Hl>土台に当たる括りはない</Hl>。色・文字などの各トピックに、個別の達成基準が関わる</>,
     stance:
-      <>WCAGは色の値や文字サイズの体系ではなく、<Hl>「できあがった画面が満たす条件」を定める</Hl>。そのため、Apple・Googleの土台のように色・文字・余白をそろえる仕組み(トークン)はない。代わりに、色のコントラストや文字の拡大など、各トピックの最低限の条件が個別の達成基準として散らばる。各ページのW3Cの欄は、この「トピックに関わる達成基準」を比べている。</>,
-    structuralNote: "POURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは、土台の各トピックに関わる達成基準(左の一覧)として位置づける。",
+      <>色や文字の値の体系ではなく、<Hl>「できあがった画面が満たす条件」を定める</Hl>。色のコントラストや文字の拡大など、各トピックの最低限の条件が個別の達成基準として散らばる。</>,
+    structuralNote: "POURの4原則は「原則」に当たり、思想レイヤーの「アクセシビリティ」ページで扱う。このページでは、土台の各トピックに関わる達成基準(比較表の「含まれる主なトピック」)として位置づける。",
     accessibilityNote: "WCAGにとってはアクセシビリティが文書全体の目的そのもので、「土台の中の1トピック」という位置づけにはならない。",
     url: "https://www.w3.org/WAI/WCAG22/quickref/",
     refs: [
@@ -133,10 +133,10 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     color: "#7A4F7E",
-    categories: ["土台に近いトピック: Visual Design / Writing for the Web / Accessibility / Interaction Design / Mobile & Tablet Design", "そのほか: Research Methods / Navigation / Information Architecture など"],
-    summary: "記事を分類する「Topics」はあるが、デザインシステムの土台としての括りはない",
+    categories: [{ h: "土台に近いトピック", sub: ["Visual Design", "Writing for the Web", "Accessibility", "Interaction Design", "Mobile & Tablet Design"] }, { h: "そのほか", sub: ["Research Methods", "Navigation", "Information Architecture など"] }],
+    summary: <>記事を分ける「Topics」はあるが、<Hl>デザインシステムの土台としての括りはない</Hl></>,
     stance:
-      <>Apple・Googleのような実装者向けのデザインシステムではなく、ユーザビリティ調査にもとづく記事・レポートの集まり。記事は「Topics」(Visual Design・Writing for the Webなど)で整理されるが、<Hl>色・文字の値をそろえる土台はない</Hl>。各記事は、調査にもとづく原則や指針として読む。</>,
+      <>調査にもとづく記事の集まりで、<Hl>色・文字の値をそろえる土台はない</Hl>。各記事は原則や指針として読む。</>,
     structuralNote: "NN groupに専用の記事がないトピックは、各トークンページのNN group欄に「専用記事なし」と書いている。",
     accessibilityNote: "アクセシビリティの記事はあるが、Foundationsのような包括的な体系にはなっていない。",
     url: "https://www.nngroup.com/topics/",
@@ -282,8 +282,47 @@ function LayerDiagram() {
 function CategoryList({ items }) {
   return (
     <ul style={styles.useCaseList}>
-      {items.map((it, i) => (<li key={i} style={styles.useCaseItem}>{it}</li>))}
+      {items.map((it, i) => (typeof it === "object" && it.h ? (
+        <li key={i} style={styles.useCaseItem}><strong>{it.h}</strong>
+          <ul style={{ margin: "2px 0 4px", paddingLeft: 16 }}>{it.sub.map((x) => (<li key={x}>{x}</li>))}</ul>
+        </li>
+      ) : (<li key={i} style={styles.useCaseItem}>{it}</li>)))}
     </ul>
+  );
+}
+
+/* 本サイトの分類との関係(2026-11 ⑦本人レビューNo.005で、比較表から独立した節に) */
+const SITE_MAP = [
+  { site: "Foundation(色・文字・レイアウトなど9ページ)", apple: ["Foundations"], google: ["Foundations", "Styles"], wcag: ["色・文字・レイアウトなどの達成基準"], nn: ["Visual Design など"] },
+  { site: "Interaction(入力方法・モーション・サウンド)", apple: ["Inputs", "Foundations(Motion)"], google: ["Foundations(Interaction)", "Styles(Motion)"], wcag: ["入力・動きの達成基準"], nn: ["Interaction Design など"] },
+  { site: "コンポーネントのページ", apple: ["Components", "Patterns の一部"], google: ["Components"], wcag: ["APGのパターン(参考例)"], nn: ["各記事"] },
+];
+function SiteMapping() {
+  const cols = [["apple", "Apple", "#C2542A"], ["google", "Google", "#2F7D6E"], ["wcag", "W3C", "#A3821F"], ["nn", "NN group", "#7A4F7E"]];
+  return (
+    <section style={{ marginBottom: 36 }}>
+      <h2 style={styles.diagramTitle}>本サイトの分類との関係</h2>
+      <p style={styles.sectionLead}>このサイトの分け方は、Apple・Googleの構成を主な参考にした独自の整理。<strong>1つの区分が、各系列ではいくつかの区分にまたがる</strong>。</p>
+      <div style={{ overflowX: "auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "170px repeat(4, minmax(120px, 1fr))", gap: 6, minWidth: 680 }}>
+          <div />
+          {cols.map(([k, n, c]) => (<div key={k} style={{ fontSize: 12, fontWeight: 700, color: c, padding: "4px 6px" }}>{n}</div>))}
+          {SITE_MAP.map((r) => (
+            <React.Fragment key={r.site}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36", background: "#F3F6FA", borderRadius: 6, padding: "8px 10px", display: "flex", alignItems: "center" }}>{r.site}<span style={{ marginLeft: "auto", color: "#9EA4C4" }}>→</span></div>
+              {cols.map(([k, , c]) => (
+                <div key={k} style={{ display: "flex", flexWrap: "wrap", gap: 4, alignContent: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: "6px 8px" }}>
+                  {r[k].map((x) => (<span key={x} style={{ fontSize: 11, color: c, border: `1px solid ${c}55`, borderRadius: 10, padding: "1px 8px", background: "#FFFFFF" }}>{x}</span>))}
+                </div>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+      <ul style={{ ...styles.useCaseList, marginTop: 12 }}>
+        {SOURCES.map((s) => (<li key={s.key} style={{ ...styles.useCaseItem, fontSize: 12 }}><strong style={{ color: s.color }}>{s.name}</strong>: {s.structuralNote}</li>))}
+      </ul>
+    </section>
   );
 }
 
@@ -357,7 +396,7 @@ const LEAD = "色や文字などの基礎(ファウンデーション)として�
 const ABOUT = [
   { k: "目的・役割", v: "個々のトークンのページを読む前に、4系列の「基礎」の範囲と分け方の違いを知る" },
   { k: "関わる場面", v: "カラー・タイポグラフィ・レイアウトなど、Foundationの各ページ" },
-  { k: "関連するページ", v: <>ファウンデーション: <PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink>、<PageLink to="/tokens/writing">文章・UXライティング</PageLink>、<PageLink to="/tokens/icon">アイコン</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>/インタラクション: <PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>/<PageLink to="/principles/comparison">原則比較</PageLink></> },
+  { k: "関連するページ", v: <>ファウンデーション: <PageLink to="/tokens/color">カラー</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink>、<PageLink to="/tokens/writing">文章・UXライティング</PageLink>、<PageLink to="/tokens/icon">アイコン</PageLink>、<PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/tokens/shape">シェイプ</PageLink>、<PageLink to="/tokens/elevation">エレベーション</PageLink>、<PageLink to="/tokens/dark-mode">ダークモード</PageLink>、<PageLink to="/tokens/adaptive">レスポンシブデザイン</PageLink>/インタラクション: <PageLink to="/tokens/motion">モーション</PageLink>、<PageLink to="/tokens/sound">サウンド</PageLink>、<PageLink to="/tokens/input-methods">入力方法・ジェスチャー</PageLink>/<PageLink to="/principles/comparison">原則比較</PageLink></> },
 ];
 
 export default function TokensOverviewPage() {
@@ -429,7 +468,6 @@ export default function TokensOverviewPage() {
                 <div style={styles.positionBadge}>{s.summary}</div>
                 <InfoBox label="含まれる主なトピック"><CategoryList items={s.categories} /></InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="本サイトの分類との関係">{s.structuralNote}</InfoBox>
                 <InfoBox label="アクセシビリティの位置づけ">{s.accessibilityNote}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
@@ -463,8 +501,6 @@ export default function TokensOverviewPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><CategoryList items={s.categories} /></div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>本サイトの分類との関係</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structuralNote}</div>))}
                 <div style={styles.labelCell}>アクセシビリティの位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibilityNote}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
@@ -477,6 +513,8 @@ export default function TokensOverviewPage() {
               </div>
             </div>
           </div>
+
+          <SiteMapping />
 
           <section style={styles.parallelSection}>
             <h2 style={styles.diagramTitle}>Foundationsと並列の区分 ― Appleのトップレベル構成</h2>
@@ -583,7 +621,7 @@ const styles = {
   layerGrid: { display: "grid", gridTemplateColumns: "minmax(78px, 0.8fr) 1fr 1fr", gap: 6, alignItems: "stretch" },
   layerHead: { fontSize: 11.5, fontWeight: 700, textAlign: "left", padding: "0 2px 2px" },
   layerLabel: { fontSize: 11, lineHeight: 1.4, textAlign: "left", padding: "6px 4px 6px 0", borderTop: "1px solid #E1E3F0" },
-  parallelList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 8 },
+  parallelList: { display: "grid", gridTemplateColumns: "1fr", gap: 10, marginBottom: 8 },
   parallelCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "12px 14px" },
   parallelCardActive: { borderColor: "#C2542A" },
   parallelName: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: "#C2542A" },

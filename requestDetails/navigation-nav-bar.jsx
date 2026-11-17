@@ -51,9 +51,9 @@ const SOURCES = [
       "タブの数の上限はない。必要な数だけ使い、少ないほど遷移しやすいため増やしすぎない。収まらないタブが「その他(More)」にまとめられると見つけにくいため、はみ出しを避ける。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>アプリのトップレベルのセクションの間を遷移する、画面下部に常にあるバー。<Hl>ナビゲーション専用で、操作の実行には使わない</Hl>。遷移中もいつも出しておく(隠すと自分のいる場所を見失う)。役割はGoogleの「Navigation bar」(画面下部・3〜5の行き先)と同じ。</>,
+      <><Hl>ナビゲーション専用で、操作の実行には使わない</Hl>。遷移中もいつも出しておく(隠すと現在地を見失う)。</>,
     exceptions:
-      "機能が一時的に使えなくても、タブを消したり無効にしたりしない(画面が不安定で予測できなくなるため)。使えない理由を説明し、すべてのタブをいつも有効にしておく。",
+      "機能が一時的に使えなくても、タブを消したり無効にしたりせず、使えない理由を説明する。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -85,19 +85,19 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "画面下部に常にあるバー(3〜5個の主な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割",
     size:
-      <span>コンテナはいつもウィンドウの幅いっぱい。コンパクトなウィンドウでは縦型の項目(アイコンの下にラベル)、中サイズでは横型の項目(アイコンとラベルが横並び)を使う。文字サイズを大きくしているときは、既定の余白を保ったまま縦に広げてラベルを収め、2倍の文字サイズまではラベルを切らずに出す。容器の高さは64dp(高い形は80dp。Jetpack ComposeのNavigationBarTokens)。</span>,
+      <span><Hl>高さ64dp</Hl>(高い形は80dp。Jetpack Composeのトークン)。幅はいつもウィンドウいっぱい。文字を大きくしても2倍まではラベルを切らない。</span>,
     colorInfo:
-      "アクティブなページは塗りのアイコン+太字のラベル、それ以外は枠線のアイコン+中くらいの太さのラベル(塗りのアイコンがなければセミボールドで代用)。どちらのアイコンもコンテナと3:1以上のコントラスト比にする。コンテナもほかの内容と分けるため色で塗る。",
+      "選択中は塗りのアイコン+太字、それ以外は枠線のアイコン。アイコンはコンテナと3:1以上。",
     glossary: [
       { term: "ベースライン変異体 / フレキシブルナビゲーションバー", desc: "従来の見た目(ベースライン)は推奨されなくなり、より低く、中サイズのウィンドウで横型の項目に対応する「フレキシブルナビゲーションバー」への置き換えを案内している。" },
       { term: "状態を保持する / 状態のリセット", desc: "項目を選んだときの2つの動き。「状態を保持する」は各行き先のスクロール位置・タブ・検索の状態を覚えておく。「状態のリセット」は毎回既定の画面に戻す。セクションを頻繁に行き来するアプリには前者が合う。" },
     ],
     stance:
-      <>小〜中型のデバイスで画面を切り替えるコンポーネントで、<Hl>同等の重要度を持つ3〜5個の行き先を提供する</Hl>。行き先はどの画面でも同じで変わらない。主なページが3〜5個あるモバイル・タブレットの製品で使い、メールを1通読むような単一のタスクには使わない。上部の「アプリバー」は今の画面のタイトルや関連する操作を示す別のコンポーネントで、Appleが「Navigation Bars」と呼んでいた(今はToolbarsに統合)戻るボタン付きの上部バーに近い。</>,
+      <>モバイル・タブレットで、<Hl>同じ重要度の3〜5個の行き先</Hl>を切り替える。行き先はどの画面でも変わらない。</>,
     exceptions:
-      "行き先が5個を超えるなら使わず、タブ(ページ内の似た内容の整理)やモーダルの展開型ナビゲーションレール(メニューアイコンの後ろに隠す)を検討する。3個未満でも使わず、タブにする。スワイプで行き先を切り替える操作には対応せず、スワイプはカルーセルやリスト項目のアーカイブなど別の操作に限る。FABはバーを覆わず、バーの上に右揃えで置く。ダイアログやボトムシートが一時的に覆うのはよいが、ずっと隠さない。",
+      "行き先が5個を超えるなら使わず、タブやモーダルの展開型ナビゲーションレールに内包することを検討する。3個未満の場合はタブにする。モーダルなどで一時的に覆うのはよいが、ずっと隠さない。",
     accessibility:
-      "操作可能(Operable) ― 項目には必ずラベルを付け(アイコンだけは不可)、1〜2語程度にする。アクセシビリティラベルは通常は行き先の名前と同じだが、表示が曖昧なら(例: 「ライブラリ」)詳しい説明を加える(Android Views(MDC-Android)は、詳しいラベルや役割の読み上げに対応していない)。スクリーンリーダーの使用中は、スクロールでバーを隠さない。",
+      "操作可能(Operable) ― 項目には必ずラベルを付ける(アイコンだけは不可。1〜2語)。スクリーンリーダーの使用中は、スクロールでバーを隠さない。",
     useCases: [
       "主なページが3〜5個あるモバイル/タブレットの製品で使う(単一のタスクには使わない)",
       "行き先が5個を超えるなら、タブやモーダルの展開型ナビゲーションレールを検討する",
@@ -134,17 +134,12 @@ const SOURCES = [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
     ],
     stance:
-      "ナビゲーションのリンクのまとまりは、ナビゲーションの領域として示す。1ページに複数あるなら、それぞれに別の名前を付ける(リンクがまったく同じなら同じ名前でよい)。3.2.3(レベルAA)は、複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。画面拡大で一部しか見えない人や、上から順に読み上げを聞く人が、項目の位置を覚えて素早く見つけられるようにするため。選んだ項目の下にサブメニューを差し込むのは認められる。",
+      <>ナビゲーションのリンクのまとまりを領域として示し、1ページに複数あるなら別々の名前を付ける。<Hl>全ページで項目を同じ順番に並べる</Hl>(3.2.3)。画面拡大や読み上げで使う人が、位置を覚えて素早く見つけられるようにするため。</>,
     exceptions:
       "リンクがほかのナビゲーション領域とまったく同じ場合だけ、同じ名前でよい。それ以外は別の名前が要る。",
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。3.2.3は「理解可能(Understandable)」の予測可能(3.2)。",
-    useCases: [
-      "ナビゲーションのリンクを、ナビゲーションの領域として示す",
-      "ナビゲーションの領域が1ページに複数あるなら、別々の名前を付ける",
-      "リンクがまったく同じ場合だけ、同じ名前でよい",
-      "全ページで、ナビゲーションの項目を同じ順番に並べる(3.2.3)",
-    ],
+    useCases: [],
     searchHint: "unique label",
     url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/",
     refs: [
@@ -169,15 +164,15 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Basic Patterns for Mobile Navigation: A Primer",
-    term: "Tab bar・Navigation bar(上部・下部のバー)",
+    term: "Tab bar(下部のバー。このページの対象)・Navigation bar(上部のバー)",
     color: "#7A4F7E",
     position: <>上と下のどちらに置くかで一長一短があり、<Hl>選択肢が少ない場合に向く</Hl>(数値基準ではなく使い分けの指針)</>,
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分な押せる範囲を保つのが難しい。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "上部のナビゲーションバーは、選択肢が少ないときにしかうまく働かず、画面上部の貴重な領域(fold上)を取る。タブバーは近い仲間で同じ欠点を持ち、違いはスクロールしてもいつも出ていること。どちらも選択肢の少ないサイト・アプリに向く。",
+      <>上部のバー(Navigation bar)は画面上部の貴重な場所を取り、下部のタブバーはスクロールしても出続ける。<Hl>どちらも選択肢の少ないアプリ向け</Hl>。</>,
     exceptions:
-      "選択肢が5個を超えると、十分な押せる範囲を保ちにくい。ロゴ・検索・アカウントのリンクなどと並べると、ナビゲーションの見やすさと内容の優先のどちらを取るかの取り合いになる。",
+      "ロゴ・検索・アカウントのリンクと並べると、場所の取り合いになる。",
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、画面の領域と押せる範囲の取り合いにもとづく使い分けの指針。",
     useCases: [
@@ -212,6 +207,7 @@ function InfoBox({ label, accent, children }) {
 }
 
 function UseCaseList({ items }) {
+  if (!items || !items.length) return <NoData>―</NoData>;
   return (
     <ul style={styles.useCaseList}>
       {items.map((it, i) => (<li key={i} style={styles.useCaseItem}>{it}</li>))}
@@ -252,7 +248,7 @@ function TopBarPointerSection() {
     <div style={styles.columnCard}>
       <div style={styles.columnHeadRow}>
         <span style={styles.columnLabel}>関連ページ</span>
-        <span style={styles.columnTitle}>Appleが別に「ナビゲーションバー」と呼んでいたもの</span>
+        <span style={styles.columnTitle}>Appleの旧「Navigation Bars」(上部の戻るバー)は別のコンポーネント</span>
       </div>
       <p style={styles.columnIntro}>
         Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(バナー領域)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
@@ -268,11 +264,11 @@ function TopBarPointerSection() {
 /* 名前の対応と、上部・下部の使い分け(No.041) */
 const NAME_MAP = [
   { sys: "Apple", name: "Tab bar(タブバー)", note: "このページの対象。iOSは画面の下部、iPadOSは画面の上部近く。なお、戻るボタンを持つ上部のバーは、以前「Navigation bar」と呼ばれていた別のコンポーネント(→アプリバー)" },
-  { sys: "Google", name: "Navigation bar(ナビゲーションバー)", note: "このページの対象。画面の下部、コンパクト・中サイズの画面向け" },
-  { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "アプリの主な項目を並べるものをタブバー、サイトの上部に主な項目を並べるものをナビゲーションバーと呼び分ける" },
+  { sys: "Google", name: "Navigation bar(ナビゲーションバー)", note: "このページの対象(このサイトのページ名はこの呼び名)。画面の下部、コンパクト・中サイズの画面向け" },
+  { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "このページの対象はTab bar(アプリの下部)。サイトの上部に主な項目を並べるものはNavigation barと呼び、このページの対象とは別" },
 ];
 const POSITION_ROWS = [
-  ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)", "アプリの主な場所を切り替える(iOSのタブバー、Googleのナビゲーションバー)"],
+  ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)", "アプリの主な場所を切り替える"],
   ["スクロールしたとき", "消えることが多い(上部に固定する型や、上に戻すと再び出る型もある)", "常に表示される"],
   ["向いている場面", "主な項目が少ないサイト", "主な場所が3〜5か所のアプリ"],
   ["懸念点", "画面の上の大事な場所をとる。項目が多いと収まらない", "項目が5個を超えると、押せる大きさを保てない"],
@@ -281,18 +277,18 @@ const POSITION_ROWS = [
 function NameAndPosition() {
   return (
     <section style={{ marginBottom: 40 }}>
-      <h2 style={styles.diagramTitle}>タブバーとナビゲーションバー ― 名前の違いと、上部・下部の使い分け</h2>
-      <p style={styles.npNote}>同じ役割のコンポーネントでも、系列によって呼び名が違う。</p>
+      <h2 style={styles.diagramTitle}>呼び名の違い ― 「タブバー」と「ナビゲーションバー」</h2>
+      <p style={styles.npNote}>同じ役割のコンポーネントでも、系列によって呼び名が違う。<strong>このページの「ナビゲーションバー」はGoogleの呼び名で、AppleとNN groupの「タブバー」と同じもの</strong>。AppleとNN groupの「ナビゲーションバー」は、上部の別のバーを指す。</p>
       <div style={{ overflowX: "auto", marginBottom: 16 }}>
         <table style={styles.npTable}>
           <thead><tr>{["系列", "呼び名", "メモ"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
           <tbody>{NAME_MAP.map((r) => (<tr key={r.sys}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r.sys}</td><td style={styles.npTd}>{r.name}</td><td style={styles.npTd}>{r.note}</td></tr>))}</tbody>
         </table>
       </div>
-      <h3 style={styles.npSub}>上部に置く場合と、下部に置く場合(Nielsen Norman Groupの整理を中心に)</h3>
+      <h3 style={styles.npSub}>主な項目のバーを上部に置く場合と、下部に置く場合(NN group)</h3>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.npTable}>
-          <thead><tr>{["", "上部(ナビゲーションバー)", "下部(タブバー)"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
+          <thead><tr>{["", "上部のバー(NN groupの「Navigation bar」)", "下部のバー(このページ。Apple・NN groupの「Tab bar」)"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
           <tbody>{POSITION_ROWS.map((r) => (<tr key={r[0]}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.npTd}>{r[1]}</td><td style={styles.npTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
@@ -361,6 +357,10 @@ export default function NavigationNavBarPage() {
             rows={ABOUT}
           />
 
+          <div style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 14px", marginBottom: 24 }}>
+            <strong>呼び名の注意:</strong> このページの「ナビゲーションバー」は、<strong>画面下部で主な場所を切り替えるバー</strong>(GoogleのNavigation bar)。<strong>AppleとNN groupは同じものを「タブバー(Tab bar)」と呼ぶ</strong>。AppleとNN groupの「ナビゲーションバー」は上部のバーを指す別物(Appleの旧名は戻るボタン付きの上部バーで<PageLink to="/components/navigation/app-bar">アプリバー</PageLink>のページ、NN groupはサイト上部の主なメニュー)。
+          </div>
+
           <SplitSection splits={SPLITS} />
 
 
@@ -371,19 +371,13 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・Nielsen Norman Groupは、常設の主要ナビゲーションの見た目と使い方</strong>を扱っている(Googleの「Navigation bar」、NN groupの「選択肢の少ない常設バー」)。これに対応するAppleのコンポーネントは<strong>「Tab Bars」</strong>(「タブ」ページで比較したのと同じ一次情報)だ。<strong>AppleのタブバーはGoogleのNavigation barに対応</strong>し、画面の中で内容を切り替えるGoogleのTabsに当たる専用のコンポーネントは、Appleにはない。<strong>W3Cは見た目のコンポーネントではなく、ナビゲーションのリンクの集まりであることを伝える構造(ナビゲーションの領域)</strong>を定めている。
+              <strong>AppleのTab barとGoogleのNavigation barは同じ役割</strong>(画面下部に常にあり、アプリの主な場所を切り替える)。違いは数の決め方で、Appleは上限を示さず「少ないほどよい」とし、<strong>Googleは3〜5個</strong>と下限・上限を明記する。どちらも<strong>ラベルは必須</strong>(アイコンだけにしない)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>GoogleのNavigation barはApple以上に厳格な行き先数の基準</strong>を持っている。Appleは数値の上限を示さず「タブは少ないほど遷移しやすく、はみ出しは避ける」とするだけだが、Googleは<strong>「3〜5個」</strong>という範囲に加えて<strong>「3個未満なら使うべきではない(タブを使う)」という下限も明記</strong>しており、5個を超える場合の代替案(タブ、モーダル展開ナビゲーションレール)も具体的だ。さらに、<strong>ナビゲーション項目には常にラベルテキストが必須</strong>(アイコンのみは不可)という点は、Appleが暗黙に採用している慣習と一致する、実務上重要な収束点だ。
+              NN groupも、選択肢の少ないアプリ向けとする点で一致する。W3Cは見た目ではなく、<strong>ナビゲーションの領域として示し、全ページで同じ順番に並べる</strong>ことを求める。
             </p>
             <p style={styles.synthesisText}>
-              ややこしいのは、<strong>Appleが別に「Navigation Bars」と呼んでいた(現在はToolbarsに統合)、戻るボタンを持つ上部バー</strong>が存在することだ。これは今回比較した「常設の主要セクション切り替えバー」とは別物(階層を1段ずつ掘り下げる用途)のため、混同を避けるためこのページの比較表からは外し、独立した4系列比較ページ「アプリバー」として切り出した(末尾のリンクを参照)。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、<strong>上部のナビゲーションバー</strong>の欠点として、選択肢が比較的少ないときにしかうまく働かないことと、画面上部の貴重な場所を取ることを挙げている。そのうえで、<strong>タブバー(iOSでは主に下部)も同じ欠点を持つ</strong>とし、違いはタブバーがスクロールしても常に表示される点だとしている。AppleのTab Bars・GoogleのNavigation barを設計するときにも、行き先を少なく保つという制約は同じだ。なおGoogleは、従来の「ベースライン」スタイルが推奨されなくなり、より短い「フレキシブルナビゲーションバー」への置き換えが案内されていることも確認できた(コンポーネント自体の廃止ではなく、見た目の変異体単位の刷新)。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは他系列と異なり、<strong>見た目やサイズではなく「領域としての見分けられ方」</strong>に焦点を当てている。特に、ナビゲーションの領域が1ページに複数あるなら別々の名前を付ける、という指摘は、Apple/Googleどちらにも当てはまる重要な注意点だ。
+              Appleが以前「Navigation Bars」と呼んでいた、戻るボタンとタイトルを持つ上部のバーは別物で、<a href="/components/navigation/app-bar" style={{ color: "#3A4FCF" }}>アプリバー</a>のページで比べている。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -408,7 +402,7 @@ export default function NavigationNavBarPage() {
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
+                {s.useCases.length > 0 && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>

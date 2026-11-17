@@ -121,7 +121,7 @@ const SOURCES = [
     doc: "WAI「Validating Input」チュートリアル / ARIA19(エラーを読み上げで知らせる) / G199(送信成功のフィードバック) / WCAG 3.3.7(Redundant Entry)",
     term: "Validating Input(WAIのチュートリアル)",
     color: "#A3821F",
-    position: <><Hl>検証を「いつ行うか」の基準はない</Hl>。ARIA19はエラーを読み上げで知らせる仕組みを示すが、タイミングは作り手の判断。G199は、送信が成功したときのフィードバックを勧める、数少ない「タイミング」に触れた技法</>,
+    position: <><Hl>検証を「いつ行うか」の基準はない</Hl>。エラーを読み上げで知らせることと、送信の成功を伝えることを扱う</>,
     colorInfo: "3つの資料に色の規定はない(見た目の状態は「エラー表示」ページを参照)。",
     glossary: [
       { term: "サイズ", desc: "検証タイミング専用の数値基準はない。" },
@@ -130,11 +130,11 @@ const SOURCES = [
       { term: "3.3.7 Redundant Entry・レベルA", desc: "同じ手続きの中で、すでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(WCAG 2.2で追加)。" },
     ],
     stance:
-      "WAIのチュートリアル「Validating Input」は、クライアント側の検証は一般に良い体験につながり、エラーを解決しやすくするとするが、「いつ」検証するか(リアルタイム/フォーカスが離れたとき/送信時)は指定していない。できるだけ入力を確かめて直す機会を持てるように、という一般の原則に留まる。ARIA19(エラーを読み上げで知らせる技法)は、エラーメッセージを変化を読み上げる領域に出してスクリーンリーダーに知らせる仕組みを定めるが、いつ出すかは作り手の判断で、例は送信時に検証し500ミリ秒待ってから出すものだけ。G199(送信成功のフィードバック)は、成功をはっきり伝える技法で、検証のタイミングより送信「後」の結果の知らせ。WCAG 2.2で加わった3.3.7(レベルA)は、同じ手続きの中ですでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(例: 請求先住所の「配送先と同じ」チェック、エラーの後も入力を消さない)。ブラウザの自動入力だけでは満たさず、サイト側で前の入力を引き継ぐ。パスワードの確認入力のようなセキュリティ上の理由、記憶ゲームのように入れ直すこと自体が目的の場合、前の情報が無効になった場合は例外。",
+      <>いつ検証するか(入力中・離れたとき・送信時)は指定せず、入力を確かめて直す機会を持てるように、という原則に留まる。エラーは<Hl>読み上げで知らせ</Hl>(ARIA19)、送信が成功したら成功をはっきり伝える(G199)。すでに入力した情報をもう一度求めない(3.3.7)。</>,
     exceptions:
-      "ARIA19の読み上げる領域は、ページを開いた時点から空のまま用意しておく必要がある(後から加えた領域に対応できない支援技術がある)。",
+      "エラーを読み上げる領域は、ページを開いた時点から用意しておく(後から加えると対応できない支援技術がある)。",
     accessibility:
-      "堅牢(Robust) ― 中心はARIA19の読み上げによる通知と、G199の送信結果のフィードバック。「いつ検証するか」はWCAGの適合基準ではなく、実装の判断。3.3.7は「理解可能(Understandable)」の入力支援(3.3)。",
+      "堅牢(Robust) ― 読み上げによる通知(ARIA19)と送信結果の知らせ(G199)。3.3.7は「理解可能」の入力支援。",
     useCases: [
       "エラーメッセージを読み上げる領域は、ページを開いた時点から用意しておく",
       "検証のタイミングに決まった基準はないため、ほかの系列(特にNN groupの実務指針)を参考に決める",
@@ -448,19 +448,22 @@ function GlossaryNote({ items }) {
 }
 
 function ValidationTimingSwatch() {
-  const stages = [
-    { label: "入力中", desc: "多くの場合は検証しない", color: "#666D93" },
-    { label: "フィールドを離れた時", desc: "既定のタイミング(NN group・Appleはメールアドレスなど)", color: "#3A4FCF" },
-    { label: "送信時", desc: "必須項目の見落としを検知", color: "#5A9629" },
+  const steps = [
+    { t: "① 入力中", v: "taro@exa", cur: true, msg: "まだ出さない", c: "#666D93", b: "#3A4FCF", mark: "✕" },
+    { t: "② 欄を離れたとき", v: "taro@exa", msg: "✕ 形式が正しくありません", c: "#C0503F", b: "#C0503F", mark: "◯" },
+    { t: "③ 送信時", v: "", msg: "✕ 入力してください(未入力)", c: "#C0503F", b: "#C0503F", mark: "◯" },
   ];
   return (
-    <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
-      {stages.map((s) => (
-        <div key={s.label} style={{ width: 130, textAlign: "center" }}>
-          <div style={{ height: 4, borderRadius: 2, background: s.color, marginBottom: 6 }} />
-          <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36" }}>{s.label}</div>
-          <div style={{ fontSize: 9.5, color: "#666D93", lineHeight: 1.4 }}>{s.desc}</div>
-        </div>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 6, flexWrap: "wrap" }}>
+      {steps.map((st, i) => (
+        <React.Fragment key={st.t}>
+          {i > 0 && <span style={{ alignSelf: "center", color: "#9EA4C4", fontSize: 16 }}>→</span>}
+          <div style={{ width: 150 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{st.t}<span style={{ marginLeft: 6, color: st.mark === "◯" ? "#2F7D6E" : "#C0503F" }}>{st.mark === "◯" ? "◯ 確かめる" : "✕ 原則しない"}</span></div>
+            <div style={{ border: `1.6px solid ${st.b}`, borderRadius: 5, padding: "5px 8px", fontSize: 11, background: "#FFFFFF", color: st.v ? "#171B36" : "#9EA4C4", minHeight: 26, fontFamily: "'IBM Plex Mono', monospace" }}>{st.v || "メールアドレス"}{st.cur && <span style={{ color: "#3A4FCF" }}>|</span>}</div>
+            <div style={{ fontSize: 10, color: st.c, marginTop: 3, lineHeight: 1.4 }}>{st.msg}</div>
+          </div>
+        </React.Fragment>
       ))}
     </div>
   );
@@ -520,9 +523,9 @@ export default function TextInputsInputValidationPage() {
 
           <h1 style={styles.title}>バリデーション</h1>
           <SummaryCard keyPoints={KP}
-            imageLabel="検証タイミングの3つの選択肢"
+            imageLabel="いつ確かめるか(メールアドレス欄の例)"
             image={<><ValidationTimingSwatch /></>}
-            imageNote={<>NN groupは欄を離れたときの検証を既定とし、Appleもメールアドレスなどは別の欄に移ったときに確かめるとしている。入力中に示すのは、パスワードの条件の一覧(NN group)や、ユーザー名・パスワードの作成(Apple)など、決まった場面に限られる。</>}
+            imageNote={<>書き途中の入力は必ず「不正」になるので、入力中は原則確かめない。欄を離れたときに確かめるのが基本で(NN group・Apple)、未入力の必須項目は送信時に示す(NN group)。入力中に示すのは、パスワードの条件の一覧などに限る。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -533,16 +536,16 @@ export default function TextInputsInputValidationPage() {
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
           <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
+          <p style={styles.diagramNote}><strong>タイミングを具体的に決めているのはNN group(欄を離れた時)とApple(内容で変える)</strong>。W3Cはタイミングを定めず、Googleは入力前のヒントだけを扱う。</p>
           <TimingLegend />
           <TimingChart />
-          <p style={styles.diagramNote}>具体的なタイミングを定めているのはNN group(フィールドを離れた時)とApple(内容によって離れた時・離れる前)だ。AppleはHIG Text fieldsで、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は移る前に確かめるとしている(Entering dataの「入力されたらすぐに知らせる」とは別の記述)。W3Cはタイミングを定めず、読み上げで知らせる仕組みと送信後の成功の伝え方を扱う。Googleは入力前のヒントの出し方を定め、検証のきっかけは書いていない。</p>
 
           <h3 style={styles.subTitle}>5つのタイミングの解説</h3>
           <p style={styles.diagramNote}>それぞれのタイミングで何をするのか、メールアドレス欄を例にした画面イメージ(概念図)と、良い点・注意点を並べた。</p>
           <TimingDetails />
 
-          <h3 style={styles.subTitle}>入力欄の種類ごとの目安</h3>
-          <p style={styles.diagramNote}>上の各系列の記述を、入力欄の種類ごとに整理し直した目安だ(◯=推奨・既定、△=条件付き、✕=原則避ける)。系列名のないセルは、各系列の原則から導いた一般的な実務としての補足だ。1つの欄に1つのタイミングだけを選ぶのではなく、組み合わせて使うのが一般的だ。</p>
+          <h3 style={styles.subTitle}>入力欄の種類ごとに、いつ確かめるか</h3>
+          <p style={styles.diagramNote}>行は入力欄の種類、列は確かめるタイミング。各マスは「そのタイミングで確かめてよいか」を示す(◯=確かめる、△=場合による、✕=原則確かめない)。上の各系列の記述を入力欄の種類ごとに並べ直したもので、系列名のないマスはAI解釈。1つの欄でも、複数のタイミングを組み合わせて使う。</p>
           <FieldGuide />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>

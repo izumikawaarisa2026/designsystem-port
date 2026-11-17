@@ -21,14 +21,14 @@ const FRAMEWORKS = [
     color: "#C2542A",
     count: 8,
     items: [
-      { name: "Purpose(目的)", anchor: "Purpose", desc: "デザインは意図から始まる。ユーザーにとって最も重要なことを見極め、そこに力を注ぐことで、初めて本当に価値のある体験になるという考え方。" },
-      { name: "Agency(主体性)", anchor: "Agency", desc: "インターフェースは人の目標達成を助ける存在であるべきで、行動の自由度を与え、状況を伝え、間違いから簡単に立ち直れるようにすべきという考え方。" },
-      { name: "Responsibility(責任)", anchor: "Responsibility", desc: "自分たちの仕事が人々の生活に影響を与えることを自覚し、安全性とプライバシーを優先し、製品の挙動について透明であることで信頼を得るべきという考え方。" },
-      { name: "Familiarity(馴染みやすさ)", anchor: "Familiarity", desc: "人がすでに理解している概念を土台にすることで、初めてでもすぐに馴染める体験になる。既存の物理的・デジタル的なパターンを一貫して使うべきという考え方。" },
-      { name: "Flexibility(柔軟性)", anchor: "Flexibility", desc: "人はそれぞれ異なる方法でソフトウェアを使う。多様な状況やニーズに適応し、できるだけ多くの端末・入力方法・視点を支えるべきという考え方。" },
-      { name: "Simplicity(簡潔さ)", anchor: "Simplicity", desc: "不要な要素を削ぎ落とし、すべての要素がそこにある理由を持つべきという考え方。論理的に整理され、迷わず操作できることを重視する。" },
-      { name: "Craft(作り込み)", anchor: "Craft", desc: "デザインはどれだけ気を配ったかの表れであり、細部まで丁寧に作り込むことへの献身を示すべきという考え方。" },
-      { name: "Delight(喜び)", anchor: "Delight", desc: "人は製品がどう感じさせてくれたかを覚えている。体験にふさわしい感情を考え、満足感や喜びのある形で届けるべきという考え方。" },
+      { name: "Purpose(目的) ― 何か意味のあることをしよう", anchor: "Purpose", desc: "デザインは意図から始まる。ユーザーにとって最も重要なことを見極め、そこに力を注ぐことで、初めて本当に価値のある体験になるという考え方。" },
+      { name: "Agency(主体性) ― 人が自分のやり方で進められるようにしよう", anchor: "Agency", desc: "インターフェースは人の目標達成を助ける存在であるべきで、行動の自由度を与え、状況を伝え、間違いから簡単に立ち直れるようにすべきという考え方。" },
+      { name: "Responsibility(責任) ― 人のためになるように行動しよう", anchor: "Responsibility", desc: "自分たちの仕事が人々の生活に影響を与えることを自覚し、安全性とプライバシーを優先し、製品の挙動について透明であることで信頼を得るべきという考え方。" },
+      { name: "Familiarity(馴染みやすさ) ― 人がすでに知っていることを土台にしよう", anchor: "Familiarity", desc: "人がすでに理解している概念を土台にすることで、初めてでもすぐに馴染める体験になる。既存の物理的・デジタル的なパターンを一貫して使うべきという考え方。" },
+      { name: "Flexibility(柔軟性) ― さまざまな状況やニーズに合わせよう", anchor: "Flexibility", desc: "人はそれぞれ異なる方法でソフトウェアを使う。多様な状況やニーズに適応し、できるだけ多くの端末・入力方法・視点を支えるべきという考え方。" },
+      { name: "Simplicity(簡潔さ) ― 明快に、まっすぐに伝えよう", anchor: "Simplicity", desc: "不要な要素を削ぎ落とし、すべての要素がそこにある理由を持つべきという考え方。論理的に整理され、迷わず操作できることを重視する。" },
+      { name: "Craft(作り込み) ― 細部まで気を配ろう", anchor: "Craft", desc: "デザインはどれだけ気を配ったかの表れであり、細部まで丁寧に作り込むことへの献身を示すべきという考え方。" },
+      { name: "Delight(喜び) ― 人の心に届くものにしよう", anchor: "Delight", desc: "人は製品がどう感じさせてくれたかを覚えている。体験にふさわしい感情を考え、満足感や喜びのある形で届けるべきという考え方。" },
     ],
     url: "https://developer.apple.com/design/human-interface-guidelines/design-principles",
     confirmedNote: "各原則の見出しに実アンカーあり(例: #Purpose)。ページ本体の裏側データを直接取得して確認(2026-09)。",
@@ -60,7 +60,8 @@ const FRAMEWORKS = [
           { name: "Accessible", desc: "すべてのユーザーのニーズに応えるという指針。後付けの配慮ではなく、最初からの中核指針として位置づけられている。" },
         ],
         url: "https://design.google/library/material-design-eras",
-        note: "3指針の名称は、Google I/Oでの発表を報じた報道(9to5google)に基づく。design.google(公式)に同じ方向性の内容はあるが、この3語そのものは見当たらない。",
+        note: "3指針の名称は、Google I/O 2021での発表を報じた報道(9to5Google)に基づく。design.google(公式)に同じ方向性の内容はあるが、この3語そのものは見当たらない。",
+        noteLink: "https://9to5google.com/2021/05/18/google-material-you-design-language/",
       },
       {
         name: "第3世代(2025〜、Material 3 Expressive)",
@@ -85,8 +86,8 @@ const FRAMEWORKS = [
       { name: "Understandable(理解可能)", anchor: "understandable", desc: "情報とUIの操作方法は理解可能でなければならないという原則。内容や操作がユーザーの理解を超えてはならない。" },
       { name: "Robust(堅牢)", anchor: "robust", desc: "コンテンツは、支援技術を含む様々なユーザーエージェントで確実に解釈できるだけ堅牢でなければならないという原則。" },
     ],
-    url: "https://www.w3.org/TR/WCAG22/",
-    confirmedNote: "各原則の見出しに実アンカーあり(#perceivable など)。仕様書本体で確認(2026-09)。",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/intro#understanding-the-four-principles-of-accessibility",
+    confirmedNote: "Understanding WCAG 2.2の導入ページの「Understanding the Four Principles of Accessibility」節(アンカーを確認、2026-11)。",
   },
   {
     key: "nn",
@@ -138,7 +139,7 @@ function CountDots({ count, color, label, text }) {
 }
 
 /* 公式へのリンクは、飛び先のページ名で示す */
-const LINK_NAMES = {"https://developer.apple.com/design/human-interface-guidelines/design-principles": "HIG: Design principles", "https://m1.material.io/material-design/introduction.html": "Material Design 1: Introduction", "https://design.google/library/material-design-eras": "Google Design: Explore First 10 Years of Material Design’s Evolution", "https://design.google/library/expressive-material-design-google-research": "Google Design: Expressive Design: Google's UX Research", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.nngroup.com/articles/ten-usability-heuristics/": "10 Usability Heuristics for User Interface Design"};
+const LINK_NAMES = {"https://www.w3.org/WAI/WCAG22/Understanding/intro#understanding-the-four-principles-of-accessibility": "Understanding WCAG 2.2: The Four Principles of Accessibility", "https://9to5google.com/2021/05/18/google-material-you-design-language/": "9to5Google: Material You is Google’s new personalized design language", "https://developer.apple.com/design/human-interface-guidelines/design-principles": "HIG: Design principles", "https://m1.material.io/material-design/introduction.html": "Material Design 1: Introduction", "https://design.google/library/material-design-eras": "Google Design: Explore First 10 Years of Material Design’s Evolution", "https://design.google/library/expressive-material-design-google-research": "Google Design: Expressive Design: Google's UX Research", "https://www.w3.org/TR/WCAG22/": "WCAG 2.2", "https://www.nngroup.com/articles/ten-usability-heuristics/": "10 Usability Heuristics for User Interface Design"};
 const linkName = (u) => LINK_NAMES[u] || u;
 
 export default function PrinciplesComparisonPage() {
@@ -185,24 +186,7 @@ export default function PrinciplesComparisonPage() {
             </p>
           </div>
 
-          {/* 原則の数の比較: 詳細カードより前に置く、一目で分かる要約 */}
-          <div style={styles.diagramCard}>
-            <h2 style={styles.diagramTitle}>原則の数の比較</h2>
-            <div style={styles.compareGrid}>
-              {FRAMEWORKS.map((f) => (
-                <div key={f.key} className="cmp-row" style={styles.compareRow}>
-                  <div style={styles.compareName}>
-                    <span style={{ width: 8, height: 8, borderRadius: "50%", background: f.color, display: "inline-block", marginRight: 7 }} />
-                    {f.name}
-                  </div>
-                  <CountDots count={f.count} color={f.color} label={f.countLabel} text={f.countText} />
-                </div>
-              ))}
-            </div>
-            <p style={styles.diagramNote}>数の多寡は、網羅性や厳密さの優劣を意味しない。詳しい内容は下の「系列ごとの詳細」を参照。</p>
-          </div>
-
-          <div style={styles.diagramCard}>
+          <div style={{ marginBottom: 24 }}>
             <h2 style={styles.diagramTitle}>テーマの重なり(一部抜粋・対応づけはAI解釈)</h2>
             <div style={styles.overlapScroll}>
               <div style={styles.overlapGrid}>
@@ -258,7 +242,7 @@ export default function PrinciplesComparisonPage() {
                               </div>
                             ))}
                           </div>
-                          {it.note && <p style={styles.genNote}>{it.note}</p>}
+                          {it.note && <p style={styles.genNote}>{it.note}{it.noteLink && <> <a href={it.noteLink} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.noteLink)} ↗</a></>}</p>}
                         </div>
                       ) : (
                         <div key={it.name} style={styles.itemRow}>
@@ -305,7 +289,7 @@ export default function PrinciplesComparisonPage() {
                                 </div>
                               ))}
                             </div>
-                            {it.note && <p style={styles.genNote}>{it.note}</p>}
+                            {it.note && <p style={styles.genNote}>{it.note}{it.noteLink && <> <a href={it.noteLink} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.noteLink)} ↗</a></>}</p>}
                           </div>
                         ) : (
                           <div key={it.name} style={styles.itemRow}>
@@ -376,12 +360,12 @@ const styles = {
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
   sourceName: { fontWeight: 600, fontSize: 15 },
   sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
-  itemList: { display: "flex", flexDirection: "column", gap: 8, marginTop: 10, marginBottom: 10 },
+  itemList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 240px), 1fr))", gap: "10px 18px", marginTop: 10, marginBottom: 10 },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
   itemName: { fontSize: 12.5, fontWeight: 600, color: "#171B36" },
   itemDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78" },
-  genBlock: { marginBottom: 4, paddingBottom: 10, borderBottom: "1px solid #F0F1F8" },
+  genBlock: { marginBottom: 4, paddingBottom: 10 },
   genHead: { display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 3, flexWrap: "wrap" },
   genName: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
@@ -390,7 +374,7 @@ const styles = {
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 8, paddingTop: 8, borderTop: "1px solid #E1E3F0" },
   confirmedNote: { fontSize: 10.5, color: "#666D93", maxWidth: 340 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
-  desktopGrid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14, marginBottom: 22 },
+  desktopGrid: { display: "grid", gridTemplateColumns: "1fr", gap: 14, marginBottom: 22 },
   compareGrid: { display: "flex", flexDirection: "column", gap: 12 },
   compareRow: { display: "grid", alignItems: "center" },
   compareName: { fontSize: 13, fontWeight: 700, color: "#171B36", display: "flex", alignItems: "center" },

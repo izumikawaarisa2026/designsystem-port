@@ -362,6 +362,28 @@ function TooltipVsPopupTip() {
   );
 }
 
+
+/* 説明をどこに置くか(2026-11 ⑦本人レビューNo.058で追加) */
+const PLACE_ROWS = [
+  { where: "最初から画面に書く", what: "作業に欠かせない情報(入力の条件、取り消せない操作の注意など)", src: "NN group(ツールチップに必須の情報を入れない)・W3C 3.3.2(入力に必要な説明を示す)" },
+  { where: "「?」「i」のボタンを押して開く", what: "一部の人だけが必要な補足。スマートフォンなどタッチの画面での補足", src: "NN group(ポップアップのヒント)・Apple(TipKitのTip)" },
+  { where: "ツールチップ(乗せる・フォーカスで出す)", what: "知っている人には要らない短い補足(アイコンだけのボタンの名前など)。デスクトップ向け", src: "Google・Apple(macOS)・NN group" },
+];
+function TipPlacement() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>説明を画面に出すか、ボタンやツールチップに入れるか</h2>
+      <p style={styles.tvpNote}>見落とされると困る情報ほど、最初から画面に出す。隠すほど、気づかれにくくなる。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.tvpTable}>
+          <thead><tr>{["置き場所", "向いている情報", "根拠"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
+          <tbody>{PLACE_ROWS.map((r) => (<tr key={r.where}><td style={{ ...styles.tvpTd, fontWeight: 700 }}>{r.where}</td><td style={styles.tvpTd}>{r.what}</td><td style={{ ...styles.tvpTd, color: "#565D8A" }}>{r.src}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "マウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出すコンポーネント";
 const ABOUT = [
@@ -445,25 +467,17 @@ export default function CommunicationTooltipPage() {
           <GoodBadFigure />
 
 
+          <TipPlacement />
           <TooltipVsPopupTip />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              ツールチップは、「スナックバー・トースト」「アラート」などの他の通知系コンポーネントと違い、<strong>ユーザーの操作(ホバー/フォーカス)によって出現し、操作をやめると消える</strong>という点が本質的な特徴だ。クリックやタップで開くものではなく、ユーザーが求めたときにだけ現れる「オンデマンドの補足情報」だという理解で、Nielsen Norman GroupとW3Cの見解が一致している。
+              ツールチップは、<strong>マウスを乗せる・フォーカスするときだけ出て、離れると消える補足</strong>。消えてしまうため、<strong>作業に欠かせない情報は入れない</strong>(NN group)。マウスだけでなく<strong>キーボードのフォーカスでも出し</strong>、乗せている間は勝手に消さない(W3C 1.4.13)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>タスク完了に不可欠な情報をツールチップだけに頼るべきではない</strong>と明確に警告している。ツールチップは消えてしまう性質上、内容を作業記憶に留めて後から実行する必要がある指示には不向きで、<strong>マイクロコンテンツ(短い自己完結型のテキスト)</strong>としての役割に徹するべきだとしている。
-            </p>
-            <p style={styles.synthesisText}>
-              Googleは<strong>「プレーン(アイコンのラベル代わり)」「リッチ(小見出し・リンク・ボタンを含む詳しい説明)」の2種類</strong>を定義しており、W3Cが指摘する「対話的な内容を含めたい場合は非モーダルダイアログを使うべき」という論点とは、リッチツールチップがクリックで<strong>「永続的な表示」に切り替わる仕組み</strong>によって折り合いをつけていると解釈できる。ホバーだけの一時的な表示から、クリックで消えない状態に変わる点が、この2つの考え方をつなぐ鍵だ。
-            </p>
-            <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>マウスホバーだけでなくキーボードフォーカスでも表示できるようにすべき</strong>という点で、W3C・Nielsen Norman Groupの見解が完全に一致している。WCAGの1.4.13は、ホバーやフォーカスで出た内容を<strong>勝手に消さない</strong>ことも求めているため、Googleのリッチツールチップは「対象領域から離れて1.5秒後に消える」としており、離れた後に消える点では1.4.13と矛盾しない。Webで作るときも、ホバーやフォーカスが続いている間は消さないようにする(AI解釈)。Appleの「ヘルプタグ」はポインター操作の環境(Mac等)を前提とした機能で、タッチのみの環境では利用できない点も、この「入力方法への配慮」という論点に関わってくる。
-            </p>
-            <p style={styles.synthesisText}>
-              Appleにも「リッチ」に相当する概念があり、<strong>TipKitという独立フレームワークのTip</strong>がそれにあたる。ただしGoogleのように同一コンポーネントの拡張版ではなく、<strong>別フレームワークとして実装が分かれている</strong>点が特徴で、用途も「機能の値を説明する」よりは<strong>「気づかれていない新機能を紹介する」</strong>ことに寄っている。一方でW3CとNielsen Norman Groupは、どちらも独自の「リッチツールチップ」概念を持たず、<strong>複雑・対話的な内容はツールチップという枠自体に持ち込むべきではない</strong>という立場で一致しており、GoogleとAppleの「拡張路線」とは対照的だ。
+              GoogleとAppleは、詳しい説明やボタンを持てる形も用意している(Googleはリッチツールチップ、AppleはTipKitのTip)。W3CとNN groupは、<strong>操作を含む内容はツールチップに入れず</strong>、押して開くヒントやダイアログにする立場。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

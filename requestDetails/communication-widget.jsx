@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, PageToc } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ウィジェット(ホーム画面ウィジェット)」ページ。
@@ -33,9 +33,9 @@ const SOURCES = [
     term: "Widget",
     color: "#C2542A",
     position: <><Hl>端末ごとのpt寸法で大きさを決め</Hl>、置かれる場所で見た目が自動で変わる</>,
-    size: "小・中・大・特大と、ロック画面などのアクセサリ。iPhoneの寸法は上の比較図。余白16pt(まとまりは11pt)、文字11pt以上",
+    size: <>小・中・大・特大と、ロック画面などのアクセサリ(寸法は上の「AppleとGoogleの違い」の図)。<Hl>余白16pt、文字11pt以上</Hl></>,
     colorInfo: "3つの表示モードで色が変わる(下の図)。単色になっても伝わるよう、色だけに意味を持たせない。中の角丸は外枠に合わせる",
-    stance: "1日の中で変わる情報を優先する。サイズが大きいほど情報を一段増やし、小さいものを引き伸ばさない",
+    stance: <><Hl>1日の中で変わる情報を優先する</Hl>。サイズが大きいほど情報を一段増やし、小さいものを引き伸ばさない</>,
     exceptions: "リアルタイムには更新されない。更新を知らせるアニメーションは2秒以内。インラインのアクセサリは押せる場所が1つだけ",
     accessibility: "知覚可能 ― 文字は画像にせずVoiceOverで読めるように。システムフォントでDynamic Type(Large〜AX5)に対応",
     useCases: [
@@ -60,9 +60,9 @@ const SOURCES = [
     term: "App widget(Android)",
     color: "#2F7D6E",
     position: <><Hl>ホーム画面のマス数で大きさを決め</Hl>、品質ガイド(Widget quality guide)のチェック項目で作り方を示す</>,
-    size: "2×1〜4×3のマス数と幅・高さの範囲(dp)。主なサイズは上の比較図。最小でも押せる範囲48×48dp",
+    size: <>2×1〜4×3のマス数と幅・高さの範囲(上の「AppleとGoogleの違い」の図)。<Hl>最小でも押せる範囲48×48dp</Hl></>,
     colorInfo: "テーマの色・ライト/ダーク・システムの角丸に対応することを、品質ガイドのチェック項目に挙げている",
-    stance: "外される主な理由は「ホーム画面でずれて見えること」。マスを端まで埋め、独自の余白を付けない",
+    stance: <>外される主な理由は「ホーム画面でずれて見えること」。<Hl>マスを端まで埋め、独自の余白を付けない</Hl></>,
     exceptions: "長方形でなくても、向かい合う2辺に接すれば標準。ヘッダーは全面写真や狭い場合は省略できる",
     accessibility: "知覚可能・操作可能 ― 品質ガイドでは、コントラストが足りないものを避ける例に挙げ、最小サイズでも押せる範囲を48×48dpにすることを挙げている",
     useCases: [
@@ -88,8 +88,8 @@ const SOURCES = [
     term: <NoData>該当なし</NoData>,
     color: "#A3821F",
     position: <><Hl>ホーム画面のウィジェットの基準はない</Hl>。ARIAの「widget」は操作コンポーネント全般を指す別の言葉</>,
-    size: "専用の数値なし。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる",
-    colorInfo: "―(専用の定めなし。カラー・ボタンのページと同じ基準)",
+    size: <><NoData>専用の数値なし</NoData>。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる</>,
+    colorInfo: <NoData>専用の定めなし(カラー・ボタンのページと同じ基準)</NoData>,
     stance: "Webのコンテンツが対象で、OSのホーム画面のコンポーネントの見た目や大きさは扱わない",
     exceptions: "―",
     accessibility: "知覚可能・操作可能 ― 1.4.3(コントラスト)・2.5.8(ターゲットサイズ)・1.4.1(色)で確認する",
@@ -108,9 +108,9 @@ const SOURCES = [
     term: "Widget(マイクロセッションの文脈)",
     color: "#7A4F7E",
     position: <><Hl>15秒未満の短い利用(マイクロセッション)を支える仕組み</Hl>として扱う(適合基準ではない)</>,
-    size: "数値なし。スマートフォン利用の4割強が15秒未満という研究を紹介",
+    size: <><NoData>数値基準なし</NoData>。スマートフォン利用の4割強が15秒未満という研究を紹介</>,
     colorInfo: "単独で意味が分かり、見出しや文を途中で切らない。最小サイズでも要点を1文で",
-    stance: "頻繁に変わる情報を、アプリを開かずに確かめるのに向く。課題は追いたい「1つのこと」を圧縮できるか",
+    stance: <>頻繁に変わる情報を、アプリを開かずに確かめるのに向く。課題は<Hl>追いたい「1つのこと」を圧縮できるか</Hl></>,
     exceptions: "追いたい項目が複数なら、一覧型のウィジェットも選択肢",
     accessibility: "根拠となる原則 ― 適合区分ではなく、利用時間の研究とユーザビリティの観察に基づく",
     useCases: [
@@ -256,8 +256,6 @@ function SizeChart() {
         {[
           ["Apple", "#C2542A", "余白 16pt(詰めるとき11pt)・文字 11pt以上・更新のアニメーション 2秒以内"],
           ["Google", "#2F7D6E", "押せる範囲 48×48dp・マスを端まで埋める(独自の余白なし)"],
-          ["W3C", "#A3821F", "専用の数値なし(一般の基準: 文字4.5:1、押せる対象24×24 CSS px(2.5.8 AA、例外あり))"],
-          ["NN group", "#7A4F7E", "マイクロセッションは15秒未満(高齢者は22秒)"],
         ].map(([n, c, t]) => (
           <div key={n} style={styles.numItem}><span style={{ ...styles.numWho, color: c }}>{n}</span>{t}</div>
         ))}
@@ -411,6 +409,8 @@ function WidgetGuide() {
           <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
+      <div style={{ marginTop: 16 }}><SizeChart /></div>
+      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
       <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
     </section>
   );
@@ -464,7 +464,6 @@ export default function CommunicationWidgetPage() {
             rows={ABOUT}
           />
 
-          <PageToc />
 
           <WidgetIntro />
 
@@ -472,11 +471,6 @@ export default function CommunicationWidgetPage() {
 
 
 
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― 大きさの決め方と数値</h2>
-            <SizeChart />
-            <p style={styles.chartNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)だ。Appleは端末ごとに固定の寸法、Googleはマス数と幅・高さの範囲で指定する、という違いがある。</p>
-          </div>
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

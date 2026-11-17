@@ -35,13 +35,13 @@
 | 10 | モーション/アニメーション(duration・イージング) | ✅ 完成済み(2026-10、SPEC No.049)。Apple(HIGのページデータ)・W3C・NN groupは本文確認済み。Googleの時間・イージング・スプリングはMaterial Components for AndroidのMotion.mdとJetpack ComposeのMotionTokensで確認 |
 | 11 | サウンド(音フィードバック) | ✅ 完成済み(2026-10、SPEC No.050)。GoogleはM3に音のページがなく、Material Design 2のSoundページ(ページデータで本文確認)を掲載。参考として触覚(ハプティクス)のApple・Android比較を併載 |
 | 12 | インタラクション状態(ホバー・フォーカス・プレス) | ✅ 完成済み(2026-10、SPEC No.051)。Googleの不透明度はJetpack ComposeのStateTokens(v0_210)、状態の原則はM2のページデータで確認。キーボードの移動順序・2.4.7は「キーボードナビゲーション」ページへ回す |
-| 13 | アダプティブ/レスポンシブデザイン | ✅ 完成済み(2026-10、SPEC No.052、/tokens/adaptive)。Apple(HIG Layout・Tab bars・Split views)はページデータ、Google(カノニカルレイアウト・アダプティブナビゲーション)はAndroid Developersの本文、W3C(1.4.10・1.3.4)・NN group(Breakpoints in Responsive Design)は本文で確認。境界値・余白は「レイアウト・スペーシング」ページで扱う |
+| 13 | レスポンシブデザイン(2026-11に「アダプティブ/レスポンシブデザイン」から改名) | ✅ 完成済み(2026-10、SPEC No.052、/tokens/adaptive)。Apple(HIG Layout・Tab bars・Split views)はページデータ、Google(カノニカルレイアウト・アダプティブナビゲーション)はAndroid Developersの本文、W3C(1.4.10・1.3.4)・NN group(Breakpoints in Responsive Design)は本文で確認。境界値・余白は「レイアウト・スペーシング」ページで扱う |
 | 14 | 入力方法・ジェスチャー | ✅ 完成済み(2026-10、SPEC No.053、/tokens/input-methods)。Apple(HIG Gestures・Pointing devices)はページデータ、GoogleはM2のGesturesのページデータとAndroid Developersの本文、W3C(2.5.1・2.5.2・2.5.4・2.5.6・2.5.7)・NN group(Contextual Swipe)は本文で確認 |
 | 15 | キーボードナビゲーション・フォーカス順序 | ✅ 完成済み(2026-10、SPEC No.054、/tokens/keyboard-navigation)。Apple(HIG Keyboards・Focus and selection)はページデータ、GoogleはM3に専用ページがなくAndroid Developers(Focus in Compose)の本文、W3C(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7、APG)・NN group(Keyboard-Only Navigation)は本文で確認 |
 
 ---
 
-## コンポーネントレイヤー(44ページ)
+## コンポーネントレイヤー(49ページ)
 
 Material Designの伝統的な6分類(Actions / Selection / Text inputs / Navigation / Containment / Communication)に沿って再編。
 
@@ -129,9 +129,11 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 
 ## 合計
 
-**思想レイヤー 2 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 49 + 横断ビュー 1 = 65ページ**(トップページ `index.jsx` を含めると66ページ。2026-11時点)
+**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 49 + 横断ビュー 1 = 66ページ**(トップページ `index.jsx` を含めると67ページ。2026-11時点)
 
-コンポーネントレイヤーの内訳: Actions 4 / Selection 11 / Text inputs 5 / Navigation 8 / Containment 10 / Communication 11。
+コンポーネントレイヤーの内訳: Actions 4 / Selection 11 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
+
+2026-11の変更(⑦本人レビュー): Navigationの先頭に「Navigationの選び方」(/components/navigation/overview、No.049)を新規作成。「ウィザード(ステップ形式の入力)」をText inputsからNavigationへ移動(No.067。URLは変えていない)。Communicationで「ローディング状態」を「プログレスインジケーター」の上へ移動(No.066)。「ドロワー/サイドナビ」の常に表示する側の呼び名を「サイドナビ」にそろえた(No.049)。「バナー」のページを「ステータスメッセージ(アラート)」のバナーの節(#banner)に統合し、ページを削除(No.065)。
 
 2026-11の構造の変更(③本人レビューのフェーズ3): 「オーバーレイの使い分け」(Containmentの先頭、No.045)、「ウィザード(ステップ形式の入力)」(Text inputs、No.046)を新規作成。「アラート/バナー」を「ステータスメッセージ(アラート)」と「バナー」に、「空状態・ローディング状態」を「空状態」と「ローディング状態」に分けた(No.060・062)。「ダイアログ」を「モーダルダイアログ」に改名(No.045)。ドロワーをNavigationへ移し、ページ内でナビゲーションドロワーとナビゲーションレール/サイドバーに分けて比較(No.049)。
 

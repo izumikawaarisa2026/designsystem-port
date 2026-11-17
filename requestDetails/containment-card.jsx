@@ -103,7 +103,7 @@ const SOURCES = [
     doc: "WAI-ARIA ― 記事の役割",
     term: "記事(WAI-ARIAの役割。カードの決まりはない)",
     color: "#A3821F",
-    position: "W3Cはカードを定めていない",
+    position: <NoData>W3Cはカードを定めていない</NoData>,
     size: "専用の数値基準はない。押せるカードにも一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
@@ -241,6 +241,49 @@ const KP = [
   { n: 2, t: "小さく保ち、入れ子にしない", d: "", who: "Apple" },
 ];
 
+
+/* カードの並べ方(2026-11 ⑦本人レビューNo.050で追加。Googleの「Cards in collections」の要約) */
+const LAYOUTS = [
+  { k: "grid", t: "グリッド", when: "たくさんのカードを一覧で眺めてもらう(商品・写真・記事)", note: "画面が広いほど列を増やす。狭い画面ではリストも検討する" },
+  { k: "list", t: "縦のリスト", when: "1列に並べ、上から順に読んでもらう(SNSの投稿・ニュース)", note: "比べる・探すのが目的なら、カードではなくリストや表にする" },
+  { k: "carousel", t: "カルーセル", when: "関連するカードを横1列にまとめ、一部だけ見せる(おすすめ・特集)", note: "広い画面で、関連するカードをまとめるのにも使う。詳しい使い分けは", link: true },
+];
+function LayoutFig({ k }) {
+  const c = (x, y, w, h) => (<rect key={x + "-" + y} x={x} y={y} width={w} height={h} rx="3" fill="#FFFFFF" stroke="#7E86AC" />);
+  return (
+    <svg width="120" height="72" viewBox="0 0 120 72" aria-hidden="true">
+      <rect x="0.5" y="0.5" width="119" height="71" rx="5" fill="#F3F6FA" stroke="#E1E3F0" />
+      {k === "grid" && [8, 44, 80].flatMap((x) => [c(x, 8, 32, 25), c(x, 39, 32, 25)])}
+      {k === "list" && [8, 30, 52].map((y) => c(10, y, 100, 16))}
+      {k === "carousel" && <>{[10, 50, 90].map((x) => c(x, 14, 36, 44))}<path d="M60 66 L54 66 M60 66 L66 66" stroke="#2F7D6E" strokeWidth="1.4" /><circle cx="52" cy="66" r="1.6" fill="#2F7D6E" /><circle cx="60" cy="66" r="1.6" fill="#B7BCDA" /><circle cx="68" cy="66" r="1.6" fill="#B7BCDA" /></>}
+    </svg>
+  );
+}
+function CardLayouts() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>カードの並べ方(Google)</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "0 0 12px" }}>カードは、まとめてグリッド・縦のリスト・カルーセルのどれかで並べられる。</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 10 }}>
+        {LAYOUTS.map((l) => (
+          <div key={l.k} style={{ border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}><LayoutFig k={l.k} /></div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{l.t}</div>
+            <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 }}>{l.when}</div>
+            <div style={{ fontSize: 11.5, lineHeight: 1.6, color: "#565D8A" }}>{l.note}{l.link && <>(<PageLink to="/components/containment/carousel">カルーセル</PageLink>)</>}</div>
+          </div>
+        ))}
+      </div>
+      <ul style={{ fontSize: 12, lineHeight: 1.75, color: "#2E3457", margin: "12px 0 0", paddingLeft: 18 }}>
+        <li>並んだカードは同じ高さ(影の強さ)にそろえる。持ち上げてドラッグしているときだけ高くする。</li>
+        <li>並べ替え・絞り込みの操作は、カードのまとまりの外に置き、すべてのカードにかける。</li>
+        <li>カードの中に、横にスワイプする内容(画像のカルーセルなど)を入れない。カードの中をスクロールさせない。</li>
+        <li>余白・見出し・区切り線で十分にまとまるなら、無理にカードにしない。</li>
+      </ul>
+    </section>
+  );
+}
+
 export default function ContainmentCardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -274,6 +317,8 @@ export default function ContainmentCardPage() {
           />
 
           <SplitSection splits={SPLITS} />
+
+          <CardLayouts />
 
 
 

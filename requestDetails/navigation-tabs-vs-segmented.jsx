@@ -34,10 +34,8 @@ const COMPARE_ROWS = [
 ];
 
 const EXAMPLES = [
-  { good: true, label: "タブが適切な例", text: "ニュースアプリの「おすすめ/フォロー中/話題」のように、それぞれ別のコンテンツ一覧に切り替わる場合" },
-  { good: false, label: "セグメントが適切な例", text: "地図アプリの「マップ/交通機関/航空写真」のように、同じ地図データの見え方だけが変わる場合" },
-  { good: true, label: "タブが適切な例", text: "設定画面の「アカウント/通知/プライバシー」のように、内容のまとまり(別のセクション)を同じページの中で切り替える場合" },
-  { good: false, label: "セグメントが適切な例", text: "並べ替えの「新着順/人気順」のように、同じ一覧の表示順だけが変わる場合" },
+  { good: true, label: "タブが適切な例", items: ["ニュースアプリの「おすすめ/フォロー中/話題」のように、それぞれ別のコンテンツ一覧に切り替わる場合", "設定画面の「アカウント/通知/プライバシー」のように、内容のまとまり(別のセクション)を同じページの中で切り替える場合"] },
+  { good: false, label: "セグメントが適切な例", items: ["地図アプリの「マップ/交通機関/航空写真」のように、同じ地図データの見え方だけが変わる場合", "並べ替えの「新着順/人気順」のように、同じ一覧の表示順だけが変わる場合"] },
 ];
 
 function TabMock() {
@@ -134,13 +132,37 @@ function VennDiagram() {
   );
 }
 
+/* Appleでの、タブバーとセグメントコントロールの使い分け(2026-11 ⑦本人レビューNo.039で「セグメントコントロール」ページから移動) */
+const APPLE_TAB_VS_SEG = [
+  ["切り替えるもの", "アプリのまったく別のセクション(時計アプリのアラーム・ストップウォッチ・タイマーなど)", "密接に関係するサブビューや、同じ対象の表示(カレンダーの新規作成で「イベント」と「リマインダー」、ヘルスケアのグラフの期間)"],
+  ["置く場所", "iOSは画面の下部、iPadOSは画面の上部近く。アプリのどの画面でも表示し続ける", "画面の中、ツールバー、インスペクタなど、対象の近く"],
+  ["数の目安", "少ないほど遷移しやすい。収まらないと「その他」タブになるので避ける", "iPhoneでは5個程度まで、広い画面では5〜7個程度まで"],
+  ["押したときの働き", "遷移だけ。今の画面への操作には使わない(操作はツールバー)", "選んだ状態を示すか、操作のボタンの集まり(macOSのメールの返信・全員に返信・転送)。1つのコントロールの中で両方を混ぜない"],
+];
+
+function AppleTabVsSegmented() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>Appleでの、タブバーとセグメントコントロールの使い分け</h2>
+      <p style={styles.atvNote}>Appleでは、どちらも横に並んだ選択肢に見えるが、役割がはっきり分かれている。iOS・iPadOSには画面の中のタブ(Tab view)がないため、画面の中で関係のある表示を切り替えるときは、セグメントコントロールを使う。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.atvTable}>
+          <thead><tr>{["", "タブバー(Tab bar)", "セグメントコントロール"].map((h) => (<th key={h} style={styles.atvTh}>{h}</th>))}</tr></thead>
+          <tbody>{APPLE_TAB_VS_SEG.map((r) => (<tr key={r[0]}><td style={{ ...styles.atvTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.atvTd}>{r[1]}</td><td style={styles.atvTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </section>
+  );
+}
+
+
 function ExampleList() {
   return (
     <div style={styles.exampleGrid}>
       {EXAMPLES.map((ex, i) => (
         <div key={i} style={{ ...styles.exampleCard, borderLeftColor: ex.good ? "#2F7D6E" : "#3A4FCF" }}>
           <span style={{ ...styles.exampleLabel, color: ex.good ? "#2F7D6E" : "#3A4FCF" }}>{ex.label}</span>
-          <p style={styles.exampleText}>{ex.text}</p>
+          <ul style={{ ...styles.exampleText, paddingLeft: 18 }}>{ex.items.map((x) => (<li key={x} style={{ marginBottom: 4 }}>{x}</li>))}</ul>
         </div>
       ))}
     </div>
@@ -318,6 +340,8 @@ export default function NavigationTabsVsSegmentedPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>具体例で見る使い分け</h2>
           <ExampleList />
 
+          <AppleTabVsSegmented />
+
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>四系列デザインシステム比較</h2>
           <SystemViews />
 
@@ -339,6 +363,10 @@ export default function NavigationTabsVsSegmentedPage() {
 }
 
 const styles = {
+  atvNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
+  atvTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  atvTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  atvTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },

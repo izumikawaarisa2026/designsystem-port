@@ -98,10 +98,31 @@ export default function IndexPage() {
                   </div>
                 ))}
               </div>
+              <h3 style={styles.h3}>単位の関係(pt・dp・CSS px)</h3>
+              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。どれも<strong>標準的な密度の画面での1ピクセル</strong>を基準にしているので、<strong>設計の目安としては「1pt ≒ 1dp ≒ 1 CSS px」と見てかまいません</strong>(AI解釈)。ただし基準の決め方が少しずつ違い、実際の物理的な大きさは端末で変わるため、厳密に同じ大きさではありません。</p>
+              <div style={{ overflowX: "auto", marginBottom: 8 }}>
+                <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12.5, color: "#2E3457" }}>
+                  <thead><tr>{["単位", "使う系列", "基準", "実際のピクセルとの関係", "出典"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
+                  <tbody>
+                    {[
+                      ["pt(ポイント)", "Apple", "@1xの画面で1pt=1ピクセル", "@2xの画面では2ピクセル、@3xでは3ピクセル", ["HIG Images ― Resolution", "https://developer.apple.com/design/human-interface-guidelines/images#Resolution"]],
+                      ["dp(密度非依存ピクセル)", "Google(Android)", "160dpiの画面(基準の密度)の1ピクセルにほぼ等しい", "密度に合わせてAndroidが実際のピクセル数に換算する", ["Android Developers ― Use density-independent pixels", "https://developer.android.com/training/multiscreen/screendensities#TaskUseDP"]],
+                      ["CSS px", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
+                    ].map((r) => (
+                      <tr key={r[0]}>
+                        <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", fontWeight: 700, whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td>
+                        {r.slice(1, 4).map((c, i) => (<td key={i} style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{c}</td>))}
+                        <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" }}><a href={r[4][1]} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF", fontSize: 11.5 }}>{r[4][0]} ↗</a></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24 CSS px(W3C)は、ほぼ同じ物差しで並べて比べられます。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
+
               <h3 style={styles.h3}>用語メモ</h3>
               <div style={styles.guideGrid}>
                 {[
-                  ["単位(pt・dp・CSS px)", "pt(Apple)・dp(Google)・CSS px(Web)は、それぞれのプラットフォームで使う論理的な単位で、画面の密度に左右されない。ただし、違うプラットフォームの数値を1:1で同じ物理的な大きさとして比べることはできない。44pt・48dp・24pxなどは、各系列の基準値として並べて示している。"],
                   ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
                   ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=実務で一般的な目標(多くの場合はAAを目指す)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
                   ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、コンポーネントの作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
@@ -119,17 +140,24 @@ export default function IndexPage() {
             {/* 対象4系列 */}
             <section style={styles.section}>
               <h2 style={styles.h2}>対象の4系列</h2>
+              <p style={styles.p}>各ページは、次のサイトを一次情報として読み、要約・言い換えで比べています。原文は各ページの「参照ページ(公式)」のリンク先で読めます。</p>
               <div style={styles.sourceGrid}>
                 {[
-                  ["Apple", "Human Interface Guidelines", "iOS/iPadOS/macOSなどApple製品の公式デザインガイドライン。"],
-                  ["Google", "Material Design 3", "Android/Webを中心としたGoogleの公式デザインシステム。M3に該当ページがない項目は、旧版のMaterial Design 2やAndroid Developersの公式ドキュメントで比較する。"],
-                  ["W3C", "WCAG・WAI-ARIA(APG)", "Webアクセシビリティの国際標準規格(WCAG)と、支援技術にコンポーネントの役割を伝える仕様(WAI-ARIA)。数値基準の一次情報として扱う。APGは実装の参考例。"],
-                  ["Nielsen Norman Group", "UXリサーチ", "特定製品に属さない、独立系のユーザビリティ研究機関。"],
-                ].map(([name, doc, desc]) => (
-                  <div key={name} style={styles.sourceCard}>
-                    <div style={styles.sourceName}>{name}</div>
-                    <div style={styles.sourceDoc}>{doc}</div>
-                    <p style={styles.sourceDesc}>{desc}</p>
+                  { name: "Apple", doc: "Human Interface Guidelines(HIG)", desc: "Apple製品の公式デザインガイドライン。", sites: [["Human Interface Guidelines", "https://developer.apple.com/design/human-interface-guidelines/"]], use: "iOS・iPadOS・macOS・watchOSの内容を載せる(tvOS・visionOSは対象外)。" },
+                  { name: "Google", doc: "Material Design 3(M3)", desc: "Android・Webを中心としたGoogleの公式デザインシステム。", sites: [["Material Design 3", "https://m3.material.io/"], ["Material Design 2(旧版)", "https://m2.material.io/"], ["Android Developers", "https://developer.android.com/"]], use: "M3を優先する。M3にページがない項目だけ、旧版(M2・M1)やAndroid Developersを使い、そのことを書き添える。" },
+                  { name: "W3C", doc: "WCAG 2.2・WAI-ARIA・APG", desc: "Webアクセシビリティの国際標準(WCAG)と関連する文書。", sites: [["WCAG 2.2", "https://www.w3.org/TR/WCAG22/"], ["Understanding WCAG 2.2(解説書)", "https://www.w3.org/WAI/WCAG22/Understanding/"], ["ARIA Authoring Practices Guide(APG)", "https://www.w3.org/WAI/ARIA/apg/"]], use: "達成基準は適合の要件として扱う。APGやチュートリアルは実装の参考例で、要件ではない。MDNは「解説」として補足に置く。" },
+                  { name: "Nielsen Norman Group", doc: "記事・用語集(UXリサーチ)", desc: "特定の製品に属さない、独立系のユーザビリティ研究機関。", sites: [["Articles", "https://www.nngroup.com/articles/"], ["UI Elements Glossary", "https://www.nngroup.com/articles/ui-elements-glossary/"]], use: "調査にもとづく設計の根拠として扱う(適合の基準ではない)。数値は記事に書かれているときだけ載せる。" },
+                ].map((x) => (
+                  <div key={x.name} style={styles.sourceCard}>
+                    <div style={styles.sourceName}>{x.name}</div>
+                    <div style={styles.sourceDoc}>{x.doc}</div>
+                    <p style={styles.sourceDesc}>{x.desc}</p>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "6px 0 2px" }}>参考にしているサイト</div>
+                    <ul style={{ margin: "0 0 6px", paddingLeft: 16, fontSize: 12, lineHeight: 1.7 }}>
+                      {x.sites.map(([l, u]) => (<li key={u}><a href={u} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>{l} ↗</a></li>))}
+                    </ul>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "4px 0 2px" }}>このサイトでの扱い</div>
+                    <p style={{ ...styles.sourceDesc, margin: 0 }}>{x.use}</p>
                   </div>
                 ))}
               </div>

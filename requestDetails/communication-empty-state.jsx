@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態」ページ。
@@ -176,19 +176,6 @@ function GlossaryNote({ items }) {
   );
 }
 
-function EmptyStateSwatch() {
-  return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: 150 }}>
-        <div style={{ width: 56, height: 40, borderRadius: 8, border: "1.6px dashed #C7CBE6", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>📭</div>
-        <div style={{ fontSize: 11, color: "#2E3457", fontWeight: 600 }}>まだアイテムがない</div>
-        <div style={{ fontSize: 9.5, color: "#666D93", textAlign: "center" }}>お気に入りに追加するとここに表示される</div>
-        <span style={{ fontSize: 9, fontWeight: 700, color: "#3A4FCF" }}>+ 追加する</span>
-        <span style={{ fontSize: 9.5, color: "#666D93" }}>空状態</span>
-      </div>
-    </div>
-  );
-}
 
 /* No.062: 空状態の文言 ― どうあるべきか(4系列の内容をまとめたAI解釈。例文はAIの作例) */
 const EMPTY_STEPS = [
@@ -267,24 +254,10 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・Google・W3C・NN groupに共通する考え方" },
-  { n: 2, t: "利用者が自分で埋められる空には、作成のボタンを置く", d: "", who: "AI解釈" },
-  { n: 3, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
+  { n: 2, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
-function GoodBadFigure() {
-  return (
-    <GoodBad
-            title="良い例・悪い例 ― 空状態の中身"
-            items={[
-              { kind: "good", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div>, text: "何もない理由の説明と、次にできる操作のボタンがある。" },
-              { kind: "bad", fig: <div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><span style={{ fontSize: 13, color: "#454C78" }}>データがありません</span></div>, text: "「データがありません」だけで、なぜ空なのか、次に何をすればよいかが分からない。" },
-            ]}
-            basis="このページの「状況の説明と、次の行動への導線を置く」(Apple・Google・W3C・NN groupに共通する考え方)。文言はAIの作例。"
-          />
-  );
-}
-
 export default function CommunicationEmptyStatePage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -311,7 +284,7 @@ export default function CommunicationEmptyStatePage() {
 
           <h1 style={styles.title}>空状態</h1>
           <SummaryCard keyPoints={KP}
-            image={<><EmptyStateSwatch /></>}
+            image={<div style={{ display: "flex", justifyContent: "center" }}><div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div></div>}
             imageNote={<>「状況の説明+次の行動への導線」が4系列に共通する考え方。</>}
             lead={LEAD}
             rows={ABOUT}
@@ -321,7 +294,6 @@ export default function CommunicationEmptyStatePage() {
 
 
 
-          <GoodBadFigure />
 
           <EmptyWriting />
 
@@ -447,7 +419,7 @@ const styles = {
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   ewNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 12px" },
-  ewSteps: { display: "flex", flexDirection: "column", gap: 8 },
+  ewSteps: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 8 },
   ewStep: { display: "flex", gap: 10, border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" },
   ewNo: { width: 22, height: 22, flexShrink: 0, borderRadius: "50%", background: "#3C5A73", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center" },
   ewTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", marginBottom: 3 },

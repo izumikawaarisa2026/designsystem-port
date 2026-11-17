@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「モーション/アニメーション」ページ。
@@ -625,60 +625,10 @@ function MotionIntro() {
 /* 四サイト比較: 何を定めているかを◯△―で一覧にする */
 const MARK_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "―": "#666D93" };
 const RULE_ROWS = [
-  {
-    label: "長さをミリ秒で示す",
-    cells: [
-      { mark: "―", note: "数値なし。短く正確に" },
-      { mark: "◯", note: "50〜1000msの16段階" },
-      { mark: "―", note: "長さの基準なし" },
-      { mark: "◯", note: "多くは100〜500ms" },
-    ],
-  },
-  {
-    label: "イージングを指定",
-    cells: [
-      { mark: "△", note: "ジェスチャーに沿った現実的な動き(値なし)" },
-      { mark: "◯", note: "7種類+スプリング6種類" },
-      { mark: "―", note: "作り方は定めない" },
-      { mark: "◯", note: "入る=ease-out・出る=ease-in" },
-    ],
-  },
-  {
-    label: "範囲・場面で長さを変える",
-    cells: [
-      { mark: "△", note: "頻繁な操作には足さない" },
-      { mark: "◯", note: "範囲が広いほど長く" },
-      { mark: "―", note: "" },
-      { mark: "◯", note: "複雑さ・移動距離に応じて" },
-    ],
-  },
-  {
-    label: "動きを減らす設定に従う",
-    cells: [
-      { mark: "◯", note: "Reduce Motionで移動→フェード等" },
-      { mark: "◯", note: "設定がオンならフェードにし、装飾的な効果を止める" },
-      { mark: "◯", note: "2.3.3(AAA)" },
-      { mark: "△", note: "動きに敏感な人への配慮に言及" },
-    ],
-  },
-  {
-    label: "止める・取り消す手段",
-    cells: [
-      { mark: "◯", note: "完了を待たせず途中で取り消せる" },
-      { mark: "―", note: "" },
-      { mark: "◯", note: "5秒超の自動の動きは停止できる(2.2.2)" },
-      { mark: "―", note: "" },
-    ],
-  },
-  {
-    label: "点滅・速い動きの上限",
-    cells: [
-      { mark: "△", note: "発作の原因になりうると注意(数値なし)" },
-      { mark: "―", note: "" },
-      { mark: "◯", note: "1秒間に3回まで(2.3.1)" },
-      { mark: "―", note: "" },
-    ],
-  },
+  { label: "長さ", cells: [{ mark: "―", note: "数値なし" }, { mark: "◯", note: "50〜1000ms。範囲が広いほど長く" }, { mark: "―", note: "" }, { mark: "◯", note: "多くは100〜500ms" }] },
+  { label: "緩急(イージング)", cells: [{ mark: "△", note: "ジェスチャーに沿った動き(値なし)" }, { mark: "◯", note: "7種類+スプリング6種類" }, { mark: "―", note: "" }, { mark: "◯", note: "入る=減速・出る=加速" }] },
+  { label: "動きを減らす設定", cells: [{ mark: "◯", note: "移動をフェードなどに" }, { mark: "◯", note: "フェードにし、装飾の効果を止める" }, { mark: "◯", note: "2.3.3(AAA)" }, { mark: "△", note: "配慮に言及" }] },
+  { label: "止める・点滅の上限", cells: [{ mark: "△", note: "途中で取り消せる。点滅に注意" }, { mark: "―", note: "" }, { mark: "◯", note: "5秒超は止められる(2.2.2)。点滅は1秒間に3回まで(2.3.1)" }, { mark: "―", note: "" }] },
 ];
 
 function RuleMatrix() {
@@ -847,7 +797,6 @@ export default function TokensMotionPage() {
           <h1 style={styles.title}>モーション/アニメーション</h1>
           <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
 
-          <PageToc />
 
           <MotionIntro />
 
@@ -857,7 +806,7 @@ export default function TokensMotionPage() {
           <div style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
-            <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値で長さを示すのはGoogleとNN groupだけで、W3Cは長さではなく安全面の上限(5秒・1秒間に3回)を定めている。</p>
+            <p style={styles.chartNote}>◯=明記、△=部分的・条件付き、―=記載なし。</p>
           </div>
 
           <div style={styles.chartCard}>

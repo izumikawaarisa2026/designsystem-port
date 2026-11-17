@@ -760,7 +760,7 @@ export default function TextInputsSearchFieldPage() {
               AppleとGoogleは、どちらも<strong>検索を「入り口 → 入力前の候補 → 入力中の予測候補 → 結果 → 絞り込み」という流れで設計</strong>している。Appleは検索前に最近の検索、入力中に予測候補を出し、できれば入力と同時に結果を更新するよう勧めている。Googleも、入力前から過去の候補を出し、入力中は候補か結果をリストで表示するとしており、考え方はほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
-              違いが大きいのは入り口の置き方だ。Appleは<strong>iOSでタブ・ツールバー(画面下が推奨)・インラインの3か所</strong>から選ばせ、Googleは<strong>検索バー・検索アプリバー・検索アイコンボタン</strong>の3種類を、検索がどれだけ主要な機能かで使い分ける。Googleは高さ56dp・幅360〜720dpなどの寸法や、スマートフォンでは全画面、広い画面ではドッキングという表示の切り替えまで具体的に定めている。
+              違いが大きいのは入り口の置き方だ。Appleは<strong>iOSでタブ・ツールバー(画面下が推奨)・インラインの3か所</strong>から選ばせ、Googleは<strong>検索バー・<PageLink to="/components/navigation/app-bar">検索アプリバー</PageLink>・検索アイコンボタン</strong>の3種類を、検索がどれだけ主要な機能かで使い分ける。Googleは高さ56dp・幅360〜720dpなどの寸法や、スマートフォンでは全画面、広い画面ではドッキングという表示の切り替えまで具体的に定めている。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは、<strong>「虫眼鏡アイコンだけにすると検索が見つけにくくなる」</strong>と指摘し、デスクトップでは入力欄を開いたまま右上に置くよう勧めている。予測候補についても、<strong>良い結果につながらない候補は出さない、入力した文字と候補を書体で見分けられるようにする</strong>という品質面の注意を示しており、見た目の仕様が中心のApple・Googleを補う内容だ。
@@ -800,13 +800,6 @@ export default function TextInputsSearchFieldPage() {
                 {s.glossary && <GlossaryNote items={s.glossary} />}
               </div>
             ))}
-          </div>
-
-          <div style={styles.linksRow}>
-            <a href="/components/navigation/app-bar" style={styles.linkCard}>
-              <div style={styles.linkCardTitle}>アプリバー ↗</div>
-              <div style={styles.linkCardDesc}>Googleの「検索アプリバー」(検索ビューへの入り口となるアプリバーのバリエーション)の詳細はこちら</div>
-            </a>
           </div>
 
           <div className="dsp-desktop-only">
