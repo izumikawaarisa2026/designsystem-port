@@ -510,10 +510,10 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "おおよその値を選ぶときに使う", d: "正確な値が要るなら、まず入力欄", who: "AI解釈" },
+  { n: 1, t: "数の範囲の中から、値や範囲を選ぶときに使う", d: "音量のような1つの値や、価格帯・出発の時間帯のような範囲。正確な値が要るなら入力欄も添える", who: "Google・NN group" },
   { n: 2, t: "使うときも入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "W3C 2.5.7" },
   { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
-  { n: 4, t: "キーボードでも操作できるようにする", d: "", who: "W3C" },
+  { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
 
 export default function SelectionSliderPage() {
@@ -555,6 +555,8 @@ export default function SelectionSliderPage() {
 
 
           <SliderTypesSection />
+
+          <ValueDisplaySection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -652,7 +654,6 @@ export default function SelectionSliderPage() {
             </div>
           </div>
 
-          <ValueDisplaySection />
 
           <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 

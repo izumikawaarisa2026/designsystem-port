@@ -47,8 +47,8 @@ const CARDS = [
   },
   {
     key: "slider", name: "スライダー", path: "/components/selection/slider", built: true,
-    oneLiner: "連続した範囲から、正確さより「感覚的な」値を選ぶ。",
-    doText: "音量・明るさなど感覚的な値でよい時",
+    oneLiner: "数の範囲の中から、値や範囲(価格帯など)を選ぶ。",
+    doText: "音量・明るさ、価格帯・時間帯の範囲",
     dontText: "年齢・体重など正確な値が必要な時",
     icon: () => (<svg width="70" height="16" viewBox="0 0 70 16"><line x1="2" y1="8" x2="68" y2="8" stroke="#D5D9EC" strokeWidth="4" strokeLinecap="round" /><line x1="2" y1="8" x2="44" y2="8" stroke="#3A4FCF" strokeWidth="4" strokeLinecap="round" /><circle cx="44" cy="8" r="6" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="2" /></svg>),
   },
@@ -72,10 +72,9 @@ const CARDS = [
 
 /* このカテゴリのほかのページ(表の6パーツとは役割が違うもの) */
 const OTHERS = [
-  { name: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", text: "ドラムロール(ホイール)など、プルダウン以外で1つを選ぶ形の一覧" },
+  { name: "セレクトの種類", path: "/components/selection/select-patterns", text: "ホイールピッカーなど、プルダウン以外で1つを選ぶ形の一覧" },
   { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならセレクト(プルダウン)" },
   { name: "日付/タイムピッカー", path: "/components/selection/date-time-picker", text: "日付・時刻という決まった形の値を選ぶ。生年月日のように遠い日付は入力欄の方が速いことも" },
-  { name: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", text: "予定を日・週・月の表で見せる画面。日付を1つ選んで入力するなら日付/タイムピッカー" },
   { name: "セグメントコントロール", path: "/components/navigation/segmented-control", text: "少ない選択肢から1つを選び、同じ場所の見え方をすぐ切り替える(表示形式の切り替えなど)" },
 ];
 
@@ -158,9 +157,9 @@ const USE_COLS = [
   { k: "multi", t: "複数の項目を選ぶ" },
   { k: "onoff", t: "1つの項目をオン/オフ" },
   { k: "one", t: "1つだけ選ぶ" },
-  { k: "value", t: "感覚的な値を調整する" },
-  { k: "filter", t: "その場で絞り込む・並べ替える(すぐ反映)" },
-  { k: "form", t: "フォームで選んで送信する" },
+  { k: "value", t: "範囲の中から値を決める(音量・価格帯など)" },
+  { k: "filter", t: "表示中の一覧を絞り込む・並べ替える(選ぶとすぐ反映)" },
+  { k: "form", t: "フォームで選び、送信ボタンで確定する" },
 ];
 const USE_ROWS = [
   { name: "チェックボックス", path: "/components/selection/checkbox", multi: "◯", onoff: ["◯", "単独のチェックボックス。送信で確定する場面向け"], one: "✕", value: "✕", filter: ["△", "絞り込みの条件の一覧にも使える"], form: "◯" },
@@ -173,32 +172,28 @@ const USE_ROWS = [
 const MARK_COLOR = { "◯": "#2F7D6E", "△": "#A3821F", "✕": "#666D93" };
 
 function UseTable() {
+  const chip = (r, note, m) => (
+    <a key={r.name} href={r.path} style={{ display: "inline-flex", flexDirection: "column", textDecoration: "none", border: `1px solid ${m === "◯" ? "#2F7D6E55" : "#A3821F55"}`, borderRadius: 6, padding: "4px 8px", background: "#FFFFFF", maxWidth: 260 }}>
+      <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF" }}>{r.name}</span>
+      {note && <span style={{ fontSize: 10.5, color: "#565D8A", lineHeight: 1.45 }}>{note}</span>}
+    </a>
+  );
+  const pick = (c, m) => USE_ROWS.map((r) => {
+    const v = Array.isArray(r[c.k]) ? r[c.k] : [r[c.k], ""];
+    return v[0] === m ? chip(r, v[1], m) : null;
+  }).filter(Boolean);
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={styles.useTable}>
-        <thead>
-          <tr>
-            <th style={styles.useTh}>パーツ</th>
-            {USE_COLS.map((c) => (<th key={c.k} style={{ ...styles.useTh, textAlign: "center" }}>{c.t}</th>))}
-          </tr>
-        </thead>
-        <tbody>
-          {USE_ROWS.map((r) => (
-            <tr key={r.name}>
-              <td style={{ ...styles.useTd, fontWeight: 700, whiteSpace: "nowrap" }}><a href={r.path} style={{ color: "#3A4FCF" }}>{r.name}</a></td>
-              {USE_COLS.map((c) => {
-                const v = Array.isArray(r[c.k]) ? r[c.k] : [r[c.k], ""];
-                return (
-                  <td key={c.k} style={{ ...styles.useTd, textAlign: "center" }}>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: MARK_COLOR[v[0]] }}>{v[0]}</span>
-                    {v[1] && <span style={styles.useNote}>{v[1]}</span>}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {USE_COLS.map((c) => (
+        <div key={c.k} style={{ display: "grid", gridTemplateColumns: "minmax(0, 200px) 1fr", gap: 10, alignItems: "start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>{c.t}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["◯"], width: 84, flexShrink: 0, paddingTop: 4 }}>◯ 向いている</span>{pick(c, "◯")}</div>
+            {pick(c, "△").length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["△"], width: 84, flexShrink: 0, paddingTop: 4 }}>△ 場合による</span>{pick(c, "△")}</div>}
+          </div>
+        </div>
+      ))}
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "2px 0 0" }}>ここにないコンポーネントは、そのしたいことには向かない。</p>
     </div>
   );
 }
@@ -236,23 +231,17 @@ export default function SelectionOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              6つのパーツは、コンポーネントの性質からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなる。下の表は、行動ごとにどのパーツが向いているかを◯/△/✕で示したものだ。
+              6つは<strong>「利用者が今、何をしたいか」</strong>から選ぶと迷わない(下の「したいことから選ぶ」)。
             </p>
             <p style={styles.synthesisText}>
-              1つの項目のオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれる(NN group)。一覧をその場で絞り込む条件なら、<strong>フィルターチップ1つでもオン/オフに使える</strong>(Googleは、フィルターチップをトグルボタンやチェックボックスの代わりになるものとしている)。
-            </p>
-            <p style={styles.synthesisText}>
-              <strong>チップとチェックボックスは「複数選べる」点で重なる</strong>が、チップは<strong>今見ている一覧をその場で絞り込む</strong>ときに向き、チェックボックスは<strong>フォームの中で選んで、送信して確定する</strong>ときに向く。また、<strong>チェックボックスとラジオボタン、チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点だ(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
-            </p>
-            <p style={styles.synthesisText}>
-              <strong>セレクト(プルダウン)はラジオボタンと同じ「1つだけ選ぶ」行動</strong>で、選択肢を常に全部見せたいならラジオボタン、場所を節約したいならセレクト(プルダウン)、という使い分けだ。表示の切り替えのように、少ない選択肢から1つを選んですぐ反映するなら<a href="/components/navigation/segmented-control" style={{ color: "#3A4FCF" }}>セグメントコントロール</a>も使える。
+              迷いやすいのは3組。1つのオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信で確定するならチェックボックス</strong>(NN group)。複数を選ぶなら、<strong>一覧をその場で絞り込むならチップ、フォームで送信するならチェックボックス</strong>。1つだけ選ぶなら、<strong>全部見せたいならラジオボタン、場所を節約するならセレクト(プルダウン)</strong>。
             </p>
           </div>
 
           <h2 style={styles.diagramTitle}>6つのパーツ</h2>
           <PartCards />
 
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>行動から選ぶ(◯/△/✕)</h2>
+          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>したいことから選ぶ</h2>
           <UseTable />
           <p style={styles.diagramNote}>◯=向いている、△=使い方次第、✕=向いていない。まず「今したいこと」の列を見て、◯のパーツから選ぶ。チップのように、使い方によって役割が変わるパーツがあるため、はい/いいえで分ける図ではなく表にしている。この表は、各パーツのページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
 

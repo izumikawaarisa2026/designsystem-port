@@ -90,7 +90,6 @@ export function GoodBad({ title, items, basis, note }) {
         ))}
       </div>
       {basis && <p style={partStyles.gbBasis}>根拠: {basis}</p>}
-      <p style={partStyles.gbBasis}>図は概念図。</p>
       {note && <p style={partStyles.gbBasis}>{note}</p>}
     </section>
   );
@@ -290,13 +289,13 @@ const PAGE_INDEX = {
   "label": "トグルスイッチ",
   "lead": "押すとオンとオフがすぐに切り替わる、スイッチの形のコンポーネント"
  },
+ "/components/selection/select-patterns": {
+  "label": "セレクトの種類",
+  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
+ },
  "/components/selection/select": {
   "label": "セレクト(プルダウン)",
   "lead": "押すと選択肢の一覧が開き、その中から値を選ぶコンポーネント(プルダウン)"
- },
- "/components/selection/select-patterns": {
-  "label": "セレクトの種類(プルダウン以外)",
-  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
  },
  "/components/selection/menu": {
   "label": "メニュー",
@@ -313,10 +312,6 @@ const PAGE_INDEX = {
  "/components/selection/date-time-picker": {
   "label": "日付/タイムピッカー",
   "lead": "カレンダーや回転する一覧などで、日付や時刻を選んで入力するコンポーネント"
- },
- "/components/text-inputs/calendar": {
-  "label": "カレンダー(スケジュール/予定表)",
-  "lead": "予定を日・週・月などの表で見せる画面(予定表そのものの指針は4系列ともない)"
  },
  "/components/text-inputs/text-field": {
   "label": "テキストフィールド・テキストエリア",
@@ -459,8 +454,8 @@ const PAGE_INDEX = {
   "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなどの入力手段の扱い方の決まり"
  },
  "/tokens/motion": {
-  "label": "モーション/アニメーション",
-  "lead": "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まり"
+  "label": "モーション",
+  "lead": "UIの動き(モーション)の長さ、緩急、動きを減らす配慮の決まり"
  },
  "/tokens/sound": {
   "label": "サウンド",

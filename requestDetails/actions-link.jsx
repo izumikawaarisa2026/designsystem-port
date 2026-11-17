@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -23,9 +23,9 @@ const SOURCES = [
     color: "#C2542A",
     position: <><Hl>文言による目的の明確化</Hl>(数値基準なし)</>,
     stance:
-      "リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。ラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように行き先や機能を具体的に示す。文中のリンクに矢印を付けるかは定めていない(リストの行の右端の「›」は、階層の次の画面へ遷移する印(disclosure indicator)として別に定めている)。",
+      <>リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。<Hl>「ここをタップ」ではなく、行き先や機能を具体的に書く</Hl>。</>,
     exceptions:
-      "色での区別もリンク専用の基準はなく、アクセシビリティ全般の方針として「色だけに頼らず、形やアイコンなどの手がかりを加える」とする。数値の例外はない。",
+      "色だけに頼らず、形やアイコンなどの手がかりを加える(アクセシビリティ全般の方針)。",
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
@@ -49,8 +49,8 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <NoData>該当なし(参考: Text buttonが見た目は近い)</NoData>,
     stance:
-      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 2014年の初代(当時は「Flat button」)から続く「Text button」がある。ラベルだけで枠や塗りがなく、最も優先度の低い操作に使う。ダイアログやカードの中の軽い操作など、見た目を軽くしたい場面向け。</>,
-    exceptions: "「Text button」はボタン(操作)の一種で、文中に埋め込むハイパーリンクとは位置づけが違う。厳密な意味での「リンク」のガイダンスはない。",
+      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 見た目が近いのは、枠も塗りもないText button(最も優先度の低い操作用)。</>,
+    exceptions: "Text buttonはボタンの一種で、文中のリンクとは位置づけが違う。",
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -77,9 +77,9 @@ const SOURCES = [
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
-      <>2.4.4(レベルA)は、リンクの目的がリンクテキスト単体か、周りの文脈と合わせて分かること。より厳しい2.4.9(レベルAAA)は、リンクテキスト単体で分かること。<Hl>1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する</Hl>。3.2.4(レベルAA)は、ページをまたいで出てくる同じ働きのコンポーネントを、一貫して識別できること。共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けない。ただし文言が完全に同じでなくてよく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。</>,
+      <><Hl>リンクの目的が、文言か周りの文脈から分かる</Hl>こと(2.4.4・A。AAAの2.4.9は文言だけで)。<Hl>色だけでリンクを見分けさせない</Hl>(1.4.1・A)。同じ働きのリンクは、どのページでも同じ名前にする(3.2.4・AA)。</>,
     exceptions:
-      "2.4.4は、文言だけか、同じ文・段落などの文脈と合わせて目的が分かればよい。ページ上の情報だけでは誰にも目的が分からないリンクは例外。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が要る(テクニックG183)。いちばん確実なのは下線。",
+      "色だけで区別するなら、周りの文字と3:1以上の明るさの差が要る(G183)。いちばん確実なのは下線。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」のナビゲーションの達成基準。3.2.4は「理解可能」の予測可能(3.2)。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
@@ -115,9 +115,9 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "色+下線による視認性(数値基準ではなく原則としての言及)",
     stance:
-      <>リンクだと分かる見た目の手がかりを最大にするには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>とする。訪問済みと未訪問のリンクは彩度の違う同系色で区別し、未訪問をより鮮やかにする。</>,
+      <><Hl>リンクの文字に色と下線の両方を付ける</Hl>と最も分かりやすい。訪問済みは、未訪問より彩度を落とした同系色にする。</>,
     exceptions:
-      "ナビゲーションメニューなど、リンクの集まりと明らかな領域では下線を省いてよい。ただし赤や緑など色覚の違いの影響を受けやすい色を使う場合や、低視力の人への配慮を優先する場合は、下線を残す。2026年3月の編注は、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)とし、記事の推奨は出発点として扱うよう書いている。なお現在のG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版の条件。",
+      "ナビゲーションメニューなど、リンクの集まりと明らかな場所では下線を省いてよい。",
     pourDetail: "根拠となる原則 ― 適合区分ではないが、記事自体がWCAG 1.4.1(色の用途)を関連基準として引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
@@ -240,27 +240,13 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "遷移はリンク、処理の実行はボタン", d: "役割で使い分ける", who: "このサイトの整理(サマリーの「似たコンポーネント」)" },
+  { n: 1, t: "行き先を示すならリンク、保存・送信など処理を実行するならボタン", d: "ボタンで次の画面へ進むこともあるが、文章の中で行き先を示すときはリンクにする", who: "AI解釈" },
   { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
-  { n: 3, t: "下線を省くなら差を確かめる", d: "周りの文字と3:1以上", who: "W3C 1.4.1・G183" },
+  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "明るさの差を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1・G183" },
   { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
-function GoodBadFigure() {
-  return (
-    <GoodBad
-            title="良い例・悪い例 ― リンクの見分け方"
-            items={[
-              { kind: "good", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF", textDecoration: "underline" }}>料金プランの比較</span>をご覧ください。</p>, text: "本文の中のリンクに色と下線の両方があり、ひと目でリンクと分かる。" },
-              { kind: "bad", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF" }}>料金プランの比較</span>をご覧ください。</p>, text: "色だけで示し、周りの文字(#2E3457)との明るさの差が1.83:1で3:1に届かない。リンクと気づきにくい。" },
-            ]}
-            basis="NN group(色と下線の両方があるのが最も分かりやすい)、W3C 1.4.1・G183(色だけで見分けさせるなら、周りの文字と3:1以上)。比はこのサイトで計算した値。"
-            note="下線を必ず付けるかは系列で違う(NN groupも必須とはしていない)。悪い例は、下線がないことではなく、色の差が足りないことを示している。"
-          />
-  );
-}
-
 export default function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -294,7 +280,6 @@ export default function ActionsLinkPage() {
             rows={ABOUT}
           />
 
-          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 

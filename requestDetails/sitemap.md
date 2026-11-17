@@ -32,7 +32,7 @@
 | 7 | シェイプ・コーナーラジウス(角丸) | ✅ 完成済み(2026-09、SPEC No.046)。Appleは専用ページなし(同心の角丸の原則が複数ページに分散)。Googleの10段階はGoogle公式のドキュメント・ソースで確認 |
 | 8 | エレベーション・階層表現(影・半透明素材) | ✅ 完成済み(2026-09、SPEC No.047)。Appleは専用ページなし(Materials・Dark Modeページで扱う)。Googleのレベル値はJetpack Composeのソースで確認 |
 | 9 | ダークモード | ✅ 完成済み(2026-09、SPEC No.048)。Apple(HIGのページデータ)・W3C・NN groupは本文確認済み。Googleはダークテーマ・カラーのドキュメントで確認 |
-| 10 | モーション/アニメーション(duration・イージング) | ✅ 完成済み(2026-10、SPEC No.049)。Apple(HIGのページデータ)・W3C・NN groupは本文確認済み。Googleの時間・イージング・スプリングはMaterial Components for AndroidのMotion.mdとJetpack ComposeのMotionTokensで確認 |
+| 10 | モーション(duration・イージング。2026-11に「モーション/アニメーション」から改名) | ✅ 完成済み(2026-10、SPEC No.049)。Apple(HIGのページデータ)・W3C・NN groupは本文確認済み。Googleの時間・イージング・スプリングはMaterial Components for AndroidのMotion.mdとJetpack ComposeのMotionTokensで確認 |
 | 11 | サウンド(音フィードバック) | ✅ 完成済み(2026-10、SPEC No.050)。GoogleはM3に音のページがなく、Material Design 2のSoundページ(ページデータで本文確認)を掲載。参考として触覚(ハプティクス)のApple・Android比較を併載 |
 | 12 | インタラクション状態(ホバー・フォーカス・プレス) | ✅ 完成済み(2026-10、SPEC No.051)。Googleの不透明度はJetpack ComposeのStateTokens(v0_210)、状態の原則はM2のページデータで確認。キーボードの移動順序・2.4.7は「キーボードナビゲーション」ページへ回す |
 | 13 | レスポンシブデザイン(2026-11に「アダプティブ/レスポンシブデザイン」から改名) | ✅ 完成済み(2026-10、SPEC No.052、/tokens/adaptive)。Apple(HIG Layout・Tab bars・Split views)はページデータ、Google(カノニカルレイアウト・アダプティブナビゲーション)はAndroid Developersの本文、W3C(1.4.10・1.3.4)・NN group(Breakpoints in Responsive Design)は本文で確認。境界値・余白は「レイアウト・スペーシング」ページで扱う |
@@ -41,7 +41,7 @@
 
 ---
 
-## コンポーネントレイヤー(49ページ)
+## コンポーネントレイヤー(48ページ)
 
 Material Designの伝統的な6分類(Actions / Selection / Text inputs / Navigation / Containment / Communication)に沿って再編。
 
@@ -62,7 +62,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 | 5 | スライダー | |
 | 6 | チップ(Chips) | Material Design発祥のパターン。他系列には同名コンポーネントはないが、Appleの「トークンフィールド」が近い概念として存在するため追加(当初のsitemapには無く、後日追加) |
 | 7 | セレクト(プルダウン) | |
-| 8 | セレクトの種類(プルダウン以外) | ドラムロール/ホイールピッカーなど、プルダウン以外の単一選択パターンをまとめたギャラリー的なページ(当初のsitemapには無く、後日追加) |
+| 8 | セレクトの種類(2026-11に「セレクトの種類(プルダウン以外)」から改名。サイドバーではセレクト(プルダウン)の上) | ホイールピッカーなど、プルダウン以外の単一選択パターンをまとめたギャラリー的なページ(当初のsitemapには無く、後日追加) |
 | 9 | メニュー(ドロップダウン・コンテキストメニュー) | ✅ 完成済み(2026-10、SPEC No.059、/components/selection/menu)。命令(操作)の一覧を扱い、値を選ぶ用途は「セレクト」ページ。Apple(HIG Menus・Context menus・Pull-down buttons)はページデータ、GoogleはMaterial Components for AndroidのMenu.mdとJetpack Composeのソース、W3C(APG Menu and Menubar・Menu Button)・NN group(Contextual Menus・Dropdowns)は本文で確認。使えない項目を隠すか薄くするか、コンテキストメニューにショートカットを出すかで、AppleとNN groupの意見が分かれる |。2026-10-05、Material 3のコンポーネント分類(MenusはSelection)に合わせてActionsから移動
 | 10 | 日付ピッカー / タイムピッカー | Apple・Googleの全デザインパターン(8+6種)の一覧を含む(2026-09)。2026-10-05、Material 3のコンポーネント分類(Date pickers・Time pickersはSelection)に合わせてText inputsから移動(/components/selection/date-time-picker) |
 
@@ -129,11 +129,11 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 
 ## 合計
 
-**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 49 + 横断ビュー 1 = 66ページ**(トップページ `index.jsx` を含めると67ページ。2026-11時点)
+**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 48 + 横断ビュー 1 = 65ページ**(トップページ `index.jsx` を含めると66ページ。2026-11時点)
 
-コンポーネントレイヤーの内訳: Actions 4 / Selection 11 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
+コンポーネントレイヤーの内訳: Actions 4 / Selection 10 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
 
-2026-11の変更(⑦本人レビュー): Navigationの先頭に「Navigationの選び方」(/components/navigation/overview、No.049)を新規作成。「ウィザード(ステップ形式の入力)」をText inputsからNavigationへ移動(No.067。URLは変えていない)。Communicationで「ローディング状態」を「プログレスインジケーター」の上へ移動(No.066)。「ドロワー/サイドナビ」の常に表示する側の呼び名を「サイドナビ」にそろえた(No.049)。「バナー」のページを「ステータスメッセージ(アラート)」のバナーの節(#banner)に統合し、ページを削除(No.065)。
+2026-11の変更(⑦本人レビュー): Navigationの先頭に「Navigationの選び方」(/components/navigation/overview、No.049)を新規作成。「ウィザード(ステップ形式の入力)」をText inputsからNavigationへ移動(No.067。URLは変えていない)。Communicationで「ローディング状態」を「プログレスインジケーター」の上へ移動(No.066)。「ドロワー/サイドナビ」の常に表示する側の呼び名を「サイドナビ」にそろえた(No.049)。「バナー」のページを「ステータスメッセージ(アラート)」のバナーの節(#banner)に統合し、ページを削除(No.065)。「カレンダー(スケジュール/予定表)」のページを削除(No.035)。「セレクトの種類(プルダウン以外)」を「セレクトの種類」に改名し、セレクト(プルダウン)の上へ移動(No.030)。
 
 2026-11の構造の変更(③本人レビューのフェーズ3): 「オーバーレイの使い分け」(Containmentの先頭、No.045)、「ウィザード(ステップ形式の入力)」(Text inputs、No.046)を新規作成。「アラート/バナー」を「ステータスメッセージ(アラート)」と「バナー」に、「空状態・ローディング状態」を「空状態」と「ローディング状態」に分けた(No.060・062)。「ダイアログ」を「モーダルダイアログ」に改名(No.045)。ドロワーをNavigationへ移し、ページ内でナビゲーションドロワーとナビゲーションレール/サイドバーに分けて比較(No.049)。
 

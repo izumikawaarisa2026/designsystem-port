@@ -37,13 +37,12 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "チェックボックス", "path": "/components/selection/checkbox", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "ラジオボタン", "path": "/components/selection/radio", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "トグルスイッチ", "path": "/components/selection/toggle", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
+  {"group": "Selection", "label": "セレクトの種類", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "セレクト(プルダウン)", "path": "/components/selection/select", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
-  {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "チップ(Chips)", "path": "/components/selection/chips", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "検索・絞り込み"]},
   {"group": "Selection", "label": "スライダー", "path": "/components/selection/slider", "principles": ["操作可能(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
-  {"group": "Selection", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "テキストフィールド・テキストエリア", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
@@ -79,7 +78,7 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Interaction", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
-  {"group": "Interaction", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Interaction", "label": "モーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Interaction", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
 ];
 /*__TAG_INDEX_END__*/

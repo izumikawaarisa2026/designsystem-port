@@ -36,7 +36,6 @@
   "/components/communication/badge",
   "/components/communication/empty-state",
   "/components/text-inputs/text-field",
-  "/components/text-inputs/calendar",
   "/components/text-inputs/validation",
   "/components/communication/overview",
   "/",

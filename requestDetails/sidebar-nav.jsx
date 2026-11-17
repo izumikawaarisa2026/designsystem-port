@@ -57,13 +57,12 @@ export const NAV_SECTIONS = [
       { label: "チェックボックス", path: "/components/selection/checkbox", built: true },
       { label: "ラジオボタン", path: "/components/selection/radio", built: true },
       { label: "トグルスイッチ", path: "/components/selection/toggle", built: true },
+      { label: "セレクトの種類", path: "/components/selection/select-patterns", built: true },
       { label: "セレクト(プルダウン)", path: "/components/selection/select", built: true },
-      { label: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", built: true },
       { label: "メニュー", path: "/components/selection/menu", built: true },
       { label: "チップ(Chips)", path: "/components/selection/chips", built: true },
       { label: "スライダー", path: "/components/selection/slider", built: true },
       { label: "日付/タイムピッカー", path: "/components/selection/date-time-picker", built: true },
-      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
     ],
   },
   {
@@ -124,7 +123,7 @@ export const NAV_SECTIONS = [
     title: "Interaction",
     items: [
       { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
-      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
+      { label: "モーション", path: "/tokens/motion", built: true },
       { label: "サウンド", path: "/tokens/sound", built: true },
     ],
   },

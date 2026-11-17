@@ -47,12 +47,12 @@ const SOURCES = [
     color: "#C2542A",
     position: <>iOS/iPadOSの日付ピッカーは、<Hl>コンパクト・インライン・ホイール・自動の4スタイル</Hl>と、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル</>,
     size:
-      "寸法(pt)の記載なし。分の選択肢は既定で60個(0〜59)で、60を割り切れる間隔(例: 15分刻み)に減らせる。",
-    colorInfo: "コンパクトスタイルのボタンは、今の値をアプリのアクセントカラーで表示する。ほかの色の規定はない。",
+      <><NoData>寸法の記載なし</NoData>。分の選択肢は既定で60個で、<Hl>15分刻みのように減らせる</Hl>。</>,
+    colorInfo: "コンパクトスタイルのボタンは、今の値をアクセントカラーで表示する。",
     stance:
-      "ピッカーは、1つか複数の部分からなる値を選ばせるコンポーネント。日付ピッカーは、カレンダーで日を選ぶ・数字キーで入力する、といった方法も持つ。表示される値と並び順は、端末の言語・地域で変わる。場所が限られるときはコンパクトスタイルを使い、ボタンを押すとカレンダー形式の編集画面と時刻ピッカーがモーダルで開き、外側を押して確定する。",
+      <>値と並び順は端末の言語・地域で変わる。<Hl>場所が限られるときはコンパクトスタイル</Hl>にし、押すとカレンダーと時刻の編集画面がモーダルで開く。</>,
     exceptions:
-      "選択肢が少なければプルダウンボタン、とても多ければリストやテーブルが向く。ピッカーは画面を切り替えずに、編集中の項目の近く(画面下部やポップオーバー)に出す。カウントダウンタイマーは最大23時間59分で、インライン・コンパクトでは使えない。",
+      "選択肢が少なければプルダウンボタン、とても多ければリストが向く。ピッカーは編集中の項目の近くに出す。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "場所が限られるならコンパクト、画面の中で見せたいならインラインを使う",
@@ -85,18 +85,18 @@ const SOURCES = [
     term: "Date picker・Time picker",
     color: "#2F7D6E",
     position: <>日付は<Hl>ドッキング・モーダル・モーダル入力の3種類</Hl>(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類</>,
-    size: "モーダルの日付ピッカーは360×568dp、日付の丸は40×40dp、見出し部分の高さは120dp(Jetpack Composeのトークン)。容器の角丸はExtra large(28dp)。",
-    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
+    size: <>モーダルは<Hl>360×568dp</Hl>、日付の丸は40×40dp(Jetpack Composeのトークン)。角丸は28dp。</>,
+    colorInfo: "選んだ日はprimaryの塗り、今日の日付はprimaryの枠線で示す。",
     glossary: [
       { term: "ドッキング / モーダル / モーダル入力", desc: "ドッキングは入力欄に付いた形で、押すとカレンダーがドロップダウンで開く。モーダルはダイアログのカレンダー。モーダル入力はダイアログの中の文字入力。モーダルとモーダル入力は期間(開始日〜終了日)の選択にも使える。" },
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      "ドッキングは入力欄を既定で出し、押すとカレンダーがドロップダウンで開く。入力とカレンダーのどちらでも入れられるため、近い日付にも遠い日付にも向く。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類。",
+      <><Hl>ドッキングは入力とカレンダーのどちらでも入れられ</Hl>、近い日付にも遠い日付にも向く。モーダルはカレンダー、モーダル入力はキーボードの数字で入れる。</>,
     exceptions:
-      "生年月日のような遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使う。タイトルは開いたときに読み上げられるため、「予約日を選択」のように作業が分かる文言にする。",
+      "生年月日のような遠い日付では、モーダル入力かドッキングを使う。タイトルは「予約日を選択」のように作業が分かる文言にする。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応し、ダイアログを開くとタイトルが読み上げられる。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― ダイアログを開くとタイトルが読み上げられる。",
     useCases: [
       "近い日付・遠い日付のどちらもあり得るならドッキングを使う",
       "予約など期間を選ばせる場合は、モーダルの期間選択を使う",
@@ -128,23 +128,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
     term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
-    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはダイアログの中の、矢印キーで移動できる表(グリッド)で",
+    position: <><Hl>日付を文字で入力する欄と、カレンダーを開くボタンを組み合わせる</Hl>例(APG)</>,
     size:
-      "専用の数値基準はない。各日付のボタンにも、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
-    colorInfo: "1.4.11(非テキストのコントラスト)により、選択中の日付を示す見た目は3:1以上のコントラスト比にする。",
+      <><NoData>専用の数値基準なし</NoData>。日付のボタンには一般のターゲットサイズの基準(2.5.8/2.5.5。どちらも例外あり)がかかる。</>,
+    colorInfo: "選択中の日付を示す見た目は3:1以上(1.4.11)。",
     glossary: [
       { term: "グリッドの中のフォーカス", desc: "Tabキーではグリッドの中の1つのセル(選択中の日など)にだけ止まり、グリッドの中は矢印キーで移動する考え方。" },
     ],
     stance:
-      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーは、行・列の見出し・日付のセルを持つ表(グリッド)として扱う。月・年の見出しが変わったら、変化を支援技術に知らせる。</>,
+      <>入力欄には形式を添える(「mm/dd/yyyy」など)。カレンダーはダイアログの中の表として扱い、月・年が変わったら支援技術に知らせる。</>,
     exceptions:
-      "ダイアログを開いたとき、入力欄が空か無効な日付なら今日に、有効な日付が入っていればカレンダーのその日にフォーカスを当てる。Esc・OK・Cancelのどれでも閉じられ、閉じたらきっかけのボタンにフォーカスが戻る。APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差があるとも書かれている)。実装したら実際の支援技術で確かめる。",
+      "開いたら選択中の日(なければ今日)にフォーカスし、閉じたらボタンへ戻す。APGの例はそのまま本番に使わないよう注意書きがある。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドの中を矢印キーで移動できるキーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
+      "堅牢(Robust)・操作可能(Operable) ― キーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
     useCases: [
       "日付を文字で入力できる欄(形式の説明付き)を置き、カレンダーは補助として開けるようにする",
-      "カレンダー本体は表(グリッド)として扱い、Tabでは1つのセルにだけ止め、中は矢印キーで移動させる",
-      "上下=週・左右=日、Page Up/Down=月(Shiftで年)、Home/End=週の始点/終点というキー操作を実装する",
+      "カレンダーは表として扱い、キーボードでも日付を移動できるようにする",
       "ダイアログを閉じたらトリガーボタンにフォーカスを戻す",
     ],
     searchHint: "roving tabindex",
@@ -169,14 +168,14 @@ const SOURCES = [
     doc: "Date-Input Form Fields: UX Design Guidelines",
     term: "Date input(日付の入力欄)・Calendar picker",
     color: "#7A4F7E",
-    position: "多くの場面では自由入力を勧める。カレンダーは近い日付と期間の選択に限る",
+    position: <><Hl>多くの場面では自由入力</Hl>を勧める。カレンダーは近い日付と期間の選択に限る</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>多くの場面で、<Hl>日付は自由入力(フリーテキスト)で入れさせる</Hl>。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的。カレンダーは、今に近い(1年未満程度の)日付や、期間の選択(2か月分を並べるなど)に向く。ドロップダウンは選択肢が10個未満の場合に限り、月/日/年に分けたドロップダウンはクリックを増やすため避ける。</>,
+      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く。月/日/年に分けたドロップダウンは避ける。</>,
     exceptions:
-      "ドロップダウンは選択肢が10個未満の場合だけ(月/日/年に分けたものは避ける)。9-3-17、09/08/17、9.3.17のような書式の揺れは、特殊文字を強制せずに受け入れる。月名は省略せず綴り、欄にははっきりラベルを付ける(「10/11/2016」は米国式・欧州式で解釈が分かれるため)。到着日より前の出発日のようなありえない選択肢は先に除き、使えない日は選べなくし、エラーには具体的な訂正案を示す。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、入力の効率とエラーの率にもとづく使い分けの指針。",
+      "書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。",
+    accessibility: "根拠となる原則 ― 入力の効率とエラーの率にもとづく指針。",
     useCases: [
       "誕生日や遠い日付では自由入力(フリーテキスト)を第一の選択肢にする",
       "近い日付と期間の選択にはカレンダーを使う",
@@ -200,6 +199,7 @@ const SOURCES = [
 const INPUT_METHODS = [
   {
     key: "text",
+    fig: "a-mac-text",
     name: "フリーテキスト入力",
     represents: "NN groupが多くの場面で第一選択として推奨。Googleのモーダル入力・時刻の入力、AppleのmacOSのテキスト形式もこの形式。",
     doText: "誕生日・契約日など、現在から離れた日付を入力させたい時",
@@ -207,6 +207,7 @@ const INPUT_METHODS = [
   },
   {
     key: "calendar",
+    fig: "g-modal",
     name: "カレンダー(グリッド型)",
     represents: "W3C(ARIA APG Date Picker Dialog)、Googleのドッキング・モーダル、Appleのコンパクト・インライン・macOSのグラフィカル形式が採用。",
     doText: "近い将来(1年未満程度)の日付や、日付の範囲選択をさせたい時",
@@ -214,13 +215,15 @@ const INPUT_METHODS = [
   },
   {
     key: "wheel",
-    name: "ホイール(スクロール選択)",
+    fig: "a-wheels",
+    name: "ホイールピッカー",
     represents: "Appleのホイールスタイル(iOS・watchOS)が採用。時刻・カウントダウンタイマーの選択にも向く。",
     doText: "順序があり予測しやすい値(時刻・月など)を素早く選ばせたい時",
     dontText: "選択肢が非常に多い、または不規則な値を選ばせたい時(→テーブルやテキスト入力)",
   },
   {
     key: "dial",
+    fig: "g-dial",
     name: "ダイヤル(時計の文字盤)",
     represents: "Googleの時刻ピッカー(ダイヤル)が採用。AppleのmacOSのグラフィカル形式にも時計の文字盤の見た目がある。",
     doText: "アラームや予定の時刻を、時計の感覚で直感的に合わせてほしい時",
@@ -229,22 +232,22 @@ const INPUT_METHODS = [
 ];
 
 function InputMethodsSummary() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const td = { padding: "10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top", fontSize: 12, lineHeight: 1.6, color: "#2E3457" };
   return (
-    <div style={styles.methodGrid}>
-      {INPUT_METHODS.map((m) => (
-        <div key={m.key} style={styles.methodCard}>
-          <div style={styles.methodName}>{m.name}</div>
-          <div style={styles.methodRepresents}>{m.represents}</div>
-          <div style={styles.methodUsageRow}>
-            <span style={{ ...styles.methodUsageMark, ...styles.methodUsageMarkOk }}>推奨</span>
-            <span style={styles.methodUsageText}>{m.doText}</span>
-          </div>
-          <div style={styles.methodUsageRow}>
-            <span style={{ ...styles.methodUsageMark, ...styles.methodUsageMarkNg }}>NG</span>
-            <span style={styles.methodUsageText}>{m.dontText}</span>
-          </div>
-        </div>
-      ))}
+    <div style={{ overflowX: "auto", marginBottom: 8 }}>
+      <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse" }}>
+        <thead><tr>{["入力方法", "イメージ", "採用している系列", "向いている場面", "向かない場面"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+        <tbody>{INPUT_METHODS.map((m) => (
+          <tr key={m.key}>
+            <td style={{ ...td, fontWeight: 700, color: "#171B36", whiteSpace: "nowrap" }}>{m.name}</td>
+            <td style={{ ...td, width: 150 }}><div style={{ transform: "scale(0.85)", transformOrigin: "top left" }}><PatternMockup kind={m.fig} color="#3C5A73" /></div></td>
+            <td style={td}>{m.represents}</td>
+            <td style={td}><span style={{ fontWeight: 700, color: "#2F7D6E", marginRight: 4 }}>推奨</span>{m.doText}</td>
+            <td style={td}><span style={{ fontWeight: 700, color: "#C0503F", marginRight: 4 }}>NG</span>{m.dontText}</td>
+          </tr>
+        ))}</tbody>
+      </table>
     </div>
   );
 }
@@ -257,14 +260,14 @@ const PATTERNS = [
     color: "#C2542A",
     note: "iOS/iPadOSは「スタイル(見た目)」と「モード(選ぶ値)」の組み合わせで決まる。スタイルはコンパクト・インライン・ホイール・自動(システムが決める)の4つ、モードは日付・時刻・日付と時刻・カウントダウンタイマーの4つだ。",
     items: [
-      { kind: "a-compact", name: "コンパクト", platform: "iOS / iPadOS", method: "カレンダー", desc: "現在の値をアクセントカラーのボタンで表示。タップするとカレンダーと時刻の編集画面がモーダルで開き、外側をタップして確定する。スペースが限られるとき向け。" },
-      { kind: "a-inline", name: "インライン(日付)", platform: "iOS / iPadOS", method: "カレンダー", desc: "日付を含むモードでは、カレンダーを画面の中に埋め込んで表示する。" },
-      { kind: "a-inline-time", name: "インライン(時刻のみ)", platform: "iOS / iPadOS", method: "ホイール", desc: "時刻だけを選ぶモードでは、インラインのボタンをタップするとホイールが表示される。" },
-      { kind: "a-wheels", name: "ホイール", platform: "iOS / iPadOS", method: "ホイール", desc: "回転するホイールで値を選ぶ。内蔵・外付けキーボードからの入力にも対応する。" },
-      { kind: "a-countdown", name: "カウントダウンタイマー(モード)", platform: "iOS / iPadOS", method: "ホイール", desc: "時間と分を選ぶ(最大23時間59分)。インライン・コンパクトのスタイルでは使えない。" },
-      { kind: "a-mac-text", name: "テキスト形式", platform: "macOS", method: "テキスト入力", desc: "日時を文字で入力する形。スペースが限られ、特定の日時を入力してもらう場面向け。" },
-      { kind: "a-mac-graphic", name: "グラフィカル形式", platform: "macOS", method: "カレンダー", desc: "カレンダーで日を見比べたり期間を選んだりする形。時計の文字盤の見た目も選べる。" },
-      { kind: "a-watch", name: "ホイール(Digital Crown)", platform: "watchOS", method: "ホイール", desc: "Digital Crownを回して値を選ぶ。日付・時刻のピッカーもホイールで表示する。" },
+      { kind: "a-compact", name: "コンパクト", platform: "iOS / iPadOS", method: "カレンダー", desc: "現在の値をアクセントカラーのボタンで表示。タップするとカレンダーと時刻の編集画面がモーダルで開き、外側をタップして確定する。スペースが限られるとき向け。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-inline", name: "インライン(日付)", platform: "iOS / iPadOS", method: "カレンダー", desc: "日付を含むモードでは、カレンダーを画面の中に埋め込んで表示する。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-inline-time", name: "インライン(時刻のみ)", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "時刻だけを選ぶモードでは、インラインのボタンをタップするとホイールが表示される。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-wheels", name: "ホイール", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "回転するホイールで値を選ぶ。内蔵・外付けキーボードからの入力にも対応する。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-countdown", name: "カウントダウンタイマー(モード)", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "時間と分を選ぶ(最大23時間59分)。インライン・コンパクトのスタイルでは使えない。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-mac-text", name: "テキスト形式", platform: "macOS", method: "テキスト入力", desc: "日時を文字で入力する形。スペースが限られ、特定の日時を入力してもらう場面向け。", link: ["Pickers ― macOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS"] },
+      { kind: "a-mac-graphic", name: "グラフィカル形式", platform: "macOS", method: "カレンダー", desc: "カレンダーで日を見比べたり期間を選んだりする形。時計の文字盤の見た目も選べる。", link: ["Pickers ― macOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS"] },
+      { kind: "a-watch", name: "ホイール(Digital Crown)", platform: "watchOS", method: "ホイールピッカー", desc: "Digital Crownを回して値を選ぶ。日付・時刻のピッカーもホイールで表示する。", link: ["Pickers ― watchOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#watchOS"] },
     ],
   },
   {
@@ -273,12 +276,12 @@ const PATTERNS = [
     color: "#2F7D6E",
     note: "日付ピッカー(3種類+期間選択)と時刻ピッカー(2種類)は別のコンポーネントだ。モーダルとモーダル入力は、1日だけでなく期間(開始日〜終了日)の選択にも使える。",
     items: [
-      { kind: "g-docked", name: "ドッキング", platform: "日付", method: "テキスト入力+カレンダー", desc: "入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く。どちらでも入力でき、近い日付にも遠い日付にも向く。" },
-      { kind: "g-modal", name: "モーダル", platform: "日付", method: "カレンダー", desc: "ダイアログでカレンダーを表示。横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。" },
-      { kind: "g-range", name: "モーダル(期間選択)", platform: "日付", method: "カレンダー", desc: "開始日と終了日をタップして期間を選ぶ全画面の形。フライトやホテルの予約が代表例。" },
-      { kind: "g-input", name: "モーダル入力", platform: "日付", method: "テキスト入力", desc: "ダイアログの中で、キーボードの数字で日付(または期間)を入力する。" },
-      { kind: "g-dial", name: "ダイヤル", platform: "時刻", method: "ダイヤル", desc: "文字盤のつまみを回して時刻を合わせる。アラームや予定の設定によく使われる。" },
-      { kind: "g-tinput", name: "入力", platform: "時刻", method: "テキスト入力", desc: "キーボードで時・分を入力する。どのダイヤルからもキーボードアイコンで切り替えられる。" },
+      { kind: "g-docked", name: "ドッキング", platform: "日付", method: "テキスト入力+カレンダー", desc: "入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く。どちらでも入力でき、近い日付にも遠い日付にも向く。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-modal", name: "モーダル", platform: "日付", method: "カレンダー", desc: "ダイアログでカレンダーを表示。横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-range", name: "モーダル(期間選択)", platform: "日付", method: "カレンダー", desc: "開始日と終了日をタップして期間を選ぶ全画面の形。フライトやホテルの予約が代表例。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-input", name: "モーダル入力", platform: "日付", method: "テキスト入力", desc: "ダイアログの中で、キーボードの数字で日付(または期間)を入力する。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-dial", name: "ダイヤル", platform: "時刻", method: "ダイヤル", desc: "文字盤のつまみを回して時刻を合わせる。アラームや予定の設定によく使われる。", link: ["Time pickers", "https://m3.material.io/components/time-pickers/guidelines"] },
+      { kind: "g-tinput", name: "入力", platform: "時刻", method: "テキスト入力", desc: "キーボードで時・分を入力する。どのダイヤルからもキーボードアイコンで切り替えられる。", link: ["Time pickers", "https://m3.material.io/components/time-pickers/guidelines"] },
     ],
   },
 ];
@@ -458,6 +461,7 @@ function PatternGallery() {
                   <span style={styles.patternChip}>{it.method}</span>
                 </div>
                 <div style={styles.patternDesc}>{it.desc}</div>
+                {it.link && <a href={it.link[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 6, fontSize: 11, color: "#3A4FCF" }}>{it.link[0]} ↗</a>}
               </div>
             ))}
           </div>
@@ -513,7 +517,7 @@ const LEAD = "カレンダーや回転する一覧などで、日付や時刻を
 const ABOUT = [
   { k: "目的・役割", v: "日付・時刻を、形式の間違いなく入力してもらう" },
   { k: "よく使われる場面", v: "予約日・生年月日・アラームの時刻の入力" },
-  { k: "似たコンポーネント", v: <>予定を一覧で見せる画面は<PageLink to="/components/text-inputs/calendar">カレンダー(スケジュール/予定表)</PageLink></> },
+  { k: "似たコンポーネント", v: <>年月日を自由に打つなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -675,7 +679,7 @@ export default function SelectionDateTimePickerPage() {
             </div>
           </div>
 
-          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/calendar", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
+          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

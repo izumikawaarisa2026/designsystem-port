@@ -117,13 +117,12 @@ const NAV_SECTIONS = [
       { label: "チェックボックス", path: "/components/selection/checkbox", built: true },
       { label: "ラジオボタン", path: "/components/selection/radio", built: true },
       { label: "トグルスイッチ", path: "/components/selection/toggle", built: true },
+      { label: "セレクトの種類", path: "/components/selection/select-patterns", built: true },
       { label: "セレクト(プルダウン)", path: "/components/selection/select", built: true },
-      { label: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", built: true },
       { label: "メニュー", path: "/components/selection/menu", built: true },
       { label: "チップ(Chips)", path: "/components/selection/chips", built: true },
       { label: "スライダー", path: "/components/selection/slider", built: true },
       { label: "日付/タイムピッカー", path: "/components/selection/date-time-picker", built: true },
-      { label: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", built: true },
     ],
   },
   {
@@ -184,7 +183,7 @@ const NAV_SECTIONS = [
     title: "Interaction",
     items: [
       { label: "入力方法・ジェスチャー", path: "/tokens/input-methods", built: true },
-      { label: "モーション/アニメーション", path: "/tokens/motion", built: true },
+      { label: "モーション", path: "/tokens/motion", built: true },
       { label: "サウンド", path: "/tokens/sound", built: true },
     ],
   },
@@ -518,7 +517,6 @@ function GoodBad({ title, items, basis, note }) {
         ))}
       </div>
       {basis && <p style={partStyles.gbBasis}>根拠: {basis}</p>}
-      <p style={partStyles.gbBasis}>図は概念図。</p>
       {note && <p style={partStyles.gbBasis}>{note}</p>}
     </section>
   );
@@ -718,13 +716,13 @@ const PAGE_INDEX = {
   "label": "トグルスイッチ",
   "lead": "押すとオンとオフがすぐに切り替わる、スイッチの形のコンポーネント"
  },
+ "/components/selection/select-patterns": {
+  "label": "セレクトの種類",
+  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
+ },
  "/components/selection/select": {
   "label": "セレクト(プルダウン)",
   "lead": "押すと選択肢の一覧が開き、その中から値を選ぶコンポーネント(プルダウン)"
- },
- "/components/selection/select-patterns": {
-  "label": "セレクトの種類(プルダウン以外)",
-  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
  },
  "/components/selection/menu": {
   "label": "メニュー",
@@ -741,10 +739,6 @@ const PAGE_INDEX = {
  "/components/selection/date-time-picker": {
   "label": "日付/タイムピッカー",
   "lead": "カレンダーや回転する一覧などで、日付や時刻を選んで入力するコンポーネント"
- },
- "/components/text-inputs/calendar": {
-  "label": "カレンダー(スケジュール/予定表)",
-  "lead": "予定を日・週・月などの表で見せる画面(予定表そのものの指針は4系列ともない)"
  },
  "/components/text-inputs/text-field": {
   "label": "テキストフィールド・テキストエリア",
@@ -887,8 +881,8 @@ const PAGE_INDEX = {
   "lead": "タップ・スワイプなどのジェスチャーと、マウス・キーボード・ペンなどの入力手段の扱い方の決まり"
  },
  "/tokens/motion": {
-  "label": "モーション/アニメーション",
-  "lead": "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まり"
+  "label": "モーション",
+  "lead": "UIの動き(モーション)の長さ、緩急、動きを減らす配慮の決まり"
  },
  "/tokens/sound": {
   "label": "サウンド",
@@ -1043,9 +1037,9 @@ const TAB_ACCESSIBILITY = [
     value: "44 × 44",
     unit: "pt",
     stance:
-      "Buttonsのページは、押せる範囲(ヒット領域)を44×44pt以上とする。Accessibilityのページ(2025年3月の改訂)は、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28pt。小さすぎるコントロールは選びにくいため、推奨の最小サイズを満たす。",
+      <>押せる範囲は<Hl>既定44×44pt・最小28×28pt</Hl>(iOS/iPadOS)。</>,
     exceptions:
-      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までを最小のサイズとして認める(macOSは既定28・最小20、watchOSは既定44・最小28)。コンポーネントどうしの間隔も大きさと同じくらい重要で、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取る。",
+      "macOSは既定28・最小20pt、watchOSは既定44・最小28pt。枠のある要素のまわりに約12pt、枠のない要素は約24ptの余白を取る。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "Offer sufficiently sized controls",
@@ -1059,9 +1053,9 @@ const TAB_ACCESSIBILITY = [
     value: "48 × 48",
     unit: "dp",
     stance:
-      "操作できる要素は、タッチターゲットを48×48dp以上にする。密度(density)を上げても、この値を下回らない。",
+      <>押せる範囲は<Hl>48×48dp以上</Hl>。密度を上げても下回らない。</>,
     exceptions:
-      "アイコンの見た目(24dpなど)は小さくてよいが、押せる範囲を48×48dp未満に縮めることは勧めていない。",
+      "アイコンの見た目(24dpなど)は小さくてよいが、押せる範囲は48dp未満にしない。",
     scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 48, type: "caution" }, { from: 48, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 48, label: "48" }], caption: "24dp=標準のアイコンの大きさ(XSのアイコンボタンは20dp) / 48dp=タップ判定領域の下限(この2つは別管理)。" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "touch target",
@@ -1075,11 +1069,11 @@ const TAB_ACCESSIBILITY = [
     value: "24〜44",
     unit: "CSS px",
     stance:
-      "レベルAA(2.5.8)は24×24px以上が基本で、足りなければ周りの間隔で補える。より厳しいレベルAAA(2.5.5)は44×44px。",
+      <><Hl>24×24px以上</Hl>(2.5.8・AA)。足りなければ周りの間隔で補える。AAA(2.5.5)は44×44px。</>,
     exceptions:
-      "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、ターゲットの中心に直径24pxの円を描き、隣のターゲットや隣の円と重ならない)、②同じ機能を持つ十分な大きさのターゲットが同じページに別にある、③文中のリンクなど、文章の行の中にある、④ブラウザなどユーザーエージェントが大きさを決めていて作り手が変えていない、⑤その大きさや配置そのものに意味があり欠かせない(地図のピンなど)。どれかに当てはまれば24px未満でも適合する。2.5.5(AAA)の44pxにも、②〜⑤と同じ種類の例外がある。この条件分岐はほかの3系列にない。",
+      "2.5.8の例外は5つ: ①間隔(中心に直径24pxの円を描き、隣と重ならない)、②同じ機能の十分な大きさのものが別にある、③文中のリンク、④ブラウザ標準のまま、⑤大きさに意味があり欠かせない(地図のピンなど)。",
     scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }], caption: "24px=レベルAA(例外あり) / 44px=レベルAAA(例外あり)。" },
-    pourDetail: "操作可能(Operable) ― POUR原則(知覚可能・操作可能・理解可能・堅牢)を定義している一次情報。ほかの3系列が従う分類の出どころ。",
+    pourDetail: "操作可能(Operable) ― 2.5.8(AA)・2.5.5(AAA)。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
     refs: [{ kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" }, { kind: "sc", level: "AAA", label: "2.5.5 ターゲットのサイズ(高度)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" }],
@@ -1091,9 +1085,9 @@ const TAB_ACCESSIBILITY = [
     value: "約 1 × 1",
     unit: "cm",
     stance:
-      "フィッツの法則(対象が小さく遠いほど届くのに時間がかかる)を根拠に、指の平均的な接地面積から1cm四方以上を目安とする。",
+      <>フィッツの法則を根拠に、<Hl>1cm四方以上</Hl>を目安とする。</>,
     exceptions:
-      "緩和の条件は示していないが、ターゲットが1つの場合と密集する場合とでは求められる正確さが違うと指摘する。密なUIほど、大きさより余白で補う考え方(数値の例外ではなく設計の指針)。",
+      "密なUIほど、大きさより余白で補う。",
     scale: { bands: [{ from: 0, to: 34, type: "ng" }, { from: 34, to: 42, type: "caution" }, { from: 42, to: 60, type: "ok" }], markers: [{ at: 38, label: "~38" }], caption: "1cmをpx換算した目安(画面密度により変動、幅を持たせて表示)。" },
     pourDetail: "根拠となる原則 ― 適合区分ではなく、フィッツの法則という設計の根拠(なぜ大きいほうがよいか)。",
     searchHint: "1cm",
@@ -1118,8 +1112,8 @@ const TAB_STYLES = [
     term: "Button(役割はNormal・Primary・Cancel・Destructive)",
     position: "意味的な役割で4分類(Normal/Primary/Cancel/Destructive)",
     stance:
-      <>ボタンには「Role(役割)」があり、<Hl>Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類</Hl>。役割で見た目も変わり、Primaryはアプリのアクセントカラー、Destructiveはシステムの赤を使う。</>,
-    exceptions: "破壊的な操作(Destructive)には、選ばれやすい操作でもPrimaryの役割を割り当てない。目立つため、内容を読まずに選ばれる危険がある。",
+      <>役割(Role)で<Hl>Normal・Primary・Cancel・Destructiveの4種類</Hl>。Primaryはアクセントカラー、Destructiveはシステムの赤を使う。</>,
+    exceptions: "壊す操作(Destructive)には、Primaryの役割を割り当てない(読まずに選ばれる危険がある)。",
     pourDetail: "―(役割の分類はPOURの適合区分ではないが、誤操作を防ぐ点で理解可能に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
@@ -1140,8 +1134,8 @@ const TAB_STYLES = [
     term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義</Hl>。番号は公式の並び順(公式は強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明する)。見た目で最も目立つのはFilled。M3 Expressiveでは、大きさをXS 32・S 40・M 56・L 96・XL 136dp(高さ)の5段階、形を丸・四角の2種類から選べ、選ぶと形が変わるトグルボタンや、複数のボタンをまとめるボタングループもある(Jetpack Composeのトークンで確認。角丸の段階は<PageLink to="/tokens/shape">シェイプ</PageLink>のページ)。</>,
-    exceptions: "Elevatedは実質Filled tonalに影を加えたもので、背景から分けて見せる必要がある場合に限って使う(影の使いすぎを避けるため)。",
+      <>優先度で<Hl>Elevated・Filled・Filled tonal・Outlined・Textの5種類</Hl>。いちばん目立つのはFilled。M3 Expressiveでは大きさ5段階(高さ32〜136dp)と形2種類も選べる。</>,
+    exceptions: "Elevatedは、背景から分けて見せる必要がある場合に限る。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -1170,8 +1164,8 @@ const TAB_STYLES = [
     term: "ボタン(WAI-ARIAの役割)",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
-      "ボタンの見た目の種類を分ける基準はない。ただし1.4.11(非テキストのコントラスト)は、ボタンの境界や状態を背景から見分けられるコントラスト(3:1以上)を求め、種類を問わずすべてのボタンに関わる。",
-    exceptions: "文字だけで境界線や塗りのないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくい。ただしラベルの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。",
+      <>種類の基準はない。ただし<Hl>どの種類のボタンも、境界や状態を背景と3:1以上で見分けられる</Hl>ようにする(1.4.11)。</>,
+    exceptions: "文字だけのボタンは1.4.11の対象になりにくいが、ラベルの文字には4.5:1(1.4.3)がかかる。",
     pourDetail: "知覚可能(Perceivable) ― 1.4.11は「知覚可能」の達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
@@ -1196,8 +1190,8 @@ const TAB_STYLES = [
     term: "Button(主要な操作=Primary、副次的な操作=Secondary)",
     position: "色による優先度づけ(数値基準ではなく原則)",
     stance:
-      <><Hl>主要な操作(Primary)には専用の色を確保し</Hl>、副次的な操作(Secondary)と見分けられるようにする。同じ色のボタンが並ぶと同じ重要度に見え、主要な操作を見分けにくくなる。</>,
-    exceptions: "特定の形(塗り・枠線・文字のみなど)を勧める基準ではなく、色で優先度を伝える原則。",
+      <><Hl>主要な操作には専用の色を確保し</Hl>、ほかの操作と見分けられるようにする。</>,
+    exceptions: "特定の形を勧めるものではなく、色で優先度を伝える原則。",
     pourDetail: "根拠となる原則 ― 適合区分ではなく、見た目の知覚(ゲシュタルトの類同の原理)にもとづく設計の根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
@@ -1218,8 +1212,8 @@ const TAB_STATES = [
     doc: "Human Interface Guidelines ― Buttonsページ",
     position: "共通の状態の一覧はなく、プラットフォームごとに定める。独自のボタンには押した状態を必ず用意する",
     stance:
-      <>システムのボタンには状態が組み込まれている。共通の状態の一覧はなく、<Hl>プラットフォームごとに定めている</Hl>。<Hl>独自に作るボタンには、押した状態(press state)を必ず用意する</Hl>(ないと反応していないように感じられるため)。時間がかかる処理では、ボタンの中にアクティビティインジケーターを出し、ラベルを一時的に変える(例:「購入」→「購入中…」)。</>,
-    exceptions: "処理中は、ボタンの画像を隠してインジケーターとラベルを出す、という切り替え方を示している。",
+      <>共通の状態の一覧はなく、<Hl>独自に作るボタンには押した状態を必ず用意する</Hl>。時間がかかる処理では、ボタンの中にインジケーターを出し、ラベルを変える(「購入」→「購入中…」)。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "理解可能(Understandable) ― 処理中であることを伝える。",
     searchHint: "activity indicator",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
@@ -1238,8 +1232,8 @@ const TAB_STATES = [
     doc: "Material Design 3 ― Interaction states",
     position: "6つの状態を体系化(Enabled/Disabled/Hover/Focused/Pressed/Dragged)",
     stance:
-      <>操作できる要素に共通する「状態レイヤー(state layer)」で、<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理する</Hl>。例としてDisabledは、有効時の強いコントラストのコンテナと文字に対し、グレー地にグレーの文字という低いコントラストで表す。</>,
-    exceptions: "Draggedは主にドラッグできる要素(FABなど)向けで、通常のボタンには使わない場合がある。",
+      <>状態レイヤーで<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態</Hl>を表す。</>,
+    exceptions: "Draggedは主にドラッグできる要素向け。",
     pourDetail: "知覚可能・操作可能 ― 状態を見分けられること(知覚可能)と、操作できるかを伝えること(操作可能)。",
     searchHint: "state layer",
     url: "https://m3.material.io/foundations/interaction/states/overview",
@@ -1261,8 +1255,8 @@ const TAB_STATES = [
     doc: "WCAG 4.1.2 / 1.4.11",
     position: "状態を支援技術に正しく伝える",
     stance:
-      "4.1.2(Name, Role, Value)は、ボタンの今の状態(押せるか、選択中かなど)を支援技術がプログラムで取得できること。1.4.11は、状態の見た目(フォーカスリングなど)にも十分なコントラストを求める。2.4.7(フォーカスの可視化・AA)は、キーボード操作でフォーカスの位置が見えること。",
-    exceptions: "ブラウザ標準のボタンなら、多くの場合これらの情報は自動で伝わる。独自に作ったボタンだけ追加の対応が要る。",
+      <><Hl>今の状態(押せるか、選択中かなど)を支援技術に伝える</Hl>(4.1.2)。状態の見た目は3:1以上(1.4.11)、フォーカスの位置は見えるように(2.4.7)。</>,
+    exceptions: "標準のボタンなら多くは自動で伝わる。独自のボタンだけ対応が要る。",
     pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」の達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
@@ -1280,8 +1274,8 @@ const TAB_STATES = [
     doc: "Button States: Communicate Interaction",
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
-      <><Hl>Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態</Hl>を、押せるかどうかを正しく伝える仕組みとして整理する。Enabledは、背景と文字の高いコントラストと、はっきり読めるラベルが特徴。</>,
-    exceptions: "5つのほかに、処理中のLoadingと、選ばれていることを示すSelectedにも触れる。「状態(States)」と「見た目のスタイル(Styles)」は別の概念で、混同しないよう注意している。",
+      <><Hl>Enabled・Disabled・Hover・Focus・Pressedの5状態</Hl>で、押せるかどうかを正しく伝える。</>,
+    exceptions: "ほかに処理中(Loading)と選択中(Selected)にも触れる。",
     pourDetail: "根拠となる原則 ― 適合区分ではなく、押せる/押せないを正しく伝えるための設計の根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
@@ -1299,7 +1293,7 @@ const TAB_STATES = [
 ];
 
 const TABS = [
-  { id: "a11y", label: "アクセシビリティ", data: TAB_ACCESSIBILITY, hasScale: true },
+  { id: "a11y", label: "押せる範囲の大きさ", data: TAB_ACCESSIBILITY, hasScale: true },
   { id: "styles", label: "種類・優先度", data: TAB_STYLES, hasScale: false },
   { id: "states", label: "状態", data: TAB_STATES, hasScale: false },
 ];
@@ -1586,6 +1580,7 @@ function ActionsButtonPage() {
           <SplitSection splits={SPLITS} />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>ボタンは比べる観点が多いため、3つに分けて比べる。<strong>押せる範囲の大きさ</strong>(何pt・dp・pxか)、<strong>種類・優先度</strong>(見た目の分け方)、<strong>状態</strong>(押せる・押した・使えないなど)。下のボタンで切り替える。</p>
 
           {isStatic && (
             <nav style={styles.segmented} aria-label="比較する項目へ移動">
@@ -1674,7 +1669,7 @@ const styles = {
   sourceUnit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 3 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "8px 0 10px" },
-  exceptionBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
+  exceptionBox: { background: "#FFFFFF", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   pourBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   illustrationBox: { margin: "10px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
@@ -1690,7 +1685,7 @@ const styles = {
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
+  exceptionCell: {},
   value: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 14 },
   unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 4 },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
@@ -1903,16 +1898,16 @@ function RangeScale({ scale }) {
 
 /* No.021: FABの種類・変形・ユースケース(Google。M3の本文とMaterial Components for Androidの説明による) */
 const FAB_KINDS = [
-  { t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
-  { t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
-  { t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
-  { t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
-  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小56dp・中80dp・大96dp(高さ)の3サイズ(Jetpack Composeのトークン)", tag: "" },
-  { t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
+  { fig: "fab", t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
+  { fig: "medium", t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
+  { fig: "large", t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
+  { fig: "small", t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
+  { fig: "extended", t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小56dp・中80dp・大96dp(高さ)の3サイズ(Jetpack Composeのトークン)", tag: "" },
+  { fig: "menu", t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
 ];
 const FAB_CHANGES = [
-  { from: "FAB → 拡張FAB", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
-  { from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
+  { a: "extended", b: "fab", from: "拡張FAB ⇄ FAB(縮める・戻す)", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
+  { a: "fab", b: "menu", from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
 ];
 const FAB_USE = [
   { ok: true, t: "使う操作", d: "その画面でいちばん大事な、前向きな操作(作成・お気に入り・共有・処理を始める)" },
@@ -1920,6 +1915,23 @@ const FAB_USE = [
   { ok: true, t: "置く場所", d: "コンパクト・中サイズの画面では右下。広い画面では左上(ナビゲーションレールの中)も検討する" },
   { ok: false, t: "避けること", d: "1画面に複数のFABを置く。使えないときに無効表示にする(使えないなら出さない)。分かりにくいアイコン" },
 ];
+
+
+/* FABの種類・変形のイメージ(2026-11 ⑦本人レビューNo.021。大きさは相対的な概念図) */
+function FabFig({ k, w = 120, h = 76 }) {
+  const g = "#2F7D6E", bg = "#E3EDE9";
+  const plus = (cx, cy, r) => (<path d={`M${cx - r} ${cy} H${cx + r} M${cx} ${cy - r} V${cy + r}`} stroke={g} strokeWidth="2" strokeLinecap="round" />);
+  const sq = (x, y, sz, rr) => (<rect x={x} y={y} width={sz} height={sz} rx={rr} fill={bg} stroke={g} />);
+  const body = {
+    fab: <>{sq(46, 20, 28, 8)}{plus(60, 34, 5)}</>,
+    medium: <>{sq(40, 14, 40, 11)}{plus(60, 34, 7)}</>,
+    large: <>{sq(35, 9, 50, 14)}{plus(60, 34, 9)}</>,
+    small: <>{sq(50, 24, 20, 6)}{plus(60, 34, 4)}</>,
+    extended: <><rect x="22" y="20" width="76" height="28" rx="8" fill={bg} stroke={g} />{plus(36, 34, 5)}<text x="68" y="38" fontSize="10" textAnchor="middle" fill={g}>作成</text></>,
+    menu: <>{["共有", "コピー", "削除"].map((t, i) => (<g key={t}><rect x="30" y={6 + i * 16} width="60" height="13" rx="6.5" fill={bg} stroke={g} /><text x="60" y={15.5 + i * 16} fontSize="8" textAnchor="middle" fill={g}>{t}</text></g>))}<circle cx="96" cy="64" r="8" fill={bg} stroke={g} /><path d="M92 60 L100 68 M100 60 L92 68" stroke={g} strokeWidth="1.6" /></>,
+  }[k];
+  return (<svg width={w} height={h} viewBox="0 0 120 76" aria-hidden="true"><rect x="0.5" y="0.5" width="119" height="75" rx="6" fill="#F8F9FD" stroke="#E1E3F0" />{body}</svg>);
+}
 
 function FabGuide() {
   return (
@@ -1929,22 +1941,33 @@ function FabGuide() {
       <div style={styles.fgGrid}>
         {FAB_KINDS.map((k) => (
           <div key={k.t} style={styles.fgCard}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}><FabFig k={k.fig} /></div>
             <div style={styles.fgTitle}>{k.t}{k.tag && <span style={{ ...styles.fgTag, ...(k.tag === "非推奨" ? styles.fgTagDep : {}) }}>{k.tag}</span>}</div>
             <p style={styles.fgText}>{k.d}</p>
           </div>
         ))}
       </div>
       <h3 style={styles.fgSub}>変形するとき</h3>
-      {FAB_CHANGES.map((c) => (<p key={c.from} style={styles.fgText}><strong>{c.from}</strong>: {c.d}</p>))}
-      <p style={styles.fgNote}>変形の動き(コンテナの変形)は<PageLink to="/tokens/motion">モーション</PageLink>のページを参照。</p>
-      <h3 style={styles.fgSub}>使いどころ</h3>
       <div style={styles.fgGrid}>
-        {FAB_USE.map((u) => (
-          <div key={u.t} style={{ ...styles.fgCard, borderLeft: `3px solid ${u.ok ? "#2F7D6E" : "#C0503F"}` }}>
-            <div style={styles.fgTitle}>{u.t}</div>
-            <p style={styles.fgText}>{u.d}</p>
+        {FAB_CHANGES.map((c) => (
+          <div key={c.from} style={styles.fgCard}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}><FabFig k={c.a} w={96} h={61} /><span style={{ color: "#7E86AC", fontSize: 16 }}>→</span><FabFig k={c.b} w={96} h={61} /></div>
+            <div style={styles.fgTitle}>{c.from}</div>
+            <p style={styles.fgText}>{c.d}</p>
           </div>
         ))}
+      </div>
+      <p style={styles.fgNote}>変形の動き(コンテナの変形)は<PageLink to="/tokens/motion">モーション</PageLink>のページを参照。</p>
+      <h3 style={styles.fgSub}>使いどころ</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 480, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+          <tbody>{FAB_USE.map((u) => (
+            <tr key={u.t}>
+              <th style={{ textAlign: "left", whiteSpace: "nowrap", padding: "8px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", color: u.ok ? "#2F7D6E" : "#C0503F", verticalAlign: "top" }}>{u.ok ? "◯" : "✕"} {u.t}</th>
+              <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6 }}>{u.d}</td>
+            </tr>
+          ))}</tbody>
+        </table>
       </div>
       <p style={styles.fgNote}>出典: Material Design 3「FAB」のガイドライン、Material Components for Android(Extended FAB・FAB menu)。</p>
     </section>
@@ -1982,7 +2005,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "1画面に1つ、主な操作だけ", d: "新規作成など、その画面でいちばん大事な操作に使う", who: "Google" },
-  { n: 2, t: "iOS・iPadOSにはFABがない", d: "ツールバーなどに置く", who: "Appleは該当なし" },
+  { n: 2, t: "Appleには、画面に浮かせて置くFABのようなボタンはない", d: "主な操作は、画面の上や下のツールバーに置く", who: "Apple" },
   { n: 3, t: "OSごとに置き場所を変えても、名前とアイコンはそろえる", d: "", who: "AI解釈" },
   { n: 4, t: "大きさは56dp以上", d: "いちばん小さいFABでもW3CのAA・AAAを満たす", who: "Google・W3C" },
 ];
@@ -2217,9 +2240,9 @@ const SOURCES = [
     color: "#C2542A",
     position: <><Hl>文言による目的の明確化</Hl>(数値基準なし)</>,
     stance:
-      "リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。ラベルには動詞を使い、「ここをタップ」のような曖昧な文言を避け、「◯◯について詳しく見る」のように行き先や機能を具体的に示す。文中のリンクに矢印を付けるかは定めていない(リストの行の右端の「›」は、階層の次の画面へ遷移する印(disclosure indicator)として別に定めている)。",
+      <>リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。<Hl>「ここをタップ」ではなく、行き先や機能を具体的に書く</Hl>。</>,
     exceptions:
-      "色での区別もリンク専用の基準はなく、アクセシビリティ全般の方針として「色だけに頼らず、形やアイコンなどの手がかりを加える」とする。数値の例外はない。",
+      "色だけに頼らず、形やアイコンなどの手がかりを加える(アクセシビリティ全般の方針)。",
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
@@ -2243,8 +2266,8 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <NoData>該当なし(参考: Text buttonが見た目は近い)</NoData>,
     stance:
-      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 2014年の初代(当時は「Flat button」)から続く「Text button」がある。ラベルだけで枠や塗りがなく、最も優先度の低い操作に使う。ダイアログやカードの中の軽い操作など、見た目を軽くしたい場面向け。</>,
-    exceptions: "「Text button」はボタン(操作)の一種で、文中に埋め込むハイパーリンクとは位置づけが違う。厳密な意味での「リンク」のガイダンスはない。",
+      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 見た目が近いのは、枠も塗りもないText button(最も優先度の低い操作用)。</>,
+    exceptions: "Text buttonはボタンの一種で、文中のリンクとは位置づけが違う。",
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -2271,9 +2294,9 @@ const SOURCES = [
     color: "#A3821F",
     position: "レベルA〜AAAにまたがる4つの達成基準",
     stance:
-      <>2.4.4(レベルA)は、リンクの目的がリンクテキスト単体か、周りの文脈と合わせて分かること。より厳しい2.4.9(レベルAAA)は、リンクテキスト単体で分かること。<Hl>1.4.1(レベルA)は、色だけをリンクの識別手段にしてはならないと規定する</Hl>。3.2.4(レベルAA)は、ページをまたいで出てくる同じ働きのコンポーネントを、一貫して識別できること。共通のナビゲーションやフッターのリンクに、ページごとに違う名前を付けない。ただし文言が完全に同じでなくてよく、5ページ目から見た「4ページ目」へのリンクを「前のページ」と呼ぶような、文脈に合わせた違いは認められる。</>,
+      <><Hl>リンクの目的が、文言か周りの文脈から分かる</Hl>こと(2.4.4・A。AAAの2.4.9は文言だけで)。<Hl>色だけでリンクを見分けさせない</Hl>(1.4.1・A)。同じ働きのリンクは、どのページでも同じ名前にする(3.2.4・AA)。</>,
     exceptions:
-      "2.4.4は、文言だけか、同じ文・段落などの文脈と合わせて目的が分かればよい。ページ上の情報だけでは誰にも目的が分からないリンクは例外。1.4.1は、色だけでリンクを見分けさせないこと。色だけで区別するなら、周りの文字と3:1以上の明度の差が要る(テクニックG183)。いちばん確実なのは下線。",
+      "色だけで区別するなら、周りの文字と3:1以上の明るさの差が要る(G183)。いちばん確実なのは下線。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」のナビゲーションの達成基準。3.2.4は「理解可能」の予測可能(3.2)。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
@@ -2309,9 +2332,9 @@ const SOURCES = [
     color: "#7A4F7E",
     position: "色+下線による視認性(数値基準ではなく原則としての言及)",
     stance:
-      <>リンクだと分かる見た目の手がかりを最大にするには、<Hl>リンクテキストに色と下線の両方を付けるとよい</Hl>とする。訪問済みと未訪問のリンクは彩度の違う同系色で区別し、未訪問をより鮮やかにする。</>,
+      <><Hl>リンクの文字に色と下線の両方を付ける</Hl>と最も分かりやすい。訪問済みは、未訪問より彩度を落とした同系色にする。</>,
     exceptions:
-      "ナビゲーションメニューなど、リンクの集まりと明らかな領域では下線を省いてよい。ただし赤や緑など色覚の違いの影響を受けやすい色を使う場合や、低視力の人への配慮を優先する場合は、下線を残す。2026年3月の編注は、下線は必須ではなく、周りの文字とのコントラストにホバー時・フォーカス時の手がかりを組み合わせれば1.4.1を満たせる(G183)とし、記事の推奨は出発点として扱うよう書いている。なお現在のG183(WCAG 2.2版)の確認手順は「周りの文字と3:1以上」の1つだけで、ホバー/フォーカス時の手がかりは以前の版の条件。",
+      "ナビゲーションメニューなど、リンクの集まりと明らかな場所では下線を省いてよい。",
     pourDetail: "根拠となる原則 ― 適合区分ではないが、記事自体がWCAG 1.4.1(色の用途)を関連基準として引用している。",
     searchHint: "current usability guidelines for showing textual links",
     url: "https://www.nngroup.com/articles/guidelines-for-visualizing-links/",
@@ -2434,27 +2457,13 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "遷移はリンク、処理の実行はボタン", d: "役割で使い分ける", who: "このサイトの整理(サマリーの「似たコンポーネント」)" },
+  { n: 1, t: "行き先を示すならリンク、保存・送信など処理を実行するならボタン", d: "ボタンで次の画面へ進むこともあるが、文章の中で行き先を示すときはリンクにする", who: "AI解釈" },
   { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
-  { n: 3, t: "下線を省くなら差を確かめる", d: "周りの文字と3:1以上", who: "W3C 1.4.1・G183" },
+  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "明るさの差を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1・G183" },
   { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
-function GoodBadFigure() {
-  return (
-    <GoodBad
-            title="良い例・悪い例 ― リンクの見分け方"
-            items={[
-              { kind: "good", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF", textDecoration: "underline" }}>料金プランの比較</span>をご覧ください。</p>, text: "本文の中のリンクに色と下線の両方があり、ひと目でリンクと分かる。" },
-              { kind: "bad", fig: <p style={{ fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: 0 }}>詳しくは<span style={{ color: "#3A4FCF" }}>料金プランの比較</span>をご覧ください。</p>, text: "色だけで示し、周りの文字(#2E3457)との明るさの差が1.83:1で3:1に届かない。リンクと気づきにくい。" },
-            ]}
-            basis="NN group(色と下線の両方があるのが最も分かりやすい)、W3C 1.4.1・G183(色だけで見分けさせるなら、周りの文字と3:1以上)。比はこのサイトで計算した値。"
-            note="下線を必ず付けるかは系列で違う(NN groupも必須とはしていない)。悪い例は、下線がないことではなく、色の差が足りないことを示している。"
-          />
-  );
-}
-
 function ActionsLinkPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -2484,7 +2493,6 @@ function ActionsLinkPage() {
             rows={ABOUT}
           />
 
-          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
@@ -13041,13 +13049,12 @@ const TAG_INDEX = [
   {"group": "Selection", "label": "チェックボックス", "path": "/components/selection/checkbox", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "ラジオボタン", "path": "/components/selection/radio", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "トグルスイッチ", "path": "/components/selection/toggle", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
+  {"group": "Selection", "label": "セレクトの種類", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "セレクト(プルダウン)", "path": "/components/selection/select", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
-  {"group": "Selection", "label": "セレクトの種類(プルダウン以外)", "path": "/components/selection/select-patterns", "principles": [], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "メニュー", "path": "/components/selection/menu", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Selection", "label": "チップ(Chips)", "path": "/components/selection/chips", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "検索・絞り込み"]},
   {"group": "Selection", "label": "スライダー", "path": "/components/selection/slider", "principles": ["操作可能(POUR)"], "processes": ["選択・切り替え", "入力・フォーム"]},
   {"group": "Selection", "label": "日付/タイムピッカー", "path": "/components/selection/date-time-picker", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム", "選択・切り替え"]},
-  {"group": "Selection", "label": "カレンダー(スケジュール/予定表)", "path": "/components/text-inputs/calendar", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Text inputs", "label": "テキストフィールド・テキストエリア", "path": "/components/text-inputs/text-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
@@ -13083,7 +13090,7 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
   {"group": "Interaction", "label": "入力方法・ジェスチャー", "path": "/tokens/input-methods", "principles": ["操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)", "見つけやすさ・初めての案内"]},
-  {"group": "Interaction", "label": "モーション/アニメーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Interaction", "label": "モーション", "path": "/tokens/motion", "principles": ["操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Interaction", "label": "サウンド", "path": "/tokens/sound", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎", "通知・状態表示"]},
 ];
 /*__TAG_INDEX_END__*/
@@ -19493,7 +19500,8 @@ const KP = [
   { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
   { n: 2, t: "保存ボタンで確定するフォームの中で使う", d: "すぐ反映する設定はスイッチを検討。フォームの中に即時反映のチェックボックスを混ぜない", who: "AI解釈" },
   { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48以上にする", who: "Google・NN group" },
-  { n: 4, t: "一部だけ選ばれた親は「不定」で示す", d: "", who: "Apple・Google・NN group" },
+  { n: 4, t: "子の項目が一部だけ選ばれているとき、親のチェックボックスは「―」の印で示す", d: "この状態を「不定」と呼ぶ。全部選ばれていれば✓、1つもなければ空", who: "Apple・Google・NN group" },
+  { n: 5, t: "縦に1行1つずつ並べる", d: "横に並べるなら、どのラベルがどの箱か分かる間隔を空ける", who: "NN group" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -19759,13 +19767,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
     term: "Token field(macOS)。Chipという名前のコンポーネントはない",
     color: "#C2542A",
-    position: "「Chip」というコンポーネントはないが、近い発想の「トークンフィールド」がmacOS向けにある",
-    size: <span><NoData>数値基準なし。</NoData>トークンフィールドはmacOSのテキストコントロールの一種。</span>,
+    position: <><NoData>「Chip」はない</NoData>。近いのはmacOSの<Hl>トークンフィールド</Hl></>,
+    size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>トークンフィールドは、<Hl>入力したテキストを選択・操作しやすい「トークン」(まとまったブロック)に変換するテキストフィールドの一種</Hl>と定義する。Materialの「インプットチップ」(入力した情報を表すチップ)に近い。</>,
+      <>入力したテキストを、選んで操作できる「トークン」に変えるテキストフィールド。Googleのインプットチップに近い。</>,
     exceptions:
-      <>トークンフィールドはmacOS向けのガイダンスで、iOS/iPadOS向けの記載はない(iOSなどの検索のトークンは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページ)。「フィルタ」や「アシスト」に当たる概念はなく、入力を助けるコントロールという位置づけ。</>,
+      <>macOS向けで、iOS/iPadOSの記載はない(検索のトークンは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページ)。</>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "メール作成画面の宛先(To/Cc)欄など、入力した項目をトークンとして表示する",
@@ -19792,23 +19800,23 @@ const SOURCES = [
     doc: "Material Design 3 ― Chips(使用法・アクセシビリティ)",
     term: "Chip(アシスト・フィルタ・インプット・サジェスチョン)",
     color: "#2F7D6E",
-    position: "4種類(アシスト/フィルタ/インプット/サジェスチョン)。状況に応じて変わる、ボタンとは別の操作要素の集まり",
+    position: <><Hl>4種類(アシスト/フィルタ/インプット/サジェスチョン)</Hl>。ボタンとは別の操作要素</>,
     size:
-      "コンテナの高さ32dp、押せる範囲は48dp以上。角の半径は8dp(shape small)で、「ピル型」ではなく「角丸長方形」。既定で高密度の設定を適用しない(ターゲットサイズが48×48pxを下回るため)。高密度のレイアウトを選ぶ場合も、押せる範囲を48×48px以上に戻せるようにする。",
+      <><Hl>見た目の高さ32dp、押せる範囲は48dp以上</Hl>。角丸8dp。</>,
     colorInfo:
-      "ラベルは背景と3:1以上のコントラスト比にする。M2から、新しいカラーマッピングとダイナミックカラーへの対応が加わった。",
+      "ラベルは背景と3:1以上。",
     glossary: [
       { term: "リフロー方式", desc: "1行に収まらないときの対処の1つ。横のリストを折り返して複数行にし、下の内容を押し下げてすべてのチップを一度に見せる。" },
       { term: "メニュー方式", desc: "もう1つの対処。先頭にボタンを1つ置き、そこから開くメニューに残りの選択肢をまとめる。下の内容がずれない利点があるが、削除アイコンなど2つ目の操作が要るチップには使わない。" },
     ],
     stance:
-      <><Hl>チップはボタンではない</Hl>。ボタンはいつも同じ見た目と操作で置かれ、操作を進めたり重要な操作を実行したりする。チップは今のタスクに応じて変わる操作要素の集まりで、今の体験を良くし、行動を促す。チップはタスクの分かれ道、ボタンは一直線の手順を表す。</>,
+      <><Hl>チップはボタンではない</Hl>。ボタンは一直線の手順を進め、チップは今のタスクに応じて変わる選択肢を表す。</>,
     exceptions:
-      "主要な操作をチップにしない。次/前のステップに進む操作は必ずボタンにする。チップはセットでまとめて出し、ボタンは1か所に3つまで。",
+      "主要な操作(次へ・前へなど)はチップにせず、ボタンにする。",
     overflow:
       "チップセットは横スクロールにでき、1行に収まらないなら「リフロー方式」か「メニュー方式」ですべて見せる(用語は下の「メモ」)。",
     accessibility:
-      "操作可能(Operable) ― 動作を実行するチップは、アクセシビリティAPIにボタンと同じ意味を伝える(押せる範囲は「サイズ」、ラベルの3:1は「色」を参照)。",
+      "操作可能(Operable) ― 動作を実行するチップは、ボタンと同じ意味を支援技術に伝える。",
     useCases: [
       "アシスト: 予定への追加など、内容に関わる動作を実行する(詳しくは下の「チップの種類とユースケース」)",
       "フィルタ: コンテンツを絞り込むタグとして使う",
@@ -19838,15 +19846,15 @@ const SOURCES = [
     color: "#A3821F",
     position: <>形を問わず、<Hl>ボタン/トグルボタンとしての名前・役割・状態・操作性を求める</Hl>一般の基準</>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      <><NoData>専用の数値基準なし</NoData>。一般のターゲットサイズの基準(2.5.8・2.5.5。どちらも例外あり)がかかる。</>,
     colorInfo:
-      "ラベルの文字には1.4.3(コントラスト(最低限))がかかり、通常の文字は4.5:1以上(Googleの「背景と3:1以上」より厳しい)。1.4.11により、境界線や選択状態を示す見た目は3:1以上。1.4.1により、フィルタチップの選択状態を色だけで示さない。",
+      <>ラベルの文字は<Hl>4.5:1以上</Hl>(1.4.3。Googleの3:1より厳しい)。選択状態を色だけで示さない(1.4.1)。</>,
     stance:
-      "チップは実装ではボタンかトグルボタンとして扱うことが多く、名前・役割・状態を支援技術から取得できること(4.1.2)。複数並ぶなら、キーボードだけで移動・選択できること(2.1.1)。",
+      "ボタンかトグルボタンとして、名前・役割・状態を支援技術に伝える(4.1.2)。",
     exceptions:
-      "ブラウザ標準のボタンなら、これらの情報は自動で伝わる。独自に描いたチップだけ配慮が要る。",
+      "標準のボタンなら自動で伝わる。独自に描いたチップだけ配慮が要る。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)、キーボード操作(2.1.1)、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11、知覚可能)。",
+      "堅牢(Robust)・操作可能(Operable) ― 4.1.2・2.1.1・2.5・1.4.11。",
     useCases: [
       "チップの一覧をキーボードだけで移動・選択できるようにする",
       "選択状態をプログラムで支援技術に正しく伝える",
@@ -19880,7 +19888,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <><NoData>該当なし</NoData>。参考: スタイルガイドの記事で、載せるコンポーネントの1つに「トークン(チップ)」を挙げ、メールの宛先を1件ずつ分けて1回のクリックで消せる使い方や、詳細検索・タグでの使い方に触れる。</>,
+      <><NoData>該当なし</NoData>。参考: メールの宛先を1件ずつ分けて1回で消せる「トークン」の使い方に触れる。</>,
     exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
@@ -20149,18 +20157,10 @@ function SelectionChipsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              チップは<strong>Material Designが体系化したパターン</strong>で、同じ名称のコンポーネントは他系列にはない。ただしAppleには、入力内容をトークン化するmacOS向けの「トークンフィールド」という近い発想のコントロールが存在し、特にMaterialの「インプットチップ」と役割が重なる。
+              チップを体系化しているのは<strong>Googleだけ</strong>(4種類)。Appleは近いものとしてmacOSのトークンフィールドを持ち、NN groupには専用の記事がない。Googleは<strong>「チップはボタンではない」</strong>とし、次へ・前へのような主な操作はボタンにする。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>「チップはボタンではない」</strong>と明確に区別している。ボタンは常に同じ見た目で配置され直線的な操作を進めるのに対し、チップはタスクに応じて動的に変わる分岐的な選択肢の集合だとしている。主要な操作(次へ/前へなど)をチップに置き換えることは避けるべき、という点は実務上の注意点だ。
-            </p>
-            <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleが「見た目32dp・タップ領域48dp」という2段構えの数値</strong>を持つ点が特徴的だ。見た目を小さく保ちながら、タップ領域だけを広げるという考え方は、WCAGの24×24px(AA)/44×44px(AAA)基準(どちらも例外あり)を満たすための実務的な工夫と言える。</p>
-            <p style={styles.synthesisText}>
-              色については、Googleは<strong>「チップのラベルは背景と3:1以上」</strong>としている。一方WCAGでは、通常サイズの文字には<strong>4.5:1(1.4.3)</strong>、枠線や選択状態の表示には<strong>3:1(1.4.11)</strong>が必要だ。Webで作るなら、ラベルは4.5:1を目安にするのが安全だ。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupにはチップ専用の設計記事がなく、<strong>4系列の中で最も情報が薄いコンポーネント</strong>だ。実務では、他のSelectionコンポーネント(複数選択はチェックボックス、単一選択はラジオボタン)の原則を踏まえつつ、Materialの4分類(アシスト/フィルタ/インプット/サジェスチョン)を判断軸として使うのが実用的だろう。複数選択なら、<strong>その場で一覧を絞り込むならフィルタチップ、送信して確定するフォームの複数選択ならチェックボックス</strong>が目安だ。
+              Googleは<strong>見た目32dp・押せる範囲48dp</strong>。ラベルの色はGoogleが3:1、WCAGは<strong>4.5:1</strong>なので、Webでは4.5:1を目安にする。複数選択は、<strong>その場で一覧を絞り込むならフィルタチップ、フォームで送信するならチェックボックス</strong>。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -20387,12 +20387,12 @@ const SOURCES = [
     color: "#C2542A",
     position: <>iOS/iPadOSの日付ピッカーは、<Hl>コンパクト・インライン・ホイール・自動の4スタイル</Hl>と、日付・時刻・日付と時刻・カウントダウンタイマーの4モードの組み合わせ。macOSはテキスト形式とグラフィカル形式の2スタイル</>,
     size:
-      "寸法(pt)の記載なし。分の選択肢は既定で60個(0〜59)で、60を割り切れる間隔(例: 15分刻み)に減らせる。",
-    colorInfo: "コンパクトスタイルのボタンは、今の値をアプリのアクセントカラーで表示する。ほかの色の規定はない。",
+      <><NoData>寸法の記載なし</NoData>。分の選択肢は既定で60個で、<Hl>15分刻みのように減らせる</Hl>。</>,
+    colorInfo: "コンパクトスタイルのボタンは、今の値をアクセントカラーで表示する。",
     stance:
-      "ピッカーは、1つか複数の部分からなる値を選ばせるコンポーネント。日付ピッカーは、カレンダーで日を選ぶ・数字キーで入力する、といった方法も持つ。表示される値と並び順は、端末の言語・地域で変わる。場所が限られるときはコンパクトスタイルを使い、ボタンを押すとカレンダー形式の編集画面と時刻ピッカーがモーダルで開き、外側を押して確定する。",
+      <>値と並び順は端末の言語・地域で変わる。<Hl>場所が限られるときはコンパクトスタイル</Hl>にし、押すとカレンダーと時刻の編集画面がモーダルで開く。</>,
     exceptions:
-      "選択肢が少なければプルダウンボタン、とても多ければリストやテーブルが向く。ピッカーは画面を切り替えずに、編集中の項目の近く(画面下部やポップオーバー)に出す。カウントダウンタイマーは最大23時間59分で、インライン・コンパクトでは使えない。",
+      "選択肢が少なければプルダウンボタン、とても多ければリストが向く。ピッカーは編集中の項目の近くに出す。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "場所が限られるならコンパクト、画面の中で見せたいならインラインを使う",
@@ -20425,18 +20425,18 @@ const SOURCES = [
     term: "Date picker・Time picker",
     color: "#2F7D6E",
     position: <>日付は<Hl>ドッキング・モーダル・モーダル入力の3種類</Hl>(モーダルとモーダル入力は期間の選択にも対応)。時刻は別コンポーネントで、ダイヤルと入力の2種類</>,
-    size: "モーダルの日付ピッカーは360×568dp、日付の丸は40×40dp、見出し部分の高さは120dp(Jetpack Composeのトークン)。容器の角丸はExtra large(28dp)。",
-    colorInfo: "コンテナはsurface container high、選んだ日はprimaryの塗りにon primaryの文字、今日の日付はprimaryの1dpの枠線、期間の範囲はsurface variantで塗るのが既定値(Material Components for Android)。",
+    size: <>モーダルは<Hl>360×568dp</Hl>、日付の丸は40×40dp(Jetpack Composeのトークン)。角丸は28dp。</>,
+    colorInfo: "選んだ日はprimaryの塗り、今日の日付はprimaryの枠線で示す。",
     glossary: [
       { term: "ドッキング / モーダル / モーダル入力", desc: "ドッキングは入力欄に付いた形で、押すとカレンダーがドロップダウンで開く。モーダルはダイアログのカレンダー。モーダル入力はダイアログの中の文字入力。モーダルとモーダル入力は期間(開始日〜終了日)の選択にも使える。" },
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      "ドッキングは入力欄を既定で出し、押すとカレンダーがドロップダウンで開く。入力とカレンダーのどちらでも入れられるため、近い日付にも遠い日付にも向く。モーダルは横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。期間の選択は開始日と終了日をタップする方式で、フライトやホテルの予約が代表例。モーダル入力は、ダイアログの中でキーボードの数字を使って日付(または期間)を入力する。時刻は、ダイヤルのつまみを回すダイヤル式(アラームや予定の設定向き)と、キーボードで入力する入力式の2種類。",
+      <><Hl>ドッキングは入力とカレンダーのどちらでも入れられ</Hl>、近い日付にも遠い日付にも向く。モーダルはカレンダー、モーダル入力はキーボードの数字で入れる。</>,
     exceptions:
-      "生年月日のような遠い日付では、モーダル(カレンダー)ではなくモーダル入力かドッキングを使う。タイトルは開いたときに読み上げられるため、「予約日を選択」のように作業が分かる文言にする。",
+      "生年月日のような遠い日付では、モーダル入力かドッキングを使う。タイトルは「予約日を選択」のように作業が分かる文言にする。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― Material Componentsの日付ピッカーはスクリーンリーダーに対応し、ダイアログを開くとタイトルが読み上げられる。",
+      "操作可能(Operable)・知覚可能(Perceivable) ― ダイアログを開くとタイトルが読み上げられる。",
     useCases: [
       "近い日付・遠い日付のどちらもあり得るならドッキングを使う",
       "予約など期間を選ばせる場合は、モーダルの期間選択を使う",
@@ -20468,23 +20468,22 @@ const SOURCES = [
     doc: "WAI-ARIA APG ― Date Picker Dialog Example",
     term: "dialogの中のgrid(APGのDate Picker Dialog例)",
     color: "#A3821F",
-    position: "日付を文字で入力する欄(形式の説明付き)と、カレンダーを開くボタンを組み合わせる例。カレンダーはダイアログの中の、矢印キーで移動できる表(グリッド)で",
+    position: <><Hl>日付を文字で入力する欄と、カレンダーを開くボタンを組み合わせる</Hl>例(APG)</>,
     size:
-      "専用の数値基準はない。各日付のボタンにも、一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
-    colorInfo: "1.4.11(非テキストのコントラスト)により、選択中の日付を示す見た目は3:1以上のコントラスト比にする。",
+      <><NoData>専用の数値基準なし</NoData>。日付のボタンには一般のターゲットサイズの基準(2.5.8/2.5.5。どちらも例外あり)がかかる。</>,
+    colorInfo: "選択中の日付を示す見た目は3:1以上(1.4.11)。",
     glossary: [
       { term: "グリッドの中のフォーカス", desc: "Tabキーではグリッドの中の1つのセル(選択中の日など)にだけ止まり、グリッドの中は矢印キーで移動する考え方。" },
     ],
     stance:
-      <>日付ピッカーの例は、<Hl>日付を文字で入力できる欄</Hl>(「date format: mm/dd/yyyy」のように形式を添える)と、その横の「日付を選択」ボタンの組み合わせ。ボタンがDialog(Modal)パターンのダイアログを開き、その中のカレンダーは、行・列の見出し・日付のセルを持つ表(グリッド)として扱う。月・年の見出しが変わったら、変化を支援技術に知らせる。</>,
+      <>入力欄には形式を添える(「mm/dd/yyyy」など)。カレンダーはダイアログの中の表として扱い、月・年が変わったら支援技術に知らせる。</>,
     exceptions:
-      "ダイアログを開いたとき、入力欄が空か無効な日付なら今日に、有効な日付が入っていればカレンダーのその日にフォーカスを当てる。Esc・OK・Cancelのどれでも閉じられ、閉じたらきっかけのボタンにフォーカスが戻る。APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある(冒頭の「Read This First」。モバイル・タッチ端末では支援技術の対応に差があるとも書かれている)。実装したら実際の支援技術で確かめる。",
+      "開いたら選択中の日(なければ今日)にフォーカスし、閉じたらボタンへ戻す。APGの例はそのまま本番に使わないよう注意書きがある。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 中心は、グリッドの中を矢印キーで移動できるキーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
+      "堅牢(Robust)・操作可能(Operable) ― キーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
     useCases: [
       "日付を文字で入力できる欄(形式の説明付き)を置き、カレンダーは補助として開けるようにする",
-      "カレンダー本体は表(グリッド)として扱い、Tabでは1つのセルにだけ止め、中は矢印キーで移動させる",
-      "上下=週・左右=日、Page Up/Down=月(Shiftで年)、Home/End=週の始点/終点というキー操作を実装する",
+      "カレンダーは表として扱い、キーボードでも日付を移動できるようにする",
       "ダイアログを閉じたらトリガーボタンにフォーカスを戻す",
     ],
     searchHint: "roving tabindex",
@@ -20509,14 +20508,14 @@ const SOURCES = [
     doc: "Date-Input Form Fields: UX Design Guidelines",
     term: "Date input(日付の入力欄)・Calendar picker",
     color: "#7A4F7E",
-    position: "多くの場面では自由入力を勧める。カレンダーは近い日付と期間の選択に限る",
+    position: <><Hl>多くの場面では自由入力</Hl>を勧める。カレンダーは近い日付と期間の選択に限る</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>多くの場面で、<Hl>日付は自由入力(フリーテキスト)で入れさせる</Hl>。誕生日のような過去の日付や遠い未来の日付では特に、自由入力が最も効率的。カレンダーは、今に近い(1年未満程度の)日付や、期間の選択(2か月分を並べるなど)に向く。ドロップダウンは選択肢が10個未満の場合に限り、月/日/年に分けたドロップダウンはクリックを増やすため避ける。</>,
+      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く。月/日/年に分けたドロップダウンは避ける。</>,
     exceptions:
-      "ドロップダウンは選択肢が10個未満の場合だけ(月/日/年に分けたものは避ける)。9-3-17、09/08/17、9.3.17のような書式の揺れは、特殊文字を強制せずに受け入れる。月名は省略せず綴り、欄にははっきりラベルを付ける(「10/11/2016」は米国式・欧州式で解釈が分かれるため)。到着日より前の出発日のようなありえない選択肢は先に除き、使えない日は選べなくし、エラーには具体的な訂正案を示す。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、入力の効率とエラーの率にもとづく使い分けの指針。",
+      "書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。",
+    accessibility: "根拠となる原則 ― 入力の効率とエラーの率にもとづく指針。",
     useCases: [
       "誕生日や遠い日付では自由入力(フリーテキスト)を第一の選択肢にする",
       "近い日付と期間の選択にはカレンダーを使う",
@@ -20540,6 +20539,7 @@ const SOURCES = [
 const INPUT_METHODS = [
   {
     key: "text",
+    fig: "a-mac-text",
     name: "フリーテキスト入力",
     represents: "NN groupが多くの場面で第一選択として推奨。Googleのモーダル入力・時刻の入力、AppleのmacOSのテキスト形式もこの形式。",
     doText: "誕生日・契約日など、現在から離れた日付を入力させたい時",
@@ -20547,6 +20547,7 @@ const INPUT_METHODS = [
   },
   {
     key: "calendar",
+    fig: "g-modal",
     name: "カレンダー(グリッド型)",
     represents: "W3C(ARIA APG Date Picker Dialog)、Googleのドッキング・モーダル、Appleのコンパクト・インライン・macOSのグラフィカル形式が採用。",
     doText: "近い将来(1年未満程度)の日付や、日付の範囲選択をさせたい時",
@@ -20554,13 +20555,15 @@ const INPUT_METHODS = [
   },
   {
     key: "wheel",
-    name: "ホイール(スクロール選択)",
+    fig: "a-wheels",
+    name: "ホイールピッカー",
     represents: "Appleのホイールスタイル(iOS・watchOS)が採用。時刻・カウントダウンタイマーの選択にも向く。",
     doText: "順序があり予測しやすい値(時刻・月など)を素早く選ばせたい時",
     dontText: "選択肢が非常に多い、または不規則な値を選ばせたい時(→テーブルやテキスト入力)",
   },
   {
     key: "dial",
+    fig: "g-dial",
     name: "ダイヤル(時計の文字盤)",
     represents: "Googleの時刻ピッカー(ダイヤル)が採用。AppleのmacOSのグラフィカル形式にも時計の文字盤の見た目がある。",
     doText: "アラームや予定の時刻を、時計の感覚で直感的に合わせてほしい時",
@@ -20569,22 +20572,22 @@ const INPUT_METHODS = [
 ];
 
 function InputMethodsSummary() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const td = { padding: "10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top", fontSize: 12, lineHeight: 1.6, color: "#2E3457" };
   return (
-    <div style={styles.methodGrid}>
-      {INPUT_METHODS.map((m) => (
-        <div key={m.key} style={styles.methodCard}>
-          <div style={styles.methodName}>{m.name}</div>
-          <div style={styles.methodRepresents}>{m.represents}</div>
-          <div style={styles.methodUsageRow}>
-            <span style={{ ...styles.methodUsageMark, ...styles.methodUsageMarkOk }}>推奨</span>
-            <span style={styles.methodUsageText}>{m.doText}</span>
-          </div>
-          <div style={styles.methodUsageRow}>
-            <span style={{ ...styles.methodUsageMark, ...styles.methodUsageMarkNg }}>NG</span>
-            <span style={styles.methodUsageText}>{m.dontText}</span>
-          </div>
-        </div>
-      ))}
+    <div style={{ overflowX: "auto", marginBottom: 8 }}>
+      <table style={{ width: "100%", minWidth: 760, borderCollapse: "collapse" }}>
+        <thead><tr>{["入力方法", "イメージ", "採用している系列", "向いている場面", "向かない場面"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+        <tbody>{INPUT_METHODS.map((m) => (
+          <tr key={m.key}>
+            <td style={{ ...td, fontWeight: 700, color: "#171B36", whiteSpace: "nowrap" }}>{m.name}</td>
+            <td style={{ ...td, width: 150 }}><div style={{ transform: "scale(0.85)", transformOrigin: "top left" }}><PatternMockup kind={m.fig} color="#3C5A73" /></div></td>
+            <td style={td}>{m.represents}</td>
+            <td style={td}><span style={{ fontWeight: 700, color: "#2F7D6E", marginRight: 4 }}>推奨</span>{m.doText}</td>
+            <td style={td}><span style={{ fontWeight: 700, color: "#C0503F", marginRight: 4 }}>NG</span>{m.dontText}</td>
+          </tr>
+        ))}</tbody>
+      </table>
     </div>
   );
 }
@@ -20597,14 +20600,14 @@ const PATTERNS = [
     color: "#C2542A",
     note: "iOS/iPadOSは「スタイル(見た目)」と「モード(選ぶ値)」の組み合わせで決まる。スタイルはコンパクト・インライン・ホイール・自動(システムが決める)の4つ、モードは日付・時刻・日付と時刻・カウントダウンタイマーの4つだ。",
     items: [
-      { kind: "a-compact", name: "コンパクト", platform: "iOS / iPadOS", method: "カレンダー", desc: "現在の値をアクセントカラーのボタンで表示。タップするとカレンダーと時刻の編集画面がモーダルで開き、外側をタップして確定する。スペースが限られるとき向け。" },
-      { kind: "a-inline", name: "インライン(日付)", platform: "iOS / iPadOS", method: "カレンダー", desc: "日付を含むモードでは、カレンダーを画面の中に埋め込んで表示する。" },
-      { kind: "a-inline-time", name: "インライン(時刻のみ)", platform: "iOS / iPadOS", method: "ホイール", desc: "時刻だけを選ぶモードでは、インラインのボタンをタップするとホイールが表示される。" },
-      { kind: "a-wheels", name: "ホイール", platform: "iOS / iPadOS", method: "ホイール", desc: "回転するホイールで値を選ぶ。内蔵・外付けキーボードからの入力にも対応する。" },
-      { kind: "a-countdown", name: "カウントダウンタイマー(モード)", platform: "iOS / iPadOS", method: "ホイール", desc: "時間と分を選ぶ(最大23時間59分)。インライン・コンパクトのスタイルでは使えない。" },
-      { kind: "a-mac-text", name: "テキスト形式", platform: "macOS", method: "テキスト入力", desc: "日時を文字で入力する形。スペースが限られ、特定の日時を入力してもらう場面向け。" },
-      { kind: "a-mac-graphic", name: "グラフィカル形式", platform: "macOS", method: "カレンダー", desc: "カレンダーで日を見比べたり期間を選んだりする形。時計の文字盤の見た目も選べる。" },
-      { kind: "a-watch", name: "ホイール(Digital Crown)", platform: "watchOS", method: "ホイール", desc: "Digital Crownを回して値を選ぶ。日付・時刻のピッカーもホイールで表示する。" },
+      { kind: "a-compact", name: "コンパクト", platform: "iOS / iPadOS", method: "カレンダー", desc: "現在の値をアクセントカラーのボタンで表示。タップするとカレンダーと時刻の編集画面がモーダルで開き、外側をタップして確定する。スペースが限られるとき向け。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-inline", name: "インライン(日付)", platform: "iOS / iPadOS", method: "カレンダー", desc: "日付を含むモードでは、カレンダーを画面の中に埋め込んで表示する。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-inline-time", name: "インライン(時刻のみ)", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "時刻だけを選ぶモードでは、インラインのボタンをタップするとホイールが表示される。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-wheels", name: "ホイール", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "回転するホイールで値を選ぶ。内蔵・外付けキーボードからの入力にも対応する。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-countdown", name: "カウントダウンタイマー(モード)", platform: "iOS / iPadOS", method: "ホイールピッカー", desc: "時間と分を選ぶ(最大23時間59分)。インライン・コンパクトのスタイルでは使えない。", link: ["Pickers ― iOS, iPadOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#iOS-iPadOS"] },
+      { kind: "a-mac-text", name: "テキスト形式", platform: "macOS", method: "テキスト入力", desc: "日時を文字で入力する形。スペースが限られ、特定の日時を入力してもらう場面向け。", link: ["Pickers ― macOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS"] },
+      { kind: "a-mac-graphic", name: "グラフィカル形式", platform: "macOS", method: "カレンダー", desc: "カレンダーで日を見比べたり期間を選んだりする形。時計の文字盤の見た目も選べる。", link: ["Pickers ― macOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#macOS"] },
+      { kind: "a-watch", name: "ホイール(Digital Crown)", platform: "watchOS", method: "ホイールピッカー", desc: "Digital Crownを回して値を選ぶ。日付・時刻のピッカーもホイールで表示する。", link: ["Pickers ― watchOS", "https://developer.apple.com/design/human-interface-guidelines/pickers#watchOS"] },
     ],
   },
   {
@@ -20613,12 +20616,12 @@ const PATTERNS = [
     color: "#2F7D6E",
     note: "日付ピッカー(3種類+期間選択)と時刻ピッカー(2種類)は別のコンポーネントだ。モーダルとモーダル入力は、1日だけでなく期間(開始日〜終了日)の選択にも使える。",
     items: [
-      { kind: "g-docked", name: "ドッキング", platform: "日付", method: "テキスト入力+カレンダー", desc: "入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く。どちらでも入力でき、近い日付にも遠い日付にも向く。" },
-      { kind: "g-modal", name: "モーダル", platform: "日付", method: "カレンダー", desc: "ダイアログでカレンダーを表示。横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。" },
-      { kind: "g-range", name: "モーダル(期間選択)", platform: "日付", method: "カレンダー", desc: "開始日と終了日をタップして期間を選ぶ全画面の形。フライトやホテルの予約が代表例。" },
-      { kind: "g-input", name: "モーダル入力", platform: "日付", method: "テキスト入力", desc: "ダイアログの中で、キーボードの数字で日付(または期間)を入力する。" },
-      { kind: "g-dial", name: "ダイヤル", platform: "時刻", method: "ダイヤル", desc: "文字盤のつまみを回して時刻を合わせる。アラームや予定の設定によく使われる。" },
-      { kind: "g-tinput", name: "入力", platform: "時刻", method: "テキスト入力", desc: "キーボードで時・分を入力する。どのダイヤルからもキーボードアイコンで切り替えられる。" },
+      { kind: "g-docked", name: "ドッキング", platform: "日付", method: "テキスト入力+カレンダー", desc: "入力欄を既定で表示し、タップするとカレンダーがドロップダウンで開く。どちらでも入力でき、近い日付にも遠い日付にも向く。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-modal", name: "モーダル", platform: "日付", method: "カレンダー", desc: "ダイアログでカレンダーを表示。横スワイプで月、縦スクロールで年を移動し、年をタップすると年の一覧を開ける。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-range", name: "モーダル(期間選択)", platform: "日付", method: "カレンダー", desc: "開始日と終了日をタップして期間を選ぶ全画面の形。フライトやホテルの予約が代表例。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-input", name: "モーダル入力", platform: "日付", method: "テキスト入力", desc: "ダイアログの中で、キーボードの数字で日付(または期間)を入力する。", link: ["Date pickers", "https://m3.material.io/components/date-pickers/guidelines"] },
+      { kind: "g-dial", name: "ダイヤル", platform: "時刻", method: "ダイヤル", desc: "文字盤のつまみを回して時刻を合わせる。アラームや予定の設定によく使われる。", link: ["Time pickers", "https://m3.material.io/components/time-pickers/guidelines"] },
+      { kind: "g-tinput", name: "入力", platform: "時刻", method: "テキスト入力", desc: "キーボードで時・分を入力する。どのダイヤルからもキーボードアイコンで切り替えられる。", link: ["Time pickers", "https://m3.material.io/components/time-pickers/guidelines"] },
     ],
   },
 ];
@@ -20798,6 +20801,7 @@ function PatternGallery() {
                   <span style={styles.patternChip}>{it.method}</span>
                 </div>
                 <div style={styles.patternDesc}>{it.desc}</div>
+                {it.link && <a href={it.link[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 6, fontSize: 11, color: "#3A4FCF" }}>{it.link[0]} ↗</a>}
               </div>
             ))}
           </div>
@@ -20853,7 +20857,7 @@ const LEAD = "カレンダーや回転する一覧などで、日付や時刻を
 const ABOUT = [
   { k: "目的・役割", v: "日付・時刻を、形式の間違いなく入力してもらう" },
   { k: "よく使われる場面", v: "予約日・生年月日・アラームの時刻の入力" },
-  { k: "似たコンポーネント", v: <>予定を一覧で見せる画面は<PageLink to="/components/text-inputs/calendar">カレンダー(スケジュール/予定表)</PageLink></> },
+  { k: "似たコンポーネント", v: <>年月日を自由に打つなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -21011,7 +21015,7 @@ function SelectionDateTimePickerPage() {
             </div>
           </div>
 
-          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/calendar", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
+          <RelatedPages paths={["/components/selection/overview", "/components/text-inputs/text-field", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -21138,13 +21142,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Menus / Context menus / Pull-down buttons",
     term: "Menu(コンテキストメニュー・プルダウンボタン・ポップアップボタン)",
     color: "#C2542A",
-    position: "メニュー全般のラベル・並べ方の指針に加え、プルダウンボタン(ボタンの操作に関係する命令)・ポップアップボタン(排他的な選択肢)・コンテキストメニュー(今の対象によく使う操作)を使い分ける",
-    size: "サブメニューは1階層までにし、項目が約5個を超えるなら別のメニューにする。コンテキストメニューは項目を少なくし、区切り線で分けるグループは約3つまで。プルダウンボタンは3項目以上にする(1〜2項目ならボタンやスイッチで足りる)。iOSのメニューには、上に4つのアイコンだけを並べるsmall、3つのアイコン+短いラベルのmedium、全部をリストで見せるlarge(既定)のレイアウトがある。",
-    colorInfo: "ラベルは何をするかを動詞で短く書く。実行する前にさらに入力や選択が必要な項目は、末尾に「…」を付ける。使えない項目は、通常のメニューでは薄く表示し(全部使えなくてもメニュー自体は開けるようにする)、コンテキストメニューでは薄くせずに隠す。アイコンは同じグループの項目すべてに付けるか、どれにも付けないかにそろえる。",
+    position: <>プルダウンボタン・ポップアップボタン・コンテキストメニューを<Hl>用途で使い分ける</Hl></>,
+    size: <><Hl>サブメニューは1階層まで</Hl>、項目が約5個を超えるなら別のメニューに。区切り線のグループは約3つまで。</>,
+    colorInfo: "ラベルは動詞で短く。さらに入力が要る項目は末尾に「…」。使えない項目は薄く表示する(コンテキストメニューでは隠す)。",
     stance:
-      <>人はメニューを上から読むため、<Hl>重要な項目・よく使う項目を先頭に置く</Hl>。コピー・カット・ペーストのように論理的に関係する項目はグループにまとめ、区切り線で分ける。長すぎるメニューは読む負担が大きく、目的の項目を見落とすため、分けるかサブメニューを使う(履歴やブックマークのように利用者が増やしていくメニューは長くてよい)。オン/オフの項目は、状態に合わせてラベルを変える(「地図を表示」⇔「地図を隠す」)か、チェックマークで示す。</>,
+      <><Hl>重要な項目・よく使う項目を先頭に置く</Hl>。関係する項目はグループにまとめ、長すぎるメニューは分ける。</>,
     exceptions:
-      "コンテキストメニューは最初は隠れていて気づかれないことがあるため、同じ項目を必ずメインの画面(ツールバー、macOSならメニューバー)からも使えるようにする。キーボードショートカットはメインのメニューに表示し、コンテキストメニューには表示しない(それ自体が近道のため重複する)。削除など破壊的な項目はコンテキストメニューの最後に置き、赤い文字で示す(iOS・iPadOS)。メニューが対象の上下どちらに開くかに合わせて、よく使う項目が指やポインタの近くに来るよう並びを逆にすることもある。",
+      "コンテキストメニューの項目は、メインの画面からも使えるようにする。削除など壊す項目は最後に置き、赤い文字で示す(iOS・iPadOS)。",
     accessibility:
       <span><NoData>記載なし。</NoData>使えない項目があってもメニュー自体は開けるようにし、どんな命令があるかを知れるようにする点は、分かりやすさ(理解可能)に関わる。</span>,
     useCases: [
@@ -21168,15 +21172,15 @@ const SOURCES = [
     doc: "Material Design 3 ― Menus",
     term: "Menu(ドロップダウンメニュー・エクスポーズドドロップダウンメニュー)",
     color: "#2F7D6E",
-    position: "一時的な面に選択肢の一覧を出すコンポーネント。ボタンや操作をきっかけに現れ、ラジオボタンの組より場所を取らない。ドロップダウンメニューと、入力欄の形をしたエクスポーズドドロップダウンメニューの2種類",
-    size: <><Hl>項目の高さは48dp、メニューの幅は112〜280dp</Hl>、項目の左右の余白は12dp、メニューの上下の余白は8dp(Jetpack Compose)。容器の角丸はExtra small(4dp)、影の高さはLevel 2(3dp)。M3 Expressiveのメニューは、容器の角丸がLarge(16dp)、項目をまとめるグループの角丸がSmall(8dp)、影はLevel 2(Jetpack Composeのトークン)。</>,
-    colorInfo: "構成は、項目・先頭のアイコン・末尾のアイコン・末尾の文字(ショートカットなど)・容器・区切り線。容器の色はSurface Container、項目の文字はBody Large。選んだ状態の項目は、Secondary Containerの背景で示す(Jetpack Composeのトークン定義)。",
+    position: <>ボタンなどで開く一時的な面に選択肢を並べる。<Hl>ドロップダウンメニューと、入力欄の形のエクスポーズドドロップダウンメニューの2種類</Hl></>,
+    size: <><Hl>項目の高さは48dp、幅は112〜280dp</Hl>(Jetpack Compose)。角丸4dp(M3 Expressiveは16dp)。</>,
+    colorInfo: "選んだ項目は背景の色(Secondary Container)で示す。",
     stance:
-      "ボタンやほかのコンポーネントを操作すると現れ、複数の選択肢から選ばせる。ラジオボタンの組より目立たず、場所を取らない。ポップアップ・コンテキスト・オーバーフロー(…で開くメニュー)それぞれにスタイルがある。",
+      "ラジオボタンの組より目立たず、場所を取らない。",
     exceptions:
-      "エクスポーズドドロップダウンメニューは入力欄の形で、選んだ値を表示し続ける。既定では文字を入力して候補を絞ることもでき、入力させずに選ぶだけの形にもできる。値を選ぶ用途は「セレクト(プルダウン)」ページも参照。",
+      "エクスポーズドドロップダウンメニューは選んだ値を表示し続け、文字を入力して候補を絞ることもできる(「セレクト(プルダウン)」ページ)。",
     accessibility:
-      "知覚可能・操作可能 ― 選んだ項目は既定で形と色が変わり、選んでいない項目と3:1のコントラストを持つ。チェックマークなど色以外の手がかりも添える。押せる範囲は48×48dp以上。開いたら最初の項目にフォーカスを置く。",
+      "知覚可能・操作可能 ― 選んだ項目は形と色で示し、チェックマークも添える。押せる範囲は48×48dp以上。",
     useCases: [
       "項目は48dpの高さ、メニューは112〜280dpの幅にする",
       "先頭にアイコン、末尾にショートカットの文字を置ける",
@@ -21199,7 +21203,7 @@ const SOURCES = [
     term: "メニュー・メニューバー・メニュー項目(WAI-ARIAの役割)",
     color: "#A3821F",
     position: <>OSのメニューのように振る舞う選択肢の一覧の、<Hl>役割・状態とキーボード操作を定める</Hl>。メニューボタンで開く一時的なメニューと、常に出ているメニューバーを扱う</>,
-    size: "専用の数値基準はない。項目には一般のターゲットサイズの基準(2.5.8・レベルAA、24×24 CSSピクセル。例外あり)がかかる。",
+    size: <><NoData>専用の数値基準なし</NoData>。項目には一般のターゲットサイズの基準(2.5.8・AA。例外あり)がかかる。</>,
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "メニュー・メニュー項目", desc: "メニュー本体と、その中の項目の役割。オン/オフの項目と、1つだけ選ぶ項目は、それぞれの種類の項目として伝える。" },
@@ -21207,11 +21211,11 @@ const SOURCES = [
       { term: "開閉の状態", desc: "メニューが開いているか閉じているかを支援技術に伝える。" },
     ],
     stance:
-      "メニューボタンは、メニューが開くことと、今開いているかを支援技術に伝える。開いたメニューはメニューとして、項目はメニュー項目(オン/オフの項目、1つだけ選ぶ項目を含む)として伝える。ダイアログを開く項目のラベルの末尾に「…」を付ける慣習も紹介している。",
+      <>メニューボタンは<Hl>メニューが開くことと、今開いているかを支援技術に伝える</Hl>。項目はメニュー項目として伝える。</>,
     exceptions:
-      "使えない項目はフォーカスできるが実行はできない(フォーカスして存在を知ることはできる)。区切り線はフォーカスしない。チェックボックスやラジオの項目は、メニューを閉じずに状態を変えてよい。メニューバーに再びフォーカスが入ったら、前の項目に戻してもよい。サイト内のリンク一覧(グローバルナビの開閉メニューなど)は、開閉ボタンと普通のリンクの一覧(APGのDisclosure Navigation Menuの例)で作るほうが合うことが多い(AI解釈)。",
+      "使えない項目もフォーカスでき、存在を知ることはできる。サイト内のリンク一覧は、開閉ボタンと普通のリンクの一覧で作るほうが合うことが多い(AI解釈)。",
     accessibility:
-      "操作可能(Operable)・堅牢(Robust) ― キーボードでの操作は「操作可能」(2.1.1)、役割と開閉の状態を支援技術に伝えることは「堅牢」(4.1.2)に関わる。",
+      "操作可能(Operable)・堅牢(Robust) ― 2.1.1・4.1.2。",
     useCases: [
       "メニューボタンで、メニューが開くことと開閉の状態を伝える",
       "使えない項目もフォーカスできるようにし、実行だけできなくする",
@@ -21232,14 +21236,14 @@ const SOURCES = [
     doc: "Contextual Menus: Delivering Relevant Tools for Tasks / Dropdowns: Design Guidelines",
     term: "Contextual menu・Dropdown",
     color: "#7A4F7E",
-    position: "対象に関係する少数の操作を出すコンテキストメニューと、命令・遷移・入力・属性の選択に使われるドロップダウンについての実務指針(適合基準ではない)",
-    size: "コンテキストメニューは10〜12項目未満にし、スクロールせずに全部見えるようにする。サブメニューは1階層まで。",
-    colorInfo: "使えない項目は消さずに薄く表示する。消すと位置が変わって覚えにくく、どうすれば出てくるのかを探させるため。関係する命令は一式そろえて載せる(「戻る」があれば「進む」も)。コンテキストメニューがあることは、縦・横の三点や下向きの矢印のボタンで示し、歯車やハンバーガーのアイコンは全体の設定やメニューと誤解されるため使わない。",
+    position: <>コンテキストメニューとドロップダウンの実務指針。<Hl>使えない項目は消さずに薄く表示する</Hl></>,
+    size: <>コンテキストメニューは<Hl>10〜12項目未満</Hl>で、スクロールせずに全部見えるように。サブメニューは1階層まで。</>,
+    colorInfo: "使えない項目を消すと位置が変わって覚えにくい。メニューがあることは三点や下向きの矢印で示し、歯車やハンバーガーは使わない。",
     stance:
-      <>コンテキストメニューには、今の作業や選んだ要素に直接関係する操作だけを載せ、<Hl>よく使う順に上から並べる</Hl>。隠れていて気づかれないことがあるため、同じ命令をメインのメニューからも使えるようにする。キーボードショートカットを表示し、繰り返し見るうちに覚えてもらう。</>,
+      <>今の作業に直接関係する操作だけを、<Hl>よく使う順に上から並べる</Hl>。同じ命令をメインのメニューからも使えるようにする。</>,
     exceptions:
-      "ドロップダウンは、スクロールが必要なほど長いリストを避け、入力した方が速い場合(州・国の名前、生年月日など)には使わない。開いている間もラベルが見えるようにする。デスクトップでは、サイトの主要なナビゲーションをドロップダウンの中に隠さない。ほかのメニューの選択によって中身が変わるメニューも避ける。キーボードで文字を打って項目に移れるようにする。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティテストの観察にもとづく設計の根拠。キーボードでの移動を支えることは、目の見えない人の使いやすさにもつながる。",
+      "入力した方が速い場合(国名・生年月日など)はドロップダウンにしない。サイトの主要なナビゲーションを隠さない。",
+    accessibility: "根拠となる原則 ― ユーザビリティテストの観察にもとづく設計の根拠。",
     useCases: [
       "コンテキストメニューは10〜12項目未満、よく使う順に並べる",
       "使えない項目は隠さずに薄く表示する",
@@ -21543,7 +21547,7 @@ function SelectionMenuPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは寸法と構成要素を、W3Cは役割とキーボード操作を中心に定めている。</p>
@@ -21786,8 +21790,8 @@ const CARDS = [
   },
   {
     key: "slider", name: "スライダー", path: "/components/selection/slider", built: true,
-    oneLiner: "連続した範囲から、正確さより「感覚的な」値を選ぶ。",
-    doText: "音量・明るさなど感覚的な値でよい時",
+    oneLiner: "数の範囲の中から、値や範囲(価格帯など)を選ぶ。",
+    doText: "音量・明るさ、価格帯・時間帯の範囲",
     dontText: "年齢・体重など正確な値が必要な時",
     icon: () => (<svg width="70" height="16" viewBox="0 0 70 16"><line x1="2" y1="8" x2="68" y2="8" stroke="#D5D9EC" strokeWidth="4" strokeLinecap="round" /><line x1="2" y1="8" x2="44" y2="8" stroke="#3A4FCF" strokeWidth="4" strokeLinecap="round" /><circle cx="44" cy="8" r="6" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="2" /></svg>),
   },
@@ -21811,10 +21815,9 @@ const CARDS = [
 
 /* このカテゴリのほかのページ(表の6パーツとは役割が違うもの) */
 const OTHERS = [
-  { name: "セレクトの種類(プルダウン以外)", path: "/components/selection/select-patterns", text: "ドラムロール(ホイール)など、プルダウン以外で1つを選ぶ形の一覧" },
+  { name: "セレクトの種類", path: "/components/selection/select-patterns", text: "ホイールピッカーなど、プルダウン以外で1つを選ぶ形の一覧" },
   { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならセレクト(プルダウン)" },
   { name: "日付/タイムピッカー", path: "/components/selection/date-time-picker", text: "日付・時刻という決まった形の値を選ぶ。生年月日のように遠い日付は入力欄の方が速いことも" },
-  { name: "カレンダー(スケジュール/予定表)", path: "/components/text-inputs/calendar", text: "予定を日・週・月の表で見せる画面。日付を1つ選んで入力するなら日付/タイムピッカー" },
   { name: "セグメントコントロール", path: "/components/navigation/segmented-control", text: "少ない選択肢から1つを選び、同じ場所の見え方をすぐ切り替える(表示形式の切り替えなど)" },
 ];
 
@@ -21897,9 +21900,9 @@ const USE_COLS = [
   { k: "multi", t: "複数の項目を選ぶ" },
   { k: "onoff", t: "1つの項目をオン/オフ" },
   { k: "one", t: "1つだけ選ぶ" },
-  { k: "value", t: "感覚的な値を調整する" },
-  { k: "filter", t: "その場で絞り込む・並べ替える(すぐ反映)" },
-  { k: "form", t: "フォームで選んで送信する" },
+  { k: "value", t: "範囲の中から値を決める(音量・価格帯など)" },
+  { k: "filter", t: "表示中の一覧を絞り込む・並べ替える(選ぶとすぐ反映)" },
+  { k: "form", t: "フォームで選び、送信ボタンで確定する" },
 ];
 const USE_ROWS = [
   { name: "チェックボックス", path: "/components/selection/checkbox", multi: "◯", onoff: ["◯", "単独のチェックボックス。送信で確定する場面向け"], one: "✕", value: "✕", filter: ["△", "絞り込みの条件の一覧にも使える"], form: "◯" },
@@ -21912,32 +21915,28 @@ const USE_ROWS = [
 const MARK_COLOR = { "◯": "#2F7D6E", "△": "#A3821F", "✕": "#666D93" };
 
 function UseTable() {
+  const chip = (r, note, m) => (
+    <a key={r.name} href={r.path} style={{ display: "inline-flex", flexDirection: "column", textDecoration: "none", border: `1px solid ${m === "◯" ? "#2F7D6E55" : "#A3821F55"}`, borderRadius: 6, padding: "4px 8px", background: "#FFFFFF", maxWidth: 260 }}>
+      <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF" }}>{r.name}</span>
+      {note && <span style={{ fontSize: 10.5, color: "#565D8A", lineHeight: 1.45 }}>{note}</span>}
+    </a>
+  );
+  const pick = (c, m) => USE_ROWS.map((r) => {
+    const v = Array.isArray(r[c.k]) ? r[c.k] : [r[c.k], ""];
+    return v[0] === m ? chip(r, v[1], m) : null;
+  }).filter(Boolean);
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={styles.useTable}>
-        <thead>
-          <tr>
-            <th style={styles.useTh}>パーツ</th>
-            {USE_COLS.map((c) => (<th key={c.k} style={{ ...styles.useTh, textAlign: "center" }}>{c.t}</th>))}
-          </tr>
-        </thead>
-        <tbody>
-          {USE_ROWS.map((r) => (
-            <tr key={r.name}>
-              <td style={{ ...styles.useTd, fontWeight: 700, whiteSpace: "nowrap" }}><a href={r.path} style={{ color: "#3A4FCF" }}>{r.name}</a></td>
-              {USE_COLS.map((c) => {
-                const v = Array.isArray(r[c.k]) ? r[c.k] : [r[c.k], ""];
-                return (
-                  <td key={c.k} style={{ ...styles.useTd, textAlign: "center" }}>
-                    <span style={{ fontSize: 15, fontWeight: 700, color: MARK_COLOR[v[0]] }}>{v[0]}</span>
-                    {v[1] && <span style={styles.useNote}>{v[1]}</span>}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {USE_COLS.map((c) => (
+        <div key={c.k} style={{ display: "grid", gridTemplateColumns: "minmax(0, 200px) 1fr", gap: 10, alignItems: "start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>{c.t}</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["◯"], width: 84, flexShrink: 0, paddingTop: 4 }}>◯ 向いている</span>{pick(c, "◯")}</div>
+            {pick(c, "△").length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["△"], width: 84, flexShrink: 0, paddingTop: 4 }}>△ 場合による</span>{pick(c, "△")}</div>}
+          </div>
+        </div>
+      ))}
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "2px 0 0" }}>ここにないコンポーネントは、そのしたいことには向かない。</p>
     </div>
   );
 }
@@ -21975,23 +21974,17 @@ function SelectionOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              6つのパーツは、コンポーネントの性質からではなく、<strong>「ユーザーが今、何をしたいか」という行動</strong>から辿ると迷いにくくなる。下の表は、行動ごとにどのパーツが向いているかを◯/△/✕で示したものだ。
+              6つは<strong>「利用者が今、何をしたいか」</strong>から選ぶと迷わない(下の「したいことから選ぶ」)。
             </p>
             <p style={styles.synthesisText}>
-              1つの項目のオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信ボタンで確定するなら単独のチェックボックス</strong>に分かれる(NN group)。一覧をその場で絞り込む条件なら、<strong>フィルターチップ1つでもオン/オフに使える</strong>(Googleは、フィルターチップをトグルボタンやチェックボックスの代わりになるものとしている)。
-            </p>
-            <p style={styles.synthesisText}>
-              <strong>チップとチェックボックスは「複数選べる」点で重なる</strong>が、チップは<strong>今見ている一覧をその場で絞り込む</strong>ときに向き、チェックボックスは<strong>フォームの中で選んで、送信して確定する</strong>ときに向く。また、<strong>チェックボックスとラジオボタン、チェックボックスとトグルスイッチの取り違え</strong>は、よくある注意点だ(詳しくは<a href="/components/selection/toggle" style={{ color: "#3A4FCF" }}>トグルスイッチ</a>・<a href="/components/selection/checkbox" style={{ color: "#3A4FCF" }}>チェックボックス</a>・<a href="/components/selection/radio" style={{ color: "#3A4FCF" }}>ラジオボタン</a>のページ)。
-            </p>
-            <p style={styles.synthesisText}>
-              <strong>セレクト(プルダウン)はラジオボタンと同じ「1つだけ選ぶ」行動</strong>で、選択肢を常に全部見せたいならラジオボタン、場所を節約したいならセレクト(プルダウン)、という使い分けだ。表示の切り替えのように、少ない選択肢から1つを選んですぐ反映するなら<a href="/components/navigation/segmented-control" style={{ color: "#3A4FCF" }}>セグメントコントロール</a>も使える。
+              迷いやすいのは3組。1つのオン/オフは、<strong>押した瞬間に反映するならトグルスイッチ、送信で確定するならチェックボックス</strong>(NN group)。複数を選ぶなら、<strong>一覧をその場で絞り込むならチップ、フォームで送信するならチェックボックス</strong>。1つだけ選ぶなら、<strong>全部見せたいならラジオボタン、場所を節約するならセレクト(プルダウン)</strong>。
             </p>
           </div>
 
           <h2 style={styles.diagramTitle}>6つのパーツ</h2>
           <PartCards />
 
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>行動から選ぶ(◯/△/✕)</h2>
+          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>したいことから選ぶ</h2>
           <UseTable />
           <p style={styles.diagramNote}>◯=向いている、△=使い方次第、✕=向いていない。まず「今したいこと」の列を見て、◯のパーツから選ぶ。チップのように、使い方によって役割が変わるパーツがあるため、はい/いいえで分ける図ではなく表にしている。この表は、各パーツのページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
 
@@ -22055,8 +22048,10 @@ const SOURCES = [
       "選択は塗った円、未選択は空の円という形の違いで状態を示す。塗りの色はシステムのアクセントカラーに従い、個別には指定しない。",
     stance:
       <>ラジオボタンはmacOS向けのコンポーネントで、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG TogglesのmacOSの節で扱う)。ラベル付きの小さな円のボタンで、通常2〜5個のグループで、1つだけを選ぶ選択肢を示すと定義する。1つのオン・オフ設定には、チェックボックスを使う。</>,
+    initial: <NoData>記載なし</NoData>,
+    layout: "横に並べるなら、選択肢の間隔をそろえる(横並びを禁じてはいない)",
     exceptions:
-      "「不定(mixed)」も表示できるが、ラジオボタンを足せば状態を表せるため、役立つ場面はまれ。混在の状態を示すならチェックボックスを検討する。選択肢が多すぎるリストは避け、横に並べるなら間隔をそろえる。",
+      "「不定(mixed)」も表示できるが、役立つ場面はまれ。選択肢が多すぎるリストは避ける。",
     accessibility:
       "理解可能(Understandable) ― 選択・未選択を見た目で正確に伝える。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに記載はない。",
     useCases: [
@@ -22098,8 +22093,10 @@ const SOURCES = [
     ],
     stance:
       <>複数の選択肢から1つを選ぶためのコントロール。リストから1つだけ選べる場合はラジオボタン(スイッチではない)を使い、<Hl>選択肢が5つ以下に向く</Hl>。場所を節約するならドロップダウンメニューも検討できるが、クリック数と認知の負担が増える。</>,
+    initial: <>1つを選んだ状態で始める(何も選んでいない状態で始めることも認める)。外す必要があるなら「該当なし」などを用意する</>,
+    layout: <><Hl>縦に積むのが基本</Hl>で、横のリストは避ける</>,
     exceptions:
-      "入れ子や複数選択には使わない。配置の節では、いつも1つを選んだ状態で始めるとする(操作の節では「1つが選ばれた状態か、何も選ばれていない状態で始められる」とも書く)。縦に積むのが基本で、横のリストは避ける。選んだラジオボタンは操作だけでは解除できないため、解除が要るなら「該当なし」の選択肢や「選択をクリア」を用意する。",
+      "入れ子や複数選択には使わない。選んだ後は操作だけでは解除できないため、解除が要るなら「選択をクリア」を用意する。",
     accessibility:
       "堅牢(Robust) ― ラベルが正しく結び付いていれば、支援技術はラベルに続けて役割(ラジオグループ)を読み上げる。",
     useCases: [
@@ -22135,6 +22132,8 @@ const SOURCES = [
       "1.4.11(非テキストのコントラスト)により、選択を示す塗った円などは、周りと3:1以上にする。1.4.1により、色だけで選択状態を示さない。",
     stance:
       <>独自のUIコンポーネントは、名前(ラベル)・役割(ラジオボタンであること)・状態(選択・未選択)と、<Hl>グループの中で1つだけ選べること</Hl>を、支援技術から取得・設定できること。</>,
+    initial: <NoData>記載なし</NoData>,
+    layout: <NoData>記載なし</NoData>,
     exceptions:
       "ブラウザ標準のラジオボタンなら、これらの情報は自動で伝わる。独自に作ったラジオボタンだけ配慮が要る。",
     accessibility:
@@ -22176,8 +22175,10 @@ const SOURCES = [
       <NoData>数値基準なし</NoData>,
     stance:
       "2つ以上の選択肢から、必ず1つだけを選ぶ場合に使う。選択肢は縦に1行1つで並べ、いつもすべて見せる。",
+    initial: <><Hl>既定で1つを選んでおく</Hl>(ほとんどの場合)。敬称・性別・寄付額のような質問では選ばない</>,
+    layout: "縦に1行1つで並べ、いつもすべて見せる",
     exceptions:
-      <><Hl>既定で1つを選んでおく</Hl>(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」も、ほとんどの場合は既定で選ぶほうがよいと結論づける)。選択肢がすべてを網羅しないなら「その他」を用意する。</>,
+      "選択肢がすべてを網羅しないなら「その他」を用意する。",
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、選びやすさの設計の根拠。",
     useCases: [
@@ -22333,7 +22334,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "1つだけ選ぶときに、すべての選択肢を見せる", d: "", who: "Apple・Google・W3C・NN group" },
-  { n: 2, t: "縦に並べる", d: "横に並べるのは「はい/いいえ」のような短い2〜3択だけ", who: "Google・NN group" },
+  { n: 2, t: "基本は縦に並べる。横に並べるのは短い2〜3択だけ", d: "Appleは横並びも認め、その場合は間隔をそろえるとする", who: "Google・NN group(横並びの条件はApple)" },
   { n: 3, t: "迷ったら1つを選んでおく", d: "選ばせたくない質問は「該当なし」を足す", who: "NN group。AI解釈" },
   { n: 4, t: "選択肢は5個以下が目安", d: "多いときはセレクトを検討", who: "Google" },
 ];
@@ -22345,10 +22346,9 @@ function GoodBadFigure() {
             title="良い例・悪い例 ― 並べ方"
             items={[
               { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "選択肢を縦に1行1つで並べ、すべて見える。どの丸がどのラベルか迷わない。" },
-              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px", maxWidth: 230 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "nowrap", gap: 4, whiteSpace: "nowrap", fontSize: 12 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
             ]}
             basis="Google(縦に1行1つが基本)、NN group(縦に並べ、すべての選択肢を常に見せる)。"
-            note="「はい/いいえ」のような短い2〜3個なら、横に並べてもよい(このページの記載)。"
           />
   );
 }
@@ -22422,6 +22422,8 @@ function SelectionRadioPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
+                <InfoBox label="最初の選択">{s.initial}</InfoBox>
+                <InfoBox label="並べ方">{s.layout}</InfoBox>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -22463,6 +22465,10 @@ function SelectionRadioPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
+                <div style={styles.labelCell}>最初の選択</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.initial}</div>))}
+                <div style={styles.labelCell}>並べ方</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.layout}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
@@ -22571,7 +22577,7 @@ const SelectionSelectPatternsPage = (function () {
 
 
 /**
- * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
+ * コンポーネントレイヤー「Selection / セレクトの種類」ページ(2026-11 ⑦本人レビューNo.030で「セレクトの種類(プルダウン以外)」から改名)。
  *
  * 「セレクト(プルダウン)」ページでは、Apple(Pop-up/Pull-downボタン)・
  * Google(Exposed dropdown menu)を中心に「折りたたみ式の単一選択」を扱ったが、
@@ -22579,7 +22585,7 @@ const SelectionSelectPatternsPage = (function () {
  * 横断比較する形式ではなく、確認できた代表的なパターンをギャラリー形式で
  * まとめた補助的なページ(新しい一次情報の要約というより、既存ページ+個別調査の統合)。
  *
- * ドラムロール/ホイールピッカーはApple公式ページ(Pickers)の本文を直接取得して
+ * ホイールピッカーはApple公式ページ(Pickers)の本文を直接取得して
  * 確認済み(2026-09)。リストボックス・コンボボックスはWAI-ARIA Authoring Practices(2026-10にCombobox本文を再確認)
  * および「セレクト(プルダウン)」ページで確認済みの内容を再構成したもの。
  */
@@ -22600,7 +22606,7 @@ const PATTERNS = [
     ),
   },
   {
-    name: "ドラムロール/ホイールピッカー",
+    name: "ホイールピッカー",
     system: "Apple(Pickers)",
     desc: "縦(または横)に回転するホイール状のリストから値を選ぶパターン。選択中の値は中央に濃い文字で表示される。高さはおおよそリスト5行分、幅は画面またはその親要素の幅に合わせるとされている。",
     when: "国名や日付のように、順序があり予測しやすい値を選ぶ場面。長すぎるリストには不向きで、その場合はテーブル(索引付きの一覧)を使うべきとされている",
@@ -22687,7 +22693,7 @@ const AVAIL = [
     { name: "Select-Only Combobox(APGの例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
     { name: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/" },
   ] },
-  { pattern: "ドラムロール/ホイールピッカー", cells: [
+  { pattern: "ホイールピッカー", cells: [
     { name: "Pickers(ホイール)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
     { none: "記載なし" },
     { none: "専用の型なし" },
@@ -22752,11 +22758,11 @@ function SelectionSelectPatternsPage() {
         <SidebarNav currentPath="/components/selection/select-patterns" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / セレクトの種類(プルダウン以外)</span>
+            <span>コンポーネント / セレクトの種類</span>
             <span>SPEC No. 012</span>
           </div>
 
-          <h1 style={styles.title}>セレクトの種類(プルダウン以外)</h1>
+          <h1 style={styles.title}>セレクトの種類</h1>
 
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
@@ -22766,7 +22772,7 @@ function SelectionSelectPatternsPage() {
               「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンだったが、単一選択を実現する方法はそれだけではない。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられる。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
+              特に<strong>Appleの「ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
             </p>
             <p style={styles.synthesisText}>
               選択肢が非常に多い場合は、<strong>タイピングで絞り込める「コンボボックス」がプルダウンより素早い</strong>という点も、実務上重要な判断材料だ。
@@ -22930,7 +22936,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <>名前・役割・状態とキーボード操作を求める一般の基準。<Hl>ブラウザ標準のものか独自に作るかで対応が変わる</Hl></>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
+      <><NoData>専用の数値基準なし</NoData>。一般のターゲットサイズの基準(2.5.8・2.5.5。どちらも例外あり)がかかる。</>,
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、境界線や選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
@@ -22939,11 +22945,11 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別のコンポーネントに移す、別のページへ遷移する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      "ブラウザ標準のプルダウンなら、名前・役割・状態は支援技術に自動で伝わる。WCAGの要件は、名前・役割・状態が支援技術に伝わること(4.1.2)と、すべての機能をキーボードで操作できること(2.1.1)。独自に作るときの考え方は、W3CのAPG(参考例。適合の要件ではない)が示す。折りたたみ式のプルダウンの型はComboboxパターンの「Select-Only Combobox」(標準のプルダウンと同じ働きの例)。Listboxは、いつも出している一覧や、開いたポップアップの中身に使う型。選んだだけで別のページへ遷移したりフォームを送信したりすると、予期しない文脈の変化になる。3.2.2(レベルA)は、事前に知らせない限りこれを認めず、選んだ後に押す「移動」「送信」ボタンで実行する方法を示す。3.2.1(レベルA)も、フォーカスを当てただけで文脈を変えないことを求め、キーボードで選択肢の上を移動しているだけではページを遷移させない。",
+      <>標準のプルダウンなら名前・役割・状態は自動で伝わる(4.1.2)。<Hl>選んだだけでページを移ったり送信したりしない</Hl>(3.2.2)。「移動」「送信」ボタンで実行する。</>,
     exceptions:
-      "APGの勧め: 選択肢の名前が長すぎる・同じ語で始まる選択肢が並ぶと、スクリーンリーダーでは分かりにくいため避ける。7個を超えるなら、先頭の文字を打ってジャンプできる機能(タイプアヘッド)を用意する(どちらもWCAGの要件ではない)。",
+      "選択肢の名前を長くしすぎない。7個を超えるなら、先頭の文字でジャンプできるようにする(APGの勧め。要件ではない)。",
     accessibility:
-      "堅牢(Robust)・操作可能(Operable) ― 名前・役割・状態(4.1.2)とキーボード操作(2.1.1)。3.2.1・3.2.2は「理解可能(Understandable)」の予測可能(3.2)。",
+      "堅牢(Robust)・操作可能(Operable)・理解可能(Understandable) ― 4.1.2・2.1.1・3.2.2。",
     useCases: [
       "できればブラウザ標準のプルダウンを使い、標準のアクセシビリティに任せる",
       "独自に作るなら、APGのSelect-Only Comboboxの例を参考にする(開いた一覧は選択肢の一覧として伝え、選ばれている項目も伝える)",
@@ -23074,10 +23080,9 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "5つ以下で場所があればラジオボタン", d: "全部見えて比べやすい", who: "AI解釈" },
-  { n: 2, t: "それより多いか、場所がなければセレクト", d: "", who: "AI解釈" },
-  { n: 3, t: "数十件を超えるなら、入力して絞り込める欄にする", d: "名前を知っている項目を選ぶとき", who: "AI解釈" },
-  { n: 4, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
+  { n: 1, t: "選択肢が5つ以下で場所があればラジオボタン、それより多いか場所がなければセレクト", d: "ラジオボタンは全部見えて比べやすい", who: "AI解釈" },
+  { n: 2, t: "数十件を超えるなら、入力して絞り込める欄にする", d: "名前を知っている項目を選ぶとき", who: "AI解釈" },
+  { n: 3, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -23811,10 +23816,10 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "おおよその値を選ぶときに使う", d: "正確な値が要るなら、まず入力欄", who: "AI解釈" },
+  { n: 1, t: "数の範囲の中から、値や範囲を選ぶときに使う", d: "音量のような1つの値や、価格帯・出発の時間帯のような範囲。正確な値が要るなら入力欄も添える", who: "Google・NN group" },
   { n: 2, t: "使うときも入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "W3C 2.5.7" },
   { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
-  { n: 4, t: "キーボードでも操作できるようにする", d: "", who: "W3C" },
+  { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
 
 function SelectionSliderPage() {
@@ -23852,6 +23857,8 @@ function SelectionSliderPage() {
 
 
           <SliderTypesSection />
+
+          <ValueDisplaySection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -23949,7 +23956,6 @@ function SelectionSliderPage() {
             </div>
           </div>
 
-          <ValueDisplaySection />
 
           <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 
@@ -24354,11 +24360,10 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "押した瞬間に効く設定にだけ使う", d: "", who: "Google・NN group" },
+  { n: 1, t: "押すとすぐ切り替わる設定に使う", d: "例: Wi-Fiのオン/オフ", who: "Google・NN group" },
   { n: 2, t: "保存ボタンのあるフォームではチェックボックスにする", d: "", who: "Google・NN group" },
   { n: 3, t: "相反する2つの選択肢の切り替えには使わない", d: "月額/年額などはボタングループ", who: "Google" },
-  { n: 4, t: "名前・役割・状態を支援技術に伝える", d: "", who: "W3C 4.1.2" },
-  { n: 5, t: "押せる範囲は48×48以上", d: "", who: "Google" },
+  { n: 4, t: "何の設定か、今オンかオフかを、読み上げソフトにも伝える", d: "", who: "W3C 4.1.2" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -24586,404 +24591,6 @@ const styles = {
 };
 
 return SelectionTogglePage;
-})();
-/* ================= text-inputs-calendar.jsx ================= */
-const TextInputsCalendarPage = (function () {
-
-
-
-/**
- * コンポーネントレイヤー「Text inputs / カレンダー(スケジュール/予定表)」ページ。
- *
- * 「日付/タイムピッカー」ページが扱う「単一の日付を選ぶための入力コントロール」
- * とは異なり、このページはGoogleカレンダーのような「予定を表示・管理する
- * スケジュール/アジェンダのビュー」を扱う。ユーザーからの新規ページ依頼を受けて
- * 2026-09に新規作成。
- *
- * 2026-09 追記(内容の訂正): 初版はApple・Googleを「該当コンポーネントなし」と
- * していたが、ユーザーから「MD3・Appleにも存在する(名称が日付ピッカーなど
- * 違うだけ)」という指摘を受け、確認したところ事実だった。Apple の
- * UIDatePickerStyle.inline/.compactは「十分なスペースがあればモーダルの手間
- * なくフルサイズのカレンダーを直接表示する」ものであり、実質的に月表示の
- * カレンダーグリッドである(検索結果で確認、2026-09)。GoogleのDate pickers
- * Modalバリアントも、月をまたぐ横スワイプ・年をまたぐ縦スクロールを持つ
- * カレンダーグリッドUIそのもの(「日付/タイムピッカー」ページで確認済み)。
- * NN groupの既存記事(Date-Input Form Fields)も、カレンダーピッカー(グリッド
- * UI)の使いどころを論じている。したがって正しい発見は「4系列とも独立した
- * 『カレンダー』コンポーネントは持たないが、いずれも日付ピッカーの1バリエー
- * ションとして実質的なカレンダーグリッドUIを持つ」であり、「該当なし」では
- * なかった。一方で、複数の予定を並べて表示・管理するスケジュール/アジェンダ
- * 専用のビューは、4系列のいずれにも見当たらないという点は変わらない
- * (この差を正しく分けて記載するよう全面的に書き直した)。
- *
- * Apple(UIDatePickerStyle.inlineの技術文書、iOS 14での.inline/.compact追加の
- * 経緯)・Google(m3.material.ioのDate pickers Modalバリアントのナビゲーション
- * 操作)は検索結果による確認(2026-09、いずれも公式サイト本文はSPAのため
- * 直接確認はできていない)。W3C(WAI-ARIA APG Grid Patternのページ本文、Layout
- * Grid Examplesページ)・NN group(Date-Input Form Fields記事)は本文を直接
- * 取得して確認済み(2026-09)。
- *
- * 2026-09 追記: ユーザーから「四系列デザインシステム比較のApple・Googleのデザイン
- * イメージも追記したい」というフィードバックを受け、W3C・NN groupにのみあった
- * illustrationを、Apple(UIDatePickerStyle.inlineの月表示グリッド、選択日を円形で表示)・
- * Google(Date pickers Modalの月表示グリッド、月送りナビゲーション付き、選択日を
- * 角丸四角で表示)にも追加した。あわせて、プレビューがPC幅でもモバイル向けカード
- * グリッドが混在して見えるという指摘を受け、ビルド成果物の取り違えの可能性を
- * 排除するため、現在のソースから作り直した単独プレビューを再公開した(コード側の
- * dsp-mobile-only/dsp-desktop-onlyの切り替えロジック自体に変更はない)。
- */
-
-const SOURCES = [
-  {
-    key: "hig",
-    related: <>日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    name: "Apple",
-    doc: "Human Interface Guidelines ― Pickers(関連)",
-    term: <NoData>該当なし</NoData>,
-    color: "#C2542A",
-    position: <NoData>該当なし(予定表のコンポーネントはない)</NoData>,
-    size: <NoData>該当なし</NoData>,
-    colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: 日付ピッカーのインライン・コンパクトのスタイルが月表示のカレンダーを描くが、1つの日付を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>該当なし</NoData>,
-    useCases: [<NoData>該当なし</NoData>],
-    searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/pickers",
-    refs: [
-      { label: "関連: Pickers", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
-      { label: "補足(実装): UIDatePickerStyle.inline", url: "https://developer.apple.com/documentation/uikit/uidatepickerstyle/inline" },
-    ],
-    confirmedNote:
-      "HIG Pickersの本文(iOS・iPadOSの日付ピッカーのコンパクト・インライン・ホイール・自動のスタイル)と、UIDatePickerStyleの技術文書で確認(2026-11)。",
-    pending: true,
-    illustration: () => (
-      <svg width="120" height="70" viewBox="0 0 120 70">
-        <rect x="1" y="1" width="118" height="68" rx="6" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.4" />
-        <text x="60" y="12" fontSize="7.5" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">2026年9月</text>
-        <line x1="6" y1="17" x2="114" y2="17" stroke="#C2542A" strokeWidth="0.6" opacity="0.4" />
-        {Array.from({ length: 14 }).map((_, i) => {
-          const col = i % 7;
-          const row = Math.floor(i / 7);
-          const cx = 13 + col * 15.5;
-          const cy = 32 + row * 18;
-          return (
-            <g key={i}>
-              {i === 8 && <circle cx={cx} cy={cy} r="6.5" fill="#C2542A" />}
-              <text x={cx} y={cy + 2.5} fontSize="7" fill={i === 8 ? "#FFFFFF" : "#454C78"} textAnchor="middle" fontFamily="Jost, Noto Sans JP">{i + 1}</text>
-            </g>
-          );
-        })}
-      </svg>
-    ),
-    illustrationNote: "関連: 日付ピッカー(インライン)の月表示(概念図・系列識別色)",
-  },
-  {
-    key: "material",
-    related: <>Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    name: "Google",
-    doc: "Material Design 3 ― Date pickers(関連)",
-    term: <NoData>該当なし</NoData>,
-    color: "#2F7D6E",
-    position: <NoData>該当なし(予定表のコンポーネントはない)</NoData>,
-    size: <NoData>該当なし</NoData>,
-    colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: Date pickersのモーダルの形が月表示のカレンダーを描くが、1つの日付(または範囲)を選ぶためのコンポーネント(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>該当なし</NoData>,
-    useCases: [<NoData>該当なし</NoData>],
-    searchHint: "",
-    url: "https://m3.material.io/components/date-pickers/guidelines",
-    refs: [
-      { label: "関連: Date pickers", url: "https://m3.material.io/components/date-pickers/guidelines" },
-    ],
-    confirmedNote:
-      "月・年の移動(横スワイプで月、年をタップして年を選ぶ)はM3 Date pickersのガイドラインによる。",
-    pending: true,
-    illustration: () => (
-      <svg width="120" height="70" viewBox="0 0 120 70">
-        <rect x="1" y="1" width="118" height="68" rx="6" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.4" />
-        <text x="60" y="12" fontSize="7.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">◀ 2026年9月 ▶</text>
-        <line x1="6" y1="17" x2="114" y2="17" stroke="#2F7D6E" strokeWidth="0.6" opacity="0.4" />
-        {Array.from({ length: 14 }).map((_, i) => {
-          const col = i % 7;
-          const row = Math.floor(i / 7);
-          const cx = 13 + col * 15.5;
-          const cy = 32 + row * 18;
-          return (
-            <g key={i}>
-              {i === 8 && <rect x={cx - 6.5} y={cy - 6.5} width="13" height="13" rx="6.5" fill="#2F7D6E" />}
-              <text x={cx} y={cy + 2.5} fontSize="7" fill={i === 8 ? "#FFFFFF" : "#454C78"} textAnchor="middle" fontFamily="Jost, Noto Sans JP">{i + 1}</text>
-            </g>
-          );
-        })}
-      </svg>
-    ),
-    illustrationNote: "関連: Date pickers(モーダル)の月表示(概念図・系列識別色)",
-  },
-  {
-    key: "wcag",
-    related: <>表の形で操作するコンポーネントの参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかのコンポーネントと同じく満たす。</>,
-    name: "W3C",
-    doc: "WAI-ARIA APG ― Grid Pattern(関連)",
-    term: <NoData>該当なし</NoData>,
-    color: "#A3821F",
-    position: <NoData>該当なし(予定表の決まりや実装例はない)</NoData>,
-    size: <NoData>該当なし</NoData>,
-    colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: 表の形で操作するコンポーネントの参考例としてGridパターンがあり、日付ピッカーの例もこれを使っている。予定表を作るときも、各セルの押せる範囲(2.5.8)や、選んだ日・予定を示す印のコントラスト(1.4.11)は、ほかのコンポーネントと同じく満たす。</>,
-    exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>該当なし</NoData>,
-    useCases: [<NoData>該当なし</NoData>],
-    searchHint: "",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/",
-    refs: [
-      { kind: "apg", label: "関連: APG Grid Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/grid/" },
-    ],
-    confirmedNote: "Grid Patternの本文、およびLayout Grid Examplesページ(実例が3つのみで、カレンダー・アジェンダの実例がないこと)を直接取得して確認済み(2026-09)。",
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <svg width="120" height="70" viewBox="0 0 120 70">
-          <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="30" fontSize="8" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">表(グリッド)</text>
-          <text x="60" y="44" fontSize="7.5" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(汎用パターンの転用)</text>
-        </svg>
-      </div>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、汎用グリッド構造の考え方を図示",
-  },
-  {
-    key: "nn",
-    related: <>日付入力の記事で、カレンダーピッカーは近い日付や期間を選ぶのに向くとしている(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    name: "Nielsen Norman Group",
-    doc: "Date-Input Form Fields(関連)",
-    term: <NoData>該当なし</NoData>,
-    color: "#7A4F7E",
-    position: <NoData>該当なし(予定表を主題にした記事はない)</NoData>,
-    size: <NoData>該当なし</NoData>,
-    colorInfo: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。関連: 日付入力の記事で、カレンダーピッカーは近い日付や期間を選ぶのに向くとしている(<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>)。</>,
-    exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>該当なし</NoData>,
-    useCases: [<NoData>該当なし</NoData>],
-    searchHint: "less than a year",
-    url: "https://www.nngroup.com/articles/date-input/",
-    refs: [
-      { label: "関連: Date-Input Form Fields: UX Design Guidelines", url: "https://www.nngroup.com/articles/date-input/" },
-    ],
-    confirmedNote: "記事本文を直接取得して確認済み(2026-09)。「日付/タイムピッカー」ページと同一の記事。",
-    illustration: () => (
-      <svg width="120" height="70" viewBox="0 0 120 70">
-        <rect x="1" y="1" width="118" height="68" rx="4" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.4" />
-        {[0, 1, 2, 3, 4, 5].map((i) => (
-          <circle key={i} cx={16 + i * 16} cy="35" r="4" fill={i === 3 ? "#7A4F7E" : "none"} stroke="#7A4F7E" strokeWidth="1" />
-        ))}
-        <text x="60" y="58" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">近い日付・範囲選択向き</text>
-      </svg>
-    ),
-    illustrationNote: "「日付/タイムピッカー」ページと同じカレンダーピッカーの使いどころ(概念図・系列識別色)",
-  },
-];
-
-function InfoBox({ label, accent, muted, children }) {
-  return (
-    <div style={{ ...styles.infoBox, ...(accent && !muted ? { borderLeftColor: accent } : {}) }}>
-      <span style={{ ...styles.exceptionLabel, ...(muted ? styles.mutedText : {}) }}>{label}</span>
-      <div style={{ ...styles.exceptionText, ...(muted ? styles.mutedText : {}) }}>{children}</div>
-    </div>
-  );
-}
-
-function UseCaseList({ items, muted }) {
-  return (
-    <ul style={styles.useCaseList}>
-      {items.map((it, i) => (<li key={i} style={{ ...styles.useCaseItem, ...(muted ? styles.mutedText : {}) }}>{it}</li>))}
-    </ul>
-  );
-}
-
-function GlossaryNote({ items }) {
-  return (
-    <div style={styles.glossaryNoteBox}>
-      {items.map((it) => (
-        <p key={it.term} style={styles.glossaryNoteLine}>
-          <span style={styles.glossaryNoteTerm}>{it.term}</span>: {it.desc}
-        </p>
-      ))}
-    </div>
-  );
-}
-
-function CalendarSwatch() {
-  return (
-    <div style={{ width: 260, margin: "0 auto", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, overflow: "hidden", textAlign: "left" }}>
-      <div style={{ padding: "8px 12px", borderBottom: "1px solid #E1E3F0", fontSize: 12, fontWeight: 700, color: "#171B36" }}>2026年9月</div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 1, background: "#E1E3F0" }}>
-        {["日", "月", "火", "水", "木", "金", "土"].map((d) => (
-          <div key={d} style={{ background: "#F8F9FD", textAlign: "center", fontSize: 9, color: "#666D93", padding: "3px 0" }}>{d}</div>
-        ))}
-        {Array.from({ length: 14 }).map((_, i) => (
-          <div key={i} style={{ background: "#FFFFFF", minHeight: 26, fontSize: 9, color: "#454C78", padding: "2px 3px", position: "relative" }}>
-            {i + 1}
-            {i === 8 && <div style={{ marginTop: 2, background: "#3A4FCF", height: 4, borderRadius: 2 }} />}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "予定を日・週・月などの表で見せる画面(予定表そのものの指針は4系列ともない)";
-const ABOUT = [
-  { k: "目的・役割", v: "予定や出来事を、日付の並びの中で見渡せるようにする" },
-  { k: "よく使われる場面", v: "カレンダーアプリ、会議室・店舗の予約状況、シフト表" },
-  { k: "似たコンポーネント", v: <>日付を1つ選んで入力するのは<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink></> },
-];
-
-function TextInputsCalendarPage() {
-  return (
-    <div className="dsp-page" style={styles.page}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-        * { box-sizing: border-box; }
-        .dsp-inner { max-width: 560px; min-width: 0; margin: 0 auto; padding: 28px 16px 40px; }
-        @container dsp (min-width: 860px) {
-          .dsp-inner { max-width: 980px; padding: 36px 24px 48px; }
-        }
-      `}</style>
-
-      <div style={styles.layout}>
-        <SidebarNav currentPath="/components/text-inputs/calendar" />
-        <div className="dsp-inner">
-          <div style={styles.metaRow}>
-            <span>コンポーネント / カレンダー(スケジュール/予定表)</span>
-            <span>SPEC No. 039</span>
-          </div>
-
-          <h1 style={styles.title}>カレンダー(スケジュール/予定表)</h1>
-          <SummaryCard
-            imageLabel="コンポーネントイメージ(月表示の例)"
-            image={<><CalendarSwatch /></>}
-            imageNote={<>コンポーネントとしてこの形のカレンダーを持つのはAppleとGoogleで、どちらも独立した「Calendar」コンポーネントではなく「日付ピッカー」の1バリエーションだ。W3Cは汎用のGridパターン(と実装例)、NN groupは日付入力の記事の中で扱っている。</>}
-            lead={LEAD}
-            rows={ABOUT}
-          />
-
-
-
-          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              <strong>予定を日・週・月の表で見せる「予定表」のコンポーネントや指針は、4系列のどれにもない</strong>。AppleとGoogleが持つ月表示のカレンダーは、どちらも1つの日付(または期間)を選ぶ<PageLink to="/components/selection/date-time-picker">日付/タイムピッカー</PageLink>の形で、予定表とは別物だ。W3CにもGridパターン(表の形で操作するコンポーネントの参考例)があるだけで、予定表の実装例はない。
-            </p>
-            <p style={styles.synthesisText}>
-              自作する場合は、<strong>日付の並びの操作はAPGのGridパターンを参考にし、予定の見せ方は<PageLink to="/components/containment/card">カード</PageLink>・<PageLink to="/components/containment/list">リスト</PageLink>・<PageLink to="/components/communication/badge">バッジ</PageLink>など、ほかのコンポーネントを組み合わせて設計する</strong>ことになる(AI解釈)。
-            </p>
-          </div>
-          <div style={styles.noneRow}><NoData>4系列とも、予定表の独立したコンポーネント・指針はない</NoData></div>
-          <h3 style={styles.relHead}>関連(各系列の近いコンポーネント・参考例)</h3>
-          <div style={styles.relGrid}>
-            {SOURCES.map((s) => (
-              <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceName}>{s.name}</div>
-                <div style={styles.sourceDoc}>{s.doc}</div>
-                {s.illustration && (
-                  <div style={styles.illustrationBox}>
-                    {s.illustration()}
-                    {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
-                  </div>
-                )}
-                <p style={styles.sourceStance}>{s.related}</p>
-                <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-              </div>
-            ))}
-          </div>
-
-          <RelatedPages paths={["/components/selection/date-time-picker", "/components/selection/overview", "/components/containment/card", "/components/containment/list"]} />
-
-          <div style={styles.tagsRow}>
-            {["操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
-            {["情報の整理・一覧"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
-          </div>
-
-          <div style={styles.footer}>
-            <span>最終確認: 2026-11</span>
-            <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const styles = {
-  noneRow: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 16px", fontSize: 13.5, fontWeight: 600, marginBottom: 22 },
-  relHead: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
-  relGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 12, marginBottom: 40 },
-  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
-  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
-  layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
-  synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
-  synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
-  synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
-  diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
-  sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
-  sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
-  sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
-  positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  positionBadgeMuted: { color: "#666D93", background: "#F3F4F9" },
-  mutedText: { color: "#666D93" },
-  illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
-  sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
-  infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
-  exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
-  exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  useCaseList: { margin: 0, padding: "0 0 0 16px" },
-  useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  glossaryNoteBox: { marginTop: 2, marginBottom: 10 },
-  glossaryNoteLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 9.5, fontWeight: 700, color: "#666D93", letterSpacing: 0.3, marginBottom: 4 },
-  glossaryNoteLine: { fontSize: 10.5, lineHeight: 1.6, color: "#666D93", margin: "0 0 4px", fontStyle: "italic" },
-  glossaryNoteTerm: { color: "#565D8A", fontStyle: "normal", fontWeight: 600 },
-  sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#666D93" },
-  searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
-  sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  matrixScroll: { overflowX: "auto", marginBottom: 40 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
-  labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
-  headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
-  headerRowCell: { background: "#FFFFFF" },
-  cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
-  link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
-  lastRowCell: { borderBottom: "none" },
-  linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
-  linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
-  linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#666D93" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
-  tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
-  tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
-};
-
-return TextInputsCalendarPage;
 })();
 /* ================= text-inputs-input-validation.jsx ================= */
 const TextInputsInputValidationPage = (function () {
@@ -33922,7 +33529,7 @@ const { useState } = React;
 
 
 /**
- * トークン/ファウンデーションレイヤー「モーション/アニメーション」ページ。
+ * トークン/ファウンデーションレイヤー「モーション」ページ(2026-11 ⑦本人レビューNo.016で「モーション/アニメーション」から改名。URLは同じ)。
  *
  * このページの発見: アニメーションの長さをミリ秒で示すのはGoogleとNN groupだけで、
  * Googleは50〜1000msの16段階のトークン、NN groupは「多くは100〜500ms、単純なフィードバックは
@@ -34654,7 +34261,7 @@ function EasingImage() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まり";
+const LEAD = "UIの動き(モーション)の長さ、緩急、動きを減らす配慮の決まり";
 const ABOUT = [
   { k: "目的・役割", v: "動きで画面の変化のつながりを伝え、何が起きたかを分かりやすくする" },
   { k: "関わる場面", v: "画面の切り替え、シートやダイアログの開閉、ボタンを押したときの反応" },
@@ -34709,9 +34316,11 @@ function TokensMotionPage() {
             <span>SPEC No. 049</span>
           </div>
 
-          <h1 style={styles.title}>モーション/アニメーション</h1>
+          <h1 style={styles.title}>モーション</h1>
           <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
 
+
+          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」、W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
 
           <MotionIntro />
 
@@ -38867,13 +38476,12 @@ const PAGES = [
   { id: "components-selection-checkbox", label: "チェックボックス", spec: "005", Component: SelectionCheckboxPage, path: "/components/selection/checkbox", fixed: true },
   { id: "components-selection-radio", label: "ラジオボタン", spec: "006", Component: SelectionRadioPage, path: "/components/selection/radio", fixed: true },
   { id: "components-selection-toggle", label: "トグルスイッチ", spec: "007", Component: SelectionTogglePage, path: "/components/selection/toggle", fixed: true },
+  { id: "components-selection-select-patterns", label: "セレクトの種類", spec: "012", Component: SelectionSelectPatternsPage, path: "/components/selection/select-patterns", fixed: true },
   { id: "components-selection-select", label: "セレクト(プルダウン)", spec: "010", Component: SelectionSelectPage, path: "/components/selection/select", fixed: true },
-  { id: "components-selection-select-patterns", label: "セレクトの種類(プルダウン以外)", spec: "012", Component: SelectionSelectPatternsPage, path: "/components/selection/select-patterns", fixed: true },
   { id: "components-selection-menu", label: "メニュー", spec: "059", Component: SelectionMenuPage, path: "/components/selection/menu", fixed: true },
   { id: "components-selection-chips", label: "チップ(Chips)", spec: "009", Component: SelectionChipsPage, path: "/components/selection/chips", fixed: true },
   { id: "components-selection-slider", label: "スライダー", spec: "008", Component: SelectionSliderPage, path: "/components/selection/slider", fixed: true },
   { id: "components-selection-date-time-picker", label: "日付/タイムピッカー", spec: "022", Component: SelectionDateTimePickerPage, path: "/components/selection/date-time-picker", fixed: true },
-  { id: "components-text-inputs-calendar", label: "カレンダー(スケジュール/予定表)", spec: "039", Component: TextInputsCalendarPage, path: "/components/text-inputs/calendar", fixed: true },
   { id: "components-text-inputs-text-field", label: "テキストフィールド・テキストエリア", spec: "020", Component: TextInputsTextFieldPage, path: "/components/text-inputs/text-field", fixed: true },
   { id: "components-text-inputs-validation", label: "エラー表示", spec: "023", Component: TextInputsValidationPage, path: "/components/text-inputs/validation", fixed: true },
   { id: "components-text-inputs-input-validation", label: "バリデーション", spec: "040", Component: TextInputsInputValidationPage, path: "/components/text-inputs/input-validation", fixed: true },
@@ -38909,7 +38517,7 @@ const PAGES = [
   { id: "components-communication-badge", label: "バッジ", spec: "037", Component: CommunicationBadgePage, path: "/components/communication/badge", fixed: true },
   { id: "components-communication-tooltip", label: "ツールチップ", spec: "032", Component: CommunicationTooltipPage, path: "/components/communication/tooltip", fixed: true },
   { id: "tokens-input-methods", label: "入力方法・ジェスチャー", spec: "053", Component: TokensInputMethodsPage, path: "/tokens/input-methods", fixed: true },
-  { id: "tokens-motion", label: "モーション/アニメーション", spec: "049", Component: TokensMotionPage, path: "/tokens/motion", fixed: true },
+  { id: "tokens-motion", label: "モーション", spec: "049", Component: TokensMotionPage, path: "/tokens/motion", fixed: true },
   { id: "tokens-sound", label: "サウンド", spec: "050", Component: TokensSoundPage, path: "/tokens/sound", fixed: true },
   { id: "cross-view", label: "タグから見る", spec: "056", Component: CrossViewPage, path: "/cross-view", fixed: true },
 ];
