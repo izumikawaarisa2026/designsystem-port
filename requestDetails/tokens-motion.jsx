@@ -3,7 +3,7 @@ import SidebarNav from "./sidebar-nav";
 import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
 
 /**
- * トークン/ファウンデーションレイヤー「モーション/アニメーション」ページ。
+ * トークン/ファウンデーションレイヤー「モーション」ページ(2026-11 ⑦本人レビューNo.016で「モーション/アニメーション」から改名。URLは同じ)。
  *
  * このページの発見: アニメーションの長さをミリ秒で示すのはGoogleとNN groupだけで、
  * Googleは50〜1000msの16段階のトークン、NN groupは「多くは100〜500ms、単純なフィードバックは
@@ -735,7 +735,7 @@ function EasingImage() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "アニメーションの長さ、動きの緩急、動きを減らす配慮の決まり";
+const LEAD = "UIの動き(モーション)の長さ、緩急、動きを減らす配慮の決まり";
 const ABOUT = [
   { k: "目的・役割", v: "動きで画面の変化のつながりを伝え、何が起きたかを分かりやすくする" },
   { k: "関わる場面", v: "画面の切り替え、シートやダイアログの開閉、ボタンを押したときの反応" },
@@ -794,9 +794,11 @@ export default function TokensMotionPage() {
             <span>SPEC No. 049</span>
           </div>
 
-          <h1 style={styles.title}>モーション/アニメーション</h1>
+          <h1 style={styles.title}>モーション</h1>
           <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
 
+
+          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」、W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
 
           <MotionIntro />
 

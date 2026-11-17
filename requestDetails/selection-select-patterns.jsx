@@ -3,7 +3,7 @@ import SidebarNav from "./sidebar-nav";
 import { NoData, TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
 
 /**
- * コンポーネントレイヤー「Selection / セレクトの種類(プルダウン以外)」ページ。
+ * コンポーネントレイヤー「Selection / セレクトの種類」ページ(2026-11 ⑦本人レビューNo.030で「セレクトの種類(プルダウン以外)」から改名)。
  *
  * 「セレクト(プルダウン)」ページでは、Apple(Pop-up/Pull-downボタン)・
  * Google(Exposed dropdown menu)を中心に「折りたたみ式の単一選択」を扱ったが、
@@ -11,7 +11,7 @@ import { NoData, TagLink, SummaryCard, PageLink, RelatedPages } from "./page-par
  * 横断比較する形式ではなく、確認できた代表的なパターンをギャラリー形式で
  * まとめた補助的なページ(新しい一次情報の要約というより、既存ページ+個別調査の統合)。
  *
- * ドラムロール/ホイールピッカーはApple公式ページ(Pickers)の本文を直接取得して
+ * ホイールピッカーはApple公式ページ(Pickers)の本文を直接取得して
  * 確認済み(2026-09)。リストボックス・コンボボックスはWAI-ARIA Authoring Practices(2026-10にCombobox本文を再確認)
  * および「セレクト(プルダウン)」ページで確認済みの内容を再構成したもの。
  */
@@ -32,7 +32,7 @@ const PATTERNS = [
     ),
   },
   {
-    name: "ドラムロール/ホイールピッカー",
+    name: "ホイールピッカー",
     system: "Apple(Pickers)",
     desc: "縦(または横)に回転するホイール状のリストから値を選ぶパターン。選択中の値は中央に濃い文字で表示される。高さはおおよそリスト5行分、幅は画面またはその親要素の幅に合わせるとされている。",
     when: "国名や日付のように、順序があり予測しやすい値を選ぶ場面。長すぎるリストには不向きで、その場合はテーブル(索引付きの一覧)を使うべきとされている",
@@ -119,7 +119,7 @@ const AVAIL = [
     { name: "Select-Only Combobox(APGの例)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
     { name: "Dropdowns: Design Guidelines", url: "https://www.nngroup.com/articles/drop-down-menus/" },
   ] },
-  { pattern: "ドラムロール/ホイールピッカー", cells: [
+  { pattern: "ホイールピッカー", cells: [
     { name: "Pickers(ホイール)", url: "https://developer.apple.com/design/human-interface-guidelines/pickers" },
     { none: "記載なし" },
     { none: "専用の型なし" },
@@ -184,11 +184,11 @@ export default function SelectionSelectPatternsPage() {
         <SidebarNav currentPath="/components/selection/select-patterns" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / セレクトの種類(プルダウン以外)</span>
+            <span>コンポーネント / セレクトの種類</span>
             <span>SPEC No. 012</span>
           </div>
 
-          <h1 style={styles.title}>セレクトの種類(プルダウン以外)</h1>
+          <h1 style={styles.title}>セレクトの種類</h1>
 
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
@@ -198,7 +198,7 @@ export default function SelectionSelectPatternsPage() {
               「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンだったが、単一選択を実現する方法はそれだけではない。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられる。
             </p>
             <p style={styles.synthesisText}>
-              特に<strong>Appleの「ドラムロール/ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
+              特に<strong>Appleの「ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
             </p>
             <p style={styles.synthesisText}>
               選択肢が非常に多い場合は、<strong>タイピングで絞り込める「コンボボックス」がプルダウンより素早い</strong>という点も、実務上重要な判断材料だ。

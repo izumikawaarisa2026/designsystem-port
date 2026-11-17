@@ -200,16 +200,16 @@ function RangeScale({ scale }) {
 
 /* No.021: FABの種類・変形・ユースケース(Google。M3の本文とMaterial Components for Androidの説明による) */
 const FAB_KINDS = [
-  { t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
-  { t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
-  { t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
-  { t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
-  { t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小56dp・中80dp・大96dp(高さ)の3サイズ(Jetpack Composeのトークン)", tag: "" },
-  { t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
+  { fig: "fab", t: "FAB", d: "標準のFAB。ほかの操作も画面に出ているコンパクトな画面向け", tag: "" },
+  { fig: "medium", t: "中サイズのFAB", d: "ほとんどの場面で最も勧められるサイズ。コンパクト・中サイズの画面に向く", tag: "最も推奨" },
+  { fig: "large", t: "大サイズのFAB", d: "主な操作をはっきり目立たせたいとき。広い画面に最も向く", tag: "" },
+  { fig: "small", t: "小サイズのFAB", d: "M3 Expressive(2025年5月)で非推奨になった", tag: "非推奨" },
+  { fig: "extended", t: "拡張FAB", d: "アイコンに文字のラベルを添えたFAB。ラベルが必要なときに使う。小56dp・中80dp・大96dp(高さ)の3サイズ(Jetpack Composeのトークン)", tag: "" },
+  { fig: "menu", t: "FABメニュー", d: "FABから開き、関連する2〜6個の操作を出す。小さいFABを重ねて出す使い方の代わり", tag: "" },
 ];
 const FAB_CHANGES = [
-  { from: "FAB → 拡張FAB", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
-  { from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
+  { a: "extended", b: "fab", from: "拡張FAB ⇄ FAB(縮める・戻す)", d: "画面が大きいときは、FABを拡張FAB(文字ラベル付き)に変えられる。拡張FABは、文字を隠したアイコンだけの形に縮めたり、元に戻したりできる(MDC Androidのshrink・extend)" },
+  { a: "fab", b: "menu", from: "FAB → FABメニュー", d: "押すと、関連する操作の一覧(FABメニュー)に変わる。メニューは開いたFABと同じ場所に出て、閉じるボタンを持つ。拡張FABからは開かない" },
 ];
 const FAB_USE = [
   { ok: true, t: "使う操作", d: "その画面でいちばん大事な、前向きな操作(作成・お気に入り・共有・処理を始める)" },
@@ -217,6 +217,23 @@ const FAB_USE = [
   { ok: true, t: "置く場所", d: "コンパクト・中サイズの画面では右下。広い画面では左上(ナビゲーションレールの中)も検討する" },
   { ok: false, t: "避けること", d: "1画面に複数のFABを置く。使えないときに無効表示にする(使えないなら出さない)。分かりにくいアイコン" },
 ];
+
+
+/* FABの種類・変形のイメージ(2026-11 ⑦本人レビューNo.021。大きさは相対的な概念図) */
+function FabFig({ k, w = 120, h = 76 }) {
+  const g = "#2F7D6E", bg = "#E3EDE9";
+  const plus = (cx, cy, r) => (<path d={`M${cx - r} ${cy} H${cx + r} M${cx} ${cy - r} V${cy + r}`} stroke={g} strokeWidth="2" strokeLinecap="round" />);
+  const sq = (x, y, sz, rr) => (<rect x={x} y={y} width={sz} height={sz} rx={rr} fill={bg} stroke={g} />);
+  const body = {
+    fab: <>{sq(46, 20, 28, 8)}{plus(60, 34, 5)}</>,
+    medium: <>{sq(40, 14, 40, 11)}{plus(60, 34, 7)}</>,
+    large: <>{sq(35, 9, 50, 14)}{plus(60, 34, 9)}</>,
+    small: <>{sq(50, 24, 20, 6)}{plus(60, 34, 4)}</>,
+    extended: <><rect x="22" y="20" width="76" height="28" rx="8" fill={bg} stroke={g} />{plus(36, 34, 5)}<text x="68" y="38" fontSize="10" textAnchor="middle" fill={g}>作成</text></>,
+    menu: <>{["共有", "コピー", "削除"].map((t, i) => (<g key={t}><rect x="30" y={6 + i * 16} width="60" height="13" rx="6.5" fill={bg} stroke={g} /><text x="60" y={15.5 + i * 16} fontSize="8" textAnchor="middle" fill={g}>{t}</text></g>))}<circle cx="96" cy="64" r="8" fill={bg} stroke={g} /><path d="M92 60 L100 68 M100 60 L92 68" stroke={g} strokeWidth="1.6" /></>,
+  }[k];
+  return (<svg width={w} height={h} viewBox="0 0 120 76" aria-hidden="true"><rect x="0.5" y="0.5" width="119" height="75" rx="6" fill="#F8F9FD" stroke="#E1E3F0" />{body}</svg>);
+}
 
 function FabGuide() {
   return (
@@ -226,22 +243,33 @@ function FabGuide() {
       <div style={styles.fgGrid}>
         {FAB_KINDS.map((k) => (
           <div key={k.t} style={styles.fgCard}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}><FabFig k={k.fig} /></div>
             <div style={styles.fgTitle}>{k.t}{k.tag && <span style={{ ...styles.fgTag, ...(k.tag === "非推奨" ? styles.fgTagDep : {}) }}>{k.tag}</span>}</div>
             <p style={styles.fgText}>{k.d}</p>
           </div>
         ))}
       </div>
       <h3 style={styles.fgSub}>変形するとき</h3>
-      {FAB_CHANGES.map((c) => (<p key={c.from} style={styles.fgText}><strong>{c.from}</strong>: {c.d}</p>))}
-      <p style={styles.fgNote}>変形の動き(コンテナの変形)は<PageLink to="/tokens/motion">モーション</PageLink>のページを参照。</p>
-      <h3 style={styles.fgSub}>使いどころ</h3>
       <div style={styles.fgGrid}>
-        {FAB_USE.map((u) => (
-          <div key={u.t} style={{ ...styles.fgCard, borderLeft: `3px solid ${u.ok ? "#2F7D6E" : "#C0503F"}` }}>
-            <div style={styles.fgTitle}>{u.t}</div>
-            <p style={styles.fgText}>{u.d}</p>
+        {FAB_CHANGES.map((c) => (
+          <div key={c.from} style={styles.fgCard}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}><FabFig k={c.a} w={96} h={61} /><span style={{ color: "#7E86AC", fontSize: 16 }}>→</span><FabFig k={c.b} w={96} h={61} /></div>
+            <div style={styles.fgTitle}>{c.from}</div>
+            <p style={styles.fgText}>{c.d}</p>
           </div>
         ))}
+      </div>
+      <p style={styles.fgNote}>変形の動き(コンテナの変形)は<PageLink to="/tokens/motion">モーション</PageLink>のページを参照。</p>
+      <h3 style={styles.fgSub}>使いどころ</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 480, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+          <tbody>{FAB_USE.map((u) => (
+            <tr key={u.t}>
+              <th style={{ textAlign: "left", whiteSpace: "nowrap", padding: "8px 10px", background: "#F8F9FD", borderBottom: "1px solid #EEF0F7", color: u.ok ? "#2F7D6E" : "#C0503F", verticalAlign: "top" }}>{u.ok ? "◯" : "✕"} {u.t}</th>
+              <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6 }}>{u.d}</td>
+            </tr>
+          ))}</tbody>
+        </table>
       </div>
       <p style={styles.fgNote}>出典: Material Design 3「FAB」のガイドライン、Material Components for Android(Extended FAB・FAB menu)。</p>
     </section>
@@ -279,7 +307,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "1画面に1つ、主な操作だけ", d: "新規作成など、その画面でいちばん大事な操作に使う", who: "Google" },
-  { n: 2, t: "iOS・iPadOSにはFABがない", d: "ツールバーなどに置く", who: "Appleは該当なし" },
+  { n: 2, t: "Appleには、画面に浮かせて置くFABのようなボタンはない", d: "主な操作は、画面の上や下のツールバーに置く", who: "Apple" },
   { n: 3, t: "OSごとに置き場所を変えても、名前とアイコンはそろえる", d: "", who: "AI解釈" },
   { n: 4, t: "大きさは56dp以上", d: "いちばん小さいFABでもW3CのAA・AAAを満たす", who: "Google・W3C" },
 ];

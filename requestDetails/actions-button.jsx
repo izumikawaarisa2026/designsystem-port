@@ -19,9 +19,9 @@ const TAB_ACCESSIBILITY = [
     value: "44 × 44",
     unit: "pt",
     stance:
-      "Buttonsのページは、押せる範囲(ヒット領域)を44×44pt以上とする。Accessibilityのページ(2025年3月の改訂)は、プラットフォームごとの「既定のサイズ」と「最小のサイズ」を表で示し、iOS/iPadOSは既定44×44pt・最小28×28pt。小さすぎるコントロールは選びにくいため、推奨の最小サイズを満たす。",
+      <>押せる範囲は<Hl>既定44×44pt・最小28×28pt</Hl>(iOS/iPadOS)。</>,
     exceptions:
-      "Accessibilityのページの表で、28×28pt(iOS/iPadOS)までを最小のサイズとして認める(macOSは既定28・最小20、watchOSは既定44・最小28)。コンポーネントどうしの間隔も大きさと同じくらい重要で、枠のある要素のまわりに約12pt、枠のない要素は見える端のまわりに約24ptの余白を取る。",
+      "macOSは既定28・最小20pt、watchOSは既定44・最小28pt。枠のある要素のまわりに約12pt、枠のない要素は約24ptの余白を取る。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "Offer sufficiently sized controls",
@@ -35,9 +35,9 @@ const TAB_ACCESSIBILITY = [
     value: "48 × 48",
     unit: "dp",
     stance:
-      "操作できる要素は、タッチターゲットを48×48dp以上にする。密度(density)を上げても、この値を下回らない。",
+      <>押せる範囲は<Hl>48×48dp以上</Hl>。密度を上げても下回らない。</>,
     exceptions:
-      "アイコンの見た目(24dpなど)は小さくてよいが、押せる範囲を48×48dp未満に縮めることは勧めていない。",
+      "アイコンの見た目(24dpなど)は小さくてよいが、押せる範囲は48dp未満にしない。",
     scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 48, type: "caution" }, { from: 48, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 48, label: "48" }], caption: "24dp=標準のアイコンの大きさ(XSのアイコンボタンは20dp) / 48dp=タップ判定領域の下限(この2つは別管理)。" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "touch target",
@@ -51,11 +51,11 @@ const TAB_ACCESSIBILITY = [
     value: "24〜44",
     unit: "CSS px",
     stance:
-      "レベルAA(2.5.8)は24×24px以上が基本で、足りなければ周りの間隔で補える。より厳しいレベルAAA(2.5.5)は44×44px。",
+      <><Hl>24×24px以上</Hl>(2.5.8・AA)。足りなければ周りの間隔で補える。AAA(2.5.5)は44×44px。</>,
     exceptions:
-      "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、ターゲットの中心に直径24pxの円を描き、隣のターゲットや隣の円と重ならない)、②同じ機能を持つ十分な大きさのターゲットが同じページに別にある、③文中のリンクなど、文章の行の中にある、④ブラウザなどユーザーエージェントが大きさを決めていて作り手が変えていない、⑤その大きさや配置そのものに意味があり欠かせない(地図のピンなど)。どれかに当てはまれば24px未満でも適合する。2.5.5(AAA)の44pxにも、②〜⑤と同じ種類の例外がある。この条件分岐はほかの3系列にない。",
+      "2.5.8の例外は5つ: ①間隔(中心に直径24pxの円を描き、隣と重ならない)、②同じ機能の十分な大きさのものが別にある、③文中のリンク、④ブラウザ標準のまま、⑤大きさに意味があり欠かせない(地図のピンなど)。",
     scale: { bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }], caption: "24px=レベルAA(例外あり) / 44px=レベルAAA(例外あり)。" },
-    pourDetail: "操作可能(Operable) ― POUR原則(知覚可能・操作可能・理解可能・堅牢)を定義している一次情報。ほかの3系列が従う分類の出どころ。",
+    pourDetail: "操作可能(Operable) ― 2.5.8(AA)・2.5.5(AAA)。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
     refs: [{ kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" }, { kind: "sc", level: "AAA", label: "2.5.5 ターゲットのサイズ(高度)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" }],
@@ -67,9 +67,9 @@ const TAB_ACCESSIBILITY = [
     value: "約 1 × 1",
     unit: "cm",
     stance:
-      "フィッツの法則(対象が小さく遠いほど届くのに時間がかかる)を根拠に、指の平均的な接地面積から1cm四方以上を目安とする。",
+      <>フィッツの法則を根拠に、<Hl>1cm四方以上</Hl>を目安とする。</>,
     exceptions:
-      "緩和の条件は示していないが、ターゲットが1つの場合と密集する場合とでは求められる正確さが違うと指摘する。密なUIほど、大きさより余白で補う考え方(数値の例外ではなく設計の指針)。",
+      "密なUIほど、大きさより余白で補う。",
     scale: { bands: [{ from: 0, to: 34, type: "ng" }, { from: 34, to: 42, type: "caution" }, { from: 42, to: 60, type: "ok" }], markers: [{ at: 38, label: "~38" }], caption: "1cmをpx換算した目安(画面密度により変動、幅を持たせて表示)。" },
     pourDetail: "根拠となる原則 ― 適合区分ではなく、フィッツの法則という設計の根拠(なぜ大きいほうがよいか)。",
     searchHint: "1cm",
@@ -94,8 +94,8 @@ const TAB_STYLES = [
     term: "Button(役割はNormal・Primary・Cancel・Destructive)",
     position: "意味的な役割で4分類(Normal/Primary/Cancel/Destructive)",
     stance:
-      <>ボタンには「Role(役割)」があり、<Hl>Normal(特に意味を持たない)・Primary(最も選ばれやすい既定のボタン)・Cancel(操作の取り消し)・Destructive(データ削除などを伴う操作)の4種類</Hl>。役割で見た目も変わり、Primaryはアプリのアクセントカラー、Destructiveはシステムの赤を使う。</>,
-    exceptions: "破壊的な操作(Destructive)には、選ばれやすい操作でもPrimaryの役割を割り当てない。目立つため、内容を読まずに選ばれる危険がある。",
+      <>役割(Role)で<Hl>Normal・Primary・Cancel・Destructiveの4種類</Hl>。Primaryはアクセントカラー、Destructiveはシステムの赤を使う。</>,
+    exceptions: "壊す操作(Destructive)には、Primaryの役割を割り当てない(読まずに選ばれる危険がある)。",
     pourDetail: "―(役割の分類はPOURの適合区分ではないが、誤操作を防ぐ点で理解可能に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
@@ -116,8 +116,8 @@ const TAB_STYLES = [
     term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      <><Hl>①Elevated・②Filled・③Filled tonal・④Outlined・⑤Textの5種類を定義</Hl>。番号は公式の並び順(公式は強調度の順として①Elevatedから並べる一方、Filledを「FABの次に最も目立つボタン」と説明する)。見た目で最も目立つのはFilled。M3 Expressiveでは、大きさをXS 32・S 40・M 56・L 96・XL 136dp(高さ)の5段階、形を丸・四角の2種類から選べ、選ぶと形が変わるトグルボタンや、複数のボタンをまとめるボタングループもある(Jetpack Composeのトークンで確認。角丸の段階は<PageLink to="/tokens/shape">シェイプ</PageLink>のページ)。</>,
-    exceptions: "Elevatedは実質Filled tonalに影を加えたもので、背景から分けて見せる必要がある場合に限って使う(影の使いすぎを避けるため)。",
+      <>優先度で<Hl>Elevated・Filled・Filled tonal・Outlined・Textの5種類</Hl>。いちばん目立つのはFilled。M3 Expressiveでは大きさ5段階(高さ32〜136dp)と形2種類も選べる。</>,
+    exceptions: "Elevatedは、背景から分けて見せる必要がある場合に限る。",
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -146,8 +146,8 @@ const TAB_STYLES = [
     term: "ボタン(WAI-ARIAの役割)",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
-      "ボタンの見た目の種類を分ける基準はない。ただし1.4.11(非テキストのコントラスト)は、ボタンの境界や状態を背景から見分けられるコントラスト(3:1以上)を求め、種類を問わずすべてのボタンに関わる。",
-    exceptions: "文字だけで境界線や塗りのないボタン(Materialの「Text」相当)は、1.4.11の対象になりにくい。ただしラベルの文字には1.4.3(コントラスト(最低限)。通常の文字は4.5:1以上)がかかる。",
+      <>種類の基準はない。ただし<Hl>どの種類のボタンも、境界や状態を背景と3:1以上で見分けられる</Hl>ようにする(1.4.11)。</>,
+    exceptions: "文字だけのボタンは1.4.11の対象になりにくいが、ラベルの文字には4.5:1(1.4.3)がかかる。",
     pourDetail: "知覚可能(Perceivable) ― 1.4.11は「知覚可能」の達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
@@ -172,8 +172,8 @@ const TAB_STYLES = [
     term: "Button(主要な操作=Primary、副次的な操作=Secondary)",
     position: "色による優先度づけ(数値基準ではなく原則)",
     stance:
-      <><Hl>主要な操作(Primary)には専用の色を確保し</Hl>、副次的な操作(Secondary)と見分けられるようにする。同じ色のボタンが並ぶと同じ重要度に見え、主要な操作を見分けにくくなる。</>,
-    exceptions: "特定の形(塗り・枠線・文字のみなど)を勧める基準ではなく、色で優先度を伝える原則。",
+      <><Hl>主要な操作には専用の色を確保し</Hl>、ほかの操作と見分けられるようにする。</>,
+    exceptions: "特定の形を勧めるものではなく、色で優先度を伝える原則。",
     pourDetail: "根拠となる原則 ― 適合区分ではなく、見た目の知覚(ゲシュタルトの類同の原理)にもとづく設計の根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
@@ -194,8 +194,8 @@ const TAB_STATES = [
     doc: "Human Interface Guidelines ― Buttonsページ",
     position: "共通の状態の一覧はなく、プラットフォームごとに定める。独自のボタンには押した状態を必ず用意する",
     stance:
-      <>システムのボタンには状態が組み込まれている。共通の状態の一覧はなく、<Hl>プラットフォームごとに定めている</Hl>。<Hl>独自に作るボタンには、押した状態(press state)を必ず用意する</Hl>(ないと反応していないように感じられるため)。時間がかかる処理では、ボタンの中にアクティビティインジケーターを出し、ラベルを一時的に変える(例:「購入」→「購入中…」)。</>,
-    exceptions: "処理中は、ボタンの画像を隠してインジケーターとラベルを出す、という切り替え方を示している。",
+      <>共通の状態の一覧はなく、<Hl>独自に作るボタンには押した状態を必ず用意する</Hl>。時間がかかる処理では、ボタンの中にインジケーターを出し、ラベルを変える(「購入」→「購入中…」)。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "理解可能(Understandable) ― 処理中であることを伝える。",
     searchHint: "activity indicator",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons",
@@ -214,8 +214,8 @@ const TAB_STATES = [
     doc: "Material Design 3 ― Interaction states",
     position: "6つの状態を体系化(Enabled/Disabled/Hover/Focused/Pressed/Dragged)",
     stance:
-      <>操作できる要素に共通する「状態レイヤー(state layer)」で、<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態を管理する</Hl>。例としてDisabledは、有効時の強いコントラストのコンテナと文字に対し、グレー地にグレーの文字という低いコントラストで表す。</>,
-    exceptions: "Draggedは主にドラッグできる要素(FABなど)向けで、通常のボタンには使わない場合がある。",
+      <>状態レイヤーで<Hl>Enabled・Disabled・Hover・Focused・Pressed・Draggedの6状態</Hl>を表す。</>,
+    exceptions: "Draggedは主にドラッグできる要素向け。",
     pourDetail: "知覚可能・操作可能 ― 状態を見分けられること(知覚可能)と、操作できるかを伝えること(操作可能)。",
     searchHint: "state layer",
     url: "https://m3.material.io/foundations/interaction/states/overview",
@@ -237,8 +237,8 @@ const TAB_STATES = [
     doc: "WCAG 4.1.2 / 1.4.11",
     position: "状態を支援技術に正しく伝える",
     stance:
-      "4.1.2(Name, Role, Value)は、ボタンの今の状態(押せるか、選択中かなど)を支援技術がプログラムで取得できること。1.4.11は、状態の見た目(フォーカスリングなど)にも十分なコントラストを求める。2.4.7(フォーカスの可視化・AA)は、キーボード操作でフォーカスの位置が見えること。",
-    exceptions: "ブラウザ標準のボタンなら、多くの場合これらの情報は自動で伝わる。独自に作ったボタンだけ追加の対応が要る。",
+      <><Hl>今の状態(押せるか、選択中かなど)を支援技術に伝える</Hl>(4.1.2)。状態の見た目は3:1以上(1.4.11)、フォーカスの位置は見えるように(2.4.7)。</>,
+    exceptions: "標準のボタンなら多くは自動で伝わる。独自のボタンだけ対応が要る。",
     pourDetail: "堅牢・知覚可能 ― 4.1.2は「堅牢」、1.4.11は「知覚可能」の達成基準。",
     searchHint: "Name, Role, Value",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html",
@@ -256,8 +256,8 @@ const TAB_STATES = [
     doc: "Button States: Communicate Interaction",
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
-      <><Hl>Enabled(既定、押せる)・Disabled(押せない)・Hover・Focus・Pressedの5状態</Hl>を、押せるかどうかを正しく伝える仕組みとして整理する。Enabledは、背景と文字の高いコントラストと、はっきり読めるラベルが特徴。</>,
-    exceptions: "5つのほかに、処理中のLoadingと、選ばれていることを示すSelectedにも触れる。「状態(States)」と「見た目のスタイル(Styles)」は別の概念で、混同しないよう注意している。",
+      <><Hl>Enabled・Disabled・Hover・Focus・Pressedの5状態</Hl>で、押せるかどうかを正しく伝える。</>,
+    exceptions: "ほかに処理中(Loading)と選択中(Selected)にも触れる。",
     pourDetail: "根拠となる原則 ― 適合区分ではなく、押せる/押せないを正しく伝えるための設計の根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
@@ -275,7 +275,7 @@ const TAB_STATES = [
 ];
 
 const TABS = [
-  { id: "a11y", label: "アクセシビリティ", data: TAB_ACCESSIBILITY, hasScale: true },
+  { id: "a11y", label: "押せる範囲の大きさ", data: TAB_ACCESSIBILITY, hasScale: true },
   { id: "styles", label: "種類・優先度", data: TAB_STYLES, hasScale: false },
   { id: "states", label: "状態", data: TAB_STATES, hasScale: false },
 ];
@@ -566,6 +566,7 @@ export default function ActionsButtonPage() {
           <SplitSection splits={SPLITS} />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>ボタンは比べる観点が多いため、3つに分けて比べる。<strong>押せる範囲の大きさ</strong>(何pt・dp・pxか)、<strong>種類・優先度</strong>(見た目の分け方)、<strong>状態</strong>(押せる・押した・使えないなど)。下のボタンで切り替える。</p>
 
           {isStatic && (
             <nav style={styles.segmented} aria-label="比較する項目へ移動">
@@ -654,7 +655,7 @@ const styles = {
   sourceUnit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 3 },
   positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
   sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "8px 0 10px" },
-  exceptionBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
+  exceptionBox: { background: "#FFFFFF", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   pourBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
   illustrationBox: { margin: "10px 0" },
   exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
@@ -670,7 +671,7 @@ const styles = {
   headerRowCell: { background: "#FFFFFF" },
   cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
   textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
+  exceptionCell: {},
   value: { fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, fontSize: 14 },
   unit: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#666D93", marginLeft: 4 },
   link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },

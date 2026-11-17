@@ -28,8 +28,10 @@ const SOURCES = [
       "選択は塗った円、未選択は空の円という形の違いで状態を示す。塗りの色はシステムのアクセントカラーに従い、個別には指定しない。",
     stance:
       <>ラジオボタンはmacOS向けのコンポーネントで、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG TogglesのmacOSの節で扱う)。ラベル付きの小さな円のボタンで、通常2〜5個のグループで、1つだけを選ぶ選択肢を示すと定義する。1つのオン・オフ設定には、チェックボックスを使う。</>,
+    initial: <NoData>記載なし</NoData>,
+    layout: "横に並べるなら、選択肢の間隔をそろえる(横並びを禁じてはいない)",
     exceptions:
-      "「不定(mixed)」も表示できるが、ラジオボタンを足せば状態を表せるため、役立つ場面はまれ。混在の状態を示すならチェックボックスを検討する。選択肢が多すぎるリストは避け、横に並べるなら間隔をそろえる。",
+      "「不定(mixed)」も表示できるが、役立つ場面はまれ。選択肢が多すぎるリストは避ける。",
     accessibility:
       "理解可能(Understandable) ― 選択・未選択を見た目で正確に伝える。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに記載はない。",
     useCases: [
@@ -71,8 +73,10 @@ const SOURCES = [
     ],
     stance:
       <>複数の選択肢から1つを選ぶためのコントロール。リストから1つだけ選べる場合はラジオボタン(スイッチではない)を使い、<Hl>選択肢が5つ以下に向く</Hl>。場所を節約するならドロップダウンメニューも検討できるが、クリック数と認知の負担が増える。</>,
+    initial: <>1つを選んだ状態で始める(何も選んでいない状態で始めることも認める)。外す必要があるなら「該当なし」などを用意する</>,
+    layout: <><Hl>縦に積むのが基本</Hl>で、横のリストは避ける</>,
     exceptions:
-      "入れ子や複数選択には使わない。配置の節では、いつも1つを選んだ状態で始めるとする(操作の節では「1つが選ばれた状態か、何も選ばれていない状態で始められる」とも書く)。縦に積むのが基本で、横のリストは避ける。選んだラジオボタンは操作だけでは解除できないため、解除が要るなら「該当なし」の選択肢や「選択をクリア」を用意する。",
+      "入れ子や複数選択には使わない。選んだ後は操作だけでは解除できないため、解除が要るなら「選択をクリア」を用意する。",
     accessibility:
       "堅牢(Robust) ― ラベルが正しく結び付いていれば、支援技術はラベルに続けて役割(ラジオグループ)を読み上げる。",
     useCases: [
@@ -108,6 +112,8 @@ const SOURCES = [
       "1.4.11(非テキストのコントラスト)により、選択を示す塗った円などは、周りと3:1以上にする。1.4.1により、色だけで選択状態を示さない。",
     stance:
       <>独自のUIコンポーネントは、名前(ラベル)・役割(ラジオボタンであること)・状態(選択・未選択)と、<Hl>グループの中で1つだけ選べること</Hl>を、支援技術から取得・設定できること。</>,
+    initial: <NoData>記載なし</NoData>,
+    layout: <NoData>記載なし</NoData>,
     exceptions:
       "ブラウザ標準のラジオボタンなら、これらの情報は自動で伝わる。独自に作ったラジオボタンだけ配慮が要る。",
     accessibility:
@@ -149,8 +155,10 @@ const SOURCES = [
       <NoData>数値基準なし</NoData>,
     stance:
       "2つ以上の選択肢から、必ず1つだけを選ぶ場合に使う。選択肢は縦に1行1つで並べ、いつもすべて見せる。",
+    initial: <><Hl>既定で1つを選んでおく</Hl>(ほとんどの場合)。敬称・性別・寄付額のような質問では選ばない</>,
+    layout: "縦に1行1つで並べ、いつもすべて見せる",
     exceptions:
-      <><Hl>既定で1つを選んでおく</Hl>(関連記事「Radio Buttons: Select One by Default or Leave All Unselected?」も、ほとんどの場合は既定で選ぶほうがよいと結論づける)。選択肢がすべてを網羅しないなら「その他」を用意する。</>,
+      "選択肢がすべてを網羅しないなら「その他」を用意する。",
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、選びやすさの設計の根拠。",
     useCases: [
@@ -306,7 +314,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "1つだけ選ぶときに、すべての選択肢を見せる", d: "", who: "Apple・Google・W3C・NN group" },
-  { n: 2, t: "縦に並べる", d: "横に並べるのは「はい/いいえ」のような短い2〜3択だけ", who: "Google・NN group" },
+  { n: 2, t: "基本は縦に並べる。横に並べるのは短い2〜3択だけ", d: "Appleは横並びも認め、その場合は間隔をそろえるとする", who: "Google・NN group(横並びの条件はApple)" },
   { n: 3, t: "迷ったら1つを選んでおく", d: "選ばせたくない質問は「該当なし」を足す", who: "NN group。AI解釈" },
   { n: 4, t: "選択肢は5個以下が目安", d: "多いときはセレクトを検討", who: "Google" },
 ];
@@ -318,10 +326,9 @@ function GoodBadFigure() {
             title="良い例・悪い例 ― 並べ方"
             items={[
               { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "選択肢を縦に1行1つで並べ、すべて見える。どの丸がどのラベルか迷わない。" },
-              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 6px", maxWidth: 230 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
+              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "nowrap", gap: 4, whiteSpace: "nowrap", fontSize: 12 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
             ]}
             basis="Google(縦に1行1つが基本)、NN group(縦に並べ、すべての選択肢を常に見せる)。"
-            note="「はい/いいえ」のような短い2〜3個なら、横に並べてもよい(このページの記載)。"
           />
   );
 }
@@ -399,6 +406,8 @@ export default function SelectionRadioPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
+                <InfoBox label="最初の選択">{s.initial}</InfoBox>
+                <InfoBox label="並べ方">{s.layout}</InfoBox>
                 <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -440,6 +449,10 @@ export default function SelectionRadioPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
+                <div style={styles.labelCell}>最初の選択</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.initial}</div>))}
+                <div style={styles.labelCell}>並べ方</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.layout}</div>))}
                 <div style={styles.labelCell}>例外・許容ケース</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
