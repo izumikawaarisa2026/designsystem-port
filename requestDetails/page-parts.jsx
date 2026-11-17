@@ -25,7 +25,7 @@ const LINK = "#3A4FCF";
 export function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoints, keyPointsTitle }) {
   return (
     <>
-      <p className="dsp-lead" style={partStyles.lead}>{lead}</p>
+      {lead && <p className="dsp-lead" style={partStyles.lead}>{lead}</p>}
       <section style={{ ...partStyles.summary, marginBottom: keyPoints ? 32 : partStyles.summary.marginBottom }}>
         {image && (
           <div style={partStyles.summaryImage}>
@@ -51,11 +51,11 @@ export function SummaryCard({ image, imageLabel, imageNote, lead, rows, keyPoint
 /* 「まず押さえる要点」(2026-11 ⑦本人レビュー)。タイトル → 概要の1行 → この要点 → サマリー の順に置く。
    形はダークモードのページの要点と同じ(番号・見出し・1文の説明・根拠の系列)。items: [{ n, t, d, who }]。
    根拠が「AI解釈」のものは、公式の記載ではなくこのサイトの解釈 */
-export function KeyPoints({ items, title }) {
+export function KeyPoints({ items, title, columns }) {
   return (
     <section style={{ marginBottom: 32 }}>
       <h2 style={partStyles.h2}>{title || "まず押さえる要点"}</h2>
-      <ol style={partStyles.kpList}>
+      <ol style={columns ? { ...partStyles.kpList, display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: "12px 20px" } : partStyles.kpList}>
         {items.map((k) => (
           <li key={k.n} style={partStyles.kpItem}>
             <span style={partStyles.kpNum}>{k.n}</span>
@@ -165,6 +165,14 @@ export function TagLink({ t, style }) {
 }
 
 /* 意見が分かれる点。splits: [{ q, figure?(問い全体の図), sides: [{ who, color, t, figure? }], tip }] */
+/* 意見が分かれる点の各系列の見解は、最初の1文を結論として太字にする(2026-11 ⑦本人レビュー)。文字列でないもの(JSX)は、ページ側で<strong>を付ける */
+function splitConclusion(t) {
+  if (typeof t !== "string") return t;
+  const i = t.indexOf("。");
+  if (i < 0 || i === t.length - 1) return <strong>{t}</strong>;
+  return <><strong>{t.slice(0, i + 1)}</strong>{t.slice(i + 1)}</>;
+}
+
 export function SplitSection({ title, splits }) {
   return (
     <section style={{ marginBottom: 40 }}>
@@ -181,7 +189,7 @@ export function SplitSection({ title, splits }) {
                   {side.figure}
                   <div style={{ minWidth: 0 }}>
                     <div style={{ ...partStyles.splitWho, color: side.color }}>{side.who}</div>
-                    <div style={partStyles.splitText}>{side.t}</div>
+                    <div style={partStyles.splitText}>{splitConclusion(side.t)}</div>
                   </div>
                 </div>
               ))}
@@ -239,8 +247,8 @@ const PAGE_INDEX = {
   "lead": "余白の刻み、画面の幅に応じたレイアウトの切り替え、要素のまとめ方の決まり"
  },
  "/tokens/adaptive": {
-  "label": "アダプティブ/レスポンシブ",
-  "lead": "画面の広さや向き、ウィンドウの大きさに合わせて、レイアウトを組み替える考え方"
+  "label": "レスポンシブデザイン",
+  "lead": "同じ内容のまま、画面の広さや向き、ウィンドウの大きさに合わせてレイアウトを組み替える考え方"
  },
  "/tokens/shape": {
   "label": "シェイプ・コーナーラジウス",
@@ -326,9 +334,9 @@ const PAGE_INDEX = {
   "label": "検索フィールド",
   "lead": "言葉を入力して、アプリやサイトの中を検索するための入力欄"
  },
- "/components/text-inputs/wizard": {
-  "label": "ウィザード(ステップ形式の入力)",
-  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ "/components/navigation/overview": {
+  "label": "Navigationの選び方",
+  "lead": "ナビゲーションのコンポーネントを、どこへ移るかと画面の広さから選び分けるためのページ"
  },
  "/components/navigation/nav-bar": {
   "label": "ナビゲーションバー",
@@ -336,7 +344,7 @@ const PAGE_INDEX = {
  },
  "/components/containment/drawer": {
   "label": "ドロワー/サイドナビ",
-  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するナビゲーションレール/サイドバー)"
+  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)"
  },
  "/components/navigation/app-bar": {
   "label": "アプリバー",
@@ -361,6 +369,10 @@ const PAGE_INDEX = {
  "/components/navigation/pagination": {
   "label": "ページネーション",
   "lead": "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント"
+ },
+ "/components/text-inputs/wizard": {
+  "label": "ウィザード(ステップ形式の入力)",
+  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
  },
  "/components/containment/overview": {
   "label": "オーバーレイの使い分け",
@@ -408,15 +420,11 @@ const PAGE_INDEX = {
  },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",
-  "lead": "利用者に何かを知らせるコンポーネントを、4つの判断軸と比較表で選び分けるためのページ"
+  "lead": "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ"
  },
  "/components/communication/alert": {
   "label": "ステータスメッセージ(アラート)",
   "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージ"
- },
- "/components/communication/banner": {
-  "label": "バナー",
-  "lead": "画面の上部などに表示し、利用者が対応するか閉じるまで残り続けるお知らせ"
  },
  "/components/communication/snackbar": {
   "label": "スナックバー",
@@ -426,13 +434,13 @@ const PAGE_INDEX = {
   "label": "トースト",
   "lead": "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)"
  },
- "/components/communication/progress": {
-  "label": "プログレスインジケーター",
-  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
- },
  "/components/communication/loading": {
   "label": "ローディング状態",
   "lead": "中身を読み込んでいる最中の画面の見せ方"
+ },
+ "/components/communication/progress": {
+  "label": "プログレスインジケーター",
+  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
  },
  "/components/communication/empty-state": {
   "label": "空状態",

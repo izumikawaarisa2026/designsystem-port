@@ -353,7 +353,7 @@ const LEAD = "余白の刻み、画面の幅に応じたレイアウトの切り
 const ABOUT = [
   { k: "目的・役割", v: "余白をそろえて関係のある要素をまとめ、画面の構造を分かりやすくする" },
   { k: "関わる場面", v: "コンポーネントどうしの間隔、画面の端の余白、列(グリッド)の数" },
-  { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">アダプティブ/レスポンシブ</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">レスポンシブデザイン</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */

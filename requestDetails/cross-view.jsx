@@ -26,7 +26,7 @@ const TAG_INDEX = [
   {"group": "Foundation", "label": "文章・UXライティング", "path": "/tokens/writing", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)"], "processes": ["デザインの基礎", "エラー・確認", "入力・フォーム"]},
   {"group": "Foundation", "label": "アイコン", "path": "/tokens/icon", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Foundation", "label": "レイアウト・スペーシング", "path": "/tokens/layout-spacing", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "情報の整理・一覧"]},
-  {"group": "Foundation", "label": "アダプティブ/レスポンシブ", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
+  {"group": "Foundation", "label": "レスポンシブデザイン", "path": "/tokens/adaptive", "principles": ["知覚可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Foundation", "label": "シェイプ・コーナーラジウス", "path": "/tokens/shape", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "見つけやすさ・初めての案内"]},
   {"group": "Foundation", "label": "エレベーション・階層表現", "path": "/tokens/elevation", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎"]},
   {"group": "Actions", "label": "ボタン", "path": "/components/actions/button", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["操作方法(タッチ・キーボード)"]},
@@ -48,7 +48,7 @@ const TAG_INDEX = [
   {"group": "Text inputs", "label": "エラー表示", "path": "/components/text-inputs/validation", "principles": ["理解可能(POUR)", "知覚可能(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "バリデーション", "path": "/components/text-inputs/input-validation", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["エラー・確認", "入力・フォーム"]},
   {"group": "Text inputs", "label": "検索フィールド", "path": "/components/text-inputs/search-field", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["検索・絞り込み", "見つけやすさ・初めての案内"]},
-  {"group": "Text inputs", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
+  {"group": "Navigation", "label": "Navigationの選び方", "path": "/components/navigation/overview", "principles": [], "processes": ["設計の原則・使い分け"]},
   {"group": "Navigation", "label": "ナビゲーションバー", "path": "/components/navigation/nav-bar", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "アプリバー", "path": "/components/navigation/app-bar", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "検索・絞り込み"]},
@@ -57,6 +57,7 @@ const TAG_INDEX = [
   {"group": "Navigation", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
   {"group": "Navigation", "label": "パンくずリスト", "path": "/components/navigation/breadcrumb", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ページネーション", "path": "/components/navigation/pagination", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "情報の整理・一覧"]},
+  {"group": "Navigation", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
   {"group": "Containment", "label": "オーバーレイの使い分け", "path": "/components/containment/overview", "principles": [], "processes": ["設計の原則・使い分け", "段階的に見せる"]},
   {"group": "Containment", "label": "モーダルダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
   {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
@@ -70,11 +71,10 @@ const TAG_INDEX = [
   {"group": "Containment", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
   {"group": "Communication", "label": "ステータスメッセージ(アラート)", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
-  {"group": "Communication", "label": "バナー", "path": "/components/communication/banner", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
-  {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
+  {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "空状態", "path": "/components/communication/empty-state", "principles": ["理解可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
   {"group": "Communication", "label": "バッジ", "path": "/components/communication/badge", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ツールチップ", "path": "/components/communication/tooltip", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる", "見つけやすさ・初めての案内"]},
@@ -133,38 +133,6 @@ function TagLegend() {
   );
 }
 
-/* 図: 層・カテゴリ × POUR の件数 */
-function PourHeatmap() {
-  const max = Math.max(1, ...groups.flatMap((g) => POUR_TAGS.map((t) => tagged.filter((p) => p.group === g && p.principles.includes(t)).length)));
-  return (
-    <div style={styles.hmScroll}>
-      <div style={styles.hmGrid}>
-        <div style={styles.hmHead}>カテゴリ(ページ数)</div>
-        {POUR.map((p) => (<div key={p.tag} style={{ ...styles.hmHead, textAlign: "center" }}>{p.short}<span style={styles.hmHeadEn}>{p.en}</span></div>))}
-        {groups.map((g) => {
-          const pages = tagged.filter((p) => p.group === g);
-          return (
-            <React.Fragment key={g}>
-              <div style={styles.hmLabel}>{g}<span style={styles.hmLabelCount}>{pages.length}</span></div>
-              {POUR_TAGS.map((t) => {
-                const n = pages.filter((p) => p.principles.includes(t)).length;
-                return (
-                  <div key={t} style={styles.hmCell}>
-                    <span style={{ ...styles.hmBox, background: n ? `rgba(60, 90, 115, ${0.12 + (n / max) * 0.78})` : "#F3F4F9", color: n / max > 0.45 ? "#FFFFFF" : n ? "#171B36" : "#666D93" }}>{n || "―"}</span>
-                  </div>
-                );
-              })}
-            </React.Fragment>
-          );
-        })}
-        <div style={{ ...styles.hmLabel, fontWeight: 700, borderBottom: "none" }}>合計<span style={styles.hmLabelCount}>{tagged.length}</span></div>
-        {POUR_TAGS.map((t) => (<div key={t} style={{ ...styles.hmCell, borderBottom: "none", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, color: "#171B36", fontSize: 12.5 }}>{pourCount(t)}</div>))}
-      </div>
-    </div>
-  );
-}
-
-/* 12のくくりの一覧: 押すと下の一覧がそのくくりに切り替わる */
 function CategoryGrid({ sel, onSelect }) {
   return (
     <div style={styles.catGrid}>
@@ -341,12 +309,6 @@ export default function CrossViewPage() {
           </section>
 
           <TrendSummary />
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>カテゴリ × POUR ― どの原則に関わるページがどこに多いか</h2>
-            <PourHeatmap />
-            <p style={styles.chartNote}>数字は、そのカテゴリで該当する原則タグを持つページの数だ(1ページに複数の原則タグが付くことがある)。色が濃いほど多いことを示す。タグのないページは数えていない。</p>
-          </div>
 
           <section style={styles.section}>
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>

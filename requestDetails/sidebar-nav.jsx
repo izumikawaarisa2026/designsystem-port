@@ -36,7 +36,7 @@ export const NAV_SECTIONS = [
       { label: "文章・UXライティング", path: "/tokens/writing", built: true },
       { label: "アイコン", path: "/tokens/icon", built: true },
       { label: "レイアウト・スペーシング", path: "/tokens/layout-spacing", built: true },
-      { label: "アダプティブ/レスポンシブ", path: "/tokens/adaptive", built: true },
+      { label: "レスポンシブデザイン", path: "/tokens/adaptive", built: true },
       { label: "シェイプ・コーナーラジウス", path: "/tokens/shape", built: true },
       { label: "エレベーション・階層表現", path: "/tokens/elevation", built: true },
     ],
@@ -73,12 +73,12 @@ export const NAV_SECTIONS = [
       { label: "エラー表示", path: "/components/text-inputs/validation", built: true },
       { label: "バリデーション", path: "/components/text-inputs/input-validation", built: true },
       { label: "検索フィールド", path: "/components/text-inputs/search-field", built: true },
-      { label: "ウィザード(ステップ形式の入力)", path: "/components/text-inputs/wizard", built: true },
     ],
   },
   {
     title: "Navigation",
     items: [
+      { label: "Navigationの選び方", path: "/components/navigation/overview", built: true },
       { label: "ナビゲーションバー", path: "/components/navigation/nav-bar", built: true },
       { label: "ドロワー/サイドナビ", path: "/components/containment/drawer", built: true },
       { label: "アプリバー", path: "/components/navigation/app-bar", built: true },
@@ -87,6 +87,7 @@ export const NAV_SECTIONS = [
       { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
       { label: "パンくずリスト", path: "/components/navigation/breadcrumb", built: true },
       { label: "ページネーション", path: "/components/navigation/pagination", built: true },
+      { label: "ウィザード(ステップ形式の入力)", path: "/components/text-inputs/wizard", built: true },
     ],
   },
   {
@@ -110,11 +111,10 @@ export const NAV_SECTIONS = [
     items: [
       { label: "情報伝達の使い分け", path: "/components/communication/overview", built: true },
       { label: "ステータスメッセージ(アラート)", path: "/components/communication/alert", built: true },
-      { label: "バナー", path: "/components/communication/banner", built: true },
       { label: "スナックバー", path: "/components/communication/snackbar", built: true },
       { label: "トースト", path: "/components/communication/toast", built: true },
-      { label: "プログレスインジケーター", path: "/components/communication/progress", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
+      { label: "プログレスインジケーター", path: "/components/communication/progress", built: true },
       { label: "空状態", path: "/components/communication/empty-state", built: true },
       { label: "バッジ", path: "/components/communication/badge", built: true },
       { label: "ツールチップ", path: "/components/communication/tooltip", built: true },

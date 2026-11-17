@@ -29,18 +29,21 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "該当コンポーネントなし(画面に短く出る通知は「トースト」ページを参照)",
+    doc: "該当コンポーネントなし(スナックバーもトーストもない。近いのはNotifications)",
     term: <NoData>該当なし</NoData>,
     color: "#C2542A",
-    position: <NoData>該当なし</NoData>,
+    position: <NoData>コンポーネントなし(スナックバーとトーストを区別しない)</NoData>,
     size: <NoData>該当なし</NoData>,
     colorInfo: <NoData>該当なし</NoData>,
     scenarios: ["該当なし"],
-    stance: <NoData>該当なし</NoData>,
+    stance: <>アプリの中で短く出て消える知らせのコンポーネントはない。使っている最中なら、通知を送るより<Hl>今の画面にさりげなく加える</Hl>(バッジの数を増やす、一覧に新しい項目を入れる。Notifications)。</>,
     exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>該当なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
+    refs: [
+      { label: "Notifications(近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+    ],
   },
   {
     key: "material",
@@ -219,7 +222,7 @@ const LEAD = "操作の結果を画面の下などに短く表示し、しばら
 const ABOUT = [
   { k: "目的・役割", v: "操作が終わったことを作業を止めずに知らせ、必要なら「元に戻す」などの操作を1つ添える" },
   { k: "よく使われる場面", v: "「メールを削除しました(元に戻す)」「保存しました」などの完了の知らせ" },
-  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -239,8 +242,47 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "添える操作は1つだけ", d: "「元に戻す」など", who: "Google" },
   { n: 2, t: "重要な情報や、必ず必要な操作には使わない", d: "自動で消える通知は見落とされやすい", who: "NN group" },
-  { n: 3, t: "操作を持つものは、利用者が閉じるか操作するまで残す", d: "", who: "AI解釈" },
+  { n: 3, t: "操作のない知らせ(トースト)も同じ考え方で扱える", d: "トーストを別のコンポーネントにしているのはGoogle(Android)だけ", who: "NN group(用語集で「Snackbar (Toast)」の1項目)" },
 ];
+
+
+/* スナックバーとトースト(2026-11 ⑦本人レビューNo.056で追加。トーストを独立して持つ系列が少ないため、こちらにまとめる) */
+const SNACK_TOAST = [
+  { who: "Google", color: "#2F7D6E", t: <>分けている。<strong>Snackbar</strong>はM3のコンポーネントで操作を1つまで持てる。<strong>Toast</strong>はAndroidのOSの機能で操作を持たず、M3のコンポーネント一覧にはない</> },
+  { who: "Apple", color: "#C2542A", t: <>どちらもない。使っている最中なら、通知より今の画面にさりげなく加える</> },
+  { who: "W3C", color: "#A3821F", t: <>どちらも専用の定めはない。フォーカスを移さずに出る知らせとして、支援技術にも伝える(4.1.3)</> },
+  { who: "NN group", color: "#7A4F7E", t: <>分けない。用語集の「Snackbar (Toast)」の1項目で扱う</> },
+];
+function SnackToast() {
+  return (
+    <section style={{ marginBottom: 36 }}>
+      <h2 style={styles.diagramTitle}>スナックバーとトースト</h2>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+          <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
+            <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(W3Cの2.2.1)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
+            <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))", gap: 8, marginTop: 12 }}>
+        {SNACK_TOAST.map((x) => (
+          <div key={x.who} style={{ fontSize: 12, lineHeight: 1.65, color: "#2E3457", background: "#F8F9FD", borderRadius: 6, padding: "9px 11px" }}>
+            <div style={{ fontWeight: 700, color: x.color, marginBottom: 2 }}>{x.who}</div>{x.t}
+          </div>
+        ))}
+      </div>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 }}>トースト(AndroidのToast)の詳細は<PageLink to="/components/communication/toast">トースト</PageLink>のページ。</p>
+    </section>
+  );
+}
+const stStyles = {
+  th: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
+  key: { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top", whiteSpace: "nowrap" },
+  td: { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+};
 
 export default function CommunicationSnackbarPage() {
   return (
@@ -276,22 +318,21 @@ export default function CommunicationSnackbarPage() {
 
           <SplitSection splits={SPLITS} />
 
+          <SnackToast />
+
 
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは「スナックバー」に絞った内容だ。当初は「トースト」と一体で扱っていたが、Androidの実装としては<strong>別のAPI</strong>(Snackbar=アクションを持てる、Toast=操作不要のOS標準ポップアップ)であり、Google公式も用途を明確に分けているため、専用ページ「トースト」に切り出した(末尾のリンクを参照)。スナックバーの一番の特徴は<strong>取り消し可能な操作(Undo)を1つだけ持てる</strong>点で、受動的な通知でありながら操作の余地を残す中間的な性質を持つ。
+              スナックバーは、操作の結果を短く知らせる<strong>作業を止めない通知</strong>。いちばんの特徴は<strong>「元に戻す」などの操作を1つだけ持てる</strong>点で、Googleは<strong>同時に1つ・操作は1つまで</strong>とし、アプリが裏にあるならNotificationを使う。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>アプリが前面表示中はSnackbar、背面にある場合はNotification</strong>と明確に使い分けを案内している。さらに<strong>「同時に1つまで」「アクションは1つまで」</strong>という具体的な制約も持っている。
+              NN groupは見落としても困らない<strong>パッシブな通知</strong>に分類し、<strong>重要な情報をこれだけで伝えない</strong>よう求める。W3Cも、控えめな知らせとして読み上げ、操作を持つなら時間で消さないか延長できるようにする(2.2.1)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、通知全般を「アクション必須」と<strong>「パッシブ(受動的)」</strong>に分類する中で、スナックバーをパッシブ通知に位置づけている。つまり「見落としても致命的ではない」ことが前提であり、<strong>重要な情報を伝える唯一の手段としては使うべきではない</strong>(重要な確認には「モーダルダイアログ」ページを使う)。W3Cも、緊急度に応じて<strong>控えめな知らせと、すぐ読み上げる警告を使い分ける</strong>としており、スナックバーの多くは控えめな知らせに当たる。
-            </p>
-            <p style={styles.synthesisText}>
-              なお、Nielsen Norman Groupの用語集では<strong>「Snackbar (Toast)」として1つの項目</strong>にまとめられており、両者を明確に別コンポーネントとして区別しているのは実質<strong>Google(別API)だけ</strong>だという点も付記しておく。
+              Appleにはスナックバーもトーストもなく、NN groupは両者を1つの項目で扱う。トーストを別にしているのはGoogle(Android)だけなので、<strong>操作のない短い知らせも、このページの考え方で作ればよい</strong>(下の「スナックバーとトースト」)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -378,7 +419,7 @@ export default function CommunicationSnackbarPage() {
           </div>
 
 
-          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/banner", "/components/communication/alert"]} />
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/alert"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

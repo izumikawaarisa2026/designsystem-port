@@ -3,7 +3,7 @@ import SidebarNav from "./sidebar-nav";
 import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./page-parts";
 
 /**
- * トークン/ファウンデーションレイヤー「アダプティブ/レスポンシブデザイン」ページ。
+ * トークン/ファウンデーションレイヤー「レスポンシブデザイン」ページ(2026-11 ⑦本人レビューNo.014で「アダプティブ/レスポンシブデザイン」から改名。URLは変えていない)。
  *
  * このページの発見: Apple・Googleはどちらも「端末の種類ではなく、使える広さで見せ方を変える」が、
  * 変える対象を具体的に決めているのはGoogleで、ウィンドウサイズクラスごとにナビゲーションの部品
@@ -63,7 +63,7 @@ const SOURCES = [
     exceptions:
       "補助ペインは、主の内容と組み合わせて初めて意味を持つもの(文書へのコメント、動画の関連動画、編集ツールのパレットなど)に使い、単独でも意味のある詳細(商品の説明など)はリスト・詳細を使う。フィードは、1列のスクロールから複数列のグリッドまで、画面の広さに合わせて列の数を変える。",
     accessibility:
-      "―(アダプティブ専用のアクセシビリティ基準はない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)の「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
+      "―(専用のアクセシビリティ基準はない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)の「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
       "Compactではナビゲーションバー、それより広い画面ではナビゲーションレールにする",
       "一覧と詳細があるアプリ(メッセージ・連絡先など)は、Expanded幅で2ペインを並べる",
@@ -345,9 +345,6 @@ function OrientationDiagram() {
 
 /* No.014: 公式サイトにあって載せていなかった内容(GoogleはM3 Layoutの本文、AppleはHIGの各ページで確認) */
 const MISSING = [
-  { s: "Google", c: "#2F7D6E", t: "アダプティブとレスポンシブの違い", d: "レスポンシブは1つのレイアウトを画面に合わせて伸び縮みさせること。アダプティブは端末ごとに体験を作り分けること。色・文字・形だけでなく、構造やコンポーネント、レイアウト全体を変える", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
-  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
-  { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "組み替え方の5つ", d: "広さが変わったら、要素を「見せる・分ける・大きさを変える・位置を変える・入れ替える」のどれにするかを決める。ペインを内容の上に浮かべる「重ねる(levitate)」もある", ref: { l: "Breakpoints", u: "https://m3.material.io/foundations/layout/breakpoints/overview" } },
   { s: "Google", c: "#2F7D6E", t: "画面の骨組み ― バー・レール・ペイン", d: "上下のバー(アプリバー・ナビゲーションバー)、その内側や左右のレール(ツールバー・FAB・ナビゲーションレール)、内容を入れるペインの順に組み立てる。画面の上下端のシステムの領域には主な内容を置かない", ref: { l: "Scaffold ― Bars・Rails", u: "https://m3.material.io/foundations/layout/scaffold/bars" } },
   { s: "Apple", c: "#C2542A", t: "狭い画面ではポップオーバーを使わない", d: "compactではポップオーバーを出さず、シートなど画面全体を使う表示にする。ポップオーバーは広い画面のためのもの", ref: { l: "Popovers ― iOS, iPadOS", u: "https://developer.apple.com/design/human-interface-guidelines/popovers#iOS-iPadOS" } },
@@ -361,6 +358,66 @@ const BIG_CHANGES = [
   { k: "シート", g: ["ボトムシート(画面の幅いっぱい)", "ボトムシート(最大幅あり)・標準のサイドシート", "標準のサイドシート"], a: "iPhoneのシートは高さの段階(medium・large)で止まる", link: <><PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
   { k: "一覧と詳細", g: ["一覧か詳細のどちらか一方", "一覧か詳細のどちらか一方", "一覧と詳細を左右に並べる"], a: "compactでは分割ビューを使わず、regularで2〜3列", link: <NoData>専用ページなし(カノニカルレイアウトの節)</NoData> },
 ];
+
+
+/* レスポンシブとアダプティブの違い(2026-11 ⑦本人レビューNo.014で追加。このページはレスポンシブを中心にし、アダプティブは末尾の補足で扱う) */
+const RA_VIEWS = [
+  { who: "Google", c: "#2F7D6E", t: <>区別する。<strong>レスポンシブは1つのレイアウトをどの画面にも合うよう拡大・縮小すること</strong>、<strong>アダプティブは端末ごとに体験を作り込み、構造・コンポーネント・レイアウト全体まで変えること</strong>。M3は2026年5月に「Responsive layout」を「adaptive design」に改名し、ブレークポイントでの組み替えもアダプティブと呼ぶ</>, ref: ["Adaptive design", "https://m3.material.io/foundations/layout/layout-overview/adaptive-design"] },
+  { who: "Apple", c: "#C2542A", t: <><NoData>2つの言葉を使い分けていない</NoData>。画面の大きさ・向き・マルチタスクの形が変わっても、一貫したレイアウトで合わせる(adapt)ようにする</>, ref: ["Layout ― Adaptability", "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability"] },
+  { who: "W3C", c: "#A3821F", t: <><NoData>どちらの言葉も要件にはない</NoData>。近いのは1.4.10(リフロー: 狭い幅でも2方向にスクロールせずに読める)で、レスポンシブで満たしやすい。1.3の「適応可能(Adaptable)」は、構造を失わずに別の見せ方にできることで、アダプティブデザインとは別の意味</>, ref: ["1.4.10 リフロー", "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"] },
+  { who: "NN group", c: "#7A4F7E", t: <>区別する。<strong>レスポンシブは同じ内容のまま、画面の大きさに合わせてレイアウトを組み替える</strong>。<strong>アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末に合う内容・機能だけを送る</strong></>, ref: ["Mobile Websites: Mobile-Dedicated, Responsive, Adaptive, or Desktop Site?", "https://www.nngroup.com/articles/mobile-vs-responsive/"] },
+];
+function RespVsAdapt() {
+  return (
+    <section style={{ marginBottom: 36 }}>
+      <h2 style={styles.diagramTitle}>レスポンシブとアダプティブの違い</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: 10, marginBottom: 14 }}>
+        {[["レスポンシブ", "1つのレイアウトを、画面の広さに合わせて組み替える。内容と機能は同じ", "#3A4FCF"], ["アダプティブ", "端末や状況ごとに、別々に用意した形を出す。内容・機能・構造まで変えることがある", "#5A9629"]].map(([t, d, c]) => (
+          <div key={t} style={{ borderTop: `3px solid ${c}`, background: "#F8F9FD", borderRadius: "0 0 6px 6px", padding: "10px 12px" }}>
+            <div style={{ fontSize: 13.5, fontWeight: 700, color: c, marginBottom: 3 }}>{t}</div>
+            <div style={{ fontSize: 12, lineHeight: 1.65, color: "#2E3457" }}>{d}</div>
+          </div>
+        ))}
+      </div>
+      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" }}>各系列の解釈</h3>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 8 }}>
+        {RA_VIEWS.map((v) => (
+          <div key={v.who} style={{ border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", fontSize: 12, lineHeight: 1.65, color: "#2E3457" }}>
+            <div style={{ fontWeight: 700, color: v.c, marginBottom: 3 }}>{v.who}</div>
+            <div style={{ marginBottom: 6 }}>{v.t}</div>
+            <a href={v.ref[1]} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: "#3A4FCF" }}>{v.ref[0]} ↗</a>
+          </div>
+        ))}
+      </div>
+      <p style={{ fontSize: 12, lineHeight: 1.7, color: "#454C78", margin: "12px 0 0", background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "8px 12px" }}><strong>このページの扱い(AI解釈):</strong> このページは、<strong>同じ内容・機能のまま、画面の広さに合わせて見せ方を組み替えること</strong>(レスポンシブ)を扱う。Googleはブレークポイントでの組み替えも「adaptive」と呼ぶが、このページではレスポンシブとして扱う。端末ごとに体験を作り分けるアダプティブは、末尾の「アダプティブデザイン(補足)」にまとめた。</p>
+    </section>
+  );
+}
+
+/* アダプティブデザイン(補足) */
+const ADAPTIVE_NOTES = [
+  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "NN group", c: "#7A4F7E", t: "サーバーが端末を見分けて送り分ける", d: "アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末で使える内容・機能だけを送る。読み込みの遅さを防げるのが主な利点", ref: { l: "Mobile Websites: … Responsive, Adaptive …", u: "https://www.nngroup.com/articles/mobile-vs-responsive/" } },
+];
+function AdaptiveNotes() {
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>アダプティブデザイン(補足)</h2>
+      <p style={styles.diagramNote}>端末や状況ごとに体験を作り分ける考え方。レスポンシブより範囲が広く、内容や構造まで変えることがある。</p>
+      <div style={styles.amGrid}>
+        {ADAPTIVE_NOTES.map((m) => (
+          <div key={m.t} style={{ ...styles.amCard, borderLeftColor: m.c }}>
+            <div style={{ fontSize: 10.5, fontWeight: 700, color: m.c }}>{m.s}</div>
+            <div style={styles.amTitle}>{m.t}</div>
+            <p style={styles.amText}>{m.d}</p>
+            <a href={m.ref.u} target="_blank" rel="noreferrer" style={styles.amLink}>{m.ref.l} ↗</a>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 function AdaptiveMissing() {
   return (
@@ -440,7 +497,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の広さや向き、ウィンドウの大きさに合わせて、レイアウトを組み替える考え方";
+const LEAD = "同じ内容のまま、画面の広さや向き、ウィンドウの大きさに合わせてレイアウトを組み替える考え方";
 const ABOUT = [
   { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },
@@ -476,11 +533,11 @@ export default function TokensAdaptivePage() {
         <SidebarNav currentPath="/tokens/adaptive" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>Foundation / アダプティブ・レスポンシブ</span>
+            <span>Foundation / レスポンシブデザイン</span>
             <span>SPEC No. 052</span>
           </div>
 
-          <h1 style={styles.title}>アダプティブ/レスポンシブデザイン</h1>
+          <h1 style={styles.title}>レスポンシブデザイン</h1>
           <SummaryCard keyPoints={KP}
             imageLabel="同じ内容を、画面の広さに合わせて組み替える(概念図)"
             image={<><ReflowSwatch /></>}
@@ -490,6 +547,8 @@ export default function TokensAdaptivePage() {
           />
 
           <PageToc />
+
+          <RespVsAdapt />
 
 
 
@@ -599,6 +658,8 @@ export default function TokensAdaptivePage() {
           <BigChanges />
 
           <AdaptiveMissing />
+
+          <AdaptiveNotes />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

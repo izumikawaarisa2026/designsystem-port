@@ -313,9 +313,8 @@ function StateMatrix() {
             </div>
             {r.cells.map((c, i) => (
               <div key={i} style={styles.ruleCell}>
-                <span style={{ ...styles.ruleMark, color: MARK_COLORS[c.mark] }}>{c.mark}</span>
                 {c.mark !== "―" && <CellMini k={r.key} sys={CELL_SYS[i]} />}
-                {c.note && <span style={styles.ruleNote}>{c.note}</span>}
+                {c.mark === "―" ? <span style={{ ...styles.ruleNote, color: "#9EA4C4" }}>―</span> : c.note && <span style={styles.ruleNote}>{c.mark === "△" && <strong style={{ color: MARK_COLORS["△"], marginRight: 3 }}>△</strong>}{c.note}</span>}
               </div>
             ))}
           </React.Fragment>
@@ -413,7 +412,6 @@ const KP = [
   { n: 2, t: "フォーカスは必ず見えるように", d: "色だけでなく輪郭線で示す", who: "W3C 2.4.7" },
   { n: 3, t: "状態の見た目は周りと見分けられるように", d: "隣り合う色と3:1以上", who: "W3C" },
   { n: 4, t: "独自のボタンにも押した状態を用意する", d: "システムの効果に任せるのが基本", who: "Apple" },
-  { n: 5, t: "状態を支援技術にも伝える", d: "見た目だけで終わらせない", who: "W3C" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -458,17 +456,17 @@ export default function TokensInteractionStatesPage() {
           <SummaryCard keyPoints={KP}
             imageLabel="ステートレイヤー(同じボタンに、状態ごとの半透明の色を重ねる)"
             image={<><StateSwatch /></>}
-            imageNote={<>Googleのトークン値(ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は文字38%・容器10%)で描いた概念図だ。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えている。</>}
+            imageNote={<>Googleのトークン値で描いた概念図。フォーカスの輪郭線とドラッグの影は、NN groupの「フォーカスは輪郭線で」とM2の「影と組み合わせることもある」を参考に加えている。</>}
             lead={LEAD}
             rows={ABOUT}
           />
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― どの状態を定義しているか</h2>
             <StateMatrix />
-            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。◯=定義・明記されている、△=部分的・条件付き、―=定義なし。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
+            <p style={styles.chartNote}>各セルの小さな図は、その系列が書いている見せ方を注記に沿って描いた概念図だ(色・寸法は説明用)。左端のイメージ図は、Googleのトークン値(重ね色の不透明度)で描いたボタンで、緑の数値はその値だ。フォーカスの輪郭線・ドラッグの影・読み込み中のスピナーは、NN groupとM2の記述を参考に加えている。文の先頭の△=部分的・条件付き、―=定義なし(印のないものは定義あり)。W3Cは状態の一覧を持たないため、状態ごとに関係する達成基準を記載している。ホバーやフォーカスで現れる内容の扱い(1.4.13)は、状態の見た目ではないためこの表には含めていない。</p>
           </div>
           <GoodBadFigure />
 
@@ -632,8 +630,8 @@ const styles = {
   ruleScroll: { overflowX: "auto" },
   ruleGrid: { display: "grid", gridTemplateColumns: "130px repeat(4, minmax(120px, 1fr))", minWidth: 640, border: "1px solid #E1E3F0", borderRadius: 4 },
   ruleHead: { fontSize: 11.5, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#FFFFFF" },
-  ruleLabel: { fontSize: 11, color: "#454C78", fontWeight: 600, padding: "8px 10px", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", lineHeight: 1.5 },
-  ruleCell: { padding: "8px 10px", borderBottom: "1px solid #E1E3F0", borderLeft: "1px solid #EEF0F7", display: "flex", flexDirection: "column", gap: 2 },
+  ruleLabel: { fontSize: 11, color: "#454C78", fontWeight: 600, padding: "6px 8px", borderBottom: "1px solid #E1E3F0", background: "#F8F9FD", lineHeight: 1.5 },
+  ruleCell: { padding: "6px 8px", borderBottom: "1px solid #E1E3F0", borderLeft: "1px solid #EEF0F7", display: "flex", flexDirection: "column", gap: 2 },
   ruleMark: { fontSize: 15, fontWeight: 700, lineHeight: 1.1 },
   ruleNum: { display: "inline-block", fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace", fontSize: 9.5, fontWeight: 600, color: "#FFFFFF", background: "#2F7D6E", borderRadius: 3, padding: "1px 5px" },
   ruleNote: { fontSize: 10.5, color: "#565D8A", lineHeight: 1.5 },

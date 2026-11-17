@@ -253,9 +253,9 @@ const SPLITS = [
   {
     q: "取り消せない操作の確認は、ボタンを押すだけでよい?",
     sides: [
-      { who: "NN group", color: "#7A4F7E", t: "最も重大な操作では、「DELETE」と入力させるなど、いつもと違う確認をさせる。「本当によろしいですか?」ではなく、具体的な選択肢(「ファイルを削除」「ファイルを残す」)を示す" },
-      { who: "Apple", color: "#C2542A", t: "ボタンで確認する。読まずにReturnで閉じてほしくないときは、どのボタンも既定にしない。意図せず壊す操作になるボタンには壊す操作の見た目を付ける" },
-      { who: "Google", color: "#2F7D6E", t: "ボタンで確認する。確認ボタンのラベルは「削除」のように次に起きることが分かる語にする。単純な確認では確認ボタンを無効にしない" },
+      { who: "NN group", color: "#7A4F7E", t: "アカウントの削除のような特に重大な操作では、「DELETE」と打ち込ませるなど、いつもと違うひと手間で確認させる。「本当によろしいですか?」ではなく、「ファイルを削除」「ファイルを残す」のように、押すと何が起きるか分かるボタンにする" },
+      { who: "Apple", color: "#C2542A", t: "ボタンで確認すればよい。内容を読まずにEnterキーで決まってしまわないよう、どのボタンもEnterで押される状態にしない。消すなど壊す操作のボタンは、赤い文字など壊す操作の見た目にする" },
+      { who: "Google", color: "#2F7D6E", t: "ボタンで確認すればよい。確認のボタンは「削除」のように、押すと何が起きるか分かる言葉にする。簡単な確認なら、確認のボタンを押せない状態にはしない" },
     ],
     tip: "ふだんはボタンの名前を具体的にする(Apple・Google・NN groupで一致)だけで十分だ。アカウントの削除のように取り返しがつかず影響の大きい操作だけ、NN groupの勧める入力させる確認を足す。",
   },
@@ -264,10 +264,9 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "本当に重要な場面だけに使う", d: "多用すると読まずに押されるようになる", who: "NN group" },
-  { n: 2, t: "優先度の低い知らせはスナックバーにする", d: "", who: "Google" },
-  { n: 3, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
-  { n: 4, t: "ボタンは2つまで", d: "", who: "Google" },
-  { n: 5, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
+  { n: 2, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
+  { n: 3, t: "ボタンは2つまで", d: "", who: "Google" },
+  { n: 4, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -276,10 +275,10 @@ function GoodBadFigure() {
     <GoodBad
             title="良い例・悪い例 ― 確認ボタンのラベル"
             items={[
-              { kind: "good", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>削除</span></div></div>, text: "確認ボタンが「削除」で、押すと何が起きるか分かる。" },
+              { kind: "good", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span style={{ color: "#C0302F" }}>削除</span></div></div>, text: "確認ボタンが「削除」で、押すと何が起きるか分かる。元に戻せない操作なので、赤い文字で壊す操作だと示している。" },
               { kind: "bad", fig: <div style={{ width: 220, border: "1px solid #E1E3F0", borderRadius: 12, padding: "14px 16px", boxShadow: "0 4px 14px rgba(23,27,54,0.12)" }}><div style={{ fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>この写真を削除しますか?</div><div style={{ fontSize: 12, color: "#454C78", marginBottom: 12 }}>削除すると元に戻せません。</div><div style={{ display: "flex", justifyContent: "flex-end", gap: 16, fontSize: 13, fontWeight: 600, color: "#3A4FCF" }}><span>キャンセル</span><span>OK</span></div></div>, text: "確認ボタンが「OK」だけで、押すと何が起きるかをタイトルまで読み返さないと分からない。" },
             ]}
-            basis="Apple・Google・NN group(ボタンの名前を具体的にし、押すと何が起きるか分かる語にする)。Googleは、確認ボタンのラベルを「削除」のように次に起きることが分かる語にし、「OK」のようなあいまいな語を避けるとしている。"
+            basis="Apple・Google・NN group(ボタンの名前を具体的にし、押すと何が起きるか分かる語にする)。Googleは「OK」のようなあいまいな語を避けるとし、Appleは壊す操作のボタンを赤など壊す操作の見た目(Destructive)にするとしている。"
             note="ボタンの並び順(確認が右か左か)は系列で違うので、この図では扱わない。"
           />
   );

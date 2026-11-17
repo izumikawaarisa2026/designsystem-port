@@ -30,14 +30,14 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Playing audio / Accessibility(Hearing)",
     color: "#C2542A",
     position: <>中心は、<Hl>音は端末の消音・音量・出力先の設定に必ず従う</Hl>、という「利用者の期待どおりに振る舞う」こと。音の作り方より鳴らし方のルールを詳しく定める</>,
-    size: "消音モードでは、利用者が自分で始めた音(メディア再生・アラーム・音声/ビデオ通話)だけを鳴らし、キーボードのクリック音・効果音・ゲームのBGMなどは止める。最終的な音量はいつもシステムの音量が決め、アプリが全体の音量を変えない。ヘッドホンを外したら再生をすぐ一時停止する。用途で5つのオーディオカテゴリ(Solo ambient/Ambient/Playback/Record/Play and record)から選び、消音スイッチに従うか・ほかの音と混ぜるか・バックグラウンドで鳴るかが決まる。",
+    size: <>消音モードでは、<Hl>利用者が自分で始めた音(再生・アラーム・通話)だけを鳴らす</Hl>。音量はいつもシステムが決める。ヘッドホンを外したら一時停止する。</>,
     design: "音の作り方(音色など)の指針はほとんどない。",
     stance:
-      "音が体験の中心でも飾りでも、音量や出力先の変更に期待どおりに振る舞う。ほかのアプリの音楽を必要なく止めない、イヤホンのボタンなど音声コントロールの意味を変えない、一時的に割り込んだ後はほかのアプリに再開してよいと知らせる、など。",
+      "音量や出力先の変更に期待どおりに振る舞う。ほかのアプリの音楽を必要なく止めない。",
     exceptions:
-      "macOSの通知音は既定でほかの音と混ざる。watchOSでは、音声素材を64 kbpsのHE-AACで書き出すことを勧める。",
+      "macOSの通知音は既定でほかの音と混ざる。",
     accessibility:
-      "知覚可能(Perceivable) ― 会話や重要な情報を音だけで伝えず、字幕・キャプション・音声解説・書き起こしを用意する。成功音やエラー音には同じ意味の触覚(ハプティクス)を組み合わせ、音で誘導するときは見た目の手がかりも添える。",
+      "知覚可能(Perceivable) ― 音だけで伝えず、字幕・書き起こし・触覚・見た目の手がかりを添える。",
     useCases: [
       "消音モード中は、利用者が始めた再生以外の効果音を鳴らさない",
       "音量はシステムに任せ、アプリの中の音どうしのバランスだけを調整する",
@@ -58,14 +58,14 @@ const SOURCES = [
     doc: "Material Design 2 ― Sound(About sound / Applying sound to UI / Sound attributes)",
     color: "#2F7D6E",
     position: <><Hl>UIの音の役割と作り方を最も体系的にまとめている</Hl>が、Material Design 2(旧版)の指針で、M3には対応するページがない</>,
-    size: <span><NoData>数値基準なし。</NoData>音を鳴らさないほうがよい場面は、プライバシーや控えめさが要る画面、利用者が割り込みを望まない設定にしている場合、頻繁に行う操作の3つ。見た目の余白のように「沈黙」を設計に組み込むことは、音を使う場面を知るのと同じくらい重要。</span>,
+    size: <><NoData>数値基準なし</NoData>。鳴らさない場面は、<Hl>人目を気にする画面・割り込みを望まない設定・頻繁な操作</Hl>の3つ。</>,
     design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSの操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分ける。音色は、高音の多い明るい音を重要な通知や騒がしい場所に、少ない落ち着いた音を優先度の低い音に使う。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的。",
     stance:
-      "音の原則は、直感的で機能的な「Informative(情報を伝える)」、ブランドを偽りなく表す「Honest(正直)」、必要なときだけ行動を促し安心させる「Reassuring(安心させる)」の3つ。操作や状態の変化に結びつけた音を「イヤコン(earcon)」と呼び、現実の音に似せたもの(カメラのシャッター音など)と抽象的な音に分ける。",
+      "音の原則は「情報を伝える・正直・安心させる」の3つ。操作や状態に結びつけた音を「イヤコン」と呼ぶ。",
     exceptions:
-      "装飾の音は感情の高まる場面に限り、頻度を抑えて疲れさせない。通知音は、離れた場所や騒がしい環境でも聞こえるようにし、装飾のない基本の音から豊かな音まで利用者が選べるようにする。現行のAndroidの触覚(ハプティクス)の指針は、見た目・音・触覚を同時に設計し、タイミングと印象をそろえることを強く勧める。",
+      "装飾の音は感情の高まる場面に限り、頻度を抑える。通知音は、基本の音から豊かな音まで利用者が選べるようにする。",
     accessibility:
-      "知覚可能(Perceivable) ― Material Design 2の音のページに、聴覚障害への配慮(音の代わりの手段)の記載はない。音は見た目の体験を高めるもので、損なってはならない、という位置づけ。",
+      "知覚可能(Perceivable) ― 聴覚障害への配慮の記載はない。",
     useCases: [
       "頻繁な操作や静かにすべき画面では、音を鳴らさない",
       "繰り返し鳴る音ほど短く控えめに、まれに鳴る音ほど印象的に",
@@ -88,17 +88,17 @@ const SOURCES = [
     doc: "WCAG 1.4.2 Audio Control / 1.4.7 Low or No Background Audio",
     color: "#A3821F",
     position: <>効果音そのものの基準はなく、<Hl>「自動で鳴る音を止められること」</Hl>と「音声の聞き取りを妨げないこと」を求める</>,
-    size: "ページで自動で3秒より長く鳴る音には、一時停止・停止の手段か、システム全体とは別に音量を調整できる手段を用意する(1.4.2・レベルA)。録音した音声が中心の内容では、背景音をなくす・切れるようにする・音声より20デシベル以上小さくする、のどれかを満たす(1.4.7・レベルAAA)。",
+    size: <>自動で<Hl>3秒より長く鳴る音は、止めるか音量を変えられるようにする</Hl>(1.4.2・A)。音声が中心なら、背景音は音声より20デシベル以上小さく(1.4.7・AAA)。</>,
     design: "音色や効果音の設計は定めない。録音した音声だけの内容に代わりのもの(書き起こしなど、1.2.1)、動画の音声に字幕(1.2.2)を求め、音を唯一の伝え方にしない考え方はほかの系列と共通。",
     glossary: [
       { term: "1.4.2 Audio Control・レベルA", desc: "自動で3秒を超えて鳴る音に、停止・一時停止か、個別の音量調整の手段を求める。" },
       { term: "1.4.7 Low or No Background Audio・レベルAAA", desc: "録音した音声が中心の内容で、背景音をなくす・切れる・20dB以上小さくすることを求める。" },
     ],
     stance:
-      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくし、音に気を取られやすい人の妨げにもなるため。1.4.2を満たさない内容はページ全体の利用を妨げうるため、ページのすべての内容が満たす必要がある。",
+      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくするため。",
     exceptions:
-      "1.4.2は、3秒以内に終わる音には適用されない。1.4.7は、音声CAPTCHA・音声ロゴ・歌やラップなど音楽表現が主な発声には適用されず、レベルAAA。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7は「判別可能」(1.4)で「知覚可能」。聴覚に障害のある人やスクリーンリーダーを使う人が、必要な音声を聞き分けられるようにする。",
+      "1.4.2は3秒以内の音には適用されない。1.4.7は音声CAPTCHA・音楽表現には適用されない。",
+    accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7。",
     useCases: [
       "自動再生の音は避け、鳴らすなら停止の手段をすぐ見つかる場所に置く",
       "3秒を超えて自動で鳴る音には、停止か個別の音量調整を用意する",
@@ -120,13 +120,13 @@ const SOURCES = [
     doc: "Audio Signifiers for Voice Interaction / Guidelines for Multimedia on the Web",
     color: "#7A4F7E",
     position: <>効果音は画面とは別の補助の手段として役立つが、<Hl>意味が伝わりにくいため控えめに使い、言葉と組み合わせる</Hl>(適合基準ではない)</>,
-    size: "原則としての言及。背景の出来事を知らせる効果音はごく静かで邪魔にならないものにし、必ずオフにできる設定を用意する(1995年の記事)。",
+    size: <><NoData>数値基準なし</NoData>。背景の出来事を知らせる音は<Hl>ごく静かにし、オフにできるようにする</Hl>。</>,
     design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが呼びかけを検知した後の2音のビープ)、はっきりした言葉、暗黙の手がかり(話の途中で止まり、聞く態勢を示すなど)の3種類に分ける。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音なので、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られる。",
     stance:
-      "音の利点は画面とは別の手段であることで、画面の情報を隠さずに補える。一方、イヤコンが効くのは、狭く繰り返しの多い場面(頻繁な作業の確認音)か一般的な注意の呼びかけに限られ、多くの場合は言葉の手がかりを添えるか、置き換える必要がある。",
+      "音は画面とは別の手段で、画面の情報を隠さずに補える。ただしイヤコンが効くのは、繰り返しの多い確認音か、一般的な注意の呼びかけに限られる。",
     exceptions:
-      "ボタンを押したときの控えめなクリック音や、移動の方向で対になる音のように、質の良い効果音は体験を大きく高める。ゲームの研究で、音を良くしただけで、同じ映像なのに「映像が良くなった」と答えた例も紹介する。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察と研究にもとづく設計の根拠。音声のナレーションは、聴覚に障害のある人や外国語の利用者には分かりにくい場合があるため、字幕を勧める。",
+      "控えめなクリック音など、質の良い効果音は体験を大きく高める。",
+    accessibility: "根拠となる原則 ― ユーザビリティの観察と研究にもとづく設計の根拠。音声のナレーションには字幕を勧める。",
     useCases: [
       "背景の出来事を知らせる音は、ごく静かにし、オフにできるようにする",
       "イヤコンは、操作直後の確認など意味が文脈から分かる場面で使う",
@@ -275,10 +275,10 @@ const HAPTICS = [
 
 /* ---------- はじめに: 目的・利用シーン・ルールの概要 ---------- */
 const SOUND_PURPOSES = [
-  { icon: "✓", title: "操作が届いたと伝える", text: "押した・選んだ・入力した、が受け付けられたことを返す(Googleのプライマリ UX、Appleの成功・エラー音、NN groupの「操作直後の確認」)" },
-  { icon: "!", title: "注意を向けさせる", text: "通知・着信・アラームなど、画面を見ていない人にも届ける(Googleの通知・アラート)" },
-  { icon: "↻", title: "状態の変化を知らせる", text: "更新が終わった、その操作は使えない、などを短い音で伝える(Googleのセカンダリ UX)" },
-  { icon: "♪", title: "感情・ブランドを表す", text: "達成を祝う、世界観を演出する(Googleのヒーローサウンド・アンビエント)。控えめに、まれに" },
+  { icon: "✓", title: "操作が届いたと伝える", text: "押した・選んだ・入力した、が受け付けられたことを返す(Googleのプライマリ UX、Appleの成功・エラー音、NN groupの「操作直後の確認」)", scenes: ["ボタン・スイッチの操作音", "キーボード入力のクリック音", "送信完了・エラー"] },
+  { icon: "!", title: "注意を向けさせる", text: "通知・着信・アラームなど、画面を見ていない人にも届ける(Googleの通知・アラート)", scenes: ["メッセージ・プッシュ通知", "着信音・アラーム・タイマー"] },
+  { icon: "↻", title: "状態の変化を知らせる", text: "更新が終わった、その操作は使えない、などを短い音で伝える(Googleのセカンダリ UX)", scenes: ["一覧の更新完了"] },
+  { icon: "♪", title: "感情・ブランドを表す", text: "達成を祝う、世界観を演出する(Googleのヒーローサウンド・アンビエント)。控えめに、まれに", scenes: ["タスクをすべて完了したときのお祝い", "アプリの起動・ようこそ画面", "ゲームの効果音・BGM"] },
 ];
 
 const SOUND_RULES = [
@@ -292,7 +292,7 @@ const SOUND_RULES = [
 function SoundIntro() {
   return (
     <section style={styles.introBox}>
-      <h2 style={styles.introTitle}>はじめに ― UIでサウンドを使う目的・利用シーン・ルール</h2>
+      <h2 style={styles.introTitle}>はじめに ― UIでサウンドを使う目的(利用シーン)・ルール</h2>
       <div style={styles.introCols}>
         <div style={{ minWidth: 0 }}>
           <div style={styles.introHead}>目的(なぜ音を使うか)</div>
@@ -302,6 +302,7 @@ function SoundIntro() {
               <div style={{ minWidth: 0 }}>
                 <div style={styles.purposeTitle}>{p.title}</div>
                 <div style={styles.purposeText}>{p.text}</div>
+                {p.scenes && <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: 4 }}>{p.scenes.map((x) => (<span key={x} style={styles.sceneChip}>{x}</span>))}</div>}
               </div>
             </div>
           ))}
@@ -318,10 +319,6 @@ function SoundIntro() {
             ))}
           </ol>
         </div>
-      </div>
-      <div style={styles.introHead}>主な利用シーン</div>
-      <div style={styles.sceneChips}>
-        {["ボタン・スイッチの操作音", "キーボード入力のクリック音", "メッセージ・プッシュ通知", "着信音・アラーム・タイマー", "送信完了・エラー", "一覧の更新完了", "タスクをすべて完了したときのお祝い", "アプリの起動・ようこそ画面", "動画・音楽の再生", "ゲームの効果音・BGM"].map((s) => (<span key={s} style={styles.sceneChip}>{s}</span>))}
       </div>
     </section>
   );
@@ -446,15 +443,18 @@ const SCENE_DECISIONS = [
 const DEC_COLORS = { "◯": "#2E6B3A", "△": "#8A6A10", "✕": "#A33A2E" };
 
 function SceneDecisionTable() {
+  const cols = [["◯", "鳴らす"], ["△", "条件付き"], ["✕", "鳴らさない"]];
   return (
-    <div style={styles.decList}>
-      {SCENE_DECISIONS.map((d) => (
-        <div key={d.scene} style={styles.decRow}>
-          <span style={{ ...styles.decMark, color: DEC_COLORS[d.mark] }}>{d.mark}</span>
-          <div style={{ minWidth: 0 }}>
-            <div style={styles.decScene}>{d.scene}</div>
-            <div style={styles.decWhy}>{d.why}<span style={styles.decWho}>{d.who}</span></div>
-          </div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 10 }}>
+      {cols.map(([m, label]) => (
+        <div key={m} style={{ border: "1px solid #E1E3F0", borderTop: `3px solid ${DEC_COLORS[m]}`, borderRadius: "0 0 6px 6px", padding: "10px 12px" }}>
+          <div style={{ fontSize: 13, fontWeight: 700, color: DEC_COLORS[m], marginBottom: 6 }}>{m} {label}</div>
+          {SCENE_DECISIONS.filter((d) => d.mark === m).map((d) => (
+            <div key={d.scene} style={{ marginBottom: 8 }}>
+              <div style={styles.decScene}>{d.scene}</div>
+              <div style={styles.decWhy}>{d.why}<span style={styles.decWho}>{d.who}</span></div>
+            </div>
+          ))}
         </div>
       ))}
     </div>
@@ -688,7 +688,7 @@ const styles = {
   purposeText: { fontSize: 11, lineHeight: 1.6, color: "#454C78" },
   ruleList: { margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 7 },
   ruleItem: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
-  ruleWho: { display: "inline-block", marginLeft: 6, fontSize: 9.5, color: "#666D93", border: "1px solid #E1E3F0", borderRadius: 3, padding: "0 4px" },
+  ruleWho: { display: "block", fontSize: 11, color: "#666D93", marginTop: 1 },
   sceneChips: { display: "flex", flexWrap: "wrap", gap: 6 },
   sceneChip: { fontSize: 11, color: "#2E3457", background: "#F3F6FA", borderRadius: 12, padding: "3px 10px" },
   kindSection: { marginBottom: 8 },

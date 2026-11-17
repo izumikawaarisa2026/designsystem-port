@@ -303,11 +303,44 @@ const NN_TAB_DIFF = [
   ["最初に選ばれているタブ", "通常は1つ。どのタブにも属さない画面では選ばれていないこともある", "必ず1つ選ばれている"],
 ];
 
+
+/* 見た目の種類(2026-11 ⑦本人レビューNo.038で追加。図は概念図) */
+function TabLook({ k }) {
+  const g = "#2F7D6E", l = "#D5D9EC", t = "#454C78";
+  const box = (c) => (<svg width="150" height="62" viewBox="0 0 150 62" aria-hidden="true"><rect x="0.5" y="0.5" width="149" height="61" rx="5" fill="#F8F9FD" stroke="#E1E3F0" />{c}</svg>);
+  const row = (y, names, sel, under, x0 = 8, w = 44) => names.map((n, i) => (<g key={n + y}><text x={x0 + i * w + w / 2} y={y} fontSize="8" textAnchor="middle" fill={i === sel ? g : t} fontWeight={i === sel ? 700 : 400}>{n}</text>{i === sel && <rect x={x0 + i * w + (under ? 4 : 14)} y={y + 4} width={under ? w - 8 : w - 28} height={under ? 1.5 : 3} rx="1.5" fill={g} />}</g>));
+  if (k === "primary") return box(<><rect x="0.5" y="0.5" width="149" height="12" fill="#EEF1FA" />{row(26, ["映画", "音楽", "本"], 0, false, 9)}<rect x="0.5" y="32" width="149" height="0.8" fill={l} />{[40, 48].map((y) => (<rect key={y} x="10" y={y} width="130" height="4" rx="2" fill={l} />))}</>);
+  if (k === "secondary") return box(<>{row(14, ["映画", "音楽", "本"], 0, false, 9)}<rect x="0.5" y="20" width="149" height="0.8" fill={l} />{row(32, ["新作", "人気", "評価"], 1, true, 9)}<rect x="0.5" y="38" width="149" height="0.8" fill={l} />{[46].map((y) => (<rect key={y} x="10" y={y} width="130" height="4" rx="2" fill={l} />))}</>);
+  if (k === "fixed") return box(<>{row(22, ["車", "電車", "徒歩", "自転車"], 1, true, 3, 36)}<rect x="0.5" y="28" width="149" height="0.8" fill={l} /><text x="75" y="48" fontSize="7.5" textAnchor="middle" fill="#666D93">全部を同時に見せる(4個まで)</text></>);
+  if (k === "scroll") return box(<>{row(22, ["ニュース", "経済", "スポーツ", "科学"], 0, true, 14, 40)}<rect x="0.5" y="28" width="149" height="0.8" fill={l} /><text x="75" y="48" fontSize="7.5" textAnchor="middle" fill="#666D93">はみ出して横にスクロール →</text></>);
+  if (k === "icon") return box(<>{[0, 1, 2].map((i) => (<g key={i}><circle cx={30 + i * 45} cy="16" r="5" fill="none" stroke={i === 0 ? g : t} /><text x={30 + i * 45} y="34" fontSize="8" textAnchor="middle" fill={i === 0 ? g : t}>{["通話", "連絡先", "履歴"][i]}</text></g>))}<rect x="16" y="38" width="28" height="3" rx="1.5" fill={g} /><rect x="0.5" y="42" width="149" height="0.8" fill={l} /></>);
+  return box(<><rect x="10" y="20" width="130" height="36" rx="3" fill="#FFFFFF" stroke={l} /><rect x="38" y="12" width="74" height="14" rx="4" fill="#FFFFFF" stroke={l} /><rect x="38" y="12" width="25" height="14" rx="4" fill="#E3EDE9" stroke={g} />{["一般", "表示", "詳細"].map((n, i) => (<text key={n} x={50 + i * 25} y="22" fontSize="7" textAnchor="middle" fill={i === 0 ? g : t}>{n}</text>))}</>);
+}
+const TAB_LOOKS = [
+  { k: "primary", t: "プライマリタブ", d: "コンテンツの上、アプリバーの下に置く、いちばん上の区切り", src: "Google" },
+  { k: "secondary", t: "セカンダリタブ", d: "プライマリタブの下に置き、1つのタブの中をさらに分ける", src: "Google" },
+  { k: "fixed", t: "固定タブ", d: "すべてのタブを同時に見せる。4個までを勧める", src: "Google" },
+  { k: "scroll", t: "スクロールできるタブ", d: "画面に収まらないとき。最初のタブを端から52dp離し、続きがあると分かるようにする", src: "Google" },
+  { k: "icon", t: "アイコン付きのタブ", d: "アイコンとラベル、またはどちらか一方。1つの並びの中で使い方をそろえる", src: "Google" },
+  { k: "view", t: "タブビュー(macOS)", d: "内容の領域の上端に置く。6個まで。iOS・iPadOSではセグメントコントロールを使う", src: "Apple" },
+];
 function TabKinds() {
   const systems = ["Apple", "Google", "W3C", "NN group"];
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>タブの種類</h2>
+      <h3 style={{ ...styles.kindSub, marginTop: 0 }}>見た目の種類</h3>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10, marginBottom: 22 }}>
+        {TAB_LOOKS.map((x) => (
+          <div key={x.k} style={{ border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 6 }}><TabLook k={x.k} /></div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 3 }}>{x.t}</div>
+            <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457" }}>{x.d}</div>
+            <div style={{ fontSize: 10.5, color: "#666D93", marginTop: 3 }}>{x.src}</div>
+          </div>
+        ))}
+      </div>
+      <h3 style={styles.kindSub}>役割の種類(ナビゲーションのタブとページ内のタブ)</h3>
       <p style={styles.diagramNote}>「主な場所へ遷移するタブ」と「同じ画面の中で内容を切り替えるタブ」は、見た目が似ていても別のものだ。このページの比較は、後者(ページ内のタブ)が対象だ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.kindTable}>
@@ -423,16 +456,10 @@ export default function NavigationTabsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブは<strong>画面の中で、内容の異なる領域(セクション・データセット)を切り替えるコンポーネント</strong>だ。Google・W3C・NN groupはこの意味のタブを扱い、AppleはmacOSの<strong>Tab view</strong>がこれに当たる(<strong>iOS・iPadOSではSegmented controlを勧める</strong>)。画面下部のAppleのタブバーはアプリ全体のナビゲーションで、別のコンポーネントだ(<a href="/components/navigation/nav-bar" style={{ color: "#3A4FCF" }}>ナビゲーションバー</a>のページ)。セグメントコントロールと見た目が似ているが、<strong>「内容のまとまりが切り替わる」のがタブ、「同じ内容の見え方が変わる」のがセグメントコントロール</strong>、という役割の違いが本質だ(詳しくは「タブとセグメントの使い分け」を参照)。
+              タブは<strong>同じ画面の中で、内容のまとまりを切り替える</strong>コンポーネント。AppleではmacOSのTab viewが当たり、iOS・iPadOSではセグメントコントロールを勧める(画面下部のタブバーは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページ)。
             </p>
             <p style={styles.synthesisText}>
-              タブの数は、Google・Apple・NN groupとも<strong>「増やしすぎない」方向で共通</strong>している(Googleは固定タブ4個まで、AppleのTab viewは6個まで)。画面に収まらないときの扱いは系列で分かれる(「意見が分かれる点」を参照)。
-            </p>
-            <p style={styles.synthesisText}>
-              <strong>Googleのタブには「プライマリ/セカンダリ」の2階層</strong>がある(セカンダリタブは常にプライマリタブの下)。Fixed/Scrollableという表示方式の軸とは別に、階層の軸も持っている点が特徴で、AppleのTab view(1階層のみ)にはない考え方だ。
-            </p>
-            <p style={styles.synthesisText}>
-              アクセシビリティについては、WCAGの要件(4.1.2など)に対し、<strong>W3CのAPGがタブの並び・タブ・パネルの役割を伝える考え方(Tabsパターン)</strong>を示している。Appleは「機能が使えない場合もタブを無効化・削除しない」という、他系列にはない具体的な運用ルールを持っている。Googleも「タブセットを無限ループでスクロールさせない」という、スクリーンリーダーの直線的なナビゲーションを妨げないための具体的な注意点を示している。
+              数は<strong>増やしすぎない</strong>点で共通する(Googleの固定タブは4個まで、AppleのTab viewは6個まで)。収まらないときの扱いは系列で分かれる(「意見が分かれる点」)。Googleだけが<strong>プライマリ/セカンダリの2段</strong>を持つ。
             </p>
           </div>
 

@@ -5,6 +5,7 @@
   "/components/actions/link",
   "/components/actions/fab",
   "/components/selection/overview",
+  "/components/navigation/overview",
   "/components/selection/checkbox",
   "/components/selection/radio",
   "/components/selection/toggle",
@@ -62,7 +63,6 @@
   "/components/containment/carousel",
   "/tokens/writing",
   "/components/communication/loading",
-  "/components/communication/banner",
   "/components/text-inputs/wizard",
   "/components/containment/overview",
   "/principles/wcag-criteria"

@@ -4,9 +4,9 @@ import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink, RelatedPages } fro
 
 /**
  * コンポーネントレイヤー「Communication / ステータスメッセージ(アラート)」ページ。
- * 2026-11 ③本人レビューNo.060で、「アラート/バナー」ページを2つに分けて作った。画面に残り続けるお知らせの部品は
- * 「バナー」ページ(communication-banner.jsx)。このページは、成功・情報・注意・エラーといった状態の知らせ方を比べる。
- * 一次情報: Apple HIG Feedback(ページデータのJSON)、M3の色の役割(MDC AndroidのColor.md)、WCAG 4.1.3のUnderstanding、
+ * 成功・情報・注意・エラーといった状態の知らせ方を比べる。2026-11 ⑦本人レビューNo.065で、旧「バナー」ページを
+ * このページのバナーの節(#banner)に統合した。
+ * 一次情報: Apple HIG Feedback(ページデータのJSON)、M3の色の役割(Color roles・Define new colors)、WCAG 4.1.3のUnderstanding、
  * NN group「Indicators, Validations, and Notifications」(いずれも本文を直接取得して確認、2026-11)。
  */
 
@@ -31,9 +31,8 @@ const SOURCES = [
     ],
     searchHint: "status feedback",
     refs: [
-      { label: "Feedback", url: "https://developer.apple.com/design/human-interface-guidelines/feedback" },
-      { label: "Feedback ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/feedback#Best-practices" },
-      { label: "Alerts(作業を止めて伝える場合)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts" },
+      { label: "Feedback ― Best practices(伝えるもの・伝え方・複数の方法で伝える)", url: "https://developer.apple.com/design/human-interface-guidelines/feedback#Best-practices" },
+      { label: "Alerts ― Best practices(作業を止めて伝える場合)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts#Best-practices" },
     ],
     illustration: () => <StatusMini color="#C2542A" kinds={["info", "success", "warning", "error"]} />,
     illustrationNote: "4つのフィードバック(概念図・系列識別色)",
@@ -47,19 +46,18 @@ const SOURCES = [
     position: "ステータスメッセージ専用のコンポーネント・指針はない。色の役割として、エラーだけを意味のある色として持つ",
     statuses: <span><Hl>色の役割として持つのは「エラー」だけ</Hl>(error・onError・errorContainer・onErrorContainer)。成功・注意・情報に当たる色の役割は、基本の組み合わせにはない。</span>,
     delivery: <NoData>記載なし</NoData>,
-    colorIcon: <span>エラーには、errorの色の役割を使う。成功などの色が必要なときは、<Hl>アプリでカスタムカラーを定義し、主となる色(primary)に色合いを寄せて調和させる</Hl>(ハーモナイズ)方法がある。</span>,
+    colorIcon: <span>エラーには、errorの色の役割を使う。成功などの色が必要なら、<Hl>静的な色(旧称: カスタムカラー)として定義する</Hl>。基準の色から4つの色の役割が作られ、既存の色や動的な配色・コントラストの設定と合う(M3の例は緑の「Success」)。</span>,
     wording: <NoData>記載なし</NoData>,
     avoid: <NoData>記載なし</NoData>,
     accessibility: "知覚可能(Perceivable) ― 色の役割は、背景と文字の組み合わせでコントラストを保つ前提。",
     useCases: [
       "エラーの表示には、errorとerrorContainerの色の役割を使う",
-      "成功・注意の色は、カスタムカラーとして定義し、テーマの色と調和させる",
+      "成功・注意の色は、静的な色として定義し、テーマの色と合わせる",
     ],
-    searchHint: "",
+    searchHint: "Define static colors",
     refs: [
-      { label: "Color roles", url: "https://m3.material.io/styles/color/roles" },
-      { label: "MDC Android: Color theming ― Custom Colors", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md#custom-colors" },
-      { label: "MDC Android: Color theming ― Color Harmonization", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Color.md#using-color-harmonization" },
+      { label: "Color roles(Errorの色の役割)", url: "https://m3.material.io/styles/color/roles" },
+      { label: "Define new colors(Define static colors: 成功の色などを足す)", url: "https://m3.material.io/styles/color/advanced/define-new-colors" },
     ],
     illustration: () => <StatusMini color="#2F7D6E" kinds={["error"]} />,
     illustrationNote: "色の役割はエラーのみ(概念図・系列識別色)",
@@ -187,10 +185,10 @@ function StatusSwatch() {
 
 /* ステータス別のまとめ(4系列の内容を合わせたAI解釈) */
 const STATUS_ROWS = [
-  { k: "success", what: "操作や作業が正しく終わった(W3Cの定義では「操作の成功や結果」)", how: "重要な作業だけ、完了を知らせる(Apple)。作業を止めず、操作した場所の近くに出す", words: "何が終わったかを短く書く(例: 「変更を保存しました」)", look: "緑系の色とチェックのアイコン。Googleは成功の色の役割を持たないため、使うならカスタムカラーをテーマの色と調和させる", avoid: "ささいな操作のたびに出す。頻繁な操作に、対応を求める通知を使う(NN group)", exc: "ささいな作業の成功は知らせなくてよい。人は成功を前提にしていて、知りたいのは失敗したときだから(Apple)" },
-  { k: "info", what: "今の状態や、知っておくとよい出来事(Appleの「今の状態」)", how: "対象の近くに、目立ちすぎない形で置く(Apple)。コンポーネントに付ける印(インジケーター)も使える(NN group)", words: "何についての知らせかが分かる文脈を添える(NN group)", look: "青や灰など、目立ちすぎない色と「i」のアイコン", avoid: "今の目的と関係のない知らせを送る(NN group)", exc: "フォーカスを移して見せるメッセージは、4.1.3のステータスメッセージには当たらない(フォーカスの移動で読み上げられるため。W3C)" },
-  { k: "warning", what: "悪い結果になりうる操作や状況(Appleの「警告」)", how: "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて伝える(Apple)", words: "何が起きうるかと、どうすれば避けられるかを書く", look: "黄・オレンジ系の色と「!」のアイコン", avoid: "予想どおりの結果(ゴミ箱に入れるなど)にまで毎回警告する(Apple)", exc: "作業を止めて警告するのは、予期しない・取り返しのつかないデータ損失のときだけ。それ以外は作業を止めずに伝える(Apple)" },
-  { k: "error", what: "操作の失敗や、入力の誤り(W3Cの「エラーの有無」、NN groupの「バリデーション」)", how: "問題のある場所の近くに出し、直すまで残す(NN group)。実行できないときは理由を伝える(Apple)", words: "何が問題で、どう直せばよいかを書く(NN group・W3C 3.3.1)", look: "Googleのerrorの色の役割(赤系)と、×などのアイコン", avoid: "数秒で消える通知(トースト)で出す(NN group)", exc: "入力の誤りは、作業を止めるダイアログではなく、誤りのある入力欄の近くに出して入力を続けられるようにする(NN group: バリデーション)" },
+  { k: "success", what: "操作や作業が正しく終わった(W3Cの定義では「操作の成功や結果」)", how: "重要な作業だけ、完了を知らせる(Apple)。作業を止めず、操作した場所の近くに出す", look: "緑系の色とチェックのアイコン。Googleは成功の色の役割を持たないため、使うならカスタムカラーをテーマの色と調和させる", avoid: "ささいな操作のたびに出す。頻繁な操作に、対応を求める通知を使う(NN group)", exc: "ささいな作業の成功は知らせなくてよい。人は成功を前提にしていて、知りたいのは失敗したときだから(Apple)" },
+  { k: "info", what: "今の状態や、知っておくとよい出来事(Appleの「今の状態」)", how: "対象の近くに、目立ちすぎない形で置く(Apple)。コンポーネントに付ける印(インジケーター)も使える(NN group)", look: "青や灰など、目立ちすぎない色と「i」のアイコン", avoid: "今の目的と関係のない知らせを送る(NN group)", exc: "フォーカスを移して見せるメッセージは、4.1.3のステータスメッセージには当たらない(フォーカスの移動で読み上げられるため。W3C)" },
+  { k: "warning", what: "悪い結果になりうる操作や状況(Appleの「警告」)", how: "予期しない、取り返しのつかないデータ損失になる操作だけ、作業を止めて伝える(Apple)", look: "黄・オレンジ系の色と「!」のアイコン", avoid: "予想どおりの結果(ゴミ箱に入れるなど)にまで毎回警告する(Apple)", exc: "作業を止めて警告するのは、予期しない・取り返しのつかないデータ損失のときだけ。それ以外は作業を止めずに伝える(Apple)" },
+  { k: "error", what: "操作の失敗や、入力の誤り(W3Cの「エラーの有無」、NN groupの「バリデーション」)", how: "問題のある場所の近くに出し、直すまで残す(NN group)。実行できないときは理由を伝える(Apple)", look: "Googleのerrorの色の役割(赤系)と、×などのアイコン", avoid: "数秒で消える通知(トースト)で出す(NN group)", exc: "入力の誤りは、作業を止めるダイアログではなく、誤りのある入力欄の近くに出して入力を続けられるようにする(NN group: バリデーション)" },
 ];
 
 function StatusTable() {
@@ -201,7 +199,7 @@ function StatusTable() {
       <div style={styles.matrixScroll}>
         <table style={styles.statusTable}>
           <thead>
-            <tr>{["種類", "どんな状態か", "伝え方", "文言のポイント", "色・アイコン", "避けること", "例外・特例"].map((h) => (<th key={h} style={styles.statusTh}>{h}</th>))}</tr>
+            <tr>{["種類", "どんな状態か", "伝え方", "色・アイコン", "避けること", "例外・特例"].map((h) => (<th key={h} style={styles.statusTh}>{h}</th>))}</tr>
           </thead>
           <tbody>
             {STATUS_ROWS.map((r) => (
@@ -214,7 +212,6 @@ function StatusTable() {
                 </td>
                 <td style={styles.statusTd}>{r.what}</td>
                 <td style={styles.statusTd}>{r.how}</td>
-                <td style={styles.statusTd}>{r.words}</td>
                 <td style={styles.statusTd}>{r.look}</td>
                 <td style={styles.statusTd}>{r.avoid}</td>
                 <td style={styles.statusTd}>{r.exc}</td>
@@ -257,7 +254,7 @@ const LEAD = "操作の結果や今の状態(成功・情報・注意・エラ�
 const ABOUT = [
   { k: "目的・役割", v: "何が起きたか、今どんな状態かを伝え、必要なら次の行動を促す" },
   { k: "よく使われる場面", v: "保存完了の知らせ、入力の誤り、通信の注意、検索結果の件数" },
-  { k: "似たコンポーネント", v: <>画面に残り続けるお知らせのコンポーネントは<PageLink to="/components/communication/banner">バナー</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、入力欄のエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>画面に残り続けるお知らせは下の<PageLink to="/components/communication/alert#banner">バナー</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、入力欄のエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 const ROWS = [
@@ -267,12 +264,46 @@ const ROWS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "情報の重さに合わせて、伝え方を変える", d: "", who: "Apple" },
-  { n: 2, t: "状態の知らせは、対象の近くに控えめに置く", d: "", who: "Apple" },
-  { n: 3, t: "作業を止めるのは、取り返しのつかないデータ損失のときだけ", d: "", who: "Apple" },
-  { n: 4, t: "入力の誤りは、欄の近くに出す", d: "", who: "NN group" },
-  { n: 5, t: "見た目だけでなく、支援技術にも伝える", d: "", who: "W3C 4.1.3" },
+  { n: 1, t: "大事な知らせほど目立たせ、そうでないものは控えめにする", d: "", who: "Apple" },
+  { n: 2, t: "今の状態は、関係する場所の近くにさりげなく出す", d: "例: メールの未読の数をツールバーに出す", who: "Apple" },
+  { n: 3, t: "作業を止めて知らせるのは、データが消えるなど取り返しがつかないときだけ", d: "", who: "Apple" },
+  { n: 4, t: "入力の間違いは、その入力欄のすぐそばに出す", d: "", who: "NN group" },
+  { n: 5, t: "画面に出すだけでなく、読み上げソフトにも伝える", d: "", who: "W3C 4.1.3" },
 ];
+
+
+/* バナー(2026-11 ⑦本人レビューNo.065で、旧「バナー」ページをこのページに統合) */
+const BANNER_ROWS = [
+  { who: "Google", color: "#2F7D6E", t: <>画面上部(アプリバーの下)に<Hl>1つまで</Hl>出し、利用者が対応するか閉じるまで残す。文字のボタンを2つまで(閉じる操作は左)。ボタン1つで「確認して閉じる」だけにはしない。原因の状態が解消したら消してよい。M2のコンポーネントで、M3の一覧にはない</>, refs: [{ label: "Banners(M2。M3の一覧にはない)", url: "https://m2.material.io/components/banners" }] },
+  { who: "Apple", color: "#C2542A", t: <><NoData>アプリの中に残り続けるバナーのコンポーネントはない</NoData>(OSのバナー通知は自動で消えるもので、別物)</>, refs: [{ label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" }] },
+  { who: "W3C", color: "#A3821F", t: <>条件で分ける。操作の結果として<Hl>新しく出た緊急の警告だけすぐ読み上げ</Hl>、緊急でない更新は控えめに知らせる(4.1.3)。ページを開いたときからあるバナーは、見出しやラベルの付いた領域として読めるようにする</>, refs: [{ kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" }, { label: "WAI-ARIA: alert(緊急の警告)", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" }] },
+  { who: "NN group", color: "#7A4F7E", t: <>対応が必要な<Hl>「アクション必須」の通知</Hl>に当たる。見落とせないので消さずに残すが、多用すると信頼を損なう</>, refs: [{ label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" }] },
+];
+function BannerSection() {
+  return (
+    <section id="banner" style={{ marginBottom: 40, scrollMarginTop: 16 }}>
+      <h2 style={styles.diagramTitle}>バナー ― 対応するか閉じるまで残る知らせ</h2>
+      <p style={styles.diagramNote}>画面の上部に出し、利用者が対応するか閉じるまで残る知らせ。オフライン・容量不足など、<strong>重要だが緊急ではない状態</strong>を伝える。作業は止めない(止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>)。</p>
+      <div style={{ width: 300, maxWidth: "100%", margin: "0 auto 14px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "#FFF8E6", border: "1px solid #E2CF95", borderRadius: 8 }}>
+          <span style={{ fontSize: 15 }}>⚠️</span>
+          <span style={{ flex: 1, fontSize: 12.5, color: "#2E3457" }}>ストレージの空き容量が残りわずかです</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>閉じる</span>
+          <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>管理</span>
+        </div>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 8 }}>
+        {BANNER_ROWS.map((r) => (
+          <div key={r.who} style={{ fontSize: 12, lineHeight: 1.65, color: "#2E3457", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
+            <div style={{ fontWeight: 700, color: r.color, marginBottom: 3 }}>{r.who}</div>
+            <div style={{ marginBottom: 6 }}>{r.t}</div>
+            <RefList refs={r.refs} />
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
 
 export default function CommunicationStatusMessagePage() {
   return (
@@ -307,6 +338,7 @@ export default function CommunicationStatusMessagePage() {
           />
 
           <StatusTable />
+          <BannerSection />
           <NnMethods />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
@@ -388,7 +420,7 @@ export default function CommunicationStatusMessagePage() {
             </div>
           </div>
 
-          <RelatedPages paths={["/components/communication/overview", "/components/communication/banner", "/components/communication/snackbar", "/components/text-inputs/validation", "/components/text-inputs/input-validation"]} />
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/snackbar", "/components/text-inputs/validation", "/components/text-inputs/input-validation"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

@@ -213,29 +213,6 @@ function SegmentedSwatch() {
 }
 
 /* Appleでのタブバーとの使い分け(No.039。HIG Segmented controls・Tab bars・Tab viewsの本文による) */
-const APPLE_TAB_VS_SEG = [
-  ["切り替えるもの", "アプリのまったく別のセクション(時計アプリのアラーム・ストップウォッチ・タイマーなど)", "密接に関係するサブビューや、同じ対象の表示(カレンダーの新規作成で「イベント」と「リマインダー」、ヘルスケアのグラフの期間)"],
-  ["置く場所", "iOSは画面の下部、iPadOSは画面の上部近く。アプリのどの画面でも表示し続ける", "画面の中、ツールバー、インスペクタなど、対象の近く"],
-  ["数の目安", "少ないほど遷移しやすい。収まらないと「その他」タブになるので避ける", "iPhoneでは5個程度まで、広い画面では5〜7個程度まで"],
-  ["押したときの働き", "遷移だけ。今の画面への操作には使わない(操作はツールバー)", "選んだ状態を示すか、操作のボタンの集まり(macOSのメールの返信・全員に返信・転送)。1つのコントロールの中で両方を混ぜない"],
-];
-
-function AppleTabVsSegmented() {
-  return (
-    <section style={{ marginBottom: 40 }}>
-      <h2 style={styles.diagramTitle}>Appleでの、タブバーとセグメントコントロールの使い分け</h2>
-      <p style={styles.atvNote}>Appleでは、どちらも横に並んだ選択肢に見えるが、役割がはっきり分かれている。iOS・iPadOSには画面の中のタブ(Tab view)がないため、画面の中で関係のある表示を切り替えるときは、セグメントコントロールを使う。</p>
-      <div style={{ overflowX: "auto" }}>
-        <table style={styles.atvTable}>
-          <thead><tr>{["", "タブバー(Tab bar)", "セグメントコントロール"].map((h) => (<th key={h} style={styles.atvTh}>{h}</th>))}</tr></thead>
-          <tbody>{APPLE_TAB_VS_SEG.map((r) => (<tr key={r[0]}><td style={{ ...styles.atvTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.atvTd}>{r[1]}</td><td style={styles.atvTd}>{r[2]}</td></tr>))}</tbody>
-        </table>
-      </div>
-      <p style={styles.atvNote}>4系列での使い分けは、<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>のページで比べている。</p>
-    </section>
-  );
-}
-
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント";
 const ABOUT = [
@@ -258,9 +235,8 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "内容のまとまりを切り替えるならタブにする", d: "セグメントコントロールは、同じ内容の見え方の切り替えに使う", who: "AI解釈(タブとセグメントの使い分け)" },
-  { n: 2, t: "選択肢は2〜5個", d: "スマートフォンでは5個までにそろえる", who: "AI解釈" },
-  { n: 3, t: "増えそうなら、チップやメニューに切り替える", d: "", who: "AI解釈" },
+  { n: 1, t: "選択肢は2〜5個。増えそうなら、チップやメニューに切り替える", d: "スマートフォンでは5個までにそろえる", who: "AI解釈" },
+  { n: 2, t: "内容のまとまりを切り替えるならタブにする", d: "セグメントコントロールは、同じ内容の見え方の切り替えに使う", who: "AI解釈(タブとセグメントの使い分け)" },
 ];
 
 export default function NavigationSegmentedControlPage() {
@@ -306,7 +282,6 @@ export default function NavigationSegmentedControlPage() {
 
 
 
-          <AppleTabVsSegmented />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

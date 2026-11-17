@@ -238,6 +238,66 @@ const KP = [
   { n: 4, t: "長く、途中で別の画面を確かめたくなる手順は、普通のページで進める", d: "", who: "NN group" },
 ];
 
+
+/* ウィザードの種類と使い方(2026-11 ⑦本人レビューNo.067で追加。M1 Steppers・W3C Multi-page Forms・NN group Wizardsの要約。図は概念図) */
+function WizFig({ k }) {
+  const g = "#2F7D6E", l = "#D5D9EC";
+  const box = (c) => (<svg width="120" height="70" viewBox="0 0 120 70" aria-hidden="true"><rect x="0.5" y="0.5" width="119" height="69" rx="5" fill="#F8F9FD" stroke="#E1E3F0" />{c}</svg>);
+  if (k === "h") return box(<>{[16, 50, 84].map((x, i) => (<g key={x}><circle cx={x} cy="16" r="6" fill={i < 2 ? g : "#FFFFFF"} stroke={g} /><text x={x} y="19" fontSize="7" textAnchor="middle" fill={i < 2 ? "#FFFFFF" : g}>{i + 1}</text></g>))}<line x1="22" y1="16" x2="44" y2="16" stroke={l} /><line x1="56" y1="16" x2="78" y2="16" stroke={l} />{[34, 44, 54].map((y) => (<rect key={y} x="12" y={y} width="96" height="5" rx="2" fill={l} />))}</>);
+  if (k === "v") return box(<>{[10, 30, 50].map((y, i) => (<g key={y}><circle cx="14" cy={y} r="5.5" fill={i === 1 ? g : i === 0 ? "#E3EDE9" : "#FFFFFF"} stroke={g} /><rect x="26" y={y - 3} width={i === 1 ? 50 : 36} height="5" rx="2" fill={i === 1 ? g : l} />{i === 1 && <rect x="26" y={y + 6} width="80" height="8" rx="2" fill={l} />}</g>))}<line x1="14" y1="16" x2="14" y2="24" stroke={l} /><line x1="14" y1="36" x2="14" y2="44" stroke={l} /></>);
+  if (k === "m") return box(<><text x="20" y="20" fontSize="8" fill={g} fontWeight="700">2 / 4</text>{[52, 60, 68, 76].map((x, i) => (<circle key={x} cx={x} cy="17" r="2.6" fill={i <= 1 ? g : l} />))}<rect x="12" y="34" width="96" height="4" rx="2" fill={l} /><rect x="12" y="34" width="48" height="4" rx="2" fill={g} /><text x="60" y="56" fontSize="7" textAnchor="middle" fill="#565D8A">文字・点・バー</text></>);
+  return box(<><text x="12" y="20" fontSize="8.5" fill="#171B36" fontWeight="700">お届け先(ステップ2/4)</text>{[32, 42, 52].map((y) => (<rect key={y} x="12" y={y} width="96" height="5" rx="2" fill={l} />))}</>);
+}
+const WIZ_LOOKS = [
+  { k: "h", t: "横に並べる", d: "上部に番号とステップ名を並べる。前のステップで次の内容が変わるときに向く。名前は短くし、スクロールしても上部に固定できる", src: "Google(M1 Steppers)" },
+  { k: "v", t: "縦に並べる", d: "ステップを縦に並べ、今のステップだけを開く。狭い画面向けで、スマートフォンにそのまま使える", src: "Google(M1 Steppers)" },
+  { k: "m", t: "スマートフォンの簡易表示", d: "「2/4」の文字、点(ステップが少ないとき)、バー(ステップが多いとき・途中で増えるとき)", src: "Google(M1 Steppers)" },
+  { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。読み上げソフトの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
+];
+const WIZ_FLOWS = [
+  ["順番どおりに進む", "前のステップを終えないと次へ進めない", "Google(M1 Linear)"],
+  ["好きな順に進める", "どのステップからでも始められる", "Google(M1 Non-linear)"],
+  ["あとで直せる・直せない", "直せるステップは戻って編集できる。直すと完了の妨げになるなら直せないステップにする", "Google(M1)"],
+  ["任意のステップ", "「任意」と示し、飛ばせるようにする", "Google(M1)・W3C"],
+];
+const WIZ_FIT = [
+  ["向いている", "初めての人や、たまにしかしない手続き(初期設定・申し込みなど)。前の答えで次に聞くことが変わる手続き(人によって最短の道筋になる)", "NN group"],
+  ["向いていない", "何度も繰り返す入力(1つずつ進むのは手間になる)。ステップをまたいで情報を見比べたい作業。途中で別の画面を確かめたくなる作業", "NN group"],
+  ["避ける", "短いフォームを区切るためだけに使う。1ページにステップ表示を複数置く・入れ子にする", "Google(M1)"],
+];
+function WizardKinds() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const table = (head, rows) => (
+    <div style={{ overflowX: "auto" }}>
+      <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+        <thead><tr>{head.map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+        <tbody>{rows.map((r) => (<tr key={r[0]}><td style={{ ...td, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={td}>{r[1]}</td><td style={{ ...td, color: "#565D8A", whiteSpace: "nowrap" }}>{r[2]}</td></tr>))}</tbody>
+      </table>
+    </div>
+  );
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ウィザードの見せ方</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10, marginBottom: 12 }}>
+        {WIZ_LOOKS.map((w) => (
+          <div key={w.k} style={{ border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}><WizFig k={w.k} /></div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{w.t}</div>
+            <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457" }}>{w.d}</div>
+            <div style={{ fontSize: 10.5, color: "#666D93", marginTop: 4 }}>{w.src}</div>
+          </div>
+        ))}
+      </div>
+      <p style={{ fontSize: 12, lineHeight: 1.7, color: "#454C78", margin: "0 0 24px" }}>どの見せ方でも、<strong>全体のステップと今の位置</strong>を示す(NN group・W3C)。最初のステップで、あといくつ続くかを伝えるとよい(W3C)。</p>
+      <h2 style={styles.diagramTitle}>進み方の種類</h2>
+      {table(["種類", "内容", "出典"], WIZ_FLOWS)}
+      <h2 style={{ ...styles.diagramTitle, marginTop: 24 }}>使うとき・使わないとき</h2>
+      {table(["", "場面", "出典"], WIZ_FIT)}
+    </section>
+  );
+}
+
 export default function TextInputsWizardPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -271,6 +331,8 @@ export default function TextInputsWizardPage() {
           />
 
           <SplitSection splits={SPLITS} />
+
+          <WizardKinds />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

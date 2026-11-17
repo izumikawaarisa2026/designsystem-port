@@ -18,17 +18,16 @@ const FRAMEWORKS = [
     doc: "Human Interface Guidelines ― Accessibility",
     color: "#C2542A",
     items: [
-      { name: "目指す3つの性質", desc: "使いやすい(Intuitive: なじみのある一貫した操作)・知覚できる(Perceivable: 視覚・聴覚・発話・触覚のどれか1つに頼らない)・合わせられる(Adaptable: システムの支援機能や利用者の設定に合わせて変わる)。" },
-      { name: "Vision(視覚)", desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは、17ptまでは4.5:1、18pt以上か太字(大きさを問わない)なら3:1(WCAG AAの値を目安にしているが、大きさは画面の単位ptで示しており、WCAGの「大きな文字」の条件とは別)。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
-      { name: "Hearing(聴覚)", desc: "字幕・音声解説・書き起こしなど、文字で受け取れる手段を用意する。音の合図には触覚(ハプティクス)や画面上の印も添える。" },
-      { name: "Mobility(運動)", desc: "操作コンポーネントは既定44×44pt・最小28×28pt(iOS/iPadOS)。コンポーネントの間は、枠のあるコンポーネントなら約12pt、枠のないコンポーネントなら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
-      { name: "Speech(発話)", desc: "キーボードだけで操作できるようにし(フルキーボードアクセス)、システムのショートカットを上書きしない。スイッチコントロールに対応する。" },
-      { name: "Cognitive(認知)", desc: "操作は単純で一貫させ、時間で自動的に消える表示は控える。音声・動画の自動再生を避け、点滅や速い動きは「視差効果を減らす」設定に合わせて減らす。アシスティブアクセス(機能をしぼった表示)にも対応する。" },
+      { name: "目指す3つの性質", ref: ["Accessibility", "https://developer.apple.com/design/human-interface-guidelines/accessibility"], desc: "使いやすい(Intuitive: なじみのある一貫した操作)・知覚できる(Perceivable: 視覚・聴覚・発話・触覚のどれか1つに頼らない)・合わせられる(Adaptable: システムの支援機能や利用者の設定に合わせて変わる)。" },
+      { name: "Vision(視覚)", ref: ["Accessibility ― Vision", "https://developer.apple.com/design/human-interface-guidelines/accessibility#Vision"], desc: "文字は200%以上に拡大できるようにする(watchOSは140%)。本文の既定は17pt・最小11pt(iOS/iPadOS)。文字のコントラストは、17ptまでは4.5:1、18pt以上か太字(大きさを問わない)なら3:1(WCAG AAの値を目安にしているが、大きさは画面の単位ptで示しており、WCAGの「大きな文字」の条件とは別)。色だけに頼らず形やアイコンを添え、VoiceOver向けに画面の内容を説明する。" },
+      { name: "Hearing(聴覚)", ref: ["Accessibility ― Hearing", "https://developer.apple.com/design/human-interface-guidelines/accessibility#Hearing"], desc: "字幕・音声解説・書き起こしなど、文字で受け取れる手段を用意する。音の合図には触覚(ハプティクス)や画面上の印も添える。" },
+      { name: "Mobility(運動)", ref: ["Accessibility ― Mobility", "https://developer.apple.com/design/human-interface-guidelines/accessibility#Mobility"], desc: "操作コンポーネントは既定44×44pt・最小28×28pt(iOS/iPadOS)。コンポーネントの間は、枠のあるコンポーネントなら約12pt、枠のないコンポーネントなら約24ptの余白をとる。よく使う操作は簡単なジェスチャーにし、ジェスチャーには画面上のボタンなどの代わりを用意する。音声コントロール・スイッチコントロールなどの支援機能に対応する。" },
+      { name: "Speech(発話)", ref: ["Accessibility ― Speech", "https://developer.apple.com/design/human-interface-guidelines/accessibility#Speech"], desc: "キーボードだけで操作できるようにし(フルキーボードアクセス)、システムのショートカットを上書きしない。スイッチコントロールに対応する。" },
+      { name: "Cognitive(認知)", ref: ["Accessibility ― Cognitive", "https://developer.apple.com/design/human-interface-guidelines/accessibility#Cognitive"], desc: "操作は単純で一貫させ、時間で自動的に消える表示は控える。音声・動画の自動再生を避け、点滅や速い動きは「視差効果を減らす」設定に合わせて減らす。アシスティブアクセス(機能をしぼった表示)にも対応する。" },
     ],
     extra: "apple",
     url: "https://developer.apple.com/design/human-interface-guidelines/accessibility",
     refs: [
-      { label: "Accessibility", url: "https://developer.apple.com/design/human-interface-guidelines/accessibility" },
       { label: "Inclusion", url: "https://developer.apple.com/design/human-interface-guidelines/inclusion" },
     ],
     confirmedNote: "各分野の見出しに実アンカーあり(例: #Vision)。ページ本体の裏側データを直接取得して確認(2026-11)。Accessibility Nutrition LabelsはApp Store Connectのヘルプで確認。",
@@ -39,24 +38,19 @@ const FRAMEWORKS = [
     doc: "Material Design 3 ― Principles・Accessibility designing",
     color: "#2F7D6E",
     items: [
-      { name: "アクセシビリティをデフォルトに", desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
-      { name: "要件を機会として捉える", desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
-      { name: "設計の手順 ③ 要素(Elements)", desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
-      { name: "色とコントラスト", desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
+      { name: "アクセシビリティをデフォルトに", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
+      { name: "要件を機会として捉える", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
+      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "設計の手順 ③ 要素(Elements)", ref: ["Elements", "https://m3.material.io/foundations/designing/elements"], desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
+      { name: "色とコントラスト", ref: ["Color & contrast", "https://m3.material.io/foundations/designing/color-contrast"], desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
     ],
     extra: "google",
     url: "https://m3.material.io/foundations/overview/principles",
     confirmedNote: "M3のAccessibility(Designing・Building for all)の各ページを、ブラウザで表示した本文で確認(2026-11)。ページ内の見出しアンカーは確認できていないため、ページ単位のリンクに留めています。",
     refs: [
-      { label: "Principles", url: "https://m3.material.io/foundations/overview/principles" },
-      { label: "Accessibility designing ― Overview", url: "https://m3.material.io/foundations/designing/overview" },
-      { label: "Structure", url: "https://m3.material.io/foundations/designing/structure" },
-      { label: "Flow", url: "https://m3.material.io/foundations/designing/flow" },
-      { label: "Elements", url: "https://m3.material.io/foundations/designing/elements" },
-      { label: "Color & contrast", url: "https://m3.material.io/foundations/designing/color-contrast" },
-      { label: "Building for all ― User needs", url: "https://m3.material.io/foundations/building-for-all/user-needs" },
+      { label: "Accessibility designing ― Overview(設計の3つの手順)", url: "https://m3.material.io/foundations/designing/overview" },
+      { label: "Building for all ― User needs(人の多様さの観点)", url: "https://m3.material.io/foundations/building-for-all/user-needs" },
     ],
   },
   {
@@ -121,15 +115,14 @@ const FRAMEWORKS = [
     doc: "Accessibility and Inclusivity: Study Guide",
     color: "#7A4F7E",
     items: [
-      { name: "アクセシビリティ = 心構え", desc: "アクセシビリティとインクルーシブデザインは、ユーザビリティの一部であり、手続き・規制・チェックリストの集まりではなく、心構え(マインドセット)であるという考え方。" },
-      { name: "アクセシブルデザイン", desc: "視覚・聴覚・認知・情緒・運動面で困難を抱えるユーザーを助けるデザインという整理。" },
-      { name: "インクルーシブデザイン", desc: "人種・性別・宗教など多様な背景を持つユーザーを歓迎し、それらが体験の妨げにならないようにする設計という整理。" },
+      { name: "アクセシビリティ = 心構え", ref: ["Accessibility and Inclusivity: Study Guide", "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/"], desc: "アクセシビリティとインクルーシブデザインは、ユーザビリティの一部であり、手続き・規制・チェックリストの集まりではなく、心構え(マインドセット)であるという考え方。" },
+      { name: "アクセシブルデザイン", ref: ["Accessibility and Inclusivity: Study Guide", "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/"], desc: "視覚・聴覚・認知・情緒・運動面で困難を抱えるユーザーを助けるデザインという整理。" },
+      { name: "インクルーシブデザイン", ref: ["Accessibility and Inclusivity: Study Guide", "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/"], desc: "人種・性別・宗教など多様な背景を持つユーザーを歓迎し、それらが体験の妨げにならないようにする設計という整理。" },
     ],
     extra: "nn",
     url: "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/",
     confirmedNote: "Study Guideと各記事の本文で確認(2026-11)。",
     refs: [
-      { label: "Accessibility and Inclusivity: Study Guide", url: "https://www.nngroup.com/articles/accessibility-inclusivity-study-guide/" },
       { label: "5 Visual Treatments that Improve Accessibility", url: "https://www.nngroup.com/articles/visual-treatments-accessibility/" },
       { label: "Inclusive Design", url: "https://www.nngroup.com/articles/inclusive-design/" },
     ],
@@ -287,7 +280,7 @@ export default function PrinciplesAccessibilityPage() {
 
           <h1 style={styles.title}>アクセシビリティ</h1>
           <p style={styles.subtitle}>4系列がアクセシビリティをどう捉え、どう体系立てているかの比較</p>
-          <KeyPoints items={KP} title="実務でまず見る達成基準" />
+          <KeyPoints items={KP} title="実務でまず見る達成基準" columns={2} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -362,13 +355,13 @@ export default function PrinciplesAccessibilityPage() {
                     ) : (
                       <div key={it.name} style={styles.itemRow}>
                         <span style={{ ...styles.itemDot, background: f.color }} />
-                        <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div></div>
+                        <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div>{it.ref && <a href={it.ref[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 3, fontSize: 11, color: "#3A4FCF" }}>{it.ref[0]} ↗</a>}</div>
                       </div>
                     )
                   )}
                 </div>
                 {f.extra && <FrameworkExtra k={f.extra} />}
-                {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
+                {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>そのほかの参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
                   <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                 </div>
@@ -405,13 +398,13 @@ export default function PrinciplesAccessibilityPage() {
                       ) : (
                         <div key={it.name} style={styles.itemRow}>
                           <span style={{ ...styles.itemDot, background: f.color }} />
-                          <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div></div>
+                          <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div>{it.ref && <a href={it.ref[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 3, fontSize: 11, color: "#3A4FCF" }}>{it.ref[0]} ↗</a>}</div>
                         </div>
                       )
                     )}
                   </div>
                   {f.extra && <FrameworkExtra k={f.extra} />}
-                  {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>参照ページ(公式)</span><RefList refs={f.refs} /></div>}
+                  {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>そのほかの参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
                     <a href={f.url} target="_blank" rel="noreferrer" style={styles.sourceLink}>{linkName(f.url)} ↗</a>
                   </div>
@@ -489,12 +482,12 @@ const styles = {
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
   sourceName: { fontWeight: 600, fontSize: 15 },
   sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
-  itemList: { display: "flex", flexDirection: "column", gap: 8, marginTop: 10, marginBottom: 10 },
+  itemList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "10px 18px", marginTop: 10, marginBottom: 10 },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
   itemName: { fontSize: 12.5, fontWeight: 600, color: "#171B36" },
   itemDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78" },
-  genBlock: { marginBottom: 4, paddingBottom: 10, borderBottom: "1px solid #F0F1F8" },
+  genBlock: { marginBottom: 4, paddingBottom: 10 },
   genHead: { display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 3, flexWrap: "wrap" },
   genName: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
@@ -502,7 +495,7 @@ const styles = {
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 8, paddingTop: 8, borderTop: "1px solid #E1E3F0" },
   confirmedNote: { fontSize: 10.5, color: "#666D93", maxWidth: 340 },
   sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
-  desktopGrid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 14, marginBottom: 22 },
+  desktopGrid: { display: "grid", gridTemplateColumns: "1fr", gap: 14, marginBottom: 22 },
   desktopCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px", display: "flex", flexDirection: "column" },
   tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 22 },
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },

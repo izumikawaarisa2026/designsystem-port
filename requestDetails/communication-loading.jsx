@@ -20,7 +20,7 @@ const SOURCES = [
     position: "単独のコンポーネントはなく、Loadingのページで読み込み中の見せ方を扱う",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>できるだけ早く何かを表示する</Hl>。何も出さないと不具合と受け取られかねないため、読み込み中はプレースホルダー(文字・画像・アニメーション)を出し、用意できたら差し替える。待つ間もほかの操作をできるようにし、長くかかるならヒントや新機能の紹介など楽しめるものを出す。一瞬で終わらないときは、システムのプログレスインジケーターで、読み込み中であることと完了までの見込みを伝える(時間が分かれば確定的、分からなければ不確定)。</>,
+      <><Hl>できるだけ早く何かを表示する</Hl>。読み込み中はプレースホルダー(文字・画像・アニメーション)を出し、用意できたら差し替える。待つ間もほかの操作をできるようにする。</>,
     exceptions:
       "watchOSでは、読み込み中の表示はなるべく出さずにすぐ内容を見せる。1〜2秒かかるなら、空白の画面よりインジケーターを出す。",
     scenarios: [
@@ -49,38 +49,21 @@ const SOURCES = [
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― Loading indicator",
-    term: "Loading indicator",
+    doc: "読み込み中の画面の見せ方の専用ページなし",
+    term: <NoData>該当なし</NoData>,
     color: "#2F7D6E",
-    position: <><Hl>5秒未満の待ち時間向けに、専用コンポーネント「Loading indicator」を新設</Hl></>,
-    size: "200ミリ秒〜5秒の待ち時間に使う。寸法の記載なし",
-    stance:
-      "アニメーションで注意を引き、待ち時間を短く感じさせ、処理中であることを示す。進み具合が分からないとき・示す必要がないときに使う。円形の不確定なプログレスインジケーターと働きは近いが、200ミリ秒〜5秒の処理にはこちらが向く。200ミリ秒未満なら何も出さずに内容を見せ、5秒を超えるならProgress indicatorを使う。",
+    position: <NoData>読み込み中の画面の見せ方(スケルトン画面など)の指針はない</NoData>,
+    size: <NoData>記載なし</NoData>,
+    stance: <>待ち時間の表示には、Loading indicatorとProgress indicatorがある(<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>のページで比較)。</>,
     exceptions: <NoData>記載なし</NoData>,
-    scenarios: [
-      "5秒未満で終わる短い読み込みの時",
-    ],
+    scenarios: [<NoData>該当なし</NoData>],
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "5秒未満の待ち時間にはLoading indicatorを検討する",
-      "進み具合(何%か)を示したいときは、プログレスインジケーターを使う",
-    ],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    url: "https://m3.material.io/components/loading-indicator/guidelines",
-    refs: [
-      { label: "Loading indicator", url: "https://m3.material.io/components/loading-indicator/guidelines" },
-      { label: "Progress indicators(進み具合を示す場合)", url: "https://m3.material.io/components/progress-indicators/overview" },
-    ],
-    confirmedNote: "M3 Loading indicatorのガイドラインの本文で確認(2026-11)。",
+    url: "",
+    refs: [],
+    confirmedNote: "M3のサイトマップで、読み込み中の画面の見せ方の専用ページがないことを確認(2026-11)。",
     pending: true,
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", gap: 3, alignItems: "flex-start" }}>
-        <div style={{ width: 46, height: 6, borderRadius: 3, background: "#DDEFEA" }} />
-        <div style={{ width: 32, height: 6, borderRadius: 3, background: "#DDEFEA" }} />
-        <span style={{ fontSize: 8, color: "#2F7D6E" }}>Loading indicator</span>
-      </div>
-    ),
-    illustrationNote: "Loading indicator(現行M3・新設。概念図・系列識別色)",
   },
   {
     key: "wcag",
@@ -94,9 +77,9 @@ const SOURCES = [
       { term: "更新中の状態", desc: "内容が更新中であることを支援技術に伝える状態。更新中は、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせる仕組みとは役割が違う。" },
     ],
     stance:
-      "内容が更新中であることを支援技術に伝える状態を定めている。更新中は、支援技術は中の変更を無視し、更新が終わったときにまとめて1回の更新として扱える(MAY)。複数の変更を1回の読み上げにまとめたいときは、更新中と伝えておき、終わったら戻す。",
+      <>更新中であることを支援技術に伝えておくと、<Hl>書き換わり終わってから、まとめて1回の更新として扱える</Hl>(必ずそうなるとは限らない)。終わったら更新中の状態を解く。</>,
     exceptions:
-      "単独でも更新中であることを示せる。変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。",
+      "変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。",
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる領域を読み込む時",
       "更新途中の状態を支援技術に伝えにくくしたい時(待つかどうかは支援技術による)",
@@ -129,17 +112,17 @@ const SOURCES = [
     doc: "Skeleton Screens 101",
     term: "Skeleton screen・Spinner・Progress bar",
     color: "#7A4F7E",
-    position: <><Hl>待ち時間の長さで、スケルトン画面/スピナー/プログレスバーを使い分ける</Hl>(秒数の目安あり)</>,
-    size: "1秒未満は表示不要、2〜10秒はスピナー(個別のモジュール向け)、スケルトン画面は10秒未満、10秒を超えるならプログレスバー。1〜2秒の扱いは明記なし。",
+    position: <><Hl>ページ全体の読み込みはスケルトン画面</Hl>、一部の読み込みはスピナー</>,
+    size: <NoData>数値基準なし</NoData>,
     stance:
-      "スケルトン画面は、ページの骨組みをワイヤーフレーム風に示してコンテンツが来ることを予告し、体感の待ち時間を和らげる。静的・アニメーション・フレーム表示の3タイプがある。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えて離脱を招きかねないため避ける。",
-    exceptions: "使い分けに、1秒未満・2〜10秒・10秒という秒数の目安がある。",
+      <>スケルトン画面はページの骨組みを先に見せ、<Hl>内容が来ることを予告して体感の待ち時間を和らげる</Hl>。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えるので避ける。</>,
+    exceptions: "スケルトン画面は10秒未満の読み込み向け(長い待ちはプログレスインジケーターのページ)。",
     scenarios: [
       "ページ全体を読み込む時(10秒未満ならスケルトン画面)",
     ],
     accessibility: "根拠となる原則 ― 適合区分ではなく、待ち時間の体感を和らげるための設計指針。",
     useCases: [
-      "待ち時間の長さに応じて、スケルトン画面・スピナー・プログレスバーを使い分ける",
+      "ページ全体はスケルトン画面、一部はスピナーにする",
       "ヘッダー・フッターだけの「フレーム表示」型スケルトンは避ける",
     ],
     searchHint: "skeleton screens",
@@ -218,22 +201,22 @@ const ABOUT = [
 /* 意見が分かれる点 */
 const SPLITS = [
   {
-    q: "待ち時間が何秒なら、どの表示を出す?",
+    q: "読み込み中の画面に、何を見せる?",
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "200ミリ秒未満は何も出さない。200ミリ秒〜5秒はLoading indicator。5秒を超えるならProgress indicator" },
-      { who: "NN group", color: "#7A4F7E", t: "1秒未満は何も出さない。2〜10秒はスピナー、10秒未満ならスケルトン画面も使える。10秒を超えるならプログレスバー(1〜2秒の表示は明記していない)" },
-      { who: "Apple", color: "#C2542A", t: "秒数の区切りはない。まずプレースホルダーで何かを見せ、一瞬で終わらないならプログレスインジケーターを出す(watchOSは1〜2秒かかるなら出す)" },
+      { who: "Apple", color: "#C2542A", t: "できるだけ早く何かを見せる。文字・画像のプレースホルダーを出し、用意できたら差し替える" },
+      { who: "NN group", color: "#7A4F7E", t: "ページ全体ならスケルトン画面(骨組み)、一部の読み込みならスピナー。ヘッダーとフッターだけの表示は避ける" },
+      { who: "Google", color: "#2F7D6E", t: "画面の見せ方の指針はなく、待ち時間を示すインジケーター(Loading indicator)を用意している" },
     ],
-    tip: "区切りの秒数も、勧める表示も系列で違う。GoogleとNN groupはどちらも、ごく短い待ちには何も出さず、長い待ちには進み具合が分かる表示を勧めるが、区切り(Googleは200ミリ秒と5秒、NN groupは1秒と10秒)が違う。Appleは秒数ではなく、まず何かを見せることを勧める。長い処理では、Appleの勧めるように待つ間にほかの操作もできるようにする。",
+    tip: "ページや一覧を読み込むときは、内容の形をした骨組み(プレースホルダー・スケルトン画面)を先に見せる。ボタンを押した後など一部だけの処理は、小さなインジケーターで足りる。何秒でどのインジケーターを出すかは「プログレスインジケーター」ページ。",
   },
 ];
 
-/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
+/* まず押さえる要点(2026-11 ⑦本人レビューNo.066で、プログレスインジケーターと重なる秒数の内容を外して組み直し) */
 const KP = [
-  { n: 1, t: "一瞬で終わるなら、何も出さない", d: "", who: "AI解釈。NN groupは1秒未満" },
-  { n: 2, t: "数秒なら、動く表示(スケルトン画面かスピナー)を出す", d: "スピナーは2〜10秒、スケルトン画面は10秒未満", who: "NN group" },
-  { n: 3, t: "長いなら、進み具合を示す", d: "10秒を超えるならプログレスバー(残り時間を必ず出すという意味ではない)", who: "NN group" },
-  { n: 4, t: "できるだけ早く、何かを表示する", d: "", who: "Apple" },
+  { n: 1, t: "できるだけ早く、何かを表示する", d: "文字・画像のプレースホルダーを出し、用意できたら差し替える", who: "Apple" },
+  { n: 2, t: "ページ全体の読み込みは、骨組み(スケルトン画面)を見せる", d: "一部だけの読み込みならスピナー", who: "NN group" },
+  { n: 3, t: "ヘッダーとフッターだけの表示は避ける", d: "空白のページに見えて、離れられてしまう", who: "NN group" },
+  { n: 4, t: "読み込み中は、更新中であることを支援技術に伝える", d: "", who: "W3C(WAI-ARIA)" },
 ];
 
 export default function CommunicationLoadingPage() {
@@ -276,13 +259,10 @@ export default function CommunicationLoadingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              読み込み中の見せ方は、<strong>AppleとGoogleがそれぞれ専用のページ・コンポーネントを持っている</strong>。Appleは「Loading」のページで<strong>できるだけ早く何かを表示する</strong>よう求め、Googleは5秒未満の待ち時間向けに<strong>Loading indicator</strong>というコンポーネントを設けている。
+              読み込み中は、<strong>空白のままにせず、内容の形を先に見せる</strong>点でAppleとNN groupが一致する。Appleはプレースホルダー、NN groupはページ全体ならスケルトン画面を勧める。Googleには画面の見せ方の指針はない。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは、待ち時間の長さで見せ方を分ける目安を示している。<strong>1秒未満は表示不要、2〜10秒はスピナー(スケルトン画面は10秒未満)、10秒を超えるならプログレスバー</strong>だ。1〜2秒にどの表示を使うかは明記していない(スケルトン画面の記事の書き方。「プログレスインジケーター」ページで比べた記事では「10秒以上」と書いている)。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは、内容が書き換わっている最中であることを<strong>支援技術に伝える仕組み</strong>を用意している。支援技術は、更新が終わるまで変更の読み上げを待つことが<strong>できる</strong>(必ず待つとは限らない)。変更を読み上げさせるのは別の仕組みの役割で、こちらは「今は更新中」という状態を示すだけだ。
+              W3Cは、<strong>更新中であることを支援技術に伝える仕組み</strong>を持つ。待ち時間に応じたインジケーターの選び方は<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>のページで比べている。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

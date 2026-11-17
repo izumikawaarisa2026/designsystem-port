@@ -45,21 +45,13 @@ const SOURCES = [
     term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
     color: "#C2542A",
     noDedicatedComponent: true,
-    position: "トーストに当たるコンポーネントはない。最も近いのは通知(ロック画面やホーム画面などのバナー、通知センター)",
+    position: <NoData>コンポーネントなし(トーストとスナックバーを区別しない)</NoData>,
     size: <NoData>数値基準なし</NoData>,
-    scenarios: [
-      "OSの短い通知を出したい時(バナー形式)",
-      "アプリ内の一時的なフィードバックを、独自に作る必要がある時(専用のコンポーネントがないため)",
-    ],
-    stance:
-      "「トースト」というコンポーネントはない。通知は、ロック画面・ホーム画面・デスクトップなどのバナー、アプリアイコンのバッジ、通知センターの項目として出る。アプリの中で短く出て消えるフィードバックのコンポーネントはなく、トーストとスナックバーを区別していない。",
-    exceptions:
-      "表示時間や同時に出す数の記載なし。利用者がアプリを使っている最中なら、通知を送るより、今の画面にさりげなく加える(バッジの数を増やす、一覧に新しい項目を入れる)。",
+    scenarios: [<NoData>該当なし</NoData>],
+    stance: <NoData>該当なし</NoData>,
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "OSの短い通知にはバナー形式を使う",
-      "アプリ内の一時的なフィードバックに当たるコンポーネントはない",
-    ],
+    useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
     refs: [
@@ -83,7 +75,6 @@ const SOURCES = [
     term: "Toast(AndroidのOSの仕組み)",
     color: "#2F7D6E",
     m3NotApplicable: true,
-    successorNote: "M3で「操作の要らないシンプルな通知」を出すなら、アクションボタンのないSnackbarが事実上の後継。Snackbarのアクションは任意のため、Toastの役割はほぼ再現できる。",
     position: <><Hl>M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)</Hl>。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる</>,
     size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る。</span>,
     scenarios: [
@@ -167,21 +158,13 @@ const SOURCES = [
     doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
     term: "Snackbar(Toast)",
     color: "#7A4F7E",
-    position: <>「Toast」を別の用語として区別せず、<Hl>用語集の「Snackbar (Toast)」にまとめている</Hl></>,
+    position: <NoData>コンポーネントなし(スナックバーと同じ項目「Snackbar (Toast)」で扱う)</NoData>,
     size: <NoData>数値基準なし</NoData>,
-    scenarios: [
-      "パッシブな通知(見落としても致命的でない)として出したい時",
-      "重要な情報を、ほかの手段でも伝えている時",
-    ],
-    stance:
-      "UI Elements Glossaryに「Toast」単独の項目はなく、「Snackbar (Toast)」で扱う。定義は「スナックバー」ページと同じ(操作を求めずに短時間で自動で消える、一時的な非モーダルの表示)で、「アクション必須」と「パッシブ」の分け方ではパッシブに入る。",
-    exceptions:
-      "トースト独自の決まりは記載なし(スナックバーと同じ扱い)。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、緊急度と割り込みの強さによる使い分けの指針(Snackbarと共通)。",
-    useCases: [
-      "操作を必須にしない、パッシブな通知に使う",
-      "重要な情報をこれだけで伝えない",
-    ],
+    scenarios: [<NoData>スナックバーと同じ</NoData>],
+    stance: <NoData>スナックバーと同じ</NoData>,
+    exceptions: <NoData>スナックバーと同じ</NoData>,
+    accessibility: <NoData>スナックバーと同じ</NoData>,
+    useCases: [<NoData>スナックバーと同じ</NoData>],
     searchHint: "Snackbar",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
     refs: [
@@ -248,9 +231,8 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "見落としても困らない知らせだけに使う", d: "「保存しました」など", who: "AI解釈" },
-  { n: 2, t: "読んでもらう必要のある情報は、消えない場所に出す", d: "", who: "AI解釈" },
-  { n: 3, t: "操作を添えるなら、スナックバーを使う", d: "", who: "Google" },
+  { n: 1, t: "見落としても困らない知らせ(「保存しました」など)だけに使い、読んでもらう必要のある情報は消えない場所に出す", d: "", who: "AI解釈" },
+  { n: 2, t: "操作を添えるなら、スナックバーを使う", d: "", who: "Google" },
 ];
 
 export default function CommunicationToastPage() {
@@ -278,20 +260,20 @@ export default function CommunicationToastPage() {
           </div>
 
           <h1 style={styles.title}>トースト</h1>
+          <p className="dsp-lead" style={{ fontSize: 14, fontWeight: 500, color: "#2E3457", margin: "0 0 16px", lineHeight: 1.7 }}>{LEAD}</p>
+          <div style={{ ...styles.warningBox, marginBottom: 24 }}>
+            <div style={styles.warningLabel}>⚠ 重要な注記</div>
+            <p style={styles.warningText}>
+              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Googleは、M1〜M2の「Snackbars & Toasts」をM3でSnackbarに統合し、Toastは<strong>AndroidのOSの機能</strong>として残るだけ(このページのGoogle欄はこれを扱う)。<strong>Appleはトーストもスナックバーも持たず、NN groupはスナックバーと同じ項目「Snackbar (Toast)」で扱う</strong>。W3Cにも専用の定めはなく、ステータスメッセージ(4.1.3)の考え方が当てはまる。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
+            </p>
+          </div>
           <SummaryCard keyPoints={KP}
             image={<ToastSwatch />}
             imageNote="アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。"
-            lead={LEAD}
             rows={ABOUT}
           />
 
           <SplitSection splits={SPLITS} />
-          <div style={styles.warningBox}>
-            <div style={styles.warningLabel}>⚠ 重要な注記(Google/Material Design 3)</div>
-            <p style={styles.warningText}>
-              <strong>Material Design 3の公式コンポーネント一覧に「Toast」という項目は存在しない。</strong>M1〜M2時代は「Snackbars & Toasts」として2つが並記されていたが(m1.material.ioに現存)、M3では<strong>Snackbarに統合され、Toastは独立したデザインシステムコンポーネントではなくなった</strong>。このページでGoogle欄として扱っているのは、M3のコンポーネントではなく、<strong>AndroidのOSレベルAPI(プラットフォーム機能)としてのToast</strong>だ。それでも独立ページとして残しているのは、実務でAndroid開発者が今なお頻繁に触れる現役のAPIであり、「スナックバー」ページとの対比(操作の有無)自体が比較材料として価値を持つためだ。
-            </p>
-          </div>
 
 
 
@@ -299,16 +281,10 @@ export default function CommunicationToastPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで比較しているのは、<strong>Material Design 3の「コンポーネント」ではなく、AndroidのOSレベルAPIとしてのToast</strong>だ(詳しくはページ冒頭の注記を参照)。「スナックバー」ページから独立させたのは、Androidの実装として<strong>両者が別のAPI</strong>だからだ。Toastは<strong>メッセージに必要な分だけの領域を占め、現在の画面はそのまま操作可能</strong>な最も簡潔なポップアップで、<strong>カスタムToastビューはAPI30で非推奨</strong>になっている。
+              トーストは<strong>操作を持たない、いちばん軽い一時的な知らせ</strong>。Googleは、前面のアプリでの軽い知らせはToast、操作を添えるならSnackbar、アプリが裏にあるならNotification、と分けている。
             </p>
             <p style={styles.synthesisText}>
-              興味深いのは、<strong>Nielsen Norman Groupの用語集には「Toast」単独の項目が存在せず</strong>、「Snackbar (Toast)」という1つの項目名でまとめられている点だ。つまり、UXの観点ではToastとSnackbarを別概念として扱っているのは、実質<strong>Googleの実装(別API)だけ</strong>だと言える。
-            </p>
-            <p style={styles.synthesisText}>
-              アクセシビリティ面では、<strong>自動で消えるため、読み上げが間に合わないことがある</strong>点に注意が必要だ。W3Cの4.1.3(ステータスメッセージ)は、フォーカスを移さずに出る知らせを支援技術にも伝えることを求めており、Webでトースト風の通知を作るなら、控えめな知らせとして伝えるのが基本だ。<strong>「操作不要で自動的に消える」という性質は、支援技術との相性の悪さと表裏一体</strong>なので、重要な情報はトーストに載せないのが実務上の注意点だ。
-            </p>
-            <p style={styles.synthesisText}>
-              Google公式は、<strong>前面表示中の軽いフィードバックはToast、アクションを持たせたい場合はSnackbar、背面でユーザーに対応を求めたい場合はNotification</strong>という3段階の使い分けを案内している。この「アクションの有無」という軸は、「情報伝達の使い分け」ページで整理した判断軸とも一致する。M3のコンポーネントとして同じ役割を再現したい場合は、<strong>Snackbarでアクションボタンを設定しない構成</strong>が事実上の後継に相当し、Toastという名前のコンポーネントが消えても、その機能自体は失われていない。Appleも同様に「トースト」という専用コンポーネントは持たず、この点は「スナックバー」ページのApple欄と同一の一次情報だ。
+              自動で消えるため、<strong>読み上げが間に合わず、見落とされやすい</strong>(W3C・NN group)。<strong>見落としても困らない知らせだけに使い</strong>、大事な情報は消えない場所に出す。
             </p>
           </div>
 
@@ -332,7 +308,6 @@ export default function CommunicationToastPage() {
                 )}
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                {s.successorNote && <InfoBox label="M3での実質的な後継" accent="#B8860B">{s.successorNote}</InfoBox>}
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
@@ -378,8 +353,6 @@ export default function CommunicationToastPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>M3での実質的な後継</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.successorNote || <span style={{ color: "#666D93" }}>―(この観点は対象外)</span>}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
                 <div style={styles.labelCell}>サイズ</div>

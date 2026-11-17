@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, PageLink, SummaryCard, RelatedPages } from "./page-parts";
+import { TagLink, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * 「情報伝達の使い分け」ページ。Communicationカテゴリの先頭に置く統合ガイド。
@@ -180,10 +180,11 @@ import { TagLink, PageLink, SummaryCard, RelatedPages } from "./page-parts";
  * ステータスメッセージを加えた)。並びは判断軸①→②の順(作業を止める → 残る → 操作を持てる → 見るだけ) */
 const CARDS = [
   {
+    alts: [["バナー","/components/communication/alert#banner"],["スナックバー","/components/communication/snackbar"]],
     key: "dialog", name: "モーダルダイアログ", path: "/components/containment/dialog", built: true,
     oneLiner: "作業を止めて、答え(OK・キャンセルなど)を求める知らせ方。",
     doText: "取り消せない操作の確認など、答えを得るまで先へ進ませたくない時",
-    dontText: "答えのいらない知らせで済む時(→バナー・スナックバー)",
+    dontText: "答えのいらない知らせで済む時",
     icon: () => (
       <svg width="50" height="24" viewBox="0 0 50 24">
         <rect x="0" y="0" width="50" height="24" fill="#171B36" opacity="0.12" />
@@ -194,10 +195,11 @@ const CARDS = [
     ),
   },
   {
-    key: "banner", name: "バナー", path: "/components/communication/banner", built: true,
+    alts: [["スナックバー","/components/communication/snackbar"]],
+    key: "banner", name: "バナー", path: "/components/communication/alert#banner", built: true,
     oneLiner: "画面に残り続ける、作業を止めないお知らせ。",
     doText: "オフライン状態など、対応するまで気づかせ続けたい時",
-    dontText: "一度きりの結果の知らせで十分な時(→スナックバー)",
+    dontText: "一度きりの結果の知らせで十分な時",
     icon: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
         <rect x="1" y="1" width="68" height="22" rx="3" fill="#FFF6E5" stroke="#B8860B" strokeWidth="1.4" />
@@ -207,10 +209,11 @@ const CARDS = [
     ),
   },
   {
+    alts: [["トースト","/components/communication/toast"]],
     key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
     oneLiner: "操作の完了を知らせる。基本は自動で消えるが、元に戻すなど1つの操作を持つなら自動で消さないのが安全。",
     doText: "取り消せる操作の完了を知らせたい時(例: 削除した→元に戻す)",
-    dontText: "操作を持たせる必要がない、ただの知らせで十分な時(→トースト)",
+    dontText: "操作を持たせる必要がない、ただの知らせで十分な時",
     icon: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
         <rect x="1" y="1" width="68" height="22" rx="6" fill="#2E3457" />
@@ -220,10 +223,11 @@ const CARDS = [
     ),
   },
   {
+    alts: [["モーダルダイアログ","/components/containment/dialog"]],
     key: "status", name: "ステータスメッセージ", path: "/components/communication/alert", built: true,
     oneLiner: "操作の結果や今の状態(成功・情報・注意・エラー)を、作業を止めずに伝えるメッセージ。",
     doText: "保存の完了・入力の誤り・検索結果の件数などを知らせたい時",
-    dontText: "答えを得るまで先へ進ませたくない時(→モーダルダイアログ)",
+    dontText: "答えを得るまで先へ進ませたくない時",
     icon: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
         <rect x="1" y="1" width="68" height="22" rx="3" fill="#EAF7EC" stroke="#2F7D3B" strokeWidth="1.2" />
@@ -233,10 +237,11 @@ const CARDS = [
     ),
   },
   {
+    alts: [["スナックバー","/components/communication/snackbar"]],
     key: "toast", name: "トースト", path: "/components/communication/toast", built: true,
     oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
     doText: "取り消しなどの操作を持たない、ごく軽いお知らせをしたい時",
-    dontText: "元に戻すなどの操作を持たせたい時(→スナックバー)",
+    dontText: "元に戻すなどの操作を持たせたい時",
     icon: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
         <rect x="1" y="1" width="68" height="22" rx="6" fill="#6B7290" />
@@ -245,10 +250,11 @@ const CARDS = [
     ),
   },
   {
+    alts: [["オーバーレイの使い分け","/components/containment/overview"]],
     key: "tooltip", name: "ツールチップ", path: "/components/communication/tooltip", built: true,
     oneLiner: "ポインターを重ねたときやフォーカスしたときに出る、短い一言の補足説明。",
     doText: "アイコンの意味など、短い補足を添えたい時",
-    dontText: "押せる操作を含めたい時(→ダイアログやシートなど)",
+    dontText: "押せる操作を含めたい時",
     icon: () => (
       <svg width="56" height="24" viewBox="0 0 56 24">
         <rect x="1" y="1" width="54" height="16" rx="4" fill="#3A4FCF" />
@@ -280,6 +286,12 @@ const COMPARISON_COLUMNS = [
 ];
 
 const styles = {
+  axisList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 26 },
+  axisRow: { display: "flex", flexWrap: "wrap", gap: "6px 12px", alignItems: "stretch", borderBottom: "1px solid #EEF0F7", paddingBottom: 10 },
+  axisRowLabel: { flex: "0 0 130px", fontSize: 13, fontWeight: 700, color: "#171B36", paddingTop: 6 },
+  axisRowGroups: { flex: "1 1 300px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(128px, 1fr))", gap: 8 },
+  axisCell: { borderTop: "3px solid", background: "#F8F9FD", borderRadius: "0 0 4px 4px", padding: "7px 9px" },
+  lead: { fontSize: 14, fontWeight: 500, color: "#2E3457", margin: "0 0 28px", lineHeight: 1.7 },
   axisGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))", gap: 12, marginBottom: 24 },
   axisBox: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },
   axisBoxTitle: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
@@ -336,83 +348,45 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#666D93", lineHeight: 1.5 },
 };
 
-const DETAIL_1 = <>モーダルダイアログは、答えを得るまで後ろの画面を操作させない。ほかの5つは、作業を止めずに知らせる。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出すコンポーネントの使い分けは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink>で比べている。下の比較表の「作業を止める」列に対応する。</>;
-const DETAIL_2 = "「利用者の対応が必要か」は、表示がどれだけ続くか・どれだけ急ぎか(緊急度)とは別の軸だ。画面に残り続けるバナーでも、必ず対応が必要とは限らない。Nielsen Norman Groupの「アクション必須/受け身(パッシブ)」の分類は、この対応の必要性の軸として読む。スナックバーの操作(元に戻すなど)は任意で、押さなくても作業は続けられる。";
-const DETAIL_3 = "トーストは時間で自動的に消える。スナックバーも基本は自動で消えるが、操作を持つなら自動で消さないのが安全。ツールチップは時間ではなく、ポインターやフォーカスが外れたときに消える(1.4.13)。バナーとモーダルダイアログは、閉じるか対応するまで残る。ステータスメッセージは内容で変わり、入力の誤りは直すまで問題の場所の近くに残す(NN group)。";
-const DETAIL_4 = "モーダルダイアログ=中央、バナー=上部、スナックバー/トースト=下部、ステータスメッセージ=操作した場所や問題の場所の近く、ツールチップ=指しているコンポーネントの近く。";
-
-/* 4つの判断軸(No.055で図にした)。各軸で6つの部品をグループに分けて示し、詳しい説明は開いて読む */
+/* 選び方の3つの軸(2026-11 ⑦本人レビューNo.055で組み直し。どの軸でも、6つのコンポーネントがどれか1つにだけ入る) */
 const AXES = [
   { label: "① 作業を止めるか", groups: [
-    { name: "止める(モーダル)", color: "#C0503F", parts: ["モーダルダイアログ"] },
+    { name: "止める(答えるまで先へ進めない)", color: "#C0503F", parts: ["モーダルダイアログ"] },
     { name: "止めない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "ステータスメッセージ", "トースト", "ツールチップ"] },
-  ], detail: DETAIL_1 },
-  { label: "② 利用者の対応が要るか", groups: [
-    { name: "答えを求める", color: "#C0503F", parts: ["モーダルダイアログ"] },
-    { name: "対応するか閉じるまで残る", color: "#A3821F", parts: ["バナー"] },
-    { name: "操作を1つ添えられる(任意)", color: "#3A4FCF", parts: ["スナックバー"] },
-    { name: "見るだけ", color: "#2F7D6E", parts: ["ステータスメッセージ", "トースト", "ツールチップ"] },
-  ], detail: DETAIL_2 },
-  { label: "③ どう消えるか", groups: [
-    { name: "閉じるか対応するまで残る", color: "#3A4FCF", parts: ["モーダルダイアログ", "バナー"] },
-    { name: "時間で自動的に消える", color: "#666D93", parts: ["スナックバー(操作があれば消さない)", "トースト"] },
-    { name: "内容で変わる", color: "#2F7D6E", parts: ["ステータスメッセージ(エラーは直すまで残す)"] },
-    { name: "ポインター・フォーカスが離れたら消える", color: "#A3821F", parts: ["ツールチップ"] },
-  ], detail: DETAIL_3 },
+  ] },
+  { label: "② 何を知らせるか", groups: [
+    { name: "判断してほしいこと", color: "#C0503F", parts: ["モーダルダイアログ"] },
+    { name: "アプリや画面全体の状態", color: "#A3821F", parts: ["バナー"] },
+    { name: "直前の操作の結果(一時的)", color: "#3A4FCF", parts: ["スナックバー", "トースト"] },
+    { name: "その場所の成功・注意・エラー", color: "#2F7D3B", parts: ["ステータスメッセージ"] },
+    { name: "コンポーネントの意味の補足", color: "#7A4F7E", parts: ["ツールチップ"] },
+  ] },
+  { label: "③ いつ消えるか", groups: [
+    { name: "対応するか閉じるまで残る", color: "#C0503F", parts: ["モーダルダイアログ", "バナー"] },
+    { name: "数秒で自動的に消える", color: "#3A4FCF", parts: ["スナックバー(操作があれば残す)", "トースト"] },
+    { name: "内容による", color: "#2F7D3B", parts: ["ステータスメッセージ(エラーは直すまで残す)"] },
+    { name: "ポインター・フォーカスが離れたら", color: "#7A4F7E", parts: ["ツールチップ"] },
+  ] },
 ];
-
-function PositionMap() {
-  const W = 220, H = 150;
-  const tag = (x, y, t, c) => (
-    <g key={t}>
-      <rect x={x} y={y} width={t.length * 9 + 10} height="16" rx="8" fill="#FFFFFF" stroke={c} />
-      <text x={x + 5} y={y + 11.5} fontSize="9" fill={c} fontFamily="Jost, Noto Sans JP">{t}</text>
-    </g>
-  );
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 360, display: "block", margin: "0 auto" }} role="img" aria-label="画面内の位置の図">
-      <rect x="20" y="6" width="180" height="138" rx="10" fill="#F3F6FA" stroke="#C7CBE6" />
-      <rect x="20" y="6" width="180" height="22" rx="10" fill="#E6EAF6" />
-      {tag(26, 10, "バナー(上部)", "#3A4FCF")}
-      <rect x="62" y="56" width="96" height="40" rx="6" fill="#FFFFFF" stroke="#C0503F" />
-      <text x="110" y="74" fontSize="9" fill="#C0503F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">モーダルダイアログ</text>
-      <text x="110" y="87" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">(中央)</text>
-      <rect x="20" y="118" width="180" height="26" rx="10" fill="#FFFFFF" stroke="#2F7D6E" />
-      <text x="110" y="134" fontSize="8.5" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">下部: スナックバー・トースト</text>
-      {tag(26, 34, "ツールチップ(コンポーネントの近く)", "#A3821F")}
-      {tag(26, 100, "ステータスメッセージ", "#2F7D3B")}
-    </svg>
-  );
-}
 
 function AxisSummary() {
   return (
-    <div style={styles.axisGrid}>
+    <div style={styles.axisList}>
       {AXES.map((a) => (
-        <div key={a.label} style={styles.axisBox}>
-          <div style={styles.axisBoxTitle}>{a.label}</div>
-          {a.groups.map((g) => (
-            <div key={g.name} style={styles.axisGroup}>
-              <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
-              <div style={styles.axisChips}>
-                {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
+        <div key={a.label} style={styles.axisRow}>
+          <div style={styles.axisRowLabel}>{a.label}</div>
+          <div style={styles.axisRowGroups}>
+            {a.groups.map((g) => (
+              <div key={g.name} style={{ ...styles.axisCell, borderTopColor: g.color }}>
+                <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
+                <div style={styles.axisChips}>
+                  {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
+                </div>
               </div>
-            </div>
-          ))}
-          <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
-            <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
-            <p style={styles.axisText}>{a.detail}</p>
-          </details>
+            ))}
+          </div>
         </div>
       ))}
-      <div style={styles.axisBox}>
-        <div style={styles.axisBoxTitle}>④ 画面内の位置</div>
-        <PositionMap />
-        <details style={styles.axisDetails} open={typeof window !== "undefined" && window.__DSP_STATIC__ ? true : undefined}>
-          <summary style={styles.axisDetailsSummary}>くわしい説明</summary>
-          <p style={styles.axisText}>{DETAIL_4}</p>
-        </details>
-      </div>
     </div>
   );
 }
@@ -421,9 +395,9 @@ function PartCards() {
   return (
     <div style={styles.cardGrid}>
       {CARDS.map((c) => (
-        <a key={c.key} href={c.path} style={styles.card}>
+        <div key={c.key} style={styles.card}>
           <div style={styles.cardIcon}>{c.icon()}</div>
-          <div style={styles.cardName}>{c.name}</div>
+          <a href={c.path} style={{ ...styles.cardName, color: "#3A4FCF", textDecoration: "none" }}>{c.name} ↗</a>
           <div style={styles.cardOneLiner}>{c.oneLiner}</div>
           <div style={styles.usageRow}>
             <span style={{ ...styles.usageMark, ...styles.usageMarkOk }}>推奨</span>
@@ -431,9 +405,9 @@ function PartCards() {
           </div>
           <div style={styles.usageRow}>
             <span style={{ ...styles.usageMark, ...styles.usageMarkNg }}>NG</span>
-            <span style={styles.usageText}>{c.dontText}</span>
+            <span style={styles.usageText}>{c.dontText}(→{c.alts.map(([n, p], i) => (<React.Fragment key={p}>{i > 0 && "・"}<PageLink to={p}>{n}</PageLink></React.Fragment>))})</span>
           </div>
-        </a>
+        </div>
       ))}
     </div>
   );
@@ -490,12 +464,7 @@ function RelatedPartsNote() {
   );
 }
 
-const LEAD = "利用者に何かを知らせるコンポーネントを、4つの判断軸と比較表で選び分けるためのページ";
-const ABOUT = [
-  { k: "目的・役割", v: "作業を止めるか・対応が要るか・どう消えるか・どこに出すかで、知らせ方のコンポーネントを見分けられるようにする" },
-  { k: "扱うコンポーネント", v: <><PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、<PageLink to="/components/communication/banner">バナー</PageLink>、<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>、<PageLink to="/components/communication/toast">トースト</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
-  { k: "関連するページ", v: <>画面の上に重ねて内容や操作を出すコンポーネントは<PageLink to="/components/containment/overview">オーバーレイの使い分け</PageLink></> },
-];
+const LEAD = "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ";
 
 export default function CommunicationOverviewPage() {
   return (
@@ -520,26 +489,23 @@ export default function CommunicationOverviewPage() {
           </div>
 
           <h1 style={styles.title}>情報伝達の使い分け</h1>
-          <SummaryCard lead={LEAD} rows={ABOUT} />
+          <p className="dsp-lead" style={styles.lead}>{LEAD}</p>
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              6つの知らせ方は、<strong>①作業を止めるか ②利用者の対応が要るか ③どう消えるか ④画面のどこに出すか</strong>という4つの軸で整理できる(詳しくは下の「4つの判断軸」を参照)。<strong>作業を止めるのはモーダルダイアログだけ</strong>で、答えを得るまで先へ進ませたくない場面に限って使う。ほかの5つは作業を止めずに知らせる。
+              <strong>作業を止めるのはモーダルダイアログだけ</strong>。答えを得るまで先へ進ませたくない場面に限って使う。
             </p>
             <p style={styles.synthesisText}>
-              スナックバーとトーストの違いは<strong>取り消しなどの操作を持たせるか</strong>。バナーは<strong>自動で消えず、画面に残り続ける</strong>お知らせだ。ステータスメッセージは成功・情報・注意・エラーという<strong>状態の伝え方</strong>そのもので、バナーやスナックバーの形で出すこともある(AI解釈)。ツールチップは、知らせるというよりコンポーネントの意味を補う短い説明だ。
-            </p>
-            <p style={styles.synthesisText}>
-              ただし、<strong>表示がどれだけ続くか・利用者の対応が必要か・どれだけ急ぎか(緊急度)は別々の軸</strong>で、残り続ける通知が必ず対応を求めるとは限らない(Nielsen Norman Groupの「アクション必須/受け身」の分類は、対応の必要性の軸)。フルスクリーンダイアログ・ボトムシート・サイドシートなど、画面の上に重ねて内容や操作を出すコンポーネントの使い分けは「オーバーレイの使い分け」ページで比べている。
+              ほかの5つは<strong>何を知らせるか</strong>で選ぶ。画面全体の状態を出し続けるならバナー、直前の操作の結果ならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、その場所の成功・エラーならステータスメッセージ、コンポーネントの意味の補足ならツールチップ。
             </p>
           </div>
 
-          <h2 style={styles.diagramTitle}>4つの判断軸</h2>
-          <AxisSummary />
-
           <h2 style={styles.diagramTitle}>6つのコンポーネント</h2>
           <PartCards />
+
+          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
+          <AxisSummary />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
           <ComparisonTable />
