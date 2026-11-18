@@ -4,17 +4,17 @@ import { TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation」カテゴリの先頭に置く、使い分けガイドページ(2026-11 ⑦本人レビューNo.049で追加)。
- * 各ナビゲーションのページ(ナビゲーションバー・ドロワー/サイドナビ・アプリバー・タブ・セグメントコントロール・
+ * 各ナビゲーションのページ(タブバー・ドロワー/サイドナビ・アプリバー・タブ・セグメントコントロール・
  * パンくずリスト・ページネーション)で確認した内容をまとめ、「どこへ移るか」「画面の広さ」から選べるようにしたもの。
  * 新しい一次情報の要約ではなく、既存ページの統合見解のため、系列別の引用・公式リンクは各ページ側に置く。
  */
 
 /* ナビゲーションの種類。level: どの範囲を移るか */
 const KINDS = [
-  { key: "navbar", name: "ナビゲーションバー", path: "/components/navigation/nav-bar", level: "アプリの主な場所", oneLiner: "画面下部に常にあり、3〜5個の主な場所を切り替える(AppleのTab bar・GoogleのNavigation bar)", doText: "スマートフォンで、主な場所が3〜5個", dontText: "6個以上・2個以下、画面の中の内容の切り替え", fig: "navbar" },
+  { key: "navbar", name: "タブバー", path: "/components/navigation/nav-bar", level: "アプリの主な場所", oneLiner: "画面下部に常にあり、3〜5個の主な場所を切り替える(AppleのTab bar・GoogleのNavigation bar)", doText: "スマートフォンで、主な場所が3〜5個", dontText: "6個以上・2個以下、画面の中の内容の切り替え", fig: "navbar" },
   { key: "drawer", name: "ナビゲーションドロワー", path: "/components/containment/drawer#drawer", level: "アプリの主な場所", oneLiner: "ボタン(≡)で一時的に開く、行き先の一覧。後ろの画面を覆う", doText: "狭い画面で、行き先が多くバーに収まらないとき", dontText: "広い画面(隠すと見つけにくい)", fig: "drawer" },
   { key: "sidenav", name: "サイドナビ", path: "/components/containment/drawer#rail", level: "アプリの主な場所", oneLiner: "画面の脇に常に表示する行き先の一覧(Appleのサイドバー・Googleのナビゲーションレール)", doText: "タブレット・PCなど広い画面", dontText: "スマートフォン(場所を取る)", fig: "sidenav" },
-  { key: "appbar", name: "アプリバー", path: "/components/navigation/app-bar", level: "1つ上の画面", oneLiner: "画面上部で、今の画面のタイトル・戻る・操作をまとめる", doText: "階層を1段ずつ下りるアプリで、戻り道とタイトルを示す", dontText: "主な場所の切り替え(ナビゲーションバーを使う)", fig: "appbar" },
+  { key: "appbar", name: "アプリバー", path: "/components/navigation/app-bar", level: "1つ上の画面", oneLiner: "画面上部で、今の画面のタイトル・戻る・操作をまとめる", doText: "階層を1段ずつ下りるアプリで、戻り道とタイトルを示す", dontText: "主な場所の切り替え(タブバーを使う)", fig: "appbar" },
   { key: "tabs", name: "タブ", path: "/components/navigation/tabs", level: "同じ画面の中", oneLiner: "同じ階層の関連する内容を、画面の中で切り替える", doText: "内容のまとまりが2〜5個ほどで、行き来する", dontText: "順番に読む内容、アプリ全体の移動", fig: "tabs" },
   { key: "segmented", name: "セグメントコントロール", path: "/components/navigation/segmented-control", level: "同じ画面の中", oneLiner: "同じ内容の見せ方(地図/航空写真など)を、少ない選択肢から切り替える", doText: "表示の切り替えや絞り込みが2〜5個", dontText: "別々の内容のまとまり(タブを使う)", fig: "segmented" },
   { key: "breadcrumb", name: "パンくずリスト", path: "/components/navigation/breadcrumb", level: "階層の中の今の位置", oneLiner: "サイトの階層の中で、今どこにいるかと上の階層へのリンクを示す", doText: "3階層以上のWebサイト", dontText: "浅いサイト、アプリ(戻るボタンが基本)", fig: "breadcrumb" },
@@ -40,7 +40,7 @@ function KindFig({ kind }) {
 
 /* どの範囲を移るか × 画面の広さ */
 const CHOOSE = [
-  { q: "アプリの主な場所を切り替える", narrow: "ナビゲーションバー(3〜5個)。多ければナビゲーションドロワー", wide: "サイドナビ(常に表示)" },
+  { q: "アプリの主な場所を切り替える", narrow: "タブバー(3〜5個)。多ければナビゲーションドロワー", wide: "サイドナビ(常に表示)" },
   { q: "1つ上の画面に戻る・今の画面のタイトルを示す", narrow: "アプリバー(戻る+タイトル)", wide: "アプリバー。Webならパンくずリストも" },
   { q: "同じ画面の中で、内容のまとまりを切り替える", narrow: "タブ", wide: "タブ" },
   { q: "同じ内容の見せ方を切り替える", narrow: "セグメントコントロール", wide: "セグメントコントロール" },
@@ -50,7 +50,7 @@ const CHOOSE = [
 const LEAD = "ナビゲーションのコンポーネントを、どこへ移るかと画面の広さから選び分けるためのページ";
 const ABOUT = [
   { k: "目的・役割", v: "名前や見た目が似たナビゲーション(バー・ドロワー・サイドナビ・タブなど)を、移る範囲と画面の広さで選べるようにする" },
-  { k: "扱うコンポーネント", v: "ナビゲーションバー、ナビゲーションドロワー、サイドナビ、アプリバー、タブ、セグメントコントロール、パンくずリスト、ページネーション" },
+  { k: "扱うコンポーネント", v: "タブバー、ナビゲーションドロワー、サイドナビ、アプリバー、タブ、セグメントコントロール、パンくずリスト、ページネーション" },
   { k: "関連するページ", v: <>タブとセグメントの細かい違いは<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink></> },
 ];
 
@@ -80,10 +80,10 @@ export default function NavigationOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              まず<strong>「どの範囲を移るか」</strong>で分ける。アプリの主な場所ならナビゲーションバー・ドロワー・サイドナビ、1つ上へ戻るならアプリバー、同じ画面の中ならタブかセグメントコントロール、一覧の続きならページネーションだ。
+              まず<strong>「どの範囲を移るか」</strong>で分ける。アプリの主な場所ならタブバー・ドロワー・サイドナビ、1つ上へ戻るならアプリバー、同じ画面の中ならタブかセグメントコントロール、一覧の続きならページネーションだ。
             </p>
             <p style={styles.synthesisText}>
-              主な場所の切り替えは<strong>画面の広さ</strong>で決まる。スマートフォンは<strong>3〜5個ならナビゲーションバー</strong>、多ければドロワー。タブレット・PCは<strong>隠さずサイドナビ</strong>にする(隠すナビゲーションは見つけにくい: NN group)。
+              主な場所の切り替えは<strong>画面の広さ</strong>で決まる。スマートフォンは<strong>3〜5個ならタブバー</strong>、多ければドロワー。タブレット・PCは<strong>隠さずサイドナビ</strong>にする(隠すナビゲーションは見つけにくい: NN group)。
             </p>
           </div>
 

@@ -26,7 +26,7 @@ const SOURCES = [
     term: "Tab view(macOSの画面の中のタブ。iOS・iPadOSでは代わりにSegmented controlを勧める)",
     color: "#C2542A",
     position:
-      <span>Tab viewはmacOSのコンポーネントで、iOS・iPadOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の遷移)は別のコンポーネントで、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページで扱う</span>,
+      <span>Tab viewはmacOSのコンポーネントで、iOS・iPadOSにはない(<Hl>iOS・iPadOSではSegmented controlを勧める</Hl>)。画面下部のTab bar(アプリ全体の遷移)は別のコンポーネントで、「タブの種類」の表と<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>のページで扱う</span>,
     structure:
       "タブの並び(タブのコントロール)は、内容の領域の上端に置く。ウィンドウの端との間には余白を取る。プログラムで切り替えるアプリでは、タブの並びを隠してもよい。",
     count:
@@ -238,7 +238,7 @@ function GlossaryNote({ items }) {
 const ABOUT = [
   { k: "目的・役割", v: "同じ画面の中で、関連する内容のまとまり(セクション・カテゴリ)を切り替えて見せる。今どのまとまりを見ているかを、選択中のタブで示す" },
   { k: "よく使われる場面", v: "商品ページの「概要・仕様・レビュー」、設定画面のカテゴリ、SNSの「おすすめ・フォロー中」" },
-  { k: "似たコンポーネント", v: <>同じ内容の見え方(表示形式・絞り込み)を切り替えるなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>(<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)。アプリ全体の行き先を切り替えるなら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>(Appleのタブバーはこちらに相当)</> },
+  { k: "似たコンポーネント", v: <>同じ内容の見え方(表示形式・絞り込み)を切り替えるなら<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>(<PageLink to="/components/navigation/tabs-vs-segmented">タブとセグメントの使い分け</PageLink>)。アプリ全体の主な行き先を切り替えるなら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink></> },
 ];
 
 /* 意見が分かれる2点の図 */
@@ -272,7 +272,7 @@ function MiniTabs({ mode }) {
 const TAB_KINDS = [
   { kind: "ナビゲーションのタブ(主な場所へ遷移)", cells: [
     "Tab bar。iOSは画面の下部に浮かび、iPadOSは画面の上部近くに出る(サイドバーに切り替えられる)",
-    <>タブではなく<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>という別のコンポーネント</>,
+    <>タブではなく<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>という別のコンポーネント</>,
     <NoData>記載なし</NoData>,
     "Navigation tabs。別のページへ遷移する。画面の上部か左に置き、モバイルでは下部が多い",
   ] },
@@ -456,7 +456,7 @@ export default function NavigationTabsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブは<strong>同じ画面の中で、内容のまとまりを切り替える</strong>コンポーネント。AppleではmacOSのTab viewが当たり、iOS・iPadOSではセグメントコントロールを勧める(画面下部のタブバーは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>のページ)。
+              タブは<strong>同じ画面の中で、内容のまとまりを切り替える</strong>コンポーネント。AppleではmacOSのTab viewが当たり、iOS・iPadOSではセグメントコントロールを勧める(画面下部のタブバーは<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>のページ)。
             </p>
             <p style={styles.synthesisText}>
               数は<strong>増やしすぎない</strong>点で共通する(Googleの固定タブは4個まで、AppleのTab viewは6個まで)。収まらないときの扱いは系列で分かれる(「意見が分かれる点」)。Googleだけが<strong>プライマリ/セカンダリの2段</strong>を持つ。

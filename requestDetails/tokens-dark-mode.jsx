@@ -256,7 +256,7 @@ const G_ROLE_RULES = [
   { group: "背景・面", role: "Surface / Background", light: 98, dark: 6, lhex: "#FEF7FF", dhex: "#141218", use: "画面の背景" },
   { group: "背景・面", role: "Surface Container Lowest", light: 100, dark: 4, lhex: "#FFFFFF", dhex: "#0F0D13", use: "最も奥に沈める面" },
   { group: "背景・面", role: "Surface Container Low", light: 96, dark: 10, lhex: "#F7F2FA", dhex: "#1D1B20", use: "浮いたカード・ボトムシート・モーダルのドロワー" },
-  { group: "背景・面", role: "Surface Container", light: 94, dark: 12, lhex: "#F3EDF7", dhex: "#211F26", use: "メニュー・ナビゲーションバー・スクロール時のアプリバー" },
+  { group: "背景・面", role: "Surface Container", light: 94, dark: 12, lhex: "#F3EDF7", dhex: "#211F26", use: "メニュー・タブバー・スクロール時のアプリバー" },
   { group: "背景・面", role: "Surface Container High", light: 92, dark: 17, lhex: "#ECE6F0", dhex: "#2B2930", use: "ダイアログ・検索バー・日付/時刻ピッカー" },
   { group: "背景・面", role: "Surface Container Highest", light: 90, dark: 22, lhex: "#E6E0E9", dhex: "#36343B", use: "塗りつぶしのカード・入力欄" },
   { group: "背景・面", role: "Surface Bright / Dim", light: "98 / 87", dark: "24 / 6", lhex: ["#FEF7FF", "#DED8E1"], dhex: ["#3B383E", "#141218"], use: "明るさだけで差を付けたい面(ダークでBrightが最も明るい)" },
@@ -360,7 +360,7 @@ function DarkColorRules() {
 const DARK_LAYERS = [
   { name: "Surface(背景)", tone: 6, hex: "#141218", comp: "画面の背景・ナビゲーションレール・常時表示のドロワー" },
   { name: "Container Low", tone: 10, hex: "#1D1B20", comp: "浮いたカード・ボトムシート・モーダルのドロワー(Level 1)" },
-  { name: "Container", tone: 12, hex: "#211F26", comp: "メニュー・ナビゲーションバー・スクロール時のアプリバー(Level 2)" },
+  { name: "Container", tone: 12, hex: "#211F26", comp: "メニュー・タブバー・スクロール時のアプリバー(Level 2)" },
   { name: "Container High", tone: 17, hex: "#2B2930", comp: "ダイアログ・検索バー・日付/時刻ピッカー(Level 3)" },
   { name: "Container Highest", tone: 22, hex: "#36343B", comp: "塗りつぶしのカード・入力欄(影なし)" },
 ];

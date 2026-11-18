@@ -39,7 +39,7 @@ const OVERLAYS = [
 const STEPS = [
   { q: "今の作業を止めて、答えてもらう必要がある?", a: <>はい、短く答えるだけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>。まとまった入力なら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>(手順が長いなら、重ねずに<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink>の普通のページ)</> },
   { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマホなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
-  { q: "アプリの行き先の一覧を出したい?", a: <><PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink>(行き先が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>)</> },
+  { q: "アプリの行き先の一覧を出したい?", a: <><PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink>(行き先が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>)</> },
   { q: "押したコンポーネントに関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
 ];
 

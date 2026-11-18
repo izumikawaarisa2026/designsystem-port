@@ -33,18 +33,17 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Color",
     color: "#C2542A",
-    position: "見た目ではなく「意味」で定義する「セマンティックカラー」(systemBlue・label・systemBackgroundなど)を使い、ライト/ダークやコントラストの設定で配色を自動で切り替える",
-    size: "Dark Modeのページは、色どうしのコントラスト比を4.5:1以上にし、独自の文字色・背景色では特に小さい文字で7:1を目指すとする。Accessibilityのページは、Xcodeの検査ツール(Accessibility Inspector)がWCAG AAの値を目安に判定するとして、17pt以下は4.5:1、18pt以上は3:1、太字はサイズを問わず3:1という表を示す(Colorのページに数値はない)。これはAppleの表の値で、WCAGの「大きな文字」(18pt以上、または14pt以上の太字)とは条件が違い、WCAGでは小さい太字は3:1の対象にならない。",
-    colorInfo: "systemBlue・systemRed・label・secondaryLabel・systemBackgroundなど、意味ごとに名前の付いた「セマンティックカラー」がある。各色は、ライト/ダーク/Increase Contrast/Reduce Transparencyなどの設定で値が自動で変わる「ダイナミックカラー」。",
+    position: "色を「意味」で指定するセマンティックカラー(systemBlue・labelなど)。ライト/ダークやコントラストの設定に合わせて自動で変わる",
+    size: "4.5:1以上。独自の色は、特に小さい文字で7:1を目指す(Dark Mode)。文字サイズ別の表は17pt以下4.5:1・18pt以上3:1・太字はサイズを問わず3:1(Accessibility)。WCAGでは小さい太字は3:1の対象外で、条件が違う。",
+    colorInfo: "意味ごとに名前の付いた色(systemBlue・label・systemBackgroundなど)。ライト/ダーク/Increase Contrast/Reduce Transparencyで値が自動で変わる。",
     stance:
-      <><Hl>固定の色の値ではなくセマンティックカラーを使う</Hl>。iOS/macOSのシステムカラーは、VibrancyやIncrease Contrast、Reduce Transparencyなどの設定に自動で合わせて変わる。意味を独自に定義し直さずに意図どおり使えば、ライト/ダークのどちらでも、どの場面でも見た目とコントラストがそろう。独自の色を作るなら、ライト・ダークの版と、それぞれのコントラストを上げる設定(Increase Contrast)用の版を用意する。</>,
+      <><Hl>固定の値ではなくセマンティックカラーを使う</Hl>。意味を定義し直さずに使えば、どの外観でも見た目とコントラストがそろう。独自の色は、ライト・ダークと、それぞれのIncrease Contrast用の版を用意する。</>,
     exceptions:
-      "外観が1つだけのアプリでも、Liquid Glassの見え方に対応するため、ライトとダークの両方の色を用意する。色覚に特性のある人が区別しにくい組み合わせや、コントラスト不足でアイコンや文字が背景に溶け込むことを避ける。",
-    accessibility: "知覚可能(Perceivable) ― 4.5:1はWCAG 1.4.3(AA)、独自の色で目指す7:1はWCAG 1.4.6(AAA)の本文の基準と同じ値。システムカラーはIncrease Contrastなどの設定にも自動で対応する。",
+      "外観が1つだけのアプリでも、Liquid Glassのためにライト・ダーク両方の色を用意する。",
+    accessibility: "知覚可能 ― 4.5:1はWCAG 1.4.3(AA)、7:1は1.4.6(AAA)と同じ値。",
     useCases: [
-      "固定の色の値ではなくセマンティックカラー(systemBlue・labelなど)を使う",
-      "ライト/ダーク/コントラストを上げる設定のすべてでコントラストを確かめる(4.5:1以上、独自の色は7:1を目指す)",
-      "セマンティックカラーの意味を独自に定義し直さない",
+      "セマンティックカラーを使い、意味を定義し直さない",
+      "ライト/ダーク/Increase Contrastのすべてでコントラストを確かめる",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/color#Best-practices",
@@ -72,19 +71,18 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Color roles / Dynamic color",
     color: "#2F7D6E",
-    position: <>primary/secondary/tertiary/error/surfaceなどの「カラーロール」で色の意味を体系化(一覧は下の図)。<Hl>利用者の壁紙などから配色を作る「ダイナミックカラー」</Hl>の仕組みがある</>,
-    size: "公式の配色ライブラリ(material-color-utilities)の2021年版の仕様では、標準のコントラスト設定で、本文の文字色(on-surface)は背景に対して7:1、補助の文字色(on-surface-variant)とprimary・secondary・tertiary・errorは4.5:1、枠線(outline)は3:1を目標に色を作る。コントラストを上げる設定(中・高)にすると、目標が段階的に上がる(例: on-surfaceは11:1・21:1)。",
-    colorInfo: "1つのシードカラー(配色の元の1色)から、HCT(色相・鮮やかさ・明るさで表す、人の見え方に合わせた色空間)でprimary/secondary/tertiary/neutral/neutral variantの5つのキーカラーを作り、それぞれ0(黒)〜100(白)の13段階のトーンパレットにする。カラーロールはこのパレットの決まったトーンを使う。errorは、ダイナミックカラーでも変わらない固定の色。",
+    position: <>色の意味を「カラーロール」(primary・surfaceなど)で決める。<Hl>壁紙などから配色を作るダイナミックカラー</Hl>がある</>,
+    size: "ロールごとに目標がある(配色ライブラリの2021年版の仕様・標準の設定): 本文の文字7:1、補助の文字・primaryなど4.5:1、枠線3:1。コントラストを上げる設定では上がる(例: on-surfaceは11:1・21:1)。",
+    colorInfo: "元の1色から5つのキーカラーを作り、それぞれ0(黒)〜100(白)の13段階のトーンにする。各ロールは決まったトーンを使う。",
     stance:
-      "primary/secondary/tertiary/error/surface/outlineなどのグループのカラーロールが、UIのどこにどの色を使うかを結びつける「接続組織」になる。errorは、ダイナミックカラーでも変わらない固定の色(ライト・ダークには合わせて変わる)。",
+      "カラーロールが、UIのどこにどの色を使うかを結びつける。errorはダイナミックカラーでも変わらない固定の色(ライト・ダークでは変わる)。",
     exceptions:
-      "独自のブランド色を指定するなら、既定のPrimaryと同じ明るさ(トーン40。0=黒〜100=白の40)を保たないと、コンポーネントの中でコントラストが崩れることがある。装飾の区切り線のoutline-variantには、標準の設定でコントラストの目標がない。ライブラリの2025年版の仕様では、スマートフォンのライトテーマでon-surfaceを9:1にするなど、一部の目標が変わっている。",
+      "独自のブランド色は、Primaryと同じ明るさ(トーン40)を保たないとコントラストが崩れることがある。装飾の区切り線(outline-variant)は目標なし。2025年版の仕様では一部の目標が違う(例: スマートフォンのライトテーマでon-surfaceは9:1)。",
     accessibility:
-      "知覚可能(Perceivable) ― 役割ごとの目標(2021年版の仕様: 本文7:1・補助の文字4.5:1・枠線3:1)は、WCAG 1.4.3(AA 4.5:1)・1.4.6(AAA 7:1)・1.4.11(3:1)の数値と対応する。Android 14以降は、端末のコントラスト設定に合わせてロールの色が自動で調整される。",
+      "知覚可能 ― 7:1・4.5:1・3:1は、WCAG 1.4.6(AAA)・1.4.3(AA)・1.4.11と同じ値。Android 14以降は端末のコントラスト設定に合わせて自動で調整される。",
     useCases: [
-      "UIの意味ごとにカラーロール(primary/secondary/tertiary/error/surface)を割り当てる",
-      "errorはダイナミックカラーでも固定の色として扱う",
-      "利用者の壁紙などから配色を作るダイナミックカラーを使う",
+      "UIの意味ごとにカラーロールを割り当てる",
+      "壁紙などから配色を作るダイナミックカラーを使う",
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/color/roles",
@@ -119,23 +117,22 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.3 Contrast (Minimum) / 1.4.11 Non-text Contrast / 1.4.1 Use of Color",
     color: "#A3821F",
-    position: "3つの達成基準で、本文の文字のコントラスト(1.4.3)・UIコンポーネントや図のコントラスト(1.4.11)・色だけに頼らない伝え方(1.4.1)を定める",
-    size: "1.4.3(レベルAA): 通常の文字は4.5:1以上、大きな文字(18pt以上の通常の書体、または14pt以上の太字)は3:1以上。ここのptは印刷の単位で、Webではおよそ24px(太字の14ptは約18.66px)。Appleの18ptとは別の単位。1.4.11(レベルAA): UIコンポーネントの状態を見分ける見た目と、理解に必要な図の要素は3:1以上。どちらも計算値は四捨五入しない(例: 4.499:1は満たさない)。",
-    colorInfo: "1.4.1(レベルA)により、色を、情報を伝える・操作を示す・応答を促す・要素を見分ける唯一の手段にしない。必須項目を赤だけで示さず、アイコンや文字のラベルも添える。",
+    position: "文字のコントラスト(1.4.3)・コンポーネントと図のコントラスト(1.4.11)・色だけに頼らない(1.4.1)の3つの達成基準",
+    size: "1.4.3(AA): 本文4.5:1以上、大きな文字(18pt以上、または14pt以上の太字。Webで約24px・約18.66px)3:1以上。1.4.11(AA): コンポーネントと理解に必要な図は3:1以上。四捨五入しない(4.499:1は不合格)。",
+    colorInfo: <NoData>配色の仕組みは定めない</NoData>,
     glossary: [
       { term: "1.4.3 Contrast (Minimum)・レベルAA", desc: "本文の文字は4.5:1以上、大きな文字は3:1以上のコントラスト比にする(除外は「例外・許容ケース」)。" },
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UIコンポーネントを見分けるための見た目(枠線・アイコンなど。ユーザーエージェントが決めて変えていない部分を除く)と、理解に必要な図の一部に3:1以上を求める。" },
       { term: "1.4.1 Use of Color・レベルA", desc: "色を情報を伝える唯一の手段にしない。色覚に特性のある人や白黒表示の人にも伝わるよう、アイコンや文字などほかの手がかりも添える。" },
     ],
     stance:
-      <>1.4.3は本文と画像化された文字のコントラスト比の基準。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1を求める。1.4.1は、<Hl>色を、情報を伝える・操作を示す・応答を促す・要素を見分ける唯一の手段にせず</Hl>、色覚に特性のある人や白黒表示の人にも同じ情報が伝わるようにする。</>,
+      <>どんな色でも、要素の種類ごとの比率を満たすかで判断する。1.4.1(A)で、<Hl>色を情報を伝える唯一の手段にしない</Hl>(必須項目を赤だけで示さず、文字やアイコンも添える)。</>,
     exceptions:
-      "1.4.3は、無効なコンポーネントの一部・純粋な装飾・見えない文字・ロゴの文字を除外する。1.4.11も、無効なコンポーネントと、ユーザーエージェントが決めて変えていない見た目を除外する。ロゴ・国旗・写真など、見た目そのものが伝えたい情報である図も除外されうる。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.3・1.4.11・1.4.1はどれも「知覚可能」。視覚・色覚に特性のある人が、文字・UIコンポーネント・色分けされた情報を見分けられるようにする。",
+      "無効なコンポーネント・装飾・ロゴの文字は除外(1.4.3)。1.4.11も、無効なコンポーネントとブラウザ標準のままの見た目を除外。",
+    accessibility: "知覚可能 ― 3つとも。視覚・色覚に特性のある人が、文字・コンポーネント・色分けされた情報を見分けられるようにする。",
     useCases: [
-      "本文の文字は4.5:1以上、大きな文字・UIコンポーネント・重要な図は3:1以上にする",
-      "必須項目やエラーなどを色だけで示さず、アイコンや文字のラベルも添える",
-      "コントラスト比は四捨五入せず、わずかに下回る値も不合格にする",
+      "本文4.5:1以上、大きな文字・コンポーネント・重要な図3:1以上",
+      "必須項目やエラーを色だけで示さない",
     ],
     searchHint: "not be rounded",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
@@ -164,18 +161,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Using Color to Enhance Your Design",
     color: "#7A4F7E",
-    position: "配色のバランス(60-30-10ルール)・一貫性・色覚の特性への配慮という、実務の配色の指針(適合基準ではない)",
+    position: "配色のバランス(60-30-10ルール)・一貫性・色覚の特性への配慮という実務の指針",
     size: <NoData>数値基準なし</NoData>,
-    colorInfo: "「60%を基調色、30%を第二色、10%をアクセントカラーに」という60-30-10ルール(面積の割合)を勧め、パレットは3色程度に絞り、見た目の階層とコントラストを強める。色覚の特性(color blindness)への配慮とコントラストのテストを勧め、文字と背景の確認にaccessible-colors.comのようなツールを挙げる(WCAGの比率には触れていない)。",
+    colorInfo: "面積を60%基調色・30%第二色・10%アクセントカラーにし、パレットは3色程度に絞る。",
     stance:
-      <><Hl>「60%基調色・30%第二色・10%アクセントカラー」の配分</Hl>でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと色の意味を誤解される)。コントラストと色覚の特性の両方を確かめる。例として、UberEatsの緑のロゴがオレンジの背景で読みにくかった事例を挙げる。</>,
+      <><Hl>60-30-10の配分</Hl>でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと意味を誤解される)。<Hl>コントラストと色覚の特性をツールとテストで確かめる</Hl>(WCAGの比率には触れない)。</>,
     exceptions:
-      "色の文化的な意味の違いにも注意する(赤は世界的に「停止」が多い一方、お金の色は中国では赤、米国では緑など)。グレーのボタンが意図せず「無効」に見えることも、実際のユーザーテストで確かめる。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティと読みやすさのテスト結果にもとづく実務の指針。",
+      "色の意味は文化で違う(お金の色は中国では赤、米国では緑など)。グレーのボタンは「無効」に見えやすい。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、テスト結果にもとづく実務の指針。",
     useCases: [
-      "配色は60%基調色・30%第二色・10%アクセントカラーのバランスにする",
+      "配色を60-30-10のバランスにする",
       "同じ意味にはいつも同じ色を使う",
-      "コントラストと色覚の特性の両方を、実際のユーザーテストとツールで確かめる",
     ],
     searchHint: "",
     url: "https://www.nngroup.com/articles/color-enhance-design/",
@@ -213,16 +209,16 @@ const PRIORITY = [
     color: "#C2542A",
     basis: "内容の重要度で、文字と背景の色を段階分け",
     tiers: [
-      { name: "Primary background", desc: "画面全体の背景(System Background)", ratio: "背景", sample: { nest: 0 } },
-      { name: "Secondary background", desc: "その中のまとまり(グループ・カードなど)の背景", ratio: "背景", sample: { nest: 1 } },
-      { name: "Tertiary background", desc: "さらに内側のまとまりの背景", ratio: "背景", sample: { nest: 2 } },
-      { name: "Label", desc: "主要な内容の文字", ratio: "文字", sample: { text: true, opacity: 1 } },
-      { name: "Secondary label", desc: "補助的な内容の文字", ratio: "文字", sample: { text: true, opacity: 0.72 } },
-      { name: "Tertiary label", desc: "さらに下位の内容の文字(重要でない情報に使う)", ratio: "文字", sample: { text: true, opacity: 0.5 } },
-      { name: "Quaternary label", desc: "最も重要度の低い文字(macOSでは透かし文字など。重要でない情報に使う)", ratio: "文字", sample: { text: true, opacity: 0.32 } },
+      { name: "Primary background", desc: "画面全体の背景(System Background)", ratio: "--", sample: { nest: 0 } },
+      { name: "Secondary background", desc: "その中のまとまり(グループ・カードなど)の背景", ratio: "--", sample: { nest: 1 } },
+      { name: "Tertiary background", desc: "さらに内側のまとまりの背景", ratio: "--", sample: { nest: 2 } },
+      { name: "Label", desc: "主要な内容の文字", ratio: "--", sample: { text: true, opacity: 1 } },
+      { name: "Secondary label", desc: "補助的な内容の文字", ratio: "--", sample: { text: true, opacity: 0.72 } },
+      { name: "Tertiary label", desc: "さらに下位の内容の文字(重要でない情報に使う)", ratio: "--", sample: { text: true, opacity: 0.5 } },
+      { name: "Quaternary label", desc: "最も重要度の低い文字(macOSでは透かし文字など。重要でない情報に使う)", ratio: "--", sample: { text: true, opacity: 0.32 } },
     ],
-    extra: "背景はPrimary(画面全体)→ Secondary(その中のまとまり)→ Tertiary(さらに内側のまとまり)の3段階で、図の濃い部分がその段階の範囲。文字はLabelの4段階。一覧形式の画面用に、同じ3段階のGrouped版の背景が別にある。",
-    a11y: "段階ごとの比率は公開されていない(4.5:1は読んでもらう文字に求められる値で、色そのものの性質ではない)。下の段の色は重要でない情報に使う。読んでもらう文字は、17pt以下は4.5:1・18pt以上は3:1・太字はサイズを問わず3:1(Appleの表の値。WCAGでは小さい太字は3:1の対象外)。独自の色は7:1を目指し、コントラストを上げる設定用の版も用意する。",
+    extra: "背景は3段階(図の濃い部分がその段階の範囲)、文字は4段階。一覧形式の画面用にGrouped版の背景もある。",
+    a11y: "段階ごとの比率は定めていない(--)。文字は文字サイズで決める: 17pt以下4.5:1・18pt以上3:1・太字3:1。独自の色は7:1を目指す。",
   },
   {
     key: "material",
@@ -231,15 +227,15 @@ const PRIORITY = [
     basis: "強調の度合いで、3つのアクセント色と中立色を段階分け",
     tiers: [
       { name: "Primary", desc: "最も目立たせる要素(塗りつぶしボタン、選択中のラジオ・チェックボックス、スライダー)", ratio: "4.5:1", sample: { fill: "#2F7D6E" } },
-      { name: "Secondary", desc: "控えめな強調(トーナルボタン、選択中のチップ、ナビゲーションバーの選択表示)", ratio: "4.5:1", sample: { fill: "#6E8E86" } },
+      { name: "Secondary", desc: "控えめな強調(トーナルボタン、選択中のチップ、タブバーの選択表示)", ratio: "4.5:1", sample: { fill: "#6E8E86" } },
       { name: "Tertiary", desc: "対比のアクセント(時刻ピッカーの午前/午後の選択、Vibrantメニュー)", ratio: "4.5:1", sample: { fill: "#4E6E8C" } },
       { name: "On Surface", desc: "本文の文字", ratio: "7:1", sample: { text: true, opacity: 1 } },
       { name: "On Surface Variant", desc: "補助の文字・アイコン", ratio: "4.5:1", sample: { text: true, opacity: 0.66 } },
       { name: "Outline", desc: "入力欄などの枠線", ratio: "3:1", sample: { line: "#8A8F99" } },
-      { name: "Outline Variant", desc: "カードの枠など装飾的な区切り", ratio: "目標なし", sample: { line: "#D3D6DE" } },
+      { name: "Outline Variant", desc: "カードの枠など装飾的な区切り", ratio: "--", sample: { line: "#D3D6DE" } },
     ],
-    extra: "Primary・Secondary・Tertiaryにはそれぞれ強調を弱めたContainer版があり、その上に載せる文字(On … Container)は4.5:1。Primaryの上の文字(On Primary)は7:1。比率はmaterial-color-utilitiesの2021年版の仕様の目標値(2025年版では一部が違う)。",
-    a11y: "比率は、Google公式の配色生成ライブラリが標準のコントラスト設定で使う目標値(背景に対する比率)。ユーザーがコントラストを上げる設定では、段階ごとに引き上げられる(例: On Surfaceは11:1・21:1)。",
+    extra: "各アクセント色には強調を弱めたContainer版があり、その上の文字は4.5:1。",
+    a11y: "段階ごとに比率を定める(配色ライブラリの2021年版の仕様・標準の設定)。コントラストを上げる設定では引き上げられる。",
   },
   {
     key: "wcag",
@@ -251,10 +247,10 @@ const PRIORITY = [
       { name: "大きな文字", desc: "18pt(Webで約24px)以上、または14pt(約18.66px)以上の太字 / AAAでは4.5:1", ratio: "3:1", sample: { text: true, hex: "#949494", big: true } },
       { name: "UIコンポーネント・グラフィック", desc: "コンポーネントを見分けるための枠やアイコン(1.4.11)", ratio: "3:1", sample: { line: "#949494" } },
       { name: "色だけで区別するリンク", desc: "周囲の文字との差(1.4.1の達成方法G183)", ratio: "3:1", sample: { link: true } },
-      { name: "非活性・装飾・ロゴ", desc: "コントラストの基準の適用除外", ratio: "対象外", sample: { text: true, hex: "#C9CCD9" } },
+      { name: "非活性・装飾・ロゴ", desc: "コントラストの基準の適用除外", ratio: "--", sample: { text: true, hex: "#C9CCD9" } },
     ],
-    extra: "色そのものに優先度の段階は定めない。どんな色でも、その要素の種類に応じた比率を満たすかどうかで判断する。",
-    a11y: "比率は背景(リンクは周囲の文字)に対する最低値。計算値は四捨五入しない。",
+    extra: "色の優先度は定めない。要素の種類ごとの比率で判断する。",
+    a11y: "要素の種類ごとに最低値を定める(リンクは周囲の文字に対する比率)。非活性・装飾・ロゴは対象外(--)。四捨五入しない。",
   },
   {
     key: "nn",
@@ -266,8 +262,8 @@ const PRIORITY = [
       { name: "第二色", desc: "約30%。基調色を支える", ratio: "30%", sample: { bar: 30 } },
       { name: "アクセントカラー", desc: "約10%。目を引きたい要素に使う", ratio: "10%", sample: { bar: 10 } },
     ],
-    extra: "パレットは3色程度に絞り、同じ意味(例: CTAボタン)には常に同じ色を使う。",
-    a11y: "コントラスト比の数値は示さない。ツールと実際のテストで、コントラストと色覚特性の両方を確かめるよう勧める。薄い文字は読みにくく、見落とされ、「使えない(無効)」と誤解される原因になるとして避けるよう勧めている。",
+    extra: "右端の値はコントラスト比ではなく面積の割合。",
+    a11y: "比率は定めていない(--)。ツールとテストで、コントラストと色覚の特性を確かめる。薄い文字は「無効」と誤解されるので避ける。",
   },
 ];
 
@@ -330,52 +326,46 @@ function PriorityDiagram() {
  * Google: MDC Android Color.md のロール一覧(リンク用ロールは存在しない)、Composeトークン(非活性=On Surface 38%)。
  * W3C: 1.4.1(G183・F73・F81)・1.4.3・1.4.11。NN group: Guidelines for Visualizing Links(2026年3月の編集注を含む)ほか。
  */
-const COLOR_KINDS_LIST = {
-  hig: ["Label(4段階)", "Placeholder text", "Separator / Opaque separator", "Link", "背景(System / Grouped × 3段階)", "App accent color", "システムカラー(12色)+グレー(6段階)", "macOSのみ: Control accent・Keyboard focus indicator・Find highlight など30種類以上"],
-  material: ["Primary / Secondary / Tertiary(各: 基本・On・Container・On Container・Fixed系)", "Error(Error・On Error・Container)", "Surface(基本・Dim・Bright・Container 5段階)", "On Surface / On Surface Variant", "Inverse(Surface・On Surface・Primary)", "Outline / Outline Variant", "Background / On Background"],
-  wcag: ["色の種類は定義しない", "要素の種類ごとに基準: 本文・大きな文字・UIコンポーネント・グラフィック・色で区別するリンク"],
-  nn: ["基調色・第二色・アクセントカラー(60-30-10)", "未訪問リンク・訪問済みリンク"],
-};
 
 const COLOR_KINDS = [
   {
     kind: "アクセント(ブランド)色",
-    hig: { mark: "◯", text: "App accent color。ボタン・選択のハイライト・サイドバーのアイコンに使うアプリ独自の色(macOS 11以降)。ユーザーがシステム設定でアクセントカラーを選ぶとそちらが優先される。Liquid Glassでは主要なボタン(完了など)の背景に使い、複数のコンポーネントに色を付けすぎないよう求める。", sw: [{ n: "Blue(例)", l: "#0088FF", d: "#0091FF" }, { n: "Blue(コントラストを上げる設定)", l: "#1E6EF4", d: "#5CB8FF" }], swNote: "システムカラーのBlue。アクセント色はアプリ独自の色にできる" },
-    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3グループがブランドを表すアクセント色。ダイナミックカラーでは壁紙などから自動生成される。独自の色にする場合もPrimaryはトーン40を保つよう注意がある。", sw: [{ n: "Primary", l: "#6750A4", d: "#D0BCFF" }, { n: "Secondary", l: "#625B71", d: "#CCC2DC" }, { n: "Tertiary", l: "#7D5260", d: "#EFB8C8" }], swNote: "基準の配色(壁紙などから作る場合は値が変わる)" },
-    wcag: { mark: "―", text: "専用の定義なし。アクセント色で情報を伝える場合も、1.4.1・1.4.3・1.4.11の一般的な基準がそのまま適用される。" },
-    nn: { mark: "◯", text: "60-30-10の「10%」がアクセントカラー。同じ意味(例: CTAボタン)には常に同じ色を使う。" },
+    hig: { mark: "◯", text: "App accent color(アプリ独自の色)。ボタン・選択のハイライトなどに使う。ユーザーがシステム設定で選んだ色が優先される。", sw: [{ n: "Blue(例)", l: "#0088FF", d: "#0091FF" }, { n: "Blue(コントラストを上げる設定)", l: "#1E6EF4", d: "#5CB8FF" }], swNote: "システムカラーのBlue。アクセント色はアプリ独自の色にできる" },
+    material: { mark: "◯", text: "Primary・Secondary・Tertiaryの3つ。ダイナミックカラーでは壁紙などから作られる。", sw: [{ n: "Primary", l: "#6750A4", d: "#D0BCFF" }, { n: "Secondary", l: "#625B71", d: "#CCC2DC" }, { n: "Tertiary", l: "#7D5260", d: "#EFB8C8" }], swNote: "基準の配色(壁紙などから作る場合は値が変わる)" },
+    wcag: { mark: "―", text: "専用の定めはない。1.4.1・1.4.3・1.4.11がかかる。" },
+    nn: { mark: "◯", text: "60-30-10の「10%」。同じ意味には同じ色を使う。" },
   },
   {
     kind: "リンク色",
     rel: <><PageLink to="/components/actions/link">リンク</PageLink></>,
-    hig: { mark: "◯", text: "リンク専用の動的システムカラーがある(iOSのLink、macOSのLink color)。ライト/ダークで自動的に値が変わる。", swNone: "色の値はHIGに記載なし" },
-    material: { mark: "✕", text: "リンク専用のカラーロールはない(Material Components for Androidのロール一覧に存在しない)。" },
-    wcag: { mark: "◯", text: "リンクを色だけで区別するなら、周囲の文字と3:1以上の差が必要(G183。以前の版ではホバー・フォーカス時の手がかりも条件だった)。色覚に頼らないと見分けられないリンクは不適合の例(F73)。" },
-    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色にする。青はリンク以外の文字に使わない。2026年3月の編集注で、下線は必須ではなくG183の方式でもよいと補足された。", sw: [{ n: "未訪問(例)", l: "#1A5FD0", d: "#7FB0FF" }, { n: "訪問済み(例)", l: "#6E5A8E", d: "#B6A6CF" }], swNote: "色はAIの作例。NN groupは具体的な色の値を定めていない(青が最も強い手がかり)" },
+    hig: { mark: "◯", text: "専用のシステムカラーLinkがある(ライト/ダークで値が変わる)。", swNone: "色の値はHIGに記載なし" },
+    material: { mark: "✕", text: "専用のカラーロールはない。" },
+    wcag: { mark: "◯", text: "色だけで区別するなら、周りの文字と3:1以上(G183)。色でしか見分けられないリンクは失敗例(F73)。" },
+    nn: { mark: "◯", text: "色+下線が最も分かりやすい。未訪問は鮮やか、訪問済みはくすんだ同系色。青はリンク以外に使わない(下線なしでG183の方式でもよい)。", sw: [{ n: "未訪問(例)", l: "#1A5FD0", d: "#7FB0FF" }, { n: "訪問済み(例)", l: "#6E5A8E", d: "#B6A6CF" }], swNote: "色はAIの作例。NN groupは具体的な色の値を定めていない(青が最も強い手がかり)" },
   },
   {
     kind: "エラー色",
     rel: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>・<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink></>,
-    hig: { mark: "△", text: "エラー専用の名前付きカラーはない(システムカラーはRedなど色名で定義)。色の意味は文化によって違うことにも注意を求める。", sw: [{ n: "Red", l: "#FF383C", d: "#FF4245" }, { n: "Red(コントラストを上げる設定)", l: "#E9152D", d: "#FF6165" }], swNote: "エラー専用ではなく、システムカラーのRed" },
-    material: { mark: "◯", text: "Errorグループ(Error・On Error・Error Container)。ダイナミックカラーが有効でも変わらない固定の色で、背景に対して4.5:1。", sw: [{ n: "Error", l: "#B3261E", d: "#F2B8B5" }] },
-    wcag: { mark: "△", text: "専用の色はないが、エラーや必須項目を色の違いだけで示すことは1.4.1の不適合の例(F81)。" },
-    nn: { mark: "△", text: "言葉の意味でも区別できるなら、「エラー」を赤で示してよい。ただしリンクの色と重ならないようにする。" },
+    hig: { mark: "△", text: "専用の色はなく、システムカラーのRedを使う。", sw: [{ n: "Red", l: "#FF383C", d: "#FF4245" }, { n: "Red(コントラストを上げる設定)", l: "#E9152D", d: "#FF6165" }], swNote: "エラー専用ではなく、システムカラーのRed" },
+    material: { mark: "◯", text: "Errorのロール。ダイナミックカラーでも変わらない固定の色で、4.5:1。", sw: [{ n: "Error", l: "#B3261E", d: "#F2B8B5" }] },
+    wcag: { mark: "△", text: "専用の色はない。エラーを色だけで示すのは失敗例(F81)。" },
+    nn: { mark: "△", text: "言葉でも区別できるなら赤で示してよい。リンクの色と重ねない。" },
   },
   {
     kind: "枠線・区切り線",
     rel: <><PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></>,
-    hig: { mark: "◯", text: "Separator(下の内容が少し透ける)とOpaque separator(透けない)の2種類。区切り線の色を文字に使うなど、意味の流用はしない。" },
-    material: { mark: "◯", text: "Outline(入力欄の枠など、3:1)とOutline Variant(カードの枠など装飾的な区切り、目標値なし)の2種類。", sw: [{ n: "Outline", l: "#79747E", d: "#938F99" }, { n: "Outline Variant", l: "#CAC4D0", d: "#49454F" }], swNote: "基準の配色" },
-    wcag: { mark: "△", text: "枠線がコンポーネントを見分けるのに必要な場合は1.4.11で3:1以上。装飾的な線は対象外。" },
-    nn: { mark: "―", text: "該当する記述なし。" },
+    hig: { mark: "◯", text: "Separator(少し透ける)とOpaque separator(透けない)の2つ。" },
+    material: { mark: "◯", text: "Outline(入力欄の枠、3:1)とOutline Variant(装飾の区切り、目標なし)の2つ。", sw: [{ n: "Outline", l: "#79747E", d: "#938F99" }, { n: "Outline Variant", l: "#CAC4D0", d: "#49454F" }], swNote: "基準の配色" },
+    wcag: { mark: "△", text: "コンポーネントを見分けるのに必要な枠線は3:1以上(1.4.11)。装飾の線は対象外。" },
+    nn: { mark: "―", text: "記載なし。" },
   },
   {
     kind: "非活性・プレースホルダー",
     rel: <><PageLink to="/tokens/interaction-states">インタラクション状態</PageLink></>,
-    hig: { mark: "◯", text: "Placeholder text(入力欄のプレースホルダー)。macOSには使えないコンポーネントの文字色(Unavailable control text color)もある。" },
-    material: { mark: "△", text: "専用のロールはなく、On Surfaceの色を38%の不透明度で重ねて非活性を表す(Jetpack Composeのトークン定義で確認)。", sw: [{ n: "On Surface 38%", l: "#1D1B20", d: "#E6E0E9", op: 0.38 }], swNote: "基準の配色のOn Surfaceを38%で重ねた見え方" },
-    wcag: { mark: "△", text: "非活性のコンポーネントは1.4.3・1.4.11の適用除外。" },
-    nn: { mark: "△", text: "薄いグレーは「無効」に見えやすい。使える要素を薄くすると、使えないと誤解される原因になる。" },
+    hig: { mark: "◯", text: "Placeholder text。macOSには使えないコントロールの文字色もある。" },
+    material: { mark: "△", text: "専用のロールはなく、On Surfaceを38%の不透明度にして表す。", sw: [{ n: "On Surface 38%", l: "#1D1B20", d: "#E6E0E9", op: 0.38 }], swNote: "基準の配色のOn Surfaceを38%で重ねた見え方" },
+    wcag: { mark: "△", text: "非活性のコンポーネントは1.4.3・1.4.11の対象外。" },
+    nn: { mark: "△", text: "薄いグレーは「無効」に見えやすい。使える要素を薄くしない。" },
   },
 ];
 
@@ -466,9 +456,8 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "文字と背景の差を確かめる", d: "本文は4.5:1以上、大きな文字とコンポーネントは3:1以上", who: "W3C 1.4.3・1.4.11" },
-  { n: 2, t: "色だけで伝えない", d: "色のほかに文字やアイコンでも伝える", who: "W3C 1.4.1" },
-  { n: 3, t: "色は値ではなく役割で指定する", d: "色そのものではなく「意味」で決める", who: "Appleのセマンティックカラー、Googleのカラーロール" },
-  { n: 4, t: "独自の色は濃いめに", d: "最低4.5:1、できれば7:1を目指す", who: "Apple" },
+  { n: 2, t: "色は値ではなく役割で指定する", d: "色そのものではなく「意味」で決める", who: "Appleのセマンティックカラー、Googleのカラーロール" },
+  { n: 3, t: "独自の色は濃いめに", d: "最低4.5:1、できれば7:1を目指す", who: "Apple" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -476,6 +465,7 @@ function GoodBadFigure() {
   return (
     <GoodBad
       title="良い例・悪い例 ― 文字のコントラスト"
+      pairs
       items={[
         { kind: "good", label: "良い例(本文)", fig: <><span style={{ fontSize: 14, color: "#171B36" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#171B36 / 白 = 16.85:1</span></>, text: "白い背景に濃い文字。本文に必要な4.5:1を大きく上回る。" },
         { kind: "bad", label: "悪い例(本文)", fig: <><span style={{ fontSize: 14, color: "#9EA4C4" }}>本文の文字のサンプル</span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>#9EA4C4 / 白 = 2.45:1</span></>, text: "薄いグレーの文字は2.45:1で、本文に必要な4.5:1に届かない(枠の中は見本)。" },
@@ -522,10 +512,10 @@ export default function TokensColorPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 色の優先度(階層)の定義とアクセシビリティの指定</h2>
             <PriorityDiagram />
-            <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。NN groupのみ比率ではなく面積の割合。色見本は概念図で、各系列の実際の色の値ではない。</p>
+            <p style={styles.chartNote}>番号は各系列の中での優先度(上ほど強い・重要)。右端の値は、その段階に求められるコントラスト比(背景に対する最低値)。--=比率の指定なし。NN groupのみ比率ではなく面積の割合。色見本は概念図で、実際の色の値ではない。</p>
           </div>
           <GoodBadFigure />
 
@@ -534,19 +524,10 @@ export default function TokensColorPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このトピックで最も数値的に具体的なのはW3Cだ。<strong>本文4.5:1・大きな文字/UIコンポーネント3:1</strong>という明確な数値を持つ1.4.3・1.4.11に加え、<strong>「色だけに頼ってはならない」</strong>という1.4.1が、数値基準とは別の角度から情報の伝わりやすさを担保している。
+              数値の基準を持つのはW3Cで、<strong>本文4.5:1、大きな文字とコンポーネント3:1</strong>(1.4.3・1.4.11)。Apple・Googleは、<strong>色を「意味」で指定し、システムが設定に合わせて値を変える</strong>(Appleのセマンティックカラー、Googleのカラーロール)。Appleは独自の色に<strong>7:1</strong>を目指すよう勧め、Googleはロールごとに<strong>7:1・4.5:1・3:1</strong>の目標を配色の生成時に満たす。
             </p>
             <p style={styles.synthesisText}>
-              一方でApple・Googleは、どちらも<strong>数値を手計算させるのではなく「システムが意味に応じて自動的に適切な色を割り当てる」</strong>という抽象化されたアプローチを取っている。Appleの「セマンティックカラー」、Googleの「カラーロール」はいずれも、色そのものではなく色の「意味」を定義する仕組みで、アクセシビリティ設定や壁紙の色に応じて実際の値が自動的に変わる。これはW3Cの「都度、数値を検証する」思想とは構造的に異なるアプローチだが、目指すところ(十分なコントラストの確保)は共通している。なおAppleも、独自の色を使う場合に備えて<strong>最低4.5:1、独自の色では7:1を目指す</strong>という推奨値をDark Modeのページで示しており、WCAGのAA(4.5:1)より一段高いAAA相当の水準を勧めている。
-            </p>
-            <p style={styles.synthesisText}>
-              色の<strong>優先度(階層)の決め方</strong>も4系列で違う。Appleは<strong>内容の重要度</strong>(Label→Secondary→Tertiary→Quaternary)、Googleは<strong>強調の度合い</strong>(Primary→Secondary→Tertiary)、W3Cは<strong>要素の種類</strong>(本文・大きな文字・UIコンポーネント)、NN groupは<strong>面積の比率</strong>(60-30-10)で段階を分けている。段階ごとにコントラストの目標値まで決めているのはGoogleで、本文の文字7:1・補助の文字4.5:1・枠線3:1と、WCAGの数値に沿った値を配色の生成時に自動で満たす仕組みだ。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupの<strong>「60-30-10ルール」</strong>は、コントラスト単体の合否ではなく、配色全体のバランス・階層の分かりやすさという、やや異なる関心事だ。ただし「一貫性がないと色の意味を誤解される」「コントラストと色覚特性の両方をテストすべき」という指摘は、W3Cの1.4.1・1.4.3の問題意識と実質的に重なる。
-            </p>
-            <p style={styles.synthesisText}>
-              W3CとNN groupがはっきり一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。W3C(1.4.1の適合基準)・NN group(実際のユーザーテストに基づく指摘)がそれぞれ独立に同じ結論に達しており、Apple・Googleのセマンティックカラー/カラーロールの仕組みは、<strong>意味の一貫性やテーマへの対応を助ける仕組み</strong>で、それだけで「色だけに頼らない」が満たされるわけではない。色以外の手がかり(1.4.1)は別に用意する必要がある。
+              色の段階の分け方は4系列で違う(上の比較図)。<strong>「色だけで伝えない」はW3C(1.4.1)とNN groupが一致</strong>する。セマンティックカラーやカラーロールを使っても1.4.1は満たされないので、文字やアイコンの手がかりは別に用意する(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -627,21 +608,11 @@ export default function TokensColorPage() {
           </div>
 
           <section style={styles.kindSection}>
-            <h2 style={styles.diagramTitle}>アクセントカラー・リンクカラーなど、別に定義されている色の比較</h2>
+            <h2 style={styles.diagramTitle}>役割ごとの色の比較 ― アクセント・リンク・エラー・枠線・非活性</h2>
             <p style={styles.sectionLead}>
-              ブランドを表すアクセント色のほかに、リンク・エラー・枠線などを専用の色として定義しているかどうかも系列ごとに違う。<strong>デザインシステムの色としてリンク色を定義しているのはApple</strong>(Link)で、Googleのカラーロールにはリンク用がない。NN groupは色の値ではなく、未訪問・訪問済みのリンクの見せ方の指針として扱っている。逆に<strong>エラー色を固定の役割として持つのはGoogleだけ</strong>だ。
+              行が色の役割、列が系列。その役割に<strong>専用の色を決めているか</strong>を記号で示し、決めている系列は色見本(左=ライト、右=ダーク)を添えた。<strong>リンクの色を決めているのはApple</strong>だけ、<strong>エラーの色を固定の役割として持つのはGoogle</strong>だけ。W3Cは色を決めず、どの役割にも同じ比率の基準がかかる。
             </p>
-
-            <div style={styles.kindListGrid}>
-              {KIND_COLS.map((c) => (
-                <div key={c.key} style={styles.kindListCard}>
-                  <div style={styles.kindListName}>{c.name} ― 定義されている色の種類</div>
-                  <ul style={styles.useCaseList}>
-                    {COLOR_KINDS_LIST[c.key].map((it) => (<li key={it} style={styles.useCaseItem}>{it}</li>))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <p style={styles.chartNote}>◯=専用の色・基準がある △=専用ではないが関連する定めがある ✕=専用の色がない ―=記載なし</p>
 
             <div className="dsp-desktop-only">
               <div style={styles.matrixScroll}>
@@ -686,7 +657,7 @@ export default function TokensColorPage() {
                 </div>
               ))}
             </div>
-            <p style={styles.chartNote}>◯=専用の色・基準がある △=一般的な基準の中で扱う/専用ではないが関連する定め ✕=専用の色がない ―=該当する記述なし。色見本は左がライト、右がダーク(Apple=HIG Colorの色見本の値、Google=Jetpack Composeの基準の配色の値)。</p>
+            <p style={styles.chartNote}>色見本の値: Apple=HIG Colorの色見本、Google=Jetpack Composeの基準の配色。</p>
           </section>
 
           <div style={styles.memoBox}>

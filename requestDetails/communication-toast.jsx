@@ -341,14 +341,6 @@ export default function CommunicationToastPage() {
                     {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
                   </div>
                 ))}
-                <div style={styles.labelCell}>M3該当状況</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>
-                    {(s.m3NotApplicable || s.noDedicatedComponent) ? (
-                      <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
-                    ) : (<span style={{ color: "#666D93" }}>―(この観点は対象外)</span>)}
-                  </div>
-                ))}
                 <div style={styles.labelCell}>名称</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
                 <div style={styles.labelCell}>位置づけ</div>

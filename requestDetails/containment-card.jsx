@@ -7,7 +7,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, Rela
  * 関連情報をまとめ、境界線・影・塗りつぶしなどで背景と視覚的に区別するコンテナの
  * 4系列比較。
  *
- * W3C(WAI-ARIA article role、仕様原文を直接取得)/ Nielsen Norman Group
+ * W3C(カードの決まりはなく、一般の達成基準のみ。2026-11 ⑦本人レビューNo.050で記事の役割の内容を外した)/ Nielsen Norman Group
  * (Cards: UI-Component Definition、記事本文を直接取得)は2026-09に確認済み。
  * Apple(HIG Boxes)・Google(Material Design 3 Cards)は公式サイトがクライアント側
  * レンダリングのSPAで本文を直接取得できなかったため、検索結果による間接確認(2026-09)。
@@ -100,40 +100,33 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― 記事の役割",
-    term: "記事(WAI-ARIAの役割。カードの決まりはない)",
+    doc: "WCAG 2.5.8 / 2.5.5 / 1.4.11",
+    term: <NoData>カードの決まりはない</NoData>,
     color: "#A3821F",
     position: <NoData>W3Cはカードを定めていない</NoData>,
     size: "専用の数値基準はない。押せるカードにも一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。境界線などには1.4.11(非テキストのコントラスト)がかかり得る。",
-    stance:
-      "「記事」の役割は、ページの中で独立した領域(ブログ記事・フォーラムの投稿・文書の中の自己完結したセクションなど)を示す。名前はタイトルを使って付ける。記事は入れ子にもできる。",
-    scenarios: [
-      "カードを、見出しを持つ独立したまとまりとして示したい場面",
-    ],
-    exceptions:
-      "「記事」はページの領域の目印ではなく、文書の構造の役割(ナビゲーションの目印にはならない)。",
+    stance: <NoData>カードとしての考え方は記載なし。一般の達成基準がかかる。</NoData>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility:
-      "堅牢(Robust)・知覚可能(Perceivable) ― 構造を示すことと、タイトルを使った名前付けが中心。",
-    useCases: [
-      "カードの内容が単独でも意味を持つ記事・投稿などなら、「記事」として示すことを検討する(一つの例・AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別の構造にする",
-      "カード全体を押せるなら、中に別のボタンやリンクを入れ子にしない(支援技術で正しく扱えないため)",
-      "カードのタイトルを、カードの名前として支援技術に伝える",
-    ],
-    searchHint: "independent part",
-    url: "https://www.w3.org/TR/wai-aria-1.2/#article",
+      "操作可能(Operable)・知覚可能(Perceivable) ― 押せるカードの大きさ(2.5.8/2.5.5)と、境界線などのコントラスト(1.4.11)。",
+    useCases: [],
+    searchHint: "",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
     refs: [
-      { label: "article role", url: "https://www.w3.org/TR/wai-aria-1.2/#article" },
+      { kind: "sc", level: "AA", label: "2.5.8 ターゲットのサイズ(最低限)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" },
+      { kind: "sc", level: "AAA", label: "2.5.5 ターゲットのサイズ(高度)・例外あり", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html" },
+      { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
         <svg width="120" height="70" viewBox="0 0 120 70">
           <rect x="1" y="1" width="118" height="68" rx="4" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="60" y="38" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">記事として示す</text>
+          <text x="60" y="38" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">カードの決まりなし</text>
         </svg>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、役割・構造の考え方を図示",
+    illustrationNote: "カードの視覚デザインの規定はない",
   },
   {
     key: "nn",
@@ -185,6 +178,7 @@ function InfoBox({ label, accent, children }) {
 }
 
 function UseCaseList({ items }) {
+  if (!items || !items.length) return <NoData>記載なし</NoData>;
   return (
     <ul style={styles.useCaseList}>
       {items.map((it, i) => (<li key={i} style={styles.useCaseItem}>{it}</li>))}
@@ -332,7 +326,7 @@ export default function ContainmentCardPage() {
               Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けだ。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要だ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cはカードについて定めていない。<strong>「記事」の役割(独立した領域)</strong>は、カードの内容が単独でも意味を持つ記事・投稿などの場合に使える<strong>一つの例</strong>だ(AI解釈)。単なるレイアウトの入れ物や操作のまとまりなら、内容に合う別の構造にする。また、<strong>カード全体を押せるようにするなら、中に別のボタンやリンクを入れ子にしない</strong>のが安全だ(支援技術で正しく扱えないため)。これは、NN groupが定義する「完全な情報ではなく詳細への入り口となる要約」という性質と、意味的に近い関係にある。
+              W3Cはカードについて定めていない。押せるカードには、ほかのコンポーネントと同じく<strong>ターゲットサイズ(2.5.8・例外あり)</strong>と、境界線などの<strong>非テキストのコントラスト(1.4.11)</strong>がかかる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

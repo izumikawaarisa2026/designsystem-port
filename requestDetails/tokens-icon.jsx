@@ -29,18 +29,17 @@ const SOURCES = [
     name: "Apple",
     doc: "SF Symbols(Human Interface Guidelines ― Foundations)",
     color: "#C2542A",
-    position: "システムフォント San Francisco と連動する9段階のウェイト・3段階のスケール・4種類のレンダリングモードを持つシンボル体系",
-    size: "スケールは3段階(small / medium(既定) / large)で、San Franciscoのキャップハイト(大文字の高さ)が基準。シンボルは隣の文字のポイントサイズに合わせて表示し、スケールで文字に対する強弱を調整する。スケールごとのptの数値はない。",
-    colorInfo: "4つのレンダリングモードで色の付け方が変わる。モノクローム(単色、最も中立的)・階層的(1つの色相の濃淡で奥行きを表す)・パレット(2色以上のコントラストで要素を強調)・マルチカラー(シンボル自体が複数の色を持つ)。",
+    position: "システムフォントと連動する9段階のウェイト・3段階のスケール・4種類のレンダリングモードを持つシンボル",
+    size: <>隣の文字のサイズに合わせて表示し、<Hl>3段階のスケール</Hl>(small/medium/large)で強弱を調整する。ptの数値はない。</>,
+    colorInfo: "4つのモード: モノクローム(単色)・階層的(濃淡で奥行き)・パレット(2色以上で強調)・マルチカラー。",
     stance:
-      <>ウルトラライトからブラックまでの9段階のウェイトが、<Hl>隣の文字のSan Franciscoのウェイトと対応し</Hl>、シンボルと文字が調和する。スケール(small/medium(既定)/large)はキャップハイトが基準で、同じポイントサイズの文字とのウェイトの対応を崩さずに強弱を調整できる。選択状態はfill、使えない状態はslashといった種類で表せる。</>,
+      <>9段階のウェイトが<Hl>隣の文字のウェイトと対応し</Hl>、文字と調和する。選択状態は塗り(fill)、使えない状態は斜線(slash)で表せる。</>,
     exceptions:
-      "どのモードを使うかの決まりはない。サイズや背景とのコントラストで細部の見えやすさが変わるため、使う場所ごとに見え方を確かめる。自動設定でシンボルごとの推奨モードも使える。可変カラー(Variable color)は量や強さの変化を表すもので、奥行きには使わない(奥行きは階層的モード)。",
-    accessibility: "知覚可能(Perceivable) ― 専用の数値基準はないが、どのモードでもシステムカラーを使えば、アクセシビリティの設定やダークモードに自動で追従する。アイコン単体の意味の伝え方はW3C(1.1.1/4.1.2)を参照。",
+      "モードの決まりはなく、使う場所ごとに見え方を確かめる。可変カラーは量の変化を表すもので、奥行きには使わない。",
+    accessibility: "知覚可能 ― システムカラーを使えば、アクセシビリティの設定やダークモードに追従する。",
     useCases: [
       "隣の文字のウェイトに合わせてシンボルのウェイトを選ぶ",
-      "文脈に応じてスケール(small/medium/large)を使い分ける",
-      "中立に見せたいならモノクローム、強調したいならパレット/マルチカラーを検討する",
+      "中立ならモノクローム、強調ならパレット/マルチカラー",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/sf-symbols#Weights-and-scales",
@@ -67,23 +66,22 @@ const SOURCES = [
     name: "Google",
     doc: "Material Symbols(Material Design 3)",
     color: "#2F7D6E",
-    position: "Outlined / Rounded / Sharpの3スタイル(可変フォントのfill軸で塗りも表せる)。fill/weight/grade(太さの細かい調整)/optical size(表示サイズに合わせた線の太さの調整)の4軸を持つ可変フォント",
-    size: "オプティカルサイズ(opsz)軸は20〜48dp。表示サイズを変えても同じ見た目になるよう、線の太さが自動で調整される。Google Fontsから読み込んだときの既定値はopsz 48・weight 400・grade 0・fill 0。",
+    position: "Outlined/Rounded/Sharpの3スタイル。塗り・太さ・グレード・光学サイズの4軸を持つ可変フォント",
+    size: <><Hl>標準24dp</Hl>。光学サイズは20〜48dpで、表示サイズに合わせて線の太さが自動で調整される。</>,
     colorInfo: <span><NoData>数値基準なし。</NoData>weight軸・grade軸で、太さ・濃さの印象を調整できる。</span>,
     glossary: [
-      { term: "fill軸", desc: "塗りの有無を切り替える軸。0が既定(輪郭のみ)、1が完全な塗りで、1つのアイコンで未選択/選択の両方を表せる。状態の切り替えのアニメーションにも使う。別の「Filledフォント」ではなく、Outlined/Rounded/Sharpそれぞれの可変フォントの1軸。" },
-      { term: "optical size(opsz)軸", desc: "20〜48dpでアイコンの表示サイズを指定する軸。値に合わせて線の太さが自動で調整され、サイズを変えても同じ見た目に保たれる。" },
-      { term: "weight軸・grade軸", desc: "weightは線の太さで、thin(100)〜bold(700)の範囲。gradeはweightより細かい太さの調整で、アイコンの大きさへの影響が小さい。暗い背景の明るいアイコンのにじみを抑えるには低いgrade(例: -25)、強調には高いgrade(例: 200)を使う。" },
+      { term: "fill軸", desc: "塗りの軸。0=輪郭のみ、1=塗り。1つのアイコンで未選択/選択を表せる。" },
+      { term: "optical size(opsz)軸", desc: "20〜48dpで表示サイズを指定し、線の太さを自動で調整する軸。" },
+      { term: "weight軸・grade軸", desc: "weightは線の太さ(100〜700)。gradeは大きさを変えずに太さを細かく調整する。" },
     ],
     stance:
-      <>Material Symbolsは、Outlined(密なUIに向く軽く整ったスタイル)・Rounded(角丸で、太めの文字やロゴと調和)・Sharp(直線的で、小さくても見やすい)の3スタイル。別の「Filled」フォントはなく、各スタイルのfill軸で塗りを表す。fill・weight・grade・optical sizeの4軸で、<Hl>1つのフォントファイルで幅広い見た目を表せる</Hl>。</>,
-    exceptions: "gradeは、暗い背景の明るいアイコンのにじみを抑えるなら低い値(例: -25)、強調したいなら高い値(例: 200)にする。文字のフォントがgrade軸を持つなら、文字とアイコンのgradeをそろえると調和する。",
+      <>Outlined(密なUI向き)・Rounded(角丸)・Sharp(直線的)の3スタイル。塗りは各スタイルの軸で表し、<Hl>1つのフォントで幅広い見た目を表せる</Hl>。</>,
+    exceptions: "暗い背景の明るいアイコンは低いグレード(例: -25)、強調は高いグレード(例: 200)にする。",
     accessibility:
-      "操作可能(Operable)・知覚可能(Perceivable) ― アイコン単体の意味の伝え方はW3C(1.1.1/4.1.2)を参照。Material Symbols専用のアクセシビリティの数値基準はない。",
+      "知覚可能 ― 専用の数値基準はない。",
     useCases: [
-      "密なUIにはOutlined、丸みのあるブランドにはRounded、直線的で小さいスケールにはSharpを選ぶ",
-      "表示サイズに合わせてoptical size軸を調整し、線の太さを整える",
-      "塗りの状態(選択中など)はfill軸で表す(別のスタイルに切り替えない)",
+      "密なUIにはOutlined、丸みのあるブランドにはRounded",
+      "選択中などの塗りはfill軸で表す",
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/icons/overview",
@@ -112,28 +110,25 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
-    position: "意味を持つアイコンには代替テキスト(レベルA)、アイコンだけの操作要素にはプログラムで取得できる名前(レベルA)、UIコンポーネントとして働くアイコンには3:1のコントラスト(レベルAA)を求める、などの主な基準",
-    size: <span>アイコン専用の数値基準はない。アイコンを押せるコンポーネントとして使う場合は、2.5.8(AA)の24×24 CSS px以上(例外あり。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>のページ)。より高い水準の2.5.5(AAA)では44×44 CSS px以上(例外あり)。</span>,
-    colorInfo: "1.4.11により、UIコンポーネントを見分けるのに必要な見た目(境界線・フォーカス表示・選択状態など)と、情報を伝えるのに必要な図の一部(アイコン・図表の線など)は、隣の色と3:1以上にする(無効な要素は除外)。ロゴ・旗・写真など、見た目そのものが意味を持つものは例外。",
+    position: "意味を持つアイコンに代わりの文字(A)、アイコンだけの操作に支援技術へ伝わる名前(A)、3:1のコントラスト(AA)を求める",
+    size: <span>アイコン専用の基準はない。押せるなら24×24 CSS px以上(2.5.8・AA、例外あり)、44×44(2.5.5・AAA、例外あり)。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>。</span>,
+    colorInfo: <>意味を伝えるアイコンは<Hl>隣の色と3:1以上</Hl>(1.4.11)。</>,
     glossary: [
-      { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える文字以外のコンテンツ(アイコン・画像など)に、同じ目的を果たす文字の代替を用意すること。アイコンが操作要素(ボタンなど)なら、見た目の説明ではなく「その操作の目的を説明する名前」が要る。" },
-      { term: "4.1.2 Name, Role, Value(レベルA)", desc: "すべてのUIコンポーネントの名前と役割を、プログラムで判別できるようにすること。名前は見えなくてもよいが、支援技術が取得・通知できる形で必要。アイコンだけのボタンに、支援技術向けの名前を付けるのが代表例。" },
-      { term: "1.4.11 Non-text Contrast(レベルAA)", desc: "UIコンポーネントを見分けるのに必要な見た目と、理解に必要な図の一部に、隣の色と3:1以上を求める。2.999:1のようなわずかな未達も不合格になる厳密な基準。" },
+      { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える文字以外のコンテンツに、同じ目的を果たす文字の代替を用意すること。" },
+      { term: "4.1.2 Name, Role, Value(レベルA)", desc: "UIコンポーネントの名前と役割を、支援技術に伝えること。" },
+      { term: "1.4.11 Non-text Contrast(レベルAA)", desc: "コンポーネントを見分ける見た目と、理解に必要な図の一部に3:1以上を求める。" },
       { term: "3.2.4 Consistent Identification・レベルAA", desc: "ページをまたいで出てくる同じ働きのコンポーネントを、一貫して識別できること。文言が完全に同じでなくてよい。" },
-      { term: "2.5.3 Label in Name(レベルA)", desc: "見えるラベル(文字)があるコンポーネントは、支援技術向けの名前にもその言葉を含めること。食い違うと、音声入力でラベルの言葉を言っても反応しない。" },
+      { term: "2.5.3 Label in Name(レベルA)", desc: "見えるラベルの言葉を、支援技術向けの名前にも含めること(食い違うと音声入力で反応しない)。" },
     ],
     stance:
-      <>1.1.1は、意味を伝える文字以外のコンテンツに、同じ情報を別の形(視覚・聴覚・触覚のどれでも認識できる形)で伝える代替テキストを求める。短い代替で伝えきれればそれでよいが、複雑な図表などでは長い説明が要る。アイコンが操作要素なら、<Hl>見た目の説明ではなく「その操作が何をするか」を説明する名前が要る</Hl>。4.1.2は、すべてのUIコンポーネントの名前・役割をプログラムで判別できるようにすること(名前は見えなくてもよいが、支援技術にはいつも伝わる必要がある)。1.4.11は、UIコンポーネントを見分ける見た目と理解に必要な図の一部に3:1以上を求める。3.2.4(レベルAA)は、ページをまたいで出てくる同じ働きのコンポーネントを一貫して識別できること。全ページ共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ意味が伝わる名前(代替テキスト)を付ける。</>,
+      <>意味を持つアイコンに代わりの文字を付ける(1.1.1)。操作のアイコンなら、<Hl>見た目ではなく「何をするか」を表す名前</Hl>にする。名前は見えなくてもよいが、支援技術に伝わる必要がある(4.1.2)。同じ働きのアイコンは、どのページでも同じ名前にする(3.2.4・AA)。</>,
     exceptions:
-      "1.4.11は、無効(非アクティブ)なコンポーネントにはかからない。ロゴ・旗・写真など、見た目そのものが情報として欠かせない場合も例外。1.1.1も、装飾だけで情報を持たない画像は対象外。",
+      "無効なコンポーネント・ロゴ・旗は1.4.11の対象外。装飾だけの画像は1.1.1の対象外。",
     accessibility:
-      "知覚可能(Perceivable)・堅牢(Robust) ― 1.1.1(文字の代替)と1.4.11(見分けやすさ)は「知覚可能」、4.1.2(支援技術に伝える)は「堅牢」で、それぞれ別の失敗を防ぐ。3.2.4は「理解可能(Understandable)」の予測可能(3.2)、2.5.3は「操作可能(Operable)」の入力方法(2.5)。",
+      "知覚可能(1.1.1・1.4.11)・堅牢(4.1.2)・理解可能(3.2.4)・操作可能(2.5.3)。",
     useCases: [
-      "意味を持つアイコンには代替テキストを用意する(装飾目的のみの場合は不要)",
-      "アイコンだけのボタン・リンクには、支援技術向けの名前を必ず付ける",
-      "UIコンポーネントとして働くアイコン・境界線は、隣の色と3:1以上にする(無効な状態・ロゴなどの例外を除く)",
-      "全ページ共通のアイコンボタンには、どのページでも同じ意味が伝わる名前を付ける(3.2.4)",
-      "見えるラベルを付けたアイコンは、支援技術向けの名前にも同じ言葉を含める(2.5.3)。食い違うと、音声入力でラベルの言葉を言っても反応しない",
+      "アイコンだけのボタン・リンクに名前を付ける",
+      "見えるラベルがあれば、名前にも同じ言葉を含める(2.5.3)",
     ],
     searchHint: "describes its purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html",
@@ -161,18 +156,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Icon Usability",
     color: "#7A4F7E",
-    position: "アイコン単体の意味は標準化されていないことが多く、文字のラベルを添えるのが原則。アイコンにするかを5秒ルールで判断し、再認テスト・記憶テストで確かめる",
-    size: <span><NoData>数値基準なし。</NoData>押すのに十分な大きさを持たせつつ場所を節約できる点を、アイコンの利点に挙げる。</span>,
+    position: "アイコン単体の意味は決まっていないことが多く、文字のラベルを添えるのが原則",
+    size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>アイコンは押しやすく、場所を節約でき、見慣れたものなら素早く分かり、言語を越えて通じ、見た目を一貫させる。一方「アイコンの理解は過去の経験にもとづく」ため、多くのアイコンは意味が標準化されておらず曖昧になる。例は、ハンバーガーメニュー(一覧を表す場合もある)やハート(お気に入り・保存・評価など用途がまちまち)。そのため、<Hl>ほぼすべてのアイコンに意味を補う文字のラベルが要り</Hl>、ホバーなどの操作なしでいつも見せる。標準的なアイコンでも、見た目を少し変えたならラベルを付けるほうが安全。</>,
+      <>アイコンの理解は過去の経験によるので、意味が曖昧になりやすい(例: ハートはお気に入り・保存・評価とまちまち)。<Hl>ほぼすべてのアイコンに、いつも見える文字のラベルを添える</Hl>。</>,
     exceptions:
-      "ふさわしいアイコンを思いつくのに5秒以上かかるなら、アイコンで意味を伝えるのは難しい(5秒ルール)。デザインはシンプルで図式的にし、小さくすると潰れる細部は避ける。競合やプラットフォームの慣習を先に調べる(利用者の期待は既存のパターンに従いやすい)。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、認識しやすさ(recognizability)・覚えやすさ(memorability)のユーザビリティ調査にもとづく指針。",
+      "ふさわしいアイコンを思いつくのに5秒以上かかるなら、アイコンにしない(5秒ルール)。小さくすると潰れる細部は避ける。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、認識しやすさ・覚えやすさの調査にもとづく。",
     useCases: [
-      "意味が標準化されていないアイコンには、いつも見える文字のラベルを添える(ホバーのときだけ出すのは避ける)",
-      "出す前に再認テスト(何を意味するか)と記憶テスト(数週間後も覚えているか)を行う",
-      "シンプルで図式的にし、小さくしても潰れないようにする",
+      "ラベルはホバーのときだけ出さず、いつも見せる",
+      "出す前に、意味が分かるか・覚えられるかをテストする",
     ],
     searchHint: "5-second rule",
     url: "https://www.nngroup.com/articles/icon-usability/",
@@ -220,23 +214,8 @@ function IconAnatomy() {
   }
   return (
     <div style={styles.anatomyWrap}>
-      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Googleのアイコンの24dpグリッド">
-        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#2F7D6E" fontFamily={font}>Google ― 24dpのグリッド</text>
-        {grid}
-        <rect x={ox} y={oy} width={24 * u} height={24 * u} fill="none" stroke="#2F7D6E" strokeWidth="1.2" />
-        <rect x={ox + 2 * u} y={oy + 2 * u} width={20 * u} height={20 * u} fill="rgba(47,125,110,0.06)" stroke="#2F7D6E" strokeDasharray="4 3" />
-        <circle cx={ox + 12 * u} cy={oy + 12 * u} r={10 * u} fill="none" stroke="#A3821F" strokeDasharray="2 2" />
-        <path d={starPath(ox + 12 * u, oy + 12.6 * u, 8.6 * u)} fill="none" stroke="#2F7D6E" strokeWidth={2 * u * 0.55} strokeLinejoin="round" />
-        <text x={ox + 24 * u + 6} y={oy + 8} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>24dp</text>
-        <text x={ox + 24 * u + 6} y={oy + 20} fontSize="8" fill="#454C78" fontFamily={font}>全体</text>
-        <text x={ox + 24 * u + 6} y={oy + 48} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>20dp</text>
-        <text x={ox + 24 * u + 6} y={oy + 60} fontSize="8" fill="#454C78" fontFamily={font}>描く範囲</text>
-        <text x={ox + 24 * u + 6} y={oy + 88} fontSize="8.5" fill="#A3821F" fontFamily={mono}>円 20dp</text>
-        <text x={ox + 24 * u + 6} y={oy + 100} fontSize="8" fill="#454C78" fontFamily={font}>基準の形</text>
-        <text x={ox + 24 * u + 6} y={oy + 128} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>線 2dp</text>
-        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#666D93" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
-      </svg>
-      <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Appleのシンボルと文字の太さ・大きさの合わせ方">
+      <figure style={styles.anatomyFig}>
+        <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Appleのシンボルと文字の太さ・大きさの合わせ方">
         <text x="0" y="14" fontSize="11" fontWeight="700" fill="#C2542A" fontFamily={font}>Apple ― 隣の文字に合わせる</text>
         {[{ w: 300, sw: 1.2, l: "Light" }, { w: 400, sw: 2, l: "Regular" }, { w: 700, sw: 3.4, l: "Bold" }].map((r, i) => (
           <g key={r.l}>
@@ -255,15 +234,36 @@ function IconAnatomy() {
         ))}
         <text x="0" y="228" fontSize="8" fill="#666D93" fontFamily={font}>同じ文字サイズのまま、シンボルの大きさを3段階で調整</text>
       </svg>
+        <figcaption style={styles.anatomyCap}>アイコンの大きさや太さを、アイコン単体では決めない。<strong>横に並ぶ文字の太さ(9段階)と大きさに合わせて</strong>表示され、文字とそろって見える。</figcaption>
+      </figure>
+      <figure style={styles.anatomyFig}>
+        <svg viewBox="0 0 250 230" style={{ width: "100%", maxWidth: 300 }} role="img" aria-label="Googleのアイコンの24dpグリッド">
+        <text x="0" y="14" fontSize="11" fontWeight="700" fill="#2F7D6E" fontFamily={font}>Google ― 24dpの枠の中に描く</text>
+        {grid}
+        <rect x={ox} y={oy} width={24 * u} height={24 * u} fill="none" stroke="#2F7D6E" strokeWidth="1.2" />
+        <rect x={ox + 2 * u} y={oy + 2 * u} width={20 * u} height={20 * u} fill="rgba(47,125,110,0.06)" stroke="#2F7D6E" strokeDasharray="4 3" />
+        <circle cx={ox + 12 * u} cy={oy + 12 * u} r={10 * u} fill="none" stroke="#A3821F" strokeDasharray="2 2" />
+        <path d={starPath(ox + 12 * u, oy + 12.6 * u, 8.6 * u)} fill="none" stroke="#2F7D6E" strokeWidth={2 * u * 0.55} strokeLinejoin="round" />
+        <text x={ox + 24 * u + 6} y={oy + 8} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>24dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 20} fontSize="8" fill="#454C78" fontFamily={font}>全体</text>
+        <text x={ox + 24 * u + 6} y={oy + 48} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 60} fontSize="8" fill="#454C78" fontFamily={font}>描く範囲</text>
+        <text x={ox + 24 * u + 6} y={oy + 88} fontSize="8.5" fill="#A3821F" fontFamily={mono}>円 20dp</text>
+        <text x={ox + 24 * u + 6} y={oy + 100} fontSize="8" fill="#454C78" fontFamily={font}>基準の形</text>
+        <text x={ox + 24 * u + 6} y={oy + 128} fontSize="8.5" fill="#2F7D6E" fontFamily={mono}>線 2dp</text>
+        <text x={ox} y={oy + 24 * u + 16} fontSize="8" fill="#666D93" fontFamily={font}>周りに2dpの余白。角の丸みは2dpが基本</text>
+      </svg>
+        <figcaption style={styles.anatomyCap}>アイコンは<strong>24dpの正方形の枠</strong>の中に描く(方眼の1マス=1dp)。周りの2dpは余白で、絵は<strong>内側の20dp(点線)</strong>に収める。丸い形は直径20dpの円(金色)を目安にし、線は2dpの太さで描く。こうすると、どのアイコンも同じ大きさ・太さに見える。</figcaption>
+      </figure>
     </div>
   );
 }
 
 const STYLE_ROWS = [
-  { k: "考え方", hig: "単純で、すぐに分かる形にする。身近な比喩を使い、アプリの中のアイコンは大きさ・細かさ・線の太さ・視点をそろえる", material: "単純・現代的・親しみやすく、ときに遊び心がある形。細く頼りない線ではなく、くっきり太めに描く。1つのセットの中でスタイルを混ぜない" },
-  { k: "形", hig: "非対称の形は、図形の中心ではなく見た目の中心に合わせる(余白を含めた画像にする)。状態は塗り(fill)・斜線(slash)・囲み(enclosed)の形の違いで表す", material: "24dpのグリッドの中、20dpの範囲に描く。基準の形(正方形18dp・円20dp・縦長20×16dp・横長16×20dp)で大きさをそろえる。角の丸みは2dp。スタイルはアウトライン・ラウンド・シャープの3種類" },
-  { k: "線の太さ", hig: "ウルトラライトからブラックまでの9段階。San Franciscoの文字の太さと対応し、隣の文字と同じ太さにするのが基本", material: "標準は2dp(太さ400)。100〜700で変えられるが、24dpでは200より細くしない。光学サイズ(20〜48dp)で、大きさが変わっても線の太さが自然に見えるよう自動で調整する" },
-  { k: "色", hig: "形は黒と透明で作り、色はシステムが付ける。色の付け方は4つのモード(単色・階層・パレット・マルチカラー)。量の変化には可変カラーを使い、奥行きの表現には使わない", material: "塗り(Fill 0〜1)で未選択と選択を切り替える(例: ナビゲーションバー)。暗い背景の明るいアイコンは太く見えやすいため、グレード-25で細く補正する。色の意味は文化で違う(赤と緑の警告など)" },
+  { k: "考え方", hig: "単純ですぐ分かる形。大きさ・細かさ・線の太さ・視点をそろえる", material: "単純で親しみやすい形。くっきり太めに描き、スタイルを混ぜない" },
+  { k: "形", hig: "見た目の中心に合わせる。状態は塗り・斜線・囲みで表す", material: "24dpの枠の内側20dpに描く(上の図)。スタイルはアウトライン・ラウンド・シャープの3種類" },
+  { k: "線の太さ", hig: "9段階。隣の文字と同じ太さにする", material: "標準2dp(太さ400)。24dpでは200より細くしない。光学サイズで自動で調整する" },
+  { k: "色", hig: "色はシステムが付ける。4つのモード(単色・階層・パレット・マルチカラー)", material: "塗り(Fill 0〜1)で未選択と選択を切り替える。暗い背景ではグレード-25で細く補正する" },
 ];
 
 function IconStyleTable() {
@@ -445,17 +445,16 @@ function IconSwatch() {
 const LEAD = "アイコンの大きさ・線の太さなどのスタイルと、意味の伝え方の決まり";
 const ABOUT = [
   { k: "目的・役割", v: "小さな絵で操作や内容を伝え、見た目をそろえる" },
-  { k: "関わる場面", v: "ツールバーのボタン、ナビゲーションバーの項目、リストの先頭の印" },
-  { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
+  { k: "関わる場面", v: "ツールバーのボタン、タブバーの項目、リストの先頭の印" },
+  { k: "関連するページ", v: <><PageLink to="/components/actions/button">ボタン</PageLink>、<PageLink to="/components/communication/tooltip">ツールチップ</PageLink>、<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>、<PageLink to="/components/actions/fab">フローティングアクションボタン</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "隣の文字とそろえる", d: "線の太さと大きさを、横の文字に合わせる", who: "Apple・Google" },
   { n: 2, t: "文字のラベルを添える", d: "アイコンだけでは意味が1つに決まらないことが多い", who: "NN group" },
-  { n: 3, t: "アイコンだけのボタンには名前を付ける", d: "見えるラベルがなくても、支援技術に伝わる名前が要る", who: "W3C 4.1.2・1.1.1" },
-  { n: 4, t: "背景との差を確かめる", d: "意味を伝えるアイコンは背景と3:1以上", who: "W3C 1.4.11" },
-  { n: 5, t: "押せる範囲はアイコンより広く", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+  { n: 3, t: "背景との差を確かめる", d: "意味を伝えるアイコンは背景と3:1以上", who: "W3C 1.4.11" },
+  { n: 4, t: "押せる範囲の最低限の大きさを確保する", d: "アイコンが小さくても、押せる範囲はApple 44×44pt・Google 48×48dp以上にする", who: "Apple・Google" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -510,7 +509,7 @@ export default function TokensIconPage() {
 
           <section style={{ marginBottom: 40 }}>
             <h2 style={styles.diagramTitle}>アイコンのスタイルの考え方 ― 形・線の太さ・色</h2>
-            <p style={styles.diagramNote}>アイコンの描き方を決めているのはAppleとGoogleだ。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>ことを求めている。W3Cは形や色を定めず、意味を伝えるアイコンに背景との3:1のコントラスト(1.4.11)と代わりの文字(1.1.1)を求める。NN groupも描き方は定めず、文字のラベルを添えることを勧めている。</p>
+            <p style={styles.diagramNote}>描き方を決めているのはAppleとGoogle(左がApple、右がGoogle)。どちらも<Hl>隣の文字と線の太さ・大きさをそろえる</Hl>。W3CとNN groupは描き方を定めない。</p>
             <IconAnatomy />
             <IconStyleTable />
             <p style={styles.diagramNote}>出典: HIG「Icons」「SF Symbols」、Material Design 3「Designing icons」「Applying icons」。</p>
@@ -530,13 +529,10 @@ export default function TokensIconPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Apple・Googleはどちらも<strong>可変的なアイコン体系(SF Symbols / Material Symbols)</strong>を持ち、単一のスタイルではなく複数のウェイト・スタイル・サイズを1つのフォント技術で連続的に切り替えられるようにしている。Appleは<strong>隣接するテキストとのウェイト一致</strong>を重視し、Googleは<strong>optical size軸によるストローク幅の自動最適化</strong>を重視するなど、同じ「可変フォント」的アプローチでも力点が異なる。
+              Apple・Googleは、太さ・大きさを切り替えられるアイコンの体系(SF Symbols/Material Symbols)を持つ。力点は違い、<strong>Appleは隣の文字と太さをそろえ</strong>、<strong>Googleは24dpの枠と光学サイズで線の太さをそろえる</strong>。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、アイコンそのものの見た目ではなく<strong>「意味がちゃんと伝わるか」を3段階(代替テキスト・プログラム的な名前・コントラスト比)で規定</strong>している。特に4.1.2は、アイコンのみのボタンに視覚的なラベルがなくても、支援技術に伝わる名前さえあれば基準を満たせるとしており、Apple・Googleのようなビジュアル面の柔軟性とは別の軸の要求だ。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupの指摘は、Apple・Googleが提供する洗練されたアイコン体系があっても<strong>「アイコン単体の意味は標準化されていないことが多い」</strong>という現実を突いている。5秒ルールや再認・記憶テストといった実務的な検証手法は、W3Cの「プログラム的な名前」という技術要件だけでは解決しない、<strong>視覚的に見ただけで意味が伝わるか</strong>という別の問題を扱っている。
+              W3Cは見た目ではなく、<strong>意味が伝わるか</strong>(代わりの文字・支援技術に伝わる名前・<strong>3:1</strong>)を求める。NN groupは、<strong>アイコン単体の意味は決まっていないことが多い</strong>とし、文字のラベルを添えるよう勧める。名前を付けてもアイコンだけでは見て分からないことがあるので、ラベルとテストで確かめる(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -632,6 +628,8 @@ export default function TokensIconPage() {
 }
 
 const styles = {
+  anatomyFig: { margin: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 6, flex: "1 1 260px", minWidth: 0 },
+  anatomyCap: { fontSize: 11.5, lineHeight: 1.7, color: "#2E3457", maxWidth: 320 },
   anatomyWrap: { display: "flex", gap: 20, flexWrap: "wrap", justifyContent: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 12px", marginBottom: 14 },
   styleTable: { width: "100%", minWidth: 620, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   styleTh: { textAlign: "left", fontSize: 12, fontWeight: 700, padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },

@@ -78,7 +78,7 @@ export const NAV_SECTIONS = [
     title: "Navigation",
     items: [
       { label: "Navigationの選び方", path: "/components/navigation/overview", built: true },
-      { label: "ナビゲーションバー", path: "/components/navigation/nav-bar", built: true },
+      { label: "タブバー", path: "/components/navigation/nav-bar", built: true },
       { label: "ドロワー/サイドナビ", path: "/components/containment/drawer", built: true },
       { label: "アプリバー", path: "/components/navigation/app-bar", built: true },
       { label: "タブ", path: "/components/navigation/tabs", built: true },

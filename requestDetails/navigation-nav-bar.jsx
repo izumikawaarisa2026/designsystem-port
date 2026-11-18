@@ -3,7 +3,9 @@ import SidebarNav from "./sidebar-nav";
 import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
 
 /**
- * コンポーネントレイヤー「Navigation / ナビゲーションバー」ページ。
+ * コンポーネントレイヤー「Navigation / タブバー」ページ(URLは /nav-bar/ のまま)。
+ * 2026-11 ⑦本人レビューで「ナビゲーションバー」から改名(Googleの呼び名は下部、Apple・NN groupの呼び名は上部の
+ * バーを指し、1つの言葉が2つのコンポーネントを指すため)。「ナビゲーションバー」はGoogleの名前を示すときだけ使う。
  *
  * 2026-09 再考(ユーザー指摘による): 当初はAppleの「戻るボタンを持つ上部バー」
  * (Toolbars/旧Navigation Bars)を軸に4系列を並べていたが、Google(Navigation bar =
@@ -66,7 +68,7 @@ const SOURCES = [
     refs: [
       { label: "Tab Bars", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
-    confirmedNote: "「タブ」ページで直接取得・確認済みの内容と同一の一次情報です(2026-09)。Appleには「Navigation bar」という名前の別コンポーネントはなく、Googleの同名コンポーネントに対応するのはこのTab Barsです(Appleが別に「Navigation Bars」と呼んでいた上部バーについては「アプリバー」ページを参照)。",
+    confirmedNote: "「タブ」ページで直接取得・確認済みの内容と同一の一次情報(2026-09)。GoogleのNavigation barに対応するのはこのTab Bars(Appleが別に「Navigation Bars」と呼んでいた上部バーは「アプリバー」ページ)。",
     illustration: () => (
       <svg width="120" height="26" viewBox="0 0 120 26">
         <rect x="1" y="1" width="118" height="24" rx="4" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
@@ -81,15 +83,15 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Navigation bar(画面下部)",
-    term: "Navigation bar",
+    term: "Navigation bar(Googleの呼び名はナビゲーションバー)",
     color: "#2F7D6E",
-    position: "画面下部に常にあるバー(3〜5個の主な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。Appleの「Tab Bars」と同じ役割",
+    position: "画面下部に常にあるバー(3〜5個の主な行き先)。コンパクト/中サイズのウィンドウ専用(モバイル/タブレットのみ)。AppleのTab barと同じ役割",
     size:
       <span><Hl>高さ64dp</Hl>(高い形は80dp。Jetpack Composeのトークン)。幅はいつもウィンドウいっぱい。文字を大きくしても2倍まではラベルを切らない。</span>,
     colorInfo:
       "選択中は塗りのアイコン+太字、それ以外は枠線のアイコン。アイコンはコンテナと3:1以上。",
     glossary: [
-      { term: "ベースライン変異体 / フレキシブルナビゲーションバー", desc: "従来の見た目(ベースライン)は推奨されなくなり、より低く、中サイズのウィンドウで横型の項目に対応する「フレキシブルナビゲーションバー」への置き換えを案内している。" },
+      { term: "ベースライン / フレキシブル(Flexible navigation bar)", desc: "従来の見た目(ベースライン)は推奨されなくなり、より低く、中サイズのウィンドウで横型の項目に対応する「フレキシブル」の型への置き換えを案内している。" },
       { term: "状態を保持する / 状態のリセット", desc: "項目を選んだときの2つの動き。「状態を保持する」は各行き先のスクロール位置・タブ・検索の状態を覚えておく。「状態のリセット」は毎回既定の画面に戻す。セクションを頻繁に行き来するアプリには前者が合う。" },
     ],
     stance:
@@ -117,7 +119,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画面下部のNavigation bar(概念図・系列識別色)。上部アプリバーは別コンポーネント",
+    illustrationNote: "画面下部のタブバー(概念図・系列識別色)。上部のアプリバーは別のコンポーネント",
   },
   {
     key: "wcag",
@@ -164,13 +166,13 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Basic Patterns for Mobile Navigation: A Primer",
-    term: "Tab bar(下部のバー。このページの対象)・Navigation bar(上部のバー)",
+    term: "Tab bar",
     color: "#7A4F7E",
     position: <>上と下のどちらに置くかで一長一短があり、<Hl>選択肢が少ない場合に向く</Hl>(数値基準ではなく使い分けの指針)</>,
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分な押せる範囲を保つのが難しい。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>上部のバー(Navigation bar)は画面上部の貴重な場所を取り、下部のタブバーはスクロールしても出続ける。<Hl>どちらも選択肢の少ないアプリ向け</Hl>。</>,
+      <>上部のバーは画面上部の貴重な場所を取り、下部のタブバーはスクロールしても出続ける。<Hl>どちらも選択肢の少ないアプリ向け</Hl>。</>,
     exceptions:
       "ロゴ・検索・アカウントのリンクと並べると、場所の取り合いになる。",
     accessibility:
@@ -248,10 +250,10 @@ function TopBarPointerSection() {
     <div style={styles.columnCard}>
       <div style={styles.columnHeadRow}>
         <span style={styles.columnLabel}>関連ページ</span>
-        <span style={styles.columnTitle}>Appleの旧「Navigation Bars」(上部の戻るバー)は別のコンポーネント</span>
+        <span style={styles.columnTitle}>上部のバーはアプリバー</span>
       </div>
       <p style={styles.columnIntro}>
-        Appleには元々「Navigation Bars」という名前のページ(戻るボタン+画面タイトルを持つ上部バー)があったが、これは上記で比較した<strong>「常設の主要セクション切り替えバー」とは別物</strong>だ。Googleの「アプリバー」(2025年5月改称、旧「Top app bar」)がほぼ正確な対応コンポーネントであること、W3C(バナー領域)・Nielsen Norman Group(Sticky Headers)にも関連する内容があることが分かったため、単独の4系列比較ページ<strong>「アプリバー」</strong>として切り出した。
+        戻るボタン・画面タイトル・関連する操作を持つ上部のバー(Appleの呼び名: ナビゲーションバー)は、このページのタブバーとは別のコンポーネント。Googleのアプリバーが対応し、4系列の比較は「アプリバー」のページにある。
       </p>
       <a href="/components/navigation/app-bar" style={styles.linkCard}>
         <div style={styles.linkCardTitle}>アプリバー ↗</div>
@@ -263,9 +265,9 @@ function TopBarPointerSection() {
 
 /* 名前の対応と、上部・下部の使い分け(No.041) */
 const NAME_MAP = [
-  { sys: "Apple", name: "Tab bar(タブバー)", note: "このページの対象。iOSは画面の下部、iPadOSは画面の上部近く。なお、戻るボタンを持つ上部のバーは、以前「Navigation bar」と呼ばれていた別のコンポーネント(→アプリバー)" },
-  { sys: "Google", name: "Navigation bar(ナビゲーションバー)", note: "このページの対象(このサイトのページ名はこの呼び名)。画面の下部、コンパクト・中サイズの画面向け" },
-  { sys: "NN group", name: "Tab bar(アプリ)/ Navigation bar(サイト)", note: "このページの対象はTab bar(アプリの下部)。サイトの上部に主な項目を並べるものはNavigation barと呼び、このページの対象とは別" },
+  { sys: "Apple", name: "Tab bar", note: "iOSは画面の下部、iPadOSは画面の上部近く。上部の「Navigation bar」はアプリバーのこと" },
+  { sys: "Google", name: "Navigation bar", note: "画面の下部。コンパクト・中サイズの画面向け" },
+  { sys: "NN group", name: "Tab bar", note: "アプリの下部。サイトの上部に主な項目を並べるものは「Navigation bar」と呼び、別のもの" },
 ];
 const POSITION_ROWS = [
   ["主な使われ方", "サイトの上部に主な項目を並べる(デスクトップ由来)", "アプリの主な場所を切り替える"],
@@ -277,8 +279,7 @@ const POSITION_ROWS = [
 function NameAndPosition() {
   return (
     <section style={{ marginBottom: 40 }}>
-      <h2 style={styles.diagramTitle}>呼び名の違い ― 「タブバー」と「ナビゲーションバー」</h2>
-      <p style={styles.npNote}>同じ役割のコンポーネントでも、系列によって呼び名が違う。<strong>このページの「ナビゲーションバー」はGoogleの呼び名で、AppleとNN groupの「タブバー」と同じもの</strong>。AppleとNN groupの「ナビゲーションバー」は、上部の別のバーを指す。</p>
+      <h2 style={styles.diagramTitle}>呼び名の違いと、上部・下部の置き場所</h2>
       <div style={{ overflowX: "auto", marginBottom: 16 }}>
         <table style={styles.npTable}>
           <thead><tr>{["系列", "呼び名", "メモ"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
@@ -288,7 +289,7 @@ function NameAndPosition() {
       <h3 style={styles.npSub}>主な項目のバーを上部に置く場合と、下部に置く場合(NN group)</h3>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.npTable}>
-          <thead><tr>{["", "上部のバー(NN groupの「Navigation bar」)", "下部のバー(このページ。Apple・NN groupの「Tab bar」)"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
+          <thead><tr>{["", "上部のバー", "下部のバー(タブバー)"].map((h) => (<th key={h} style={styles.npTh}>{h}</th>))}</tr></thead>
           <tbody>{POSITION_ROWS.map((r) => (<tr key={r[0]}><td style={{ ...styles.npTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.npTd}>{r[1]}</td><td style={styles.npTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
@@ -301,8 +302,9 @@ function NameAndPosition() {
 const LEAD = "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバー";
 const ABOUT = [
   { k: "目的・役割", v: "アプリのいちばん上の階層の行き先を常に見せ、1回で遷移できるようにする" },
+  { k: "呼び名", v: "Googleの呼び名はナビゲーションバー(Navigation bar)" },
   { k: "よく使われる場面", v: "SNS・ショッピングアプリの「ホーム・検索・通知・マイページ」" },
-  { k: "似たコンポーネント", v: <>画面の中の内容を切り替えるのは<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+  { k: "似たコンポーネント", v: <>同じ画面の中の内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>、行き先が多いときは<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -345,21 +347,18 @@ export default function NavigationNavBarPage() {
         <SidebarNav currentPath="/components/navigation/nav-bar" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / ナビゲーションバー</span>
+            <span>コンポーネント / タブバー</span>
             <span>SPEC No. 015</span>
           </div>
 
-          <h1 style={styles.title}>ナビゲーションバー</h1>
+          <h1 style={styles.title}>タブバー</h1>
           <SummaryCard keyPoints={KP}
             image={<><NavBarSwatch /></>}
-            imageNote={<>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。Appleでは「Tab Bars」、Googleでは「Navigation bar」と呼ばれる、同じ役割のコンポーネント。</>}
+            imageNote={<>主要な行き先(Googleは3〜5個)を常設で切り替えるバー。</>}
             lead={LEAD}
             rows={ABOUT}
           />
 
-          <div style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 14px", marginBottom: 24 }}>
-            <strong>呼び名の注意:</strong> このページの「ナビゲーションバー」は、<strong>画面下部で主な場所を切り替えるバー</strong>(GoogleのNavigation bar)。<strong>AppleとNN groupは同じものを「タブバー(Tab bar)」と呼ぶ</strong>。AppleとNN groupの「ナビゲーションバー」は上部のバーを指す別物(Appleの旧名は戻るボタン付きの上部バーで<PageLink to="/components/navigation/app-bar">アプリバー</PageLink>のページ、NN groupはサイト上部の主なメニュー)。
-          </div>
 
           <SplitSection splits={SPLITS} />
 
@@ -371,13 +370,13 @@ export default function NavigationNavBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>AppleのTab barとGoogleのNavigation barは同じ役割</strong>(画面下部に常にあり、アプリの主な場所を切り替える)。違いは数の決め方で、Appleは上限を示さず「少ないほどよい」とし、<strong>Googleは3〜5個</strong>と下限・上限を明記する。どちらも<strong>ラベルは必須</strong>(アイコンだけにしない)。
+              <strong>AppleのTab barとGoogleのNavigation bar(このページのタブバー)は同じ役割</strong>(画面下部に常にあり、アプリの主な場所を切り替える)。違いは数の決め方で、Appleは上限を示さず「少ないほどよい」とし、<strong>Googleは3〜5個</strong>と下限・上限を明記する。どちらも<strong>ラベルは必須</strong>(アイコンだけにしない)。
             </p>
             <p style={styles.synthesisText}>
               NN groupも、選択肢の少ないアプリ向けとする点で一致する。W3Cは見た目ではなく、<strong>ナビゲーションの領域として示し、全ページで同じ順番に並べる</strong>ことを求める。
             </p>
             <p style={styles.synthesisText}>
-              Appleが以前「Navigation Bars」と呼んでいた、戻るボタンとタイトルを持つ上部のバーは別物で、<a href="/components/navigation/app-bar" style={{ color: "#3A4FCF" }}>アプリバー</a>のページで比べている。
+              戻るボタンとタイトルを持つ上部のバーは別のコンポーネントで、<a href="/components/navigation/app-bar" style={{ color: "#3A4FCF" }}>アプリバー</a>のページで比べている。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

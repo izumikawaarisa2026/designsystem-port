@@ -59,7 +59,7 @@ const DRAWER_SOURCES = [
     position:
       <>コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。<Hl>5つ以上の主な行き先、または2階層を超える場合に使う</Hl></>,
     size:
-      <span>コンパクト・中サイズのブレークポイントではModal(またはナビゲーションバー/レールへの置き換え)を使う。Webでは画面幅が320 CSSピクセル未満なら、ナビゲーションバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
+      <span>コンパクト・中サイズのブレークポイントではModal(またはタブバー/ナビゲーションレールへの置き換え)を使う。Webでは画面幅が320 CSSピクセル未満なら、タブバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はデザイントークンで実装する。選択中の行き先は塗りのアイコン、未選択は枠線のアイコンで区別し、アクティブインジケーター(背景の図形)で今のページを示す。ドロワーの幅は360dp、インジケーターは高さ56dp・Secondary container・角丸Full、モーダルの容器はSurface container low・影Level 1(Jetpack ComposeのNavigationDrawerTokens)。</span>,
     glossary: [
@@ -69,7 +69,7 @@ const DRAWER_SOURCES = [
     stance:
       "大きなデバイスで画面を切り替えるコンポーネントで、目的の画面やアプリの機能(アカウントの切り替えなど)に届く。常に出すことも、メニューアイコンで開閉することもでき、いつも1つの行き先がアクティブ。よく訪れる行き先を上に置き、関連する行き先はまとめる。主な行き先が5つ以上、階層が2段を超える、関係のない行き先の間を素早く遷移したい、大きな画面でナビゲーションレール/バーの代わりにしたい、といった場合に勧める。",
     exceptions:
-      "ナビゲーションバーなどほかの主なナビゲーションと併用せず、要件とブレークポイントに合わせて1つを選ぶ(コンパクト→Navigation bar、中/拡張→Navigation rail、拡張/大/特大→Standardドロワー)。アイコンはすべての行き先に付けるか、どれにも付けないかにそろえる。",
+      "タブバーなどほかの主なナビゲーションと併用せず、要件とブレークポイントに合わせて1つを選ぶ(コンパクト→タブバー、中/拡張→ナビゲーションレール、拡張/大/特大→Standardドロワー)。アイコンはすべての行き先に付けるか、どれにも付けないかにそろえる。",
     accessibility:
       "操作可能(Operable) ― 項目のアクセシビリティラベルは通常、行き先の名前と同じで、ラベルが正しく結び付いていれば支援技術はラベルに続けて役割を読み上げる。Android Views(MDC-Android)は、詳しいラベルの設定や役割の読み上げに対応していない。表示が曖昧なら(例:「最近使用した項目」)、アクセシビリティラベルに補足を加える。",
     useCases: [
@@ -221,23 +221,23 @@ const RAIL_SOURCES = [
   {
     key: "material",
     name: "Google",
-    doc: "Material Design 3 ― Navigation rail(折りたたみ型・展開型)",
-    term: "Navigation rail(折りたたみ型・展開型)",
+    doc: "Material Design 3 ― Navigation rail(アイコンだけの形・項目名まで並ぶ形)",
+    term: "Navigation rail(アイコンだけの形・広げると項目名まで並ぶ形)",
     color: "#2F7D6E",
-    position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。折りたたみ型と、ドロワーの代わりになる展開型がある",
+    position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。アイコンだけの形と、ドロワーの代わりになる、広げると項目名まで並ぶ形がある",
     size: "幅96dp(M3 Expressive。以前は80dp)、項目の最小の高さ64dp(以前は60dp)。",
     colorInfo: <span>M3 Expressiveで、縦に並ぶ項目の選択中のラベルの色が「on surface variant」から「secondary」に変わった。</span>,
-    stance: <span>中くらいの画面で画面を切り替えるコンポーネント。M3 Expressiveで、<Hl>展開できるようになり、展開型がナビゲーションドロワーの代わり</Hl>とされた。展開型は非モーダルで、折りたたみ型に戻せる。M3の本文では、中・拡張のブレークポイントではナビゲーションレール、拡張・大・特大ではStandard(常時表示)のドロワーを使うとしている。</span>,
-    exceptions: "ナビゲーションドロワーは、ナビゲーションバーなどほかの主なナビゲーションと併用せず、画面の大きさに合わせて1つを選ぶ(コンパクト→ナビゲーションバー、中・拡張→ナビゲーションレール、拡張・大・特大→Standardドロワー)。",
+    stance: <span>中くらいの画面で画面を切り替えるコンポーネント。M3 Expressiveで、<Hl>広げると項目名まで並ぶようになり、その形がナビゲーションドロワーの代わり</Hl>とされた。広げた形は非モーダルで、アイコンだけの形に戻せる。M3の本文では、中・拡張のブレークポイントではナビゲーションレール、拡張・大・特大ではStandard(常時表示)のドロワーを使うとしている。</span>,
+    exceptions: "ナビゲーションドロワーは、タブバーなどほかの主なナビゲーションと併用せず、画面の大きさに合わせて1つを選ぶ(コンパクト→タブバー、中・拡張→ナビゲーションレール、拡張・大・特大→Standardドロワー)。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "タブレットやPCで、主な行き先を画面の脇に常に表示する",
-      "行き先が多いときは、展開型のナビゲーションレールを使う(ドロワーの代わり)",
+      "行き先が多いときは、広げると項目名まで並ぶナビゲーションレールを使う(ドロワーの代わり)",
     ],
     searchHint: "",
     url: "https://m3.material.io/components/navigation-rail/overview",
     refs: [
-      { label: "Navigation rail(折りたたみ型・展開型)", url: "https://m3.material.io/components/navigation-rail/overview" },
+      { label: "Navigation rail", url: "https://m3.material.io/components/navigation-rail/overview" },
       { label: "MDC Android: Navigation rail(M3 Expressiveの変更点)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/NavigationRail.md#m3-expressive" },
       { label: "参考: Navigation drawer(標準のドロワー)", url: "https://m3.material.io/components/navigation-drawer/guidelines" },
     ],
@@ -250,7 +250,7 @@ const RAIL_SOURCES = [
         <div style={{ flex: 1, background: "#FFFFFF" }} />
       </div>
     ),
-    illustrationNote: "折りたたみ型のナビゲーションレール(概念図・系列識別色)",
+    illustrationNote: "アイコンだけの形のナビゲーションレール(概念図・系列識別色)",
   },
   {
     key: "wcag",
@@ -362,7 +362,7 @@ const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲー
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて遷移できるようにする" },
   { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
-  { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
 ];
 
 /* 4系列の比較(カード・比較表)。ドロワーとレール/サイドバーで同じ形を2回使う */
@@ -462,20 +462,20 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "狭い画面(コンパクト・中サイズ)では、行き先が5個以上か2階層を超えるときにモーダルのドロワーを使う。広い画面では常に表示するサイドナビ(ナビゲーションレール)にする。M3 Expressiveでは、ナビゲーションドロワーは推奨されず、広げると項目名まで並ぶナビゲーションレールに置き換える" },
       { who: "Apple", color: "#C2542A", t: "iPhone向けの隠れたドロワーはない。まずタブバーを使い、収まらない領域はタブバーのサイドバーの形で見せる。サイドバーは隠せるようにするが、初期状態では隠さない" },
     ],
-    tip: "どの系列も「広い画面では隠さない」で一致する。分かれるのは狭い画面で、主な行き先が4〜5個までならナビゲーションバー(タブバー)で見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立する。",
+    tip: "どの系列も「広い画面では隠さない」で一致する。分かれるのは狭い画面で、主な行き先が4〜5個までならタブバーで見せ、それより多いときだけドロワーに入れる、という順に考えると3系列とも両立する。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "広い画面では隠さない", d: "サイドナビとして常に表示する", who: "Apple・NN group" },
-  { n: 2, t: "狭い画面では、行き先が4〜5個までならナビゲーションバー、それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくいため", who: "AI解釈(見つけにくさはNN group)" },
+  { n: 2, t: "狭い画面では、行き先が4〜5個までならタブバー、それより多いときだけドロワーに入れる", d: "隠すナビゲーションは見つけにくいため", who: "AI解釈(見つけにくさはNN group)" },
 ];
 
 
 /* 2つの種類と使用シーン(2026-11 ⑦本人レビューNo.049で、表をイメージ図付きのカードに変更。呼び名を「ナビゲーションドロワー」と「サイドナビ」にそろえた) */
 const KINDS = [
-  { id: "drawer", name: "① ナビゲーションドロワー", screen: "スマートフォンなど狭い画面", show: "ボタン(≡)を押して一時的に開く。後ろの画面を覆う(モーダル)", when: "行き先が多く、ナビゲーションバー(3〜5か所)に収まらないとき", names: "Google: Navigation drawer(Modal) / NN group: 隠れたナビゲーション(ハンバーガーメニュー) / Apple: 該当なし" },
+  { id: "drawer", name: "① ナビゲーションドロワー", screen: "スマートフォンなど狭い画面", show: "ボタン(≡)を押して一時的に開く。後ろの画面を覆う(モーダル)", when: "行き先が多く、タブバー(3〜5か所)に収まらないとき", names: "Google: Navigation drawer(Modal) / NN group: 隠れたナビゲーション(ハンバーガーメニュー) / Apple: 該当なし" },
   { id: "rail", name: "② サイドナビ(常に表示)", screen: "タブレット・PCなど広い画面", show: "画面の脇に常に表示する(モーダルではない)。折りたためる", when: "広い画面で、主な行き先をいつも見せたいとき", names: "Apple: サイドバー(Sidebars) / Google: ナビゲーションレール(Navigation rail) / NN group: 左側の縦型ナビゲーション" },
 ];
 function KindFigure({ id }) {
@@ -555,7 +555,7 @@ export default function NavigationDrawerPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ Googleの注意(M3 Expressive、2025年5月)</div>
             <p style={styles.warningText}>
-              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに展開型のナビゲーションレール(expanded navigation rail)を使う</strong>とされている。展開型のレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしている。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読む。Apple・W3C・NN groupの内容には影響しない。
+              M3 Expressiveのアップデートで、<strong>ナビゲーションドロワーは推奨されなくなり、代わりに広げると項目名まで並ぶナビゲーションレール(expanded navigation rail)を使う</strong>とされている。このレールは、ドロワーとほぼ同じ働きを持ち、画面の広さの変化に合わせやすいとしている。下の比較表のGoogle欄にあるドロワーの決まりは、まだ更新していないアプリ向けの内容として読む。Apple・W3C・NN groupの内容には影響しない。
             </p>
           </div>
 

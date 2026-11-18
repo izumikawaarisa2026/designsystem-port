@@ -36,11 +36,11 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "マテリアルは背景の色を手前に透かし、文字や操作のコンポーネントを背景の内容から見た目で分け、今どこにいるかの感覚を保つ。",
+      "素材が背景の色を透かし、文字や操作を内容から分けつつ、今どこにいるかの感覚を保つ。",
     exceptions:
-      "Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限って控えめに使う。後ろの内容が十分に暗い場合や、暗い層を持つ標準の動画再生コントロールを使う場合は、暗い層を敷かなくてよい。",
+      "Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限る。",
     accessibility:
-      "知覚可能(Perceivable) ― 透明度を下げる設定(Reduce Transparency)やコントラストを上げる設定(Increase Contrast)で、Liquid Glassの見え方が変わる。半透明の素材の上でも文字を読めるよう、システムのバイブラントカラーを使う前提。",
+      "知覚可能 ― Reduce Transparency・Increase Contrastの設定で見え方が変わる。素材の上の文字はバイブラントカラーにする。",
     useCases: null,
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/materials#Liquid-Glass",
@@ -56,15 +56,15 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Elevation / Dark theme",
     color: "#2F7D6E",
-    position: <><Hl>面の高さを6段階のエレベーション(dp)で表し</Hl>、影の深さで重なりを示す方式。ダークテーマでは影が見えにくいため、上の面ほど明るい色(トーン)にする</>,
+    position: <><Hl>面の高さを6段階(dp)の影で表す</Hl>。ダークテーマでは上の面ほど明るい色にする</>,
     size: null,
     colorInfo: null,
     stance:
-      "ダークテーマの背景を真っ黒でなく濃いグレーにするのは、影を見えやすくし、明るい文字による目の負担を減らすため。",
+      "ダークテーマの背景を濃いグレーにし、影を見えやすくする。",
     exceptions:
-      "どのコンポーネントがどのレベルを使うか、ホバーやドラッグで高さがどう変わるかは、Jetpack Composeの各コンポーネントのトークン(ContainerElevationなど)で決まっている(下の対応図)。",
+      "コンポーネントごとのLevelとホバー時の変化は決まっている(下の対応図)。",
     accessibility:
-      "―(エレベーションのアクセシビリティ基準はない)。影だけで層を分けると、暗い画面やコントラストの低い状態では違いが伝わりにくいため、ダークテーマでは色の明るさでも分ける。",
+      "―(基準はない)。ダークテーマでは色の明るさでも層を分ける。",
     useCases: null,
     searchHint: "",
     url: "https://m3.material.io/styles/elevation/overview",
@@ -80,22 +80,21 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.4.11 Focus Not Obscured (Minimum) / 1.4.11 Non-text Contrast",
     color: "#A3821F",
-    position: "重なりの表し方は定めない。上に重なった要素で、キーボードでフォーカスしたコンポーネントが完全に隠れないことを求める",
-    size: "影・重なりの数値基準はない。2.4.11(レベルAA): キーボードでフォーカスしたコンポーネントが、作者が作った内容(固定ヘッダー、画面下に固定したバナー、非モーダルのダイアログなど)で完全に隠れないこと。2.4.12(レベルAAA)は、一部も隠れないこと。",
-    colorInfo: "1.4.11では、入力欄の立体的な影などは、明るさが最も近い色の一部として計算する。影は見分ける手がかりに数えないため、影の有無にかかわらず、境界や中身そのもので見分けられる必要がある。",
+    position: "表し方は定めない。重なった要素でフォーカスが完全に隠れないことを求める",
+    size: <><NoData>数値基準なし</NoData>。<Hl>フォーカスが固定ヘッダー・バナーなどで完全に隠れない</Hl>こと(2.4.11・AA)。一部も隠れないこと(2.4.12・AAA)。</>,
+    colorInfo: "影は見分ける手がかりに数えない(1.4.11)。境界や中身で見分けられるようにする。",
     glossary: [
       { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れないこと。一部が隠れるのはこの基準では認められる。" },
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目に、隣の色と3:1以上を求める。" },
     ],
     stance:
-      <><Hl>影や半透明の素材で層を表すこと自体は問わない</Hl>。問うのは、重なった層のせいで、キーボードで操作する人がフォーカスの位置を見失うこと。典型的な失敗は、上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込んで見えなくなること。</>,
+      <><Hl>層の表し方は問わない</Hl>。問うのは、重なりでフォーカスの位置を見失うこと(例: Cookieバナーの下にフォーカスが入る)。</>,
     exceptions:
-      "利用者が自分で開いた内容(メニューなど)がフォーカスを隠していても、フォーカスを移さずに閉じたり動かしたりできれば、隠れているとはみなさない。利用者が動かせる要素は、最初の位置で判定する。",
-    accessibility: "操作可能(Operable) ― 2.4.11は「操作可能」で、キーボードや代わりの入力で操作する人が、フォーカスの位置を目で追えるようにする。1.4.11は「知覚可能」。",
+      "利用者が開いたメニューなどは、フォーカスを移さずに閉じられれば隠れているとみなさない。",
+    accessibility: "操作可能(2.4.11)・知覚可能(1.4.11)。",
     useCases: [
-      "固定ヘッダー・固定フッターの下にフォーカスが隠れないよう、スクロールしたときの位置を調整する",
-      "Cookieバナーなど固定の要素が、フォーカス中のコンポーネントを完全に覆わないか確かめる",
-      "影だけに頼らず、コンポーネントの境界や中身で識別できるようにする",
+      "固定ヘッダー・フッターの下にフォーカスが隠れないようにする",
+      "影だけに頼らず、境界や中身で見分けられるようにする",
     ],
     searchHint: "not entirely hidden",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html#success-criterion",
@@ -111,18 +110,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Flat-Design Best Practices / Dark Mode: Issues to Avoid",
     color: "#7A4F7E",
-    position: "影や重なりは要素の関係を伝える手がかりとして使い、装飾のためだけに使わない(適合基準ではない)",
-    size: "原則としての言及。完全にフラットではなく、控えめな影・ハイライト・重なりで奥行きを加えた「フラット2.0(セミフラット)」を、多くの製品に勧める。",
-    colorInfo: "ダークモードでは、白い要素に暗い影を付ける表現はそのまま使えず、黒い背景の黒い要素に明るい影を付けると、影ではなく光って見える。暗い画面で奥行きを出すには、一番下の面を最も暗く、手前の要素ほど明るくする。",
+    position: "影や重なりは要素の関係を伝えるために使い、装飾のためだけに使わない",
+    size: "原則としての言及。控えめな影で奥行きを加えた「フラット2.0」を勧める。",
+    colorInfo: <>ダークモードでは明るい影は光って見える。<Hl>一番下を最も暗く、手前ほど明るく</Hl>する。</>,
     stance:
-      <>フラットデザインは押せる手がかりを失いやすいため、控えめな3Dの影や重なりで要素の関係をはっきりさせる。Material Designが影と層のルールを体系化した点を評価しつつ、実際には理解を助けるためではなく、<Hl>見た目のためだけに使われることが多い</Hl>と指摘する。</>,
+      <>控えめな影や重なりで要素の関係をはっきりさせる。影は<Hl>見た目のためだけに使われることが多い</Hl>と指摘する。</>,
     exceptions:
-      "モーダルと背景を分ける暗い半透明の幕(スクリム)は、ダークモードでは背景との差が小さく、ほとんど見えなくなることがある。浮かせたい要素(フローティングボタンなど)は、ライト・ダークの両方で同じように目立つか確かめる。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティテストと視線計測にもとづく設計の根拠。",
+      "暗い半透明の幕(スクリム)は、ダークモードでほとんど見えなくなることがある。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、テストと視線計測にもとづく。",
     useCases: [
-      "影や重なりは、要素の関係(手前/奥、押せる/押せない)を伝える目的で使う",
-      "ダークモードでは、手前の要素ほど明るい色にして奥行きを出す",
-      "モーダルのスクリムや浮いている要素が、ダークモードでも見分けられるか確かめる",
+      "影は要素の関係(手前/奥、押せる/押せない)を伝える目的で使う",
+      "スクリムや浮いた要素が、ダークモードでも見分けられるか確かめる",
     ],
     searchHint: "Add back in some depth",
     url: "https://www.nngroup.com/articles/flat-design-best-practices/",
@@ -255,7 +253,7 @@ const TIERS = [
   {
     role: "常に乗っている操作の層",
     desc: "内容の上に浮かぶナビゲーション・操作",
-    g: { lv: 2, dp: 3, surf: "Surface Container", dark: "#211F26", parts: "ナビゲーションバー、メニュー、ボトムアプリバー、スクロール中のトップアプリバー、リッチツールチップ" },
+    g: { lv: 2, dp: 3, surf: "Surface Container", dark: "#211F26", parts: "タブバー、メニュー、ボトムアプリバー、スクロール中のトップアプリバー、リッチツールチップ" },
     a: { kind: "glass", name: "機能の層 ― Liquid Glass", parts: "タブバー・ツールバー・サイドバー。既定のregularと、写真や動画の上だけに使うclearの2種類" },
   },
   {
@@ -379,24 +377,6 @@ function RuleAxesTable() {
           </div>
         </div>
       </div>
-      <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違う</strong>。Googleは面の高さを<strong>0・1・3・6・8・12dpの6段階の影</strong>で表し、Appleは影の段階を持たず、<strong>背景が透けて見える素材(Liquid Glass・4段階の厚さの標準マテリアル)</strong>で層を分ける。
-            </p>
-            <p style={styles.synthesisText}>
-              段階ごとの役割もはっきりしている。Googleは<strong>Level 0=画面に貼り付いた面、1=少し浮いたカード、2=常に乗っている操作の層(ナビゲーションバー・メニュー)、3=注意を引くコンポーネント(FAB・ダイアログ)</strong>と割り当て、影と面の色をセットで変える。Appleは<strong>操作の層(Liquid Glass)と内容の層(標準マテリアル)を分け、内容の層の中は素材の厚さ4段階</strong>で区別し、厚いほど文字が読みやすく、薄いほど背後の文脈が見えるとしている。</p>
-            <p style={styles.synthesisText}>
-              ところが暗い画面になると、答えがそろう。Appleは<strong>前面に出た画面の背景を暗いbaseから明るいelevatedに自動で切り替え</strong>、Googleは<strong>上の面ほど明るいトーン(neutral 6→22)</strong>にし、NN groupも<strong>一番下を最も暗く、手前ほど明るく</strong>と勧めている。暗い画面では影が見えないという同じ問題に、3系列が独立に同じ解決策を出している。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cには重なりの表し方の基準はない。代わりに、<strong>固定ヘッダーやバナーなど上に重なった要素で、キーボードのフォーカスが完全に隠れないこと(2.4.11)</strong>を求める。影や素材の見た目より、重なりの結果として操作を見失わないかを問題にしている。
-            </p>
-            <p style={styles.synthesisText}>
-              NN groupは、影や重なりが<strong>見た目の装飾ではなく、要素の関係を伝えるために使われるべき</strong>だと指摘している。実務では、Googleの段階またはAppleの素材で層の意味を決めたうえで、<strong>ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないか</strong>を確かめるのが、4系列を合わせた結論だ。
-            </p>
-          </div>
       <div className="dsp-mobile-only" style={styles.sourceList}>
         {RULE_AXES.map((r) => (
           <div key={r.axis} style={styles.sourceCard}>
@@ -595,10 +575,21 @@ export default function TokensElevationPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 重なりの表し方</h2>
             <ElevationChart />
             <p style={styles.chartNote}>Googleは地(Surface)の上に、影の高さ(Level 0〜5)でコンポーネントを浮かせる。Appleは影の段階を持たず、内容の上に透ける素材(標準マテリアル・Liquid Glass)を重ねる。W3Cは表し方を定めず、重なりでフォーカス中のコンポーネントが完全に隠れないこと(2.4.11)を求める。NN groupは、ダークでは一番下を最も暗く、手前ほど明るくすることを勧めている。ダークでの面の色は下の対応図を参照。図は概念図だ(Googleの影は実際の値を簡略化)。</p>
+          </div>
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              重なりの表し方は、GoogleとAppleで<strong>手段がまったく違う</strong>。Googleは<strong>0・1・3・6・8・12dpの6段階の影</strong>、Appleは影の段階を持たず<strong>背景が透ける素材</strong>(Liquid Glass・4段階の厚さの標準マテリアル)で層を分ける(詳しくは下の「階層ルール」)。
+            </p>
+            <p style={styles.synthesisText}>
+              暗い画面では答えがそろい、<strong>Apple・Google・NN groupの3系列とも「手前の面ほど明るく」</strong>する。W3Cは表し方を定めず、<strong>重なった要素でフォーカスが完全に隠れないこと</strong>(2.4.11)を求める。ダークモードでも層が見分けられるか、重なりの下にフォーカスが隠れないかを確かめる(AI解釈)。
+            </p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -675,8 +666,11 @@ export default function TokensElevationPage() {
             <RuleAxesTable />
             <h3 style={styles.subTitle}>③ 詳しい値</h3>
             <Fold title="Google ― Level 0〜5の影の値と面の色"><GoogleLevelTable /></Fold>
-            <Fold title="Apple ― 標準マテリアルの厚さ4段階の推奨用途"><AppleThicknessDetail /></Fold>
-            <Fold title="Apple ― 影が付く場面と、独自に付けるときの注意"><AppleShadowRules /></Fold>
+            <Fold title="Apple ― 標準マテリアルの厚さ4段階の推奨用途と、影の付け方">
+              <AppleThicknessDetail />
+              <h4 style={styles.foldSubTitle}>影が付く場面と、独自に付けるときの注意</h4>
+              <AppleShadowRules />
+            </Fold>
           </section>
 
           <div style={styles.tagsRow}>
@@ -695,6 +689,7 @@ export default function TokensElevationPage() {
 }
 
 const styles = {
+  foldSubTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36", margin: "16px 0 6px" },
   baseBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 700, color: "#FFFFFF", background: "#3A4FCF", borderRadius: 3, padding: "0 5px", marginRight: 6, verticalAlign: "1px" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
   layout: { display: "flex", alignItems: "flex-start" },
