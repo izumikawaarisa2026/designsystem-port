@@ -19,7 +19,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, Rela
  *
  * W3C(WAI-ARIA banner landmark)/ Nielsen Norman Group(Sticky Headers)は
  * 公式ページ・記事本文を直接取得して確認済み(2026-09)。Apple(HIG Toolbars、
- * 旧Navigation Bars)は「ナビゲーションバー」ページのコラムで検索結果により
+ * 旧Navigation Bars)は「タブバー」ページのコラムで検索結果により
  * 間接確認済みの内容を流用。
  */
 
@@ -28,9 +28,9 @@ const SOURCES = [
     key: "hig",
     name: "Apple",
     doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
-    term: "Toolbar(iOSではナビゲーションバーとも呼ぶ)",
+    term: "Toolbar(Appleの呼び名: ナビゲーションバー)",
     color: "#C2542A",
-    position: <>画面の上部で、<Hl>今の画面のタイトル・戻るなどのナビゲーション・操作をまとめる</Hl>バー。iOSでは、ナビゲーションを持つ上部のツールバーをナビゲーションバーとも呼ぶ</>,
+    position: <>画面の上部で、<Hl>今の画面のタイトル・戻るなどのナビゲーション・操作をまとめる</Hl>バー</>,
     size:
       <>高さの記載なし。<Hl>タイトルは15文字未満</Hl>を目安にし、項目を入れすぎない</>,
     colorInfo: <NoData>記載なし</NoData>,
@@ -287,7 +287,7 @@ function SearchAppBarSection() {
             <p style={styles.diffText}>実際に言葉を入力する欄。検索ビューの中や、ページの中に置く。候補や結果の見せ方も含めて、<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページで4系列を比較している。</p>
           </div>
         </div>
-        <p style={styles.diffNote}><strong>Appleにも近い置き方がある</strong>。iOSでは、検索の入り口を「タブバーの検索タブ」「画面の上部か下部のツールバー」「内容の中」のどこに置くかを選べ、上部のツールバー(Appleの呼び名はナビゲーションバー。このサイトのアプリバー)に置いた検索ボタンを押すと、検索フィールドに変わるとしている(HIG Search fields)。W3CとNielsen Norman Groupには、検索アプリバーに当たる項目はない。</p>
+        <p style={styles.diffNote}><strong>Appleにも近い置き方がある</strong>。iOSでは、検索の入り口を「タブバーの検索タブ」「画面の上部か下部のツールバー」「内容の中」のどこに置くかを選べ、アプリバー(Appleの呼び名: ナビゲーションバー)に置いた検索ボタンを押すと、検索フィールドに変わるとしている(HIG Search fields)。W3CとNielsen Norman Groupには、検索アプリバーに当たる項目はない。</p>
       </div>
       <div style={styles.diffTitle}>構成と部位ごとの決まり</div>
       <div style={{ ...styles.searchSectionCard, marginBottom: 12 }}><SearchAppBarAnatomy /></div>
@@ -320,7 +320,7 @@ const LEAD = "画面の上部に置き、画面の名前・戻る操作・関連
 const ABOUT = [
   { k: "目的・役割", v: "今いる画面がどこかを示し、前の画面へ戻る手段と、その画面の主な操作を置く" },
   { k: "よく使われる場面", v: "設定画面の見出しと戻るボタン、メール画面の検索・メニューのアイコン" },
-  { k: "似たコンポーネント", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
+  { k: "似たコンポーネント", v: <>主な場所を切り替えるのは<PageLink to="/components/navigation/nav-bar">タブバー</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -370,7 +370,7 @@ export default function NavigationAppBarPage() {
           <h1 style={styles.title}>アプリバー</h1>
           <SummaryCard keyPoints={KP}
             image={<><TopBarSwatch /></>}
-            imageNote={<>戻るボタン・現在の画面タイトル・関連操作アイコンを持つ、画面ごとの上部バー。「ナビゲーションバー」ページで比較した常設の主要セクション切り替えバーとは別物。</>}
+            imageNote={<>戻るボタン・現在の画面タイトル・関連操作アイコンを持つ、画面ごとの上部バー。「タブバー」ページで比較した、主な場所を常に切り替えるバーとは別のコンポーネント。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -383,7 +383,7 @@ export default function NavigationAppBarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Appleの上部のツールバー(旧Navigation Bars)とGoogleのアプリバーは同じ役割</strong>で、タイトル・戻る・操作を上部にまとめる。違いは操作の数で、<strong>Appleは主な操作を1つ、Googleは2個まで</strong>とする。
+              <strong>Appleの上部のツールバー(Appleの呼び名: ナビゲーションバー)とGoogleのアプリバーは同じ役割</strong>で、タイトル・戻る・操作を上部にまとめる。違いは操作の数で、<strong>Appleは主な操作を1つ、Googleは2個まで</strong>とする。
             </p>
             <p style={styles.synthesisText}>
               背景では意見が分かれ、<strong>NN groupは不透明な色</strong>、<strong>Googleはスクロール時に透明にしてボタンを浮かせる</strong>方法も認める。透明にするなら、上の文字やアイコンが下の内容と重なっても読めるかを確かめる(AI解釈)。W3Cは画面ごとのバーではなく、<strong>サイト全体で共通のヘッダー</strong>を領域として示すことを求める。

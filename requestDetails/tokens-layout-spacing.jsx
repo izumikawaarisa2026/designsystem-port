@@ -26,20 +26,19 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Layout",
     color: "#C2542A",
-    position: "余白の刻みは定めず、システムのマージン・レイアウトガイド・セーフエリアに従って配置する。画面の広さはcompact/regularの「サイズクラス」で判断する",
-    size: "iOS/iPadOSに余白や列の数値はない(システムのマージンとセーフエリアを使う前提)。固定値は一部だけで、watchOSは1行のボタンをアイコンなら3つ・文字なら2つまで。",
-    colorInfo: "サイズクラスは横・縦それぞれがcompact(狭い/低い)かregular(広い/高い)で、システムが端末・ウィンドウ・マルチタスクの状態から決める。レイアウトは端末の種類や向きではなくサイズクラスで決める。広い画面でタブバーをサイドバーに切り替えるなど見せ方は変えてよいが、使える機能は変えない。",
-    structure: "関連する項目は、余白・容器の形・区切り線でまとめ、関係のない項目と見分けられるようにする(HIG Layout)。",
+    position: "余白の刻みは定めず、システムのマージンとセーフエリアに従う。画面の広さはサイズクラス(compact/regular)で判断する",
+    size: <><NoData>iOS/iPadOSは数値なし</NoData>(<Hl>システムのマージンに任せる</Hl>)。watchOSは1行のボタンをアイコン3つ・文字2つまで。</>,
+    colorInfo: <>サイズクラスは横・縦それぞれcompactかregularで、システムが決める(境界値の記載なし)。<Hl>端末の種類や向きではなくサイズクラスで</Hl>切り替え、使える機能は変えない。</>,
+    structure: "関連する項目は、余白・容器の形・区切り線でまとめる。",
     stance:
-      <>重要なものを上・行の始まり側に置き、揃えと字下げで階層を表し、関連するものは余白・囲み・区切り線でまとめる。画面サイズ・向き・ウィンドウの大きさ・文字サイズの変化に対応し、特にDynamic Typeで文字が大きくなったら、<Hl>横並びを縦に積み直すなどして文字の切れや重なりを防ぐ</Hl>。</>,
+      <>重要なものを上・行の始まり側に置き、揃えと字下げで階層を表す。文字が大きくなったら、横並びを縦に積み直して切れや重なりを防ぐ。</>,
     exceptions:
-      "横向き専用のゲームのように向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応する。背景の画像は、画面の縦横比が変わっても縦横比を保ったまま拡大して画面を埋める。",
+      "向きを固定するアプリでも、端末やウィンドウの大きさの違いには対応する。",
     accessibility:
-      "知覚可能(Perceivable) ― 文字の拡大に合わせてレイアウトを組み替えるのは、WCAG 1.4.10(リフロー)・1.4.4(テキストのサイズ変更)と同じ目的。セーフエリアを守るのは、システムの表示や端末の形で内容や操作が隠れないようにするため。",
+      "知覚可能 ― 文字の拡大で組み替えるのは、WCAG 1.4.10・1.4.4と同じ目的。",
     useCases: [
-      "余白は独自の数値ではなく、システムのマージン・レイアウトガイドを使う",
-      "レイアウトは端末の種類や向きではなくサイズクラスで切り替える",
-      "文字を最大にしたら横並びを縦積みに変え、切れや重なりを防ぐ",
+      "余白は独自の数値ではなく、システムのマージンを使う",
+      "文字を最大にしたら横並びを縦積みに変える",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/layout#Size-classes",
@@ -56,19 +55,18 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Layout / Window size classes",
     color: "#2F7D6E",
-    position: "使える幅を5段階の「ウィンドウサイズクラス」に分け、区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える。画面端の余白はCompactで16dp、それより広い幅で24dp",
-    size: "幅のウィンドウサイズクラスは、Compact 600dp未満 / Medium 600〜840dp未満 / Expanded 840〜1200dp未満 / Large 1200〜1600dp未満 / Extra-large 1600dp以上。高さはCompact 480dp未満 / Medium 480〜900dp未満 / Expanded 900dp以上。2つのペインを並べるときの間隔は24dp。画面端のマージンは幅がCompactで16dp、それ以外で24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。",
-    colorInfo: "縦スクロールが一般的なため、ほとんどのアプリは幅のサイズクラスだけ考えればよい。ただしスマートフォンを横にしたときのように、幅がMediumでも高さがCompactなら2ペインは実用的でないため、高さも考える。",
-    structure: "まとまりは余白で示す。線・区切り線・影で囲む明示的なまとめ方と、近さと空きで示す暗黙のまとめ方がある(カルーセルの項目を近づけ、周りを空けるなど)(M3 Spacing)。",
+    position: "使える幅を5段階のウィンドウサイズクラスに分け、区分ごとにレイアウト(1ペイン/2ペインなど)を切り替える",
+    size: <><Hl>画面端16dp(Compact)・24dp(それ以外)、ペインの間24dp</Hl>。幅の決まったペインはExpanded 360dp・Large以上412dp(上の図)。</>,
+    colorInfo: <>幅の境界は<Hl>600・840・1200・1600dp</Hl>(上の比較図)。高さがCompact(480dp未満)なら、幅がMediumでも2ペインは避ける。</>,
+    structure: "線・区切り線・影で囲む明示的なまとめ方と、近さと空きで示す暗黙のまとめ方がある。",
     stance:
-      <>ウィンドウサイズクラスは端末の画面サイズではなく、アプリが実際に使えるウィンドウの大きさで決まり、分割画面・折りたたみ端末の開閉・ウィンドウのリサイズで実行中にも変わる。そのため<Hl>「タブレットかどうか」の判定には使わない</Hl>、と明言している。区分は典型的な端末の大多数に合うよう選ばれ、例えばCompact幅は縦向きのスマートフォンの99.96%にあたる。</>,
+      <>サイズクラスはアプリが実際に使えるウィンドウの大きさで決まり、分割画面や折りたたみで変わる。<Hl>「タブレットかどうか」の判定には使わない</Hl>。</>,
     exceptions:
-      "Large・Extra-largeは、デスクトップや外部ディスプレイのために、元の区分(Compact/Medium/Expanded)に後から加えたもの。",
+      "Large・Extra-largeは、デスクトップや外部ディスプレイのために後から加えた区分。",
     accessibility:
-      "知覚可能(Perceivable) ― 幅が狭くなったら1ペインに切り替える設計は、WCAG 1.4.10(リフロー)の「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
+      "知覚可能 ― 狭い幅で1ペインに切り替えると、WCAG 1.4.10(リフロー)を満たしやすい。",
     useCases: [
-      "レイアウトの切り替えは端末の種類ではなく、幅のウィンドウサイズクラスで判断する",
-      "Medium幅以上では2ペイン(一覧+詳細)を検討し、ペインの間は24dp空ける",
+      "Medium幅以上では2ペイン(一覧+詳細)を検討する",
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/layout/breakpoints/overview",
@@ -87,24 +85,23 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.10 Reflow / 2.5.8 Target Size (Minimum) / 1.3.1 Info and Relationships",
     color: "#A3821F",
-    position: "余白やグリッドの値は定めず、「狭い幅でも読めること」「押す対象どうしの間隔」「見た目のまとまりを構造でも伝えること」を求める",
-    size: "1.4.10(レベルAA): 幅320 CSSピクセル相当(縦スクロールの内容)でも、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。2.5.8(レベルAA): 押す対象は24×24 CSSピクセル以上。小さいなら、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。",
-    colorInfo: "1.4.10により、狭い幅でも情報と機能を失わずに1列に組み替えられること(数値は上の行)。幅ごとのレイアウトの決まりはない。",
-    structure: "1.3.1(レベルA): 見た目で伝えている情報・構造・関係(余白でまとめたグループ、見出しと本文の関係など)は、プログラムでも判別できるか、テキストで示されていること。余白だけでグループを表すと、スクリーンリーダーの利用者にはそのまとまりが伝わらない。",
+    position: "余白やグリッドの値は定めず、狭い幅でも読めること・押す対象の間隔・まとまりを構造でも伝えることを求める",
+    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
+    colorInfo: <NoData>幅ごとの決まりはない</NoData>,
+    structure: <>1.3.1(A): <Hl>余白でまとめたグループは、構造でも支援技術に伝える</Hl>(余白だけでは読み上げで伝わらない)。</>,
     glossary: [
       { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、縦横両方向のスクロールなしで読めること。地図・図表・データ表など2次元の配置が要る部分は例外。" },
       { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSSピクセル以上にするか、小さいなら周りに十分な間隔を取ること。文中のリンクなどは例外。" },
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で表している構造や関係を、見出し・リスト・グループなどのマークアップでも表すこと。" },
     ],
     stance:
-      <><Hl>余白の大きさやグリッドの列数は指定しない</Hl>。代わりに、拡大して幅が狭くなったら1列に組み替わること(1.4.10)、小さな対象どうしを近づけすぎないこと(2.5.8)、余白で表したまとまりを構造でも伝えること(1.3.1)という、結果としての使いやすさを求める。</>,
+      <><Hl>余白の大きさや列数は指定しない</Hl>。結果としての使いやすさ(狭い幅で組み替わる・近づけすぎない・構造でも伝える)を求める。</>,
     exceptions:
-      "1.4.10は、地図・図・動画・ゲーム・プレゼンテーション・データ表、操作中に出し続けるツールバーなど、2次元の配置が欠かせない部分を例外とする。2.5.8は、同じ機能の十分な大きさの操作が別にある場合、文中のリンク、ブラウザが大きさを決めるコンポーネント、見た目が欠かせない場合を例外とする。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.10と1.3.1は「知覚可能」、2.5.8は「操作可能」。拡大して使う弱視の人、細かい操作が難しい人、スクリーンリーダーの利用者が、同じ情報と操作にたどり着けるようにする。",
+      "1.4.10は、地図・図・動画・ゲーム・データ表など2次元の配置が欠かせない部分を除外。2.5.8の例外は5つ(詳しくはボタンのページ)。",
+    accessibility: "知覚可能(1.4.10・1.3.1)・操作可能(2.5.8)。",
     useCases: [
-      "幅320pxで横スクロールが出ないか確かめる(データ表・地図などは例外)",
-      "24px未満の小さなアイコンボタンを並べるときは、中心どうしを24px以上離す",
-      "余白でまとめたグループは、見出し・リスト・fieldsetなどの構造でも表す",
+      "幅320pxで横スクロールが出ないか確かめる",
+      "余白でまとめたグループは、見出しやグループの構造でも伝える",
     ],
     searchHint: "320 CSS pixels",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html#success-criterion",
@@ -120,19 +117,18 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Proximity Principle in Visual Design",
     color: "#7A4F7E",
-    position: "余白は「何と何が関係しているか」を伝える手段、というゲシュタルト心理学の近接の原則にもとづく(適合基準ではない)",
-    size: "原則としての言及。近い要素は同じグループ、余白で離れた要素は別のグループに見える。例として、12項目のフォームは1つのまとまりより、意味のある4項目×3グループに分けたほうが取り組みやすく見える。",
+    position: "余白は「何と何が関係しているか」を伝える手段、という近接の原則にもとづく",
+    size: "原則としての言及。例: 12項目のフォームは、4項目×3グループに分けると取り組みやすく見える。",
     colorInfo: <NoData>記載なし</NoData>,
-    structure: "近接は最も強いまとまりの原則の1つで、色や形の似ていることなどほかの手がかりより優先されることがある。見出しは、前の節の本文より自分の節の本文に近く置く。",
+    structure: "近接は色や形の似ていることより優先されることがある。見出しは自分の節の本文に近く置く。",
     stance:
-      <><Hl>関連する要素は近くに、関係のない要素は離して置く</Hl>。関係のない要素が近いと、1つを見ただけで残りも同じ種類だと判断され、必要なボタンが埋もれる。逆に関連する操作が離れていると、作業に集中している人は目の前にあっても見落とす(いわゆる「トンネル視」)。例として、アカウント作成を飛ばせる「スキップ」リンクが画面の隅にあり、登録が必須だと誤解された事例を挙げる。</>,
+      <><Hl>関連する要素は近くに、関係のない要素は離して置く</Hl>。関連する操作が離れていると、作業に集中している人は見落とす。</>,
     exceptions:
-      "レスポンシブデザインでは幅で要素の近さが変わり、広い画面で余白で分けていたものが、狭い画面で同じグループに見えることがある。その場合は配置そのものを変える(例: 検索を別の場所へ移す)。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、見た目のまとまりの知覚についての心理学の原則とユーザーテストにもとづく設計の根拠。",
+      "狭い画面で別のグループが同じグループに見えるなら、配置そのものを変える。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、知覚の原則とユーザーテストにもとづく。",
     useCases: [
-      "ラベルと入力欄の間は狭く、次のラベルとの間は広く取る",
-      "関連する操作(戻る/次へ)はまとめ、関係のない操作(下書き保存・追加)とは離す",
-      "画面の幅を変えたとき、余白で分けていたグループが崩れないか確かめる",
+      "ラベルと入力欄の間は狭く、次のラベルとの間は広く",
+      "関連する操作(戻る/次へ)はまとめる",
     ],
     searchHint: "Principle of proximity",
     url: "https://www.nngroup.com/articles/gestalt-proximity/",
@@ -253,28 +249,31 @@ function AppleLayoutDiagram() {
   const mono = "'IBM Plex Mono', monospace";
   return (
     <svg viewBox="0 0 200 130" style={{ width: "100%", maxWidth: 280, display: "block" }} role="img" aria-label="Appleの分割ビューの図">
-      <text x="0" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>分割ビュー(iPadOS・macOS)</text>
+      <text x="0" y="12" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={font}>分割ビュー(例: メールアプリ)</text>
       <rect x="0" y="20" width="190" height="96" rx="6" fill="#FFFFFF" stroke="#7E86AC" />
       <rect x="4" y="24" width="48" height="88" rx="3" fill="#F4DDD3" />
       <rect x="54" y="24" width="56" height="88" rx="3" fill="#F8ECE6" />
       <rect x="112" y="24" width="74" height="88" rx="3" fill="#FCF6F3" />
-      <text x="28" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>サイドバー</text>
-      <text x="82" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
-      <text x="149" y="70" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
-      <text x="0" y="128" fontSize="7.5" fill="#666D93" fontFamily={font}>2〜3列。区切り線は細い1pt。狭い幅(compact)では使わない</text>
+      <text x="28" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>サイドバー</text>
+      <text x="28" y="77" fontSize="6.5" textAnchor="middle" fill="#454C78" fontFamily={font}>フォルダ</text>
+      <text x="82" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>一覧</text>
+      <text x="82" y="77" fontSize="6.5" textAnchor="middle" fill="#454C78" fontFamily={font}>メール</text>
+      <text x="149" y="66" fontSize="7.5" textAnchor="middle" fill="#C2542A" fontFamily={font}>詳細</text>
+      <text x="149" y="77" fontSize="6.5" textAnchor="middle" fill="#454C78" fontFamily={font}>本文</text>
+      <text x="0" y="128" fontSize="7.5" fill="#666D93" fontFamily={font}>左で選ぶと、右の列に中身が出る</text>
     </svg>
   );
 }
 
 const LAYOUT_PATTERNS = [
-  { s: "Google", c: "#2F7D6E", t: "フィード(Feed)", d: "カードなどを格子状に並べ、たくさんの内容をざっと見せる", fig: "feed" },
-  { s: "Google", c: "#2F7D6E", t: "リスト・詳細(List-detail)", d: "一覧と、選んだ項目の詳細を左右に並べる", fig: "listdetail" },
-  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容の横に補助の内容を置く(主:補助=Expandedは7:3、Mediumは1:1)", fig: "support" },
-  { s: "Google", c: "#2F7D6E", t: "重ねる(Levitate)", d: "ペインを内容の上に浮かべ、カートの確認やコメントの返信など1つの作業に集中させる", fig: "levitate" },
-  { s: "Apple", c: "#C2542A", t: "分割ビュー(Split view)", d: "サイドバー・一覧・詳細の2〜3列で、階層を一度に見せる。広い画面(regular)向け", fig: "split" },
-  { s: "Apple", c: "#C2542A", t: "タブバー ↔ サイドバー", d: "広い画面では、タブバーをサイドバーに切り替えてよい(使える機能は変えない)", fig: "tabside" },
-  { s: "W3C", c: "#A3821F", t: "1列に組み替える(リフロー)", d: "幅320px相当でも、横スクロールなしで読めるようにする(1.4.10)", fig: "reflow" },
-  { s: "NN group", c: "#7A4F7E", t: "近接でまとめる", d: "関係するものを近づけ、別のグループとは余白で離す", fig: "proximity" },
+  { s: "Google", c: "#2F7D6E", t: "フィード(Feed)", d: "カードなどを格子状に並べ、たくさんの内容をざっと見せる", fig: "feed", ref: ["M3: Feed", "https://m3.material.io/foundations/layout/canonical-examples/feed"] },
+  { s: "Google", c: "#2F7D6E", t: "リスト・詳細(List-detail)", d: "一覧と、選んだ項目の詳細を左右に並べる", fig: "listdetail", ref: ["M3: List-detail", "https://m3.material.io/foundations/layout/canonical-examples/list-detail"] },
+  { s: "Google", c: "#2F7D6E", t: "補助ペイン(Supporting pane)", d: "主な内容の横に補助の内容を置く(主:補助=Expandedは7:3、Mediumは1:1)", fig: "support", ref: ["M3: Supporting pane", "https://m3.material.io/foundations/layout/canonical-examples/supporting-pane"] },
+  { s: "Google", c: "#2F7D6E", t: "重ねる(Levitate)", d: "ペインを内容の上に浮かべ、カートの確認やコメントの返信など1つの作業に集中させる", fig: "levitate", ref: ["M3: Panes ― Levitate", "https://m3.material.io/foundations/layout/scaffold/panes"] },
+  { s: "Apple", c: "#C2542A", t: "分割ビュー(Split view)", d: "サイドバー・一覧・詳細の2〜3列で、階層を一度に見せる。広い画面(regular)向け", fig: "split", ref: ["HIG: Split views", "https://developer.apple.com/design/human-interface-guidelines/split-views#Best-practices"] },
+  { s: "Apple", c: "#C2542A", t: "タブバー ↔ サイドバー", d: "広い画面では、タブバーをサイドバーに切り替えてよい(使える機能は変えない)", fig: "tabside", ref: ["HIG: Layout ― Size classes", "https://developer.apple.com/design/human-interface-guidelines/layout#Size-classes"] },
+  { s: "W3C", c: "#A3821F", t: "1列に組み替える(リフロー)", d: "幅320px相当でも、横スクロールなしで読めるようにする(1.4.10)", fig: "reflow", ref: ["WCAG 1.4.10 リフロー", "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html#success-criterion"] },
+  { s: "NN group", c: "#7A4F7E", t: "近接でまとめる", d: "関係するものを近づけ、別のグループとは余白で離す", fig: "proximity", ref: ["NN/g: Proximity Principle", "https://www.nngroup.com/articles/gestalt-proximity/"] },
 ];
 function PatternFig({ k, c }) {
   const box = (x, y, w, h, o = 1) => <rect x={x} y={y} width={w} height={h} rx="2" fill={c} opacity={o} />;
@@ -298,10 +297,10 @@ function LayoutVisuals() {
       <h3 style={styles.lvSub}>Google ― 画面の幅ごとの余白とペイン(dp)</h3>
       <div style={styles.lvCard}><MarginDiagram /></div>
       <p style={styles.lvNote}>画面の端の余白はCompactで16dp、それより広い幅で24dp。ペインとペインの間(スペーサー)は24dp。幅の決まったペインはExpandedで360dp、Large以上で412dp。図は幅の比率を合わせた概念図だ(出典: M3「Breakpoints」「Panes」)。</p>
-      <h3 style={styles.lvSub}>Apple ― 分割ビュー</h3>
+      <h3 style={styles.lvSub}>Apple ― 分割ビュー(1つの画面を2〜3列に分ける)</h3>
       <div style={styles.lvCard}><AppleLayoutDiagram /></div>
-      <p style={styles.lvNote}>iOS・iPadOSの余白の数値は示されておらず、システムのマージンとセーフエリアに合わせる(出典: HIG「Layout」「Split views」)。</p>
-      <h3 style={styles.lvSub}>レイアウトのパターン</h3>
+      <p style={styles.lvNote}>分割ビューは、画面を縦に2〜3列に分け、<strong>左の列で選んだ項目の中身を右の列に出す</strong>見せ方。メールアプリなら、フォルダ→メールの一覧→本文を1画面に並べ、画面を移らずに階層をたどれる。広い画面(iPadOS・macOS)向けで、狭い幅(compact)では1列ずつ表示する。余白の数値は示されず、システムのマージンとセーフエリアに合わせる。</p>
+      <h3 style={styles.lvSub}>レイアウトのパターン(各系列の公式ページへのリンク付き)</h3>
       <div style={styles.lvGrid}>
         {LAYOUT_PATTERNS.map((p) => (
           <div key={p.t} style={styles.lvPattern}>
@@ -310,11 +309,11 @@ function LayoutVisuals() {
               <div style={{ fontSize: 10.5, fontWeight: 700, color: p.c }}>{p.s}</div>
               <div style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>{p.t}</div>
               <div style={{ fontSize: 11, lineHeight: 1.55, color: "#454C78" }}>{p.d}</div>
+              <a href={p.ref[1]} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: "#3A4FCF", textDecoration: "underline" }}>{p.ref[0]} ↗</a>
             </div>
           </div>
         ))}
       </div>
-      <p style={styles.lvNote}>Googleの4つはM3「Canonical layout examples」、Appleの2つはHIG「Split views」「Layout」、W3Cは1.4.10、NN groupは近接の原則による。</p>
     </section>
   );
 }
@@ -353,7 +352,7 @@ const LEAD = "余白の刻み、画面の幅に応じたレイアウトの切り
 const ABOUT = [
   { k: "目的・役割", v: "余白をそろえて関係のある要素をまとめ、画面の構造を分かりやすくする" },
   { k: "関わる場面", v: "コンポーネントどうしの間隔、画面の端の余白、列(グリッド)の数" },
-  { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">レスポンシブデザイン</PageLink>、<PageLink to="/tokens/typography">タイポグラフィ</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/tokens/adaptive">レスポンシブデザイン</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -411,16 +410,10 @@ export default function TokensLayoutSpacingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、<strong>端末の種類ではなく、実際に使える画面の広さでレイアウトを切り替える</strong>という同じ原則を明言している。Appleはサイズクラス(compact/regular)、Googleはウィンドウサイズクラス(Compact〜Extra-large)と呼び、どちらも分割画面やウィンドウのリサイズで実行中に変わるものとして扱う。
+              AppleとGoogleは、<strong>端末の種類ではなく、使える画面の広さで切り替える</strong>点が同じ。違いは数値の公開で、Googleは<strong>境界(600・840・1200・1600dp)と余白(端16/24dp・ペインの間24dp)</strong>を示し、Appleは<strong>システムのマージンに任せる</strong>。
             </p>
             <p style={styles.synthesisText}>
-              違いは数値の公開の仕方だ。Googleは<strong>600・840・1200・1600dpという境界値と、画面端16/24dp・ペイン間24dpといった余白の値</strong>を示している。一方AppleのHIGは、iOS/iPadOSについて境界値も余白の刻みも示さず、<strong>システムのマージンとセーフエリアに任せる</strong>方式だ。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは余白の大きさを指定せず、<strong>幅320pxまで狭めても読めること(1.4.10)</strong>と<strong>小さな押す対象どうしの間隔(2.5.8の24px)</strong>を求める。Googleのサイズクラスで言えばCompactの中のさらに狭い幅で、拡大して使う人を想定した値だ。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupの近接の原則は、<strong>余白が要素どうしの関係を伝える</strong>という、数値とは別の観点を加える。ここでW3Cの1.3.1と組み合わせると、<strong>余白で表したまとまりは、見出しやグループといった構造でも表しておく</strong>必要がある、というのが4系列を合わせた実務上の結論だ。
+              W3Cは余白を指定せず、<strong>幅320pxでも読めること</strong>(1.4.10)を求める。NN groupの近接の原則とW3Cの1.3.1を合わせると、<strong>余白で作ったまとまりは、構造でも伝えておく</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

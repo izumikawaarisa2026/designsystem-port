@@ -26,19 +26,18 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Writing",
     color: "#C2542A",
-    position: "アプリの「声(voice)」を決めて言葉をそろえ、場面に合わせて「調子(tone)」を変える。ボタン・エラー・空の画面・設定・入力欄など、UIの言葉の場面ごとの書き方を示す",
-    size: <span><NoData>数値基準なし。</NoData>エラーの例として、「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ、という書き換えを示す。</span>,
-    colorInfo: "声: 誰に話すのか、どんな気持ちになってほしいのか(銀行なら信頼と安定、ゲームなら興奮と楽しさ)から言葉を決め、よく使う用語のリストを作って言葉をそろえる。調子: 利用者が今何をしているか(運動の目標を達成した、支払いでエラーが出た)に合わせ、深刻な場面では率直に、祝う場面では明るくする。英語の大文字の使い方(title case/sentence case)も、要素の種類ごとに決めてそろえる。",
+    position: "アプリの「声(voice)」を決めて言葉をそろえ、場面に合わせて「調子(tone)」を変える。UIの場面ごとの書き方を示す",
+    size: <span><NoData>数値基準なし。</NoData>場所ごとの目安は「使う場所ごとの文字数・行数の目安」。</span>,
+    colorInfo: <>声は、誰に話し、どう感じてほしいかで決め、<Hl>用語のリストを作ってそろえる</Hl>。調子は、深刻な場面では率直に、祝う場面では明るくする。</>,
     stance:
-      <>明確に書き(1語ずつ必要かを確かめ、減らせるなら減らす。迷ったら声に出して読む)、誰にでも伝わる平易な言葉を選び、専門用語や性別のある言葉を避け、アクセシビリティと翻訳を考えて書く。画面ごとに目的を考えて重要な情報を先に置き、ボタンやリンクには動詞を使い、<Hl>気の利いた表現より明確さを優先する</Hl>(「やってみよう!」より「送信」)。リンクに「ここをクリック」は使わない。</>,
+      <><Hl>1語ずつ必要かを確かめ</Hl>、平易な言葉を選ぶ(専門用語・性別のある言葉を避ける)。重要な情報を先に置き、ボタンやリンクは動詞で、<Hl>気の利いた表現より明確さを優先する</Hl>(「やってみよう!」より「送信」)。</>,
     exceptions:
-      "複数の画面にまたがる手順では、始め(「始める」)・途中(「続ける」「次へ」)・終わり(「完了」)の言葉を決めてそろえる。「あなたの」「マイ」のような所有の言葉は控えめにし、「私たち(we)」は誰を指すか分からないため使わない。端末ごとに操作の言葉を正しく使い、タッチの端末では「クリック」ではなく「タップ」と書く。空の画面には次にできることと、そのためのボタンを置く。エラーは問題の近くに出し、責めず、直し方を書く。「おっと」のような感嘆の言葉は、不誠実に聞こえることがある。",
+      <>手順の言葉(始める・次へ・完了)をそろえる。所有の言葉は控えめにし、<Hl>「私たち」は使わない</Hl>。タッチの端末では「タップ」と書く。エラーは責めずに直し方を書き、<Hl>「おっと」のような感嘆は避ける</Hl>(不誠実に聞こえることがある)。</>,
     accessibility:
-      "理解可能(Understandable) ― 平易な言葉を選び、専門用語を避けることは、WCAGの「理解可能」(3.1 読みやすさ)と同じ目的。VoiceOverでの読み上げも考えて書くよう、関連ページに案内している。",
+      "理解可能 ― 平易な言葉は、WCAGの3.1(読みやすさ)と同じ目的。",
     useCases: [
-      "ボタン・リンクは動詞で、何が起きるかが分かる言葉にする",
-      "手順の言葉(始める・次へ・完了)と用語のリストを決めてそろえる",
-      "エラーは責めずに直し方を書き、空の画面には次の行動を置く",
+      "ボタン・リンクは、何が起きるかが分かる動詞にする",
+      "空の画面には次の行動を置く",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
@@ -56,19 +55,18 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Content design / Material Design 2 ― Writing",
     color: "#2F7D6E",
-    position: "UIの文字は使いやすさと信頼を生むもので、明確・正確・簡潔に書く、という原則で文の書き方の決まりを細かく示す。M3のContent designは誰にでも分かる文章を掲げ、AP通信の表記ルール(AP Style)を基本にする。細かい決まりは旧版M2のWritingに詳しい",
-    size: <span><NoData>数値基準なし。</NoData>数は算用数字で書く(「3件のメッセージ」。違う使い方の数が並ぶときは、片方を文字にする)。</span>,
-    colorInfo: "呼びかけは、基本は2人称(「あなたの」)で、UIが利用者に直接話しかけるように書く。利用者の持ち物や行動であることを強調したいときは1人称(「マイアカウント」「利用規約に同意する」)にし、同じ文の中で2人称と1人称を混ぜない。どの読解レベルでも分かる一般的な言葉を使い、業界の用語やUIの機能に付けた造語を避ける。",
+    position: "明確・正確・簡潔に書く原則と、文の書き方の細かい決まりを示す(細かい決まりは旧版M2のWriting)",
+    size: <span><NoData>数値基準なし。</NoData>数は算用数字で書く(「3件のメッセージ」)。</span>,
+    colorInfo: "基本は2人称。持ち物や行動を強調するときは1人称(「マイアカウント」)にし、1つの文で混ぜない。業界の用語や造語を避ける。",
     stance:
-      <>UIの文字は、少数の概念に絞った短く読み流せる単位で書き、簡潔で直接的な言葉を使う(「変更を保存しますか?」)。利用者が自分の作業に集中できるよう、必要なことだけを伝え、処理の仕組みのような余計な説明は省く。現在形で書き、目的と操作を述べるときは目的を先に書く(「このアルバムから写真を消すには、ゴミ箱へドラッグ」)。<Hl>同じ操作は同じ言葉で呼び</Hl>(「削除」と「消去」を混ぜない)、UIのコンポーネントはラベルの文字で呼ぶ。</>,
+      <>少数の概念に絞った短い単位で、必要なことだけを書く。<Hl>現在形・目的を先に</Hl>書き、<Hl>同じ操作は同じ言葉で呼ぶ</Hl>(「削除」と「消去」を混ぜない)。</>,
     exceptions:
-      "読み流しやすくするため、ラベル・ホバーで出る文字・箇条書き・ダイアログの本文が1文だけなら句点を付けない。複数の文や、後にリンクが続く文には付ける(英語のピリオドの決まり。日本語の「。」は自社の表記ルールでそろえるのが現実的(AI解釈))。最初にすべてを説明せず、機能を使い進めて必要になったときに詳しく見せる。「〜しなければならない」ではなく、どうすればよいかを書く。",
+      "1文だけのラベル・箇条書きなどには句点を付けない(英語のピリオドの決まり。日本語は自社の表記ルールでそろえる。AI解釈)。詳しい説明は必要になったときに見せる。",
     accessibility:
-      "理解可能(Understandable) ― どの読解レベルでも分かる言葉を使い、文化や言語を問わず誰にでも理解できる文を目指す(関連ページ: Writing for global audiences)。",
+      "理解可能 ― どの読解レベル・文化でも分かる文を目指す。",
     useCases: [
-      "短く読み流せる単位で、1つの画面の概念を少なくする",
-      "現在形・算用数字で書き、目的を先に書く",
-      "同じ操作には同じ言葉を使い、UIのコンポーネントはラベルの文字で呼ぶ",
+      "1つの画面の概念を少なくする",
+      "UIのコンポーネントはラベルの文字で呼ぶ",
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/content-design/style-guide/ux-writing-best-practices",
@@ -86,9 +84,9 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.4.6 Headings and Labels / 2.4.2 Page Titled / 3.3.2 Labels or Instructions / 1.3.3 Sensory Characteristics / 3.1.5 Reading Level",
     color: "#A3821F",
-    position: <><Hl>文章の書き方そのものは定めず</Hl>、見出し・ラベル・ページのタイトルが主題や目的を表すこと、入力にラベルか説明があることを求める。文の難しさはAAAで扱う</>,
-    size: "3.1.5(レベルAAA): 固有名詞や題名を除いて、前期中等教育(9年の学校教育)を超える読解力が必要な文には、補足の内容か、そこまでの読解力を必要としない版を用意する。",
-    colorInfo: "2.4.6(レベルAA): 見出しとラベルが主題や目的を表すこと(長い必要はなく、1語でもよい)。2.4.2(レベルA): ページのタイトルが主題や目的を表すこと(1つのURLで画面が切り替わるSPAでは、画面ごとにタイトルを更新する)。3.3.2(レベルA): 入力が必要なところに、ラベルか説明(決まった書式など)があること。1.3.3(レベルA): 操作の説明を、形・大きさ・位置・向き・音だけに頼らないこと(「右の丸いボタン」ではなく「[送信]ボタン」のように名前で呼ぶ)。",
+    position: <><Hl>書き方は定めず</Hl>、見出し・ラベル・タイトルが主題や目的を表すことを求める</>,
+    size: "3.1.5(AAA): 前期中等教育を超える読解力が要る文には、補足か易しい版を用意する。",
+    colorInfo: "2.4.6(AA)見出し・ラベル、2.4.2(A)ページのタイトルが主題を表す。3.3.2(A)入力にラベルか説明。1.3.3(A)形や位置だけで説明しない(「右の丸いボタン」ではなく「[送信]ボタン」)。",
     glossary: [
       { term: "2.4.6 Headings and Labels・レベルAA", desc: "見出しとラベルが主題や目的を表すこと。見出しやラベルを置くこと自体は求めない。" },
       { term: "2.4.2 Page Titled・レベルA", desc: "ページに、主題や目的を表すタイトルがあること。" },
@@ -97,15 +95,13 @@ const SOURCES = [
       { term: "3.1.5 Reading Level・レベルAAA", desc: "前期中等教育を超える読解力が必要な文に、補足か易しい版を用意すること。" },
     ],
     stance:
-      "見出しが明確なら、利用者は探している情報を見つけやすく、内容の部分どうしの関係もつかみやすくなる。ページのタイトルは、内容を読まなくても今どこにいるかを示し、検索結果やブラウザのタブで区別する手がかりになる。リンクの文言と行き先のページのタイトルをそろえると、つながりが分かりやすい。読解障害のある人には、専門知識のある読み手でも、易しい文が役に立つ。形や位置だけの説明は、画面の見えない人や見えにくい人には伝わらないため、コンポーネントの名前も添える(1.3.3)。形や位置の手がかり自体は認知に障害のある人などにも役立つため、使うことは妨げない。",
+      "明確な見出しとタイトルは、探す情報と今いる場所を示す。形や位置だけの説明は見えない人に伝わらないので、名前も添える(形や位置の手がかり自体は使ってよい)。",
     exceptions:
-      "2.4.6は見出しやラベルを置くことは求めず、置いたなら内容を表していることを求める。見出しのマークアップが正しいか(1.3.1)や、コンポーネントのアクセシブルな名前(4.1.2)は別の基準。3.3.2は説明でページを散らかすことを求めず、多すぎる説明は少なすぎるのと同じく害になる。1.3.3では、読む順番どおりに並んでいて指すものがはっきりしていれば、「下のリンクから選ぶ」「以上のすべて」のような上下の言い方は認められる。3.1.5はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable)・理解可能(Understandable) ― 1.3.3は「知覚可能」、2.4.2・2.4.6は「操作可能」(2.4 ナビゲーション可能)、3.3.2(ラベル又は指示)・3.1.5(読解レベル)は「理解可能」。",
+      "2.4.6は見出しを置くことは求めない。3.3.2は、多すぎる説明も害になるとする。読む順に並んでいれば「下のリンク」のような言い方は認められる(1.3.3)。3.1.5はAAA。",
+    accessibility: "知覚可能(1.3.3)・操作可能(2.4.2・2.4.6)・理解可能(3.3.2・3.1.5)。",
     useCases: [
-      "見出し・ボタン・入力欄のラベルは、主題や目的が分かる言葉にする(2.4.6)",
       "画面ごとに、内容を表すタイトルを付ける(2.4.2)",
-      "入力欄にはラベルと、必要なら書式の説明を付ける(3.3.2)",
-      "「右の丸いボタン」のように形や位置だけで説明せず、コンポーネントの名前も書く(1.3.3)",
+      "入力欄にラベルと、必要なら書式の説明を付ける(3.3.2)",
     ],
     searchHint: "describe topic or purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html",
@@ -123,18 +119,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Plain Language Is for Everyone, Even Experts / The Four Dimensions of Tone of Voice / How Little Do Users Read?",
     color: "#7A4F7E",
-    position: "Webでは人はほとんど読まないという調査にもとづき、平易で短い言葉と、ブランドと場面に合った調子を勧める(適合基準ではない)",
-    size: "平均的なWebページでは、1回の訪問で読める言葉は多くても28%、実際には20%程度という分析がある(2008年の記事)。言葉を100語足しても滞在は4.4秒しか延びず、足した分の約18%しか読まれない。Webでは、印刷物の言葉の50%未満を目安にする。",
-    colorInfo: "調子は4つの軸で分けられる。形式的⇔くだけた、真面目⇔面白い、敬意⇔不遜、淡々⇔熱心。同じ「エラーが発生しました」でも、丁寧で淡々とした文から、冗談めかした文まで調子が変わる。どれが合うかは、ブランドの性格・場面・相手で決める。",
+    position: "人はほとんど読まないという調査にもとづき、平易で短い言葉と、場面に合った調子を勧める",
+    size: <><Hl>印刷物の言葉の50%未満</Hl>が目安。読まれるのは20%程度(「どれだけ読まれるか」)。</>,
+    colorInfo: <>調子は<Hl>4つの軸</Hl>(形式的⇔くだけた、真面目⇔面白い、敬意⇔不遜、淡々⇔熱心)で決める(「調子の4つの軸」)。</>,
     stance:
-      <><Hl>平易な言葉は内容を薄めるものではなく、専門家にも好まれる</Hl>(科学・技術・医療の専門家の調査でも、短く読み流せる情報が求められた)。まず対象の読み手を決め、その人たちになじみのある言葉を選ぶ。俗語・慣用句・組織の中だけの造語は避け、必要な専門用語は先に説明する。</>,
+      <>平易な言葉は専門家にも好まれる。読み手を決め、なじみのある言葉を選ぶ(俗語・慣用句・造語を避ける)。</>,
     exceptions:
-      "専門家どうしで通じる専門用語は、短く正確な近道になるため使ってよい(ただし本当に通じるか確かめる)。専門家向けの文の途中で一般向けの説明を挟むと専門家が離れてしまうため、補足はリンクなど別の層に置く。全員に向けて書くと誰にも向けていない文になるため、読み手に優先順位を付ける。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティテストと閲覧行動の分析にもとづく設計の根拠。平易な言葉は、母語でない読み手や海外の読み手にも役立つ。",
+      "専門家どうしで通じる用語は使ってよい(通じるか確かめる)。一般向けの補足はリンクなど別の層に置く。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、テストと閲覧行動の分析にもとづく。",
     useCases: [
-      "印刷物の半分未満の言葉にし、読み流せる形に整える",
-      "読み手を決め、なじみのある言葉を選ぶ(造語・慣用句を避ける)",
-      "調子は4つの軸で決め、場面(エラー・お祝いなど)で調整する",
+      "読み流せる形に整える",
+      "調子を場面(エラー・お祝いなど)で調整する",
     ],
     searchHint: "fewer than 50% of the words",
     url: "https://www.nngroup.com/articles/plain-language-experts/#toc-tips-for-writing-in-plain-language-3",
@@ -174,6 +169,7 @@ function VoiceToneSwatch() {
 const WRITING_ROWS = [
   {
     label: "ボタン・リンク",
+    rel: <><PageLink to="/components/actions/button">ボタン</PageLink>・<PageLink to="/components/actions/link">リンク</PageLink></>,
     cells: [
       { mark: "◯", note: "動詞で。気の利いた表現より明確さ。「ここをクリック」は使わない" },
       { mark: "◯", note: "UIのコンポーネントはラベルの文字で呼ぶ" },
@@ -183,6 +179,7 @@ const WRITING_ROWS = [
   },
   {
     label: "見出し・タイトル",
+    rel: <><PageLink to="/components/navigation/app-bar">アプリバー</PageLink></>,
     cells: [
       { mark: "△", note: "画面の目的を考え、重要な情報を先に" },
       { mark: "△", note: "目的を先に書く" },
@@ -192,6 +189,7 @@ const WRITING_ROWS = [
   },
   {
     label: "入力欄",
+    rel: <><PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></>,
     cells: [
       { mark: "◯", note: "すべての欄にラベル、書式はヒントで示す" },
       { mark: "―", note: "" },
@@ -201,19 +199,21 @@ const WRITING_ROWS = [
   },
   {
     label: "エラー",
+    rel: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink></>,
     cells: [
       { mark: "◯", note: "問題の近くに、責めずに直し方を。感嘆の言葉は避ける" },
       { mark: "△", note: "「〜しなければ」ではなく、どうすればよいかを書く" },
-      { mark: "△", note: <>3.3.1・3.3.3(<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>)</> },
+      { mark: "△", note: "3.3.1・3.3.3(エラー表示のページ)" },
       { mark: "◯", note: "調子の例にエラー文。場面に合う調子を選ぶ" },
     ],
   },
   {
     label: "用語の一貫性",
+    rel: <><PageLink to="/tokens/icon">アイコン</PageLink></>,
     cells: [
       { mark: "◯", note: "用語のリストを作る。手順の言葉をそろえる" },
       { mark: "◯", note: "同じ操作は同じ言葉で" },
-      { mark: "△", note: <>同じ働きのコンポーネントを一貫して識別(3.2.4。<PageLink to="/components/actions/link">リンク</PageLink>・<PageLink to="/tokens/icon">アイコン</PageLink>)</> },
+      { mark: "△", note: "同じ働きのコンポーネントを一貫して識別(3.2.4)" },
       { mark: "―", note: "" },
     ],
   },
@@ -228,6 +228,7 @@ const WRITING_ROWS = [
   },
   {
     label: "調子(tone)",
+    rel: <><a href="#tone-axes" style={{ color: "#3A4FCF" }}>調子の4つの軸</a></>,
     cells: [
       { mark: "◯", note: "声は一定、調子は場面で変える" },
       { mark: "―", note: "" },
@@ -237,6 +238,7 @@ const WRITING_ROWS = [
   },
   {
     label: "易しさ・長さ",
+    rel: <><a href="#length" style={{ color: "#3A4FCF" }}>文字数・行数の目安</a></>,
     cells: [
       { mark: "◯", note: "平易な言葉。専門用語・性別のある言葉を避ける" },
       { mark: "◯", note: "どの読解レベルでも分かる言葉。造語を避ける" },
@@ -258,7 +260,7 @@ function RuleMatrix() {
         {names.map((n, i) => (<div key={n} style={{ ...styles.ruleHead, color: colors[i] }}>{n}</div>))}
         {WRITING_ROWS.map((r) => (
           <React.Fragment key={r.label}>
-            <div style={styles.ruleLabel}>{r.label}</div>
+            <div style={styles.ruleLabel}>{r.label}{r.rel && <span style={styles.relLine}>{r.rel}</span>}</div>
             {r.cells.map((c, i) => (
               <div key={i} style={styles.ruleCell}>
                 <span style={{ ...styles.ruleMark, color: MARK_COLORS[c.mark] }}>{c.mark}</span>
@@ -339,13 +341,13 @@ function ToneAxes() {
 
 /* 場所ごとの文字数・行数の目安(英語の文字数・語数) */
 const LENGTH_ROWS = [
-  { place: "ボタン", apple: "数語で、何をするかを簡潔に。動詞で始めるとよい(Buttons)。アラートのボタンは1〜2語(Alerts)", google: "1行に収め、簡潔に(M2 Buttons)", w3c: "―", nn: "―" },
-  { place: "画面・ツールバーのタイトル", apple: "1語か短い句で、15文字未満(Toolbars)", google: "切り詰めたり文字を縮めたりしない。長いなら大きいアプリバーで2行にする(M2 Top app bar)", w3c: "主題や目的を表す(2.4.2)", nn: "―" },
-  { place: "タブ・ナビゲーションのラベル", apple: "できるだけ1語(Tab bars)", google: "短く。切り詰めず、文字を縮めて1行に押し込まない(タブは2行目も可)(M2 Tabs・Bottom navigation・Navigation rail)", w3c: "―", nn: "―" },
-  { place: "ダイアログ・アラートのタイトル", apple: "2行を超えて折り返さない。「エラー」だけのような情報のないタイトルは避ける(Alerts)。アクションシートのタイトルは1行(Action sheets)", google: "簡潔な文か問い。謝罪・警告・「よろしいですか?」を避ける(M2 Dialogs)", w3c: "―", nn: "―" },
-  { place: "スナックバー・通知", apple: "通知のタイトルは短く、本文は簡潔な完全な文で。自分で切り詰めない(システムが行う)(Notifications)", google: "スマートフォンでは2行まで、タブレット・デスクトップでは1行(M2 Snackbars)", w3c: "―", nn: "―" },
-  { place: "入力欄のラベル・補助テキスト", apple: "すべての欄にラベル。書式はヒントや例で示す(Writing)", google: "ラベルは切り詰めない。補助テキストは1行(M2 Text fields)", w3c: "ラベルか説明を用意(3.3.2)", nn: "―" },
-  { place: "本文の1行の長さ", apple: "―", google: "理想は40〜60文字(M2のSnackbarsのページで、文字の理想の行の長さとして示している)", w3c: "80文字以内にできること。CJKは40文字(1.4.8・AAA)", nn: "―(数値基準なし)" },
+  { place: "ボタン", rel: ["/components/actions/button", "ボタン"], apple: "数語で、何をするかを簡潔に。動詞で始めるとよい(Buttons)。アラートのボタンは1〜2語(Alerts)", google: "1行に収め、簡潔に(M2 Buttons)", w3c: "―", nn: "―" },
+  { place: "画面・ツールバーのタイトル", rel: ["/components/navigation/app-bar", "アプリバー"], apple: "1語か短い句で、15文字未満(Toolbars)", google: "切り詰めたり文字を縮めたりしない。長いなら大きいアプリバーで2行にする(M2 Top app bar)", w3c: "主題や目的を表す(2.4.2)", nn: "―" },
+  { place: "タブ・ナビゲーションのラベル", rel: ["/components/navigation/tabs", "タブ"], rel2: ["/components/navigation/nav-bar", "タブバー"], apple: "できるだけ1語(Tab bars)", google: "短く。切り詰めず、文字を縮めて1行に押し込まない(タブは2行目も可)(M2 Tabs・Bottom navigation・Navigation rail)", w3c: "―", nn: "―" },
+  { place: "ダイアログ・アラートのタイトル", rel: ["/components/containment/dialog", "モーダルダイアログ"], apple: "2行を超えて折り返さない。「エラー」だけのような情報のないタイトルは避ける(Alerts)。アクションシートのタイトルは1行(Action sheets)", google: "簡潔な文か問い。謝罪・警告・「よろしいですか?」を避ける(M2 Dialogs)", w3c: "―", nn: "―" },
+  { place: "スナックバー・通知", rel: ["/components/communication/snackbar", "スナックバー"], apple: "通知のタイトルは短く、本文は簡潔な完全な文で。自分で切り詰めない(システムが行う)(Notifications)", google: "スマートフォンでは2行まで、タブレット・デスクトップでは1行(M2 Snackbars)", w3c: "―", nn: "―" },
+  { place: "入力欄のラベル・補助テキスト", rel: ["/components/text-inputs/text-field", "テキストフィールド"], apple: "すべての欄にラベル。書式はヒントや例で示す(Writing)", google: "ラベルは切り詰めない。補助テキストは1行(M2 Text fields)", w3c: "ラベルか説明を用意(3.3.2)", nn: "―" },
+  { place: "本文の1行の長さ", rel: ["/tokens/typography", "タイポグラフィ"], apple: "―", google: "理想は40〜60文字(M2のSnackbarsのページで、文字の理想の行の長さとして示している)", w3c: "80文字以内にできること。CJKは40文字(1.4.8・AAA)", nn: "―(数値基準なし)" },
   { place: "ページ全体の量", apple: "1語ずつ必要かを確かめ、減らせるなら減らす", google: "少数の概念に絞った短い単位で", w3c: "難しい文には補足か易しい版(3.1.5・AAA)", nn: "印刷物の50%未満。読まれるのは20%程度" },
 ];
 
@@ -358,9 +360,9 @@ function LengthTable() {
         {heads.map(([h, c]) => (<div key={h} style={{ ...styles.ruleHead, color: c }}>{h}</div>))}
         {LENGTH_ROWS.map((r) => (
           <React.Fragment key={r.place}>
-            <div style={styles.ruleLabel}>{r.place}</div>
+            <div style={styles.ruleLabel}>{r.place}{r.rel && <span style={styles.relLine}><PageLink to={r.rel[0]}>{r.rel[1]}</PageLink>{r.rel2 && <>・<PageLink to={r.rel2[0]}>{r.rel2[1]}</PageLink></>}</span>}</div>
             {[r.apple, r.google, r.w3c, r.nn].map((t, i) => (
-              <div key={i} style={{ ...styles.ruleCell, ...(t.startsWith("―") ? { color: "#666D93" } : {}) }}><span style={styles.ruleNote}>{t}</span></div>
+              <div key={i} style={styles.ruleCell}>{t.startsWith("―") ? <NoData>{t === "―" ? "記載なし" : "記載なし(数値基準なし)"}</NoData> : <span style={styles.lenText}>{t}</span>}</div>
             ))}
           </React.Fragment>
         ))}
@@ -478,7 +480,6 @@ const PHILOSOPHY = [
       { t: "目的から書き始める", d: "目的→操作の順に書き、詳しい説明は必要になったときに見せる" },
     ],
     ref: { label: "Writing(Material Design 2)", url: "https://m2.material.io/design/communication/writing.html" } },
-  { k: "W3C", c: "#A3821F", title: null, lead: null, none: "ライティングの考え方は定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は指示・A、3.1.5 読解レベル・AAA など)", points: [], ref: null },
   { k: "NN group", c: "#7A4F7E", title: "言葉で行うデザイン", lead: "UXライティングは、利用者の状況・ニーズ・行動に合わせて情報を書くこと。ピクセルの代わりに言葉を使う点以外は、見た目や操作のデザインと同じ技能が要る、という立場。",
     points: [
       { t: "前提: 画面の文章は読まれない", d: "利用者は印刷物と違い、文章を拾い読みする(F字型・見出しを追う層状のパターンなど)。平均的なページで読まれるのは約20%" },
@@ -509,6 +510,7 @@ function WritingPhilosophy() {
           </div>
         ))}
       </div>
+      <p style={styles.chartNote}>W3Cはライティングの考え方を定めていない。文章に関わるのは個別の達成基準だけ(2.4.6 見出し及びラベル・AA、3.3.2 ラベル又は指示・A、3.1.5 読解レベル・AAA など。「四系列デザインシステム比較」を参照)。</p>
     </section>
   );
 }
@@ -596,7 +598,7 @@ export default function TokensWritingPage() {
 
           <WritingPhilosophy />
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― UIの言葉の場面ごとに何を定めているか</h2>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)のWritingの指針だ。W3Cの「エラー」「用語の一貫性」は、ほかのページで扱っている基準を示している(表の中のリンクから各ページへ)。</p>
@@ -606,16 +608,10 @@ export default function TokensWritingPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・Google・NN groupの3系列が一致</strong>しているのは、<strong>短く・平易に・一貫して</strong>書くことだ。Appleは「1語ずつ必要かを確かめる」、Googleは「少数の概念に絞った短い単位で」、NN groupは「印刷物の50%未満の言葉に」としている。W3Cは文の書き方そのものは定めておらず、文の易しさはレベルAAAの3.1.5(難しい文には易しい版や補足を用意する)で扱っている。NN groupの分析では、平均的なWebページで読まれる言葉は<strong>20%程度</strong>だ。
+              <strong>Apple・Google・NN groupの3系列が一致</strong>するのは、<strong>短く・平易に・一貫して</strong>書くこと。AppleとNN groupは、<strong>声は一定、調子は場面で変える</strong>という考え方も同じ。Appleはエラーでの<strong>感嘆や「私たち」を避ける</strong>。
             </p>
             <p style={styles.synthesisText}>
-              AppleとNN groupは、<strong>声(voice)は一定にし、調子(tone)は場面で変える</strong>という考え方も共有している。NN groupは調子を<strong>4つの軸(形式的⇔くだけた、真面目⇔面白い、敬意⇔不遜、淡々⇔熱心)</strong>で整理している。Appleは、エラーでの「おっと」のような感嘆を不誠実に聞こえることがあるとし、<strong>「私たち」も使わない</strong>よう求めている。
-            </p>
-            <p style={styles.synthesisText}>
-              文の書き方の決まりが最も細かいのはGoogleで、<strong>現在形・算用数字・目的を先に・同じ操作は同じ言葉で・1文だけなら句点を付けない</strong>などを示している(細かい決まりは旧版M2のWritingによる)。W3Cは書き方ではなく、<strong>見出し・ラベル・ページのタイトルが主題や目的を表していること(2.4.6・2.4.2)</strong>と、<strong>入力にラベルか説明があること(3.3.2)</strong>を求める。
-            </p>
-            <p style={styles.synthesisText}>
-              実務では、<strong>まず声と用語のリストを決め、ボタンは動詞・エラーは直し方・空の画面は次の行動、という場面ごとの型を作り、見出しとタイトルが内容を表しているかをW3Cの基準で確かめる</strong>のが、4系列を合わせた結論だ。
+              文の決まりが最も細かいのはGoogleで、<strong>現在形・目的を先に・同じ操作は同じ言葉で</strong>などを示す。W3Cは書き方を定めず、<strong>見出し・ラベル・タイトルが主題を表すこと</strong>(2.4.6・2.4.2)を求める。実務では、声と用語のリストを決め、場面ごとの型を作り、見出しとタイトルをW3Cの基準で確かめる(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -688,7 +684,7 @@ export default function TokensWritingPage() {
             <RewriteCards />
           </section>
 
-          <section style={styles.ruleSection}>
+          <section id="length" style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>使う場所ごとの文字数・行数の目安</h2>
             <p style={styles.diagramNote}>各系列がコンポーネントのページなどで示している、長さの目安を集めた。Apple・Googleの文字数・語数は英語の場合の値だ。かっこ内は根拠にしたページだ。</p>
             <LengthTable />
@@ -704,7 +700,7 @@ export default function TokensWritingPage() {
             <div style={styles.aiNote}><strong>AI解釈: </strong>日本語は主語を省くことが多いため、<strong>文末で主語が決まる</strong>。ユーザー主語は動詞(「保存」「保存する」「同意する」)で終え、「〜してください」のような依頼の形にしない(押す本人への依頼になってしまうため)。システム主語は、起きたことを「〜しました」「〜できませんでした」で伝え、続けて次の行動を「〜してください」で示すと、何が起きて何をすればよいかが1文ずつ分かる。</div>
           </section>
 
-          <div style={styles.chartCard}>
+          <div id="tone-axes" style={styles.chartCard}>
             <h2 style={styles.diagramTitle}>調子の4つの軸(NN group)</h2>
             <ToneAxes />
             <p style={styles.chartNote}>NN groupが示した英語のエラー文の例を日本語にし、4つの軸のおおよその位置を描いた概念図だ。「おっと!」を足すと、くだけて熱心な調子になる。どの調子が合うかはブランドの性格と場面で決まり、Appleはエラーでの感嘆の言葉を不誠実に聞こえることがあるとしている。</p>
@@ -735,7 +731,7 @@ export default function TokensWritingPage() {
 
 const styles = {
   philLead: { fontSize: 13, lineHeight: 1.8, color: "#2E3457", margin: "0 0 12px" },
-  philGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  philGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 10 },
   philCard: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "10px 12px" },
   philName: { fontSize: 12.5, fontWeight: 700 },
   philTitle: { fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "2px 0 4px" },
@@ -808,6 +804,8 @@ const styles = {
   ruleCell: { padding: "8px 10px", borderBottom: "1px solid #E1E3F0", borderLeft: "1px solid #EEF0F7", display: "flex", flexDirection: "column", gap: 2 },
   ruleMark: { fontSize: 15, fontWeight: 700, lineHeight: 1.1 },
   ruleNote: { fontSize: 10.5, color: "#565D8A", lineHeight: 1.5 },
+  lenText: { fontSize: 11, color: "#2E3457", lineHeight: 1.55 },
+  relLine: { display: "block", fontSize: 10.5, fontWeight: 400, marginTop: 2 },
   rwGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: 10 },
   rwCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
   rwBefore: { fontSize: 12, lineHeight: 1.6, color: "#666D93", textDecoration: "line-through", textDecorationColor: "#C0503F" },

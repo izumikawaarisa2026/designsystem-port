@@ -32,19 +32,18 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Toolbars / Live Activities / Widgets ほか",
     color: "#C2542A",
-    position: "角丸の専用ページや段階はなく、形の種類(四角・固定値の角丸・カプセル・円・同心・自動)をコンポーネントと場面で使い分ける。中心は「内側の角丸を外枠と同心(concentric)にそろえる」原則",
-    size: "角丸の段階(スケール)はない。基準は「形の種類」で、ボタンは自動・カプセル・円・角丸長方形から選ぶ。個別の値は、Dynamic Islandの角丸44pt(TrueDepthカメラの形に一致)、Apple Watchの大きな画像のコンプリケーション4ptなど、コンポーネントごとに示す。アプリアイコンは正方形で用意し、角丸はシステムが端末の形とそろうようにマスクする。",
-    colorInfo: "一貫して、内側の角丸を外枠と同心にそろえる。ツールバーでは標準のボタンや入力欄の角丸が自動でバーの角と同心になり、独自のコンポーネントも同心にする。ライブアクティビティでは「外側の角丸 − 余白」を内側の角丸にする計算まで示す。",
+    position: "角丸の段階はなく、形の種類(四角・固定値の角丸・カプセル・円・同心・自動)を場面で使い分ける",
+    size: <><NoData>段階はない</NoData>。値はコンポーネントごと(例: Dynamic Island 44pt)。アプリアイコンの角丸はシステムが付ける。</>,
+    colorInfo: <><Hl>内側の角丸 = 外側の角丸 − 余白</Hl>(同心)。ツールバーの標準のボタンは自動で同心になる。</>,
     stance:
-      <>角丸を独立したトークンではなく、画面の角・ウィンドウ・バーなど<Hl>外側の形に内側のコンポーネントを合わせる関係として扱う</Hl>。アプリアイコンの角丸が画面の角やほかのUIの丸みとそろうようにシステムがマスクするのも同じ発想。</>,
+      <>角丸を、<Hl>外側の形に内側を合わせる関係として扱う</Hl>。</>,
     exceptions:
-      "Apple Pay・Sign in with Appleのボタンなどは、ほかのボタンに合わせて角丸を四角からカプセル形まで調整できる。一方、Apple Healthのアイコンなどブランドの素材は、角丸を変えたり円に切り抜いたりしない。",
+      "Apple Payなどのボタンは角丸を調整できる。ブランドの素材(Apple Healthのアイコンなど)は角丸を変えない。",
     accessibility:
       "―(形のアクセシビリティ基準はない)。",
     useCases: [
-      "カードやバーの中に置くコンポーネントの角丸は「外側の角丸 − 余白」で決める",
-      "標準のコンポーネントを使い、角丸がバーや画面の角と同心になるようにする",
-      "アプリアイコンは角丸を付けずに正方形で書き出し、システムのマスクに任せる",
+      "カードやバーの中のコンポーネントは「外側 − 余白」で決める",
+      "アプリアイコンは正方形で書き出す",
     ],
     searchHint: "concentric",
     url: "https://developer.apple.com/design/human-interface-guidelines/toolbars#Best-practices",
@@ -61,19 +60,18 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Shape",
     color: "#2F7D6E",
-    position: "角丸を10段階の「シェイプスケール」のトークンにし、各コンポーネントがその段階を参照する。M3 Expressiveで35種類の装飾的な形と、形から形への変形(モーフ)も加わった",
-    size: "None 0dp / Extra small 4dp / Small 8dp / Medium 12dp / Large 16dp / Large increased 20dp / Extra large 28dp / Extra large increased 32dp / Extra extra large 48dp / Full 50%(完全な円・カプセル)の10段階。角の処理は丸める(rounded)か、斜めに切る(cut)かを選べ、既定は丸め。",
-    colorInfo: "角丸の値はテーマでまとめて変えられ、コンポーネントは段階を参照するため、アプリ全体の印象を1か所で変えられる。M3 Expressiveでは円・四角・花・クッキー・ハートなど35種類の形(MaterialShapes)があり、そのまま使うことも、別の形へ滑らかに変形させることもできる。",
+    position: "角丸を10段階のシェイプスケールにし、コンポーネントが段階を参照する。M3 Expressiveで35種類の形と変形(モーフ)が加わった",
+    size: <><Hl>0・4・8・12・16・20・28・32・48dpとFull(50%)の10段階</Hl>(上の比較図)。角は丸めるか斜めに切るかを選べる。</>,
+    colorInfo: "段階の値をテーマでまとめて変え、全体の印象を1か所で変えられる。",
     stance:
-      <>形をブランドの表現の手段とし、<Hl>角丸の段階をトークンにすることで</Hl>、ブランドに合わせた調整と一貫性を両立させる。独自の形を作るための角・辺の処理(角の切り落とし・三角形の辺など)もある。</>,
+      <>形をブランドの表現にし、<Hl>段階をトークンにして</Hl>調整と一貫性を両立させる。</>,
     exceptions:
-      "テーマで段階の値を変えたとき、「MediumがLargeより小さい」といった大小関係はライブラリが検査しないため、開発者が保証する。どのコンポーネントにどの段階を当てるかの一覧は、m3.material.ioのShapeのページにある。",
+      "値を変えたとき、段階の大小関係は自分で保つ(ライブラリは検査しない)。",
     accessibility:
-      "―(形のアクセシビリティ基準はない)。角丸の大きい小さなボタンの扱いはW3Cの欄(2.5.8)を参照。",
+      "―(形のアクセシビリティ基準はない)。",
     useCases: [
-      "角丸は固定値ではなく、シェイプスケールの段階(small・largeなど)で指定する",
-      "ブランドの印象を変えたいときは、テーマで段階の値をまとめて調整する",
-      "段階の値を変えたら、小さい段階ほど小さい値になっているか確かめる",
+      "角丸は固定値ではなく段階で指定する",
+      "ブランドの印象はテーマでまとめて調整する",
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/shape/corner-radius-scale",
@@ -90,22 +88,21 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.11 Non-text Contrast / 2.5.8 Target Size (Minimum)",
     color: "#A3821F",
-    position: "形は定めない。ボタンの枠(形)は、ほかに見分ける手がかりがないときだけ必要で、その場合は3:1を求める",
-    size: "形・角丸の数値基準はない。1.4.11(レベルAA)は、コンポーネントを見分けるのに必要な見た目に3:1以上を求めるが、文字や十分なコントラストのアイコンでコンポーネントだと分かるなら、枠(押せる範囲の境界)は必須ではない。2.5.8(レベルAA)では、角丸が大きくて内側に24×24pxの正方形が収まらない対象は「小さい対象」として扱う。",
-    colorInfo: "形の選び方の決まりはない。形の境界だけが見分ける手がかりなら、その境界に3:1(1.4.11)が要る。",
+    position: "形は定めない。枠はほかに見分ける手がかりがないときだけ必要で、その場合は3:1",
+    size: <><NoData>数値基準なし</NoData>。角丸で内側に24×24pxが収まらない対象は「小さい対象」(2.5.8・AA、例外あり)。</>,
+    colorInfo: <>形の決まりはない。<Hl>境界だけが手がかりなら3:1</Hl>(1.4.11・AA)。</>,
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目と、図の理解に必要な部分に、隣の色と3:1以上を求める。" },
       { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSSピクセル以上にするか、周りに十分な間隔を取ること。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
     ],
     stance:
-      <><Hl>ボタンが角丸か四角かは問わない</Hl>。問うのは、操作できるコンポーネントだと見分けられるか。枠のない文字だけのボタンも、文字で分かれば適合する。ただし手がかりが枠しかない入力欄などは、その枠に3:1が要る。</>,
+      <><Hl>角丸か四角かは問わない</Hl>。問うのは操作できると見分けられるか。枠のない文字だけのボタンも、文字で分かれば適合する。</>,
     exceptions:
-      "1.4.11は、無効なコンポーネントと、ブラウザが見た目を決めていて作者が変えていないコンポーネントを除外する。入力欄の立体的な影や、コントラストの違う背景の間の暗い線などは、明るさが最も近い色の一部として計算する。2.5.8では、角丸で小さい対象とみなされても、周りに十分な間隔があれば適合する。",
-    accessibility: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.11は「知覚可能」、2.5.8は「操作可能」。弱視の人がコンポーネントに気づけ、指の操作が難しい人が押し間違えないようにする。",
+      "無効なコンポーネントとブラウザ標準のままの見た目は除外(1.4.11)。小さい対象でも、周りに十分な間隔があれば適合(2.5.8)。",
+    accessibility: "知覚可能(1.4.11)・操作可能(2.5.8)。",
     useCases: [
-      "枠のないボタンは、文字やアイコンで押せるコンポーネントだと分かるようにする",
-      "入力欄など、枠が唯一の手がかりになるコンポーネントは枠を3:1以上にする",
-      "角丸の大きい小さなボタンは、内側に24px四方が収まるか、周りの間隔が足りるか確かめる",
+      "入力欄など、枠が唯一の手がかりなら枠を3:1以上にする",
+      "角丸の大きい小さなボタンは、周りの間隔が足りるか確かめる",
     ],
     searchHint: "does not require that controls have a visual boundary",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#boundaries",
@@ -120,18 +117,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Flat-Design Best Practices / Flat UI Elements Attract Less Attention",
     color: "#7A4F7E",
-    position: "形を「押せることを示す手がかり(シグニファイア)」として扱い、フラットデザインで形の手がかりを失うと探す手間が増える、という調査にもとづく(適合基準ではない)",
-    size: "角丸の数値基準はない。視線計測の調査では、押せる手がかりが弱いページは強いページより、見ている時間が平均22%長く、注視の回数が平均25%多かった。",
-    colorInfo: "ボタンは少なくとも現実のボタンのように見せ、細い枠線だけの「ゴーストボタン」は手がかりが弱いため避ける。完全にフラットにせず、控えめな影や重なりを加えた「フラット2.0」を多くの製品に勧める。",
+    position: "形を「押せることを示す手がかり」として扱う(視線計測の調査にもとづく)",
+    size: <><NoData>数値基準なし</NoData>。手がかりが弱いと、<Hl>見ている時間が平均22%長く</Hl>、注視が25%多い。</>,
+    colorInfo: "細い枠線だけのゴーストボタンは避ける。控えめな影を加えた「フラット2.0」を勧める。",
     stance:
-      <>フラットデザインでは押せる手がかりが取り除かれがちで、どこを押せるか迷い、作業の効率が落ちる。<Hl>押せる要素と押せない要素をはっきり分け</Hl>、静的な文字とリンクに同じ見た目を使わず、一貫させることが重要。</>,
+      <><Hl>押せる要素と押せない要素をはっきり分ける</Hl>。静的な文字とリンクに同じ見た目を使わない。</>,
     exceptions:
-      "ページが少なくシンプルなサイト、操作が少ないサイト、繰り返し訪れる人が多いサイト、利用者が専門家の場合は、完全にフラットでも問題が少ない。標準的なレイアウトやパターンに沿っていれば、手がかりが弱くても役割は理解されやすい。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、視線計測を使った調査にもとづく設計の根拠。",
+      "シンプルなサイト、繰り返し訪れる人や専門家が使うサイトは、完全にフラットでも問題が少ない。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、視線計測の調査にもとづく。",
     useCases: [
-      "ボタンは背景の塗りや形で、押せるコンポーネントだと分かるようにする",
-      "細い枠線だけのゴーストボタンを主要な操作に使わない",
-      "リンクと静的な文字、見出しとボタンに同じ見た目を使わない",
+      "ボタンは塗りや形で押せると分かるようにする",
+      "ゴーストボタンを主要な操作に使わない",
     ],
     searchHint: "22% more time",
     url: "https://www.nngroup.com/articles/flat-ui-less-attention-cause-uncertainty/",
@@ -501,25 +497,6 @@ function ShapeChangeRules() {
           </div>
         </div>
       </div>
-      <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              角丸を<strong>数値の段階(トークン)として持っているのはGoogleだけ</strong>だ。0・4・8・12・16・20・28・32・48dpとFull(50%)の10段階があり、テーマで一括して変えられる。M3 Expressiveでは35種類の装飾的な形と、形の変形(モーフ)まで加わり、形をブランド表現の中心に据えている。
-            </p>
-            <p style={styles.synthesisText}>
-              Appleには角丸の専用ページがない。代わりに、ツールバー・ライブアクティビティ・ウィジェット・アプリアイコンの各ページに、<strong>内側の角丸を外枠と同心(concentric)にそろえる</strong>という同じ考え方が繰り返し出てくる。Googleが「絶対値の段階」で統一するのに対し、Appleは<strong>「外側との関係」で統一する</strong>、という発想の違い。ただしAppleにも基準がないわけではなく、<strong>形の種類(四角・固定値の角丸・カプセル・円・同心・自動)を場面で使い分ける</strong>というルールがある。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cは形を規定しない。<strong>ボタンに枠がなくても、文字で押せるコンポーネントだと分かれば適合</strong>とし、枠が唯一の手がかりになる場合にだけ3:1を求める。一方でNN groupは、形が押せることを示す手がかりになると考え、<strong>手がかりの弱いUIでは探す時間が22%長くなる</strong>という調査を示している。
-            </p>
-            <p style={styles.synthesisText}>
-              つまり、W3Cの基準を満たす最低限(文字だけのボタン)と、NN groupが勧める使いやすさ(ボタンらしい形と塗り)の間には差がある。実務では、<strong>主要な操作には塗りと形のあるボタンを使い、角丸はGoogleの段階またはAppleの同心の考え方で一貫させる</strong>のが、4系列を合わせた結論だ。
-            </p>
-            <p style={styles.synthesisText}>
-              角丸100%(Full/カプセル)と固定値の使い分けは、Apple・Googleでほぼ一致している。<strong>高さが一定の「押す・つまむ」コンポーネント(ボタン・スイッチ・つまみ・バッジ)はFull、中身によって大きさが変わる「面」(カード・ダイアログ・シート・入力欄)は固定値</strong>だ。大きな面をFullにすると形が崩れ、小さなコンポーネントを固定値にすると押せるコンポーネントらしさが弱まる、という理由で考えると判断しやすくなる。
-            </p>
-          </div>
       <div className="dsp-mobile-only" style={styles.sourceList}>
         {SHAPE_CHANGES.map((r) => (
           <div key={r.scene} style={styles.sourceCard}>
@@ -614,6 +591,12 @@ export default function TokensShapePage() {
 
 
 
+          <section style={{ marginBottom: 40 }}>
+            <h2 style={styles.diagramTitle}>入れ子(お弁当)構造で見る角丸の大きさ</h2>
+            <p style={styles.diagramNote}>シートやダイアログの中にカード、その中にボタンや入力欄が入る、という入れ子の構造で角丸の大きさを比べる。<Hl>Googleはコンポーネントごとに段階を割り当て、Appleは外枠から余白を引いて計算</Hl>する。</p>
+            <NestDiagram />
+          </section>
+
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>形状ごとの使い方 ― 固定値の角丸・角丸100%と、Google・Appleの扱い</h2>
             <p style={styles.diagramNote}>形を「固定値の角丸」「外枠との関係で決める角丸」「角丸100%(Full/カプセル/円)」「システムに任せる」の4つに分け、それぞれどんなコンポーネントに使うか、Google・Appleがどう定めているかを1つの表に並べた。大まかな判断は、<strong>高さが一定の小さな操作コンポーネントは角丸100%、中身で大きさが変わる面は固定値(面が大きいほど角丸も大きく)、枠の中のコンポーネントは外枠と同心</strong>だ。</p>
@@ -633,16 +616,22 @@ export default function TokensShapePage() {
             <ShapeChangeRules />
           </section>
 
-          <section style={{ marginBottom: 40 }}>
-            <h2 style={styles.diagramTitle}>入れ子(お弁当)構造で見る角丸の大きさ</h2>
-            <p style={styles.diagramNote}>シートやダイアログの中にカード、その中にボタンや入力欄が入る、という入れ子の構造で角丸の大きさを比べる。<Hl>Googleはコンポーネントごとに段階を割り当て、Appleは外枠から余白を引いて計算</Hl>する。</p>
-            <NestDiagram />
-          </section>
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 角丸の決め方</h2>
             <ShapeChart />
             <p style={styles.chartNote}>Googleは絶対値の段階、Appleは外枠との関係で角丸を決める。W3C・NN groupは角丸の値ではなく、形がコンポーネントの識別や押せることの手がかりになるかを問題にしている。</p>
+          </div>
+
+          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              角丸を<strong>数値の段階として持つのはGoogleだけ</strong>(0〜48dpとFullの10段階)。Appleは段階を持たず、<strong>内側の角丸を外枠と同心にそろえる</strong>。Googleは「絶対値」、Appleは「外側との関係」で統一する。<strong>小さな操作コンポーネントはFull、大きさが変わる面は固定値</strong>という使い分けは、両者でほぼ一致する。
+            </p>
+            <p style={styles.synthesisText}>
+              W3Cは形を定めず、<strong>枠が唯一の手がかりなら3:1</strong>を求める。NN groupは、押せる手がかりが弱いと<strong>探す時間が22%長くなる</strong>とする。主要な操作には塗りと形のあるボタンを使う(AI解釈)。
+            </p>
           </div>
 
           <div className="dsp-mobile-only" style={styles.sourceList}>

@@ -22,7 +22,7 @@ const SOURCES = [
     color: "#C2542A",
     position: <NoData>該当なし(FABに当たるコンポーネントはない)</NoData>,
     size: <NoData>該当なし</NoData>,
-    stance: <><NoData>該当なし</NoData>。主な操作は、ツールバーやナビゲーションバーに置くのが基本。</>,
+    stance: <><NoData>該当なし</NoData>。主な操作は、ツールバーやアプリバー(Appleの呼び名: ナビゲーションバー)に置くのが基本。</>,
     exceptions: <NoData>該当なし</NoData>,
     pourDetail: <NoData>該当なし</NoData>,
     searchHint: "",
@@ -290,9 +290,9 @@ const SPLITS = [
     q: "画面に常に浮かぶ、主な操作のボタンを置く?",
     sides: [
       { who: "Google・NN group", color: "#2F7D6E", t: "置く。その画面でいちばん大事な前向きな操作(作成・共有など)に使い、1画面に1つまで(Google)。スクロールしても常に見えている主要な操作のボタン(NN group)" },
-      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たるコンポーネントがない。主な操作はツールバーや上部のバー(Appleの呼び名はナビゲーションバー。このサイトのアプリバー)に置く" },
+      { who: "Apple", color: "#C2542A", t: "iOS・iPadOSには当たるコンポーネントがない。主な操作はツールバーやアプリバー(Appleの呼び名: ナビゲーションバー)に置く" },
     ],
-    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやナビゲーションバーの右上に置くのが、それぞれの利用者が見慣れた形だ。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえる。",
+    tip: "AndroidやMaterialのWebではFAB、iOS・iPadOSではツールバーやアプリバーの右上に置くのが、それぞれの利用者が見慣れた形だ。両方に出すアプリでは、OSごとに置き場所を変えても、操作の名前とアイコンはそろえる。",
   },
   {
     q: "大きさはどれくらい?",

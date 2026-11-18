@@ -74,11 +74,12 @@ export function KeyPoints({ items, title, columns }) {
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマホの幅では縦)、それぞれに
    どこが良い/悪いかの1文を添え、最後に根拠(系列名と基準)を置く。良い/悪いは色だけでなく文字のラベルでも示す。
    items: [{ kind: "good"|"bad", label?, fig, text }]、basis: 根拠の文、note: 注記(任意) */
-export function GoodBad({ title, items, basis, note }) {
+/* pairs: 良い例と悪い例を1組ずつ横に並べる2列の表示(items は 良い, 悪い, 良い, 悪い… の順) */
+export function GoodBad({ title, items, basis, note, pairs }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={partStyles.h2}>{title}</h2>
-      <div style={partStyles.gbGrid}>
+      <div style={pairs ? { ...partStyles.gbGrid, gridTemplateColumns: "repeat(2, minmax(0, 1fr))" } : partStyles.gbGrid}>
         {items.map((it, i) => (
           <div key={i} style={partStyles.gbCard}>
             <span style={{ ...partStyles.gbLabel, ...(it.kind === "good" ? partStyles.gbGood : partStyles.gbBad) }}>
@@ -334,7 +335,7 @@ const PAGE_INDEX = {
   "lead": "ナビゲーションのコンポーネントを、どこへ移るかと画面の広さから選び分けるためのページ"
  },
  "/components/navigation/nav-bar": {
-  "label": "ナビゲーションバー",
+  "label": "タブバー",
   "lead": "画面の下などに常に表示し、アプリの主な場所(3〜5か所)を切り替えるバー"
  },
  "/components/containment/drawer": {

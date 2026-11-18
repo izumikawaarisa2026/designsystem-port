@@ -7,7 +7,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./
  *
  * このページの発見: Apple・Googleはどちらも「端末の種類ではなく、使える広さで見せ方を変える」が、
  * 変える対象を具体的に決めているのはGoogleで、ウィンドウサイズクラスごとにナビゲーションの部品
- * (ナビゲーションバー → ナビゲーションレール)とペインの数(1ペイン → 2ペイン)を切り替える
+ * (タブバー → ナビゲーションレール)とペインの数(1ペイン → 2ペイン)を切り替える
  * 「カノニカルレイアウト」を3種類用意している。Appleは境界値を示さず、「機能は変えず、見える量と
  * ナビゲーションの形(タブバー → サイドバー)だけを変える」という原則を示す。W3Cは広さそのものではなく、
  * 狭くしても(320 CSS px)・向きを変えても情報と機能が失われないことを求め、NN groupはWebの
@@ -56,7 +56,7 @@ const SOURCES = [
     doc: "Material Design 3 ― Adaptive design / Canonical layouts(Android Developers)",
     color: "#2F7D6E",
     position: <>ウィンドウサイズクラスごとに、<Hl>ナビゲーションのコンポーネントとペイン(画面の区画)の数を切り替える</Hl>。よく使う形として「カノニカルレイアウト」(リスト・詳細/フィード/補助ペイン)が3種類ある</>,
-    size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならナビゲーションバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
+    size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならタブバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
     colorInfo: "広さが変わっても状態を保つ。リストと詳細を並べていた画面が狭くなったら、詳細を残してリストを隠す。詳細だけを表示していた画面が広くなったら、リストも並べ、詳細に表示中の項目をリストで選択中として示す。リストだけのときに広くなったら、空の詳細ペインを並べる。",
     stance:
       "カノニカルレイアウトは、スマートフォンからタブレット・折りたたみ端末・ChromeOSまで、多くの画面で実績のある汎用の形で、Material Designの指針から作った。広い画面でレールにするのは、タブレットを両手で持ったとき左右の端に手が届きやすいため。",
@@ -65,7 +65,7 @@ const SOURCES = [
     accessibility:
       "―(専用のアクセシビリティ基準はない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)の「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
-      "Compactではナビゲーションバー、それより広い画面ではナビゲーションレールにする",
+      "Compactではタブバー、それより広い画面ではナビゲーションレールにする",
       "一覧と詳細があるアプリ(メッセージ・連絡先など)は、Expanded幅で2ペインを並べる",
       "広さが変わっても、選択中の項目や開いている詳細を失わない",
     ],
@@ -191,8 +191,8 @@ const ADAPT_ROWS = [
   {
     key: "material", name: "Google", color: "#2F7D6E",
     cells: [
-      { wire: { nav: "bottom", cols: [1] }, text: "Compact: ナビゲーションバー+1ペイン(リストか詳細の一方)" },
-      { wire: { nav: "rail", cols: [1, 1] }, text: "Medium: M3の指針ではナビゲーションバー(横型の項目)かナビゲーションレール(Jetpack ComposeのNavigationSuiteScaffoldの既定ではレール)。補助ペインは1:1で並べる(リスト・詳細は一方のみ)" },
+      { wire: { nav: "bottom", cols: [1] }, text: "Compact: タブバー+1ペイン(リストか詳細の一方)" },
+      { wire: { nav: "rail", cols: [1, 1] }, text: "Medium: M3の指針ではタブバー(横型の項目)かナビゲーションレール(Jetpack ComposeのNavigationSuiteScaffoldの既定ではレール)。補助ペインは1:1で並べる(リスト・詳細は一方のみ)" },
       { wire: { nav: "rail", cols: [1, 1.6] }, text: "Expanded: レール+2ペイン(リストと詳細を並べる)。補助ペインは7:3" },
     ],
   },
@@ -346,14 +346,14 @@ function OrientationDiagram() {
 /* No.014: 公式サイトにあって載せていなかった内容(GoogleはM3 Layoutの本文、AppleはHIGの各ページで確認) */
 const MISSING = [
   { s: "Google", c: "#2F7D6E", t: "組み替え方の5つ", d: "広さが変わったら、要素を「見せる・分ける・大きさを変える・位置を変える・入れ替える」のどれにするかを決める。ペインを内容の上に浮かべる「重ねる(levitate)」もある", ref: { l: "Breakpoints", u: "https://m3.material.io/foundations/layout/breakpoints/overview" } },
-  { s: "Google", c: "#2F7D6E", t: "画面の骨組み ― バー・レール・ペイン", d: "上下のバー(アプリバー・ナビゲーションバー)、その内側や左右のレール(ツールバー・FAB・ナビゲーションレール)、内容を入れるペインの順に組み立てる。画面の上下端のシステムの領域には主な内容を置かない", ref: { l: "Scaffold ― Bars・Rails", u: "https://m3.material.io/foundations/layout/scaffold/bars" } },
+  { s: "Google", c: "#2F7D6E", t: "画面の骨組み ― バー・レール・ペイン", d: "上下のバー(アプリバー・タブバー)、その内側や左右のレール(ツールバー・FAB・ナビゲーションレール)、内容を入れるペインの順に組み立てる。画面の上下端のシステムの領域には主な内容を置かない", ref: { l: "Scaffold ― Bars・Rails", u: "https://m3.material.io/foundations/layout/scaffold/bars" } },
   { s: "Apple", c: "#C2542A", t: "狭い画面ではポップオーバーを使わない", d: "compactではポップオーバーを出さず、シートなど画面全体を使う表示にする。ポップオーバーは広い画面のためのもの", ref: { l: "Popovers ― iOS, iPadOS", u: "https://developer.apple.com/design/human-interface-guidelines/popovers#iOS-iPadOS" } },
 ];
 
 /* 画面の広さで大きく変わる部品 */
 const BIG_CHANGES = [
-  { k: "ナビゲーション", g: ["ナビゲーションバー(縦型の項目)", "ナビゲーションバー(横型の項目)またはレール", "ナビゲーションレール・標準のドロワー"], a: "タブバー → サイドバー(タブバーがサイドバーに変わる型を使える)", link: <><PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink>・<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
-  { k: "タブの項目の並び", g: ["アイコンの下に文字", "アイコンの横に文字", "(レールに切り替え)"], a: "compactはアイコンの下に文字、regularはアイコンと文字を横に並べる", link: <PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink> },
+  { k: "ナビゲーション", g: ["タブバー(縦型の項目)", "タブバー(横型の項目)またはレール", "ナビゲーションレール・標準のドロワー"], a: "タブバー → サイドバー(タブバーがサイドバーに変わる型を使える)", link: <><PageLink to="/components/navigation/nav-bar">タブバー</PageLink>・<PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink></> },
+  { k: "タブの項目の並び", g: ["アイコンの下に文字", "アイコンの横に文字", "(レールに切り替え)"], a: "compactはアイコンの下に文字、regularはアイコンと文字を横に並べる", link: <PageLink to="/components/navigation/nav-bar">タブバー</PageLink> },
   { k: "ダイアログ", g: ["全画面ダイアログも使える", "基本のダイアログ", "基本のダイアログ(背景の幕の上)"], a: "広い画面のポップオーバーは、狭い画面ではシートにする", link: <><PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>・<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
   { k: "シート", g: ["ボトムシート(画面の幅いっぱい)", "ボトムシート(最大幅あり)・標準のサイドシート", "標準のサイドシート"], a: "iPhoneのシートは高さの段階(medium・large)で止まる", link: <><PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
   { k: "一覧と詳細", g: ["一覧か詳細のどちらか一方", "一覧か詳細のどちらか一方", "一覧と詳細を左右に並べる"], a: "compactでは分割ビューを使わず、regularで2〜3列", link: <NoData>専用ページなし(カノニカルレイアウトの節)</NoData> },
@@ -501,7 +501,7 @@ const LEAD = "同じ内容のまま、画面の広さや向き、ウィンドウ
 const ABOUT = [
   { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },
-  { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">ナビゲーションバー</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">タブバー</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -565,7 +565,7 @@ export default function TokensAdaptivePage() {
               <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示している。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めている。
             </p>
             <p style={styles.synthesisText}>
-              組み替え方を最も具体的に決めているのはGoogleだ。<strong>Compactではナビゲーションバー、それより広ければナビゲーションレール</strong>に自動で切り替え(Jetpack ComposeのNavigationSuiteScaffoldの既定。M3の指針ではMediumはバーかレール)、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示している。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもある。
+              組み替え方を最も具体的に決めているのはGoogleだ。<strong>Compactではタブバー、それより広ければナビゲーションレール</strong>に自動で切り替え(Jetpack ComposeのNavigationSuiteScaffoldの既定。M3の指針ではMediumはバーかレール)、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示している。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもある。
             </p>
             <p style={styles.synthesisText}>
               Appleは境界値を示さず、システムが決める<strong>サイズクラス(compact/regular)</strong>で判断させる。広い画面では<strong>タブバーをサイドバーに切り替え、スプリットビューで2〜3列</strong>にするなど、Googleと同じ方向の組み替えを勧めつつ、<strong>リサイズしてもプラットフォームらしいレイアウトのままにする</strong>ことを重視している。

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「タイポグラフィ(文字サイズ・行間)」ページ。
@@ -33,19 +33,18 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Typography",
     color: "#C2542A",
-    position: "Large Title〜Caption 2の11段階の「テキストスタイル」にサイズ・行送りを定め、Dynamic Type(利用者の文字サイズの設定)で全体が連動して拡大縮小する",
-    size: "iOS/iPadOSの既定の文字サイズ設定(Large)で、基準となる本文(Body)は17pt・最小は11pt(Caption 2)。文字色のコントラストは17pt以下で4.5:1、18pt以上または太字で3:1(Accessibilityページ。Appleの表の値で、WCAGの「大きな文字」は18pt以上または14pt以上の太字のため、WCAGでは小さい太字は3:1の対象外)。Large Title 34 / Title 1 28 / Title 2 22 / Title 3 20 / Headline 17 / Body 17 / Callout 16 / Subhead 15 / Footnote 13 / Caption 1 12 / Caption 2 11(pt)。本文は設定でxSmallの14ptからxxxLargeの23pt、アクセシビリティサイズの最大(AX5)の53ptまで変わる。プラットフォーム別の既定/最小はmacOS 13/10pt、watchOS 16/12pt。",
-    colorInfo: "テキストスタイルごとに行送り(leading)を決める。本文は17ptに対して22pt(約1.29倍)、Large Titleは34ptに対して41pt。既定のサイズでの比率は約1.18〜1.39倍。字間(tracking)はシステムフォントがサイズごとに自動で調整するため、通常は指定しない。長文ではゆったりした行送り(loose leading)、高さに制約がある場所では詰めた行送り(tight leading)を選べるが、3行以上では詰めた行送りを避ける。",
+    position: "11段階のテキストスタイル(Large Title〜Caption 2)。Dynamic Type(文字サイズの設定)で全体が連動して変わる",
+    size: <><Hl>本文17pt(Body)・最小11pt(Caption 2)</Hl>(iOS/iPadOSの既定の設定)。本文は設定で14〜53ptまで変わる。macOSは13/10pt、watchOSは16/12pt(既定/最小)。全段階は下の「タイプスケールの段階ごとの使用例」。</>,
+    colorInfo: "本文22pt(約1.29倍)。比率は「意見が分かれる点」。字間はシステムフォントが自動で調整する。3行以上では詰めた行送りを避ける。",
     stance:
-      <>固定のフォントサイズではなく、システムのテキストスタイルを使う。テキストスタイルはウェイト・サイズ・行送りの組み合わせで情報の階層を表し、<Hl>利用者が文字サイズを変えると全体が比例して拡大縮小する</Hl>。大きくしたときにレイアウトが崩れないか、省略(truncation)が増えないかを、最大のアクセシビリティサイズまで実際に確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で読みにくいため避ける。</>,
+      <>固定のサイズではなくテキストスタイルを使い、<Hl>利用者が文字サイズを変えると全体が比例して変わる</Hl>ようにする。最大のサイズでもレイアウトが崩れず、省略が増えないかを確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で避ける。</>,
     exceptions:
-      "独自のフォントでも、既定・最小のサイズの推奨値に従い、Dynamic TypeやBold Text(文字を太くする設定)に自分で対応する。大きくしたとき、すべての文字を同じように大きくする必要はなく、利用者が読みたい主な内容を優先してよい(例: タブのタイトルは拡大しなくてよい)。",
+      "独自のフォントでも、推奨のサイズに従い、Dynamic TypeとBold Textに対応する。拡大時は主な内容を優先してよい(例: タブのタイトルは拡大しなくてよい)。",
     accessibility:
-      "知覚可能(Perceivable) ― Dynamic Typeは読みやすい文字サイズを選べる仕組みで、WCAG 1.4.4(テキストのサイズ変更)の考え方をOSの機能にしたもの。テキストスタイルを使えば拡大に自動で追従する。",
+      "知覚可能 ― Dynamic Typeは、WCAG 1.4.4(テキストのサイズ変更)の考え方をOSの機能にしたもの。",
     useCases: [
-      "固定のptではなくテキストスタイル(Body・Headlineなど)を指定する",
-      "本文は17pt、どんな場合も11pt未満にしない(iOS/iPadOS)",
-      "最大のアクセシビリティサイズで、レイアウトの崩れや省略がないか確かめる",
+      "固定のptではなくテキストスタイルを指定する",
+      "最大のサイズで、崩れや省略がないか確かめる",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/typography#Ensuring-legibility",
@@ -61,19 +60,18 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Type scale",
     color: "#2F7D6E",
-    position: "Display/Headline/Title/Body/Labelの5つの役割 × Large/Medium/Smallの3サイズ=15段階の「タイプスケール」。同じ15段階に太さを強めた「Emphasized」版もある",
-    size: "Display 57 / 45 / 36、Headline 32 / 28 / 24、Title 22 / 16 / 14、Body 16 / 14 / 12、Label 14 / 12 / 11(いずれもLarge/Medium/Smallの順、単位sp)。本文の既定はBody Large 16sp(Jetpack ComposeのMaterialThemeの既定)、最小はLabel Small 11sp。本文の文字色(On Surface)は背景に対して7:1が目標。spはAndroidの文字サイズの設定に合わせて拡縮する単位。",
-    colorInfo: "行送り(line height)は、Display Large 64sp、Body Large 24sp、Body Medium 20sp、Label Small 16spなど、段階ごとの固定値。比率はBody Largeが1.5倍、Display Largeは約1.12倍で、大きい文字ほど比率が小さい(全体で約1.12〜1.5倍)。スタイルはフォント・ウェイト・サイズ・字間などの組み合わせのトークン。",
+    position: "5つの役割(Display/Headline/Title/Body/Label)×3サイズ=15段階のタイプスケール。太さを強めたEmphasized版もある",
+    size: <><Hl>本文16sp(Body Large)・最小11sp(Label Small)</Hl>。spは端末の文字サイズの設定に合わせて変わる単位。全段階は下の「タイプスケールの段階ごとの使用例」。</>,
+    colorInfo: "本文24sp(1.5倍)。段階ごとの固定値で、比率は「意見が分かれる点」。字間も段階ごとに決める。",
     stance:
-      <><Hl>UI全体の文字の段階を15の名前付きトークンに絞り</Hl>、コンポーネントはトークンを参照する。ブランドに合わせてフォントやサイズを変えるときも、トークンの値を替えれば全体に反映される。Emphasized版は、選択状態・操作・見出しなど、強調して階層を作りたい箇所に使う。</>,
+      <><Hl>文字の段階を15のトークンに絞り</Hl>、コンポーネントはトークンを参照する。トークンの値を替えれば全体に反映される。Emphasized版は選択状態・見出しなど強調したい箇所に使う。</>,
     exceptions:
-      "トークンの値はブランドに合わせて変えられる前提(例として、Display Smallを64spに変える例がある)。",
+      "トークンの値はブランドに合わせて変えてよい。",
     accessibility:
-      "知覚可能(Perceivable) ― 単位をspにすることで、端末の文字サイズの設定に追従し、WCAG 1.4.4(テキストのサイズ変更)の考え方に沿う。Body Largeの行送り1.5倍は、WCAG 1.4.12・1.4.8の1.5倍とも一致する。",
+      "知覚可能 ― spで端末の文字サイズの設定に追従し、WCAG 1.4.4の考え方に沿う。",
     useCases: [
-      "文字サイズは直接指定せず、タイプスケールのトークン(bodyLargeなど)を参照する",
-      "本文にはBody(Large 16sp/Medium 14sp)を、Labelはボタンなどの短い文字に使う",
-      "強調したい見出しや選択状態にはEmphasized版を使う",
+      "文字サイズは直接指定せず、トークンを参照する",
+      "本文はBody、ボタンなどの短い文字はLabel",
     ],
     searchHint: "",
     url: "https://m3.material.io/styles/typography/type-scale-tokens",
@@ -89,23 +87,22 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 1.4.4 Resize Text / 1.4.12 Text Spacing / 1.4.8 Visual Presentation",
     color: "#A3821F",
-    position: "文字サイズの最小値は定めず、「利用者が拡大や行間の変更をしても表示が壊れないこと」を求める",
-    size: "文字サイズの最小値はない。1.4.4(レベルAA): 支援技術を使わずに200%まで拡大しても、内容や機能が失われないこと(字幕と文字画像は除く)。1.4.8(レベルAAA): 1行の幅は80文字以内(CJKは40文字以内)にできること、200%に拡大しても横スクロールなしで1行を読めること。",
-    colorInfo: "1.4.12(レベルAA): 行の高さを文字サイズの1.5倍以上、段落の後の間隔を2倍以上、字間を0.12倍以上、単語間隔を0.16倍以上に変更しても、内容や機能が失われないこと。1.4.8(レベルAAA): 段落内の行間を1.5倍以上、段落間の間隔をその行間の1.5倍以上にできること、両端揃えにしないこと。",
+    position: "文字サイズの最小値は定めず、利用者が拡大や間隔の変更をしても壊れないことを求める",
+    size: <><NoData>最小値なし</NoData>。<Hl>200%まで拡大しても内容・機能が失われない</Hl>こと(1.4.4・AA)。1行は80文字以内(日本語は40文字以内)にできること(1.4.8・AAA)。</>,
+    colorInfo: "1.4.12(AA): 行の高さ1.5倍・段落後2倍・字間0.12倍・単語間隔0.16倍に変えても崩れないこと(初期値ではない。「意見が分かれる点」)。1.4.8(AAA): 両端揃えにしない。",
     glossary: [
       { term: "1.4.4 Resize Text・レベルAA", desc: "支援技術なしで文字を200%まで拡大しても、内容・機能が失われないこと。字幕と文字画像は対象外。" },
       { term: "1.4.12 Text Spacing・レベルAA", desc: "利用者が行の高さ・段落の間隔・字間・単語間隔を決まった値まで広げても、文字が重なったり切れたりしないこと。" },
       { term: "1.4.8 Visual Presentation・レベルAAA", desc: "文章のかたまりの色・行の幅・揃え方・行間・拡大を、利用者が調整できる仕組みを求める、最上位レベルの基準。" },
     ],
     stance:
-      <><Hl>WCAGの数値はデザインの初期値ではない</Hl>。1.4.12・1.4.8には「コンテンツがこの値を使う必要はない」とあり、求めるのは、利用者が見やすい値に変えたときに文字が重なったり切れたりしないこと。1.4.4も、拡大の大部分はブラウザなどのユーザーエージェントの役割とし、ページ全体のズームで満たす方法も認める。</>,
+      <><Hl>WCAGの数値はデザインの初期値ではない</Hl>。利用者が見やすい値に変えたとき、文字が重なったり切れたりしないことを求める。1.4.4はページ全体のズームで満たす方法も認める。</>,
     exceptions:
-      "1.4.4は字幕と文字画像を除外する。1.4.12は、その言語・文字体系でもともと使わない間隔(例: 単語の間にスペースを入れない言語の単語間隔)は、あるものだけで適合してよい。1.4.8はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
-    accessibility: "知覚可能(Perceivable) ― 1.4.4・1.4.12・1.4.8はどれも「知覚可能」。弱視・ディスレクシア(読字障害)・高齢などで文字が読みにくい人が、自分に合った大きさ・間隔に調整して読めるようにする。",
+      "1.4.4は字幕と文字画像を除外。1.4.12は、その言語で使わない間隔(日本語の単語間隔など)は対象外。1.4.8はAAA。",
+    accessibility: "知覚可能 ― 3つとも。弱視・ディスレクシア・高齢などで読みにくい人が、自分に合った大きさ・間隔で読めるようにする。",
     useCases: [
-      "200%に拡大しても、文字の切れ・重なり・機能の消失がないか確かめる",
-      "行の高さ1.5倍・段落後2倍・字間0.12倍・単語間隔0.16倍を当てても崩れない、固定高さに頼らないレイアウトにする",
-      "長文は1行80文字(日本語は40文字)以内に収められるようにする(AAA)",
+      "200%に拡大しても、切れ・重なりがないか確かめる",
+      "固定の高さに頼らないレイアウトにする",
     ],
     searchHint: "not required to use these",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html#success-criterion",
@@ -121,18 +118,17 @@ const SOURCES = [
     name: "Nielsen Norman Group",
     doc: "Legibility, Readability, and Comprehension など",
     color: "#7A4F7E",
-    position: "読みやすさを「判読性(文字を見分けられるか)・可読性(文が難しすぎないか)・理解度」の3段階に分け、文字の見た目は判読性の問題として扱う(適合基準ではない)",
-    size: "原則としての言及が中心。2015年の記事は、文字を小さくして目立たなくする場合も8pt以上は確保するとする。2002年の記事は、既定の文字サイズを十分に大きく(10pt以上)、高齢者向けには12pt以上、画像の中の文字も12pt以上にするとする。352人が16書体を読んだ調査では、同じ人でも最も速い書体は最も遅い書体より平均35%速く、20歳年をとるごとに読む速さが約11%遅くなった。",
-    colorInfo: "確認した記事に、行間・行の長さの数値はない。判読性の条件として、前景と背景の高いコントラスト、すっきりした書体、十分に大きい既定のサイズ、利用者が文字サイズを変えられることを挙げる。",
+    position: "読みやすさを判読性・可読性・理解度の3段階に分け、文字の見た目は判読性として扱う",
+    size: "原則としての言及が中心。目安は8pt以上(2015年)、既定10pt以上・高齢者向け12pt以上(2002年、デスクトップのWebが前提)。",
+    colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>小さい文字は判読性を下げ、どこからが「小さすぎる」かは視力で人それぞれで、視力は年齢とともに落ちる。そのため、<Hl>十分に大きい既定のサイズにしたうえで、利用者が文字サイズを変えられるようにする</Hl>。書体の調査では、すべての人に最適な書体はなく、人は自分が最も速く読める書体を選べない(好みと読む速さが一致しない)。</>,
+      <>「小さすぎる」は視力で人それぞれで、年齢とともに落ちる。<Hl>十分に大きい既定のサイズにし、利用者が変えられるようにする</Hl>。書体は「フォントの種類」を参照。</>,
     exceptions:
-      "10pt・12ptは2002年の記事の値で、当時のデスクトップのWebが前提。今のスマートフォンの単位(pt/sp)とそのまま比べられない。書体の調査は英語の文章が対象。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザーテストと読む速さの調査にもとづく設計の根拠。",
+      "10pt・12ptは当時のデスクトップのWebの値で、今のpt/spとそのまま比べられない。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザーテストと読む速さの調査にもとづく。",
     useCases: [
-      "既定の文字サイズを小さくしすぎず、利用者が拡大できるようにする",
-      "高齢の利用者が多いサービスでは、既定のサイズを一段大きくする",
-      "書体は好みで選ばず、読む速さなど実際のテストで確かめる",
+      "既定の文字サイズを小さくしすぎず、拡大できるようにする",
+      "高齢の利用者が多いなら、既定のサイズを一段大きくする",
     ],
     searchHint: "No Best Font",
     url: "https://www.nngroup.com/articles/legibility-readability-comprehension/",
@@ -289,7 +285,7 @@ const SCALES = {
     { name: "Body Medium", size: 14, lh: 20, w: "Regular", wn: 400, tr: 0.2, use: "ダイアログ・スナックバーの本文、リストの補足文" },
     { name: "Body Small", size: 12, lh: 16, w: "Regular", wn: 400, tr: 0.4, use: "テキストフィールドの補助テキスト、ツールチップ" },
     { name: "Label Large", size: 14, lh: 20, w: "Medium", wn: 500, tr: 0.1, use: "ボタン・チップのラベル、スナックバーのアクション" },
-    { name: "Label Medium", size: 12, lh: 16, w: "Medium", wn: 500, tr: 0.5, use: "ナビゲーションバーのラベル、アプリバーのサブタイトル" },
+    { name: "Label Medium", size: 12, lh: 16, w: "Medium", wn: 500, tr: 0.5, use: "タブバーのラベル、アプリバーのサブタイトル" },
     { name: "Label Small", size: 11, lh: 16, w: "Medium", wn: 500, tr: 0.5, min: true, use: "バッジの数字、リストのオーバーライン(項目名の上の小さな文字)" },
   ],
 };
@@ -531,6 +527,29 @@ function GlossaryNote({ items }) {
   );
 }
 
+/* 意見が分かれる点(2026-11 ⑦本人レビューNo.007で、比較表から切り出した) */
+const SPLITS = [
+  {
+    q: "本文の行送り(行の高さ)はどれくらいにする?",
+    figure: <><LeadingChart /><p style={{ fontSize: 11, color: "#565D8A", margin: "6px 0 0", lineHeight: 1.6 }}>帯=段階全体の範囲、丸=本文の値。W3Cの破線は初期値ではなく、この値に変えても崩れないことを求める値。</p></>,
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "本文は約1.29倍(17pt/22pt)。段階全体で約1.18〜1.39倍で、大きい文字ほど比率を小さくする" },
+      { who: "Google", color: "#2F7D6E", t: "本文は1.5倍(Body Large 16sp/24sp)。段階全体で約1.12〜1.5倍で、大きい文字ほど比率を小さくする" },
+      { who: "W3C", color: "#A3821F", t: "初期値は決めない。利用者が1.5倍に変えても崩れないことを求める(1.4.12・AA)。この値を使う必要はないと注記している" },
+    ],
+    tip: <>Appleの約1.29倍もWCAGに反しない(WCAGの1.5倍は耐性のテストの値)。どちらの値もラテン文字が前提なので、<strong>日本語の長い文章は広めに取り、実際の文章で確かめる</strong>(W3Cの<a href="https://www.w3.org/TR/jlreq/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>「日本語組版処理の要件」(JLReq)</a>も参考になる。WCAGの達成基準ではない)。</>,
+  },
+  {
+    q: "文字の最小サイズを決める?",
+    sides: [
+      { who: "Apple・Google", color: "#C2542A", t: "決める。最小はApple 11pt(Caption 2)、Google 11sp(Label Small)" },
+      { who: "W3C", color: "#A3821F", t: "決めない。代わりに、200%まで拡大しても内容と機能が失われないことを求める(1.4.4・AA)" },
+      { who: "NN group", color: "#7A4F7E", t: "目安を示す。8pt以上(2015年)、既定10pt以上・高齢者向け12pt以上(2002年、当時のデスクトップのWeb)" },
+    ],
+    tip: "最小サイズを守ることと、拡大しても崩れないことは別の問題。11を下回らないようにしたうえで、文字サイズの設定や200%の拡大で崩れないかも確かめる。",
+  },
+];
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "文字の大きさの段階、行の間隔、文字を拡大したときの対応の決まり";
 const ABOUT = [
@@ -584,7 +603,9 @@ export default function TokensTypographyPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <SplitSection splits={SPLITS} />
+
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 最小サイズと文字色の濃さ(コントラスト)</h2>
             <MinSizeChart />
             <p style={styles.chartNote}>○=最小サイズ、◆=基準(本文の既定)サイズ。pt(Apple)・sp(Google)・NN groupのpt(当時のデスクトップのWeb)は実際の大きさが一致しない単位のため、同じ目盛りに並べたのは目安だ。右側の「本文 Aa」は、白背景でその比率ちょうどになる灰色で表示しており、これより薄い色は基準を下回る。</p>
@@ -594,19 +615,10 @@ export default function TokensTypographyPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              AppleとGoogleは、どちらも<strong>名前の付いた文字の段階(テキストスタイル/タイプスケール)にサイズと行送りを割り当て、ユーザーの文字サイズ設定に連動させる</strong>という同じ構造を持っている。本文はApple 17pt・Google 16sp、最小はどちらも11と、数値もかなり近い水準だ。
+              AppleとGoogleは、<strong>名前の付いた文字の段階から選び、利用者の文字サイズの設定に連動させる</strong>という同じ作り。<strong>本文はApple 17pt・Google 16sp、最小はどちらも11</strong>で、数値も近い。W3Cは最小値を決めず、200%まで拡大できることを求める。
             </p>
             <p style={styles.synthesisText}>
-              最小サイズと文字色の濃さを並べると、<strong>数値で下限を決めているのはApple・Google(サイズと濃さの両方)とW3C(濃さのみ)</strong>だ。Appleは17pt以下の文字に4.5:1、Googleは本文の文字色に7:1・補助の文字に4.5:1を求め、Googleの本文はWCAGのAA(4.5:1)より一段濃い水準だ。W3Cは文字サイズの最小値を持たず、NN groupは8pt・10ptといった目安を示すものの、コントラスト比の数値は示していない。
-            </p>
-            <p style={styles.synthesisText}>
-              違いが出るのは行送りだ。Appleの本文は17ptに対して22pt(約1.29倍)、GoogleのBody Largeは16spに対して24sp(1.5倍)だ。どちらも<strong>大きい文字ほど行送りの比率を小さくする</strong>点は共通している。ただし、これらはラテン文字のシステムフォントを前提にした値だ。<strong>日本語の長い文章では行送りを広めに取り、実際の文章で確かめる</strong>のが安全だ(W3Cの<a href="https://www.w3.org/TR/jlreq/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>「日本語組版処理の要件」(JLReq)</a>も参考になる。WCAGの達成基準ではない)。
-            </p>
-            <p style={styles.synthesisText}>
-              ここで誤解しやすいのがW3Cの数値だ。1.4.12の「行の高さ1.5倍」などは、<strong>デザインの初期値として守るべき値ではなく、ユーザーがその値に変えても表示が壊れないことを確かめる耐性テストの値</strong>だ(基準の注記に「コンテンツがこの値を使う必要はない」と明記されている)。そのため、Appleの約1.29倍という初期値もWCAGに反しているわけではない。WCAGは文字サイズの最小値も定めておらず、代わりに「200%まで拡大できること」を求めている。
-            </p>
-            <p style={styles.synthesisText}>
-              Nielsen Norman Groupは数値より原則が中心で、<strong>「十分に大きい既定サイズ+ユーザーが変えられること」</strong>を判読性の条件としている。これはAppleのDynamic Type、Googleのsp単位、WCAGの1.4.4と同じ方向を向いており、4系列に共通する結論は、<strong>文字サイズを固定せず、ユーザーの拡大に追従して崩れない作りにすること</strong>だといえる。
+              分かれるのは行送りで、本文はAppleが約1.29倍、Googleが1.5倍(「意見が分かれる点」)。W3Cの1.5倍は初期値ではなく耐性のテストの値。NN groupも<strong>十分に大きい既定のサイズと、利用者が変えられること</strong>を条件にしており、<strong>4系列とも「文字を固定せず、拡大しても崩れない作り」</strong>に行き着く。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -680,12 +692,6 @@ export default function TokensTypographyPage() {
             </p>
             <TypeScaleUsage />
           </section>
-
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>参考 ― 文字サイズに対する行送りの比率</h2>
-            <LeadingChart />
-            <p style={styles.chartNote}>帯は各系列の段階全体の範囲、丸は本文の値だ。W3Cの破線は初期値の基準ではなく、ユーザーがこの値に変更しても崩れないことを求める値だ。</p>
-          </div>
 
           <FontTypes />
 
