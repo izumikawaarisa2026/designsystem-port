@@ -42,7 +42,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, Rela
  * 記事本文に根拠がなかったため削除した。
  * (2)「使用シーンごとのコンポーネント比較」セクションを新設。通常時・アクティブ(入力前)・
  * 入力中(予測候補)・検索結果・絞り込み・クリア/終了の6シーンについて、画面イメージ
- * (概念図)と、シーン×4系列の比較表(PCは表、スマホはカード)を置き、Google(M3)の
+ * (概念図)と、シーン×4系列の比較表(PCは表、スマートフォンはカード)を置き、Google(M3)の
  * スタイル×レイアウトの4つの組み合わせ図を補足として加えた。
  */
 
@@ -84,7 +84,7 @@ const SOURCES = [
         <text x="126" y="16" fontSize="7" fill="#FFFFFF" textAnchor="middle">✕</text>
       </svg>
     ),
-    illustrationNote: "検索アイコン・プレースホルダー・クリアボタン(概念図・系列識別色)",
+    illustrationNote: "検索アイコン・プレースホルダー・クリアボタン(概念図)",
   },
   {
     key: "material",
@@ -93,7 +93,7 @@ const SOURCES = [
     term: "Search(Search bar・Search view)",
     color: "#2F7D6E",
     position: "画面上部の「検索バー」と、選ぶと開く「検索ビュー」をまとめて「Search」と呼ぶ。見た目は包含(Contained、推奨)と分割(Divided、従来型)の2スタイル、候補・結果の出し方は全画面とドッキングの2レイアウト",
-    size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンはタップ領域48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
+    size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンは押せる範囲48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
     colorInfo: "コンテナは「surface container high」の色ロール。背景が白や単色でもバーがはっきり見えるよう、背景と1段階以上離れたsurface containerのロールを使い、背景に溶け込ませない。M3の既定では影(エレベーション)を付けない。",
     glossary: [
       { term: "Search bar / Search view", desc: "Search barは画面上部の検索の入り口。選ぶとSearch view(候補・結果の画面)が開く。M3 Expressiveで、両方をまとめて「Search(検索)」と呼ぶようになった。" },
@@ -129,7 +129,7 @@ const SOURCES = [
         <circle cx="125" cy="13" r="7" fill="#2F7D6E" opacity="0.55" />
       </svg>
     ),
-    illustrationNote: "先頭アイコン+ヒントテキスト+末尾のアバター(概念図・系列識別色)",
+    illustrationNote: "先頭アイコン+ヒントテキスト+末尾のアバター(概念図)",
   },
   {
     key: "wcag",
@@ -209,7 +209,7 @@ const SOURCES = [
         <line x1="127.7" y1="15.2" x2="131" y2="18.5" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     ),
-    illustrationNote: "開いた入力欄+送信ボタンを兼ねるアイコン(概念図・系列識別色)",
+    illustrationNote: "開いた入力欄+送信ボタンを兼ねるアイコン(概念図)",
   },
 ];
 

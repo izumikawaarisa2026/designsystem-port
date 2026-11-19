@@ -73,7 +73,7 @@ const SOURCES = [
         <text x="10" y="17" fontSize="10" fill="#666D93" fontFamily="Jost, Noto Sans JP">example@mail.com</text>
       </svg>
     ),
-    illustrationNote: "枠線+プレースホルダーの標準的なテキストフィールド(概念図・系列識別色)",
+    illustrationNote: "枠線+プレースホルダーの標準的なテキストフィールド(概念図)",
   },
   {
     key: "material",
@@ -113,7 +113,7 @@ const SOURCES = [
         <text x="12" y="22" fontSize="9.5" fill="#171B36" fontFamily="Jost, Noto Sans JP">taro@example.com</text>
       </svg>
     ),
-    illustrationNote: "Outlined + フローティングラベル(概念図・系列識別色)",
+    illustrationNote: "Outlined + フローティングラベル(概念図)",
   },
   {
     key: "wcag",
@@ -185,7 +185,7 @@ const SOURCES = [
         <rect x="1" y="14" width="138" height="12" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.4" />
       </svg>
     ),
-    illustrationNote: "ラベルは欄の外に常時表示(概念図・系列識別色)",
+    illustrationNote: "ラベルは欄の外に常時表示(概念図)",
   },
 ];
 
@@ -356,7 +356,7 @@ function TextareaSwatch() {
       <div style={{ position: "relative", marginBottom: 6 }}>
         <span style={{ position: "absolute", top: -8, left: 10, background: "#FFFFFF", padding: "0 4px", fontSize: 10.5, color: "#3A4FCF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>お問い合わせ内容</span>
         <div style={{ border: "1.6px solid #3A4FCF", borderRadius: 6, padding: "10px 12px", height: 58, fontSize: 13, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", textAlign: "left" }}>
-          ご質問の詳細をご記入ください。折り返しご連絡いたします。
+          注文番号12345の配送日を、来週の土曜日に変更したいです。
         </div>
       </div>
       <div style={{ fontSize: 10.5, color: "#666D93", padding: "0 4px" }}>複数行にわたる入力に対応</div>
@@ -387,7 +387,7 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "ラベルは欄の外に常に見せる", d: "", who: "W3C 3.3.2・NN group" },
+  { n: 1, t: "ラベルは欄の外に常に見せる", d: "W3C 3.3.2は見えるラベルか指示を求める(置き場所は決めていない)", who: "NN group・W3C 3.3.2" },
   { n: 2, t: "プレースホルダーは入力例だけに使う", d: "ラベルの代わりにしない", who: "W3C 3.3.2" },
   { n: 3, t: "場所が足りないときはフローティングラベル", d: "", who: "Google" },
 ];
@@ -461,13 +461,13 @@ export default function TextInputsTextFieldPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることだ。W3Cは適合基準(3.3.2)として「目に見えるラベル又は指示」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしている。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言える。
+              <strong>W3CとNN groupは「プレースホルダーだけに頼らない」で一致</strong>する。W3Cは達成基準(3.3.2)で、目に見えるラベルか指示を求める(欄の外に置くことまでは決めていない)。NN groupは調査にもとづき、ラベルとヒントを欄の外に常に見せる形を最良とする。
             </p>
             <p style={styles.synthesisText}>
               Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっている。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫だ。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かる。
+              W3Cは、見えるラベル(3.3.2)とは別に、<strong>ラベルを入力欄に関連付けて支援技術に伝える</strong>ことを求める(1.3.1・4.1.2)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

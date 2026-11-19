@@ -63,7 +63,7 @@ const CARDS = [
     key: "select", name: "セレクト(プルダウン)", path: "/components/selection/select", built: true,
     oneLiner: "選択肢を折りたたみ、省スペースで1つを選ぶ。",
     doText: "選択肢が多く省スペースにしたい時",
-    dontText: "選択肢が少ない・2〜5個程度の時(→ラジオボタン)",
+    dontText: "選択肢が少なく、全部を見比べて選ぶ方が分かりやすい時(→ラジオボタン。目安はAppleの2〜5個、Googleの5つ以下)",
     icon: () => (
       <svg width="60" height="22" viewBox="0 0 60 22"><rect x="1" y="1" width="58" height="20" rx="4" fill="#FFFFFF" stroke="#9EA4C4" strokeWidth="1.6" /><path d="M48 8l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 50 12)" /></svg>
     ),

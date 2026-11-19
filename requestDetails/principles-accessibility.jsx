@@ -40,8 +40,8 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、スクリーンリーダーが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・スクリーンリーダーでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
       { name: "設計の手順 ③ 要素(Elements)", ref: ["Elements", "https://m3.material.io/foundations/designing/elements"], desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
       { name: "色とコントラスト", ref: ["Color & contrast", "https://m3.material.io/foundations/designing/color-contrast"], desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
     ],
@@ -79,7 +79,7 @@ const FRAMEWORKS = [
           { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。", sc: "例: 2.2.1 期限調節可能(A)、2.2.2 一時停止・停止・非表示(A)" },
           { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。", sc: "例: 2.3.1 3回の閃光、又は閾値以下(A)" },
           { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。", sc: "例: 2.4.3 フォーカス順序(A)、2.4.4 リンクの目的(A)、2.4.7 フォーカスの可視化(AA)、2.4.11 隠されないフォーカス(最低限)(AA)" },
-          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。", sc: "例: 2.5.1 ポインタジェスチャ(A)、2.5.7 ドラッグ動作(AA)、2.5.8 ターゲットのサイズ(最低限) 24×24px(AA・例外あり)" },
+          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(押せる範囲など)。", sc: "例: 2.5.1 ポインタジェスチャ(A)、2.5.7 ドラッグ動作(AA)、2.5.8 ターゲットのサイズ(最低限) 24×24px(AA・例外あり)" },
         ],
       },
       {
@@ -94,7 +94,7 @@ const FRAMEWORKS = [
       },
       {
         name: "Robust(堅牢)",
-        desc: "コンテンツは、支援技術(読み上げソフトなど、障害のある人が使う道具)を含む様々なユーザーエージェント(ブラウザなど、内容を読み込んで表示・利用する道具)で確実に解釈できるべきという原則。",
+        desc: "コンテンツは、支援技術(スクリーンリーダーなど、障害のある人が使う道具)を含む様々なユーザーエージェント(ブラウザなど、内容を読み込んで表示・利用する道具)で確実に解釈できるべきという原則。",
         url: "https://www.w3.org/TR/WCAG22/#robust",
         sub: [
           { name: "4.1 Compatible", desc: "現在・将来のユーザーエージェントとの互換性を最大化すべきという指針。", sc: "例: 4.1.2 名前(name)・役割(role)・値(value)(A)、4.1.3 ステータスメッセージ(AA)" },
@@ -137,7 +137,7 @@ const NN_POINTS = [
   { t: "色以外の手がかり", d: "線・模様・アイコン・文言を添える。画面をグレースケールにして伝わるか確かめる" },
   { t: "フォーカスの状態", d: "キーボードで操作する人のため、太い枠線などではっきり示す(色の変化だけにしない)" },
   { t: "画像の代替テキスト", d: "短く書き、キャプションと同じ内容を繰り返さない。飾りの画像には付けない" },
-  { t: "実際の利用者でテスト", d: "読み上げソフトなどを自分でも使ってみる。5人ほどでも効果があり、ニーズの違う人を混ぜる" },
+  { t: "実際の利用者でテスト", d: "スクリーンリーダーなどを自分でも使ってみる。5人ほどでも効果があり、ニーズの違う人を混ぜる" },
 ];
 
 function WcagLevels() {
@@ -172,7 +172,7 @@ function WcagLevels() {
 function FrameworkExtra({ k }) {
   if (k === "apple") return (
     <div style={styles.extraBox}>
-      <div style={styles.extraTitle}>Apple独自の評価 ― Accessibility Nutrition Labels</div>
+      <div style={styles.extraTitle}>Apple独自の表示 ― Accessibility Nutrition Labels</div>
       <p style={styles.extraText}>App Storeの製品ページに、そのアプリが対応している支援機能をラベルで表示する仕組み(iOS 26などの端末で表示。当初は任意)。開発者が自分で評価して申告する。</p>
       <div style={styles.extraChips}>{NAMES_9.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
       <p style={styles.extraText}><strong>判定の基準</strong>: その機能を使って、アプリの「よく行う作業」をすべて最後までできること。よく行う作業は、アプリの主な機能に加えて、初回起動・ログイン・購入・設定。</p>
@@ -193,7 +193,7 @@ function FrameworkExtra({ k }) {
     <div style={styles.extraBox}>
       <div style={styles.extraTitle}>気にすべきポイント(5 Visual Treatments)</div>
       {NN_POINTS.map((x, i) => (<p key={x.t} style={styles.extraText}><strong>{i + 1}. {x.t}</strong>: {x.d}</p>))}
-      <p style={styles.extraText}>Study Guideではほかに、65歳以上の利用者(小さい文字・密な文字が読みにくい)と、読み上げソフトの利用者(画面を1本道で体験する。後付けのアクセシビリティ用ウィジェットでは足りない)を、分けて取り上げている。</p>
+      <p style={styles.extraText}>Study Guideではほかに、65歳以上の利用者(小さい文字・密な文字が読みにくい)と、スクリーンリーダーの利用者(画面を1本道で体験する。後付けのアクセシビリティ用ウィジェットでは足りない)を、分けて取り上げている。</p>
     </div>
   );
   return null;
@@ -280,7 +280,7 @@ export default function PrinciplesAccessibilityPage() {
 
           <h1 style={styles.title}>アクセシビリティ</h1>
           <p style={styles.subtitle}>4系列がアクセシビリティをどう捉え、どう体系立てているかの比較</p>
-          <KeyPoints items={KP} title="実務でまず見る達成基準" columns={2} />
+          <KeyPoints items={KP} title="実務でまず確かめたい代表的な達成基準" columns={2} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -288,7 +288,7 @@ export default function PrinciplesAccessibilityPage() {
               「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なる。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義している。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っている。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに具体的な数値を示し、さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを開発者に申告させる独自の評価</strong>を持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
+              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに指針を示し、視覚(コントラスト・文字サイズ)と運動(押せる範囲)には数値もある。さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを表示する(開発者の自己申告)</strong>仕組みを持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
             </p>
             <p style={styles.synthesisText}>
               本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。

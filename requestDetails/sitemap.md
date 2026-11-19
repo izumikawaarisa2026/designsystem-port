@@ -112,7 +112,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 | 3 | トースト | ✅ 完成済み。「スナックバー」ページから独立(2026-09、新規)。⚠ Material Design 3の公式コンポーネント一覧に「Toast」は存在しない(M1〜M2の「Snackbars & Toasts」がM3でSnackbarに統合・廃止。見落としではなく仕様通り、ユーザー指摘により2026-09にページ冒頭へ注記を追加)。Google欄はM3コンポーネントではなくAndroidのOSレベルAPI(プラットフォーム機能)として扱う。Google(Android Developers公式ページ、カスタムToastビューのAPI30非推奨を確認)・NN group(用語集に「Toast」単独の項目は存在せず「Snackbar (Toast)」の1項目であることを確認)は本文確認済み。W3Cは、role="status"の一般原則に加えAndroid実装固有の既知の課題(TalkBack非対応)を検索結果で確認。Appleはスナックバーページと同一の間接確認 |
 | 4 | ツールチップ | ✅ 完成済み。W3C(WAI-ARIA Tooltip Pattern)・NN group(Tooltip Guidelines)は本文確認済み。Apple(UIKit Help Tag)・Google(Tooltips、プレーン/リッチの2種類)は検索結果による間接確認 |
 | 5 | プログレスインジケーター | ✅ 完成済み(2026-09)。確定的(determinate)/不確定(indeterminate)の2状態。W3C(MDNのrole="progressbar")・NN group(「Progress Indicators...」、1秒未満は非表示・1〜10秒はスピナー・10秒超はバーという秒数目安)は本文確認済み。Apple・GoogleはSPAのため間接確認(GoogleはM3に5秒未満向けの新コンポーネント「Loading indicator」を追加) |
-| 6 | アラート/バナー | ✅ 完成済み。ダイアログとの違い: 画面遷移を止めない・インライン表示。GoogleのBannerはM3の一覧になく、M2仕様を参考掲載(検索で非推奨傾向を確認)。W3C(role="alert"、role="alertdialog"と対比)・NN group(Indicators, Validations, and Notifications)は本文確認済み。Appleは該当なしに近い(検索結果による間接確認) |
+| 6 | ステータスメッセージ(旧「アラート/バナー」。バナーはこのページの節) | ✅ 完成済み。ダイアログとの違い: 画面遷移を止めない・インライン表示。GoogleのBannerはM3の一覧になく、M2仕様を参考掲載(検索で非推奨傾向を確認)。W3C(role="alert"、role="alertdialog"と対比)・NN group(Indicators, Validations, and Notifications)は本文確認済み。Appleは該当なしに近い(検索結果による間接確認) |
 | 7 | バッジ | ✅ 完成済み(2026-09)。4系列中もっとも専用ページが薄いコンポーネント。Google(M3のBadgesコンポーネント、小=ドット/大=数字最大4文字)のみ独立コンポーネントを持つ。Apple(Notifications/Tab Barsの2ページに分散、専用コンポーネントなし)・W3C(専用ARIAロールなし、ARIA14のaria-label手法を援用、本文確認済み)・NN group(UI Elements Glossaryの「Badge」項目、本文確認済み) |
 | 8 | 空状態・ローディング状態 | ✅ 完成済み(2026-09)。Empty state / Loading state。AppleにもGoogleにも現行の「空状態」専用コンポーネントは存在せず(Apple=Writingページの文言指針、Google=旧世代M1のパターンページのみ)、一方でローディング側はApple「Loading」ページ・Google新設「Loading indicator」コンポーネントと手厚く、非対称であることを確認。NN group(空状態記事の3原則、Skeleton Screens 101の秒数目安)・W3C(MDNのaria-busy属性)は本文確認済み |
 | 9 | ウィジェット(ホーム画面ウィジェット) | ✅ 完成済み(2026-10、SPEC No.055、/components/communication/widget)。2026-11-11の⑦本人レビューで、サイドバーではContainment(カードの次)へ移した(URLはそのまま)。Apple(HIG Widgets)はページデータ、GoogleはM3にページがなくAndroid Developersのウィジェットのデザインガイド・品質ガイドの本文で確認。W3Cは専用の基準なし(WAI-ARIAのwidgetは別の意味)。NN groupはMobile Microsessionsの本文で確認。2026-10-05、トークン/ファウンデーションレイヤーから移動(AppleのHIGではComponents › System experiencesに属し、情報を一目で伝える部品のため) |
@@ -132,6 +132,8 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 **思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 48 + 横断ビュー 1 = 65ページ**(トップページ `index.jsx` を含めると66ページ。2026-11時点)
 
 コンポーネントレイヤーの内訳: Actions 4 / Selection 10 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
+
+2026-11の変更(⑨AI最終チェック): 「ステータスメッセージ(アラート)」を「ステータスメッセージ」に改名(AppleのAlertsは作業を止めるモーダルで、このページの内容と意味が逆になるため。URLは変えない)。
 
 2026-11の変更(⑦本人レビュー): Navigationの先頭に「Navigationの選び方」(/components/navigation/overview、No.049)を新規作成。「ウィザード(ステップ形式の入力)」をText inputsからNavigationへ移動(No.067。URLは変えていない)。Communicationで「ローディング状態」を「プログレスインジケーター」の上へ移動(No.066)。「ドロワー/サイドナビ」の常に表示する側の呼び名を「サイドナビ」にそろえた(No.049)。「バナー」のページを「ステータスメッセージ(アラート)」のバナーの節(#banner)に統合し、ページを削除(No.065)。「カレンダー(スケジュール/予定表)」のページを削除(No.035)。「セレクトの種類(プルダウン以外)」を「セレクトの種類」に改名し、セレクト(プルダウン)の上へ移動(No.030)。
 

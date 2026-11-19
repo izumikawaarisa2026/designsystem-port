@@ -84,7 +84,7 @@ const SOURCES = [
         <text x="118" y="19" fontSize="9.5" fill="#A9D6CC" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">元に戻す</text>
       </svg>
     ),
-    illustrationNote: "Undo(元に戻す)アクション付きのSnackbar(概念図・系列識別色)",
+    illustrationNote: "Undo(元に戻す)アクション付きのSnackbar(概念図)",
   },
   {
     key: "wcag",
@@ -104,7 +104,7 @@ const SOURCES = [
       "すぐ気づく必要のある重大なエラーを割り込んで知らせる時(多用しない)",
     ],
     stance:
-      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)は時間制限のある内容全般の基準で、これを当てはめると、<Hl>時間で消さないか、延長・解除できるようにする</Hl>ことになる。</>,
     exceptions:
       "割り込む警告は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(読み上げは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
@@ -173,7 +173,7 @@ const SOURCES = [
         <text x="118" y="19" fontSize="9.5" fill="#E7DCE8" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">元に戻す</text>
       </svg>
     ),
-    illustrationNote: "パッシブ通知としてのスナックバー(概念図・系列識別色)",
+    illustrationNote: "パッシブ通知としてのスナックバー(概念図)",
   },
 ];
 
@@ -326,10 +326,10 @@ export default function CommunicationSnackbarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スナックバーは、操作の結果を短く知らせる<strong>作業を止めない通知</strong>。いちばんの特徴は<strong>「元に戻す」などの操作を1つだけ持てる</strong>点で、Googleは<strong>同時に1つ・操作は1つまで</strong>とし、アプリが裏にあるならNotificationを使う。
+              スナックバーは、操作の結果を短く知らせる<strong>作業を止めない通知</strong>。いちばんの特徴は<strong>「元に戻す」などの操作を1つだけ持てる</strong>点で、Googleは<strong>同時に1つ・操作は1つまで</strong>とする。アプリを使っていないときに知らせるなら、Googleは通知(Notification)を使う。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは見落としても困らない<strong>パッシブな通知</strong>に分類し、<strong>重要な情報をこれだけで伝えない</strong>よう求める。W3Cも、控えめな知らせとして読み上げ、操作を持つなら時間で消さないか延長できるようにする(2.2.1)。
+              NN groupは見落としても困らない<strong>パッシブな通知</strong>に分類し、<strong>重要な情報をこれだけで伝えない</strong>よう求める。W3Cは、控えめな知らせとして読み上げることを求める(4.1.3)。操作を持つスナックバーを時間で消すなら、2.2.1(期限調節可能)の考え方から、時間で消さないか延長できるようにする(スナックバー専用の決まりではなく、時間制限の一般的な基準を当てはめたもの)。
             </p>
             <p style={styles.synthesisText}>
               Appleにはスナックバーもトーストもなく、NN groupは両者を1つの項目で扱う。トーストを別にしているのはGoogle(Android)だけなので、<strong>操作のない短い知らせも、このページの考え方で作ればよい</strong>(下の「スナックバーとトースト」)。

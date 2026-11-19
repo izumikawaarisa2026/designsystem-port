@@ -66,7 +66,7 @@ const SOURCES = [
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">削除</text>
       </svg>
     ),
-    illustrationNote: "キャンセルは左、よく選ばれるボタンは右(概念図・系列識別色)",
+    illustrationNote: "キャンセルは左、よく選ばれるボタンは右(概念図)",
   },
   {
     key: "material",
@@ -109,7 +109,7 @@ const SOURCES = [
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">OK</text>
       </svg>
     ),
-    illustrationNote: "見出し+補足テキスト+ボタンの基本ダイアログ(概念図・系列識別色)",
+    illustrationNote: "見出し+補足テキスト+ボタンの基本ダイアログ(概念図)",
   },
   {
     key: "wcag",
@@ -192,7 +192,7 @@ const SOURCES = [
         <text x="88" y="52" fontSize="7.5" fontWeight="700" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ファイルを削除</text>
       </svg>
     ),
-    illustrationNote: "「はい/いいえ」ではなく具体的なラベルにする(概念図・系列識別色)",
+    illustrationNote: "「はい/いいえ」ではなく具体的なラベルにする(概念図)",
   },
 ];
 
@@ -265,7 +265,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "本当に重要な場面だけに使う", d: "多用すると読まずに押されるようになる", who: "NN group" },
   { n: 2, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
-  { n: 3, t: "ボタンは2つまで", d: "", who: "Google" },
+  { n: 3, t: "ボタンは2つまで", d: "Appleのアラートは3つまで", who: "Google" },
   { n: 4, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
 ];
 
@@ -311,7 +311,7 @@ export default function ContainmentDialogPage() {
           <h1 style={styles.title}>モーダルダイアログ</h1>
           <SummaryCard keyPoints={KP}
             image={<><DialogSwatch /></>}
-            imageNote={<>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</>}
+            imageNote={<>タイトル・メッセージ・ボタンで構成される、後ろを暗くした幕(スクリム)の上に、中央寄せで出る小さいダイアログ。シートなどほかのオーバーレイとの違いは「オーバーレイの使い分け」で比べる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -326,13 +326,13 @@ export default function ContainmentDialogPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢だ。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告している。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致している。
+              <strong>ダイアログは本当に重要な場面に限って使う</strong>点で、Apple(Use alerts sparingly)・Google・NN groupが一致する。NN groupは、日常の操作に確認ダイアログを多用すると、内容を読まずに「はい」を押す癖がつくと警告する。Googleも、優先度の低い〜中程度の情報には、自動で閉じるスナックバーを使う。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っている。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にある。
+              ボタンは、<strong>Appleがアラートに3つまで(よく選ばれるボタンは末尾、キャンセルは先頭)</strong>、<strong>Googleが2つまで(確認は末尾。3つ目の操作は避ける)</strong>とする。ラベルは、NN groupが<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作が分かる言葉</strong>を勧め、Googleも「OK」「完了」のような曖昧な確認のラベルを避ける。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカスの扱い(ダイアログであること・モーダルであることを伝える・Tabキーでの閉じ込め・Escapeキーで閉じる)</strong>を具体的に定めており、Googleの「最初のフォーカスは最初の操作要素に自動で移動する」という挙動と一致している。
+              W3CのAPGは、ダイアログであること・モーダルであることを支援技術に伝え、開いている間はフォーカスをダイアログの中に保つ作り方を示す(参考例で、適合の要件ではない)。最初のフォーカスを中の操作要素に移す点は、Googleと同じ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

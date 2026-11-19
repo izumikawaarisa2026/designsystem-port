@@ -362,7 +362,7 @@ const BIG_CHANGES = [
 
 /* レスポンシブとアダプティブの違い(2026-11 ⑦本人レビューNo.014で追加。このページはレスポンシブを中心にし、アダプティブは末尾の補足で扱う) */
 const RA_VIEWS = [
-  { who: "Google", c: "#2F7D6E", t: <>区別する。<strong>レスポンシブは1つのレイアウトをどの画面にも合うよう拡大・縮小すること</strong>、<strong>アダプティブは端末ごとに体験を作り込み、構造・コンポーネント・レイアウト全体まで変えること</strong>。M3は2026年5月に「Responsive layout」を「adaptive design」に改名し、ブレークポイントでの組み替えもアダプティブと呼ぶ</>, ref: ["Adaptive design", "https://m3.material.io/foundations/layout/layout-overview/adaptive-design"] },
+  { who: "Google", c: "#2F7D6E", t: <>区別する。<strong>レスポンシブは1つのレイアウトをどの画面にも合うよう拡大・縮小すること</strong>、<strong>アダプティブは端末ごとに体験を作り込み、構造・コンポーネント・レイアウト全体まで変えること</strong>。M3は2026年5月に、レイアウトの解説(Layout)の「Responsive layout」を「adaptive design」に改名し(Google全体の用語の変更ではない)、ブレークポイントでの組み替えもアダプティブと呼ぶ</>, ref: ["Adaptive design", "https://m3.material.io/foundations/layout/layout-overview/adaptive-design"] },
   { who: "Apple", c: "#C2542A", t: <><NoData>2つの言葉を使い分けていない</NoData>。画面の大きさ・向き・マルチタスクの形が変わっても、一貫したレイアウトで合わせる(adapt)ようにする</>, ref: ["Layout ― Adaptability", "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability"] },
   { who: "W3C", c: "#A3821F", t: <><NoData>どちらの言葉も要件にはない</NoData>。近いのは1.4.10(リフロー: 狭い幅でも2方向にスクロールせずに読める)で、レスポンシブで満たしやすい。1.3の「適応可能(Adaptable)」は、構造を失わずに別の見せ方にできることで、アダプティブデザインとは別の意味</>, ref: ["1.4.10 リフロー", "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"] },
   { who: "NN group", c: "#7A4F7E", t: <>区別する。<strong>レスポンシブは同じ内容のまま、画面の大きさに合わせてレイアウトを組み替える</strong>。<strong>アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末に合う内容・機能だけを送る</strong></>, ref: ["Mobile Websites: Mobile-Dedicated, Responsive, Adaptive, or Desktop Site?", "https://www.nngroup.com/articles/mobile-vs-responsive/"] },
@@ -396,7 +396,7 @@ function RespVsAdapt() {
 
 /* アダプティブデザイン(補足) */
 const ADAPTIVE_NOTES = [
-  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマートフォン・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "NN group", c: "#7A4F7E", t: "サーバーが端末を見分けて送り分ける", d: "アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末で使える内容・機能だけを送る。読み込みの遅さを防げるのが主な利点", ref: { l: "Mobile Websites: … Responsive, Adaptive …", u: "https://www.nngroup.com/articles/mobile-vs-responsive/" } },
 ];
@@ -499,7 +499,7 @@ function GlossaryNote({ items }) {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "同じ内容のまま、画面の広さや向き、ウィンドウの大きさに合わせてレイアウトを組み替える考え方";
 const ABOUT = [
-  { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
+  { k: "目的・役割", v: "スマートフォンからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },
   { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">タブバー</PageLink></> },
 ];

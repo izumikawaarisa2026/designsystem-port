@@ -66,7 +66,7 @@ const SOURCES = [
         <text x="76" y="19" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通知バナー(近い概念)</text>
       </svg>
     ),
-    illustrationNote: "画面上部の短時間バナー(概念図・系列識別色)",
+    illustrationNote: "画面上部の短時間バナー(概念図)",
   },
   {
     key: "material",
@@ -76,7 +76,7 @@ const SOURCES = [
     color: "#2F7D6E",
     m3NotApplicable: true,
     position: <><Hl>M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)</Hl>。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる</>,
-    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る。</span>,
+    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る(Android Developers「Toasts overview」。Androidのバージョンによる)。</span>,
     scenarios: [
       "取り消しなどの操作が要らない、ごく短い操作結果を知らせたい時",
       "操作(Undoなど)を持たせたい時はSnackbarにする",
@@ -106,7 +106,7 @@ const SOURCES = [
         <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
       </svg>
     ),
-    illustrationNote: "アクションボタンを持たない、最小限のポップアップ(概念図・系列識別色)",
+    illustrationNote: "アクションボタンを持たない、最小限のポップアップ(概念図)",
   },
   {
     key: "wcag",
@@ -177,7 +177,7 @@ const SOURCES = [
         <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
       </svg>
     ),
-    illustrationNote: "Snackbarと同一項目内で扱われる「Toast」(概念図・系列識別色)",
+    illustrationNote: "Snackbarと同一項目内で扱われる「Toast」(概念図)",
   },
 ];
 
@@ -264,7 +264,7 @@ export default function CommunicationToastPage() {
           <div style={{ ...styles.warningBox, marginBottom: 24 }}>
             <div style={styles.warningLabel}>⚠ 重要な注記</div>
             <p style={styles.warningText}>
-              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Googleは、M1〜M2の「Snackbars & Toasts」をM3でSnackbarに統合し、Toastは<strong>AndroidのOSの機能</strong>として残るだけ(このページのGoogle欄はこれを扱う)。<strong>Appleはトーストもスナックバーも持たず、NN groupはスナックバーと同じ項目「Snackbar (Toast)」で扱う</strong>。W3Cにも専用の定めはなく、ステータスメッセージ(4.1.3)の考え方が当てはまる。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
+              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Google欄は、M3のコンポーネントではなく、AndroidのOSの機能のToastを扱う。WebでToast風の知らせを作るなら、ステータスメッセージ(W3C 4.1.3)として支援技術にも伝える。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
             </p>
           </div>
           <SummaryCard keyPoints={KP}

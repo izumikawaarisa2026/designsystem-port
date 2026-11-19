@@ -69,7 +69,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "Foundations配下にトピックを並列配置(5つを抜粋。概念図・系列識別色)",
+    illustrationNote: "Foundations配下にトピックを並列配置(5つを抜粋。概念図)",
   },
   {
     key: "material",
@@ -103,7 +103,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "FoundationsとStylesが別セクション(概念図・系列識別色)",
+    illustrationNote: "FoundationsとStylesが別セクション(概念図)",
   },
   {
     key: "wcag",
@@ -127,7 +127,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図・系列識別色)",
+    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図)",
   },
   {
     key: "nn",
@@ -149,7 +149,7 @@ const SOURCES = [
         <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>Topics(記事の分類)</span>
       </div>
     ),
-    illustrationNote: "記事をトピックで分類(概念図・系列識別色)",
+    illustrationNote: "記事をトピックで分類(概念図)",
   },
 ];
 
@@ -352,7 +352,7 @@ function PrinciplesVsFoundations() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
-      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → コンポーネント</strong>の3段で組み立てられている。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定のコンポーネントに限らず多くのコンポーネントに共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
+      <p style={styles.sectionLead}>このサイトでは、デザインシステムをおおまかに<strong>原則 → 土台 → コンポーネント</strong>の3段に分けて整理している(どのデザインシステムにも共通する決まった構造ではない)。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定のコンポーネントに限らず多くのコンポーネントに共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
       <div style={styles.tierWrap}>
         {TIERS.map((t, i) => (
           <React.Fragment key={t.k}>

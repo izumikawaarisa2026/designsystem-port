@@ -4,7 +4,7 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, Rela
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
- * ボタン(タップ領域)と違い、リンクには「単一の数値基準」がないため、
+ * ボタン(押せる範囲)と違い、リンクには「単一の数値基準」がないため、
  * データモデルの「基準値」欄は系列ごとの位置づけの説明に置き換えている。
  * 「四系列比較図」も許容レンジ図ではなく、各系列が何を求めているかの
  * 要求ポイント比較表に置き換えた(CLAUDE.mdの「都度判断してよい」方針に基づく)。
@@ -79,7 +79,7 @@ const SOURCES = [
     stance:
       <><Hl>リンクの目的が、文言か周りの文脈から分かる</Hl>こと(2.4.4・A。AAAの2.4.9は文言だけで)。<Hl>色だけでリンクを見分けさせない</Hl>(1.4.1・A)。同じ働きのリンクは、どのページでも同じ名前にする(3.2.4・AA)。</>,
     exceptions:
-      "色だけで区別するなら、周りの文字と3:1以上の明るさの差が要る(G183)。いちばん確実なのは下線。",
+      "色だけで区別するなら、周りの文字とのコントラスト比が3:1以上必要(1.4.1の達成方法G183)。いちばん確実なのは下線。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」のナビゲーションの達成基準。3.2.4は「理解可能」の予測可能(3.2)。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
@@ -90,7 +90,7 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
-    colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字と3:1以上の明度差が必要(G183)。いちばん確実なのは下線" },
+    colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字とのコントラスト比3:1以上が必要(1.4.1の達成方法G183)。いちばん確実なのは下線" },
     wordingCue: { mark: "△", note: "AA=周囲の文脈込みでOK / AAA=リンク単体で目的が分かる文言が必須" },
     visitedCue: { mark: "―", note: "直接の基準なし" },
     tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。文中のリンクは例外(ほかにも例外あり。ボタンのページを参照)" },
@@ -127,7 +127,7 @@ const SOURCES = [
     colorCue: { mark: "○", note: "出発点は色+下線(ナビゲーション領域は下線省略可)。編注: 下線は必須ではなく、コントラスト+ホバー/フォーカスの手がかりでもよい" },
     wordingCue: { mark: "―", note: "本記事では直接扱わない" },
     visitedCue: { mark: "○", note: "推奨: 訪問済みは彩度を落とした同系色にする" },
-    tapArea: { mark: "―", note: "リンク専用の数値記載なし。一般的なタップ領域の目安は約1cm四方(別記事)" },
+    tapArea: { mark: "―", note: "リンク専用の数値記載なし。一般的な押せる範囲の目安は約1cm四方(別記事)" },
     illustration: () => (
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
@@ -147,7 +147,7 @@ const CRITERIA_ROWS = [
   { key: "colorCue", label: "色以外の視覚的手がかり(下線など)" },
   { key: "wordingCue", label: "文言単体で目的が伝わるか" },
   { key: "visitedCue", label: "訪問済み/未訪問の色分け" },
-  { key: "tapArea", label: "タップ領域" },
+  { key: "tapArea", label: "押せる範囲" },
 ];
 
 function LinkSwatch() {
@@ -158,7 +158,7 @@ function LinkSwatch() {
   );
 }
 
-/* タップ領域の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
+/* 押せる範囲の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
 const TAP_MINI = {
   hig: { w: 44, label: "44×44pt(最小28pt)" },
   material: { w: 48, label: "48×48dp" },
@@ -223,7 +223,7 @@ const SPLITS = [
     q: "リンクに下線は必要?",
     sides: [
       { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の編注で、下線は必須ではないとした" },
-      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字と3:1以上の明度の差が必要(1.4.1・G183)。下線を付けるのがいちばん確実" },
+      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字とのコントラスト比3:1以上が必要(1.4.1と、その達成方法G183)。下線を付けるのがいちばん確実" },
       { who: "Apple", color: "#C2542A", t: "リンク専用の決まりはなく、全体の方針として、色だけに頼らず形やアイコンなどの手がかりを足すよう求めている" },
     ],
     tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違わない。下線をなくす場合は、周りの文字との3:1の差を確かめる。",
@@ -234,7 +234,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "「ここをタップ」のような曖昧な文言は避け、「◯◯について詳しく見る」のように行き先や機能が分かる言葉にする" },
       { who: "W3C", color: "#A3821F", t: "レベルA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
     ],
-    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせる。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全だ。",
+    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせる。ただしスクリーンリーダーでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全だ。",
   },
 ];
 
@@ -242,7 +242,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "行き先を示すならリンク、保存・送信など処理を実行するならボタン", d: "ボタンで次の画面へ進むこともあるが、文章の中で行き先を示すときはリンクにする", who: "AI解釈" },
   { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
-  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "明るさの差を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1・G183" },
+  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "周りの文字とのコントラスト比を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1(達成方法G183)" },
   { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
 ];
 
@@ -293,10 +293,10 @@ export default function ActionsLinkPage() {
               リンクには、ボタンのような<strong>数値の基準がない</strong>。代わりにApple・WCAG・NN groupは、「色だけに頼らず見分けられるか」と「文言だけで目的が伝わるか」という2つの観点で考え方を示している。
             </p>
             <p style={styles.synthesisText}>
-              Googleには独立した「Link」コンポーネントはなく、<strong>「Text button」(ラベルのみ・枠なしの低優先度ボタン)が最も近い相当物</strong>だ。厳密なハイパーリンクとは別物だが、見た目の軽さという点では近い存在と言える。
+              Googleには独立した「Link」コンポーネントはない(近いのは、ボタンの1種の<strong>Text button</strong>)。
             </p>
             <p style={styles.synthesisText}>
-              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点だ。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要だ(G183)。Nielsen Norman Groupも2026年3月の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足している。
+              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点だ。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら、周りの文字とのコントラスト比3:1以上が必要だ(達成方法G183)。Nielsen Norman Groupも2026年3月の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -354,7 +354,7 @@ export default function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>リンクのイメージ・タップ領域</div>
+                <div style={styles.labelCell}>リンクのイメージ・押せる範囲</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}

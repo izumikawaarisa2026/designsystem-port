@@ -79,7 +79,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "ポインターホバーで現れる短い説明(ヘルプタグ、概念図・系列識別色)",
+    illustrationNote: "ポインターホバーで現れる短い説明(ヘルプタグ、概念図)",
   },
   {
     key: "material",
@@ -127,7 +127,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "プレーンツールチップ(概念図・系列識別色)",
+    illustrationNote: "プレーンツールチップ(概念図)",
   },
   {
     key: "wcag",
@@ -214,7 +214,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "マイクロコンテンツとしてのツールチップ(概念図・系列識別色)",
+    illustrationNote: "マイクロコンテンツとしてのツールチップ(概念図)",
   },
 ];
 
@@ -339,7 +339,7 @@ function PlainRichTable() {
 
 /* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
 const TT_VS_POPUP = [
-  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマホのアプリでも)"],
+  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマートフォンのアプリでも)"],
   ["出すきっかけ", "マウスを乗せる・キーボードでフォーカスする", "押す(タップ・クリック)"],
   ["消えるとき", "決められた範囲からポインターが離れたとき", "閉じるを押すか、画面のほかの場所を押したとき"],
   ["組み合わせるコンポーネント", "アイコン・文字のリンク・ボタン・画像", "「?」や「i」のアイコン"],
@@ -350,7 +350,7 @@ function TooltipVsPopupTip() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
-      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えない</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使う。NN groupは、この2つを次のように区別している。</p>
+      <p style={styles.tvpNote}><strong>スマートフォンなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えない</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使う。NN groupは、この2つを次のように区別している。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvpTable}>
           <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
@@ -401,7 +401,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
       { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)のもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
     ],
-    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要なコンポーネントに「?」などの印を置き、押すと開くヒントにするのが確実だ(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13)。",
+    tip: "スマートフォンでは、長押しで出す(Google)、「?」などの印を押すと開くヒント(NN group・AppleのTip)、常に見える補足、から選べる。長押しは気づかれにくいため、説明が欠かせないなら押すと開くヒントか常に見せる形が確実だ。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13。ホバー・フォーカスで出る内容の基準で、タッチ操作の決まりではない)。",
   },
 ];
 
@@ -454,7 +454,7 @@ export default function CommunicationTooltipPage() {
           <h1 style={styles.title}>ツールチップ</h1>
           <SummaryCard keyPoints={KP}
             image={<><TooltipSwatch /></>}
-            imageNote={<>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</>}
+            imageNote={<>プレーン(左): ホバー/フォーカスで出る短い補足。リッチ(右): 見出し・本文・ボタンを持てる詳しい説明。</>}
             lead={LEAD}
             rows={ABOUT}
           />

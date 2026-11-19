@@ -109,7 +109,7 @@ export const NAV_SECTIONS = [
     title: "Communication",
     items: [
       { label: "情報伝達の使い分け", path: "/components/communication/overview", built: true },
-      { label: "ステータスメッセージ(アラート)", path: "/components/communication/alert", built: true },
+      { label: "ステータスメッセージ", path: "/components/communication/alert", built: true },
       { label: "スナックバー", path: "/components/communication/snackbar", built: true },
       { label: "トースト", path: "/components/communication/toast", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },

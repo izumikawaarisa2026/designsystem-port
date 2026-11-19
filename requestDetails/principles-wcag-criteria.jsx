@@ -192,7 +192,7 @@ export default function WcagCriteriaPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.levelNote}>
-            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのサイトや法令の目標はAAで、このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
+            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
           </div>
 
           <div style={styles.toc}>

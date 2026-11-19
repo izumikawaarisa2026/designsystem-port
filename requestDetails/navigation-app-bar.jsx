@@ -27,7 +27,7 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
+    doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む。iOSでは、移動のためのツールバーをNavigation barとも呼ぶ)",
     term: "Toolbar(Appleの呼び名: ナビゲーションバー)",
     color: "#C2542A",
     position: <>画面の上部で、<Hl>今の画面のタイトル・戻るなどのナビゲーション・操作をまとめる</Hl>バー</>,
@@ -58,7 +58,7 @@ const SOURCES = [
         <text x="60" y="16" fontSize="9" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">画面タイトル</text>
       </svg>
     ),
-    illustrationNote: "戻るボタンと画面タイトルを持つ上部バー(概念図・系列識別色)",
+    illustrationNote: "戻るボタンと画面タイトルを持つ上部バー(概念図)",
   },
   {
     key: "material",
@@ -102,7 +102,7 @@ const SOURCES = [
         <circle cx="112" cy="13" r="2.2" fill="#2F7D6E" />
       </svg>
     ),
-    illustrationNote: "戻る矢印+タイトル+末尾の操作アイコン(概念図・系列識別色)",
+    illustrationNote: "戻る矢印+タイトル+末尾の操作アイコン(概念図)",
   },
   {
     key: "wcag",
@@ -181,7 +181,7 @@ const SOURCES = [
         <text x="60" y="16" fontSize="9" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">常設ヘッダー</text>
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -230,7 +230,7 @@ function TopBarSwatch() {
 const SEARCH_APP_BAR_PARTS = [
   { n: "①", part: "先頭(ロゴかメニュー)", rule: "製品ロゴを置ける。飾りでも、ホームへ戻る・更新する操作を兼ねてもよい。ナビゲーションレールを開く操作には使わない" },
   { n: "②", part: "検索の入れ物", rule: "ラベルに必ず「検索」の語を入れる(例:「アプリ内を検索」)。押すと検索ビューが開く。既定の色はサーフェスコンテナ、暗い背景では明るい色にし、文字と入れ物は3:1以上" },
-  { n: "③", part: "末尾のアイコン", rule: "スマホでは2つまで(入れ物の内側・外側のどちらでもよい)。アバターを置くなら、アイコンは2つ未満にする。それ以上の操作はツールバーへ" },
+  { n: "③", part: "末尾のアイコン", rule: "スマートフォンでは2つまで(入れ物の内側・外側のどちらでもよい)。アバターを置くなら、アイコンは2つ未満にする。それ以上の操作はツールバーへ" },
   { n: "④", part: "アバター", rule: "アカウントを示す。③と合わせて末尾が混み合わないようにする" },
 ];
 const SEARCH_APP_BAR_RULES = [

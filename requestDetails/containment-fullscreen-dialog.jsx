@@ -66,7 +66,7 @@ const SOURCES = [
         <text x="60" y="62" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">複数ステップのタスク</text>
       </svg>
     ),
-    illustrationNote: "画面全体を占める複数ステップの編集タスク(概念図・系列識別色)",
+    illustrationNote: "画面全体を占める複数ステップの編集タスク(概念図)",
   },
   {
     key: "material",
@@ -109,7 +109,7 @@ const SOURCES = [
         <text x="97" y="60" fontSize="8" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">保存</text>
       </svg>
     ),
-    illustrationNote: "画面全体を占め、フォーム入力を伴う全画面ダイアログ(概念図・系列識別色)",
+    illustrationNote: "画面全体を占め、フォーム入力を伴う全画面ダイアログ(概念図)",
   },
   {
     key: "wcag",
@@ -192,7 +192,7 @@ const SOURCES = [
         <text x="60" y="52" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ステップ 1 / 3</text>
       </svg>
     ),
-    illustrationNote: "進捗を示すウィザード形式の全画面フロー(概念図・系列識別色)",
+    illustrationNote: "進捗を示すウィザード形式の全画面フロー(概念図)",
   },
 ];
 
@@ -245,7 +245,7 @@ function FullscreenDialogSwatch() {
 const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ";
 const ABOUT = [
   { k: "目的・役割", v: "まとまった入力(予定の作成など)を、元の画面から切り離して集中して行えるようにする" },
-  { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマホでの長めのフォーム" },
+  { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマートフォンでの長めのフォーム" },
   { k: "似たコンポーネント", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
 ];
 
@@ -264,7 +264,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "キーボード入力が要る、まとまった作業に使う", d: "", who: "Google" },
-  { n: 2, t: "スマートフォンなどのモバイル端末で使う", d: "タブレット・PCなど広い画面では、基本のダイアログにする", who: "Google(コンパクトなブレークポイントのみ)" },
+  { n: 2, t: "狭い画面(コンパクト)で使う", d: "広い画面では、基本のダイアログにする(端末ではなく画面の幅で決める)", who: "Google(コンパクトなブレークポイントのみ)" },
   { n: 3, t: "長く、途中で中断もありうる手順は、普通のページのウィザードにする", d: "", who: "AI解釈" },
 ];
 
@@ -314,10 +314,10 @@ export default function ContainmentFullscreenDialogPage() {
               Appleにはこの用途にぴったり対応する専用コンポーネント名はないが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られる。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点だ。
             </p>
             <p style={styles.synthesisText}>
-              最も踏み込んだ主張をしているのはNielsen Norman Groupだ。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしている。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になる。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確だ。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針だ。
+              NN groupは、<strong>最初から複数ステップが必要な作業には、モーダルではない普通のページを割り当てる</strong>ことを勧める(NN groupの推奨)。Googleの全画面ダイアログは<strong>予定の作成のような、短く完結する1つの作業</strong>向けなので、短い1つの作業か、長く中断もありうる手続きかで使い分ける。ウィザード形式にするなら、<strong>進み具合と全体のステップ数を示す</strong>(NN group)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じ要件(ダイアログ・モーダルであることを伝える、フォーカスの閉じ込め)がそのまま当てはまり、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
+              W3Cは、<strong>ダイアログを見た目の大きさで区別しない</strong>。基本のダイアログと同じ考え方(ダイアログ・モーダルであることを伝え、フォーカスを中に保つ。APGの参考例)がそのまま当てはまり、全画面にするかどうかはApple・Googleの使い分けに任される。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

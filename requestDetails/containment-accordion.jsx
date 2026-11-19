@@ -55,7 +55,7 @@ const SOURCES = [
         <rect x="1" y="22" width="118" height="36" rx="3" fill="#F8F9FD" stroke="#C2542A" strokeDasharray="3 2" strokeWidth="1" />
       </svg>
     ),
-    illustrationNote: "開示コントロールで関連情報を表示・非表示(概念図・系列識別色)",
+    illustrationNote: "開示コントロールで関連情報を表示・非表示(概念図)",
   },
   {
     key: "material",
@@ -146,7 +146,7 @@ const SOURCES = [
         <rect x="1" y="20" width="118" height="16" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1" opacity="0.5" />
       </svg>
     ),
-    illustrationNote: "FAQのような独立セクションの開閉(概念図・系列識別色)",
+    illustrationNote: "FAQのような独立セクションの開閉(概念図)",
   },
 ];
 
@@ -188,7 +188,7 @@ function AccordionSwatch() {
       </div>
       <div style={{ padding: "8px 12px 10px", fontSize: 11, color: "#666D93", borderBottom: "1px solid #E1E3F0" }}>購入から30日以内であれば返品を受け付けている。</div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px" }}>
-        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらだか?</span>
+        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらですか?</span>
         <span style={{ color: "#666D93" }}>›</span>
       </div>
     </div>
@@ -223,8 +223,8 @@ function TabVsAccordion() {
 const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "必要な部分だけを開いて読めるようにし、長いページを短く見せる" },
-  { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマホでの長い説明の折りたたみ" },
-  { k: "似たコンポーネント", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
+  { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマートフォンでの長い説明の折りたたみ" },
+  { k: "似たコンポーネント", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける作りにもできる</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -232,6 +232,7 @@ const KP = [
   { n: 1, t: "各項目が独立していて、一部だけ読めば足りる内容に使う", d: "よくある質問など", who: "NN group" },
   { n: 2, t: "ほぼ全部を読む内容や、続けて読む記事には使わない", d: "", who: "NN group" },
   { n: 3, t: "開閉できると分かる印(矢印)を付ける", d: "", who: "NN group" },
+  { n: 4, t: "見出しを押せるようにし、開いているかどうかを伝える", d: "同時にいくつ開けるかは内容で決める", who: "W3C(APG)" },
 ];
 
 export default function ContainmentAccordionPage() {
@@ -274,13 +275,13 @@ export default function ContainmentAccordionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupだ。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っている。
+              使う場面を最も具体的に示すのはNN groupだ。<strong>よくある質問のように各項目が独立し、一部だけ読めば足りる内容に向き、ほぼ全部を読む内容や続けて読む記事には向かない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方だ。複数のパネルを同時に開ける作りも、1つだけ開く作りも認めている(NN groupは、同時に開けるようにすることを勧める)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1時代には「Expansion panel」という独立コンポーネントがあったが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされている。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情だ。
+              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1には「Expansion panel」があった。独立したコンポーネントがないだけで、開閉のパターンそのものを使えないわけではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

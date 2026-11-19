@@ -32,7 +32,7 @@ const SOURCES = [
       { label: "Modality ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/modality#Best-practices" },
     ],
     illustration: () => <StepMini color="#C2542A" steps={3} current={1} />,
-    illustrationNote: "全画面のモーダルの中で進める(概念図・系列識別色)",
+    illustrationNote: "全画面のモーダルの中で進める(概念図)",
   },
   {
     key: "material",
@@ -58,7 +58,7 @@ const SOURCES = [
       { term: "寸法(M1)", desc: "ステップの高さ72dp、番号の丸は24×24dp。" },
     ],
     illustration: () => <StepMini color="#2F7D6E" steps={3} current={1} numbered />,
-    illustrationNote: "番号付きのステップ(M1の参考情報。概念図・系列識別色)",
+    illustrationNote: "番号付きのステップ(M1の参考情報。概念図)",
   },
   {
     key: "wcag",
@@ -66,7 +66,7 @@ const SOURCES = [
     doc: "WAI Forms Tutorial ― Multi-page Forms / WCAG 3.3.7",
     term: "Multi-page forms(複数ページのフォーム)/ multi-step process",
     color: "#A3821F",
-    position: "長いフォームは論理的なステップに分けることを勧め(チュートリアル)、同じ手続きの中で同じ入力を求めないことを要件とする(3.3.7)",
+    position: "長いフォームは論理的なステップに分けることを勧め(チュートリアル)、同じ手続きの中で同じ入力を求めないことを要件とする(3.3.7。ウィザード形式そのものを求める基準ではない)",
     stance: <span>長いフォームは、論理的なまとまりごとの小さなフォームに分けると、取り組みやすく分かりやすくなる(特に、操作に慣れていない人や認知障害のある人)としている。<Hl>同じ手続きの中で、前に入力した情報をもう一度入力させない</Hl>(3.3.7・レベルA。自動で入れるか、選べるようにする。例外あり)。</span>,
     progress: <span>最初のステップで<Hl>全部で何ステップあるかを伝え</Hl>、各ステップで進み具合を伝える。ページのtitleと見出しに「ステップ2/4」のように入れる。ステップ数が決まっていれば、手順の一覧(順序付きリスト)で、完了・現在のステップを支援技術にも分かるように示す。</span>,
     order: "任意のステップは分かるようにし、飛ばせるようにする。全体の説明は各ページで繰り返す。",
@@ -109,7 +109,7 @@ const SOURCES = [
       { label: "Modal & Nonmodal Dialogs(複数ステップの作業とモーダル)", url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/" },
     ],
     illustration: () => <StepMini color="#7A4F7E" steps={3} current={1} list />,
-    illustrationNote: "ステップの一覧で今の位置を示す(概念図・系列識別色)",
+    illustrationNote: "ステップの一覧で今の位置を示す(概念図)",
   },
 ];
 
@@ -252,7 +252,7 @@ const WIZ_LOOKS = [
   { k: "h", t: "横に並べる", d: "上部に番号とステップ名を並べる。前のステップで次の内容が変わるときに向く。名前は短くし、スクロールしても上部に固定できる", src: "Google(M1 Steppers)" },
   { k: "v", t: "縦に並べる", d: "ステップを縦に並べ、今のステップだけを開く。狭い画面向けで、スマートフォンにそのまま使える", src: "Google(M1 Steppers)" },
   { k: "m", t: "スマートフォンの簡易表示", d: "「2/4」の文字、点(ステップが少ないとき)、バー(ステップが多いとき・途中で増えるとき)", src: "Google(M1 Steppers)" },
-  { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。読み上げソフトの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
+  { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。スクリーンリーダーの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
 ];
 const WIZ_FLOWS = [
   ["順番どおりに進む", "前のステップを終えないと次へ進めない", "Google(M1 Linear)"],

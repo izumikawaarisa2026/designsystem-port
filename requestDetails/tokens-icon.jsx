@@ -59,7 +59,7 @@ const SOURCES = [
         <text x="100" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">large</text>
       </svg>
     ),
-    illustrationNote: "3段階のスケール、ウェイトによる太さの違い(概念図・系列識別色)",
+    illustrationNote: "3段階のスケール、ウェイトによる太さの違い(概念図)",
   },
   {
     key: "material",
@@ -103,7 +103,7 @@ const SOURCES = [
         <text x="98" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Sharp</text>
       </svg>
     ),
-    illustrationNote: "3スタイルの形状の違い(概念図・系列識別色)",
+    illustrationNote: "3スタイルの形状の違い(概念図)",
   },
   {
     key: "wcag",
@@ -182,7 +182,7 @@ const SOURCES = [
         <text x="60" y="38" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">メニュー</text>
       </svg>
     ),
-    illustrationNote: "アイコン単体ではなく常時表示のラベルを併用(概念図・系列識別色)",
+    illustrationNote: "アイコン単体ではなく常時表示のラベルを併用(概念図)",
   },
 ];
 

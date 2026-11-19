@@ -3,7 +3,7 @@ import SidebarNav from "./sidebar-nav";
 import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink, RelatedPages } from "./page-parts";
 
 /**
- * コンポーネントレイヤー「Communication / ステータスメッセージ(アラート)」ページ。
+ * コンポーネントレイヤー「Communication / ステータスメッセージ」ページ(2026-11 ⑨で「(アラート)」を外した。AppleのAlertsは作業を止めるモーダルのため)。
  * 成功・情報・注意・エラーといった状態の知らせ方を比べる。2026-11 ⑦本人レビューNo.065で、旧「バナー」ページを
  * このページのバナーの節(#banner)に統合した。
  * 一次情報: Apple HIG Feedback(ページデータのJSON)、M3の色の役割(Color roles・Define new colors)、WCAG 4.1.3のUnderstanding、
@@ -35,7 +35,7 @@ const SOURCES = [
       { label: "Alerts ― Best practices(作業を止めて伝える場合)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts#Best-practices" },
     ],
     illustration: () => <StatusMini color="#C2542A" kinds={["info", "success", "warning", "error"]} />,
-    illustrationNote: "4つのフィードバック(概念図・系列識別色)",
+    illustrationNote: "4つのフィードバック(概念図)",
   },
   {
     key: "material",
@@ -60,7 +60,7 @@ const SOURCES = [
       { label: "Define new colors(Define static colors: 成功の色などを足す)", url: "https://m3.material.io/styles/color/advanced/define-new-colors" },
     ],
     illustration: () => <StatusMini color="#2F7D6E" kinds={["error"]} />,
-    illustrationNote: "色の役割はエラーのみ(概念図・系列識別色)",
+    illustrationNote: "色の役割はエラーのみ(概念図)",
   },
   {
     key: "wcag",
@@ -114,7 +114,7 @@ const SOURCES = [
       { label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
     ],
     illustration: () => <StatusMini color="#7A4F7E" kinds={["info", "error", "warning"]} />,
-    illustrationNote: "インジケーター・バリデーション・通知(概念図・系列識別色)",
+    illustrationNote: "インジケーター・バリデーション・通知(概念図)",
   },
 ];
 
@@ -264,11 +264,10 @@ const ROWS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "大事な知らせほど目立たせ、そうでないものは控えめにする", d: "", who: "Apple" },
-  { n: 2, t: "今の状態は、関係する場所の近くにさりげなく出す", d: "例: メールの未読の数をツールバーに出す", who: "Apple" },
-  { n: 3, t: "作業を止めて知らせるのは、データが消えるなど取り返しがつかないときだけ", d: "", who: "Apple" },
-  { n: 4, t: "入力の間違いは、その入力欄のすぐそばに出す", d: "", who: "NN group" },
-  { n: 5, t: "画面に出すだけでなく、読み上げソフトにも伝える", d: "", who: "W3C 4.1.3" },
+  { n: 1, t: "大事な知らせほど目立たせ、今の状態は関係する場所の近くに控えめに出す", d: "例: メールの未読の数をツールバーに出す", who: "Apple" },
+  { n: 2, t: "作業を止めて知らせるのは、データが消えるなど取り返しがつかないときだけ", d: "", who: "Apple" },
+  { n: 3, t: "入力の間違いは、その入力欄のすぐそばに出す", d: "", who: "NN group" },
+  { n: 4, t: "画面に出すだけでなく、スクリーンリーダーにも伝える", d: "", who: "W3C 4.1.3" },
 ];
 
 
@@ -329,7 +328,7 @@ export default function CommunicationStatusMessagePage() {
             <span>SPEC No. 033</span>
           </div>
 
-          <h1 style={styles.title}>ステータスメッセージ(アラート)</h1>
+          <h1 style={styles.title}>ステータスメッセージ</h1>
           <SummaryCard keyPoints={KP}
             image={<StatusSwatch />}
             imageNote="成功・情報・注意・エラーを、色だけでなくアイコンと文字でも区別する。"

@@ -84,7 +84,7 @@ const SOURCES = [
     term: "表・グリッド(WAI-ARIAの役割)",
     color: "#A3821F",
     position: <>見た目の決まりは持たず、<Hl>見出しとデータの関係を支援技術に伝える</Hl></>,
-    size: <><NoData>数値基準なし</NoData>。データ表は、狭い画面での横スクロールが認められている(1.4.10の例外)。</>,
+    size: <><NoData>数値基準なし</NoData>。理解に2次元の配置が要るデータ表は、狭い画面での横スクロールが認められている(1.4.10の例外。表の外の文章などは対象外)。</>,
     colorInfo: "見出しのセルとデータのセルを区別し、行・列どちらの見出しかを伝える。表には題名を付ける。",
     glossary: [
       { term: "1.3.1 情報及び関係性・レベルA", desc: "見た目で伝えている構造や関係(表の見出しとデータの関係など)を、支援技術にも伝わるようにすることを求める基準。" },
@@ -449,7 +449,7 @@ export default function ContainmentTablePage() {
               <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通している。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしている。
             </p>
             <p style={styles.synthesisText}>
-              違いは決めている層だ。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
+              違いは決めている層だ。Google(旧版M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
               W3Cは見た目ではなく、<strong>見出しのセルとデータのセルの関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。<strong>並べ替えの状態</strong>も伝える。
@@ -532,7 +532,7 @@ export default function ContainmentTablePage() {
           </section>
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>小さい画面で表が収まらないとき</h2>
+            <h2 style={styles.diagramTitle}>画面に収まらないとき</h2>
             <NarrowTableDiagram />
             <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めている(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段だ。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めている(1.4.10)。</p>
           </div>

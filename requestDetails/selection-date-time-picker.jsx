@@ -76,7 +76,7 @@ const SOURCES = [
         <text x="45" y="41" fontSize="9" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
       </svg>
     ),
-    illustrationNote: "ホイールスタイルの例(概念図・系列識別色)。全8パターンは「デザインパターン一覧」を参照",
+    illustrationNote: "ホイールスタイルの例(概念図)。全8パターンは「デザインパターン一覧」を参照",
   },
   {
     key: "material",
@@ -120,7 +120,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "モーダル(カレンダー)の例(概念図・系列識別色)。全6パターンは「デザインパターン一覧」を参照",
+    illustrationNote: "モーダル(カレンダー)の例(概念図)。全6パターンは「デザインパターン一覧」を参照",
   },
   {
     key: "wcag",
@@ -172,7 +172,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く。月/日/年に分けたドロップダウンは避ける。</>,
+      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く(NN groupの実務の目安で、厳密な境界ではない)。月/日/年に分けたドロップダウンは避ける。</>,
     exceptions:
       "書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。",
     accessibility: "根拠となる原則 ― 入力の効率とエラーの率にもとづく指針。",
@@ -192,7 +192,7 @@ const SOURCES = [
         <text x="45" y="26" fontSize="10" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">2026年9月3日</text>
       </svg>
     ),
-    illustrationNote: "フリーテキスト入力(概念図・系列識別色)。NN groupが多くの場面で推奨する形",
+    illustrationNote: "フリーテキスト入力(概念図)。NN groupが多くの場面で推奨する形",
   },
 ];
 
@@ -515,7 +515,7 @@ function DateTimePickerSwatch() {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "カレンダーや回転する一覧などで、日付や時刻を選んで入力するコンポーネント";
 const ABOUT = [
-  { k: "目的・役割", v: "日付・時刻を、形式の間違いなく入力してもらう" },
+  { k: "目的・役割", v: "日付・時刻を、用途に合った方法(選ぶ・入力する)で、形式を間違えにくく入力してもらう" },
   { k: "よく使われる場面", v: "予約日・生年月日・アラームの時刻の入力" },
   { k: "似たコンポーネント", v: <>年月日を自由に打つなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];

@@ -128,7 +128,7 @@ const SOURCES = [
         <text x="106" y="17" fontSize="9.5" fill="#171B36" fontWeight="700" fontFamily="Jost, Noto Sans JP">現在地</text>
       </svg>
     ),
-    illustrationNote: "現在ページ(最後の項目)はリンクにしない(概念図・系列識別色)",
+    illustrationNote: "現在ページ(最後の項目)はリンクにしない(概念図)",
   },
 ];
 
@@ -251,7 +251,7 @@ export default function NavigationBreadcrumbPage() {
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
+              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)と両立しにくい</strong>。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

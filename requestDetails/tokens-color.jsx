@@ -64,7 +64,7 @@ const SOURCES = [
         <text x="91" y="32" fontSize="7.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Dark</text>
       </svg>
     ),
-    illustrationNote: "同じセマンティックカラーがライト/ダークで自動的に値を変える(概念図・系列識別色)",
+    illustrationNote: "同じセマンティックカラーがライト/ダークで自動的に値を変える(概念図)",
   },
   {
     key: "material",
@@ -110,7 +110,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "primary/secondary/tertiary/error/surfaceのカラーロール(概念図・系列識別色を基調に配色)",
+    illustrationNote: "primary/secondary/tertiary/error/surfaceのカラーロール(概念図)",
   },
   {
     key: "wcag",
@@ -154,7 +154,7 @@ const SOURCES = [
         <text x="91" y="34" fontSize="6.5" fill="#8A3F32" textAnchor="middle" fontFamily="Jost, Noto Sans JP">1.5:1 不合格</text>
       </svg>
     ),
-    illustrationNote: "4.5:1基準の合格/不合格の対比イメージ(概念図・系列識別色は使わず値を強調)",
+    illustrationNote: "4.5:1基準の合格/不合格の対比イメージ(概念図。値を強調)",
   },
   {
     key: "nn",
@@ -191,7 +191,7 @@ const SOURCES = [
         <text x="115" y="22" fontSize="6.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10</text>
       </svg>
     ),
-    illustrationNote: "60-30-10ルールの配分イメージ(概念図・系列識別色)",
+    illustrationNote: "60-30-10ルールの配分イメージ(概念図)",
   },
 ];
 
@@ -524,10 +524,10 @@ export default function TokensColorPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              数値の基準を持つのはW3Cで、<strong>本文4.5:1、大きな文字とコンポーネント3:1</strong>(1.4.3・1.4.11)。Apple・Googleは、<strong>色を「意味」で指定し、システムが設定に合わせて値を変える</strong>(Appleのセマンティックカラー、Googleのカラーロール)。Appleは独自の色に<strong>7:1</strong>を目指すよう勧め、Googleはロールごとに<strong>7:1・4.5:1・3:1</strong>の目標を配色の生成時に満たす。
+              数値の基準を持つのはW3Cで、<strong>本文4.5:1、大きな文字とコンポーネント3:1</strong>(1.4.3・1.4.11)。Apple・Googleは、<strong>色を「意味」で指定し、システムが設定に合わせて値を変える</strong>(Appleのセマンティックカラー、Googleのカラーロール)。Appleは独自の色に<strong>7:1</strong>を目指すよう勧め、Googleはロールごとに<strong>7:1・4.5:1・3:1</strong>の目標を配色の生成時に満たす(配色ライブラリの2021年版の仕様)。これらはApple・Google独自の目標で、WCAGの必須の基準(AAの4.5:1・3:1)とは別に読む。
             </p>
             <p style={styles.synthesisText}>
-              色の段階の分け方は4系列で違う(上の比較図)。<strong>「色だけで伝えない」はW3C(1.4.1)とNN groupが一致</strong>する。セマンティックカラーやカラーロールを使っても1.4.1は満たされないので、文字やアイコンの手がかりは別に用意する(AI解釈)。
+              色の段階の分け方は4系列で違う(上の比較図)。<strong>「色だけで伝えない」はApple(HIG Color)・W3C(1.4.1)・NN groupの3系列が一致</strong>する。セマンティックカラーやカラーロールを使っても1.4.1は満たされないので、文字やアイコンの手がかりは別に用意する(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

@@ -409,7 +409,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "基本の5つの状態をそろえる", d: "有効・ホバー・フォーカス・プレス・無効", who: "NN group・Google" },
-  { n: 2, t: "フォーカスは必ず見えるように", d: "色だけでなく輪郭線で示す", who: "W3C 2.4.7" },
+  { n: 2, t: "フォーカスは必ず見えるように", d: "見せ方は問わない(W3C)。NN groupは色だけでなく輪郭線で示すことを勧める", who: "W3C 2.4.7・NN group" },
   { n: 3, t: "状態の見た目は周りと見分けられるように", d: "隣り合う色と3:1以上", who: "W3C" },
   { n: 4, t: "独自のボタンにも押した状態を用意する", d: "システムの効果に任せるのが基本", who: "Apple" },
 ];
@@ -475,7 +475,7 @@ export default function TokensInteractionStatesPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列で共通する中心の状態は、<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。NN groupはこれをボタンの基本セットとし、Googleもこの5つ(+ドラッグ)にトークンを定義している。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
+              状態の軸になるのは、Google・NN groupに共通する<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。Googleはこの5つ(+ドラッグ)にトークンを定義し、NN groupはこれをボタンの基本セットとする。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
             </p>
             <p style={styles.synthesisText}>
               見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としている。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めている。
@@ -484,7 +484,7 @@ export default function TokensInteractionStatesPage() {
               W3Cは状態の種類を定めず、<strong>コンポーネントや状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求める。無効なコンポーネントはコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しない。
             </p>
             <p style={styles.synthesisText}>
-              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を確実に満たす方法で、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。
+              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を満たす方法の1つで(2.4.7は表示のしかたまでは決めていない)、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

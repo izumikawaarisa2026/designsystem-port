@@ -44,7 +44,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#C2542A" }}>読込中(骨組み)</span>
       </div>
     ),
-    illustrationNote: "読み込み中のプレースホルダー(概念図・系列識別色)",
+    illustrationNote: "読み込み中のプレースホルダー(概念図)",
   },
   {
     key: "material",
@@ -116,7 +116,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     stance:
       <>スケルトン画面はページの骨組みを先に見せ、<Hl>内容が来ることを予告して体感の待ち時間を和らげる</Hl>。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えるので避ける。</>,
-    exceptions: "スケルトン画面は10秒未満の読み込み向け(長い待ちはプログレスインジケーターのページ)。",
+    exceptions: "スケルトン画面は10秒未満の読み込み向け(NN groupの目安。長い待ちはプログレスインジケーターのページ)。",
     scenarios: [
       "ページ全体を読み込む時(10秒未満ならスケルトン画面)",
     ],
@@ -138,7 +138,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>スケルトン(2-10s)</span>
       </div>
     ),
-    illustrationNote: "スケルトン画面(10秒未満の目安。概念図・系列識別色)",
+    illustrationNote: "スケルトン画面(10秒未満の目安。概念図)",
   },
 ];
 
