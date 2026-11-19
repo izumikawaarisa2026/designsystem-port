@@ -66,7 +66,7 @@ const SOURCES = [
         <rect x="6" y="6" width="30" height="12" rx="4" fill="#C2542A" />
       </svg>
     ),
-    illustrationNote: "macOSの「トークンフィールド」内に浮かぶトークン(概念図・系列識別色)",
+    illustrationNote: "macOSの「トークンフィールド」内に浮かぶトークン(概念図)",
   },
   {
     key: "material",
@@ -110,7 +110,7 @@ const SOURCES = [
         <path d="M10 12l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "選択済みのフィルタチップ(概念図・系列識別色、角丸長方形)",
+    illustrationNote: "選択済みのフィルタチップ(概念図、角丸長方形)",
   },
   {
     key: "wcag",
@@ -176,7 +176,7 @@ const SOURCES = [
         <rect x="1" y="1" width="68" height="22" rx="6" fill="#7A4F7E" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -214,7 +214,7 @@ function ChipSwatch() {
     { label: "予定に追加", sub: "アシスト", leading: "+" },
     { label: "在庫あり", sub: "フィルタ", filled: true },
     { label: "田中 太郎", sub: "インプット", closable: true },
-    { label: "了解だ!", sub: "サジェスチョン", leading: "✨" },
+    { label: "了解です!", sub: "サジェスチョン", leading: "✨" },
   ];
   return (
     <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
@@ -268,7 +268,7 @@ const CHIP_TYPES = [
   {
     name: "サジェスチョンチップ",
     desc: "製品(システム)側が動的に生成した提案を表すチップ。タップするとその内容がそのまま入力される。例: メッセージアプリが自動生成する「了解です!」という返信候補。",
-    example: "了解だ!",
+    example: "了解です!",
     leading: "✨",
   },
 ];
@@ -342,7 +342,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(トークンフィールドとしての規定のみ)" },
-    { name: "Google", color: "#2F7D6E", note: "見た目32dp・タップ領域48dp(2段構え)" },
+    { name: "Google", color: "#2F7D6E", note: "見た目32dp・押せる範囲48dp(2段構え)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(専用記事なし)" },
   ];
@@ -359,7 +359,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)とタップ領域(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)と押せる範囲(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
     </div>
   );
 }
@@ -438,7 +438,7 @@ export default function SelectionChipsPage() {
               チップを体系化しているのは<strong>Googleだけ</strong>(4種類)。Appleは近いものとしてmacOSのトークンフィールドを持ち、NN groupには専用の記事がない。Googleは<strong>「チップはボタンではない」</strong>とし、次へ・前へのような主な操作はボタンにする。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>見た目32dp・押せる範囲48dp</strong>。ラベルの色はGoogleが3:1、WCAGは<strong>4.5:1</strong>なので、Webでは4.5:1を目安にする。複数選択は、<strong>その場で一覧を絞り込むならフィルタチップ、フォームで送信するならチェックボックス</strong>。
+              Googleは<strong>見た目32dp・押せる範囲48dp</strong>。ラベルの色はGoogleが3:1(M3独自の目安)、WCAGは通常の文字で<strong>4.5:1</strong>・大きな文字で3:1(1.4.3)なので、Webのチップの小さな文字では4.5:1を目安にする。複数選択は、<strong>その場で一覧を絞り込むならフィルタチップ、フォームで送信するならチェックボックス</strong>。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

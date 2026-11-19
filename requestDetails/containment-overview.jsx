@@ -29,16 +29,16 @@ function OverlayMini({ kind }) {
 
 const OVERLAYS = [
   { kind: "dialog", name: "モーダルダイアログ", path: "/components/containment/dialog", where: "画面の中央に小さな枠", modal: "常にモーダル(後ろは操作できない)", size: "小さい", close: "答えのボタン(OK・キャンセルなど)を押す", scene: "削除の確認、権限の許可、保存せずに閉じるときの確認" },
-  { kind: "fullscreen", name: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", where: "画面全体を覆う", modal: "常にモーダル", size: "画面いっぱい", close: "×で閉じる・保存で終える(内容が失われるなら確認する)", scene: "予定や連絡先の新規作成、スマホでの長めの入力" },
-  { kind: "bottom", name: "ボトムシート", path: "/components/containment/bottom-sheet", where: "画面の下からせり出す", modal: "モーダル・非モーダルの両方がある", size: "内容に合わせた高さ。段階的に広げられる", close: "下へスワイプ、外側をタップ、×", scene: "共有先の選択、地図の場所の詳細、スマホの絞り込み" },
+  { kind: "fullscreen", name: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", where: "画面全体を覆う", modal: "常にモーダル", size: "画面いっぱい", close: "×で閉じる・保存で終える(内容が失われるなら確認する)", scene: "予定や連絡先の新規作成、スマートフォンでの長めの入力" },
+  { kind: "bottom", name: "ボトムシート", path: "/components/containment/bottom-sheet", where: "画面の下からせり出す", modal: "モーダル・非モーダルの両方がある", size: "内容に合わせた高さ。段階的に広げられる", close: "下へスワイプ、外側をタップ、×", scene: "共有先の選択、地図の場所の詳細、スマートフォンの絞り込み" },
   { kind: "side", name: "サイドシート", path: "/components/containment/side-sheet", where: "画面の横(主に右)に出る", modal: "非モーダル(標準)・モーダルの両方がある", size: "決まった幅", close: "×、モーダルなら外側をタップ", scene: "一覧の絞り込み、選んだ項目の詳細、編集パネル(主にPC・タブレット)" },
-  { kind: "drawer", name: "ドロワー/サイドナビ", path: "/components/containment/drawer", where: "画面の横(主に左)から出る", modal: "スマホは一時的に出すモーダル、PCは常に表示", size: "決まった幅", close: "行き先を選ぶ、外側をタップ", scene: "アプリの主な行き先の一覧(行き先が多いとき)" },
+  { kind: "drawer", name: "ドロワー/サイドナビ", path: "/components/containment/drawer", where: "画面の横(主に左)から出る", modal: "スマートフォンは一時的に出すモーダル、PCは常に表示", size: "決まった幅", close: "行き先を選ぶ、外側をタップ", scene: "アプリの主な行き先の一覧(行き先が多いとき)" },
   { kind: "menu", name: "メニュー(ポップオーバー)", path: "/components/selection/menu", where: "押したコンポーネントのすぐ近く", modal: "一時的(外側を押すと閉じる)", size: "内容に合わせた小ささ", close: "項目を選ぶ、外側をタップ", scene: "「…」のその他の操作、右クリックの操作の一覧" },
 ];
 
 const STEPS = [
   { q: "今の作業を止めて、答えてもらう必要がある?", a: <>はい、短く答えるだけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>。まとまった入力なら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>(手順が長いなら、重ねずに<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink>の普通のページ)</> },
-  { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマホなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマートフォンなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
   { q: "アプリの行き先の一覧を出したい?", a: <><PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink>(行き先が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>)</> },
   { q: "押したコンポーネントに関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
 ];

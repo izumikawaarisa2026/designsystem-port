@@ -52,7 +52,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#F0F4F8" />
       </svg>
     ),
-    illustrationNote: "論理的に関連する情報をまとめるBoxes(概念図・系列識別色)",
+    illustrationNote: "論理的に関連する情報をまとめるBoxes(概念図)",
   },
   {
     key: "material",
@@ -95,7 +95,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#EAF3F1" />
       </svg>
     ),
-    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図・系列識別色)",
+    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図)",
   },
   {
     key: "wcag",
@@ -164,7 +164,7 @@ const SOURCES = [
         <text x="10" y="58" fontSize="7.5" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">続きを読む &gt;</text>
       </svg>
     ),
-    illustrationNote: "要約+詳細への入り口となるカード(概念図・系列識別色)",
+    illustrationNote: "要約+詳細への入り口となるカード(概念図)",
   },
 ];
 
@@ -320,10 +320,10 @@ export default function ContainmentCardPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>一方、<strong>Appleには「カード」という名称の専用コンポーネントが見当たらない</strong>。最も近い概念は「論理的に関連する情報をグループ化する」ためのBoxesだが、Googleのカードが持つ「タップして詳細に進む要約表示」という発見的な役割までは踏み込んでいない可能性がある。
+              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>。<strong>Appleには「カード」という専用のコンポーネントはない</strong>。近いのは関連する情報をまとめるBoxesで、タップで詳しい画面に進む要約という記載はない。Googleのカードは、関連する情報と操作をまとめる入れ物で、詳しい画面への入り口にも使える(カード全体を押せるようにするかは内容による)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けだ。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要だ。
+              NN groupは、<strong>カードは眺めて選ぶ閲覧には向くが、検索や複数の項目の比較には向かない</strong>とする。カードを使う場面かどうかは、この使い分けで決める。
             </p>
             <p style={styles.synthesisText}>
               W3Cはカードについて定めていない。押せるカードには、ほかのコンポーネントと同じく<strong>ターゲットサイズ(2.5.8・例外あり)</strong>と、境界線などの<strong>非テキストのコントラスト(1.4.11)</strong>がかかる。

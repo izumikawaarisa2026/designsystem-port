@@ -62,7 +62,7 @@ const SOURCES = [
         <text x="91" y="17" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
       </svg>
     ),
-    illustrationNote: "3セグメント、左端が選択済み(概念図・系列識別色)",
+    illustrationNote: "3セグメント、左端が選択済み(概念図)",
   },
   {
     key: "material",
@@ -85,7 +85,7 @@ const SOURCES = [
     accessibility:
       "操作可能(Operable) ― 単一選択はラジオボタンの組、複数選択はチェックボックスとして支援技術に伝える(Appleの地図アプリのような表示の切り替えでも、Googleはタブではなくラジオボタン/チェックボックスとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明する名前(例: 通貨記号→「安価」)を付ける。",
     useCases: [
-      "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を使う",
+      "新しく作る場合は、代わりに案内されている接続ボタングループ(Connected button groups)を使う(用途は近いが、仕様・見た目は新しいボタングループに合わせて確かめる)",
       "既存の実装では、2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
       "既存の実装では、2〜5個の選択肢を、選択必須にせず複数(またはゼロ)選べるようにする(複数選択、例: 価格帯フィルタ)",
       "5個を超える選択肢にはチップなど別のコンポーネントを使う",
@@ -95,7 +95,7 @@ const SOURCES = [
     refs: [
       { label: "Segmented buttons", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/segmented-buttons/specs" },
-      { label: "後継: Connected button groups", url: "https://m3.material.io/components/button-groups/guidelines" },
+      { label: "代わりの案内: Connected button groups", url: "https://m3.material.io/components/button-groups/guidelines" },
     ],
     confirmedNote: "使用法・M2からの変更点・単一選択/複数選択・配置・色のコントラスト・キーボード操作・フォーカス・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文を直接確認済み。具体的なセグメント幅などのspecs数値は未確認。",
     deprecated: true,
@@ -109,7 +109,7 @@ const SOURCES = [
         <text x="91" y="17" fontSize="9" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
       </svg>
     ),
-    illustrationNote: "単一選択セグメントボタン。選択済みセグメントにチェックマーク(概念図・系列識別色)",
+    illustrationNote: "単一選択セグメントボタン。選択済みセグメントにチェックマーク(概念図)",
   },
   {
     key: "wcag",
@@ -276,7 +276,7 @@ export default function NavigationSegmentedControlPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 注記(Google/Material Design 3)</div>
             <p style={styles.warningText}>
-              現行のM3(Expressive)では<strong>セグメントボタンは推奨されず</strong>、代わりに<strong>接続ボタングループ(Connected button groups)</strong>を案内している。このページのGoogle欄は、既存の実装で使われているセグメントボタンの内容で、新しく作るときは接続ボタングループを使う(Google欄の参照ページ「後継: Connected button groups」)。
+              現行のM3(Expressive)では<strong>セグメントボタンは推奨されず</strong>、代わりに<strong>接続ボタングループ(Connected button groups)</strong>を案内している。このページのGoogle欄は、既存の実装で使われているセグメントボタンの内容で、新しく作るときは接続ボタングループを使う(Google欄の参照ページ「代わりの案内: Connected button groups」。用途は近いが、仕様・見た目は別に確かめる)。
             </p>
           </div>
 
@@ -293,7 +293,7 @@ export default function NavigationSegmentedControlPage() {
               <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>がある。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされている。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言える。
+              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。
             </p>
             <p style={styles.synthesisText}>
               最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身は表示の切り替えでもタブではなくラジオボタン/チェックボックスとして扱うとしており、両者で考え方が異なる。

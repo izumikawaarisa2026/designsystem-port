@@ -41,7 +41,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#C2542A" }}>空の画面</span>
       </div>
     ),
-    illustrationNote: "空の画面に、次にできる操作を添える(概念図・系列識別色)",
+    illustrationNote: "空の画面に、次にできる操作を添える(概念図)",
   },
   {
     key: "material",
@@ -77,7 +77,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#2F7D6E" }}>空状態(M1参考)</span>
       </div>
     ),
-    illustrationNote: "画像+短い説明文(M1の参考情報。概念図・系列識別色)",
+    illustrationNote: "画像+短い説明文(M1の参考情報。概念図)",
   },
   {
     key: "wcag",
@@ -143,7 +143,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>空状態(3つの役割)</span>
       </div>
     ),
-    illustrationNote: "状況の説明+次の行動への導線(概念図・系列識別色)",
+    illustrationNote: "状況の説明+次の行動への導線(概念図)",
   },
 ];
 
@@ -253,7 +253,7 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・Google・W3C・NN groupに共通する考え方" },
+  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・NN group(GoogleはM1の参考情報)" },
   { n: 2, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
 ];
 
@@ -285,7 +285,7 @@ export default function CommunicationEmptyStatePage() {
           <h1 style={styles.title}>空状態</h1>
           <SummaryCard keyPoints={KP}
             image={<div style={{ display: "flex", justifyContent: "center" }}><div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div></div>}
-            imageNote={<>「状況の説明+次の行動への導線」が4系列に共通する考え方。</>}
+            imageNote={<>状況の説明と、次の行動への案内を置く(Apple・NN groupに共通する考え方)。</>}
             lead={LEAD}
             rows={ABOUT}
           />

@@ -53,7 +53,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -63,7 +63,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定をすぐオン/オフするためのコントロール(月額/年額のような相反する2択の切り替えには使わない)",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル。既定で高密度の設定を適用しない(ターゲットサイズが48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -94,7 +94,7 @@ const SOURCES = [
         <circle cx="27" cy="11" r="7.5" fill="#FFFFFF" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -138,10 +138,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="10" y="14" width="20" height="12" rx="6" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -176,7 +176,7 @@ const SOURCES = [
         <circle cx="27" cy="11" r="7.5" fill="#FFFFFF" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -258,7 +258,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(即時反映という挙動の違いに基づく指針)" },
   ];
@@ -306,7 +306,7 @@ const KP = [
   { n: 1, t: "押すとすぐ切り替わる設定に使う", d: "例: Wi-Fiのオン/オフ", who: "Google・NN group" },
   { n: 2, t: "保存ボタンのあるフォームではチェックボックスにする", d: "", who: "Google・NN group" },
   { n: 3, t: "相反する2つの選択肢の切り替えには使わない", d: "月額/年額などはボタングループ", who: "Google" },
-  { n: 4, t: "何の設定か、今オンかオフかを、読み上げソフトにも伝える", d: "", who: "W3C 4.1.2" },
+  { n: 4, t: "何の設定か、今オンかオフかを、スクリーンリーダーにも伝える", d: "", who: "W3C 4.1.2" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -373,7 +373,7 @@ export default function SelectionTogglePage() {
               Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしている。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求める。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
+              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

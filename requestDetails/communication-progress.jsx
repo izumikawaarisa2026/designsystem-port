@@ -67,7 +67,7 @@ const SOURCES = [
         <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5" fill="none" stroke="#F0DED4" strokeWidth="2.4" /><path d="M11 2.5a8.5 8.5 0 0 1 6 2.5" fill="none" stroke="#C2542A" strokeWidth="2.4" strokeLinecap="round" /></svg>
       </div>
     ),
-    illustrationNote: "確定的(左・バー)/不確定(右・スピナー)の2形状(概念図・系列識別色)",
+    illustrationNote: "確定的(左・バー)/不確定(右・スピナー)の2形状(概念図)",
   },
   {
     key: "material",
@@ -109,7 +109,7 @@ const SOURCES = [
         <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5" fill="none" stroke="#DDEFEA" strokeWidth="2.4" /><path d="M11 2.5a8.5 8.5 0 0 1 6 2.5" fill="none" stroke="#2F7D6E" strokeWidth="2.4" strokeLinecap="round" /></svg>
       </div>
     ),
-    illustrationNote: "linear(左、両端に隙間のある帯)/circular(右)の2形状(概念図・系列識別色)",
+    illustrationNote: "linear(左、両端に隙間のある帯)/circular(右)の2形状(概念図)",
   },
   {
     key: "wcag",
@@ -203,7 +203,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "待ち時間の長さによる使い分けの目安(概念図・系列識別色)",
+    illustrationNote: "待ち時間の長さによる使い分けの目安(概念図)",
   },
 ];
 
@@ -312,7 +312,7 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー", who: "NN group" },
+  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー(1〜2秒は明記なし。進み具合を測れないなら、10秒以上でも不確定の表示)", who: "NN group" },
   { n: 2, t: "進み具合が分かるなら確定、分からないなら不確定の表示にする", d: "", who: "Apple・Google・W3C・NN group" },
   { n: 3, t: "止まって見えないようにする", d: "", who: "Apple" },
 ];
@@ -357,16 +357,13 @@ export default function CommunicationProgressPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>今の値を支援技術に伝えるかどうか</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
+              4系列とも<strong>確定(進み具合が分かる)/不確定(分からない)の2つを分ける</strong>点は同じだが、決めている観点が違う。Apple・Googleは見た目の指針、W3Cは今の値を支援技術に伝えるかどうか、NN groupは<strong>待ち時間の秒数で選べる目安</strong>を示す。
             </p>
             <p style={styles.synthesisText}>
-              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
+              NN groupの目安は<strong>1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー</strong>(1〜2秒は明記なし)。ただし秒数だけで決めず、<strong>進み具合を測れるならプログレスバー、測れないなら不確定の表示</strong>にする(Apple・Google)。秒数の目安は、Googleが5秒未満の待ちにLoading indicatorを勧めるだけで、Appleにはない。GoogleのLoading indicatorの5秒と、NN groupの「2〜10秒はスピナー」は別の系列の目安だが、時間の感覚は近い。
             </p>
             <p style={styles.synthesisText}>
-              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理では今の値を<strong>0とせず、伝えない</strong>という注意点は、見た目の設計だけでは気づきにくい落とし穴だ。
+              W3Cは「いつ出すか」ではなく<strong>「どう支援技術に伝えるか」</strong>を扱う。不確定な処理では、今の値を<strong>0とせず、伝えない</strong>。
             </p>
           </div>
 

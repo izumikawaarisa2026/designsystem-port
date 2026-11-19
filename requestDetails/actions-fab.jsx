@@ -79,7 +79,7 @@ const SOURCES = [
     position: "ボタンと同じ一般の基準を適用",
     size: "―(FAB固有の規定なし。一般の基準はアクセシビリティの欄を参照)",
     stance:
-      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
+      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24 CSS px以上、レベルAAA(2.5.5)は44×44 CSS pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
     exceptions:
       "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。",
     pourDetail: "操作可能(Operable) ― 入力方法(2.5)の達成基準。",
@@ -94,7 +94,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="10" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
   },
@@ -300,7 +300,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
       { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
     ],
-    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たす。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
+    tip: "Googleのいちばん小さいFAB(56dp)は、W3CのAA(24 CSS px)・AAA(44 CSS px)よりおおよそ大きい。ただしdpとCSS pxは別の単位なので、Webで作るときは実際のCSS pxで確かめる。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
   },
 ];
 
@@ -358,7 +358,7 @@ export default function ActionsFabPage() {
               <strong>AppleにはFABに当たるコンポーネントがない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIではFABを使い、iOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。
+              WCAGは形状を区別せず、<strong>ボタンと同じ押せる範囲の基準(AA 24×24 CSS px / AAA 44×44 CSS px。どちらも例外あり)</strong>がそのまま当てはまる。GoogleのFABの寸法(56dpなど)はdpで決められた値なので、Webで作るときはCSS pxで別に確かめる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

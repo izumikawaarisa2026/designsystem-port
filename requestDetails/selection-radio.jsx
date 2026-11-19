@@ -21,7 +21,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Toggles内「Radio buttons」(macOS)",
     term: "Radio button(Togglesの見た目の1つ。macOSのみ)",
     color: "#C2542A",
-    position: "小さな円+ラベル。2〜5個のグループで、1つだけを選ばせる",
+    position: "小さな円+ラベル。通常2〜5個のグループ(Appleの目安)で、1つだけを選ばせる",
     size:
       <span><NoData>数値基準なし。</NoData>AppKitが描くネイティブのコントロールで、サイズはシステムが決める。横に並べるなら間隔をそろえるとするが、数値はない。</span>,
     colorInfo:
@@ -54,7 +54,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -64,7 +64,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "リストから1つを選ぶためのコントロール。5個以下の選択肢に向く",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル。既定で高密度の設定を適用しない(ターゲットサイズが48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -97,7 +97,7 @@ const SOURCES = [
         <circle cx="11" cy="11" r="4.5" fill="#2F7D6E" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -137,10 +137,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -178,7 +178,7 @@ const SOURCES = [
         <circle cx="11" cy="11" r="4.5" fill="#7A4F7E" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -260,7 +260,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(すべての選択肢を可視状態に保つ指針)" },
   ];
@@ -360,7 +360,7 @@ export default function SelectionRadioPage() {
           <h1 style={styles.title}>ラジオボタン</h1>
           <SummaryCard keyPoints={KP}
             image={<><RadioSwatch /></>}
-            imageNote={<>2〜5個のグループで使い、常に1つが選択された状態を基本とする。</>}
+            imageNote={<>小さな円とラベルを縦に並べたグループ。1つだけを選ぶ。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -383,7 +383,7 @@ export default function SelectionRadioPage() {
               <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれる(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしている(ただし操作の手間は増える)。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
+              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

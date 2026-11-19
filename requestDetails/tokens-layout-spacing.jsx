@@ -86,7 +86,7 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 2.5.8 Target Size (Minimum) / 1.3.1 Info and Relationships",
     color: "#A3821F",
     position: "余白やグリッドの値は定めず、狭い幅でも読めること・押す対象の間隔・まとまりを構造でも伝えることを求める",
-    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
+    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。データの表・地図など、2方向の配置が意味に必要な内容は例外。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
     colorInfo: <NoData>幅ごとの決まりはない</NoData>,
     structure: <>1.3.1(A): <Hl>余白でまとめたグループは、構造でも支援技術に伝える</Hl>(余白だけでは読み上げで伝わらない)。</>,
     glossary: [
@@ -202,7 +202,7 @@ function MarginDiagram() {
   const mono = "'IBM Plex Mono', monospace";
   const k = 0.16; // 1dp = 0.16px
   const frames = [
-    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマホ縦)" },
+    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマートフォン縦)" },
     { name: "Medium", w: 700, m: 24, panes: [{ f: 1 }], note: "600〜839dp(タブレット縦)" },
     { name: "Expanded", w: 1000, m: 24, panes: [{ fixed: 360 }, { f: 1 }], note: "840〜1199dp" },
     { name: "Large", w: 1400, m: 24, panes: [{ fixed: 412 }, { f: 1 }], note: "1200〜1599dp" },
@@ -357,10 +357,9 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "端末ではなく、使える広さで切り替える", d: "分割画面やウィンドウの大きさで変わるものとして扱う", who: "Apple・Google" },
-  { n: 2, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
-  { n: 3, t: "狭めても読めるようにする", d: "幅320pxまで狭めても内容を読める", who: "W3C 1.4.10" },
-  { n: 4, t: "切り替える幅の目安", d: "600・840・1200・1600dp", who: "Google。Appleは境界値を示さない" },
+  { n: 1, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
+  { n: 2, t: "狭めても読めるようにする", d: "幅320 CSS pxまで狭めても内容を読める(データの表・地図などは例外)", who: "W3C 1.4.10" },
+  { n: 3, t: "切り替える幅の目安", d: "600・840・1200・1600dp(端末ではなく使える広さで切り替える。詳しくは「レスポンシブデザイン」)", who: "Google。Appleは境界値を示さない" },
 ];
 
 export default function TokensLayoutSpacingPage() {

@@ -89,7 +89,7 @@ const SOURCES = [
         <text x="93" y="48" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
       </svg>
     ),
-    illustrationNote: "画面側面に固定表示する副次コンテンツ(概念図・系列識別色)",
+    illustrationNote: "画面側面に固定表示する副次コンテンツ(概念図)",
   },
   {
     key: "wcag",
@@ -97,7 +97,7 @@ const SOURCES = [
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
     term: "ダイアログ(専用の役割なし)",
     color: "#A3821F",
-    position: <>シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl></>,
+    position: <>モーダルのシートはダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -105,7 +105,7 @@ const SOURCES = [
       { term: "開く側のボタン", desc: "シートを開くボタンで、何(メニュー・一覧・ダイアログなど)が開くかを支援技術に伝えることもできる。シート本体の扱いではない。" },
     ],
     stance:
-      "サイドシートの定めはなく、ダイアログとして扱うのが基本(AI解釈)。開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。",
+      "サイドシートの定めはない。モーダルならダイアログとして扱い(AI解釈)、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。非モーダルなら、モーダルと伝えず、フォーカスをシートの中に閉じ込めない。",
     scenarios: [
       "シート本体をダイアログとして扱い、名前とフォーカスの移動を設計したい時",
       "後ろの内容を操作できるまま残したいなら、モーダルと伝えない非モーダルとして扱う",
@@ -178,7 +178,7 @@ const SOURCES = [
         <text x="92" y="38" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Side Sheet</text>
       </svg>
     ),
-    illustrationNote: "用語集で定義される「Side Sheet」(概念図・系列識別色)",
+    illustrationNote: "用語集で定義される「Side Sheet」(概念図)",
   },
 ];
 
@@ -264,7 +264,7 @@ export default function ContainmentSideSheetPage() {
           <h1 style={styles.title}>サイドシート</h1>
           <SummaryCard keyPoints={KP}
             image={<><SideSheetSwatch /></>}
-            imageNote={<>画面の一部(中央・側面など)に重ねて表示する補助的なオーバーレイ。下からせり出す「ボトムシート」ページ、確認・警告用の「モーダルダイアログ」ページとは、それぞれ役割が異なる。</>}
+            imageNote={<>画面の横に、元の画面と並べて(標準)、または重ねて(モーダル)出す補助のパネル。ボトムシート・モーダルダイアログとの違いは「オーバーレイの使い分け」で比べる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -281,7 +281,7 @@ export default function ContainmentSideSheetPage() {
               <strong>Appleには、サイドシートに当たるコンポーネントはない</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介している)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義している。
             </p>
             <p style={styles.synthesisText}>
-              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、モーダルと伝える。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、モーダルのシートは<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけモーダルと伝え、非モーダルのシートでは後ろの操作を妨げない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

@@ -71,7 +71,7 @@ export function KeyPoints({ items, title, columns }) {
   );
 }
 
-/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマホの幅では縦)、それぞれに
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマートフォンの幅では縦)、それぞれに
    どこが良い/悪いかの1文を添え、最後に根拠(系列名と基準)を置く。良い/悪いは色だけでなく文字のラベルでも示す。
    items: [{ kind: "good"|"bad", label?, fig, text }]、basis: 根拠の文、note: 注記(任意) */
 /* pairs: 良い例と悪い例を1組ずつ横に並べる2列の表示(items は 良い, 悪い, 良い, 悪い… の順) */
@@ -177,7 +177,7 @@ export function SplitSection({ title, splits }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={partStyles.h2}>{title || "意見が分かれる点"}</h2>
-      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。図は概念図。</p>
+      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。{splits.some((s) => s.figure || s.sides.some((d) => d.figure)) ? "図は概念図。" : ""}</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {splits.map((s) => (
           <div key={s.q} style={partStyles.splitCard}>
@@ -292,7 +292,7 @@ const PAGE_INDEX = {
  },
  "/components/selection/select-patterns": {
   "label": "セレクトの種類",
-  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
+  "lead": "決まった選択肢から1つを選ぶ、プルダウンを含む代表的な4つの形のまとめ"
  },
  "/components/selection/select": {
   "label": "セレクト(プルダウン)",
@@ -300,7 +300,7 @@ const PAGE_INDEX = {
  },
  "/components/selection/menu": {
   "label": "メニュー",
-  "lead": "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せるコンポーネント"
+  "lead": "ボタンなどを押すと開き、その場で実行できる操作(コピー・削除など)の一覧を見せるコンポーネント(サイトのナビゲーションやフォームの値選びとは別)"
  },
  "/components/selection/chips": {
   "label": "チップ(Chips)",
@@ -340,7 +340,7 @@ const PAGE_INDEX = {
  },
  "/components/containment/drawer": {
   "label": "ドロワー/サイドナビ",
-  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)"
+  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマートフォンで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)"
  },
  "/components/navigation/app-bar": {
   "label": "アプリバー",
@@ -419,7 +419,7 @@ const PAGE_INDEX = {
   "lead": "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ"
  },
  "/components/communication/alert": {
-  "label": "ステータスメッセージ(アラート)",
+  "label": "ステータスメッセージ",
   "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージ"
  },
  "/components/communication/snackbar": {

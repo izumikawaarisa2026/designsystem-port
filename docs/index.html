@@ -169,7 +169,7 @@ const NAV_SECTIONS = [
     title: "Communication",
     items: [
       { label: "情報伝達の使い分け", path: "/components/communication/overview", built: true },
-      { label: "ステータスメッセージ(アラート)", path: "/components/communication/alert", built: true },
+      { label: "ステータスメッセージ", path: "/components/communication/alert", built: true },
       { label: "スナックバー", path: "/components/communication/snackbar", built: true },
       { label: "トースト", path: "/components/communication/toast", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
@@ -498,7 +498,7 @@ function KeyPoints({ items, title, columns }) {
   );
 }
 
-/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマホの幅では縦)、それぞれに
+/* 良い例・悪い例の図(2026-11 ⑦本人レビュー)。良い例と悪い例を横に並べ(スマートフォンの幅では縦)、それぞれに
    どこが良い/悪いかの1文を添え、最後に根拠(系列名と基準)を置く。良い/悪いは色だけでなく文字のラベルでも示す。
    items: [{ kind: "good"|"bad", label?, fig, text }]、basis: 根拠の文、note: 注記(任意) */
 /* pairs: 良い例と悪い例を1組ずつ横に並べる2列の表示(items は 良い, 悪い, 良い, 悪い… の順) */
@@ -604,7 +604,7 @@ function SplitSection({ title, splits }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={partStyles.h2}>{title || "意見が分かれる点"}</h2>
-      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。図は概念図。</p>
+      <p style={partStyles.note}>同じ問いに対して、系列によって答えが違う点。{splits.some((s) => s.figure || s.sides.some((d) => d.figure)) ? "図は概念図。" : ""}</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {splits.map((s) => (
           <div key={s.q} style={partStyles.splitCard}>
@@ -719,7 +719,7 @@ const PAGE_INDEX = {
  },
  "/components/selection/select-patterns": {
   "label": "セレクトの種類",
-  "lead": "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ"
+  "lead": "決まった選択肢から1つを選ぶ、プルダウンを含む代表的な4つの形のまとめ"
  },
  "/components/selection/select": {
   "label": "セレクト(プルダウン)",
@@ -727,7 +727,7 @@ const PAGE_INDEX = {
  },
  "/components/selection/menu": {
   "label": "メニュー",
-  "lead": "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せるコンポーネント"
+  "lead": "ボタンなどを押すと開き、その場で実行できる操作(コピー・削除など)の一覧を見せるコンポーネント(サイトのナビゲーションやフォームの値選びとは別)"
  },
  "/components/selection/chips": {
   "label": "チップ(Chips)",
@@ -767,7 +767,7 @@ const PAGE_INDEX = {
  },
  "/components/containment/drawer": {
   "label": "ドロワー/サイドナビ",
-  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)"
+  "lead": "画面の横にアプリの行き先の一覧を出すナビゲーション(スマートフォンで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)"
  },
  "/components/navigation/app-bar": {
   "label": "アプリバー",
@@ -846,7 +846,7 @@ const PAGE_INDEX = {
   "lead": "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ"
  },
  "/components/communication/alert": {
-  "label": "ステータスメッセージ(アラート)",
+  "label": "ステータスメッセージ",
   "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージ"
  },
  "/components/communication/snackbar": {
@@ -1023,7 +1023,7 @@ const { useState } = React;
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
- * 当初は「タップ領域」の内容のみだったが、ボタンに関する記載は
+ * 当初は「押せる範囲」の内容のみだったが、ボタンに関する記載は
  * アクセシビリティ以外にも複数あるため、コンテンツエリア内にセグメンテッドコントロールを設け、
  * 「アクセシビリティ / 種類・優先度 / 状態」の3つを切り替えて比較できるようにしている。
  * 「状態」はトークンレイヤーに独立ページ(インタラクション状態)を作る予定があり、将来的に
@@ -1342,13 +1342,13 @@ function RangeScale({ scale }) {
 
 const SYNTHESIS = {
   a11y: [
-    <>Appleも2025年3月の改訂で、既定44pt・<strong>最小28pt</strong>の2段階を示すようになり、W3Cの「24px以上か、足りなければ周りの間隔で補う」と同じく、<strong>大きさが足りない分を間隔で補う</strong>考え方(枠のある要素のまわりに約12pt)が4系列で近づいた。</>,
-    <>数値の下限には24〜48pxという幅があるが、これは<strong>「絶対最低ライン」(WCAG AA)</strong>と<strong>「快適に押せる目安」(HIG・Material・NN)</strong>という異なる問いに答えているために生じる差にすぎない。</>,
-    <>実務では<strong>主要なアクションボタンは44〜48px前後を基準</strong>にし、密なUIでやむを得ず縮める場合のみ、WCAG AAの<strong>24px以上</strong>を最終防衛ラインとし、どうしてもそれより小さくする場合だけ<strong>間隔で補う</strong>(中心の直径24pxの円が隣と重ならない)のが現実的な着地点。</>,
+    <>Appleは既定44×44pt・<strong>最小28×28pt</strong>(iOS/iPadOS)の2段階を示し、枠のある要素のまわりに約12ptの余白を勧める。W3Cの2.5.8も、24×24 CSS pxに足りない分を周りの間隔で補う例外を持つ。<strong>大きさが足りない分を間隔で補う考え方は、Apple・W3Cに共通</strong>する。</>,
+    <>数値に24〜48という幅があるのは、<strong>最低ライン(W3C 2.5.8・AA)</strong>と、<strong>快適に押せる目安(Apple 44pt・Google 48dp・W3C 2.5.5のAAA 44 CSS px・NN groupの約1cm四方)</strong>という、違う問いに答えているため。</>,
+    <>主なボタンは<strong>44pt(Apple)・48dp(Google)を基準</strong>にする。密な画面で縮めるときの最低ラインは、<strong>W3C 2.5.8の24×24 CSS px(AA・例外あり)</strong>。それより小さくするなら、中心に描いた直径24 CSS pxの円が隣と重ならない<strong>間隔を空ける</strong>。</>,
   ],
   styles: [
     <>ボタンを「種類」で分ける発想はAppleとGoogleに共通しているが、<strong>分け方の軸が違う</strong>。Appleは「何のための操作か」という意味(Role)、Googleは「どれだけ目立たせるか」という優先度(emphasis)で分類している。</>,
-    <>WCAGは種類そのものを定義しないが、<strong>1.4.11のコントラスト基準はすべての種類のボタンに等しく適用される</strong>。NN groupの「主要操作には専用の色を」という指摘は、AppleのPrimary・GoogleのFilledの両方に共通する考え方と言える。</>,
+    <>WCAGは種類そのものを定義しないが、<strong>1.4.11のコントラスト基準はすべての種類のボタンに等しく適用される</strong>。NN groupの「主要操作には専用の色を」という指摘は、AppleのPrimary・GoogleのFilledの両方に共通する。</>,
   ],
   states: [
     <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleは共通の状態の一覧を持たず、プラットフォームごとに定めている(独自のボタンには押した状態を必ず用意する)。</>,
@@ -1410,7 +1410,7 @@ function ButtonTabContent({ tabId }) {
     </div>
 
     <div className="dsp-desktop-only">
-      <h2 style={styles.diagramTitle}>ボタンデザインシステム比較 ― {tab.label}</h2>
+      <h2 style={styles.diagramTitle}>四系列デザインシステム比較 ― {tab.label}</h2>
       <div style={styles.matrixScroll}>
         <div style={styles.matrixGrid}>
           <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -1512,17 +1512,17 @@ const SPLITS = [
     sides: [
       { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のあるコンポーネントで約12pt)で補う" },
       { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
-      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
+      { who: "W3C", color: "#A3821F", t: "24×24 CSS px(2.5.8・AA)/44×44 CSS px(2.5.5・AAA)。どちらも例外あり。小さい場合は、中心の直径24 CSS pxの円が隣と重ならない間隔で補える" },
       { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
     ],
-    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにする(詳しくは下の「押せる範囲の大きさ」)。",
+    tip: "24 CSS px(W3CのAA)は「最低ライン」、44pt(Apple)・48dp(Google)・44 CSS px(W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44pt・48dpを基準にし、密な画面で24 CSS pxより小さくするなら、周りに十分な間隔を空ける(2.5.8・例外あり。詳しくは下の「押せる範囲の大きさ」)。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "主なボタンの押せる範囲は44〜48", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
-  { n: 2, t: "縮めても24pxを下回らない", d: "足りない分は周りの間隔で補う", who: "W3C 2.5.8" },
+  { n: 1, t: "主なボタンの押せる範囲は44pt・48dp", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+  { n: 2, t: "24 CSS px未満にするなら、周りに間隔を空ける", d: "24×24 CSS pxが最低ライン。足りない分は周りの間隔で補える(例外あり)", who: "W3C 2.5.8" },
   { n: 3, t: "まず操作の意味を決め、次に目立たせ方を選ぶ", d: "役割(Apple)と優先度(Google)は両立する", who: "AI解釈" },
   { n: 4, t: "削除のような操作は目立たせすぎない", d: "選ばれやすくても目立つ見た目にしない", who: "Apple" },
   { n: 5, t: "主な操作と副次的な操作を見分けられるように", d: "主な操作に専用の色を当てる", who: "NN group" },
@@ -1778,7 +1778,7 @@ const SOURCES = [
     position: "ボタンと同じ一般の基準を適用",
     size: "―(FAB固有の規定なし。一般の基準はアクセシビリティの欄を参照)",
     stance:
-      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
+      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24 CSS px以上、レベルAAA(2.5.5)は44×44 CSS pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
     exceptions:
       "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。",
     pourDetail: "操作可能(Operable) ― 入力方法(2.5)の達成基準。",
@@ -1793,7 +1793,7 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="10" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
   },
@@ -1999,7 +1999,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
       { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
     ],
-    tip: "Googleのいちばん小さいFAB(56dp)でも、W3CのAA・AAAの両方を満たす。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
+    tip: "Googleのいちばん小さいFAB(56dp)は、W3CのAA(24 CSS px)・AAA(44 CSS px)よりおおよそ大きい。ただしdpとCSS pxは別の単位なので、Webで作るときは実際のCSS pxで確かめる。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
   },
 ];
 
@@ -2053,7 +2053,7 @@ function ActionsFabPage() {
               <strong>AppleにはFABに当たるコンポーネントがない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じタップ領域基準(AA=24px / AAA=44px。どちらも例外あり)</strong>がそのまま当てはまる。実務では、Material系のUIではFABを使い、iOS/iPadOSでは全幅ボタンやツールバーを優先するのが、各系列の思想に沿った判断と言えるだろう。
+              WCAGは形状を区別せず、<strong>ボタンと同じ押せる範囲の基準(AA 24×24 CSS px / AAA 44×44 CSS px。どちらも例外あり)</strong>がそのまま当てはまる。GoogleのFABの寸法(56dpなど)はdpで決められた値なので、Webで作るときはCSS pxで別に確かめる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -2222,7 +2222,7 @@ const ActionsLinkPage = (function () {
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
- * ボタン(タップ領域)と違い、リンクには「単一の数値基準」がないため、
+ * ボタン(押せる範囲)と違い、リンクには「単一の数値基準」がないため、
  * データモデルの「基準値」欄は系列ごとの位置づけの説明に置き換えている。
  * 「四系列比較図」も許容レンジ図ではなく、各系列が何を求めているかの
  * 要求ポイント比較表に置き換えた(CLAUDE.mdの「都度判断してよい」方針に基づく)。
@@ -2297,7 +2297,7 @@ const SOURCES = [
     stance:
       <><Hl>リンクの目的が、文言か周りの文脈から分かる</Hl>こと(2.4.4・A。AAAの2.4.9は文言だけで)。<Hl>色だけでリンクを見分けさせない</Hl>(1.4.1・A)。同じ働きのリンクは、どのページでも同じ名前にする(3.2.4・AA)。</>,
     exceptions:
-      "色だけで区別するなら、周りの文字と3:1以上の明るさの差が要る(G183)。いちばん確実なのは下線。",
+      "色だけで区別するなら、周りの文字とのコントラスト比が3:1以上必要(1.4.1の達成方法G183)。いちばん確実なのは下線。",
     pourDetail: "知覚可能(Perceivable)・操作可能(Operable) ― 1.4.1は「知覚可能」、2.4.4/2.4.9は「操作可能」のナビゲーションの達成基準。3.2.4は「理解可能」の予測可能(3.2)。",
     searchHint: "Link Purpose",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html",
@@ -2308,7 +2308,7 @@ const SOURCES = [
       { kind: "sc", level: "AA", label: "3.2.4 一貫した識別性", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html" },
     ],
     confirmedNote: "3.2.4はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
-    colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字と3:1以上の明度差が必要(G183)。いちばん確実なのは下線" },
+    colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字とのコントラスト比3:1以上が必要(1.4.1の達成方法G183)。いちばん確実なのは下線" },
     wordingCue: { mark: "△", note: "AA=周囲の文脈込みでOK / AAA=リンク単体で目的が分かる文言が必須" },
     visitedCue: { mark: "―", note: "直接の基準なし" },
     tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。文中のリンクは例外(ほかにも例外あり。ボタンのページを参照)" },
@@ -2345,7 +2345,7 @@ const SOURCES = [
     colorCue: { mark: "○", note: "出発点は色+下線(ナビゲーション領域は下線省略可)。編注: 下線は必須ではなく、コントラスト+ホバー/フォーカスの手がかりでもよい" },
     wordingCue: { mark: "―", note: "本記事では直接扱わない" },
     visitedCue: { mark: "○", note: "推奨: 訪問済みは彩度を落とした同系色にする" },
-    tapArea: { mark: "―", note: "リンク専用の数値記載なし。一般的なタップ領域の目安は約1cm四方(別記事)" },
+    tapArea: { mark: "―", note: "リンク専用の数値記載なし。一般的な押せる範囲の目安は約1cm四方(別記事)" },
     illustration: () => (
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
@@ -2365,7 +2365,7 @@ const CRITERIA_ROWS = [
   { key: "colorCue", label: "色以外の視覚的手がかり(下線など)" },
   { key: "wordingCue", label: "文言単体で目的が伝わるか" },
   { key: "visitedCue", label: "訪問済み/未訪問の色分け" },
-  { key: "tapArea", label: "タップ領域" },
+  { key: "tapArea", label: "押せる範囲" },
 ];
 
 function LinkSwatch() {
@@ -2376,7 +2376,7 @@ function LinkSwatch() {
   );
 }
 
-/* タップ領域の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
+/* 押せる範囲の図(No.022)。リンクの文字の周りの点線が押せる範囲の目安 */
 const TAP_MINI = {
   hig: { w: 44, label: "44×44pt(最小28pt)" },
   material: { w: 48, label: "48×48dp" },
@@ -2441,7 +2441,7 @@ const SPLITS = [
     q: "リンクに下線は必要?",
     sides: [
       { who: "NN group", color: "#7A4F7E", t: "色と下線の両方が最も分かりやすい。ナビゲーションのようにリンクの集まりと分かる場所だけ省いてよい。2026年3月の編注で、下線は必須ではないとした" },
-      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字と3:1以上の明度の差が必要(1.4.1・G183)。下線を付けるのがいちばん確実" },
+      { who: "W3C", color: "#A3821F", t: "下線は求めていない。ただし色だけで見分けさせる場合は、周りの文字とのコントラスト比3:1以上が必要(1.4.1と、その達成方法G183)。下線を付けるのがいちばん確実" },
       { who: "Apple", color: "#C2542A", t: "リンク専用の決まりはなく、全体の方針として、色だけに頼らず形やアイコンなどの手がかりを足すよう求めている" },
     ],
     tip: "文章の中のリンクは下線を付け、ナビゲーションやメニューのようにリンクと分かる場所だけ省く、という使い分けなら3系列のどれとも食い違わない。下線をなくす場合は、周りの文字との3:1の差を確かめる。",
@@ -2452,7 +2452,7 @@ const SPLITS = [
       { who: "Apple", color: "#C2542A", t: "「ここをタップ」のような曖昧な文言は避け、「◯◯について詳しく見る」のように行き先や機能が分かる言葉にする" },
       { who: "W3C", color: "#A3821F", t: "レベルA(2.4.4)では、同じ文や段落などの文脈と合わせて分かればよい。レベルAAA(2.4.9)では、リンクの文言だけで分かる必要がある" },
     ],
-    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせる。ただし読み上げソフトでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全だ。",
+    tip: "「詳しく見る」だけでも、すぐ前の見出しや文と合わせて分かればW3CのAAは満たせる。ただしスクリーンリーダーでリンクだけを一覧にすると区別がつかなくなるため、Appleの勧めるように行き先を入れた文言にしておくのが安全だ。",
   },
 ];
 
@@ -2460,7 +2460,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "行き先を示すならリンク、保存・送信など処理を実行するならボタン", d: "ボタンで次の画面へ進むこともあるが、文章の中で行き先を示すときはリンクにする", who: "AI解釈" },
   { n: 2, t: "文章の中のリンクは色と下線", d: "両方あるのが最も分かりやすい", who: "NN group" },
-  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "明るさの差を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1・G183" },
+  { n: 3, t: "下線を付けないなら、リンクの色を周りの文字と見分けられるようにする", d: "周りの文字とのコントラスト比を3:1以上にする(色だけで見分けさせないため)", who: "W3C 1.4.1(達成方法G183)" },
   { n: 4, t: "文言に行き先を入れる", d: "「詳しく見る」だけにしない", who: "Apple。W3C 2.4.4" },
 ];
 
@@ -2507,10 +2507,10 @@ function ActionsLinkPage() {
               リンクには、ボタンのような<strong>数値の基準がない</strong>。代わりにApple・WCAG・NN groupは、「色だけに頼らず見分けられるか」と「文言だけで目的が伝わるか」という2つの観点で考え方を示している。
             </p>
             <p style={styles.synthesisText}>
-              Googleには独立した「Link」コンポーネントはなく、<strong>「Text button」(ラベルのみ・枠なしの低優先度ボタン)が最も近い相当物</strong>だ。厳密なハイパーリンクとは別物だが、見た目の軽さという点では近い存在と言える。
+              Googleには独立した「Link」コンポーネントはない(近いのは、ボタンの1種の<strong>Text button</strong>)。
             </p>
             <p style={styles.synthesisText}>
-              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点だ。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら周りの文字と3:1以上の明度差が必要だ(G183)。Nielsen Norman Groupも2026年3月の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足している。
+              実務では<strong>色+下線を基本にし、ナビゲーションのように文脈で明らかな場合だけ下線を省く</strong>のが、いちばん確実な着地点だ。WCAG 1.4.1は「色だけで見分けさせない」ことを求めていて、色だけで区別するなら、周りの文字とのコントラスト比3:1以上が必要だ(達成方法G183)。Nielsen Norman Groupも2026年3月の編注で、下線は必須ではなく、コントラストにホバー時・フォーカス時の手がかりを組み合わせる方法もあるとし、記事の見た目の推奨は出発点として扱うよう補足している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -2568,7 +2568,7 @@ function ActionsLinkPage() {
                     <div style={styles.sourceDoc}>{s.doc}</div>
                   </div>
                 ))}
-                <div style={styles.labelCell}>リンクのイメージ・タップ領域</div>
+                <div style={styles.labelCell}>リンクのイメージ・押せる範囲</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, gap: 14, flexWrap: "wrap", justifyContent: "center" }}>{s.illustration ? s.illustration() : null}<TapMini k={s.key} color={s.color} /></div>
                 ))}
@@ -2700,7 +2700,7 @@ const CommunicationStatusMessagePage = (function () {
 
 
 /**
- * コンポーネントレイヤー「Communication / ステータスメッセージ(アラート)」ページ。
+ * コンポーネントレイヤー「Communication / ステータスメッセージ」ページ(2026-11 ⑨で「(アラート)」を外した。AppleのAlertsは作業を止めるモーダルのため)。
  * 成功・情報・注意・エラーといった状態の知らせ方を比べる。2026-11 ⑦本人レビューNo.065で、旧「バナー」ページを
  * このページのバナーの節(#banner)に統合した。
  * 一次情報: Apple HIG Feedback(ページデータのJSON)、M3の色の役割(Color roles・Define new colors)、WCAG 4.1.3のUnderstanding、
@@ -2732,7 +2732,7 @@ const SOURCES = [
       { label: "Alerts ― Best practices(作業を止めて伝える場合)", url: "https://developer.apple.com/design/human-interface-guidelines/alerts#Best-practices" },
     ],
     illustration: () => <StatusMini color="#C2542A" kinds={["info", "success", "warning", "error"]} />,
-    illustrationNote: "4つのフィードバック(概念図・系列識別色)",
+    illustrationNote: "4つのフィードバック(概念図)",
   },
   {
     key: "material",
@@ -2757,7 +2757,7 @@ const SOURCES = [
       { label: "Define new colors(Define static colors: 成功の色などを足す)", url: "https://m3.material.io/styles/color/advanced/define-new-colors" },
     ],
     illustration: () => <StatusMini color="#2F7D6E" kinds={["error"]} />,
-    illustrationNote: "色の役割はエラーのみ(概念図・系列識別色)",
+    illustrationNote: "色の役割はエラーのみ(概念図)",
   },
   {
     key: "wcag",
@@ -2811,7 +2811,7 @@ const SOURCES = [
       { label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" },
     ],
     illustration: () => <StatusMini color="#7A4F7E" kinds={["info", "error", "warning"]} />,
-    illustrationNote: "インジケーター・バリデーション・通知(概念図・系列識別色)",
+    illustrationNote: "インジケーター・バリデーション・通知(概念図)",
   },
 ];
 
@@ -2961,11 +2961,10 @@ const ROWS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "大事な知らせほど目立たせ、そうでないものは控えめにする", d: "", who: "Apple" },
-  { n: 2, t: "今の状態は、関係する場所の近くにさりげなく出す", d: "例: メールの未読の数をツールバーに出す", who: "Apple" },
-  { n: 3, t: "作業を止めて知らせるのは、データが消えるなど取り返しがつかないときだけ", d: "", who: "Apple" },
-  { n: 4, t: "入力の間違いは、その入力欄のすぐそばに出す", d: "", who: "NN group" },
-  { n: 5, t: "画面に出すだけでなく、読み上げソフトにも伝える", d: "", who: "W3C 4.1.3" },
+  { n: 1, t: "大事な知らせほど目立たせ、今の状態は関係する場所の近くに控えめに出す", d: "例: メールの未読の数をツールバーに出す", who: "Apple" },
+  { n: 2, t: "作業を止めて知らせるのは、データが消えるなど取り返しがつかないときだけ", d: "", who: "Apple" },
+  { n: 3, t: "入力の間違いは、その入力欄のすぐそばに出す", d: "", who: "NN group" },
+  { n: 4, t: "画面に出すだけでなく、スクリーンリーダーにも伝える", d: "", who: "W3C 4.1.3" },
 ];
 
 
@@ -3022,7 +3021,7 @@ function CommunicationStatusMessagePage() {
             <span>SPEC No. 033</span>
           </div>
 
-          <h1 style={styles.title}>ステータスメッセージ(アラート)</h1>
+          <h1 style={styles.title}>ステータスメッセージ</h1>
           <SummaryCard keyPoints={KP}
             image={<StatusSwatch />}
             imageNote="成功・情報・注意・エラーを、色だけでなくアイコンと文字でも区別する。"
@@ -3264,7 +3263,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "ドット(左)/数字(右)いずれも赤い楕円が事実上の標準(概念図・系列識別色)",
+    illustrationNote: "ドット(左)/数字(右)いずれも赤い楕円が事実上の標準(概念図)",
   },
   {
     key: "material",
@@ -3314,7 +3313,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "小(ドット、左)/大(数字、最大4文字・右)の2バリエーション(概念図・系列識別色)",
+    illustrationNote: "小(ドット、左)/大(数字、最大4文字・右)の2バリエーション(概念図)",
   },
   {
     key: "wcag",
@@ -3339,7 +3338,7 @@ const SOURCES = [
     ],
     accessibility: "堅牢(Robust)・知覚可能(Perceivable) ― 名前・役割・値をプログラムで判別できること(4.1.2)、色の違いだけで状態を分けないこと(1.4.1)、ドットや数字のコントラスト(1.4.11・1.4.3)。",
     useCases: [
-      "装飾のバッジ自体は読み上げさせない",
+      "件数をボタンの名前に含めたなら、重なるバッジ自体は読み上げさせない(バッジだけが情報を持つなら、その意味を伝える)",
       "件数などの意味は、バッジが付いたもの(アイコンボタンなど)の名前に含める",
       "色の違いだけで状態を分けない。ドットで新着を示す場合も、親要素の名前などで同じ意味を支援技術に伝える",
       "ドットは周りの色と3:1以上(1.4.11)、数字はバッジの背景と4.5:1以上(1.4.3)にする",
@@ -3404,7 +3403,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "「通知はドット、件数は数字」という用語集の定義を図示(概念図・系列識別色)",
+    illustrationNote: "「通知はドット、件数は数字」という用語集の定義を図示(概念図)",
   },
 ];
 
@@ -3485,7 +3484,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "件数に意味があるなら数字、あることだけ伝えるなら点", d: "", who: "AI解釈" },
   { n: 2, t: "数字は最大4文字。数が大きくなったら「999+」のようにまとめる", d: "", who: "Google" },
-  { n: 3, t: "読み上げソフトでも件数が分かるようにする", d: "例: 数字の「3」だけでなく「通知 3件」と読み上げられるようにする", who: "W3C 4.1.2。AI解釈" },
+  { n: 3, t: "スクリーンリーダーでも件数が分かるようにする", d: "例: 数字の「3」だけでなく「通知 3件」と読み上げられるようにする", who: "W3C 4.1.2。AI解釈" },
 ];
 
 function CommunicationBadgePage() {
@@ -3524,10 +3523,10 @@ function CommunicationBadgePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Communicationのページの中で、バッジは<strong>各系列の「専用ページの厚み」が最も薄い</strong>コンポーネントだ。Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
+              Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、ARIA14の考え方を当てはめた形だ(AI解釈)。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
+              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、WCAGの技法ARIA14(見えるラベルのないものに、支援技術向けの名前を付ける)を当てはめた形だ(AI解釈)。バッジが件数などを伝える唯一の手がかりなら、その意味はボタンの名前などで必ず伝える。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
@@ -3752,7 +3751,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#C2542A" }}>空の画面</span>
       </div>
     ),
-    illustrationNote: "空の画面に、次にできる操作を添える(概念図・系列識別色)",
+    illustrationNote: "空の画面に、次にできる操作を添える(概念図)",
   },
   {
     key: "material",
@@ -3788,7 +3787,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#2F7D6E" }}>空状態(M1参考)</span>
       </div>
     ),
-    illustrationNote: "画像+短い説明文(M1の参考情報。概念図・系列識別色)",
+    illustrationNote: "画像+短い説明文(M1の参考情報。概念図)",
   },
   {
     key: "wcag",
@@ -3854,7 +3853,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>空状態(3つの役割)</span>
       </div>
     ),
-    illustrationNote: "状況の説明+次の行動への導線(概念図・系列識別色)",
+    illustrationNote: "状況の説明+次の行動への導線(概念図)",
   },
 ];
 
@@ -3964,7 +3963,7 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・Google・W3C・NN groupに共通する考え方" },
+  { n: 1, t: "状況の説明と、次の行動への案内を置く", d: "", who: "Apple・NN group(GoogleはM1の参考情報)" },
   { n: 2, t: "検索結果0件のような空には、説明と、条件を変えるための案内を置く", d: "", who: "AI解釈" },
 ];
 
@@ -3992,7 +3991,7 @@ function CommunicationEmptyStatePage() {
           <h1 style={styles.title}>空状態</h1>
           <SummaryCard keyPoints={KP}
             image={<div style={{ display: "flex", justifyContent: "center" }}><div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div></div>}
-            imageNote={<>「状況の説明+次の行動への導線」が4系列に共通する考え方。</>}
+            imageNote={<>状況の説明と、次の行動への案内を置く(Apple・NN groupに共通する考え方)。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -4244,7 +4243,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#C2542A" }}>読込中(骨組み)</span>
       </div>
     ),
-    illustrationNote: "読み込み中のプレースホルダー(概念図・系列識別色)",
+    illustrationNote: "読み込み中のプレースホルダー(概念図)",
   },
   {
     key: "material",
@@ -4316,7 +4315,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     stance:
       <>スケルトン画面はページの骨組みを先に見せ、<Hl>内容が来ることを予告して体感の待ち時間を和らげる</Hl>。ヘッダーとフッターだけの「フレーム表示」は、空白のページに見えるので避ける。</>,
-    exceptions: "スケルトン画面は10秒未満の読み込み向け(長い待ちはプログレスインジケーターのページ)。",
+    exceptions: "スケルトン画面は10秒未満の読み込み向け(NN groupの目安。長い待ちはプログレスインジケーターのページ)。",
     scenarios: [
       "ページ全体を読み込む時(10秒未満ならスケルトン画面)",
     ],
@@ -4338,7 +4337,7 @@ const SOURCES = [
         <span style={{ fontSize: 8, color: "#7A4F7E" }}>スケルトン(2-10s)</span>
       </div>
     ),
-    illustrationNote: "スケルトン画面(10秒未満の目安。概念図・系列識別色)",
+    illustrationNote: "スケルトン画面(10秒未満の目安。概念図)",
   },
 ];
 
@@ -5232,7 +5231,7 @@ const SOURCES = [
         <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5" fill="none" stroke="#F0DED4" strokeWidth="2.4" /><path d="M11 2.5a8.5 8.5 0 0 1 6 2.5" fill="none" stroke="#C2542A" strokeWidth="2.4" strokeLinecap="round" /></svg>
       </div>
     ),
-    illustrationNote: "確定的(左・バー)/不確定(右・スピナー)の2形状(概念図・系列識別色)",
+    illustrationNote: "確定的(左・バー)/不確定(右・スピナー)の2形状(概念図)",
   },
   {
     key: "material",
@@ -5274,7 +5273,7 @@ const SOURCES = [
         <svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5" fill="none" stroke="#DDEFEA" strokeWidth="2.4" /><path d="M11 2.5a8.5 8.5 0 0 1 6 2.5" fill="none" stroke="#2F7D6E" strokeWidth="2.4" strokeLinecap="round" /></svg>
       </div>
     ),
-    illustrationNote: "linear(左、両端に隙間のある帯)/circular(右)の2形状(概念図・系列識別色)",
+    illustrationNote: "linear(左、両端に隙間のある帯)/circular(右)の2形状(概念図)",
   },
   {
     key: "wcag",
@@ -5368,7 +5367,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "待ち時間の長さによる使い分けの目安(概念図・系列識別色)",
+    illustrationNote: "待ち時間の長さによる使い分けの目安(概念図)",
   },
 ];
 
@@ -5477,7 +5476,7 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー", who: "NN group" },
+  { n: 1, t: "待ち時間で見せ方を選ぶ", d: "1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー(1〜2秒は明記なし。進み具合を測れないなら、10秒以上でも不確定の表示)", who: "NN group" },
   { n: 2, t: "進み具合が分かるなら確定、分からないなら不確定の表示にする", d: "", who: "Apple・Google・W3C・NN group" },
   { n: 3, t: "止まって見えないようにする", d: "", who: "Apple" },
 ];
@@ -5518,16 +5517,13 @@ function CommunicationProgressPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列とも<strong>「確定的(determinate)/不確定(indeterminate)」という2状態の区別</strong>自体には合意しているが、その扱い方はレイヤーが異なる。Apple・Googleはこれを<strong>視覚デザインの指針</strong>として説明し、W3Cは<strong>今の値を支援技術に伝えるかどうか</strong>として定義し、Nielsen Norman Groupは<strong>待ち時間の長さで機械的に判断できる基準</strong>として提示している。
+              4系列とも<strong>確定(進み具合が分かる)/不確定(分からない)の2つを分ける</strong>点は同じだが、決めている観点が違う。Apple・Googleは見た目の指針、W3Cは今の値を支援技術に伝えるかどうか、NN groupは<strong>待ち時間の秒数で選べる目安</strong>を示す。
             </p>
             <p style={styles.synthesisText}>
-              最も具体的な数値を持つのはNN groupで、<strong>1秒未満は非表示、2〜10秒はスピナー、10秒以上はプログレスバー</strong>という秒数の目安を明言している(1〜2秒の表示は明記していない)。Apple・Googleはいずれも「所要時間が分かるなら確定的表示を優先する」という原則を述べている。秒数の目安は、Googleが5秒未満の待ち時間にLoading indicatorを勧めているだけで、Appleには記載がない。
+              NN groupの目安は<strong>1秒未満は出さない、2〜10秒はスピナー、10秒以上はプログレスバー</strong>(1〜2秒は明記なし)。ただし秒数だけで決めず、<strong>進み具合を測れるならプログレスバー、測れないなら不確定の表示</strong>にする(Apple・Google)。秒数の目安は、Googleが5秒未満の待ちにLoading indicatorを勧めるだけで、Appleにはない。GoogleのLoading indicatorの5秒と、NN groupの「2〜10秒はスピナー」は別の系列の目安だが、時間の感覚は近い。
             </p>
             <p style={styles.synthesisText}>
-              興味深い符合として、Googleが新設した<strong>「Loading indicator」コンポーネント(5秒未満の待ち時間向けに、従来の不確定円形インジケーターの多くを置き換える意図)</strong>は、NN groupの「2〜10秒はスピナー」という研究知見と時間感覚が近く、<strong>実装レベルのコンポーネント分割が、独立したUX研究の目安とほぼ一致</strong>している例として読み取れる。
-            </p>
-            <p style={styles.synthesisText}>
-              W3Cの貢献は「いつ表示するか」ではなく<strong>「どう支援技術に伝えるか」</strong>という一点に絞られている。特に、不確定な処理では今の値を<strong>0とせず、伝えない</strong>という注意点は、見た目の設計だけでは気づきにくい落とし穴だ。
+              W3Cは「いつ出すか」ではなく<strong>「どう支援技術に伝えるか」</strong>を扱う。不確定な処理では、今の値を<strong>0とせず、伝えない</strong>。
             </p>
           </div>
 
@@ -5790,7 +5786,7 @@ const SOURCES = [
         <text x="118" y="19" fontSize="9.5" fill="#A9D6CC" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">元に戻す</text>
       </svg>
     ),
-    illustrationNote: "Undo(元に戻す)アクション付きのSnackbar(概念図・系列識別色)",
+    illustrationNote: "Undo(元に戻す)アクション付きのSnackbar(概念図)",
   },
   {
     key: "wcag",
@@ -5810,7 +5806,7 @@ const SOURCES = [
       "すぐ気づく必要のある重大なエラーを割り込んで知らせる時(多用しない)",
     ],
     stance:
-      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)により、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)は時間制限のある内容全般の基準で、これを当てはめると、<Hl>時間で消さないか、延長・解除できるようにする</Hl>ことになる。</>,
     exceptions:
       "割り込む警告は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(読み上げは知らせるだけで、ボタンへの移動は助けないため)。",
     accessibility:
@@ -5879,7 +5875,7 @@ const SOURCES = [
         <text x="118" y="19" fontSize="9.5" fill="#E7DCE8" fontWeight="700" textAnchor="middle" fontFamily="Jost, Noto Sans JP">元に戻す</text>
       </svg>
     ),
-    illustrationNote: "パッシブ通知としてのスナックバー(概念図・系列識別色)",
+    illustrationNote: "パッシブ通知としてのスナックバー(概念図)",
   },
 ];
 
@@ -6028,10 +6024,10 @@ function CommunicationSnackbarPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              スナックバーは、操作の結果を短く知らせる<strong>作業を止めない通知</strong>。いちばんの特徴は<strong>「元に戻す」などの操作を1つだけ持てる</strong>点で、Googleは<strong>同時に1つ・操作は1つまで</strong>とし、アプリが裏にあるならNotificationを使う。
+              スナックバーは、操作の結果を短く知らせる<strong>作業を止めない通知</strong>。いちばんの特徴は<strong>「元に戻す」などの操作を1つだけ持てる</strong>点で、Googleは<strong>同時に1つ・操作は1つまで</strong>とする。アプリを使っていないときに知らせるなら、Googleは通知(Notification)を使う。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは見落としても困らない<strong>パッシブな通知</strong>に分類し、<strong>重要な情報をこれだけで伝えない</strong>よう求める。W3Cも、控えめな知らせとして読み上げ、操作を持つなら時間で消さないか延長できるようにする(2.2.1)。
+              NN groupは見落としても困らない<strong>パッシブな通知</strong>に分類し、<strong>重要な情報をこれだけで伝えない</strong>よう求める。W3Cは、控えめな知らせとして読み上げることを求める(4.1.3)。操作を持つスナックバーを時間で消すなら、2.2.1(期限調節可能)の考え方から、時間で消さないか延長できるようにする(スナックバー専用の決まりではなく、時間制限の一般的な基準を当てはめたもの)。
             </p>
             <p style={styles.synthesisText}>
               Appleにはスナックバーもトーストもなく、NN groupは両者を1つの項目で扱う。トーストを別にしているのはGoogle(Android)だけなので、<strong>操作のない短い知らせも、このページの考え方で作ればよい</strong>(下の「スナックバーとトースト」)。
@@ -6270,7 +6266,7 @@ const SOURCES = [
         <text x="76" y="19" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通知バナー(近い概念)</text>
       </svg>
     ),
-    illustrationNote: "画面上部の短時間バナー(概念図・系列識別色)",
+    illustrationNote: "画面上部の短時間バナー(概念図)",
   },
   {
     key: "material",
@@ -6280,7 +6276,7 @@ const SOURCES = [
     color: "#2F7D6E",
     m3NotApplicable: true,
     position: <><Hl>M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)</Hl>。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる</>,
-    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る。</span>,
+    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る(Android Developers「Toasts overview」。Androidのバージョンによる)。</span>,
     scenarios: [
       "取り消しなどの操作が要らない、ごく短い操作結果を知らせたい時",
       "操作(Undoなど)を持たせたい時はSnackbarにする",
@@ -6310,7 +6306,7 @@ const SOURCES = [
         <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
       </svg>
     ),
-    illustrationNote: "アクションボタンを持たない、最小限のポップアップ(概念図・系列識別色)",
+    illustrationNote: "アクションボタンを持たない、最小限のポップアップ(概念図)",
   },
   {
     key: "wcag",
@@ -6381,7 +6377,7 @@ const SOURCES = [
         <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
       </svg>
     ),
-    illustrationNote: "Snackbarと同一項目内で扱われる「Toast」(概念図・系列識別色)",
+    illustrationNote: "Snackbarと同一項目内で扱われる「Toast」(概念図)",
   },
 ];
 
@@ -6464,7 +6460,7 @@ function CommunicationToastPage() {
           <div style={{ ...styles.warningBox, marginBottom: 24 }}>
             <div style={styles.warningLabel}>⚠ 重要な注記</div>
             <p style={styles.warningText}>
-              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Googleは、M1〜M2の「Snackbars & Toasts」をM3でSnackbarに統合し、Toastは<strong>AndroidのOSの機能</strong>として残るだけ(このページのGoogle欄はこれを扱う)。<strong>Appleはトーストもスナックバーも持たず、NN groupはスナックバーと同じ項目「Snackbar (Toast)」で扱う</strong>。W3Cにも専用の定めはなく、ステータスメッセージ(4.1.3)の考え方が当てはまる。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
+              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Google欄は、M3のコンポーネントではなく、AndroidのOSの機能のToastを扱う。WebでToast風の知らせを作るなら、ステータスメッセージ(W3C 4.1.3)として支援技術にも伝える。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
             </p>
           </div>
           <SummaryCard keyPoints={KP}
@@ -6731,7 +6727,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "ポインターホバーで現れる短い説明(ヘルプタグ、概念図・系列識別色)",
+    illustrationNote: "ポインターホバーで現れる短い説明(ヘルプタグ、概念図)",
   },
   {
     key: "material",
@@ -6779,7 +6775,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "プレーンツールチップ(概念図・系列識別色)",
+    illustrationNote: "プレーンツールチップ(概念図)",
   },
   {
     key: "wcag",
@@ -6866,7 +6862,7 @@ const SOURCES = [
         </svg>
       </div>
     ),
-    illustrationNote: "マイクロコンテンツとしてのツールチップ(概念図・系列識別色)",
+    illustrationNote: "マイクロコンテンツとしてのツールチップ(概念図)",
   },
 ];
 
@@ -6991,7 +6987,7 @@ function PlainRichTable() {
 
 /* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
 const TT_VS_POPUP = [
-  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマホのアプリでも)"],
+  ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマートフォンのアプリでも)"],
   ["出すきっかけ", "マウスを乗せる・キーボードでフォーカスする", "押す(タップ・クリック)"],
   ["消えるとき", "決められた範囲からポインターが離れたとき", "閉じるを押すか、画面のほかの場所を押したとき"],
   ["組み合わせるコンポーネント", "アイコン・文字のリンク・ボタン・画像", "「?」や「i」のアイコン"],
@@ -7002,7 +6998,7 @@ function TooltipVsPopupTip() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>ツールチップとポップアップのヒント(Nielsen Norman Group)</h2>
-      <p style={styles.tvpNote}><strong>スマホなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えない</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使う。NN groupは、この2つを次のように区別している。</p>
+      <p style={styles.tvpNote}><strong>スマートフォンなどタッチの画面では、マウスを乗せる操作がないため、ツールチップは基本的に使えない</strong>。同じ目的(短い補足を出す)には、「?」や「i」のアイコンを押して開くポップアップのヒントを使う。NN groupは、この2つを次のように区別している。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvpTable}>
           <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
@@ -7053,7 +7049,7 @@ const SPLITS = [
       { who: "NN group", color: "#7A4F7E", t: "タッチの画面では使えない。「?」「i」などを押して開くポップアップのヒントにする" },
       { who: "Apple", color: "#C2542A", t: "ツールチップはmacOS(iPhone・iPadのアプリをMacで動かす場合を含む)のもの。iPhoneで新機能を知らせるならTipKitのTipを使う" },
     ],
-    tip: "長押しは気づかれにくいため、スマートフォンでは説明が必要なコンポーネントに「?」などの印を置き、押すと開くヒントにするのが確実だ(NN group・AppleのTip)。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13)。",
+    tip: "スマートフォンでは、長押しで出す(Google)、「?」などの印を押すと開くヒント(NN group・AppleのTip)、常に見える補足、から選べる。長押しは気づかれにくいため、説明が欠かせないなら押すと開くヒントか常に見せる形が確実だ。デスクトップではツールチップを使い、キーボードのフォーカスでも出るようにする(W3C 1.4.13。ホバー・フォーカスで出る内容の基準で、タッチ操作の決まりではない)。",
   },
 ];
 
@@ -7102,7 +7098,7 @@ function CommunicationTooltipPage() {
           <h1 style={styles.title}>ツールチップ</h1>
           <SummaryCard keyPoints={KP}
             image={<><TooltipSwatch /></>}
-            imageNote={<>プレーン(左): アイコンなど文字を持たない要素にホバー/フォーカスすると現れる、短い補足テキスト。リッチ(右): 見出し・本文・ボタンを持てる、より詳しい説明用の拡張パターン(Appleは別フレームワーク「TipKit」、Googleは同一コンポーネントの拡張版として提供)。</>}
+            imageNote={<>プレーン(左): ホバー/フォーカスで出る短い補足。リッチ(右): 見出し・本文・ボタンを持てる詳しい説明。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -7442,7 +7438,7 @@ const WIDGET_RULES = [
   { k: "一目で分かる量にし、途中で切らない", t: "情報を詰め込みすぎない。見出しや文を省略せず、最小サイズでも要点が伝わるようにする", who: "Apple・NN group" },
   { k: "古い情報を出さない", t: "リアルタイムには更新されないため、必要なら最終更新の時刻を示す。操作したら内容を更新する", who: "Apple・Google" },
   { k: "置かれる場所になじませる", t: "マスを端まで埋め、テーマの色・ライト/ダーク・システムの角丸に合わせる。表示モードが変わっても意味が伝わるようにする", who: "Apple・Google" },
-  { k: "読める・押せる", t: "文字は11pt以上が目安、コントラストを確保し、押せる範囲は48×48dpを保つ。色だけに頼らない", who: "Apple・Google・W3C" },
+  { k: "読める・押せる", t: "文字は一般に11pt以上(Apple)、押せる範囲は48×48dp(Google)、コントラストを確保し色だけに頼らない(W3C)。pt・dpとWebのCSS pxは別の単位", who: "Apple・Google・W3C" },
 ];
 
 const WIDGET_SCENES = ["天気(今の気温と予報)", "ニュースの見出し", "メールなどの一覧(コレクション型)", "検索バー(Androidの4×1)", "写真を全面に見せる", "ボタン・トグルでの簡単な操作", "ロック画面(時計の上の1行・下の円形/長方形)", "StandBy", "Macのデスクトップ", "Apple Watch"];
@@ -8043,7 +8039,7 @@ const SOURCES = [
         <rect x="1" y="22" width="118" height="36" rx="3" fill="#F8F9FD" stroke="#C2542A" strokeDasharray="3 2" strokeWidth="1" />
       </svg>
     ),
-    illustrationNote: "開示コントロールで関連情報を表示・非表示(概念図・系列識別色)",
+    illustrationNote: "開示コントロールで関連情報を表示・非表示(概念図)",
   },
   {
     key: "material",
@@ -8134,7 +8130,7 @@ const SOURCES = [
         <rect x="1" y="20" width="118" height="16" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1" opacity="0.5" />
       </svg>
     ),
-    illustrationNote: "FAQのような独立セクションの開閉(概念図・系列識別色)",
+    illustrationNote: "FAQのような独立セクションの開閉(概念図)",
   },
 ];
 
@@ -8176,7 +8172,7 @@ function AccordionSwatch() {
       </div>
       <div style={{ padding: "8px 12px 10px", fontSize: 11, color: "#666D93", borderBottom: "1px solid #E1E3F0" }}>購入から30日以内であれば返品を受け付けている。</div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px" }}>
-        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらだか?</span>
+        <span style={{ fontSize: 12, color: "#454C78" }}>質問2: 送料はいくらですか?</span>
         <span style={{ color: "#666D93" }}>›</span>
       </div>
     </div>
@@ -8211,8 +8207,8 @@ function TabVsAccordion() {
 const LEAD = "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "必要な部分だけを開いて読めるようにし、長いページを短く見せる" },
-  { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマホでの長い説明の折りたたみ" },
-  { k: "似たコンポーネント", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける</> },
+  { k: "よく使われる場面", v: "よくある質問(FAQ)、設定の詳細項目、スマートフォンでの長い説明の折りたたみ" },
+  { k: "似たコンポーネント", v: <>同じ場所で内容を切り替えるなら<PageLink to="/components/navigation/tabs">タブ</PageLink>。アコーディオンは複数を同時に開ける作りにもできる</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -8220,6 +8216,7 @@ const KP = [
   { n: 1, t: "各項目が独立していて、一部だけ読めば足りる内容に使う", d: "よくある質問など", who: "NN group" },
   { n: 2, t: "ほぼ全部を読む内容や、続けて読む記事には使わない", d: "", who: "NN group" },
   { n: 3, t: "開閉できると分かる印(矢印)を付ける", d: "", who: "NN group" },
+  { n: 4, t: "見出しを押せるようにし、開いているかどうかを伝える", d: "同時にいくつ開けるかは内容で決める", who: "W3C(APG)" },
 ];
 
 function ContainmentAccordionPage() {
@@ -8258,13 +8255,13 @@ function ContainmentAccordionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も具体的な判断材料を示しているのはNielsen Norman Groupだ。<strong>FAQのように各セクションが独立していて、ユーザーが少数の情報のみ必要とする場合に適し、「ほぼすべてのコンテンツが必要」「記事のような連続読書が必要」な場合には不向き</strong>という、使うべき場面・避けるべき場面のリストは、他3系列にはない実務的な価値を持っている。
+              使う場面を最も具体的に示すのはNN groupだ。<strong>よくある質問のように各項目が独立し、一部だけ読めば足りる内容に向き、ほぼ全部を読む内容や続けて読む記事には向かない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方で、見出しの構造とボタンの役割を組み合わせる点が、Apple・Googleが単一コンポーネントとして説明するのとは違う、構成要素に分解した視点だ。
+              W3CのAPGには、専用の<strong>Accordion Pattern</strong>がある。<strong>見出しをボタンとして押せるようにし、開閉の状態と対応するパネルを支援技術に伝える</strong>という考え方だ。複数のパネルを同時に開ける作りも、1つだけ開く作りも認めている(NN groupは、同時に開けるようにすることを勧める)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1時代には「Expansion panel」という独立コンポーネントがあったが、現行のM3には見当たらず、開閉(展開/折りたたみ)の考え方はリストコンポーネントの機能に統合されたとされている。つまり「見落とし」ではなく、<strong>コンポーネントとしての格が時代とともに変わり、今は単体では存在しない</strong>というのが実情だ。
+              <strong>Googleには現在、「アコーディオン」に相当する独立コンポーネントがない。</strong>M1には「Expansion panel」があった。独立したコンポーネントがないだけで、開閉のパターンそのものを使えないわけではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -8469,13 +8466,13 @@ const SOURCES = [
     colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "デタント(detent)", desc: "シートが止まる高さの段階。大デタントは全高、中デタントは約半分の高さ。" },
-      { term: "グラバー(grabber)", desc: "シートの上端の小さな横線。ドラッグして高さを変えられることを示す。" },
+      { term: "ドラッグハンドル(grabber)", desc: "シートの上端の小さな横線。ドラッグして高さを変えられることを示す。" },
     ],
     stance:
-      <>今の画面に関係する、<Hl>範囲を限った短い作業</Hl>(ファイルの添付など)に使い、終わったら元の画面に戻る。高さを変えられるならグラバーを付ける。</>,
+      <>今の画面に関係する、<Hl>範囲を限った短い作業</Hl>(ファイルの添付など)に使い、終わったら元の画面に戻る。高さを変えられるならドラッグハンドルを付ける。</>,
     scenarios: [
       "今の画面に深く関係する、範囲を限った作業をしてもらいたい時",
-      "内容のスクロールやグラバーのドラッグで、高さを調整させたい時",
+      "内容のスクロールやドラッグハンドルのドラッグで、高さを調整させたい時",
     ],
     exceptions:
       "シートは一度に1枚。長く複雑な作業には、全画面のモーダルなどを検討する。",
@@ -8484,7 +8481,7 @@ const SOURCES = [
     useCases: [
       "今の画面に関係する、範囲を限った作業に使う(既定はモーダル)",
       "大デタントだけか、大+中かで高さの動きを選ぶ",
-      "内容のスクロールかグラバーのドラッグで、高さを変えられるようにする",
+      "内容のスクロールかドラッグハンドルのドラッグで、高さを変えられるようにする",
     ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/sheets",
@@ -8501,7 +8498,7 @@ const SOURCES = [
         <text x="60" y="48" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">中デタント</text>
       </svg>
     ),
-    illustrationNote: "グラバーをドラッグして高さ(デタント)を変える(概念図・系列識別色)",
+    illustrationNote: "ドラッグハンドルをドラッグして高さ(デタント)を変える(概念図)",
   },
   {
     key: "material",
@@ -8545,7 +8542,7 @@ const SOURCES = [
         <text x="60" y="52" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ボトムシート</text>
       </svg>
     ),
-    illustrationNote: "画面下部から現れる補助コンテンツ用シート(概念図・系列識別色)",
+    illustrationNote: "画面下部から現れる補助コンテンツ用シート(概念図)",
   },
   {
     key: "wcag",
@@ -8555,7 +8552,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <>専用の役割・パターンはなく、<Hl>モーダルか非モーダルかで当てはめる考え方が変わる</Hl></>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
-    colorInfo: "色の基準はない。グラバーや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
+    colorInfo: "色の基準はない。ドラッグハンドルや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
       <>モーダルなシートはダイアログとして扱い、フォーカスを閉じ込め、Escキーで閉じられるようにする。<Hl>ドラッグしなくても高さを変えられるようにする</Hl>(2.5.7)。</>,
     scenarios: [
@@ -8569,7 +8566,7 @@ const SOURCES = [
     useCases: [
       "後ろを完全に止めるシートは、モーダルのダイアログとして支援技術に伝える",
       "後ろを操作できるシートは、モーダルとして伝えない",
-      "ドラッグしなくても高さを変えられるようにする(グラバーのタップで切り替えるなど。2.5.7)",
+      "ドラッグしなくても高さを変えられるようにする(ドラッグハンドルのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
     url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
@@ -8602,12 +8599,12 @@ const SOURCES = [
       "短く済む追加の詳細・操作を出したい時(複雑な内容や長い閲覧には向かない)",
     ],
     exceptions:
-      <>注意は3つ。戻る操作と一貫させる、<Hl>グラバーだけでなく見える×(閉じる)を置く</Hl>、シートを重ねない。</>,
+      <>注意は3つ。戻る操作と一貫させる、<Hl>ドラッグハンドルだけでなく見える×(閉じる)を置く</Hl>、シートを重ねない。</>,
     accessibility:
       "根拠となる原則 ― 実装の注意点(操作の確実さのため)。",
     useCases: [
       "短い追加の情報・操作に使う(長い閲覧や複雑な内容には使わない)",
-      "グラバーだけでなく、はっきりした閉じるボタンを上部に置く",
+      "ドラッグハンドルだけでなく、はっきりした閉じるボタンを上部に置く",
       "シートを重ねない",
     ],
     searchHint: "Do Not Stack Bottom Sheets",
@@ -8624,7 +8621,7 @@ const SOURCES = [
         <text x="55" y="52" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">短時間の操作</text>
       </svg>
     ),
-    illustrationNote: "グラバーだけでなく明確な閉じるボタンを併設(概念図・系列識別色)",
+    illustrationNote: "ドラッグハンドルだけでなく明確な閉じるボタンを併設(概念図)",
   },
 ];
 
@@ -8677,7 +8674,7 @@ const MODAL_CHOICE = [
   { fig: "none", t: "シートを使わない", when: "長い作業や、じっくり読む内容", ex: "複数ステップの編集、長い記事", src: "Apple(全画面のモーダルや別のウィンドウを検討)・NN group(短い操作だけに使う)" },
 ];
 const CLOSE_ROWS = [
-  ["ドラッグハンドル(グラバー)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(グラバー)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
+  ["ドラッグハンドル(ドラッグハンドル)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(ドラッグハンドル)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
   ["×・閉じるボタン", "全画面のモーダルのボトムシートには閉じるボタンを出す", "キャンセル(閉じる)は保存せずに閉じ、完了は作業を終えて閉じる。完了だけにせず、キャンセルか戻るを組み合わせる", "ハンドルだけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる"],
   ["そのほかの閉じ方", "項目を選ぶ、後ろ(スクリム)をタップ、下へなぞる、シートのアプリバーの閉じるボタン。Androidの「予測型の戻る」操作", <NoData>記載なし</NoData>, "端末の戻るボタン・戻る操作でも閉じられるようにする"],
   ["重ねない", <NoData>記載なし</NoData>, "一度に出すシートは1枚にする。シートから別のシートを出すなら、先に最初のシートを閉じる", "シートの上にシートを重ねない。ページ間の遷移の代わりに使わない"],
@@ -8733,7 +8730,7 @@ function BottomSheetGuide() {
 const LEAD = "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネル";
 const ABOUT = [
   { k: "目的・役割", v: "今の画面を残したまま、選択肢や補助の内容を手の届きやすい下側に出す" },
-  { k: "よく使われる場面", v: "共有先の選択、地図の場所の詳細、スマホの絞り込み条件" },
+  { k: "よく使われる場面", v: "共有先の選択、地図の場所の詳細、スマートフォンの絞り込み条件" },
   { k: "似たコンポーネント", v: <>画面の横から出るのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>、作業を止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink></> },
 ];
 
@@ -8742,18 +8739,18 @@ const SPLITS = [
   {
     q: "閉じるボタン(×)を、いつも置く?",
     sides: [
-      { who: "NN group", color: "#7A4F7E", t: "置く。ハンドルや下へなぞる操作だけに頼らず、上部に見える×(または「閉じる」)を置く。読み上げソフトやキーボードの利用者にも閉じ方が分かる" },
+      { who: "NN group", color: "#7A4F7E", t: "置く。ハンドルや下へなぞる操作だけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる" },
       { who: "Google", color: "#2F7D6E", t: "全画面のモーダルのボトムシートには閉じるボタンを出す。それ以外は、項目を選ぶ・後ろをタップ・下へなぞる・戻るでも閉じられる" },
       { who: "Apple", color: "#C2542A", t: "利用者は縦のスワイプで閉じることを期待する。ボタンはキャンセル(保存せずに閉じる)と完了(作業を終えて閉じる)を使い分ける" },
     ],
-    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿う。スワイプはなぞる操作が苦手な人や読み上げソフトの利用者には使いにくいため、ボタンが代わりの手段になる。",
+    tip: "スワイプや後ろのタップで閉じられるようにしたうえで、見える閉じるボタン(またはキャンセル)も置くと、3系列のどれにも沿う。スワイプはなぞる操作が苦手な人やスクリーンリーダーの利用者には使いにくいため、ボタンが代わりの手段になる。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "見える閉じるボタンも置く", d: "スワイプやハンドルだけに頼らない", who: "AI解釈(Google・W3C・NN groupのどれにも沿う形)" },
-  { n: 2, t: "ドラッグしなくても高さを変えられるようにする", d: "", who: "W3C 2.5.7" },
+  { n: 2, t: "ドラッグしなくても高さを変えられるようにする", d: "高さの変更・閉じるなど、ドラッグでできる操作には、タップなどの代わりを用意する", who: "W3C 2.5.7・Google" },
   { n: 3, t: "モーダルにするなら、フォーカスをシートの中にとどめ、Escキーで閉じられるように", d: "", who: "W3C" },
 ];
 
@@ -8780,7 +8777,7 @@ function ContainmentBottomSheetPage() {
           <h1 style={styles.title}>ボトムシート</h1>
           <SummaryCard keyPoints={KP}
             image={<><BottomSheetSwatch /></>}
-            imageNote={<>画面下部から現れ、グラバー(つまみ)のドラッグで高さを変えられる。「サイドシート」ページで比較したポップオーバー・サイドシートとは、下から出るという性質が異なる。</>}
+            imageNote={<>画面下部から現れ、ドラッグハンドル(上端の小さな横線。Appleの名前はグラバー)のドラッグで高さを変えられる。ほかのオーバーレイとの違いは「オーバーレイの使い分け」で比べる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -8795,13 +8792,13 @@ function ContainmentBottomSheetPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページは、<strong>「サイドシート」ページ(旧「モーダルポップアップ」ページ)から、下からせり出す半モーダルの内容を独立させたもの</strong>だ。AppleのSheets(デタント)とGoogleのBottom sheetsは、どちらも「複数の高さの段階を持ち、ドラッグで変更できる」という発想が共通しており、ほぼ正確に対応するコンポーネント同士だと言える。
+              <strong>AppleのSheets(デタント)とGoogleのBottom sheetsは、複数の高さの段階を持ち、ドラッグで高さを変えられる</strong>点が共通する。
             </p>
             <p style={styles.synthesisText}>
-              4系列に共通する軸は、<strong>「モーダル(背景を操作不可にする)」か「非モーダル(背景を操作可能なまま残す)」か</strong>という区別だ。Googleは「標準/モーダル」という名前でこの2種類を明確に定義し(モーダルはスクリム上に乗るが標準にはスクリムがない、という違いのみ)、Nielsen Norman Groupも同じ区別をボトムシート全般の判断基準として挙げている。W3Cも同じ区別を持ち、<strong>モーダルであることを支援技術に伝えるかどうか</strong>でこの違いを表す。
+              判断の軸は、<strong>モーダル(後ろを操作できない)か、非モーダル(後ろを操作できる)か</strong>。Google(標準/モーダル)・NN group・W3Cが同じ区別を持ち、W3Cは<strong>モーダルであることを支援技術に伝えるかどうか</strong>でこの違いを表す。モーダルならフォーカスをシートの中に保ち、非モーダルなら後ろの操作を妨げない。
             </p>
             <p style={styles.synthesisText}>
-              Googleは、<strong>初期の垂直位置は画面高さの50%に制限され、それを超えるコンテンツは全画面まで伸びて内部スクロールする</strong>という具体的な挙動を示している。また<strong>ドラッグハンドルが使えない場合は、高さ変更のための単一ポインター代替手段が必須</strong>とされている点は、Nielsen Norman Groupが示す<strong>グラバーハンドルだけに閉じる操作を依存させず、明確な閉じるボタンも併設すべき</strong>という指摘、W3Cが求めるフォーカストラップ・Escキー対応、<strong>ドラッグ以外の操作方法(2.5.7)</strong>と方向性が一致しており、視覚的な操作(ドラッグ)とキーボード・支援技術での操作の両方を保証する必要があることを示している。<strong>「複数のシートを積み重ねない」</strong>という注意点も、モーダル性を問わず共通して守るべき実務上のルールだ。
+              Googleは、モーダルのシートの<strong>最初の高さを画面の50%まで</strong>とし、内容が多ければ全画面まで伸ばして中をスクロールさせる。ドラッグで高さを変えたり閉じたりする機能には、<strong>ドラッグしない操作(ドラッグハンドルのタップなど)も用意する</strong>点で、Google・W3C(2.5.7)が一致し、NN groupも<strong>ドラッグハンドルだけに頼らず、見える閉じるボタンを置く</strong>ことを勧める。<strong>シートを積み重ねない</strong>点も、モーダルかどうかを問わず守る。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -9032,7 +9029,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#F0F4F8" />
       </svg>
     ),
-    illustrationNote: "論理的に関連する情報をまとめるBoxes(概念図・系列識別色)",
+    illustrationNote: "論理的に関連する情報をまとめるBoxes(概念図)",
   },
   {
     key: "material",
@@ -9075,7 +9072,7 @@ const SOURCES = [
         <rect x="10" y="48" width="90" height="6" rx="2" fill="#EAF3F1" />
       </svg>
     ),
-    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図・系列識別色)",
+    illustrationNote: "影で背景から分離するElevated cardの例(分かれ方はFilledより強く、Outlinedほどではない。概念図)",
   },
   {
     key: "wcag",
@@ -9144,7 +9141,7 @@ const SOURCES = [
         <text x="10" y="58" fontSize="7.5" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">続きを読む &gt;</text>
       </svg>
     ),
-    illustrationNote: "要約+詳細への入り口となるカード(概念図・系列識別色)",
+    illustrationNote: "要約+詳細への入り口となるカード(概念図)",
   },
 ];
 
@@ -9296,10 +9293,10 @@ function ContainmentCardPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>一方、<strong>Appleには「カード」という名称の専用コンポーネントが見当たらない</strong>。最も近い概念は「論理的に関連する情報をグループ化する」ためのBoxesだが、Googleのカードが持つ「タップして詳細に進む要約表示」という発見的な役割までは踏み込んでいない可能性がある。
+              カードは、<strong>Googleが最も明確にコンポーネント化している</strong>。<strong>Appleには「カード」という専用のコンポーネントはない</strong>。近いのは関連する情報をまとめるBoxesで、タップで詳しい画面に進む要約という記載はない。Googleのカードは、関連する情報と操作をまとめる入れ物で、詳しい画面への入り口にも使える(カード全体を押せるようにするかは内容による)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupが示す最も重要な指針は、<strong>カードはブラウジング(探索的な閲覧)には向くが、検索や複数項目の比較には不向き</strong>という使い分けだ。これはGoogleの3種類のスタイル(Elevated/Filled/Outlined、いずれも機能的には同等)という視覚バリエーションの話とは別のレイヤーで、「そもそもカードを使うべき場面かどうか」を判断する上で重要だ。
+              NN groupは、<strong>カードは眺めて選ぶ閲覧には向くが、検索や複数の項目の比較には向かない</strong>とする。カードを使う場面かどうかは、この使い分けで決める。
             </p>
             <p style={styles.synthesisText}>
               W3Cはカードについて定めていない。押せるカードには、ほかのコンポーネントと同じく<strong>ターゲットサイズ(2.5.8・例外あり)</strong>と、境界線などの<strong>非テキストのコントラスト(1.4.11)</strong>がかかる。
@@ -9480,7 +9477,7 @@ const ContainmentCarouselPage = (function () {
  * (マルチブラウズ・アンコンテインド・ヒーロー・全画面)を用途で選ぶ方式。Appleには専用ページがなく、
  * 横にめくるページの位置を示す「ページコントロール」(点の列)が最も近い。W3Cは自動で回るカルーセルを
  * 止められること(2.2.2の5秒、APGの停止ボタン・フォーカスで停止)を中心に求め、NN groupは利用者が
- * カルーセルを読み飛ばしがちで2枚目以降が見られにくいことから、5枚以下・位置の表示・スマホでは自動送り
+ * カルーセルを読み飛ばしがちで2枚目以降が見られにくいことから、5枚以下・位置の表示・スマートフォンでは自動送り
  * しないことを勧める。「自動で送るか」については、W3CとNN groupが止める・避ける方向で一致している。
  *
  * Apple(HIG Page controls)はHIGのページデータ(JSON)を直接取得して確認(2026-10)。HIGのページデータを
@@ -9563,7 +9560,7 @@ const SOURCES = [
     size: <><Hl>自動で始まり5秒より長く続く動き</Hl>には、一時停止・停止・非表示の手段が必要(2.2.2・レベルA)。</>,
     colorInfo: "前へ・次へのボタンと、任意でスライドを選ぶ点。自動で回るなら停止・再開のボタンを最初に置き、フォーカスが入ったとき・マウスを乗せている間は回転を止める。",
     glossary: [
-      { term: "2.2.2 一時停止、停止、非表示・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロール、自動更新される情報を、止めたり隠したりできることを求める基準。" },
+      { term: "2.2.2 一時停止・停止・非表示・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロール、自動更新される情報を、止めたり隠したりできることを求める基準。" },
       { term: "役割の呼び名", desc: "全体を「カルーセル」、各スライドを「スライド」と呼んで、スクリーンリーダーにカルーセルであることを伝える。" },
       { term: "変化の読み上げ", desc: "中身が変わったときにスクリーンリーダーが読み上げる仕組み。自動で回っている間は読み上げず、利用者が送ったときは控えめに読み上げる。" },
     ],
@@ -9685,7 +9682,7 @@ const CAROUSEL_ROWS = [
       { mark: "―", note: "" },
       { mark: "―", note: "記載なし" },
       { mark: "◯", note: "5秒を超えるなら止める手段(2.2.2)" },
-      { mark: "◯", note: "避けるのが基本。スマホでは送らない" },
+      { mark: "◯", note: "避けるのが基本。スマートフォンでは送らない" },
     ],
   },
   {
@@ -9982,8 +9979,8 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "自動送りは基本的に使わない", d: "", who: "NN group" },
   { n: 2, t: "続きがあることを見た目で示す", d: "次の項目の端や矢印", who: "AI解釈" },
-  { n: 3, t: "自動で送るなら停止ボタンを置く", d: "5秒より長く続くなら止める手段が要る", who: "W3C 2.2.2" },
-  { n: 4, t: "位置を示す点は約10個まで", d: "", who: "Apple" },
+  { n: 3, t: "自動で送るなら、止める手段を用意する", d: "自動で始まり5秒より長く続く動きには、一時停止・停止・非表示のどれかの手段が要る(停止ボタンの置き場所はAPGの参考例)", who: "W3C 2.2.2" },
+  { n: 4, t: "位置を示す点は約10個まで", d: "Appleのページコントロール(位置を示す点)の指針", who: "Apple" },
 ];
 
 function ContainmentCarouselPage() {
@@ -10040,7 +10037,7 @@ function ContainmentCarouselPage() {
               「カルーセル」をコンポーネントとして定義しているのは<strong>Googleだけ</strong>で、M3は<strong>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)</strong>を用途で選ぶ方式だ。Appleには専用のページがなく、横にめくるページの位置を点で示す<strong>ページコントロール</strong>が最も近い指針だ(点は約10個まで、下部中央)。
             </p>
             <p style={styles.synthesisText}>
-              一方、W3CとNN groupは、カルーセルの<strong>危うさ</strong>を中心に扱っている。WCAGの2.2.2は、<strong>自動で始まり、5秒を超えて続き、ほかの内容と並んで表示される動き</strong>に、一時停止・停止・非表示などの手段を求める(要件)。APGのカルーセルは、それとは別に、<strong>停止ボタンを最初に置き、フォーカスやホバーで止める</strong>ことを設計に含めている(実装の参考)。NN groupは、利用者が<strong>カルーセルを読み飛ばしがちで2枚目以降は見られにくい</strong>ことから、<strong>5枚以下・何枚目かの表示・スマホでは自動で送らない</strong>ことを勧めている。
+              一方、W3CとNN groupは、カルーセルの<strong>危うさ</strong>を中心に扱っている。WCAGの2.2.2は、<strong>自動で始まり、5秒を超えて続き、ほかの内容と並んで表示される動き</strong>に、一時停止・停止・非表示などの手段を求める(要件)。APGのカルーセルは、それとは別に、<strong>停止ボタンを最初に置き、フォーカスやホバーで止める</strong>ことを設計に含めている(実装の参考)。NN groupは、利用者が<strong>カルーセルを読み飛ばしがちで2枚目以降は見られにくい</strong>ことから、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧めている。
             </p>
             <p style={styles.synthesisText}>
               自動送りについては、AppleとGoogleには記載がない。W3CとNN groupは、どちらも<strong>自動送りに慎重で、送るなら止められるようにする</strong>方向で一致している。
@@ -10331,7 +10328,7 @@ const SOURCES = [
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">削除</text>
       </svg>
     ),
-    illustrationNote: "キャンセルは左、よく選ばれるボタンは右(概念図・系列識別色)",
+    illustrationNote: "キャンセルは左、よく選ばれるボタンは右(概念図)",
   },
   {
     key: "material",
@@ -10374,7 +10371,7 @@ const SOURCES = [
         <text x="88" y="58" fontSize="8" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">OK</text>
       </svg>
     ),
-    illustrationNote: "見出し+補足テキスト+ボタンの基本ダイアログ(概念図・系列識別色)",
+    illustrationNote: "見出し+補足テキスト+ボタンの基本ダイアログ(概念図)",
   },
   {
     key: "wcag",
@@ -10457,7 +10454,7 @@ const SOURCES = [
         <text x="88" y="52" fontSize="7.5" fontWeight="700" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ファイルを削除</text>
       </svg>
     ),
-    illustrationNote: "「はい/いいえ」ではなく具体的なラベルにする(概念図・系列識別色)",
+    illustrationNote: "「はい/いいえ」ではなく具体的なラベルにする(概念図)",
   },
 ];
 
@@ -10530,7 +10527,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "本当に重要な場面だけに使う", d: "多用すると読まずに押されるようになる", who: "NN group" },
   { n: 2, t: "ボタンの名前を具体的にする", d: "「削除」のように、押すと何が起きるか分かる語", who: "Apple・Google・NN group" },
-  { n: 3, t: "ボタンは2つまで", d: "", who: "Google" },
+  { n: 3, t: "ボタンは2つまで", d: "Appleのアラートは3つまで", who: "Google" },
   { n: 4, t: "取り返しのつかない操作だけ、入力させる確認を足す", d: "", who: "NN group" },
 ];
 
@@ -10572,7 +10569,7 @@ function ContainmentDialogPage() {
           <h1 style={styles.title}>モーダルダイアログ</h1>
           <SummaryCard keyPoints={KP}
             image={<><DialogSwatch /></>}
-            imageNote={<>タイトル・メッセージ・ボタンで構成される、スクリム上に乗る中央寄せの小さいダイアログ。「サイドシート」ページで比較する、より汎用的なオーバーレイ(シート等)や、画面全体を占める「フルスクリーンダイアログ」とは役割が異なる。</>}
+            imageNote={<>タイトル・メッセージ・ボタンで構成される、後ろを暗くした幕(スクリム)の上に、中央寄せで出る小さいダイアログ。シートなどほかのオーバーレイとの違いは「オーバーレイの使い分け」で比べる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -10587,13 +10584,13 @@ function ContainmentDialogPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列を通じて共通するのは、<strong>ダイアログを「本当に重要な場面に限定して使うべき」</strong>という姿勢だ。Nielsen Norman Groupは、日常的な操作に確認ダイアログを多用すると、ユーザーが内容を読まずに反射的に「はい」を押す「オオカミ少年」効果を招くと明確に警告している。Googleも優先度の低い・中程度の情報にはダイアログではなく自動的に閉じるスナックバーを使うべきとしており、方向性が一致している。
+              <strong>ダイアログは本当に重要な場面に限って使う</strong>点で、Apple(Use alerts sparingly)・Google・NN groupが一致する。NN groupは、日常の操作に確認ダイアログを多用すると、内容を読まずに「はい」を押す癖がつくと警告する。Googleも、優先度の低い〜中程度の情報には、自動で閉じるスナックバーを使う。
             </p>
             <p style={styles.synthesisText}>
-              ボタンの配置については、<strong>Appleが「よく選ばれるボタンは末尾(右)、キャンセルは先頭(左)」</strong>という明快な基準を示し、Googleも<strong>確認ボタンは末尾配置・最大2アクション・3つ目のアクションは避けインライン展開を使う</strong>という具体的なルールを持っている。NN groupはさらに踏み込み、<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作内容が分かるラベル</strong>にすべきだとしており、Googleの<strong>「OK/完了のような曖昧な確認ラベルを避ける」</strong>という指針と補完関係にある。
+              ボタンは、<strong>Appleがアラートに3つまで(よく選ばれるボタンは末尾、キャンセルは先頭)</strong>、<strong>Googleが2つまで(確認は末尾。3つ目の操作は避ける)</strong>とする。ラベルは、NN groupが<strong>「はい/いいえ」ではなく「ファイルを削除/ファイルを保持」のように操作が分かる言葉</strong>を勧め、Googleも「OK」「完了」のような曖昧な確認のラベルを避ける。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>フォーカスの扱い(ダイアログであること・モーダルであることを伝える・Tabキーでの閉じ込め・Escapeキーで閉じる)</strong>を具体的に定めており、Googleの「最初のフォーカスは最初の操作要素に自動で移動する」という挙動と一致している。
+              W3CのAPGは、ダイアログであること・モーダルであることを支援技術に伝え、開いている間はフォーカスをダイアログの中に保つ作り方を示す(参考例で、適合の要件ではない)。最初のフォーカスを中の操作要素に移す点は、Googleと同じ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -10828,7 +10825,7 @@ const SOURCES = [
         <text x="60" y="62" fontSize="7.5" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">複数ステップのタスク</text>
       </svg>
     ),
-    illustrationNote: "画面全体を占める複数ステップの編集タスク(概念図・系列識別色)",
+    illustrationNote: "画面全体を占める複数ステップの編集タスク(概念図)",
   },
   {
     key: "material",
@@ -10871,7 +10868,7 @@ const SOURCES = [
         <text x="97" y="60" fontSize="8" fontWeight="700" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">保存</text>
       </svg>
     ),
-    illustrationNote: "画面全体を占め、フォーム入力を伴う全画面ダイアログ(概念図・系列識別色)",
+    illustrationNote: "画面全体を占め、フォーム入力を伴う全画面ダイアログ(概念図)",
   },
   {
     key: "wcag",
@@ -10954,7 +10951,7 @@ const SOURCES = [
         <text x="60" y="52" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">ステップ 1 / 3</text>
       </svg>
     ),
-    illustrationNote: "進捗を示すウィザード形式の全画面フロー(概念図・系列識別色)",
+    illustrationNote: "進捗を示すウィザード形式の全画面フロー(概念図)",
   },
 ];
 
@@ -11007,7 +11004,7 @@ function FullscreenDialogSwatch() {
 const LEAD = "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ";
 const ABOUT = [
   { k: "目的・役割", v: "まとまった入力(予定の作成など)を、元の画面から切り離して集中して行えるようにする" },
-  { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマホでの長めのフォーム" },
+  { k: "よく使われる場面", v: "予定・連絡先の新規作成、スマートフォンでの長めのフォーム" },
   { k: "似たコンポーネント", v: <>短い確認や選択だけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>、手順をステップに分けて進めるなら<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink></> },
 ];
 
@@ -11026,7 +11023,7 @@ const SPLITS = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "キーボード入力が要る、まとまった作業に使う", d: "", who: "Google" },
-  { n: 2, t: "スマートフォンなどのモバイル端末で使う", d: "タブレット・PCなど広い画面では、基本のダイアログにする", who: "Google(コンパクトなブレークポイントのみ)" },
+  { n: 2, t: "狭い画面(コンパクト)で使う", d: "広い画面では、基本のダイアログにする(端末ではなく画面の幅で決める)", who: "Google(コンパクトなブレークポイントのみ)" },
   { n: 3, t: "長く、途中で中断もありうる手順は、普通のページのウィザードにする", d: "", who: "AI解釈" },
 ];
 
@@ -11072,10 +11069,10 @@ function ContainmentFullscreenDialogPage() {
               Appleにはこの用途にぴったり対応する専用コンポーネント名はないが、<strong>作業に集中させるための全画面のモーダル</strong>という考え方はHIGの「Modality」に見られる。ただしAppleは、<strong>モーダルの作業の中に階層のある画面を入れると、元の手順を思い出しにくくなる</strong>という認知的なリスクをはっきり警告しており、これはGoogleが定めていない観点だ。
             </p>
             <p style={styles.synthesisText}>
-              最も踏み込んだ主張をしているのはNielsen Norman Groupだ。<strong>複数ステップのモーダルはメインの作業から離れる時間を引き延ばすだけで、最初から複数ステップが必要なら専用のページを割り当てる</strong>べきだとしている。ここでの「ページ」は<strong>モーダルではない普通のページ</strong>で、全画面ダイアログもモーダルなので、<strong>「複数ステップの作業は、全画面ダイアログも含めてモーダルにしない」</strong>という意味になる。Googleの全画面ダイアログは、<strong>予定の作成のような1つのタスク</strong>に向けたもの、と書き分けて読むのが正確だ。ウィザード形式にする場合は<strong>進捗と全体のステップ数を明示すべき</strong>という指摘も、実装時の具体的な指針だ。
+              NN groupは、<strong>最初から複数ステップが必要な作業には、モーダルではない普通のページを割り当てる</strong>ことを勧める(NN groupの推奨)。Googleの全画面ダイアログは<strong>予定の作成のような、短く完結する1つの作業</strong>向けなので、短い1つの作業か、長く中断もありうる手続きかで使い分ける。ウィザード形式にするなら、<strong>進み具合と全体のステップ数を示す</strong>(NN group)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは、<strong>ダイアログの視覚的な大きさによる区別を設けていない</strong>。「モーダルダイアログ」ページで比較した基本ダイアログと同じ要件(ダイアログ・モーダルであることを伝える、フォーカスの閉じ込め)がそのまま当てはまり、全画面か否かという分岐は、4系列の中でもApple・Googleの実務的な使い分けに委ねられていることが分かる。
+              W3Cは、<strong>ダイアログを見た目の大きさで区別しない</strong>。基本のダイアログと同じ考え方(ダイアログ・モーダルであることを伝え、フォーカスを中に保つ。APGの参考例)がそのまま当てはまり、全画面にするかどうかはApple・Googleの使い分けに任される。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -11303,7 +11300,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "行として並ぶリスト/テーブル(概念図・系列識別色)",
+    illustrationNote: "行として並ぶリスト/テーブル(概念図)",
   },
   {
     key: "material",
@@ -11350,7 +11347,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画像+テキストの縦方向インデックス(概念図・系列識別色)",
+    illustrationNote: "画像+テキストの縦方向インデックス(概念図)",
   },
   {
     key: "wcag",
@@ -11432,7 +11429,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "ソート・比較に適した密なリスト表示(概念図・系列識別色)",
+    illustrationNote: "ソート・比較に適した密なリスト表示(概念図)",
   },
 ];
 
@@ -11501,9 +11498,8 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "", who: "AI解釈" },
-  { n: 2, t: "画像が中心で眺めて選ぶ一覧は、カードにする", d: "", who: "AI解釈" },
-  { n: 3, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
+  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "画像が中心で眺めて選ぶ一覧は「カード」のページへ", who: "AI解釈" },
+  { n: 2, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
 ];
 
 function ContainmentListPage() {
@@ -11545,7 +11541,7 @@ function ContainmentListPage() {
               リストの位置づけを最も明確に言語化しているのはNielsen Norman Groupで、<strong>「リスト表示はソートが容易でスペース効率が高い」</strong>という特性を、カード表示(視覚的訴求力・グループ化に強い)と対比させている。この対比は、そのまま「カード」ページとの使い分けの軸になる。
             </p>
             <p style={styles.synthesisText}>
-              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なる。
+              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleは列のある表(並べ替えられる列・階層のあるデータ)まで同じページで扱い、Googleは行の高さ(1〜3行)で種類を分ける。
             </p>
             <p style={styles.synthesisText}>
               W3Cが強調するのは、<strong>見た目の一覧を、構造でも一覧として支援技術に伝える</strong>こと(1.3.1)だ。順序に意味があるかどうかも区別して伝える。
@@ -11746,16 +11742,16 @@ function OverlayMini({ kind }) {
 
 const OVERLAYS = [
   { kind: "dialog", name: "モーダルダイアログ", path: "/components/containment/dialog", where: "画面の中央に小さな枠", modal: "常にモーダル(後ろは操作できない)", size: "小さい", close: "答えのボタン(OK・キャンセルなど)を押す", scene: "削除の確認、権限の許可、保存せずに閉じるときの確認" },
-  { kind: "fullscreen", name: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", where: "画面全体を覆う", modal: "常にモーダル", size: "画面いっぱい", close: "×で閉じる・保存で終える(内容が失われるなら確認する)", scene: "予定や連絡先の新規作成、スマホでの長めの入力" },
-  { kind: "bottom", name: "ボトムシート", path: "/components/containment/bottom-sheet", where: "画面の下からせり出す", modal: "モーダル・非モーダルの両方がある", size: "内容に合わせた高さ。段階的に広げられる", close: "下へスワイプ、外側をタップ、×", scene: "共有先の選択、地図の場所の詳細、スマホの絞り込み" },
+  { kind: "fullscreen", name: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", where: "画面全体を覆う", modal: "常にモーダル", size: "画面いっぱい", close: "×で閉じる・保存で終える(内容が失われるなら確認する)", scene: "予定や連絡先の新規作成、スマートフォンでの長めの入力" },
+  { kind: "bottom", name: "ボトムシート", path: "/components/containment/bottom-sheet", where: "画面の下からせり出す", modal: "モーダル・非モーダルの両方がある", size: "内容に合わせた高さ。段階的に広げられる", close: "下へスワイプ、外側をタップ、×", scene: "共有先の選択、地図の場所の詳細、スマートフォンの絞り込み" },
   { kind: "side", name: "サイドシート", path: "/components/containment/side-sheet", where: "画面の横(主に右)に出る", modal: "非モーダル(標準)・モーダルの両方がある", size: "決まった幅", close: "×、モーダルなら外側をタップ", scene: "一覧の絞り込み、選んだ項目の詳細、編集パネル(主にPC・タブレット)" },
-  { kind: "drawer", name: "ドロワー/サイドナビ", path: "/components/containment/drawer", where: "画面の横(主に左)から出る", modal: "スマホは一時的に出すモーダル、PCは常に表示", size: "決まった幅", close: "行き先を選ぶ、外側をタップ", scene: "アプリの主な行き先の一覧(行き先が多いとき)" },
+  { kind: "drawer", name: "ドロワー/サイドナビ", path: "/components/containment/drawer", where: "画面の横(主に左)から出る", modal: "スマートフォンは一時的に出すモーダル、PCは常に表示", size: "決まった幅", close: "行き先を選ぶ、外側をタップ", scene: "アプリの主な行き先の一覧(行き先が多いとき)" },
   { kind: "menu", name: "メニュー(ポップオーバー)", path: "/components/selection/menu", where: "押したコンポーネントのすぐ近く", modal: "一時的(外側を押すと閉じる)", size: "内容に合わせた小ささ", close: "項目を選ぶ、外側をタップ", scene: "「…」のその他の操作、右クリックの操作の一覧" },
 ];
 
 const STEPS = [
   { q: "今の作業を止めて、答えてもらう必要がある?", a: <>はい、短く答えるだけなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>。まとまった入力なら<PageLink to="/components/containment/fullscreen-dialog">フルスクリーンダイアログ</PageLink>(手順が長いなら、重ねずに<PageLink to="/components/text-inputs/wizard">ウィザード</PageLink>の普通のページ)</> },
-  { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマホなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
+  { q: "今の画面を見ながら、補助の内容を出したい?", a: <>スマートフォンなら下から出す<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>、PC・タブレットなら横に出す<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
   { q: "アプリの行き先の一覧を出したい?", a: <><PageLink to="/components/containment/drawer">ドロワー/サイドナビ</PageLink>(行き先が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>)</> },
   { q: "押したコンポーネントに関係する、その場の操作を少しだけ出したい?", a: <><PageLink to="/components/selection/menu">メニュー</PageLink>。短い説明だけなら<PageLink to="/components/communication/tooltip">ツールチップ</PageLink></> },
 ];
@@ -12008,7 +12004,7 @@ const SOURCES = [
         <text x="93" y="48" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">シート</text>
       </svg>
     ),
-    illustrationNote: "画面側面に固定表示する副次コンテンツ(概念図・系列識別色)",
+    illustrationNote: "画面側面に固定表示する副次コンテンツ(概念図)",
   },
   {
     key: "wcag",
@@ -12016,7 +12012,7 @@ const SOURCES = [
     doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
     term: "ダイアログ(専用の役割なし)",
     color: "#A3821F",
-    position: <>シート本体はダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl></>,
+    position: <>モーダルのシートはダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -12024,7 +12020,7 @@ const SOURCES = [
       { term: "開く側のボタン", desc: "シートを開くボタンで、何(メニュー・一覧・ダイアログなど)が開くかを支援技術に伝えることもできる。シート本体の扱いではない。" },
     ],
     stance:
-      "サイドシートの定めはなく、ダイアログとして扱うのが基本(AI解釈)。開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。",
+      "サイドシートの定めはない。モーダルならダイアログとして扱い(AI解釈)、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。非モーダルなら、モーダルと伝えず、フォーカスをシートの中に閉じ込めない。",
     scenarios: [
       "シート本体をダイアログとして扱い、名前とフォーカスの移動を設計したい時",
       "後ろの内容を操作できるまま残したいなら、モーダルと伝えない非モーダルとして扱う",
@@ -12097,7 +12093,7 @@ const SOURCES = [
         <text x="92" y="38" fontSize="7.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Side Sheet</text>
       </svg>
     ),
-    illustrationNote: "用語集で定義される「Side Sheet」(概念図・系列識別色)",
+    illustrationNote: "用語集で定義される「Side Sheet」(概念図)",
   },
 ];
 
@@ -12179,7 +12175,7 @@ function ContainmentSideSheetPage() {
           <h1 style={styles.title}>サイドシート</h1>
           <SummaryCard keyPoints={KP}
             image={<><SideSheetSwatch /></>}
-            imageNote={<>画面の一部(中央・側面など)に重ねて表示する補助的なオーバーレイ。下からせり出す「ボトムシート」ページ、確認・警告用の「モーダルダイアログ」ページとは、それぞれ役割が異なる。</>}
+            imageNote={<>画面の横に、元の画面と並べて(標準)、または重ねて(モーダル)出す補助のパネル。ボトムシート・モーダルダイアログとの違いは「オーバーレイの使い分け」で比べる。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -12196,7 +12192,7 @@ function ContainmentSideSheetPage() {
               <strong>Appleには、サイドシートに当たるコンポーネントはない</strong>(役割が近いPopoversは、「ツールチップ」ページのメモで紹介している)。NN groupは用語集で、サイドシートを、ナビゲーション用のドロワーより広い「補助の内容全般を出す領域」として定義している。
             </p>
             <p style={styles.synthesisText}>
-              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけ、モーダルと伝える。
+              作るときは、<strong>閉じるボタンを置く</strong>こと(Googleが強く勧めている)が基本だ。W3Cにはサイドシート専用の型がないため、モーダルのシートは<strong>APGのDialogパターンを参考にダイアログとして扱い、名前とフォーカスの移動を設計する</strong>。後ろの画面を操作できなくするときだけモーダルと伝え、非モーダルのシートでは後ろの操作を妨げない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -12450,7 +12446,7 @@ const SOURCES = [
     term: "表・グリッド(WAI-ARIAの役割)",
     color: "#A3821F",
     position: <>見た目の決まりは持たず、<Hl>見出しとデータの関係を支援技術に伝える</Hl></>,
-    size: <><NoData>数値基準なし</NoData>。データ表は、狭い画面での横スクロールが認められている(1.4.10の例外)。</>,
+    size: <><NoData>数値基準なし</NoData>。理解に2次元の配置が要るデータ表は、狭い画面での横スクロールが認められている(1.4.10の例外。表の外の文章などは対象外)。</>,
     colorInfo: "見出しのセルとデータのセルを区別し、行・列どちらの見出しかを伝える。表には題名を付ける。",
     glossary: [
       { term: "1.3.1 情報及び関係性・レベルA", desc: "見た目で伝えている構造や関係(表の見出しとデータの関係など)を、支援技術にも伝わるようにすることを求める基準。" },
@@ -12811,7 +12807,7 @@ function ContainmentTablePage() {
               <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通している。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしている。
             </p>
             <p style={styles.synthesisText}>
-              違いは決めている層だ。Google(M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
+              違いは決めている層だ。Google(旧版M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
             </p>
             <p style={styles.synthesisText}>
               W3Cは見た目ではなく、<strong>見出しのセルとデータのセルの関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。<strong>並べ替えの状態</strong>も伝える。
@@ -12894,7 +12890,7 @@ function ContainmentTablePage() {
           </section>
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>小さい画面で表が収まらないとき</h2>
+            <h2 style={styles.diagramTitle}>画面に収まらないとき</h2>
             <NarrowTableDiagram />
             <p style={styles.chartNote}>NN groupは、見出しと最初の列を固定し、右端の列を少し切って横に続きがあることを示す方法を勧めている(点の表示より矢印や切れ目の方が気づかれやすい)。横向きへの回転を求めるのは、列は増えても行が見えなくなるため最後の手段だ。W3Cも、データ表は2次元の配置が必要な部分として、狭い幅での横スクロールを例外として認めている(1.4.10)。</p>
           </div>
@@ -13068,7 +13064,7 @@ const TAG_INDEX = [
   {"group": "Containment", "label": "カルーセル", "path": "/components/containment/carousel", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "見つけやすさ・初めての案内"]},
   {"group": "Containment", "label": "ウィジェット", "path": "/components/communication/widget", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["デザインの基礎", "段階的に見せる"]},
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
-  {"group": "Communication", "label": "ステータスメッセージ(アラート)", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
+  {"group": "Communication", "label": "ステータスメッセージ", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
@@ -13450,7 +13446,7 @@ function IndexPage() {
             <section style={styles.section}>
               <h2 style={styles.h2}>このサイトについて(思想)</h2>
               <p style={styles.p}>
-                単なる情報の転載サイトではありません。同じ「ボタンのタップ領域」でも、系列ごとに数値や考え方が違います。その違いを一目で比較でき、そこに
+                単なる情報の転載サイトではありません。同じ「ボタンの押せる範囲」でも、系列ごとに数値や考え方が違います。その違いを一目で比較でき、そこに
                 <strong>「総合するとこうだが、実務上はこう」</strong>というAIの統合見解が乗っている、という点が価値の核です。
               </p>
               <p style={styles.p}>
@@ -13486,7 +13482,8 @@ function IndexPage() {
                 {[
                   ["サマリー", "タイトルの下の1文と、コンポーネントのイメージ図・目的と役割・よく使われる場面・似たコンポーネントの表。"],
                   ["意見が分かれる点", "4系列で答えが違う論点。サイズなど図にできるものは図で示す(系列の意見が分かれていないページにはない)。"],
-                  ["四系列デザインシステム比較", "見出しの下に「AI解釈 ― 総括」(4系列の違いを統合したAIの見解。太字が結論)。続けて、スマホでは系列ごとのカード、PCでは項目を行・系列を列にした比較表。図(デザインイメージ)が先頭。"],
+                  ["四系列デザインシステム比較", "見出しの下に「AI解釈 ― 総括」(4系列の違いを統合したAIの見解。太字が結論)。続けて、スマートフォンでは系列ごとのカード、PCでは項目を行・系列を列にした比較表。図(デザインイメージ)が先頭。"],
+                  ["図の色", "図やカードの色(Apple=オレンジ・Google=ティール・W3C=ゴールド・NN group=紫)は、系列を見分けるための色で、各社の実際の配色ではない。図はすべて概念図。"],
                   ["マーカー", "若草色の下線が付いた太字は、総括で取り上げている違い・共通点。"],
                   ["メモ", "用語の説明や、1系列だけの補足。"],
                   ["参照ページ(公式)", "その内容を確かめられる公式のページ。公式で別のページ・節に分かれている内容は、それぞれリンクする。"],
@@ -13500,7 +13497,7 @@ function IndexPage() {
                 ))}
               </div>
               <h3 style={styles.h3}>単位の関係(pt・dp・CSS px)</h3>
-              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。どれも<strong>標準的な密度の画面での1ピクセル</strong>を基準にしているので、<strong>設計の目安としては「1pt ≒ 1dp ≒ 1 CSS px」と見てかまいません</strong>(AI解釈)。ただし基準の決め方が少しずつ違い、実際の物理的な大きさは端末で変わるため、厳密に同じ大きさではありません。</p>
+              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。ただし<strong>定義と基準の密度がそれぞれ違うため、数値をそのまま換算できる単位ではありません</strong>。スマートフォンの画面では、1pt・1dp・1 CSS pxがおおむね近い大きさで描かれるので、このサイトでは<strong>おおよその大きさを並べて比べる目安</strong>として扱います(AI解釈)。</p>
               <div style={{ overflowX: "auto", marginBottom: 8 }}>
                 <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12.5, color: "#2E3457" }}>
                   <thead><tr>{["単位", "使う系列", "基準", "実際のピクセルとの関係", "出典"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
@@ -13519,13 +13516,13 @@ function IndexPage() {
                   </tbody>
                 </table>
               </div>
-              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24 CSS px(W3C)は、ほぼ同じ物差しで並べて比べられます。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
+              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24 CSS px(W3C)は、おおよその大きさとして並べて比べられます。厳密な換算ではないので、実際に作るときは各系列の単位のまま確かめてください。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
 
               <h3 style={styles.h3}>用語メモ</h3>
               <div style={styles.guideGrid}>
                 {[
                   ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
-                  ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=実務で一般的な目標(多くの場合はAAを目指す)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
+                  ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=多くのガイドラインや調達の要件が参照する水準(求められるレベルは、地域の法律や契約などで変わる)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
                   ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、コンポーネントの作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
                   ["W3Cの参照ページのバッジ", "「達成基準 A/AA/AAA」=WCAGに適合するために満たす要件とそのレベル。「参考例 APG」=実装の参考例(適合の要件ではない)。「解説 MDN」=Mozillaによる解説(W3Cの文書ではない補足)。"],
                   ["グレーの表記", "記載なし=その系列の公式の文書に書かれていない。数値基準なし=考え方はあるが数値は決めていない。該当なし=その系列にこのコンポーネント・トピックがない。未確認=こちらで確かめられていない。"],
@@ -13689,7 +13686,7 @@ const SOURCES = [
   {
     key: "hig",
     name: "Apple",
-    doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む)",
+    doc: "Human Interface Guidelines ― Toolbars(旧「Navigation Bars」の内容を含む。iOSでは、移動のためのツールバーをNavigation barとも呼ぶ)",
     term: "Toolbar(Appleの呼び名: ナビゲーションバー)",
     color: "#C2542A",
     position: <>画面の上部で、<Hl>今の画面のタイトル・戻るなどのナビゲーション・操作をまとめる</Hl>バー</>,
@@ -13720,7 +13717,7 @@ const SOURCES = [
         <text x="60" y="16" fontSize="9" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">画面タイトル</text>
       </svg>
     ),
-    illustrationNote: "戻るボタンと画面タイトルを持つ上部バー(概念図・系列識別色)",
+    illustrationNote: "戻るボタンと画面タイトルを持つ上部バー(概念図)",
   },
   {
     key: "material",
@@ -13764,7 +13761,7 @@ const SOURCES = [
         <circle cx="112" cy="13" r="2.2" fill="#2F7D6E" />
       </svg>
     ),
-    illustrationNote: "戻る矢印+タイトル+末尾の操作アイコン(概念図・系列識別色)",
+    illustrationNote: "戻る矢印+タイトル+末尾の操作アイコン(概念図)",
   },
   {
     key: "wcag",
@@ -13843,7 +13840,7 @@ const SOURCES = [
         <text x="60" y="16" fontSize="9" fill="#7A4F7E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">常設ヘッダー</text>
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -13892,7 +13889,7 @@ function TopBarSwatch() {
 const SEARCH_APP_BAR_PARTS = [
   { n: "①", part: "先頭(ロゴかメニュー)", rule: "製品ロゴを置ける。飾りでも、ホームへ戻る・更新する操作を兼ねてもよい。ナビゲーションレールを開く操作には使わない" },
   { n: "②", part: "検索の入れ物", rule: "ラベルに必ず「検索」の語を入れる(例:「アプリ内を検索」)。押すと検索ビューが開く。既定の色はサーフェスコンテナ、暗い背景では明るい色にし、文字と入れ物は3:1以上" },
-  { n: "③", part: "末尾のアイコン", rule: "スマホでは2つまで(入れ物の内側・外側のどちらでもよい)。アバターを置くなら、アイコンは2つ未満にする。それ以上の操作はツールバーへ" },
+  { n: "③", part: "末尾のアイコン", rule: "スマートフォンでは2つまで(入れ物の内側・外側のどちらでもよい)。アバターを置くなら、アイコンは2つ未満にする。それ以上の操作はツールバーへ" },
   { n: "④", part: "アバター", rule: "アカウントを示す。③と合わせて末尾が混み合わないようにする" },
 ];
 const SEARCH_APP_BAR_RULES = [
@@ -14360,7 +14357,7 @@ const SOURCES = [
         <text x="106" y="17" fontSize="9.5" fill="#171B36" fontWeight="700" fontFamily="Jost, Noto Sans JP">現在地</text>
       </svg>
     ),
-    illustrationNote: "現在ページ(最後の項目)はリンクにしない(概念図・系列識別色)",
+    illustrationNote: "現在ページ(最後の項目)はリンクにしない(概念図)",
   },
 ];
 
@@ -14479,7 +14476,7 @@ function NavigationBreadcrumbPage() {
               Nielsen Norman Groupが示す最も重要な原則は、<strong>ユーザーの閲覧履歴ではなく、サイトの階層構造そのものを表示すべき</strong>という点だ。ブラウザの「戻る」履歴とパンくずリストは似ているようで役割が異なり、パンくずリストは常に同じサイト構造を反映すべきものだ。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)という現実的な要請と緊張関係にある</strong>点も見逃せない。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
+              W3Cの考え方(ナビゲーションの領域 + 順序のあるリスト + 今のページを伝える)と、NN groupの「先頭は必ずホームページへのリンクにする」という原則は、<strong>モバイルでの短縮表示(末尾の階層だけを表示する)と両立しにくい</strong>。画面幅に応じてどちらを優先するかは、実装側の判断が必要になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -14748,7 +14745,7 @@ const DRAWER_SOURCES = [
         <rect x="6" y="32" width="30" height="6" rx="3" fill="#D6E8E3" />
       </svg>
     ),
-    illustrationNote: "Modalナビゲーションドロワー(概念図・系列識別色。スクリムで背後を覆う)",
+    illustrationNote: "Modalナビゲーションドロワー(概念図。スクリムで背後を覆う)",
   },
   {
     key: "wcag",
@@ -14829,7 +14826,7 @@ const DRAWER_SOURCES = [
         <span style={{ fontSize: 9, color: "#666D93" }}>発見性・速度の低下が調査で確認されている</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示(調査結果に基づく使い分けの指針)",
+    illustrationNote: "視覚デザインの規定なし(調査に基づく使い分けの指針。概念図)",
   },
 ];
 
@@ -14870,7 +14867,7 @@ const RAIL_SOURCES = [
         <rect x="38" y="1" width="51" height="58" fill="#FFFFFF" stroke="#E1E3F0" strokeWidth="1" />
       </svg>
     ),
-    illustrationNote: "常時表示のサイドバー(概念図・系列識別色。左が常時表示のナビゲーション、右が詳細ペイン)",
+    illustrationNote: "常時表示のサイドバー(概念図。左が常時表示のナビゲーション、右が詳細ペイン)",
   },
   {
     key: "material",
@@ -14904,7 +14901,7 @@ const RAIL_SOURCES = [
         <div style={{ flex: 1, background: "#FFFFFF" }} />
       </div>
     ),
-    illustrationNote: "アイコンだけの形のナビゲーションレール(概念図・系列識別色)",
+    illustrationNote: "アイコンだけの形のナビゲーションレール(概念図)",
   },
   {
     key: "wcag",
@@ -14964,7 +14961,7 @@ const RAIL_SOURCES = [
         <div style={{ flex: 1, background: "#FFFFFF" }} />
       </div>
     ),
-    illustrationNote: "左側の縦型ナビゲーション(概念図・系列識別色)",
+    illustrationNote: "左側の縦型ナビゲーション(概念図)",
   },
 ];
 
@@ -15012,10 +15009,10 @@ function DrawerSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)";
+const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマートフォンで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)";
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて遷移できるようにする" },
-  { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
+  { k: "よく使われる場面", v: "スマートフォンアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
   { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
 ];
 
@@ -15221,7 +15218,7 @@ function NavigationDrawerPage() {
               使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面ではサイドナビとして常に表示し、狭い画面で項目が多いときだけナビゲーションドロワーに隠す</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
             </p>
             <p style={styles.synthesisText}>
-              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告している。
+              スマートフォンのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間をデスクトップで39%以上長くする</strong>と報告している。
             </p>
             <p style={styles.synthesisText}>
               広い画面では、サイドナビ(Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーション)が、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
@@ -15230,7 +15227,7 @@ function NavigationDrawerPage() {
               W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
             </p>
           </div>
-          <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>
+          <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマートフォン)</h3>
           <Comparison SOURCES={DRAWER_SOURCES} />
 
           <h3 id="rail" style={styles.subTitle}>② サイドナビ(常に表示。主にタブレット・PC)</h3>
@@ -15399,7 +15396,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画面下部の永続的なTab Bar。主要セクションを切り替える(概念図・系列識別色)",
+    illustrationNote: "画面下部の永続的なTab Bar。主要セクションを切り替える(概念図)",
   },
   {
     key: "material",
@@ -15441,7 +15438,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画面下部のタブバー(概念図・系列識別色)。上部のアプリバーは別のコンポーネント",
+    illustrationNote: "画面下部のタブバー(概念図)。上部のアプリバーは別のコンポーネント",
   },
   {
     key: "wcag",
@@ -15517,7 +15514,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -15882,7 +15879,7 @@ const NavigationOverviewPage = (function () {
 
 /* ナビゲーションの種類。level: どの範囲を移るか */
 const KINDS = [
-  { key: "navbar", name: "タブバー", path: "/components/navigation/nav-bar", level: "アプリの主な場所", oneLiner: "画面下部に常にあり、3〜5個の主な場所を切り替える(AppleのTab bar・GoogleのNavigation bar)", doText: "スマートフォンで、主な場所が3〜5個", dontText: "6個以上・2個以下、画面の中の内容の切り替え", fig: "navbar" },
+  { key: "navbar", name: "タブバー", path: "/components/navigation/nav-bar", level: "アプリの主な場所", oneLiner: "画面下部に常にあり、主な場所を切り替える(AppleのTab bar・GoogleのNavigation bar)", doText: "スマートフォンで、主な場所が3〜5個(Googleの目安。Appleは数を決めていない)", dontText: "6個以上・2個以下、画面の中の内容の切り替え", fig: "navbar" },
   { key: "drawer", name: "ナビゲーションドロワー", path: "/components/containment/drawer#drawer", level: "アプリの主な場所", oneLiner: "ボタン(≡)で一時的に開く、行き先の一覧。後ろの画面を覆う", doText: "狭い画面で、行き先が多くバーに収まらないとき", dontText: "広い画面(隠すと見つけにくい)", fig: "drawer" },
   { key: "sidenav", name: "サイドナビ", path: "/components/containment/drawer#rail", level: "アプリの主な場所", oneLiner: "画面の脇に常に表示する行き先の一覧(Appleのサイドバー・Googleのナビゲーションレール)", doText: "タブレット・PCなど広い画面", dontText: "スマートフォン(場所を取る)", fig: "sidenav" },
   { key: "appbar", name: "アプリバー", path: "/components/navigation/app-bar", level: "1つ上の画面", oneLiner: "画面上部で、今の画面のタイトル・戻る・操作をまとめる", doText: "階層を1段ずつ下りるアプリで、戻り道とタイトルを示す", dontText: "主な場所の切り替え(タブバーを使う)", fig: "appbar" },
@@ -15911,7 +15908,7 @@ function KindFig({ kind }) {
 
 /* どの範囲を移るか × 画面の広さ */
 const CHOOSE = [
-  { q: "アプリの主な場所を切り替える", narrow: "タブバー(3〜5個)。多ければナビゲーションドロワー", wide: "サイドナビ(常に表示)" },
+  { q: "アプリの主な場所を切り替える", narrow: "タブバー(3〜5個はGoogleの目安)。多ければナビゲーションドロワー(このサイトの整理)", wide: "サイドナビ(常に表示)" },
   { q: "1つ上の画面に戻る・今の画面のタイトルを示す", narrow: "アプリバー(戻る+タイトル)", wide: "アプリバー。Webならパンくずリストも" },
   { q: "同じ画面の中で、内容のまとまりを切り替える", narrow: "タブ", wide: "タブ" },
   { q: "同じ内容の見せ方を切り替える", narrow: "セグメントコントロール", wide: "セグメントコントロール" },
@@ -15954,7 +15951,7 @@ function NavigationOverviewPage() {
               まず<strong>「どの範囲を移るか」</strong>で分ける。アプリの主な場所ならタブバー・ドロワー・サイドナビ、1つ上へ戻るならアプリバー、同じ画面の中ならタブかセグメントコントロール、一覧の続きならページネーションだ。
             </p>
             <p style={styles.synthesisText}>
-              主な場所の切り替えは<strong>画面の広さ</strong>で決まる。スマートフォンは<strong>3〜5個ならタブバー</strong>、多ければドロワー。タブレット・PCは<strong>隠さずサイドナビ</strong>にする(隠すナビゲーションは見つけにくい: NN group)。
+              主な場所の切り替えは<strong>画面の広さ</strong>で決まる。スマートフォンは<strong>3〜5個ならタブバー</strong>(Googleの目安。Appleは数の上限を決めず、収まらない分は「その他」のタブにまとまる)、多ければドロワー(このサイトの整理)。タブレット・PCは<strong>隠さずサイドナビ</strong>にする(隠すナビゲーションは見つけにくい: NN group)。
             </p>
           </div>
 
@@ -16146,7 +16143,7 @@ const SOURCES = [
     term: "Pagination(ページ送り)",
     color: "#7A4F7E",
     position: "巨大な一覧には従来のページネーションが向き、少ない一覧には代わりの方法(もっと見るボタンなど)も検討できる",
-    size: "無限スクロールが向くのは、「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合。",
+    size: "無限スクロールが向くのは、「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合(ECサイトの商品一覧についての目安で、40件を境に切り替える一律の決まりではない)。",
     stance:
       <>Amazonのような商品数の巨大なサイトには、位置を細かく制御できる従来のページネーションが向く。商品数が比較的少なく、強い絞り込み機能があるなら、無限ローディングや「もっと見る」ボタンも選択肢。<Hl>「もっと見る」ボタンは、自分の操作で次を読み込むため、自動で読み込む無限スクロールより望ましい</Hl>(ページ末尾のフッターに届かなくなる問題を避けられるため)。</>,
     exceptions:
@@ -16174,7 +16171,7 @@ const SOURCES = [
         <text x="100" y="15" fontSize="9" fill="#666D93" fontFamily="Jost, Noto Sans JP">&gt;</text>
       </svg>
     ),
-    illustrationNote: "従来型の番号付きページネーション(概念図・系列識別色)",
+    illustrationNote: "従来型の番号付きページネーション(概念図)",
   },
 ];
 
@@ -16337,7 +16334,7 @@ function NavigationPaginationPage() {
               W3C(WAI-ARIA)にも<strong>専用の役割はなく</strong>、ナビゲーションの領域・リスト・リンク・今のページを伝える仕組みを組み合わせる。ページネーションは独立したコンポーネントというより、既存のものを組み合わせるパターンとして扱われている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや『もっと見る』ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。
+              Nielsen Norman Groupは<strong>巨大な一覧には従来型ページネーション、少数の一覧には無限ローディングや「もっと見る」ボタンも検討</strong>という規模に応じた使い分けを示しており、単純に「ページネーション vs 無限スクロール」の二択ではない点が実務上重要だ。特に<strong>「もっと見る」ボタンは無限スクロールの欠点(フッターに到達できない)を避けられる</strong>という指摘は、実装の意思決定に直結する具体的な指針だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -16578,7 +16575,7 @@ const SOURCES = [
         <text x="91" y="17" fontSize="9" fill="#C2542A" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
       </svg>
     ),
-    illustrationNote: "3セグメント、左端が選択済み(概念図・系列識別色)",
+    illustrationNote: "3セグメント、左端が選択済み(概念図)",
   },
   {
     key: "material",
@@ -16601,7 +16598,7 @@ const SOURCES = [
     accessibility:
       "操作可能(Operable) ― 単一選択はラジオボタンの組、複数選択はチェックボックスとして支援技術に伝える(Appleの地図アプリのような表示の切り替えでも、Googleはタブではなくラジオボタン/チェックボックスとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明する名前(例: 通貨記号→「安価」)を付ける。",
     useCases: [
-      "新しく作る場合は、後継の接続ボタングループ(Connected button groups)を使う",
+      "新しく作る場合は、代わりに案内されている接続ボタングループ(Connected button groups)を使う(用途は近いが、仕様・見た目は新しいボタングループに合わせて確かめる)",
       "既存の実装では、2〜5個の選択肢から1つを選ぶ、表示を切り替える、要素を並べ替える(単一選択)",
       "既存の実装では、2〜5個の選択肢を、選択必須にせず複数(またはゼロ)選べるようにする(複数選択、例: 価格帯フィルタ)",
       "5個を超える選択肢にはチップなど別のコンポーネントを使う",
@@ -16611,7 +16608,7 @@ const SOURCES = [
     refs: [
       { label: "Segmented buttons", url: "https://m3.material.io/components/segmented-buttons/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/segmented-buttons/specs" },
-      { label: "後継: Connected button groups", url: "https://m3.material.io/components/button-groups/guidelines" },
+      { label: "代わりの案内: Connected button groups", url: "https://m3.material.io/components/button-groups/guidelines" },
     ],
     confirmedNote: "使用法・M2からの変更点・単一選択/複数選択・配置・色のコントラスト・キーボード操作・フォーカス・アクセシビリティラベルの各セクションは2026-09時点で公式ページ本文を直接確認済み。具体的なセグメント幅などのspecs数値は未確認。",
     deprecated: true,
@@ -16625,7 +16622,7 @@ const SOURCES = [
         <text x="91" y="17" fontSize="9" fill="#2F7D6E" textAnchor="middle" fontFamily="Jost, Noto Sans JP">C</text>
       </svg>
     ),
-    illustrationNote: "単一選択セグメントボタン。選択済みセグメントにチェックマーク(概念図・系列識別色)",
+    illustrationNote: "単一選択セグメントボタン。選択済みセグメントにチェックマーク(概念図)",
   },
   {
     key: "wcag",
@@ -16788,7 +16785,7 @@ function NavigationSegmentedControlPage() {
           <div style={styles.warningBox}>
             <div style={styles.warningLabel}>⚠ 注記(Google/Material Design 3)</div>
             <p style={styles.warningText}>
-              現行のM3(Expressive)では<strong>セグメントボタンは推奨されず</strong>、代わりに<strong>接続ボタングループ(Connected button groups)</strong>を案内している。このページのGoogle欄は、既存の実装で使われているセグメントボタンの内容で、新しく作るときは接続ボタングループを使う(Google欄の参照ページ「後継: Connected button groups」)。
+              現行のM3(Expressive)では<strong>セグメントボタンは推奨されず</strong>、代わりに<strong>接続ボタングループ(Connected button groups)</strong>を案内している。このページのGoogle欄は、既存の実装で使われているセグメントボタンの内容で、新しく作るときは接続ボタングループを使う(Google欄の参照ページ「代わりの案内: Connected button groups」。用途は近いが、仕様・見た目は別に確かめる)。
             </p>
           </div>
 
@@ -16805,7 +16802,7 @@ function NavigationSegmentedControlPage() {
               <strong>Googleのセグメントボタンには単一選択・複数選択の2つの公式バリアント</strong>がある。複数選択は、チェックボックスのように何も選ばない状態を含め任意の数を選べるもので、価格帯フィルタのような場面で使うとされている。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。両社とも独立に近い数値の上限を示している点は、実務上の目安として信頼度が高いと言える。
+              Appleは<strong>「iPhoneでは5個以下のセグメントに収めるべき」</strong>としており、Googleも<strong>「5個を超える場合はチップの使用を検討すべき」</strong>と明記している。
             </p>
             <p style={styles.synthesisText}>
               最も重要な点は、<strong>Material 3の表現力向上(Expressive)アップデート以降、セグメントボタン自体がGoogle公式に「推奨されない」コンポーネントになった</strong>ことだ(詳しくはページ冒頭の注記を参照)。アクセシビリティについては、<strong>用途によって当てはめるパターンが変わる</strong>(W3Cはセグメントコントロールを定めていないため、AI解釈)一方、Google自身は表示の切り替えでもタブではなくラジオボタン/チェックボックスとして扱うとしており、両者で考え方が異なる。
@@ -17302,7 +17299,7 @@ function NavigationTabsVsSegmentedPage() {
               最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>だ。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものだ(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替えるコンポーネントとして定義している)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、遷移はせず同じデータの見せ方だけが変わる。
             </p>
             <p style={styles.synthesisText}>
-              迷ったときは、<strong>切り替えるものの意味</strong>で見分ける。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>だ。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使う。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになる(つながっていればセグメントコントロール)。
+              迷ったときは、<strong>切り替えるものの意味</strong>で見分ける。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>だ(主にAppleの説明に沿った、このサイトが勧める見分け方。GoogleのSegmented buttonsは、選択肢を選ぶなど、より広い用途を含む)。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使う。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになる(つながっていればセグメントコントロール)。
             </p>
           </div>
 
@@ -17463,7 +17460,7 @@ const SOURCES = [
         <text x="104" y="17" fontSize="8" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">D</text>
       </svg>
     ),
-    illustrationNote: "4タブ、左端が選択済み(概念図・系列識別色)",
+    illustrationNote: "4タブ、左端が選択済み(概念図)",
   },
   {
     key: "material",
@@ -17477,7 +17474,7 @@ const SOURCES = [
     count:
       <span><Hl>固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になる</Hl>。多いときはスクロールできるタブにし、最初のタブを端から52dp離して、スクロールできることを示す。</span>,
     size:
-      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。タッチターゲットは48×48 CSSピクセル以上。既定で高密度の設定を適用せず(ターゲットサイズが48×48pxを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48px以上に保つ。",
+      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。押せる範囲は48×48 CSSピクセル以上(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。タブの高さ(48dp)とは別の値。既定で高密度の設定を適用せず(押せる範囲が48×48 CSSピクセルを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48 CSSピクセル以上に保つ。",
     colorInfo:
       <span>選んだタブは、文字とアイコンの下線と色の変化で区別する。</span>,
     glossary: [
@@ -17489,7 +17486,7 @@ const SOURCES = [
     exceptions:
       <span>順番に読む内容にはタブを使わず、タイポグラフィや余白で階層を作る。一部のタブだけアイコンとラベルの両方を使う(ほかは片方だけ)ような不統一は避ける。<Hl>タブをループして無限にスクロールさせない</Hl>(スクリーンリーダーで順にたどる人の妨げになりうるため)。</span>,
     accessibility:
-      "操作可能(Operable) ― タッチターゲットを48×48 CSSピクセル以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
+      "操作可能(Operable) ― 押せる範囲を48×48 CSSピクセル以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
     useCases: [
       "同じ階層の関連する内容をカテゴリにまとめる(順に読む内容には使わない)",
       "階層が複数要るなら、プライマリ+セカンダリの2段にする",
@@ -17511,7 +17508,7 @@ const SOURCES = [
         <line x1="2" y1="22" x2="38" y2="22" stroke="#2F7D6E" strokeWidth="2.5" />
       </svg>
     ),
-    illustrationNote: "選択中のタブに下線インジケーター(概念図・系列識別色)",
+    illustrationNote: "選択中のタブに下線インジケーター(概念図)",
   },
   {
     key: "wcag",
@@ -17599,7 +17596,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -17773,7 +17770,7 @@ const SPLITS = [
       { figure: <MiniTabs mode="auto" />, who: "W3C(APG)", color: "#A3821F", t: "内容をすぐに表示できるなら、フォーカスが移った時点で切り替える(自動)ことを勧める。表示に時間がかかる場合は、Enter/Spaceで選んだときに切り替える(手動)" },
       { figure: <MiniTabs mode="manual" />, who: "Google", color: "#2F7D6E", t: "Tabキー・矢印キーでフォーカスを移し、Space/Enterで選んだときに切り替える(手動)と説明している" },
     ],
-    tip: "どちらも、矢印キーで移動できる点は同じだ。違いは「いつ切り替わるか」だけなので、内容がすぐ出るタブ(同じページ内の文章など)はAPGの自動、読み込みが必要なタブ(通信して一覧を取る、別ページへ移るなど)は手動、と分けると両方に沿う。Appleはキーボードでの切り替え方を定めていない。APGは実装の参考例で、適合の要件ではない。",
+    tip: "どちらも、矢印キーで移動できる点は同じだ。違いは「いつ切り替わるか」だけなので、内容がすぐ出るタブ(同じページ内の文章など)はAPGの自動、表示に時間がかかるタブ(通信して一覧を取るなど)は手動、と分けると両方に沿う。Appleはキーボードでの切り替え方を定めていない。APGは実装の参考例で、適合の要件ではない。",
   },
   {
     q: "タブが画面に収まらないほど多いときは?",
@@ -18061,8 +18058,8 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、読み上げソフトが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・読み上げソフトでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、スクリーンリーダーが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・スクリーンリーダーでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
       { name: "設計の手順 ③ 要素(Elements)", ref: ["Elements", "https://m3.material.io/foundations/designing/elements"], desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
       { name: "色とコントラスト", ref: ["Color & contrast", "https://m3.material.io/foundations/designing/color-contrast"], desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
     ],
@@ -18100,7 +18097,7 @@ const FRAMEWORKS = [
           { name: "2.2 Enough Time", desc: "内容を読んだり操作したりするのに十分な時間を与えるべきという指針。", sc: "例: 2.2.1 期限調節可能(A)、2.2.2 一時停止・停止・非表示(A)" },
           { name: "2.3 Seizures and Physical Reactions", desc: "発作等を誘発する設計をしてはならないという指針。", sc: "例: 2.3.1 3回の閃光、又は閾値以下(A)" },
           { name: "2.4 Navigable", desc: "現在地の把握やナビゲートを助ける手段を提供すべきという指針(リンクの目的など)。", sc: "例: 2.4.3 フォーカス順序(A)、2.4.4 リンクの目的(A)、2.4.7 フォーカスの可視化(AA)、2.4.11 隠されないフォーカス(最低限)(AA)" },
-          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(タップ領域など)。", sc: "例: 2.5.1 ポインタジェスチャ(A)、2.5.7 ドラッグ動作(AA)、2.5.8 ターゲットのサイズ(最低限) 24×24px(AA・例外あり)" },
+          { name: "2.5 Input Modalities", desc: "多様な入力方法での操作性を高めるべきという指針(押せる範囲など)。", sc: "例: 2.5.1 ポインタジェスチャ(A)、2.5.7 ドラッグ動作(AA)、2.5.8 ターゲットのサイズ(最低限) 24×24px(AA・例外あり)" },
         ],
       },
       {
@@ -18115,7 +18112,7 @@ const FRAMEWORKS = [
       },
       {
         name: "Robust(堅牢)",
-        desc: "コンテンツは、支援技術(読み上げソフトなど、障害のある人が使う道具)を含む様々なユーザーエージェント(ブラウザなど、内容を読み込んで表示・利用する道具)で確実に解釈できるべきという原則。",
+        desc: "コンテンツは、支援技術(スクリーンリーダーなど、障害のある人が使う道具)を含む様々なユーザーエージェント(ブラウザなど、内容を読み込んで表示・利用する道具)で確実に解釈できるべきという原則。",
         url: "https://www.w3.org/TR/WCAG22/#robust",
         sub: [
           { name: "4.1 Compatible", desc: "現在・将来のユーザーエージェントとの互換性を最大化すべきという指針。", sc: "例: 4.1.2 名前(name)・役割(role)・値(value)(A)、4.1.3 ステータスメッセージ(AA)" },
@@ -18158,7 +18155,7 @@ const NN_POINTS = [
   { t: "色以外の手がかり", d: "線・模様・アイコン・文言を添える。画面をグレースケールにして伝わるか確かめる" },
   { t: "フォーカスの状態", d: "キーボードで操作する人のため、太い枠線などではっきり示す(色の変化だけにしない)" },
   { t: "画像の代替テキスト", d: "短く書き、キャプションと同じ内容を繰り返さない。飾りの画像には付けない" },
-  { t: "実際の利用者でテスト", d: "読み上げソフトなどを自分でも使ってみる。5人ほどでも効果があり、ニーズの違う人を混ぜる" },
+  { t: "実際の利用者でテスト", d: "スクリーンリーダーなどを自分でも使ってみる。5人ほどでも効果があり、ニーズの違う人を混ぜる" },
 ];
 
 function WcagLevels() {
@@ -18193,7 +18190,7 @@ function WcagLevels() {
 function FrameworkExtra({ k }) {
   if (k === "apple") return (
     <div style={styles.extraBox}>
-      <div style={styles.extraTitle}>Apple独自の評価 ― Accessibility Nutrition Labels</div>
+      <div style={styles.extraTitle}>Apple独自の表示 ― Accessibility Nutrition Labels</div>
       <p style={styles.extraText}>App Storeの製品ページに、そのアプリが対応している支援機能をラベルで表示する仕組み(iOS 26などの端末で表示。当初は任意)。開発者が自分で評価して申告する。</p>
       <div style={styles.extraChips}>{NAMES_9.map((n) => (<span key={n} style={styles.extraChip}>{n}</span>))}</div>
       <p style={styles.extraText}><strong>判定の基準</strong>: その機能を使って、アプリの「よく行う作業」をすべて最後までできること。よく行う作業は、アプリの主な機能に加えて、初回起動・ログイン・購入・設定。</p>
@@ -18214,7 +18211,7 @@ function FrameworkExtra({ k }) {
     <div style={styles.extraBox}>
       <div style={styles.extraTitle}>気にすべきポイント(5 Visual Treatments)</div>
       {NN_POINTS.map((x, i) => (<p key={x.t} style={styles.extraText}><strong>{i + 1}. {x.t}</strong>: {x.d}</p>))}
-      <p style={styles.extraText}>Study Guideではほかに、65歳以上の利用者(小さい文字・密な文字が読みにくい)と、読み上げソフトの利用者(画面を1本道で体験する。後付けのアクセシビリティ用ウィジェットでは足りない)を、分けて取り上げている。</p>
+      <p style={styles.extraText}>Study Guideではほかに、65歳以上の利用者(小さい文字・密な文字が読みにくい)と、スクリーンリーダーの利用者(画面を1本道で体験する。後付けのアクセシビリティ用ウィジェットでは足りない)を、分けて取り上げている。</p>
     </div>
   );
   return null;
@@ -18297,7 +18294,7 @@ function PrinciplesAccessibilityPage() {
 
           <h1 style={styles.title}>アクセシビリティ</h1>
           <p style={styles.subtitle}>4系列がアクセシビリティをどう捉え、どう体系立てているかの比較</p>
-          <KeyPoints items={KP} title="実務でまず見る達成基準" columns={2} />
+          <KeyPoints items={KP} title="実務でまず確かめたい代表的な達成基準" columns={2} />
 
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
@@ -18305,7 +18302,7 @@ function PrinciplesAccessibilityPage() {
               「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なる。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義している。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っている。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに具体的な数値を示し、さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを開発者に申告させる独自の評価</strong>を持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
+              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに指針を示し、視覚(コントラスト・文字サイズ)と運動(押せる範囲)には数値もある。さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを表示する(開発者の自己申告)</strong>仕組みを持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
             </p>
             <p style={styles.synthesisText}>
               本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
@@ -19104,7 +19101,7 @@ function WcagCriteriaPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.levelNote}>
-            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのサイトや法令の目標はAAで、このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
+            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
           </div>
 
           <div style={styles.toc}>
@@ -19196,7 +19193,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -19210,7 +19207,7 @@ const SOURCES = [
     states:
       <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持つ。子の一部だけが選択されていると親は未確定になり、未確定の親を選ぶとすべての子が選択される。</span>,
     size:
-      <span>既定で高密度の設定を適用しない。<Hl>推奨タップ領域は48×48 CSSピクセル</Hl>(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
+      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48 CSSピクセル</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。</span>,
     glossary: [
@@ -19242,7 +19239,7 @@ const SOURCES = [
         <path d="M7 13.5l3.5 3.5 7-8" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "Material tokens(系列識別色で図示)",
+    illustrationNote: "Material tokens(概念図)",
   },
   {
     key: "wcag",
@@ -19288,10 +19285,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="14" y="14" width="12" height="12" rx="2" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -19329,7 +19326,7 @@ const SOURCES = [
         <path d="M7 13.5l3.5 3.5 7-8" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -19399,7 +19396,7 @@ const SPLITS = [
       { figure: <MiniIcon kind="both" />, who: "Google", color: "#2F7D6E", t: "単独の項目のオン・オフはスイッチが基本だが、デスクトップではチェックボックスでもよい。どちらを使う場合も、変更はすぐに反映させる" },
       { figure: <MiniIcon kind="switch" />, who: "NN group", color: "#7A4F7E", t: "すぐに反映するならスイッチ。保存・送信ボタンを押して確定する場面では、スイッチではなく単独のチェックボックスにする" },
     ],
-    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマホならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、フォームの中に即時反映のチェックボックスを混ぜないようにする。",
+    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマートフォンならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、1つの画面の中で、保存で確定するものと即時反映するものを混ぜないようにする(絞り込みの条件のように、全部が即時反映ならチェックボックスでよい)。",
   },
   {
     q: "不定(一部だけ選択)の親チェックボックスを押したら?",
@@ -19410,7 +19407,7 @@ const SPLITS = [
     tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法だ。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げる。APGは実装の参考例で、適合の要件ではない。Appleは、親の状態の表示(不定のときはダッシュ)は定めているが、押したときの動きは書いていない。",
   },
   {
-    q: "押せる範囲(タップ領域)は、どれくらいの大きさが必要?",
+    q: "押せる範囲(押せる範囲)は、どれくらいの大きさが必要?",
     figure: (
       <>
         <SizeRangeScale />
@@ -19422,7 +19419,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
       { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
-    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
+    tip: "ラベルも含めた押せる範囲を48×48 CSS px以上にしておけば、Googleの基準を満たし、W3Cの24 CSS px(AA)・44 CSS px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
   },
 ];
 
@@ -19484,8 +19481,8 @@ function SizeRangeScale() {
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
-  { n: 2, t: "保存ボタンで確定するフォームの中で使う", d: "すぐ反映する設定はスイッチを検討。フォームの中に即時反映のチェックボックスを混ぜない", who: "AI解釈" },
-  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48以上にする", who: "Google・NN group" },
+  { n: 2, t: "確定のタイミングを1つの画面でそろえる", d: "保存ボタンで確定するか、押してすぐ反映するか(絞り込みなど)を画面の中で混ぜない。すぐ反映する設定はスイッチも検討", who: "AI解釈" },
+  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48 CSS px以上にする", who: "Google・NN group" },
   { n: 4, t: "子の項目が一部だけ選ばれているとき、親のチェックボックスは「―」の印で示す", d: "この状態を「不定」と呼ぶ。全部選ばれていれば✓、1つもなければ空", who: "Apple・Google・NN group" },
   { n: 5, t: "縦に1行1つずつ並べる", d: "横に並べるなら、どのラベルがどの箱か分かる間隔を空ける", who: "NN group" },
 ];
@@ -19499,7 +19496,7 @@ function GoodBadFigure() {
               { kind: "good", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 14px", border: "1.5px dashed #2F7D6E", borderRadius: 4 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "四角とラベルの全体が押せる範囲(点線)。ラベルを押しても選べる。" },
               { kind: "bad", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ display: "inline-flex", padding: 2, border: "1.5px dashed #C0503F", borderRadius: 3 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span></span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さい四角だけが押せる。ラベルを押しても選べず、押し損ねやすい。" },
             ]}
-            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48)、W3C 2.5.8(24px・AA)・2.5.5(44px・AAA。どちらも例外あり)。"
+            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48 CSS px)、W3C 2.5.8(24 CSS px・AA)・2.5.5(44 CSS px・AAA。どちらも例外あり)。"
           />
   );
 }
@@ -19542,14 +19539,14 @@ function SelectionCheckboxPage() {
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>している。Apple・Nielsen Norman
-              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言える。
+              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促している。
             </p>
             <p style={styles.synthesisText}>
               もう一つの共通点は<strong>「オン・オフ」だけでなく「不定(indeterminate / mixed)」という第3の状態</strong>だ。Apple・Google・Nielsen Norman
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われる。
             </p>
             <p style={styles.synthesisText}>
-              サイズは系列によって基準が違う(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
+              サイズは系列によって基準が違う(Googleは48 CSS px、W3Cは24・44 CSS px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
             </p>
             <p style={styles.synthesisText}>
               色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通している。
@@ -19778,7 +19775,7 @@ const SOURCES = [
         <rect x="6" y="6" width="30" height="12" rx="4" fill="#C2542A" />
       </svg>
     ),
-    illustrationNote: "macOSの「トークンフィールド」内に浮かぶトークン(概念図・系列識別色)",
+    illustrationNote: "macOSの「トークンフィールド」内に浮かぶトークン(概念図)",
   },
   {
     key: "material",
@@ -19822,7 +19819,7 @@ const SOURCES = [
         <path d="M10 12l3 3 6-7" fill="none" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "選択済みのフィルタチップ(概念図・系列識別色、角丸長方形)",
+    illustrationNote: "選択済みのフィルタチップ(概念図、角丸長方形)",
   },
   {
     key: "wcag",
@@ -19888,7 +19885,7 @@ const SOURCES = [
         <rect x="1" y="1" width="68" height="22" rx="6" fill="#7A4F7E" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -19926,7 +19923,7 @@ function ChipSwatch() {
     { label: "予定に追加", sub: "アシスト", leading: "+" },
     { label: "在庫あり", sub: "フィルタ", filled: true },
     { label: "田中 太郎", sub: "インプット", closable: true },
-    { label: "了解だ!", sub: "サジェスチョン", leading: "✨" },
+    { label: "了解です!", sub: "サジェスチョン", leading: "✨" },
   ];
   return (
     <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
@@ -19980,7 +19977,7 @@ const CHIP_TYPES = [
   {
     name: "サジェスチョンチップ",
     desc: "製品(システム)側が動的に生成した提案を表すチップ。タップするとその内容がそのまま入力される。例: メッセージアプリが自動生成する「了解です!」という返信候補。",
-    example: "了解だ!",
+    example: "了解です!",
     leading: "✨",
   },
 ];
@@ -20054,7 +20051,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(トークンフィールドとしての規定のみ)" },
-    { name: "Google", color: "#2F7D6E", note: "見た目32dp・タップ領域48dp(2段構え)" },
+    { name: "Google", color: "#2F7D6E", note: "見た目32dp・押せる範囲48dp(2段構え)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(専用記事なし)" },
   ];
@@ -20071,7 +20068,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)とタップ領域(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)と押せる範囲(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
     </div>
   );
 }
@@ -20146,7 +20143,7 @@ function SelectionChipsPage() {
               チップを体系化しているのは<strong>Googleだけ</strong>(4種類)。Appleは近いものとしてmacOSのトークンフィールドを持ち、NN groupには専用の記事がない。Googleは<strong>「チップはボタンではない」</strong>とし、次へ・前へのような主な操作はボタンにする。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>見た目32dp・押せる範囲48dp</strong>。ラベルの色はGoogleが3:1、WCAGは<strong>4.5:1</strong>なので、Webでは4.5:1を目安にする。複数選択は、<strong>その場で一覧を絞り込むならフィルタチップ、フォームで送信するならチェックボックス</strong>。
+              Googleは<strong>見た目32dp・押せる範囲48dp</strong>。ラベルの色はGoogleが3:1(M3独自の目安)、WCAGは通常の文字で<strong>4.5:1</strong>・大きな文字で3:1(1.4.3)なので、Webのチップの小さな文字では4.5:1を目安にする。複数選択は、<strong>その場で一覧を絞り込むならフィルタチップ、フォームで送信するならチェックボックス</strong>。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -20402,7 +20399,7 @@ const SOURCES = [
         <text x="45" y="41" fontSize="9" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10月</text>
       </svg>
     ),
-    illustrationNote: "ホイールスタイルの例(概念図・系列識別色)。全8パターンは「デザインパターン一覧」を参照",
+    illustrationNote: "ホイールスタイルの例(概念図)。全8パターンは「デザインパターン一覧」を参照",
   },
   {
     key: "material",
@@ -20446,7 +20443,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "モーダル(カレンダー)の例(概念図・系列識別色)。全6パターンは「デザインパターン一覧」を参照",
+    illustrationNote: "モーダル(カレンダー)の例(概念図)。全6パターンは「デザインパターン一覧」を参照",
   },
   {
     key: "wcag",
@@ -20498,7 +20495,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く。月/日/年に分けたドロップダウンは避ける。</>,
+      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く(NN groupの実務の目安で、厳密な境界ではない)。月/日/年に分けたドロップダウンは避ける。</>,
     exceptions:
       "書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。",
     accessibility: "根拠となる原則 ― 入力の効率とエラーの率にもとづく指針。",
@@ -20518,7 +20515,7 @@ const SOURCES = [
         <text x="45" y="26" fontSize="10" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">2026年9月3日</text>
       </svg>
     ),
-    illustrationNote: "フリーテキスト入力(概念図・系列識別色)。NN groupが多くの場面で推奨する形",
+    illustrationNote: "フリーテキスト入力(概念図)。NN groupが多くの場面で推奨する形",
   },
 ];
 
@@ -20841,7 +20838,7 @@ function DateTimePickerSwatch() {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "カレンダーや回転する一覧などで、日付や時刻を選んで入力するコンポーネント";
 const ABOUT = [
-  { k: "目的・役割", v: "日付・時刻を、形式の間違いなく入力してもらう" },
+  { k: "目的・役割", v: "日付・時刻を、用途に合った方法(選ぶ・入力する)で、形式を間違えにくく入力してもらう" },
   { k: "よく使われる場面", v: "予約日・生年月日・アラームの時刻の入力" },
   { k: "似たコンポーネント", v: <>年月日を自由に打つなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink></> },
 ];
@@ -21471,7 +21468,7 @@ function GlossaryNote({ items }) {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "ボタンなどを押すと開き、その場で実行できる操作の一覧を見せるコンポーネント";
+const LEAD = "ボタンなどを押すと開き、その場で実行できる操作(コピー・削除など)の一覧を見せるコンポーネント(サイトのナビゲーションやフォームの値選びとは別)";
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
@@ -21482,7 +21479,7 @@ const ABOUT = [
 const KP = [
   { n: 1, t: "命令を選ぶならメニュー、値を選ぶならセレクト", d: "", who: "Apple(プルダウンボタンは命令、ポップアップボタンは選択肢)" },
   { n: 2, t: "よく使う項目を上に置く", d: "", who: "Apple・NN group" },
-  { n: 3, t: "サブメニューを深くしない", d: "サブメニューは約5項目まで(Apple)、コンテキストメニューは10〜12項目未満", who: "NN group" },
+  { n: 3, t: "メニューの項目を増やしすぎない", d: "サブメニューは約5項目まで(Apple)、コンテキストメニューは10〜12項目未満(NN group)", who: "Apple・NN group" },
   { n: 4, t: "キーボードで操作できるようにする", d: "", who: "W3C" },
 ];
 
@@ -21543,7 +21540,7 @@ function SelectionMenuPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、サブメニューを深くしない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線をコンポーネントとして持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
+              並べ方では、<strong>よく使う項目を上に置き、項目を増やしすぎない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線をコンポーネントとして持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
             </p>
             <p style={styles.synthesisText}>
               一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
@@ -21792,7 +21789,7 @@ const CARDS = [
     key: "select", name: "セレクト(プルダウン)", path: "/components/selection/select", built: true,
     oneLiner: "選択肢を折りたたみ、省スペースで1つを選ぶ。",
     doText: "選択肢が多く省スペースにしたい時",
-    dontText: "選択肢が少ない・2〜5個程度の時(→ラジオボタン)",
+    dontText: "選択肢が少なく、全部を見比べて選ぶ方が分かりやすい時(→ラジオボタン。目安はAppleの2〜5個、Googleの5つ以下)",
     icon: () => (
       <svg width="60" height="22" viewBox="0 0 60 22"><rect x="1" y="1" width="58" height="20" rx="4" fill="#FFFFFF" stroke="#9EA4C4" strokeWidth="1.6" /><path d="M48 8l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 50 12)" /></svg>
     ),
@@ -22027,7 +22024,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Toggles内「Radio buttons」(macOS)",
     term: "Radio button(Togglesの見た目の1つ。macOSのみ)",
     color: "#C2542A",
-    position: "小さな円+ラベル。2〜5個のグループで、1つだけを選ばせる",
+    position: "小さな円+ラベル。通常2〜5個のグループ(Appleの目安)で、1つだけを選ばせる",
     size:
       <span><NoData>数値基準なし。</NoData>AppKitが描くネイティブのコントロールで、サイズはシステムが決める。横に並べるなら間隔をそろえるとするが、数値はない。</span>,
     colorInfo:
@@ -22060,7 +22057,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -22070,7 +22067,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "リストから1つを選ぶためのコントロール。5個以下の選択肢に向く",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル。既定で高密度の設定を適用しない(ターゲットサイズが48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -22103,7 +22100,7 @@ const SOURCES = [
         <circle cx="11" cy="11" r="4.5" fill="#2F7D6E" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -22143,10 +22140,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -22184,7 +22181,7 @@ const SOURCES = [
         <circle cx="11" cy="11" r="4.5" fill="#7A4F7E" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -22266,7 +22263,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(すべての選択肢を可視状態に保つ指針)" },
   ];
@@ -22362,7 +22359,7 @@ function SelectionRadioPage() {
           <h1 style={styles.title}>ラジオボタン</h1>
           <SummaryCard keyPoints={KP}
             image={<><RadioSwatch /></>}
-            imageNote={<>2〜5個のグループで使い、常に1つが選択された状態を基本とする。</>}
+            imageNote={<>小さな円とラベルを縦に並べたグループ。1つだけを選ぶ。</>}
             lead={LEAD}
             rows={ABOUT}
           />
@@ -22385,7 +22382,7 @@ function SelectionRadioPage() {
               <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれる(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしている(ただし操作の手間は増える)。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
+              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -22663,7 +22660,7 @@ function PatternCards() {
 }
 
 /* タイトル直下の1文と、サマリーの表 */
-const LEAD = "プルダウン以外で、決まった選択肢から1つを選ぶ代表的な4つの形のまとめ";
+const LEAD = "決まった選択肢から1つを選ぶ、プルダウンを含む代表的な4つの形のまとめ";
 const ABOUT = [
   { k: "目的・役割", v: "選択肢の見え方(常に見えるか・開くまで隠れるか)と、絞り込み方(タップだけか・入力もできるか)で、1つを選ぶ形を選び分ける" },
   { k: "よく使われる場面", v: "日付・国名をホイールで選ぶ、長い一覧から1つ選ぶ、都道府県を入力して絞り込む" },
@@ -22755,7 +22752,7 @@ function SelectionSelectPatternsPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「セレクト(プルダウン)」ページで扱ったのは<strong>「普段は折りたたまれていて、開くと選択肢が現れる」</strong>という1つのパターンだったが、単一選択を実現する方法はそれだけではない。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられる。
+              プルダウン(<strong>普段は折りたたまれていて、開くと選択肢が現れる</strong>)は、1つを選ぶ形の1つにすぎない。<strong>選択肢の見え方(常に見えるか/開くまで隠れているか)と、絞り込み方(タップだけか/入力もできるか)</strong>という2つの軸で整理すると、4つの代表的なパターンに分けられる。ここでは単一選択を中心に比べる(リストボックスは複数選択にも使え、コンボボックスには入力できる型と選ぶだけの型がある)。
             </p>
             <p style={styles.synthesisText}>
               特に<strong>Appleの「ホイールピッカー」は、日付や国名のように順序がある予測しやすい値に特化</strong>した独自のパターンだ。2つの軸で言えば、選択肢の一部(前後の数行)が常に見えていて、タップや回転で選ぶ(入力はしない)位置にある。長すぎるリストにはテーブル(索引付き一覧)を使うべきという注意点も明記されている。
@@ -22872,7 +22869,7 @@ const SOURCES = [
         <path d="M76 9l4 4-4 4" fill="none" stroke="#C2542A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 78 13)" />
       </svg>
     ),
-    illustrationNote: "Pop-upボタン(概念図・系列識別色)",
+    illustrationNote: "Pop-upボタン(概念図)",
   },
   {
     key: "material",
@@ -22882,7 +22879,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
-      "メニュー項目の最小タップ領域は48×48dp。",
+      "メニュー項目の押せる範囲の最小は48×48dp。",
     colorInfo:
       "カラーマッピングは「標準(サーフェスの配色、強調は控えめ)」と「鮮やか(第三の色、強調が強い)」の2種類。鮮やかな配色は目立つため控えめに使う。選択済み/未選択の項目は既定で3:1以上のコントラスト比にし、チェックマークなど色以外の手がかりも添える。",
     glossary: [
@@ -22903,7 +22900,7 @@ const SOURCES = [
       { label: "Menus(Exposed dropdown menu)", url: "https://m3.material.io/components/menus/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/menus/specs" },
     ],
-    confirmedNote: "使用法・バリエーション・色のマッピング・単一選択/複数選択・メニュー項目・アクセシビリティ(タップ領域・フォーカス・終了操作)の各セクションは2026-09時点で公式ページ本文を直接確認済み。メニュー全体のdp数値やカラートークン名などのspecs数値は未確認。",
+    confirmedNote: "使用法・バリエーション・色のマッピング・単一選択/複数選択・メニュー項目・アクセシビリティ(押せる範囲・フォーカス・終了操作)の各セクションは2026-09時点で公式ページ本文を直接確認済み。メニュー全体のdp数値やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
         <rect x="1" y="1" width="88" height="24" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -22912,7 +22909,7 @@ const SOURCES = [
         <line x1="1" y1="20" x2="89" y2="20" stroke="#2F7D6E" strokeWidth="1.6" />
       </svg>
     ),
-    illustrationNote: "Exposed dropdown menu(概念図・系列識別色。下線はテキストフィールドとしての位置づけを示す)",
+    illustrationNote: "Exposed dropdown menu(概念図。下線はテキストフィールドとしての位置づけを示す)",
   },
   {
     key: "wcag",
@@ -22998,7 +22995,7 @@ const SOURCES = [
         <path d="M76 9l4 4-4 4" fill="none" stroke="#7A4F7E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 78 13)" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -23124,13 +23121,13 @@ function SelectionSelectPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
+              セレクトは、Apple・Google・NN groupの3系列が<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「メニューはラジオボタンやチップの組より場所を取らない」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば自動的に対応する</strong>。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルとの関連付けやフォーカスの見え方などは別に確かめる)。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -23356,7 +23353,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#C2542A" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "見た目は自由にカスタマイズ可(ここでは系列識別色で図示)",
+    illustrationNote: "見た目は自由に変えられる(概念図)",
   },
   {
     key: "material",
@@ -23399,7 +23396,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -23436,10 +23433,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -23474,7 +23471,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -23536,7 +23533,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(見た目は自由にカスタマイズ可)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(つまみの既定タップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48dp(つまみの既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(正確な値には不向きという使いどころの指針)" },
   ];
@@ -23553,7 +23550,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケールにした目安。赤=非推奨/黄=条件付き/緑=推奨の帯はWCAGのターゲットサイズの基準によるもので、系列の色とは別。Apple・NN groupは数値基準がないためマーカーはない。</p>
     </div>
   );
 }
@@ -23772,7 +23769,7 @@ function FitSection() {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "つまみを横に動かして、範囲の中から値を選ぶコンポーネント";
 const ABOUT = [
-  { k: "目的・役割", v: "正確な数値より、大まかな量や程度を直感的に調整してもらう" },
+  { k: "目的・役割", v: "数の範囲の中から、値や範囲(価格帯など)を、つまみを動かして直感的に選んでもらう" },
   { k: "よく使われる場面", v: "音量・明るさの調整、価格帯の絞り込み" },
   { k: "似たコンポーネント", v: <>正確な数値を入れてもらうなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>や<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink></> },
 ];
@@ -23792,19 +23789,19 @@ const SPLITS = [
     q: "つまみの押せる範囲は、どのくらいの大きさにする?",
     figure: <SizeInfographic />,
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "つまみの既定のタップ領域は48dp" },
+      { who: "Google", color: "#2F7D6E", t: "つまみの既定の押せる範囲は48dp" },
       { who: "W3C", color: "#A3821F", t: "24×24 CSS px以上(2.5.8・AA)、より高い水準では44×44 CSS px以上(2.5.5・AAA)。どちらも例外あり" },
       { who: "Apple・NN group", color: "#C2542A", t: "スライダーとしての数値はない" },
     ],
-    tip: "つまみの押せる範囲を48px前後にしておけば、Googleの既定とW3CのAA・AAAのどちらにも届く。",
+    tip: "つまみの押せる範囲をGoogleの既定(48dp)前後にしておけば、W3CのAA(24 CSS px)・AAA(44 CSS px)にもおおむね届く。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "数の範囲の中から、値や範囲を選ぶときに使う", d: "音量のような1つの値や、価格帯・出発の時間帯のような範囲", who: "Google・NN group" },
-  { n: 2, t: "正確な値が要るなら、入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "Apple・NN group・W3C 2.5.7" },
-  { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
+  { n: 2, t: "正確な値が要るなら、入力欄を横に置く", d: "ドラッグしない操作の手段にもなる(トラックを押すとつまみが移動する方法でもよい)", who: "Apple・NN group・W3C 2.5.7" },
+  { n: 3, t: "つまみの押せる範囲は48dp前後", d: "", who: "Google" },
   { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
 
@@ -23856,7 +23853,7 @@ function SelectionSliderPage() {
               <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれる(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類だ。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準だ。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めている。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応だ。
+              サイズについては、<strong>Googleがつまみの既定の押せる範囲を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準だ。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めている。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -24096,7 +24093,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -24106,7 +24103,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定をすぐオン/オフするためのコントロール(月額/年額のような相反する2択の切り替えには使わない)",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル。既定で高密度の設定を適用しない(ターゲットサイズが48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -24137,7 +24134,7 @@ const SOURCES = [
         <circle cx="27" cy="11" r="7.5" fill="#FFFFFF" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -24181,10 +24178,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="10" y="14" width="20" height="12" rx="6" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -24219,7 +24216,7 @@ const SOURCES = [
         <circle cx="27" cy="11" r="7.5" fill="#FFFFFF" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -24301,7 +24298,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(既定のタップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(即時反映という挙動の違いに基づく指針)" },
   ];
@@ -24349,7 +24346,7 @@ const KP = [
   { n: 1, t: "押すとすぐ切り替わる設定に使う", d: "例: Wi-Fiのオン/オフ", who: "Google・NN group" },
   { n: 2, t: "保存ボタンのあるフォームではチェックボックスにする", d: "", who: "Google・NN group" },
   { n: 3, t: "相反する2つの選択肢の切り替えには使わない", d: "月額/年額などはボタングループ", who: "Google" },
-  { n: 4, t: "何の設定か、今オンかオフかを、読み上げソフトにも伝える", d: "", who: "W3C 4.1.2" },
+  { n: 4, t: "何の設定か、今オンかオフかを、スクリーンリーダーにも伝える", d: "", who: "W3C 4.1.2" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -24412,7 +24409,7 @@ function SelectionTogglePage() {
               Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしている。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求める。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
+              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -24658,7 +24655,7 @@ const SOURCES = [
         <text x="2" y="33" fontSize="7" fill="#C2542A" fontFamily="Jost, Noto Sans JP">→ フォーカスが外れた時に検証(場面により異なる)</text>
       </svg>
     ),
-    illustrationNote: "フォーカス変更をきっかけに検証(概念図・系列識別色)",
+    illustrationNote: "フォーカス変更をきっかけに検証(概念図)",
   },
   {
     key: "material",
@@ -24694,7 +24691,7 @@ const SOURCES = [
         <text x="2" y="41" fontSize="7" fill="#2F7D6E" fontFamily="Jost, Noto Sans JP">↓ 検証エラー時は同じ位置でエラーテキストに置換</text>
       </svg>
     ),
-    illustrationNote: "同じ位置でサポートテキスト⇄エラーテキストを切り替え(概念図・系列識別色)",
+    illustrationNote: "同じ位置でサポートテキスト⇄エラーテキストを切り替え(概念図)",
   },
   {
     key: "wcag",
@@ -24773,7 +24770,7 @@ const SOURCES = [
         <text x="2" y="33" fontSize="7" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">✕ 入力中は検証しない → 離脱時に検証</text>
       </svg>
     ),
-    illustrationNote: "入力中の検証を避け、フィールド離脱時に検証(概念図・系列識別色)",
+    illustrationNote: "入力中の検証を避け、フィールド離脱時に検証(概念図)",
   },
 ];
 
@@ -25112,7 +25109,7 @@ function TextInputsInputValidationPage() {
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
-          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
+          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマートフォンなど幅の狭い画面では、表を横にスクロールできる。</p>
           <p style={styles.diagramNote}><strong>タイミングを具体的に決めているのはNN group(欄を離れた時)とApple(内容で変える)</strong>。W3Cはタイミングを定めず、Googleは入力前のヒントだけを扱う。</p>
           <TimingLegend />
           <TimingChart />
@@ -25363,7 +25360,7 @@ const TextInputsSearchFieldPage = (function () {
  * 記事本文に根拠がなかったため削除した。
  * (2)「使用シーンごとのコンポーネント比較」セクションを新設。通常時・アクティブ(入力前)・
  * 入力中(予測候補)・検索結果・絞り込み・クリア/終了の6シーンについて、画面イメージ
- * (概念図)と、シーン×4系列の比較表(PCは表、スマホはカード)を置き、Google(M3)の
+ * (概念図)と、シーン×4系列の比較表(PCは表、スマートフォンはカード)を置き、Google(M3)の
  * スタイル×レイアウトの4つの組み合わせ図を補足として加えた。
  */
 
@@ -25405,7 +25402,7 @@ const SOURCES = [
         <text x="126" y="16" fontSize="7" fill="#FFFFFF" textAnchor="middle">✕</text>
       </svg>
     ),
-    illustrationNote: "検索アイコン・プレースホルダー・クリアボタン(概念図・系列識別色)",
+    illustrationNote: "検索アイコン・プレースホルダー・クリアボタン(概念図)",
   },
   {
     key: "material",
@@ -25414,7 +25411,7 @@ const SOURCES = [
     term: "Search(Search bar・Search view)",
     color: "#2F7D6E",
     position: "画面上部の「検索バー」と、選ぶと開く「検索ビュー」をまとめて「Search」と呼ぶ。見た目は包含(Contained、推奨)と分割(Divided、従来型)の2スタイル、候補・結果の出し方は全画面とドッキングの2レイアウト",
-    size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンはタップ領域48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
+    size: "検索バーの高さは56dp、幅は最小360dp〜最大720dp。先頭・末尾のアイコンは押せる範囲48dp(アイコン自体は24dp)、アバターは30dp。画面端からの余白は、フォーカス前24dp → フォーカス時12dp(M3 Expressive)。ドッキング表示の候補・結果の領域は、幅360〜720dp、高さは最小240dp〜最大で画面の高さの2/3。",
     colorInfo: "コンテナは「surface container high」の色ロール。背景が白や単色でもバーがはっきり見えるよう、背景と1段階以上離れたsurface containerのロールを使い、背景に溶け込ませない。M3の既定では影(エレベーション)を付けない。",
     glossary: [
       { term: "Search bar / Search view", desc: "Search barは画面上部の検索の入り口。選ぶとSearch view(候補・結果の画面)が開く。M3 Expressiveで、両方をまとめて「Search(検索)」と呼ぶようになった。" },
@@ -25450,7 +25447,7 @@ const SOURCES = [
         <circle cx="125" cy="13" r="7" fill="#2F7D6E" opacity="0.55" />
       </svg>
     ),
-    illustrationNote: "先頭アイコン+ヒントテキスト+末尾のアバター(概念図・系列識別色)",
+    illustrationNote: "先頭アイコン+ヒントテキスト+末尾のアバター(概念図)",
   },
   {
     key: "wcag",
@@ -25530,7 +25527,7 @@ const SOURCES = [
         <line x1="127.7" y1="15.2" x2="131" y2="18.5" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" />
       </svg>
     ),
-    illustrationNote: "開いた入力欄+送信ボタンを兼ねるアイコン(概念図・系列識別色)",
+    illustrationNote: "開いた入力欄+送信ボタンを兼ねるアイコン(概念図)",
   },
 ];
 
@@ -26351,7 +26348,7 @@ const SOURCES = [
         <text x="10" y="17" fontSize="10" fill="#666D93" fontFamily="Jost, Noto Sans JP">example@mail.com</text>
       </svg>
     ),
-    illustrationNote: "枠線+プレースホルダーの標準的なテキストフィールド(概念図・系列識別色)",
+    illustrationNote: "枠線+プレースホルダーの標準的なテキストフィールド(概念図)",
   },
   {
     key: "material",
@@ -26391,7 +26388,7 @@ const SOURCES = [
         <text x="12" y="22" fontSize="9.5" fill="#171B36" fontFamily="Jost, Noto Sans JP">taro@example.com</text>
       </svg>
     ),
-    illustrationNote: "Outlined + フローティングラベル(概念図・系列識別色)",
+    illustrationNote: "Outlined + フローティングラベル(概念図)",
   },
   {
     key: "wcag",
@@ -26463,7 +26460,7 @@ const SOURCES = [
         <rect x="1" y="14" width="138" height="12" rx="3" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="1.4" />
       </svg>
     ),
-    illustrationNote: "ラベルは欄の外に常時表示(概念図・系列識別色)",
+    illustrationNote: "ラベルは欄の外に常時表示(概念図)",
   },
 ];
 
@@ -26634,7 +26631,7 @@ function TextareaSwatch() {
       <div style={{ position: "relative", marginBottom: 6 }}>
         <span style={{ position: "absolute", top: -8, left: 10, background: "#FFFFFF", padding: "0 4px", fontSize: 10.5, color: "#3A4FCF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>お問い合わせ内容</span>
         <div style={{ border: "1.6px solid #3A4FCF", borderRadius: 6, padding: "10px 12px", height: 58, fontSize: 13, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", textAlign: "left" }}>
-          ご質問の詳細をご記入ください。折り返しご連絡いたします。
+          注文番号12345の配送日を、来週の土曜日に変更したいです。
         </div>
       </div>
       <div style={{ fontSize: 10.5, color: "#666D93", padding: "0 4px" }}>複数行にわたる入力に対応</div>
@@ -26665,7 +26662,7 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "ラベルは欄の外に常に見せる", d: "", who: "W3C 3.3.2・NN group" },
+  { n: 1, t: "ラベルは欄の外に常に見せる", d: "W3C 3.3.2は見えるラベルか指示を求める(置き場所は決めていない)", who: "NN group・W3C 3.3.2" },
   { n: 2, t: "プレースホルダーは入力例だけに使う", d: "ラベルの代わりにしない", who: "W3C 3.3.2" },
   { n: 3, t: "場所が足りないときはフローティングラベル", d: "", who: "Google" },
 ];
@@ -26735,13 +26732,13 @@ function TextInputsTextFieldPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このページで最も重要な点は、<strong>W3CとNielsen Norman Groupが、それぞれ異なる角度から「プレースホルダーだけに頼るべきではない」という同じ結論</strong>に達していることだ。W3Cは適合基準(3.3.2)として「目に見えるラベル又は指示」を要求し、NN groupは記憶負荷や確認のしやすさといった実際のユーザビリティ調査から、ラベルを入力欄の外に常時表示すべきだとしている。規格と実証研究という異なるアプローチが、同じ実務上の結論に収束している点は信頼度が高いと言える。
+              <strong>W3CとNN groupは「プレースホルダーだけに頼らない」で一致</strong>する。W3Cは達成基準(3.3.2)で、目に見えるラベルか指示を求める(欄の外に置くことまでは決めていない)。NN groupは調査にもとづき、ラベルとヒントを欄の外に常に見せる形を最良とする。
             </p>
             <p style={styles.synthesisText}>
               Googleは<strong>「フローティングラベル」という、常時ラベルを表示しつつ省スペースにする具体的な解決策</strong>を持っており、W3C/NN groupが指摘する問題への実務的な回答の1つになっている。フォーカス時や入力時にラベルが浮き上がる構造は、「常に見えるラベル」という要求と、コンパクトなレイアウトという要求を両立させる工夫だ。ただしNN groupは、<strong>フローティングラベルは従来のプレースホルダーの欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良</strong>としている。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは<strong>ラベルは全ユーザーに提示されるが、名前(name)は支援技術によってのみ露出される場合がある</strong>という区別を明確にしており、見た目のラベル(3.3.2)・マークアップ上の関連付け(1.3.1)・支援技術への伝達(4.1.2)という3つの異なる基準が、それぞれ別の失敗モードをカバーしていることが分かる。
+              W3Cは、見えるラベル(3.3.2)とは別に、<strong>ラベルを入力欄に関連付けて支援技術に伝える</strong>ことを求める(1.3.1・4.1.2)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -26995,7 +26992,7 @@ const SOURCES = [
         <text x="2" y="29" fontSize="8" fill="#C2542A" fontFamily="Jost, Noto Sans JP">⚠ メールアドレスの形式が正しくありません</text>
       </svg>
     ),
-    illustrationNote: "色に加えアイコン+テキストで状態を示す(概念図・系列識別色)",
+    illustrationNote: "色に加えアイコン+テキストで状態を示す(概念図)",
   },
   {
     key: "material",
@@ -27108,7 +27105,7 @@ const SOURCES = [
         <text x="2" y="29" fontSize="8" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">「@」の後にドメイン名を入力してください</text>
       </svg>
     ),
-    illustrationNote: "具体的な解決策を示すエラー文言(概念図・系列識別色)",
+    illustrationNote: "具体的な解決策を示すエラー文言(概念図)",
   },
 ];
 
@@ -27169,7 +27166,7 @@ const KP = [
   { n: 2, t: "何が問題かを書く", d: "", who: "W3C 3.3.1" },
   { n: 3, t: "どう直せばよいかを書く", d: "", who: "W3C 3.3.3・NN group" },
   { n: 4, t: "利用者を責めず、入力した内容は残す", d: "", who: "NN group" },
-  { n: 5, t: "重要な操作は、事前に防ぐ", d: "", who: "W3C 3.3.4" },
+  { n: 5, t: "法的・金銭・データに関わる送信は、取り消しか確認の機会を用意する", d: "取り消せる・送信前に確認できる・誤りを検査するのどれか", who: "W3C 3.3.4" },
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
@@ -27223,16 +27220,16 @@ function TextInputsValidationPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              このコンポーネントで最も体系的なのはW3Cだ。<strong>「エラーの特定(3.3.1・レベルA)」→「エラーの修正提案(3.3.3・レベルAA)」→「誤り防止(法的・金融・データ)(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「重要な操作では事前に防ぐ」という段階的な要求になっている。
+              このコンポーネントで最も体系的なのはW3Cだ。<strong>「エラーの特定(3.3.1・レベルA)」→「エラーの修正提案(3.3.3・レベルAA)」→「誤り防止(法的・金融・データ)(3.3.4・レベルAA)」</strong>という3段階の達成基準が積み上がっており、単に「エラーを表示する」だけでなく「何が間違っているか」「どう直せばよいか」「法的・金銭・データに関わる送信では、取り消しや確認の機会を用意する」という段階的な要求になっている。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「エラーの修正提案」(3.3.3)を実際にどう書くかという具体化と言える。
+              Nielsen Norman Groupのガイドラインは、この3段階の要求と方向性が一致する<strong>実務的な文章表現の指針</strong>を提供している。「ユーザーを責めない」「具体的な解決策を示す」「入力を保持する」といった原則は、W3Cの「エラーの修正提案」(3.3.3)を実際にどう書くかの具体例になる。
             </p>
             <p style={styles.synthesisText}>
-              興味深いのは、<strong>Apple・Googleどちらにも、エラー表示やバリデーションという独立したコンポーネント名は見当たらない</strong>ことだ。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としての独立したページはない。
+              <strong>Apple・Googleには、エラー表示やバリデーションという独立したコンポーネントはない</strong>。両社とも、これをテキストフィールドという個別コンポーネントの「状態の1つ」として扱っており、W3C・NN groupのような横断的な原則としての独立したページはない。
             </p>
             <p style={styles.synthesisText}>
-              Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の用途+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)がそれぞれ独立に同じ結論に達している点は、実装上の優先度が高い指摘だと言える。
+              Apple・Google・W3C・NN groupの4系列が一致しているのは、<strong>「色だけに頼ってはならない」</strong>という原則だ。Apple(アイコン・テキストの併用)・Google(エラーアイコンを色に加わる2つ目の手がかりとして強く勧める)・W3C(1.4.1の色の用途+テキストによる説明の必須化。枠線やアイコンのコントラストは1.4.11)・NN group(太字・高コントラストなど複数の手がかりを重ねる)が、それぞれ同じ結論を示している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -27428,7 +27425,7 @@ const SOURCES = [
       { label: "Modality ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/modality#Best-practices" },
     ],
     illustration: () => <StepMini color="#C2542A" steps={3} current={1} />,
-    illustrationNote: "全画面のモーダルの中で進める(概念図・系列識別色)",
+    illustrationNote: "全画面のモーダルの中で進める(概念図)",
   },
   {
     key: "material",
@@ -27454,7 +27451,7 @@ const SOURCES = [
       { term: "寸法(M1)", desc: "ステップの高さ72dp、番号の丸は24×24dp。" },
     ],
     illustration: () => <StepMini color="#2F7D6E" steps={3} current={1} numbered />,
-    illustrationNote: "番号付きのステップ(M1の参考情報。概念図・系列識別色)",
+    illustrationNote: "番号付きのステップ(M1の参考情報。概念図)",
   },
   {
     key: "wcag",
@@ -27462,7 +27459,7 @@ const SOURCES = [
     doc: "WAI Forms Tutorial ― Multi-page Forms / WCAG 3.3.7",
     term: "Multi-page forms(複数ページのフォーム)/ multi-step process",
     color: "#A3821F",
-    position: "長いフォームは論理的なステップに分けることを勧め(チュートリアル)、同じ手続きの中で同じ入力を求めないことを要件とする(3.3.7)",
+    position: "長いフォームは論理的なステップに分けることを勧め(チュートリアル)、同じ手続きの中で同じ入力を求めないことを要件とする(3.3.7。ウィザード形式そのものを求める基準ではない)",
     stance: <span>長いフォームは、論理的なまとまりごとの小さなフォームに分けると、取り組みやすく分かりやすくなる(特に、操作に慣れていない人や認知障害のある人)としている。<Hl>同じ手続きの中で、前に入力した情報をもう一度入力させない</Hl>(3.3.7・レベルA。自動で入れるか、選べるようにする。例外あり)。</span>,
     progress: <span>最初のステップで<Hl>全部で何ステップあるかを伝え</Hl>、各ステップで進み具合を伝える。ページのtitleと見出しに「ステップ2/4」のように入れる。ステップ数が決まっていれば、手順の一覧(順序付きリスト)で、完了・現在のステップを支援技術にも分かるように示す。</span>,
     order: "任意のステップは分かるようにし、飛ばせるようにする。全体の説明は各ページで繰り返す。",
@@ -27505,7 +27502,7 @@ const SOURCES = [
       { label: "Modal & Nonmodal Dialogs(複数ステップの作業とモーダル)", url: "https://www.nngroup.com/articles/modal-nonmodal-dialog/" },
     ],
     illustration: () => <StepMini color="#7A4F7E" steps={3} current={1} list />,
-    illustrationNote: "ステップの一覧で今の位置を示す(概念図・系列識別色)",
+    illustrationNote: "ステップの一覧で今の位置を示す(概念図)",
   },
 ];
 
@@ -27648,7 +27645,7 @@ const WIZ_LOOKS = [
   { k: "h", t: "横に並べる", d: "上部に番号とステップ名を並べる。前のステップで次の内容が変わるときに向く。名前は短くし、スクロールしても上部に固定できる", src: "Google(M1 Steppers)" },
   { k: "v", t: "縦に並べる", d: "ステップを縦に並べ、今のステップだけを開く。狭い画面向けで、スマートフォンにそのまま使える", src: "Google(M1 Steppers)" },
   { k: "m", t: "スマートフォンの簡易表示", d: "「2/4」の文字、点(ステップが少ないとき)、バー(ステップが多いとき・途中で増えるとき)", src: "Google(M1 Steppers)" },
-  { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。読み上げソフトの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
+  { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。スクリーンリーダーの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
 ];
 const WIZ_FLOWS = [
   ["順番どおりに進む", "前のステップを終えないと次へ進めない", "Google(M1 Linear)"],
@@ -28243,7 +28240,7 @@ const BIG_CHANGES = [
 
 /* レスポンシブとアダプティブの違い(2026-11 ⑦本人レビューNo.014で追加。このページはレスポンシブを中心にし、アダプティブは末尾の補足で扱う) */
 const RA_VIEWS = [
-  { who: "Google", c: "#2F7D6E", t: <>区別する。<strong>レスポンシブは1つのレイアウトをどの画面にも合うよう拡大・縮小すること</strong>、<strong>アダプティブは端末ごとに体験を作り込み、構造・コンポーネント・レイアウト全体まで変えること</strong>。M3は2026年5月に「Responsive layout」を「adaptive design」に改名し、ブレークポイントでの組み替えもアダプティブと呼ぶ</>, ref: ["Adaptive design", "https://m3.material.io/foundations/layout/layout-overview/adaptive-design"] },
+  { who: "Google", c: "#2F7D6E", t: <>区別する。<strong>レスポンシブは1つのレイアウトをどの画面にも合うよう拡大・縮小すること</strong>、<strong>アダプティブは端末ごとに体験を作り込み、構造・コンポーネント・レイアウト全体まで変えること</strong>。M3は2026年5月に、レイアウトの解説(Layout)の「Responsive layout」を「adaptive design」に改名し(Google全体の用語の変更ではない)、ブレークポイントでの組み替えもアダプティブと呼ぶ</>, ref: ["Adaptive design", "https://m3.material.io/foundations/layout/layout-overview/adaptive-design"] },
   { who: "Apple", c: "#C2542A", t: <><NoData>2つの言葉を使い分けていない</NoData>。画面の大きさ・向き・マルチタスクの形が変わっても、一貫したレイアウトで合わせる(adapt)ようにする</>, ref: ["Layout ― Adaptability", "https://developer.apple.com/design/human-interface-guidelines/layout#Adaptability"] },
   { who: "W3C", c: "#A3821F", t: <><NoData>どちらの言葉も要件にはない</NoData>。近いのは1.4.10(リフロー: 狭い幅でも2方向にスクロールせずに読める)で、レスポンシブで満たしやすい。1.3の「適応可能(Adaptable)」は、構造を失わずに別の見せ方にできることで、アダプティブデザインとは別の意味</>, ref: ["1.4.10 リフロー", "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"] },
   { who: "NN group", c: "#7A4F7E", t: <>区別する。<strong>レスポンシブは同じ内容のまま、画面の大きさに合わせてレイアウトを組み替える</strong>。<strong>アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末に合う内容・機能だけを送る</strong></>, ref: ["Mobile Websites: Mobile-Dedicated, Responsive, Adaptive, or Desktop Site?", "https://www.nngroup.com/articles/mobile-vs-responsive/"] },
@@ -28277,7 +28274,7 @@ function RespVsAdapt() {
 
 /* アダプティブデザイン(補足) */
 const ADAPTIVE_NOTES = [
-  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマホ・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
+  { s: "Google", c: "#2F7D6E", t: "何に合わせるか ― 人・端末・使い方", d: "人(好みや設定)、端末(時計・スマートフォン・折りたたみ・タブレット・デスクトップ・XR)、使い方(ウィンドウのリサイズ・向きの変更・端末の切り替え)", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "Google", c: "#2F7D6E", t: "3つの体験とウィンドウの種類", d: "モバイル(全画面・分割画面・バブル)、デスクトップ(自由なウィンドウ)、空間(XR)。どの端末でもタッチ・ポインター・キーボードのすべてを想定する", ref: { l: "Adaptive design", u: "https://m3.material.io/foundations/layout/layout-overview/adaptive-design" } },
   { s: "NN group", c: "#7A4F7E", t: "サーバーが端末を見分けて送り分ける", d: "アダプティブはレスポンシブの一種で、サーバーが端末を見分け、その端末で使える内容・機能だけを送る。読み込みの遅さを防げるのが主な利点", ref: { l: "Mobile Websites: … Responsive, Adaptive …", u: "https://www.nngroup.com/articles/mobile-vs-responsive/" } },
 ];
@@ -28380,7 +28377,7 @@ function GlossaryNote({ items }) {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "同じ内容のまま、画面の広さや向き、ウィンドウの大きさに合わせてレイアウトを組み替える考え方";
 const ABOUT = [
-  { k: "目的・役割", v: "スマホからパソコンまで、どの大きさでも使いやすい配置にする" },
+  { k: "目的・役割", v: "スマートフォンからパソコンまで、どの大きさでも使いやすい配置にする" },
   { k: "関わる場面", v: "画面の回転、タブレットの分割表示、ブラウザの幅の変更、文字の拡大" },
   { k: "関連するページ", v: <><PageLink to="/tokens/layout-spacing">レイアウト・スペーシング</PageLink>、<PageLink to="/components/navigation/nav-bar">タブバー</PageLink></> },
 ];
@@ -28714,7 +28711,7 @@ const SOURCES = [
         <text x="91" y="32" fontSize="7.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Dark</text>
       </svg>
     ),
-    illustrationNote: "同じセマンティックカラーがライト/ダークで自動的に値を変える(概念図・系列識別色)",
+    illustrationNote: "同じセマンティックカラーがライト/ダークで自動的に値を変える(概念図)",
   },
   {
     key: "material",
@@ -28760,7 +28757,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "primary/secondary/tertiary/error/surfaceのカラーロール(概念図・系列識別色を基調に配色)",
+    illustrationNote: "primary/secondary/tertiary/error/surfaceのカラーロール(概念図)",
   },
   {
     key: "wcag",
@@ -28804,7 +28801,7 @@ const SOURCES = [
         <text x="91" y="34" fontSize="6.5" fill="#8A3F32" textAnchor="middle" fontFamily="Jost, Noto Sans JP">1.5:1 不合格</text>
       </svg>
     ),
-    illustrationNote: "4.5:1基準の合格/不合格の対比イメージ(概念図・系列識別色は使わず値を強調)",
+    illustrationNote: "4.5:1基準の合格/不合格の対比イメージ(概念図。値を強調)",
   },
   {
     key: "nn",
@@ -28841,7 +28838,7 @@ const SOURCES = [
         <text x="115" y="22" fontSize="6.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">10</text>
       </svg>
     ),
-    illustrationNote: "60-30-10ルールの配分イメージ(概念図・系列識別色)",
+    illustrationNote: "60-30-10ルールの配分イメージ(概念図)",
   },
 ];
 
@@ -29170,10 +29167,10 @@ function TokensColorPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              数値の基準を持つのはW3Cで、<strong>本文4.5:1、大きな文字とコンポーネント3:1</strong>(1.4.3・1.4.11)。Apple・Googleは、<strong>色を「意味」で指定し、システムが設定に合わせて値を変える</strong>(Appleのセマンティックカラー、Googleのカラーロール)。Appleは独自の色に<strong>7:1</strong>を目指すよう勧め、Googleはロールごとに<strong>7:1・4.5:1・3:1</strong>の目標を配色の生成時に満たす。
+              数値の基準を持つのはW3Cで、<strong>本文4.5:1、大きな文字とコンポーネント3:1</strong>(1.4.3・1.4.11)。Apple・Googleは、<strong>色を「意味」で指定し、システムが設定に合わせて値を変える</strong>(Appleのセマンティックカラー、Googleのカラーロール)。Appleは独自の色に<strong>7:1</strong>を目指すよう勧め、Googleはロールごとに<strong>7:1・4.5:1・3:1</strong>の目標を配色の生成時に満たす(配色ライブラリの2021年版の仕様)。これらはApple・Google独自の目標で、WCAGの必須の基準(AAの4.5:1・3:1)とは別に読む。
             </p>
             <p style={styles.synthesisText}>
-              色の段階の分け方は4系列で違う(上の比較図)。<strong>「色だけで伝えない」はW3C(1.4.1)とNN groupが一致</strong>する。セマンティックカラーやカラーロールを使っても1.4.1は満たされないので、文字やアイコンの手がかりは別に用意する(AI解釈)。
+              色の段階の分け方は4系列で違う(上の比較図)。<strong>「色だけで伝えない」はApple(HIG Color)・W3C(1.4.1)・NN groupの3系列が一致</strong>する。セマンティックカラーやカラーロールを使っても1.4.1は満たされないので、文字やアイコンの手がかりは別に用意する(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -29490,9 +29487,9 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <><Hl>同じカラーロールに、ライトとダークで違うトーン(明るさ)を割り当てる</Hl>。端末の設定に合わせて自動で切り替わるDayNightテーマが基本</>,
     size: <>目標は<Hl>本文7:1・補助の文字4.5:1・枠線3:1で、ライト・ダークとも同じ</Hl>(material-color-utilities)。ロールごとにトーンを入れ替える(例: primary 40→80、surface 98→6)。</>,
-    colorInfo: <>背景は<Hl>真っ黒でなく濃いグレー(neutral 6)</Hl>。影を見えやすくし、目の負担を減らすため。</>,
+    colorInfo: <>背景は<Hl>真っ黒でなく濃いグレー(neutral 6)</Hl>。面の重なりや影を見えやすくするため。</>,
     stance:
-      "利点は、電池の節約(有機EL)・目の負担の軽減・暗い場所での見やすさ。端末の設定に従うDayNightテーマが基本。",
+      "利点は、電池の節約(有機EL)・弱視の人や明るい光がまぶしい人の見やすさ・暗い場所での使いやすさ(Android Developers)。端末の設定に従うDayNightテーマが基本。",
     exceptions:
       "ライトとダークを別々のテーマとして定義することもできる(固定のダークテーマ)。",
     accessibility:
@@ -29843,7 +29840,7 @@ function DarkElevationRules() {
 const KEY_POINTS = [
   { n: 1, t: "切り替えは端末の設定に従う", d: "アプリ独自の切り替えを主にせず、端末のライト/ダークの設定に合わせる", who: "Apple・Google・NN groupの3系列。W3Cはどちらの見た目でもよい" },
   { n: 2, t: "色を反転せず、役割ごとに作り直す", d: "背景と文字は明るさを入れ替えるが、色をそのまま反転はしない", who: "Appleは「単純な反転ではない」と明言。Googleは役割ごとにライト用とダーク用の明るさを決めている" },
-  { n: 3, t: "背景は真っ黒にしない", d: "濃いグレーにして、重なりや影を見えやすくし、目の負担を減らす", who: "Google(背景はトーン6 = #141218)" },
+  { n: 3, t: "背景は真っ黒にしない", d: "濃いグレーにして、面の重なりや影を見えやすくする", who: "Google(背景はトーン6 = #141218)" },
   { n: 4, t: "アクセント色は暗い背景に合わせて明るく", d: "ボタンなどの色は反転せず、暗い背景で読める明るさ・淡さにする", who: "Google(Primaryはトーン40→80)・Apple(システムカラーにダーク用の値がある)" },
   { n: 5, t: "重なりは影ではなく明るさで表す", d: "暗い画面では影が見えにくいため、手前の面ほど明るくする", who: "Google(背景6→ダイアログ17)・Apple(前面の画面はelevatedの明るい背景)・NN group" },
   { n: 6, t: "コントラストはどちらの見た目でも同じ基準", d: "文字と背景は組で指定し、ライトでもダークでも4.5:1以上を保つ", who: "W3C(1.4.3)・Apple(最低4.5:1、独自の色は7:1を目指す)" },
@@ -30009,7 +30006,7 @@ function TokensDarkModePage() {
               <strong>Apple・Google・NN groupの3系列が一致</strong>するのは、<strong>ダークモードは端末の設定に従う</strong>こと。W3Cはダークモードを定めず、どちらの見た目にも同じコントラストの基準をかける。
             </p>
             <p style={styles.synthesisText}>
-              配色は<strong>ライトの単純な反転ではない</strong>(Apple)。Googleは同じ役割の色にライトとダークで別のトーンを割り当て、背景は<strong>真っ黒でなく濃いグレー</strong>にする。コントラストはAppleが独自の色で7:1、Googleが本文7:1を目標にし、WCAGのAA(4.5:1)より高い。
+              配色は<strong>ライトの単純な反転ではない</strong>(Apple)。Googleは同じ役割の色にライトとダークで別のトーンを割り当て、背景は<strong>真っ黒でなく濃いグレー</strong>にする。コントラストはAppleが独自の色で7:1、Googleが本文7:1(配色ライブラリの2021年版の仕様)を目標にする。どちらも各社独自の目標で、WCAGの必須の基準はAAの4.5:1(1.4.3)。
             </p>
             <p style={styles.synthesisText}>
               NN groupは、<strong>ダークを既定にせず、切り替えを用意する</strong>ことを勧める(読みやすさの調査は下の節)。
@@ -30301,7 +30298,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "表し方は定めない。重なった要素でフォーカスが完全に隠れないことを求める",
     size: <><NoData>数値基準なし</NoData>。<Hl>フォーカスが固定ヘッダー・バナーなどで完全に隠れない</Hl>こと(2.4.11・AA)。一部も隠れないこと(2.4.12・AAA)。</>,
-    colorInfo: "影は見分ける手がかりに数えない(1.4.11)。境界や中身で見分けられるようにする。",
+    colorInfo: "影だけでコンポーネントを見分けさせるなら、その影が隣の色と3:1以上の手がかりになっているかを確かめる(1.4.11)。見分けるのに関わらない影は、コントラストの計算から外してよい。境界や中身でも見分けられるようにすると確実。",
     glossary: [
       { term: "2.4.11 Focus Not Obscured (Minimum)・レベルAA", desc: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れないこと。一部が隠れるのはこの基準では認められる。" },
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目に、隣の色と3:1以上を求める。" },
@@ -31076,7 +31073,7 @@ const SOURCES = [
         <text x="100" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">large</text>
       </svg>
     ),
-    illustrationNote: "3段階のスケール、ウェイトによる太さの違い(概念図・系列識別色)",
+    illustrationNote: "3段階のスケール、ウェイトによる太さの違い(概念図)",
   },
   {
     key: "material",
@@ -31120,7 +31117,7 @@ const SOURCES = [
         <text x="98" y="42" fontSize="7" fill="#666D93" textAnchor="middle" fontFamily="Jost, Noto Sans JP">Sharp</text>
       </svg>
     ),
-    illustrationNote: "3スタイルの形状の違い(概念図・系列識別色)",
+    illustrationNote: "3スタイルの形状の違い(概念図)",
   },
   {
     key: "wcag",
@@ -31199,7 +31196,7 @@ const SOURCES = [
         <text x="60" y="38" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">メニュー</text>
       </svg>
     ),
-    illustrationNote: "アイコン単体ではなく常時表示のラベルを併用(概念図・系列識別色)",
+    illustrationNote: "アイコン単体ではなく常時表示のラベルを併用(概念図)",
   },
 ];
 
@@ -31798,7 +31795,7 @@ const SOURCES = [
     doc: "WCAG 2.5.1 Pointer Gestures / 2.5.2 Pointer Cancellation / 2.5.4 Motion Actuation / 2.5.7 Dragging Movements",
     color: "#A3821F",
     position: <>ジェスチャーそのものは禁止せず、複雑なジェスチャー・ドラッグ・端末の動きのそれぞれに、<Hl>1本指の簡単な操作などの代わりを用意する</Hl>ことを求める</>,
-    size: <>2本指・軌跡の操作(2.5.1・A)、ドラッグ(2.5.7・AA)、端末の動き(2.5.4・A)には、<Hl>1本指の簡単な代わりの操作</Hl>を用意する。離したときに実行し、途中でやめられるようにする(2.5.2・A)。</>,
+    size: <>2本指・軌跡の操作(2.5.1・A)には<Hl>1本指で軌跡のない代わりの操作</Hl>、ドラッグ(2.5.7・AA)には<Hl>ドラッグしない1回の操作</Hl>を用意する。端末や体の動きで動く機能(2.5.4・A)は、<Hl>画面上の操作でも動かせ、動きへの反応を止められる</Hl>ようにする。離したときに実行し、途中でやめられるようにする(2.5.2・A)。</>,
     colorInfo: "使える入力手段(タッチ・マウス・キーボードなど)を制限しない(2.5.6・AAA)。",
     glossary: [
       { term: "2.5.1 Pointer Gestures・レベルA", desc: "ピンチなど2本指以上の操作や、なぞる軌跡で決まる操作に、1本指で軌跡のない代わりの操作を求める。" },
@@ -32680,7 +32677,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "基本の5つの状態をそろえる", d: "有効・ホバー・フォーカス・プレス・無効", who: "NN group・Google" },
-  { n: 2, t: "フォーカスは必ず見えるように", d: "色だけでなく輪郭線で示す", who: "W3C 2.4.7" },
+  { n: 2, t: "フォーカスは必ず見えるように", d: "見せ方は問わない(W3C)。NN groupは色だけでなく輪郭線で示すことを勧める", who: "W3C 2.4.7・NN group" },
   { n: 3, t: "状態の見た目は周りと見分けられるように", d: "隣り合う色と3:1以上", who: "W3C" },
   { n: 4, t: "独自のボタンにも押した状態を用意する", d: "システムの効果に任せるのが基本", who: "Apple" },
 ];
@@ -32742,7 +32739,7 @@ function TokensInteractionStatesPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              4系列で共通する中心の状態は、<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。NN groupはこれをボタンの基本セットとし、Googleもこの5つ(+ドラッグ)にトークンを定義している。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
+              状態の軸になるのは、Google・NN groupに共通する<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。Googleはこの5つ(+ドラッグ)にトークンを定義し、NN groupはこれをボタンの基本セットとする。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
             </p>
             <p style={styles.synthesisText}>
               見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としている。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めている。
@@ -32751,7 +32748,7 @@ function TokensInteractionStatesPage() {
               W3Cは状態の種類を定めず、<strong>コンポーネントや状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求める。無効なコンポーネントはコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しない。
             </p>
             <p style={styles.synthesisText}>
-              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を確実に満たす方法で、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。
+              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を満たす方法の1つで(2.4.7は表示のしかたまでは決めていない)、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -32995,7 +32992,7 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 2.5.8 Target Size (Minimum) / 1.3.1 Info and Relationships",
     color: "#A3821F",
     position: "余白やグリッドの値は定めず、狭い幅でも読めること・押す対象の間隔・まとまりを構造でも伝えることを求める",
-    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
+    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。データの表・地図など、2方向の配置が意味に必要な内容は例外。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
     colorInfo: <NoData>幅ごとの決まりはない</NoData>,
     structure: <>1.3.1(A): <Hl>余白でまとめたグループは、構造でも支援技術に伝える</Hl>(余白だけでは読み上げで伝わらない)。</>,
     glossary: [
@@ -33111,7 +33108,7 @@ function MarginDiagram() {
   const mono = "'IBM Plex Mono', monospace";
   const k = 0.16; // 1dp = 0.16px
   const frames = [
-    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマホ縦)" },
+    { name: "Compact", w: 412, m: 16, panes: [{ f: 1 }], note: "600dp未満(スマートフォン縦)" },
     { name: "Medium", w: 700, m: 24, panes: [{ f: 1 }], note: "600〜839dp(タブレット縦)" },
     { name: "Expanded", w: 1000, m: 24, panes: [{ fixed: 360 }, { f: 1 }], note: "840〜1199dp" },
     { name: "Large", w: 1400, m: 24, panes: [{ fixed: 412 }, { f: 1 }], note: "1200〜1599dp" },
@@ -33266,10 +33263,9 @@ const ABOUT = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "端末ではなく、使える広さで切り替える", d: "分割画面やウィンドウの大きさで変わるものとして扱う", who: "Apple・Google" },
-  { n: 2, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
-  { n: 3, t: "狭めても読めるようにする", d: "幅320pxまで狭めても内容を読める", who: "W3C 1.4.10" },
-  { n: 4, t: "切り替える幅の目安", d: "600・840・1200・1600dp", who: "Google。Appleは境界値を示さない" },
+  { n: 1, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
+  { n: 2, t: "狭めても読めるようにする", d: "幅320 CSS pxまで狭めても内容を読める(データの表・地図などは例外)", who: "W3C 1.4.10" },
+  { n: 3, t: "切り替える幅の目安", d: "600・840・1200・1600dp(端末ではなく使える広さで切り替える。詳しくは「レスポンシブデザイン」)", who: "Google。Appleは境界値を示さない" },
 ];
 
 function TokensLayoutSpacingPage() {
@@ -34214,10 +34210,10 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "目的のある動きだけを使う", d: "頻繁な操作には足さない", who: "Apple" },
-  { n: 2, t: "長さの目安", d: "小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "Google・NN group" },
+  { n: 2, t: "長さの目安", d: "小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後", who: "AI解釈(Google・NN groupの目安から)" },
   { n: 3, t: "緩急を付ける", d: "入る動きは減速、出る動きは加速", who: "Google・NN group" },
-  { n: 4, t: "動きを減らす設定に対応する", d: "移動をフェードにするなど", who: "Apple・Google・W3C" },
-  { n: 5, t: "安全面の上限を守る", d: "5秒を超える自動の動きは止められるようにし、1秒に3回を超えて点滅させない", who: "W3C" },
+  { n: 4, t: "動きを減らす設定に対応する", d: "移動をフェードにするなど。W3Cは操作で起きる動きを無効にできることを求め、OSの設定に従うのはその満たし方の1つ", who: "Apple・Google・W3C 2.3.3(AAA)" },
+  { n: 5, t: "安全面の上限を守る", d: "5秒を超える自動の動きは止められるようにし、1秒に3回を超えて点滅させない", who: "W3C 2.2.2・2.3.1" },
 ];
 
 function TokensMotionPage() {
@@ -34617,7 +34613,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "Foundations配下にトピックを並列配置(5つを抜粋。概念図・系列識別色)",
+    illustrationNote: "Foundations配下にトピックを並列配置(5つを抜粋。概念図)",
   },
   {
     key: "material",
@@ -34651,7 +34647,7 @@ const SOURCES = [
         </div>
       </div>
     ),
-    illustrationNote: "FoundationsとStylesが別セクション(概念図・系列識別色)",
+    illustrationNote: "FoundationsとStylesが別セクション(概念図)",
   },
   {
     key: "wcag",
@@ -34675,7 +34671,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図・系列識別色)",
+    illustrationNote: "トピックごとに関わる達成基準(4つを抜粋。概念図)",
   },
   {
     key: "nn",
@@ -34697,7 +34693,7 @@ const SOURCES = [
         <span style={{ fontSize: 9.5, fontFamily: "'IBM Plex Mono', monospace", color: "#7A4F7E" }}>Topics(記事の分類)</span>
       </div>
     ),
-    illustrationNote: "記事をトピックで分類(概念図・系列識別色)",
+    illustrationNote: "記事をトピックで分類(概念図)",
   },
 ];
 
@@ -34900,7 +34896,7 @@ function PrinciplesVsFoundations() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>原則と土台(ファウンデーション)の違い</h2>
-      <p style={styles.sectionLead}>デザインシステムは、おおまかに<strong>原則 → 土台 → コンポーネント</strong>の3段で組み立てられている。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定のコンポーネントに限らず多くのコンポーネントに共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
+      <p style={styles.sectionLead}>このサイトでは、デザインシステムをおおまかに<strong>原則 → 土台 → コンポーネント</strong>の3段に分けて整理している(どのデザインシステムにも共通する決まった構造ではない)。思想レイヤーが「原則」を、このレイヤーが「土台」を比べる。このサイトでは、特定のコンポーネントに限らず多くのコンポーネントに共通して効く決まり(色・文字・文章・アイコン・余白・形・影・画面の広さへの対応、動き・音・入力)を「土台」と呼んでいる。</p>
       <div style={styles.tierWrap}>
         {TIERS.map((t, i) => (
           <React.Fragment key={t.k}>
@@ -36068,8 +36064,8 @@ const SOURCES = [
     doc: "WCAG 1.4.2 Audio Control / 1.4.7 Low or No Background Audio",
     color: "#A3821F",
     position: <>効果音そのものの基準はなく、<Hl>「自動で鳴る音を止められること」</Hl>と「音声の聞き取りを妨げないこと」を求める</>,
-    size: <>自動で<Hl>3秒より長く鳴る音は、止めるか音量を変えられるようにする</Hl>(1.4.2・A)。音声が中心なら、背景音は音声より20デシベル以上小さく(1.4.7・AAA)。</>,
-    design: "音色や効果音の設計は定めない。録音した音声だけの内容に代わりのもの(書き起こしなど、1.2.1)、動画の音声に字幕(1.2.2)を求め、音を唯一の伝え方にしない考え方はほかの系列と共通。",
+    size: <>自動で<Hl>3秒より長く鳴る音は、止めるか音量を変えられるようにする</Hl>(1.4.2・A)。録音した音声が中心の内容なら、背景音は音声より20デシベル以上小さく(1.4.7・AAA。UIの効果音の決まりではない)。</>,
+    design: "音色や効果音の設計は定めない。収録済みの音声・動画の内容には、代わりのもの(書き起こしなど、1.2.1)や字幕(1.2.2)を求める(UIの効果音にかかる基準ではない)。音を唯一の伝え方にしない考え方は、ほかの系列と共通。",
     glossary: [
       { term: "1.4.2 Audio Control・レベルA", desc: "自動で3秒を超えて鳴る音に、停止・一時停止か、個別の音量調整の手段を求める。" },
       { term: "1.4.7 Low or No Background Audio・レベルAAA", desc: "録音した音声が中心の内容で、背景音をなくす・切れる・20dB以上小さくすることを求める。" },
@@ -36481,7 +36477,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "音は補助にする", d: "音だけに頼らず、見た目や触覚でも伝える", who: "Apple・W3C・NN group" },
-  { n: 2, t: "利用者が止められるようにする", d: "自動で3秒を超えて鳴る音は止められるように(W3C)、効果音をオフにする設定を用意", who: "NN group" },
+  { n: 2, t: "利用者が止められるようにする", d: "自動で3秒を超えて鳴る音は、止めるか音量を別に変えられるように(W3C)。効果音をオフにする設定を用意(NN group)", who: "W3C 1.4.2・NN group" },
   { n: 3, t: "端末の設定に従う", d: "消音モードや音量に合わせる", who: "Apple" },
 ];
 
@@ -36546,16 +36542,16 @@ function TokensSoundPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点だ(Google(M2)は音の作り方が中心で、音の代わりの手段についての記載は見当たらない)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めている。
+              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点だ(Google(M2)は音の作り方が中心で、音の代わりの手段の記載はない)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めている。
             </p>
             <p style={styles.synthesisText}>
-              違いが大きいのは、指針の重心だ。Appleは<strong>消音モード・音量・出力先といった端末の設定に従う「鳴らし方」</strong>を詳しく定め、音の作り方にはほとんど触れない。反対に、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を体系的にまとめているが、これは<strong>Material Design 2(旧版)の指針で、M3には対応するページがない</strong>。
+              Appleは<strong>端末の設定(消音モード・音量・出力先)に従う「鳴らし方」</strong>を、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を詳しく定める(Googleは<strong>Material Design 2(旧版)の指針で、M3には対応するページがない</strong>)。
             </p>
             <p style={styles.synthesisText}>
               「鳴らさない」判断も重要だ。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止める。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘している。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論だ。
+              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論だ(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -38115,7 +38111,7 @@ const KP = [
   { n: 2, t: "声は一定、調子は場面で変える", d: "祝う場面と失敗の場面で書き方を変える", who: "Apple・NN group" },
   { n: 3, t: "同じ操作は同じ言葉で", d: "画面ごとに言い方を変えない", who: "Google" },
   { n: 4, t: "エラーで感嘆や「私たち」を使わない", d: "「おっと」のような言葉は不誠実に聞こえることがある", who: "Apple" },
-  { n: 5, t: "1行は長くしすぎない", d: "日本語は1行40文字が目安", who: "W3C" },
+  { n: 5, t: "1行は長くしすぎない", d: "日本語は1行40文字以内に「できる」ようにする(利用者が表示を調整できるための条件で、初期表示の決まりではない)", who: "W3C 1.4.8(AAA)" },
 ];
 
 function TokensWritingPage() {
@@ -38444,7 +38440,7 @@ const PAGES = [
   { id: "components-containment-carousel", label: "カルーセル", spec: "058", Component: ContainmentCarouselPage, path: "/components/containment/carousel", fixed: true },
   { id: "components-communication-widget", label: "ウィジェット", spec: "055", Component: CommunicationWidgetPage, path: "/components/communication/widget", fixed: true },
   { id: "components-communication-overview", label: "情報伝達の使い分け", spec: "034", Component: CommunicationOverviewPage, path: "/components/communication/overview", fixed: true },
-  { id: "components-communication-alert", label: "ステータスメッセージ(アラート)", spec: "033", Component: CommunicationStatusMessagePage, path: "/components/communication/alert", fixed: true },
+  { id: "components-communication-alert", label: "ステータスメッセージ", spec: "033", Component: CommunicationStatusMessagePage, path: "/components/communication/alert", fixed: true },
   { id: "components-communication-snackbar", label: "スナックバー", spec: "030", Component: CommunicationSnackbarPage, path: "/components/communication/snackbar", fixed: true },
   { id: "components-communication-toast", label: "トースト", spec: "035", Component: CommunicationToastPage, path: "/components/communication/toast", fixed: true },
   { id: "components-communication-loading", label: "ローディング状態", spec: "061", Component: CommunicationLoadingPage, path: "/components/communication/loading", fixed: true },

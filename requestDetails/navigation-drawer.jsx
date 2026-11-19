@@ -94,7 +94,7 @@ const DRAWER_SOURCES = [
         <rect x="6" y="32" width="30" height="6" rx="3" fill="#D6E8E3" />
       </svg>
     ),
-    illustrationNote: "Modalナビゲーションドロワー(概念図・系列識別色。スクリムで背後を覆う)",
+    illustrationNote: "Modalナビゲーションドロワー(概念図。スクリムで背後を覆う)",
   },
   {
     key: "wcag",
@@ -175,7 +175,7 @@ const DRAWER_SOURCES = [
         <span style={{ fontSize: 9, color: "#666D93" }}>発見性・速度の低下が調査で確認されている</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示(調査結果に基づく使い分けの指針)",
+    illustrationNote: "視覚デザインの規定なし(調査に基づく使い分けの指針。概念図)",
   },
 ];
 
@@ -216,7 +216,7 @@ const RAIL_SOURCES = [
         <rect x="38" y="1" width="51" height="58" fill="#FFFFFF" stroke="#E1E3F0" strokeWidth="1" />
       </svg>
     ),
-    illustrationNote: "常時表示のサイドバー(概念図・系列識別色。左が常時表示のナビゲーション、右が詳細ペイン)",
+    illustrationNote: "常時表示のサイドバー(概念図。左が常時表示のナビゲーション、右が詳細ペイン)",
   },
   {
     key: "material",
@@ -250,7 +250,7 @@ const RAIL_SOURCES = [
         <div style={{ flex: 1, background: "#FFFFFF" }} />
       </div>
     ),
-    illustrationNote: "アイコンだけの形のナビゲーションレール(概念図・系列識別色)",
+    illustrationNote: "アイコンだけの形のナビゲーションレール(概念図)",
   },
   {
     key: "wcag",
@@ -310,7 +310,7 @@ const RAIL_SOURCES = [
         <div style={{ flex: 1, background: "#FFFFFF" }} />
       </div>
     ),
-    illustrationNote: "左側の縦型ナビゲーション(概念図・系列識別色)",
+    illustrationNote: "左側の縦型ナビゲーション(概念図)",
   },
 ];
 
@@ -358,10 +358,10 @@ function DrawerSwatch() {
 }
 
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマホで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)";
+const LEAD = "画面の横にアプリの行き先の一覧を出すナビゲーション(スマートフォンで一時的に開くナビゲーションドロワーと、タブレット・PCで常に表示するサイドナビ)";
 const ABOUT = [
   { k: "目的・役割", v: "行き先が多いアプリで、主な場所の一覧を見せて遷移できるようにする" },
-  { k: "よく使われる場面", v: "スマホアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
+  { k: "よく使われる場面", v: "スマートフォンアプリの≡メニュー(ドロワー)、メールアプリのフォルダ一覧や管理画面の左のメニュー(サイドナビ)" },
   { k: "似たコンポーネント", v: <>主な場所が3〜5か所なら<PageLink to="/components/navigation/nav-bar">タブバー</PageLink>、補助の情報や操作を出すのは<PageLink to="/components/containment/side-sheet">サイドシート</PageLink></> },
 ];
 
@@ -571,7 +571,7 @@ export default function NavigationDrawerPage() {
               使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面ではサイドナビとして常に表示し、狭い画面で項目が多いときだけナビゲーションドロワーに隠す</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
             </p>
             <p style={styles.synthesisText}>
-              スマホのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間を最大39%長くする</strong>と報告している。
+              スマートフォンのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間をデスクトップで39%以上長くする</strong>と報告している。
             </p>
             <p style={styles.synthesisText}>
               広い画面では、サイドナビ(Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーション)が、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
@@ -580,7 +580,7 @@ export default function NavigationDrawerPage() {
               W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
             </p>
           </div>
-          <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマホ)</h3>
+          <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマートフォン)</h3>
           <Comparison SOURCES={DRAWER_SOURCES} />
 
           <h3 id="rail" style={styles.subTitle}>② サイドナビ(常に表示。主にタブレット・PC)</h3>

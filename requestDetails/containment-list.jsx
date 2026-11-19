@@ -58,7 +58,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "行として並ぶリスト/テーブル(概念図・系列識別色)",
+    illustrationNote: "行として並ぶリスト/テーブル(概念図)",
   },
   {
     key: "material",
@@ -105,7 +105,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画像+テキストの縦方向インデックス(概念図・系列識別色)",
+    illustrationNote: "画像+テキストの縦方向インデックス(概念図)",
   },
   {
     key: "wcag",
@@ -187,7 +187,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "ソート・比較に適した密なリスト表示(概念図・系列識別色)",
+    illustrationNote: "ソート・比較に適した密なリスト表示(概念図)",
   },
 ];
 
@@ -256,9 +256,8 @@ const SPLITS = [
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "", who: "AI解釈" },
-  { n: 2, t: "画像が中心で眺めて選ぶ一覧は、カードにする", d: "", who: "AI解釈" },
-  { n: 3, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
+  { n: 1, t: "文字が中心で数が多く、探す・比べる一覧に使う", d: "画像が中心で眺めて選ぶ一覧は「カード」のページへ", who: "AI解釈" },
+  { n: 2, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
 ];
 
 export default function ContainmentListPage() {
@@ -304,7 +303,7 @@ export default function ContainmentListPage() {
               リストの位置づけを最も明確に言語化しているのはNielsen Norman Groupで、<strong>「リスト表示はソートが容易でスペース効率が高い」</strong>という特性を、カード表示(視覚的訴求力・グループ化に強い)と対比させている。この対比は、そのまま「カード」ページとの使い分けの軸になる。
             </p>
             <p style={styles.synthesisText}>
-              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleはこれをテーブル(並べ替え可能な列・階層データ)まで拡張して扱っているのに対し、Googleは行の内容量に応じた1行/2行/3行というバリエーションで表現しており、対象とする粒度がやや異なる。
+              Apple・Googleとも、<strong>リストを「特定の項目を素早く見つけて操作するための索引」</strong>と位置づけている点は共通している。Appleは列のある表(並べ替えられる列・階層のあるデータ)まで同じページで扱い、Googleは行の高さ(1〜3行)で種類を分ける。
             </p>
             <p style={styles.synthesisText}>
               W3Cが強調するのは、<strong>見た目の一覧を、構造でも一覧として支援技術に伝える</strong>こと(1.3.1)だ。順序に意味があるかどうかも区別して伝える。

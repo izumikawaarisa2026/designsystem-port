@@ -4,7 +4,7 @@ import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList, RelatedPages
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
- * 当初は「タップ領域」の内容のみだったが、ボタンに関する記載は
+ * 当初は「押せる範囲」の内容のみだったが、ボタンに関する記載は
  * アクセシビリティ以外にも複数あるため、コンテンツエリア内にセグメンテッドコントロールを設け、
  * 「アクセシビリティ / 種類・優先度 / 状態」の3つを切り替えて比較できるようにしている。
  * 「状態」はトークンレイヤーに独立ページ(インタラクション状態)を作る予定があり、将来的に
@@ -323,13 +323,13 @@ function RangeScale({ scale }) {
 
 const SYNTHESIS = {
   a11y: [
-    <>Appleも2025年3月の改訂で、既定44pt・<strong>最小28pt</strong>の2段階を示すようになり、W3Cの「24px以上か、足りなければ周りの間隔で補う」と同じく、<strong>大きさが足りない分を間隔で補う</strong>考え方(枠のある要素のまわりに約12pt)が4系列で近づいた。</>,
-    <>数値の下限には24〜48pxという幅があるが、これは<strong>「絶対最低ライン」(WCAG AA)</strong>と<strong>「快適に押せる目安」(HIG・Material・NN)</strong>という異なる問いに答えているために生じる差にすぎない。</>,
-    <>実務では<strong>主要なアクションボタンは44〜48px前後を基準</strong>にし、密なUIでやむを得ず縮める場合のみ、WCAG AAの<strong>24px以上</strong>を最終防衛ラインとし、どうしてもそれより小さくする場合だけ<strong>間隔で補う</strong>(中心の直径24pxの円が隣と重ならない)のが現実的な着地点。</>,
+    <>Appleは既定44×44pt・<strong>最小28×28pt</strong>(iOS/iPadOS)の2段階を示し、枠のある要素のまわりに約12ptの余白を勧める。W3Cの2.5.8も、24×24 CSS pxに足りない分を周りの間隔で補う例外を持つ。<strong>大きさが足りない分を間隔で補う考え方は、Apple・W3Cに共通</strong>する。</>,
+    <>数値に24〜48という幅があるのは、<strong>最低ライン(W3C 2.5.8・AA)</strong>と、<strong>快適に押せる目安(Apple 44pt・Google 48dp・W3C 2.5.5のAAA 44 CSS px・NN groupの約1cm四方)</strong>という、違う問いに答えているため。</>,
+    <>主なボタンは<strong>44pt(Apple)・48dp(Google)を基準</strong>にする。密な画面で縮めるときの最低ラインは、<strong>W3C 2.5.8の24×24 CSS px(AA・例外あり)</strong>。それより小さくするなら、中心に描いた直径24 CSS pxの円が隣と重ならない<strong>間隔を空ける</strong>。</>,
   ],
   styles: [
     <>ボタンを「種類」で分ける発想はAppleとGoogleに共通しているが、<strong>分け方の軸が違う</strong>。Appleは「何のための操作か」という意味(Role)、Googleは「どれだけ目立たせるか」という優先度(emphasis)で分類している。</>,
-    <>WCAGは種類そのものを定義しないが、<strong>1.4.11のコントラスト基準はすべての種類のボタンに等しく適用される</strong>。NN groupの「主要操作には専用の色を」という指摘は、AppleのPrimary・GoogleのFilledの両方に共通する考え方と言える。</>,
+    <>WCAGは種類そのものを定義しないが、<strong>1.4.11のコントラスト基準はすべての種類のボタンに等しく適用される</strong>。NN groupの「主要操作には専用の色を」という指摘は、AppleのPrimary・GoogleのFilledの両方に共通する。</>,
   ],
   states: [
     <>Enabled・Hover・Focused・Pressed・Disabledという<strong>基本の状態はGoogleとNN groupでほぼ一致</strong>している。Appleは共通の状態の一覧を持たず、プラットフォームごとに定めている(独自のボタンには押した状態を必ず用意する)。</>,
@@ -391,7 +391,7 @@ function ButtonTabContent({ tabId }) {
     </div>
 
     <div className="dsp-desktop-only">
-      <h2 style={styles.diagramTitle}>ボタンデザインシステム比較 ― {tab.label}</h2>
+      <h2 style={styles.diagramTitle}>四系列デザインシステム比較 ― {tab.label}</h2>
       <div style={styles.matrixScroll}>
         <div style={styles.matrixGrid}>
           <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
@@ -493,17 +493,17 @@ const SPLITS = [
     sides: [
       { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のあるコンポーネントで約12pt)で補う" },
       { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
-      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は中心の直径24pxの円が隣と重ならない間隔で補える" },
+      { who: "W3C", color: "#A3821F", t: "24×24 CSS px(2.5.8・AA)/44×44 CSS px(2.5.5・AAA)。どちらも例外あり。小さい場合は、中心の直径24 CSS pxの円が隣と重ならない間隔で補える" },
       { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
     ],
-    tip: "24px(W3CのAA)は「これ以下にしてはいけない線」、44〜48(Apple・Google・W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44〜48を基準にし、密な画面で縮めるときも24pxを下回らないようにする(詳しくは下の「押せる範囲の大きさ」)。",
+    tip: "24 CSS px(W3CのAA)は「最低ライン」、44pt(Apple)・48dp(Google)・44 CSS px(W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44pt・48dpを基準にし、密な画面で24 CSS pxより小さくするなら、周りに十分な間隔を空ける(2.5.8・例外あり。詳しくは下の「押せる範囲の大きさ」)。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
-  { n: 1, t: "主なボタンの押せる範囲は44〜48", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
-  { n: 2, t: "縮めても24pxを下回らない", d: "足りない分は周りの間隔で補う", who: "W3C 2.5.8" },
+  { n: 1, t: "主なボタンの押せる範囲は44pt・48dp", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
+  { n: 2, t: "24 CSS px未満にするなら、周りに間隔を空ける", d: "24×24 CSS pxが最低ライン。足りない分は周りの間隔で補える(例外あり)", who: "W3C 2.5.8" },
   { n: 3, t: "まず操作の意味を決め、次に目立たせ方を選ぶ", d: "役割(Apple)と優先度(Google)は両立する", who: "AI解釈" },
   { n: 4, t: "削除のような操作は目立たせすぎない", d: "選ばれやすくても目立つ見た目にしない", who: "Apple" },
   { n: 5, t: "主な操作と副次的な操作を見分けられるように", d: "主な操作に専用の色を当てる", who: "NN group" },

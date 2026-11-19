@@ -64,7 +64,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#C2542A" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "見た目は自由にカスタマイズ可(ここでは系列識別色で図示)",
+    illustrationNote: "見た目は自由に変えられる(概念図)",
   },
   {
     key: "material",
@@ -107,7 +107,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "系列識別色で図示",
+    illustrationNote: "概念図",
   },
   {
     key: "wcag",
@@ -144,10 +144,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <circle cx="20" cy="20" r="8" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -182,7 +182,7 @@ const SOURCES = [
         <circle cx="70" cy="10" r="7" fill="#FFFFFF" stroke="#7A4F7E" strokeWidth="2.2" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -244,7 +244,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(見た目は自由にカスタマイズ可)" },
-    { name: "Google", color: "#2F7D6E", note: "48px(つまみの既定タップ領域)" },
+    { name: "Google", color: "#2F7D6E", note: "48dp(つまみの既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(正確な値には不向きという使いどころの指針)" },
   ];
@@ -261,7 +261,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60pxを共通スケールとした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケールにした目安。赤=非推奨/黄=条件付き/緑=推奨の帯はWCAGのターゲットサイズの基準によるもので、系列の色とは別。Apple・NN groupは数値基準がないためマーカーはない。</p>
     </div>
   );
 }
@@ -480,7 +480,7 @@ function FitSection() {
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "つまみを横に動かして、範囲の中から値を選ぶコンポーネント";
 const ABOUT = [
-  { k: "目的・役割", v: "正確な数値より、大まかな量や程度を直感的に調整してもらう" },
+  { k: "目的・役割", v: "数の範囲の中から、値や範囲(価格帯など)を、つまみを動かして直感的に選んでもらう" },
   { k: "よく使われる場面", v: "音量・明るさの調整、価格帯の絞り込み" },
   { k: "似たコンポーネント", v: <>正確な数値を入れてもらうなら<PageLink to="/components/text-inputs/text-field">テキストフィールド</PageLink>、決まった選択肢から選ぶなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>や<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink></> },
 ];
@@ -500,19 +500,19 @@ const SPLITS = [
     q: "つまみの押せる範囲は、どのくらいの大きさにする?",
     figure: <SizeInfographic />,
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "つまみの既定のタップ領域は48dp" },
+      { who: "Google", color: "#2F7D6E", t: "つまみの既定の押せる範囲は48dp" },
       { who: "W3C", color: "#A3821F", t: "24×24 CSS px以上(2.5.8・AA)、より高い水準では44×44 CSS px以上(2.5.5・AAA)。どちらも例外あり" },
       { who: "Apple・NN group", color: "#C2542A", t: "スライダーとしての数値はない" },
     ],
-    tip: "つまみの押せる範囲を48px前後にしておけば、Googleの既定とW3CのAA・AAAのどちらにも届く。",
+    tip: "つまみの押せる範囲をGoogleの既定(48dp)前後にしておけば、W3CのAA(24 CSS px)・AAA(44 CSS px)にもおおむね届く。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "数の範囲の中から、値や範囲を選ぶときに使う", d: "音量のような1つの値や、価格帯・出発の時間帯のような範囲", who: "Google・NN group" },
-  { n: 2, t: "正確な値が要るなら、入力欄を横に置く", d: "ドラッグしない操作の手段にもなる", who: "Apple・NN group・W3C 2.5.7" },
-  { n: 3, t: "つまみの押せる範囲は48前後", d: "", who: "Google" },
+  { n: 2, t: "正確な値が要るなら、入力欄を横に置く", d: "ドラッグしない操作の手段にもなる(トラックを押すとつまみが移動する方法でもよい)", who: "Apple・NN group・W3C 2.5.7" },
+  { n: 3, t: "つまみの押せる範囲は48dp前後", d: "", who: "Google" },
   { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
 
@@ -568,7 +568,7 @@ export default function SelectionSliderPage() {
               <strong>正確な値を選ぶ場面でスライダーを使うか</strong>は系列で分かれる(上の「意見が分かれる点」)。Googleが公式に定義する<strong>「標準・中央揃え・範囲指定」の3種類</strong>は、ほかの3系列にはない分類だ。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleがつまみの既定タップ領域を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準だ。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めている。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応だ。
+              サイズについては、<strong>Googleがつまみの既定の押せる範囲を48dpと定めている</strong>ことが確認できており、他のSelectionコンポーネントと同じ48dp基準だ。WCAGは、スライダー全体を1つのターゲットとして扱う一般的なターゲットサイズ(24×24px AA / 44×44px AAA。どちらも例外あり)とコントラスト基準(1.4.11)に加えて、<strong>ドラッグしなくても操作できる方法(2.5.7・AA)</strong>を求めている。トラックのタップでつまみを動かせるようにするか、数値の入力欄を横に置くのが実務的な対応だ。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

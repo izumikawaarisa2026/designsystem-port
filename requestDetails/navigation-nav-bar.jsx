@@ -77,7 +77,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画面下部の永続的なTab Bar。主要セクションを切り替える(概念図・系列識別色)",
+    illustrationNote: "画面下部の永続的なTab Bar。主要セクションを切り替える(概念図)",
   },
   {
     key: "material",
@@ -119,7 +119,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "画面下部のタブバー(概念図・系列識別色)。上部のアプリバーは別のコンポーネント",
+    illustrationNote: "画面下部のタブバー(概念図)。上部のアプリバーは別のコンポーネント",
   },
   {
     key: "wcag",
@@ -195,7 +195,7 @@ const SOURCES = [
         ))}
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 

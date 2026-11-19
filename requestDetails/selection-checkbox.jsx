@@ -56,7 +56,7 @@ const SOURCES = [
         ))}
       </div>
     ),
-    illustrationNote: "AppKitネイティブ(色はシステム依存、ここでは系列識別色で図示)",
+    illustrationNote: "AppKitの標準(色はシステムによる。概念図)",
   },
   {
     key: "material",
@@ -70,7 +70,7 @@ const SOURCES = [
     states:
       <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持つ。子の一部だけが選択されていると親は未確定になり、未確定の親を選ぶとすべての子が選択される。</span>,
     size:
-      <span>既定で高密度の設定を適用しない。<Hl>推奨タップ領域は48×48 CSSピクセル</Hl>(Googleの文書の表記。Materialでは通常dpで表し、WCAGの単位はCSS px。単位の違いはトップの「用語メモ」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48ピクセル以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
+      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48 CSSピクセル</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。</span>,
     glossary: [
@@ -102,7 +102,7 @@ const SOURCES = [
         <path d="M7 13.5l3.5 3.5 7-8" fill="none" stroke="#FFFFFF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "Material tokens(系列識別色で図示)",
+    illustrationNote: "Material tokens(概念図)",
   },
   {
     key: "wcag",
@@ -148,10 +148,10 @@ const SOURCES = [
           <rect x="2" y="2" width="36" height="36" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
           <rect x="14" y="14" width="12" height="12" rx="2" fill="#A3821F" />
         </svg>
-        <span style={{ fontSize: 9, color: "#666D93" }}>最小タップ領域(概念図)</span>
+        <span style={{ fontSize: 9, color: "#666D93" }}>押せる範囲の最小(概念図)</span>
       </div>
     ),
-    illustrationNote: "視覚デザインの規定はなく、タップ領域の考え方を図示",
+    illustrationNote: "視覚デザインの規定はなく、押せる範囲の考え方を図示",
   },
   {
     key: "nn",
@@ -189,7 +189,7 @@ const SOURCES = [
         <path d="M7 13.5l3.5 3.5 7-8" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -259,7 +259,7 @@ const SPLITS = [
       { figure: <MiniIcon kind="both" />, who: "Google", color: "#2F7D6E", t: "単独の項目のオン・オフはスイッチが基本だが、デスクトップではチェックボックスでもよい。どちらを使う場合も、変更はすぐに反映させる" },
       { figure: <MiniIcon kind="switch" />, who: "NN group", color: "#7A4F7E", t: "すぐに反映するならスイッチ。保存・送信ボタンを押して確定する場面では、スイッチではなく単独のチェックボックスにする" },
     ],
-    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマホならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、フォームの中に即時反映のチェックボックスを混ぜないようにする。",
+    tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマートフォンならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、1つの画面の中で、保存で確定するものと即時反映するものを混ぜないようにする(絞り込みの条件のように、全部が即時反映ならチェックボックスでよい)。",
   },
   {
     q: "不定(一部だけ選択)の親チェックボックスを押したら?",
@@ -270,7 +270,7 @@ const SPLITS = [
     tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法だ。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げる。APGは実装の参考例で、適合の要件ではない。Appleは、親の状態の表示(不定のときはダッシュ)は定めているが、押したときの動きは書いていない。",
   },
   {
-    q: "押せる範囲(タップ領域)は、どれくらいの大きさが必要?",
+    q: "押せる範囲(押せる範囲)は、どれくらいの大きさが必要?",
     figure: (
       <>
         <SizeRangeScale />
@@ -282,7 +282,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
       { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
-    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
+    tip: "ラベルも含めた押せる範囲を48×48 CSS px以上にしておけば、Googleの基準を満たし、W3Cの24 CSS px(AA)・44 CSS px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
   },
 ];
 
@@ -344,8 +344,8 @@ function SizeRangeScale() {
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
-  { n: 2, t: "保存ボタンで確定するフォームの中で使う", d: "すぐ反映する設定はスイッチを検討。フォームの中に即時反映のチェックボックスを混ぜない", who: "AI解釈" },
-  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48以上にする", who: "Google・NN group" },
+  { n: 2, t: "確定のタイミングを1つの画面でそろえる", d: "保存ボタンで確定するか、押してすぐ反映するか(絞り込みなど)を画面の中で混ぜない。すぐ反映する設定はスイッチも検討", who: "AI解釈" },
+  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48 CSS px以上にする", who: "Google・NN group" },
   { n: 4, t: "子の項目が一部だけ選ばれているとき、親のチェックボックスは「―」の印で示す", d: "この状態を「不定」と呼ぶ。全部選ばれていれば✓、1つもなければ空", who: "Apple・Google・NN group" },
   { n: 5, t: "縦に1行1つずつ並べる", d: "横に並べるなら、どのラベルがどの箱か分かる間隔を空ける", who: "NN group" },
 ];
@@ -359,7 +359,7 @@ function GoodBadFigure() {
               { kind: "good", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 14px", border: "1.5px dashed #2F7D6E", borderRadius: 4 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "四角とラベルの全体が押せる範囲(点線)。ラベルを押しても選べる。" },
               { kind: "bad", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ display: "inline-flex", padding: 2, border: "1.5px dashed #C0503F", borderRadius: 3 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span></span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さい四角だけが押せる。ラベルを押しても選べず、押し損ねやすい。" },
             ]}
-            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48)、W3C 2.5.8(24px・AA)・2.5.5(44px・AAA。どちらも例外あり)。"
+            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48 CSS px)、W3C 2.5.8(24 CSS px・AA)・2.5.5(44 CSS px・AAA。どちらも例外あり)。"
           />
   );
 }
@@ -406,14 +406,14 @@ export default function SelectionCheckboxPage() {
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
               チェックボックスは<strong>4系列とも「複数選択」という役割で一致</strong>している。Apple・Nielsen Norman
-              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促しており、この使い分けは広く定着した考え方と言える。
+              Groupは共通して、ラジオボタン(単一選択)と取り違えないよう注意を促している。
             </p>
             <p style={styles.synthesisText}>
               もう一つの共通点は<strong>「オン・オフ」だけでなく「不定(indeterminate / mixed)」という第3の状態</strong>だ。Apple・Google・Nielsen Norman
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われる。
             </p>
             <p style={styles.synthesisText}>
-              サイズは系列によって基準が違う(Googleは48px、W3Cは24px・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
+              サイズは系列によって基準が違う(Googleは48 CSS px、W3Cは24・44 CSS px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
             </p>
             <p style={styles.synthesisText}>
               色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通している。

@@ -77,7 +77,7 @@ const SOURCES = [
         <text x="2" y="33" fontSize="7" fill="#C2542A" fontFamily="Jost, Noto Sans JP">→ フォーカスが外れた時に検証(場面により異なる)</text>
       </svg>
     ),
-    illustrationNote: "フォーカス変更をきっかけに検証(概念図・系列識別色)",
+    illustrationNote: "フォーカス変更をきっかけに検証(概念図)",
   },
   {
     key: "material",
@@ -113,7 +113,7 @@ const SOURCES = [
         <text x="2" y="41" fontSize="7" fill="#2F7D6E" fontFamily="Jost, Noto Sans JP">↓ 検証エラー時は同じ位置でエラーテキストに置換</text>
       </svg>
     ),
-    illustrationNote: "同じ位置でサポートテキスト⇄エラーテキストを切り替え(概念図・系列識別色)",
+    illustrationNote: "同じ位置でサポートテキスト⇄エラーテキストを切り替え(概念図)",
   },
   {
     key: "wcag",
@@ -192,7 +192,7 @@ const SOURCES = [
         <text x="2" y="33" fontSize="7" fill="#7A4F7E" fontFamily="Jost, Noto Sans JP">✕ 入力中は検証しない → 離脱時に検証</text>
       </svg>
     ),
-    illustrationNote: "入力中の検証を避け、フィールド離脱時に検証(概念図・系列識別色)",
+    illustrationNote: "入力中の検証を避け、フィールド離脱時に検証(概念図)",
   },
 ];
 
@@ -535,7 +535,7 @@ export default function TextInputsInputValidationPage() {
 
 
           <h2 style={styles.diagramTitle}>検証タイミングの比較(図解)</h2>
-          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマホなど幅の狭い画面では、表を横にスクロールできる。</p>
+          <p style={styles.diagramNote}>入力欄を操作する流れを「入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後」の5つの時点に分け、各系列がどの時点で何をすべきとしているかを並べた。スマートフォンなど幅の狭い画面では、表を横にスクロールできる。</p>
           <p style={styles.diagramNote}><strong>タイミングを具体的に決めているのはNN group(欄を離れた時)とApple(内容で変える)</strong>。W3Cはタイミングを定めず、Googleは入力前のヒントだけを扱う。</p>
           <TimingLegend />
           <TimingChart />

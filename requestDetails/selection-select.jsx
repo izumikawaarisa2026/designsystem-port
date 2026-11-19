@@ -54,7 +54,7 @@ const SOURCES = [
         <path d="M76 9l4 4-4 4" fill="none" stroke="#C2542A" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 78 13)" />
       </svg>
     ),
-    illustrationNote: "Pop-upボタン(概念図・系列識別色)",
+    illustrationNote: "Pop-upボタン(概念図)",
   },
   {
     key: "material",
@@ -64,7 +64,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "選択中の項目をテキストフィールド上に表示する「Exposed dropdown menu」。セレクトとしては単一選択で使う(複数選択は「メニュー」「チェックボックス」ページ)",
     size:
-      "メニュー項目の最小タップ領域は48×48dp。",
+      "メニュー項目の押せる範囲の最小は48×48dp。",
     colorInfo:
       "カラーマッピングは「標準(サーフェスの配色、強調は控えめ)」と「鮮やか(第三の色、強調が強い)」の2種類。鮮やかな配色は目立つため控えめに使う。選択済み/未選択の項目は既定で3:1以上のコントラスト比にし、チェックマークなど色以外の手がかりも添える。",
     glossary: [
@@ -85,7 +85,7 @@ const SOURCES = [
       { label: "Menus(Exposed dropdown menu)", url: "https://m3.material.io/components/menus/guidelines" },
       { label: "Specs(最新版)", url: "https://m3.material.io/components/menus/specs" },
     ],
-    confirmedNote: "使用法・バリエーション・色のマッピング・単一選択/複数選択・メニュー項目・アクセシビリティ(タップ領域・フォーカス・終了操作)の各セクションは2026-09時点で公式ページ本文を直接確認済み。メニュー全体のdp数値やカラートークン名などのspecs数値は未確認。",
+    confirmedNote: "使用法・バリエーション・色のマッピング・単一選択/複数選択・メニュー項目・アクセシビリティ(押せる範囲・フォーカス・終了操作)の各セクションは2026-09時点で公式ページ本文を直接確認済み。メニュー全体のdp数値やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
       <svg width="90" height="26" viewBox="0 0 90 26">
         <rect x="1" y="1" width="88" height="24" rx="4" fill="#FFFFFF" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -94,7 +94,7 @@ const SOURCES = [
         <line x1="1" y1="20" x2="89" y2="20" stroke="#2F7D6E" strokeWidth="1.6" />
       </svg>
     ),
-    illustrationNote: "Exposed dropdown menu(概念図・系列識別色。下線はテキストフィールドとしての位置づけを示す)",
+    illustrationNote: "Exposed dropdown menu(概念図。下線はテキストフィールドとしての位置づけを示す)",
   },
   {
     key: "wcag",
@@ -180,7 +180,7 @@ const SOURCES = [
         <path d="M76 9l4 4-4 4" fill="none" stroke="#7A4F7E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" transform="rotate(90 78 13)" />
       </svg>
     ),
-    illustrationNote: "視覚デザインの規定はなく、系列識別色で図示",
+    illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
 
@@ -310,13 +310,13 @@ export default function SelectionSelectPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは4系列とも<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「ラジオボタンほど目立たせたくないコンパクトな選択に向く」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
+              セレクトは、Apple・Google・NN groupの3系列が<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「メニューはラジオボタンやチップの組より場所を取らない」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
             </p>
             <p style={styles.synthesisText}>
               Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば自動的に対応する</strong>。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルとの関連付けやフォーカスの見え方などは別に確かめる)。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
