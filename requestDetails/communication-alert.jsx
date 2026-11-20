@@ -344,13 +344,13 @@ export default function CommunicationStatusMessagePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>ステータスメッセージ専用のコンポーネントを持つ系列はない</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」という考え方で扱い、Googleは色の役割として<strong>エラーだけ</strong>を持っている。
+              <strong>ステータスメッセージ専用のコンポーネントを持つ系列はない</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」として扱う。Googleには、色の役割としてエラーがあるだけだ。
             </p>
             <p style={styles.synthesisText}>
-              共通しているのは、<strong>伝える情報の重さに合わせて伝え方を変える</strong>ことだ。Appleは状態の知らせを対象の近くに控えめに置き、取り返しのつかないデータ損失の警告だけ作業を止めて伝えるとし、NN groupも情報の種類・緊急度・対応の要否で伝え方を選ぶとしている。また、<strong>色だけに頼らず、支援技術にも伝える</strong>ことは、AppleとW3Cの2系列が明記している。
+              共通するのは、<strong>情報の重さに合わせて伝え方を変える</strong>ことだ。Appleは、状態の知らせを対象の近くに控えめに出し、取り返しのつかないデータ損失の警告だけ作業を止めて伝える。NN groupも、情報の種類・緊急度・対応が要るかで伝え方を選ぶ。<strong>色だけに頼らず支援技術にも伝える</strong>ことは、AppleとW3Cが明記する。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>、<strong>成功の知らせは重要な作業だけにして控えめに出す</strong>、という使い分けが、AppleとNN groupの考え方を満たす。数秒で消える通知にエラーを出すのは避ける(NN group)。
+              <strong>実務では、エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>。成功の知らせは重要な作業だけにして、控えめに出す。<strong>数秒で消える通知にエラーを出さない</strong>(NN group)。
             </p>
           </div>
 

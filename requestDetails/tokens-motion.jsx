@@ -852,16 +852,16 @@ export default function TokensMotionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              アニメーションの長さをミリ秒で示しているのは、GoogleとNN groupだけだ。Googleは<strong>50〜1000msの16段階</strong>のトークンを持ち、NN groupは<strong>多くは100〜500ms、単純なフィードバックは約100ms</strong>という目安を示す。両者を重ねると、<strong>小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が共通の目安になる。
+              <strong>長さの数値(ミリ秒)を示すのは、GoogleとNN groupだけだ</strong>。Googleは50〜1000msの16段階のトークン、NN groupは多くの場合100〜500ms(単純な反応は約100ms)とする。重ねると、<strong>小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が目安になる(AI解釈)。
             </p>
             <p style={styles.synthesisText}>
-              使い分けのルールも似ている。Googleは<strong>「動く範囲が広いほど長く」</strong>、NN groupは<strong>「違和感のない範囲で最短に」「現れる動きは消える動きより少し長く」</strong>とし、イージングは両者とも<strong>入る動きは減速、出る動きは加速</strong>で一致している。
+              決め方も近い。Googleは動く範囲が広いほど長く、NN groupは違和感のない範囲で短くする。緩急は、<strong>入る動きは減速・出る動きは加速</strong>で、両者が一致する。
             </p>
             <p style={styles.synthesisText}>
-              Appleは数値を示さず、<strong>目的のある動きだけを使い、頻繁な操作には足さず、途中で取り消せるようにする</strong>という原則を重視する。W3Cは長さではなく安全面の上限として、<strong>5秒を超える自動の動きを止められること</strong>と<strong>1秒間に3回を超えて点滅しないこと</strong>を定めている。
+              <strong>Appleは数値を持たず</strong>、目的のある動きだけを使い、頻繁な操作には足さない。<strong>W3Cは長さではなく安全面の上限を定める</strong>(5秒を超える自動の動きは止められる・1秒に3回を超えて点滅しない)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>動きだけで情報を伝えず、動きを減らせるようにする</strong>ことは、<strong>Apple・Google・W3Cが明記し、NN groupも配慮に触れている</strong>。AppleとGoogleは端末の動きを減らす設定への対応(移動をフェードにする)を求め、W3Cは操作で起きる装飾的な動きを無効にできること(AAA)を求めている。実務では、<strong>トークンで長さをそろえたうえで、「動きを減らす」設定のときはフェードに置き換える</strong>、という組み合わせが各系列の考え方を満たす。
+              <strong>動きを減らす設定への対応</strong>は、Apple・Google・W3C(2.3.3・AAA)が求める。<strong>実務では、トークンで長さをそろえ、動きを減らす設定のときは移動をフェードに置き換える</strong>(AI解釈)。
             </p>
           </div>
 

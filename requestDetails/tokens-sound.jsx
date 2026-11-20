@@ -570,16 +570,16 @@ export default function TokensSoundPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点だ(Google(M2)は音の作り方が中心で、音の代わりの手段の記載はない)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めている。
+              <strong>音は補助にし、音だけに頼らず、利用者が止められるようにする</strong>。この点でApple・W3C・NN groupが一致する。Appleは、字幕や触覚・見た目の手がかりを併用する。W3Cは、自動で3秒を超えて鳴る音を、止めるか音量を変えられるようにする(1.4.2)。NN groupは、効果音をオフにする設定を求める。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>端末の設定(消音モード・音量・出力先)に従う「鳴らし方」</strong>を、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を詳しく定める(Googleは<strong>Material Design 2(旧版)の指針で、M3には対応するページがない</strong>)。
+              違いは重心だ。Appleは端末の設定(消音・音量・出力先)に従う<strong>「鳴らし方」</strong>を、Googleは音の種類・音色・旋律の<strong>「作り方」</strong>を詳しく定める(GoogleはMaterial Design 2の旧版の指針)。
             </p>
             <p style={styles.synthesisText}>
-              「鳴らさない」判断も重要だ。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止める。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘している。
+              <strong>鳴らさない場面も決めておく</strong>。Googleは控えめさが要る画面や頻繁な操作では鳴らさないとし、Appleは消音モードで利用者が始めた音以外を止める。NN groupは、言葉のない効果音は意味が伝わりにくいと指摘する。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論だ(AI解釈)。
+              <strong>実務では、頻繁な音ほど控えめにし、必ず見た目(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

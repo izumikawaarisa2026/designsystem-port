@@ -334,16 +334,13 @@ export default function CommunicationBadgePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
+              <strong>独立したページを持つのはGoogleだけ</strong>で、小(ドット)と大(数字・最大4文字)の2種類を定める。Appleにはバッジのページがなく、アプリアイコンの未読件数(Notifications)とタブのバッジ(Tab bars)の2か所に書かれている。NN groupは、用語集の1項目で短く定義する。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、WCAGの技法ARIA14(見えるラベルのないものに、支援技術向けの名前を付ける)を当てはめた形だ(AI解釈)。バッジが件数などを伝える唯一の手がかりなら、その意味はボタンの名前などで必ず伝える。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
+              <strong>点は「あることの合図」、数字は「件数」</strong>という2つの区分は、Google・NN groupに共通する。Appleはこの区分を書いておらず、タブのバッジには数字か感嘆符を使う(感嘆符は件数ではない)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
-            </p>
-            <p style={styles.synthesisText}>
-              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴だ。
+              W3Cには、バッジ専用の役割がない。<strong>バッジが件数を伝える唯一の手がかりなら、その意味をアイコンボタンの名前などで伝える</strong>(4.1.2)。装飾のバッジは読み上げず、件数をボタンの名前に含めるのが一例だ(技法ARIA14の考え方。AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

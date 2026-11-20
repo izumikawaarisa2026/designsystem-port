@@ -3037,13 +3037,13 @@ function CommunicationStatusMessagePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>ステータスメッセージ専用のコンポーネントを持つ系列はない</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」という考え方で扱い、Googleは色の役割として<strong>エラーだけ</strong>を持っている。
+              <strong>ステータスメッセージ専用のコンポーネントを持つ系列はない</strong>。Appleは「フィードバック」、W3Cは「ステータスメッセージ」、NN groupは「状態のフィードバック」として扱う。Googleには、色の役割としてエラーがあるだけだ。
             </p>
             <p style={styles.synthesisText}>
-              共通しているのは、<strong>伝える情報の重さに合わせて伝え方を変える</strong>ことだ。Appleは状態の知らせを対象の近くに控えめに置き、取り返しのつかないデータ損失の警告だけ作業を止めて伝えるとし、NN groupも情報の種類・緊急度・対応の要否で伝え方を選ぶとしている。また、<strong>色だけに頼らず、支援技術にも伝える</strong>ことは、AppleとW3Cの2系列が明記している。
+              共通するのは、<strong>情報の重さに合わせて伝え方を変える</strong>ことだ。Appleは、状態の知らせを対象の近くに控えめに出し、取り返しのつかないデータ損失の警告だけ作業を止めて伝える。NN groupも、情報の種類・緊急度・対応が要るかで伝え方を選ぶ。<strong>色だけに頼らず支援技術にも伝える</strong>ことは、AppleとW3Cが明記する。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>、<strong>成功の知らせは重要な作業だけにして控えめに出す</strong>、という使い分けが、AppleとNN groupの考え方を満たす。数秒で消える通知にエラーを出すのは避ける(NN group)。
+              <strong>実務では、エラーは問題の場所の近くに直し方と一緒に出し、直すまで残す</strong>。成功の知らせは重要な作業だけにして、控えめに出す。<strong>数秒で消える通知にエラーを出さない</strong>(NN group)。
             </p>
           </div>
 
@@ -3523,16 +3523,13 @@ function CommunicationBadgePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              Googleだけが「Badges」という独立したM3コンポーネントページを持ち、小(ドット)/大(数字・最大4文字)という2バリエーションを明確に定義している。一方でAppleは<strong>単独の「バッジ」ページを持たず</strong>、アプリアイコンの未読件数(Notificationsページ)とタブ上のバッジ(Tab Barsページ)という、性質の異なる2箇所の記述に分散している。
+              <strong>独立したページを持つのはGoogleだけ</strong>で、小(ドット)と大(数字・最大4文字)の2種類を定める。Appleにはバッジのページがなく、アプリアイコンの未読件数(Notifications)とタブのバッジ(Tab bars)の2か所に書かれている。NN groupは、用語集の1項目で短く定義する。
             </p>
             <p style={styles.synthesisText}>
-              W3Cには<strong>バッジ専用の役割がそもそもない</strong>。対応の<strong>一例</strong>は、装飾のバッジ自体は読み上げず、件数などの意味をアイコンボタンの名前に含めるという、WCAGの技法ARIA14(見えるラベルのないものに、支援技術向けの名前を付ける)を当てはめた形だ(AI解釈)。バッジが件数などを伝える唯一の手がかりなら、その意味はボタンの名前などで必ず伝える。4.1.2が求めるのは名前・役割・値を支援技術が取得できることで、この形を一律に求めているわけではない。
+              <strong>点は「あることの合図」、数字は「件数」</strong>という2つの区分は、Google・NN groupに共通する。Appleはこの区分を書いておらず、タブのバッジには数字か感嘆符を使う(感嘆符は件数ではない)。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupの扱いも、独立記事ではなく<strong>UI Elements Glossaryの1項目としての簡潔な定義</strong>に留まる。Google・NN groupに共通するのは<strong>「ドットは存在の合図、数字は件数の定量化」</strong>という2区分の考え方だ。Appleはこの区分を書いておらず、タブのバッジは数字か感嘆符を使う(感嘆符は件数ではない)。W3Cは見た目の区分を定めていない。
-            </p>
-            <p style={styles.synthesisText}>
-              総じてバッジは、<strong>4系列のどこにおいても「単体のコンポーネント」というより他コンポーネント(アイコン・タブ・通知)に付随する小さな装飾・情報要素</strong>として位置づけられており、この位置づけの軽さ自体が比較から見えてくる特徴だ。
+              W3Cには、バッジ専用の役割がない。<strong>バッジが件数を伝える唯一の手がかりなら、その意味をアイコンボタンの名前などで伝える</strong>(4.1.2)。装飾のバッジは読み上げず、件数をボタンの名前に含めるのが一例だ(技法ARIA14の考え方。AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -5794,7 +5791,7 @@ const SOURCES = [
     doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA(控えめな知らせ・緊急の警告)",
     term: "控えめな知らせ・緊急の警告(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "内容の緊急度で、控えめな通知は読み上げ中の内容の後に、すぐ伝えるべき警告は割り込んで読み上げる。操作を持つなら時間で消さない(2.2.1)",
+    position: "内容の緊急度で、控えめな通知は読み上げ中の内容の後に、すぐ伝えるべき警告は割り込んで読み上げる。「元に戻す」などの操作を時間で消すなら、時間制限の一般的な基準(2.2.1)から、時間で消さないか延長・解除できるようにする",
     size: "専用の数値基準はない。アクションボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどは3:1以上のコントラスト比にする。",
     glossary: [
@@ -5964,7 +5961,7 @@ function SnackToast() {
           <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
           <tbody>
             <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
-            <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(W3Cの2.2.1)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
+            <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(W3Cの時間制限の一般的な基準、2.2.1を当てはめた場合)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
             <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
           </tbody>
         </table>
@@ -10034,16 +10031,13 @@ function ContainmentCarouselPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「カルーセル」をコンポーネントとして定義しているのは<strong>Googleだけ</strong>で、M3は<strong>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)</strong>を用途で選ぶ方式だ。Appleには専用のページがなく、横にめくるページの位置を点で示す<strong>ページコントロール</strong>が最も近い指針だ(点は約10個まで、下部中央)。
+              <strong>カルーセルをコンポーネントとして定めているのは、Googleだけだ</strong>。M3は4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)を用途で選ぶ。Appleには専用のページがなく、ページの位置を点で示すページコントロールがいちばん近い(点は約10個まで・下部中央)。
             </p>
             <p style={styles.synthesisText}>
-              一方、W3CとNN groupは、カルーセルの<strong>危うさ</strong>を中心に扱っている。WCAGの2.2.2は、<strong>自動で始まり、5秒を超えて続き、ほかの内容と並んで表示される動き</strong>に、一時停止・停止・非表示などの手段を求める(要件)。APGのカルーセルは、それとは別に、<strong>停止ボタンを最初に置き、フォーカスやホバーで止める</strong>ことを設計に含めている(実装の参考)。NN groupは、利用者が<strong>カルーセルを読み飛ばしがちで2枚目以降は見られにくい</strong>ことから、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧めている。
+              <strong>W3CとNN groupは、カルーセルの危うさを中心に扱う</strong>。WCAG 2.2.2は、自動で始まり、5秒を超えて続き、ほかの内容と並んで出る動きに、一時停止・停止・非表示の手段を求める(要件)。APGの例は、停止ボタンを最初に置き、フォーカスやホバーで止める(実装の参考)。NN groupは、2枚目以降は見られにくいため、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧める。
             </p>
             <p style={styles.synthesisText}>
-              自動送りについては、AppleとGoogleには記載がない。W3CとNN groupは、どちらも<strong>自動送りに慎重で、送るなら止められるようにする</strong>方向で一致している。
-            </p>
-            <p style={styles.synthesisText}>
-              実務では、<strong>まず静的なヒーロー画像やグリッドで足りないかを考え、カルーセルにするならGoogleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せ、自動では送らない(送るなら止められる)</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、まず静的な画像やグリッドで足りないかを考える</strong>。カルーセルにするなら、Googleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せる。<strong>自動では送らず、送るなら止められるようにする</strong>(AI解釈)。
             </p>
           </div>
 
@@ -11316,7 +11310,7 @@ const SOURCES = [
       { term: "先頭 / コンテンツ / 末尾スロット", desc: "項目の3つの領域。先頭にはアバター・アイコン・選択コントロールなど、コンテンツにはラベル・補足の文など、末尾には操作の要素や選択コントロールなどを置ける。" },
     ],
     stance:
-      <>読みやすさを重視した縦の索引。<Hl>選択モードはリストごとに1つだけ</Hl>(単一選択はラジオボタン、複数選択はチェックボックスかスイッチ)。</>,
+      <>読みやすさを重視した縦の索引。<Hl>選択モードはリストごとに1つだけ</Hl>(単一選択はラジオボタン、複数選択はチェックボックスかスイッチ。項目を選ぶならチェックボックス、設定のオン・オフならスイッチ)。</>,
     scenarios: [
       "特定の項目を見つけて操作させる、縦の索引を作りたい場面",
       "中〜拡張のブレークポイントで、リストと詳細を並べて見せたい場面",
@@ -12804,16 +12798,16 @@ function ContainmentTablePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通している。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしている。
+              <strong>表は比べるための形だ</strong>。この位置づけは、NN group・Apple・Googleに共通する。NN groupは、隣り合う値を記憶に頼らず比べられる点を挙げる。Appleは文字を読み流すのに行の形が向くとし、Googleは傾向を見つけやすくすることを目的にする。
             </p>
             <p style={styles.synthesisText}>
-              違いは決めている層だ。Google(旧版M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
+              違いは、<strong>決めている層</strong>だ。Google(旧版M2)は<strong>寸法(行52dp・見出し行56dp・列の間32dp以上)</strong>と、並べ替えの矢印・選択した行の背景色まで決める。Appleは数値を持たず、<strong>振る舞い</strong>を求める(macOSで見出しを押すと並べ替え、もう一度で逆順・列幅を変えられる・行の色を交互に)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>見出しのセルとデータのセルの関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。<strong>並べ替えの状態</strong>も伝える。
+              W3Cは見た目ではなく、<strong>見出しとデータのセルの関係を構造で伝える</strong>ことを求める(1.3.1)。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなる。並べ替えの状態も伝える。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いている。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造(見出しとデータの関係・並べ替えの状態)はW3Cに沿って正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論だ。
+              NN groupは、<strong>表の4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、見出しと最初の列の固定・縞模様・列の非表示を導く。<strong>実務では、見た目はGoogleの寸法とAppleの並べ替えを土台にし、構造はW3Cに沿って伝え、4つの作業が楽にできるかで機能を足す</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -13505,7 +13499,7 @@ function IndexPage() {
                     {[
                       ["pt(ポイント)", "Apple", "@1xの画面で1pt=1ピクセル", "@2xの画面では2ピクセル、@3xでは3ピクセル", ["HIG Images ― Resolution", "https://developer.apple.com/design/human-interface-guidelines/images#Resolution"]],
                       ["dp(密度非依存ピクセル)", "Google(Android)", "160dpiの画面(基準の密度)の1ピクセルにほぼ等しい", "密度に合わせてAndroidが実際のピクセル数に換算する", ["Android Developers ― Use density-independent pixels", "https://developer.android.com/training/multiscreen/screendensities#TaskUseDP"]],
-                      ["CSS px", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
+                      ["CSS px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
                     ].map((r) => (
                       <tr key={r[0]}>
                         <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", fontWeight: 700, whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td>
@@ -14710,7 +14704,7 @@ const DRAWER_SOURCES = [
     position:
       <>コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。<Hl>5つ以上の主な行き先、または2階層を超える場合に使う</Hl></>,
     size:
-      <span>コンパクト・中サイズのブレークポイントではModal(またはタブバー/ナビゲーションレールへの置き換え)を使う。Webでは画面幅が320 CSSピクセル未満なら、タブバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
+      <span>コンパクト・中サイズのブレークポイントではModal(またはタブバー/ナビゲーションレールへの置き換え)を使う。Webでは画面幅が320 CSS px未満なら、タブバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はデザイントークンで実装する。選択中の行き先は塗りのアイコン、未選択は枠線のアイコンで区別し、アクティブインジケーター(背景の図形)で今のページを示す。ドロワーの幅は360dp、インジケーターは高さ56dp・Secondary container・角丸Full、モーダルの容器はSurface container low・影Level 1(Jetpack ComposeのNavigationDrawerTokens)。</span>,
     glossary: [
@@ -14756,7 +14750,7 @@ const DRAWER_SOURCES = [
     position:
       <>「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、<Hl>ダイアログ(モーダル)として作る</Hl></>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、閉じるボタンや選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
@@ -14910,7 +14904,7 @@ const RAIL_SOURCES = [
     term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "常に表示するサイドナビは、ナビゲーションの領域(目印)として示す",
-    size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり)。",
+    size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり)。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
@@ -15215,16 +15209,16 @@ function NavigationDrawerPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              使い分けの結論は、<strong>隠すナビゲーションは見つけにくいので、広い画面ではサイドナビとして常に表示し、狭い画面で項目が多いときだけナビゲーションドロワーに隠す</strong>ことだ。NN groupはモバイルでも、トップの項目が4個以下なら見える形で表示するよう勧めている。
+              <strong>広い画面ではサイドナビとして常に表示し、狭い画面で項目が多いときだけドロワーに隠す</strong>。隠したナビゲーションは見つけにくいからだ。NN groupは、隠すと<strong>見つけてもらえる割合がほぼ半分になり、作業時間がデスクトップで39%以上長くなる</strong>と報告している。モバイルでも、トップの項目が4個以下なら見える形で出すよう勧める。
             </p>
             <p style={styles.synthesisText}>
-              スマートフォンのドロワーは、<strong>Appleには該当する指針がなく</strong>、GoogleはModalのナビゲーションドロワーを持っている。ただしGoogleは<strong>M3 Expressiveで、ナビゲーションドロワーを非推奨にし、広げると項目名まで並ぶナビゲーションレール(サイドナビ)に置き換える</strong>としている。NN groupは、隠れたナビゲーションは<strong>見つけてもらえる割合をほぼ半分にし、作業時間をデスクトップで39%以上長くする</strong>と報告している。
+              スマートフォンのドロワーは、Appleには該当する指針がない。GoogleにはModalのナビゲーションドロワーがある。ただし<strong>M3 Expressiveで非推奨にし、広げると項目名まで並ぶナビゲーションレールに置き換える</strong>としている。
             </p>
             <p style={styles.synthesisText}>
-              広い画面では、サイドナビ(Appleのサイドバー、Googleのナビゲーションレール、NN groupの左側の縦型ナビゲーション)が、<strong>主な行き先を画面の脇に常に表示する</strong>点で一致している。NN groupは、アイコンだけにせず文字のラベルを付けること、左側に置いて目立たせることも勧めている。
+              広い画面では、<strong>主な行き先を常に見せる</strong>点で3系列が一致する(Appleのサイドバー、Googleのナビゲーションレール、NN groupの左の縦型ナビゲーション)。NN groupは、アイコンだけにせず文字のラベルを付けることも勧める。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは「ドロワー」という単一の型を持たず、<strong>後ろを覆うドロワーはダイアログ(モーダル)、常に表示するものはナビゲーションの領域</strong>として扱う。どちらでも、複数のページで項目を同じ順番に並べる(3.2.3)ことが求められる。
+              W3Cにはドロワーという型がない。後ろを覆うものはダイアログ(モーダル)、常に見せるものはナビゲーションの領域として扱う。どちらも、<strong>複数のページで項目を同じ順に並べる(3.2.3)</strong>。
             </p>
           </div>
           <h3 id="drawer" style={styles.subTitle}>① ナビゲーションドロワー(主にスマートフォン)</h3>
@@ -15448,7 +15442,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <>ナビゲーションのリンクのまとまりを、<Hl>1つの領域(目印)として支援技術に伝える</Hl></>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中の項目を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
@@ -17293,13 +17287,13 @@ function NavigationTabsVsSegmentedPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              タブとセグメントコントロールは、<strong>「横一列に並ぶボタン状の見た目」と「複数の選択肢から1つを選ぶ操作」が共通</strong>しているため混同されやすいコンポーネントだ。しかしAppleは両者を明確に別のガイドラインページで扱っており、Googleも用途を分けて説明している。W3CとNN groupには、この使い分けを直接扱う記載はない。
+              タブとセグメントコントロールは、横に並ぶボタンのような見た目と、1つを選ぶ操作が同じなので、混同されやすい。<strong>Appleは別々のページで扱い、Googleも用途を分けて説明する</strong>。W3CとNN groupには、使い分けを直接扱う記載はない。
             </p>
             <p style={styles.synthesisText}>
-              最も本質的な違いは<strong>「選ぶと何が起きるか」</strong>だ。タブは<strong>内容のまとまり(別の一覧・別のセクション)を、同じページの中で切り替える</strong>ためのものだ(W3CのAPGのTabsパターンも、同じページの中でパネルを切り替えるコンポーネントとして定義している)。一方セグメントコントロールは<strong>同じ場所に留まったまま、見え方や設定を切り替える</strong>ためのもので、Appleの地図アプリの例(マップ/交通機関/航空写真)のように、遷移はせず同じデータの見せ方だけが変わる。
+              違いは、<strong>選ぶと何が切り替わるか</strong>だ。タブは、<strong>内容のまとまり(別の一覧・別のセクション)を同じページの中で切り替える</strong>(W3CのAPGのTabsパターンも同じ定義)。セグメントコントロールは、<strong>同じ内容の見せ方や設定を切り替える</strong>。Appleの地図アプリ(マップ/交通機関/航空写真)のように、データは同じで見え方だけが変わる。
             </p>
             <p style={styles.synthesisText}>
-              迷ったときは、<strong>切り替えるものの意味</strong>で見分ける。<strong>内容のまとまり(別の一覧・別のセクション)ならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロール</strong>だ(主にAppleの説明に沿った、このサイトが勧める見分け方。GoogleのSegmented buttonsは、選択肢を選ぶなど、より広い用途を含む)。別のページへ移るなら、そもそもタブではなくナビゲーション(リンク)を使う。見た目だけで判断したい場合は、<strong>項目同士が1つの帯(track)でつながっているかどうか</strong>も手がかりになる(つながっていればセグメントコントロール)。
+              <strong>迷ったら、内容のまとまりならタブ、同じ内容の見せ方・並び順・設定ならセグメントコントロールにする</strong>(主にAppleの説明に沿った、このサイトの見分け方。GoogleのSegmented buttonsは、より広い用途を含む)。別のページへ移るなら、タブではなくナビゲーション(リンク)を使う。見た目では、項目どうしが1つの帯でつながっていればセグメントコントロールだ。
             </p>
           </div>
 
@@ -17474,7 +17468,7 @@ const SOURCES = [
     count:
       <span><Hl>固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になる</Hl>。多いときはスクロールできるタブにし、最初のタブを端から52dp離して、スクロールできることを示す。</span>,
     size:
-      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。押せる範囲は48×48 CSSピクセル以上(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。タブの高さ(48dp)とは別の値。既定で高密度の設定を適用せず(押せる範囲が48×48 CSSピクセルを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48 CSSピクセル以上に保つ。",
+      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。押せる範囲は48×48 CSS px以上(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。タブの高さ(48dp)とは別の値。既定で高密度の設定を適用せず(押せる範囲が48×48 CSS pxを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48 CSS px以上に保つ。",
     colorInfo:
       <span>選んだタブは、文字とアイコンの下線と色の変化で区別する。</span>,
     glossary: [
@@ -17486,7 +17480,7 @@ const SOURCES = [
     exceptions:
       <span>順番に読む内容にはタブを使わず、タイポグラフィや余白で階層を作る。一部のタブだけアイコンとラベルの両方を使う(ほかは片方だけ)ような不統一は避ける。<Hl>タブをループして無限にスクロールさせない</Hl>(スクリーンリーダーで順にたどる人の妨げになりうるため)。</span>,
     accessibility:
-      "操作可能(Operable) ― 押せる範囲を48×48 CSSピクセル以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
+      "操作可能(Operable) ― 押せる範囲を48×48 CSS px以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
     useCases: [
       "同じ階層の関連する内容をカテゴリにまとめる(順に読む内容には使わない)",
       "階層が複数要るなら、プライマリ+セカンダリの2段にする",
@@ -17522,7 +17516,7 @@ const SOURCES = [
     count:
       <NoData>記載なし</NoData>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中のタブを示す下線や背景などは3:1以上のコントラスト比にする。",
     glossary: [
@@ -18299,13 +18293,13 @@ function PrinciplesAccessibilityPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なる。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義している。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っている。
+              「アクセシビリティ」の捉え方は、系列で違う。<strong>WCAGは適合を判定できる規格</strong>で、知覚可能・操作可能・理解可能・堅牢の4原則(POUR)を定める。Apple・Google・NN groupは、規格ではなく実践の指針として語る。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに指針を示し、視覚(コントラスト・文字サイズ)と運動(押せる範囲)には数値もある。さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを表示する(開発者の自己申告)</strong>仕組みを持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
+              NN groupは<strong>「チェックリストではなく心構え」</strong>とする。Appleは分野(視覚・聴覚・運動・発話・認知)ごとに指針を持ち、視覚と運動には数値もある。App Storeでは、対応する支援機能を表示できる(<strong>Accessibility Nutrition Labels。開発者の自己申告</strong>)。Googleは、画面を構造・流れ・要素の3段階で、読み上げの順に置き換える手順を示す。
             </p>
             <p style={styles.synthesisText}>
-              本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
+              このサイトの各ページがPOURの言葉を使うのは、<strong>WCAGが最も具体的で、確かめられるから</strong>だ。ほかの3系列は、規格では拾いきれない考え方を補う。
             </p>
           </div>
 
@@ -18928,14 +18922,14 @@ const GROUPS = [
   ] },
   { id: "text", title: "文字とレイアウト", desc: "拡大・狭い幅・向きの変化で崩れないこと", items: [
     { n: "1.4.4", name: "テキストのサイズ変更", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html", req: "文字を200%まで拡大しても内容と機能が失われない。", design: "固定の高さに文字を押し込めない。拡大で文字が切れたり重なったりしないかを確かめる。ページ全体のズームで満たしてもよい。", exc: "字幕と文字画像。", pages: ["/components/text-inputs/text-field", "/tokens/typography"] },
-    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320 CSSピクセル相当でも、縦横2方向のスクロールなしで読める。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
+    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320 CSS px相当でも、縦横2方向のスクロールなしで読める。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
     { n: "1.4.12", name: "テキストの間隔", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html", req: "利用者が文字の間隔を広げても崩れない。", design: "行の高さ1.5倍・段落の後2倍・字間0.12倍・単語間隔0.16倍に広げても、文字が切れたり重なったりしない。この値をデザインの初期値にする必要はない。", exc: "その言語でもともと使わない間隔(単語の間にスペースがない言語の単語間隔など)。", pages: ["/tokens/typography"] },
     { n: "1.3.4", name: "向き(orientation)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html", req: "画面の向きを縦・横の一方に固定しない。", design: "端末を固定して使う人(車いすのアームなど)は回転させられない。縦向き・横向きのどちらでも使えるようにする。", exc: "小切手・ピアノのアプリ・VRなど、特定の向きが欠かせないもの。", pages: ["/tokens/adaptive"] },
     { n: "1.3.1", name: "情報及び関係性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html", req: "見た目で伝えている構造や関係を、構造としても伝える。", design: "見出し・リスト・表の見出しとデータの関係・余白でまとめたグループなどを、見た目だけでなく構造でも示す。余白だけのまとまりは読み上げでは伝わらない。", exc: "", pages: ["/components/containment/list", "/components/containment/table", "/components/text-inputs/text-field", "/tokens/layout-spacing"] },
   ] },
   { id: "target", title: "押せる範囲と入力の方法", desc: "指・ポインター・キーボードなど、入力の手段ごとの決まり", items: [
-    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24 CSSピクセル以上にする(例外あり)。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
-    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44 CSSピクセル以上にする。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
+    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24 CSS px以上にする(例外あり)。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
+    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44 CSS px以上にする。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
     { n: "2.5.1", name: "ポインタジェスチャ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html", req: "2本指以上や軌跡で決まる操作に、1本指で軌跡のない代わりを用意する。", design: "ピンチでの拡大には+/−のボタン、スワイプでの送りには前へ・次へのボタンなど。", exc: "軌跡そのものが欠かせない操作(手書きの署名など)。", pages: ["/tokens/input-methods"] },
     { n: "2.5.2", name: "ポインタキャンセル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html", req: "押した瞬間ではなく、離したときに実行する。", design: "誤って触れても、指をボタンの外へずらして離せば取り消せるようにする。", exc: "キーボードやピアノの鍵盤をまねるなど、押した瞬間の実行が欠かせないもの。", pages: ["/tokens/input-methods"] },
     { n: "2.5.4", name: "動きによる起動", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html", req: "端末を振る・傾けるなどの動きで行う機能に、画面上の代わりと、動きを切る手段を用意する。", design: "「振って元に戻す」には取り消しボタンも置き、動きへの反応を無効にできるようにする。", exc: "OSのアクセシビリティ機能など、支援の仕組みで動きを使う場合。", pages: ["/tokens/input-methods"] },
@@ -18949,7 +18943,7 @@ const GROUPS = [
     { n: "2.4.7", name: "フォーカスの可視化", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html", req: "キーボードで操作するとき、フォーカスの位置が見える。", design: "フォーカスの表示を消さない。色の変化だけに頼らず、輪郭線などで示すと分かりやすい。", exc: "", pages: ["/components/actions/button", "/tokens/interaction-states"] },
     { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
     { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", design: "2.4.11より厳しい水準。", exc: "", pages: ["/tokens/elevation"] },
-    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", design: "コンポーネントの周りを2 CSSピクセルの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
+    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", design: "コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
     { n: "3.2.1", name: "フォーカス時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html", req: "フォーカスが当たっただけで、文脈を変えない。", design: "フォーカスしただけで別のページへ遷移する・新しいウィンドウを開く・送信する、といったことを起こさない。", exc: "", pages: ["/components/navigation/tabs", "/components/selection/select"] },
     { n: "1.4.13", name: "ホバー又はフォーカスで表示されるコンテンツ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html", req: "ホバーやフォーカスで出る内容(ツールチップなど)の3つの条件を満たす。", design: "①ポインターを動かさずに消せる(Escキーなど)、②内容の上にポインターを移しても消えない、③離れるか消すまで勝手に消えない。", exc: "入力の誤りの表示など、内容がほかの情報を隠さないもの。ブラウザが出すツールチップ。", pages: ["/components/communication/tooltip"] },
   ] },
@@ -19207,7 +19201,7 @@ const SOURCES = [
     states:
       <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持つ。子の一部だけが選択されていると親は未確定になり、未確定の親を選ぶとすべての子が選択される。</span>,
     size:
-      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48 CSSピクセル</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
+      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48 CSS px</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。</span>,
     glossary: [
@@ -19256,7 +19250,7 @@ const SOURCES = [
     states:
       <span>4.1.2により、<Hl>状態(オン・オフ・不定)</Hl>が支援技術に伝わる必要がある。</span>,
     size:
-      <span>専用の数値基準はなく、WCAG 2.2で加わった一般のターゲットサイズの基準がかかる。<Hl>2.5.8(レベルAA)は最低24×24 CSSピクセル</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44 CSSピクセル</Hl>(どちらも例外あり。詳しくは「ボタン」ページ)。押せる要素全般の基準で、チェックボックス固有ではない。</span>,
+      <span>専用の数値基準はなく、WCAG 2.2で加わった一般のターゲットサイズの基準がかかる。<Hl>2.5.8(レベルAA)は最低24×24 CSS px</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44 CSS px</Hl>(どちらも例外あり。詳しくは「ボタン」ページ)。押せる要素全般の基準で、チェックボックス固有ではない。</span>,
     colorInfo:
       <span>1.4.11(非テキストのコントラスト、レベルAA)により、境界線や状態を示す見た目は、隣の色と3:1以上にする。1.4.1(色の用途、レベルA)により、<Hl>色だけで選択状態を示さない</Hl>。</span>,
     stance:
@@ -19415,8 +19409,8 @@ const SPLITS = [
       </>
     ),
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "48×48 CSSピクセルを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
-      { who: "W3C", color: "#A3821F", t: "24×24 CSSピクセル(2.5.8・レベルAA)/44×44 CSSピクセル(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
+      { who: "Google", color: "#2F7D6E", t: "48×48 CSS pxを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
+      { who: "W3C", color: "#A3821F", t: "24×24 CSS px(2.5.8・レベルAA)/44×44 CSS px(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
       { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
     tip: "ラベルも含めた押せる範囲を48×48 CSS px以上にしておけば、Googleの基準を満たし、W3Cの24 CSS px(AA)・44 CSS px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
@@ -21540,16 +21534,13 @@ function SelectionMenuPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、項目を増やしすぎない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線をコンポーネントとして持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
+              並べ方は、<strong>よく使う項目を上に置き、項目を増やしすぎない</strong>(Apple・NN group)。目安は、Appleがサブメニュー約5項目まで、NN groupがコンテキストメニュー10〜12項目未満だ。Googleは<strong>寸法(項目の高さ48dp・幅112〜280dp)</strong>と、関係する項目をまとめる区切り線を決める。W3Cは見た目ではなく、キーボード操作と、開閉の状態などの役割・状態を伝えることを定める。
             </p>
             <p style={styles.synthesisText}>
-              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
+              <strong>使えない項目を隠すか薄く出すか、コンテキストメニューにショートカットを出すかは、AppleとNN groupで答えが逆だ</strong>(上の「意見が分かれる点」)。一方で両者は、コンテキストメニューは最初は隠れていて気づかれにくいので、<strong>同じ命令をメインの画面からも使えるようにする</strong>点で一致する。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>メニューが開くことと開閉の状態</strong>を伝えることなど、役割と状態を定めている。
-            </p>
-            <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めている。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、並べ方はApple・NN group、寸法はGoogle、役割と状態はW3Cにそろえる</strong>。隠すか薄くするか・ショートカットを出すかは、メインのメニューがあるかで決める(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -22067,7 +22058,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "リストから1つを選ぶためのコントロール。5個以下の選択肢に向く",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSS px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSS pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -22110,7 +22101,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "状態と「1つだけ選べること」を支援技術に正しく伝える",
     size:
-      "専用の数値基準はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択を示す塗った円などは、周りと3:1以上にする。1.4.1により、色だけで選択状態を示さない。",
     stance:
@@ -22382,7 +22373,7 @@ function SelectionRadioPage() {
               <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれる(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしている(ただし操作の手間は増える)。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleも「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
+              サイズについては、<strong>Googleも「既定で48×48 CSS pxを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -23121,13 +23112,13 @@ function SelectionSelectPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは、Apple・Google・NN groupの3系列が<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「メニューはラジオボタンやチップの組より場所を取らない」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
+              セレクトは、<strong>選択肢を折りたたんで場所を取らないようにする</strong>。この理解で、Apple・Google・NN groupが一致する。常に全部を見せるラジオボタンと、折りたたむセレクトのどちらにするかは、<strong>表示する場所と選択肢の数で決める</strong>。Googleも、メニューはラジオボタンやチップより場所を取らないとする。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
+              NN groupは、<strong>セレクトが向かない場面</strong>を具体的に挙げる。都道府県・国名のように入力した方が速い場面と、生年月日のように覚えている情報だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルとの関連付けやフォーカスの見え方などは別に確かめる)。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              <strong>ブラウザ標準のプルダウンなら、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルの関連付けやフォーカスの見え方は別に確かめる)。モバイルでは、多くの場合、端末やブラウザの選択の画面が使われる。そのため、<strong>独自のプルダウンは安易に作らない</strong>。作るなら、名前・役割・状態(4.1.2)とキーボード操作(2.1.1)が要件で、APGの「Select-Only Combobox」が作り方の参考になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -23406,7 +23397,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "キーボードで操作できることを求める(レベルA)",
     size:
-      "専用のサイズの規定はない。WCAG 2.2のターゲットサイズの基準(2.5.8・レベルAAは24×24 CSSピクセル、2.5.5・レベルAAAは44×44 CSSピクセル。どちらも例外あり)では、位置で値を選ぶコンポーネントは、つまみだけでなく全体を1つのターゲットとして扱う(Understanding 2.5.8の注記にスライダーの例がある)。",
+      "専用のサイズの規定はない。WCAG 2.2のターゲットサイズの基準(2.5.8・レベルAAは24×24 CSS px、2.5.5・レベルAAAは44×44 CSS px。どちらも例外あり)では、位置で値を選ぶコンポーネントは、つまみだけでなく全体を1つのターゲットとして扱う(Understanding 2.5.8の注記にスライダーの例がある)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの境界は周りと3:1以上にする。",
     stance:
@@ -24103,7 +24094,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定をすぐオン/オフするためのコントロール(月額/年額のような相反する2択の切り替えには使わない)",
     size:
-      "推奨の押せる範囲は48×48 CSSピクセル(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSSピクセルを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSSピクセル以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48 CSS px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSS pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -24144,7 +24135,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "形を問わず、状態を支援技術に正しく伝える",
     size:
-      "専用のサイズの規定はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSSピクセル以上、2.5.5(レベルAAA)は44×44 CSSピクセル(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用のサイズの規定はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの境界と状態は周りと3:1以上にする。1.4.1により、色だけでオン・オフを示さない。",
     glossary: [
@@ -24403,13 +24394,10 @@ function SelectionTogglePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              トグルスイッチは<strong>「オン・オフの2状態を切り替える」</strong>コンポーネントだ。<strong>押したらすぐ反映させるかどうか</strong>が系列で分かれる点で、GoogleとNN groupは「すぐ反映」をチェックボックスとの違いにしている(上の「意見が分かれる点」)。
+              トグルスイッチは、<strong>オン・オフの2つの状態を切り替える</strong>。GoogleとNN groupは、<strong>押したらすぐ反映する</strong>点をチェックボックスとの違いにしている(上の「意見が分かれる点」)。Googleは、月額/年額のような相反する2つの選択肢には、スイッチではなくボタングループを使うとする。
             </p>
             <p style={styles.synthesisText}>
-              Googleは<strong>月額/年額のような相反する2つの選択肢の切り替えにはスイッチを使わず</strong>、ボタングループを使うとしている。WCAGは、スイッチの名前・役割・状態が支援技術に伝わること(4.1.2)を求める。
-            </p>
-            <p style={styles.synthesisText}>
-              サイズについては、<strong>Appleが明示しない一方でGoogleは「既定で48×48 CSSピクセルを下回らせない」という具体的な数値</strong>を持っており、チェックボックス・ラジオボタンと同一の考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と非テキストのコントラスト(1.4.11)を一般基準として要求しており、実務上はこのWCAG基準とGoogleの48dpが最も具体的な数値の指針になる。
+              数値は、Appleは示さず、<strong>Googleは押せる範囲を48×48 CSS px以上</strong>とする(M3のこのコンポーネントの説明での表記。チェックボックス・ラジオボタンと同じ考え方)。<strong>W3Cはコンポーネントの種類を問わず、押せる範囲24×24 CSS px(AA)・44×44 CSS px(AAA。どちらも例外あり)</strong>と、非テキストのコントラスト(1.4.11)を求める。名前・役割・状態を支援技術に伝えることも要る(4.1.2)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -27963,10 +27951,10 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 1.3.4 Orientation",
     color: "#A3821F",
     position: <>どの広さで何に切り替えるかは定めず、<Hl>「狭くしても・向きを変えても、情報と機能が失われないこと」</Hl>を求める</>,
-    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSSピクセル相当、横にスクロールする内容は高さ256 CSSピクセル相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
+    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSS px相当、横にスクロールする内容は高さ256 CSS px相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
     colorInfo: "見た目の切り替え方は自由。求めるのは結果で、拡大して幅が狭くなったら1列に組み替わり、横スクロールせずに読めること。向きは、利用者が好む向きで表示できるようにする。",
     glossary: [
-      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
+      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSS px相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
       { term: "1.3.4 Orientation・レベルAA", desc: "表示と操作を縦・横のどちらかに固定しないこと。特定の向きが欠かせない場合は例外。" },
     ],
     stance:
@@ -28436,16 +28424,16 @@ function TokensAdaptivePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示している。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めている。
+              広さが変わっても、<strong>内容と機能は同じに保ち、見せ方だけを組み替える</strong>(Apple・W3C)。Appleは「広さで機能を変えない」とし、W3Cは幅320 CSS px相当まで狭めても情報と機能を失わないことを求める(1.4.10)。
             </p>
             <p style={styles.synthesisText}>
-              組み替え方を最も具体的に決めているのはGoogleだ。<strong>Compactではタブバー、それより広ければナビゲーションレール</strong>に自動で切り替え(Jetpack ComposeのNavigationSuiteScaffoldの既定。M3の指針ではMediumはバーかレール)、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示している。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもある。
+              組み替え方を最も具体的に決めているのはGoogleだ。狭い画面(Compact)は<strong>タブバー</strong>、それより広ければ<strong>ナビゲーションレール</strong>にし(Jetpack Composeの既定)、3つのカノニカルレイアウト(<strong>リスト・詳細/フィード/補助ペイン</strong>)で列の数まで示す。広さが変わっても、選択中の項目や開いている詳細は保つ。
             </p>
             <p style={styles.synthesisText}>
-              Appleは境界値を示さず、システムが決める<strong>サイズクラス(compact/regular)</strong>で判断させる。広い画面では<strong>タブバーをサイドバーに切り替え、スプリットビューで2〜3列</strong>にするなど、Googleと同じ方向の組み替えを勧めつつ、<strong>リサイズしてもプラットフォームらしいレイアウトのままにする</strong>ことを重視している。
+              Appleは境界値を示さず、<strong>サイズクラス(compact/regular)</strong>で判断する。広い画面ではタブバーをサイドバーに切り替え、スプリットビューで2〜3列にするなど、Googleと同じ方向だ。NN groupはWebのブレークポイントの目安(500・1200・1400px)を挙げ、実際は2〜3個で足りるとする。
             </p>
             <p style={styles.synthesisText}>
-              NN groupはWebのブレークポイントの目安として<strong>500px・1200px・1400px</strong>を挙げ、実際には2〜3個で十分としている。切り替えで<strong>ナビゲーションをハンバーガーに畳む・列を減らす</strong>ときは、主な行動ボタンが埋もれないかの確認を求めている。実務では、<strong>Googleの型で組み替え方を決め、W3Cの320pxと縦横両方の向きで情報と機能が残るかを確かめる</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、Googleの型で組み替え方を決め、幅320 CSS pxと縦横両方の向きで、情報と機能が残るかを確かめる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -32357,12 +32345,12 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: <>状態の種類や見た目は定めず、<Hl>「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」</Hl>を求める</>,
-    size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2 CSSピクセルの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
+    size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
     visual: "見た目の作り方は自由。ただし選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする。隣り合って表示されない状態どうしの色の変化は3:1でなくてよい(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UIコンポーネントと状態を見分けるための見た目と、意味のある図形に、隣の色との3:1以上のコントラストを求める。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボード操作で、どこにフォーカスがあるかが見えること。実務の目標(AA)。" },
-      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくしたもの。大きさは2 CSSピクセルの外周相当以上、表示前後の変化は3:1以上。" },
+      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくしたもの。大きさは2 CSS pxの外周相当以上、表示前後の変化は3:1以上。" },
       { term: "4.1.2 Name, Role, Value・レベルA", desc: "UIコンポーネントの名前・役割と状態・値をプログラムで判別でき、変化が支援技術に通知されること。" },
     ],
     stance:
@@ -32739,16 +32727,16 @@ function TokensInteractionStatesPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              状態の軸になるのは、Google・NN groupに共通する<strong>有効・ホバー・フォーカス・プレス・無効</strong>の5つだ。Googleはこの5つ(+ドラッグ)にトークンを定義し、NN groupはこれをボタンの基本セットとする。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定義している。
+              状態の軸は、Google・NN groupに共通する5つ(<strong>有効・ホバー・フォーカス・プレス・無効</strong>)だ。Googleはこの5つ(+ドラッグ)にトークンを定義し、NN groupはボタンの基本セットとする。Appleは共通の一覧を持たず、<strong>プラットフォームと入力方法ごと</strong>に定める。
             </p>
             <p style={styles.synthesisText}>
-              見せ方を数値で決めているのはGoogleだけで、<strong>文字色と同じ色を半透明で重ねる「ステートレイヤー」</strong>の不透明度を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%、無効は38%</strong>としている。Appleは<strong>独自の効果を作らず、システムの効果に任せる</strong>ことを基本にし、そのうえで独自のボタンにも押した状態を必ず用意するよう求めている。
+              見せ方を数値で決めているのはGoogleだけだ。文字色と同じ色を半透明で重ねる「ステートレイヤー」を、<strong>ホバー8%・フォーカス10%・プレス10%・ドラッグ16%</strong>とし、無効は38%にする。Appleは<strong>システムの効果に任せる</strong>のが基本で、独自のボタンにも押した状態を必ず用意するよう求める。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは状態の種類を定めず、<strong>コンポーネントや状態を見分けるための見た目を、隣り合う色と3:1以上にすること</strong>(すべての状態どうしの差を3:1にすることではない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術にも伝えること</strong>を求める。無効なコンポーネントはコントラストの対象外なので、Googleの38%やNN groupの「読める程度の低コントラスト」と矛盾しない。
+              W3Cは状態の種類を定めない。求めるのは3つで、<strong>コンポーネントや状態を見分ける見た目を隣り合う色と3:1以上にすること</strong>(1.4.11。状態どうしの差をすべて3:1にする必要はない)、<strong>フォーカスが見えること(2.4.7・AA)</strong>、<strong>状態を支援技術に伝えること</strong>だ。無効なコンポーネントはコントラストの対象外なので、Googleの38%とも矛盾しない。
             </p>
             <p style={styles.synthesisText}>
-              実務で特に役立つのが、NN groupの<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内に)</strong>と、<strong>フォーカスは色だけでなく輪郭線で示す</strong>という点だ。これはW3Cの2.4.7(フォーカスの可視化・AA)を満たす方法の1つで(2.4.7は表示のしかたまでは決めていない)、より厳しい2.4.13(AAA。2px相当の太さ・3:1の変化)にも近づく。GoogleもWebの実装(Material Web)では、重ね色に加えて太さ3pxのフォーカスリングを出す。状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせるのが、4系列を合わせた結論だ。
+              実務で役に立つのは、NN groupの2つの勧めだ。<strong>時間の目安(ホバーは150〜200ms待ってから、フォーカスとプレスは100〜150ms以内)</strong>と、<strong>フォーカスを輪郭線で示すこと</strong>だ。輪郭線は2.4.7を満たす方法の1つで、GoogleもWeb(Material Web)では3pxのフォーカスリングを出す。<strong>実務では、状態の見た目をトークンでそろえ、輪郭線のフォーカスと支援技術への通知を組み合わせる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -32996,8 +32984,8 @@ const SOURCES = [
     colorInfo: <NoData>幅ごとの決まりはない</NoData>,
     structure: <>1.3.1(A): <Hl>余白でまとめたグループは、構造でも支援技術に伝える</Hl>(余白だけでは読み上げで伝わらない)。</>,
     glossary: [
-      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、縦横両方向のスクロールなしで読めること。地図・図表・データ表など2次元の配置が要る部分は例外。" },
-      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSSピクセル以上にするか、小さいなら周りに十分な間隔を取ること。文中のリンクなどは例外。" },
+      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSS px相当まで狭めても、縦横両方向のスクロールなしで読めること。地図・図表・データ表など2次元の配置が要る部分は例外。" },
+      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSS px以上にするか、小さいなら周りに十分な間隔を取ること。文中のリンクなどは例外。" },
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で表している構造や関係を、見出し・リスト・グループなどのマークアップでも表すこと。" },
     ],
     stance:
@@ -34313,16 +34301,16 @@ function TokensMotionPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              アニメーションの長さをミリ秒で示しているのは、GoogleとNN groupだけだ。Googleは<strong>50〜1000msの16段階</strong>のトークンを持ち、NN groupは<strong>多くは100〜500ms、単純なフィードバックは約100ms</strong>という目安を示す。両者を重ねると、<strong>小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が共通の目安になる。
+              <strong>長さの数値(ミリ秒)を示すのは、GoogleとNN groupだけだ</strong>。Googleは50〜1000msの16段階のトークン、NN groupは多くの場合100〜500ms(単純な反応は約100ms)とする。重ねると、<strong>小さなコンポーネントの反応は100〜200ms前後、画面の大きな変化は300ms前後</strong>が目安になる(AI解釈)。
             </p>
             <p style={styles.synthesisText}>
-              使い分けのルールも似ている。Googleは<strong>「動く範囲が広いほど長く」</strong>、NN groupは<strong>「違和感のない範囲で最短に」「現れる動きは消える動きより少し長く」</strong>とし、イージングは両者とも<strong>入る動きは減速、出る動きは加速</strong>で一致している。
+              決め方も近い。Googleは動く範囲が広いほど長く、NN groupは違和感のない範囲で短くする。緩急は、<strong>入る動きは減速・出る動きは加速</strong>で、両者が一致する。
             </p>
             <p style={styles.synthesisText}>
-              Appleは数値を示さず、<strong>目的のある動きだけを使い、頻繁な操作には足さず、途中で取り消せるようにする</strong>という原則を重視する。W3Cは長さではなく安全面の上限として、<strong>5秒を超える自動の動きを止められること</strong>と<strong>1秒間に3回を超えて点滅しないこと</strong>を定めている。
+              <strong>Appleは数値を持たず</strong>、目的のある動きだけを使い、頻繁な操作には足さない。<strong>W3Cは長さではなく安全面の上限を定める</strong>(5秒を超える自動の動きは止められる・1秒に3回を超えて点滅しない)。
             </p>
             <p style={styles.synthesisText}>
-              <strong>動きだけで情報を伝えず、動きを減らせるようにする</strong>ことは、<strong>Apple・Google・W3Cが明記し、NN groupも配慮に触れている</strong>。AppleとGoogleは端末の動きを減らす設定への対応(移動をフェードにする)を求め、W3Cは操作で起きる装飾的な動きを無効にできること(AAA)を求めている。実務では、<strong>トークンで長さをそろえたうえで、「動きを減らす」設定のときはフェードに置き換える</strong>、という組み合わせが各系列の考え方を満たす。
+              <strong>動きを減らす設定への対応</strong>は、Apple・Google・W3C(2.3.3・AAA)が求める。<strong>実務では、トークンで長さをそろえ、動きを減らす設定のときは移動をフェードに置き換える</strong>(AI解釈)。
             </p>
           </div>
 
@@ -34985,16 +34973,16 @@ function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要だ(理由は以下のとおり)。この比較サイトのファウンデーション9ページ・インタラクション3ページという区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読む。
+              このあとのトークンのページは、<strong>「4系列が同じ棚に同じものを並べている」と思わずに読む</strong>。このサイトの区切り(ファウンデーション9ページ・インタラクション3ページ)は、Apple・Googleの構成を参考にした、このサイトの分け方だ。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことだ。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められている。<strong>本サイトの「Foundation」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになる。
+              <strong>Googleは「Foundations」と「Styles」を分ける</strong>。色・文字・形・動きはStyles、アクセシビリティ・アダプティブ・文章・トークンの考え方はFoundationsにある。このサイトの「ファウンデーション」は、この2つにまたがる。
             </p>
             <p style={styles.synthesisText}>
-              一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下のトピックとして区別なく並べており、Googleのような二分はしていない。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いている</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違い(下部の「Foundationsと並列の区分」参照)。
+              <strong>Appleは、色も文字も文章もアクセシビリティも、Foundationsの中に区別なく並べる</strong>。原則はGetting startedに、操作の流れ・入力・固有の技術はFoundationsの外(Patterns・Inputs・Technologies)に置く。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持たない</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱う)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わる</strong>。NN groupは記事をTopicsで分類しているが、値をそろえる仕組みではなく、調査に基づく指針として読む。
+              <strong>W3CとNN groupには、土台に当たる括りがない</strong>。W3Cでは、色・文字などのトピックごとに個別の達成基準が関わる。NN groupは記事をTopicsで分けるが、値をそろえる仕組みではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -35266,7 +35254,7 @@ const SOURCES = [
     colorInfo: <>形の決まりはない。<Hl>境界だけが手がかりなら3:1</Hl>(1.4.11・AA)。</>,
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目と、図の理解に必要な部分に、隣の色と3:1以上を求める。" },
-      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSSピクセル以上にするか、周りに十分な間隔を取ること。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
+      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSS px以上にするか、周りに十分な間隔を取ること。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
     ],
     stance:
       <><Hl>角丸か四角かは問わない</Hl>。問うのは操作できると見分けられるか。枠のない文字だけのボタンも、文字で分かれば適合する。</>,
@@ -36542,16 +36530,16 @@ function TokensSoundPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>Apple・W3C・NN groupの3系列が一致</strong>しているのは、<strong>音は補助であり、音だけに頼らず、利用者が止められるようにする</strong>という点だ(Google(M2)は音の作り方が中心で、音の代わりの手段の記載はない)。Appleは字幕や触覚・視覚の手がかりの併用を求め、W3Cは自動で3秒を超えて鳴る音を止められることを求め、NN groupは効果音をオフにする設定を必ず用意するよう求めている。
+              <strong>音は補助にし、音だけに頼らず、利用者が止められるようにする</strong>。この点でApple・W3C・NN groupが一致する。Appleは、字幕や触覚・見た目の手がかりを併用する。W3Cは、自動で3秒を超えて鳴る音を、止めるか音量を変えられるようにする(1.4.2)。NN groupは、効果音をオフにする設定を求める。
             </p>
             <p style={styles.synthesisText}>
-              Appleは<strong>端末の設定(消音モード・音量・出力先)に従う「鳴らし方」</strong>を、Googleは<strong>音の種類・音色・旋律といった「作り方」</strong>を詳しく定める(Googleは<strong>Material Design 2(旧版)の指針で、M3には対応するページがない</strong>)。
+              違いは重心だ。Appleは端末の設定(消音・音量・出力先)に従う<strong>「鳴らし方」</strong>を、Googleは音の種類・音色・旋律の<strong>「作り方」</strong>を詳しく定める(GoogleはMaterial Design 2の旧版の指針)。
             </p>
             <p style={styles.synthesisText}>
-              「鳴らさない」判断も重要だ。Googleは<strong>控えめさが求められる画面・割り込みを望まない利用者・頻繁な操作</strong>では音を使わないよう求め、Appleも消音モードでは利用者が始めた再生以外を止める。NN groupは、言葉を使わない効果音(イヤコン)は<strong>意味が伝わりにくく、操作直後の確認か、繰り返し聞いて覚えた場合にしか伝わらない</strong>と指摘している。
+              <strong>鳴らさない場面も決めておく</strong>。Googleは控えめさが要る画面や頻繁な操作では鳴らさないとし、Appleは消音モードで利用者が始めた音以外を止める。NN groupは、言葉のない効果音は意味が伝わりにくいと指摘する。
             </p>
             <p style={styles.synthesisText}>
-              実務では、<strong>音は「頻繁なものほど控えめに・まれなものほど印象的に」作り、必ず視覚(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>のが、4系列を合わせた結論だ(AI解釈)。
+              <strong>実務では、頻繁な音ほど控えめにし、必ず見た目(と触覚)の手がかりと組にして、端末の消音・音量設定に従わせる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
