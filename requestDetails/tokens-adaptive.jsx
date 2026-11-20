@@ -85,10 +85,10 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 1.3.4 Orientation",
     color: "#A3821F",
     position: <>どの広さで何に切り替えるかは定めず、<Hl>「狭くしても・向きを変えても、情報と機能が失われないこと」</Hl>を求める</>,
-    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSSピクセル相当、横にスクロールする内容は高さ256 CSSピクセル相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
+    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSS px相当、横にスクロールする内容は高さ256 CSS px相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
     colorInfo: "見た目の切り替え方は自由。求めるのは結果で、拡大して幅が狭くなったら1列に組み替わり、横スクロールせずに読めること。向きは、利用者が好む向きで表示できるようにする。",
     glossary: [
-      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSSピクセル相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
+      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSS px相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
       { term: "1.3.4 Orientation・レベルAA", desc: "表示と操作を縦・横のどちらかに固定しないこと。特定の向きが欠かせない場合は例外。" },
     ],
     stance:
@@ -562,16 +562,16 @@ export default function TokensAdaptivePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>広さが変わっても内容と機能は同じに保ち、見せ方だけを組み替える</strong>という考え方は、AppleとW3Cがはっきり示している。Appleは「広さによって機能を変えない」と明言し、W3Cは「320 CSS px相当まで狭めても情報と機能を失わない」ことを求めている。
+              広さが変わっても、<strong>内容と機能は同じに保ち、見せ方だけを組み替える</strong>(Apple・W3C)。Appleは「広さで機能を変えない」とし、W3Cは幅320 CSS px相当まで狭めても情報と機能を失わないことを求める(1.4.10)。
             </p>
             <p style={styles.synthesisText}>
-              組み替え方を最も具体的に決めているのはGoogleだ。<strong>Compactではタブバー、それより広ければナビゲーションレール</strong>に自動で切り替え(Jetpack ComposeのNavigationSuiteScaffoldの既定。M3の指針ではMediumはバーかレール)、<strong>リスト・詳細/フィード/補助ペイン</strong>という3つのカノニカルレイアウトで、何列にするか(補助ペインはMediumで1:1、Expandedで7:3)まで示している。広さが変わったときに<strong>選択中の項目や開いている詳細を保つ</strong>ルールもある。
+              組み替え方を最も具体的に決めているのはGoogleだ。狭い画面(Compact)は<strong>タブバー</strong>、それより広ければ<strong>ナビゲーションレール</strong>にし(Jetpack Composeの既定)、3つのカノニカルレイアウト(<strong>リスト・詳細/フィード/補助ペイン</strong>)で列の数まで示す。広さが変わっても、選択中の項目や開いている詳細は保つ。
             </p>
             <p style={styles.synthesisText}>
-              Appleは境界値を示さず、システムが決める<strong>サイズクラス(compact/regular)</strong>で判断させる。広い画面では<strong>タブバーをサイドバーに切り替え、スプリットビューで2〜3列</strong>にするなど、Googleと同じ方向の組み替えを勧めつつ、<strong>リサイズしてもプラットフォームらしいレイアウトのままにする</strong>ことを重視している。
+              Appleは境界値を示さず、<strong>サイズクラス(compact/regular)</strong>で判断する。広い画面ではタブバーをサイドバーに切り替え、スプリットビューで2〜3列にするなど、Googleと同じ方向だ。NN groupはWebのブレークポイントの目安(500・1200・1400px)を挙げ、実際は2〜3個で足りるとする。
             </p>
             <p style={styles.synthesisText}>
-              NN groupはWebのブレークポイントの目安として<strong>500px・1200px・1400px</strong>を挙げ、実際には2〜3個で十分としている。切り替えで<strong>ナビゲーションをハンバーガーに畳む・列を減らす</strong>ときは、主な行動ボタンが埋もれないかの確認を求めている。実務では、<strong>Googleの型で組み替え方を決め、W3Cの320pxと縦横両方の向きで情報と機能が残るかを確かめる</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、Googleの型で組み替え方を決め、幅320 CSS pxと縦横両方の向きで、情報と機能が残るかを確かめる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

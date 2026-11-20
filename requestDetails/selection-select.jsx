@@ -310,13 +310,13 @@ export default function SelectionSelectPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              セレクトは、Apple・Google・NN groupの3系列が<strong>「選択肢を折りたたんで省スペースにする」</strong>という理解で一致している。ラジオボタンと役割は近いが、Googleが「メニューはラジオボタンやチップの組より場所を取らない」としている通り、<strong>常に全部を見せるラジオボタンと、折りたたむセレクトのどちらを使うかは表示スペースと選択肢の数で決まる</strong>という位置づけだ。
+              セレクトは、<strong>選択肢を折りたたんで場所を取らないようにする</strong>。この理解で、Apple・Google・NN groupが一致する。常に全部を見せるラジオボタンと、折りたたむセレクトのどちらにするかは、<strong>表示する場所と選択肢の数で決める</strong>。Googleも、メニューはラジオボタンやチップより場所を取らないとする。
             </p>
             <p style={styles.synthesisText}>
-              Nielsen Norman Groupは<strong>「都道府県・国名のようにタイピングの方が速い場面」「生年月日のように暗記している情報」にはセレクトは不向き</strong>と具体的に指摘しており、実務でよくある誤用への注意点として重要だ。
+              NN groupは、<strong>セレクトが向かない場面</strong>を具体的に挙げる。都道府県・国名のように入力した方が速い場面と、生年月日のように覚えている情報だ。
             </p>
             <p style={styles.synthesisText}>
-              アクセシビリティについては、<strong>ブラウザ標準のプルダウンを使えば、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルとの関連付けやフォーカスの見え方などは別に確かめる)。標準のプルダウンなら、モバイルでは多くの場合、端末やブラウザに標準で用意された選択の画面が使われる(見た目や操作は端末・ブラウザによって異なる)。そのため、<strong>独自のプルダウンを安易に作らない</strong>のが安全だ。どうしても作る場合、WCAGの要件は名前・役割・状態(4.1.2)とキーボード操作(2.1.1)で、作り方の参考はW3CのAPGの「Select-Only Combobox」の例だ(矢印キー操作・7個超でのタイプアヘッドなどは、APGの勧め)。
+              <strong>ブラウザ標準のプルダウンなら、キーボード操作と、役割・状態を支援技術に伝えることは標準で備わる</strong>(ラベルの関連付けやフォーカスの見え方は別に確かめる)。モバイルでは、多くの場合、端末やブラウザの選択の画面が使われる。そのため、<strong>独自のプルダウンは安易に作らない</strong>。作るなら、名前・役割・状態(4.1.2)とキーボード操作(2.1.1)が要件で、APGの「Select-Only Combobox」が作り方の参考になる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

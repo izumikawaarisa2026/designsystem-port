@@ -445,16 +445,16 @@ export default function TokensOverviewPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              以降の各トークンページ(カラー・タイポグラフィ等)を読む際は、<strong>「4系列が同じ棚に同じものを並べている」という前提を持たない</strong>ことが重要だ(理由は以下のとおり)。この比較サイトのファウンデーション9ページ・インタラクション3ページという区切り方自体が、Apple・Googleの実際の構成を主な参考にした編集上の判断であることを踏まえて読む。
+              このあとのトークンのページは、<strong>「4系列が同じ棚に同じものを並べている」と思わずに読む</strong>。このサイトの区切り(ファウンデーション9ページ・インタラクション3ページ)は、Apple・Googleの構成を参考にした、このサイトの分け方だ。
             </p>
             <p style={styles.synthesisText}>
-              最も大きな点は、<strong>Google(Material Design 3)が「Foundations」と「Styles」を明確に別のトップレベルセクションとして分離している</strong>ことだ。色・タイポグラフィ・シェイプ・モーションといった視覚的なトークンはStyles側に属し、Foundations側にはAccessible design・Adaptive design・Content design・Design tokensなど機能横断的な考え方が集められている。<strong>本サイトの「Foundation」という1つの括りは、Googleの実際の区分ではFoundationsとStylesという2つの異なるセクションにまたがっている</strong>ことになる。
+              <strong>Googleは「Foundations」と「Styles」を分ける</strong>。色・文字・形・動きはStyles、アクセシビリティ・アダプティブ・文章・トークンの考え方はFoundationsにある。このサイトの「ファウンデーション」は、この2つにまたがる。
             </p>
             <p style={styles.synthesisText}>
-              一方Appleは、AccessibilityもColorもTypographyもWritingも、Foundations配下のトピックとして区別なく並べており、Googleのような二分はしていない。ただしAppleは<strong>Foundationsの外に、Patterns(よくある操作の流れ)・Inputs(入力手段)・Technologies(Apple固有の技術)を並列の区分として持ち、設計原則(Design principles)もFoundationsではなくGetting startedに置いている</strong>。Googleは原則もFoundationsの中に置いているため、<strong>「原則」「入力」「体験パターン」を基礎と同じ箱に入れるか、別の箱に分けるか</strong>が2系列の構造上の違い(下部の「Foundationsと並列の区分」参照)。
+              <strong>Appleは、色も文字も文章もアクセシビリティも、Foundationsの中に区別なく並べる</strong>。原則はGetting startedに、操作の流れ・入力・固有の技術はFoundationsの外(Patterns・Inputs・Technologies)に置く。
             </p>
             <p style={styles.synthesisText}>
-              W3C(WCAG)とNielsen Norman Groupは、<strong>土台(Foundations)を持たない</strong>。WCAGのPOURの4原則は「原則」に当たり(思想レイヤーで扱う)、土台の各トピックには、色のコントラストや文字の拡大などの<strong>達成基準が「満たすべき条件」として個別に関わる</strong>。NN groupは記事をTopicsで分類しているが、値をそろえる仕組みではなく、調査に基づく指針として読む。
+              <strong>W3CとNN groupには、土台に当たる括りがない</strong>。W3Cでは、色・文字などのトピックごとに個別の達成基準が関わる。NN groupは記事をTopicsで分けるが、値をそろえる仕組みではない。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

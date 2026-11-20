@@ -446,16 +446,16 @@ export default function ContainmentTablePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>表は「比べる」ための形</strong>だという位置づけは、NN group・Apple・Googleの3系列に共通している。NN groupは、隣り合う値を目や記憶に頼らずに比べられる点をカードより優れた点に挙げ、Appleは文字を読み流すには行の形式が向くとし、Googleは傾向を見つけやすくすることを目的にしている。
+              <strong>表は比べるための形だ</strong>。この位置づけは、NN group・Apple・Googleに共通する。NN groupは、隣り合う値を記憶に頼らず比べられる点を挙げる。Appleは文字を読み流すのに行の形が向くとし、Googleは傾向を見つけやすくすることを目的にする。
             </p>
             <p style={styles.synthesisText}>
-              違いは決めている層だ。Google(旧版M2)は<strong>行52dp・見出し行56dp・列の間32dp以上</strong>という寸法と、<strong>並べ替えの矢印・選択した行の背景色</strong>まで決めている。Appleは数値を持たず、macOSの表で<strong>見出しをクリックして並べ替え、もう一度で逆順、列幅を変えられる、行の色を交互に</strong>といった振る舞いを求める。並べ替えの操作は、AppleとGoogleでほぼ同じだ。
+              違いは、<strong>決めている層</strong>だ。Google(旧版M2)は<strong>寸法(行52dp・見出し行56dp・列の間32dp以上)</strong>と、並べ替えの矢印・選択した行の背景色まで決める。Appleは数値を持たず、<strong>振る舞い</strong>を求める(macOSで見出しを押すと並べ替え、もう一度で逆順・列幅を変えられる・行の色を交互に)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>見出しのセルとデータのセルの関係を構造として伝えること(1.3.1)</strong>を求める。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなるからだ。<strong>並べ替えの状態</strong>も伝える。
+              W3Cは見た目ではなく、<strong>見出しとデータのセルの関係を構造で伝える</strong>ことを求める(1.3.1)。スクリーンリーダーは1セルずつ読むため、構造がないと何の値か分からなくなる。並べ替えの状態も伝える。
             </p>
             <p style={styles.synthesisText}>
-              NN groupは、表が支えるべき<strong>4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、<strong>見出しと最初の列の固定・縞模様・列の非表示</strong>を導いている。実務では、<strong>見た目はGoogleの寸法とAppleの並べ替えの振る舞いを土台にし、構造(見出しとデータの関係・並べ替えの状態)はW3Cに沿って正しく伝え、4つの作業がどれも楽にできるかで機能を足す</strong>のが、4系列を合わせた結論だ。
+              NN groupは、<strong>表の4つの作業(探す・比べる・1行を見る/編集する・まとめて操作する)</strong>から、見出しと最初の列の固定・縞模様・列の非表示を導く。<strong>実務では、見た目はGoogleの寸法とAppleの並べ替えを土台にし、構造はW3Cに沿って伝え、4つの作業が楽にできるかで機能を足す</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

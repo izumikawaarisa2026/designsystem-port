@@ -108,7 +108,7 @@ export default function IndexPage() {
                     {[
                       ["pt(ポイント)", "Apple", "@1xの画面で1pt=1ピクセル", "@2xの画面では2ピクセル、@3xでは3ピクセル", ["HIG Images ― Resolution", "https://developer.apple.com/design/human-interface-guidelines/images#Resolution"]],
                       ["dp(密度非依存ピクセル)", "Google(Android)", "160dpiの画面(基準の密度)の1ピクセルにほぼ等しい", "密度に合わせてAndroidが実際のピクセル数に換算する", ["Android Developers ― Use density-independent pixels", "https://developer.android.com/training/multiscreen/screendensities#TaskUseDP"]],
-                      ["CSS px", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
+                      ["CSS px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
                     ].map((r) => (
                       <tr key={r[0]}>
                         <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", fontWeight: 700, whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td>

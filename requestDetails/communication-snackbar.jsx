@@ -92,7 +92,7 @@ const SOURCES = [
     doc: "WCAG 4.1.3 / 2.2.1、WAI-ARIA(控えめな知らせ・緊急の警告)",
     term: "控えめな知らせ・緊急の警告(4.1.3のステータスメッセージ)",
     color: "#A3821F",
-    position: "内容の緊急度で、控えめな通知は読み上げ中の内容の後に、すぐ伝えるべき警告は割り込んで読み上げる。操作を持つなら時間で消さない(2.2.1)",
+    position: "内容の緊急度で、控えめな通知は読み上げ中の内容の後に、すぐ伝えるべき警告は割り込んで読み上げる。「元に戻す」などの操作を時間で消すなら、時間制限の一般的な基準(2.2.1)から、時間で消さないか延長・解除できるようにする",
     size: "専用の数値基準はない。アクションボタンには一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、境界線やアイコンなどは3:1以上のコントラスト比にする。",
     glossary: [
@@ -262,7 +262,7 @@ function SnackToast() {
           <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
           <tbody>
             <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
-            <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(W3Cの2.2.1)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
+            <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(W3Cの時間制限の一般的な基準、2.2.1を当てはめた場合)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
             <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
           </tbody>
         </table>

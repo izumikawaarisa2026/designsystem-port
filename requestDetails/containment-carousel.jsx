@@ -570,16 +570,13 @@ export default function ContainmentCarouselPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「カルーセル」をコンポーネントとして定義しているのは<strong>Googleだけ</strong>で、M3は<strong>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)</strong>を用途で選ぶ方式だ。Appleには専用のページがなく、横にめくるページの位置を点で示す<strong>ページコントロール</strong>が最も近い指針だ(点は約10個まで、下部中央)。
+              <strong>カルーセルをコンポーネントとして定めているのは、Googleだけだ</strong>。M3は4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)を用途で選ぶ。Appleには専用のページがなく、ページの位置を点で示すページコントロールがいちばん近い(点は約10個まで・下部中央)。
             </p>
             <p style={styles.synthesisText}>
-              一方、W3CとNN groupは、カルーセルの<strong>危うさ</strong>を中心に扱っている。WCAGの2.2.2は、<strong>自動で始まり、5秒を超えて続き、ほかの内容と並んで表示される動き</strong>に、一時停止・停止・非表示などの手段を求める(要件)。APGのカルーセルは、それとは別に、<strong>停止ボタンを最初に置き、フォーカスやホバーで止める</strong>ことを設計に含めている(実装の参考)。NN groupは、利用者が<strong>カルーセルを読み飛ばしがちで2枚目以降は見られにくい</strong>ことから、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧めている。
+              <strong>W3CとNN groupは、カルーセルの危うさを中心に扱う</strong>。WCAG 2.2.2は、自動で始まり、5秒を超えて続き、ほかの内容と並んで出る動きに、一時停止・停止・非表示の手段を求める(要件)。APGの例は、停止ボタンを最初に置き、フォーカスやホバーで止める(実装の参考)。NN groupは、2枚目以降は見られにくいため、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧める。
             </p>
             <p style={styles.synthesisText}>
-              自動送りについては、AppleとGoogleには記載がない。W3CとNN groupは、どちらも<strong>自動送りに慎重で、送るなら止められるようにする</strong>方向で一致している。
-            </p>
-            <p style={styles.synthesisText}>
-              実務では、<strong>まず静的なヒーロー画像やグリッドで足りないかを考え、カルーセルにするならGoogleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せ、自動では送らない(送るなら止められる)</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、まず静的な画像やグリッドで足りないかを考える</strong>。カルーセルにするなら、Googleのレイアウトから用途に合うものを選び、5枚以下・位置の表示・次の項目の端を見せる。<strong>自動では送らず、送るなら止められるようにする</strong>(AI解釈)。
             </p>
           </div>
 

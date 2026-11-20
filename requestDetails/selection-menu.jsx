@@ -448,16 +448,13 @@ export default function SelectionMenuPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              並べ方では、<strong>よく使う項目を上に置き、項目を増やしすぎない</strong>ことをAppleとNN groupが勧めている(Appleはサブメニューを約5項目まで、NN groupはコンテキストメニューを10〜12項目未満)。Googleは関係する項目をまとめる区切り線をコンポーネントとして持ち、項目の高さ48dp・幅112〜280dpという寸法を決めている。W3Cは並べ方ではなく、キーボード操作を定めている。
+              並べ方は、<strong>よく使う項目を上に置き、項目を増やしすぎない</strong>(Apple・NN group)。目安は、Appleがサブメニュー約5項目まで、NN groupがコンテキストメニュー10〜12項目未満だ。Googleは<strong>寸法(項目の高さ48dp・幅112〜280dp)</strong>と、関係する項目をまとめる区切り線を決める。W3Cは見た目ではなく、キーボード操作と、開閉の状態などの役割・状態を伝えることを定める。
             </p>
             <p style={styles.synthesisText}>
-              一方で、<strong>使えない項目を隠すか薄く表示するか</strong>と、<strong>コンテキストメニューにショートカットを表示するか</strong>は、AppleとNN groupで答えが逆だ(上の「意見が分かれる点」)。
+              <strong>使えない項目を隠すか薄く出すか、コンテキストメニューにショートカットを出すかは、AppleとNN groupで答えが逆だ</strong>(上の「意見が分かれる点」)。一方で両者は、コンテキストメニューは最初は隠れていて気づかれにくいので、<strong>同じ命令をメインの画面からも使えるようにする</strong>点で一致する。
             </p>
             <p style={styles.synthesisText}>
-              W3Cは見た目ではなく、<strong>メニューが開くことと開閉の状態</strong>を伝えることなど、役割と状態を定めている。
-            </p>
-            <p style={styles.synthesisText}>
-              また、AppleとNN groupは、コンテキストメニューが<strong>最初は隠れていて気づかれない</strong>点でも一致しており、<strong>同じ命令をメインの画面からも使えるようにする</strong>ことを求めている。実務では、<strong>並べ方はAppleとNN groupの勧めに、寸法はGoogleの規定にそろえ、役割と状態はW3Cの通りに伝え、隠す/薄くする・ショートカットの表示は「メインのメニューがあるか」で決める</strong>のが、4系列を合わせた結論だ。
+              <strong>実務では、並べ方はApple・NN group、寸法はGoogle、役割と状態はW3Cにそろえる</strong>。隠すか薄くするか・ショートカットを出すかは、メインのメニューがあるかで決める(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>

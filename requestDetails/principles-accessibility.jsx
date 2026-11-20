@@ -285,13 +285,13 @@ export default function PrinciplesAccessibilityPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              「アクセシビリティ」という言葉が指す範囲は、4系列でかなり異なる。<strong>WCAGは適合の可否を判定できる規格</strong>として、知覚可能・操作可能・理解可能・堅牢という4原則(POUR)を定義している。一方でApple・Google・Nielsen Norman Groupは、規格というより実践的な指針や考え方として、それぞれ独自の言葉でアクセシビリティを語っている。
+              「アクセシビリティ」の捉え方は、系列で違う。<strong>WCAGは適合を判定できる規格</strong>で、知覚可能・操作可能・理解可能・堅牢の4原則(POUR)を定める。Apple・Google・NN groupは、規格ではなく実践の指針として語る。
             </p>
             <p style={styles.synthesisText}>
-              なかでもNielsen Norman Groupは、アクセシビリティを<strong>「チェックリストではなく心構え(マインドセット)」</strong>だと明言しており、WCAGの規格的な性格とは対照的だ。Appleは視覚・聴覚・運動・発話・認知の分野ごとに指針を示し、視覚(コントラスト・文字サイズ)と運動(押せる範囲)には数値もある。さらに<strong>App Storeの「Accessibility Nutrition Labels」で、アプリがどの支援機能に対応しているかを表示する(開発者の自己申告)</strong>仕組みを持っている。Googleは「制約を機会に変える」という考え方に加え、構造・流れ・要素の3段階で、見た目の画面を読み上げの流れに置き換える手順を示している。
+              NN groupは<strong>「チェックリストではなく心構え」</strong>とする。Appleは分野(視覚・聴覚・運動・発話・認知)ごとに指針を持ち、視覚と運動には数値もある。App Storeでは、対応する支援機能を表示できる(<strong>Accessibility Nutrition Labels。開発者の自己申告</strong>)。Googleは、画面を構造・流れ・要素の3段階で、読み上げの順に置き換える手順を示す。
             </p>
             <p style={styles.synthesisText}>
-              本サイトが各コンポーネントページの「アクセシビリティ」欄でPOURの語彙を採用しているのは、<strong>数ある考え方の中でWCAGが最も具体的で、かつ検証可能</strong>だからだ。ただし、それが唯一の正解というわけではない。他の3系列の視点も知っておくと、アクセシビリティへの理解がより立体的になる。
+              このサイトの各ページがPOURの言葉を使うのは、<strong>WCAGが最も具体的で、確かめられるから</strong>だ。ほかの3系列は、規格では拾いきれない考え方を補う。
             </p>
           </div>
 
