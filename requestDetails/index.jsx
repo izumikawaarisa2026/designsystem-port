@@ -60,6 +60,32 @@ export default function IndexPage() {
               </p>
             </section>
 
+            {/* 対象4系列 */}
+            <section style={styles.section}>
+              <h2 style={styles.h2}>対象の4系列</h2>
+              <p style={styles.p}>各ページは、次のサイトを一次情報として読み、要約・言い換えで比べています。原文は各ページの「参照ページ(公式)」のリンク先で読めます。</p>
+              <div style={styles.sourceGrid}>
+                {[
+                  { name: "Apple", doc: "Human Interface Guidelines(HIG)", desc: "Apple製品の公式デザインガイドライン。", sites: [["Human Interface Guidelines", "https://developer.apple.com/design/human-interface-guidelines/", "Appleの各プラットフォームに共通する設計の原則と、コンポーネント・パターンごとの指針。"]], use: "iOS・iPadOS・macOS・watchOSの内容を載せる(tvOS・visionOSは対象外)。" },
+                  { name: "Google", doc: "Material Design 3(M3)", desc: "Android・Webを中心としたGoogleの公式デザインシステム。", sites: [["Material Design 3", "https://m3.material.io/", "現行のMaterial Design。コンポーネントごとの使い方・寸法・トークンを載せている。"], ["Material Design 2(旧版)", "https://m2.material.io/", "1つ前の版。M3にページがない項目(表・音など)の参考にする。"], ["Android Developers", "https://developer.android.com/", "Androidアプリの開発者向けの公式ドキュメント。トーストやウィジェットなど、OSの機能の説明に使う。"]], use: "M3を優先する。M3にページがない項目だけ、旧版(M2・M1)やAndroid Developersを使い、そのことを書き添える。" },
+                  { name: "W3C", doc: "WCAG 2.2・WAI-ARIA・APG", desc: "Webアクセシビリティの国際標準(WCAG)と関連する文書。", sites: [["WCAG 2.2", "https://www.w3.org/TR/WCAG22/", "Webアクセシビリティの達成基準そのもの(規格の本文)。"], ["Understanding WCAG 2.2(解説書)", "https://www.w3.org/WAI/WCAG22/Understanding/", "達成基準ごとに、意図・具体例・例外を説明するW3Cの解説書。"], ["ARIA Authoring Practices Guide(APG)", "https://www.w3.org/WAI/ARIA/apg/", "メニューやタブなど、よく使うコンポーネントの役割や状態を支援技術に伝える作り方の例(要件ではない)。"]], use: "達成基準は適合の要件として扱う。APGやチュートリアルは実装の参考例で、要件ではない。MDNは「解説」として補足に置く。" },
+                  { name: "Nielsen Norman Group", doc: "記事・用語集(UXリサーチ)", desc: "特定の製品に属さない、独立系のユーザビリティ研究機関。", sites: [["Articles", "https://www.nngroup.com/articles/", "ユーザビリティ調査にもとづく記事の一覧。各ページの根拠の多くはここにある。"], ["UI Elements Glossary", "https://www.nngroup.com/articles/ui-elements-glossary/", "UIの要素の名前と意味を短く説明する用語集。"]], use: "調査にもとづく設計の根拠として扱う(適合の基準ではない)。数値は記事に書かれているときだけ載せる。" },
+                ].map((x) => (
+                  <div key={x.name} style={styles.sourceCard}>
+                    <div style={styles.sourceName}>{x.name}</div>
+                    <div style={styles.sourceDoc}>{x.doc}</div>
+                    <p style={styles.sourceDesc}>{x.desc}</p>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "6px 0 2px" }}>参考にしているサイト</div>
+                    <ul style={{ margin: "0 0 6px", paddingLeft: 16, fontSize: 12, lineHeight: 1.7 }}>
+                      {x.sites.map(([l, u, d]) => (<li key={u} style={{ marginBottom: 4 }}><a href={u} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>{l} ↗</a><div style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.6 }}>{d}</div></li>))}
+                    </ul>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "4px 0 2px" }}>このサイトでの扱い</div>
+                    <p style={{ ...styles.sourceDesc, margin: 0 }}>{x.use}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
             {/* サイトの読み方 */}
             <section style={styles.section}>
               <h2 style={styles.h2}>サイトの読み方</h2>
@@ -133,32 +159,6 @@ export default function IndexPage() {
                   <div key={term} style={styles.guideItem}>
                     <div style={styles.guideTerm}>{term}</div>
                     <div style={styles.guideDesc}>{desc}</div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 対象4系列 */}
-            <section style={styles.section}>
-              <h2 style={styles.h2}>対象の4系列</h2>
-              <p style={styles.p}>各ページは、次のサイトを一次情報として読み、要約・言い換えで比べています。原文は各ページの「参照ページ(公式)」のリンク先で読めます。</p>
-              <div style={styles.sourceGrid}>
-                {[
-                  { name: "Apple", doc: "Human Interface Guidelines(HIG)", desc: "Apple製品の公式デザインガイドライン。", sites: [["Human Interface Guidelines", "https://developer.apple.com/design/human-interface-guidelines/"]], use: "iOS・iPadOS・macOS・watchOSの内容を載せる(tvOS・visionOSは対象外)。" },
-                  { name: "Google", doc: "Material Design 3(M3)", desc: "Android・Webを中心としたGoogleの公式デザインシステム。", sites: [["Material Design 3", "https://m3.material.io/"], ["Material Design 2(旧版)", "https://m2.material.io/"], ["Android Developers", "https://developer.android.com/"]], use: "M3を優先する。M3にページがない項目だけ、旧版(M2・M1)やAndroid Developersを使い、そのことを書き添える。" },
-                  { name: "W3C", doc: "WCAG 2.2・WAI-ARIA・APG", desc: "Webアクセシビリティの国際標準(WCAG)と関連する文書。", sites: [["WCAG 2.2", "https://www.w3.org/TR/WCAG22/"], ["Understanding WCAG 2.2(解説書)", "https://www.w3.org/WAI/WCAG22/Understanding/"], ["ARIA Authoring Practices Guide(APG)", "https://www.w3.org/WAI/ARIA/apg/"]], use: "達成基準は適合の要件として扱う。APGやチュートリアルは実装の参考例で、要件ではない。MDNは「解説」として補足に置く。" },
-                  { name: "Nielsen Norman Group", doc: "記事・用語集(UXリサーチ)", desc: "特定の製品に属さない、独立系のユーザビリティ研究機関。", sites: [["Articles", "https://www.nngroup.com/articles/"], ["UI Elements Glossary", "https://www.nngroup.com/articles/ui-elements-glossary/"]], use: "調査にもとづく設計の根拠として扱う(適合の基準ではない)。数値は記事に書かれているときだけ載せる。" },
-                ].map((x) => (
-                  <div key={x.name} style={styles.sourceCard}>
-                    <div style={styles.sourceName}>{x.name}</div>
-                    <div style={styles.sourceDoc}>{x.doc}</div>
-                    <p style={styles.sourceDesc}>{x.desc}</p>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "6px 0 2px" }}>参考にしているサイト</div>
-                    <ul style={{ margin: "0 0 6px", paddingLeft: 16, fontSize: 12, lineHeight: 1.7 }}>
-                      {x.sites.map(([l, u]) => (<li key={u}><a href={u} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>{l} ↗</a></li>))}
-                    </ul>
-                    <div style={{ fontSize: 11.5, fontWeight: 700, color: "#454C78", margin: "4px 0 2px" }}>このサイトでの扱い</div>
-                    <p style={{ ...styles.sourceDesc, margin: 0 }}>{x.use}</p>
                   </div>
                 ))}
               </div>

@@ -145,6 +145,16 @@ function readCollapsed() {
   return collapsedMemo;
 }
 
+// サイドバーの開閉アイコン(枠の左側に仕切りのあるパネルの絵)
+function SidebarIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+      <rect x="2" y="3" width="14" height="12" rx="2.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <line x1="7" y1="3.5" x2="7" y2="14.5" stroke="currentColor" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
 export default function SidebarNav({ currentPath = "" }) {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsedState] = useState(readCollapsed);
@@ -209,6 +219,14 @@ export default function SidebarNav({ currentPath = "" }) {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600&family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
         .sbn-toggle { display: none; }
+        .sbn-rail { transition: width 0.2s ease; }
+        .sbn-rail-nav { transition: opacity 0.15s ease, visibility 0.15s; }
+        .sbn-icon-btn { width: 26px; height: 26px; padding: 0; border: none; border-radius: 6px; background: transparent; color: #7E86AC; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .sbn-icon-btn:hover { background: #E3E8F1; color: #3A4FCF; }
+        .sbn-rail-open { position: absolute; inset: 0; width: 100%; padding: 24px 0 0; border: none; background: transparent; color: #7E86AC; cursor: pointer; display: flex; justify-content: center; align-items: flex-start; z-index: 1; }
+        .sbn-rail-open:hover { background: #E8ECF4; color: #3A4FCF; }
+        .sbn-icon-btn:focus-visible, .sbn-rail-open:focus-visible { outline: 2px solid #3A4FCF; outline-offset: -2px; }
+        @media screen and (prefers-reduced-motion: reduce) { .sbn-rail, .sbn-rail-nav { transition: none; } }
         @media (max-width: 859px) {
           .sbn-desktop { display: none !important; }
           .sbn-toggle { display: flex !important; }
@@ -216,23 +234,26 @@ export default function SidebarNav({ currentPath = "" }) {
         }
       `}</style>
 
-      {/* desktop persistent sidebar(閉じると細い帯だけになり、本文が広がる) */}
-      {collapsed ? (
-        <div className="sbn-desktop" style={styles.desktopCollapsed}>
-          <button style={styles.collapseBtn} onClick={() => setCollapsed(false)} aria-label="メニューを開く" aria-expanded="false" title="メニューを開く">
-            »
+      {/* desktop persistent sidebar(閉じると細い帯だけになり、本文が広がる。帯のどこを押しても開く) */}
+      <div
+        className={"sbn-desktop sbn-rail" + (collapsed ? " is-collapsed" : "")}
+        style={{ ...styles.desktopWrap, width: collapsed ? 44 : 248, overflowY: collapsed ? "hidden" : "auto" }}
+      >
+        {collapsed ? (
+          <button className="sbn-rail-open" onClick={() => setCollapsed(false)} aria-label="メニューを開く" aria-expanded="false" title="メニューを開く">
+            <SidebarIcon />
           </button>
-        </div>
-      ) : (
-        <div className="sbn-desktop" style={styles.desktopWrap}>
-          {!isStatic && (
-            <button style={{ ...styles.collapseBtn, width: 24, height: 24, fontSize: 14, position: "absolute", top: 27, right: 6 }} onClick={() => setCollapsed(true)} aria-label="メニューを閉じる" aria-expanded="true" title="メニューを閉じる">
-              «
+        ) : (
+          !isStatic && (
+            <button className="sbn-icon-btn" style={{ position: "absolute", top: 24, right: 6 }} onClick={() => setCollapsed(true)} aria-label="メニューを閉じる" aria-expanded="true" title="メニューを閉じる">
+              <SidebarIcon />
             </button>
-          )}
+          )
+        )}
+        <div className="sbn-rail-nav" style={{ width: isStatic ? "auto" : 248, opacity: collapsed ? 0 : 1, visibility: collapsed ? "hidden" : "visible" }}>
           {nav}
         </div>
-      )}
+      </div>
 
       {/* mobile top bar: logo mark (left) + hamburger (right) */}
       <div className="sbn-toggle" style={styles.mobileBar}>
@@ -265,34 +286,6 @@ const styles = {
     top: 0,
     overflowY: "auto",
     background: "#F3F6FA",
-  },
-  desktopCollapsed: {
-    width: 40,
-    flexShrink: 0,
-    height: "100vh",
-    position: "sticky",
-    top: 0,
-    background: "#F3F6FA",
-    display: "flex",
-    justifyContent: "center",
-    paddingTop: 22,
-    boxSizing: "border-box",
-  },
-  collapseBtn: {
-    width: 28,
-    height: 28,
-    border: "1px solid #E1E3F0",
-    borderRadius: 6,
-    background: "#FFFFFF",
-    color: "#565D8A",
-    fontSize: 15,
-    lineHeight: 1,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 0,
-    zIndex: 1,
   },
   mobileBar: {
     display: "none",

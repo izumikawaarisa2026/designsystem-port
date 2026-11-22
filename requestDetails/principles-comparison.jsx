@@ -234,7 +234,7 @@ export default function PrinciplesComparisonPage() {
                             )}
                           </div>
                           <p style={styles.genDesc}>{it.desc}</p>
-                          <div style={styles.genSubList}>
+                          <div style={{ ...styles.genSubList, ...(it.sub.length ? {} : { display: "none" }) }}>
                             {it.sub.map((s, si) => (
                               <div key={s.name} style={styles.genSubRow}>
                                 <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
@@ -281,7 +281,7 @@ export default function PrinciplesComparisonPage() {
                               {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>{linkName(it.url)} ↗</a>)}
                             </div>
                             <p style={styles.genDesc}>{it.desc}</p>
-                            <div style={styles.genSubList}>
+                            <div style={{ ...styles.genSubList, ...(it.sub.length ? {} : { display: "none" }) }}>
                               {it.sub.map((s, si) => (
                                 <div key={s.name} style={styles.genSubRow}>
                                   <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
@@ -352,7 +352,7 @@ const styles = {
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", marginTop: 10, lineHeight: 1.6 },
   overlapScroll: { overflowX: "auto" },
-  overlapGrid: { display: "grid", gridTemplateColumns: "140px 110px 110px 1fr 1fr", minWidth: 640, border: "1px solid #E1E3F0" },
+  overlapGrid: { display: "grid", gridTemplateColumns: "140px repeat(4, minmax(0, 1fr))", minWidth: 640, border: "1px solid #E1E3F0" },
   overlapCell: { padding: "8px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12.5, color: "#2E3457" },
   overlapHeaderCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#565D8A", background: "#F8F9FD" },
   sourceList: { display: "flex", flexDirection: "column", gap: 12, marginBottom: 22 },
@@ -365,10 +365,10 @@ const styles = {
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
   itemName: { fontSize: 12.5, fontWeight: 600, color: "#171B36" },
   itemDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78" },
-  genBlock: { marginBottom: 4, paddingBottom: 10 },
+  genBlock: { marginBottom: 4, paddingBottom: 10, minWidth: 0 },
   genHead: { display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 3, flexWrap: "wrap" },
   genName: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
-  genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", flexShrink: 0 },
+  genLink: { fontSize: 10.5, color: "#3A4FCF", textDecoration: "underline", minWidth: 0, maxWidth: "100%", overflowWrap: "anywhere" },
   genDesc: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", margin: "0 0 8px" },
   genNote: { fontSize: 10, color: "#666D93", lineHeight: 1.5, margin: "6px 0 0" },
   sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6, marginTop: 8, paddingTop: 8, borderTop: "1px solid #E1E3F0" },
