@@ -426,10 +426,6 @@ const PAGE_INDEX = {
   "label": "スナックバー",
   "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
  },
- "/components/communication/toast": {
-  "label": "トースト",
-  "lead": "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)"
- },
  "/components/communication/loading": {
   "label": "ローディング状態",
   "lead": "中身を読み込んでいる最中の画面の見せ方"

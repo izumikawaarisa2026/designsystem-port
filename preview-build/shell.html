@@ -63,7 +63,13 @@ const { useState, useEffect } = React;
 
 function App() {
   // 表示するページはURLの #/パス で決まる(例: #/tokens/color)。なければトップ
-  const pageOfHash = () => PAGES.find((p) => p.path === decodeURIComponent(window.location.hash.slice(1)));
+  // ほかのページにまとめたページの古いURL(#/components/communication/toast など)は、まとめ先の節へ送る
+  const MOVED = { "/components/communication/toast": "/components/communication/snackbar#toast" };
+  const pageOfHash = () => {
+    const movedTo = MOVED[decodeURIComponent(window.location.hash.slice(1))];
+    if (movedTo) { const [mp, ma] = movedTo.split("#"); window.__DSP_ANCHOR = ma || null; history.replaceState(null, "", "#" + mp); }
+    return PAGES.find((p) => p.path === decodeURIComponent(window.location.hash.slice(1)));
+  };
   const [current, setCurrent] = useState(() => pageOfHash() || PAGES[0]);
   useEffect(() => {
     // ページ内の見出しへのリンク(#elv-rules など)ではページを切り替えない
@@ -71,7 +77,18 @@ function App() {
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
-  useEffect(() => { window.scrollTo(0, 0); }, [current]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // リンク先のページ内の節(/components/communication/snackbar#toast の toast など)があれば、そこまで送る
+    const id = window.__DSP_ANCHOR;
+    if (id) setTimeout(() => { const el = document.getElementById(id); if (el) { window.__DSP_ANCHOR = null; el.scrollIntoView({ block: "start" }); } }, 80);
+  }, [current]);
+  useEffect(() => {
+    // 横断ビューのように自分で位置を扱うページが先に読めるよう、少し遅らせる
+    const onAnchor = () => setTimeout(() => { const id = window.__DSP_ANCHOR; const el = id && document.getElementById(id); if (el) { window.__DSP_ANCHOR = null; el.scrollIntoView({ behavior: "smooth", block: "start" }); } }, 0);
+    window.addEventListener("dsp-anchor", onAnchor);
+    return () => window.removeEventListener("dsp-anchor", onAnchor);
+  }, []);
   // ページ内のサイト内リンク(サイドバー・関連ページカード等)を、プレビュー内のページ切り替えに置き換える
   const onFrameClick = (e) => {
     const a = e.target.closest && e.target.closest("a[href]");

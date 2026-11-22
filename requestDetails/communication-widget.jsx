@@ -388,7 +388,33 @@ function WidgetGuide() {
       </div>
       <p style={styles.wkNote}>Appleは、意味のある内容と、役立つ操作、アプリの大事な場所へのリンクを入れるよう勧め、大きいサイズでは、データをより詳しく見せる(グラフなど)こともできるとしている。どの種類でも、ウィジェットの主な目的に直接関係する情報だけを表示する。</p>
 
-      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>良いウィジェットの条件(Apple) ― 情報量と流動性</h2>
+    </section>
+  );
+}
+
+/* 大きさの決め方(AppleとGoogleの違い) */
+function WidgetSize() {
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <h3 style={styles.subTitle}>AppleとGoogleの違い ― 大きさの決め方</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.wkTable}>
+          <thead><tr>{["", "Apple", "Google(Android)"].map((h) => (<th key={h} style={styles.wkTh}>{h}</th>))}</tr></thead>
+          <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={{ marginTop: 16 }}><SizeChart /></div>
+      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
+      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
+    </div>
+  );
+}
+
+/* 良いウィジェットの条件(Apple) ― 情報量と流動性 */
+function WidgetQuality() {
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <h3 style={styles.subTitle}>情報量と流動性(Apple)</h3>
       <div style={styles.wkGrid}>
         <div style={styles.wkCard}>
           <div style={styles.wkTitle}>情報量のバランス</div>
@@ -401,18 +427,7 @@ function WidgetGuide() {
           <div style={styles.wkSrc}>HIG Widgets「Prefer dynamic information that changes throughout the day」</div>
         </div>
       </div>
-
-      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>AppleとGoogleの違い ― 大きさの決め方</h2>
-      <div style={{ overflowX: "auto" }}>
-        <table style={styles.wkTable}>
-          <thead><tr>{["", "Apple", "Google(Android)"].map((h) => (<th key={h} style={styles.wkTh}>{h}</th>))}</tr></thead>
-          <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
-        </table>
-      </div>
-      <div style={{ marginTop: 16 }}><SizeChart /></div>
-      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
-      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
-    </section>
+    </div>
   );
 }
 
@@ -468,6 +483,14 @@ export default function CommunicationWidgetPage() {
           <WidgetIntro />
 
           <WidgetGuide />
+
+          <h2 style={styles.diagramTitle}>大きさと表示モード</h2>
+          <WidgetSize />
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>Apple ― 置かれる場所で変わる表示モード</h3>
+            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変える。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用する(図は概念図)。</p>
+            <AppearanceModes />
+          </section>
 
 
 
@@ -552,17 +575,14 @@ export default function CommunicationWidgetPage() {
             </div>
           </div>
 
+          <h2 style={styles.diagramTitle}>良いウィジェットの条件</h2>
+          <WidgetQuality />
           <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>良いウィジェット・避けたいウィジェット</h2>
+            <h3 style={styles.subTitle}>良いウィジェット・避けたいウィジェット</h3>
             <p style={styles.diagramNote}>Apple・Google・NN groupの記述を、良いウィジェット(◯)と避けたいウィジェット(✕)に分けて並べた。下の名前は根拠にした系列だ。</p>
             <DoDont />
           </section>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>Apple ― 置かれる場所で変わる表示モード</h2>
-            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変える。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用する(図は概念図)。</p>
-            <AppearanceModes />
-          </section>
 
 
           <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/tokens/adaptive", "/components/communication/overview"]} />
@@ -623,6 +643,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
+  subTitle: { fontSize: 13.5, fontWeight: 700, margin: "0 0 10px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   ruleSection: { marginBottom: 26 },

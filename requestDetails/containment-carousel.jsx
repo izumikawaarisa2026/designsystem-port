@@ -647,25 +647,6 @@ export default function ContainmentCarouselPage() {
             </div>
           </div>
 
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>自動送りで何が起きるか(W3C・NN group)</h2>
-            <AutoForwardTimeline />
-            <p style={styles.chartNote}>5秒ごとに切り替わるカルーセルの概念図だ。目当ての内容が載っている1枚は、表示されている時間の一部でしか見えない。W3Cは5秒を超える自動の動きに止める手段を求め、NN groupは自動送りそのものを避けるよう勧めている。</p>
-          </div>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>最後の1枚の後の扱い</h2>
-            <p style={styles.diagramNote}>最後まで送ったあとに止まるか、1枚目に戻るかは、系列によって考え方が違う。下の名前は根拠にした系列だ。</p>
-            <EndBehavior />
-            <div style={styles.aiNote}><strong>AI解釈: </strong>手で送るカルーセルは<strong>端で止める</strong>のが基本だ(Apple・Googleとも端のある一覧として扱う)。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、NN groupは繰り返しを、W3Cは1周で止める実装も認めており、どちらでも<strong>5秒を超えて動くなら止める手段が必要(2.2.2)</strong>だ。ループにする場合は「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。4系列とも、継ぎ目なく無限に続くループについての記述は見当たらなかった。</div>
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>SP版とPC版の違い</h2>
-            <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わる。かっこ内は根拠にした系列だ。</p>
-            <DeviceTable />
-          </section>
-
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>カルーセルにする前に考えたい代わりの形</h2>
             <div style={styles.altGrid}>
@@ -678,6 +659,27 @@ export default function ContainmentCarouselPage() {
               ))}
             </div>
           </section>
+
+          <h2 style={styles.diagramTitle}>送り方と自動送り</h2>
+          <div style={styles.chartCard}>
+            <h3 style={styles.subTitle}>自動送りで何が起きるか(W3C・NN group)</h3>
+            <AutoForwardTimeline />
+            <p style={styles.chartNote}>5秒ごとに切り替わるカルーセルの概念図だ。目当ての内容が載っている1枚は、表示されている時間の一部でしか見えない。W3Cは5秒を超える自動の動きに止める手段を求め、NN groupは自動送りそのものを避けるよう勧めている。</p>
+          </div>
+
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>最後の1枚の後の扱い</h3>
+            <p style={styles.diagramNote}>最後まで送ったあとに止まるか、1枚目に戻るかは、系列によって考え方が違う。下の名前は根拠にした系列だ。</p>
+            <EndBehavior />
+            <div style={styles.aiNote}><strong>AI解釈: </strong>手で送るカルーセルは<strong>端で止める</strong>のが基本だ(Apple・Googleとも端のある一覧として扱う)。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、NN groupは繰り返しを、W3Cは1周で止める実装も認めており、どちらでも<strong>5秒を超えて動くなら止める手段が必要(2.2.2)</strong>だ。ループにする場合は「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。4系列とも、継ぎ目なく無限に続くループについての記述は見当たらなかった。</div>
+          </section>
+
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>SP版とPC版の違い</h3>
+            <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わる。かっこ内は根拠にした系列だ。</p>
+            <DeviceTable />
+          </section>
+
 
 
           <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/components/navigation/pagination", "/tokens/motion"]} />
@@ -714,6 +716,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
+  subTitle: { fontSize: 13.5, fontWeight: 700, margin: "0 0 10px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },

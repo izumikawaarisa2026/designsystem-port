@@ -29,7 +29,6 @@
   "/components/containment/list",
   "/components/containment/accordion",
   "/components/communication/snackbar",
-  "/components/communication/toast",
   "/components/communication/tooltip",
   "/components/communication/alert",
   "/components/communication/progress",

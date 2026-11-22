@@ -10,7 +10,8 @@ import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, Rela
  * ポップアップで、カスタムToastビューはAPI30で非推奨)であり、Google公式も
  * 「アプリが前面表示中はSnackbar、背面ではNotification」と用途を明確に分けている
  * ことを確認したため、ユーザーの了承のもとページ単位で分割した(ダイアログ vs
- * フルスクリーンダイアログと同じ考え方)。「トースト」ページ側を参照。
+ * フルスクリーンダイアログと同じ考え方)。
+ * 2026-11 ⑩本人最終レビューNo.057・058: 「トースト」ページをなくし、このページの節(#toast)にまとめた。
  *
  * 各系列エントリに `scenarios`(推奨される使用シーン)フィールドを新設し、
  * アクセシビリティ観点の `useCases` とは区別した。`stance` は定義・原則のみに
@@ -222,7 +223,7 @@ const LEAD = "操作の結果を画面の下などに短く表示し、しばら
 const ABOUT = [
   { k: "目的・役割", v: "操作が終わったことを作業を止めずに知らせ、必要なら「元に戻す」などの操作を1つ添える" },
   { k: "よく使われる場面", v: "「メールを削除しました(元に戻す)」「保存しました」などの完了の知らせ" },
-  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/snackbar#toast">トースト</PageLink>(このページの節)、残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -234,7 +235,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "時間で消える操作が2.2.1(A)の時間制限に当たるなら、操作する時間が足りない人のために、時間で消さないか、延長・解除できるようにする(スナックバー専用の決まりではない)" },
       { who: "NN group", color: "#7A4F7E", t: "自動で消える通知は見落とされやすいので、重要な情報や必ず必要な操作には向かない" },
     ],
-    tip: "操作のないお知らせ(「保存しました」)は時間で消してよく、「元に戻す」のような操作を持つものは、利用者が閉じるか操作するまで残すと、3系列のどれにも沿う。",
+    tip: "操作のないお知らせ(「保存しました」)は時間で消してよい。「元に戻す」のような操作を持つ場合は、利用者が閉じるか操作するまで残す設計にすると、操作の機会を確保しやすい(AI解釈)。ただし、WCAG 2.2.1が常にこの対応を求めるわけではない。",
   },
 ];
 
@@ -242,7 +243,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "添える操作は1つだけ", d: "「元に戻す」など", who: "Google" },
   { n: 2, t: "重要な情報や、必ず必要な操作には使わない", d: "自動で消える通知は見落とされやすい", who: "NN group" },
-  { n: 3, t: "操作のない知らせ(トースト)も同じ考え方で扱える", d: "トーストを別のコンポーネントにしているのはGoogle(Android)だけ", who: "NN group(用語集で「Snackbar (Toast)」の1項目)" },
+  { n: 3, t: "操作のない知らせ(トースト)も同じ考え方で扱える", d: "トーストを別のものとして扱うのはGoogle(AndroidのOSの機能)だけ", who: "NN group(用語集で「Snackbar (Toast)」の1項目)" },
 ];
 
 
@@ -255,14 +256,16 @@ const SNACK_TOAST = [
 ];
 function SnackToast() {
   return (
-    <section style={{ marginBottom: 36 }}>
+    <section id="toast" style={{ marginBottom: 36, scrollMarginTop: 16 }}>
       <h2 style={styles.diagramTitle}>スナックバーとトースト</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.75, color: "#2E3457", margin: "0 0 12px" }}>トーストをデザインシステムのコンポーネントとして持つ系列はない。GoogleのToastもM3のコンポーネントではなく、AndroidのOSの機能で、操作を持たない短いポップアップだ。消えるまでの時間は短い・長いの2つから選び、Android 12以降は2行までに制限され、文字の隣にアプリのアイコンが出る(<a href="https://developer.android.com/guide/topics/ui/notifiers/toasts" target="_blank" rel="noopener noreferrer" style={{ color: "#3A4FCF" }}>Android Developers ― Toasts overview</a>)。独自のレイアウトのToastは非推奨で、操作が要るならスナックバーにする。Webでトースト風の通知を作るなら、フォーカスを移さずに出る知らせとして支援技術にも伝える(4.1.3)。自動で消えるので、重要な情報には使わない(AI解釈)。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
           <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
           <tbody>
             <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
             <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(時間で消える操作が、W3Cの2.2.1の時間制限に当たる場合があるため)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
+            <tr><td style={stStyles.key}>位置づけ(Google)</td><td style={stStyles.td}>M3のコンポーネント</td><td style={stStyles.td}>AndroidのOSの機能(M3のコンポーネント一覧にはない)</td></tr>
             <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
           </tbody>
         </table>
@@ -274,7 +277,6 @@ function SnackToast() {
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 }}>トースト(AndroidのToast)の詳細は<PageLink to="/components/communication/toast">トースト</PageLink>のページ。</p>
     </section>
   );
 }
@@ -419,7 +421,7 @@ export default function CommunicationSnackbarPage() {
           </div>
 
 
-          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/alert"]} />
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/alert", "/components/communication/loading"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

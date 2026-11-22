@@ -185,6 +185,30 @@ def main():
         return path, len(out)
 
     results = [work(item) for item in pages]
+
+    # ほかのページにまとめたページの古いURLには、まとめ先へ送る案内のページを置く(shell.html の MOVED と同じ対応)
+    MOVED = {"/components/communication/toast": ("トースト", "/components/communication/snackbar", "toast", "スナックバー")}
+    for old, (name, new, anchor, new_name) in MOVED.items():
+        href = static_href(new) + "#" + anchor
+        dest = os.path.join(DOCS, "pages", old.strip("/"))
+        os.makedirs(dest, exist_ok=True)
+        open(os.path.join(dest, "index.html"), "w", encoding="utf8").write(f"""<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{name}({new_name}のページにまとめました) | DesignSystem Port</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="refresh" content="0; url={href}">
+<link rel="canonical" href="{href}">
+</head>
+<body style="font-family: 'Noto Sans JP', sans-serif; color: #2E3457; padding: 24px;">
+<!-- このファイルは preview-build/prerender.py が自動で書き出したもの。手で編集しない -->
+<p>「{name}」のページは、「{new_name}」のページの節にまとめました。</p>
+<p><a href="{href}" style="color: #3A4FCF;">{new_name} ― {name}の節へ</a></p>
+</body>
+</html>
+""")
     failed = [p for p, n in results if n is None]
     print(f"静的HTML: {len(results) - len(failed)} / {len(results)} ページを書き出しました(docs/pages/)")
     if failed:

@@ -41,7 +41,7 @@
 
 ---
 
-## コンポーネントレイヤー(48ページ)
+## コンポーネントレイヤー(47ページ)
 
 Material Designの伝統的な6分類(Actions / Selection / Text inputs / Navigation / Containment / Communication)に沿って再編。
 
@@ -104,12 +104,12 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 | 9 | カルーセル | ✅ 完成済み(2026-10、SPEC No.058、/components/containment/carousel)。Appleは専用ページなし(Page controlsが最も近い)。GoogleはMaterial Components for AndroidのCarousel.md・Jetpack Composeのソース・Android Developersの本文、W3C(APG Carousel・2.2.2・WAI Carousels Tutorial)・NN group(Carousel Usability・Auto-Forwarding)は本文で確認 |
 | 10 | アコーディオン(表示コントロール) | Apple(Disclosure Controls)は間接確認。GoogleはM1の独立コンポーネント(Expansion panel)がM3ではListに統合されたとみられる(間接確認)。W3C(Disclosure Pattern)・NN group(Accordions on Desktop)は本文確認済み |
 
-### Communication ― 伝える・知らせる(9)
+### Communication ― 伝える・知らせる(8)
 | # | ページ | 備考 |
 |---|---|---|
 | 1 | 情報伝達の使い分け | 個別コンポーネントではなく、Containment/Communication両カテゴリにまたがる9パーツ(サイドシート/ボトムシート/ダイアログ/フルスクリーンダイアログ/スナックバー/トースト/ツールチップ/アラート・バナー/アコーディオン)の使い分けをまとめた導入ページ。新規の一次情報は持たず、各ページのAI解釈を統合したもの。判断フローはユーザーの行動(アクションをさせる必要があるか)起点、○/△/✕の比較表を併設(当初のsitemapには無く、後日追加。2026-09、スナックバー・トーストの分割とアコーディオン追加にあわせて全面改訂) |
 | 2 | スナックバー | ✅ 完成済み。Undo(元に戻す)アクションのパターンを含む。「スナックバー・トースト」ページから、Androidの実装として別APIである「トースト」を分割・独立(2026-09)。Apple(該当コンポーネントなし、近似のNotifications/バナー)は検索結果による間接確認。Google(Snackbar、Android Developers公式ページで前面/背面の使い分けを直接確認)・W3C(role="status"/"alert")・NN group(UI Elements Glossaryの「Snackbar (Toast)」項目、Indicators/Validations/Notifications記事)は本文確認済み |
-| 3 | トースト | ✅ 完成済み。「スナックバー」ページから独立(2026-09、新規)。⚠ Material Design 3の公式コンポーネント一覧に「Toast」は存在しない(M1〜M2の「Snackbars & Toasts」がM3でSnackbarに統合・廃止。見落としではなく仕様通り、ユーザー指摘により2026-09にページ冒頭へ注記を追加)。Google欄はM3コンポーネントではなくAndroidのOSレベルAPI(プラットフォーム機能)として扱う。Google(Android Developers公式ページ、カスタムToastビューのAPI30非推奨を確認)・NN group(用語集に「Toast」単独の項目は存在せず「Snackbar (Toast)」の1項目であることを確認)は本文確認済み。W3Cは、role="status"の一般原則に加えAndroid実装固有の既知の課題(TalkBack非対応)を検索結果で確認。Appleはスナックバーページと同一の間接確認 |
+| 3 | トースト(スナックバーの節) | 2026-11 ⑩本人最終レビューで「スナックバー」ページの節(#toast)に統合し、ページを削除(古いURLはスナックバーの節へ転送)。以下は統合前の記録: ✅ 完成済み。「スナックバー」ページから独立(2026-09、新規)。⚠ Material Design 3の公式コンポーネント一覧に「Toast」は存在しない(M1〜M2の「Snackbars & Toasts」がM3でSnackbarに統合・廃止。見落としではなく仕様通り、ユーザー指摘により2026-09にページ冒頭へ注記を追加)。Google欄はM3コンポーネントではなくAndroidのOSレベルAPI(プラットフォーム機能)として扱う。Google(Android Developers公式ページ、カスタムToastビューのAPI30非推奨を確認)・NN group(用語集に「Toast」単独の項目は存在せず「Snackbar (Toast)」の1項目であることを確認)は本文確認済み。W3Cは、role="status"の一般原則に加えAndroid実装固有の既知の課題(TalkBack非対応)を検索結果で確認。Appleはスナックバーページと同一の間接確認 |
 | 4 | ツールチップ | ✅ 完成済み。W3C(WAI-ARIA Tooltip Pattern)・NN group(Tooltip Guidelines)は本文確認済み。Apple(UIKit Help Tag)・Google(Tooltips、プレーン/リッチの2種類)は検索結果による間接確認 |
 | 5 | プログレスインジケーター | ✅ 完成済み(2026-09)。確定的(determinate)/不確定(indeterminate)の2状態。W3C(MDNのrole="progressbar")・NN group(「Progress Indicators...」、1秒未満は非表示・1〜10秒はスピナー・10秒超はバーという秒数目安)は本文確認済み。Apple・GoogleはSPAのため間接確認(GoogleはM3に5秒未満向けの新コンポーネント「Loading indicator」を追加) |
 | 6 | ステータスメッセージ(旧「アラート/バナー」。バナーはこのページの節) | ✅ 完成済み。ダイアログとの違い: 画面遷移を止めない・インライン表示。GoogleのBannerはM3の一覧になく、M2仕様を参考掲載(検索で非推奨傾向を確認)。W3C(role="alert"、role="alertdialog"と対比)・NN group(Indicators, Validations, and Notifications)は本文確認済み。Appleは該当なしに近い(検索結果による間接確認) |
@@ -129,7 +129,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 
 ## 合計
 
-**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 48 + 横断ビュー 1 = 65ページ**(トップページ `index.jsx` を含めると66ページ。2026-11時点)
+**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 47 + 横断ビュー 1 = 64ページ**(トップページ `index.jsx` を含めると65ページ。2026-11 ⑩でトーストをスナックバーに統合した時点)
 
 コンポーネントレイヤーの内訳: Actions 4 / Selection 10 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
 
