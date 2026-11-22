@@ -11,6 +11,80 @@ import { TagLink, RefList, PageLink, KeyPoints } from "./page-parts";
  * データはすべて2026-09に一次情報を直接取得して確認済み。
  */
 
+/* 各サイトの詳細の1項目。概念図 → 名前 → 説明 → 公式リンク(どの系列も同じ並び) */
+function ItemCard({ it, f }) {
+  const Fig = ITEM_FIGS[it.name];
+  const link = it.ref || (it.url ? ["WCAG 2.2 ― " + it.name.split("(")[0], it.url] : null);
+  return (
+    <div style={styles.itemCard}>
+      {Fig && <div style={styles.itemFig}><Fig c={f.color} /></div>}
+      <div style={it.sub ? styles.genName : styles.itemName}>{it.name}</div>
+      <div style={styles.itemDesc}>{it.desc}</div>
+      {link && <a href={link[1]} target="_blank" rel="noreferrer" style={styles.itemLink}>{link[0]} ↗</a>}
+      {it.sub && (
+        <div style={{ ...styles.genSubList, marginTop: 8 }}>
+          {it.sub.map((sub, si) => (
+            <div key={sub.name} style={styles.genSubRow}>
+              <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
+              <div><div style={styles.itemName}>{sub.name}</div><div style={styles.itemDesc}>{sub.desc}</div>{sub.sc && <div style={styles.scLine}>{sub.sc}</div>}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* 項目の一覧。group のある項目(Googleの設計の手順など)は、見出しを付けて下の段にまとめる */
+function FrameworkItems({ f }) {
+  const main = f.items.filter((it) => !it.group);
+  const groups = [...new Set(f.items.filter((it) => it.group).map((it) => it.group))];
+  return (
+    <>
+      <div style={styles.itemList}>
+        {main.map((it) => <ItemCard key={it.name} it={it} f={f} />)}
+      </div>
+      {groups.map((g) => (
+        <div key={g}>
+          <div style={styles.itemGroupTitle}>{g}</div>
+          <div style={styles.itemList}>
+            {f.items.filter((it) => it.group === g).map((it) => <ItemCard key={it.name} it={it} f={f} />)}
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+/* 各項目の概念図(96×56)。線は系列の色、補助は青みのグレー */
+const G = "#9EA4C4";
+const FigBox = ({ children }) => (<svg width="96" height="56" viewBox="0 0 96 56" aria-hidden="true" focusable="false">{children}</svg>);
+const ITEM_FIGS = {
+  // Apple
+  "目指す3つの性質": ({ c }) => (<FigBox><circle cx="38" cy="22" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><circle cx="58" cy="22" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><circle cx="48" cy="38" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /></FigBox>),
+  "Vision(視覚)": ({ c }) => (<FigBox><text x="14" y="36" fontSize="12" fill={G} fontFamily="Jost, sans-serif">Aa</text><path d="M34 31h16m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><text x="56" y="40" fontSize="24" fontWeight="600" fill={c} fontFamily="Jost, sans-serif">Aa</text></FigBox>),
+  "Hearing(聴覚)": ({ c }) => (<FigBox><path d="M14 22h6l7-6v24l-7-6h-6z" fill={G} /><path d="M32 22a8 8 0 0 1 0 12" stroke={G} strokeWidth="1.4" fill="none" /><rect x="42" y="16" width="42" height="24" rx="3" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><path d="M48 25h30M48 31h22" stroke={c} strokeWidth="1.6" strokeLinecap="round" /></FigBox>),
+  "Mobility(運動)": ({ c }) => (<FigBox><rect x="30" y="6" width="36" height="44" rx="5" fill="none" stroke={G} strokeWidth="1.4" /><rect x="38" y="16" width="20" height="20" rx="3" fill="none" stroke={c} strokeWidth="1.4" strokeDasharray="3 2" /><circle cx="48" cy="26" r="4" fill={c} /></FigBox>),
+  "Speech(発話)": ({ c }) => (<FigBox><rect x="16" y="14" width="64" height="28" rx="4" fill="none" stroke={G} strokeWidth="1.4" />{[0, 1, 2, 3, 4].map((i) => (<rect key={i} x={22 + i * 11} y="19" width="8" height="7" rx="1.5" fill={i === 2 ? c : G} fillOpacity={i === 2 ? 1 : 0.5} />))}<rect x="30" y="30" width="36" height="7" rx="1.5" fill={G} fillOpacity="0.5" /></FigBox>),
+  "Cognitive(認知)": ({ c }) => (<FigBox>{[0, 1, 2].map((i) => (<g key={i}><circle cx={20 + i * 28} cy="28" r="9" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><text x={20 + i * 28} y="32" fontSize="10" textAnchor="middle" fill={c} fontFamily="Jost, sans-serif">{i + 1}</text></g>))}<path d="M30 28h8M58 28h8" stroke={G} strokeWidth="1.4" /></FigBox>),
+  // Google
+  "アクセシビリティをデフォルトに": ({ c }) => (<FigBox><rect x="20" y="14" width="44" height="28" rx="6" fill="none" stroke={G} strokeWidth="1.4" /><path d="M28 28h20" stroke={G} strokeWidth="1.6" strokeLinecap="round" /><circle cx="66" cy="16" r="9" fill={c} /><path d="M62 16l3 3 5-6" stroke="#FFFFFF" strokeWidth="1.6" fill="none" strokeLinecap="round" /></FigBox>),
+  "要件を機会として捉える": ({ c }) => (<FigBox><rect x="10" y="18" width="22" height="20" rx="3" fill="none" stroke={G} strokeWidth="1.4" strokeDasharray="3 2" /><path d="M34 28h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" />{[[60, 16], [74, 28], [60, 40], [84, 14], [84, 42]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="5" fill={c} fillOpacity={i < 3 ? 0.9 : 0.35} />))}</FigBox>),
+  "色とコントラスト": ({ c }) => (<FigBox><rect x="12" y="12" width="32" height="32" rx="3" fill={c} /><text x="28" y="33" fontSize="11" textAnchor="middle" fill="#FFFFFF" fontFamily="Jost, sans-serif">Aa</text><rect x="52" y="12" width="32" height="32" rx="3" fill="#E1E3F0" /><text x="68" y="33" fontSize="11" textAnchor="middle" fill="#B7BCDA" fontFamily="Jost, sans-serif">Aa</text></FigBox>),
+  "① 構造(Structure)": ({ c }) => (<FigBox><rect x="8" y="8" width="30" height="40" rx="3" fill="none" stroke={G} strokeWidth="1.4" /><rect x="12" y="12" width="22" height="6" rx="1" fill={G} fillOpacity="0.6" /><rect x="12" y="22" width="10" height="14" rx="1" fill={G} fillOpacity="0.6" /><rect x="24" y="22" width="10" height="14" rx="1" fill={G} fillOpacity="0.6" /><path d="M42 28h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" />{[0, 1, 2, 3].map((i) => (<rect key={i} x="58" y={9 + i * 10} width="28" height="7" rx="1.5" fill={c} fillOpacity={0.9 - i * 0.15} />))}</FigBox>),
+  "② 流れ(Flow)": ({ c }) => (<FigBox><rect x="12" y="6" width="72" height="44" rx="4" fill="none" stroke={G} strokeWidth="1.4" /><path d="M26 18 L66 18 L36 38 L70 38" stroke={c} strokeWidth="1.4" fill="none" strokeDasharray="3 2" />{[[26, 18, 1], [66, 18, 2], [36, 38, 3], [70, 38, 4]].map(([x, y, n]) => (<g key={n}><circle cx={x} cy={y} r="6" fill={c} /><text x={x} y={y + 3} fontSize="8" textAnchor="middle" fill="#FFFFFF" fontFamily="Jost, sans-serif">{n}</text></g>))}</FigBox>),
+  "③ 要素(Elements)": ({ c }) => (<FigBox><circle cx="26" cy="28" r="13" fill="none" stroke={G} strokeWidth="1.4" /><circle cx="24" cy="26" r="5" fill="none" stroke={G} strokeWidth="1.6" /><path d="M28 30l4 4" stroke={G} strokeWidth="1.6" strokeLinecap="round" /><path d="M42 28h6" stroke={G} strokeWidth="1.4" /><rect x="50" y="18" width="36" height="20" rx="10" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><text x="68" y="32" fontSize="10" textAnchor="middle" fill={c} fontFamily="'Noto Sans JP', sans-serif">検索</text></FigBox>),
+  // W3C
+  "Perceivable(知覚可能)": ({ c }) => (<FigBox><path d="M16 28c8-12 24-12 32 0-8 12-24 12-32 0z" fill="none" stroke={c} strokeWidth="1.4" /><circle cx="32" cy="28" r="5" fill={c} /><path d="M58 22h6l7-6v24l-7-6h-6z" fill={c} fillOpacity="0.85" /><path d="M76 22a8 8 0 0 1 0 12" stroke={c} strokeWidth="1.4" fill="none" /></FigBox>),
+  "Operable(操作可能)": ({ c }) => (<FigBox><rect x="10" y="18" width="20" height="20" rx="3" fill="none" stroke={c} strokeWidth="1.4" /><text x="20" y="32" fontSize="9" textAnchor="middle" fill={c} fontFamily="Jost, sans-serif">Tab</text><circle cx="48" cy="28" r="10" fill="none" stroke={c} strokeWidth="1.4" /><circle cx="48" cy="28" r="3" fill={c} /><path d="M70 14v14m-4-4 4 4 4-4M66 38h8" stroke={c} strokeWidth="1.4" fill="none" /><rect x="64" y="34" width="20" height="10" rx="5" fill="none" stroke={c} strokeWidth="1.4" /></FigBox>),
+  "Understandable(理解可能)": ({ c }) => (<FigBox><rect x="12" y="12" width="44" height="26" rx="5" fill="none" stroke={c} strokeWidth="1.4" /><path d="M20 38l-4 8 10-8" fill="none" stroke={c} strokeWidth="1.4" /><path d="M20 22h28M20 29h18" stroke={c} strokeWidth="1.6" strokeLinecap="round" /><circle cx="72" cy="25" r="11" fill={c} /><path d="M67 25l4 4 6-7" stroke="#FFFFFF" strokeWidth="1.8" fill="none" strokeLinecap="round" /></FigBox>),
+  "Robust(堅牢)": ({ c }) => (<FigBox><rect x="36" y="16" width="24" height="24" rx="4" fill={c} fillOpacity="0.15" stroke={c} strokeWidth="1.4" />{[[14, 12], [14, 44], [82, 12], [82, 44]].map(([x, y], i) => (<g key={i}><path d={`M${x} ${y}L48 28`} stroke={G} strokeWidth="1.2" /><rect x={x - 7} y={y - 5} width="14" height="10" rx="2" fill="#FFFFFF" stroke={G} strokeWidth="1.4" /></g>))}<rect x="36" y="16" width="24" height="24" rx="4" fill="none" stroke={c} strokeWidth="1.4" /></FigBox>),
+  // NN group
+  "アクセシビリティ = 心構え": ({ c }) => (<FigBox><rect x="12" y="10" width="28" height="36" rx="3" fill="none" stroke={G} strokeWidth="1.4" />{[0, 1, 2].map((i) => (<path key={i} d={`M17 ${20 + i * 9}l2 2 4-4M27 ${20 + i * 9}h8`} stroke={G} strokeWidth="1.3" fill="none" />))}<path d="M46 28h6" stroke={G} strokeWidth="1.4" /><circle cx="70" cy="22" r="8" fill="none" stroke={c} strokeWidth="1.4" /><path d="M58 46c2-9 22-9 24 0" fill="none" stroke={c} strokeWidth="1.4" /><path d="M70 20c-1.5-2-4.5-1-4 1.2.4 1.6 4 3.8 4 3.8s3.6-2.2 4-3.8c.5-2.2-2.5-3.2-4-1.2z" fill={c} /></FigBox>),
+  "アクセシブルデザイン": ({ c }) => (<FigBox>{[0, 1, 2].map((i) => (<g key={i}><circle cx={24 + i * 24} cy="20" r="6" fill={i === 1 ? c : G} /><path d={`M${14 + i * 24} 42c2-10 18-10 20 0`} fill="none" stroke={i === 1 ? c : G} strokeWidth="1.4" /></g>))}<path d="M10 48h76" stroke={c} strokeWidth="1.6" strokeLinecap="round" /></FigBox>),
+  "インクルーシブデザイン": ({ c }) => (<FigBox><circle cx="48" cy="28" r="22" fill={c} fillOpacity="0.08" stroke={c} strokeWidth="1.4" />{[[38, 20], [58, 20], [34, 34], [48, 38], [62, 34]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="5" fill={c} fillOpacity={0.35 + i * 0.13} />))}</FigBox>),
+};
+
 const FRAMEWORKS = [
   {
     key: "hig",
@@ -40,10 +114,10 @@ const FRAMEWORKS = [
     items: [
       { name: "アクセシビリティをデフォルトに", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "アクセシビリティ基準はマテリアルの各コンポーネントに組み込まれており、包括的な製品設計の基盤になっているという考え方。多様なユーザーを想定することが、後からの手戻り(再設計)や技術的負債を防ぐことにもつながるとしている。" },
       { name: "要件を機会として捉える", ref: ["Principles", "https://m3.material.io/foundations/overview/principles"], desc: "WCAGが定める最低限の要件は特定のニーズに応えるものだが、その制約の中で生まれた工夫(ダークモード・読み上げ・音声認識など)が結果的に幅広いユーザーの助けになってきたという考え方。" },
-      { name: "設計の手順 ① 構造(Structure)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、スクリーンリーダーが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
-      { name: "設計の手順 ② 流れ(Flow)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・スクリーンリーダーでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
-      { name: "設計の手順 ③ 要素(Elements)", ref: ["Elements", "https://m3.material.io/foundations/designing/elements"], desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
       { name: "色とコントラスト", ref: ["Color & contrast", "https://m3.material.io/foundations/designing/color-contrast"], desc: "文字は4.5:1以上(大きな文字は3:1以上)。ボタンが並ぶときは、各ボタンの容器を背景に対して3:1以上にする(FABのように単独で目立つコンポーネントは対象外)。無効状態はコントラストの要件の対象外。" },
+      { name: "① 構造(Structure)", group: "設計の手順(構造 → 流れ → 要素の順に考える)", ref: ["Structure", "https://m3.material.io/foundations/designing/structure"], desc: "見た目の画面を、スクリーンリーダーが上から順に読む1本の流れに置き換えて考える。重要な操作は画面の上か下に置く。Webでは、ページの領域の目印(ナビゲーション・本文など8種類)と、レベルを飛ばさない見出しで構造を示す。押せる範囲の目安は、指で触る操作で48×48dp以上(約9mm)、マウスなどのポインターで44×44dp以上、コンポーネントどうしの間隔は8dp以上(M3 Structure)。" },
+      { name: "② 流れ(Flow)", group: "設計の手順(構造 → 流れ → 要素の順に考える)", ref: ["Flow", "https://m3.material.io/foundations/designing/flow"], desc: "キーボード・スクリーンリーダーでも目的を達成できるようにする。フォーカスの順番は基本的に既定の順(内容の並び順)を使い、画面を開いたときの最初のフォーカスを決める。ダイアログを閉じたら、開いたコンポーネントにフォーカスを戻す。" },
+      { name: "③ 要素(Elements)", group: "設計の手順(構造 → 流れ → 要素の順に考える)", ref: ["Elements", "https://m3.material.io/foundations/designing/elements"], desc: "文字のないアイコンボタン・意味のある画像・状態を示すアイコンにはラベルを付け、見た目ではなく目的を書く(「虫めがね」ではなく「検索」)。ラベルに「ボタン」などのコンポーネント名は入れない。飾りの画像は読み上げから外し、操作できる要素には役割を伝える。" },
     ],
     extra: "google",
     url: "https://m3.material.io/foundations/overview/principles",
@@ -334,32 +408,7 @@ export default function PrinciplesAccessibilityPage() {
                     <div style={styles.sourceDoc}>{f.doc}</div>
                   </div>
                 </div>
-                <div style={styles.itemList}>
-                  {f.items.map((it) =>
-                    it.sub ? (
-                      <div key={it.name} style={styles.genBlock}>
-                        <div style={styles.genHead}>
-                          <span style={styles.genName}>{it.name}</span>
-                          {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>仕様書へ ↗</a>)}
-                        </div>
-                        <p style={styles.genDesc}>{it.desc}</p>
-                        <div style={styles.genSubList}>
-                          {it.sub.map((s, si) => (
-                            <div key={s.name} style={styles.genSubRow}>
-                              <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
-                              <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div>{s.sc && <div style={styles.scLine}>{s.sc}</div>}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div key={it.name} style={styles.itemRow}>
-                        <span style={{ ...styles.itemDot, background: f.color }} />
-                        <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div>{it.ref && <a href={it.ref[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 3, fontSize: 11, color: "#3A4FCF" }}>{it.ref[0]} ↗</a>}</div>
-                      </div>
-                    )
-                  )}
-                </div>
+                <FrameworkItems f={f} />
                 {f.extra && <FrameworkExtra k={f.extra} />}
                 {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>そのほかの参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                 <div style={styles.sourceFootRow}>
@@ -377,32 +426,7 @@ export default function PrinciplesAccessibilityPage() {
                 <div key={f.key} style={styles.desktopCard}>
                   <div style={styles.sourceName}>{f.name}</div>
                   <div style={styles.sourceDoc}>{f.doc}</div>
-                  <div style={styles.itemList}>
-                    {f.items.map((it) =>
-                      it.sub ? (
-                        <div key={it.name} style={styles.genBlock}>
-                          <div style={styles.genHead}>
-                            <span style={styles.genName}>{it.name}</span>
-                            {it.url && (<a href={it.url} target="_blank" rel="noreferrer" style={styles.genLink}>仕様書へ ↗</a>)}
-                          </div>
-                          <p style={styles.genDesc}>{it.desc}</p>
-                          <div style={styles.genSubList}>
-                            {it.sub.map((s, si) => (
-                              <div key={s.name} style={styles.genSubRow}>
-                                <span style={{ ...styles.genSubIndex, background: f.color }}>{si + 1}</span>
-                                <div><div style={styles.itemName}>{s.name}</div><div style={styles.itemDesc}>{s.desc}</div>{s.sc && <div style={styles.scLine}>{s.sc}</div>}</div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ) : (
-                        <div key={it.name} style={styles.itemRow}>
-                          <span style={{ ...styles.itemDot, background: f.color }} />
-                          <div><div style={styles.itemName}>{it.name}</div><div style={styles.itemDesc}>{it.desc}</div>{it.ref && <a href={it.ref[1]} target="_blank" rel="noreferrer" style={{ display: "inline-block", marginTop: 3, fontSize: 11, color: "#3A4FCF" }}>{it.ref[0]} ↗</a>}</div>
-                        </div>
-                      )
-                    )}
-                  </div>
+                  <FrameworkItems f={f} />
                   {f.extra && <FrameworkExtra k={f.extra} />}
                   {f.refs && <div style={styles.refBox}><span style={styles.extraTitle}>そのほかの参照ページ(公式)</span><RefList refs={f.refs} /></div>}
                   <div style={styles.sourceFootRow}>
@@ -482,7 +506,11 @@ const styles = {
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 },
   sourceName: { fontWeight: 600, fontSize: 15 },
   sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
-  itemList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "10px 18px", marginTop: 10, marginBottom: 10 },
+  itemList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "14px 18px", marginTop: 10, marginBottom: 10 },
+  itemCard: { minWidth: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 },
+  itemFig: { background: "#F8F9FD", borderRadius: 6, padding: "4px 8px", marginBottom: 6 },
+  itemLink: { display: "inline-block", marginTop: 4, fontSize: 11, color: "#3A4FCF", overflowWrap: "anywhere" },
+  itemGroupTitle: { fontSize: 12, fontWeight: 700, color: "#454C78", margin: "6px 0 0", paddingTop: 10, borderTop: "1px dashed #E1E3F0" },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
   itemDot: { width: 7, height: 7, borderRadius: "50%", marginTop: 5, flexShrink: 0 },
   itemName: { fontSize: 12.5, fontWeight: 600, color: "#171B36" },
