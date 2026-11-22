@@ -195,8 +195,25 @@ const NAV_SECTIONS = [
 const TOTAL_PAGES = NAV_SECTIONS.reduce((sum, s) => sum + s.items.length, 0);
 const BUILT_PAGES = NAV_SECTIONS.reduce((sum, s) => sum + s.items.filter((i) => i.built).length, 0);
 
+// PC版のサイドバーを閉じているか。ページを移っても保てるよう、ページの外とブラウザに覚えておく
+const COLLAPSE_KEY = "dsp-sidebar-collapsed";
+let collapsedMemo = null;
+function readCollapsed() {
+  if (typeof window !== "undefined" && window.__DSP_STATIC__) return false; // 静的版は常に開いた状態で書き出す
+  if (collapsedMemo !== null) return collapsedMemo;
+  try { collapsedMemo = window.localStorage.getItem(COLLAPSE_KEY) === "1"; } catch (e) { collapsedMemo = false; }
+  return collapsedMemo;
+}
+
 function SidebarNav({ currentPath = "" }) {
   const [open, setOpen] = useState(false);
+  const [collapsed, setCollapsedState] = useState(readCollapsed);
+  const setCollapsed = (v) => {
+    collapsedMemo = v;
+    setCollapsedState(v);
+    try { window.localStorage.setItem(COLLAPSE_KEY, v ? "1" : "0"); } catch (e) { /* 保存できなくても開閉はできる */ }
+  };
+  const isStatic = typeof window !== "undefined" && window.__DSP_STATIC__;
 
   const nav = (
     <nav style={styles.nav} aria-label="サイト全体のナビゲーション">
@@ -259,10 +276,23 @@ function SidebarNav({ currentPath = "" }) {
         }
       `}</style>
 
-      {/* desktop persistent sidebar */}
-      <div className="sbn-desktop" style={styles.desktopWrap}>
-        {nav}
-      </div>
+      {/* desktop persistent sidebar(閉じると細い帯だけになり、本文が広がる) */}
+      {collapsed ? (
+        <div className="sbn-desktop" style={styles.desktopCollapsed}>
+          <button style={styles.collapseBtn} onClick={() => setCollapsed(false)} aria-label="メニューを開く" aria-expanded="false" title="メニューを開く">
+            »
+          </button>
+        </div>
+      ) : (
+        <div className="sbn-desktop" style={styles.desktopWrap}>
+          {!isStatic && (
+            <button style={{ ...styles.collapseBtn, width: 24, height: 24, fontSize: 14, position: "absolute", top: 27, right: 6 }} onClick={() => setCollapsed(true)} aria-label="メニューを閉じる" aria-expanded="true" title="メニューを閉じる">
+              «
+            </button>
+          )}
+          {nav}
+        </div>
+      )}
 
       {/* mobile top bar: logo mark (left) + hamburger (right) */}
       <div className="sbn-toggle" style={styles.mobileBar}>
@@ -295,6 +325,34 @@ const styles = {
     top: 0,
     overflowY: "auto",
     background: "#F3F6FA",
+  },
+  desktopCollapsed: {
+    width: 40,
+    flexShrink: 0,
+    height: "100vh",
+    position: "sticky",
+    top: 0,
+    background: "#F3F6FA",
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: 22,
+    boxSizing: "border-box",
+  },
+  collapseBtn: {
+    width: 28,
+    height: 28,
+    border: "1px solid #E1E3F0",
+    borderRadius: 6,
+    background: "#FFFFFF",
+    color: "#565D8A",
+    fontSize: 15,
+    lineHeight: 1,
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+    zIndex: 1,
   },
   mobileBar: {
     display: "none",
