@@ -114,14 +114,15 @@ function RelationFig({ f }) {
   if (f.key === "nn") body = (
     <>
       <div style={{ border: `1.5px solid ${c}`, borderRadius: 10, padding: "8px 10px 10px", background: "#FFFFFF" }}>
-        <div style={{ fontSize: 12, fontWeight: 700, color: c, textAlign: "center", marginBottom: 2 }}>ユーザビリティ</div>
-        <div style={{ fontSize: 11, color: "#565D8A", textAlign: "center", marginBottom: 8 }}>どちらも、手続きやチェックリストではなく心構えとして扱う</div>
-        <RRow min={140}>
-          <div style={RB(c)}>アクセシブルデザイン<div style={{ fontSize: 11, color: "#454C78" }}>困難を抱える人を助ける</div></div>
-          <div style={RB(c)}>インクルーシブデザイン<div style={{ fontSize: 11, color: "#454C78" }}>多様な背景の人を歓迎する</div></div>
-        </RRow>
+        <div style={{ fontSize: 12, fontWeight: 700, color: c, textAlign: "center" }}>ユーザビリティ</div>
+        <div style={{ fontSize: 11, color: "#565D8A", textAlign: "center", marginBottom: 8 }}>手続きやチェックリストではなく、心構えとして扱う</div>
+        <div style={{ border: `1px solid ${c}`, borderRadius: 8, padding: "8px 10px 10px", background: "#FBF7FB" }}>
+          <div style={{ fontSize: 12, fontWeight: 700, color: c, textAlign: "center" }}>インクルーシブデザイン</div>
+          <div style={{ fontSize: 11, color: "#454C78", textAlign: "center", marginBottom: 8 }}>人種・性別・宗教など、多様な背景の人を歓迎する(より広い)</div>
+          <div style={{ ...RB(c), maxWidth: 360, margin: "0 auto" }}>アクセシブルデザイン<div style={{ fontSize: 11, color: "#454C78" }}>障害など、能力の違いのある人を助ける(より狭く、最低限)</div></div>
+        </div>
       </div>
-      <RNote>アクセシビリティとインクルーシブデザインは、ユーザビリティの一部(NN groupのStudy Guide)。2つの違いは、下の「アクセシビリティとインクルーシブデザインの関係」で比べる。</RNote>
+      <RNote>どちらもユーザビリティの一部で、心構えとして扱う(NN group「Accessibility and Inclusivity: Study Guide」)。アクセシビリティはインクルーシブデザインより範囲が狭く、意味のある体験のための最低限とする(NN group「Inclusive Design」)。下の「アクセシビリティとインクルーシブデザインの関係」の図と同じ入れ子の関係。</RNote>
     </>
   );
   if (!body) return null;
