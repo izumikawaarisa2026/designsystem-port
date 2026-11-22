@@ -171,7 +171,6 @@ const NAV_SECTIONS = [
       { label: "情報伝達の使い分け", path: "/components/communication/overview", built: true },
       { label: "ステータスメッセージ", path: "/components/communication/alert", built: true },
       { label: "スナックバー", path: "/components/communication/snackbar", built: true },
-      { label: "トースト", path: "/components/communication/toast", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
       { label: "プログレスインジケーター", path: "/components/communication/progress", built: true },
       { label: "空状態", path: "/components/communication/empty-state", built: true },
@@ -852,10 +851,6 @@ const PAGE_INDEX = {
  "/components/communication/snackbar": {
   "label": "スナックバー",
   "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
- },
- "/components/communication/toast": {
-  "label": "トースト",
-  "lead": "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)"
  },
  "/components/communication/loading": {
   "label": "ローディング状態",
@@ -4838,7 +4833,7 @@ const CARDS = [
     ),
   },
   {
-    alts: [["トースト","/components/communication/toast"]],
+    alts: [["トースト","/components/communication/snackbar#toast"]],
     key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
     oneLiner: "操作の完了を知らせる。基本は自動で消えるが、元に戻すなど1つの操作を持つなら自動で消さないのが安全。",
     doText: "取り消せる操作の完了を知らせたい時(例: 削除した→元に戻す)",
@@ -4867,7 +4862,7 @@ const CARDS = [
   },
   {
     alts: [["スナックバー","/components/communication/snackbar"]],
-    key: "toast", name: "トースト", path: "/components/communication/toast", built: true,
+    key: "toast", name: "トースト", path: "/components/communication/snackbar#toast", built: true,
     oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
     doText: "取り消しなどの操作を持たない、ごく軽いお知らせをしたい時",
     dontText: "元に戻すなどの操作を持たせたい時",
@@ -5709,7 +5704,8 @@ const CommunicationSnackbarPage = (function () {
  * ポップアップで、カスタムToastビューはAPI30で非推奨)であり、Google公式も
  * 「アプリが前面表示中はSnackbar、背面ではNotification」と用途を明確に分けている
  * ことを確認したため、ユーザーの了承のもとページ単位で分割した(ダイアログ vs
- * フルスクリーンダイアログと同じ考え方)。「トースト」ページ側を参照。
+ * フルスクリーンダイアログと同じ考え方)。
+ * 2026-11 ⑩本人最終レビューNo.057・058: 「トースト」ページをなくし、このページの節(#toast)にまとめた。
  *
  * 各系列エントリに `scenarios`(推奨される使用シーン)フィールドを新設し、
  * アクセシビリティ観点の `useCases` とは区別した。`stance` は定義・原則のみに
@@ -5921,7 +5917,7 @@ const LEAD = "操作の結果を画面の下などに短く表示し、しばら
 const ABOUT = [
   { k: "目的・役割", v: "操作が終わったことを作業を止めずに知らせ、必要なら「元に戻す」などの操作を1つ添える" },
   { k: "よく使われる場面", v: "「メールを削除しました(元に戻す)」「保存しました」などの完了の知らせ" },
-  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/toast">トースト</PageLink>、残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>OSが出す操作のない通知は<PageLink to="/components/communication/snackbar#toast">トースト</PageLink>(このページの節)、残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -5933,7 +5929,7 @@ const SPLITS = [
       { who: "W3C", color: "#A3821F", t: "時間で消える操作が2.2.1(A)の時間制限に当たるなら、操作する時間が足りない人のために、時間で消さないか、延長・解除できるようにする(スナックバー専用の決まりではない)" },
       { who: "NN group", color: "#7A4F7E", t: "自動で消える通知は見落とされやすいので、重要な情報や必ず必要な操作には向かない" },
     ],
-    tip: "操作のないお知らせ(「保存しました」)は時間で消してよく、「元に戻す」のような操作を持つものは、利用者が閉じるか操作するまで残すと、3系列のどれにも沿う。",
+    tip: "操作のないお知らせ(「保存しました」)は時間で消してよい。「元に戻す」のような操作を持つ場合は、利用者が閉じるか操作するまで残す設計にすると、操作の機会を確保しやすい(AI解釈)。ただし、WCAG 2.2.1が常にこの対応を求めるわけではない。",
   },
 ];
 
@@ -5941,7 +5937,7 @@ const SPLITS = [
 const KP = [
   { n: 1, t: "添える操作は1つだけ", d: "「元に戻す」など", who: "Google" },
   { n: 2, t: "重要な情報や、必ず必要な操作には使わない", d: "自動で消える通知は見落とされやすい", who: "NN group" },
-  { n: 3, t: "操作のない知らせ(トースト)も同じ考え方で扱える", d: "トーストを別のコンポーネントにしているのはGoogle(Android)だけ", who: "NN group(用語集で「Snackbar (Toast)」の1項目)" },
+  { n: 3, t: "操作のない知らせ(トースト)も同じ考え方で扱える", d: "トーストを別のものとして扱うのはGoogle(AndroidのOSの機能)だけ", who: "NN group(用語集で「Snackbar (Toast)」の1項目)" },
 ];
 
 
@@ -5954,14 +5950,16 @@ const SNACK_TOAST = [
 ];
 function SnackToast() {
   return (
-    <section style={{ marginBottom: 36 }}>
+    <section id="toast" style={{ marginBottom: 36, scrollMarginTop: 16 }}>
       <h2 style={styles.diagramTitle}>スナックバーとトースト</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.75, color: "#2E3457", margin: "0 0 12px" }}>トーストをデザインシステムのコンポーネントとして持つ系列はない。GoogleのToastもM3のコンポーネントではなく、AndroidのOSの機能で、操作を持たない短いポップアップだ。消えるまでの時間は短い・長いの2つから選び、Android 12以降は2行までに制限され、文字の隣にアプリのアイコンが出る(<a href="https://developer.android.com/guide/topics/ui/notifiers/toasts" target="_blank" rel="noopener noreferrer" style={{ color: "#3A4FCF" }}>Android Developers ― Toasts overview</a>)。独自のレイアウトのToastは非推奨で、操作が要るならスナックバーにする。Webでトースト風の通知を作るなら、フォーカスを移さずに出る知らせとして支援技術にも伝える(4.1.3)。自動で消えるので、重要な情報には使わない(AI解釈)。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
           <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
           <tbody>
             <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
             <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(時間で消える操作が、W3Cの2.2.1の時間制限に当たる場合があるため)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
+            <tr><td style={stStyles.key}>位置づけ(Google)</td><td style={stStyles.td}>M3のコンポーネント</td><td style={stStyles.td}>AndroidのOSの機能(M3のコンポーネント一覧にはない)</td></tr>
             <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
           </tbody>
         </table>
@@ -5973,7 +5971,6 @@ function SnackToast() {
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 }}>トースト(AndroidのToast)の詳細は<PageLink to="/components/communication/toast">トースト</PageLink>のページ。</p>
     </section>
   );
 }
@@ -6114,7 +6111,7 @@ function CommunicationSnackbarPage() {
           </div>
 
 
-          <RelatedPages paths={["/components/communication/overview", "/components/communication/toast", "/components/communication/alert"]} />
+          <RelatedPages paths={["/components/communication/overview", "/components/communication/alert", "/components/communication/loading"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -6193,454 +6190,6 @@ const styles = {
 };
 
 return CommunicationSnackbarPage;
-})();
-/* ================= communication-toast.jsx ================= */
-const CommunicationToastPage = (function () {
-
-
-
-/**
- * コンポーネントレイヤー「Communication / トースト」ページ。
- *
- * 2026-09 新規作成の経緯: 「スナックバー・トースト」ページが、Androidの実装としては
- * 別のAPIである2つのコンポーネントを1ページに混在させていたため、ユーザーの了承の
- * もとページ単位で分割した。Toastは操作不要のOS標準ポップアップ(カスタムToast
- * ビューはAPI30で非推奨)、Snackbarはアクションを持てるMaterial Designの公式
- * コンポーネントという違いがある。「スナックバー」ページ側を参照。
- *
- * 2026-09 追記(ユーザー指摘): Material Design 3の公式コンポーネント一覧に
- * 「Toast」という項目は存在しない。M1〜M2時代は「Snackbars & Toasts」として
- * 2つが並記されていたが(m1.material.ioに現存)、M3ではSnackbarに統合され、
- * Toastは独立したデザインシステムコンポーネントではなくなった。これは見落とし
- * ではなく仕様通りの結果であるため、ページ冒頭に注記(warningBox)を追加し、
- * このページで扱うGoogleの情報はM3のコンポーネントではなく、Androidの
- * OSレベルAPI(プラットフォーム機能)としてのToastである点を明記した。
- * それでも独立ページとして残しているのは、(1)実務でAndroid開発者が今なお
- * 頻繁に触れる現役のAPIであること、(2)「スナックバー」ページとの対比(操作の
- * 有無)が「情報伝達の使い分け」ページの判断軸そのものであることの2点から、
- * 比較の材料として一定の価値があると判断したため。
- *
- * 各系列エントリに `scenarios`(推奨される使用シーン)フィールドを新設し、
- * アクセシビリティ観点の `useCases` とは区別した。
- *
- * Google(Android Developers公式ページ developer.android.com/guide/topics/ui/
- * notifiers/toasts)/ Nielsen Norman Group(UI Elements Glossaryに「Toast」単独の
- * 項目は存在せず「Snackbar (Toast)」という1項目にまとめられている点を含む)は
- * 本文を直接取得して確認済み(2026-09)。W3Cは、role="status"の一般原則に加え、
- * Android実装固有の既知の課題(TalkBackにToastが伝わらない)を検索結果で確認した
- * ものであり、W3Cの一次文書そのものがToastに言及しているわけではない点に注意。
- * Appleには「トースト」という名称のコンポーネントは見当たらず、最も近い概念
- * (バナー形式の通知)を検索結果により間接確認した(2026-09、スナックバーページと
- * 同一の一次情報)。
- */
-
-const SOURCES = [
-  {
-    key: "hig",
-    name: "Apple",
-    doc: "Human Interface Guidelines ― Notifications(バナー、近い概念)",
-    term: <NoData>該当なし(近いもの: 通知のバナー)</NoData>,
-    color: "#C2542A",
-    noDedicatedComponent: true,
-    position: <NoData>コンポーネントなし(トーストとスナックバーを区別しない)</NoData>,
-    size: <NoData>数値基準なし</NoData>,
-    scenarios: [<NoData>該当なし</NoData>],
-    stance: <NoData>該当なし</NoData>,
-    exceptions: <NoData>該当なし</NoData>,
-    accessibility: <NoData>記載なし</NoData>,
-    useCases: [<NoData>該当なし</NoData>],
-    searchHint: "",
-    url: "https://developer.apple.com/design/human-interface-guidelines/notifications",
-    refs: [
-      { label: "Notifications(バナー、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
-    ],
-    confirmedNote: "HIG Notificationsの本文で確認(2026-11)。",
-    pending: true,
-    illustration: () => (
-      <svg width="140" height="30" viewBox="0 0 140 30">
-        <rect x="1" y="1" width="138" height="28" rx="14" fill="#FFFFFF" stroke="#C2542A" strokeWidth="1.6" />
-        <circle cx="16" cy="15" r="6" fill="#C2542A" opacity="0.15" />
-        <text x="76" y="19" fontSize="9.5" fill="#171B36" textAnchor="middle" fontFamily="Jost, Noto Sans JP">通知バナー(近い概念)</text>
-      </svg>
-    ),
-    illustrationNote: "画面上部の短時間バナー(概念図)",
-  },
-  {
-    key: "material",
-    name: "Google",
-    doc: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)",
-    term: "Toast(AndroidのOSの仕組み)",
-    color: "#2F7D6E",
-    m3NotApplicable: true,
-    position: <><Hl>M3のコンポーネントにはない(M1〜M2の名残であるAndroidのAPI)</Hl>。操作への短いフィードバックを示す、最小限の場所だけを占める小さなポップアップ。今の画面はそのまま操作できる</>,
-    size: <span><NoData>記載なし</NoData>。Android 12(API31)以降は2行までに制限され、テキストの隣にアプリのアイコンが出る(Android Developers「Toasts overview」。Androidのバージョンによる)。</span>,
-    scenarios: [
-      "取り消しなどの操作が要らない、ごく短い操作結果を知らせたい時",
-      "操作(Undoなど)を持たせたい時はSnackbarにする",
-      "アプリが背面にあり、対応を求めたい時はNotificationにする",
-    ],
-    stance:
-      "操作への短いフィードバックを示す小さなポップアップで、メッセージに必要な分だけの領域を占め、今の画面はそのまま見られて操作できる。消えるまでの時間は、短い・長いの2つの既定値から選ぶ。公式は、アプリが前面ならSnackbar(操作を持てる)、背面ならNotification(対応を求める)を案内し、Toastは「取り消しなどの操作を伴わない最も簡潔なフィードバック」という位置づけ。",
-    exceptions:
-      "独自レイアウトのカスタムToastビューはAPI30で非推奨になり、標準の文字だけのToastかSnackbarへの置き換えを案内している。行の長さは画面サイズで変わるため、文言はできるだけ短くする。",
-    accessibility:
-      <span><NoData>記載なし。</NoData>自動で消えるため、スクリーンリーダーの読み上げが間に合わないことがあり、重要な情報には使わないのが安全(AI解釈)。</span>,
-    useCases: [
-      "標準の、文字だけのToastを使う",
-      "独自のレイアウトが要るなら、独自のToast(非推奨)ではなくSnackbarを使う",
-      "表示文言はできるだけ短くする(画面サイズにより行の折り返し方が変わるため)",
-    ],
-    searchHint: "makeText",
-    url: "https://developer.android.com/guide/topics/ui/notifiers/toasts",
-    refs: [
-      { label: "Android Developers ― Toasts overview(Material Design 3のコンポーネントではなく、AndroidのOSレベルAPI)", url: "https://developer.android.com/guide/topics/ui/notifiers/toasts" },
-      { label: "Snackbar(このコンポーネントとの使い分け)", url: "https://m3.material.io/components/snackbar/guidelines" },
-    ],
-    confirmedNote: "Android Developers公式ページ本文を直接取得して確認(2026-09)。カスタムToastビューがAPI30で非推奨になったこと、Android12以降の2行制限・アイコン表示も同ページで直接確認済み。",
-    illustration: () => (
-      <svg width="140" height="26" viewBox="0 0 140 26">
-        <rect x="1" y="1" width="138" height="24" rx="13" fill="#171B36" opacity="0.85" />
-        <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
-      </svg>
-    ),
-    illustrationNote: "アクションボタンを持たない、最小限のポップアップ(概念図)",
-  },
-  {
-    key: "wcag",
-    name: "W3C",
-    doc: "WCAG 4.1.3 Status Messages(主な根拠)/ 2.2.1(関わり得る)",
-    term: "控えめな知らせ(4.1.3のステータスメッセージ)",
-    color: "#A3821F",
-    position: <><Hl>フォーカスを移さずに出る知らせは、支援技術にも伝える(4.1.3)</Hl>。Webでトースト風の通知を作るなら、読み上げ中の内容の後に読み上げる控えめな知らせが基本</>,
-    glossary: [
-      { term: "色", desc: "1.4.11(非テキストのコントラスト)は、Toastの中にアイコンなどがあればかかり得る。" },
-    ],
-    size: "専用の数値基準はない。操作できる要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる(Toast自体は操作できないため、対象になりにくい)。",
-    scenarios: [
-      "Webでトースト風の通知を作り、内容を支援技術にも伝えたい時(4.1.3)",
-      "自動で消える通知に、重要な情報を載せてよいか判断したい時",
-    ],
-    stance:
-      "4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに出る知らせ(「保存しました」など)を、支援技術にも伝えること。Webでトースト風の通知を作るなら、控えめな知らせとして読み上げるのが基本(「スナックバー」ページと同じ)。自動で消える通知は読み上げが間に合わないことがあるため、重要な情報には使わない。",
-    exceptions:
-      "2.2.1(期限調節可能・レベルA)は、読んだり操作したりする時間が要る時間制限の基準。操作ボタンのないトーストに当てはまるかは解釈が分かれるため、「関わり得る」に留める。",
-    accessibility:
-      "堅牢(Robust) ― 主な根拠は4.1.3(Status Messages)。表示の時間では、2.2.1(Timing Adjustable、操作可能)も関わり得る。",
-    useCases: [
-      "Webでトースト風の通知は、控えめな知らせとして支援技術にも伝える",
-      "自動で消えるため、読み上げが間に合わないことがある。重要な情報の伝達には使わない",
-    ],
-    searchHint: "without receiving focus",
-    url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html",
-    refs: [
-      { kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" },
-      { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
-      { label: "WAI-ARIA: statusロール", url: "https://www.w3.org/TR/wai-aria-1.2/#status" },
-      { kind: "mdn", label: "statusロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/status_role" },
-    ],
-    confirmedNote: "4.1.3・2.2.1のUnderstandingページと、WAI-ARIA仕様のstatusロールを確認(2026-10)。",
-    illustration: () => (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-        <svg width="140" height="26" viewBox="0 0 140 26">
-          <rect x="1" y="1" width="138" height="24" rx="6" fill="none" stroke="#A3821F" strokeDasharray="3 2" strokeWidth="1.2" />
-          <text x="70" y="17" fontSize="9" fill="#A3821F" textAnchor="middle" fontFamily="Jost, Noto Sans JP">控えめな知らせ(4.1.3)</text>
-        </svg>
-      </div>
-    ),
-    illustrationNote: "視覚デザインの規定はなく、実装上の注意点を図示",
-  },
-  {
-    key: "nn",
-    name: "Nielsen Norman Group",
-    doc: "User-Interface Elements: Glossary(「Snackbar (Toast)」項目、Toast単独の項目はなし)",
-    term: "Snackbar(Toast)",
-    color: "#7A4F7E",
-    position: <NoData>コンポーネントなし(スナックバーと同じ項目「Snackbar (Toast)」で扱う)</NoData>,
-    size: <NoData>数値基準なし</NoData>,
-    scenarios: [<NoData>スナックバーと同じ</NoData>],
-    stance: <NoData>スナックバーと同じ</NoData>,
-    exceptions: <NoData>スナックバーと同じ</NoData>,
-    accessibility: <NoData>スナックバーと同じ</NoData>,
-    useCases: [<NoData>スナックバーと同じ</NoData>],
-    searchHint: "Snackbar",
-    url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar",
-    refs: [
-      { label: "UI Elements Glossary: Snackbar (Toast)", url: "https://www.nngroup.com/articles/ui-elements-glossary/#Snackbar" },
-    ],
-    confirmedNote: "用語集本文を直接取得し、「Toast」単独の項目が存在しないこと(「Snackbar (Toast)」という1項目名であること)を確認済み(2026-09)。",
-    illustration: () => (
-      <svg width="140" height="26" viewBox="0 0 140 26">
-        <rect x="1" y="1" width="138" height="24" rx="13" fill="#7A4F7E" opacity="0.85" />
-        <text x="70" y="17" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily="Jost, Noto Sans JP">送信しました</text>
-      </svg>
-    ),
-    illustrationNote: "Snackbarと同一項目内で扱われる「Toast」(概念図)",
-  },
-];
-
-function InfoBox({ label, accent, children }) {
-  return (
-    <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
-      <span style={styles.exceptionLabel}>{label}</span>
-      <div style={styles.exceptionText}>{children}</div>
-    </div>
-  );
-}
-
-function UseCaseList({ items }) {
-  return (
-    <ul style={styles.useCaseList}>
-      {items.map((it, i) => (<li key={i} style={styles.useCaseItem}>{it}</li>))}
-    </ul>
-  );
-}
-
-function ToastSwatch() {
-  return (
-    <div style={{ width: 200, margin: "0 auto" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "10px 16px", background: "#171B36", opacity: 0.85, borderRadius: 20 }}>
-        <span style={{ color: "#FFFFFF", fontSize: 13, fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>送信しました</span>
-      </div>
-    </div>
-  );
-}
-
-/* タイトル直下の1文と、サマリーの表(目的・役割など) */
-const LEAD = "短い文を一時的に表示して自動で消える、操作のない通知(主にAndroidのOSの機能)";
-const ABOUT = [
-  { k: "目的・役割", v: "作業を止めずに、ちょっとした結果や状態を一言で知らせる" },
-  { k: "よく使われる場面", v: "「コピーしました」「送信しました」などの簡単な知らせ" },
-  { k: "似たコンポーネント", v: <>操作(元に戻すなど)を添えるなら<PageLink to="/components/communication/snackbar">スナックバー</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
-];
-
-/* 意見が分かれる点 */
-const SPLITS = [
-  {
-    q: "自動で消える短い通知(トースト)に、大事な情報を載せてよい?",
-    sides: [
-      { who: "Google(Android)", color: "#2F7D6E", t: "トーストは、取り消しなどの操作のない、いちばん簡単なフィードバック用。操作が要るならスナックバー、アプリが裏にあるなら通知を使う" },
-      { who: "W3C・NN group", color: "#A3821F", t: "載せない。自動で消える通知は読み上げが間に合わないことがある(W3C)。受け身の通知は見落とされやすい(NN group)" },
-      { who: "Apple", color: "#C2542A", t: "アプリの中のトーストのコンポーネントはない。使っている最中なら、今の画面にさりげなく加える方法を勧めている" },
-    ],
-    tip: "トーストは「保存しました」のような、見落としても困らない知らせだけに使う。読んでもらう必要のある情報は、消えない場所(画面の中の文やステータスメッセージ)に出す。",
-  },
-];
-
-/* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
-const KP = [
-  { n: 1, t: "見落としても困らない知らせ(「保存しました」など)だけに使い、読んでもらう必要のある情報は消えない場所に出す", d: "", who: "AI解釈" },
-  { n: 2, t: "操作を添えるなら、スナックバーを使う", d: "", who: "Google" },
-];
-
-function CommunicationToastPage() {
-  return (
-    <div className="dsp-page" style={styles.page}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
-        * { box-sizing: border-box; }
-        .dsp-inner { max-width: 560px; min-width: 0; margin: 0 auto; padding: 28px 16px 40px; }
-        @container dsp (min-width: 860px) {
-          .dsp-inner { max-width: 980px; padding: 36px 24px 48px; }
-        }
-      `}</style>
-
-      <div style={styles.layout}>
-        <SidebarNav currentPath="/components/communication/toast" />
-        <div className="dsp-inner">
-          <div style={styles.metaRow}>
-            <span>コンポーネント / トースト</span>
-            <span>SPEC No. 035</span>
-          </div>
-
-          <h1 style={styles.title}>トースト</h1>
-          <p className="dsp-lead" style={{ fontSize: 14, fontWeight: 500, color: "#2E3457", margin: "0 0 16px", lineHeight: 1.7 }}>{LEAD}</p>
-          <div style={{ ...styles.warningBox, marginBottom: 24 }}>
-            <div style={styles.warningLabel}>⚠ 重要な注記</div>
-            <p style={styles.warningText}>
-              <strong>トーストを独立したコンポーネントとして持つ系列はない。</strong>Google欄は、M3のコンポーネントではなく、AndroidのOSの機能のToastを扱う。WebでToast風の知らせを作るなら、ステータスメッセージ(W3C 4.1.3)として支援技術にも伝える。使い方の詳細は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>のページにまとめている。
-            </p>
-          </div>
-          <SummaryCard keyPoints={KP}
-            image={<ToastSwatch />}
-            imageNote="アクションボタンを持たない、最も簡潔なフィードバック。取り消し操作などを添えたい場合は「スナックバー」ページを参照。"
-            rows={ABOUT}
-          />
-
-          <SplitSection splits={SPLITS} />
-
-
-
-          <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              トーストは<strong>操作を持たない、いちばん軽い一時的な知らせ</strong>。Googleは、前面のアプリでの軽い知らせはToast、操作を添えるならSnackbar、アプリが裏にあるならNotification、と分けている。
-            </p>
-            <p style={styles.synthesisText}>
-              自動で消えるため、<strong>読み上げが間に合わず、見落とされやすい</strong>(W3C・NN group)。<strong>見落としても困らない知らせだけに使い</strong>、大事な情報は消えない場所に出す。
-            </p>
-          </div>
-
-          <div className="dsp-mobile-only" style={styles.sourceList}>
-            {SOURCES.map((s) => (
-              <div key={s.key} style={styles.sourceCard}>
-                <div style={styles.sourceHeadRow}>
-                  <div>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                </div>
-                {s.illustration && (
-                  <div style={styles.illustrationBox}>
-                    {s.illustration()}
-                    {s.illustrationNote && <p style={styles.illustrationNote}>{s.illustrationNote}</p>}
-                  </div>
-                )}
-                {(s.m3NotApplicable || s.noDedicatedComponent) && (
-                  <span style={styles.notApplicableChip}>{s.m3NotApplicable ? "M3では該当なし(OS APIとして存在)" : "専用コンポーネントなし"}</span>
-                )}
-                <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
-                <div style={styles.positionBadge}>{s.position}</div>
-                <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
-                <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
-                <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
-                <InfoBox label="参照ページ(公式)">
-                  <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                </InfoBox>
-                {s.searchHint && (
-                  <span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="dsp-desktop-only">
-            <div style={styles.matrixScroll}>
-              <div style={styles.matrixGrid}>
-                <div style={{ ...styles.labelCell, ...styles.headerRowCell }} />
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.headerCell, ...styles.headerRowCell }}>
-                    <div style={styles.sourceName}>{s.name}</div>
-                    <div style={styles.sourceDoc}>{s.doc}</div>
-                  </div>
-                ))}
-                <div style={styles.labelCell}>デザインイメージ</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, flexDirection: "column", gap: 4 }}>
-                    {s.illustration ? s.illustration() : null}
-                    {s.illustrationNote && <span style={styles.illustrationNoteSmall}>{s.illustrationNote}</span>}
-                  </div>
-                ))}
-                <div style={styles.labelCell}>名称</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.term}</div>))}
-                <div style={styles.labelCell}>位置づけ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
-                <div style={styles.labelCell}>推奨される使用シーン</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
-                <div style={styles.labelCell}>サイズ</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
-                <div style={styles.labelCell}>基本方針</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
-                <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>ユースケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
-                <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>
-                {SOURCES.map((s) => (
-                  <div key={s.key} style={{ ...styles.cell, ...styles.lastRowCell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
-                    <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
-                    {s.searchHint && (<span style={styles.searchHint}>ページ内検索: <span style={styles.searchHintWord}>&ldquo;{s.searchHint}&rdquo;</span></span>)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-
-          <RelatedPages paths={["/components/communication/overview", "/components/communication/snackbar", "/components/communication/alert"]} />
-
-          <div style={styles.tagsRow}>
-            {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
-            {["通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
-          </div>
-
-          <div style={styles.footer}>
-            <span>最終確認: 2026-11</span>
-            <span>更新方針: 一次情報の変更を定期確認 → AIが下書き → 人が承認</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const styles = {
-  termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
-  termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
-  page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },
-  layout: { display: "flex", alignItems: "flex-start" },
-  metaRow: { display: "flex", justifyContent: "space-between", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#666D93", letterSpacing: 0.3, marginBottom: 14 },
-  title: { fontSize: 28, fontWeight: 700, margin: "0 0 10px", lineHeight: 1.2 },
-  subtitle: { fontSize: 13.5, color: "#565D8A", margin: "0 0 22px" },
-  warningBox: { background: "#FFF6E5", borderLeft: "4px solid #B8860B", padding: "14px 18px", marginBottom: 20, borderRadius: "0 4px 4px 0" },
-  warningLabel: { fontSize: 12.5, fontWeight: 700, color: "#8A6210", marginBottom: 6, letterSpacing: 0.2 },
-  notApplicableChip: { display: "inline-block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, fontWeight: 700, color: "#454C78", background: "#EEF1F7", border: "1px solid #D5DAE8", padding: "3px 8px", borderRadius: 3, alignSelf: "flex-start", letterSpacing: 0.2 },
-  warningText: { fontSize: 12.5, lineHeight: 1.75, color: "#5A4419", margin: 0 },
-  swatchCard: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 20, textAlign: "center" },
-  swatchLabel: { display: "block", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 12, fontWeight: 700, letterSpacing: 0.2, color: "#171B36", textAlign: "left", marginBottom: 14 },
-  swatchNote: { fontSize: 11, color: "#666D93", margin: "14px 0 0", lineHeight: 1.6 },
-  synthesisBox: { background: "#FAFCEE", borderLeft: "4px solid #5A9629", padding: "18px 20px", marginBottom: 22, borderRadius: "0 4px 4px 0" },
-  synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
-  synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
-  diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
-  sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
-  sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
-  sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },
-  sourceName: { fontWeight: 600, fontSize: 14.5 },
-  sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
-  positionBadge: { display: "inline-block", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, color: "#3C5A73", background: "#F0F4F8", padding: "3px 8px", borderRadius: 3 },
-  illustrationBox: { margin: "12px 0", textAlign: "center" },
-  illustrationNote: { fontSize: 10, color: "#666D93", margin: "6px 0 0" },
-  illustrationNoteSmall: { fontSize: 9.5, color: "#666D93", lineHeight: 1.4 },
-  sourceStance: { fontSize: 12.5, lineHeight: 1.65, color: "#2E3457", margin: "10px 0 10px" },
-  infoBox: { background: "#F8F9FD", borderLeft: "2px solid #E1E3F0", padding: "8px 10px", marginBottom: 10, borderRadius: "0 3px 3px 0" },
-  exceptionLabel: { fontFamily: "'Jost', 'Noto Sans JP', sans-serif", fontSize: 11, fontWeight: 700, color: "#454C78", letterSpacing: 0.2, display: "block", marginBottom: 4 },
-  exceptionText: { fontSize: 11.5, lineHeight: 1.6, color: "#454C78", margin: 0 },
-  confirmedNote: { fontSize: 10, color: "#666D93", margin: "0 0 10px", lineHeight: 1.5, fontStyle: "italic" },
-  useCaseList: { margin: 0, padding: "0 0 0 16px" },
-  useCaseItem: { fontSize: 11.5, lineHeight: 1.7, color: "#454C78" },
-  sourceFootRow: { display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 6 },
-  searchHint: { fontSize: 10.5, color: "#666D93" },
-  searchHintWord: { fontFamily: "'IBM Plex Mono', monospace", color: "#454C78", fontWeight: 600 },
-  sourceLink: { fontSize: 11, color: "#3A4FCF", textDecoration: "underline" },
-  secondaryLinks: { display: "flex", flexDirection: "column", gap: 4, marginTop: 6 },
-  matrixScroll: { overflowX: "auto", marginBottom: 40 },
-  matrixGrid: { display: "grid", gridTemplateColumns: "110px repeat(4, 1fr)", minWidth: 700, border: "1px solid #E1E3F0" },
-  labelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", padding: "10px 10px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center", background: "#F8F9FD" },
-  headerCell: { padding: "16px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" },
-  headerRowCell: { background: "#FFFFFF" },
-  cell: { padding: "10px 12px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", alignItems: "center" },
-  textCell: { display: "block", fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", alignItems: "flex-start", minWidth: 0, overflowWrap: "break-word", wordBreak: "break-word" },
-  exceptionCell: { background: "#F8F9FD" },
-  sizeCell: { background: "#F0F4F8" },
-  link: { fontSize: 11, color: "#171B36", textDecoration: "underline" },
-  lastRowCell: { borderBottom: "none" },
-  linksRow: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 10, marginBottom: 22 },
-  linkCard: { display: "block", textDecoration: "none", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 16px", color: "inherit" },
-  linkCardTitle: { fontSize: 13.5, fontWeight: 700, color: "#3A4FCF", marginBottom: 4 },
-  linkCardDesc: { fontSize: 12, color: "#666D93" },
-  tagsRow: { display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 40 },
-  tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
-  tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
-  footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
-};
-
-return CommunicationToastPage;
 })();
 /* ================= communication-tooltip.jsx ================= */
 const CommunicationTooltipPage = (function () {
@@ -7682,7 +7231,33 @@ function WidgetGuide() {
       </div>
       <p style={styles.wkNote}>Appleは、意味のある内容と、役立つ操作、アプリの大事な場所へのリンクを入れるよう勧め、大きいサイズでは、データをより詳しく見せる(グラフなど)こともできるとしている。どの種類でも、ウィジェットの主な目的に直接関係する情報だけを表示する。</p>
 
-      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>良いウィジェットの条件(Apple) ― 情報量と流動性</h2>
+    </section>
+  );
+}
+
+/* 大きさの決め方(AppleとGoogleの違い) */
+function WidgetSize() {
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <h3 style={styles.subTitle}>AppleとGoogleの違い ― 大きさの決め方</h3>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.wkTable}>
+          <thead><tr>{["", "Apple", "Google(Android)"].map((h) => (<th key={h} style={styles.wkTh}>{h}</th>))}</tr></thead>
+          <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={{ marginTop: 16 }}><SizeChart /></div>
+      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
+      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
+    </div>
+  );
+}
+
+/* 良いウィジェットの条件(Apple) ― 情報量と流動性 */
+function WidgetQuality() {
+  return (
+    <div style={{ marginBottom: 26 }}>
+      <h3 style={styles.subTitle}>情報量と流動性(Apple)</h3>
       <div style={styles.wkGrid}>
         <div style={styles.wkCard}>
           <div style={styles.wkTitle}>情報量のバランス</div>
@@ -7695,18 +7270,7 @@ function WidgetGuide() {
           <div style={styles.wkSrc}>HIG Widgets「Prefer dynamic information that changes throughout the day」</div>
         </div>
       </div>
-
-      <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>AppleとGoogleの違い ― 大きさの決め方</h2>
-      <div style={{ overflowX: "auto" }}>
-        <table style={styles.wkTable}>
-          <thead><tr>{["", "Apple", "Google(Android)"].map((h) => (<th key={h} style={styles.wkTh}>{h}</th>))}</tr></thead>
-          <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
-        </table>
-      </div>
-      <div style={{ marginTop: 16 }}><SizeChart /></div>
-      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
-      <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
-    </section>
+    </div>
   );
 }
 
@@ -7758,6 +7322,14 @@ function CommunicationWidgetPage() {
           <WidgetIntro />
 
           <WidgetGuide />
+
+          <h2 style={styles.diagramTitle}>大きさと表示モード</h2>
+          <WidgetSize />
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>Apple ― 置かれる場所で変わる表示モード</h3>
+            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変える。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用する(図は概念図)。</p>
+            <AppearanceModes />
+          </section>
 
 
 
@@ -7842,17 +7414,14 @@ function CommunicationWidgetPage() {
             </div>
           </div>
 
+          <h2 style={styles.diagramTitle}>良いウィジェットの条件</h2>
+          <WidgetQuality />
           <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>良いウィジェット・避けたいウィジェット</h2>
+            <h3 style={styles.subTitle}>良いウィジェット・避けたいウィジェット</h3>
             <p style={styles.diagramNote}>Apple・Google・NN groupの記述を、良いウィジェット(◯)と避けたいウィジェット(✕)に分けて並べた。下の名前は根拠にした系列だ。</p>
             <DoDont />
           </section>
 
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>Apple ― 置かれる場所で変わる表示モード</h2>
-            <p style={styles.diagramNote}>同じウィジェットでも、置かれる場所と利用者の設定によって、システムが見た目を変える。どの表示でも意味が伝わるよう、色だけに頼らず文字とアイコンを併用する(図は概念図)。</p>
-            <AppearanceModes />
-          </section>
 
 
           <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/tokens/adaptive", "/components/communication/overview"]} />
@@ -7913,6 +7482,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
+  subTitle: { fontSize: 13.5, fontWeight: 700, margin: "0 0 10px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   subHead: { fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 10px" },
   ruleSection: { marginBottom: 26 },
@@ -10108,25 +9678,6 @@ function ContainmentCarouselPage() {
             </div>
           </div>
 
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>自動送りで何が起きるか(W3C・NN group)</h2>
-            <AutoForwardTimeline />
-            <p style={styles.chartNote}>5秒ごとに切り替わるカルーセルの概念図だ。目当ての内容が載っている1枚は、表示されている時間の一部でしか見えない。W3Cは5秒を超える自動の動きに止める手段を求め、NN groupは自動送りそのものを避けるよう勧めている。</p>
-          </div>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>最後の1枚の後の扱い</h2>
-            <p style={styles.diagramNote}>最後まで送ったあとに止まるか、1枚目に戻るかは、系列によって考え方が違う。下の名前は根拠にした系列だ。</p>
-            <EndBehavior />
-            <div style={styles.aiNote}><strong>AI解釈: </strong>手で送るカルーセルは<strong>端で止める</strong>のが基本だ(Apple・Googleとも端のある一覧として扱う)。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、NN groupは繰り返しを、W3Cは1周で止める実装も認めており、どちらでも<strong>5秒を超えて動くなら止める手段が必要(2.2.2)</strong>だ。ループにする場合は「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。4系列とも、継ぎ目なく無限に続くループについての記述は見当たらなかった。</div>
-          </section>
-
-          <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>SP版とPC版の違い</h2>
-            <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わる。かっこ内は根拠にした系列だ。</p>
-            <DeviceTable />
-          </section>
-
           <section style={styles.ruleSection}>
             <h2 style={styles.diagramTitle}>カルーセルにする前に考えたい代わりの形</h2>
             <div style={styles.altGrid}>
@@ -10139,6 +9690,27 @@ function ContainmentCarouselPage() {
               ))}
             </div>
           </section>
+
+          <h2 style={styles.diagramTitle}>送り方と自動送り</h2>
+          <div style={styles.chartCard}>
+            <h3 style={styles.subTitle}>自動送りで何が起きるか(W3C・NN group)</h3>
+            <AutoForwardTimeline />
+            <p style={styles.chartNote}>5秒ごとに切り替わるカルーセルの概念図だ。目当ての内容が載っている1枚は、表示されている時間の一部でしか見えない。W3Cは5秒を超える自動の動きに止める手段を求め、NN groupは自動送りそのものを避けるよう勧めている。</p>
+          </div>
+
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>最後の1枚の後の扱い</h3>
+            <p style={styles.diagramNote}>最後まで送ったあとに止まるか、1枚目に戻るかは、系列によって考え方が違う。下の名前は根拠にした系列だ。</p>
+            <EndBehavior />
+            <div style={styles.aiNote}><strong>AI解釈: </strong>手で送るカルーセルは<strong>端で止める</strong>のが基本だ(Apple・Googleとも端のある一覧として扱う)。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、NN groupは繰り返しを、W3Cは1周で止める実装も認めており、どちらでも<strong>5秒を超えて動くなら止める手段が必要(2.2.2)</strong>だ。ループにする場合は「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。4系列とも、継ぎ目なく無限に続くループについての記述は見当たらなかった。</div>
+          </section>
+
+          <section style={styles.ruleSection}>
+            <h3 style={styles.subTitle}>SP版とPC版の違い</h3>
+            <p style={styles.diagramNote}>タッチで使うスマートフォンと、マウス・キーボードで使うPCでは、送り方・自動送り・止めるきっかけが変わる。かっこ内は根拠にした系列だ。</p>
+            <DeviceTable />
+          </section>
+
 
 
           <RelatedPages paths={["/components/containment/card", "/components/containment/list", "/components/navigation/pagination", "/tokens/motion"]} />
@@ -10175,6 +9747,7 @@ const styles = {
   chartCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 12px", marginBottom: 22 },
   chartNote: { fontSize: 11, color: "#666D93", margin: "10px 0 0", lineHeight: 1.6 },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
+  subTitle: { fontSize: 13.5, fontWeight: 700, margin: "0 0 10px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
   ruleSection: { marginBottom: 26 },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
@@ -11310,7 +10883,7 @@ const SOURCES = [
       { term: "先頭 / コンテンツ / 末尾スロット", desc: "項目の3つの領域。先頭にはアバター・アイコン・選択コントロールなど、コンテンツにはラベル・補足の文など、末尾には操作の要素や選択コントロールなどを置ける。" },
     ],
     stance:
-      <>読みやすさを重視した縦の索引。<Hl>選択モードはリストごとに1つだけ</Hl>(単一選択はラジオボタン、複数選択はチェックボックス。スイッチは、各項目の設定のオン・オフに使う)。</>,
+      <>読みやすさを重視した縦の索引。<Hl>1つのリスト内では、単一選択か複数選択のどちらかにする</Hl>。単一選択はラジオボタン、複数選択はチェックボックスを使う。スイッチは各項目の設定のオン・オフに使う。</>,
     scenarios: [
       "特定の項目を見つけて操作させる、縦の索引を作りたい場面",
       "中〜拡張のブレークポイントで、リストと詳細を並べて見せたい場面",
@@ -13060,7 +12633,6 @@ const TAG_INDEX = [
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
   {"group": "Communication", "label": "ステータスメッセージ", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "スナックバー", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
-  {"group": "Communication", "label": "トースト", "path": "/components/communication/toast", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "ローディング状態", "path": "/components/communication/loading", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "プログレスインジケーター", "path": "/components/communication/progress", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示"]},
   {"group": "Communication", "label": "空状態", "path": "/components/communication/empty-state", "principles": ["理解可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "見つけやすさ・初めての案内"]},
@@ -33491,7 +33063,7 @@ const SOURCES = [
     exceptions:
       "システムのコンポーネントは、入力方法に合わせて動きを自動で調整する(例: Liquid Glassは指で直接触れると強く、トラックパッドでは控えめに反応)。",
     accessibility:
-      "操作可能(Operable) ― 動きで体調を崩しやすい人のための「視差効果を減らす(Reduce Motion)」設定があり、有効なら自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅が多いと、気が散るだけでなく、めまいや、場合によっては発作の原因になる。",
+      "操作可能(Operable) ― 動きで体調を崩しやすい人のために「視差効果を減らす(Reduce Motion)」設定がある。有効なら、自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅が多いと、気が散るだけでなく、めまいや、場合によっては発作の原因になる。",
     useCases: [
       "標準のコンポーネントの動きを使い、独自の動きは目的があるときだけ足す",
       "動きだけで情報を伝えず、触覚や音でも補う",
@@ -33513,13 +33085,13 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <>時間とイージングを数値の「トークン」で体系化。<Hl>動く範囲が広いほど時間を長くする</Hl>、という1つのルールで使い分ける。物理ベースの動き(スプリング)もある</>,
     size: "50〜1000msの16段階のトークンがある。Short 1〜4 = 50/100/150/200ms、Medium 1〜4 = 250/300/350/400ms、Long 1〜4 = 450/500/550/600ms、Extra long 1〜4 = 700/800/900/1000ms。動く面積や距離が大きいほど長い時間を使うのが原則。",
-    easing: "イージングは7種類。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)、画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)、M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)。装飾のない動きにはLinear。スプリングは速さ3種(fast/default/slow)×種類2種(位置を動かすspatial/色や不透明度を変えるeffects)の6種類で、effectsは行き過ぎて跳ね返らない。",
+    easing: "イージングは7種類。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)。画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)。M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)。装飾のない動きにはLinear。スプリングは速さ3種(fast/default/slow)×種類2種(位置を動かすspatial/色や不透明度を変えるeffects)の6種類で、effectsは行き過ぎて跳ね返らない。",
     stance:
       "動きを色や形と同じくテーマの属性として定義し、アプリ全体で印象をそろえる。時間とイージングは組で使い、独自に時間を変えるときも「範囲が広いほど長く」を守れば、画面遷移の速さの感覚がそろう。",
     exceptions:
       "画面遷移には4つの定型パターン(コンテナ変形・共有軸・フェードスルー・フェード)がある。スプリングは、スイッチなど小さなコンポーネントにfast、全画面の遷移にslow、ボトムシートやナビゲーションドロワーのように画面の一部を覆うものにdefaultを使う。",
     accessibility:
-      "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく控えめなフェードにし、視差や形の変形などの装飾的な効果を止める(M3 Applying transitions)。",
+      "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく、控えめなフェードにする。視差や形の変形などの装飾的な効果も止める(M3 Applying transitions)。",
     useCases: [
       "小さなコンポーネントの状態変化はShort(50〜200ms)、全画面の遷移はLong以上",
       "入る動きは減速、出る動きは加速のイージングを使う",
@@ -34247,27 +33819,28 @@ function TokensMotionPage() {
           <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
 
 
-          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」、W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
+          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」。W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
 
           <MotionIntro />
 
           <MotionUiMap />
 
 
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
+          <section style={styles.figSection}>
+            <h2 style={styles.diagramTitle}>四系列比較図</h2>
+
+            <div style={styles.chartCard}>
+            <h3 style={styles.figTitle}>何を定めているか</h3>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記、△=部分的・条件付き、―=記載なし。</p>
           </div>
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― アニメーションの時間の目安</h2>
+            <h3 style={styles.figTitle}>アニメーションの時間の目安</h3>
             <MotionChart />
-            <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークン、NN groupの帯は記事の目安(100〜400msが適切、400〜500msは大画面での大きな移動のみ、500ms以上は遅さが負担に)を色分けしたものだ。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>
+            <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークンだ。NN groupの帯は記事の目安を色分けしたもの(100〜400msが適切、400〜500msは大画面での大きな移動だけ、500ms以上は遅さが負担になる)。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>
           </div>
 
-          <section style={styles.figSection}>
-            <h2 style={styles.diagramTitle}>図で詳しく見る ― 長さ・緩急・場面・安全面</h2>
             <p style={styles.diagramNote}>「はじめに」の3つの観点(長さ・緩急・減らす配慮)を、実際に動かしたり、時間ごとの位置を打点したりして確かめる。①長さ → ②緩急 → ③場面ごとの使い分け → ④安全面の上限 の順だ。</p>
 
             <div style={styles.chartCard}>
@@ -34288,7 +33861,7 @@ function TokensMotionPage() {
             <div style={styles.chartCard}>
               <h3 style={styles.figTitle}>③ 場面ごとの目安 ― 動く範囲が広いほど長く</h3>
               <SceneDurationMap />
-              <p style={styles.chartNote}>Googleのスプリング(fast/default/slow)の使い分けはMaterial Components for Androidのドキュメント、NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
+              <p style={styles.chartNote}>Googleのスプリング(fast/default/slow)の使い分けは、Material Components for Androidのドキュメントによる。NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
             </div>
 
             <div style={styles.chartCard}>
@@ -38430,7 +38003,6 @@ const PAGES = [
   { id: "components-communication-overview", label: "情報伝達の使い分け", spec: "034", Component: CommunicationOverviewPage, path: "/components/communication/overview", fixed: true },
   { id: "components-communication-alert", label: "ステータスメッセージ", spec: "033", Component: CommunicationStatusMessagePage, path: "/components/communication/alert", fixed: true },
   { id: "components-communication-snackbar", label: "スナックバー", spec: "030", Component: CommunicationSnackbarPage, path: "/components/communication/snackbar", fixed: true },
-  { id: "components-communication-toast", label: "トースト", spec: "035", Component: CommunicationToastPage, path: "/components/communication/toast", fixed: true },
   { id: "components-communication-loading", label: "ローディング状態", spec: "061", Component: CommunicationLoadingPage, path: "/components/communication/loading", fixed: true },
   { id: "components-communication-progress", label: "プログレスインジケーター", spec: "036", Component: CommunicationProgressPage, path: "/components/communication/progress", fixed: true },
   { id: "components-communication-empty-state", label: "空状態", spec: "038", Component: CommunicationEmptyStatePage, path: "/components/communication/empty-state", fixed: true },
@@ -38445,7 +38017,13 @@ const PAGES = [
 
 function App() {
   // 表示するページはURLの #/パス で決まる(例: #/tokens/color)。なければトップ
-  const pageOfHash = () => PAGES.find((p) => p.path === decodeURIComponent(window.location.hash.slice(1)));
+  // ほかのページにまとめたページの古いURL(#/components/communication/toast など)は、まとめ先の節へ送る
+  const MOVED = { "/components/communication/toast": "/components/communication/snackbar#toast" };
+  const pageOfHash = () => {
+    const movedTo = MOVED[decodeURIComponent(window.location.hash.slice(1))];
+    if (movedTo) { const [mp, ma] = movedTo.split("#"); window.__DSP_ANCHOR = ma || null; history.replaceState(null, "", "#" + mp); }
+    return PAGES.find((p) => p.path === decodeURIComponent(window.location.hash.slice(1)));
+  };
   const [current, setCurrent] = useState(() => pageOfHash() || PAGES[0]);
   useEffect(() => {
     // ページ内の見出しへのリンク(#elv-rules など)ではページを切り替えない
@@ -38453,7 +38031,18 @@ function App() {
     window.addEventListener("hashchange", onHash);
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
-  useEffect(() => { window.scrollTo(0, 0); }, [current]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    // リンク先のページ内の節(/components/communication/snackbar#toast の toast など)があれば、そこまで送る
+    const id = window.__DSP_ANCHOR;
+    if (id) setTimeout(() => { const el = document.getElementById(id); if (el) { window.__DSP_ANCHOR = null; el.scrollIntoView({ block: "start" }); } }, 80);
+  }, [current]);
+  useEffect(() => {
+    // 横断ビューのように自分で位置を扱うページが先に読めるよう、少し遅らせる
+    const onAnchor = () => setTimeout(() => { const id = window.__DSP_ANCHOR; const el = id && document.getElementById(id); if (el) { window.__DSP_ANCHOR = null; el.scrollIntoView({ behavior: "smooth", block: "start" }); } }, 0);
+    window.addEventListener("dsp-anchor", onAnchor);
+    return () => window.removeEventListener("dsp-anchor", onAnchor);
+  }, []);
   // ページ内のサイト内リンク(サイドバー・関連ページカード等)を、プレビュー内のページ切り替えに置き換える
   const onFrameClick = (e) => {
     const a = e.target.closest && e.target.closest("a[href]");

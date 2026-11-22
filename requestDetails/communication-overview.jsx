@@ -209,7 +209,7 @@ const CARDS = [
     ),
   },
   {
-    alts: [["トースト","/components/communication/toast"]],
+    alts: [["トースト","/components/communication/snackbar#toast"]],
     key: "snackbar", name: "スナックバー", path: "/components/communication/snackbar", built: true,
     oneLiner: "操作の完了を知らせる。基本は自動で消えるが、元に戻すなど1つの操作を持つなら自動で消さないのが安全。",
     doText: "取り消せる操作の完了を知らせたい時(例: 削除した→元に戻す)",
@@ -238,7 +238,7 @@ const CARDS = [
   },
   {
     alts: [["スナックバー","/components/communication/snackbar"]],
-    key: "toast", name: "トースト", path: "/components/communication/toast", built: true,
+    key: "toast", name: "トースト", path: "/components/communication/snackbar#toast", built: true,
     oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
     doText: "取り消しなどの操作を持たない、ごく軽いお知らせをしたい時",
     dontText: "元に戻すなどの操作を持たせたい時",

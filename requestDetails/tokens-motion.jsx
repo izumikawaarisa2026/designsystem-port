@@ -38,7 +38,7 @@ const SOURCES = [
     exceptions:
       "システムのコンポーネントは、入力方法に合わせて動きを自動で調整する(例: Liquid Glassは指で直接触れると強く、トラックパッドでは控えめに反応)。",
     accessibility:
-      "操作可能(Operable) ― 動きで体調を崩しやすい人のための「視差効果を減らす(Reduce Motion)」設定があり、有効なら自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅が多いと、気が散るだけでなく、めまいや、場合によっては発作の原因になる。",
+      "操作可能(Operable) ― 動きで体調を崩しやすい人のために「視差効果を減らす(Reduce Motion)」設定がある。有効なら、自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅が多いと、気が散るだけでなく、めまいや、場合によっては発作の原因になる。",
     useCases: [
       "標準のコンポーネントの動きを使い、独自の動きは目的があるときだけ足す",
       "動きだけで情報を伝えず、触覚や音でも補う",
@@ -60,13 +60,13 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <>時間とイージングを数値の「トークン」で体系化。<Hl>動く範囲が広いほど時間を長くする</Hl>、という1つのルールで使い分ける。物理ベースの動き(スプリング)もある</>,
     size: "50〜1000msの16段階のトークンがある。Short 1〜4 = 50/100/150/200ms、Medium 1〜4 = 250/300/350/400ms、Long 1〜4 = 450/500/550/600ms、Extra long 1〜4 = 700/800/900/1000ms。動く面積や距離が大きいほど長い時間を使うのが原則。",
-    easing: "イージングは7種類。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)、画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)、M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)。装飾のない動きにはLinear。スプリングは速さ3種(fast/default/slow)×種類2種(位置を動かすspatial/色や不透明度を変えるeffects)の6種類で、effectsは行き過ぎて跳ね返らない。",
+    easing: "イージングは7種類。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)。画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)。M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)。装飾のない動きにはLinear。スプリングは速さ3種(fast/default/slow)×種類2種(位置を動かすspatial/色や不透明度を変えるeffects)の6種類で、effectsは行き過ぎて跳ね返らない。",
     stance:
       "動きを色や形と同じくテーマの属性として定義し、アプリ全体で印象をそろえる。時間とイージングは組で使い、独自に時間を変えるときも「範囲が広いほど長く」を守れば、画面遷移の速さの感覚がそろう。",
     exceptions:
       "画面遷移には4つの定型パターン(コンテナ変形・共有軸・フェードスルー・フェード)がある。スプリングは、スイッチなど小さなコンポーネントにfast、全画面の遷移にslow、ボトムシートやナビゲーションドロワーのように画面の一部を覆うものにdefaultを使う。",
     accessibility:
-      "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく控えめなフェードにし、視差や形の変形などの装飾的な効果を止める(M3 Applying transitions)。",
+      "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく、控えめなフェードにする。視差や形の変形などの装飾的な効果も止める(M3 Applying transitions)。",
     useCases: [
       "小さなコンポーネントの状態変化はShort(50〜200ms)、全画面の遷移はLong以上",
       "入る動きは減速、出る動きは加速のイージングを使う",
@@ -798,27 +798,28 @@ export default function TokensMotionPage() {
           <SummaryCard keyPoints={KP} lead={LEAD} rows={ABOUT} image={<EasingImage />} imageLabel="動きの長さと緩急(概念図)" imageNote={<>同じ長さでも、ゆっくり始まりゆっくり止まる緩急(イージング)を付けると、自然な動きに見える。長さ・緩急・動きを減らす配慮の3つを、このページで比べる。</>} />
 
 
-          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」、W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
+          <p style={{ fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "-8px 0 24px" }}>呼び名: AppleとGoogleは「Motion」。W3C(2.3.3 Animation from Interactions)とNN groupは「Animation」と呼ぶ。このページでは同じ意味で扱う。</p>
 
           <MotionIntro />
 
           <MotionUiMap />
 
 
-          <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― 何を定めているか</h2>
+          <section style={styles.figSection}>
+            <h2 style={styles.diagramTitle}>四系列比較図</h2>
+
+            <div style={styles.chartCard}>
+            <h3 style={styles.figTitle}>何を定めているか</h3>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記、△=部分的・条件付き、―=記載なし。</p>
           </div>
 
           <div style={styles.chartCard}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― アニメーションの時間の目安</h2>
+            <h3 style={styles.figTitle}>アニメーションの時間の目安</h3>
             <MotionChart />
-            <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークン、NN groupの帯は記事の目安(100〜400msが適切、400〜500msは大画面での大きな移動のみ、500ms以上は遅さが負担に)を色分けしたものだ。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>
+            <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークンだ。NN groupの帯は記事の目安を色分けしたもの(100〜400msが適切、400〜500msは大画面での大きな移動だけ、500ms以上は遅さが負担になる)。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>
           </div>
 
-          <section style={styles.figSection}>
-            <h2 style={styles.diagramTitle}>図で詳しく見る ― 長さ・緩急・場面・安全面</h2>
             <p style={styles.diagramNote}>「はじめに」の3つの観点(長さ・緩急・減らす配慮)を、実際に動かしたり、時間ごとの位置を打点したりして確かめる。①長さ → ②緩急 → ③場面ごとの使い分け → ④安全面の上限 の順だ。</p>
 
             <div style={styles.chartCard}>
@@ -839,7 +840,7 @@ export default function TokensMotionPage() {
             <div style={styles.chartCard}>
               <h3 style={styles.figTitle}>③ 場面ごとの目安 ― 動く範囲が広いほど長く</h3>
               <SceneDurationMap />
-              <p style={styles.chartNote}>Googleのスプリング(fast/default/slow)の使い分けはMaterial Components for Androidのドキュメント、NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
+              <p style={styles.chartNote}>Googleのスプリング(fast/default/slow)の使い分けは、Material Components for Androidのドキュメントによる。NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
             </div>
 
             <div style={styles.chartCard}>
