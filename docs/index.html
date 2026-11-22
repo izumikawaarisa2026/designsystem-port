@@ -18026,20 +18026,6 @@ function PrinciplesAccessibilityPage() {
           <p style={styles.subtitle}>4系列がアクセシビリティをどう捉え、どう体系立てているかの比較</p>
           <InclusionSection />
 
-          <div style={styles.synthesisBox}>
-            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
-            <p style={styles.synthesisText}>
-              「アクセシビリティ」の捉え方は、系列で違う。<strong>WCAGは適合を判定できる規格</strong>で、知覚可能・操作可能・理解可能・堅牢の4原則(POUR)を定める。Apple・Google・NN groupは、規格ではなく実践の指針として語る。
-            </p>
-            <p style={styles.synthesisText}>
-              NN groupは<strong>「チェックリストではなく心構え」</strong>とする。Appleは分野(視覚・聴覚・運動・発話・認知)ごとに指針を持ち、視覚と運動には数値もある。App Storeでは、対応する支援機能を表示できる(<strong>Accessibility Nutrition Labels。開発者の自己申告</strong>)。Googleは、画面を構造・流れ・要素の3段階で、読み上げの順に置き換える手順を示す。
-            </p>
-            <p style={styles.synthesisText}>
-              このサイトの各ページがPOURの言葉を使うのは、<strong>WCAGが最も具体的で、確かめられるから</strong>だ。ほかの3系列は、規格では拾いきれない考え方を補う。
-            </p>
-          </div>
-
-
           {/* 四系列比較: 性格の違いを一目で示す */}
           <div style={styles.diagramCard}>
             <h2 style={styles.diagramTitle}>四系列比較 ― アプローチの性格</h2>
@@ -18065,6 +18051,19 @@ function PrinciplesAccessibilityPage() {
               <span>検証可能な規格</span>
             </div>
             <p style={styles.diagramNote}>左右は「規格としての厳密さ」の度合いのイメージだ。厳密さの高低は優劣を意味しない。詳しい内容は下の「各サイトの詳細」を参照。</p>
+          </div>
+
+          <div style={styles.synthesisBox}>
+            <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
+            <p style={styles.synthesisText}>
+              「アクセシビリティ」の捉え方は、系列で違う。<strong>WCAGは適合を判定できる規格</strong>で、知覚可能・操作可能・理解可能・堅牢の4原則(POUR)を定める。Apple・Google・NN groupは、規格ではなく実践の指針として語る。
+            </p>
+            <p style={styles.synthesisText}>
+              NN groupは<strong>「チェックリストではなく心構え」</strong>とする。Appleは分野(視覚・聴覚・運動・発話・認知)ごとに指針を持ち、視覚と運動には数値もある。App Storeでは、対応する支援機能を表示できる(<strong>Accessibility Nutrition Labels。開発者の自己申告</strong>)。Googleは、画面を構造・流れ・要素の3段階で、読み上げの順に置き換える手順を示す。
+            </p>
+            <p style={styles.synthesisText}>
+              このサイトの各ページがPOURの言葉を使うのは、<strong>WCAGが最も具体的で、確かめられるから</strong>だ。ほかの3系列は、規格では拾いきれない考え方を補う。
+            </p>
           </div>
 
           {/* 各サイトの詳細: mobile card stack */}
