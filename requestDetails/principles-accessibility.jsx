@@ -11,13 +11,11 @@ import { TagLink, RefList, PageLink, KeyPoints } from "./page-parts";
  * データはすべて2026-09に一次情報を直接取得して確認済み。
  */
 
-/* 各サイトの詳細の1項目。概念図 → 名前 → 説明 → 公式リンク(どの系列も同じ並び) */
+/* 各サイトの詳細の1項目。名前 → 説明 → 公式リンク(どの系列も同じ並び) */
 function ItemCard({ it, f }) {
-  const Fig = ITEM_FIGS[it.name];
   const link = it.ref || (it.url ? ["WCAG 2.2 ― " + it.name.split("(")[0], it.url] : null);
   return (
     <div style={styles.itemCard}>
-      {Fig && <div style={styles.itemFig}><Fig c={f.color} /></div>}
       <div style={it.sub ? styles.genName : styles.itemName}>{it.name}</div>
       <div style={styles.itemDesc}>{it.desc}</div>
       {link && <a href={link[1]} target="_blank" rel="noreferrer" style={styles.itemLink}>{link[0]} ↗</a>}
@@ -41,6 +39,7 @@ function FrameworkItems({ f }) {
   const groups = [...new Set(f.items.filter((it) => it.group).map((it) => it.group))];
   return (
     <>
+      <RelationFig f={f} />
       <div style={styles.itemList}>
         {main.map((it) => <ItemCard key={it.name} it={it} f={f} />)}
       </div>
@@ -56,34 +55,83 @@ function FrameworkItems({ f }) {
   );
 }
 
-/* 各項目の概念図(96×56)。線は系列の色、補助は青みのグレー */
-const G = "#9EA4C4";
-const FigBox = ({ children }) => (<svg width="96" height="56" viewBox="0 0 96 56" aria-hidden="true" focusable="false">{children}</svg>);
-const ITEM_FIGS = {
-  // Apple
-  "目指す3つの性質": ({ c }) => (<FigBox><circle cx="38" cy="22" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><circle cx="58" cy="22" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><circle cx="48" cy="38" r="15" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /></FigBox>),
-  "Vision(視覚)": ({ c }) => (<FigBox><text x="14" y="36" fontSize="12" fill={G} fontFamily="Jost, sans-serif">Aa</text><path d="M34 31h16m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><text x="56" y="40" fontSize="24" fontWeight="600" fill={c} fontFamily="Jost, sans-serif">Aa</text></FigBox>),
-  "Hearing(聴覚)": ({ c }) => (<FigBox><path d="M14 22h6l7-6v24l-7-6h-6z" fill={G} /><path d="M32 22a8 8 0 0 1 0 12" stroke={G} strokeWidth="1.4" fill="none" /><rect x="42" y="16" width="42" height="24" rx="3" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><path d="M48 25h30M48 31h22" stroke={c} strokeWidth="1.6" strokeLinecap="round" /></FigBox>),
-  "Mobility(運動)": ({ c }) => (<FigBox><rect x="30" y="6" width="36" height="44" rx="5" fill="none" stroke={G} strokeWidth="1.4" /><rect x="38" y="16" width="20" height="20" rx="3" fill="none" stroke={c} strokeWidth="1.4" strokeDasharray="3 2" /><circle cx="48" cy="26" r="4" fill={c} /></FigBox>),
-  "Speech(発話)": ({ c }) => (<FigBox><rect x="16" y="14" width="64" height="28" rx="4" fill="none" stroke={G} strokeWidth="1.4" />{[0, 1, 2, 3, 4].map((i) => (<rect key={i} x={22 + i * 11} y="19" width="8" height="7" rx="1.5" fill={i === 2 ? c : G} fillOpacity={i === 2 ? 1 : 0.5} />))}<rect x="30" y="30" width="36" height="7" rx="1.5" fill={G} fillOpacity="0.5" /></FigBox>),
-  "Cognitive(認知)": ({ c }) => (<FigBox>{[0, 1, 2].map((i) => (<g key={i}><circle cx={20 + i * 28} cy="28" r="9" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><text x={20 + i * 28} y="32" fontSize="10" textAnchor="middle" fill={c} fontFamily="Jost, sans-serif">{i + 1}</text></g>))}<path d="M30 28h8M58 28h8" stroke={G} strokeWidth="1.4" /></FigBox>),
-  // Google
-  "アクセシビリティをデフォルトに": ({ c }) => (<FigBox><rect x="20" y="14" width="44" height="28" rx="6" fill="none" stroke={G} strokeWidth="1.4" /><path d="M28 28h20" stroke={G} strokeWidth="1.6" strokeLinecap="round" /><circle cx="66" cy="16" r="9" fill={c} /><path d="M62 16l3 3 5-6" stroke="#FFFFFF" strokeWidth="1.6" fill="none" strokeLinecap="round" /></FigBox>),
-  "要件を機会として捉える": ({ c }) => (<FigBox><rect x="10" y="18" width="22" height="20" rx="3" fill="none" stroke={G} strokeWidth="1.4" strokeDasharray="3 2" /><path d="M34 28h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" />{[[60, 16], [74, 28], [60, 40], [84, 14], [84, 42]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="5" fill={c} fillOpacity={i < 3 ? 0.9 : 0.35} />))}</FigBox>),
-  "色とコントラスト": ({ c }) => (<FigBox><rect x="12" y="12" width="32" height="32" rx="3" fill={c} /><text x="28" y="33" fontSize="11" textAnchor="middle" fill="#FFFFFF" fontFamily="Jost, sans-serif">Aa</text><rect x="52" y="12" width="32" height="32" rx="3" fill="#E1E3F0" /><text x="68" y="33" fontSize="11" textAnchor="middle" fill="#B7BCDA" fontFamily="Jost, sans-serif">Aa</text></FigBox>),
-  "① 構造(Structure)": ({ c }) => (<FigBox><rect x="8" y="8" width="30" height="40" rx="3" fill="none" stroke={G} strokeWidth="1.4" /><rect x="12" y="12" width="22" height="6" rx="1" fill={G} fillOpacity="0.6" /><rect x="12" y="22" width="10" height="14" rx="1" fill={G} fillOpacity="0.6" /><rect x="24" y="22" width="10" height="14" rx="1" fill={G} fillOpacity="0.6" /><path d="M42 28h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" />{[0, 1, 2, 3].map((i) => (<rect key={i} x="58" y={9 + i * 10} width="28" height="7" rx="1.5" fill={c} fillOpacity={0.9 - i * 0.15} />))}</FigBox>),
-  "② 流れ(Flow)": ({ c }) => (<FigBox><rect x="12" y="6" width="72" height="44" rx="4" fill="none" stroke={G} strokeWidth="1.4" /><path d="M26 18 L66 18 L36 38 L70 38" stroke={c} strokeWidth="1.4" fill="none" strokeDasharray="3 2" />{[[26, 18, 1], [66, 18, 2], [36, 38, 3], [70, 38, 4]].map(([x, y, n]) => (<g key={n}><circle cx={x} cy={y} r="6" fill={c} /><text x={x} y={y + 3} fontSize="8" textAnchor="middle" fill="#FFFFFF" fontFamily="Jost, sans-serif">{n}</text></g>))}</FigBox>),
-  "③ 要素(Elements)": ({ c }) => (<FigBox><circle cx="26" cy="28" r="13" fill="none" stroke={G} strokeWidth="1.4" /><circle cx="24" cy="26" r="5" fill="none" stroke={G} strokeWidth="1.6" /><path d="M28 30l4 4" stroke={G} strokeWidth="1.6" strokeLinecap="round" /><path d="M42 28h6" stroke={G} strokeWidth="1.4" /><rect x="50" y="18" width="36" height="20" rx="10" fill={c} fillOpacity="0.12" stroke={c} strokeWidth="1.4" /><text x="68" y="32" fontSize="10" textAnchor="middle" fill={c} fontFamily="'Noto Sans JP', sans-serif">検索</text></FigBox>),
-  // W3C
-  "Perceivable(知覚可能)": ({ c }) => (<FigBox><path d="M16 28c8-12 24-12 32 0-8 12-24 12-32 0z" fill="none" stroke={c} strokeWidth="1.4" /><circle cx="32" cy="28" r="5" fill={c} /><path d="M58 22h6l7-6v24l-7-6h-6z" fill={c} fillOpacity="0.85" /><path d="M76 22a8 8 0 0 1 0 12" stroke={c} strokeWidth="1.4" fill="none" /></FigBox>),
-  "Operable(操作可能)": ({ c }) => (<FigBox><rect x="10" y="18" width="20" height="20" rx="3" fill="none" stroke={c} strokeWidth="1.4" /><text x="20" y="32" fontSize="9" textAnchor="middle" fill={c} fontFamily="Jost, sans-serif">Tab</text><circle cx="48" cy="28" r="10" fill="none" stroke={c} strokeWidth="1.4" /><circle cx="48" cy="28" r="3" fill={c} /><path d="M70 14v14m-4-4 4 4 4-4M66 38h8" stroke={c} strokeWidth="1.4" fill="none" /><rect x="64" y="34" width="20" height="10" rx="5" fill="none" stroke={c} strokeWidth="1.4" /></FigBox>),
-  "Understandable(理解可能)": ({ c }) => (<FigBox><rect x="12" y="12" width="44" height="26" rx="5" fill="none" stroke={c} strokeWidth="1.4" /><path d="M20 38l-4 8 10-8" fill="none" stroke={c} strokeWidth="1.4" /><path d="M20 22h28M20 29h18" stroke={c} strokeWidth="1.6" strokeLinecap="round" /><circle cx="72" cy="25" r="11" fill={c} /><path d="M67 25l4 4 6-7" stroke="#FFFFFF" strokeWidth="1.8" fill="none" strokeLinecap="round" /></FigBox>),
-  "Robust(堅牢)": ({ c }) => (<FigBox><rect x="36" y="16" width="24" height="24" rx="4" fill={c} fillOpacity="0.15" stroke={c} strokeWidth="1.4" />{[[14, 12], [14, 44], [82, 12], [82, 44]].map(([x, y], i) => (<g key={i}><path d={`M${x} ${y}L48 28`} stroke={G} strokeWidth="1.2" /><rect x={x - 7} y={y - 5} width="14" height="10" rx="2" fill="#FFFFFF" stroke={G} strokeWidth="1.4" /></g>))}<rect x="36" y="16" width="24" height="24" rx="4" fill="none" stroke={c} strokeWidth="1.4" /></FigBox>),
-  // NN group
-  "アクセシビリティ = 心構え": ({ c }) => (<FigBox><rect x="12" y="10" width="28" height="36" rx="3" fill="none" stroke={G} strokeWidth="1.4" />{[0, 1, 2].map((i) => (<path key={i} d={`M17 ${20 + i * 9}l2 2 4-4M27 ${20 + i * 9}h8`} stroke={G} strokeWidth="1.3" fill="none" />))}<path d="M46 28h6" stroke={G} strokeWidth="1.4" /><circle cx="70" cy="22" r="8" fill="none" stroke={c} strokeWidth="1.4" /><path d="M58 46c2-9 22-9 24 0" fill="none" stroke={c} strokeWidth="1.4" /><path d="M70 20c-1.5-2-4.5-1-4 1.2.4 1.6 4 3.8 4 3.8s3.6-2.2 4-3.8c.5-2.2-2.5-3.2-4-1.2z" fill={c} /></FigBox>),
-  "アクセシブルデザイン": ({ c }) => (<FigBox>{[0, 1, 2].map((i) => (<g key={i}><circle cx={24 + i * 24} cy="20" r="6" fill={i === 1 ? c : G} /><path d={`M${14 + i * 24} 42c2-10 18-10 20 0`} fill="none" stroke={i === 1 ? c : G} strokeWidth="1.4" /></g>))}<path d="M10 48h76" stroke={c} strokeWidth="1.6" strokeLinecap="round" /></FigBox>),
-  "インクルーシブデザイン": ({ c }) => (<FigBox><circle cx="48" cy="28" r="22" fill={c} fillOpacity="0.08" stroke={c} strokeWidth="1.4" />{[[38, 20], [58, 20], [34, 34], [48, 38], [62, 34]].map(([x, y], i) => (<circle key={i} cx={x} cy={y} r="5" fill={c} fillOpacity={0.35 + i * 0.13} />))}</FigBox>),
-};
+/* 各サイトの項目どうしの関係(概念図)。箱と矢印はHTMLで組み、スマートフォン幅でも文字が読めるようにする */
+const RB = (c, strong) => ({ border: `1px solid ${c}`, background: strong ? c : "#FFFFFF", color: strong ? "#FFFFFF" : "#171B36", borderRadius: 6, padding: "6px 10px", fontSize: 12, lineHeight: 1.5, textAlign: "center" });
+const RTag = ({ c, children }) => (<span style={{ display: "inline-block", marginLeft: 4, fontSize: 10, color: c, border: `1px solid ${c}`, borderRadius: 3, padding: "0 4px", verticalAlign: "1px" }}>{children}</span>);
+const RArrow = ({ children, dir = "↑" }) => (<div style={{ textAlign: "center", fontSize: 11, color: "#565D8A", margin: "4px 0" }}>{dir} {children}</div>);
+const RRow = ({ children, min = 96 }) => (<div style={{ display: "grid", gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`, gap: 6 }}>{children}</div>);
+const RNote = ({ children }) => (<p style={{ fontSize: 11, color: "#565D8A", margin: "8px 0 0", lineHeight: 1.6 }}>{children}</p>);
+
+function RelationFig({ f }) {
+  const c = f.color;
+  let body = null;
+  if (f.key === "hig") body = (
+    <>
+      <div style={RB(c, true)}>目指す3つの性質 ― 使いやすい・知覚できる・合わせられる</div>
+      <RArrow>5つの分野ごとの指針で支える</RArrow>
+      <RRow>
+        <div style={RB(c)}>視覚<RTag c={c}>数値あり</RTag></div>
+        <div style={RB(c)}>聴覚</div>
+        <div style={RB(c)}>運動<RTag c={c}>数値あり</RTag></div>
+        <div style={RB(c)}>発話</div>
+        <div style={RB(c)}>認知</div>
+      </RRow>
+      <RNote>3つの性質がゴールで、分野ごとの指針がそれを支える(対応づけはAI解釈)。数値の基準があるのは視覚(文字の大きさ・コントラスト)と運動(押せる範囲)。</RNote>
+    </>
+  );
+  if (f.key === "material") body = (
+    <>
+      <RRow min={150}>
+        <div style={RB(c, true)}>考え方 ― アクセシビリティをデフォルトに</div>
+        <div style={RB(c, true)}>考え方 ― 要件を機会として捉える</div>
+      </RRow>
+      <RArrow dir="↓">考え方を、設計の手順に落とす</RArrow>
+      <div style={{ display: "flex", alignItems: "center", gap: 4, flexWrap: "wrap", justifyContent: "center" }}>
+        <div style={{ ...RB(c), flex: "1 1 90px" }}>① 構造</div><span style={{ color: "#565D8A" }}>→</span>
+        <div style={{ ...RB(c), flex: "1 1 90px" }}>② 流れ</div><span style={{ color: "#565D8A" }}>→</span>
+        <div style={{ ...RB(c), flex: "1 1 90px" }}>③ 要素</div>
+      </div>
+      <div style={{ ...RB(c), marginTop: 6, borderStyle: "dashed", background: "#F8F9FD" }}>色とコントラスト ― どの手順でも満たす見た目の基準</div>
+      <RNote>2つの考え方を土台に、構造 → 流れ → 要素の順に設計する。色とコントラストは手順とは別に、画面全体にかかる(つながりの描き方はAI解釈)。</RNote>
+    </>
+  );
+  if (f.key === "wcag") body = (
+    <>
+      <RRow min={120}>
+        {[["知覚可能", 4], ["操作可能", 5], ["理解可能", 3], ["堅牢", 1]].map(([n, g]) => (
+          <div key={n} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div style={RB(c, true)}>原則: {n}</div>
+            <div style={{ textAlign: "center", fontSize: 11, color: "#565D8A" }}>↓</div>
+            <div style={RB(c)}>ガイドライン {g}個</div>
+          </div>
+        ))}
+      </RRow>
+      <RArrow dir="↓">各ガイドラインの下に、確かめられる条件を置く</RArrow>
+      <div style={RB(c)}>達成基準(レベルA・AA・AAA) ― 適合を判定する単位</div>
+      <RNote>4つの原則 → 13のガイドライン → 達成基準の3段(WCAG 2.2の構成)。適合の判定は、いちばん下の達成基準で行う。</RNote>
+    </>
+  );
+  if (f.key === "nn") body = (
+    <>
+      <div style={{ border: `1.5px solid ${c}`, borderRadius: 10, padding: "8px 10px 10px", background: "#FFFFFF" }}>
+        <div style={{ fontSize: 12, fontWeight: 700, color: c, textAlign: "center", marginBottom: 2 }}>ユーザビリティ</div>
+        <div style={{ fontSize: 11, color: "#565D8A", textAlign: "center", marginBottom: 8 }}>どちらも、手続きやチェックリストではなく心構えとして扱う</div>
+        <RRow min={140}>
+          <div style={RB(c)}>アクセシブルデザイン<div style={{ fontSize: 11, color: "#454C78" }}>困難を抱える人を助ける</div></div>
+          <div style={RB(c)}>インクルーシブデザイン<div style={{ fontSize: 11, color: "#454C78" }}>多様な背景の人を歓迎する</div></div>
+        </RRow>
+      </div>
+      <RNote>アクセシビリティとインクルーシブデザインは、ユーザビリティの一部(NN groupのStudy Guide)。2つの違いは、下の「アクセシビリティとインクルーシブデザインの関係」で比べる。</RNote>
+    </>
+  );
+  if (!body) return null;
+  return (
+    <div style={styles.relationBox}>
+      <div style={styles.relationTitle}>項目どうしの関係(概念図)</div>
+      {body}
+    </div>
+  );
+}
 
 const FRAMEWORKS = [
   {
@@ -508,7 +556,8 @@ const styles = {
   sourceDoc: { fontSize: 11, color: "#666D93", marginTop: 1 },
   itemList: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 260px), 1fr))", gap: "14px 18px", marginTop: 10, marginBottom: 10 },
   itemCard: { minWidth: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 },
-  itemFig: { background: "#F8F9FD", borderRadius: 6, padding: "4px 8px", marginBottom: 6 },
+  relationBox: { background: "#F8F9FD", borderRadius: 6, padding: "10px 12px 10px", margin: "10px 0 4px" },
+  relationTitle: { fontSize: 11.5, fontWeight: 700, color: "#454C78", marginBottom: 8 },
   itemLink: { display: "inline-block", marginTop: 4, fontSize: 11, color: "#3A4FCF", overflowWrap: "anywhere" },
   itemGroupTitle: { fontSize: 12, fontWeight: 700, color: "#454C78", margin: "6px 0 0", paddingTop: 10, borderTop: "1px dashed #E1E3F0" },
   itemRow: { display: "flex", gap: 8, alignItems: "flex-start" },
