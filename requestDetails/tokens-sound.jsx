@@ -544,7 +544,7 @@ export default function TokensSoundPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 音を鳴らすときのルール</h2>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。数値の基準を持つのはW3Cだけで、AppleはwatchOSの音声素材の書き出し形式(64 kbps HE-AAC)を示すのみだ。</p>
@@ -677,7 +677,7 @@ export default function TokensSoundPage() {
 
 const styles = {
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "0 0 14px", lineHeight: 1.6 },
-  introBox: { border: "1px solid #E1E3F0", borderRadius: 8, padding: "16px 16px 14px", marginBottom: 22, background: "#FFFFFF" },
+  introBox: { marginBottom: 22 },
   introTitle: { fontSize: 15, fontWeight: 700, color: "#171B36", margin: "0 0 12px" },
   introCols: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))", gap: "6px 22px" },
   introHead: { fontSize: 11.5, fontWeight: 700, color: "#3C5A73", margin: "6px 0 8px", letterSpacing: 0.2 },

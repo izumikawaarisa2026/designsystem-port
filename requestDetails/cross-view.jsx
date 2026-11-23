@@ -227,51 +227,6 @@ function TagExplorer() {
   );
 }
 
-/* 12のくくりの番号と内容の対応表。くくりの名前を押すと、下の「関係するページ」へ移る */
-function CategoryTable() {
-  return (
-    <div style={styles.numTableScroll}>
-      <table style={styles.numTable}>
-        <thead>
-          <tr><th style={{ ...styles.numTh, width: 44 }}>No.</th><th style={styles.numTh}>くくり</th><th style={styles.numTh}>内容</th><th style={{ ...styles.numTh, width: 64, textAlign: "right" }}>ページ数</th></tr>
-        </thead>
-        <tbody>
-          {CATEGORIES.map((c) => (
-            <tr key={c.tag}>
-              <td style={{ ...styles.numTd, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600, color: "#3C5A73" }}>{c.no}</td>
-              <td style={{ ...styles.numTd, fontWeight: 700 }}><a href={"/cross-view#" + c.id} style={styles.inlineLink}>{c.tag}</a></td>
-              <td style={styles.numTd}>{c.desc}</td>
-              <td style={{ ...styles.numTd, textAlign: "right", fontFamily: "'IBM Plex Mono', monospace" }}>{(processCounts.find(([t]) => t === c.tag) || [c.tag, 0])[1]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function TrendSummary() {
-  const pourSorted = [...POUR].sort((a, b) => pourCount(b.tag) - pourCount(a.tag));
-  const top = pourSorted[0], low = pourSorted[pourSorted.length - 1];
-  const procSorted = [...processCounts].sort((a, b) => b[1] - a[1]);
-  const topProc = procSorted.slice(0, 3);
-  const fewProc = procSorted.filter(([, n]) => n > 0).slice(-2);
-  return (
-    <div style={styles.synthesisBox}>
-      <div style={styles.synthesisLabel}>AI解釈 ― タグから見える傾向</div>
-      <p style={styles.synthesisText}>
-        全{TAG_INDEX.length}ページ(このページを除く)に、作業や場面を表す<strong>12のくくり(プロセスタグ)</strong>を1〜3個ずつ付けている。上位は<strong>{topProc.map(([t, n]) => `「${t}」(${n})`).join("・")}</strong>で、このサイトがコンポーネントを「どんな作業で使うか」の単位で比べていることが分かる。少ないのは{fewProc.map(([t, n]) => `「${t}」(${n})`).join("・")}だ。
-      </p>
-      <p style={styles.synthesisText}>
-        原則タグで最も多いのは<strong>「{top.short}」({pourCount(top.tag)}ページ)</strong>、最も少ないのは<strong>「{low.short}」({pourCount(low.tag)}ページ)</strong>だ。比較の中心は、見え方や操作のしやすさ、支援技術への伝わり方に関わる基準だ。
-      </p>
-      <p style={styles.synthesisText}>
-        使い方としては、<strong>まず12のくくりから作業を選び、同じくくりのページを層をまたいで読む</strong>のがおすすめだ。たとえば「入力・フォーム」では、テキストフィールド・選択コンポーネント・エラー表示・バリデーションを続けて確認できる。
-      </p>
-    </div>
-  );
-}
-
 export default function CrossViewPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -300,13 +255,6 @@ export default function CrossViewPage() {
             <TagLegend />
             <p style={styles.swatchNote}>各ページに付けたタグから自動で作った一覧だ。</p>
           </div>
-
-          <section style={styles.section}>
-            <h2 style={styles.diagramTitle}>12のくくり ― 番号と内容</h2>
-            <CategoryTable />
-          </section>
-
-          <TrendSummary />
 
           <section style={styles.section}>
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>

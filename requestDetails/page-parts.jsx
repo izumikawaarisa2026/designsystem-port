@@ -119,9 +119,6 @@ export function RefList({ refs, withW3cNote }) {
           <li key={r.url} style={partStyles.refItem}>
             {r.kind && <span style={{ ...partStyles.refBadge, ...REF_KIND[r.kind].style }}>{REF_KIND[r.kind].text(r)}</span>}
             <a href={r.url} target="_blank" rel="noreferrer" style={{ color: LINK, textDecoration: "underline" }}>{r.label} ↗</a>
-            {r.kind === "sc" && /^\d+\.\d+\.\d+/.test(r.label) && (
-              <a href={"/principles/wcag-criteria#sc-" + r.label.match(/^(\d+\.\d+\.\d+)/)[1].replace(/\./g, "-")} style={partStyles.refSiteLink}>このサイトの解説</a>
-            )}
           </li>
         ))}
       </ul>
@@ -566,7 +563,6 @@ const partStyles = {
   refList: { listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 5 },
   refItem: { fontSize: 11, lineHeight: 1.6 },
   refBadge: { display: "inline-block", fontSize: 9.5, fontWeight: 600, padding: "0 5px", marginRight: 6, borderRadius: 3, whiteSpace: "nowrap", lineHeight: 1.6, fontFamily: "'IBM Plex Mono', 'Noto Sans JP', monospace" },
-  refSiteLink: { marginLeft: 8, fontSize: 10, color: LINK, whiteSpace: "nowrap" },
   refNote: { fontSize: 10, lineHeight: 1.55, color: "#666D93", margin: "6px 0 0" },
   hl: { fontWeight: 700, color: "#171B36", background: "linear-gradient(transparent 58%, #E2EFC4 58%)" },
   noData: { color: "#666D93" },
