@@ -278,9 +278,11 @@ function InputTable() {
       {INPUTS.map((r) => (
         <div key={r.k} style={styles.inRow}>
           <div style={styles.inKey}>{r.k}</div>
-          <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#C2542A" }}>Apple</span>{r.hig}</div>
-          <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#2F7D6E" }}>Google</span>{r.material}</div>
-          {r.wcag && <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#A3821F" }}>W3C</span>{r.wcag}</div>}
+          <div style={styles.inCells}>
+            <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#C2542A" }}>Apple</span>{r.hig}</div>
+            <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#2F7D6E" }}>Google</span>{r.material}</div>
+            {r.wcag && <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#A3821F" }}>W3C</span>{r.wcag}</div>}
+          </div>
         </div>
       ))}
     </div>
@@ -368,7 +370,7 @@ export default function TokensInputMethodsPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― ジェスチャーごとの意味と、求められる代わりの操作</h2>
             <GestureChart />
             <p style={styles.chartNote}>Appleは標準ジェスチャーの表、GoogleはMaterial Design 2のジェスチャーの分類、W3Cは2.5系の達成基準、NN groupはコンテキストスワイプの記事による。W3Cの「―(1本指・軌跡なしの操作)」は、2.5.1で代わりが求められる対象ではないことを示す(押した瞬間に実行しないことは2.5.2で全般に求められる)。</p>
@@ -549,9 +551,10 @@ const styles = {
   altArrow: { fontSize: 10, color: "#5A9629", margin: "6px 0 4px" },
   altTo: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", background: "#F3F6FA", borderRadius: 4, padding: "6px 8px" },
   altWho: { fontSize: 9.5, color: "#666D93", marginTop: 5 },
-  inList: { display: "flex", flexDirection: "column", border: "1px solid #E1E3F0", borderRadius: 4 },
-  inRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "4px 14px", padding: "9px 12px", borderBottom: "1px solid #EEF0F7" },
-  inKey: { fontSize: 12, fontWeight: 700, color: "#171B36" },
-  inCell: { fontSize: 11, lineHeight: 1.6, color: "#2E3457" },
+  inList: { display: "flex", flexDirection: "column", border: "1px solid #E1E3F0", borderRadius: 4, overflow: "hidden" },
+  inRow: { display: "flex", flexWrap: "wrap", borderBottom: "1px solid #E1E3F0" },
+  inCells: { flex: "999 1 320px", minWidth: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" },
+  inKey: { flex: "1 0 150px", fontSize: 12, fontWeight: 700, color: "#171B36", background: "#F3F6FA", padding: "9px 12px", display: "flex", alignItems: "center" },
+  inCell: { fontSize: 11, lineHeight: 1.6, color: "#2E3457", padding: "9px 12px" },
   inWho: { display: "block", fontSize: 9.5, fontWeight: 700 },
 };

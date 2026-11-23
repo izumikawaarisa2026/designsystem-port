@@ -12724,22 +12724,6 @@ const otherPrinciples = principleCounts.filter(([t]) => !POUR_TAGS.includes(t));
 const pourCount = (tag) => (principleCounts.find(([t]) => t === tag) || [tag, 0])[1];
 const groups = [...new Set(TAG_INDEX.map((p) => p.group))].filter((g) => g !== "Sitemap");
 
-/* 画像エリア: タグの見方 */
-function TagLegend() {
-  return (
-    <div style={styles.legendRow}>
-      <div style={styles.legendItem}>
-        <span style={styles.tagPrinciple}>操作可能(POUR)</span>
-        <div style={styles.legendText}><strong>原則タグ</strong>(濃い色)<br />そのページが主に関わる原則。WCAGのPOUR(知覚可能・操作可能・理解可能・堅牢)が中心</div>
-      </div>
-      <div style={styles.legendItem}>
-        <span style={styles.tagProcess}>入力・フォーム</span>
-        <div style={styles.legendText}><strong>プロセスタグ</strong>(薄い色)<br />そのページが役立つ作業や場面。12のくくり(入力・フォーム、ナビゲーション、エラー・確認など)から1〜3個</div>
-      </div>
-    </div>
-  );
-}
-
 function CategoryGrid({ sel, onSelect }) {
   return (
     <div style={styles.catGrid}>
@@ -12858,12 +12842,6 @@ function CrossViewPage() {
 
           <h1 style={styles.title}>タグから見る</h1>
           <p style={styles.subtitle}>各ページのタグから、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで探せる一覧</p>
-
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>タグの見方</span>
-            <TagLegend />
-            <p style={styles.swatchNote}>各ページに付けたタグから自動で作った一覧だ。</p>
-          </div>
 
           <section style={styles.section}>
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>
@@ -31609,9 +31587,11 @@ function InputTable() {
       {INPUTS.map((r) => (
         <div key={r.k} style={styles.inRow}>
           <div style={styles.inKey}>{r.k}</div>
-          <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#C2542A" }}>Apple</span>{r.hig}</div>
-          <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#2F7D6E" }}>Google</span>{r.material}</div>
-          {r.wcag && <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#A3821F" }}>W3C</span>{r.wcag}</div>}
+          <div style={styles.inCells}>
+            <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#C2542A" }}>Apple</span>{r.hig}</div>
+            <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#2F7D6E" }}>Google</span>{r.material}</div>
+            {r.wcag && <div style={styles.inCell}><span style={{ ...styles.inWho, color: "#A3821F" }}>W3C</span>{r.wcag}</div>}
+          </div>
         </div>
       ))}
     </div>
@@ -31695,7 +31675,7 @@ function TokensInputMethodsPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― ジェスチャーごとの意味と、求められる代わりの操作</h2>
             <GestureChart />
             <p style={styles.chartNote}>Appleは標準ジェスチャーの表、GoogleはMaterial Design 2のジェスチャーの分類、W3Cは2.5系の達成基準、NN groupはコンテキストスワイプの記事による。W3Cの「―(1本指・軌跡なしの操作)」は、2.5.1で代わりが求められる対象ではないことを示す(押した瞬間に実行しないことは2.5.2で全般に求められる)。</p>
@@ -31876,10 +31856,11 @@ const styles = {
   altArrow: { fontSize: 10, color: "#5A9629", margin: "6px 0 4px" },
   altTo: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", background: "#F3F6FA", borderRadius: 4, padding: "6px 8px" },
   altWho: { fontSize: 9.5, color: "#666D93", marginTop: 5 },
-  inList: { display: "flex", flexDirection: "column", border: "1px solid #E1E3F0", borderRadius: 4 },
-  inRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: "4px 14px", padding: "9px 12px", borderBottom: "1px solid #EEF0F7" },
-  inKey: { fontSize: 12, fontWeight: 700, color: "#171B36" },
-  inCell: { fontSize: 11, lineHeight: 1.6, color: "#2E3457" },
+  inList: { display: "flex", flexDirection: "column", border: "1px solid #E1E3F0", borderRadius: 4, overflow: "hidden" },
+  inRow: { display: "flex", flexWrap: "wrap", borderBottom: "1px solid #E1E3F0" },
+  inCells: { flex: "999 1 320px", minWidth: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))" },
+  inKey: { flex: "1 0 150px", fontSize: 12, fontWeight: 700, color: "#171B36", background: "#F3F6FA", padding: "9px 12px", display: "flex", alignItems: "center" },
+  inCell: { fontSize: 11, lineHeight: 1.6, color: "#2E3457", padding: "9px 12px" },
   inWho: { display: "block", fontSize: 9.5, fontWeight: 700 },
 };
 

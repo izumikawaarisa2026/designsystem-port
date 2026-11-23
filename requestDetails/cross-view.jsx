@@ -115,22 +115,6 @@ const otherPrinciples = principleCounts.filter(([t]) => !POUR_TAGS.includes(t));
 const pourCount = (tag) => (principleCounts.find(([t]) => t === tag) || [tag, 0])[1];
 const groups = [...new Set(TAG_INDEX.map((p) => p.group))].filter((g) => g !== "Sitemap");
 
-/* 画像エリア: タグの見方 */
-function TagLegend() {
-  return (
-    <div style={styles.legendRow}>
-      <div style={styles.legendItem}>
-        <span style={styles.tagPrinciple}>操作可能(POUR)</span>
-        <div style={styles.legendText}><strong>原則タグ</strong>(濃い色)<br />そのページが主に関わる原則。WCAGのPOUR(知覚可能・操作可能・理解可能・堅牢)が中心</div>
-      </div>
-      <div style={styles.legendItem}>
-        <span style={styles.tagProcess}>入力・フォーム</span>
-        <div style={styles.legendText}><strong>プロセスタグ</strong>(薄い色)<br />そのページが役立つ作業や場面。12のくくり(入力・フォーム、ナビゲーション、エラー・確認など)から1〜3個</div>
-      </div>
-    </div>
-  );
-}
-
 function CategoryGrid({ sel, onSelect }) {
   return (
     <div style={styles.catGrid}>
@@ -249,12 +233,6 @@ export default function CrossViewPage() {
 
           <h1 style={styles.title}>タグから見る</h1>
           <p style={styles.subtitle}>各ページのタグから、同じ原則・同じ作業に関わるページを、層やカテゴリをまたいで探せる一覧</p>
-
-          <div style={styles.swatchCard}>
-            <span style={styles.swatchLabel}>タグの見方</span>
-            <TagLegend />
-            <p style={styles.swatchNote}>各ページに付けたタグから自動で作った一覧だ。</p>
-          </div>
 
           <section style={styles.section}>
             <h2 style={styles.diagramTitle}>12のくくりから、関係するページを探す</h2>
