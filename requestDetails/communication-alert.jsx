@@ -226,10 +226,51 @@ function StatusTable() {
 
 /* NN groupの、状態の伝え方の3つの方法 */
 const NN_METHODS = [
-  { t: "インジケーター", d: "内容やコンポーネントに付ける印。条件によって現れたり変わったりし、対応は求めない。対象のすぐ近くに出す", ex: "未読メールの太字、新着の印、株価の上下の矢印" },
-  { t: "バリデーション", d: "利用者の入力の誤りを伝える。対応しないと消えず、誤りのある入力欄に結び付ける", ex: "「住所を入力してください」と欄の近くに表示" },
-  { t: "通知", d: "利用者の操作とは関係なく起きた出来事を伝える。対応が必要な「アクション必須」と、知らせるだけの「パッシブ」がある", ex: "アクセサリーの充電が必要(アクション必須)、アップデートがある(パッシブ)" },
+  { k: "indicator", t: "インジケーター", d: "内容やコンポーネントに付ける印。条件によって現れたり変わったりし、対応は求めない。対象のすぐ近くに出す", ex: "未読メールの太字、新着の印、株価の上下の矢印" },
+  { k: "validation", t: "バリデーション", d: "利用者の入力の誤りを伝える。対応しないと消えず、誤りのある入力欄に結び付ける", ex: "「住所を入力してください」と欄の近くに表示" },
+  { k: "notification", t: "通知", d: "利用者の操作とは関係なく起きた出来事を伝える。対応が必要な「アクション必須」と、知らせるだけの「パッシブ」がある", ex: "アクセサリーの充電が必要(アクション必須)、アップデートがある(パッシブ)" },
 ];
+
+/* 3つの方法のイメージ(概念図) */
+function MethodIllust({ k }) {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  return (
+    <svg viewBox="0 0 200 84" width="100%" style={{ display: "block", maxWidth: 220, margin: "0 auto 8px" }} role="img" aria-label={k === "indicator" ? "一覧の未読の行が太字になり、新着の印が付いている図" : k === "validation" ? "入力欄の枠が赤くなり、すぐ下にエラーの文が出ている図" : "画面の上に通知が出て、操作のボタンが付いている図"}>
+      <rect x="1" y="1" width="198" height="82" rx="8" fill="#F8F9FD" stroke="#E1E3F0" />
+      {k === "indicator" && (
+        <g>
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <rect x="16" y={14 + i * 22} width="168" height="16" rx="3" fill="#FFFFFF" stroke="#E1E3F0" />
+              {i === 0 && <circle cx="26" cy="22" r="3.5" fill="#3A4FCF" />}
+              <rect x="34" y={19 + i * 22} width={i === 0 ? 96 : 84} height="6" rx="2" fill={i === 0 ? "#171B36" : "#B7BCDA"} />
+            </g>
+          ))}
+          <text x="150" y="25" fontSize="9" fill="#3A4FCF" fontFamily={font}>新着</text>
+        </g>
+      )}
+      {k === "validation" && (
+        <g>
+          <text x="20" y="20" fontSize="9" fill="#454C78" fontFamily={font}>住所</text>
+          <rect x="20" y="26" width="160" height="22" rx="4" fill="#FFFFFF" stroke="#C0503F" strokeWidth="1.6" />
+          <circle cx="26" cy="62" r="5" fill="#C0503F" />
+          <text x="26" y="65" fontSize="7.5" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>!</text>
+          <text x="36" y="65" fontSize="9" fill="#C0503F" fontFamily={font}>住所を入力してください</text>
+        </g>
+      )}
+      {k === "notification" && (
+        <g>
+          <rect x="16" y="12" width="168" height="34" rx="6" fill="#FFFFFF" stroke="#B7BCDA" />
+          <rect x="24" y="20" width="18" height="18" rx="4" fill="#D9E4F2" />
+          <rect x="50" y="21" width="88" height="6" rx="2" fill="#171B36" />
+          <rect x="50" y="31" width="64" height="5" rx="2" fill="#B7BCDA" />
+          <rect x="16" y="54" width="168" height="20" rx="4" fill="#EEF0F5" />
+          <text x="150" y="31" fontSize="9" fill="#3A4FCF" fontFamily={font}>確認</text>
+        </g>
+      )}
+    </svg>
+  );
+}
 
 function NnMethods() {
   return (
@@ -239,6 +280,7 @@ function NnMethods() {
       <div style={styles.methodGrid}>
         {NN_METHODS.map((m) => (
           <div key={m.t} style={styles.methodCard}>
+            <MethodIllust k={m.k} />
             <div style={styles.methodTitle}>{m.t}</div>
             <p style={styles.methodText}>{m.d}</p>
             <p style={styles.methodEx}>例: {m.ex}</p>
@@ -271,6 +313,14 @@ const KP = [
 ];
 
 
+/* ステータスメッセージとバナーの違い(2026-11 ⑩本人最終レビューNo.056。各系列の記述をまとめた、このサイトの整理) */
+const STATUS_VS_BANNER = [
+  ["出る場所", "操作した場所や、対象のすぐ近く", "画面の上部(アプリバーの下)"],
+  ["伝えること", "その操作・その場所の結果(成功・情報・注意・エラー)", "アプリや画面全体に関わる、重要だが緊急ではない状態(オフライン・容量不足など)"],
+  ["消え方", "内容による。エラーは直すまで残し、成功は控えめに出す", "利用者が対応するか閉じるまで残る(原因が解消したら消してよい)"],
+  ["支援技術への伝え方", "フォーカスを移さずに出る知らせとして伝える(4.1.3)", "新しく出た緊急の警告だけすぐ読み上げる。ページを開いたときからあるものは、見出しやラベルの付いた領域にする"],
+];
+
 /* バナー(2026-11 ⑦本人レビューNo.065で、旧「バナー」ページをこのページに統合) */
 const BANNER_ROWS = [
   { who: "Google", color: "#2F7D6E", t: <>画面上部(アプリバーの下)に<Hl>1つまで</Hl>出し、利用者が対応するか閉じるまで残す。文字のボタンを2つまで(閉じる操作は左)。ボタン1つで「確認して閉じる」だけにはしない。原因の状態が解消したら消してよい。M2のコンポーネントで、M3の一覧にはない</>, refs: [{ label: "Banners(M2。M3の一覧にはない)", url: "https://m2.material.io/components/banners" }] },
@@ -283,6 +333,14 @@ function BannerSection() {
     <section id="banner" style={{ marginBottom: 40, scrollMarginTop: 16 }}>
       <h2 style={styles.diagramTitle}>バナー ― 対応するか閉じるまで残る知らせ</h2>
       <p style={styles.diagramNote}>画面の上部に出し、利用者が対応するか閉じるまで残る知らせ。オフライン・容量不足など、<strong>重要だが緊急ではない状態</strong>を伝える。作業は止めない(止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>)。</p>
+      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" }}>ステータスメッセージとバナーの違い</h3>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+          <thead><tr>{["", "ステータスメッセージ", "バナー"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
+          <tbody>{STATUS_VS_BANNER.map((r) => (<tr key={r[0]}><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[1]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <p style={{ ...styles.diagramNote, marginBottom: 16 }}>各系列の記述(このページの比較と、下のバナーの4系列)をまとめた、このサイトの整理。</p>
       <div style={{ width: 300, maxWidth: "100%", margin: "0 auto 14px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "#FFF8E6", border: "1px solid #E2CF95", borderRadius: 8 }}>
           <span style={{ fontSize: 15 }}>⚠️</span>
