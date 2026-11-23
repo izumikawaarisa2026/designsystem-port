@@ -287,16 +287,20 @@ const COMPARISON_COLUMNS = [
 
 const styles = {
   flowWrap: { marginBottom: 8 },
-  flowStep: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: "#171B36", background: "#F3F6FA", borderRadius: 6, padding: "6px 12px", marginBottom: 8 },
-  flowStepNum: { fontFamily: "'IBM Plex Mono', monospace", color: "#3C5A73" },
-  flowBranchRow: { display: "flex", flexWrap: "wrap", gap: 10, alignItems: "flex-start" },
-  flowBranch: { flex: "1 1 180px", minWidth: 0, border: "1.5px solid", borderRadius: 8, padding: "10px 12px", background: "#FFFFFF" },
-  flowBranchQ: { fontSize: 12, fontWeight: 700, marginBottom: 4 },
-  flowDown: { fontSize: 11, color: "#565D8A", margin: "4px 0 6px" },
-  flowResultGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))", gap: 8 },
-  flowSub: { minWidth: 0, borderTop: "3px solid", background: "#F8F9FD", borderRadius: 4, padding: "8px 10px" },
-  flowResult: { display: "inline-block", fontSize: 12, fontWeight: 700, border: "1px solid", borderRadius: 999, padding: "2px 10px", background: "#FFFFFF" },
-  flowResultNote: { fontSize: 11, lineHeight: 1.55, color: "#454C78", marginTop: 4 },
+  flowQ: { display: "flex", alignItems: "center", gap: 8, fontSize: 13.5, fontWeight: 700, color: "#171B36", background: "#F3F6FA", border: "1px solid #E1E3F0", borderRadius: 8, padding: "9px 14px" },
+  flowQNum: { display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "50%", background: "#3C5A73", color: "#FFFFFF", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", flexShrink: 0 },
+  flowLane: { borderLeft: "2px solid #C9CEE3", marginLeft: 24, padding: "8px 0 8px 16px", display: "flex", flexDirection: "column", gap: 8 },
+  flowBranch: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 },
+  flowRow: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: "6px 10px", background: "#FFFFFF", border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 6, padding: "8px 12px" },
+  flowRowHead: { flex: "1 1 220px", minWidth: 0 },
+  flowRowResults: { flex: "2 1 300px", minWidth: 0, display: "flex", flexDirection: "column", gap: 6 },
+  flowCond: { fontSize: 12.5, fontWeight: 700 },
+  flowSub: { fontSize: 11, lineHeight: 1.5, color: "#565D8A", marginTop: 1 },
+  flowArrow: { fontSize: 14, color: "#7E86AC", flexShrink: 0 },
+  flowResultBox: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: "2px 8px" },
+  flowResult: { display: "inline-block", fontSize: 12, fontWeight: 700, border: "1.5px solid", borderRadius: 999, padding: "2px 12px", background: "#FFFFFF", textDecoration: "none", whiteSpace: "nowrap" },
+  flowResultNote: { fontSize: 11, lineHeight: 1.5, color: "#454C78" },
+  flowWhen: { fontSize: 10, fontWeight: 700, color: "#7E86AC", marginRight: 4 },
   flowNote: { fontSize: 11.5, lineHeight: 1.7, color: "#565D8A", margin: "10px 0 0" },
   axisList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 26 },
   axisRow: { display: "flex", flexWrap: "wrap", gap: "6px 12px", alignItems: "stretch", borderBottom: "1px solid #EEF0F7", paddingBottom: 10 },
@@ -360,46 +364,54 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#666D93", lineHeight: 1.5 },
 };
 
-/* 選び方の3つの軸を、①→②→③の順に問う流れ図にしたもの(2026-11 ⑩本人最終レビューNo.055) */
-const FLOW_RESULTS = [
-  { q: "アプリや画面全体の状態", color: "#A3821F", parts: [{ n: "バナー", d: "対応するか閉じるまで残る" }] },
-  { q: "直前の操作の結果(一時的)", color: "#3A4FCF", parts: [{ n: "スナックバー", d: "数秒で消える。元に戻すなどの操作を持つなら残す" }, { n: "トースト", d: "数秒で自動的に消える(操作を持たない)" }] },
-  { q: "その場所の成功・注意・エラー", color: "#2F7D3B", parts: [{ n: "ステータスメッセージ", d: "内容による。エラーは直すまで残す" }] },
-  { q: "コンポーネントの意味の補足", color: "#7A4F7E", parts: [{ n: "ツールチップ", d: "ポインター・フォーカスが離れたら消える" }] },
+/* 選び方の流れ図(2026-11 ⑩本人最終レビューNo.055。②はNN groupの「バリデーション・インジケーター・通知」の分け方を参考にした) */
+const FLOW_Q2 = [
+  { q: "入力の誤り", sub: "入力欄ごとに直してほしいこと(NN groupのバリデーション)", color: "#C0503F", results: [{ n: "エラー表示", to: "/components/text-inputs/validation", d: "誤りのある欄のそばに出し、直すまで残す" }] },
+  { q: "対応が必要な、続いている状態", sub: "オフライン・容量不足など(NN groupのアクション必須の通知)", color: "#A3821F", results: [{ n: "バナー", to: "/components/communication/alert#banner", d: "画面の上部に出し、対応するか閉じるまで残る" }] },
+  { q: "操作の結果を、短いあいだだけ", sub: "削除した・保存したなど(NN groupのパッシブな通知)", color: "#3A4FCF", results: [{ n: "スナックバー", to: "/components/communication/snackbar", d: "元に戻すなどの操作を1つ付けるなら。数秒で消えるが、操作があれば残す" }, { n: "トースト", to: "/components/communication/snackbar#toast", d: "操作を付けないなら。数秒で自動的に消える" }] },
+  { q: "状態の変化", sub: "成功・件数・注意など。画面の一部のことも、全体のこともある(NN groupのインジケーター・通知)", color: "#2F7D3B", results: [{ n: "ステータスメッセージ", to: "/components/communication/alert", d: "内容による。エラーは直すまで残す" }] },
+  { q: "補足・説明", sub: "求められたときだけ見せる、短い説明やヒント", color: "#7A4F7E", results: [{ n: "ツールチップ", to: "/components/communication/tooltip", d: "ポインター・フォーカスが離れたら消える" }] },
 ];
 
+function FlowResult({ r, color }) {
+  return (
+    <div style={styles.flowResultBox}>
+      <a href={r.to} style={{ ...styles.flowResult, borderColor: color, color }}>{r.n}</a>
+      <span style={styles.flowResultNote}><span style={styles.flowWhen}>③ 消え方</span>{r.d}</span>
+    </div>
+  );
+}
+
 function AxisFlow() {
-  const step = (n, t) => (<div style={styles.flowStep}><span style={styles.flowStepNum}>{n}</span>{t}</div>);
-  const down = (t) => (<div style={styles.flowDown}>↓ {t}</div>);
   return (
     <div style={styles.flowWrap}>
-      {step("①", "作業を止めるか")}
-      <div style={styles.flowBranchRow}>
-        <div style={{ ...styles.flowBranch, borderColor: "#C0503F" }}>
-          <div style={{ ...styles.flowBranchQ, color: "#C0503F" }}>止める(答えるまで先へ進めない)</div>
-          <div style={{ ...styles.flowResult, borderColor: "#C0503F", color: "#C0503F" }}>モーダルダイアログ</div>
-          <div style={styles.flowResultNote}>③ 対応するか閉じるまで残る</div>
+      <div style={styles.flowQ}><span style={styles.flowQNum}>①</span>作業を止めて、答えを求めるか</div>
+      <div style={styles.flowLane}>
+        <div style={styles.flowBranch}>
+          <span style={{ ...styles.flowCond, color: "#C0503F" }}>はい</span>
+          <span style={styles.flowArrow}>→</span>
+          <FlowResult r={{ n: "モーダルダイアログ", to: "/components/containment/dialog", d: "答えるか閉じるまで残る" }} color="#C0503F" />
         </div>
-        <div style={{ ...styles.flowBranch, borderColor: "#2F7D6E", flex: "3 1 320px" }}>
-          <div style={{ ...styles.flowBranchQ, color: "#2F7D6E" }}>止めない</div>
-          {down("次に")}
-          {step("②", "何を知らせるか")}
-          <div style={styles.flowResultGrid}>
-            {FLOW_RESULTS.map((r) => (
-              <div key={r.q} style={{ ...styles.flowSub, borderTopColor: r.color }}>
-                <div style={{ ...styles.flowBranchQ, color: r.color }}>{r.q}</div>
-                {r.parts.map((p) => (
-                  <div key={p.n} style={{ marginTop: 6 }}>
-                    <div style={{ ...styles.flowResult, borderColor: r.color, color: r.color }}>{p.n}</div>
-                    <div style={styles.flowResultNote}>③ {p.d}</div>
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+        <div style={styles.flowBranch}>
+          <span style={{ ...styles.flowCond, color: "#2F7D6E" }}>いいえ</span>
+          <span style={styles.flowArrow}>↓</span>
         </div>
       </div>
-      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、コンポーネントが1つにしぼれる。③(いつ消えるか)は、選んだコンポーネントの消え方の確認に使う。この流れは各コンポーネントのページの内容をまとめた、このサイトの整理だ。</p>
+      <div style={styles.flowQ}><span style={styles.flowQNum}>②</span>何を知らせるか</div>
+      <div style={styles.flowLane}>
+        {FLOW_Q2.map((b) => (
+          <div key={b.q} style={{ ...styles.flowRow, borderLeftColor: b.color }}>
+            <div style={styles.flowRowHead}>
+              <div style={{ ...styles.flowCond, color: b.color }}>{b.q}</div>
+              <div style={styles.flowSub}>{b.sub}</div>
+            </div>
+            <div style={styles.flowRowResults}>
+              {b.results.map((r) => (<FlowResult key={r.n} r={r} color={b.color} />))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、使うコンポーネントがしぼれる。③の消え方は、選んだコンポーネントの確認に使う。②の分け方はNN groupの「Indicators, Validations, and Notifications」を参考にした、このサイトの整理だ。エラー表示はText inputsのページで扱い、上の比較表には含めていない。</p>
     </div>
   );
 }
@@ -510,7 +522,7 @@ export default function CommunicationOverviewPage() {
               <strong>作業を止めるのはモーダルダイアログだけ</strong>。答えを得るまで先へ進ませたくない場面に限って使う。
             </p>
             <p style={styles.synthesisText}>
-              ほかの5つは<strong>何を知らせるか</strong>で選ぶ。画面全体の状態を出し続けるならバナー、直前の操作の結果ならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、その場所の成功・エラーならステータスメッセージ、コンポーネントの意味の補足ならツールチップ。
+              ほかの5つは<strong>何を知らせるか</strong>で選ぶ。対応が必要な状態を出し続けるならバナー、操作の結果を短いあいだだけ知らせるならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、状態の変化(成功・件数・注意)ならステータスメッセージ、補足や説明ならツールチップ。入力の誤りは、入力欄のそばのエラー表示で伝える。
             </p>
           </div>
 

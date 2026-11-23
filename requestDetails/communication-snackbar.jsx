@@ -231,9 +231,9 @@ const SPLITS = [
   {
     q: "「元に戻す」などの操作を持つ通知を、時間で自動的に消してよい?",
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "スナックバーは、時間で自動的に消えるか、操作されるまで残るかのどちらか。操作は1つまで" },
-      { who: "W3C", color: "#A3821F", t: "時間で消える操作が2.2.1(A)の時間制限に当たるなら、操作する時間が足りない人のために、時間で消さないか、延長・解除できるようにする(スナックバー専用の決まりではない)" },
-      { who: "NN group", color: "#7A4F7E", t: "自動で消える通知は見落とされやすいので、重要な情報や必ず必要な操作には向かない" },
+      { who: "Google", color: "#2F7D6E", t: "どちらも選べる。スナックバーは、時間で自動的に消えるか、操作されるまで残るかのどちらかで、操作は1つまで" },
+      { who: "W3C", color: "#A3821F", t: "条件によっては、消さないか延長できるようにする。時間で消える操作が2.2.1(A)の時間制限に当たるなら、操作する時間が足りない人のために、時間で消さないか、延長・解除できるようにする(スナックバー専用の決まりではない)" },
+      { who: "NN group", color: "#7A4F7E", t: "重要な情報や操作には向かない。自動で消える通知は見落とされやすいため" },
     ],
     tip: "操作のないお知らせ(「保存しました」)は時間で消してよい。「元に戻す」のような操作を持つ場合は、利用者が閉じるか操作するまで残す設計にすると、操作の機会を確保しやすい(AI解釈)。ただし、WCAG 2.2.1が常にこの対応を求めるわけではない。",
   },
@@ -254,23 +254,49 @@ const SNACK_TOAST = [
   { who: "W3C", color: "#A3821F", t: <>どちらも専用の定めはない。フォーカスを移さずに出る知らせとして、支援技術にも伝える(4.1.3)</> },
   { who: "NN group", color: "#7A4F7E", t: <>分けない。用語集の「Snackbar (Toast)」の1項目で扱う</> },
 ];
+/* スナックバーとトーストのイメージ(概念図)。どちらも画面の下に出る短い知らせで、違いは操作の有無 */
+function SnackToastIllust({ k }) {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  return (
+    <svg viewBox="0 0 160 110" width="100%" style={{ display: "block", maxWidth: 170, margin: "0 auto" }} role="img" aria-label={k === "snackbar" ? "画面の下に「削除しました」と「元に戻す」の操作を持つスナックバーが出ている図" : "画面の下に「保存しました」だけの小さなトーストが出ている図"}>
+      <rect x="28" y="2" width="104" height="106" rx="10" fill="#FFFFFF" stroke="#B7BCDA" strokeWidth="1.4" />
+      {[14, 26, 38].map((y) => (<rect key={y} x="38" y={y} width="84" height="6" rx="2" fill="#E1E3F0" />))}
+      {k === "snackbar" ? (
+        <g>
+          <rect x="34" y="80" width="92" height="18" rx="4" fill="#2E3457" />
+          <text x="39" y="92" fontSize="7" fill="#FFFFFF" fontFamily={font}>削除しました</text>
+          <text x="121" y="92" fontSize="7" fill="#A9C2FF" textAnchor="end" fontWeight="700" fontFamily={font}>元に戻す</text>
+        </g>
+      ) : (
+        <g>
+          <rect x="56" y="82" width="48" height="14" rx="7" fill="#454C78" />
+          <text x="80" y="91.5" fontSize="7" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>保存しました</text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 function SnackToast() {
   return (
     <section id="toast" style={{ marginBottom: 36, scrollMarginTop: 16 }}>
       <h2 style={styles.diagramTitle}>スナックバーとトースト</h2>
       <p style={{ fontSize: 12.5, lineHeight: 1.75, color: "#2E3457", margin: "0 0 12px" }}>トーストをデザインシステムのコンポーネントとして持つ系列はない。GoogleのToastもM3のコンポーネントではなく、AndroidのOSの機能で、操作を持たない短いポップアップだ。消えるまでの時間は短い・長いの2つから選び、Android 12以降は2行までに制限され、文字の隣にアプリのアイコンが出る(<a href="https://developer.android.com/guide/topics/ui/notifiers/toasts" target="_blank" rel="noopener noreferrer" style={{ color: "#3A4FCF" }}>Android Developers ― Toasts overview</a>)。独自のレイアウトのToastは非推奨で、操作が要るならスナックバーにする。Webでトースト風の通知を作るなら、フォーカスを移さずに出る知らせとして支援技術にも伝える(4.1.3)。自動で消えるので、重要な情報には使わない(AI解釈)。</p>
       <div style={{ overflowX: "auto" }}>
-        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 120 }} /><col /><col /></colgroup>
           <thead><tr>{["", "スナックバー", "トースト"].map((h) => (<th key={h} style={stStyles.th}>{h}</th>))}</tr></thead>
           <tbody>
+            <tr><td style={stStyles.key}>イメージ</td><td style={stStyles.td}><SnackToastIllust k="snackbar" /></td><td style={stStyles.td}><SnackToastIllust k="toast" /></td></tr>
             <tr><td style={stStyles.key}>操作</td><td style={stStyles.td}>「元に戻す」など1つまで</td><td style={stStyles.td}>なし</td></tr>
             <tr><td style={stStyles.key}>消え方</td><td style={stStyles.td}>時間で消える。操作を持つなら、閉じるか操作するまで残すのが安全(時間で消える操作が、W3Cの2.2.1の時間制限に当たる場合があるため)</td><td style={stStyles.td}>時間で消える(短い・長いの2種類。Android)</td></tr>
-            <tr><td style={stStyles.key}>位置づけ(Google)</td><td style={stStyles.td}>M3のコンポーネント</td><td style={stStyles.td}>AndroidのOSの機能(M3のコンポーネント一覧にはない)</td></tr>
             <tr><td style={stStyles.key}>向いている知らせ</td><td style={stStyles.td}>取り消せる操作の完了(「削除しました ― 元に戻す」)</td><td style={stStyles.td}>見落としても困らない短い知らせ(「保存しました」)</td></tr>
           </tbody>
         </table>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))", gap: 8, marginTop: 12 }}>
+      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "18px 0 4px" }}>各系列の扱い ― スナックバーとトーストを分けるか</h3>
+      <p style={{ fontSize: 11.5, lineHeight: 1.6, color: "#565D8A", margin: "0 0 8px" }}>2つを別のものとして扱うのはGoogleだけ。ほかの3系列は、どちらにも専用の定めがないか、1つにまとめて扱う。</p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 210px), 1fr))", gap: 8 }}>
         {SNACK_TOAST.map((x) => (
           <div key={x.who} style={{ fontSize: 12, lineHeight: 1.65, color: "#2E3457", background: "#F8F9FD", borderRadius: 6, padding: "9px 11px" }}>
             <div style={{ fontWeight: 700, color: x.color, marginBottom: 2 }}>{x.who}</div>{x.t}
