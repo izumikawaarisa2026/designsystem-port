@@ -286,6 +286,18 @@ const COMPARISON_COLUMNS = [
 ];
 
 const styles = {
+  flowWrap: { marginBottom: 8 },
+  flowStep: { display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 700, color: "#171B36", background: "#F3F6FA", borderRadius: 6, padding: "6px 12px", marginBottom: 8 },
+  flowStepNum: { fontFamily: "'IBM Plex Mono', monospace", color: "#3C5A73" },
+  flowBranchRow: { display: "flex", flexWrap: "wrap", gap: 10, alignItems: "flex-start" },
+  flowBranch: { flex: "1 1 180px", minWidth: 0, border: "1.5px solid", borderRadius: 8, padding: "10px 12px", background: "#FFFFFF" },
+  flowBranchQ: { fontSize: 12, fontWeight: 700, marginBottom: 4 },
+  flowDown: { fontSize: 11, color: "#565D8A", margin: "4px 0 6px" },
+  flowResultGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 150px), 1fr))", gap: 8 },
+  flowSub: { minWidth: 0, borderTop: "3px solid", background: "#F8F9FD", borderRadius: 4, padding: "8px 10px" },
+  flowResult: { display: "inline-block", fontSize: 12, fontWeight: 700, border: "1px solid", borderRadius: 999, padding: "2px 10px", background: "#FFFFFF" },
+  flowResultNote: { fontSize: 11, lineHeight: 1.55, color: "#454C78", marginTop: 4 },
+  flowNote: { fontSize: 11.5, lineHeight: 1.7, color: "#565D8A", margin: "10px 0 0" },
   axisList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 26 },
   axisRow: { display: "flex", flexWrap: "wrap", gap: "6px 12px", alignItems: "stretch", borderBottom: "1px solid #EEF0F7", paddingBottom: 10 },
   axisRowLabel: { flex: "0 0 130px", fontSize: 13, fontWeight: 700, color: "#171B36", paddingTop: 6 },
@@ -348,45 +360,46 @@ const styles = {
   relatedLinkNote: { fontSize: 11, color: "#666D93", lineHeight: 1.5 },
 };
 
-/* 選び方の3つの軸(2026-11 ⑦本人レビューNo.055で組み直し。どの軸でも、6つのコンポーネントがどれか1つにだけ入る) */
-const AXES = [
-  { label: "① 作業を止めるか", groups: [
-    { name: "止める(答えるまで先へ進めない)", color: "#C0503F", parts: ["モーダルダイアログ"] },
-    { name: "止めない", color: "#2F7D6E", parts: ["バナー", "スナックバー", "ステータスメッセージ", "トースト", "ツールチップ"] },
-  ] },
-  { label: "② 何を知らせるか", groups: [
-    { name: "判断してほしいこと", color: "#C0503F", parts: ["モーダルダイアログ"] },
-    { name: "アプリや画面全体の状態", color: "#A3821F", parts: ["バナー"] },
-    { name: "直前の操作の結果(一時的)", color: "#3A4FCF", parts: ["スナックバー", "トースト"] },
-    { name: "その場所の成功・注意・エラー", color: "#2F7D3B", parts: ["ステータスメッセージ"] },
-    { name: "コンポーネントの意味の補足", color: "#7A4F7E", parts: ["ツールチップ"] },
-  ] },
-  { label: "③ いつ消えるか", groups: [
-    { name: "対応するか閉じるまで残る", color: "#C0503F", parts: ["モーダルダイアログ", "バナー"] },
-    { name: "数秒で自動的に消える", color: "#3A4FCF", parts: ["スナックバー(操作があれば残す)", "トースト"] },
-    { name: "内容による", color: "#2F7D3B", parts: ["ステータスメッセージ(エラーは直すまで残す)"] },
-    { name: "ポインター・フォーカスが離れたら", color: "#7A4F7E", parts: ["ツールチップ"] },
-  ] },
+/* 選び方の3つの軸を、①→②→③の順に問う流れ図にしたもの(2026-11 ⑩本人最終レビューNo.055) */
+const FLOW_RESULTS = [
+  { q: "アプリや画面全体の状態", color: "#A3821F", parts: [{ n: "バナー", d: "対応するか閉じるまで残る" }] },
+  { q: "直前の操作の結果(一時的)", color: "#3A4FCF", parts: [{ n: "スナックバー", d: "数秒で消える。元に戻すなどの操作を持つなら残す" }, { n: "トースト", d: "数秒で自動的に消える(操作を持たない)" }] },
+  { q: "その場所の成功・注意・エラー", color: "#2F7D3B", parts: [{ n: "ステータスメッセージ", d: "内容による。エラーは直すまで残す" }] },
+  { q: "コンポーネントの意味の補足", color: "#7A4F7E", parts: [{ n: "ツールチップ", d: "ポインター・フォーカスが離れたら消える" }] },
 ];
 
-function AxisSummary() {
+function AxisFlow() {
+  const step = (n, t) => (<div style={styles.flowStep}><span style={styles.flowStepNum}>{n}</span>{t}</div>);
+  const down = (t) => (<div style={styles.flowDown}>↓ {t}</div>);
   return (
-    <div style={styles.axisList}>
-      {AXES.map((a) => (
-        <div key={a.label} style={styles.axisRow}>
-          <div style={styles.axisRowLabel}>{a.label}</div>
-          <div style={styles.axisRowGroups}>
-            {a.groups.map((g) => (
-              <div key={g.name} style={{ ...styles.axisCell, borderTopColor: g.color }}>
-                <div style={{ ...styles.axisGroupName, color: g.color }}>{g.name}</div>
-                <div style={styles.axisChips}>
-                  {g.parts.map((p) => (<span key={p} style={{ ...styles.axisChip, borderColor: g.color, color: g.color }}>{p}</span>))}
-                </div>
+    <div style={styles.flowWrap}>
+      {step("①", "作業を止めるか")}
+      <div style={styles.flowBranchRow}>
+        <div style={{ ...styles.flowBranch, borderColor: "#C0503F" }}>
+          <div style={{ ...styles.flowBranchQ, color: "#C0503F" }}>止める(答えるまで先へ進めない)</div>
+          <div style={{ ...styles.flowResult, borderColor: "#C0503F", color: "#C0503F" }}>モーダルダイアログ</div>
+          <div style={styles.flowResultNote}>③ 対応するか閉じるまで残る</div>
+        </div>
+        <div style={{ ...styles.flowBranch, borderColor: "#2F7D6E", flex: "3 1 320px" }}>
+          <div style={{ ...styles.flowBranchQ, color: "#2F7D6E" }}>止めない</div>
+          {down("次に")}
+          {step("②", "何を知らせるか")}
+          <div style={styles.flowResultGrid}>
+            {FLOW_RESULTS.map((r) => (
+              <div key={r.q} style={{ ...styles.flowSub, borderTopColor: r.color }}>
+                <div style={{ ...styles.flowBranchQ, color: r.color }}>{r.q}</div>
+                {r.parts.map((p) => (
+                  <div key={p.n} style={{ marginTop: 6 }}>
+                    <div style={{ ...styles.flowResult, borderColor: r.color, color: r.color }}>{p.n}</div>
+                    <div style={styles.flowResultNote}>③ {p.d}</div>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
         </div>
-      ))}
+      </div>
+      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、コンポーネントが1つにしぼれる。③(いつ消えるか)は、選んだコンポーネントの消え方の確認に使う。この流れは各コンポーネントのページの内容をまとめた、このサイトの整理だ。</p>
     </div>
   );
 }
@@ -504,12 +517,12 @@ export default function CommunicationOverviewPage() {
           <h2 style={styles.diagramTitle}>6つのコンポーネント</h2>
           <PartCards />
 
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
-          <AxisSummary />
-
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
           <ComparisonTable />
           <p style={styles.diagramNote}>◯=あてはまる、△=条件付き(場面による)、✕=あてはまらない。この表は各コンポーネントのページの内容をまとめた独自の整理だ。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
+
+          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
+          <AxisFlow />
 
           <RelatedPartsNote />
 
