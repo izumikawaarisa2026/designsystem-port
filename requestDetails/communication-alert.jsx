@@ -313,35 +313,31 @@ const KP = [
 ];
 
 
-/* ステータスメッセージとバナーの違い(2026-11 ⑩本人最終レビューNo.056。各系列の記述をまとめた、このサイトの整理) */
+/* ステータスメッセージとバナーの違い(2026-11 ⑩本人最終レビューNo.056。Google・Appleの内容は表の行に、W3C・NN groupは注記にまとめた) */
 const STATUS_VS_BANNER = [
-  ["出る場所", "操作した場所や、対象のすぐ近く", "画面の上部(アプリバーの下)"],
-  ["伝えること", "その操作・その場所の結果(成功・情報・注意・エラー)", "アプリや画面全体に関わる、重要だが緊急ではない状態(オフライン・容量不足など)"],
-  ["消え方", "内容による。エラーは直すまで残し、成功は控えめに出す", "利用者が対応するか閉じるまで残る(原因が解消したら消してよい)"],
-  ["支援技術への伝え方", "フォーカスを移さずに出る知らせとして伝える(4.1.3)", "新しく出た緊急の警告だけすぐ読み上げる。ページを開いたときからあるものは、見出しやラベルの付いた領域にする"],
+  ["何の知らせか", "操作の結果や状態の変化(「保存しました」「3件見つかりました」「エラーが2件あります」)。画面の一部のことも、全体のこともある", "続いていて、対応が必要な状態(オフライン・容量不足など。重要だが緊急ではない)"],
+  ["出る場所", "決まった場所はない。関係する内容のそば(Appleは、状態の知らせを対象の近くに控えめに置くとする)", "画面の上部(アプリバーの下)に、1つまで(Google)"],
+  ["消え方", "内容による。エラーは直すまで残し、成功は控えめに出す", "利用者が対応するか閉じるまで残る。原因の状態が解消したら消してよい(Google)"],
+  ["操作", "次の行動への案内を添えることがある", "文字のボタンを2つまで(閉じる操作は左)。ボタン1つで「確認して閉じる」だけにはしない(Google)"],
+  ["Googleでの扱い", "専用のコンポーネントはない(色の役割としてエラーがある)", "M2のコンポーネント(Banners)。M3の一覧にはない"],
+  ["Appleでの扱い", "「フィードバック」として扱う", "アプリの中に残り続けるバナーのコンポーネントはない(OSのバナー通知は自動で消えるもので、別物)"],
+];
+const BANNER_REFS = [
+  { label: "Banners(Google M2。M3の一覧にはない)", url: "https://m2.material.io/components/banners" },
+  { label: "Notifications(Apple。バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" },
+];
+const BANNER_NOTES = [
+  { who: "W3C", color: "#A3821F", t: <>どちらにも専用の定めはない。操作の結果として新しく出た緊急の警告だけすぐ読み上げ、緊急でない更新は控えめに知らせる(4.1.3)。ページを開いたときからあるバナーは、見出しやラベルの付いた領域として読めるようにする。</>, refs: [{ kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" }, { label: "WAI-ARIA: alert(緊急の警告)", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" }] },
+  { who: "NN group", color: "#7A4F7E", t: <>バナーは、対応が必要な「アクション必須」の通知に当たる。見落とせないので消さずに残すが、多用すると信頼を損なう。</>, refs: [{ label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" }] },
 ];
 
 /* バナー(2026-11 ⑦本人レビューNo.065で、旧「バナー」ページをこのページに統合) */
-const BANNER_ROWS = [
-  { who: "Google", color: "#2F7D6E", t: <>画面上部(アプリバーの下)に<Hl>1つまで</Hl>出し、利用者が対応するか閉じるまで残す。文字のボタンを2つまで(閉じる操作は左)。ボタン1つで「確認して閉じる」だけにはしない。原因の状態が解消したら消してよい。M2のコンポーネントで、M3の一覧にはない</>, refs: [{ label: "Banners(M2。M3の一覧にはない)", url: "https://m2.material.io/components/banners" }] },
-  { who: "Apple", color: "#C2542A", t: <><NoData>アプリの中に残り続けるバナーのコンポーネントはない</NoData>(OSのバナー通知は自動で消えるもので、別物)</>, refs: [{ label: "Notifications(バナー通知、近い概念)", url: "https://developer.apple.com/design/human-interface-guidelines/notifications" }] },
-  { who: "W3C", color: "#A3821F", t: <>条件で分ける。操作の結果として<Hl>新しく出た緊急の警告だけすぐ読み上げ</Hl>、緊急でない更新は控えめに知らせる(4.1.3)。ページを開いたときからあるバナーは、見出しやラベルの付いた領域として読めるようにする</>, refs: [{ kind: "sc", level: "AA", label: "4.1.3 ステータスメッセージ", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html" }, { label: "WAI-ARIA: alert(緊急の警告)", url: "https://www.w3.org/TR/wai-aria-1.2/#alert" }] },
-  { who: "NN group", color: "#7A4F7E", t: <>対応が必要な<Hl>「アクション必須」の通知</Hl>に当たる。見落とせないので消さずに残すが、多用すると信頼を損なう</>, refs: [{ label: "Indicators, Validations, and Notifications", url: "https://www.nngroup.com/articles/indicators-validations-notifications/" }] },
-];
 function BannerSection() {
   return (
     <section id="banner" style={{ marginBottom: 40, scrollMarginTop: 16 }}>
       <h2 style={styles.diagramTitle}>バナー ― 対応するか閉じるまで残る知らせ</h2>
       <p style={styles.diagramNote}>画面の上部に出し、利用者が対応するか閉じるまで残る知らせ。オフライン・容量不足など、<strong>重要だが緊急ではない状態</strong>を伝える。作業は止めない(止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>)。</p>
-      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 8px" }}>ステータスメッセージとバナーの違い</h3>
-      <div style={{ overflowX: "auto", marginBottom: 6 }}>
-        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
-          <thead><tr>{["", "ステータスメッセージ", "バナー"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
-          <tbody>{STATUS_VS_BANNER.map((r) => (<tr key={r[0]}><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[1]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[2]}</td></tr>))}</tbody>
-        </table>
-      </div>
-      <p style={{ ...styles.diagramNote, marginBottom: 16 }}>各系列の記述(このページの比較と、下のバナーの4系列)をまとめた、このサイトの整理。</p>
-      <div style={{ width: 300, maxWidth: "100%", margin: "0 auto 14px" }}>
+      <div style={{ width: 300, maxWidth: "100%", margin: "0 auto 18px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "#FFF8E6", border: "1px solid #E2CF95", borderRadius: 8 }}>
           <span style={{ fontSize: 15 }}>⚠️</span>
           <span style={{ flex: 1, fontSize: 12.5, color: "#2E3457" }}>ストレージの空き容量が残りわずかです</span>
@@ -349,12 +345,21 @@ function BannerSection() {
           <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>管理</span>
         </div>
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: 8 }}>
-        {BANNER_ROWS.map((r) => (
-          <div key={r.who} style={{ fontSize: 12, lineHeight: 1.65, color: "#2E3457", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
-            <div style={{ fontWeight: 700, color: r.color, marginBottom: 3 }}>{r.who}</div>
-            <div style={{ marginBottom: 6 }}>{r.t}</div>
-            <RefList refs={r.refs} />
+      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 4px" }}>ステータスメッセージとバナーの違い</h3>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>対応を求めて出し続けるかどうか</strong>だ。バナーは、続いていて対応が必要な状態を、利用者が対応するか閉じるまで画面の上部に出し続ける。ステータスメッセージは、操作の結果や状態の変化を知らせるもので、範囲は画面の一部のことも全体のこともある。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 120 }} /><col /><col /></colgroup>
+          <thead><tr>{["", "ステータスメッセージ", "バナー"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
+          <tbody>{STATUS_VS_BANNER.map((r) => (<tr key={r[0]}><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" }}>{r[0]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[1]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", margin: "4px 0 10px" }}><RefList refs={BANNER_REFS} /></div>
+      <div style={{ borderTop: "1px dashed #E1E3F0", paddingTop: 8 }}>
+        {BANNER_NOTES.map((n) => (
+          <div key={n.who} style={{ fontSize: 11.5, lineHeight: 1.65, color: "#454C78", marginBottom: 8 }}>
+            <span style={{ fontWeight: 700, color: n.color }}>※ {n.who}: </span>{n.t}
+            <div style={{ marginTop: 2 }}><RefList refs={n.refs} /></div>
           </div>
         ))}
       </div>
