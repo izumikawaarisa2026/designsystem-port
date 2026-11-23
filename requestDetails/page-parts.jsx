@@ -420,7 +420,7 @@ const PAGE_INDEX = {
   "lead": "操作の結果や今の状態(成功・情報・注意・エラー)を、利用者に知らせるメッセージ"
  },
  "/components/communication/snackbar": {
-  "label": "スナックバー",
+  "label": "スナックバー(トースト)",
   "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
  },
  "/components/communication/loading": {

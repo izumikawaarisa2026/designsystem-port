@@ -276,7 +276,7 @@ function NnMethods() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>状態の伝え方の3つの方法(Nielsen Norman Group)</h2>
-      <p style={styles.diagramNote}>どれを選ぶかは、情報の種類・緊急度・利用者の対応が必要か、の3つで決める。</p>
+      <p style={styles.diagramNote}>どれを選ぶかは、情報の種類・緊急度・利用者の対応が必要か、の3つで決める。出典: <a href="https://www.nngroup.com/articles/indicators-validations-notifications/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>NN group ― Indicators, Validations, and Notifications ↗</a></p>
       <div style={styles.methodGrid}>
         {NN_METHODS.map((m) => (
           <div key={m.t} style={styles.methodCard}>
@@ -296,7 +296,7 @@ const LEAD = "操作の結果や今の状態(成功・情報・注意・エラ�
 const ABOUT = [
   { k: "目的・役割", v: "何が起きたか、今どんな状態かを伝え、必要なら次の行動を促す" },
   { k: "よく使われる場面", v: "保存完了の知らせ、入力の誤り、通信の注意、検索結果の件数" },
-  { k: "似たコンポーネント", v: <>画面に残り続けるお知らせは下の<PageLink to="/components/communication/alert#banner">バナー</PageLink>、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、入力欄のエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
+  { k: "似たコンポーネント", v: <>画面に残り続けるお知らせは<PageLink to="/components/communication/alert#banner">バナー</PageLink>(このページの下の節)、短時間で消える通知は<PageLink to="/components/communication/snackbar">スナックバー</PageLink>、入力欄のエラーの見せ方は<PageLink to="/components/text-inputs/validation">エラー表示</PageLink>(比べ方は<PageLink to="/components/communication/overview">情報伝達の使い分け</PageLink>)</> },
 ];
 
 const ROWS = [
@@ -332,26 +332,48 @@ const BANNER_NOTES = [
 ];
 
 /* バナー(2026-11 ⑦本人レビューNo.065で、旧「バナー」ページをこのページに統合) */
+/* ステータスメッセージとバナーのイメージ(概念図) */
+function StatusBannerIllust({ k }) {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  return (
+    <svg viewBox="0 0 180 112" width="100%" style={{ display: "block", maxWidth: 200, margin: "0 auto" }} role="img" aria-label={k === "status" ? "保存ボタンのそばに「保存しました」と出ているステータスメッセージの図" : "画面の上部に「オフラインです」と再試行のボタンが出ているバナーの図"}>
+      <rect x="30" y="2" width="120" height="108" rx="10" fill="#FFFFFF" stroke="#B7BCDA" strokeWidth="1.4" />
+      <rect x="30" y="2" width="120" height="16" rx="10" fill="#EEF0F5" />
+      {k === "status" ? (
+        <g>
+          {[30, 42].map((y) => (<rect key={y} x="40" y={y} width="100" height="8" rx="2" fill="#FFFFFF" stroke="#E1E3F0" />))}
+          <rect x="40" y="58" width="34" height="12" rx="6" fill="#3A4FCF" />
+          <text x="57" y="66.5" fontSize="6.5" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>保存</text>
+          <circle cx="83" cy="64" r="4" fill="#2F7D3B" />
+          <path d="M81 64l1.5 1.5 2.5-3" stroke="#FFFFFF" strokeWidth="1" fill="none" />
+          <text x="90" y="66.5" fontSize="7" fill="#2F7D3B" fontFamily={font}>保存しました</text>
+          {[80, 90].map((y) => (<rect key={y} x="40" y={y} width="100" height="5" rx="2" fill="#E1E3F0" />))}
+        </g>
+      ) : (
+        <g>
+          <rect x="30" y="18" width="120" height="20" fill="#FFF8E6" stroke="#E2CF95" />
+          <text x="36" y="31" fontSize="7" fill="#2E3457" fontFamily={font}>⚠ オフラインです</text>
+          <text x="144" y="31" fontSize="7" fill="#3A4FCF" textAnchor="end" fontWeight="700" fontFamily={font}>再試行</text>
+          {[46, 58, 70, 82].map((y) => (<rect key={y} x="40" y={y} width="100" height="6" rx="2" fill="#E1E3F0" />))}
+        </g>
+      )}
+    </svg>
+  );
+}
+
 function BannerSection() {
   return (
     <section id="banner" style={{ marginBottom: 40, scrollMarginTop: 16 }}>
-      <h2 style={styles.diagramTitle}>バナー ― 対応するか閉じるまで残る知らせ</h2>
-      <p style={styles.diagramNote}>画面の上部に出し、利用者が対応するか閉じるまで残る知らせ。オフライン・容量不足など、<strong>重要だが緊急ではない状態</strong>を伝える。作業は止めない(止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>)。</p>
-      <div style={{ width: 300, maxWidth: "100%", margin: "0 auto 18px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", background: "#FFF8E6", border: "1px solid #E2CF95", borderRadius: 8 }}>
-          <span style={{ fontSize: 15 }}>⚠️</span>
-          <span style={{ flex: 1, fontSize: 12.5, color: "#2E3457" }}>ストレージの空き容量が残りわずかです</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>閉じる</span>
-          <span style={{ fontSize: 12, fontWeight: 700, color: "#3A4FCF", whiteSpace: "nowrap" }}>管理</span>
-        </div>
-      </div>
-      <h3 style={{ fontSize: 13, fontWeight: 700, color: "#171B36", margin: "0 0 4px" }}>ステータスメッセージとバナーの違い</h3>
-      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>対応を求めて出し続けるかどうか</strong>だ。バナーは、続いていて対応が必要な状態を、利用者が対応するか閉じるまで画面の上部に出し続ける。ステータスメッセージは、操作の結果や状態の変化を知らせるもので、範囲は画面の一部のことも全体のこともある。</p>
+      <h2 style={styles.diagramTitle}>ステータスメッセージとバナーの違い</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>対応を求めて出し続けるかどうか</strong>だ。バナーは、続いていて対応が必要な状態(オフライン・容量不足など、重要だが緊急ではない状態)を、利用者が対応するか閉じるまで画面の上部に出し続ける。ステータスメッセージは、操作の結果や状態の変化を知らせるもので、範囲は画面の一部のことも全体のこともある。どちらも作業は止めない(止めて答えを求めるなら<PageLink to="/components/containment/dialog">モーダルダイアログ</PageLink>)。</p>
       <div style={{ overflowX: "auto", marginBottom: 6 }}>
         <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
           <colgroup><col style={{ width: 120 }} /><col /><col /></colgroup>
           <thead><tr>{["", "ステータスメッセージ", "バナー"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
-          <tbody>{STATUS_VS_BANNER.map((r) => (<tr key={r[0]}><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" }}>{r[0]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[1]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[2]}</td></tr>))}</tbody>
+          <tbody>
+            <tr><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" }}>イメージ</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7" }}><StatusBannerIllust k="status" /></td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7" }}><StatusBannerIllust k="banner" /></td></tr>
+            {STATUS_VS_BANNER.map((r) => (<tr key={r[0]}><td style={{ fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" }}>{r[0]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[1]}</td><td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" }}>{r[2]}</td></tr>))}
+          </tbody>
         </table>
       </div>
       <div style={{ fontSize: 11, color: "#565D8A", margin: "4px 0 10px" }}><RefList refs={BANNER_REFS} /></div>
@@ -400,8 +422,6 @@ export default function CommunicationStatusMessagePage() {
           />
 
           <StatusTable />
-          <BannerSection />
-          <NnMethods />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -481,6 +501,9 @@ export default function CommunicationStatusMessagePage() {
               </div>
             </div>
           </div>
+
+          <BannerSection />
+          <NnMethods />
 
           <RelatedPages paths={["/components/communication/overview", "/components/communication/snackbar", "/components/text-inputs/validation", "/components/text-inputs/input-validation"]} />
 

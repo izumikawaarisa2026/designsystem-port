@@ -110,7 +110,7 @@ export const NAV_SECTIONS = [
     items: [
       { label: "情報伝達の使い分け", path: "/components/communication/overview", built: true },
       { label: "ステータスメッセージ", path: "/components/communication/alert", built: true },
-      { label: "スナックバー", path: "/components/communication/snackbar", built: true },
+      { label: "スナックバー(トースト)", path: "/components/communication/snackbar", built: true },
       { label: "ローディング状態", path: "/components/communication/loading", built: true },
       { label: "プログレスインジケーター", path: "/components/communication/progress", built: true },
       { label: "空状態", path: "/components/communication/empty-state", built: true },
