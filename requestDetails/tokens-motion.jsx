@@ -30,15 +30,15 @@ const SOURCES = [
     name: "Apple",
     doc: "Human Interface Guidelines ― Motion / Accessibility",
     color: "#C2542A",
-    position: "動きは目的があるときだけ加え、必ず省けるようにする、という原則が中心。ミリ秒の数値は示さず、標準のコンポーネントの動きに任せるのが基本",
-    size: "アニメーションの長さ(ミリ秒)の数値はない。フィードバックの動きは短く正確に、頻繁に起きる操作には動きを足さない、という質の基準。数値は、ゲーム向けの「30〜60fpsを安定して保つ」くらい。",
-    easing: "利用者のジェスチャーや期待に沿った現実的な動きにする(例: 上から引き出した画面を、横に払って閉じさせない)。watchOS(WatchKit)のレイアウト・外観のアニメーションには始まりと終わりのイージングが組み込まれ、無効にも変更もできない。SF Symbols 5以降は、シンボル自体に動きを付けられる。",
+    position: <><Hl>目的があるときだけ動かし、必ず省けるようにする</Hl>。ミリ秒の数値はなく、標準のコンポーネントの動きに任せるのが基本</>,
+    size: <><NoData>数値基準なし</NoData>。フィードバックの動きは短く正確に、頻繁な操作には動きを足さない。数値はゲーム向けの「30〜60fpsを安定して保つ」だけ</>,
+    easing: "ジェスチャーや期待に沿った動きにする(上から引き出した画面を、横に払って閉じさせない)。watchOS(WatchKit)のレイアウト・外観のアニメーションは、イージングが組み込みで変えられない。SF Symbols 5以降は、シンボル自体に動きを付けられる。",
     stance:
-      <><Hl>動きのための動きは加えず</Hl>、体験を支える目的があるときだけ使う(多すぎる動きは気を散らし、体の不快感にもつながるため)。動きを見られない・見たくない人もいるため、動きだけで重要な情報を伝えず、触覚(ハプティクス)や音でも補い、動きの完了を待たせず途中で取り消せるようにする。</>,
+      <><Hl>動きのための動きは加えない</Hl>(多すぎる動きは気を散らし、体の不快感にもつながる)。動きだけで重要な情報を伝えず、触覚や音でも補う。完了を待たせず、途中で取り消せるようにする。</>,
     exceptions:
-      "システムのコンポーネントは、入力方法に合わせて動きを自動で調整する(例: Liquid Glassは指で直接触れると強く、トラックパッドでは控えめに反応)。",
+      "システムのコンポーネントは、入力方法で動きを自動で調整する(Liquid Glassは指で触れると強く、トラックパッドでは控えめに反応)。",
     accessibility:
-      "操作可能(Operable) ― 動きで体調を崩しやすい人のために「視差効果を減らす(Reduce Motion)」設定がある。有効なら、自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅が多いと、気が散るだけでなく、めまいや、場合によっては発作の原因になる。",
+      <>操作可能(Operable) ― <Hl>「視差効果を減らす(Reduce Motion)」</Hl>が有効なら、自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅は、めまいや発作の原因にもなる。</>,
     useCases: [
       "標準のコンポーネントの動きを使い、独自の動きは目的があるときだけ足す",
       "動きだけで情報を伝えず、触覚や音でも補う",
@@ -58,15 +58,15 @@ const SOURCES = [
     name: "Google",
     doc: "Material Design 3 ― Motion(Easing and duration)",
     color: "#2F7D6E",
-    position: <>時間とイージングを数値の「トークン」で体系化。<Hl>動く範囲が広いほど時間を長くする</Hl>、という1つのルールで使い分ける。物理ベースの動き(スプリング)もある</>,
-    size: "50〜1000msの16段階のトークンがある。Short 1〜4 = 50/100/150/200ms、Medium 1〜4 = 250/300/350/400ms、Long 1〜4 = 450/500/550/600ms、Extra long 1〜4 = 700/800/900/1000ms。動く面積や距離が大きいほど長い時間を使うのが原則。",
-    easing: "イージングは7種類。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)。画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)。M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)。装飾のない動きにはLinear。スプリングは速さ3種(fast/default/slow)×種類2種(位置を動かすspatial/色や不透明度を変えるeffects)の6種類で、effectsは行き過ぎて跳ね返らない。",
+    position: <>時間とイージングを数値の「トークン」で体系化。<Hl>動く範囲が広いほど時間を長くする</Hl>。物理ベースの動き(スプリング)もある</>,
+    size: <><Hl>50〜1000msの16段階</Hl>のトークン。Short 1〜4 = 50/100/150/200ms、Medium 1〜4 = 250/300/350/400ms、Long 1〜4 = 450/500/550/600ms、Extra long 1〜4 = 700/800/900/1000ms。</>,
+    easing: <><Hl>画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)</Hl>。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)。M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)、装飾のない動きにはLinear(全7種類)。スプリングは速さ3種(fast/default/slow)×種類2種(位置のspatial/色・不透明度のeffects。effectsは跳ね返らない)。</>,
     stance:
-      "動きを色や形と同じくテーマの属性として定義し、アプリ全体で印象をそろえる。時間とイージングは組で使い、独自に時間を変えるときも「範囲が広いほど長く」を守れば、画面遷移の速さの感覚がそろう。",
+      "動きを色や形と同じテーマの属性として決め、アプリ全体で印象をそろえる。時間とイージングは組で使う。",
     exceptions:
-      "画面遷移には4つの定型パターン(コンテナ変形・共有軸・フェードスルー・フェード)がある。スプリングは、スイッチなど小さなコンポーネントにfast、全画面の遷移にslow、ボトムシートやナビゲーションドロワーのように画面の一部を覆うものにdefaultを使う。",
+      "画面遷移は4つの型(コンテナ変形・共有軸・フェードスルー・フェード)。スプリングは、スイッチなど小さなコンポーネントにfast、ボトムシートやナビゲーションドロワーなど画面の一部を覆うものにdefault、全画面の遷移にslow。",
     accessibility:
-      "操作可能(Operable) ― 端末の「アニメーションを減らす」設定がオンなら、画面の切り替えは強いスライドや拡大ではなく、控えめなフェードにする。視差や形の変形などの装飾的な効果も止める(M3 Applying transitions)。",
+      <>操作可能(Operable) ― <Hl>端末の「アニメーションを減らす」設定がオン</Hl>なら、画面の切り替えは強いスライドや拡大ではなく、控えめなフェードにする。視差や形の変形などの装飾的な効果も止める(M3 Applying transitions)。</>,
     useCases: [
       "小さなコンポーネントの状態変化はShort(50〜200ms)、全画面の遷移はLong以上",
       "入る動きは減速、出る動きは加速のイージングを使う",
@@ -78,7 +78,6 @@ const SOURCES = [
       { label: "Motion(Easing and duration)", url: "https://m3.material.io/styles/motion/easing-and-duration/tokens-specs" },
       { label: "Applying transitions(動きを減らす設定)", url: "https://m3.material.io/styles/motion/transitions/applying-transitions" },
       { label: "MDC Android: Motion(GitHub)", url: "https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md" },
-      { label: "Jetpack Compose: MotionTokens(GitHub)", url: "https://github.com/androidx/androidx/blob/androidx-main/compose/material3/material3/src/commonMain/kotlin/androidx/compose/material3/tokens/MotionTokens.kt" },
     ],
     confirmedNote: "m3.material.ioはSPAのため本文を直接確認できていない。時間・イージング・スプリングの値は、Material Components for AndroidのドキュメントとJetpack Composeのトークン定義で直接確認(2026-09)。",
   },
@@ -87,9 +86,9 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.3.3 Animation from Interactions / 2.2.2 Pause, Stop, Hide / 2.3.1 Three Flashes",
     color: "#A3821F",
-    position: <>動きの長さやイージングの基準はなく、「動きで人を傷つけない・気を散らさない」ための上限と、<Hl>止める手段を求める</Hl></>,
-    size: "時間の数値は2つ。自動で始まり、5秒より長く続き、ほかの内容と並んで出る動き・点滅・スクロールには、一時停止・停止・非表示の手段を用意する(2.2.2・レベルA)。どの1秒間にも3回を超えて点滅しない(2.3.1・レベルA。明るさや面積が閾値以下なら可)。",
-    easing: "イージングや動きの作り方は定めない。操作をきっかけに起きる動き(スクロールに合わせて装飾が動く、視差スクロールなど)は、機能や情報に欠かせない場合を除き、無効にできること(2.3.3・レベルAAA)。満たし方は、不要な動きを使わない・動きを切る設定を用意する・OSやブラウザの「動きを減らす」設定に従う、の3つ。",
+    position: <>長さやイージングの基準はなく、動きで人を傷つけない・気を散らさないための上限と、<Hl>止める手段を求める</Hl></>,
+    size: <>数値は2つ。自動で始まり、<Hl>5秒より長く</Hl>続き、ほかの内容と並んで出る動き・点滅・スクロールは、一時停止・停止・非表示できるようにする(2.2.2・A)。<Hl>どの1秒間にも3回を超えて点滅しない</Hl>(2.3.1・A。明るさや面積が閾値以下なら可)。</>,
+    easing: <>定めない。操作をきっかけに起きる動き(視差スクロールなど)は、欠かせない場合を除き、<Hl>無効にできること</Hl>(2.3.3・AAA)。満たし方は、不要な動きを使わない・動きを切る設定を用意する・OSやブラウザの「動きを減らす」設定に従う、の3つ。</>,
     glossary: [
       { term: "2.3.3 Animation from Interactions・レベルAAA", desc: "操作をきっかけに起きる動きを、欠かせない場合を除いて無効にできること。" },
       { term: "2.2.2 Pause, Stop, Hide・レベルA", desc: "自動で始まり5秒を超えて続く動き・点滅・スクロールや、自動で更新される情報を、止めたり隠したりできること。" },
@@ -97,9 +96,9 @@ const SOURCES = [
       { term: "前庭障害(vestibular disorder)", desc: "内耳の平衡感覚に関わる障害。画面上の動きで、めまい・吐き気・頭痛などが起きることがある。" },
     ],
     stance:
-      "前庭(内耳)障害のある人は、不要な動きでめまい・吐き気・頭痛を起こし、横にならないと回復しないほど重くなることもある。2.3.3は利用者の操作で始まる動き、2.2.2はページが自動で始める動きが対象で、両方に違反する動きもある。",
+      "前庭(内耳)障害のある人は、不要な動きでめまい・吐き気・頭痛を起こすことがある。2.3.3は操作で始まる動き、2.2.2は自動で始まる動きが対象で、両方に当たる動きもある。",
     exceptions:
-      "スクロールで新しい内容が入ってくること自体は、欠かせない動きで利用者が制御しているため認められる。アニメーション制作ツールのプレビューのように、動きそのものが機能なら対象外。2.3.3はレベルAAAで、多くのサイトが目標とするAAには含まれない。",
+      "スクロールで新しい内容が入ること自体は対象外(欠かせず、利用者が制御している)。動きそのものが機能のもの(アニメーション制作ツールのプレビューなど)も対象外。2.3.3はAAAで、多くのサイトが目標にするAAには含まれない。",
     accessibility: "操作可能(Operable) ― 2.2.2は「十分な時間」(2.2)、2.3.1・2.3.3は「発作と身体的反応」(2.3)で、どれも「操作可能」。",
     useCases: [
       "自動で動くカルーセルなどは、5秒を超えるなら停止ボタンを付ける",
@@ -121,13 +120,13 @@ const SOURCES = [
     doc: "Executing UX Animations: Duration and Motion Characteristics / Animation for Attention and Comprehension",
     color: "#7A4F7E",
     position: "ユーザビリティの観点から、ミリ秒の目安を示す(適合基準ではない)",
-    size: "多くは100〜500msで、複雑さと移動距離で決める。チェックボックスやトグルのような単純なフィードバックは約100ms、モーダルが現れるような大きな変化は200〜300ms。500msになると遅さを負担に感じ始め、ほとんどの場合は100〜400ms(400msは大画面で大きく動く場合だけ)。現れる動きは消える動きより少し長くする(例: 出現300ms・消去200〜250ms)。",
-    easing: "一定の速さの直線的な動きは不自然に見えるため、イージングを使う。最もよく使うのはease-out(速く始まり減速して止まる)で、画面に入る要素向け。出る要素にはease-in(加速して去る)。仕様は動画ではなく、要素・きっかけ・変わる性質・時間(フレームではなくミリ秒)・イージングを書いたタイムラインで開発者に渡す。",
+    size: <>多くは<Hl>100〜500ms</Hl>。単純なフィードバック(チェックボックス・トグル)は約100ms、モーダルの出現など大きな変化は200〜300ms。500msで遅さを負担に感じ始め、ほとんどは100〜400ms(400msは大画面の大きな移動だけ)。現れる動きは消える動きより少し長く(出現300ms・消去200〜250ms)。</>,
+    easing: <>直線的な動きは不自然に見えるので、イージングを使う。<Hl>入る要素はease-out(減速)、出る要素はease-in(加速)</Hl>。開発者には、要素・きっかけ・変わる性質・時間(ミリ秒)・イージングを書いたタイムラインで渡す。</>,
     stance:
-      <>アニメーションは0.1秒の違いで印象が変わり、短すぎるより長すぎることのほうがはるかに多いため、<Hl>違和感のない範囲で最も短い時間を探す</Hl>。視野の端の動きは本能的に注意を奪うため、注意を引く必要がないなら、位置を動かさずゆっくりフェードさせるほうが邪魔になりにくい。</>,
+      <>短すぎるより長すぎることのほうがはるかに多いため、<Hl>違和感のない範囲で最も短い時間</Hl>を探す。注意を引く必要がないなら、位置を動かさずゆっくりフェードさせる(視野の端の動きは本能的に注意を奪う)。</>,
     exceptions:
-      "操作の結果として要素が現れるなど、因果関係を伝える動きは、操作から0.1秒以内に始める。1回の訪問で何度も出会う動き(メニューを開くたびの長い演出など)は、最初は良くても繰り返すと苛立ちの原因になる(ユーザーテストの観察)。",
-    accessibility: "根拠となる原則 ― 適合区分ではなく、知覚・注意の研究とユーザビリティテストにもとづく設計の根拠。移動距離の大きい動きほど滑らかさが重要で、てんかんや前庭障害のある人など動きに敏感な人への配慮にもなる。",
+      "因果関係を伝える動き(操作の結果として要素が現れるなど)は、操作から0.1秒以内に始める。1回の訪問で何度も出会う動きは、繰り返すと苛立ちの原因になる(ユーザーテストの観察)。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、知覚・注意の研究とユーザビリティテストにもとづく設計の根拠。大きく動くものほど滑らかさが大事で、動きに敏感な人への配慮にもなる。",
     useCases: [
       "チェックボックス・トグルのフィードバックは約100ms",
       "モーダルの出現は200〜300ms、消えるときは少し短く",
@@ -354,10 +353,10 @@ function EasingStrobe() {
 
 /* ③ 場面ごとの目安: 動く範囲が広いほど長く */
 const SCENES = [
-  { key: "toggle", label: "スイッチ・チェック", area: 1, google: "スプリング fast(小さなコンポーネント)", nn: "約100ms", apple: "標準のコンポーネントの動きに任せる。頻繁な操作に動きを足さない" },
-  { key: "menu", label: "メニュー・ボトムシート・ドロワー", area: 2, google: "スプリング default(画面の一部を覆う)", nn: "大きめの画面の変化は200〜300ms(消えるときは少し短く)", apple: "上から出したものを横に払って閉じさせない(ジェスチャーと動きをそろえる)" },
-  { key: "modal", label: "モーダル・ダイアログ", area: 2.5, google: "コンポーネントごとの時間は記載なし。原則は「範囲が広いほど長く」", nn: "出現300ms・消去200〜250msの例", apple: "途中で取り消せるようにし、完了を待たせない" },
-  { key: "full", label: "全画面の遷移", area: 3, google: "スプリング slow(全画面)・定型の遷移パターン4種", nn: "最大400ms(大画面での大きな移動のみ)", apple: "Reduce Motion時は移動をフェードに置き換える" },
+  { key: "toggle", label: "スイッチ・チェック", area: 1, motion: "つまみの移動と色の変化(状態の変化。画面の切り替えの型は使わない)", google: "スプリング fast(小さなコンポーネント)", nn: "約100ms", apple: "標準のコンポーネントの動きに任せる。頻繁な操作に動きを足さない" },
+  { key: "menu", label: "メニュー・ボトムシート・ドロワー", area: 2, motion: "メニューはフェード。ボトムシート・ドロワーは画面の端からせり出す", google: "スプリング default(画面の一部を覆う)", nn: "大きめの画面の変化は200〜300ms(消えるときは少し短く)", apple: "上から出したものを横に払って閉じさせない(ジェスチャーと動きをそろえる)" },
+  { key: "modal", label: "モーダル・ダイアログ", area: 2.5, motion: "フェード(画面の中に現れる・消える)", google: "コンポーネントごとの時間は記載なし。原則は「範囲が広いほど長く」", nn: "出現300ms・消去200〜250msの例", apple: "途中で取り消せるようにし、完了を待たせない" },
+  { key: "full", label: "全画面の遷移", area: 3, motion: "画面どうしの関係で選ぶ。つながりを見せるならコンテナ変形、順番があるなら共有軸、関係が薄いならフェードスルー", google: "スプリング slow(全画面)・定型の遷移パターン4種", nn: "最大400ms(大画面での大きな移動のみ)", apple: "Reduce Motion時は移動をフェードに置き換える" },
 ];
 
 function SceneIcon({ k }) {
@@ -386,6 +385,7 @@ function SceneDurationMap() {
               <div style={styles.sceneAreaNote}>動く範囲 {s.area <= 1 ? "小" : s.area < 3 ? "中" : "大"} → 長さも{s.area <= 1 ? "短く" : s.area < 3 ? "中くらい" : "長め"}</div>
             </div>
           </div>
+          <div style={styles.sceneMotion}><span style={styles.sceneMotionLabel}>使う動き(Google)</span>{s.motion}</div>
           <div style={styles.sceneLine}><span style={{ ...styles.sceneWho, color: "#2F7D6E" }}>Google</span>{s.google}</div>
           <div style={styles.sceneLine}><span style={{ ...styles.sceneWho, color: "#7A4F7E" }}>NN group</span>{s.nn}</div>
           <div style={styles.sceneLine}><span style={{ ...styles.sceneWho, color: "#C2542A" }}>Apple</span>{s.apple}</div>
@@ -488,14 +488,6 @@ const MOTION_ASPECTS = [
   { k: "duration", title: "長さ(duration)", q: "何ミリ秒かけて動かすか", who: "数値で示すのはGoogle・NN groupだけ" },
   { k: "easing", title: "緩急(イージング)", q: "どう加速・減速させるか", who: "入る=減速・出る=加速でGoogle・NN groupが一致" },
   { k: "reduce", title: "減らす配慮", q: "動きが苦手な人にどう対応するか", who: "Apple・Google・W3Cが明記。W3Cは安全面の上限も" },
-];
-
-const MOTION_RULES = [
-  { k: "目的のある動きだけ", t: "動きのための動きは足さない。頻繁に行う操作には動きを付けない", who: "Apple・NN group" },
-  { k: "短く、範囲に合わせる", t: "違和感のない範囲で最短に。動く範囲が広いほど長く(多くは100〜500ms)", who: "Google・NN group" },
-  { k: "入る=減速・出る=加速", t: "画面に入る要素はゆっくり止まり、出ていく要素は加速して去る", who: "Google・NN group" },
-  { k: "動きを減らせるように", t: "端末の「視差効果を減らす/動きを減らす」設定のときは、移動をフェードに置き換える", who: "Apple・Google・W3C" },
-  { k: "止められる・傷つけない", t: "5秒を超える自動の動きは止められるように。点滅は1秒間に3回まで", who: "W3C" },
 ];
 
 /* 目的ごとの小さなイラスト(動きは CSS の keyframes。動きを減らす設定では止める) */
@@ -601,17 +593,8 @@ function MotionIntro() {
           </div>
         ))}
       </div>
-      <div style={styles.introHead}>主なルール</div>
-      <ol style={styles.ruleList}>
-        {MOTION_RULES.map((r) => (
-          <li key={r.k} style={styles.ruleItem}>
-            <strong>{r.k}</strong> ― {r.t}
-            <span style={styles.ruleWho}>{r.who}</span>
-          </li>
-        ))}
-      </ol>
       <div style={styles.pageFlow}>
-        {["① 概要(この枠)", "② AI解釈と4サイト比較", "③ 図で詳しく見る", "④ 系列ごとの詳細表"].map((s, i) => (
+        {["① はじめに(この節)", "② どのUIで使う動きか", "③ 四系列比較図", "④ 総括と系列ごとの比較"].map((s, i) => (
           <React.Fragment key={s}>
             {i > 0 && <span style={styles.pageFlowArrow}>→</span>}
             <span style={styles.pageFlowStep}>{s}</span>
@@ -686,10 +669,10 @@ function GlossaryNote({ items }) {
 
 /* No.016: どのUIで使う動きか(Googleの4つのトランジションの型。Material Components for AndroidのMotionの説明による) */
 const MOTION_UI = [
-  { t: "コンテナ変形(Container transform)", d: "コンポーネントの枠が広がって、次の画面になる。2つの要素のつながりを見せる", ex: "カード→詳細画面、リストの項目→詳細画面、FAB→詳細画面、検索バー→検索画面" },
-  { t: "共有軸(Shared axis)", d: "位置関係や順番のある画面どうしを、同じ方向(横・縦・奥行き)に動かす", ex: "オンボーディング(横)、ステップの進行(縦)、親子の画面の行き来(奥行き)" },
-  { t: "フェードスルー(Fade through)", d: "関係の薄い画面どうしを、いったん消してから次を出す", ex: "タブバーの行き先の切り替え、更新、アカウントの切り替え" },
-  { t: "フェード(Fade)", d: "画面の中に現れる・消えるコンポーネント", ex: "ダイアログ、メニュー、スナックバー、FAB" },
+  { k: "container", t: "コンテナ変形(Container transform)", d: "コンポーネントの枠が広がって、次の画面になる。2つの要素のつながりを見せる", ex: "カード→詳細画面、リストの項目→詳細画面、FAB→詳細画面、検索バー→検索画面" },
+  { k: "axis", t: "共有軸(Shared axis)", d: "位置関係や順番のある画面どうしを、同じ方向(横・縦・奥行き)に動かす", ex: "オンボーディング(横)、ステップの進行(縦)、親子の画面の行き来(奥行き)" },
+  { k: "through", t: "フェードスルー(Fade through)", d: "関係の薄い画面どうしを、いったん消してから次を出す", ex: "タブバーの行き先の切り替え、更新、アカウントの切り替え" },
+  { k: "fade", t: "フェード(Fade)", d: "画面の中に現れる・消えるコンポーネント", ex: "ダイアログ、メニュー、スナックバー、FAB" },
 ];
 const MOTION_PARTS = [
   { t: "コンポーネントの状態の変化", ex: <>押したときの反応、選択・ホバーの重ね色(<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>)、スイッチのつまみ</> },
@@ -698,6 +681,20 @@ const MOTION_PARTS = [
   { t: "シートの出入り", ex: <>下からせり出す・横から出る(<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>)</> },
 ];
 
+/* 画面の切り替えの4つの型のイメージ(概念図)。左が前の画面、右が次の画面 */
+function TransitionIllust({ k }) {
+  const scr = (x, fill, op = 1) => (<rect x={x} y="4" width="34" height="52" rx="5" fill={fill} stroke="#B7BCDA" strokeWidth="1.2" opacity={op} />);
+  const arrow = (<path d="M48 30h18m-4-4 4 4-4 4" stroke="#7E86AC" strokeWidth="1.4" fill="none" />);
+  return (
+    <svg viewBox="0 0 116 60" width="116" height="60" role="img" aria-label="動きのイメージ(概念図)">
+      {k === "container" && (<g>{scr(4, "#FFFFFF")}<rect x="9" y="12" width="24" height="14" rx="3" fill="#D9E4F2" stroke="#3C5A73" strokeWidth="1.2" />{arrow}{scr(76, "#D9E4F2")}<path d="M33 19 L76 4 M33 26 L76 56" stroke="#3C5A73" strokeWidth="1" strokeDasharray="2 2" /></g>)}
+      {k === "axis" && (<g>{scr(4, "#FFFFFF")}<text x="21" y="34" fontSize="11" textAnchor="middle" fill="#7E86AC" fontFamily="Jost, sans-serif">1</text>{arrow}{scr(76, "#D9E4F2")}<text x="93" y="34" fontSize="11" textAnchor="middle" fill="#3C5A73" fontFamily="Jost, sans-serif">2</text><path d="M8 58h100" stroke="#3C5A73" strokeWidth="1.4" /><path d="M104 55l4 3-4 3" stroke="#3C5A73" strokeWidth="1.4" fill="none" /></g>)}
+      {k === "through" && (<g>{scr(4, "#FFFFFF", 0.35)}<text x="21" y="34" fontSize="9" textAnchor="middle" fill="#9EA4C4" fontFamily="Jost, sans-serif">A</text>{arrow}{scr(76, "#D9E4F2")}<text x="93" y="34" fontSize="9" textAnchor="middle" fill="#3C5A73" fontFamily="Jost, sans-serif">B</text></g>)}
+      {k === "fade" && (<g>{scr(40, "#FFFFFF")}<rect x="40" y="4" width="34" height="52" rx="5" fill="#171B36" opacity="0.18" /><rect x="45" y="20" width="24" height="20" rx="3" fill="#FFFFFF" stroke="#3C5A73" strokeWidth="1.2" /></g>)}
+    </svg>
+  );
+}
+
 function MotionUiMap() {
   return (
     <section style={{ marginBottom: 40 }}>
@@ -705,8 +702,8 @@ function MotionUiMap() {
       <p style={styles.muNote}>このページで比べる長さ(duration)・緩急(イージング)・動きを減らす配慮は、下のような画面の切り替えやコンポーネントの動き全般に共通するルールだ。Googleは、画面の切り替えの動きを4つの型に分けている。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.muTable}>
-          <thead><tr>{["型", "どんな動きか", "使うUIの例"].map((h) => (<th key={h} style={styles.muTh}>{h}</th>))}</tr></thead>
-          <tbody>{MOTION_UI.map((r) => (<tr key={r.t}><td style={{ ...styles.muTd, fontWeight: 700 }}>{r.t}</td><td style={styles.muTd}>{r.d}</td><td style={styles.muTd}>{r.ex}</td></tr>))}</tbody>
+          <thead><tr>{["動きのイメージ", "型", "どんな動きか", "使うUIの例"].map((h) => (<th key={h} style={styles.muTh}>{h}</th>))}</tr></thead>
+          <tbody>{MOTION_UI.map((r) => (<tr key={r.t}><td style={{ ...styles.muTd, width: 132 }}><TransitionIllust k={r.k} /></td><td style={{ ...styles.muTd, fontWeight: 700 }}>{r.t}</td><td style={styles.muTd}>{r.d}</td><td style={styles.muTd}>{r.ex}</td></tr>))}</tbody>
         </table>
       </div>
       <h3 style={styles.muSub}>コンポーネントの中の動き(各ページ)</h3>
@@ -840,7 +837,7 @@ export default function TokensMotionPage() {
             <div style={styles.chartCard}>
               <h3 style={styles.figTitle}>③ 場面ごとの目安 ― 動く範囲が広いほど長く</h3>
               <SceneDurationMap />
-              <p style={styles.chartNote}>Googleのスプリング(fast/default/slow)の使い分けは、Material Components for Androidのドキュメントによる。NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
+              <p style={styles.chartNote}>「使う動き」とGoogleのスプリング(fast/default/slow)の使い分けは、Material Components for Androidのドキュメント(Motion ― Transitions)と、M3の各コンポーネントのページによる。NN groupの値は記事の目安だ。Appleは場面ごとの数値を示さないため、該当する原則を載せている。</p>
             </div>
 
             <div style={styles.chartCard}>
@@ -1018,6 +1015,8 @@ const styles = {
   sceneAreaFill: { display: "block", height: 6, borderRadius: 3, background: "#3C5A73" },
   sceneAreaNote: { fontSize: 10, color: "#666D93" },
   sceneLine: { fontSize: 11, lineHeight: 1.55, color: "#2E3457", marginTop: 6 },
+  sceneMotion: { fontSize: 11.5, lineHeight: 1.55, color: "#171B36", marginTop: 8, background: "#F3F6FA", borderRadius: 4, padding: "6px 8px" },
+  sceneMotionLabel: { display: "block", fontSize: 10, fontWeight: 700, color: "#3C5A73" },
   sceneWho: { display: "block", fontSize: 10, fontWeight: 700 },
   safetyGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 250px), 1fr))", gap: 10 },
   safetyCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
