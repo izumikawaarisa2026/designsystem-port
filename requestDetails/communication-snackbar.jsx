@@ -332,11 +332,11 @@ export default function CommunicationSnackbarPage() {
         <SidebarNav currentPath="/components/communication/snackbar" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / スナックバー</span>
+            <span>コンポーネント / スナックバー(トースト)</span>
             <span>SPEC No. 030</span>
           </div>
 
-          <h1 style={styles.title}>スナックバー</h1>
+          <h1 style={styles.title}>スナックバー(トースト)</h1>
           <SummaryCard keyPoints={KP}
             image={<><SnackbarSwatch /></>}
             imageNote={<>画面下部に一時的に現れ、操作不要で自動的に消える。Undo(元に戻す)など1つの操作ボタンを持てる。</>}
