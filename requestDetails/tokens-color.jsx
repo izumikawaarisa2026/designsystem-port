@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad, RelatedPages } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「カラー(配色・コントラスト基準)」ページ。
@@ -671,12 +671,7 @@ export default function TokensColorPage() {
             <a href="/tokens/dark-mode" style={styles.memoLink}>詳しくは「ダークモード」ページへ ↗</a>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/tokens/dark-mode">ダークモード</PageLink>(ライト/ダークの色の切り替え)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(押した・選んだときの重ね色)・<PageLink to="/tokens/typography">タイポグラフィ</PageLink>(文字の大きさとコントラスト)・<PageLink to="/tokens/elevation">エレベーション</PageLink>(面の色の段階)・<PageLink to="/tokens/icon">アイコン</PageLink>(アイコンのコントラスト)・<PageLink to="/components/actions/link">リンク</PageLink>(リンクの色と下線)
-            </p>
-          </div>
+          <RelatedPages paths={["/tokens/dark-mode", "/tokens/interaction-states", "/tokens/typography", "/tokens/elevation", "/tokens/icon", "/components/actions/link"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

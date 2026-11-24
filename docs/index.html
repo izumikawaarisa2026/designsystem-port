@@ -946,12 +946,13 @@ function pageLabel(p) {
   return PAGE_INDEX[p] ? PAGE_INDEX[p].label : null;
 }
 
-function RelatedPages({ paths }) {
+function RelatedPages({ paths, note }) {
   const list = (paths || []).filter((p) => PAGE_INDEX[p]);
   if (!list.length) return null;
   return (
     <section style={{ marginBottom: 32 }}>
       <h2 style={partStyles.h2}>関連するページ</h2>
+      {note && <p style={partStyles.note}>{note}</p>}
       <div style={partStyles.relatedGrid}>
         {list.map((p) => (
           <a key={p} href={p} style={partStyles.relatedCard}>
@@ -4933,7 +4934,7 @@ const CommunicationOverviewPage = (function () {
  * ようにした。
  */
 
-/* 6つの知らせる部品(⑥ No.055で、オーバーレイの部品を「オーバーレイの使い分け」へ分け、
+/* 7つの知らせるコンポーネント(2026-11 ⑩でエラー表示を追加。⑥ No.055で、オーバーレイの部品を「オーバーレイの使い分け」へ分け、
  * ステータスメッセージを加えた)。並びは判断軸①→②の順(作業を止める → 残る → 操作を持てる → 見るだけ) */
 const CARDS = [
   {
@@ -4994,6 +4995,20 @@ const CARDS = [
     ),
   },
   {
+    alts: [["ステータスメッセージ","/components/communication/alert"],["バリデーション","/components/text-inputs/input-validation"]],
+    key: "error", name: "エラー表示", path: "/components/text-inputs/validation", built: true,
+    oneLiner: "入力の誤りを、誤りのある入力欄のそばに文字で伝え、直し方を示す表示。",
+    doText: "入力欄ごとの誤りを、直すまで見せたい時",
+    dontText: "操作の結果や状態の変化を知らせたい時(ステータスメッセージ)",
+    icon: () => (
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="13" rx="3" fill="#FFFFFF" stroke="#C0503F" strokeWidth="1.4" />
+        <circle cx="5" cy="20" r="3" fill="#C0503F" />
+        <line x1="11" y1="20" x2="48" y2="20" stroke="#C0503F" strokeWidth="1.8" strokeLinecap="round" opacity="0.8" />
+      </svg>
+    ),
+  },
+  {
     alts: [["スナックバー","/components/communication/snackbar"]],
     key: "toast", name: "トースト", path: "/components/communication/snackbar#toast", built: true,
     oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
@@ -5028,7 +5043,8 @@ const COMPARISON_ROWS = [
   { key: "dialog", name: "モーダルダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(答えのボタン)", error: "△(取り消せない操作の前など)", hint: "✕", place: "画面中央" },
   { key: "banner", name: "バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", place: "画面上部" },
   { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作があれば消さない)", actionButton: "△(1つまで)", error: "✕", hint: "✕", place: "画面下部" },
-  { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "操作した場所の近く" },
+  { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "関係する内容のそば" },
+  { key: "error", name: "エラー表示", block: "✕", autoDismiss: "✕(直すまで残す)", actionButton: "✕", error: "○(入力の誤り)", hint: "✕", place: "誤りのある入力欄のそば" },
   { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", place: "画面下部" },
   { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインター・フォーカスが離れたら)", actionButton: "✕", error: "✕", hint: "○", place: "指しているコンポーネントの近く" },
 ];
@@ -5168,7 +5184,7 @@ function AxisFlow() {
           </div>
         ))}
       </div>
-      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、使うコンポーネントがしぼれる。③の消え方は、選んだコンポーネントの確認に使う。②の分け方はNN groupの「Indicators, Validations, and Notifications」を参考にした、このサイトの整理だ。エラー表示はText inputsのページで扱い、上の比較表には含めていない。</p>
+      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、使うコンポーネントがしぼれる。③の消え方は、選んだコンポーネントの確認に使う。②の分け方はNN groupの「Indicators, Validations, and Notifications」を参考にした、このサイトの整理だ。</p>
     </div>
   );
 }
@@ -5218,34 +5234,6 @@ function ComparisonTable() {
   );
 }
 
-const RELATED_PARTS = [
-  { name: "オーバーレイの使い分け", path: "/components/containment/overview", note: "画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)の比較" },
-  { name: "アコーディオン", path: "/components/containment/accordion", note: "同じ場所で開閉して、詳しい内容を見せる" },
-  { name: "プログレスインジケーター", path: "/components/communication/progress", note: "処理の進行状況(待ち時間)を示す" },
-  { name: "バッジ", path: "/components/communication/badge", note: "件数・存在の有無を示す小さな装飾要素" },
-  { name: "空状態", path: "/components/communication/empty-state", note: "データが「まだ無い」ことを示す" },
-  { name: "ローディング状態", path: "/components/communication/loading", note: "データを「読み込み中」であることを示す" },
-];
-
-function RelatedPartsNote() {
-  return (
-    <div style={styles.relatedBox}>
-      <div style={styles.relatedLabel}>関連するページ(この比較には含めていないコンポーネント)</div>
-      <p style={styles.relatedText}>
-        画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)は「オーバーレイの使い分け」で、同じ場所で開閉して詳しい内容を見せるコンポーネントは「アコーディオン」で比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、何かが起きたことを知らせるのではなく<strong>「今どんな状態か」を示すこと自体が目的</strong>のため、この比較には含めていない。
-      </p>
-      <div style={styles.relatedLinks}>
-        {RELATED_PARTS.map((it) => (
-          <a key={it.path} href={it.path} style={styles.relatedLink}>
-            <span style={styles.relatedLinkName}>{it.name} ↗</span>
-            <span style={styles.relatedLinkNote}>{it.note}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const LEAD = "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ";
 
 function CommunicationOverviewPage() {
@@ -5279,11 +5267,11 @@ function CommunicationOverviewPage() {
               <strong>作業を止めるのはモーダルダイアログだけ</strong>。答えを得るまで先へ進ませたくない場面に限って使う。
             </p>
             <p style={styles.synthesisText}>
-              ほかの5つは<strong>何を知らせるか</strong>で選ぶ。対応が必要な状態を出し続けるならバナー、操作の結果を短いあいだだけ知らせるならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、状態の変化(成功・件数・注意)ならステータスメッセージ、補足や説明ならツールチップ。入力の誤りは、入力欄のそばのエラー表示で伝える。
+              ほかの6つは<strong>何を知らせるか</strong>で選ぶ。対応が必要な状態を出し続けるならバナー、操作の結果を短いあいだだけ知らせるならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、状態の変化(成功・件数・注意)ならステータスメッセージ、補足や説明ならツールチップ、入力の誤りならエラー表示。
             </p>
           </div>
 
-          <h2 style={styles.diagramTitle}>6つのコンポーネント</h2>
+          <h2 style={styles.diagramTitle}>7つのコンポーネント</h2>
           <PartCards />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
@@ -5293,7 +5281,7 @@ function CommunicationOverviewPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
           <AxisFlow />
 
-          <RelatedPartsNote />
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/containment/overview", "/components/containment/accordion", "/components/communication/progress", "/components/communication/badge", "/components/communication/empty-state", "/components/communication/loading"]} note={"入力の誤りの見せ方はエラー表示、見つけ方と伝える時機はバリデーションで詳しく扱う。重ねて出すものはオーバーレイの使い分け、その場で開閉するものはアコーディオンで比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、「今どんな状態か」を示すこと自体が目的のため、この比較には含めていない。"} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -5301,7 +5289,7 @@ function CommunicationOverviewPage() {
 
           <div style={styles.footer}>
             <span>最終確認: 2026-11</span>
-            <span>このページは各コンポーネントのページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各コンポーネントのページを参照。</span>
+            <span>このページは各コンポーネントのページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・エラー表示・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各コンポーネントのページを参照。</span>
           </div>
         </div>
       </div>
@@ -18165,12 +18153,7 @@ function PrinciplesAccessibilityPage() {
             </div>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/tokens/color">カラー</PageLink>(文字・コンポーネントのコントラスト)・<PageLink to="/components/actions/button">ボタン</PageLink>(押せる範囲の大きさ。2.5.8の例外)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(フォーカスの見え方)・<PageLink to="/principles/comparison">原則比較</PageLink>
-            </p>
-          </div>
+          <RelatedPages paths={["/tokens/color", "/components/actions/button", "/tokens/interaction-states", "/principles/comparison"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -18569,12 +18552,7 @@ function PrinciplesComparisonPage() {
             </div>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/principles/accessibility">アクセシビリティ</PageLink>(POURの4原則と各系列の考え方)・<PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink>(原則の次の段の「土台」の分け方)
-            </p>
-          </div>
+          <RelatedPages paths={["/principles/accessibility", "/tokens/overview"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -18741,7 +18719,10 @@ const styles = {
   tocLink: { fontSize: 12, padding: "5px 10px", borderRadius: 14, background: "#F3F6FA", border: "1px solid #E1E3F0", color: "#2E3457", textDecoration: "none" },
   group: { marginBottom: 34 },
   groupDesc: { fontSize: 12, color: "#565D8A", margin: "-6px 0 12px", lineHeight: 1.6 },
-  sc: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 10, background: "#FFFFFF", scrollMarginTop: 16 },
+  sc: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 10, background: "#FFFFFF", scrollMarginTop: 16, display: "flex", flexWrap: "wrap-reverse", gap: "10px 16px", alignItems: "flex-start" },
+  scBody: { flex: "1 1 320px", minWidth: 0 },
+  scFig: { flex: "0 0 auto", margin: "0 auto", background: "#F8F9FD", borderRadius: 6, padding: 6 },
+  scOfficial: { fontSize: 11, color: "#3A4FCF", whiteSpace: "nowrap" },
   scHead: { display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "4px 10px", marginBottom: 6 },
   scNum: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: "#171B36" },
   scName: { fontSize: 14, fontWeight: 700, color: "#171B36" },
@@ -18795,14 +18776,81 @@ const ABOUT = [
   { k: "関連するページ", v: <>WCAGの4原則(POUR)と各系列のアクセシビリティの考え方は<PageLink to="/principles/accessibility">アクセシビリティ</PageLink></> },
 ];
 
+/* 各基準の挿絵(概念図。2026-11 ⑩本人最終レビュー)。何を求めるかを1枚で示す */
+const G = "#B7BCDA", G2 = "#565D8A", L = "#E1E3F0", A = "#3A4FCF", OK = "#2F7D3B", NG = "#C0503F", FT = "'Jost', 'Noto Sans JP', sans-serif";
+const SC_FIGS = {
+  "1.4.1": () => (<><rect x="14" y="16" width="112" height="22" rx="4" fill="#FFF" stroke={NG} strokeWidth="1.6" /><rect x="20" y="24" width="50" height="6" rx="2" fill={L} /><circle cx="20" cy="52" r="6" fill={NG} /><text x="20" y="55.5" fontSize="9" fill="#FFF" textAnchor="middle" fontFamily={FT}>!</text><text x="30" y="55" fontSize="9" fill={NG} fontFamily={FT}>必須の項目です</text><text x="14" y="78" fontSize="8" fill={G2} fontFamily={FT}>色＋アイコン＋文字</text></>),
+  "1.4.3": () => (<><rect x="12" y="14" width="54" height="54" rx="4" fill="#FFF" stroke={L} /><text x="39" y="48" fontSize="22" fontWeight="700" fill="#171B36" textAnchor="middle" fontFamily={FT}>Aa</text><rect x="74" y="14" width="54" height="54" rx="4" fill="#FFF" stroke={L} /><text x="101" y="48" fontSize="22" fontWeight="700" fill="#C9CEE3" textAnchor="middle" fontFamily={FT}>Aa</text><text x="39" y="82" fontSize="9" fill={OK} textAnchor="middle" fontFamily={FT}>4.5:1以上</text><text x="101" y="82" fontSize="9" fill={NG} textAnchor="middle" fontFamily={FT}>低い</text></>),
+  "1.4.11": () => (<><rect x="14" y="20" width="18" height="18" rx="3" fill="#FFF" stroke="#454C78" strokeWidth="1.8" /><path d="M18 29l4 4 7-8" stroke="#454C78" strokeWidth="1.8" fill="none" /><rect x="44" y="20" width="80" height="18" rx="9" fill="#FFF" stroke="#454C78" strokeWidth="1.8" /><text x="84" y="32" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily={FT}>ボタン</text><text x="70" y="62" fontSize="10" fill={OK} textAnchor="middle" fontFamily={FT}>境界と背景 3:1以上</text></>),
+  "1.4.8": () => (<>{[0,1,2,3].map((i) => (<rect key={i} x="14" y={14 + i * 12} width={i === 3 ? 50 : 80} height="5" rx="2" fill={L} />))}<rect x="104" y="14" width="24" height="56" rx="12" fill="#FFF" stroke={G} /><circle cx="116" cy="34" r="6" fill={A} /><text x="116" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>行間を調整</text></>),
+  "1.4.4": () => (<><text x="24" y="52" fontSize="14" fill="#454C78" fontFamily={FT}>Aa</text><path d="M50 46h18m-4-4 4 4-4 4" stroke={G} strokeWidth="1.6" fill="none" /><text x="78" y="58" fontSize="30" fontWeight="700" fill="#171B36" fontFamily={FT}>Aa</text><text x="70" y="80" fontSize="9" fill={A} textAnchor="middle" fontFamily={FT}>200%まで拡大</text></>),
+  "1.4.10": () => (<><rect x="8" y="12" width="70" height="50" rx="4" fill="#FFF" stroke={G} /><rect x="13" y="18" width="28" height="38" rx="2" fill={L} /><rect x="45" y="18" width="28" height="38" rx="2" fill={L} /><path d="M82 37h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><rect x="98" y="8" width="32" height="72" rx="4" fill="#FFF" stroke={A} /><rect x="102" y="14" width="24" height="26" rx="2" fill={L} /><rect x="102" y="44" width="24" height="26" rx="2" fill={L} /><text x="114" y="88" fontSize="7" fill={A} textAnchor="middle" fontFamily={FT}>320px</text></>),
+  "1.4.12": () => (<>{[0,1,2].map((i) => (<rect key={i} x="18" y={16 + i * 20} width="100" height="6" rx="2" fill={L} />))}<path d="M126 22v14m-3-3 3 3 3-3m-6-11 3-3 3 3" stroke={A} strokeWidth="1.4" fill="none" /><text x="70" y="82" fontSize="9" fill={A} textAnchor="middle" fontFamily={FT}>間隔を広げても崩れない</text></>),
+  "1.3.4": () => (<><rect x="18" y="10" width="34" height="56" rx="5" fill="#FFF" stroke={G} /><rect x="23" y="18" width="24" height="5" rx="2" fill={L} /><rect x="70" y="22" width="56" height="34" rx="5" fill="#FFF" stroke={G} /><rect x="76" y="29" width="30" height="5" rx="2" fill={L} /><text x="70" y="82" fontSize="9" fill={OK} textAnchor="middle" fontFamily={FT}>縦でも横でも使える</text></>),
+  "1.3.1": () => (<><rect x="14" y="12" width="60" height="9" rx="2" fill="#454C78" /><text x="80" y="20" fontSize="8" fill={A} fontFamily={FT}>見出し</text>{[0,1,2].map((i) => (<g key={i}><circle cx="20" cy={36 + i * 12} r="2.5" fill="#454C78" /><rect x="26" y={33 + i * 12} width="50" height="5" rx="2" fill={L} /></g>))}<text x="80" y="50" fontSize="8" fill={A} fontFamily={FT}>リスト</text><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>構造を構造として伝える</text></>),
+  "2.5.8": () => (<><rect x="44" y="20" width="28" height="28" rx="3" fill="none" stroke={A} strokeDasharray="3 2" /><circle cx="58" cy="34" r="6" fill={A} /><circle cx="90" cy="34" r="6" fill={A} /><path d="M64 60h20" stroke={OK} strokeWidth="1.4" /><text x="58" y="16" fontSize="8" fill={A} textAnchor="middle" fontFamily={FT}>24×24</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>小さいなら間隔を空ける</text></>),
+  "2.5.5": () => (<><rect x="44" y="12" width="52" height="52" rx="4" fill="none" stroke={A} strokeDasharray="3 2" /><circle cx="70" cy="38" r="10" fill={A} /><text x="70" y="80" fontSize="9" fill={A} textAnchor="middle" fontFamily={FT}>44×44 以上</text></>),
+  "2.5.1": () => (<><circle cx="30" cy="30" r="5" fill={G} /><circle cx="46" cy="44" r="5" fill={G} /><path d="M24 22l-6-6M52 52l6 6" stroke={G} strokeWidth="1.4" /><path d="M66 36h12m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><rect x="86" y="24" width="18" height="18" rx="9" fill="#FFF" stroke={A} /><text x="95" y="37" fontSize="12" fill={A} textAnchor="middle" fontFamily={FT}>+</text><rect x="108" y="24" width="18" height="18" rx="9" fill="#FFF" stroke={A} /><text x="117" y="37" fontSize="12" fill={A} textAnchor="middle" fontFamily={FT}>−</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>ピンチの代わりに1本指で</text></>),
+  "2.5.2": () => (<><rect x="20" y="24" width="60" height="22" rx="11" fill={A} /><text x="50" y="38.5" fontSize="9" fill="#FFF" textAnchor="middle" fontFamily={FT}>送信</text><circle cx="50" cy="35" r="5" fill="none" stroke="#FFF" /><path d="M56 40 Q90 60 108 60" stroke={NG} strokeWidth="1.4" fill="none" strokeDasharray="3 2" /><circle cx="110" cy="60" r="5" fill="none" stroke={NG} /><text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>離したときに実行する</text></>),
+  "2.5.4": () => (<><rect x="18" y="14" width="30" height="50" rx="5" fill="#FFF" stroke={G} /><path d="M12 30l-4 4 4 4M54 30l4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><path d="M64 39h12m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><rect x="84" y="28" width="44" height="22" rx="11" fill={A} /><text x="106" y="42.5" fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>元に戻す</text><text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>振る代わりに画面のボタン</text></>),
+  "2.5.7": () => (<>{[0,1,2].map((i) => (<g key={i}><rect x="14" y={12 + i * 20} width="70" height="16" rx="3" fill="#FFF" stroke={L} /><rect x="20" y={18 + i * 20} width="36" height="4" rx="2" fill={L} /><text x="96" y={24 + i * 20} fontSize="9" fill={A} fontFamily={FT}>▲</text><text x="110" y={24 + i * 20} fontSize="9" fill={A} fontFamily={FT}>▼</text></g>))}<text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>ボタンでも並べ替えられる</text></>),
+  "2.5.6": () => (<><rect x="14" y="20" width="26" height="40" rx="4" fill="#FFF" stroke={A} /><rect x="56" y="22" width="22" height="34" rx="11" fill="#FFF" stroke={A} /><path d="M67 22v10" stroke={A} /><rect x="92" y="30" width="36" height="22" rx="3" fill="#FFF" stroke={A} />{[0,1,2].map((i) => (<rect key={i} x={96 + i * 10} y="35" width="7" height="5" rx="1" fill={L} />))}<text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>入力手段を切り替えられる</text></>),
+  "2.1.1": () => (<><rect x="14" y="20" width="112" height="40" rx="5" fill="#FFF" stroke={G} />{[0,1,2,3,4,5,6].map((i) => (<rect key={i} x={20 + i * 15} y="26" width="12" height="10" rx="2" fill={L} />))}<rect x="20" y="42" width="26" height="12" rx="2" fill={A} /><text x="33" y="51" fontSize="7" fill="#FFF" textAnchor="middle" fontFamily={FT}>Tab</text><rect x="96" y="42" width="24" height="12" rx="2" fill={A} /><text x="108" y="51" fontSize="7" fill="#FFF" textAnchor="middle" fontFamily={FT}>Enter</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>すべてキーボードで操作できる</text></>),
+  "2.1.2": () => (<><rect x="22" y="16" width="70" height="44" rx="5" fill="#FFF" stroke={G} /><rect x="32" y="28" width="40" height="14" rx="3" fill="#FFF" stroke={A} strokeWidth="2" /><path d="M76 35 H118 m-4-4 4 4-4 4" stroke={OK} strokeWidth="1.6" fill="none" /><text x="104" y="28" fontSize="8" fill={OK} textAnchor="middle" fontFamily={FT}>Tab・Esc</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>フォーカスが外へ抜け出せる</text></>),
+  "2.4.3": () => (<>{[0,1,2].map((i) => (<g key={i}><rect x="30" y={10 + i * 22} width="80" height="16" rx="3" fill="#FFF" stroke={L} /><circle cx="20" cy={18 + i * 22} r="7" fill={A} /><text x="20" y={21 + i * 22} fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>{i + 1}</text></g>))}<text x="70" y="86" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>意味と操作の順に移る</text></>),
+  "2.4.7": () => (<><rect x="30" y="24" width="80" height="24" rx="12" fill={A} /><text x="70" y="40" fontSize="9" fill="#FFF" textAnchor="middle" fontFamily={FT}>保存</text><rect x="25" y="19" width="90" height="34" rx="17" fill="none" stroke="#171B36" strokeWidth="2" /><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>どこにフォーカスがあるか見える</text></>),
+  "2.4.11": () => (<><rect x="20" y="10" width="100" height="60" rx="5" fill="#FFF" stroke={G} /><rect x="34" y="40" width="60" height="16" rx="3" fill="#FFF" stroke={A} strokeWidth="2" /><rect x="20" y="50" width="100" height="20" fill="#EEF0F5" /><text x="70" y="63" fontSize="7" fill={G2} textAnchor="middle" fontFamily={FT}>固定のフッター</text><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>一部でも見えていればよい</text></>),
+  "2.4.12": () => (<><rect x="20" y="10" width="100" height="60" rx="5" fill="#FFF" stroke={G} /><rect x="34" y="24" width="60" height="16" rx="3" fill="#FFF" stroke={A} strokeWidth="2" /><rect x="20" y="50" width="100" height="20" fill="#EEF0F5" /><text x="70" y="63" fontSize="7" fill={G2} textAnchor="middle" fontFamily={FT}>固定のフッター</text><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>全部が見えている</text></>),
+  "2.4.13": () => (<><rect x="36" y="26" width="68" height="22" rx="4" fill="#FFF" stroke={L} /><rect x="32" y="22" width="76" height="30" rx="7" fill="none" stroke="#171B36" strokeWidth="2.5" /><text x="70" y="40" fontSize="9" fill="#171B36" textAnchor="middle" fontFamily={FT}>リンク</text><text x="70" y="74" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>2px相当の太さ・3:1の変化</text></>),
+  "3.2.1": () => (<><rect x="14" y="20" width="50" height="40" rx="4" fill="#FFF" stroke={G} /><rect x="20" y="32" width="38" height="12" rx="2" fill="#FFF" stroke={A} strokeWidth="2" /><path d="M70 40h12m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><rect x="88" y="20" width="40" height="40" rx="4" fill="#FFF" stroke={G} /><text x="108" y="44" fontSize="9" fill={OK} textAnchor="middle" fontFamily={FT}>同じ</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>フォーカスで画面を変えない</text></>),
+  "1.4.13": () => (<><rect x="18" y="46" width="40" height="18" rx="9" fill={A} /><text x="38" y="58" fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>?</text><rect x="44" y="14" width="80" height="26" rx="4" fill="#2E3457" /><text x="52" y="30" fontSize="8" fill="#FFF" fontFamily={FT}>補足の説明</text><text x="116" y="24" fontSize="8" fill="#FFF" fontFamily={FT}>×</text><path d="M70 44 l6 10 3-4 4 1z" fill="#171B36" /><text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>閉じられ、勝手に消えない</text></>),
+  "2.2.1": () => (<><circle cx="40" cy="38" r="20" fill="#FFF" stroke={G} strokeWidth="1.6" /><path d="M40 38V24M40 38l9 6" stroke="#454C78" strokeWidth="1.8" /><rect x="74" y="28" width="52" height="20" rx="10" fill={A} /><text x="100" y="41" fontSize="9" fill="#FFF" textAnchor="middle" fontFamily={FT}>延長する</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>時間制限を延長・解除できる</text></>),
+  "2.2.2": () => (<>{[0,1,2].map((i) => (<rect key={i} x={10 + i * 42} y="14" width="36" height="30" rx="4" fill={i === 1 ? "#D9E4F2" : "#EEF0F5"} />))}<rect x="88" y="52" width="40" height="16" rx="8" fill={A} /><text x="108" y="63" fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>❚❚ 停止</text><text x="56" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>5秒を超える動きは止められる</text></>),
+  "2.3.1": () => (<>{[0,1,2,3,4,5].map((i) => (<rect key={i} x={12 + i * 20} y="22" width="16" height="22" rx="2" fill={i % 2 === 0 ? "#171B36" : "#EEF0F5"} />))}<path d="M12 54h116" stroke={G} /><text x="70" y="66" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>1秒</text><text x="70" y="82" fontSize="9" fill={NG} textAnchor="middle" fontFamily={FT}>3回を超えて点滅しない</text></>),
+  "2.3.3": () => (<><rect x="14" y="14" width="56" height="50" rx="4" fill="#FFF" stroke={G} /><rect x="20" y="22" width="30" height="12" rx="2" fill={L} /><rect x="30" y="40" width="34" height="16" rx="2" fill="#D9E4F2" /><path d="M40 60v-6" stroke={G} /><rect x="86" y="30" width="36" height="18" rx="9" fill="#EEF0F5" stroke={G} /><circle cx="95" cy="39" r="7" fill="#FFF" stroke={G} /><text x="104" y="62" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>動きをオフ</text><text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>装飾の動きを止められる</text></>),
+  "1.4.2": () => (<><path d="M20 30h10l12-10v40l-12-10H20z" fill="#454C78" /><path d="M50 30a12 12 0 0 1 0 20" stroke="#454C78" strokeWidth="1.6" fill="none" /><rect x="66" y="22" width="22" height="22" rx="4" fill={A} /><rect x="72" y="28" width="10" height="10" fill="#FFF" /><rect x="96" y="31" width="34" height="4" rx="2" fill={L} /><circle cx="108" cy="33" r="5" fill={A} /><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>止める・音量を変えられる</text></>),
+  "1.4.7": () => (<><path d="M10 40 Q20 10 30 40 T50 40 T70 40 T90 40 T110 40 T130 40" stroke={A} strokeWidth="2" fill="none" /><path d="M10 56 Q20 52 30 56 T50 56 T70 56 T90 56 T110 56 T130 56" stroke={G} strokeWidth="1" fill="none" /><text x="134" y="34" fontSize="7" fill={A} textAnchor="end" fontFamily={FT}>声</text><text x="134" y="66" fontSize="7" fill={G2} textAnchor="end" fontFamily={FT}>背景音(小さく)</text><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>背景音は声より20dB低く</text></>),
+  "1.2.1": () => (<><path d="M14 36 Q22 16 30 36 T46 36 T62 36" stroke={A} strokeWidth="2" fill="none" /><path d="M68 36h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" /><rect x="86" y="14" width="42" height="46" rx="3" fill="#FFF" stroke={G} />{[0,1,2,3].map((i) => (<rect key={i} x="91" y={20 + i * 9} width={i === 3 ? 20 : 32} height="4" rx="2" fill={L} />))}<text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>音声だけの内容に書き起こし</text></>),
+  "1.2.2": () => (<><rect x="16" y="10" width="108" height="60" rx="4" fill="#2E3457" /><path d="M62 30v16l14-8z" fill="#FFF" opacity="0.7" /><rect x="30" y="54" width="80" height="11" rx="2" fill="#171B36" opacity="0.8" /><text x="70" y="62.5" fontSize="7" fill="#FFF" textAnchor="middle" fontFamily={FT}>こんにちは、今日は…</text><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>収録済みの映像に字幕</text></>),
+  "1.1.1": () => (<><circle cx="36" cy="34" r="16" fill="#FFF" stroke={G} strokeWidth="1.4" /><circle cx="34" cy="32" r="6" fill="none" stroke="#454C78" strokeWidth="1.8" /><path d="M39 37l5 5" stroke="#454C78" strokeWidth="1.8" /><path d="M58 34h10" stroke={G} /><rect x="74" y="22" width="52" height="24" rx="12" fill="#FFF" stroke={A} /><text x="100" y="38" fontSize="9" fill={A} textAnchor="middle" fontFamily={FT}>「検索」</text><text x="70" y="76" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>意味のある画像に文字の代わり</text></>),
+  "1.3.3": () => (<><text x="14" y="26" fontSize="9" fill={NG} fontFamily={FT}>✕ 右の丸いボタンを押す</text><text x="14" y="48" fontSize="9" fill={OK} fontFamily={FT}>◯「送信」ボタンを押す</text><circle cx="120" cy="36" r="9" fill={A} /><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>形・位置だけで説明しない</text></>),
+  "2.4.2": () => (<><rect x="10" y="14" width="120" height="56" rx="4" fill="#FFF" stroke={G} /><rect x="10" y="14" width="66" height="14" rx="4" fill="#EEF0F5" /><text x="16" y="24" fontSize="8" fill="#171B36" fontFamily={FT}>お届け先の入力</text><rect x="18" y="38" width="80" height="5" rx="2" fill={L} /><rect x="18" y="48" width="60" height="5" rx="2" fill={L} /><text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>主題が分かるタイトル</text></>),
+  "2.4.4": () => (<><rect x="14" y="22" width="60" height="5" rx="2" fill={L} /><text x="78" y="28" fontSize="9" fill={A} textDecoration="underline" fontFamily={FT}>料金表</text><rect x="14" y="36" width="100" height="5" rx="2" fill={L} /><text x="70" y="70" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>文言と周りの文で目的が分かる</text></>),
+  "2.4.9": () => (<><text x="18" y="28" fontSize="9" fill={NG} fontFamily={FT}>✕</text><text x="32" y="28" fontSize="9" fill={A} textDecoration="underline" fontFamily={FT}>こちら</text><text x="18" y="50" fontSize="9" fill={OK} fontFamily={FT}>◯</text><text x="32" y="50" fontSize="9" fill={A} textDecoration="underline" fontFamily={FT}>料金表を見る</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>リンクの文言だけで分かる</text></>),
+  "2.4.5": () => (<><rect x="96" y="22" width="34" height="34" rx="4" fill="#FFF" stroke={A} /><text x="113" y="43" fontSize="8" fill={A} textAnchor="middle" fontFamily={FT}>ページ</text>{[["メニュー",18],["検索",40],["サイトマップ",62]].map(([t, y]) => (<g key={t}><text x="12" y={y} fontSize="8" fill="#454C78" fontFamily={FT}>{t}</text><path d={`M60 ${y - 3} L94 39`} stroke={G} strokeWidth="1.2" /></g>))}<text x="70" y="84" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>たどり着く方法が2つ以上</text></>),
+  "2.4.6": () => (<><text x="14" y="22" fontSize="11" fontWeight="700" fill="#171B36" fontFamily={FT}>お届け先</text><text x="14" y="40" fontSize="8" fill="#454C78" fontFamily={FT}>郵便番号</text><rect x="14" y="44" width="80" height="14" rx="3" fill="#FFF" stroke={G} /><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>見出しとラベルが内容を表す</text></>),
+  "2.4.8": () => (<><text x="12" y="34" fontSize="9" fill={A} fontFamily={FT}>ホーム ›</text><text x="54" y="34" fontSize="9" fill={A} fontFamily={FT}>設定 ›</text><text x="90" y="34" fontSize="9" fontWeight="700" fill="#171B36" fontFamily={FT}>通知</text><path d="M90 40h28" stroke="#171B36" strokeWidth="2" /><text x="70" y="72" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>今どこにいるか分かる</text></>),
+  "2.5.3": () => (<><rect x="18" y="34" width="50" height="22" rx="11" fill={A} /><text x="43" y="48" fontSize="9" fill="#FFF" textAnchor="middle" fontFamily={FT}>送信</text><rect x="78" y="14" width="50" height="22" rx="6" fill="#FFF" stroke={G} /><path d="M86 36l-6 8 12-8" fill="#FFF" stroke={G} /><text x="103" y="29" fontSize="8" fill="#171B36" textAnchor="middle" fontFamily={FT}>「送信」</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>見えるラベルを名前に含める</text></>),
+  "3.1.5": () => (<>{[0,1,2].map((i) => (<rect key={i} x="12" y={16 + i * 10} width="48" height="5" rx="1" fill="#454C78" />))}<path d="M66 30h10m-4-4 4 4-4 4" stroke={G} strokeWidth="1.4" fill="none" />{[0,1].map((i) => (<rect key={i} x="84" y={20 + i * 12} width="44" height="7" rx="2" fill={A} opacity="0.5" />))}<text x="70" y="70" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>難しい文に易しい版</text></>),
+  "3.2.3": () => (<>{[0,1].map((i) => (<g key={i}><rect x={12 + i * 66} y="12" width="56" height="52" rx="4" fill="#FFF" stroke={G} />{["A","B","C"].map((t, j) => (<text key={t} x={20 + i * 66 + j * 16} y="26" fontSize="8" fill={A} fontFamily={FT}>{t}</text>))}<rect x={18 + i * 66} y="34" width="40" height="5" rx="2" fill={L} /></g>))}<text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>どのページでも同じ順</text></>),
+  "3.2.4": () => (<>{[0,1].map((i) => (<g key={i}><rect x={12 + i * 66} y="12" width="56" height="52" rx="4" fill="#FFF" stroke={G} /><circle cx={30 + i * 66} cy="34" r="8" fill="none" stroke="#454C78" strokeWidth="1.6" /><text x={44 + i * 66} y="37" fontSize="8" fill="#171B36" fontFamily={FT}>検索</text></g>))}<text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>同じ働きは同じ見た目と名前</text></>),
+  "3.2.6": () => (<>{[0,1].map((i) => (<g key={i}><rect x={12 + i * 66} y="12" width="56" height="52" rx="4" fill="#FFF" stroke={G} /><circle cx={58 + i * 66} cy="54" r="6" fill={A} /><text x={58 + i * 66} y="57" fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>?</text></g>))}<text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>ヘルプは同じ位置に</text></>),
+  "1.3.5": () => (<><text x="14" y="20" fontSize="8" fill="#454C78" fontFamily={FT}>メールアドレス</text><rect x="14" y="24" width="90" height="14" rx="3" fill="#FFF" stroke={A} /><rect x="14" y="40" width="90" height="16" rx="3" fill="#F3F6FA" stroke={L} /><text x="20" y="51" fontSize="8" fill={A} fontFamily={FT}>taro@example.com</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>目的が分かり、自動入力できる</text></>),
+  "3.2.2": () => (<><rect x="14" y="24" width="60" height="18" rx="3" fill="#FFF" stroke={G} /><text x="20" y="36" fontSize="8" fill="#171B36" fontFamily={FT}>日本語 ▾</text><rect x="82" y="24" width="44" height="18" rx="9" fill={A} /><text x="104" y="36" fontSize="8" fill="#FFF" textAnchor="middle" fontFamily={FT}>適用</text><text x="70" y="70" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>選んだだけで画面を変えない</text></>),
+  "3.3.1": () => (<><text x="14" y="18" fontSize="8" fill="#454C78" fontFamily={FT}>電話番号</text><rect x="14" y="22" width="100" height="16" rx="3" fill="#FFF" stroke={NG} strokeWidth="1.6" /><text x="14" y="52" fontSize="8" fill={NG} fontFamily={FT}>! 数字で入力してください</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>どの項目の何が誤りか文字で</text></>),
+  "3.3.2": () => (<><text x="14" y="20" fontSize="9" fill="#171B36" fontWeight="700" fontFamily={FT}>生年月日</text><rect x="14" y="26" width="100" height="16" rx="3" fill="#FFF" stroke={G} /><text x="14" y="54" fontSize="8" fill={G2} fontFamily={FT}>例: 1990/04/01</text><text x="70" y="78" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>ラベルと入力の説明</text></>),
+  "3.3.3": () => (<><rect x="14" y="16" width="100" height="16" rx="3" fill="#FFF" stroke={NG} strokeWidth="1.6" /><text x="20" y="27" fontSize="8" fill="#171B36" fontFamily={FT}>2026/13/40</text><text x="14" y="46" fontSize="8" fill={NG} fontFamily={FT}>! 日付が正しくありません</text><text x="14" y="58" fontSize="8" fill={OK} fontFamily={FT}>例: 2026/11/23</text><text x="70" y="80" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>直し方の案を示す</text></>),
+  "3.3.4": () => (<><rect x="20" y="10" width="100" height="56" rx="5" fill="#FFF" stroke={G} /><text x="70" y="24" fontSize="8" fontWeight="700" fill="#171B36" textAnchor="middle" fontFamily={FT}>注文内容の確認</text><rect x="30" y="44" width="36" height="14" rx="7" fill="#FFF" stroke={G} /><text x="48" y="54" fontSize="7" fill="#454C78" textAnchor="middle" fontFamily={FT}>戻る</text><rect x="74" y="44" width="36" height="14" rx="7" fill={A} /><text x="92" y="54" fontSize="7" fill="#FFF" textAnchor="middle" fontFamily={FT}>確定</text><text x="70" y="82" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>確認・取り消し・修正ができる</text></>),
+  "3.3.7": () => (<><rect x="16" y="22" width="14" height="14" rx="3" fill={A} /><path d="M19 29l3 3 6-6" stroke="#FFF" strokeWidth="1.6" fill="none" /><text x="36" y="33" fontSize="8.5" fill="#171B36" fontFamily={FT}>請求先は配送先と同じ</text><text x="70" y="66" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>同じ情報を二度入れさせない</text></>),
+  "4.1.2": () => (<><rect x="16" y="30" width="16" height="16" rx="3" fill={A} /><path d="M19 38l3 3 7-7" stroke="#FFF" strokeWidth="1.6" fill="none" /><text x="38" y="42" fontSize="9" fill="#171B36" fontFamily={FT}>通知</text><rect x="64" y="12" width="68" height="26" rx="6" fill="#FFF" stroke={G} /><text x="98" y="23" fontSize="7" fill="#171B36" textAnchor="middle" fontFamily={FT}>通知、チェック</text><text x="98" y="33" fontSize="7" fill="#171B36" textAnchor="middle" fontFamily={FT}>ボックス、オン</text><text x="70" y="74" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>名前・役割・状態を伝える</text></>),
+  "4.1.3": () => (<><rect x="14" y="30" width="62" height="18" rx="4" fill="#E8F3EA" /><text x="45" y="42" fontSize="8" fill={OK} textAnchor="middle" fontFamily={FT}>✓ 保存しました</text><path d="M92 32h6l7-6v22l-7-6h-6z" fill="#454C78" /><path d="M110 32a8 8 0 0 1 0 10" stroke="#454C78" strokeWidth="1.4" fill="none" /><text x="70" y="74" fontSize="8" fill={G2} textAnchor="middle" fontFamily={FT}>フォーカスを移さず読み上げる</text></>),
+};
+function ScFig({ n }) {
+  const F = SC_FIGS[n];
+  if (!F) return null;
+  return (<svg viewBox="0 0 140 90" width="140" height="90" role="img" aria-label={n + "の概念図"} style={{ display: "block" }}><F /></svg>);
+}
+
 function Criterion({ c }) {
   const pages = c.pages.filter((p) => pageLabel(p));
   return (
     <div id={"sc-" + c.n.replace(/\./g, "-")} style={styles.sc}>
+      <div style={styles.scBody}>
       <div style={styles.scHead}>
         <span style={styles.scNum}>{c.n}</span>
         <span style={styles.scName}>{c.name}</span>
         <span style={styles.scLevel}>レベル{c.level}</span>
+        <a href={c.url} target="_blank" rel="noreferrer" style={styles.scOfficial}>公式(Understanding WCAG 2.2) ↗</a>
       </div>
       <p style={styles.scReq}>{c.req}</p>
       <div style={styles.scRow}><span style={styles.scKey}>デザインの要点</span><span style={styles.scVal}>{c.design}</span></div>
@@ -18811,9 +18859,10 @@ function Criterion({ c }) {
         <span style={styles.scKey}>関わるページ</span>
         <span style={{ ...styles.scVal, ...styles.scLinks }}>
           {pages.length ? pages.map((p, i) => (<React.Fragment key={p}>{i > 0 && "・"}<PageLink to={p}>{pageLabel(p)}</PageLink></React.Fragment>)) : "―"}
-          {"　"}<a href={c.url} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Understanding WCAG 2.2 ↗</a>
         </span>
       </div>
+      </div>
+      <div style={styles.scFig}><ScFig n={c.n} /></div>
     </div>
   );
 }
@@ -29049,12 +29098,7 @@ function TokensColorPage() {
             <a href="/tokens/dark-mode" style={styles.memoLink}>詳しくは「ダークモード」ページへ ↗</a>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/tokens/dark-mode">ダークモード</PageLink>(ライト/ダークの色の切り替え)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(押した・選んだときの重ね色)・<PageLink to="/tokens/typography">タイポグラフィ</PageLink>(文字の大きさとコントラスト)・<PageLink to="/tokens/elevation">エレベーション</PageLink>(面の色の段階)・<PageLink to="/tokens/icon">アイコン</PageLink>(アイコンのコントラスト)・<PageLink to="/components/actions/link">リンク</PageLink>(リンクの色と下線)
-            </p>
-          </div>
+          <RelatedPages paths={["/tokens/dark-mode", "/tokens/interaction-states", "/tokens/typography", "/tokens/elevation", "/tokens/icon", "/components/actions/link"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
