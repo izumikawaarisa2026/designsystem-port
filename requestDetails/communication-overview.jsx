@@ -176,7 +176,7 @@ import { TagLink, PageLink, RelatedPages } from "./page-parts";
  * ようにした。
  */
 
-/* 6つの知らせる部品(⑥ No.055で、オーバーレイの部品を「オーバーレイの使い分け」へ分け、
+/* 7つの知らせるコンポーネント(2026-11 ⑩でエラー表示を追加。⑥ No.055で、オーバーレイの部品を「オーバーレイの使い分け」へ分け、
  * ステータスメッセージを加えた)。並びは判断軸①→②の順(作業を止める → 残る → 操作を持てる → 見るだけ) */
 const CARDS = [
   {
@@ -237,6 +237,20 @@ const CARDS = [
     ),
   },
   {
+    alts: [["ステータスメッセージ","/components/communication/alert"],["バリデーション","/components/text-inputs/input-validation"]],
+    key: "error", name: "エラー表示", path: "/components/text-inputs/validation", built: true,
+    oneLiner: "入力の誤りを、誤りのある入力欄のそばに文字で伝え、直し方を示す表示。",
+    doText: "入力欄ごとの誤りを、直すまで見せたい時",
+    dontText: "操作の結果や状態の変化を知らせたい時(ステータスメッセージ)",
+    icon: () => (
+      <svg width="70" height="24" viewBox="0 0 70 24">
+        <rect x="1" y="1" width="68" height="13" rx="3" fill="#FFFFFF" stroke="#C0503F" strokeWidth="1.4" />
+        <circle cx="5" cy="20" r="3" fill="#C0503F" />
+        <line x1="11" y1="20" x2="48" y2="20" stroke="#C0503F" strokeWidth="1.8" strokeLinecap="round" opacity="0.8" />
+      </svg>
+    ),
+  },
+  {
     alts: [["スナックバー","/components/communication/snackbar"]],
     key: "toast", name: "トースト", path: "/components/communication/snackbar#toast", built: true,
     oneLiner: "操作ボタンを持たない、最も軽い一時的なメッセージ。",
@@ -271,7 +285,8 @@ const COMPARISON_ROWS = [
   { key: "dialog", name: "モーダルダイアログ", block: "○", autoDismiss: "✕", actionButton: "○(答えのボタン)", error: "△(取り消せない操作の前など)", hint: "✕", place: "画面中央" },
   { key: "banner", name: "バナー", block: "✕", autoDismiss: "✕", actionButton: "△", error: "○", hint: "✕", place: "画面上部" },
   { key: "snackbar", name: "スナックバー", block: "✕", autoDismiss: "△(操作があれば消さない)", actionButton: "△(1つまで)", error: "✕", hint: "✕", place: "画面下部" },
-  { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "操作した場所の近く" },
+  { key: "status", name: "ステータスメッセージ", block: "✕", autoDismiss: "△(エラーは直すまで残す)", actionButton: "△(次の行動への案内)", error: "○", hint: "✕", place: "関係する内容のそば" },
+  { key: "error", name: "エラー表示", block: "✕", autoDismiss: "✕(直すまで残す)", actionButton: "✕", error: "○(入力の誤り)", hint: "✕", place: "誤りのある入力欄のそば" },
   { key: "toast", name: "トースト", block: "✕", autoDismiss: "○", actionButton: "✕", error: "✕", hint: "✕", place: "画面下部" },
   { key: "tooltip", name: "ツールチップ", block: "✕", autoDismiss: "△(ポインター・フォーカスが離れたら)", actionButton: "✕", error: "✕", hint: "○", place: "指しているコンポーネントの近く" },
 ];
@@ -411,7 +426,7 @@ function AxisFlow() {
           </div>
         ))}
       </div>
-      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、使うコンポーネントがしぼれる。③の消え方は、選んだコンポーネントの確認に使う。②の分け方はNN groupの「Indicators, Validations, and Notifications」を参考にした、このサイトの整理だ。エラー表示はText inputsのページで扱い、上の比較表には含めていない。</p>
+      <p style={styles.flowNote}>①で作業を止めるか、②で何を知らせるかを決めると、使うコンポーネントがしぼれる。③の消え方は、選んだコンポーネントの確認に使う。②の分け方はNN groupの「Indicators, Validations, and Notifications」を参考にした、このサイトの整理だ。</p>
     </div>
   );
 }
@@ -461,34 +476,6 @@ function ComparisonTable() {
   );
 }
 
-const RELATED_PARTS = [
-  { name: "オーバーレイの使い分け", path: "/components/containment/overview", note: "画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)の比較" },
-  { name: "アコーディオン", path: "/components/containment/accordion", note: "同じ場所で開閉して、詳しい内容を見せる" },
-  { name: "プログレスインジケーター", path: "/components/communication/progress", note: "処理の進行状況(待ち時間)を示す" },
-  { name: "バッジ", path: "/components/communication/badge", note: "件数・存在の有無を示す小さな装飾要素" },
-  { name: "空状態", path: "/components/communication/empty-state", note: "データが「まだ無い」ことを示す" },
-  { name: "ローディング状態", path: "/components/communication/loading", note: "データを「読み込み中」であることを示す" },
-];
-
-function RelatedPartsNote() {
-  return (
-    <div style={styles.relatedBox}>
-      <div style={styles.relatedLabel}>関連するページ(この比較には含めていないコンポーネント)</div>
-      <p style={styles.relatedText}>
-        画面の上に重ねて内容や操作を出すコンポーネント(フルスクリーンダイアログ・ボトムシート・サイドシートなど)は「オーバーレイの使い分け」で、同じ場所で開閉して詳しい内容を見せるコンポーネントは「アコーディオン」で比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、何かが起きたことを知らせるのではなく<strong>「今どんな状態か」を示すこと自体が目的</strong>のため、この比較には含めていない。
-      </p>
-      <div style={styles.relatedLinks}>
-        {RELATED_PARTS.map((it) => (
-          <a key={it.path} href={it.path} style={styles.relatedLink}>
-            <span style={styles.relatedLinkName}>{it.name} ↗</span>
-            <span style={styles.relatedLinkNote}>{it.note}</span>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const LEAD = "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ";
 
 export default function CommunicationOverviewPage() {
@@ -522,11 +509,11 @@ export default function CommunicationOverviewPage() {
               <strong>作業を止めるのはモーダルダイアログだけ</strong>。答えを得るまで先へ進ませたくない場面に限って使う。
             </p>
             <p style={styles.synthesisText}>
-              ほかの5つは<strong>何を知らせるか</strong>で選ぶ。対応が必要な状態を出し続けるならバナー、操作の結果を短いあいだだけ知らせるならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、状態の変化(成功・件数・注意)ならステータスメッセージ、補足や説明ならツールチップ。入力の誤りは、入力欄のそばのエラー表示で伝える。
+              ほかの6つは<strong>何を知らせるか</strong>で選ぶ。対応が必要な状態を出し続けるならバナー、操作の結果を短いあいだだけ知らせるならスナックバー(元に戻すなどの操作を1つ付けられる)かトースト、状態の変化(成功・件数・注意)ならステータスメッセージ、補足や説明ならツールチップ、入力の誤りならエラー表示。
             </p>
           </div>
 
-          <h2 style={styles.diagramTitle}>6つのコンポーネント</h2>
+          <h2 style={styles.diagramTitle}>7つのコンポーネント</h2>
           <PartCards />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表(◯/△/✕)</h2>
@@ -536,7 +523,7 @@ export default function CommunicationOverviewPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
           <AxisFlow />
 
-          <RelatedPartsNote />
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/containment/overview", "/components/containment/accordion", "/components/communication/progress", "/components/communication/badge", "/components/communication/empty-state", "/components/communication/loading"]} note={"入力の誤りの見せ方はエラー表示、見つけ方と伝える時機はバリデーションで詳しく扱う。重ねて出すものはオーバーレイの使い分け、その場で開閉するものはアコーディオンで比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、「今どんな状態か」を示すこと自体が目的のため、この比較には含めていない。"} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}
@@ -544,7 +531,7 @@ export default function CommunicationOverviewPage() {
 
           <div style={styles.footer}>
             <span>最終確認: 2026-11</span>
-            <span>このページは各コンポーネントのページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各コンポーネントのページを参照。</span>
+            <span>このページは各コンポーネントのページ(モーダルダイアログ・バナー・スナックバー・ステータスメッセージ・エラー表示・トースト・ツールチップ)をまとめた見解だ。系列別の詳細・公式リンクは各コンポーネントのページを参照。</span>
           </div>
         </div>
       </div>

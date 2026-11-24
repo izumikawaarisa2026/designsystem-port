@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, RefList, PageLink } from "./page-parts";
+import { TagLink, RefList, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * 思想レイヤー「アクセシビリティ」ページ(旧「POUR解説」を改称・再構成)。
@@ -475,12 +475,7 @@ export default function PrinciplesAccessibilityPage() {
             </div>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/tokens/color">カラー</PageLink>(文字・コンポーネントのコントラスト)・<PageLink to="/components/actions/button">ボタン</PageLink>(押せる範囲の大きさ。2.5.8の例外)・<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>(フォーカスの見え方)・<PageLink to="/principles/comparison">原則比較</PageLink>
-            </p>
-          </div>
+          <RelatedPages paths={["/tokens/color", "/components/actions/button", "/tokens/interaction-states", "/principles/comparison"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

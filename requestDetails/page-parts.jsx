@@ -469,12 +469,13 @@ export function pageLabel(p) {
   return PAGE_INDEX[p] ? PAGE_INDEX[p].label : null;
 }
 
-export function RelatedPages({ paths }) {
+export function RelatedPages({ paths, note }) {
   const list = (paths || []).filter((p) => PAGE_INDEX[p]);
   if (!list.length) return null;
   return (
     <section style={{ marginBottom: 32 }}>
       <h2 style={partStyles.h2}>関連するページ</h2>
+      {note && <p style={partStyles.note}>{note}</p>}
       <div style={partStyles.relatedGrid}>
         {list.map((p) => (
           <a key={p} href={p} style={partStyles.relatedCard}>

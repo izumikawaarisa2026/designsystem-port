@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, NoData, PageLink } from "./page-parts";
+import { TagLink, NoData, PageLink, RelatedPages } from "./page-parts";
 
 /**
  * 思想レイヤー「原則比較」ページ。
@@ -311,12 +311,7 @@ export default function PrinciplesComparisonPage() {
             </div>
           </div>
 
-          <div style={styles.relatedBox}>
-            <span style={styles.memoLabel}>関連するページ</span>
-            <p style={{ fontSize: 12, lineHeight: 1.8, margin: 0 }}>
-              <PageLink to="/principles/accessibility">アクセシビリティ</PageLink>(POURの4原則と各系列の考え方)・<PageLink to="/tokens/overview">ファウンデーションの思想比較</PageLink>(原則の次の段の「土台」の分け方)
-            </p>
-          </div>
+          <RelatedPages paths={["/principles/accessibility", "/tokens/overview"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
