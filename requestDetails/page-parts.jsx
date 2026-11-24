@@ -137,6 +137,53 @@ export function NoData({ children }) {
   return <span style={partStyles.noData}>{children}</span>;
 }
 
+/* 比較の行を出すか。4系列のうち2系列以上に中身があるときだけ出す(3系列以上が「記載なし」の行は出さない決まり) */
+export function hasRow(sources, field) {
+  const filled = (v) => !(v == null || v === "" || v === "―" || v === "該当なし" || v === "記載なし" || (v && v.type === NoData));
+  return (sources || []).filter((s) => filled(s[field])).length >= 2;
+}
+
+/* 比較表の中の、強い否定(〜しない・使わない・避ける・禁止など)の言い回しを、クリムゾンレッドの文字にする(2026-11 ⑩本人最終レビュー)。
+   比較のデータ(SOURCES など)に markNeg を1回かけると、PCの比較表とスマートフォンのカードの両方に効く */
+const NEG_COLOR = "#C41E3A";
+const NEG_RE = /([^。、]*?(?:しない|使わない|置かない|出さない|付けない|させない|消さない|隠さない|混ぜない|載せない|入れない|頼らない|重ねない|変えない|広げない|割り当てない|作らない|足さない|縮めない|下回らせない|閉じ込めない|持たせない|選ばせない|含めない|折り返さない|動かさない|待たせない|設けない|並べない|伝えない|避ける|禁止|非推奨|してはならない|てはいけない))(?=[。、)」]|$)/g;
+function negText(str, keyBase) {
+  const out = [];
+  let last = 0, m, i = 0;
+  NEG_RE.lastIndex = 0;
+  while ((m = NEG_RE.exec(str))) {
+    if (m.index > last) out.push(str.slice(last, m.index));
+    out.push(<span key={keyBase + "-n" + (i++)} style={{ color: NEG_COLOR }}>{m[1]}</span>);
+    last = m.index + m[1].length;
+  }
+  if (!out.length) return str;
+  if (last < str.length) out.push(str.slice(last));
+  return out;
+}
+export function negify(node, keyBase = "k") {
+  if (typeof node === "string") return negText(node, keyBase);
+  if (Array.isArray(node)) return node.map((n, i) => negify(n, keyBase + "-" + i));
+  if (React.isValidElement(node)) {
+    // 文字を持つ要素(フラグメント・Hl・strong・span など)だけ中をたどる。リンクや「記載なし」はそのまま
+    if (node.type === NoData || node.type === PageLink) return node;
+    if (node.props && node.props.children != null) return React.cloneElement(node, undefined, negify(node.props.children, keyBase));
+    return node;
+  }
+  return node;
+}
+const NEG_SKIP = new Set(["key", "name", "doc", "color", "url", "refs", "searchHint", "confirmedNote", "illustration", "illustrationNote", "glossary", "items", "extra", "pending", "noDedicatedComponent", "m3NotApplicable", "notApplicable"]);
+export function markNeg(list) {
+  (list || []).forEach((s) => {
+    Object.keys(s).forEach((k) => {
+      if (NEG_SKIP.has(k)) return;
+      const v = s[k];
+      if (typeof v === "string" || React.isValidElement(v)) s[k] = negify(v, s.key + "-" + k);
+      else if (Array.isArray(v) && v.every((x) => typeof x === "string" || React.isValidElement(x))) s[k] = v.map((x, i) => negify(x, s.key + "-" + k + i));
+    });
+  });
+  return list;
+}
+
 /* 横断ビューのタグ。番号(No)は横断ビューの「12のくくり」の番号。id は横断ビュー内の位置(/cross-view#c1 など) */
 export const TAG_LIST = [
   { no: 1, id: "c1", tag: "設計の原則・使い分け", icon: "◇", desc: "原則そのものや、似たコンポーネントの使い分けをまとめたページ" },

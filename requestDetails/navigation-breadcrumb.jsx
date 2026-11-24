@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / パンくずリスト」ページ。
@@ -32,7 +32,7 @@ const SOURCES = [
     size: "該当なし",
     colorInfo: "該当なし",
     stance: <>該当なし。iOSは階層の遷移を、上部のツールバーの戻るボタンで扱うのが基本(HIG Toolbars)。近いコンポーネントとして、macOSにはPath controls(Finderのパスバーのように、階層の中の位置を並べて示すコンポーネント。iOSなどでは使えない)がある。</>,
-    exceptions: "該当なし",
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
@@ -48,7 +48,7 @@ const SOURCES = [
     size: "該当なし",
     colorInfo: "該当なし",
     stance: "該当なし(M3のコンポーネントの一覧にBreadcrumbsはない)",
-    exceptions: "該当なし",
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
@@ -103,9 +103,9 @@ const SOURCES = [
     size: "モバイルの押せる範囲の一般の目安(約1×1cm)に触れるが、パンくず専用の数値ではない。",
     colorInfo: <span><NoData>数値基準なし。</NoData>区切り記号は「&gt;」を勧めるが、「/」と働きの違いはない。</span>,
     stance:
-      <>サイトの階層での現在位置を示す補助のナビゲーションで、グローバルナビゲーションやローカルナビゲーションを補うものであり、代わりにはならない。最も重要なのは、<Hl>閲覧の履歴(たどってきた順)ではなく、サイトの階層そのものを表示する</Hl>こと。</>,
+      <>サイトの階層での現在位置を示す補助のナビゲーションで、グローバルナビゲーションやローカルナビゲーションを補うものであり、代わりにはならない。最も重要なのは、<Hl>閲覧の履歴(たどってきた順)ではなく、サイトの階層そのものを表示する</Hl>こと。モバイルでは複数行に折り返さず、押せる範囲が小さすぎたり項目が密集しすぎたりしないようにする。</>,
     exceptions:
-      "1〜2階層しかない浅いサイトでは不要。親が複数あるページ(ポリヒエラルキー)では、代表的な経路を1つだけ示す。モバイルでは複数行に折り返さず、押せる範囲が小さすぎたり項目が密集しすぎたりしないようにする。画面が狭ければ末尾の階層だけを出す短縮もできるが、「いつもホームへのリンクから始める」原則とはぶつかる。",
+      "1〜2階層しかない浅いサイトでは不要。親が複数あるページ(ポリヒエラルキー)では、代表的な経路を1つだけ示す。画面が狭ければ末尾の階層だけを出す短縮もできるが、「いつもホームへのリンクから始める」原則とはぶつかる。",
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、サイトの構造の理解を助ける使い分けの指針。モバイルの押せる範囲(約1×1cm)は、ほかのコンポーネントと共通の目安。",
     useCases: [
@@ -131,6 +131,7 @@ const SOURCES = [
     illustrationNote: "現在ページ(最後の項目)はリンクにしない(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, muted, children }) {
   return (
@@ -274,7 +275,7 @@ export default function NavigationBreadcrumbPage() {
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {!s.notApplicable && (
@@ -326,8 +327,10 @@ export default function NavigationBreadcrumbPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

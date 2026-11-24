@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / フローティングアクションボタン(FAB)」ページ。
@@ -48,9 +48,9 @@ const SOURCES = [
     position: "3サイズ(FAB 56dp / Medium 80dp / Large 96dp)",
     size: "FAB 56dp / Medium FAB 80dp(最も推奨) / Large FAB 96dp。アイコンはMDC AndroidでFAB 24dp・Medium FAB 28dp・Large FAB 36dp。",
     stance:
-      <><Hl>画面上で最も重要な操作に使うボタン</Hl>で、ほかのすべてのコンテンツより手前に出る。2025年5月のM3 Expressiveでサイズ体系を再編。</>,
+      <><Hl>画面上で最も重要な操作に使うボタン</Hl>で、ほかのすべてのコンテンツより手前に出る。2025年5月のM3 Expressiveでサイズ体系を再編。以前のSmall FAB(40dp)は非推奨。1画面に複数のFABを置くこと、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)に使うことは避ける。アイコンに文字のラベルを添えるなら、別のコンポーネント「Extended FAB」を使う。</>,
     exceptions:
-      "以前のSmall FAB(40dp)は非推奨。1画面に複数のFABを置くこと、軽微な操作や破壊的な操作(アーカイブ・削除・警告など)に使うことは避ける。アイコンに文字のラベルを添えるなら、別のコンポーネント「Extended FAB」を使う。",
+      <NoData>記載なし</NoData>,
     pourDetail: "知覚可能・操作可能 ― アイコンはコンテナに対して3:1以上のコントラスト比にする(知覚可能)。フォーカスの順番で優先して扱う(操作可能)。",
     searchHint: "FAB container height",
     url: "https://m3.material.io/components/floating-action-button/specs",
@@ -79,9 +79,9 @@ const SOURCES = [
     position: "ボタンと同じ一般の基準を適用",
     size: "―(FAB固有の規定なし。一般の基準はアクセシビリティの欄を参照)",
     stance:
-      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24 CSS px以上、レベルAAA(2.5.5)は44×44 CSS pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。</>,
+      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24 CSS px以上、レベルAAA(2.5.5)は44×44 CSS pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。例外: 2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。</>,
     exceptions:
-      "2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。",
+      <NoData>記載なし</NoData>,
     pourDetail: "操作可能(Operable) ― 入力方法(2.5)の達成基準。",
     searchHint: "Target Size",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
@@ -108,7 +108,7 @@ const SOURCES = [
     size: "―(用語集にサイズの数値記載なし)",
     stance:
       "用語集の「Floating Button(Floating Action Button, FAB)」。画面に浮かび、スクロールしても残る、最もよく使う重要な操作のためのボタンと定義する。モバイルで主要な操作へすばやく届くようにする用途が多い。",
-    exceptions: "用語の定義のため、サイズや配置の数値基準・例外はない。",
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "Floating Button",
     url: "https://www.nngroup.com/articles/ui-elements-glossary/#Floating-Button",
@@ -124,6 +124,7 @@ const SOURCES = [
     ),
   },
 ];
+markNeg(SOURCES);
 
 const RANGE_SCALE = {
   bands: [
@@ -378,10 +379,10 @@ export default function ActionsFabPage() {
                   <p style={styles.exceptionText}>{s.size}</p>
                 </div>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <div style={styles.exceptionBox}>
+                {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
-                </div>
+                </div>)}
                 <div style={styles.pourBox}>
                   <span style={styles.exceptionLabel}>アクセシビリティ(WCAG基準)</span>
                   <p style={styles.exceptionText}>{s.pourDetail}</p>
@@ -423,8 +424,10 @@ export default function ActionsFabPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
                 <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>

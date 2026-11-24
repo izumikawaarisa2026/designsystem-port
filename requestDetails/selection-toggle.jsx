@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / トグルスイッチ」ページ。
@@ -28,9 +28,9 @@ const SOURCES = [
     colorInfo:
       "オン・オフを、トラックの塗りの有無とつまみの位置で示す。塗りの色はシステムのアクセントカラーに従い、個別には指定しない。",
     stance:
-      <>以下はmacOSでの使い分け。<Hl>iOS/iPadOSでは、スイッチはリストの行の中でだけ使う</Hl>(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対の状態を見た目を変えて示すコントロール。チェックボックスより見た目が重いため、複数の設定をまとめて切り替えるなど、より広い範囲を制御する場面に向く。</>,
+      <>以下はmacOSでの使い分け。<Hl>iOS/iPadOSでは、スイッチはリストの行の中でだけ使う</Hl>(HIG Togglesの「iOS, iPadOS」の節)。スイッチは、オン・オフのような対の状態を見た目を変えて示すコントロール。チェックボックスより見た目が重いため、複数の設定をまとめて切り替えるなど、より広い範囲を制御する場面に向く。すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えない(macOSの節)。例外: まとまったフォームの中では、行の高さをそろえるために「ミニスイッチ」も使える(macOSの節)。</>,
     exceptions:
-      "まとまったフォームの中では、行の高さをそろえるために「ミニスイッチ」も使える。ただし、すでにチェックボックスを使っている箇所を、原則としてスイッチに置き換えない(macOSの節)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "理解可能(Understandable) ― オン・オフを見た目で正確に伝える。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに記載はない。",
     useCases: [
@@ -71,9 +71,9 @@ const SOURCES = [
       { term: "カラーロール", desc: "色を「役割」で管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように役割を指定する。値はテーマ(ライト/ダークなど)で決まるため、テーマが変わっても同じ役割名で適切な色になる。" },
     ],
     stance:
-      <>設定などの独立した選択肢の調整に最適なコントロール。オン/オフ・真/偽の2択で、切り替えは<Hl>保存の操作なしにすぐ反映する</Hl>。リストの項目を1つずつ制御できるなら、スイッチ(ラジオボタンではない)を使う。</>,
+      <>設定などの独立した選択肢の調整に最適なコントロール。オン/オフ・真/偽の2択で、切り替えは<Hl>保存の操作なしにすぐ反映する</Hl>。リストの項目を1つずつ制御できるなら、スイッチ(ラジオボタンではない)を使う。スイッチは独立した1つの設定のオン/オフのためのもので、月額/年額のような相反する2択の切り替えには使わない。リスト表示/マップ表示のように1つだけを選ぶ場面では、接続されたボタングループを使う。スイッチはボタンの代わりにならず(人はボタンに行動の呼びかけを期待する)、保存が要る複数選択にはチェックボックスを使う。</>,
     exceptions:
-      "スイッチは独立した1つの設定のオン/オフのためのもので、月額/年額のような相反する2択の切り替えには使わない。リスト表示/マップ表示のように1つだけを選ぶ場面では、接続されたボタングループを使う。スイッチはボタンの代わりにならず(人はボタンに行動の呼びかけを期待する)、保存が要る複数選択にはチェックボックスを使う。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― キーボードかスイッチ入力で移動・切り替えできること。ハンドルは操作すると大きさが変わり、フィードバックになる(触れると大きくなる、カーソルを重ねるとホバーの範囲が広がる、など)。スイッチの上に文字を載せず(小さくなりすぎるため)、意味のはっきりしたアイコンを使う。",
     useCases: [
@@ -112,9 +112,9 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別のコンポーネントに移す、別のページへ遷移する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      <>独自のUIコンポーネントは、名前(ラベル)・役割・状態(オン・オフ)を支援技術から取得・設定できること。見た目はボタンやチェックボックスと違っても、WCAGは形を問わず同じ基準を適用する。切り替えは「設定の変更」に当たるため、<Hl>3.2.2(レベルA)</Hl>により、切り替えただけで別の画面へ遷移したり新しいウィンドウを開いたりするなら、事前に知らせる。設定がその場で反映されるだけなら、内容の変化で文脈の変化ではない。</>,
+      <>独自のUIコンポーネントは、名前(ラベル)・役割・状態(オン・オフ)を支援技術から取得・設定できること。見た目はボタンやチェックボックスと違っても、WCAGは形を問わず同じ基準を適用する。切り替えは「設定の変更」に当たるため、<Hl>3.2.2(レベルA)</Hl>により、切り替えただけで別の画面へ遷移したり新しいウィンドウを開いたりするなら、事前に知らせる。設定がその場で反映されるだけなら、内容の変化で文脈の変化ではない。Webには広く使える標準のスイッチがなく、多くは独自に作ることになる。その場合も、スイッチであることと状態(オン・オフ)を支援技術に伝える。</>,
     exceptions:
-      "Webには広く使える標準のスイッチがなく、多くは独自に作ることになる。その場合も、スイッチであることと状態(オン・オフ)を支援技術に伝える。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust) ― 互換性(4.1)の達成基準。ほかに、操作可能(Operable)のターゲットサイズ(2.5)、知覚可能(Perceivable)の非テキストのコントラスト(1.4.11)も関わる。3.2.2は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
@@ -155,9 +155,9 @@ const SOURCES = [
     colorInfo:
       <NoData>数値基準なし</NoData>,
     stance:
-      <>オンとオフのどちらかを選び、既定の値を持ち、<Hl>選んだ結果がすぐ反映される場面</Hl>で使う。保存や送信のボタンが要る設定には向かない。送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず混乱する。航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げ、単独のチェックボックスが適切だったとしている。</>,
+      <>オンとオフのどちらかを選び、既定の値を持ち、<Hl>選んだ結果がすぐ反映される場面</Hl>で使う。保存や送信のボタンが要る設定には向かない。送信が必要な長いフォームにトグルを混ぜると、すぐ反映されたのか分からず混乱する。航空会社のアプリで、トグルを押しても見た目が変わるだけで何も起きない例を挙げ、単独のチェックボックスが適切だったとしている。すぐ反映されるから、誤操作にすぐ気づき元に戻しやすい。ラベルは短く直接的にし、曖昧な表現や質問の形を避ける。動きや色などの手がかりを使い、プラットフォームの慣習に沿って一貫させる。</>,
     exceptions:
-      "すぐ反映されるから、誤操作にすぐ気づき元に戻しやすい。ラベルは短く直接的にし、曖昧な表現や質問の形を避ける。動きや色などの手がかりを使い、プラットフォームの慣習に沿って一貫させる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、すぐ反映されるという動きの違いにもとづく使い分けの指針。",
     useCases: [
@@ -179,6 +179,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -393,7 +394,7 @@ export default function SelectionTogglePage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -434,8 +435,10 @@ export default function SelectionTogglePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

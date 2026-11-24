@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ダークモード」ページ。
@@ -36,9 +36,9 @@ const SOURCES = [
     size: <>4.5:1以上。独自の文字色・背景色では、特に小さい文字で<Hl>7:1を目指す</Hl>。</>,
     colorInfo: <><Hl>ライトの色の単純な反転ではない</Hl>。独自の色は、明るい版と暗い版を持つカラーセットにする。手前に出た画面は自動で明るい背景(elevated)になる。</>,
     stance:
-      <>利用者はすべてのアプリが端末の設定に従うと期待している。アプリ独自の外観の設定は避け、実行中に外観が変わっても問題ないようにする。</>,
+      <>利用者はすべてのアプリが端末の設定に従うと期待している。アプリ独自の外観の設定は避け、実行中に外観が変わっても問題ないようにする。白い背景を含む画像は少し暗くする。</>,
     exceptions:
-      "動画・写真の鑑賞など内容に集中させたいアプリでは、いつもダークだけを使ってもよい(まれなケース)。白い背景を含む画像は少し暗くする。",
+      "動画・写真の鑑賞など内容に集中させたいアプリでは、いつもダークだけを使ってもよい(まれなケース)。",
     accessibility:
       "知覚可能(Perceivable) ― コントラストを上げる設定・透明度を下げる設定をオンにして、読みにくくないか確かめる。",
     useCases: [
@@ -122,9 +122,9 @@ const SOURCES = [
     size: <NoData>数値基準なし(読みやすさの調査は下の「ライトとダーク、どちらが読みやすいか」)</NoData>,
     colorInfo: "白い背景の画像・見えにくい幕(スクリム)や区切り線・暗い背景の上の彩度の高い色・反転して読めないQRコードに注意する。文字色は、1つの色の不透明度を変えて使い分ける。",
     stance:
-      <>一般向けなら<Hl>ダークモードを既定にしない</Hl>。ダークのほうが見やすい人や好む人がいるため、切り替えは用意する。</>,
+      <>一般向けなら<Hl>ダークモードを既定にしない</Hl>。ダークのほうが見やすい人や好む人がいるため、切り替えは用意する。ダークモードに力を入れるのは、長く読む(電子書籍・ニュース)、よく使う(メッセージ)、暗い場所で使う(動画配信)場合。</>,
     exceptions:
-      "ダークモードに力を入れるのは、長く読む(電子書籍・ニュース)、よく使う(メッセージ)、暗い場所で使う(動画配信)場合。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 文献調査・利用者調査にもとづく設計の根拠。",
     useCases: [
       "既定では端末のライト/ダーク設定に従う",
@@ -140,6 +140,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Issues to Avoid)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: ライトとダークで入れ替わる明るさ */
 function ModeSwatch() {
@@ -196,6 +197,7 @@ const SWITCH_ROWS = [
     contrast: "比率の数値はなし",
   },
 ];
+markNeg(SWITCH_ROWS);
 
 /* 色見本+その下にカラーコード */
 function HexChip({ hex }) {
@@ -604,7 +606,7 @@ export default function TokensDarkModePage() {
                 <InfoBox label="コントラストの基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="配色の作り方">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -636,8 +638,10 @@ export default function TokensDarkModePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「カラー(配色・コントラスト基準)」ページ。
@@ -165,9 +165,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: "面積を60%基調色・30%第二色・10%アクセントカラーにし、パレットは3色程度に絞る。",
     stance:
-      <><Hl>60-30-10の配分</Hl>でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと意味を誤解される)。<Hl>コントラストと色覚の特性をツールとテストで確かめる</Hl>(WCAGの比率には触れない)。</>,
+      <><Hl>60-30-10の配分</Hl>でバランスを保つ。同じ意味(例: CTAボタン)にはいつも同じ色を使う(ばらつくと意味を誤解される)。<Hl>コントラストと色覚の特性をツールとテストで確かめる</Hl>(WCAGの比率には触れない)。色の意味は文化で違う(お金の色は中国では赤、米国では緑など)。グレーのボタンは「無効」に見えやすい。</>,
     exceptions:
-      "色の意味は文化で違う(お金の色は中国では赤、米国では緑など)。グレーのボタンは「無効」に見えやすい。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、テスト結果にもとづく実務の指針。",
     useCases: [
       "配色を60-30-10のバランスにする",
@@ -194,6 +194,7 @@ const SOURCES = [
     illustrationNote: "60-30-10ルールの配分イメージ(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 /*
  * 色の優先度(階層)の定義。4系列で「何を基準に段階を分けるか」から違う。
@@ -266,6 +267,7 @@ const PRIORITY = [
     a11y: "比率は定めていない(--)。ツールとテストで、コントラストと色覚の特性を確かめる。薄い文字は「無効」と誤解されるので避ける。",
   },
 ];
+markNeg(PRIORITY);
 
 function TierSample({ sample, color }) {
   const box = { width: 34, height: 22, borderRadius: 3, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "#FFFFFF", border: "1px solid #E1E3F0" };
@@ -549,7 +551,7 @@ export default function TokensColorPage() {
                 <InfoBox label="コントラスト比" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="配色の仕組み">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -588,8 +590,10 @@ export default function TokensColorPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

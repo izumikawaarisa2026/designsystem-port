@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「アイコン(サイズ・スタイル)」ページ。
@@ -33,9 +33,9 @@ const SOURCES = [
     size: <>隣の文字のサイズに合わせて表示し、<Hl>3段階のスケール</Hl>(small/medium/large)で強弱を調整する。ptの数値はない。</>,
     colorInfo: "4つのモード: モノクローム(単色)・階層的(濃淡で奥行き)・パレット(2色以上で強調)・マルチカラー。",
     stance:
-      <>9段階のウェイトが<Hl>隣の文字のウェイトと対応し</Hl>、文字と調和する。選択状態は塗り(fill)、使えない状態は斜線(slash)で表せる。</>,
+      <>9段階のウェイトが<Hl>隣の文字のウェイトと対応し</Hl>、文字と調和する。選択状態は塗り(fill)、使えない状態は斜線(slash)で表せる。モードの決まりはなく、使う場所ごとに見え方を確かめる。可変カラーは量の変化を表すもので、奥行きには使わない。</>,
     exceptions:
-      "モードの決まりはなく、使う場所ごとに見え方を確かめる。可変カラーは量の変化を表すもので、奥行きには使わない。",
+      <NoData>記載なし</NoData>,
     accessibility: "知覚可能 ― システムカラーを使えば、アクセシビリティの設定やダークモードに追従する。",
     useCases: [
       "隣の文字のウェイトに合わせてシンボルのウェイトを選ぶ",
@@ -160,9 +160,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>アイコンの理解は過去の経験によるので、意味が曖昧になりやすい(例: ハートはお気に入り・保存・評価とまちまち)。<Hl>ほぼすべてのアイコンに、いつも見える文字のラベルを添える</Hl>。</>,
+      <>アイコンの理解は過去の経験によるので、意味が曖昧になりやすい(例: ハートはお気に入り・保存・評価とまちまち)。<Hl>ほぼすべてのアイコンに、いつも見える文字のラベルを添える</Hl>。ふさわしいアイコンを思いつくのに5秒以上かかるなら、アイコンにしない(5秒ルール)。小さくすると潰れる細部は避ける。</>,
     exceptions:
-      "ふさわしいアイコンを思いつくのに5秒以上かかるなら、アイコンにしない(5秒ルール)。小さくすると潰れる細部は避ける。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、認識しやすさ・覚えやすさの調査にもとづく。",
     useCases: [
       "ラベルはホバーのときだけ出さず、いつも見せる",
@@ -185,6 +185,7 @@ const SOURCES = [
     illustrationNote: "アイコン単体ではなく常時表示のラベルを併用(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 /* Apple・Googleのアイコンのサイズと余白(スペーシング)の比較
    Google: Jetpack Compose Material 3 の XSmall〜XLarge IconButtonTokens(容器の高さ・アイコンの大きさ・左右の余白)、
@@ -554,7 +555,7 @@ export default function TokensIconPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -593,8 +594,10 @@ export default function TokensIconPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

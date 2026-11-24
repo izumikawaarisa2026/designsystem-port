@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「モーション」ページ(2026-11 ⑦本人レビューNo.016で「モーション/アニメーション」から改名。URLは同じ)。
@@ -34,9 +34,9 @@ const SOURCES = [
     size: <><NoData>数値基準なし</NoData>。フィードバックの動きは短く正確に、頻繁な操作には動きを足さない。数値はゲーム向けの「30〜60fpsを安定して保つ」だけ</>,
     easing: "ジェスチャーや期待に沿った動きにする(上から引き出した画面を、横に払って閉じさせない)。watchOS(WatchKit)のレイアウト・外観のアニメーションは、イージングが組み込みで変えられない。SF Symbols 5以降は、シンボル自体に動きを付けられる。",
     stance:
-      <><Hl>動きのための動きは加えない</Hl>(多すぎる動きは気を散らし、体の不快感にもつながる)。動きだけで重要な情報を伝えず、触覚や音でも補う。完了を待たせず、途中で取り消せるようにする。</>,
+      <><Hl>動きのための動きは加えない</Hl>(多すぎる動きは気を散らし、体の不快感にもつながる)。動きだけで重要な情報を伝えず、触覚や音でも補う。完了を待たせず、途中で取り消せるようにする。システムのコンポーネントは、入力方法で動きを自動で調整する(Liquid Glassは指で触れると強く、トラックパッドでは控えめに反応)。</>,
     exceptions:
-      "システムのコンポーネントは、入力方法で動きを自動で調整する(Liquid Glassは指で触れると強く、トラックパッドでは控えめに反応)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <>操作可能(Operable) ― <Hl>「視差効果を減らす(Reduce Motion)」</Hl>が有効なら、自動・繰り返しの動き(ズーム・拡大縮小・視野の端の動き)を減らす。速い動きや点滅は、めまいや発作の原因にもなる。</>,
     useCases: [
@@ -62,9 +62,9 @@ const SOURCES = [
     size: <><Hl>50〜1000msの16段階</Hl>のトークン。Short 1〜4 = 50/100/150/200ms、Medium 1〜4 = 250/300/350/400ms、Long 1〜4 = 450/500/550/600ms、Extra long 1〜4 = 700/800/900/1000ms。</>,
     easing: <><Hl>画面に入る動きは減速(Decelerate)、出ていく動きは加速(Accelerate)</Hl>。画面の中で始まり終わる動きはStandard(cubic-bezier 0.2, 0, 0, 1)。M3らしい表現にはEmphasized系(入る: 0.05, 0.7, 0.1, 1/出る: 0.3, 0, 0.8, 0.15)、装飾のない動きにはLinear(全7種類)。スプリングは速さ3種(fast/default/slow)×種類2種(位置のspatial/色・不透明度のeffects。effectsは跳ね返らない)。</>,
     stance:
-      "動きを色や形と同じテーマの属性として決め、アプリ全体で印象をそろえる。時間とイージングは組で使う。",
+      "動きを色や形と同じテーマの属性として決め、アプリ全体で印象をそろえる。時間とイージングは組で使う。画面遷移は4つの型(コンテナ変形・共有軸・フェードスルー・フェード)。スプリングは、スイッチなど小さなコンポーネントにfast、ボトムシートやナビゲーションドロワーなど画面の一部を覆うものにdefault、全画面の遷移にslow。",
     exceptions:
-      "画面遷移は4つの型(コンテナ変形・共有軸・フェードスルー・フェード)。スプリングは、スイッチなど小さなコンポーネントにfast、ボトムシートやナビゲーションドロワーなど画面の一部を覆うものにdefault、全画面の遷移にslow。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <>操作可能(Operable) ― <Hl>端末の「アニメーションを減らす」設定がオン</Hl>なら、画面の切り替えは強いスライドや拡大ではなく、控えめなフェードにする。視差や形の変形などの装飾的な効果も止める(M3 Applying transitions)。</>,
     useCases: [
@@ -96,9 +96,9 @@ const SOURCES = [
       { term: "前庭障害(vestibular disorder)", desc: "内耳の平衡感覚に関わる障害。画面上の動きで、めまい・吐き気・頭痛などが起きることがある。" },
     ],
     stance:
-      "前庭(内耳)障害のある人は、不要な動きでめまい・吐き気・頭痛を起こすことがある。2.3.3は操作で始まる動き、2.2.2は自動で始まる動きが対象で、両方に当たる動きもある。",
+      "前庭(内耳)障害のある人は、不要な動きでめまい・吐き気・頭痛を起こすことがある。2.3.3は操作で始まる動き、2.2.2は自動で始まる動きが対象で、両方に当たる動きもある。例外: スクロールで新しい内容が入ること自体は対象外(欠かせず、利用者が制御している)。動きそのものが機能のもの(アニメーション制作ツールのプレビューなど)も対象外。2.3.3はAAAで、多くのサイトが目標にするAAには含まれない。",
     exceptions:
-      "スクロールで新しい内容が入ること自体は対象外(欠かせず、利用者が制御している)。動きそのものが機能のもの(アニメーション制作ツールのプレビューなど)も対象外。2.3.3はAAAで、多くのサイトが目標にするAAには含まれない。",
+      <NoData>記載なし</NoData>,
     accessibility: "操作可能(Operable) ― 2.2.2は「十分な時間」(2.2)、2.3.1・2.3.3は「発作と身体的反応」(2.3)で、どれも「操作可能」。",
     useCases: [
       "自動で動くカルーセルなどは、5秒を超えるなら停止ボタンを付ける",
@@ -123,9 +123,9 @@ const SOURCES = [
     size: <>多くは<Hl>100〜500ms</Hl>。単純なフィードバック(チェックボックス・トグル)は約100ms、モーダルの出現など大きな変化は200〜300ms。500msで遅さを負担に感じ始め、ほとんどは100〜400ms(400msは大画面の大きな移動だけ)。現れる動きは消える動きより少し長く(出現300ms・消去200〜250ms)。</>,
     easing: <>直線的な動きは不自然に見えるので、イージングを使う。<Hl>入る要素はease-out(減速)、出る要素はease-in(加速)</Hl>。開発者には、要素・きっかけ・変わる性質・時間(ミリ秒)・イージングを書いたタイムラインで渡す。</>,
     stance:
-      <>短すぎるより長すぎることのほうがはるかに多いため、<Hl>違和感のない範囲で最も短い時間</Hl>を探す。注意を引く必要がないなら、位置を動かさずゆっくりフェードさせる(視野の端の動きは本能的に注意を奪う)。</>,
+      <>短すぎるより長すぎることのほうがはるかに多いため、<Hl>違和感のない範囲で最も短い時間</Hl>を探す。注意を引く必要がないなら、位置を動かさずゆっくりフェードさせる(視野の端の動きは本能的に注意を奪う)。因果関係を伝える動き(操作の結果として要素が現れるなど)は、操作から0.1秒以内に始める。1回の訪問で何度も出会う動きは、繰り返すと苛立ちの原因になる(ユーザーテストの観察)。</>,
     exceptions:
-      "因果関係を伝える動き(操作の結果として要素が現れるなど)は、操作から0.1秒以内に始める。1回の訪問で何度も出会う動きは、繰り返すと苛立ちの原因になる(ユーザーテストの観察)。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、知覚・注意の研究とユーザビリティテストにもとづく設計の根拠。大きく動くものほど滑らかさが大事で、動きに敏感な人への配慮にもなる。",
     useCases: [
       "チェックボックス・トグルのフィードバックは約100ms",
@@ -141,6 +141,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は1本目の記事(Duration and Motion Characteristics)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: イージングカーブ(横軸=時間、縦軸=進み具合) */
 const CURVES = [
@@ -876,7 +877,7 @@ export default function TokensMotionPage() {
                 <InfoBox label="時間(duration)の基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="イージング・動きの作り方">{s.easing}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -908,8 +909,10 @@ export default function TokensMotionPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.easing}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

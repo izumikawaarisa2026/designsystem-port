@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / 検索フィールド」ページ。
@@ -101,9 +101,9 @@ const SOURCES = [
       { term: "全画面/ドッキング", desc: "全画面は候補・結果が画面全体に広がる表示で、コンパクト幅(スマートフォン)の既定。ドッキングは検索バーの下にリストを出し、残りを幕(スクリム)で覆う表示で、中〜広い幅に向く。" },
     ],
     stance:
-      <>検索は、ファイルやメッセージのように項目が多い製品で、情報を素早く見つける仕組み。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾のアイコンを置き、選ぶと候補・結果を出す状態(フォーカスした検索)に切り替わる。</>,
+      <>検索は、ファイルやメッセージのように項目が多い製品で、情報を素早く見つける仕組み。入り口は、特定の画面の中を検索する<Hl>「検索バー」、検索がアプリ全体の主要な機能であるときの「検索アプリバー」、検索が補助的な操作であるときの「検索アイコンボタン」の3つ</Hl>から選ぶ。検索バーには先頭のアイコン、何を検索できるかを示すヒントテキスト(例:「メッセージを検索」)、1〜2個の末尾のアイコンを置き、選ぶと候補・結果を出す状態(フォーカスした検索)に切り替わる。先頭には、メニューや戻るなどのナビゲーションのアイコンボタンか、押しても動かない検索アイコンのどちらかを置く。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えない。</>,
     exceptions:
-      "先頭には、メニューや戻るなどのナビゲーションのアイコンボタンか、押しても動かない検索アイコンのどちらかを置く。末尾には、音声検索などの別の検索方法、現在地やプロフィールなど別の上位の操作、オーバーフローメニューを置ける。包含スタイルでは、フォーカスの前後でコンテナの形を変えない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable)・操作可能(Operable)・堅牢(Robust) ― アクセシビリティラベルはヒントテキストと同じにし、役割はAndroidではテキストフィールド、iOSでは検索フィールドとして伝える。候補や結果が出たらスクリーンリーダーで知らせる。",
     useCases: [
@@ -144,9 +144,9 @@ const SOURCES = [
       { term: "コンボボックス", desc: "入力欄と、候補を出すポップアップ(リストなど)を組み合わせたコンポーネント。APGは、検索欄で以前の検索や似た検索を候補に出す使い方を代表例に挙げる。" },
     ],
     stance:
-      "検索領域は、検索機能の要素一式をまとめて示す役割。検索の入力欄だけでは領域にならないため、入力欄・ボタンなどを含めた検索のまとまり全体を検索領域として示す。候補を出す検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を決める。2.4.5(レベルAA)は、ページにたどり着く方法を2つ以上用意すること。ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方(画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索のほうが早く着ける人がいるため)。",
+      "検索領域は、検索機能の要素一式をまとめて示す役割。検索の入力欄だけでは領域にならないため、入力欄・ボタンなどを含めた検索のまとまり全体を検索領域として示す。候補を出す検索欄は、APGのコンボボックスのパターンで、候補の出し方(自動補完の4つの形)とキーボード操作を決める。2.4.5(レベルAA)は、ページにたどり着く方法を2つ以上用意すること。ナビゲーションに加えてサイト内検索を置くのが代表的な満たし方(画面拡大やスクリーンリーダーで大きなナビゲーションをたどるより、検索のほうが早く着ける人がいるため)。1ページに検索領域が複数あるなら、区別できる名前を付ける。同じ検索をページの上下に置くなら同じ名前にする。領域の目印が多すぎると、スクリーンリーダーで全体の構造が分かりにくい。",
     exceptions:
-      "1ページに検索領域が複数あるなら、区別できる名前を付ける。同じ検索をページの上下に置くなら同じ名前にする。領域の目印が多すぎると、スクリーンリーダーで全体の構造が分かりにくい。2.4.5は、手続きの途中や結果の画面にはかからない。3〜4ページの小さなサイトなら、トップから全ページへのリンク(サイトマップの代わり)だけで満たせる場合がある。",
+      "2.4.5は、手続きの途中や結果の画面にはかからない。3〜4ページの小さなサイトなら、トップから全ページへのリンク(サイトマップの代わり)だけで満たせる場合がある。",
     accessibility:
       "堅牢(Robust)・知覚可能(Perceivable) ― 検索領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)、結果の件数などのステータスメッセージ(4.1.3)。2.4.5は「操作可能」(ナビゲーション可能)。",
     useCases: [
@@ -184,9 +184,9 @@ const SOURCES = [
     size: "固定幅の検索欄は、入力を見直せるよう27文字分以上の幅にする。アイコンは大きく、周りに余白を取って押しやすくする。",
     colorInfo: "アイコンが背景や周りから目立つよう、十分なコントラストを取る(数値基準はない)。",
     stance:
-      <>多くの人は、ラベルがなくても虫眼鏡が検索だと分かる。ただしアイコンだけでは目立たず、検索を探す手間が増える。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索できるようにする。スマートフォンのような小さな画面では、アイコンを押すまで入力欄を隠してもよい。</>,
+      <>多くの人は、ラベルがなくても虫眼鏡が検索だと分かる。ただしアイコンだけでは目立たず、検索を探す手間が増える。<Hl>デスクトップでは入力欄を開いたままページの右上に置き</Hl>、アイコンのクリックとEnterキーのどちらでも検索できるようにする。スマートフォンのような小さな画面では、アイコンを押すまで入力欄を隠してもよい。アイコンだけにするなら、1回押したらすぐ入力欄にカーソルが入るようにする。入力欄はアイコンの近くに出し、周りにアイコンを詰め込みすぎず、孤立もさせない。</>,
     exceptions:
-      "アイコンだけにするなら、1回押したらすぐ入力欄にカーソルが入るようにする。入力欄はアイコンの近くに出し、周りにアイコンを詰め込みすぎず、孤立もさせない。クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げる。",
+      "クリックで入力欄が広がる検索欄も、場所を節約しつつ見つけやすい方法として挙げる。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、検索の見つけやすさと操作の手間についての調査にもとづく指針。",
     useCases: [
       "デスクトップ・タブレットでは、入力欄を開いたまま置く",
@@ -212,6 +212,7 @@ const SOURCES = [
     illustrationNote: "開いた入力欄+送信ボタンを兼ねるアイコン(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 const ICON_NOTES = [
   {
@@ -243,6 +244,7 @@ const ICON_NOTES = [
     refs: [{ label: "The Magnifying-Glass Icon in Search Design", url: "https://www.nngroup.com/articles/magnifying-glass-icon/" }],
   },
 ];
+markNeg(ICON_NOTES);
 
 /* 使用シーンごとの比較(通常時 → アクティブ → 入力中 → 結果 → 絞り込み → 終了) */
 const SCENES = [
@@ -788,7 +790,7 @@ export default function TextInputsSearchFieldPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -822,8 +824,10 @@ export default function TextInputsSearchFieldPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

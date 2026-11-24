@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / エラー表示」ページ。
@@ -44,9 +44,9 @@ const SOURCES = [
     position: "エラー表示・バリデーションのページはなく、テキストフィールドなどの記載に含まれる",
     colorInfo: "エラー専用の色の規定はない。全体の方針として、色だけに頼らず、形やアイコンなどの手がかりを足す(HIG Accessibility)。",
     stance:
-      <>エラー表示の専用ページはない。Entering dataで、値は入力されたらすぐ確かめ、<Hl>問題があればすぐ知らせて、その場で直せるようにする</Hl>とする。表示のタイミングは「バリデーション」ページで比べる。</>,
+      <>エラー表示の専用ページはない。Entering dataで、値は入力されたらすぐ確かめ、<Hl>問題があればすぐ知らせて、その場で直せるようにする</Hl>とする。表示のタイミングは「バリデーション」ページで比べる。エラーは問題の場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ(HIG Writing)。</>,
     exceptions:
-      "エラーは問題の場所のできるだけ近くに出し、相手を責めず、直し方が分かる文言にする。「パスワードが短すぎます」より「8文字以上のパスワードを選んでください」のほうが役に立つ(HIG Writing)。",
+      <NoData>記載なし</NoData>,
     accessibility: <span><NoData>記載なし。</NoData>一般の原則として、色だけに頼らずに状態を示す。</span>,
     useCases: [
       "問題を知らせて、すぐに訂正できるようにする(表示のタイミングは「バリデーション」ページを参照)",
@@ -158,9 +158,9 @@ const SOURCES = [
     position: "文言・トーン・配置の実務ガイドライン(数値基準ではなく、伝わりやすさの原則)",
     colorInfo: "色だけに頼らず、太字・コントラストの高い赤い文字など、複数の手がかりを重ねる。",
     stance:
-      <>エラーは欄の近くに出し、認知の負担を減らす。理想はすべての検証をインラインで行い、1つの欄を入力し終えた直後にその場でエラーの有無を示すこと。入力の途中で直せ、やり直しの手間が減る。エラーメッセージは平易な言葉で、短く正確に問題を説明し、具体的な解決策を示す。<Hl>利用者を責める表現(「無効」「不正」など)は避ける</Hl>。</>,
+      <>エラーは欄の近くに出し、認知の負担を減らす。理想はすべての検証をインラインで行い、1つの欄を入力し終えた直後にその場でエラーの有無を示すこと。入力の途中で直せ、やり直しの手間が減る。エラーメッセージは平易な言葉で、短く正確に問題を説明し、具体的な解決策を示す。<Hl>利用者を責める表現(「無効」「不正」など)は避ける</Hl>。実際に入力するまでは、エラーを早まって出さない。前の入力は残し、ゼロから入れ直させない。できれば正しい候補を推測し、小さな一覧から選べるようにする。ユーモアは繰り返すと陳腐になるため避ける。入力欄のエラーは、欄の近くに消えない形で出すのが基本。</>,
     exceptions:
-      "実際に入力するまでは、エラーを早まって出さない。前の入力は残し、ゼロから入れ直させない。できれば正しい候補を推測し、小さな一覧から選べるようにする。ユーモアは繰り返すと陳腐になるため避ける。「知っておくとよい」程度の軽い問題には条件付きのラベル・トースト・バナーなど操作の少ない表示を、作業を妨げる問題にはモーダルダイアログを使う。入力欄のエラーは、欄の近くに消えない形で出すのが基本。",
+      "「知っておくとよい」程度の軽い問題には、条件付きのラベル・トースト・バナーなど操作の少ない表示を、作業を妨げる問題にはモーダルダイアログを使う。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、エラーメッセージの伝わりやすさと直しやすさにもとづく実務の指針。",
     useCases: [
       "欄の近くにインラインでエラーを出し、入力の直後に検証する",
@@ -183,6 +183,7 @@ const SOURCES = [
     illustrationNote: "具体的な解決策を示すエラー文言(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -330,7 +331,7 @@ export default function TextInputsValidationPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -369,8 +370,10 @@ export default function TextInputsValidationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / ウィザード(ステップ形式の入力)」ページ。
@@ -112,6 +112,7 @@ const SOURCES = [
     illustrationNote: "ステップの一覧で今の位置を示す(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (

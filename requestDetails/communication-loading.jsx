@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ローディング状態」ページ。
@@ -77,9 +77,9 @@ const SOURCES = [
       { term: "更新中の状態", desc: "内容が更新中であることを支援技術に伝える状態。更新中は、支援技術は更新が終わるまで変更の読み上げを待てる(必ず待つとは限らない)。変更を読み上げさせる仕組みとは役割が違う。" },
     ],
     stance:
-      <>更新中であることを支援技術に伝えておくと、<Hl>書き換わり終わってから、まとめて1回の更新として扱える</Hl>(必ずそうなるとは限らない)。終わったら更新中の状態を解く。</>,
+      <>更新中であることを支援技術に伝えておくと、<Hl>書き換わり終わってから、まとめて1回の更新として扱える</Hl>(必ずそうなるとは限らない)。終わったら更新中の状態を解く。変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。</>,
     exceptions:
-      "変更を読み上げる領域と組み合わせると、更新の知らせを完了までまとめられる。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "スケルトン画面など、複数箇所が同時に書き換わる領域を読み込む時",
       "更新途中の状態を支援技術に伝えにくくしたい時(待つかどうかは支援技術による)",
@@ -141,6 +141,7 @@ const SOURCES = [
     illustrationNote: "スケルトン画面(10秒未満の目安。概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -286,7 +287,7 @@ export default function CommunicationLoadingPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -333,8 +334,10 @@ export default function CommunicationLoadingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

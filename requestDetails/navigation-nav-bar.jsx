@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブバー」ページ(URLは /nav-bar/ のまま)。
@@ -53,9 +53,9 @@ const SOURCES = [
       "タブの数の上限はない。必要な数だけ使い、少ないほど遷移しやすいため増やしすぎない。収まらないタブが「その他(More)」にまとめられると見つけにくいため、はみ出しを避ける。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <><Hl>ナビゲーション専用で、操作の実行には使わない</Hl>。遷移中もいつも出しておく(隠すと現在地を見失う)。</>,
+      <><Hl>ナビゲーション専用で、操作の実行には使わない</Hl>。遷移中もいつも出しておく(隠すと現在地を見失う)。機能が一時的に使えなくても、タブを消したり無効にしたりせず、使えない理由を説明する。</>,
     exceptions:
-      "機能が一時的に使えなくても、タブを消したり無効にしたりせず、使えない理由を説明する。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -172,9 +172,9 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>選択肢が5個を超えると、バーに収めながら十分な押せる範囲を保つのが難しい。</span>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>上部のバーは画面上部の貴重な場所を取り、下部のタブバーはスクロールしても出続ける。<Hl>どちらも選択肢の少ないアプリ向け</Hl>。</>,
+      <>上部のバーは画面上部の貴重な場所を取り、下部のタブバーはスクロールしても出続ける。<Hl>どちらも選択肢の少ないアプリ向け</Hl>。ロゴ・検索・アカウントのリンクと並べると、場所の取り合いになる。</>,
     exceptions:
-      "ロゴ・検索・アカウントのリンクと並べると、場所の取り合いになる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、画面の領域と押せる範囲の取り合いにもとづく使い分けの指針。",
     useCases: [
@@ -198,6 +198,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -399,7 +400,7 @@ export default function NavigationNavBarPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases.length > 0 && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
                 <InfoBox label="参照ページ(公式)">
@@ -440,8 +441,10 @@ export default function NavigationNavBarPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

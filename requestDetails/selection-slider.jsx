@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / スライダー」ページ。
@@ -82,9 +82,9 @@ const SOURCES = [
       { term: "停止表示器(ストップインジケーター)", desc: "選べる値を示す小さな目盛り。つまみを離すと最も近い停止表示器に吸い付く。" },
     ],
     stance:
-      <>スライダーには<Hl>標準・中央揃え・範囲指定の3種類</Hl>がある。標準はゼロや範囲の先頭から1つの値を、中央揃えはゼロ(既定値)が中央にある正負の値を、範囲指定は1つのトラックで最小値・最大値の2つを選ぶ。ほとんどは横に置き、範囲指定を縦で使うのは認知の負担が大きすぎるため避ける。</>,
+      <>スライダーには<Hl>標準・中央揃え・範囲指定の3種類</Hl>がある。標準はゼロや範囲の先頭から1つの値を、中央揃えはゼロ(既定値)が中央にある正負の値を、範囲指定は1つのトラックで最小値・最大値の2つを選ぶ。ほとんどは横に置き、範囲指定を縦で使うのは認知の負担が大きすぎるため避ける。停止表示器を置きすぎると、見た目が混み合い値を調整しにくいため避ける。</>,
     exceptions:
-      "停止表示器を置きすぎると、見た目が混み合い値を調整しにくいため避ける。",
+      <NoData>記載なし</NoData>,
     icons:
       "M/L/XLの標準スライダーには、トラックの中に何を調整するかを示すアイコンを入れられるが、XS/Sには入れない。アクティブ側に場所が足りないとき(値が低いときなど)はアイコンを非アクティブ側へ移し、ゼロでアイコンを入れ替える(例: 音量→ミュート)ことも検討する。",
     accessibility:
@@ -160,9 +160,9 @@ const SOURCES = [
       "数値基準はない(ラベルの配置は「例外・許容ケース」を参照)。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>正確な値ではなく、おおよその値で足りる場面に最も向く。<Hl>年齢や体重のような正確な数値が要る場面では避ける</Hl>。</>,
+      <>正確な値ではなく、おおよその値で足りる場面に最も向く。<Hl>年齢や体重のような正確な数値が要る場面では避ける</Hl>。今の値を示すラベルは、指で隠れないよう、つまみの下ではなく上か横に置く。範囲が広い・密なほど、正確な値を選びにくい。</>,
     exceptions:
-      "今の値を示すラベルは、指で隠れないよう、つまみの下ではなく上か横に置く。範囲が広い・密なほど、正確な値を選びにくい。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、操作の正確さ(操舵の法則)にもとづく設計の根拠。",
     useCases: [
@@ -185,6 +185,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -591,7 +592,7 @@ export default function SelectionSliderPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 {s.icons && <InfoBox label="アイコン" accent="#3A4FCF">{s.icons}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -633,8 +634,10 @@ export default function SelectionSliderPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アイコン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.icons || <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>

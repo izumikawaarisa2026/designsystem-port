@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / セレクト(プルダウン)」ページ。
@@ -31,9 +31,9 @@ const SOURCES = [
       "Pop-up buttonsのページにサイズの規定はない(ネイティブのコントロールとしてシステムが描く)。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "Pop-upボタンは、1つだけを選ぶ平らな選択肢のリストを出し、選んだ内容をラベルに反映できる。Pull-downボタンは、ボタンの目的に関わる操作のメニューを出すもので、選択より操作の実行に近い。",
+      "Pop-upボタンは、1つだけを選ぶ平らな選択肢のリストを出し、選んだ内容をラベルに反映できる。Pull-downボタンは、ボタンの目的に関わる操作のメニューを出すもので、選択より操作の実行に近い。メニューを開かなくても選択肢をある程度予測できるよう、説明的なラベルを付ける。",
     exceptions:
-      "メニューを開かなくても選択肢をある程度予測できるよう、説明的なラベルを付ける。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -70,9 +70,9 @@ const SOURCES = [
     glossary: [
     ],
     stance:
-      <>メニューは、一時的なサーフェスに選択肢の一覧を出すコンポーネントで、アイコンボタンやテキストフィールドなどから開ける。Exposed dropdown menuは、選択中の項目をテキストフィールドに表示するのが特徴で、<Hl>ラジオボタンのような選択コントロールよりも目立たず</Hl>、コンパクトな選択肢の一覧に向く。1つだけ選ぶメニューでは、新しく選ぶと前の選択が外れる。</>,
+      <>メニューは、一時的なサーフェスに選択肢の一覧を出すコンポーネントで、アイコンボタンやテキストフィールドなどから開ける。Exposed dropdown menuは、選択中の項目をテキストフィールドに表示するのが特徴で、<Hl>ラジオボタンのような選択コントロールよりも目立たず</Hl>、コンパクトな選択肢の一覧に向く。1つだけ選ぶメニューでは、新しく選ぶと前の選択が外れる。使えない選択肢は消さずに無効の状態(グレーアウトなど)で示す。項目にボタンやスイッチなど別の操作要素を加えず、入れ子の要素は1つの操作だけにする(複数の操作があるとキーボード操作やスクリーンリーダーが損なわれうるため)。</>,
     exceptions:
-      "使えない選択肢は消さずに無効の状態(グレーアウトなど)で示す。項目にボタンやスイッチなど別の操作要素を加えず、入れ子の要素は1つの操作だけにする(複数の操作があるとキーボード操作やスクリーンリーダーが損なわれうるため)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― 項目の押せる範囲は48×48dp以上(「サイズ」を参照)。開いたら最初の項目にフォーカスを当て、外側を押すかシステムの戻るボタンで閉じられるようにする。無効な項目はフォーカスできるが選べない(区切り線や空白はフォーカスしない)。",
     useCases: [
@@ -113,9 +113,9 @@ const SOURCES = [
       { term: "文脈の変化(change of context)", desc: "気づかないうちに起きると混乱させる大きな変化。新しいウィンドウを開く、フォーカスを別のコンポーネントに移す、別のページへ遷移する、ページの内容を大きく組み替える、など。内容の変化(アコーディオンの開閉・タブの切り替えなど)は、それだけでは文脈の変化ではない。" },
     ],
     stance:
-      <>標準のプルダウンなら名前・役割・状態は自動で伝わる(4.1.2)。<Hl>選んだだけでページを移ったり送信したりしない</Hl>(3.2.2)。「移動」「送信」ボタンで実行する。</>,
+      <>標準のプルダウンなら名前・役割・状態は自動で伝わる(4.1.2)。<Hl>選んだだけでページを移ったり送信したりしない</Hl>(3.2.2)。「移動」「送信」ボタンで実行する。選択肢の名前を長くしすぎない。例外: 選択肢が7個を超えるなら、先頭の文字でジャンプできるようにする(APGの勧め。要件ではない)。</>,
     exceptions:
-      "選択肢の名前を長くしすぎない。7個を超えるなら、先頭の文字でジャンプできるようにする(APGの勧め。要件ではない)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust)・操作可能(Operable)・理解可能(Understandable) ― 4.1.2・2.1.1・3.2.2。",
     useCases: [
@@ -158,9 +158,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "用途は、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性の選択の4つ。場所を節約でき、標準のウィジェットとして理解されやすい一方、選択肢が多い・長いと使いにくい。",
+      <>用途は、コマンドメニュー・ナビゲーションメニュー・フォーム入力・属性の選択の4つ。場所を節約でき、標準のウィジェットとして理解されやすい一方、選択肢が多い・長いと使いにくい。ほかのウィジェットの選択で選択肢が変わる「インタラクティブメニュー」は、混乱させるため避ける。使えない選択肢は隠さずグレーアウトで示す。<Hl>都道府県・国名のように打つほうが速い場面</Hl>や、生年月日のように覚えている情報には向かない。</>,
     exceptions:
-      <>ほかのウィジェットの選択で選択肢が変わる「インタラクティブメニュー」は、混乱させるため避ける。使えない選択肢は隠さずグレーアウトで示す。<Hl>都道府県・国名のように打つほうが速い場面</Hl>や、生年月日のように覚えている情報には向かない。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、使い分けの指針。マウスとキーボードの両方の操作に対応する。",
     useCases: [
@@ -183,6 +183,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -339,7 +340,7 @@ export default function SelectionSelectPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -380,8 +381,10 @@ export default function SelectionSelectPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

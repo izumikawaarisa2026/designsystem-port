@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / バリデーション」ページ。
@@ -53,9 +53,9 @@ const SOURCES = [
     position: "値は入力されたらすぐに確かめ、問題があればすぐに知らせる(動的な検証)。タイミングは内容で変え、メールアドレスは別の欄に移ったとき、ユーザー名・パスワードの作成は別の欄に移る前に確かめる",
     colorInfo: <><NoData>記載なし</NoData>(視覚的な状態表現は「エラー表示」ページを参照)。</>,
     stance:
-      <>長いフォームを書き終えてから戻って直すのは負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題があればすぐ知らせて、その場で直せるようにする(Entering data)。いつ確かめるかは内容による。<Hl>メールアドレスは別の欄に移ったときに確かめ、ユーザー名・パスワードの作成は別の欄に移る前に確かめる</Hl>(Text fields)。</>,
+      <>長いフォームを書き終えてから戻って直すのは負担になるため、<Hl>値は入力されたらすぐに確かめ</Hl>、問題があればすぐ知らせて、その場で直せるようにする(Entering data)。いつ確かめるかは内容による。<Hl>メールアドレスは別の欄に移ったときに確かめ、ユーザー名・パスワードの作成は別の欄に移る前に確かめる</Hl>(Text fields)。数値の欄では、数字だけを受け付けて決まった形で表示する書式(number formatter)を使うとよい。必須の入力があるなら、済むまで「次へ」などのボタンを使えなくして、入力が要ることを伝える。</>,
     exceptions:
-      "数値の欄では、数字だけを受け付けて決まった形で表示する書式(number formatter)を使うとよい。必須の入力があるなら、済むまで「次へ」などのボタンを使えなくして、入力が要ることを伝える。",
+      <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "値は入力されたらすぐに確かめ、問題があればすぐに知らせる",
@@ -91,7 +91,7 @@ const SOURCES = [
     stance:
       "通常は欄の下の「サポートテキスト」で使い方や書式のヒントを示し、パスワードのように検証する欄では、エラーのときにサポートテキストをエラーテキストに入れ替える(行が増えてレイアウトが動くのを避けるため)。",
     exceptions:
-      "検証をいつ行うか(入力中・欄を離れたとき・送信時)は、M3のテキストフィールドのページに書かれていない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
@@ -130,9 +130,9 @@ const SOURCES = [
       { term: "3.3.7 Redundant Entry・レベルA", desc: "同じ手続きの中で、すでに入力した情報をもう一度求めるなら、自動で入れておくか選べるようにすること(WCAG 2.2で追加)。" },
     ],
     stance:
-      <>いつ検証するか(入力中・離れたとき・送信時)は指定せず、入力を確かめて直す機会を持てるように、という原則に留まる。エラーは<Hl>読み上げで知らせ</Hl>(ARIA19)、送信が成功したら成功をはっきり伝える(G199)。すでに入力した情報をもう一度求めない(3.3.7)。</>,
+      <>いつ検証するか(入力中・離れたとき・送信時)は指定せず、入力を確かめて直す機会を持てるように、という原則に留まる。エラーは<Hl>読み上げで知らせ</Hl>(ARIA19)、送信が成功したら成功をはっきり伝える(G199)。すでに入力した情報をもう一度求めない(3.3.7)。エラーを読み上げる領域は、ページを開いた時点から用意しておく(後から加えると対応できない支援技術がある)。</>,
     exceptions:
-      "エラーを読み上げる領域は、ページを開いた時点から用意しておく(後から加えると対応できない支援技術がある)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust) ― 読み上げによる通知(ARIA19)と送信結果の知らせ(G199)。3.3.7は「理解可能」の入力支援。",
     useCases: [
@@ -169,9 +169,9 @@ const SOURCES = [
     position: "検証のタイミングについて最も具体的な指針を持つ。原則は「欄を離れたとき」に検証し、入力中にエラーを出さない。パスワードの要件チェックリストのような場合だけ、入力中のリアルタイム検証を認める",
     colorInfo: "2記事に色の数値基準はない(見た目の状態は「エラー表示」ページを参照)。",
     stance:
-      <>「Hostile Patterns in Error Messages」は、ほとんどの場合、<Hl>欄の入力を終えて次の欄へ移動するまでエラーを出すのを待つ</Hl>とする。入力中のエラーは頼んでもいない叱責のように感じられ、苛立たせうるため。「10 Design Guidelines for Reporting Errors in Forms」も、理想はすべての検証をインラインで行い、欄を入力し終えた時点でエラーがあれば近くに示すとしつつ、パスワードのような複雑な欄では、入力中にすぐ検証する表示が役立つとする。両記事に共通するのは「入力の途中で急いで警告しない」。</>,
+      <>「Hostile Patterns in Error Messages」は、ほとんどの場合、<Hl>欄の入力を終えて次の欄へ移動するまでエラーを出すのを待つ</Hl>とする。入力中のエラーは頼んでもいない叱責のように感じられ、苛立たせうるため。「10 Design Guidelines for Reporting Errors in Forms」も、理想はすべての検証をインラインで行い、欄を入力し終えた時点でエラーがあれば近くに示すとしつつ、パスワードのような複雑な欄では、入力中にすぐ検証する表示が役立つとする。両記事に共通するのは「入力の途中で急いで警告しない」。例外: 必須項目が空のまま送信されたエラーは、送信しようとした後に出すのが役立つ。リアルタイムの検証が技術的にできないなら、再読み込みしたときにエラーメッセージが見つけやすい場所にあるようにする。</>,
     exceptions:
-      "必須項目が空のまま送信されたエラーは、送信しようとした後に出すのが役立つ。リアルタイムの検証が技術的にできないなら、再読み込みしたときにエラーメッセージが見つけやすい場所にあるようにする。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、体験の調査(苛立ち・中断のしやすさ)にもとづく、タイミングの実務の指針。",
     useCases: [
       "ほとんどの欄は、入力を終えて欄を離れた時点(フォーカスが離れたとき)で検証する",
@@ -195,6 +195,7 @@ const SOURCES = [
     illustrationNote: "入力中の検証を避け、フィールド離脱時に検証(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 /* 検証タイミングの比較(図解)
    入力前 → 入力中 → フィールドを離れた時 → 送信時 → 送信後 の5つの時点で、各系列が何を定めているか */
@@ -249,6 +250,7 @@ const TIMING_MATRIX = [
     },
   },
 ];
+markNeg(TIMING_MATRIX);
 
 const MARKS = {
   good: { sym: "◯", label: "推奨・既定", color: "#2F7D6E", bg: "#E6F2EE" },
@@ -582,7 +584,7 @@ export default function TextInputsInputValidationPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -619,8 +621,10 @@ export default function TextInputsInputValidationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

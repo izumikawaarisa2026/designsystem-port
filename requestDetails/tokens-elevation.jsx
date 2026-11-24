@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「エレベーション・階層表現(影・半透明素材)」ページ。
@@ -36,9 +36,9 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "素材が背景の色を透かし、文字や操作を内容から分けつつ、今どこにいるかの感覚を保つ。",
+      "素材が背景の色を透かし、文字や操作を内容から分けつつ、今どこにいるかの感覚を保つ。Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限る。",
     exceptions:
-      "Liquid Glassは目立つため、独自のコンポーネントでは最も重要な操作に限る。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能 ― Reduce Transparency・Increase Contrastの設定で見え方が変わる。素材の上の文字はバイブラントカラーにする。",
     useCases: null,
@@ -60,9 +60,9 @@ const SOURCES = [
     size: null,
     colorInfo: null,
     stance:
-      "ダークテーマの背景を濃いグレーにし、影を見えやすくする。",
+      "ダークテーマの背景を濃いグレーにし、影を見えやすくする。コンポーネントごとのLevelとホバー時の変化は決まっている(下の対応図)。",
     exceptions:
-      "コンポーネントごとのLevelとホバー時の変化は決まっている(下の対応図)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "―(基準はない)。ダークテーマでは色の明るさでも層を分ける。",
     useCases: null,
@@ -88,9 +88,9 @@ const SOURCES = [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目に、隣の色と3:1以上を求める。" },
     ],
     stance:
-      <><Hl>層の表し方は問わない</Hl>。問うのは、重なりでフォーカスの位置を見失うこと(例: Cookieバナーの下にフォーカスが入る)。</>,
+      <><Hl>層の表し方は問わない</Hl>。問うのは、重なりでフォーカスの位置を見失うこと(例: Cookieバナーの下にフォーカスが入る)。例外: 利用者が開いたメニューなどは、フォーカスを移さずに閉じられれば隠れているとみなさない。</>,
     exceptions:
-      "利用者が開いたメニューなどは、フォーカスを移さずに閉じられれば隠れているとみなさない。",
+      <NoData>記載なし</NoData>,
     accessibility: "操作可能(2.4.11)・知覚可能(1.4.11)。",
     useCases: [
       "固定ヘッダー・フッターの下にフォーカスが隠れないようにする",
@@ -114,9 +114,9 @@ const SOURCES = [
     size: "原則としての言及。控えめな影で奥行きを加えた「フラット2.0」を勧める。",
     colorInfo: <>ダークモードでは明るい影は光って見える。<Hl>一番下を最も暗く、手前ほど明るく</Hl>する。</>,
     stance:
-      <>控えめな影や重なりで要素の関係をはっきりさせる。影は<Hl>見た目のためだけに使われることが多い</Hl>と指摘する。</>,
+      <>控えめな影や重なりで要素の関係をはっきりさせる。影は<Hl>見た目のためだけに使われることが多い</Hl>と指摘する。暗い半透明の幕(スクリム)は、ダークモードでほとんど見えなくなることがある。</>,
     exceptions:
-      "暗い半透明の幕(スクリム)は、ダークモードでほとんど見えなくなることがある。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、テストと視線計測にもとづく。",
     useCases: [
       "影は要素の関係(手前/奥、押せる/押せない)を伝える目的で使う",
@@ -131,6 +131,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: 影で表す(ライト)と明るさで表す(ダーク) */
 function DepthSwatch() {
@@ -605,7 +606,7 @@ export default function TokensElevationPage() {
                 {s.size ? <InfoBox label="高さ・素材の段階" accent="#3C5A73">{s.size}</InfoBox> : <SeeBelow />}
                 {s.colorInfo && <InfoBox label="層の分け方とダークでの扱い">{s.colorInfo}</InfoBox>}
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
                 <InfoBox label="参照ページ(公式)">
@@ -637,8 +638,10 @@ export default function TokensElevationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo || <SeeBelow />}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

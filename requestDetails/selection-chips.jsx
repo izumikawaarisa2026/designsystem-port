@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チップ(Chips)」ページ。
@@ -84,9 +84,9 @@ const SOURCES = [
       { term: "メニュー方式", desc: "もう1つの対処。先頭にボタンを1つ置き、そこから開くメニューに残りの選択肢をまとめる。下の内容がずれない利点があるが、削除アイコンなど2つ目の操作が要るチップには使わない。" },
     ],
     stance:
-      <><Hl>チップはボタンではない</Hl>。ボタンは一直線の手順を進め、チップは今のタスクに応じて変わる選択肢を表す。</>,
+      <><Hl>チップはボタンではない</Hl>。ボタンは一直線の手順を進め、チップは今のタスクに応じて変わる選択肢を表す。主要な操作(次へ・前へなど)はチップにせず、ボタンにする。</>,
     exceptions:
-      "主要な操作(次へ・前へなど)はチップにせず、ボタンにする。",
+      <NoData>記載なし</NoData>,
     overflow:
       "チップセットは横スクロールにでき、1行に収まらないなら「リフロー方式」か「メニュー方式」ですべて見せる(用語は下の「メモ」)。",
     accessibility:
@@ -179,6 +179,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -461,7 +462,7 @@ export default function SelectionChipsPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 {s.overflow && <InfoBox label="オーバーフロー" accent="#3A4FCF">{s.overflow}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -503,8 +504,10 @@ export default function SelectionChipsPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>オーバーフロー</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.overflow || <span style={{ color: "#666D93" }}>―(該当する記載なし)</span>}</div>))}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>

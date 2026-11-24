@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「タイポグラフィ(文字サイズ・行間)」ページ。
@@ -37,9 +37,9 @@ const SOURCES = [
     size: <><Hl>本文17pt(Body)・最小11pt(Caption 2)</Hl>(iOS/iPadOSの既定の設定)。本文は設定で14〜53ptまで変わる。macOSは13/10pt、watchOSは16/12pt(既定/最小)。全段階は下の「タイプスケールの段階ごとの使用例」。</>,
     colorInfo: "本文22pt(約1.29倍)。比率は「意見が分かれる点」。字間はシステムフォントが自動で調整する。3行以上では詰めた行送りを避ける。",
     stance:
-      <>固定のサイズではなくテキストスタイルを使い、<Hl>利用者が文字サイズを変えると全体が比例して変わる</Hl>ようにする。最大のサイズでもレイアウトが崩れず、省略が増えないかを確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で避ける。</>,
+      <>固定のサイズではなくテキストスタイルを使い、<Hl>利用者が文字サイズを変えると全体が比例して変わる</Hl>ようにする。最大のサイズでもレイアウトが崩れず、省略が増えないかを確かめる。細いウェイト(Ultralight・Thin・Light)は小さい文字で避ける。独自のフォントでも、推奨のサイズに従い、Dynamic TypeとBold Textに対応する。</>,
     exceptions:
-      "独自のフォントでも、推奨のサイズに従い、Dynamic TypeとBold Textに対応する。拡大時は主な内容を優先してよい(例: タブのタイトルは拡大しなくてよい)。",
+      "拡大時は主な内容を優先してよい(例: タブのタイトルは拡大しなくてよい)。",
     accessibility:
       "知覚可能 ― Dynamic Typeは、WCAG 1.4.4(テキストのサイズ変更)の考え方をOSの機能にしたもの。",
     useCases: [
@@ -141,6 +141,7 @@ const SOURCES = [
     confirmedNote: "4記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は「Best Font for Online Reading」の見出し。",
   },
 ];
+markNeg(SOURCES);
 
 /* 四系列比較図: 最小サイズ・基準サイズと、本文の文字色に求められるコントラスト */
 const MIN_ROWS = [
@@ -169,6 +170,7 @@ const MIN_ROWS = [
     contrastNote: "比率の数値はなし。薄い文字は避け、ツールで確認する",
   },
 ];
+markNeg(MIN_ROWS);
 
 function MinSizeScale({ row }) {
   const x0 = 8, x1 = 292, lo = 0, hi = 20;
@@ -634,7 +636,7 @@ export default function TokensTypographyPage() {
                 <InfoBox label="文字サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="行送り・字間">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -666,8 +668,10 @@ export default function TokensTypographyPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

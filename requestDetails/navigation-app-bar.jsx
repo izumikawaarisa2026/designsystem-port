@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / アプリバー」ページ(旧ページ名「トップバー」)。
@@ -35,9 +35,9 @@ const SOURCES = [
       <>高さの記載なし。<Hl>タイトルは15文字未満</Hl>を目安にし、項目を入れすぎない</>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>タイトル・ナビゲーション(戻るなど)・操作の3種類を持つ。戻る・閉じるは記号のボタンにし、<Hl>主な操作は1つだけ末尾に置く</Hl>。</>,
+      <>タイトル・ナビゲーション(戻るなど)・操作の3種類を持つ。戻る・閉じるは記号のボタンにし、<Hl>主な操作は1つだけ末尾に置く</Hl>。幅が狭いときに溢れる項目を決めておく(macOS・iPadOSはオーバーフローメニューを自動で付ける)。</>,
     exceptions:
-      "幅が狭いときに溢れる項目を決めておく(macOS・iPadOSはオーバーフローメニューを自動で付ける)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -76,9 +76,9 @@ const SOURCES = [
       { term: "ベースライン中型・大型(非推奨)", desc: "M3 Expressiveより前の中型・大型アプリバー。今は非推奨で、中型フレキシブル・大型フレキシブルへの置き換えを案内している。" },
     ],
     stance:
-      <>ページの情報・操作・ナビゲーションを上部にまとめる。<Hl>主な操作は2個まで</Hl>で、それ以上はツールバーへ。</>,
+      <>ページの情報・操作・ナビゲーションを上部にまとめる。<Hl>主な操作は2個まで</Hl>で、それ以上はツールバーへ。オーバーフローメニューはなるべく置かない。塗りのアイコンボタンを同時に複数使わない。</>,
     exceptions:
-      "オーバーフローメニューはなるべく置かない。塗りのアイコンボタンを同時に複数使わない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable)・操作可能(Operable) ― アイコンボタンに操作が分かる名前を付ける。最初のフォーカスは先頭のボタン(戻る/メニュー)。",
     useCases: [
@@ -118,9 +118,9 @@ const SOURCES = [
       { term: "3.2.6 Consistent Help・レベルA", desc: "問い合わせ先・問い合わせの手段・FAQなどのヘルプを複数のページに置くなら、ほかの内容に対して同じ順番の位置に置くこと(WCAG 2.2で追加)。ヘルプを置くこと自体は求めない。" },
     ],
     stance:
-      <>ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返すヘッダーを1ページに1つの領域として示す。<Hl>ナビゲーションの並び(3.2.3)とヘルプの位置(3.2.6)はページ間でそろえる</Hl>。</>,
+      <>ロゴ・検索・全体のナビゲーションなど、サイト全体で繰り返すヘッダーを1ページに1つの領域として示す。<Hl>ナビゲーションの並び(3.2.3)とヘルプの位置(3.2.6)はページ間でそろえる</Hl>。画面ごとに変わるタイトルのバーではなく、サイト全体で共通のヘッダーという、より広い単位の考え方。</>,
     exceptions:
-      "画面ごとに変わるタイトルのバーではなく、サイト全体で共通のヘッダーという、より広い単位の考え方。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust)・知覚可能(Perceivable) ― バナー領域として示すこと、ターゲットサイズ(2.5)、非テキストのコントラスト(1.4.11)。3.2.3・3.2.6は「理解可能(Understandable)」の予測可能(3.2)。",
     useCases: [
@@ -160,9 +160,9 @@ const SOURCES = [
     size: "モバイルの押せる範囲は約1×1cm、文字は約16ptを目安にし、それ以上の余白は最小限にする。",
     colorInfo: <><Hl>不透明な色</Hl>にする(半透明だと下の内容と重なって読みにくい)。</>,
     stance:
-      <>常設(スティッキー)ヘッダーはすぐ使える一方、いつも画面を占める。本当に頻繁に使う要素かの<Hl>費用対効果を検討する</Hl>(内容と枠の比率は良い例で13:1、悪い例で2:1)。</>,
+      <>常設(スティッキー)ヘッダーはすぐ使える一方、いつも画面を占める。本当に頻繁に使う要素かの<Hl>費用対効果を検討する</Hl>(内容と枠の比率は良い例で13:1、悪い例で2:1)。動きは素早く滑らかにし、遅れて追いかけてくる動き(「ストーカーメニュー」)は避ける。</>,
     exceptions:
-      "動きは素早く滑らかにし、遅れて追いかけてくる動き(「ストーカーメニュー」)は避ける。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、内容とchromeの比率、費用対効果という使い分けの指針。モバイルの押せる範囲(約1×1cm)は、ほかのコンポーネントと共通の目安。",
     useCases: [
@@ -184,6 +184,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -409,7 +410,7 @@ export default function NavigationAppBarPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -450,8 +451,10 @@ export default function NavigationAppBarPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

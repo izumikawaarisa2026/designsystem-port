@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / リスト」ページ。
@@ -28,9 +28,9 @@ const SOURCES = [
     size: "Lists and tablesのページにリスト固有の数値(pt)はない。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <span><NoData>記載なし。</NoData>macOSには、行の背景色を交互に変えて大きな表を使いやすくする枠付きのスタイルがある。</span>,
     stance:
-      <>行の形は<Hl>文字を読みやすく、ざっと見るのに向く</Hl>。長い内容はタイトルだけを並べ、詳細の画面で見せる。大きさがばらばらの項目や画像が多いならコレクションを検討する。</>,
+      <>行の形は<Hl>文字を読みやすく、ざっと見るのに向く</Hl>。長い内容はタイトルだけを並べ、詳細の画面で見せる。大きさがばらばらの項目や画像が多いならコレクションを検討する。項目を選ぶ前に編集モードに入る。末尾に開示インジケーターがある表には、索引(アルファベットの縦並び)を付けない(誤操作しやすいため)。</>,
     exceptions:
-      "項目を選ぶ前に編集モードに入る。末尾に開示インジケーターがある表には、索引(アルファベットの縦並び)を付けない(誤操作しやすいため)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     scenarios: [
@@ -81,7 +81,7 @@ const SOURCES = [
       "広い画面では、カルーセルなど同じ目的のほかのコンポーネントへの置き換えも検討する",
     ],
     exceptions:
-      "単一選択と複数選択を同時には持てない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― 選択状態は色だけでなく、ラジオボタン・アイコン・下線などでも示す。",
     useCases: [
@@ -117,13 +117,13 @@ const SOURCES = [
     size: "専用の数値基準はない。項目の中の操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "専用の色の基準はない。区切り線などには1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      <>見た目が一覧なら、<Hl>構造でも一覧として支援技術に伝える</Hl>(何項目あり、今どれかが伝わる)。順序に意味があるかも区別する。</>,
+      <>見た目が一覧なら、<Hl>構造でも一覧として支援技術に伝える</Hl>(何項目あり、今どれかが伝わる)。順序に意味があるかも区別する。例外: タブとして働くリストは、リストではなくタブとして伝える。</>,
     scenarios: [
       "支援技術にリストの構造をはっきり伝えたい場面",
       "項目を選べるリストを作る場面(APGのListboxパターン。list/listitemは読むだけの一覧用)",
     ],
     exceptions:
-      "タブとして働くリストは、リストではなくタブとして伝える。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable) ― 1.3.1 情報及び関係性。",
     useCases: [
@@ -190,6 +190,7 @@ const SOURCES = [
     illustrationNote: "ソート・比較に適した密なリスト表示(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -330,7 +331,7 @@ export default function ContainmentListPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -373,8 +374,10 @@ export default function ContainmentListPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

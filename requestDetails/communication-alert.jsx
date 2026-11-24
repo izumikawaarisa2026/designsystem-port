@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, TagLink, RelatedPages, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ステータスメッセージ」ページ(2026-11 ⑨で「(アラート)」を外した。AppleのAlertsは作業を止めるモーダルのため)。
@@ -117,6 +117,7 @@ const SOURCES = [
     illustrationNote: "インジケーター・バリデーション・通知(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ドロワー/サイドナビ」ページ(旧カテゴリ: Navigation)。
@@ -67,9 +67,9 @@ const DRAWER_SOURCES = [
       { term: "アクティブインジケーター", desc: "今のページを示す背景の図形。選択した行き先は塗りのアイコン、未選択は枠線のアイコンで区別する。" },
     ],
     stance:
-      "大きなデバイスで画面を切り替えるコンポーネントで、目的の画面やアプリの機能(アカウントの切り替えなど)に届く。常に出すことも、メニューアイコンで開閉することもでき、いつも1つの行き先がアクティブ。よく訪れる行き先を上に置き、関連する行き先はまとめる。主な行き先が5つ以上、階層が2段を超える、関係のない行き先の間を素早く遷移したい、大きな画面でナビゲーションレール/バーの代わりにしたい、といった場合に勧める。",
+      "大きなデバイスで画面を切り替えるコンポーネントで、目的の画面やアプリの機能(アカウントの切り替えなど)に届く。常に出すことも、メニューアイコンで開閉することもでき、いつも1つの行き先がアクティブ。よく訪れる行き先を上に置き、関連する行き先はまとめる。主な行き先が5つ以上、階層が2段を超える、関係のない行き先の間を素早く遷移したい、大きな画面でナビゲーションレール/バーの代わりにしたい、といった場合に勧める。タブバーなどほかの主なナビゲーションと併用せず、要件とブレークポイントに合わせて1つを選ぶ(コンパクト→タブバー、中/拡張→ナビゲーションレール、拡張/大/特大→Standardドロワー)。アイコンはすべての行き先に付けるか、どれにも付けないかにそろえる。",
     exceptions:
-      "タブバーなどほかの主なナビゲーションと併用せず、要件とブレークポイントに合わせて1つを選ぶ(コンパクト→タブバー、中/拡張→ナビゲーションレール、拡張/大/特大→Standardドロワー)。アイコンはすべての行き先に付けるか、どれにも付けないかにそろえる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― 項目のアクセシビリティラベルは通常、行き先の名前と同じで、ラベルが正しく結び付いていれば支援技術はラベルに続けて役割を読み上げる。Android Views(MDC-Android)は、詳しいラベルの設定や役割の読み上げに対応していない。表示が曖昧なら(例:「最近使用した項目」)、アクセシビリティラベルに補足を加える。",
     useCases: [
@@ -151,9 +151,9 @@ const DRAWER_SOURCES = [
     size: "モバイルでは、項目が4個以下なら常に見せる。5個以上(4個を超える)ならやむを得ず隠すが、重要な情報へのページ内リンクも置く。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "調査では、メインナビゲーションを隠すと内容の見つけやすさがほぼ半分に下がり、作業時間はデスクトップで39%以上、モバイルで15%長くなった。隠れたナビゲーションは、常に見せる・併用する形より21%難しく感じられ、使われる割合も低い(デスクトップで27%、常に見せる/併用は48〜50%)。原因は、アイコンが目立たない・中身が予測できない・開く手間・実装がそろっていない・パターンに慣れていない、の5つ。",
+      "調査では、メインナビゲーションを隠すと内容の見つけやすさがほぼ半分に下がり、作業時間はデスクトップで39%以上、モバイルで15%長くなった。隠れたナビゲーションは、常に見せる・併用する形より21%難しく感じられ、使われる割合も低い(デスクトップで27%、常に見せる/併用は48〜50%)。原因は、アイコンが目立たない・中身が予測できない・開く手間・実装がそろっていない・パターンに慣れていない、の5つ。デスクトップでは、ハンバーガーアイコンのような隠れたナビゲーションを使わず、主な選択肢をいつも見せる。",
     exceptions:
-      "デスクトップでは、ハンバーガーアイコンのような隠れたナビゲーションを使わず、主な選択肢をいつも見せる。モバイルでは4個以下なら見せ、4個を超えるなら隠してもよいが、重要な情報へのページ内リンクを補う。",
+      "モバイルでは、主な選択肢が4個以下なら見せる。4個を超えるなら隠してもよいが、重要な情報へのページ内リンクを補う。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、利用のデータ(見つけやすさ・作業時間・満足度)にもとづく調査の結果。",
     useCases: [
       "デスクトップでは隠れたナビゲーションを避け、主な選択肢をいつも見せる",
@@ -178,6 +178,7 @@ const DRAWER_SOURCES = [
     illustrationNote: "視覚デザインの規定なし(調査に基づく使い分けの指針。概念図)",
   },
 ];
+markNeg(DRAWER_SOURCES);
 
 const RAIL_SOURCES = [
   {
@@ -192,9 +193,9 @@ const RAIL_SOURCES = [
       <span><NoData>数値基準なし。</NoData>macOSでは、行の高さ・文字・アイコンの大きさが小・中・大の3段階で、利用者が設定で変えられる。</span>,
     colorInfo: "サイドバーのアイコンは、既定ではアプリのアクセントカラーを使う。macOSでは利用者がシステムのアクセントカラーを変えると、すべてのアプリのサイドバーのアイコンがその色になる。意味を伝えるための固定の色は、控えめに使えばよい(メールのVIPの黄色など)。",
     stance:
-      "サイドバーは、アプリの主な領域への遷移に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする。",
+      "サイドバーは、アプリの主な領域への遷移に使う。縦にも横にも広い場所が要るため、場所が限られるならタブバーのほうがよい。多くのアプリでは、タブバーとサイドバーを切り替えられる形のタブバーを使えば、どちらかを選ぶ必要はない。iOS・iPadOSでは、まずタブバーを検討し、収まらない領域はタブバーのサイドバーの形で見せる。階層は2段までにし、それより深いときはスプリットビューで一覧を挟む。項目は利用者が並べ替えられるようにする。利用者がサイドバーを隠せるようにする(iPadOSは画面の端からのスワイプ、macOSは表示メニューなど)。ただし見つけてもらえるよう、初期状態では隠さない。iPhone向けの隠れたドロワーのコンポーネントはない。",
     exceptions:
-      "利用者がサイドバーを隠せるようにする(iPadOSは画面の端からのスワイプ、macOSは表示メニューなど)。ただし見つけてもらえるよう、初期状態では隠さない。iPhone向けの隠れたドロワーのコンポーネントはない。",
+      <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "iPad/Macで、項目の多い主なナビゲーションに使う",
@@ -227,8 +228,8 @@ const RAIL_SOURCES = [
     position: "中くらい以上の画面で、主な行き先を画面の脇に常に表示する。アイコンだけの形と、ドロワーの代わりになる、広げると項目名まで並ぶ形がある",
     size: "幅96dp(M3 Expressive。以前は80dp)、項目の最小の高さ64dp(以前は60dp)。",
     colorInfo: <span>M3 Expressiveで、縦に並ぶ項目の選択中のラベルの色が「on surface variant」から「secondary」に変わった。</span>,
-    stance: <span>中くらいの画面で画面を切り替えるコンポーネント。M3 Expressiveで、<Hl>広げると項目名まで並ぶようになり、その形がナビゲーションドロワーの代わり</Hl>とされた。広げた形は非モーダルで、アイコンだけの形に戻せる。M3の本文では、中・拡張のブレークポイントではナビゲーションレール、拡張・大・特大ではStandard(常時表示)のドロワーを使うとしている。</span>,
-    exceptions: "ナビゲーションドロワーは、タブバーなどほかの主なナビゲーションと併用せず、画面の大きさに合わせて1つを選ぶ(コンパクト→タブバー、中・拡張→ナビゲーションレール、拡張・大・特大→Standardドロワー)。",
+    stance: <span>中くらいの画面で画面を切り替えるコンポーネント。M3 Expressiveで、<Hl>広げると項目名まで並ぶようになり、その形がナビゲーションドロワーの代わり</Hl>とされた。広げた形は非モーダルで、アイコンだけの形に戻せる。M3の本文では、中・拡張のブレークポイントではナビゲーションレール、拡張・大・特大ではStandard(常時表示)のドロワーを使うとしている。ナビゲーションドロワーは、タブバーなどほかの主なナビゲーションと併用しない。</span>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "タブレットやPCで、主な行き先を画面の脇に常に表示する",
@@ -288,8 +289,8 @@ const RAIL_SOURCES = [
     position: "項目の多いメインナビゲーションを、デスクトップでは左側に縦に並べて常に見せる",
     size: <span><NoData>数値基準なし。</NoData>トップの項目が7〜9個を超えても、縦型なら収められるとしている。</span>,
     colorInfo: "文字や背景の色・境界線で、ナビゲーションが目立つようにするよう勧めている(数値の基準はない)。",
-    stance: <span>縦型のナビゲーションは、<Hl>多くのカテゴリを収められ、項目が増えても対応しやすい</Hl>。縦のリストは横並びより目で探しやすく、モバイルにも移しやすい。一方で横型より場所を取り、内容に使える面積が減る。</span>,
-    exceptions: <span><Hl>左側に置き、目立つデザインにする</Hl>。縦と横に同じメニューを重ねて置かない。<Hl>アイコンだけにして文字を隠さない</Hl>。長いメニューでは、重要でない項目を下に置く。</span>,
+    stance: <span>縦型のナビゲーションは、<Hl>多くのカテゴリを収められ、項目が増えても対応しやすい</Hl>。縦のリストは横並びより目で探しやすく、モバイルにも移しやすい。一方で横型より場所を取り、内容に使える面積が減る。<Hl>左側に置き、目立つデザインにする</Hl>。縦と横に同じメニューを重ねて置かない。<Hl>アイコンだけにして文字を隠さない</Hl>。長いメニューでは、重要でない項目を下に置く。</span>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、見つけやすさ(情報設計)の観点の設計指針。",
     useCases: [
       "カテゴリが多い、または増えていくサイトのメインナビゲーションに使う",
@@ -313,6 +314,7 @@ const RAIL_SOURCES = [
     illustrationNote: "左側の縦型ナビゲーション(概念図)",
   },
 ];
+markNeg(RAIL_SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -389,7 +391,7 @@ function Comparison({ SOURCES }) {
                   <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                   <InfoBox label="色">{s.colorInfo}</InfoBox>
                   <p style={styles.sourceStance}>{s.stance}</p>
-                  <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                  {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                   <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                   <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                   <InfoBox label="参照ページ(公式)">
@@ -430,8 +432,10 @@ function Comparison({ SOURCES }) {
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                   <div style={styles.labelCell}>基本方針</div>
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                  <div style={styles.labelCell}>例外・許容ケース</div>
-                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                  {hasRow(SOURCES, "exceptions") && (<>
+                    <div style={styles.labelCell}>例外・許容ケース</div>
+                    {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                  </>)}
                   <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                   {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                   <div style={styles.labelCell}>ユースケース</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「サウンド(音フィードバック)」ページ。
@@ -33,9 +33,9 @@ const SOURCES = [
     size: <>消音モードでは、<Hl>利用者が自分で始めた音(再生・アラーム・通話)だけを鳴らす</Hl>。音量はいつもシステムが決める。ヘッドホンを外したら一時停止する。</>,
     design: "音の作り方(音色など)の指針はほとんどない。",
     stance:
-      "音量や出力先の変更に期待どおりに振る舞う。ほかのアプリの音楽を必要なく止めない。",
+      "音量や出力先の変更に期待どおりに振る舞う。ほかのアプリの音楽を必要なく止めない。macOSの通知音は既定でほかの音と混ざる。",
     exceptions:
-      "macOSの通知音は既定でほかの音と混ざる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable) ― 音だけで伝えず、字幕・書き起こし・触覚・見た目の手がかりを添える。",
     useCases: [
@@ -61,9 +61,9 @@ const SOURCES = [
     size: <><NoData>数値基準なし</NoData>。鳴らさない場面は、<Hl>人目を気にする画面・割り込みを望まない設定・頻繁な操作</Hl>の3つ。</>,
     design: "UIの音を、ヒーローサウンド(重要な瞬間を祝う・まれに鳴る)、通知・アラート(注意を向けさせる・繰り返し聞けるよう短く)、プライマリUXサウンド(OSの操作音・最も頻繁で控えめ)、セカンダリUXサウンド(状態の変化など・頻度は低め)、アンビエント(雰囲気をつくる装飾の層)に分ける。音色は、高音の多い明るい音を重要な通知や騒がしい場所に、少ない落ち着いた音を優先度の低い音に使う。上がる旋律は開始・肯定、下がる旋律は終了、繰り返しは待機を表すのが一般的。",
     stance:
-      "音の原則は「情報を伝える・正直・安心させる」の3つ。操作や状態に結びつけた音を「イヤコン」と呼ぶ。",
+      "音の原則は「情報を伝える・正直・安心させる」の3つ。操作や状態に結びつけた音を「イヤコン」と呼ぶ。装飾の音は感情の高まる場面に限り、頻度を抑える。通知音は、基本の音から豊かな音まで利用者が選べるようにする。",
     exceptions:
-      "装飾の音は感情の高まる場面に限り、頻度を抑える。通知音は、基本の音から豊かな音まで利用者が選べるようにする。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable) ― 聴覚障害への配慮の記載はない。",
     useCases: [
@@ -95,9 +95,9 @@ const SOURCES = [
       { term: "1.4.7 Low or No Background Audio・レベルAAA", desc: "録音した音声が中心の内容で、背景音をなくす・切れる・20dB以上小さくすることを求める。" },
     ],
     stance:
-      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくするため。",
+      "自動で鳴る音は、スクリーンリーダーの読み上げを聞き取りにくくするため。例外: 1.4.2は3秒以内の音には適用されない。1.4.7は音声CAPTCHA・音楽表現には適用されない。",
     exceptions:
-      "1.4.2は3秒以内の音には適用されない。1.4.7は音声CAPTCHA・音楽表現には適用されない。",
+      <NoData>記載なし</NoData>,
     accessibility: "知覚可能(Perceivable) ― 1.4.2・1.4.7。",
     useCases: [
       "自動再生の音は避け、鳴らすなら停止の手段をすぐ見つかる場所に置く",
@@ -123,9 +123,9 @@ const SOURCES = [
     size: <><NoData>数値基準なし</NoData>。背景の出来事を知らせる音は<Hl>ごく静かにし、オフにできるようにする</Hl>。</>,
     design: "音の手がかりを、言葉を使わないイヤコン(例: Siriが呼びかけを検知した後の2音のビープ)、はっきりした言葉、暗黙の手がかり(話の途中で止まり、聞く態勢を示すなど)の3種類に分ける。イヤコンはアイコン以上に意味が伝わりにくく、ほとんどは意味の決まっていない音なので、意味が伝わるのは操作直後の確認か、繰り返し聞いて覚えた場合に限られる。",
     stance:
-      "音は画面とは別の手段で、画面の情報を隠さずに補える。ただしイヤコンが効くのは、繰り返しの多い確認音か、一般的な注意の呼びかけに限られる。",
+      "音は画面とは別の手段で、画面の情報を隠さずに補える。ただしイヤコンが効くのは、繰り返しの多い確認音か、一般的な注意の呼びかけに限られる。控えめなクリック音など、質の良い効果音は体験を大きく高める。",
     exceptions:
-      "控えめなクリック音など、質の良い効果音は体験を大きく高める。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― ユーザビリティの観察と研究にもとづく設計の根拠。音声のナレーションには字幕を勧める。",
     useCases: [
       "背景の出来事を知らせる音は、ごく静かにし、オフにできるようにする",
@@ -141,6 +141,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。ページ内検索の語は2本目の記事(Guidelines for Multimedia on the Web)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: Google(M2)のUIの音の分類(頻度と目立ち方の概念図) */
 function SoundTypesMap() {
@@ -595,7 +596,7 @@ export default function TokensSoundPage() {
                 <InfoBox label="鳴らす・鳴らさない基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="音の種類・作り方">{s.design}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -627,8 +628,10 @@ export default function TokensSoundPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.design}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

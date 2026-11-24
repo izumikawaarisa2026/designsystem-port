@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / ラジオボタン」ページ。
@@ -27,11 +27,11 @@ const SOURCES = [
     colorInfo:
       "選択は塗った円、未選択は空の円という形の違いで状態を示す。塗りの色はシステムのアクセントカラーに従い、個別には指定しない。",
     stance:
-      <>ラジオボタンはmacOS向けのコンポーネントで、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG TogglesのmacOSの節で扱う)。ラベル付きの小さな円のボタンで、通常2〜5個のグループで、1つだけを選ぶ選択肢を示すと定義する。1つのオン・オフ設定には、チェックボックスを使う。</>,
+      <>ラジオボタンはmacOS向けのコンポーネントで、<Hl>iOS/iPadOSには標準のラジオボタンがない</Hl>(HIG TogglesのmacOSの節で扱う)。ラベル付きの小さな円のボタンで、通常2〜5個のグループで、1つだけを選ぶ選択肢を示すと定義する。1つのオン・オフ設定には、チェックボックスを使う。選択肢が多すぎるリストは避ける。</>,
     initial: <NoData>記載なし</NoData>,
     layout: "横に並べるなら、選択肢の間隔をそろえる(横並びを禁じてはいない)",
     exceptions:
-      "「不定(mixed)」も表示できるが、役立つ場面はまれ。選択肢が多すぎるリストは避ける。",
+      "「不定(mixed)」も表示できるが、役立つ場面はまれ。",
     accessibility:
       "理解可能(Understandable) ― 選択・未選択を見た目で正確に伝える。支援技術に状態を伝えることはW3Cの4.1.2(堅牢)に当たるが、HIGに記載はない。",
     useCases: [
@@ -72,11 +72,11 @@ const SOURCES = [
       { term: "カラーロール", desc: "色を「役割」で管理する考え方。例えば「on-surface(サーフェス上の文字色)」のように役割を指定する。値はテーマ(ライト/ダークなど)で決まるため、テーマが変わっても同じ役割名で適切な色になる。" },
     ],
     stance:
-      <>複数の選択肢から1つを選ぶためのコントロール。リストから1つだけ選べる場合はラジオボタン(スイッチではない)を使い、<Hl>選択肢が5つ以下に向く</Hl>。場所を節約するならドロップダウンメニューも検討できるが、クリック数と認知の負担が増える。</>,
+      <>複数の選択肢から1つを選ぶためのコントロール。リストから1つだけ選べる場合はラジオボタン(スイッチではない)を使い、<Hl>選択肢が5つ以下に向く</Hl>。場所を節約するならドロップダウンメニューも検討できるが、クリック数と認知の負担が増える。入れ子や複数選択には使わない。</>,
     initial: <>1つを選んだ状態で始める(何も選んでいない状態で始めることも認める)。外す必要があるなら「該当なし」などを用意する</>,
     layout: <><Hl>縦に積むのが基本</Hl>で、横のリストは避ける</>,
     exceptions:
-      "入れ子や複数選択には使わない。選んだ後は操作だけでは解除できないため、解除が要るなら「選択をクリア」を用意する。",
+      "選んだ後は操作だけでは解除できないため、解除が要るなら「選択をクリア」を用意する。",
     accessibility:
       "堅牢(Robust) ― ラベルが正しく結び付いていれば、支援技術はラベルに続けて役割(ラジオグループ)を読み上げる。",
     useCases: [
@@ -181,6 +181,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -408,7 +409,7 @@ export default function SelectionRadioPage() {
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="最初の選択">{s.initial}</InfoBox>
                 <InfoBox label="並べ方">{s.layout}</InfoBox>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -453,8 +454,10 @@ export default function SelectionRadioPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.initial}</div>))}
                 <div style={styles.labelCell}>並べ方</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.layout}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

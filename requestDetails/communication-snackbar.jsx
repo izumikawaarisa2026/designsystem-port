@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / スナックバー」ページ。
@@ -61,9 +61,9 @@ const SOURCES = [
       "アプリが前面にあるときに軽いフィードバックを出したい時(背面ではNotificationを使う)",
     ],
     stance:
-      "アプリが実行した(またはこれから実行する)処理を知らせる、画面下部に一時的に出る非モーダルなメッセージ。体験を妨げず、Snackbarを操作しなくても内容を見られるようにする。M3では、動作が「一時的に出て自動で消える」か「利用者が操作するまで残る」かのどちらかと明確になった。",
+      "アプリが実行した(またはこれから実行する)処理を知らせる、画面下部に一時的に出る非モーダルなメッセージ。体験を妨げず、Snackbarを操作しなくても内容を見られるようにする。M3では、動作が「一時的に出て自動で消える」か「利用者が操作するまで残る」かのどちらかと明確になった。アクションは1つまでで、閉じる/キャンセルは任意。アイコン・装飾した文字・インラインリンクは避け、必要ならダイアログなど別のコンポーネントにする。塗り・立体(elevated)のボタンは目立ちすぎるため使わない。メッセージの重要度でSnackbarかダイアログかを選び、Snackbarを使いすぎない。UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーと重なるなら少し上にずらし、よく触る領域やナビゲーションの手前には置かない。例外: 幅いっぱいに広げられるのは、アプリバーやタブバーのような常設のナビゲーションがない場合だけ。FABがあるなら、FABより上に出す。",
     exceptions:
-      "アクションは1つまでで、閉じる/キャンセルは任意。アイコン・装飾した文字・インラインリンクは避け、必要ならダイアログなど別のコンポーネントにする。塗り・立体(elevated)のボタンは目立ちすぎるため使わない。メッセージの重要度でSnackbarかダイアログかを選び、Snackbarを使いすぎない。UIの下部・メインコンテンツより手前に置き、FABや固定ツールバーと重なるなら少し上にずらし、よく触る領域やナビゲーションの手前には置かない。幅いっぱいに広げられるのは、アプリバーやタブバーのような常設のナビゲーションがない場合だけで、FABがあるならFABより上に出す。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― Webで自動で閉じるSnackbarは、視覚に障害のある人や理解に時間がかかる人には使いづらい。対策は、(1)きっかけの操作の近くにインラインのフィードバックも出す(例: 「保存」ボタンのラベルを「保存済み」に変える)、(2)操作を加えて自動で閉じないようにする、の2つ。キーボード操作のとき、操作できる要素を完全に覆う配置も避ける。",
     useCases: [
@@ -105,9 +105,9 @@ const SOURCES = [
       "すぐ気づく必要のある重大なエラーを割り込んで知らせる時(多用しない)",
     ],
     stance:
-      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)は時間制限のある内容全般の基準で、スナックバー専用の決まりではない。時間で消える操作がこの時間制限に当たるなら、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。</>,
+      <>4.1.3(ステータスメッセージ・レベルAA)は、フォーカスを移さずに表示される状態の知らせを、支援技術にも伝えることを求める。一時的な通知は、内容の緊急度で、控えめな知らせと割り込む警告を使い分ける(WAI-ARIA)。「元に戻す」などの操作を持つスナックバーを時間で消すと、操作の時間が足りない人がいる。2.2.1(期限調節可能・レベルA)は時間制限のある内容全般の基準で、スナックバー専用の決まりではない。時間で消える操作がこの時間制限に当たるなら、<Hl>時間で消さないか、延長・解除できるようにする</Hl>。割り込む警告は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(読み上げは知らせるだけで、ボタンへの移動は助けないため)。</>,
     exceptions:
-      "割り込む警告は読み上げ中の内容を中断するため、緊急でない通知には使わない。操作ボタンを含むなら、読み上げとは別に、キーボードや支援技術でボタンにたどり着けるようにする(読み上げは知らせるだけで、ボタンへの移動は助けないため)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust)・操作可能(Operable)・知覚可能(Perceivable) ― 中心は知らせの読み上げ(4.1.3 Status Messages)。時間で消える操作(2.2.1)とターゲットサイズ(2.5)は「操作可能」、非テキストのコントラスト(1.4.11)は「知覚可能」。",
     useCases: [
@@ -151,9 +151,9 @@ const SOURCES = [
       "重要な情報を、ほかの手段でも伝えている時(パッシブな通知のため)",
     ],
     stance:
-      <>処理の状態を知らせ、<Hl>ユーザーの操作を要求せずに短時間で自動的に消える</Hl>、一時的な非モーダルダイアログと定義する。通知を「アクション必須」と「パッシブ」に分け、スナックバーは基本的にパッシブ(見落としても致命的でない)。</>,
+      <>処理の状態を知らせ、<Hl>ユーザーの操作を要求せずに短時間で自動的に消える</Hl>、一時的な非モーダルダイアログと定義する。通知を「アクション必須」と「パッシブ」に分け、スナックバーは基本的にパッシブ(見落としても致命的でない)。パッシブな通知は割り込まないぶん見落とされやすく、重要な情報には向かない。利用者の操作への応答ではなく、システムの出来事を伝える点で、バリデーションなどとは性質が違う。</>,
     exceptions:
-      "パッシブな通知は割り込まないぶん見落とされやすく、重要な情報には向かない。利用者の操作への応答ではなく、システムの出来事を伝える点で、バリデーションなどとは性質が違う。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、緊急度と割り込みの強さによる使い分けの指針。",
     useCases: [
       "処理完了の確認に使う(例: ファイル削除の完了通知)",
@@ -177,6 +177,7 @@ const SOURCES = [
     illustrationNote: "パッシブ通知としてのスナックバー(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -384,7 +385,7 @@ export default function CommunicationSnackbarPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -427,8 +428,10 @@ export default function CommunicationSnackbarPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
