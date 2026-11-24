@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / セグメントコントロール」ページ。
@@ -36,9 +36,9 @@ const SOURCES = [
       "セグメントのサイズの数値はないが、押せる要素全般の基準(44×44pt)がかかる。幅が広いほど押しやすい。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "地図アプリの「マップ/交通機関/航空写真」のように、表示(ビュー)の切り替えによく使う。セグメントはすべて同じ幅で、文字か画像のどちらかを入れられる。",
+      <>地図アプリの「マップ/交通機関/航空写真」のように、表示(ビュー)の切り替えによく使う。セグメントはすべて同じ幅で、文字か画像のどちらかを入れられる。セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にする。幅がすべて同じため、一部だけ内容が多い/少ないと見た目が崩れるので、内容の量をそろえる。1つのコントロールに文字と画像を混ぜない(一貫性がなく分かりにくいため)。</>,
     exceptions:
-      <>セグメントが多すぎると読み取りにくく操作に時間がかかるため、<Hl>広い画面では約5〜7個まで、iPhoneでは約5個まで</Hl>を目安にする。幅がすべて同じため、一部だけ内容が多い/少ないと見た目が崩れるので、内容の量をそろえる。1つのコントロールに文字と画像を混ぜない(一貫性がなく分かりにくいため)。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -79,9 +79,9 @@ const SOURCES = [
       { term: "単一選択 / 複数選択", desc: "公式の種類は2つ。単一選択はラジオボタンのように1つだけ、複数選択はチェックボックスのように複数(またはゼロ)を選べる。M2の「トグルボタン」が、M3でこの2種類を持つ「セグメントボタン」に一新された。" },
     ],
     stance:
-      "選択肢を選ぶ・表示を切り替える・要素を並べ替えるのを助け、アイコン・ラベル・その両方を入れられる。単一選択は、選択肢から1つを選ぶ・表示を切り替える・5つまでの要素を並べ替えるときに使う(例: 飲み物のサイズ)。複数選択は、選ばなくてもよく、何も選ばない状態も含めていくつでも選べる(例: レストラン検索の価格帯の絞り込み)。",
+      <>選択肢を選ぶ・表示を切り替える・要素を並べ替えるのを助け、アイコン・ラベル・その両方を入れられる。単一選択は、選択肢から1つを選ぶ・表示を切り替える・5つまでの要素を並べ替えるときに使う(例: 飲み物のサイズ)。複数選択は、選ばなくてもよく、何も選ばない状態も含めていくつでも選べる(例: レストラン検索の価格帯の絞り込み)。セグメントは5個まで。画面やフレームの端から十分な余白を取り、広い画面の幅いっぱいに広げない(ラベルの周りの余白が大きくなりすぎて使いにくいため)。例外: <Hl>5個を超えるならチップなど別のコンポーネントを検討する</Hl>。</>,
     exceptions:
-      <>セグメントは5個まで。<Hl>5個を超えるならチップなど別のコンポーネントを検討する</Hl>。画面やフレームの端から十分な余白を取り、広い画面の幅いっぱいに広げない(ラベルの周りの余白が大きくなりすぎて使いにくいため)。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― 単一選択はラジオボタンの組、複数選択はチェックボックスとして支援技術に伝える(Appleの地図アプリのような表示の切り替えでも、Googleはタブではなくラジオボタン/チェックボックスとして扱う)。ラベルのないアイコンだけのセグメントには、操作を説明する名前(例: 通貨記号→「安価」)を付ける。",
     useCases: [
@@ -161,6 +161,7 @@ const SOURCES = [
     ],
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -322,7 +323,7 @@ export default function NavigationSegmentedControlPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 </>)}
@@ -364,8 +365,10 @@ export default function NavigationSegmentedControlPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

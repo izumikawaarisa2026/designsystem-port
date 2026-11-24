@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / 日付/タイムピッカー」ページ。
@@ -50,9 +50,9 @@ const SOURCES = [
       <><NoData>寸法の記載なし</NoData>。分の選択肢は既定で60個で、<Hl>15分刻みのように減らせる</Hl>。</>,
     colorInfo: "コンパクトスタイルのボタンは、今の値をアクセントカラーで表示する。",
     stance:
-      <>値と並び順は端末の言語・地域で変わる。<Hl>場所が限られるときはコンパクトスタイル</Hl>にし、押すとカレンダーと時刻の編集画面がモーダルで開く。</>,
+      <>値と並び順は端末の言語・地域で変わる。<Hl>場所が限られるときはコンパクトスタイル</Hl>にし、押すとカレンダーと時刻の編集画面がモーダルで開く。ピッカーは編集中の項目の近くに出す。</>,
     exceptions:
-      "選択肢が少なければプルダウンボタン、とても多ければリストが向く。ピッカーは編集中の項目の近くに出す。",
+      "選択肢が少なければプルダウンボタン、とても多ければリストが向く。",
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "場所が限られるならコンパクト、画面の中で見せたいならインラインを使う",
@@ -92,9 +92,9 @@ const SOURCES = [
       { term: "ダイヤル / 入力(時刻)", desc: "ダイヤルは文字盤のつまみを回して時刻を合わせる形。入力はキーボードで時・分を入れる形。ダイヤルからはキーボードアイコンでいつでも入力に切り替えられる。" },
     ],
     stance:
-      <><Hl>ドッキングは入力とカレンダーのどちらでも入れられ</Hl>、近い日付にも遠い日付にも向く。モーダルはカレンダー、モーダル入力はキーボードの数字で入れる。</>,
+      <><Hl>ドッキングは入力とカレンダーのどちらでも入れられ</Hl>、近い日付にも遠い日付にも向く。モーダルはカレンダー、モーダル入力はキーボードの数字で入れる。タイトルは「予約日を選択」のように作業が分かる文言にする。</>,
     exceptions:
-      "生年月日のような遠い日付では、モーダル入力かドッキングを使う。タイトルは「予約日を選択」のように作業が分かる文言にする。",
+      "生年月日のような遠い日付では、モーダル入力かドッキングを使う。",
     accessibility:
       "操作可能(Operable)・知覚可能(Perceivable) ― ダイアログを開くとタイトルが読み上げられる。",
     useCases: [
@@ -136,9 +136,9 @@ const SOURCES = [
       { term: "グリッドの中のフォーカス", desc: "Tabキーではグリッドの中の1つのセル(選択中の日など)にだけ止まり、グリッドの中は矢印キーで移動する考え方。" },
     ],
     stance:
-      <>入力欄には形式を添える(「mm/dd/yyyy」など)。カレンダーはダイアログの中の表として扱い、月・年が変わったら支援技術に知らせる。</>,
+      <>入力欄には形式を添える(「mm/dd/yyyy」など)。カレンダーはダイアログの中の表として扱い、月・年が変わったら支援技術に知らせる。開いたら選択中の日(なければ今日)にフォーカスし、閉じたらボタンへ戻す。APGの例はそのまま本番に使わないよう注意書きがある。</>,
     exceptions:
-      "開いたら選択中の日(なければ今日)にフォーカスし、閉じたらボタンへ戻す。APGの例はそのまま本番に使わないよう注意書きがある。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― キーボード操作(2.1.1)と、月・年の変化の通知(4.1.3)。",
     useCases: [
@@ -172,9 +172,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く(NN groupの実務の目安で、厳密な境界ではない)。月/日/年に分けたドロップダウンは避ける。</>,
+      <>誕生日のような遠い日付は自由入力が最も効率的。カレンダーは<Hl>1年未満程度の近い日付や期間の選択</Hl>に向く(NN groupの実務の目安で、厳密な境界ではない)。月/日/年に分けたドロップダウンは避ける。書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。</>,
     exceptions:
-      "書式の揺れ(9-3-17、09/08/17など)は受け入れる。月名は省略せず、ありえない日付は先に選べなくする。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 入力の効率とエラーの率にもとづく指針。",
     useCases: [
       "誕生日や遠い日付では自由入力(フリーテキスト)を第一の選択肢にする",
@@ -195,6 +195,7 @@ const SOURCES = [
     illustrationNote: "フリーテキスト入力(概念図)。NN groupが多くの場面で推奨する形",
   },
 ];
+markNeg(SOURCES);
 
 const INPUT_METHODS = [
   {
@@ -285,6 +286,7 @@ const PATTERNS = [
     ],
   },
 ];
+markNeg(PATTERNS);
 
 function PatternMockup({ kind, color }) {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
@@ -619,7 +621,7 @@ export default function SelectionDateTimePickerPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -660,8 +662,10 @@ export default function SelectionDateTimePickerPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

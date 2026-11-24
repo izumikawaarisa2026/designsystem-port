@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, PageToc } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, PageToc, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -97,9 +97,9 @@ const SOURCES = [
       { term: "変化の読み上げ", desc: "中身が変わったときにスクリーンリーダーが読み上げる仕組み。自動で回っている間は読み上げず、利用者が送ったときは控えめに読み上げる。" },
     ],
     stance:
-      <>知らないうちに回ると、スクリーンリーダーの利用者は前触れなく次のスライドを聞くことになり混乱する。<Hl>止められれば、動きに気を取られる人や読むのが遅い人も読める</Hl>。</>,
+      <>知らないうちに回ると、スクリーンリーダーの利用者は前触れなく次のスライドを聞くことになり混乱する。<Hl>止められれば、動きに気を取られる人や読むのが遅い人も読める</Hl>。停止ボタンのラベルは動作に合わせて変える。スライドを選ぶ点を1つずつボタンにすると、キーボードの利用者には最も不便になる。</>,
     exceptions:
-      "各スライドに名前がなければ「3/10」のように番号と総数を伝える。停止ボタンのラベルは動作に合わせて変える。スライドを選ぶ点を1つずつボタンにすると、キーボードの利用者には最も不便になる。",
+      "各スライドに名前がなければ「3/10」のように番号と総数を伝える。",
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― 止められること(2.2.2)とキーボード操作は「操作可能」、状態を伝えることは「堅牢」。",
     useCases: [
@@ -128,9 +128,9 @@ const SOURCES = [
     size: <><Hl>5枚以下</Hl>。自動で送るなら、読む速さ(英語で1秒に3語)から表示時間を見積もる。</>,
     colorInfo: "何枚中の何枚目かを示す。点は何が出るか予想しにくいので、中身が分かるボタンにする。操作はカルーセルの中に置く。",
     stance:
-      <><Hl>多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない</Hl>。5秒ごとに切り替わると、目当ての内容が表示されているのは20%の時間だけ。</>,
+      <><Hl>多くの人は大きな画像をすぐに読み飛ばし、1枚目以外はほとんど見ない</Hl>。5秒ごとに切り替わると、目当ての内容が表示されているのは20%の時間だけ。スマートフォンでは自動で送らない。送らないなら、矢印や次の画像の端で続きを示す。重要な内容は、カルーセル以外にも置く。</>,
     exceptions:
-      "スマートフォンでは自動で送らない。送らないなら、矢印や次の画像の端で続きを示す。重要な内容は、カルーセル以外にも置く。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 視線計測とユーザビリティテストにもとづく設計の根拠。動くUIは、運動機能に障害のある人や読むのが遅い人に不利になる。",
     useCases: [
       "フレームは5枚以下にし、何枚中の何枚目かを示す",
@@ -146,6 +146,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10、1本目は2013年公開・2026年8月に見直し)。ページ内検索の語は1本目の記事のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: カルーセルの構成(概念図) */
 function CarouselSwatch() {
@@ -594,7 +595,7 @@ export default function ContainmentCarouselPage() {
                 <InfoBox label="枚数・大きさ・時間" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="位置の示し方・操作">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -628,8 +629,10 @@ export default function ContainmentCarouselPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

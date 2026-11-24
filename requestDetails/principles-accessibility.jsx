@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, RefList, PageLink, RelatedPages } from "./page-parts";
+import { TagLink, RefList, PageLink, RelatedPages, markNeg } from "./page-parts";
 
 /**
  * 思想レイヤー「アクセシビリティ」ページ(旧「POUR解説」を改称・再構成)。
@@ -251,6 +251,7 @@ const FRAMEWORKS = [
     ],
   },
 ];
+markNeg(FRAMEWORKS);
 
 /* 各系列のカードの下に出す補足(No.004) */
 const NAMES_9 = ["VoiceOver", "音声コントロール", "さらに大きな文字(200%以上)", "ダークインターフェース", "色だけに頼らない区別", "十分なコントラスト", "動きを減らす", "字幕(キャプション)", "音声解説"];

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / メニュー」ページ。
@@ -33,9 +33,9 @@ const SOURCES = [
     size: <><Hl>サブメニューは1階層まで</Hl>、項目が約5個を超えるなら別のメニューに。区切り線のグループは約3つまで。</>,
     colorInfo: "ラベルは動詞で短く。さらに入力が要る項目は末尾に「…」。使えない項目は薄く表示する(コンテキストメニューでは隠す)。",
     stance:
-      <><Hl>重要な項目・よく使う項目を先頭に置く</Hl>。関係する項目はグループにまとめ、長すぎるメニューは分ける。</>,
+      <><Hl>重要な項目・よく使う項目を先頭に置く</Hl>。関係する項目はグループにまとめ、長すぎるメニューは分ける。コンテキストメニューの項目は、メインの画面からも使えるようにする。削除など壊す項目は最後に置き、赤い文字で示す(iOS・iPadOS)。</>,
     exceptions:
-      "コンテキストメニューの項目は、メインの画面からも使えるようにする。削除など壊す項目は最後に置き、赤い文字で示す(iOS・iPadOS)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData>使えない項目があってもメニュー自体は開けるようにし、どんな命令があるかを知れるようにする点は、分かりやすさ(理解可能)に関わる。</span>,
     useCases: [
@@ -63,9 +63,9 @@ const SOURCES = [
     size: <><Hl>項目の高さは48dp、幅は112〜280dp</Hl>(Jetpack Compose)。角丸4dp(M3 Expressiveは16dp)。</>,
     colorInfo: "選んだ項目は背景の色(Secondary Container)で示す。",
     stance:
-      "ラジオボタンの組より目立たず、場所を取らない。",
+      "ラジオボタンの組より目立たず、場所を取らない。エクスポーズドドロップダウンメニューは選んだ値を表示し続け、文字を入力して候補を絞ることもできる(「セレクト(プルダウン)」ページ)。",
     exceptions:
-      "エクスポーズドドロップダウンメニューは選んだ値を表示し続け、文字を入力して候補を絞ることもできる(「セレクト(プルダウン)」ページ)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能・操作可能 ― 選んだ項目は形と色で示し、チェックマークも添える。押せる範囲は48×48dp以上。",
     useCases: [
@@ -98,9 +98,9 @@ const SOURCES = [
       { term: "開閉の状態", desc: "メニューが開いているか閉じているかを支援技術に伝える。" },
     ],
     stance:
-      <>メニューボタンは<Hl>メニューが開くことと、今開いているかを支援技術に伝える</Hl>。項目はメニュー項目として伝える。</>,
+      <>メニューボタンは<Hl>メニューが開くことと、今開いているかを支援技術に伝える</Hl>。項目はメニュー項目として伝える。例外: 使えない項目もフォーカスでき、存在を知ることはできる。サイト内のリンク一覧は、開閉ボタンと普通のリンクの一覧で作るほうが合うことが多い(AI解釈)。</>,
     exceptions:
-      "使えない項目もフォーカスでき、存在を知ることはできる。サイト内のリンク一覧は、開閉ボタンと普通のリンクの一覧で作るほうが合うことが多い(AI解釈)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― 2.1.1・4.1.2。",
     useCases: [
@@ -127,9 +127,9 @@ const SOURCES = [
     size: <>コンテキストメニューは<Hl>10〜12項目未満</Hl>で、スクロールせずに全部見えるように。サブメニューは1階層まで。</>,
     colorInfo: "使えない項目を消すと位置が変わって覚えにくい。メニューがあることは三点や下向きの矢印で示し、歯車やハンバーガーは使わない。",
     stance:
-      <>今の作業に直接関係する操作だけを、<Hl>よく使う順に上から並べる</Hl>。同じ命令をメインのメニューからも使えるようにする。</>,
+      <>今の作業に直接関係する操作だけを、<Hl>よく使う順に上から並べる</Hl>。同じ命令をメインのメニューからも使えるようにする。入力した方が速い場合(国名・生年月日など)はドロップダウンにしない。サイトの主要なナビゲーションを隠さない。</>,
     exceptions:
-      "入力した方が速い場合(国名・生年月日など)はドロップダウンにしない。サイトの主要なナビゲーションを隠さない。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― ユーザビリティテストの観察にもとづく設計の根拠。",
     useCases: [
       "コンテキストメニューは10〜12項目未満、よく使う順に並べる",
@@ -145,6 +145,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Contextual Menus)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: メニューの構成(概念図) */
 function MenuSwatch() {
@@ -471,7 +472,7 @@ export default function SelectionMenuPage() {
                 <InfoBox label="長さ・大きさ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="ラベル・項目の見せ方">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -505,8 +506,10 @@ export default function SelectionMenuPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

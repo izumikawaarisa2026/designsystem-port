@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / アコーディオン(表示コントロール)」ページ。
@@ -29,9 +29,9 @@ const SOURCES = [
     size: "Disclosure controlsのページにサイズの規定はない。目安はAppleの一般の押せる範囲(iOS/iPadOSで既定44pt・最小28pt。ボタンのページ)(AI解釈)。",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "詳細を必要になるまで隠しておくために使う。よく使うコントロールを上に置いていつも見せ、高度な機能は既定で隠すと、選択肢に圧倒されずに大事な情報を見つけられる。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にし、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付ける。",
+      "詳細を必要になるまで隠しておくために使う。よく使うコントロールを上に置いていつも見せ、高度な機能は既定で隠すと、選択肢に圧倒されずに大事な情報を見つけられる。開示三角形は、ビューやリストに関連する情報・機能を表示・非表示にし、隠れているときは内側を、見えているときは下を向く。何が表示・非表示になるかが分かるラベル(例:「詳細オプション」)を付ける。開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。",
     exceptions:
-      "開示ボタンは、特定のコントロールに関連する機能を表示・非表示にする(macOSの保存シートなど)。隠れているときは下を、見えているときは上を向く。内容の近くに置き、1つのビューに1つまでにする(複数あると分かりにくいため)。iOS・iPadOSでも使え、watchOSでは使えない。",
+      "iOS・iPadOSでも使え、watchOSでは使えない。",
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -68,7 +68,7 @@ const SOURCES = [
     size: "該当なし",
     colorInfo: "該当なし",
     stance: "該当なし(M3のコンポーネントの一覧にアコーディオンに当たるコンポーネントはなく、M1の「Expansion panel」に当たるコンポーネントもない)",
-    exceptions: "該当なし",
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
@@ -123,9 +123,9 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>見出しは内容を正確に表す長さ・表現にする。</span>,
     colorInfo: <span><NoData>数値基準なし。</NoData>開けることを示すため、キャレットアイコンなどを使う。</span>,
     stance:
-      "クリックで情報を表示・非表示にするパターンで、見出し・アイコン・パネルでできている。利点は、ページがすっきりする・スクロールが減る・全体の概要が見える・拾い読みしやすい・(URLなどで)直接たどり着きやすい。",
+      <>クリックで情報を表示・非表示にするパターンで、見出し・アイコン・パネルでできている。利点は、ページがすっきりする・スクロールが減る・全体の概要が見える・拾い読みしやすい・(URLなどで)直接たどり着きやすい。ほぼすべての内容が必要な場合、内容が少ない場合、階層が深い場合、記事のように続けて読む場合には向かない。逆に、少しの情報だけが要る場合、段階を追う手順、<Hl>FAQのように各セクションが独立している場合</Hl>、長い内容を狭い画面で見せる場合に向く。</>,
     exceptions:
-      <>ほぼすべての内容が必要な場合、内容が少ない場合、階層が深い場合、記事のように続けて読む場合には向かない。逆に、少しの情報だけが要る場合、段階を追う手順、<Hl>FAQのように各セクションが独立している場合</Hl>、長い内容を狭い画面で見せる場合に向く。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、使う場面・避ける場面の判断の基準。見出しは内容を正確に表し、開けることをキャレットアイコンなどで示し、複数のセクションを同時に開けるようにし、重要な情報はいつも見せておく。",
     useCases: [
@@ -149,6 +149,7 @@ const SOURCES = [
     illustrationNote: "FAQのような独立セクションの開閉(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, muted, children }) {
   return (
@@ -304,7 +305,7 @@ export default function ContainmentAccordionPage() {
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {!s.notApplicable && (
@@ -349,8 +350,10 @@ export default function ContainmentAccordionPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

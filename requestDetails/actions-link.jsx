@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / リンク」ページ。
@@ -23,9 +23,9 @@ const SOURCES = [
     color: "#C2542A",
     position: <><Hl>文言による目的の明確化</Hl>(数値基準なし)</>,
     stance:
-      <>リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。<Hl>「ここをタップ」ではなく、行き先や機能を具体的に書く</Hl>。</>,
+      <>リンク単独のページはなく、ライティングとアクセシビリティのページで扱う。<Hl>「ここをタップ」ではなく、行き先や機能を具体的に書く</Hl>。色だけに頼らず、形やアイコンなどの手がかりを加える(アクセシビリティ全般の方針)。</>,
     exceptions:
-      "色だけに頼らず、形やアイコンなどの手がかりを加える(アクセシビリティ全般の方針)。",
+      <NoData>記載なし</NoData>,
     pourDetail: "理解可能(Understandable) ― リンク単体で目的が伝わる文言を求める。",
     searchHint: "avoid using \"Click here\"",
     url: "https://developer.apple.com/design/human-interface-guidelines/writing#Best-practices",
@@ -49,8 +49,8 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <NoData>該当なし(参考: Text buttonが見た目は近い)</NoData>,
     stance:
-      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 見た目が近いのは、枠も塗りもないText button(最も優先度の低い操作用)。</>,
-    exceptions: "Text buttonはボタンの一種で、文中のリンクとは位置づけが違う。",
+      <><NoData>該当なし</NoData>(<Hl>独立した「Link」コンポーネントはない</Hl>)。参考: 見た目が近いのは、枠も塗りもないText button(最も優先度の低い操作用)。Text buttonはボタンの一種で、文中のリンクとは位置づけが違う。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: <NoData>記載なし</NoData>,
     searchHint: "text-only buttons",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -142,6 +142,7 @@ const SOURCES = [
     ),
   },
 ];
+markNeg(SOURCES);
 
 const CRITERIA_ROWS = [
   { key: "colorCue", label: "色以外の視覚的手がかり(下線など)" },
@@ -315,10 +316,10 @@ export default function ActionsLinkPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <div style={styles.exceptionBox}>
+                {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
-                </div>
+                </div>)}
                 <div style={styles.criteriaList}>
                   <CriteriaLegend />
                   {CRITERIA_ROWS.map((row) => (

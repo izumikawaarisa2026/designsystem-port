@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「レイアウト・スペーシング(余白・グリッド)」ページ。
@@ -60,9 +60,9 @@ const SOURCES = [
     colorInfo: <>幅の境界は<Hl>600・840・1200・1600dp</Hl>(上の比較図)。高さがCompact(480dp未満)なら、幅がMediumでも2ペインは避ける。</>,
     structure: "線・区切り線・影で囲む明示的なまとめ方と、近さと空きで示す暗黙のまとめ方がある。",
     stance:
-      <>サイズクラスはアプリが実際に使えるウィンドウの大きさで決まり、分割画面や折りたたみで変わる。<Hl>「タブレットかどうか」の判定には使わない</Hl>。</>,
+      <>サイズクラスはアプリが実際に使えるウィンドウの大きさで決まり、分割画面や折りたたみで変わる。<Hl>「タブレットかどうか」の判定には使わない</Hl>。Large・Extra-largeは、デスクトップや外部ディスプレイのために後から加えた区分。</>,
     exceptions:
-      "Large・Extra-largeは、デスクトップや外部ディスプレイのために後から加えた区分。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能 ― 狭い幅で1ペインに切り替えると、WCAG 1.4.10(リフロー)を満たしやすい。",
     useCases: [
@@ -122,9 +122,9 @@ const SOURCES = [
     colorInfo: <NoData>記載なし</NoData>,
     structure: "近接は色や形の似ていることより優先されることがある。見出しは自分の節の本文に近く置く。",
     stance:
-      <><Hl>関連する要素は近くに、関係のない要素は離して置く</Hl>。関連する操作が離れていると、作業に集中している人は見落とす。</>,
+      <><Hl>関連する要素は近くに、関係のない要素は離して置く</Hl>。関連する操作が離れていると、作業に集中している人は見落とす。狭い画面で別のグループが同じグループに見えるなら、配置そのものを変える。</>,
     exceptions:
-      "狭い画面で別のグループが同じグループに見えるなら、配置そのものを変える。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、知覚の原則とユーザーテストにもとづく。",
     useCases: [
       "ラベルと入力欄の間は狭く、次のラベルとの間は広く",
@@ -138,6 +138,7 @@ const SOURCES = [
     confirmedNote: "記事本文を直接取得して確認済み(2026-09)。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: 近接によるグループ化の例 */
 function ProximitySwatch() {
@@ -429,7 +430,7 @@ export default function TokensLayoutSpacingPage() {
                 <InfoBox label="画面幅による切り替え">{s.colorInfo}</InfoBox>
                 <InfoBox label="構造・グループ化">{s.structure}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -463,8 +464,10 @@ export default function TokensLayoutSpacingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structure}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

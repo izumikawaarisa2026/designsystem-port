@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / バッジ」ページ。
@@ -35,9 +35,9 @@ const SOURCES = [
     size: "寸法の数値の記載なし",
     colorInfo: "タブのバッジは、赤い楕円の中に白い文字で数字か感嘆符を出す(HIG Tab bars)。",
     stance:
-      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。未読の通知の数だけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す。",
+      "アプリアイコンのバッジは、未読の通知の数を示す小さな塗りの楕円で、数字を入れる。通知に対応すると消え、新しい通知が来ると再び出る。未読の通知の数だけに使い、天気・日時・株価・ゲームの得点など通知と関係のない数字には使わない。タブのバッジは、そのタブに注意すべき新しい情報があることを示す。利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
     exceptions:
-      "利用者は設定でバッジを切れるため、重要な情報をバッジだけで伝えない。タブのバッジは重要な情報だけに使い、多用して意味を薄めない。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "アプリアイコン上で未読通知の件数を控えめに知らせたい時",
       "タブバーの特定のタブに新着情報があることを示したい時",
@@ -82,9 +82,9 @@ const SOURCES = [
     size: "大きいバッジの文字は「+」を含めて4文字まで(例: 999+)。小さいバッジは数字のない丸。",
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
-      "小さいバッジ(ドット)は存在を示すだけで文字を持たず、大きいバッジは数字やテキストで件数を示す。タブでは両方使え、ナビゲーションレールでは折りたたみ時はアイコンの右上、展開時はラベルの隣に置く。利用者が内容を確認したら、値を更新するか非表示にする。",
+      "小さいバッジ(ドット)は存在を示すだけで文字を持たず、大きいバッジは数字やテキストで件数を示す。タブでは両方使え、ナビゲーションレールでは折りたたみ時はアイコンの右上、展開時はラベルの隣に置く。利用者が内容を確認したら、値を更新するか非表示にする。桁の多い件数は「+」付きで丸め、4文字以内に収める。",
     exceptions:
-      "桁の多い件数は「+」付きで丸め、4文字以内に収める。",
+      <NoData>記載なし</NoData>,
     glossary: [
       { term: "小さいバッジと大きいバッジの使い分け(AI解釈)", desc: "数を出したくても、アイコンが小さく数字が読みにくい・場所が狭いときは、数字のない小さいバッジ(点)にし、件数は一覧の中など別の場所で示すのが実務的。Googleの公式の記述ではない(小さいバッジは未読の知らせ、大きいバッジは件数、という2種類はM3 Badgesにある)。" },
     ],
@@ -136,9 +136,9 @@ const SOURCES = [
       { term: "ARIA14", desc: "見えるラベルを置けないものに、支援技術向けの名前を与える技法。バッジ付きのアイコンボタンで、装飾のバッジは読み上げず、件数をボタンの名前に含める(例: 「通知(4件)」と読み上げる)のは、これを当てはめた形(AI解釈)。" },
     ],
     stance:
-      "専用の役割はない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(見えるラベルのないものに名前を付ける)。ARIA14は、記号だけの閉じるボタンなどを例に挙げる技法で、バッジ専用ではない。バッジ付きのアイコンボタンに当てはめると、件数をボタンの名前に含め(例: 「通知(4件)」と読み上げる)、バッジ自体は読み上げない(AI解釈)。名前と値を支援技術が取得できるようにすることが、4.1.2の求めに当たる。",
+      "専用の役割はない。関わるのは、達成基準4.1.2(名前(name)・役割(role)・値(value))と技法ARIA14(見えるラベルのないものに名前を付ける)。ARIA14は、記号だけの閉じるボタンなどを例に挙げる技法で、バッジ専用ではない。バッジ付きのアイコンボタンに当てはめると、件数をボタンの名前に含め(例: 「通知(4件)」と読み上げる)、バッジ自体は読み上げない(AI解釈)。名前と値を支援技術が取得できるようにすることが、4.1.2の求めに当たる。見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、支援技術向けの名前にもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
     exceptions:
-      "見えるラベルがあるなら、WCAG 2.5.3(Label in Name)により、支援技術向けの名前にもその文字列を含める(バッジ専用ではなく、ラベル全般の規定)。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "アイコンに重ねた件数バッジの意味を支援技術に伝えたい時",
       "ドットのバッジで、色の違いだけで状態を分けてしまうのを避けたい時",
@@ -182,7 +182,7 @@ const SOURCES = [
     stance:
       "UI Elements Glossaryは、バッジを、ショッピングカートやメッセージなどのアイコンに重ねて、通知の有無(多くはドット)や件数(多くは数字)を示す小さな要素と定義する。簡潔な定義に留まり、頻度・配色・乱用を避ける具体的な指針はない。",
     exceptions:
-      "用語の定義のみで、使ってよい場面・避ける場面の基準はない。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "アイコン上で通知の有無や件数を簡潔に示したい時",
     ],
@@ -213,6 +213,7 @@ const SOURCES = [
     illustrationNote: "「通知はドット、件数は数字」という用語集の定義を図示(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -365,7 +366,7 @@ export default function CommunicationBadgePage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -414,8 +415,10 @@ export default function CommunicationBadgePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

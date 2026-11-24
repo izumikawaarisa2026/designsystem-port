@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / ウィジェット(ホーム画面ウィジェット)」ページ。
@@ -35,8 +35,8 @@ const SOURCES = [
     position: <><Hl>端末ごとのpt寸法で大きさを決め</Hl>、置かれる場所で見た目が自動で変わる</>,
     size: <>小・中・大・特大と、ロック画面などのアクセサリ(寸法は上の「AppleとGoogleの違い」の図)。<Hl>余白16pt、文字11pt以上</Hl></>,
     colorInfo: "3つの表示モードで色が変わる(下の図)。単色になっても伝わるよう、色だけに意味を持たせない。中の角丸は外枠に合わせる",
-    stance: <><Hl>1日の中で変わる情報を優先する</Hl>。サイズが大きいほど情報を一段増やし、小さいものを引き伸ばさない</>,
-    exceptions: "リアルタイムには更新されない。更新を知らせるアニメーションは2秒以内。インラインのアクセサリは押せる場所が1つだけ",
+    stance: <><Hl>1日の中で変わる情報を優先する</Hl>。サイズが大きいほど情報を一段増やし、小さいものを引き伸ばさない。リアルタイムには更新されない。更新を知らせるアニメーションは2秒以内。インラインのアクセサリは押せる場所が1つだけ。</>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: "知覚可能 ― 文字は画像にせずVoiceOverで読めるように。システムフォントでDynamic Type(Large〜AX5)に対応",
     useCases: [
       "主な目的に関わる1つの情報に絞り、1日の中で変わる内容を見せる",
@@ -91,7 +91,7 @@ const SOURCES = [
     size: <><NoData>専用の数値なし</NoData>。中の文字・操作には一般の基準(1.4.3 4.5:1・2.5.8 24×24px(例外あり)・1.4.1)を当てはめる</>,
     colorInfo: <NoData>専用の定めなし(カラー・ボタンのページと同じ基準)</NoData>,
     stance: "Webのコンテンツが対象で、OSのホーム画面のコンポーネントの見た目や大きさは扱わない",
-    exceptions: "―",
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: "知覚可能・操作可能 ― 1.4.3(コントラスト)・2.5.8(ターゲットサイズ)・1.4.1(色)で確認する",
     useCases: [
       "ウィジェットの中の文字は、背景と4.5:1以上のコントラストを目安にする",
@@ -126,6 +126,7 @@ const SOURCES = [
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
+markNeg(SOURCES);
 
 /* ---------- はじめに: 目的・利用シーン・ルールの概要 ---------- */
 const WIDGET_PURPOSES = [
@@ -525,7 +526,7 @@ export default function CommunicationWidgetPage() {
                 <InfoBox label="大きさの決め方" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目・色の扱い">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
@@ -558,8 +559,10 @@ export default function CommunicationWidgetPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>参照ページ(公式)</div>

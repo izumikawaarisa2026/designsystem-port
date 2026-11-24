@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「入力方法・ジェスチャー」ページ。
@@ -59,9 +59,9 @@ const SOURCES = [
     size: "ナビゲーション(タップ・スクロール・スワイプなど)、アクション(長押し・リスト項目のスワイプなど)、変形(ピンチで拡大・持ち上げて移動など)。",
     colorInfo: "大画面では、キーボードのショートカット・マウスの右クリックとホバー・スタイラス・ゲームコントローラーにも対応する。",
     stance:
-      <>ジェスチャーは<Hl>素早く操作する「もう1つの方法」</Hl>。要素は指に直接ついてきて、見た目でジェスチャーができることを示す(シートの端がのぞくなど)。</>,
+      <>ジェスチャーは<Hl>素早く操作する「もう1つの方法」</Hl>。要素は指に直接ついてきて、見た目でジェスチャーができることを示す(シートの端がのぞくなど)。長押しは見つけにくい。1つのジェスチャーで2つの違う結果を起こさない。</>,
     exceptions:
-      "長押しは見つけにくい。1つのジェスチャーで2つの違う結果を起こさない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData>タッチを「もう1つの方法」とし、ボタンやナビゲーションなどのはっきりした操作を補うものとする点は、W3Cと同じ方向。押せる範囲の最小(48dp)は「ボタン」ページを参照。</span>,
     useCases: [
@@ -142,6 +142,7 @@ const SOURCES = [
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
+markNeg(SOURCES);
 
 /* ジェスチャーのアイコン(手の動きの概念図) */
 function GestureIcon({ g, size = 44 }) {
@@ -399,7 +400,7 @@ export default function TokensInputMethodsPage() {
                 <InfoBox label="ジェスチャーの種類と意味" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="入力手段の扱い">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -431,8 +432,10 @@ export default function TokensInputMethodsPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

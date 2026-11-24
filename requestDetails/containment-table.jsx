@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / 表(データテーブル)」ページ。
@@ -31,9 +31,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <>macOSの広い表は、<Hl>行の背景色を交互に変える</Hl>。iOS/iPadOSは見出し・脚注・余白でまとまりを分ける。</>,
     stance:
-      "列見出しは名詞か短い名詞句にし、末尾に句読点を付けない。大きさのまちまちな項目や大量の画像には、コレクションを使う。",
+      "列見出しは名詞か短い名詞句にし、末尾に句読点を付けない。大きさのまちまちな項目や大量の画像には、コレクションを使う。列見出しをクリックで並べ替え、もう一度で逆順(macOS)。列幅は利用者が変えられる。",
     exceptions:
-      "列見出しをクリックで並べ替え、もう一度で逆順(macOS)。列幅は利用者が変えられる。階層のあるデータはアウトラインビューにする。",
+      "階層のあるデータは、表ではなくアウトラインビューにする。",
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
@@ -60,9 +60,9 @@ const SOURCES = [
     size: <><Hl>行の高さは52dp、列見出しの行は56dp</Hl>。列の間は32dp以上、見出しの左右に16dp。</>,
     colorInfo: <>選んだ行は、<Hl>チェックだけでなく行全体の背景色でも示す</Hl>(画面を拡大する人に見えるように)。ポインタを乗せた行にも背景色(デスクトップ)。</>,
     stance:
-      "意味のある順に並べ、利用者が表示を変えられるようにする。並べ替えている列は見出しの横の矢印で示し、押すと逆順になる。",
+      "意味のある順に並べ、利用者が表示を変えられるようにする。並べ替えている列は見出しの横の矢印で示し、押すと逆順になる。表示を変える操作(フィルタ・ページ送りなど)は表の直上か直下に置き、ページ送りは表の下に置く。",
     exceptions:
-      "表示を変える操作(フィルタ・ページ送りなど)は表の直上か直下に置き、ページ送りは表の下に置く。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable)・操作可能(Operable) ― 選んだ行の背景色は、画面を拡大する人のための手がかり。",
     useCases: [
@@ -91,9 +91,9 @@ const SOURCES = [
       { term: "見出しの向き", desc: "見出しのセルが、列の見出しか行の見出しか(またはその集まりの見出しか)を示す。" },
     ],
     stance:
-      <>構造を示せば、スクリーンリーダーは1セルずつ読むときに<Hl>行と列の見出しも読み上げ</Hl>、文脈を見失わない。</>,
+      <>構造を示せば、スクリーンリーダーは1セルずつ読むときに<Hl>行と列の見出しも読み上げ</Hl>、文脈を見失わない。並べ替えできる表は、どの列でどちら向きに並べているかを伝える(APGの例)。並べ替えできない列と区別するアイコンは、色や大きさだけでなく形でも変える。表をレイアウトのために使わない。</>,
     exceptions:
-      "並べ替えできる表は、どの列でどちら向きに並べているかを伝える(APGの例)。並べ替えできない列と区別するアイコンは、色や大きさだけでなく形でも変える。表をレイアウトのために使わない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable)・堅牢(Robust) ― 見出しとデータの関係(1.3.1)と、並べ替えの状態を伝えること。",
     useCases: [
@@ -122,9 +122,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <>大きい表は<Hl>見出し行と最初の列を固定</Hl>し、薄い境界線・縞模様・ポインタを乗せた行の強調で位置を見失わないようにする。</>,
     stance:
-      <><Hl>最初の列には、自動の番号ではなく人が読める名前を置く</Hl>。列は重要度の順に、関連する列を隣に並べる。絞り込み中であることをはっきり示す。</>,
+      <><Hl>最初の列には、自動の番号ではなく人が読める名前を置く</Hl>。列は重要度の順に、関連する列を隣に並べる。絞り込み中であることをはっきり示す。1行の編集は、表を見ながら使える横パネルにする(モーダルはほかの行を隠す)。行の中の操作は1〜2個まで。</>,
     exceptions:
-      "1行の編集は、表を見ながら使える横パネルにする(モーダルはほかの行を隠す)。行の中の操作は1〜2個まで。スマートフォンでは、見出しと最初の列を固定し、右端の列を少し切って続きを示す。",
+      "スマートフォンでは、見出しと最初の列を固定し、右端の列を少し切って続きを示す。",
     accessibility: "根拠となる原則 ― 視線計測とユーザビリティテストにもとづく設計の根拠。",
     useCases: [
       "最初の列は人が読める名前にし、関連する列を隣に並べる",
@@ -140,6 +140,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Data Tables)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: データテーブルの構成(概念図) */
 function TableSwatch() {
@@ -472,7 +473,7 @@ export default function ContainmentTablePage() {
                 <InfoBox label="サイズ・余白" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見出し・行の見分け方">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -506,8 +507,10 @@ export default function ContainmentTablePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

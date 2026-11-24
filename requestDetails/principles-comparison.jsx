@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, NoData, PageLink, RelatedPages } from "./page-parts";
+import { TagLink, NoData, PageLink, RelatedPages, markNeg } from "./page-parts";
 
 /**
  * 思想レイヤー「原則比較」ページ。
@@ -111,6 +111,7 @@ const FRAMEWORKS = [
     confirmedNote: "各原則の見出しに実アンカーあり(toc-1-... など)。記事本体で確認(2026-09)。",
   },
 ];
+markNeg(FRAMEWORKS);
 
 const OVERLAP_ROWS = [
   { theme: "馴染みやすさ・一貫性", hig: "Familiarity", material: <NoData>直接対応する項目なし</NoData>, wcag: <NoData>直接対応する項目なし(Understandableに関連する考え方)</NoData>, nn: "システムと実世界の一致 / 一貫性と標準" },

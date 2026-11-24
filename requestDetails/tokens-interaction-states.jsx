@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「インタラクション状態」ページ。
@@ -62,9 +62,9 @@ const SOURCES = [
     size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わる。旧版のM2は、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていた。",
     visual: "ステートレイヤーは、文字やアイコンと同じ色を半透明で重ねる。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表す(Jetpack Composeのトークン定義)。M2では、ステートレイヤーは同時に1つだけ出し、影(エレベーション)・色・アイコンの変化と組み合わせることもあった。",
     stance:
-      "状態は、互いに、また周りのレイアウトとはっきり見分けられるようにしつつ、見た目を変えすぎず、すべてのコンポーネントで一貫させる。選択とホバーのように状態が重なったら、両方を示す。",
+      "状態は、互いに、また周りのレイアウトとはっきり見分けられるようにしつつ、見た目を変えすぎず、すべてのコンポーネントで一貫させる。選択とホバーのように状態が重なったら、両方を示す。M2では、不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保していた(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスはほかに手がかりがないため高くする。",
     exceptions:
-      "M2では、不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保していた(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスはほかに手がかりがないため高くする。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable) ― 無効状態は38%の不透明度で表し、操作できないことを伝える。WCAGの1.4.11は無効なコンポーネントをコントラストの要件から外しているため、矛盾しない。",
     useCases: [
@@ -126,9 +126,9 @@ const SOURCES = [
     size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態。表示の目安は、ホバーが約150〜200msの遅延(マウスが通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内。",
     visual: "有効はコントラストが高く読みやすく、無効はグレーなど彩度を落とした低いコントラスト(ただし読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に。フォーカスは色の変化だけでなく輪郭線(アウトライン)で示すことを強く勧める。読み込み中はラベルの左にスピナー。選択はチェックボックスやラジオボタンの状態で、ボタンのプレスとは別物。",
     stance:
-      "押せるのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押す。状態は小さな手がかりで伝えるため、実際の利用者で見分けられるかテストする。",
+      "押せるのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押す。状態は小さな手がかりで伝えるため、実際の利用者で見分けられるかテストする。ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンも、タブでフォーカスできるまま「無効」と支援技術に伝えれば、スクリーンリーダーで存在と状態が分かる。",
     exceptions:
-      "ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンも、タブでフォーカスできるまま「無効」と支援技術に伝えれば、スクリーンリーダーで存在と状態が分かる。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察にもとづく設計の根拠。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合がある。",
     useCases: [
       "ホバーには150〜200msの遅延を入れる",
@@ -144,6 +144,7 @@ const SOURCES = [
     confirmedNote: "記事本文を直接取得して確認済み(2026-09、2025年4月公開の記事)。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: ステートレイヤーによる状態の表し方(Googleのトークン値で描画した概念図) */
 const STATES = [
@@ -500,7 +501,7 @@ export default function TokensInteractionStatesPage() {
                 <InfoBox label="状態の種類" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目の表し方">{s.visual}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -532,8 +533,10 @@ export default function TokensInteractionStatesPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.visual}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

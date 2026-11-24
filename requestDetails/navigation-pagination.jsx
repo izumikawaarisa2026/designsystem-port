@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / ページネーション」ページ。
@@ -30,7 +30,7 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     stance: <>該当なし。関連: Page controls(ドット表示)は、少数の決まった画面を順に送るコンポーネントで、検索結果のような長さの変わる一覧を分ける番号付きのページ送りとは対象が違う(上の「ページ送りの種類と使い分け」)。ドットは順序のあるページの遷移に使い、10個ほどを超えると数えにくいとしている。</>,
-    exceptions: "該当なし",
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
@@ -46,7 +46,7 @@ const SOURCES = [
     position: "該当なし",
     size: "該当なし",
     stance: "該当なし(M3のコンポーネントの一覧にPaginationはない。長い一覧の分割は、リストや表などを組み合わせる想定とみられる。AI解釈)",
-    exceptions: "該当なし",
+    exceptions: <NoData>該当なし</NoData>,
     accessibility: "該当なし",
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
@@ -65,9 +65,9 @@ const SOURCES = [
       { term: "専用の役割はない", desc: "WAI-ARIAに「ページネーション」の役割はない。必要なもの(ナビゲーションの領域、リスト、リンク/ボタン、今の項目を伝える仕組み)がすでにあるため、組み合わせるのが一般的(AI解釈)。" },
     ],
     stance:
-      "専用の役割やパターンはない。ページ番号の一覧を名前の付いたナビゲーションの領域として示し、各番号に「3ページ目に移動」のような分かりやすい名前を付け、今のページを支援技術に伝える、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様(今の項目を伝える仕組み)、APGのLandmark Regions(ナビゲーション領域)、WCAG 2.4.4(リンクの目的)。",
+      "専用の役割やパターンはない。ページ番号の一覧を名前の付いたナビゲーションの領域として示し、各番号に「3ページ目に移動」のような分かりやすい名前を付け、今のページを支援技術に伝える、という組み合わせが一般的(AI解釈)。根拠になる一次情報は、WAI-ARIA仕様(今の項目を伝える仕組み)、APGのLandmark Regions(ナビゲーション領域)、WCAG 2.4.4(リンクの目的)。今のページ番号は、リンクではなく文字にし、今のページだと伝えることが多い。例外: 単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えを支援技術に知らせる。",
     exceptions:
-      "今のページ番号は、リンクではなく文字にし、今のページだと伝えることが多い。単一ページのアプリで遷移せずに内容だけを切り替えるなら、切り替えを支援技術に知らせる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能・堅牢 ― 中心は、ナビゲーションの領域として示すこと、各リンクの分かりやすい名前、今のページを伝えること。アイコンだけの「前へ/次へ」ボタンには、文字の名前を別に用意する。",
     useCases: [
@@ -103,9 +103,9 @@ const SOURCES = [
     position: "巨大な一覧には従来のページネーションが向き、少ない一覧には代わりの方法(もっと見るボタンなど)も検討できる",
     size: "無限スクロールが向くのは、「おおよそ1ページ40件未満」程度の比較的少ない商品数の場合(ECサイトの商品一覧についての目安で、40件を境に切り替える一律の決まりではない)。",
     stance:
-      <>Amazonのような商品数の巨大なサイトには、位置を細かく制御できる従来のページネーションが向く。商品数が比較的少なく、強い絞り込み機能があるなら、無限ローディングや「もっと見る」ボタンも選択肢。<Hl>「もっと見る」ボタンは、自分の操作で次を読み込むため、自動で読み込む無限スクロールより望ましい</Hl>(ページ末尾のフッターに届かなくなる問題を避けられるため)。</>,
+      <>Amazonのような商品数の巨大なサイトには、位置を細かく制御できる従来のページネーションが向く。商品数が比較的少なく、強い絞り込み機能があるなら、無限ローディングや「もっと見る」ボタンも選択肢。<Hl>「もっと見る」ボタンは、自分の操作で次を読み込むため、自動で読み込む無限スクロールより望ましい</Hl>(ページ末尾のフッターに届かなくなる問題を避けられるため)。無限スクロールは、どこまで見たかを思い出しにくく、フッターに届かなくなる。一覧には総数を示し、読み込んだ件数・残りの件数を伝える。利用者が「すべて表示」に切り替えたら、その設定を守る。</>,
     exceptions:
-      "無限スクロールは、どこまで見たかを思い出しにくく、フッターに届かなくなる。一覧には総数を示し、読み込んだ件数・残りの件数を伝える。利用者が「すべて表示」に切り替えたら、その設定を守る。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、自分の位置を把握し続けられるか(オリエンテーション)という使い分けの指針。一覧のページは「ポゴスティッキング」(一覧に戻ってまた個別のページへ進む行き来)を支えるよう、戻ったときに元の位置を保つ。",
     useCases: [
@@ -132,6 +132,7 @@ const SOURCES = [
     illustrationNote: "従来型の番号付きページネーション(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, muted, children }) {
   return (
@@ -318,7 +319,7 @@ export default function NavigationPaginationPage() {
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
                 {!s.notApplicable && (
@@ -368,8 +369,10 @@ export default function NavigationPaginationPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

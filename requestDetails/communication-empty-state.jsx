@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / 空状態」ページ。
@@ -18,9 +18,9 @@ const SOURCES = [
     position: "単独のコンポーネントはなく、Writingのページで空の画面の文言に触れる",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      <>完了したToDoリストや空のブックマークフォルダのような空の画面は、歓迎やアプリの使い方を伝える機会になる。<Hl>次にできる操作を案内し、できればそのボタンやリンクを置く</Hl>。</>,
+      <>完了したToDoリストや空のブックマークフォルダのような空の画面は、歓迎やアプリの使い方を伝える機会になる。<Hl>次にできる操作を案内し、できればそのボタンやリンクを置く</Hl>。空状態は一時的なものなので、消えるおそれのある重要な情報は置かない。なおTab barsのページは、機能が一時的に使えなくても、タブを消したり無効にしたりしないとする。</>,
     exceptions:
-      "空状態は一時的なものなので、消えるおそれのある重要な情報は置かない。なおTab barsのページは、機能が一時的に使えなくても、タブを消したり無効にしたりしないとする。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "ToDoリストや保存済みアイテムが1件もない画面で、次にできる操作を案内したい時",
     ],
@@ -53,9 +53,9 @@ const SOURCES = [
     position: <>現行M3に正式なコンポーネント・パターンはなく、<Hl>旧世代(M1)のパターンページにだけ記述がある</Hl></>,
     size: <NoData>数値基準なし</NoData>,
     stance:
-      "M1のパターンページは、「リストに項目が1件もない」「検索結果が0件」の基本形を、操作のない画像+短い説明文とする。見出しは短く分かりやすくし、利用者を責める表現は避ける。",
+      "M1のパターンページは、「リストに項目が1件もない」「検索結果が0件」の基本形を、操作のない画像+短い説明文とする。見出しは短く分かりやすくし、利用者を責める表現は避ける。現行M3に正式なコンポーネントはなく、上記はM1の古いパターンページの内容で、現行M3が保証するものではない。",
     exceptions:
-      "現行M3に正式なコンポーネントはなく、上記はM1の古いパターンページの内容で、現行M3が保証するものではない。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "検索結果が0件、リストに項目が1件もない画面の基本形を検討したい時(M1由来の参考情報)",
     ],
@@ -121,7 +121,7 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     stance:
       "(1)「該当期間のレコードがありません」のように状況を示し、読み込み中か本当にデータがないかの混乱を避ける、(2)「お気に入りに追加するとここに表示されます」のように操作を教える機会にする、(3)「作成」ボタンなど次の行動への導線を置く、の3つ。",
-    exceptions: "3つの指針は数値基準ではなく、原則としての言及。",
+    exceptions: <NoData>記載なし</NoData>,
     scenarios: [
       "検索結果0件やリスト未設定など、データがない理由を示したい時",
       "初めて使う機能の使い方を、空状態の文言を通じて教えたい時",
@@ -146,6 +146,7 @@ const SOURCES = [
     illustrationNote: "状況の説明+次の行動への導線(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -331,7 +332,7 @@ export default function CommunicationEmptyStatePage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -378,8 +379,10 @@ export default function CommunicationEmptyStatePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

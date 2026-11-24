@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -39,9 +39,9 @@ const SOURCES = [
     size: "寸法の数値の記載なし",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>処理が終わると消える一時的な表示。<Hl>できるだけ確定的な表示を優先する</Hl>。いつも同じ場所に出し、「読み込み中」のようなあいまいな文言を避け、表示中に円とバーを切り替えない。</>,
+      <>処理が終わると消える一時的な表示。<Hl>できるだけ確定的な表示を優先する</Hl>。いつも同じ場所に出し、「読み込み中」のようなあいまいな文言を避け、表示中に円とバーを切り替えない。どうしても長くかかるなら、待つ間に見てもらえるもの(ヒントや短い映像など)を用意する。</>,
     exceptions:
-      "どうしても長くかかるなら、待つ間に見てもらえるもの(ヒントや短い映像など)を用意する。",
+      <NoData>記載なし</NoData>,
     scenarios: [
       "所要時間が分かるダウンロード・ファイル変換などにプログレスバー(確定的)を使いたい時",
       "所要時間が見積もれない読み込み・同期処理にスピナー(不確定)を使いたい時",
@@ -79,9 +79,9 @@ const SOURCES = [
     size: <>Loading indicator(短い待ち用)は<Hl>既定48dp、置く場所や画面の幅に合わせて24〜240dp</Hl>。Progress indicatorの線形の終わりには直径4dpの丸を置く。</>,
     colorInfo: <NoData>色の値は記載なし</NoData>,
     stance:
-      "線形はコンテナの端、円形は要素の中央に置くのに向く。波形(wavy)は、長い処理を単調に感じさせないスタイルとして選べる。",
+      <>線形はコンテナの端、円形は要素の中央に置くのに向く。波形(wavy)は、長い処理を単調に感じさせないスタイルとして選べる。<Hl>5秒未満の短い待ちはLoading indicator、5秒を超えるならProgress indicator</Hl>。進み具合が分かったら、不確定から確定に切り替える。</>,
     exceptions:
-      <><Hl>5秒未満の短い待ちはLoading indicator、5秒を超えるならProgress indicator</Hl>。進み具合が分かったら、不確定から確定に切り替える。</>,
+      <NoData>記載なし</NoData>,
     scenarios: [
       "コンテナの端(画面上部など)に置く時(linear)",
       "要素の中央に置く時(circular)",
@@ -206,6 +206,7 @@ const SOURCES = [
     illustrationNote: "待ち時間の長さによる使い分けの目安(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -388,7 +389,7 @@ export default function CommunicationProgressPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -431,8 +432,10 @@ export default function CommunicationProgressPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

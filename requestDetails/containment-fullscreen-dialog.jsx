@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / フルスクリーンダイアログ」ページ。
@@ -36,14 +36,14 @@ const SOURCES = [
     size: "寸法の数値の記載なし(画面またはウィンドウ全体を使う)",
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "画面全体を占めて、気が散る要素を減らす。",
+      <>画面全体を占めて、気が散る要素を減らす。モーダルの中に<Hl>階層を作らない</Hl>(道筋は1本にする)。</>,
     scenarios: [
       "動画・写真・カメラビューなど、一時的に没入させたい時",
       "文書や写真の編集のような、複数ステップの作業に集中させたい時",
       "複雑な作業で、iOS/iPadOSの全画面スタイルのモーダルビューが合う時",
     ],
     exceptions:
-      <>モーダルの中に<Hl>階層を作らない</Hl>(道筋は1本にする)。</>,
+      <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "動画・写真・カメラビューなど、一時的に没入させるのに使う",
@@ -78,14 +78,14 @@ const SOURCES = [
     size: <span><NoData>数値基準なし</NoData>。コンテナ・ヘッダー・閉じるアイコン・文字のボタン・任意の区切り線でできている。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>一連の作業を終えるためのモーダル。<Hl>スマートフォンなどの狭い画面だけ</Hl>で使い、広い画面では基本ダイアログにする。</>,
+      <>一連の作業を終えるためのモーダル。<Hl>スマートフォンなどの狭い画面だけ</Hl>で使い、広い画面では基本ダイアログにする。左上のナビゲーションは閉じる「×」だけ。</>,
     scenarios: [
       "タイトル・日付・場所・時刻を入れる予定の作成のような、一連の作業を終えたい時",
       "フォームの欄などキーボード入力が要るコンポーネントを含む時",
       "変更がすぐ保存されない時や、中から別のダイアログを開く時",
     ],
     exceptions:
-      "未保存の変更があるまま×などで閉じようとしたときだけ、破棄するかを確かめる。左上のナビゲーションは閉じる「×」だけ。",
+      "未保存の変更があるまま×などで閉じようとしたときだけ、破棄するかを確かめる。",
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― 基本ダイアログと同じ(最初のフォーカスは最初の操作要素)。",
     useCases: [
@@ -161,13 +161,13 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、普通のページにする。</>,
+      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、普通のページにする。ウィザード(ステップ形式の入力)の作り方は、「ウィザード」ページで比較している。</>,
     scenarios: [
       "分野の知識が少ない新しい利用者向けのオンボーディング",
       "たまにしか行わない、複数ステップのセットアップ・設定(日常に繰り返す操作には向かない)",
     ],
     exceptions:
-      "ウィザード(ステップ形式の入力)の作り方は、「ウィザード」ページで比較している。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― モーダルで文脈を見失うのを避けるための設計の根拠。",
     useCases: [
@@ -195,6 +195,7 @@ const SOURCES = [
     illustrationNote: "進捗を示すウィザード形式の全画面フロー(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -341,7 +342,7 @@ export default function ContainmentFullscreenDialogPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -384,8 +385,10 @@ export default function ContainmentFullscreenDialogPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

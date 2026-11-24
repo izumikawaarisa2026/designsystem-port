@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / サイドシート」ページ(旧ページ名「モーダルポップアップ」)。
@@ -60,13 +60,13 @@ const SOURCES = [
       { term: "戻る / 閉じるアイコンボタン(いずれもオプション)", desc: "戻るアイコンボタンは、シートを閉じるか別の画面へ遷移するための要素。閉じるアイコンボタンは、開閉の流れを予測しやすくしアクセシビリティを高めるため、置くことを強く勧める。" },
     ],
     stance:
-      <>標準は<Hl>タブレット・PCなど広い画面</Hl>で、メインの内容を補う。スマートフォンではモーダルにし、閉じるまで下の内容は操作できない。</>,
+      <>標準は<Hl>タブレット・PCなど広い画面</Hl>で、メインの内容を補う。スマートフォンではモーダルにし、閉じるまで下の内容は操作できない。中身は単独で縦にスクロールできる(横にはできない)。例外: 戻る・閉じるのボタンや操作のボタンは任意。</>,
     scenarios: [
       "絞り込みなど、主な内容に影響する操作の一覧を出したい時",
       "メインの内容を補う内容・機能を出したい時",
     ],
     exceptions:
-      "中身は単独で縦にスクロールできる(横にはできない)。戻る・閉じるのボタンや操作のボタンは任意。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― 閉じるボタンを置くことを強く勧める(支援技術でも簡単に閉じられるように)。",
     useCases: [
@@ -105,12 +105,12 @@ const SOURCES = [
       { term: "開く側のボタン", desc: "シートを開くボタンで、何(メニュー・一覧・ダイアログなど)が開くかを支援技術に伝えることもできる。シート本体の扱いではない。" },
     ],
     stance:
-      "サイドシートの定めはない。モーダルならダイアログとして扱い(AI解釈)、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。非モーダルなら、モーダルと伝えず、フォーカスをシートの中に閉じ込めない。",
+      "サイドシートの定めはない。モーダルならダイアログとして扱い(AI解釈)、開いたらシートの中へ、閉じたら開いたボタンへフォーカスを戻す。非モーダルなら、モーダルと伝えず、フォーカスをシートの中に閉じ込めない。APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。",
     scenarios: [
       "シート本体をダイアログとして扱い、名前とフォーカスの移動を設計したい時",
       "後ろの内容を操作できるまま残したいなら、モーダルと伝えない非モーダルとして扱う",
     ],
-    exceptions: "APGの例は考え方を示すもので、そのまま本番に使わないよう注意書きがある。",
+    exceptions: <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust) ― 名前・役割・状態(4.1.2)。フォーカスの移動とキーボードでの開閉は「操作可能」(2.1.1・2.4.3)。",
     useCases: [
@@ -152,13 +152,13 @@ const SOURCES = [
       { term: "Side Sheet(Drawer, Flyout)", desc: "画面の左右どちらかの端からスライドして現れ、通常は画面のかなりの部分を覆うオーバーレイ。ボトムシートと同じく、モーダル(後ろの操作を妨げる)にも非モーダルにもなる(用語集より)。" },
     ],
     stance:
-      <>「Side Sheet」は画面の側面から現れるオーバーレイで、<Hl>モーダル・非モーダルどちらもあり得る</Hl>(用語集の定義)。</>,
+      <>「Side Sheet」は画面の側面から現れるオーバーレイで、<Hl>モーダル・非モーダルどちらもあり得る</Hl>(用語集の定義)。ナビゲーション専用のドロワーより広く、補助の内容全般を含む。</>,
     scenarios: [
       "画面の一部だけを覆う軽いオーバーレイの呼び方を選ぶ時(Popup/Popover)",
       "側面から現れる補助の内容全般の呼び方を選ぶ時(Side Sheet。ナビゲーション以外も含む)",
     ],
     exceptions:
-      "ナビゲーション専用のドロワーより広く、補助の内容全般を含む。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、UI要素の分類と呼び方の整理。",
     useCases: [
       "画面の一部だけを覆う軽いオーバーレイには、Popup(Popover)の考え方を当てはめる",
@@ -181,6 +181,7 @@ const SOURCES = [
     illustrationNote: "用語集で定義される「Side Sheet」(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -305,7 +306,7 @@ export default function ContainmentSideSheetPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -348,8 +349,10 @@ export default function ContainmentSideSheetPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

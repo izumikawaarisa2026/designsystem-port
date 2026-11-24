@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Navigation / タブ」ページ。
@@ -35,9 +35,9 @@ const SOURCES = [
       <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "密接に関係する内容の領域を並べて見せるのに使う。各タブの中身は互いに関係が深く、各パネルの中の操作はそのパネルの内容だけに効くようにする(パネルは互いに独立)。タブのラベルは中身を予想できる名詞(または短い動詞句)にする。",
+      "密接に関係する内容の領域を並べて見せるのに使う。各タブの中身は互いに関係が深く、各パネルの中の操作はそのパネルの内容だけに効くようにする(パネルは互いに独立)。タブのラベルは中身を予想できる名詞(または短い動詞句)にする。タブの切り替えにポップアップボタンを使わない(1回で選べ、全部見えるタブのほうが効率的なため)。例外: パネルが多すぎて並べきれないなら、タブの代わりにポップアップボタンを使ってよい。",
     exceptions:
-      "タブの切り替えにポップアップボタンを使わない(1回で選べ、全部見えるタブのほうが効率的なため)。ただしパネルが多すぎて並べきれないなら、ポップアップボタンが代わりになる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし</NoData></span>,
     useCases: [
@@ -87,9 +87,9 @@ const SOURCES = [
       { term: "Fixed(固定) / Scrollable(スクロール可能)", desc: "固定タブはすべてのタブを同時に出す(地図の交通手段の切り替えなど)。スクロールできるタブは画面に収まらないときに使い、長いラベルや多くのタブに対応できる。" },
     ],
     stance:
-      "同じ階層の関連する内容をまとめて整理するコンポーネント。順番に読む内容ではなく、関連する内容をまとめる用途に限る。",
+      <>同じ階層の関連する内容をまとめて整理するコンポーネント。順番に読む内容ではなく、関連する内容をまとめる用途に限る。順番に読む内容にはタブを使わず、タイポグラフィや余白で階層を作る。一部のタブだけアイコンとラベルの両方を使う(ほかは片方だけ)ような不統一は避ける。<Hl>タブをループして無限にスクロールさせない</Hl>(スクリーンリーダーで順にたどる人の妨げになりうるため)。</>,
     exceptions:
-      <span>順番に読む内容にはタブを使わず、タイポグラフィや余白で階層を作る。一部のタブだけアイコンとラベルの両方を使う(ほかは片方だけ)ような不統一は避ける。<Hl>タブをループして無限にスクロールさせない</Hl>(スクリーンリーダーで順にたどる人の妨げになりうるため)。</span>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― 押せる範囲を48×48 CSS px以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
     useCases: [
@@ -181,9 +181,9 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "内容が長く、はっきりしたまとまりがあるなら、タブは情報をひと目で見える単位に分け、認知の負担を減らす。利用者が自然に「まとまっているはず」と思う並列のカテゴリの整理に最も向く。",
+      "内容が長く、はっきりしたまとまりがあるなら、タブは情報をひと目で見える単位に分け、認知の負担を減らす。利用者が自然に「まとまっているはず」と思う並列のカテゴリの整理に最も向く。重要度がそろっていないなら使わない。既定で出るタブに注目が集まりやすいため、ほかのタブの内容は必須ではない補助的なものにする。",
     exceptions:
-      "重要度がそろっていないなら使わない。既定で出るタブに注目が集まりやすいため、ほかのタブの内容は必須ではない補助的なものにする。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、内容を利用者が期待するまとまりに整理するという使い分けの指針。",
     useCases: [
@@ -204,6 +204,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -485,7 +486,7 @@ export default function NavigationTabsPage() {
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 <InfoBox label="構成・配置">{s.structure}</InfoBox>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -530,8 +531,10 @@ export default function NavigationTabsPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
                 <div style={styles.labelCell}>構成・配置</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.structure}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

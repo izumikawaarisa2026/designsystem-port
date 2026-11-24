@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ダイアログ(基本ダイアログ)」ページ。
@@ -36,12 +36,12 @@ const SOURCES = [
     size: "寸法の数値の記載なし。ボタンは3つまで。タイトルは2行を超えないようにする",
     colorInfo: <span><NoData>記載なし。</NoData></span>,
     stance:
-      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない。",
+      "アラートは、重要な情報を知らせ、必要なら操作を求めるモーダルの表示。作業を中断させるので控えめに使い、情報を伝えるだけの場面、よくある取り消せる操作(メールの削除など)、アプリの起動時には出さない。タイトルは何が起きたかを具体的に短く書き(「エラー」だけにしない)、説明文は価値があるときだけ短く書く。相手を責めず、深刻さもごまかさない。ボタンの名前は、押した結果を表す1〜2語の動詞にする(「OK」は情報だけを伝えるアラートに限る)。最も選ばれやすいボタンは末尾(横並びなら右)、キャンセルは先頭(左)に置き、キャンセルを既定のボタンにしない。利用者が意図して選んだのではない壊す操作のボタンだけ、壊す操作の見た目にする。",
     scenarios: [
       "取り消せない重大な操作の前に、注意を促したい時",
     ],
     exceptions:
-      "ボタンの名前は、押した結果を表す1〜2語の動詞にする(「OK」は情報だけを伝えるアラートに限る)。最も選ばれやすいボタンは末尾(横並びなら右)、キャンセルは先頭(左)に置き、キャンセルを既定のボタンにしない。利用者が意図して選んだのではない壊す操作のボタンだけ、壊す操作の見た目にする。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -81,13 +81,13 @@ const SOURCES = [
       { term: "M2→M3の主な変更点", desc: "新しいカラーマッピング・ダイナミックカラーへの対応/角丸とタイトルの拡大に伴う余白の拡大/基本ダイアログの位置を変えるオプションの追加/角の半径の拡大/より大きく濃い見出しの文字、の5点。" },
     ],
     stance:
-      <>アプリの内容の手前に出て、重要な情報を伝えたり判断を求めたりするモーダルウィンドウ。出ている間はアプリのすべての機能が無効になり、確認・閉じる・必要な操作をするまで残る。わざと操作を中断させるため控えめに使い、<Hl>優先度の低い・中くらいの情報には、自動で閉じるスナックバーを使う</Hl>。</>,
+      <>アプリの内容の手前に出て、重要な情報を伝えたり判断を求めたりするモーダルウィンドウ。出ている間はアプリのすべての機能が無効になり、確認・閉じる・必要な操作をするまで残る。わざと操作を中断させるため控えめに使い、<Hl>優先度の低い・中くらいの情報には、自動で閉じるスナックバーを使う</Hl>。操作は2つまで。1つなら確認、2つなら確認と却下にする。確認ボタンは末尾に置く。中で選択肢を選ばせるなら、選ぶまで確認ボタンを押せなくするが、閉じる操作は無効にしない(「削除しますか?」のような単純な確認では、確認ボタンを無効にしない)。否定の操作を肯定の操作の右(末尾側)に置かない。「詳細を見る」のような3つ目の操作は、作業が終わらないままダイアログを離れてしまうため勧めず、インラインで開いて情報を示す。確認のラベルは「送信」「作成」など次に起きることがはっきり分かる語にし、「完了」「OK」「閉じる」のような曖昧な語は避ける。</>,
     scenarios: [
       "進行状況の削除など、リスクの高い操作を確認したい時",
       "単一タスクの完了に関わる重要な判断を求めたい時",
     ],
     exceptions:
-      "操作は2つまで。1つなら確認、2つなら確認と却下にする。確認ボタンは末尾に置く。中で選択肢を選ばせるなら、選ぶまで確認ボタンを押せなくするが、閉じる操作は無効にしない(「削除しますか?」のような単純な確認では、確認ボタンを無効にしない)。否定の操作を肯定の操作の右(末尾側)に置かない。「詳細を見る」のような3つ目の操作は、作業が終わらないままダイアログを離れてしまうため勧めず、インラインで開いて情報を示す。確認のラベルは「送信」「作成」など次に起きることがはっきり分かる語にし、「完了」「OK」「閉じる」のような曖昧な語は避ける。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable)・理解可能(Understandable) ― 出たら、フォーカスは自動でダイアログの中の最初の操作要素に移動する。アクセシビリティラベルは通常タイトルと同じで、Webの基本ダイアログは警告のダイアログとして伝えるとする(W3Cの区別では、削除の確認のようにすぐ応答を求めるものが警告のダイアログ、それ以外は通常のダイアログ。W3Cの欄を参照)。文字を200%に拡大しても見出しが4行以内に収まるよう短くする。",
     useCases: [
@@ -165,13 +165,13 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>使いすぎによる「オオカミ少年」効果(出すぎて読まれなくなること)を避けるため、出す回数を絞る。</span>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>確認ダイアログは操作を考え直す機会を与えるが、設計を誤ると逆効果になる。日常の操作に多用すると、内容を読まずに「はい」を押す習慣がつく(<Hl>「オオカミ少年」効果</Hl>)。</>,
+      <>確認ダイアログは操作を考え直す機会を与えるが、設計を誤ると逆効果になる。日常の操作に多用すると、内容を読まずに「はい」を押す習慣がつく(<Hl>「オオカミ少年」効果</Hl>)。確認では「本当によろしいですか?」ではなく、具体的な情報と選択肢(「ファイルを削除」「ファイルを保持」など)を示す。</>,
     scenarios: [
       "ファイル削除など、取り消しできない操作の前",
       "高額な支払いなど、重大な結果を伴う操作の前",
     ],
     exceptions:
-      "最も重大な操作には、ボタンを押すだけでなく「DELETE」と入力させるなど、普段と違う確認を課す。日常に繰り返す操作では、確認を出さない設定を選べるようにする。「本当によろしいですか?」ではなく、具体的な情報と選択肢(「ファイルを削除」「ファイルを保持」など)を示す。",
+      "最も重大な操作には、ボタンを押すだけでなく「DELETE」と入力させるなど、普段と違う確認を課す。日常に繰り返す操作では、確認を出さない設定を選べるようにする。",
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、誤操作を防ぐ観点の指針。「はい/いいえ」ではなく操作が分かる具体的なラベルにする点は、理解可能(Understandable)にも関わる。",
     useCases: [
@@ -195,6 +195,7 @@ const SOURCES = [
     illustrationNote: "「はい/いいえ」ではなく具体的なラベルにする(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -356,7 +357,7 @@ export default function ContainmentDialogPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -399,8 +400,10 @@ export default function ContainmentDialogPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

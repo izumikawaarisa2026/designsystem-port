@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SidebarNav from "./sidebar-nav";
-import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList, RelatedPages, GoodBad } from "./page-parts";
+import { TagLink, SummaryCard, PageLink, SplitSection, Hl, RefList, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Actions / ボタン」ページ。
@@ -19,9 +19,9 @@ const TAB_ACCESSIBILITY = [
     value: "44 × 44",
     unit: "pt",
     stance:
-      <>押せる範囲は<Hl>既定44×44pt・最小28×28pt</Hl>(iOS/iPadOS)。</>,
+      <>押せる範囲は<Hl>既定44×44pt・最小28×28pt</Hl>(iOS/iPadOS)。枠のある要素のまわりに約12pt、枠のない要素は約24ptの余白を取る。</>,
     exceptions:
-      "macOSは既定28・最小20pt、watchOSは既定44・最小28pt。枠のある要素のまわりに約12pt、枠のない要素は約24ptの余白を取る。",
+      "macOSは既定28・最小20pt、watchOSは既定44・最小28pt(プラットフォームで値が違う)。",
     scale: { bands: [{ from: 0, to: 28, type: "ng" }, { from: 28, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }], markers: [{ at: 28, label: "28" }, { at: 44, label: "44" }], caption: "44pt=既定のサイズ・ボタンの押せる範囲 / 28pt=最小のサイズ(iOS/iPadOS、2025年改訂のAccessibilityページ)" },
     pourDetail: "操作可能(Operable) ― 押せる範囲の大きさは「操作可能」に関わる。",
     searchHint: "Offer sufficiently sized controls",
@@ -77,6 +77,7 @@ const TAB_ACCESSIBILITY = [
     refs: [{ label: "Touch Targets on Touchscreens", url: "https://www.nngroup.com/articles/touch-target-size/" }],
   },
 ];
+markNeg(TAB_ACCESSIBILITY);
 
 function MiniButton({ label, style }) {
   return (
@@ -94,8 +95,8 @@ const TAB_STYLES = [
     term: "Button(役割はNormal・Primary・Cancel・Destructive)",
     position: "意味的な役割で4分類(Normal/Primary/Cancel/Destructive)",
     stance:
-      <>役割(Role)で<Hl>Normal・Primary・Cancel・Destructiveの4種類</Hl>。Primaryはアクセントカラー、Destructiveはシステムの赤を使う。</>,
-    exceptions: "壊す操作(Destructive)には、Primaryの役割を割り当てない(読まずに選ばれる危険がある)。",
+      <>役割(Role)で<Hl>Normal・Primary・Cancel・Destructiveの4種類</Hl>。Primaryはアクセントカラー、Destructiveはシステムの赤を使う。壊す操作(Destructive)には、Primaryの役割を割り当てない(読まずに選ばれる危険がある)。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "―(役割の分類はPOURの適合区分ではないが、誤操作を防ぐ点で理解可能に関わる)",
     searchHint: "one of the following roles",
     url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Role",
@@ -116,8 +117,8 @@ const TAB_STYLES = [
     term: "Button(Elevated・Filled・Filled tonal・Outlined・Text)",
     position: "優先度(emphasis)で5段階に分類",
     stance:
-      <>優先度で<Hl>Elevated・Filled・Filled tonal・Outlined・Textの5種類</Hl>。いちばん目立つのはFilled。M3 Expressiveでは大きさ5段階(高さ32〜136dp)と形2種類も選べる。</>,
-    exceptions: "Elevatedは、背景から分けて見せる必要がある場合に限る。",
+      <>優先度で<Hl>Elevated・Filled・Filled tonal・Outlined・Textの5種類</Hl>。いちばん目立つのはFilled。M3 Expressiveでは大きさ5段階(高さ32〜136dp)と形2種類も選べる。Elevatedは、背景から分けて見せる必要がある場合に限る。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "―(優先度の分類そのものはPOURの適合区分ではない)",
     searchHint: "five common button types",
     url: "https://m3.material.io/components/buttons/guidelines",
@@ -146,8 +147,8 @@ const TAB_STYLES = [
     term: "ボタン(WAI-ARIAの役割)",
     position: "種類の分類はなく、見分けやすさの基準のみ",
     stance:
-      <>種類の基準はない。ただし<Hl>どの種類のボタンも、境界や状態を背景と3:1以上で見分けられる</Hl>ようにする(1.4.11)。</>,
-    exceptions: "文字だけのボタンは1.4.11の対象になりにくいが、ラベルの文字には4.5:1(1.4.3)がかかる。",
+      <>種類の基準はない。ただし<Hl>どの種類のボタンも、境界や状態を背景と3:1以上で見分けられる</Hl>ようにする(1.4.11)。例外: 文字だけのボタンは1.4.11の対象になりにくいが、ラベルの文字には4.5:1(1.4.3)がかかる。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "知覚可能(Perceivable) ― 1.4.11は「知覚可能」の達成基準。",
     searchHint: "Non-text Contrast",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html",
@@ -172,8 +173,8 @@ const TAB_STYLES = [
     term: "Button(主要な操作=Primary、副次的な操作=Secondary)",
     position: "色による優先度づけ(数値基準ではなく原則)",
     stance:
-      <><Hl>主要な操作には専用の色を確保し</Hl>、ほかの操作と見分けられるようにする。</>,
-    exceptions: "特定の形を勧めるものではなく、色で優先度を伝える原則。",
+      <><Hl>主要な操作には専用の色を確保し</Hl>、ほかの操作と見分けられるようにする。特定の形を勧めるものではなく、色で優先度を伝える原則。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "根拠となる原則 ― 適合区分ではなく、見た目の知覚(ゲシュタルトの類同の原理)にもとづく設計の根拠。",
     searchHint: "reserved for primary",
     url: "https://www.nngroup.com/articles/gestalt-similarity/",
@@ -186,6 +187,7 @@ const TAB_STYLES = [
     ),
   },
 ];
+markNeg(TAB_STYLES);
 
 const TAB_STATES = [
   {
@@ -256,8 +258,8 @@ const TAB_STATES = [
     doc: "Button States: Communicate Interaction",
     position: "5つの状態を整理(Enabled/Disabled/Hover/Focus/Pressed)",
     stance:
-      <><Hl>Enabled・Disabled・Hover・Focus・Pressedの5状態</Hl>で、押せるかどうかを正しく伝える。</>,
-    exceptions: "ほかに処理中(Loading)と選択中(Selected)にも触れる。",
+      <><Hl>Enabled・Disabled・Hover・Focus・Pressedの5状態</Hl>で、押せるかどうかを正しく伝える。ほかに処理中(Loading)と選択中(Selected)にも触れる。</>,
+    exceptions: <NoData>記載なし</NoData>,
     pourDetail: "根拠となる原則 ― 適合区分ではなく、押せる/押せないを正しく伝えるための設計の根拠。",
     searchHint: "most commonly used button states",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/",
@@ -273,6 +275,7 @@ const TAB_STATES = [
     ),
   },
 ];
+markNeg(TAB_STATES);
 
 const TABS = [
   { id: "a11y", label: "押せる範囲の大きさ", data: TAB_ACCESSIBILITY, hasScale: true },
@@ -366,10 +369,10 @@ function ButtonTabContent({ tabId }) {
           {!tab.hasScale && s.term && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
           <p style={styles.sourceStance}>{s.stance}</p>
-          <div style={styles.exceptionBox}>
+          {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
             <span style={styles.exceptionLabel}>例外・許容ケース</span>
             <p style={styles.exceptionText}>{s.exceptions}</p>
-          </div>
+          </div>)}
           {!tab.hasScale && s.illustration && (
             <div style={styles.illustrationBox}>{s.illustration()}</div>
           )}
@@ -427,8 +430,10 @@ function ButtonTabContent({ tabId }) {
           )}
           <div style={styles.labelCell}>基本方針</div>
           {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-          <div style={styles.labelCell}>例外・許容ケース</div>
-          {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+          {hasRow(SOURCES, "exceptions") && (<>
+            <div style={styles.labelCell}>例外・許容ケース</div>
+            {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell, ...styles.exceptionCell }}>{s.exceptions}</div>))}
+          </>)}
           <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
           {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.pourDetail}</div>))}
           <div style={{ ...styles.labelCell, ...styles.lastRowCell }}>参照ページ(公式)</div>

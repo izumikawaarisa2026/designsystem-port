@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カード」ページ。
@@ -26,13 +26,13 @@ const SOURCES = [
     size: <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      "ボックスは、関連する情報やコンポーネントをまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途のコンポーネントはない。",
+      "ボックスは、関連する情報やコンポーネントをまとめて、ほかの部分と見分けられるようにする入れ物。既定では見える枠線か背景色で区切り、タイトルを付けることもできる。Googleのカードのような「タップして詳細へ進む要約」という用途のコンポーネントはない。ボックスは入れ物の画面に比べて小さく保つ(大きくなるほど、まとまりを示す効果が薄れる)。ボックスの中をさらに分けたいときは、ボックスを入れ子にせず、余白と揃えで示す。タイトルは中身を表す短い言葉にする(VoiceOverの利用者が中身を予測しやすくなる)。iOS・iPadOSでは2番目・3番目の背景色を使う。",
     scenarios: [
       "関連する情報・コンポーネントを見た目でまとめたい場面",
       "「カード」のような押せる要約が要るなら、標準のコンポーネントを組み合わせて代わりにする場面",
     ],
     exceptions:
-      "ボックスは入れ物の画面に比べて小さく保つ(大きくなるほど、まとまりを示す効果が薄れる)。ボックスの中をさらに分けたいときは、ボックスを入れ子にせず、余白と揃えで示す。タイトルは中身を表す短い言葉にする(VoiceOverの利用者が中身を予測しやすくなる)。iOS・iPadOSでは2番目・3番目の背景色を使う。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <NoData>記載なし</NoData>,
     useCases: [
@@ -67,14 +67,14 @@ const SOURCES = [
       { term: "Elevated / Filled / Outlined", desc: "背景との分かれ方は、Filled(塗り。控えめ)< Elevated(影。Filledより強いがOutlinedほどではない)< Outlined(輪郭線。ほかの2種類より強調できる)の順。3種類とも読みやすさ・機能は同じで、見た目(スタイル)だけで選ぶ。強調の違いは見た目の違いで、機能の違いではない。" },
     ],
     stance:
-      <>カードは、<Hl>単一の主題に関するコンテンツとアクションをまとめて表示する</Hl>コンポーネント。関係が深く行動につながる情報を、要素の階層がはっきり分かる形で、拾い読みしやすくまとめる。スタイルは立体(Elevated)・塗り(Filled)・輪郭線(Outlined)の3種類で、読みやすさ・機能は同じ。選ぶ基準は見た目だけ。</>,
+      <>カードは、<Hl>単一の主題に関するコンテンツとアクションをまとめて表示する</Hl>コンポーネント。関係が深く行動につながる情報を、要素の階層がはっきり分かる形で、拾い読みしやすくまとめる。スタイルは立体(Elevated)・塗り(Filled)・輪郭線(Outlined)の3種類で、読みやすさ・機能は同じ。選ぶ基準は見た目だけ。画像の上に文字やアイコンを重ねるのは勧めず、必要ならコントラストを確保し、半透明の境界線などで配慮する。絞り込み・並べ替えの選択肢はカードの集まりの外に置く。ドラッグやスワイプでの並べ替え・削除などには、メニューから選ぶような単一ポインターの代わりの手段が必須。例外: 必須なのはコンテナだけで、ほか(内容のブロック・区切り・メディア)はすべて任意。画面が小さいなら、カードの代わりにリストを検討する。</>,
     scenarios: [
       "音楽アルバムや今後の予定など、詳しい情報やナビゲーションへの入り口にする場面",
       "グリッド・縦のリスト・カルーセルなどで、複数のカードをまとめて出す場面",
       "間隔・見出し・区切り線だけで簡単な階層を組めるなら、カードに押し込まない",
     ],
     exceptions:
-      "必須なのはコンテナだけで、ほか(内容のブロック・区切り・メディア)はすべて任意。画像の上に文字やアイコンを重ねるのは勧めず、必要ならコントラストを確保し、半透明の境界線などで配慮する。絞り込み・並べ替えの選択肢はカードの集まりの外に置く。ドラッグやスワイプでの並べ替え・削除などには、メニューから選ぶような単一ポインターの代わりの手段が必須。画面が小さいなら、カードの代わりにリストを検討する。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable)・堅牢(Robust) ― 直接操作できるカードはボタンかリンクの役割を持つ。操作を起こさないカード(ただの入れ物)には役割を付けない。装飾の画像はスクリーンリーダーから隠す。",
     useCases: [
@@ -138,12 +138,12 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>高さは可変・幅は固定の柔軟なレイアウトを勧める。</span>,
     colorInfo: <span><NoData>数値基準なし。</NoData>影・境界線・背景色で、押せることを見た目で示す。</span>,
     stance:
-      "トランプのカードのような見た目の、大きさが柔軟な入れ物に関連する情報をまとめたパターン。すべての情報ではなく、詳細ページへの入り口になる要約(スナップショット)を示す。",
+      <>トランプのカードのような見た目の、大きさが柔軟な入れ物に関連する情報をまとめたパターン。すべての情報ではなく、詳細ページへの入り口になる要約(スナップショット)を示す。<Hl>検索(一覧しにくい)や、複数の項目の比較(レイアウトが予測しにくく比べにくい)には向かない</Hl>。写真ギャラリーのような同じ種類の内容には、通常グリッドのほうが向く。</>,
     scenarios: [
       "種類の違う内容が混ざるダッシュボードなど、見て回る閲覧に使う場面",
     ],
     exceptions:
-      <><Hl>検索(一覧しにくい)や、複数の項目の比較(レイアウトが予測しにくく比べにくい)には向かない</Hl>。写真ギャラリーのような同じ種類の内容には、通常グリッドのほうが向く。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 適合区分ではなく、使い分けの指針。影・境界線・背景色で押せることを示すと、押せる範囲も大きくなり、使いやすさが上がる。",
     useCases: [
@@ -167,6 +167,7 @@ const SOURCES = [
     illustrationNote: "要約+詳細への入り口となるカード(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -350,7 +351,7 @@ export default function ContainmentCardPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -393,8 +394,10 @@ export default function ContainmentCardPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「シェイプ・コーナーラジウス(角丸)」ページ。
@@ -64,9 +64,9 @@ const SOURCES = [
     size: <><Hl>0・4・8・12・16・20・28・32・48dpとFull(50%)の10段階</Hl>(上の比較図)。角は丸めるか斜めに切るかを選べる。</>,
     colorInfo: "段階の値をテーマでまとめて変え、全体の印象を1か所で変えられる。",
     stance:
-      <>形をブランドの表現にし、<Hl>段階をトークンにして</Hl>調整と一貫性を両立させる。</>,
+      <>形をブランドの表現にし、<Hl>段階をトークンにして</Hl>調整と一貫性を両立させる。値を変えたとき、段階の大小関係は自分で保つ(ライブラリは検査しない)。</>,
     exceptions:
-      "値を変えたとき、段階の大小関係は自分で保つ(ライブラリは検査しない)。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "―(形のアクセシビリティ基準はない)。",
     useCases: [
@@ -138,6 +138,7 @@ const SOURCES = [
     confirmedNote: "2記事とも本文を直接取得して確認済み(2026-09)。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: 同心の角丸(Apple)の考え方 */
 function ConcentricSwatch() {
@@ -647,7 +648,7 @@ export default function TokensShapePage() {
                 <InfoBox label="角丸の数値" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="形の選び方">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -679,8 +680,10 @@ export default function TokensShapePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, RefList, SplitSection, TagLink, RelatedPages, GoodBad, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Selection / チェックボックス」ページ。
@@ -192,6 +192,7 @@ const SOURCES = [
     illustrationNote: "視覚デザインの規定なし(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (

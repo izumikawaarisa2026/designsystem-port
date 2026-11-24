@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / ボトムシート」ページ。
@@ -37,13 +37,13 @@ const SOURCES = [
       { term: "ドラッグハンドル(grabber)", desc: "シートの上端の小さな横線。ドラッグして高さを変えられることを示す。" },
     ],
     stance:
-      <>今の画面に関係する、<Hl>範囲を限った短い作業</Hl>(ファイルの添付など)に使い、終わったら元の画面に戻る。高さを変えられるならドラッグハンドルを付ける。</>,
+      <>今の画面に関係する、<Hl>範囲を限った短い作業</Hl>(ファイルの添付など)に使い、終わったら元の画面に戻る。高さを変えられるならドラッグハンドルを付ける。シートは一度に1枚。長く複雑な作業には、全画面のモーダルなどを検討する。</>,
     scenarios: [
       "今の画面に深く関係する、範囲を限った作業をしてもらいたい時",
       "内容のスクロールやドラッグハンドルのドラッグで、高さを調整させたい時",
     ],
     exceptions:
-      "シートは一度に1枚。長く複雑な作業には、全画面のモーダルなどを検討する。",
+      <NoData>記載なし</NoData>,
     accessibility:
       <span><NoData>記載なし。</NoData></span>,
     useCases: [
@@ -82,13 +82,13 @@ const SOURCES = [
       { term: "標準 / モーダルボトムシート", desc: "標準はメインのUI領域と共存し、両方を同時に見て操作できる。モーダルはアプリの内容の手前に出て、出ている間はほかのすべての機能を無効にし、確認・閉じる・必要な操作をするまで残る。" },
     ],
     stance:
-      <>標準は<Hl>メインの画面と並べて同時に操作できる</Hl>。モーダルは閉じるまでほかの操作を止める。</>,
+      <>標準は<Hl>メインの画面と並べて同時に操作できる</Hl>。モーダルは閉じるまでほかの操作を止める。項目を押す・後ろを押す・下へなぞる、のどれかで閉じる(全画面のモーダルには閉じるボタンを出す)。ハンドルを使えない人のため、ドラッグ以外で高さを変える手段を必ず用意する。</>,
     scenarios: [
       "音楽プレーヤーのように、主な内容を補う内容を出したい時(標準。全画面のときはアプリバーに折りたたみアイコンを出す)",
       "操作の項目が多く、詳しい説明やアイコンが要るメニューを出したい時(モーダル。モバイルアプリのみ)",
     ],
     exceptions:
-      "項目を押す・後ろを押す・下へなぞる、のどれかで閉じる(全画面のモーダルには閉じるボタンを出す)。ハンドルを使えない人のため、ドラッグ以外で高さを変える手段を必ず用意する。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "操作可能(Operable) ― ドラッグハンドルはキーボードやスイッチでもフォーカス・操作できる。ドラッグの操作には代わりの操作を入れる(W3Cの2.5.7と同じ考え方)。",
     useCases: [
@@ -122,13 +122,13 @@ const SOURCES = [
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。ドラッグハンドルや境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     stance:
-      <>モーダルなシートはダイアログとして扱い、フォーカスを閉じ込め、Escキーで閉じられるようにする。<Hl>ドラッグしなくても高さを変えられるようにする</Hl>(2.5.7)。</>,
+      <>モーダルなシートはダイアログとして扱い、フォーカスを閉じ込め、Escキーで閉じられるようにする。<Hl>ドラッグしなくても高さを変えられるようにする</Hl>(2.5.7)。例外: 後ろを完全に遮り、見た目でも覆っていないなら、モーダルとして伝えない。</>,
     scenarios: [
       "後ろの操作を完全に遮るモーダルなシートを作る時",
       "後ろの内容を操作できるまま残す非モーダルなシート(Googleの「標準」に相当)を作る時",
     ],
     exceptions:
-      "後ろを完全に遮り、見た目でも覆っていないなら、モーダルとして伝えない。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "堅牢(Robust)・操作可能(Operable) ― 4.1.2・2.1.1・2.5.7。",
     useCases: [
@@ -162,12 +162,12 @@ const SOURCES = [
     size: "モバイルの押せる範囲の一般の目安に触れるが、ボトムシート専用の数値ではない。",
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      "モーダルは操作するか閉じるまで後ろを止め、非モーダルは後ろと並行して操作できる。",
+      <>モーダルは操作するか閉じるまで後ろを止め、非モーダルは後ろと並行して操作できる。注意は3つ。戻る操作と一貫させる、<Hl>ドラッグハンドルだけでなく見える×(閉じる)を置く</Hl>、シートを重ねない。</>,
     scenarios: [
       "短く済む追加の詳細・操作を出したい時(複雑な内容や長い閲覧には向かない)",
     ],
     exceptions:
-      <>注意は3つ。戻る操作と一貫させる、<Hl>ドラッグハンドルだけでなく見える×(閉じる)を置く</Hl>、シートを重ねない。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― 実装の注意点(操作の確実さのため)。",
     useCases: [
@@ -192,6 +192,7 @@ const SOURCES = [
     illustrationNote: "ドラッグハンドルだけでなく明確な閉じるボタンを併設(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 function InfoBox({ label, accent, children }) {
   return (
@@ -394,7 +395,7 @@ export default function ContainmentBottomSheetPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -437,8 +438,10 @@ export default function ContainmentBottomSheetPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

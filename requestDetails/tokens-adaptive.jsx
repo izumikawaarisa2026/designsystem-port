@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, PageToc, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「レスポンシブデザイン」ページ(2026-11 ⑦本人レビューNo.014で「アダプティブ/レスポンシブデザイン」から改名。URLは変えていない)。
@@ -30,9 +30,9 @@ const SOURCES = [
     size: "広さの区分は横・縦それぞれcompact/regularの2つで、境界値は公開されていない。対応する変化として、画面サイズ、向きと縦横比、Dynamic Islandなどのシステムの機能、外部ディスプレイ・画面の拡大・iPadとMacのウィンドウのリサイズ、文字サイズの変更、地域の設定(右から左の表記・日付や数字の書式・文字の長さ)を挙げる。",
     colorInfo: "広い画面では、タブバーをサイドバーに切り替えたり、オーバーフローメニューにまとめていた機能を表に出したりしてよい。iPadOSでは、サイドバーに切り替えるボタン付きのタブバーを出せる。スプリットビューはiPadOSで2列(メールのように)か3列(Keynoteのように)。iPhoneの縦向きのようなcompactでは、スプリットビューを使わない。",
     stance:
-      "回転・ウィンドウのリサイズ・ディスプレイの追加・別の端末への切り替えのどれでも、体験が変わらず慣れたものに感じられるようにする。そのためにセーフエリア・マージン・レイアウトガイドを守る。サイズクラスの組み合わせはすべて起こりうるため、縦横どちらの向きでも全部を検討し、最大と最小のレイアウトから確かめると効率的。",
+      "回転・ウィンドウのリサイズ・ディスプレイの追加・別の端末への切り替えのどれでも、体験が変わらず慣れたものに感じられるようにする。そのためにセーフエリア・マージン・レイアウトガイドを守る。サイズクラスの組み合わせはすべて起こりうるため、縦横どちらの向きでも全部を検討し、最大と最小のレイアウトから確かめると効率的。背景の画像は、縦横比を変えずに拡大して画面を埋める。macOSのスプリットビューは縦・横・両方に分割でき、ペインに最小・最大の大きさを決めたり、作業に集中するためにペインを隠せるようにしたりする。",
     exceptions:
-      "横向き専用のゲームのように向きを固定するアプリでも、ウィンドウや端末の大きさの違いには対応する。背景の画像は、縦横比を変えずに拡大して画面を埋める。macOSのスプリットビューは縦・横・両方に分割でき、ペインに最小・最大の大きさを決めたり、作業に集中するためにペインを隠せるようにしたりする。",
+      "横向き専用のゲームのように向きを固定するアプリでも、ウィンドウや端末の大きさの違いには対応する。",
     accessibility:
       "知覚可能(Perceivable) ― 文字を大きくしたら、横並びを縦に積み直し、行の高さを伸ばして文字の切れや重なりを防ぐ。WCAG 1.4.10(リフロー)・1.4.4(テキストのサイズ変更)と同じ目的。",
     useCases: [
@@ -59,9 +59,9 @@ const SOURCES = [
     size: "ナビゲーションは、幅か高さがCompact(またはテーブルトップの姿勢)ならタブバー、それ以外はナビゲーションレールに自動で切り替わる(NavigationSuiteScaffoldの既定)。リスト・詳細は、Expanded幅でリストと詳細を並べ、Medium・Compact幅ではどちらか一方だけを表示する。補助ペインは、Medium幅で主と補助を1:1、Expanded幅で7:3に分け、Compact幅では下に置くかボトムシートに入れる。",
     colorInfo: "広さが変わっても状態を保つ。リストと詳細を並べていた画面が狭くなったら、詳細を残してリストを隠す。詳細だけを表示していた画面が広くなったら、リストも並べ、詳細に表示中の項目をリストで選択中として示す。リストだけのときに広くなったら、空の詳細ペインを並べる。",
     stance:
-      "カノニカルレイアウトは、スマートフォンからタブレット・折りたたみ端末・ChromeOSまで、多くの画面で実績のある汎用の形で、Material Designの指針から作った。広い画面でレールにするのは、タブレットを両手で持ったとき左右の端に手が届きやすいため。",
+      "カノニカルレイアウトは、スマートフォンからタブレット・折りたたみ端末・ChromeOSまで、多くの画面で実績のある汎用の形で、Material Designの指針から作った。広い画面でレールにするのは、タブレットを両手で持ったとき左右の端に手が届きやすいため。補助ペインは、主の内容と組み合わせて初めて意味を持つもの(文書へのコメント、動画の関連動画、編集ツールのパレットなど)に使い、単独でも意味のある詳細(商品の説明など)はリスト・詳細を使う。フィードは、1列のスクロールから複数列のグリッドまで、画面の広さに合わせて列の数を変える。",
     exceptions:
-      "補助ペインは、主の内容と組み合わせて初めて意味を持つもの(文書へのコメント、動画の関連動画、編集ツールのパレットなど)に使い、単独でも意味のある詳細(商品の説明など)はリスト・詳細を使う。フィードは、1列のスクロールから複数列のグリッドまで、画面の広さに合わせて列の数を変える。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "―(専用のアクセシビリティ基準はない)。狭い画面で1ペインに切り替える設計は、WCAG 1.4.10(リフロー)の「狭い幅でも2方向にスクロールせずに読めること」を満たしやすくする。",
     useCases: [
@@ -118,9 +118,9 @@ const SOURCES = [
     size: "標準はないとしたうえで、よく使う目安としてExtra-small 500pxまで(スマートフォン・4列のグリッド)、Small 500〜1200px(タブレット・8列)、Medium 1200〜1400px(ノートパソコン・12列)、Large 1400px以上(外部モニター・12列)を挙げる。実際は2〜3個のブレークポイントに対応するのが一般的。",
     colorInfo: "典型的な変化は、ナビゲーションを変える(左のナビゲーションをハンバーガーメニューに畳む)、列を畳む(右の列を本文に入れる・別の場所に移す)、1行に見える要素の数を変える、の3つ。例として、広い画面で一覧と地図を並べ、タブレットでは地図をボタンの奥に隠すサイトを紹介する。",
     stance:
-      "ブレークポイントの値は、利用者の端末を分析して、開発チームと一緒に決める。各サイズで、知るべきことがすぐ手に入るか、列を縦に積んだとき重要な操作(右の列にあった主な行動ボタンなど)が見つけにくくならないかを確かめる。",
+      "ブレークポイントの値は、利用者の端末を分析して、開発チームと一緒に決める。各サイズで、知るべきことがすぐ手に入るか、列を縦に積んだとき重要な操作(右の列にあった主な行動ボタンなど)が見つけにくくならないかを確かめる。ブレークポイントを増やすほど細かく対応できるが、手間が増えるため、実際は2〜3個に絞ることが多い。",
     exceptions:
-      "ブレークポイントを増やすほど細かく対応できるが、手間が増えるため、実際は2〜3個に絞ることが多い。重要な操作が埋もれるなら、前の内容をアコーディオンに畳むなど、通常の積み方の例外を作ってよい。",
+      "重要な操作が埋もれるなら、前の内容をアコーディオンに畳むなど、通常の積み方の例外を作ってよい。",
     accessibility: "根拠となる原則 ― 適合区分ではなく、Webのレイアウト設計の実務にもとづく指針。",
     useCases: [
       "ブレークポイントは利用者の端末の分析から決め、名前(S/M/Lなど)を付けて共有する",
@@ -135,6 +135,7 @@ const SOURCES = [
     confirmedNote: "記事本文を直接取得して確認済み(2026-10)。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: 同じ内容が、画面の広さで組み替わる */
 function Wire({ w, h, nav, cols, accent = "#3C5A73", label }) {
@@ -213,6 +214,7 @@ const ADAPT_ROWS = [
     ],
   },
 ];
+markNeg(ADAPT_ROWS);
 const WIDTHS = [
   { label: "狭い", sub: "スマートフォン縦", w: 46, h: 74 },
   { label: "中くらい", sub: "タブレット縦・折りたたみ", w: 86, h: 64 },
@@ -587,7 +589,7 @@ export default function TokensAdaptivePage() {
                 <InfoBox label="切り替えの基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="切り替えるもの・保つもの">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -619,8 +621,10 @@ export default function TokensAdaptivePage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

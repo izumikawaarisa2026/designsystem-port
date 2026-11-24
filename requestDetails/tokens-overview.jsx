@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「ファウンデーションの思想比較」ページ(メタページ)。
@@ -152,6 +152,7 @@ const SOURCES = [
     illustrationNote: "記事をトピックで分類(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 /*
  * Foundationsと並列の区分(トップレベル構成)。

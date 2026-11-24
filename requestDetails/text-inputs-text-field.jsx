@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, GoodBad, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Text inputs / テキストフィールド」ページ。
@@ -53,9 +53,9 @@ const SOURCES = [
     position: <><Hl>1行(または複数行)のテキストを入力・編集させる</Hl>標準コントロール</>,
     size: <span><NoData>数値基準なし。</NoData>押せる範囲は、ほかのコンポーネントと同じ既定44×44pt・最小28×28pt(iOS・iPadOS)が目安(「ボタン」ページを参照)。</span>,
     stance:
-      "1行の文字を入力・編集できる長方形の領域。空のときはプレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、目的を思い出せるよう別にラベルを置くとよい。",
+      "1行の文字を入力・編集できる長方形の領域。空のときはプレースホルダー(「メールアドレス」など)で目的を示せる。プレースホルダーは入力を始めると消えるため、目的を思い出せるよう別にラベルを置くとよい。欄が多いときは間隔をそろえ、できるだけ縦に積み、幅をそろえる。エラーの出し方は入力の決まり(Entering data)で扱う(「エラー表示」「バリデーション」ページを参照)。",
     exceptions:
-      <span>欄が多いときは間隔をそろえ、できるだけ縦に積み、幅をそろえる。エラーの出し方は入力の決まり(Entering data)で扱う(「エラー表示」「バリデーション」ページを参照)。</span>,
+      <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [
       "1行のテキストを入力・編集させる",
@@ -88,9 +88,9 @@ const SOURCES = [
       { term: "サポートテキスト / エラーテキスト", desc: "入力欄の下の補足。入力の使われ方などを説明するサポートテキストは、検証エラーのときエラーテキストに置き換わる。両方出すなら、サポートテキストを先に、エラーテキストを後に読み上げさせる。" },
     ],
     stance:
-      "Filledは主張が強く、周りの中で目立たせたい場合に向く。Outlinedは主張が弱く、フォームのように多くの欄を並べる場面でレイアウトをすっきり見せる。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る。",
+      "Filledは主張が強く、周りの中で目立たせたい場合に向く。Outlinedは主張が弱く、フォームのように多くの欄を並べる場面でレイアウトをすっきり見せる。Filledはダイアログや短いフォーム、Outlinedは長いフォームでよく使う。すべての入力欄にラベルを付け、ラベルは常に見えるようにする。選ぶとラベルが欄の中央から上へ移る。サポートテキストとエラーテキストの両方を表示する場合は、サポートテキストを先に、エラーテキストを後に読み上げさせる。エラーメッセージは緊急の知らせとして支援技術に伝える。必須の欄はラベルの末尾に「*」を付け、読み上げにも含める。",
     exceptions:
-      "サポートテキストとエラーテキストの両方を表示する場合は、サポートテキストを先に、エラーテキストを後に読み上げさせる。エラーメッセージにはalertの役割を付ける。必須の欄はラベルの末尾に「*」を付け、読み上げにも含める。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "知覚可能(Perceivable) ― 枠線のある欄は、枠線と背景のコントラストを3:1以上にする。堅牢(Robust) ― エラーメッセージにalertの役割を付け、支援技術に伝える。",
     useCases: [
@@ -127,9 +127,9 @@ const SOURCES = [
     ],
     size: "専用の数値基準はない。関連する操作要素(送信ボタンなど)には一般のターゲットサイズの基準(2.5.8/2.5.5。どちらも例外あり)がかかる。",
     stance:
-      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベル又は指示を提供しなければならない</Hl>。この基準は、マークアップでの関連付け(1.3.1)や支援技術だけに伝わる名前(4.1.2)とは違い、「すべての人に見える形」を重視する。ラベルはすべての人に示され、名前(name)は支援技術にだけ伝わる場合がある、と区別している。</>,
+      <>入力を求めるコンテンツには、必須かどうかを問わず、<Hl>目に見えるラベル又は指示を提供しなければならない</Hl>。この基準は、マークアップでの関連付け(1.3.1)や支援技術だけに伝わる名前(4.1.2)とは違い、「すべての人に見える形」を重視する。ラベルはすべての人に示され、名前(name)は支援技術にだけ伝わる場合がある、と区別している。プレースホルダーや、支援技術向けの名前だけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。</>,
     exceptions:
-      "プレースホルダーや、支援技術向けの名前だけのラベルでは足りない。目的は、迷わずにタスクを終えられるだけの情報を示すことで、必要に応じてデータの形式・入力例・必須の明示などを添える。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "理解可能(Understandable)・知覚可能(Perceivable)・堅牢(Robust) ― 3.3.2は「入力支援」(3.3)で「理解可能」、1.3.1(情報及び関係性)は「知覚可能」、4.1.2(名前(name)・役割(role)・値(value))は「堅牢」。ラベルの「見え方」「マークアップ」「支援技術への伝達」を、別々の基準が扱う。",
     useCases: [
@@ -164,9 +164,9 @@ const SOURCES = [
     position: "ラベルや説明を入力欄の中(プレースホルダー)に置くのは有害、という調査にもとづく指針(数値基準ではない)",
     size: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>ラベルや説明を入力欄の中に置く(プレースホルダー頼み)と、ユーザビリティとアクセシビリティが下がるため避ける</Hl>。見た目がすっきりするためデザイナーに好まれるが、多くの問題を生む。ラベルとヒントを欄の外にいつも出す形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントに使う形を「より良い(Better)」とする。フローティングラベルは欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良。</>,
+      <><Hl>ラベルや説明を入力欄の中に置く(プレースホルダー頼み)と、ユーザビリティとアクセシビリティが下がるため避ける</Hl>。見た目がすっきりするためデザイナーに好まれるが、多くの問題を生む。ラベルとヒントを欄の外にいつも出す形を「最良(Best)」、ラベルに加えてプレースホルダーをヒントに使う形を「より良い(Better)」とする。フローティングラベルは欠点を一部和らげるが、場所があるならラベルとヒントを欄の外に置くのが最良。長いフォームで入力中にヒントを忘れると、書いた内容を消さないとヒントが見えず、記憶の負担になる。ラベルがないと、入力済みかを確かめるために欄を1つずつ消すことになる。アイトラッキング調査では、視線は空欄に引き寄せられる。</>,
     exceptions:
-      "長いフォームで入力中にヒントを忘れると、書いた内容を消さないとヒントが見えず、記憶の負担になる。ラベルがないと、入力済みかを確かめるために欄を1つずつ消すことになる。アイトラッキング調査では、視線は空欄に引き寄せられる。",
+      <NoData>記載なし</NoData>,
     accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティ調査(記憶の負担・確かめやすさ・視線)にもとづく指針。",
     useCases: [
       "最良はラベルもヒントも欄の外にいつも出す形。ラベル+プレースホルダーのヒントは「より良い」止まりで、欠かせない説明は欄の外に置く",
@@ -188,6 +188,7 @@ const SOURCES = [
     illustrationNote: "ラベルは欄の外に常時表示(概念図)",
   },
 ];
+markNeg(SOURCES);
 
 const TEXTAREA_NOTES = [
   {
@@ -224,6 +225,7 @@ const TEXTAREA_NOTES = [
     refs: [{ label: "4 Principles to Reduce Cognitive Load in Forms", url: "https://www.nngroup.com/articles/4-principles-reduce-cognitive-load/" }],
   },
 ];
+markNeg(TEXTAREA_NOTES);
 
 function TextareaNotes() {
   return (
@@ -489,7 +491,7 @@ export default function TextInputsTextFieldPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -528,8 +530,10 @@ export default function TextInputsTextFieldPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>

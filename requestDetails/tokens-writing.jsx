@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, PageToc } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, PageToc, hasRow, markNeg } from "./page-parts";
 
 /**
  * トークン/ファウンデーションレイヤー「文章・UXライティング」ページ。
@@ -30,9 +30,9 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>場所ごとの目安は「使う場所ごとの文字数・行数の目安」。</span>,
     colorInfo: <>声は、誰に話し、どう感じてほしいかで決め、<Hl>用語のリストを作ってそろえる</Hl>。調子は、深刻な場面では率直に、祝う場面では明るくする。</>,
     stance:
-      <><Hl>1語ずつ必要かを確かめ</Hl>、平易な言葉を選ぶ(専門用語・性別のある言葉を避ける)。重要な情報を先に置き、ボタンやリンクは動詞で、<Hl>気の利いた表現より明確さを優先する</Hl>(「やってみよう!」より「送信」)。</>,
+      <><Hl>1語ずつ必要かを確かめ</Hl>、平易な言葉を選ぶ(専門用語・性別のある言葉を避ける)。重要な情報を先に置き、ボタンやリンクは動詞で、<Hl>気の利いた表現より明確さを優先する</Hl>(「やってみよう!」より「送信」)。手順の言葉(始める・次へ・完了)をそろえる。所有の言葉は控えめにし、<Hl>「私たち」は使わない</Hl>。タッチの端末では「タップ」と書く。エラーは責めずに直し方を書き、<Hl>「おっと」のような感嘆は避ける</Hl>(不誠実に聞こえることがある)。</>,
     exceptions:
-      <>手順の言葉(始める・次へ・完了)をそろえる。所有の言葉は控えめにし、<Hl>「私たち」は使わない</Hl>。タッチの端末では「タップ」と書く。エラーは責めずに直し方を書き、<Hl>「おっと」のような感嘆は避ける</Hl>(不誠実に聞こえることがある)。</>,
+      <NoData>記載なし</NoData>,
     accessibility:
       "理解可能 ― 平易な言葉は、WCAGの3.1(読みやすさ)と同じ目的。",
     useCases: [
@@ -59,9 +59,9 @@ const SOURCES = [
     size: <span><NoData>数値基準なし。</NoData>数は算用数字で書く(「3件のメッセージ」)。</span>,
     colorInfo: "基本は2人称。持ち物や行動を強調するときは1人称(「マイアカウント」)にし、1つの文で混ぜない。業界の用語や造語を避ける。",
     stance:
-      <>少数の概念に絞った短い単位で、必要なことだけを書く。<Hl>現在形・目的を先に</Hl>書き、<Hl>同じ操作は同じ言葉で呼ぶ</Hl>(「削除」と「消去」を混ぜない)。</>,
+      <>少数の概念に絞った短い単位で、必要なことだけを書く。<Hl>現在形・目的を先に</Hl>書き、<Hl>同じ操作は同じ言葉で呼ぶ</Hl>(「削除」と「消去」を混ぜない)。1文だけのラベル・箇条書きなどには句点を付けない(英語のピリオドの決まり。日本語は自社の表記ルールでそろえる。AI解釈)。詳しい説明は必要になったときに見せる。</>,
     exceptions:
-      "1文だけのラベル・箇条書きなどには句点を付けない(英語のピリオドの決まり。日本語は自社の表記ルールでそろえる。AI解釈)。詳しい説明は必要になったときに見せる。",
+      <NoData>記載なし</NoData>,
     accessibility:
       "理解可能 ― どの読解レベル・文化でも分かる文を目指す。",
     useCases: [
@@ -142,6 +142,7 @@ const SOURCES = [
     confirmedNote: "3記事とも本文を直接取得して確認済み(2026-10)。ページ内検索の語は1本目の記事(Plain Language)のもの。",
   },
 ];
+markNeg(SOURCES);
 
 /* 画像エリア: 声は一定、調子は場面で変える(Apple・NN group) */
 function VoiceToneSwatch() {
@@ -627,7 +628,7 @@ export default function TokensWritingPage() {
                 <InfoBox label="数値・長さの目安" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="声・調子・言葉の選び方">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
-                <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>
+                {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -659,8 +660,10 @@ export default function TokensWritingPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.colorInfo}</div>))}
                 <div style={styles.labelCell}>基本方針</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.stance}</div>))}
-                <div style={styles.labelCell}>例外・許容ケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                {hasRow(SOURCES, "exceptions") && (<>
+                  <div style={styles.labelCell}>例外・許容ケース</div>
+                  {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.exceptions}</div>))}
+                </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
                 <div style={styles.labelCell}>ユースケース</div>
