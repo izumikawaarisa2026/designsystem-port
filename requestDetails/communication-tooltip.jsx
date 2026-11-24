@@ -285,7 +285,7 @@ const PLAIN_RICH_ROWS = [
     key: "hig",
     name: "Apple",
     plain: "ヘルプタグ ― ポインターホバーで現れる文字のみの短い説明(Mac等ポインター操作向け)",
-    rich: "TipKitのTip ― タイトル+メッセージ+任意の画像+アクションボタン。新機能紹介などに使う独立フレームワークで、インライン/ポップオーバーの2形式を持つ",
+    rich: "TipKitのTip ― タイトル+メッセージ+任意の画像+アクションボタン。新機能紹介などに使う独立フレームワークで、インライン/ポップオーバーの2形式を持つ。押して開く補足や操作には、出どころを指す矢印とともに出るポップオーバー(Popovers。主にiPad向けで、ボタンなども置ける)もある",
   },
   {
     key: "material",
@@ -297,13 +297,13 @@ const PLAIN_RICH_ROWS = [
     key: "wcag",
     name: "W3C",
     plain: "ツールチップ ― 操作できる要素を持たない補足の情報だけを想定するパターンとして定義",
-    rich: "「リッチツールチップ」に相当するパターンは定義していない ― 対話的な内容(リンク・ボタン等)を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきとしている",
+    rich: <><NoData>定義なし</NoData> ― 対話的な内容(リンク・ボタン等)を含めたい場合は、ツールチップではなく非モーダルなダイアログを使うべきとしている</>,
   },
   {
     key: "nn",
     name: "Nielsen Norman Group",
     plain: "マイクロコンテンツ(短い自己完結型テキスト)としての基本形のみを推奨",
-    rich: "独自の「リッチツールチップ」概念は持たない ― むしろ「長い/複雑な内容はもはやtipではない」「重要な情報をtipに隠すべきではない」と明確に戒めており、複雑な内容は隠さず可視化することを推奨している",
+    rich: <><NoData>定義なし</NoData> ― むしろ「長い/複雑な内容はもはやtipではない」「重要な情報をtipに隠すべきではない」と明確に戒めており、複雑な内容は隠さず可視化することを推奨している</>,
   },
 ];
 markNeg(PLAIN_RICH_ROWS);
@@ -312,7 +312,7 @@ function PlainRichTable() {
   return (
     <div style={styles.prTableWrap}>
       <h2 style={styles.diagramTitle}>プレーン / リッチの立ち位置比較</h2>
-      <div style={styles.matrixScroll}>
+      <div style={{ overflowX: "auto" }}>
         <table style={styles.prTable}>
           <thead>
             <tr>
@@ -339,6 +339,43 @@ function PlainRichTable() {
   );
 }
 
+/* 説明の出し方のイメージ(概念図)。screen=画面に書く、popup=「?」を押して開くヒント、tooltip=乗せる・フォーカスで出るツールチップ */
+function TipIllust({ k }) {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  return (
+    <svg viewBox="0 0 150 80" width="100%" style={{ display: "block", maxWidth: 160 }} role="img" aria-label={k === "screen" ? "入力欄の下に条件の説明が最初から書かれている図" : k === "popup" ? "「?」のアイコンを押すと、閉じるボタン付きのヒントが開く図" : "アイコンのボタンにポインターを乗せると、短い名前のツールチップが出る図"}>
+      {k === "screen" && (
+        <g>
+          <text x="10" y="18" fontSize="8" fill="#454C78" fontFamily={font}>パスワード</text>
+          <rect x="10" y="22" width="130" height="18" rx="3" fill="#FFFFFF" stroke="#B7BCDA" />
+          <text x="10" y="54" fontSize="8" fill="#2E3457" fontFamily={font}>8文字以上・英字と数字を含める</text>
+        </g>
+      )}
+      {k === "popup" && (
+        <g>
+          <text x="10" y="64" fontSize="8" fill="#454C78" fontFamily={font}>手数料</text>
+          <circle cx="44" cy="61" r="6" fill="#3A4FCF" />
+          <text x="44" y="64" fontSize="8" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>?</text>
+          <rect x="30" y="6" width="112" height="40" rx="5" fill="#FFFFFF" stroke="#7E86AC" />
+          <path d="M40 46 l4 6 4-6" fill="#FFFFFF" stroke="#7E86AC" />
+          <text x="38" y="22" fontSize="7.5" fill="#2E3457" fontFamily={font}>振込1回ごとに110円</text>
+          <text x="38" y="36" fontSize="7.5" fill="#2E3457" fontFamily={font}>かかります</text>
+          <text x="134" y="17" fontSize="8" fill="#565D8A" textAnchor="middle" fontFamily={font}>×</text>
+        </g>
+      )}
+      {k === "tooltip" && (
+        <g>
+          <rect x="20" y="44" width="28" height="28" rx="6" fill="#FFFFFF" stroke="#B7BCDA" />
+          <path d="M28 52h12v12H28z M31 56h6M31 60h6" stroke="#454C78" fill="none" strokeWidth="1.2" />
+          <path d="M42 62 l6 12 3-5 5 1z" fill="#171B36" />
+          <rect x="34" y="14" width="64" height="20" rx="4" fill="#2E3457" />
+          <text x="66" y="27" fontSize="8" fill="#FFFFFF" textAnchor="middle" fontFamily={font}>コピー</text>
+        </g>
+      )}
+    </svg>
+  );
+}
+
 /* No.058: NN groupによる、ツールチップとポップアップのヒントの違い */
 const TT_VS_POPUP = [
   ["使える画面", "デスクトップ(マウスやキーボードがある画面)", "どの画面でも(スマートフォンのアプリでも)"],
@@ -356,7 +393,10 @@ function TooltipVsPopupTip() {
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvpTable}>
           <thead><tr>{["", "ツールチップ", "ポップアップのヒント"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
-          <tbody>{TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}</tbody>
+          <tbody>
+            <tr><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>イメージ</td><td style={styles.tvpTd}><TipIllust k="tooltip" /></td><td style={styles.tvpTd}><TipIllust k="popup" /></td></tr>
+            {TT_VS_POPUP.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvpTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvpTd}>{r[1]}</td><td style={styles.tvpTd}>{r[2]}</td></tr>))}
+          </tbody>
         </table>
       </div>
       <p style={styles.tvpNote}>また、ツールチップは利用者が自分で出すもので、新機能の紹介などのために画面に勝手に出てくるヒントは、ツールチップではないとしている。一部のコンポーネントだけに補足が必要なときも、ツールチップではなくポップアップのヒントを使うよう勧めている(ツールチップはサイト全体で一貫して付けないと見つけてもらえないため)。出典: <a href="https://www.nngroup.com/articles/tooltip-guidelines/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tooltip Guidelines ↗</a></p>
@@ -367,9 +407,9 @@ function TooltipVsPopupTip() {
 
 /* 説明をどこに置くか(2026-11 ⑦本人レビューNo.058で追加) */
 const PLACE_ROWS = [
-  { where: "最初から画面に書く", what: "作業に欠かせない情報(入力の条件、取り消せない操作の注意など)", src: "NN group(ツールチップに必須の情報を入れない)・W3C 3.3.2(入力に必要な説明を示す)" },
-  { where: "「?」「i」のボタンを押して開く", what: "一部の人だけが必要な補足。スマートフォンなどタッチの画面での補足", src: "NN group(ポップアップのヒント)・Apple(TipKitのTip)" },
-  { where: "ツールチップ(乗せる・フォーカスで出す)", what: "知っている人には要らない短い補足(アイコンだけのボタンの名前など)。デスクトップ向け", src: "Google・Apple(macOS)・NN group" },
+  { k: "screen", where: "最初から画面に書く", what: "作業に欠かせない情報(入力の条件、取り消せない操作の注意など)", src: "NN group(ツールチップに必須の情報を入れない)・W3C 3.3.2(入力に必要な説明を示す)" },
+  { k: "popup", where: "「?」「i」のボタンを押して開く", what: "一部の人だけが必要な補足。スマートフォンなどタッチの画面での補足", src: "NN group(ポップアップのヒント)・Apple(TipKitのTip)" },
+  { k: "tooltip", where: "ツールチップ(乗せる・フォーカスで出す)", what: "知っている人には要らない短い補足(アイコンだけのボタンの名前など)。デスクトップ向け", src: "Google・Apple(macOS)・NN group" },
 ];
 function TipPlacement() {
   return (
@@ -378,8 +418,8 @@ function TipPlacement() {
       <p style={styles.tvpNote}>見落とされると困る情報ほど、最初から画面に出す。隠すほど、気づかれにくくなる。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvpTable}>
-          <thead><tr>{["置き場所", "向いている情報", "根拠"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
-          <tbody>{PLACE_ROWS.map((r) => (<tr key={r.where}><td style={{ ...styles.tvpTd, fontWeight: 700 }}>{r.where}</td><td style={styles.tvpTd}>{r.what}</td><td style={{ ...styles.tvpTd, color: "#565D8A" }}>{r.src}</td></tr>))}</tbody>
+          <thead><tr>{["イメージ", "置き場所", "向いている情報", "根拠"].map((h) => (<th key={h} style={styles.tvpTh}>{h}</th>))}</tr></thead>
+          <tbody>{PLACE_ROWS.map((r) => (<tr key={r.where}><td style={{ ...styles.tvpTd, width: 150 }}><TipIllust k={r.k} /></td><td style={{ ...styles.tvpTd, fontWeight: 700 }}>{r.where}</td><td style={styles.tvpTd}>{r.what}</td><td style={{ ...styles.tvpTd, color: "#565D8A" }}>{r.src}</td></tr>))}</tbody>
         </table>
       </div>
     </section>

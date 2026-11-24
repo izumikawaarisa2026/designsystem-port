@@ -523,7 +523,7 @@ export default function CommunicationOverviewPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>選び方の3つの軸</h2>
           <AxisFlow />
 
-          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/containment/overview", "/components/containment/accordion", "/components/communication/progress", "/components/communication/badge", "/components/communication/empty-state", "/components/communication/loading"]} note={"入力の誤りの見せ方はエラー表示、見つけ方と伝える時機はバリデーションで詳しく扱う。重ねて出すものはオーバーレイの使い分け、その場で開閉するものはアコーディオンで比べている。プログレスインジケーター・バッジ・空状態・ローディング状態は、「今どんな状態か」を示すこと自体が目的のため、この比較には含めていない。"} />
+          <RelatedPages paths={["/components/text-inputs/validation", "/components/text-inputs/input-validation", "/components/containment/overview", "/components/containment/accordion", "/components/communication/progress", "/components/communication/badge", "/components/communication/empty-state", "/components/communication/loading"]} note={"入力の誤りの見せ方はエラー表示、見つけ方と伝える時機はバリデーションで詳しく扱う。重ねて出すものはオーバーレイの使い分け、その場で開閉するものはアコーディオンで比べている。プログレスインジケーター・バッジ・エンプティステート・スケルトンスクリーンは、「今どんな状態か」を示すこと自体が目的のため、この比較には含めていない。"} />
 
           <div style={styles.tagsRow}>
             {["設計の原則・使い分け", "通知・状態表示"].map((t) => (<TagLink key={t} t={t} style={styles.tagProcess} />))}

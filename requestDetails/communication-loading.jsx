@@ -185,7 +185,7 @@ function LoadingStateSwatch() {
         </div>
         <div style={{ width: "100%", height: 6, borderRadius: 3, background: "#EEF1FA" }} />
         <div style={{ width: "70%", height: 6, borderRadius: 3, background: "#EEF1FA" }} />
-        <span style={{ fontSize: 9.5, color: "#666D93" }}>ローディング状態(スケルトン)</span>
+        <span style={{ fontSize: 9.5, color: "#666D93" }}>スケルトンスクリーン</span>
       </div>
     </div>
   );
@@ -196,7 +196,7 @@ const LEAD = "中身を読み込んでいる最中の画面の見せ方";
 const ABOUT = [
   { k: "目的・役割", v: "待っていることと、もうすぐ表示されることを伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "画面を開いた直後の読み込み、一覧の追加読み込み、画像の表示待ち" },
-  { k: "似たコンポーネント", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
+  { k: "似たコンポーネント", v: <>進み具合(何%か)を示すのは<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>、中身がないときは<PageLink to="/components/communication/empty-state">エンプティステート</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -240,11 +240,11 @@ export default function CommunicationLoadingPage() {
         <SidebarNav currentPath="/components/communication/loading" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / ローディング状態</span>
+            <span>コンポーネント / スケルトンスクリーン(ローディング)</span>
             <span>SPEC No. 061</span>
           </div>
 
-          <h1 style={styles.title}>ローディング状態</h1>
+          <h1 style={styles.title}>スケルトンスクリーン(ローディング)</h1>
           <SummaryCard keyPoints={KP}
             image={<><LoadingStateSwatch /></>}
             imageNote={<>実際のレイアウトを模した骨組み(スケルトン)を先に見せる考え方。</>}

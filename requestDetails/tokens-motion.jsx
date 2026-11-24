@@ -677,7 +677,7 @@ const MOTION_UI = [
 ];
 const MOTION_PARTS = [
   { t: "コンポーネントの状態の変化", ex: <>押したときの反応、選択・ホバーの重ね色(<PageLink to="/tokens/interaction-states">インタラクション状態</PageLink>)、スイッチのつまみ</> },
-  { t: "待ち時間", ex: <>スピナーやバーの動き(<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>・<PageLink to="/components/communication/loading">ローディング状態</PageLink>)</> },
+  { t: "待ち時間", ex: <>スピナーやバーの動き(<PageLink to="/components/communication/progress">プログレスインジケーター</PageLink>・<PageLink to="/components/communication/loading">スケルトンスクリーン</PageLink>)</> },
   { t: "項目の送り", ex: <>カルーセルのページ送り(<PageLink to="/components/containment/carousel">カルーセル</PageLink>)</> },
   { t: "シートの出入り", ex: <>下からせり出す・横から出る(<PageLink to="/components/containment/bottom-sheet">ボトムシート</PageLink>・<PageLink to="/components/containment/side-sheet">サイドシート</PageLink>)</> },
 ];
