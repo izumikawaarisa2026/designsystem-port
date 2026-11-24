@@ -221,7 +221,7 @@ const APPLE_SECTIONS = [
     name: "Patterns",
     role: "ユーザーのよくある操作や体験の流れ(複数のコンポーネントにまたがる手順)の設計指針",
     items: "Loading / Onboarding / Feedback / Modality / Searching / Settings / Undo and redo など",
-    site: "Sitemap(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: ローディング状態=Loading、フルスクリーンダイアログ=Modality)",
+    site: "Sitemap(プロセスタグ)の考え方に近い。一部はコンポーネントページで参照(例: スケルトンスクリーン=Loading、フルスクリーンダイアログ=Modality)",
   },
   {
     name: "Inputs",

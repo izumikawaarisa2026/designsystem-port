@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, RelatedPages, hasRow, markNeg, SplitSection } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Communication / プログレスインジケーター」ページ。
@@ -43,16 +43,12 @@ const SOURCES = [
     exceptions:
       <NoData>記載なし</NoData>,
     scenarios: [
-      "所要時間が分かるダウンロード・ファイル変換などにプログレスバー(確定的)を使いたい時",
-      "所要時間が見積もれない読み込み・同期処理にスピナー(不確定)を使いたい時",
-      "処理が長時間かかることが避けられず、待機中に見せるものが必要な時",
+      "所要時間が分かるダウンロード・ファイル変換などに、プログレスバー(確定的)を使う時",
+      "所要時間が見積もれない読み込み・同期に、スピナー(不確定)を使う時",
+      "長くかかることが避けられず、待つ間に見せるものが要る時",
     ],
+    timing: "時間の数値はない。所要時間が見積もれるなら確定的、見積もれないなら不確定の表示にする。",
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "所要時間が分かる処理には確定的な表示を優先する",
-      "曖昧な文言(「読み込み中」等)だけに頼らず、常に同じ場所に表示して見つけやすくする",
-      "表示中に円形⇔バー形状を切り替えない",
-    ],
     searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/progress-indicators",
     refs: [
@@ -77,22 +73,18 @@ const SOURCES = [
     color: "#2F7D6E",
     position: <>linear(直線)/circular(円形)の2形状と、determinate(確定的)/indeterminate(不確定)の2状態を組み合わせる。<Hl>5秒未満の待ち時間向けに新設した「Loading indicator」もある</Hl></>,
     size: <>Loading indicator(短い待ち用)は<Hl>既定48dp、置く場所や画面の幅に合わせて24〜240dp</Hl>。Progress indicatorの線形の終わりには直径4dpの丸を置く。</>,
-    colorInfo: <NoData>色の値は記載なし</NoData>,
+    colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>線形はコンテナの端、円形は要素の中央に置くのに向く。波形(wavy)は、長い処理を単調に感じさせないスタイルとして選べる。<Hl>5秒未満の短い待ちはLoading indicator、5秒を超えるならProgress indicator</Hl>。進み具合が分かったら、不確定から確定に切り替える。</>,
+      <>線形はコンテナの端、円形は要素の中央に置くのに向く。波形(wavy)は、長い処理を単調に感じさせないスタイルとして選べる。</>,
     exceptions:
       <NoData>記載なし</NoData>,
     scenarios: [
-      "コンテナの端(画面上部など)に置く時(linear)",
-      "要素の中央に置く時(circular)",
-      "5秒未満で終わる短い待ち時間の時(Loading indicator)",
+      "コンテナの端(画面上部など)に置く時(線形)",
+      "要素の中央に置く時(円形)",
+      "長い処理を単調に感じさせたくない時(波形)",
     ],
+    timing: <><Hl>5秒未満の短い待ちはLoading indicator、5秒を超えるならProgress indicator</Hl>。進み具合が分かったら、不確定から確定に切り替える。</>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "配置(端か中央か)に応じてlinear/circularを選ぶ",
-      "待ち時間が5秒未満ならLoading indicator、それ以上ならProgress indicatorを検討する",
-      "長い処理には表現力のあるwavy形状も選択肢にする",
-    ],
     searchHint: "",
     url: "https://m3.material.io/components/progress-indicators/overview",
     refs: [
@@ -119,7 +111,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <>進み具合を支援技術に伝える役割。<Hl>今の値を伝えるかどうかで、確定的/不確定を表す</Hl></>,
     size: "専用の数値基準はない。値は最小(既定0)〜最大(既定100)の範囲で伝える。",
-    colorInfo: "色についての専用基準はない。",
+    colorInfo: <NoData>記載なし</NoData>,
     glossary: [
       { term: "今の値/値の言い換え", desc: "今の値は、不確定な処理では存在しないため、0とせず伝えない。パーセンテージで伝えると誤解を招くときは、支援技術に伝える文言を言い換えられる。" },
     ],
@@ -130,15 +122,10 @@ const SOURCES = [
     scenarios: [
       "確定的な進み具合を、今の値・最小・最大で伝えたい時",
       "パーセンテージが実態に合わず、伝える文言を言い換えたい時",
-      "進み具合を支援技術にも伝えたい時",
+      "完了や失敗を、ステータスメッセージとして支援技術にも伝えたい時(4.1.3)",
     ],
+    timing: <NoData>記載なし</NoData>,
     accessibility: "知覚可能(Perceivable)・堅牢(Robust) ― 進み具合と名前を支援技術に伝える。",
-    useCases: [
-      "不確定な処理では今の値を伝えない(0にしない)",
-      "何の進み具合かが分かる名前を付ける",
-      "値の最小・最大と今の値を伝える(確定的な場合)",
-      "完了や失敗は、ステータスメッセージとして支援技術にも伝える(4.1.3)",
-    ],
     searchHint: "aria-valuenow",
     url: "https://www.w3.org/TR/wai-aria-1.2/#progressbar",
     refs: [
@@ -163,23 +150,18 @@ const SOURCES = [
     term: "Progress indicator",
     color: "#7A4F7E",
     position: <><Hl>待ち時間の長さで、インジケーターの種類を決める</Hl>(数値の目安あり)</>,
-    size: <><Hl>1秒未満は何も出さない。スピナーは2〜10秒、10秒以上は何%かの表示</Hl>。所要時間が読めないなら、早めに%表示へ切り替える。</>,
+    size: <NoData>記載なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
       <>動いていると安心させ、待ち時間の目安を示す。<Hl>動くプログレスバーを見た人は、何も出ない場合の平均3倍長く待った</Hl>。情報のない静的な表示や注意書きはほとんど読まれない。</>,
     exceptions:
       "10秒未満でも、複数の書類や台帳をまとめて処理するなら、達成率の表示(プログレスバー)を使ってよい。",
     scenarios: [
-      "2〜10秒程度の読み込みにループアニメーション(スピナー)を使いたい時",
-      "10秒以上かかる、またはかかる可能性がある処理に達成率表示を使いたい時",
-      "複数ファイルの一括処理など、短くても進捗の内訳を示したい時",
+      "待っている人に、動いていることと残りの目安を伝えたい時",
+      "複数のファイルや台帳をまとめて処理するなど、短くても進み具合の内訳を示したい時",
     ],
+    timing: <><Hl>1秒未満は何も出さない。スピナーは2〜10秒、10秒以上は何%かの表示</Hl>(1〜2秒は明記なし)。所要時間が読めないなら、早めに%表示へ切り替える。</>,
     accessibility: "根拠となる原則 ― 待ち時間の長さで表示を使い分ける、利用者の心理にもとづく指針。",
-    useCases: [
-      "1秒未満の処理にはインジケーターを表示しない",
-      "何も情報を示さない静的な表示や「二度押ししないでください」の注意書きは避ける",
-      "所要時間の見積もりが不確かな時は、早めに達成率表示へ切り替える",
-    ],
     searchHint: "Percent-Done",
     url: "https://www.nngroup.com/articles/progress-indicators/",
     refs: [
@@ -294,7 +276,7 @@ function ProgressShapes() {
           ))}</tbody>
         </table>
       </div>
-      <p style={styles.psNote}>置く場所: <strong>円は要素の中央、バーは画面やコンテナの端</strong>(Google)。Googleは、5秒未満の短い待ちに専用のLoading indicatorも用意している(<PageLink to="/components/communication/loading">ローディング状態</PageLink>のページ)。</p>
+      <p style={styles.psNote}>置く場所: <strong>円は要素の中央、バーは画面やコンテナの端</strong>(Google)。Googleは、5秒未満の短い待ちに専用のLoading indicatorも用意している(<PageLink to="/components/communication/loading">スケルトンスクリーン</PageLink>のページ)。</p>
       <div style={styles.psRules}>
         <div style={styles.psRulesTitle}>どの形にも共通すること</div>
         <ul style={{ margin: 0, paddingLeft: 18 }}>{SHAPE_RULES.map((t) => (<li key={t} style={styles.psRule}>{t}</li>))}</ul>
@@ -308,7 +290,21 @@ const LEAD = "処理がどこまで進んだか、または処理中であるこ
 const ABOUT = [
   { k: "目的・役割", v: "待ち時間があることと、進み具合(分かる場合)を伝え、止まっていないと分かるようにする" },
   { k: "よく使われる場面", v: "ファイルのアップロード・ダウンロード、画面の読み込み、送信中の待ち" },
-  { k: "似たコンポーネント", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
+  { k: "似たコンポーネント", v: <>中身の形を先に見せる読み込み表示は<PageLink to="/components/communication/loading">スケルトンスクリーン</PageLink></> },
+];
+
+/* 意見が分かれる点(2026-11 ⑩本人最終レビュー。待ち時間による表示の使い分けは系列で線引きが違う) */
+const SPLITS = [
+  {
+    q: "待ち時間の長さで、表示をどう使い分ける?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "時間では分けない。所要時間が見積もれるなら確定的、見積もれないなら不確定の表示にし、できるだけ確定的な表示を優先する" },
+      { who: "Google", color: "#2F7D6E", t: "5秒で分ける。5秒未満の短い待ちはLoading indicator、5秒を超えるならProgress indicatorにする" },
+      { who: "W3C", color: "#A3821F", t: "時間の基準はない。どの表示でも、何の進み具合かと、分かるなら今の値を支援技術に伝える" },
+      { who: "NN group", color: "#7A4F7E", t: "1秒と10秒で分ける。1秒未満は何も出さず、2〜10秒はスピナー、10秒以上は何%かの表示にする" },
+    ],
+    tip: "境目は、Googleが5秒、NN groupが10秒で違う。1秒未満は出さず、数秒ならスピナーやLoading indicator、長く(5〜10秒以上)かかるなら確定的な進み具合を出すと、どちらにも大きくは外れない(AI解釈)。",
+  },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -338,11 +334,11 @@ export default function CommunicationProgressPage() {
         <SidebarNav currentPath="/components/communication/progress" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / プログレスインジケーター</span>
+            <span>コンポーネント / プログレスインジケーター(ローディング)</span>
             <span>SPEC No. 036</span>
           </div>
 
-          <h1 style={styles.title}>プログレスインジケーター</h1>
+          <h1 style={styles.title}>プログレスインジケーター(ローディング)</h1>
           <SummaryCard keyPoints={KP}
             image={<><ProgressSwatch /></>}
             imageNote={<>終わりが分かるか(確定/不確定)の区別はApple・Google・W3C・NN groupの4系列にあるが、形(バー/円)とは別の軸だ。Apple・Googleはバーと円のどちらにも確定・不確定があり、NN groupは待ち時間の長さで表示を選ぶ(下の「形の使い分け」を参照)。</>}
@@ -351,6 +347,8 @@ export default function CommunicationProgressPage() {
           />
 
 
+
+          <SplitSection splits={SPLITS} />
 
           <ProgressShapes />
 
@@ -386,12 +384,12 @@ export default function CommunicationProgressPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
+                <InfoBox label="待ち時間による使い分け" accent="#3C5A73">{s.timing}</InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
                 <p style={styles.sourceStance}>{s.stance}</p>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
-                <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
                 </InfoBox>
@@ -426,6 +424,8 @@ export default function CommunicationProgressPage() {
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
                 <div style={styles.labelCell}>推奨される使用シーン</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.scenarios} /></div>))}
+                <div style={styles.labelCell}>待ち時間による使い分け</div>
+                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.timing}</div>))}
                 <div style={styles.labelCell}>サイズ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>色</div>
@@ -438,8 +438,6 @@ export default function CommunicationProgressPage() {
                 </>)}
                 <div style={styles.labelCell}>アクセシビリティ(WCAG基準)</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.accessibility}</div>))}
-                <div style={styles.labelCell}>ユースケース</div>
-                {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}><UseCaseList items={s.useCases} /></div>))}
                 <div style={styles.labelCell}>参照ページ(公式)</div>
                 {SOURCES.map((s) => (
                   <div key={s.key} style={{ ...styles.cell, ...styles.textCell, flexDirection: "column", alignItems: "flex-start", gap: 6 }}>

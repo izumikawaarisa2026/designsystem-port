@@ -550,7 +550,7 @@ const LEAD = "ボタン・見出し・エラーなど、画面に出る言葉の
 const ABOUT = [
   { k: "目的・役割", v: "短く分かりやすい言葉で、利用者が迷わず操作できるようにする" },
   { k: "関わる場面", v: "ボタンの文言、エラーメッセージ、空の画面の説明、入力欄のラベル" },
-  { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">空状態</PageLink></> },
+  { k: "関連するページ", v: <><PageLink to="/components/text-inputs/validation">エラー表示</PageLink>、<PageLink to="/components/communication/empty-state">エンプティステート</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */

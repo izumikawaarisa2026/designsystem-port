@@ -470,25 +470,25 @@ const PAGE_INDEX = {
   "label": "スナックバー(トースト)",
   "lead": "操作の結果を画面の下などに短く表示し、しばらくすると消える通知"
  },
- "/components/communication/loading": {
-  "label": "ローディング状態",
-  "lead": "中身を読み込んでいる最中の画面の見せ方"
- },
- "/components/communication/progress": {
-  "label": "プログレスインジケーター",
-  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
+ "/components/communication/tooltip": {
+  "label": "ツールチップ",
+  "lead": "マウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出すコンポーネント"
  },
  "/components/communication/empty-state": {
-  "label": "空状態",
+  "label": "エンプティステート",
   "lead": "表示する中身がない画面(空状態)の見せ方"
+ },
+ "/components/communication/progress": {
+  "label": "プログレスインジケーター(ローディング)",
+  "lead": "処理がどこまで進んだか、または処理中であることを示す表示"
+ },
+ "/components/communication/loading": {
+  "label": "スケルトンスクリーン(ローディング)",
+  "lead": "中身を読み込んでいる最中の画面の見せ方"
  },
  "/components/communication/badge": {
   "label": "バッジ",
   "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印"
- },
- "/components/communication/tooltip": {
-  "label": "ツールチップ",
-  "lead": "マウスを乗せたりフォーカスしたりしたときに、短い説明を一時的に出すコンポーネント"
  },
  "/tokens/input-methods": {
   "label": "入力方法・ジェスチャー",

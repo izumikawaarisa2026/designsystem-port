@@ -237,7 +237,7 @@ const LEAD = "表示する中身がない画面(空状態)の見せ方";
 const ABOUT = [
   { k: "目的・役割", v: "中身がない理由を伝え、次にできることへ案内する" },
   { k: "よく使われる場面", v: "初めて使うときの空の一覧、検索結果0件、完了済みのToDoリスト" },
-  { k: "似たコンポーネント", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">ローディング状態</PageLink></> },
+  { k: "似たコンポーネント", v: <>読み込み中の見せ方は<PageLink to="/components/communication/loading">スケルトンスクリーン</PageLink></> },
 ];
 
 /* 意見が分かれる点 */
@@ -279,11 +279,11 @@ export default function CommunicationEmptyStatePage() {
         <SidebarNav currentPath="/components/communication/empty-state" />
         <div className="dsp-inner">
           <div style={styles.metaRow}>
-            <span>コンポーネント / 空状態</span>
+            <span>コンポーネント / エンプティステート</span>
             <span>SPEC No. 038</span>
           </div>
 
-          <h1 style={styles.title}>空状態</h1>
+          <h1 style={styles.title}>エンプティステート</h1>
           <SummaryCard keyPoints={KP}
             image={<div style={{ display: "flex", justifyContent: "center" }}><div style={{ width: 220, minHeight: 120, border: "1px solid #E1E3F0", borderRadius: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 6, padding: 12, textAlign: "center" }}><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v3h3M9 11h6M9 15h4" fill="none" stroke="#454C78" strokeWidth="1.6" strokeLinejoin="round" /></svg><span style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>まだメモはありません</span><span style={{ fontSize: 11.5, color: "#454C78", lineHeight: 1.5 }}>最初のメモを作ると、ここに並びます</span><span style={{ fontSize: 12, padding: "5px 14px", borderRadius: 16, background: "#3A4FCF", color: "#FFFFFF" }}>メモを作る</span></div></div>}
             imageNote={<>状況の説明と、次の行動への案内を置く(Apple・NN groupに共通する考え方)。</>}
