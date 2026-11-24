@@ -91,9 +91,9 @@ const styles = {
   tocLink: { fontSize: 12, padding: "5px 10px", borderRadius: 14, background: "#F3F6FA", border: "1px solid #E1E3F0", color: "#2E3457", textDecoration: "none" },
   group: { marginBottom: 34 },
   groupDesc: { fontSize: 12, color: "#565D8A", margin: "-6px 0 12px", lineHeight: 1.6 },
-  sc: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 10, background: "#FFFFFF", scrollMarginTop: 16, display: "flex", flexWrap: "wrap-reverse", gap: "10px 16px", alignItems: "flex-start" },
-  scBody: { flex: "1 1 320px", minWidth: 0 },
-  scFig: { flex: "0 0 auto", margin: "0 auto", background: "#F8F9FD", borderRadius: 6, padding: 6 },
+  sc: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", marginBottom: 10, background: "#FFFFFF", scrollMarginTop: 16, display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch" },
+  scBody: { flex: "999 1 320px", minWidth: 0 },
+  scFig: { flex: "1 0 152px", display: "flex", alignItems: "center", justifyContent: "center", background: "#F8F9FD", borderRadius: 6, padding: 6 },
   scOfficial: { fontSize: 11, color: "#3A4FCF", whiteSpace: "nowrap" },
   scHead: { display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "4px 10px", marginBottom: 6 },
   scNum: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: "#171B36" },
@@ -217,6 +217,7 @@ function Criterion({ c }) {
   const pages = c.pages.filter((p) => pageLabel(p));
   return (
     <div id={"sc-" + c.n.replace(/\./g, "-")} style={styles.sc}>
+      <div style={styles.scFig}><ScFig n={c.n} /></div>
       <div style={styles.scBody}>
       <div style={styles.scHead}>
         <span style={styles.scNum}>{c.n}</span>
@@ -234,7 +235,6 @@ function Criterion({ c }) {
         </span>
       </div>
       </div>
-      <div style={styles.scFig}><ScFig n={c.n} /></div>
     </div>
   );
 }
