@@ -437,7 +437,7 @@ export default function ContainmentTablePage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 表の要素ごとに何を定めているか</h2>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>

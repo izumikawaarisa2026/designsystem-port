@@ -806,13 +806,13 @@ export default function TokensMotionPage() {
           <section style={styles.figSection}>
             <h2 style={styles.diagramTitle}>四系列比較図</h2>
 
-            <div style={styles.chartCard}>
+            <div style={{ marginBottom: 22 }}>
             <h3 style={styles.figTitle}>何を定めているか</h3>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記、△=部分的・条件付き、―=記載なし。</p>
           </div>
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h3 style={styles.figTitle}>アニメーションの時間の目安</h3>
             <MotionChart />
             <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークンだ。NN groupの帯は記事の目安を色分けしたもの(100〜400msが適切、400〜500msは大画面での大きな移動だけ、500ms以上は遅さが負担になる)。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>

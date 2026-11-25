@@ -554,7 +554,7 @@ export default function TokensAdaptivePage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 画面の広さが変わると、何が変わるか</h2>
             <AdaptiveChart />
             <p style={styles.chartNote}>図はそれぞれの記述をもとにした概念図で、色の帯はナビゲーション(下=バー、細い縦=レール、太い縦=サイドバー・左のナビゲーション、上の線=ハンバーガー)、四角は内容の区画だ。「狭い・中くらい・広い」は比較のための便宜的な区分で、Appleはcompact/regularの2区分、Googleはウィンドウサイズクラス、NN groupはWebの画面幅(px)を基準にしている。</p>

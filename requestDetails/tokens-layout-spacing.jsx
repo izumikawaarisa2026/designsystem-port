@@ -398,7 +398,7 @@ export default function TokensLayoutSpacingPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
             <BreakpointChart />
             <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分だ。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値だ。単位(dp・pt・CSS px)は厳密には異なるが、いずれも画面の密度に依存しない論理的な単位だ。</p>
