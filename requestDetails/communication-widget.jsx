@@ -107,8 +107,8 @@ const SOURCES = [
     doc: "Mobile Microsessions",
     term: "Widget(マイクロセッションの文脈)",
     color: "#7A4F7E",
-    position: <><Hl>15秒未満の短い利用(マイクロセッション)を支える仕組み</Hl>として扱う(適合基準ではない)</>,
-    size: <><NoData>数値基準なし</NoData>。スマートフォン利用の4割強が15秒未満という研究を紹介</>,
+    position: <><Hl>15秒未満の短い利用(マイクロセッション)を支える仕組み</Hl>として扱う(適合基準ではない)。スマートフォン利用の4割強が15秒未満という研究を紹介</>,
+    size: <NoData>数値基準なし</NoData>,
     colorInfo: "単独で意味が分かり、見出しや文を途中で切らない。最小サイズでも要点を1文で",
     stance: <>頻繁に変わる情報を、アプリを開かずに確かめるのに向く。課題は<Hl>追いたい「1つのこと」を圧縮できるか</Hl></>,
     exceptions: "追いたい項目が複数なら、一覧型のウィジェットも選択肢",
@@ -243,7 +243,7 @@ function SizeChart() {
   );
   return (
     <div>
-      <svg viewBox="0 0 640 200" width="100%" style={{ maxWidth: 720, display: "block", margin: "0 auto" }} role="img" aria-label="AppleとGoogleのウィジェットの大きさの比較図">
+      <svg viewBox="0 0 640 200" width="100%" style={{ display: "block" }} role="img" aria-label="AppleとGoogleのウィジェットの大きさの比較図">
         <text x="0" y="14" fontSize="11.5" fill="#C2542A" fontWeight="700" fontFamily={font}>Apple(iPhone 430×932pt、単位pt)</text>
         {solid(0, 170, 170, "小", "#C2542A")}
         {solid(56, 364, 170, "中", "#C2542A")}

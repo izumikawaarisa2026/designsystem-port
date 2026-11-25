@@ -42,7 +42,8 @@ const SOURCES = [
     searchHint: "descriptive label",
     url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles",
     refs: [
-      { label: "Disclosure Controls", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles" },
+      { label: "Disclosure controls", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls" },
+      { label: "Disclosure controls ― Disclosure triangles", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-triangles" },
       { label: "Disclosure controls ― Disclosure buttons", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#Disclosure-buttons" },
       { label: "Disclosure controls ― iOS・iPadOS", url: "https://developer.apple.com/design/human-interface-guidelines/disclosure-controls#iOS-iPadOS-visionOS" },
     ],
@@ -196,26 +197,29 @@ function AccordionSwatch() {
   );
 }
 
-/* No.054: タブとアコーディオンの使い分け(NN group「Tabs, Used Right」の「Tabs Versus Accordions」による) */
+/* タブとアコーディオンの使い分け(No.054でNN groupの記事から作り、⑩本人最終レビューでApple・Google・W3Cの定義を加えた) */
 const TAB_VS_ACC = [
-  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)"],
-  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)"],
-  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える"],
-  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)"],
+  ["見せ方", "縦に積んだ見出しを押して、その下の内容を開閉する", "横に並んだタブで、同じ場所のパネルを切り替える", "W3C(APG)"],
+  ["同時に見られる数", "複数を同時に開ける作りにもできる", "1度に1つのパネルだけ(互いに排他的なペイン)", "W3C(APG)・Apple(Tab views)"],
+  ["系列での扱い", "Appleは開示の三角・ボタン(Disclosure controls)、W3CはAccordionパターン。GoogleのM3には独立したコンポーネントがない", "Appleはタブビュー(Tab views)、Googleはタブ(内容を画面・データセットなどのカテゴリに整理)、W3CはTabsパターン", "Apple・Google・W3C"],
+  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)", "NN group"],
+  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)", "NN group"],
+  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える", "NN group"],
+  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)", "NN group"],
 ];
 
 function TabVsAccordion() {
   return (
     <section style={{ marginBottom: 40 }}>
-      <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け(Nielsen Norman Group)</h2>
+      <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け</h2>
       <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法だ。画面の広さと内容の長さで選ぶ。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvaTable}>
-          <thead><tr>{["", "アコーディオン", "タブ"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
-          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td></tr>))}</tbody>
+          <thead><tr>{["", "アコーディオン", "タブ", "根拠"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
+          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td><td style={{ ...styles.tvaTd, color: "#565D8A", whiteSpace: "nowrap" }}>{r[3]}</td></tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
+      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」、W3C APG「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Accordion ↗</a>」「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs ↗</a>」、Apple HIG「<a href="https://developer.apple.com/design/human-interface-guidelines/tab-views" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tab views ↗</a>」「<a href="https://developer.apple.com/design/human-interface-guidelines/disclosure-controls" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Disclosure controls ↗</a>」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
     </section>
   );
 }

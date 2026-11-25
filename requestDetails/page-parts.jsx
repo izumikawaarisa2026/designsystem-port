@@ -454,10 +454,6 @@ const PAGE_INDEX = {
   "label": "カルーセル",
   "lead": "同じ場所で、複数の項目を横に送りながら順番に見せるコンポーネント"
  },
- "/components/communication/widget": {
-  "label": "ウィジェット",
-  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面"
- },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",
   "lead": "利用者に何かを知らせるコンポーネントを、3つの軸と比較表で選び分けるためのページ"
@@ -489,6 +485,10 @@ const PAGE_INDEX = {
  "/components/communication/badge": {
   "label": "バッジ",
   "lead": "アイコンやタブの角に重ねて、新着や未読の数を知らせる小さな印"
+ },
+ "/components/communication/widget": {
+  "label": "ウィジェット",
+  "lead": "ホーム画面などに置き、アプリを開かずに情報を見たり簡単な操作をしたりできる小さな画面"
  },
  "/tokens/input-methods": {
   "label": "入力方法・ジェスチャー",
