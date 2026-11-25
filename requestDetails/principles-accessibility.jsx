@@ -397,7 +397,7 @@ export default function PrinciplesAccessibilityPage() {
           <InclusionSection />
 
           {/* 四系列比較: 性格の違いを一目で示す */}
-          <div style={styles.diagramCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較 ― アプローチの性格</h2>
             <div style={styles.spectrumScroll}>
               <div style={styles.spectrumTrack}>

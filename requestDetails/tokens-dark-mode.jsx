@@ -573,7 +573,7 @@ export default function TokensDarkModePage() {
           />
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
             <p style={styles.diagramNote}>各行の色見本は「左=ライト → 右=ダーク」だ。背景・文字・アクセント色のそれぞれが、ダークでどの明るさに変わるかを4系列で並べている。</p>
             <DarkModeChart />

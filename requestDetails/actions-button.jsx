@@ -450,7 +450,7 @@ function ButtonTabContent({ tabId }) {
       <>
         <GoodBadFigure />
 
-        <div style={styles.diagramCard}>
+        <div style={{ marginBottom: 14, maxWidth: 420 }}>
           <h2 style={styles.diagramTitle}>参考: 四系列比較図(実寸オーバーレイ)</h2>
           <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
             <rect x="8" y="6" width="70" height="70" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />

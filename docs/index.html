@@ -1559,7 +1559,7 @@ function ButtonTabContent({ tabId }) {
       <>
         <GoodBadFigure />
 
-        <div style={styles.diagramCard}>
+        <div style={{ marginBottom: 14, maxWidth: 420 }}>
           <h2 style={styles.diagramTitle}>参考: 四系列比較図(実寸オーバーレイ)</h2>
           <svg viewBox="0 0 240 96" style={{ width: "100%", height: "auto" }}>
             <rect x="8" y="6" width="70" height="70" fill="none" stroke="#2F7D6E" strokeWidth="1.6" />
@@ -12650,7 +12650,7 @@ function ContainmentTablePage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 表の要素ごとに何を定めているか</h2>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記されている、△=部分的・条件付き、―=記載なし。Googleは旧版(Material Design 2)の指針だ。「画面に収まらないとき」のW3Cは、狭い幅でも2方向にスクロールせずに読めることを求める1.4.10の中で、データ表を例外としていることを指す。</p>
@@ -18216,7 +18216,7 @@ function PrinciplesAccessibilityPage() {
           <InclusionSection />
 
           {/* 四系列比較: 性格の違いを一目で示す */}
-          <div style={styles.diagramCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較 ― アプローチの性格</h2>
             <div style={styles.spectrumScroll}>
               <div style={styles.spectrumTrack}>
@@ -28394,7 +28394,7 @@ function TokensAdaptivePage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― 画面の広さが変わると、何が変わるか</h2>
             <AdaptiveChart />
             <p style={styles.chartNote}>図はそれぞれの記述をもとにした概念図で、色の帯はナビゲーション(下=バー、細い縦=レール、太い縦=サイドバー・左のナビゲーション、上の線=ハンバーガー)、四角は内容の区画だ。「狭い・中くらい・広い」は比較のための便宜的な区分で、Appleはcompact/regularの2区分、Googleはウィンドウサイズクラス、NN groupはWebの画面幅(px)を基準にしている。</p>
@@ -29963,7 +29963,7 @@ function TokensDarkModePage() {
           />
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― ライトからダークに切り替えると、何がどう変わるか</h2>
             <p style={styles.diagramNote}>各行の色見本は「左=ライト → 右=ダーク」だ。背景・文字・アクセント色のそれぞれが、ダークでどの明るさに変わるかを4系列で並べている。</p>
             <DarkModeChart />
@@ -33288,7 +33288,7 @@ function TokensLayoutSpacingPage() {
 
 
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h2 style={styles.diagramTitle}>四系列比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
             <BreakpointChart />
             <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分だ。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値だ。単位(dp・pt・CSS px)は厳密には異なるが、いずれも画面の密度に依存しない論理的な単位だ。</p>
@@ -34258,13 +34258,13 @@ function TokensMotionPage() {
           <section style={styles.figSection}>
             <h2 style={styles.diagramTitle}>四系列比較図</h2>
 
-            <div style={styles.chartCard}>
+            <div style={{ marginBottom: 22 }}>
             <h3 style={styles.figTitle}>何を定めているか</h3>
             <RuleMatrix />
             <p style={styles.chartNote}>◯=明記、△=部分的・条件付き、―=記載なし。</p>
           </div>
 
-          <div style={styles.chartCard}>
+          <div style={{ marginBottom: 22 }}>
             <h3 style={styles.figTitle}>アニメーションの時間の目安</h3>
             <MotionChart />
             <p style={styles.chartNote}>横軸は0〜1000ms。Googleの縦線は16段階の時間トークンだ。NN groupの帯は記事の目安を色分けしたもの(100〜400msが適切、400〜500msは大画面での大きな移動だけ、500ms以上は遅さが負担になる)。100ms未満は「動きとして知覚できる下限」を下回るため非推奨の色にしている。</p>
