@@ -102,7 +102,6 @@ export const NAV_SECTIONS = [
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
       { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
-      { label: "ウィジェット", path: "/components/communication/widget", built: true },
     ],
   },
   {
@@ -116,6 +115,7 @@ export const NAV_SECTIONS = [
       { label: "プログレスインジケーター(ローディング)", path: "/components/communication/progress", built: true },
       { label: "スケルトンスクリーン(ローディング)", path: "/components/communication/loading", built: true },
       { label: "バッジ", path: "/components/communication/badge", built: true },
+      { label: "ウィジェット", path: "/components/communication/widget", built: true },
     ],
   },
   {

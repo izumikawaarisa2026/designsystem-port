@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarNav from "./sidebar-nav";
-import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, PageToc, hasRow, markNeg } from "./page-parts";
+import { SummaryCard, Hl, NoData, PageLink, TagLink, RefList, SplitSection, RelatedPages, hasRow, markNeg } from "./page-parts";
 
 /**
  * コンポーネントレイヤー「Containment / カルーセル」ページ。
@@ -54,9 +54,9 @@ const SOURCES = [
     key: "material",
     name: "Google",
     doc: "Material Design 3 ― Carousel",
-    term: "Carousel(マルチブラウズ・アンコンテインド・ヒーロー・全画面)",
+    term: "Carousel(マルチブラウズ・アンコンテインド・ヒーロー・センター寄せヒーロー・全画面)",
     color: "#2F7D6E",
-    position: <>画像が中心の項目を並べ、画面の内外へ出入りさせるコンポーネント。<Hl>4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)から用途で選ぶ</Hl></>,
+    position: <>画像が中心の項目を並べ、画面の内外へ出入りさせるコンポーネント。<Hl>5つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・センター寄せヒーロー・全画面)から用途で選ぶ</Hl></>,
     size: <>小さい項目の幅は<Hl>40〜56dp</Hl>(Jetpack ComposeのCarouselDefaults)。ヒーローの大きい項目は、幅が高さの最大2倍。</>,
     colorInfo: "スクロールを止めたら最寄りの項目に吸い付かせる(マルチブラウズ・ヒーロー)。",
     stance:
@@ -231,7 +231,7 @@ const CAROUSEL_ROWS = [
     label: "項目の形",
     cells: [
       { mark: "―", note: "" },
-      { mark: "◯", note: "4つのレイアウト。小さい項目は40〜56dp" },
+      { mark: "◯", note: "5つのレイアウト。小さい項目は40〜56dp" },
       { mark: "―", note: "" },
       { mark: "◯", note: "読みやすい文字と画像。押せるボタンは中身が分かる見た目に" },
     ],
@@ -307,7 +307,7 @@ function AutoForwardTimeline() {
   );
 }
 
-/* Googleの4つのレイアウト */
+/* Googleのレイアウト(M3は4つのレイアウトとし、どれも中央寄せにでき、中央寄せではセンター寄せヒーローが最もよく使われるとする。用途の表は5つを並べる) */
 const LAYOUTS = [
   {
     k: "multi", name: "マルチブラウズ", use: "大・中・小の項目が並び、多くを一度に素早く見る。既定のレイアウト",
@@ -320,6 +320,10 @@ const LAYOUTS = [
   {
     k: "hero", name: "ヒーロー", use: "1つの大きな項目に注目させ、次の小さな項目をのぞかせる",
     official: "強調したい内容を目立たせるとき。映画や番組のサムネイルなど(Android Developers)",
+  },
+  {
+    k: "center", name: "センター寄せヒーロー", use: "大きな項目を中央に置き、左右に小さな項目を1つずつのぞかせる(ヒーローを中央寄せにした形)",
+    official: "中央に置いた大きな画像を見せるとき(M3 Carousel ― Guidelines)",
   },
   {
     k: "full", name: "全画面", use: "1項目を端から端まで見せ、縦にスクロールする",
@@ -335,6 +339,7 @@ function LayoutIcon({ k }) {
       {k === "multi" && <g><rect x="8" y="10" width="54" height="44" rx="6" fill={f} /><rect x="66" y="10" width="28" height="44" rx="6" fill={f} opacity="0.6" /><rect x="98" y="10" width="14" height="44" rx="5" fill={f} opacity="0.35" /></g>}
       {k === "uncontained" && <g>{[0, 1, 2].map((i) => <rect key={i} x={8 + i * 42} y="10" width="38" height="44" rx="6" fill={f} opacity={1 - i * 0.2} />)}</g>}
       {k === "hero" && <g><rect x="8" y="10" width="86" height="44" rx="6" fill={f} /><rect x="98" y="10" width="14" height="44" rx="5" fill={f} opacity="0.4" /></g>}
+      {k === "center" && <g><rect x="6" y="10" width="14" height="44" rx="5" fill={f} opacity="0.4" /><rect x="24" y="10" width="72" height="44" rx="6" fill={f} /><rect x="100" y="10" width="14" height="44" rx="5" fill={f} opacity="0.4" /></g>}
       {k === "full" && <g><rect x="40" y="4" width="40" height="56" rx="6" fill={f} /><path d="M92 26 v12 M88 34 l4 4 l4 -4" stroke="#7E86AC" strokeWidth="1.4" fill="none" /></g>}
     </svg>
   );
@@ -355,25 +360,6 @@ function LayoutCards() {
   );
 }
 
-/* 最後の1枚の後の扱い(端の処理) */
-const END_TYPES = [
-  {
-    k: "stop", name: "端で止まる(リニア)", how: "最後の1枚では「次へ」が働かない(または消える)。最初に戻るには前へ送る",
-    who: "Apple(ページコントロールは順番に並んだページ。なぞると先頭・末尾へ素早く移動できる)/Google(端のある一覧。最初と最後の項目は端にそろう)",
-    fit: "手順・使い方の案内のように順番に意味があるもの、写真や商品を手で送って見る一覧",
-  },
-  {
-    k: "loop", name: "最後の次は1枚目に戻る(ループ)", how: "最後の1枚の「次へ」で1枚目に戻り、1枚目の「前へ」で最後へ移る",
-    who: "NN group(自動送りなら、最後で止めずに繰り返し、今のフレームを表示し続ける)",
-    fit: "自動で送る特集・お知らせ(ただし止める手段は必須)",
-  },
-  {
-    k: "once", name: "1周したら自動送りを止める", how: "自動送りで全部のスライドを見せたら回転を止め、あとは手で送る",
-    who: "W3C(APGは、自動回転が全部のスライドを見せたら止まる実装もあると説明)",
-    fit: "自動送りしたいが、動き続けることで読む邪魔をしたくないとき",
-  },
-];
-
 function EndIcon({ k }) {
   const c = "#3C5A73";
   const dots = [0, 1, 2, 3].map((i) => <rect key={i} x={10 + i * 26} y="14" width="20" height="26" rx="4" fill={i === 3 ? c : "#D9E4F2"} />);
@@ -384,22 +370,6 @@ function EndIcon({ k }) {
       {k === "loop" && <g><path d="M110 44 C110 58, 20 58, 20 44" stroke="#5A9629" strokeWidth="2" fill="none" /><path d="M20 44 l-4 6 M20 44 l5 5" stroke="#5A9629" strokeWidth="2" /><text x="65" y="62" fontSize="8.5" fill="#565D8A" textAnchor="middle">4/4 → 1/4</text></g>}
       {k === "once" && <g><rect x="104" y="4" width="20" height="10" rx="2" fill="#A3821F" /><text x="114" y="12" fontSize="6.5" fill="#FFFFFF" textAnchor="middle">❚❚</text><text x="65" y="60" fontSize="8.5" fill="#565D8A" textAnchor="middle">1周で自動回転を停止</text></g>}
     </svg>
-  );
-}
-
-function EndBehavior() {
-  return (
-    <div style={styles.layoutGrid}>
-      {END_TYPES.map((t) => (
-        <div key={t.k} style={styles.layoutCard}>
-          <EndIcon k={t.k} />
-          <div style={styles.endName}>{t.name}</div>
-          <div style={styles.layoutUse}>{t.how}</div>
-          <div style={styles.endWho}>{t.who}</div>
-          <div style={styles.layoutOfficial}><span style={styles.layoutTag}>向いている場面</span>{t.fit}</div>
-        </div>
-      ))}
-    </div>
   );
 }
 
@@ -506,6 +476,15 @@ const SPLITS = [
     ],
     tip: "自動送りは基本的に使わず、続きがあることを見た目(次の画像の端や矢印)で示す。どうしても自動で送るなら、停止ボタンを最初から見える位置に置き(W3C)、表示時間を読む速さに合わせる(NN group)。",
   },
+  {
+    q: "最後の1枚の後は、止める? 1枚目に戻る?",
+    sides: [
+      { who: "Apple・Google", color: "#2F7D6E", figure: <EndIcon k="stop" />, t: "端で止める。Appleのページコントロールは順番に並んだページで、なぞると先頭・末尾へ素早く移れる。Googleのカルーセルは端のある一覧で、最初と最後の項目は端にそろう" },
+      { who: "NN group", color: "#7A4F7E", figure: <EndIcon k="loop" />, t: "自動送りなら最後で止めずに繰り返す(ループ)。今どのフレームかを表示し続ける" },
+      { who: "W3C", color: "#A3821F", figure: <EndIcon k="once" />, t: "1周したら止める実装もある。APGは、自動回転が全部のスライドを見せたら止まる実装もあると説明する" },
+    ],
+    tip: "手で送るカルーセルは端で止めるのが基本だ。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、繰り返す(NN group)か1周で止める(W3C)かを選び、どちらでも5秒を超えて動くなら止める手段が要る(2.2.2)。ループにするなら「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。継ぎ目なく無限に続くループは、4系列とも記載がない(AI解釈)。",
+  },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -549,12 +528,11 @@ export default function ContainmentCarouselPage() {
             rows={ABOUT}
           />
 
-          <PageToc />
 
           <SplitSection splits={SPLITS} />
 
           <section style={styles.ruleSection}>
-            <h2 style={styles.diagramTitle}>4つのレイアウトの使い分けと具体例(Google)</h2>
+            <h2 style={styles.diagramTitle}>5つのレイアウトの使い分けと具体例(Google)</h2>
             <p style={styles.diagramNote}>M3のカルーセルは、見せたい内容に合わせてレイアウトを選ぶ。具体例はAndroid Developers・Material Components for Androidに書かれている用途(図は概念図)。</p>
             <LayoutCards />
           </section>
@@ -571,7 +549,7 @@ export default function ContainmentCarouselPage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              <strong>カルーセルをコンポーネントとして定めているのは、Googleだけだ</strong>。M3は4つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・全画面)を用途で選ぶ。Appleには専用のページがなく、ページの位置を点で示すページコントロールがいちばん近い(点は約10個まで・下部中央)。
+              <strong>カルーセルをコンポーネントとして定めているのは、Googleだけだ</strong>。M3は5つのレイアウト(マルチブラウズ・アンコンテインド・ヒーロー・センター寄せヒーロー・全画面)を用途で選ぶ。Appleには専用のページがなく、ページの位置を点で示すページコントロールがいちばん近い(点は約10個まで・下部中央)。
             </p>
             <p style={styles.synthesisText}>
               <strong>W3CとNN groupは、カルーセルの危うさを中心に扱う</strong>。WCAG 2.2.2は、自動で始まり、5秒を超えて続き、ほかの内容と並んで出る動きに、一時停止・停止・非表示の手段を求める(要件)。APGの例は、停止ボタンを最初に置き、フォーカスやホバーで止める(実装の参考)。NN groupは、2枚目以降は見られにくいため、<strong>5枚以下・何枚目かの表示・スマートフォンでは自動で送らない</strong>ことを勧める。
@@ -669,13 +647,6 @@ export default function ContainmentCarouselPage() {
             <AutoForwardTimeline />
             <p style={styles.chartNote}>5秒ごとに切り替わるカルーセルの概念図だ。目当ての内容が載っている1枚は、表示されている時間の一部でしか見えない。W3Cは5秒を超える自動の動きに止める手段を求め、NN groupは自動送りそのものを避けるよう勧めている。</p>
           </div>
-
-          <section style={styles.ruleSection}>
-            <h3 style={styles.subTitle}>最後の1枚の後の扱い</h3>
-            <p style={styles.diagramNote}>最後まで送ったあとに止まるか、1枚目に戻るかは、系列によって考え方が違う。下の名前は根拠にした系列だ。</p>
-            <EndBehavior />
-            <div style={styles.aiNote}><strong>AI解釈: </strong>手で送るカルーセルは<strong>端で止める</strong>のが基本だ(Apple・Googleとも端のある一覧として扱う)。端で止めると「4/4」の表示や次の項目の端が見えなくなることで終わりが伝わる。自動で送るなら、NN groupは繰り返しを、W3Cは1周で止める実装も認めており、どちらでも<strong>5秒を超えて動くなら止める手段が必要(2.2.2)</strong>だ。ループにする場合は「4/4 → 1/4」のように位置の表示で1枚目に戻ったことを伝える。4系列とも、継ぎ目なく無限に続くループについての記述は見当たらなかった。</div>
-          </section>
 
           <section style={styles.ruleSection}>
             <h3 style={styles.subTitle}>SP版とPC版の違い</h3>
