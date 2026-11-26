@@ -99,9 +99,9 @@ export const NAV_SECTIONS = [
       { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "カード", path: "/components/containment/card", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
+      { label: "カルーセル", path: "/components/containment/carousel", built: true },
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
       { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
-      { label: "カルーセル", path: "/components/containment/carousel", built: true },
     ],
   },
   {

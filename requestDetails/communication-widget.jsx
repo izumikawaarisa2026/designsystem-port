@@ -220,48 +220,38 @@ function WidgetSizesSwatch() {
   );
 }
 
-/* 四系列比較図: 大きさの決め方(実寸比で描画) */
-function SizeChart() {
+/* 大きさの決め方の図(実寸比で描画)。⑩本人最終レビューで、AppleとGoogleの表の中の行に入れた */
+function SizeFig({ who }) {
   const font = "'Jost', 'Noto Sans JP', sans-serif";
   const mono = "'IBM Plex Mono', monospace";
   const k = 0.28;
-  const base = 152;
+  const base = 116;
   const solid = (x, w, h, label, color) => (
-    <g>
+    <g key={label}>
       <rect x={x} y={base - h * k} width={w * k} height={h * k} rx="6" fill={color} fillOpacity="0.18" stroke={color} />
       <text x={x + (w * k) / 2} y={base + 12} fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>{label}</text>
       <text x={x + (w * k) / 2} y={base + 23} fontSize="7.5" fill="#565D8A" textAnchor="middle" fontFamily={mono}>{w}×{h}</text>
     </g>
   );
   const range = (x, w0, h0, w1, h1, label) => (
-    <g>
+    <g key={label}>
       <rect x={x} y={base - h1 * k} width={w1 * k} height={h1 * k} rx="6" fill="none" stroke="#2F7D6E" strokeDasharray="3 2" />
       <rect x={x} y={base - h0 * k} width={w0 * k} height={h0 * k} rx="6" fill="#2F7D6E" fillOpacity="0.2" stroke="#2F7D6E" />
       <text x={x + (w1 * k) / 2} y={base + 12} fontSize="8.5" fill="#171B36" textAnchor="middle" fontFamily={font}>{label}</text>
       <text x={x + (w1 * k) / 2} y={base + 23} fontSize="7.5" fill="#565D8A" textAnchor="middle" fontFamily={mono}>{w0}〜{w1}×{h0}〜{h1}</text>
     </g>
   );
-  return (
-    <div>
-      <svg viewBox="0 0 640 200" width="100%" style={{ display: "block" }} role="img" aria-label="AppleとGoogleのウィジェットの大きさの比較図">
-        <text x="0" y="14" fontSize="11.5" fill="#C2542A" fontWeight="700" fontFamily={font}>Apple(iPhone 430×932pt、単位pt)</text>
-        {solid(0, 170, 170, "小", "#C2542A")}
-        {solid(56, 364, 170, "中", "#C2542A")}
-        {solid(166, 364, 382, "大", "#C2542A")}
-        <text x="330" y="14" fontSize="11.5" fill="#2F7D6E" fontWeight="700" fontFamily={font}>Google(スマートフォン、単位dp)</text>
-        {range(330, 109, 115, 306, 276, "2×2")}
-        {range(430, 245, 115, 624, 276, "4×2")}
-        <text x="0" y="194" fontSize="8.5" fill="#666D93" fontFamily={font}>実寸の28%で描画。Googleの塗りは最小、点線は最大(画面の向きや端末で変わる範囲)。ptとdpはどちらも画面の密度に依存しない単位。</text>
-      </svg>
-      <div style={styles.numRow}>
-        {[
-          ["Apple", "#C2542A", "余白 16pt(詰めるとき11pt)・文字 11pt以上・更新のアニメーション 2秒以内"],
-          ["Google", "#2F7D6E", "押せる範囲 48×48dp・マスを端まで埋める(独自の余白なし)"],
-        ].map(([n, c, t]) => (
-          <div key={n} style={styles.numItem}><span style={{ ...styles.numWho, color: c }}>{n}</span>{t}</div>
-        ))}
-      </div>
-    </div>
+  return who === "apple" ? (
+    <svg viewBox="0 0 272 144" width="100%" style={{ display: "block", maxWidth: 360 }} role="img" aria-label="Appleのウィジェットの大きさ(小170×170・中364×170・大364×382pt)">
+      {solid(1, 170, 170, "小", "#C2542A")}
+      {solid(57, 364, 170, "中", "#C2542A")}
+      {solid(167, 364, 382, "大", "#C2542A")}
+    </svg>
+  ) : (
+    <svg viewBox="0 0 280 144" width="100%" style={{ display: "block", maxWidth: 360 }} role="img" aria-label="Googleのウィジェットの大きさ(2×2は109〜306×115〜276dp、4×2は245〜624×115〜276dp)">
+      {range(1, 109, 115, 306, 276, "2×2")}
+      {range(101, 245, 115, 624, 276, "4×2")}
+    </svg>
   );
 }
 
@@ -368,6 +358,8 @@ const WIDGET_KINDS = [
 
 /* No.063: AppleとGoogleの違い(大きさの決め方) */
 const SIZE_DIFF = [
+  ["実寸の比較", <>iPhone(画面430×932pt)、単位pt<SizeFig who="apple" /></>, <>スマートフォン、単位dp<SizeFig who="google" /></>],
+  ["主な数値", "余白 16pt(詰めるとき11pt)・文字 11pt以上・更新のアニメーション 2秒以内", "押せる範囲 48×48dp・マスを端まで埋める(独自の余白なし)"],
   ["大きさ", "システムが決めた大きさから選ぶ(小・中・大・特大と、ロック画面などの小さなアクセサリー)。小は正方形", "ホーム画面のマス(グリッド)の数で決まり、利用者が大きさを変えられる。最小・最大を決めておく"],
   ["形", "大きさごとに決まった形", "固定の正方形は使わず、マスに合わせて伸び縮みする長方形にする。マスを端まで埋める"],
   ["設計の考え方", "決まった枠の中で、一目で分かる内容を作り込む。大きさごとに見せる量を決める", "端末によってマスの数や大きさが違うため、どの大きさでも崩れないように作る"],
@@ -404,8 +396,7 @@ function WidgetSize() {
           <tbody>{SIZE_DIFF.map((r) => (<tr key={r[0]}><td style={{ ...styles.wkTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.wkTd}>{r[1]}</td><td style={styles.wkTd}>{r[2]}</td></tr>))}</tbody>
         </table>
       </div>
-      <div style={{ marginTop: 16 }}><SizeChart /></div>
-      <p style={styles.wkNote}>AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
+      <p style={styles.wkNote}>図は実寸の28%で描画。Googleの塗りは最小、点線は最大(画面の向きや端末で変わる範囲)。ptとdpはどちらも画面の密度に依存しない単位。AppleはHIGのiOSの寸法表(画面430×932ptの端末)、GoogleはAndroid Developersのスマートフォンの既定サイズ(Pixel端末が基準)。</p>
       <p style={styles.wkNote}><strong>AI解釈:</strong> Appleはシステムが大きさをそろえることで、どのアプリのウィジェットも同じ枠に収まる一貫した体験を重視し、Googleは端末ごとに違うホーム画面のマスに合わせて伸び縮みすることを重視している。どちらも「大きさごとに見せる量を決め、小さいものをそのまま引き伸ばさない」点では一致している。出典: HIG Widgets、Android Developers「Widgets ― Sizing」(固定の正方形は使わない)。</p>
     </div>
   );
@@ -688,9 +679,6 @@ const styles = {
   tagPrinciple: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#171B36", color: "#FFFFFF", fontFamily: "'IBM Plex Mono', monospace" },
   tagProcess: { fontSize: 11, padding: "4px 9px", borderRadius: 3, background: "#EEF1FA", color: "#2E3457", fontFamily: "'IBM Plex Mono', monospace" },
   footer: { display: "flex", flexDirection: "column", gap: 3, fontSize: 10.5, color: "#666D93", borderTop: "1px solid #E1E3F0", paddingTop: 12 },
-  numRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 8, marginTop: 8 },
-  numItem: { fontSize: 11, lineHeight: 1.55, color: "#2E3457", background: "#F8F9FD", borderRadius: 4, padding: "7px 9px" },
-  numWho: { display: "block", fontSize: 10, fontWeight: 700 },
   ddGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))", gap: 12 },
   ddCol: { border: "1px solid #E1E3F0", borderTop: "3px solid", borderRadius: 6, padding: "10px 14px 4px", background: "#FFFFFF" },
   ddHead: { fontSize: 13, fontWeight: 700, marginBottom: 4 },

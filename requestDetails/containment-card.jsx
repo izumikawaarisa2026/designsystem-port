@@ -239,9 +239,9 @@ const KP = [
 
 /* カードの並べ方(2026-11 ⑦本人レビューNo.050で追加。Googleの「Cards in collections」の要約) */
 const LAYOUTS = [
-  { k: "grid", t: "グリッド", when: "たくさんのカードを一覧で眺めてもらう(商品・写真・記事)", note: "画面が広いほど列を増やす。狭い画面ではリストも検討する" },
-  { k: "list", t: "縦のリスト", when: "1列に並べ、上から順に読んでもらう(SNSの投稿・ニュース)", note: "比べる・探すのが目的なら、カードではなくリストや表にする" },
-  { k: "carousel", t: "カルーセル", when: "関連するカードを横1列にまとめ、一部だけ見せる(おすすめ・特集)", note: "広い画面で、関連するカードをまとめるのにも使う。詳しい使い分けは", link: true },
+  { k: "grid", t: "グリッド", when: "たくさんのカードを一覧で眺めてもらう(商品・写真・記事)", note: "画面が広いほど列を増やす。狭い画面ではリストも検討する", links: [["/tokens/layout-spacing", "レイアウト"], ["/tokens/adaptive", "レスポンシブデザイン"]] },
+  { k: "list", t: "縦のリスト", when: "1列に並べ、上から順に読んでもらう(SNSの投稿・ニュース)", note: "比べる・探すのが目的なら、カードではなくリストや表にする", links: [["/components/containment/list", "リスト"], ["/components/containment/table", "表(データテーブル)"]] },
+  { k: "carousel", t: "カルーセル", when: "関連するカードを横1列にまとめ、一部だけ見せる(おすすめ・特集)", note: "広い画面で、関連するカードをまとめるのにも使う", links: [["/components/containment/carousel", "カルーセル"]] },
 ];
 function LayoutFig({ k }) {
   const c = (x, y, w, h) => (<rect key={x + "-" + y} x={x} y={y} width={w} height={h} rx="3" fill="#FFFFFF" stroke="#7E86AC" />);
@@ -265,7 +265,8 @@ function CardLayouts() {
             <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}><LayoutFig k={l.k} /></div>
             <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{l.t}</div>
             <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 }}>{l.when}</div>
-            <div style={{ fontSize: 11.5, lineHeight: 1.6, color: "#565D8A" }}>{l.note}{l.link && <>(<PageLink to="/components/containment/carousel">カルーセル</PageLink>)</>}</div>
+            <div style={{ fontSize: 11.5, lineHeight: 1.6, color: "#565D8A" }}>{l.note}</div>
+            <div style={{ fontSize: 11.5, lineHeight: 1.6, color: "#565D8A", marginTop: 6, paddingTop: 6, borderTop: "1px solid #EEF0F7" }}>関連するページ: {l.links.map(([to, name], i) => (<span key={to}>{i > 0 && "・"}<PageLink to={to}>{name}</PageLink></span>))}</div>
           </div>
         ))}
       </div>
