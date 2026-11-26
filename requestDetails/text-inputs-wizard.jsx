@@ -256,27 +256,62 @@ const WIZ_LOOKS = [
   { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。スクリーンリーダーの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
 ];
 const WIZ_FLOWS = [
-  ["順番どおりに進む", "前のステップを終えないと次へ進めない", "Google(M1 Linear)"],
-  ["好きな順に進める", "どのステップからでも始められる", "Google(M1 Non-linear)"],
-  ["あとで直せる・直せない", "直せるステップは戻って編集できる。直すと完了の妨げになるなら直せないステップにする", "Google(M1)"],
-  ["任意のステップ", "「任意」と示し、飛ばせるようにする", "Google(M1)・W3C"],
+  { k: "linear", t: "順番どおりに進む", d: "前のステップを終えないと次へ進めない", src: "Google(M1 Linear)" },
+  { k: "free", t: "好きな順に進める", d: "どのステップからでも始められる", src: "Google(M1 Non-linear)" },
+  { k: "edit", t: "あとで直せる・直せない", d: "直せるステップは戻って編集できる。直すと完了の妨げになるなら直せないステップにする", src: "Google(M1)" },
+  { k: "opt", t: "任意のステップ", d: "「任意」と示し、飛ばせるようにする", src: "Google(M1)・W3C" },
 ];
+/* 進み方の概念図 */
+function FlowFig({ k }) {
+  const g = "#2F7D6E", l = "#D5D9EC";
+  const dot = (x, i, fill, label) => (<g key={i}><circle cx={x} cy="30" r="9" fill={fill} stroke={g} /><text x={x} y="33.5" fontSize="9" textAnchor="middle" fill={fill === g ? "#FFFFFF" : g} fontWeight="700">{label}</text></g>);
+  const xs = [20, 60, 100];
+  return (
+    <svg width="120" height="70" viewBox="0 0 120 70" aria-hidden="true">
+      <rect x="0.5" y="0.5" width="119" height="69" rx="5" fill="#F8F9FD" stroke="#E1E3F0" />
+      {k === "linear" && <>{[0, 1].map((i) => (<path key={i} d={`M${xs[i] + 10} 30 h20 m-4 -4 l4 4 l-4 4`} stroke={g} strokeWidth="1.4" fill="none" />))}{xs.map((x, i) => dot(x, i, i === 0 ? g : "#FFFFFF", i + 1))}<text x="60" y="58" fontSize="8" textAnchor="middle" fill="#565D8A">1→2→3の順だけ</text></>}
+      {k === "free" && <>{xs.map((x, i) => dot(x, i, i === 2 ? g : "#FFFFFF", i + 1))}<path d="M20 42 C20 56, 100 56, 100 42" stroke={g} strokeWidth="1.4" fill="none" strokeDasharray="3 2" /><path d="M96 46 l4 -4 l3 5" stroke={g} strokeWidth="1.4" fill="none" /><text x="60" y="64" fontSize="8" textAnchor="middle" fill="#565D8A">どこからでも</text></>}
+      {k === "edit" && <>{[0, 1].map((i) => (<line key={i} x1={xs[i] + 10} y1="30" x2={xs[i + 1] - 10} y2="30" stroke={l} strokeWidth="1.4" />))}{xs.map((x, i) => dot(x, i, i < 2 ? g : "#FFFFFF", i < 2 ? "✓" : 3))}<text x="20" y="54" fontSize="7.5" textAnchor="middle" fill={g}>直せる</text><text x="60" y="54" fontSize="7.5" textAnchor="middle" fill="#C0503F">直せない</text></>}
+      {k === "opt" && <>{[0, 1].map((i) => (<line key={i} x1={xs[i] + 10} y1="30" x2={xs[i + 1] - 10} y2="30" stroke={l} strokeWidth="1.4" />))}{dot(20, 0, g, 1)}<g><circle cx="60" cy="30" r="9" fill="#FFFFFF" stroke={g} strokeDasharray="2.5 2" /><text x="60" y="33.5" fontSize="9" textAnchor="middle" fill={g}>2</text></g>{dot(100, 2, "#FFFFFF", 3)}<path d="M24 20 C40 4, 80 4, 96 20" stroke={g} strokeWidth="1.4" fill="none" /><path d="M92 18 l4 2 l-1 -4" stroke={g} strokeWidth="1.4" fill="none" /><text x="60" y="54" fontSize="8" textAnchor="middle" fill="#565D8A">2は任意(飛ばせる)</text></>}
+    </svg>
+  );
+}
 const WIZ_FIT = [
-  ["向いている", "初めての人や、たまにしかしない手続き(初期設定・申し込みなど)。前の答えで次に聞くことが変わる手続き(人によって最短の道筋になる)", "NN group"],
-  ["向いていない", "何度も繰り返す入力(1つずつ進むのは手間になる)。ステップをまたいで情報を見比べたい作業。途中で別の画面を確かめたくなる作業", "NN group"],
-  ["避ける", "短いフォームを区切るためだけに使う。1ページにステップ表示を複数置く・入れ子にする", "Google(M1)"],
+  { k: "good", t: "向いている", d: "初めての人や、たまにしかしない手続き(初期設定・申し込みなど)。前の答えで次に聞くことが変わる手続き(人によって最短の道筋になる)", src: "NN group" },
+  { k: "bad", t: "向いていない", d: "何度も繰り返す入力(1つずつ進むのは手間になる)。ステップをまたいで情報を見比べたい作業。途中で別の画面を確かめたくなる作業", src: "NN group" },
+  { k: "avoid", t: "避ける", d: "短いフォームを区切るためだけに使う。1ページにステップ表示を複数置く・入れ子にする", src: "Google(M1)" },
 ];
-function WizardKinds() {
-  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
-  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
-  const table = (head, rows) => (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" }}>
-        <thead><tr>{head.map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
-        <tbody>{rows.map((r) => (<tr key={r[0]}><td style={{ ...td, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={td}>{r[1]}</td><td style={{ ...td, color: "#565D8A", whiteSpace: "nowrap" }}>{r[2]}</td></tr>))}</tbody>
-      </table>
+/* 使うとき・使わないときの概念図 */
+function FitFig({ k }) {
+  const g = "#2F7D6E", l = "#D5D9EC";
+  const mark = { good: ["◯", "#5A9629"], bad: ["△", "#A3821F"], avoid: ["✕", "#C0503F"] }[k];
+  return (
+    <svg width="120" height="70" viewBox="0 0 120 70" aria-hidden="true">
+      <rect x="0.5" y="0.5" width="119" height="69" rx="5" fill="#F8F9FD" stroke="#E1E3F0" />
+      {k === "good" && <>{[22, 52, 82].map((x, i) => (<g key={x}><rect x={x} y="22" width="22" height="26" rx="3" fill="#FFFFFF" stroke={g} /><rect x={x + 4} y="28" width="14" height="3" rx="1" fill={l} /><rect x={x + 4} y="35" width="10" height="3" rx="1" fill={l} />{i < 2 && <path d={`M${x + 24} 35 h4`} stroke={g} strokeWidth="1.4" />}</g>))}<text x="56" y="62" fontSize="7.5" textAnchor="middle" fill="#565D8A">1つずつ順に答える</text></>}
+      {k === "bad" && <>{[0, 1, 2].map((i) => (<g key={i}><rect x={14 + i * 32} y="16" width="26" height="34" rx="3" fill="#FFFFFF" stroke={g} /><rect x={18 + i * 32} y="22" width="18" height="3" rx="1" fill={l} /></g>))}<path d="M27 56 C40 66, 80 66, 91 56" stroke="#A3821F" strokeWidth="1.4" fill="none" /><path d="M27 56 l-1 5 m1 -5 l5 1 M91 56 l1 5 m-1 -5 l-5 1" stroke="#A3821F" strokeWidth="1.4" fill="none" /><text x="60" y="12" fontSize="7.5" textAnchor="middle" fill="#565D8A">行き来して見比べる</text></>}
+      {k === "avoid" && <><rect x="30" y="12" width="60" height="46" rx="4" fill="#FFFFFF" stroke={g} /><text x="60" y="24" fontSize="7" textAnchor="middle" fill={g}>ステップ1/2</text><rect x="38" y="30" width="44" height="5" rx="2" fill={l} /><rect x="38" y="40" width="30" height="5" rx="2" fill={l} /><text x="60" y="66" fontSize="7.5" textAnchor="middle" fill="#565D8A">入力が2つだけのフォーム</text></>}
+      <circle cx="108" cy="12" r="8" fill="#FFFFFF" stroke={mark[1]} /><text x="108" y="15.5" fontSize="9" textAnchor="middle" fill={mark[1]} fontWeight="700">{mark[0]}</text>
+    </svg>
+  );
+}
+const cardGrid = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10, marginBottom: 12 };
+const cardBox = { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 12px 10px" };
+function WizCards({ items, Fig, titleColor }) {
+  return (
+    <div style={cardGrid}>
+      {items.map((w) => (
+        <div key={w.k} style={cardBox}>
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}><Fig k={w.k} /></div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: titleColor ? titleColor(w.k) : "#171B36", marginBottom: 4 }}>{w.t}</div>
+          <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457" }}>{w.d}</div>
+          <div style={{ fontSize: 10.5, color: "#666D93", marginTop: 4 }}>{w.src}</div>
+        </div>
+      ))}
     </div>
   );
+}
+function WizardKinds() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>ウィザードの見せ方</h2>
@@ -292,9 +327,9 @@ function WizardKinds() {
       </div>
       <p style={{ fontSize: 12, lineHeight: 1.7, color: "#454C78", margin: "0 0 24px" }}>どの見せ方でも、<strong>全体のステップと今の位置</strong>を示す(NN group・W3C)。最初のステップで、あといくつ続くかを伝えるとよい(W3C)。</p>
       <h2 style={styles.diagramTitle}>進み方の種類</h2>
-      {table(["種類", "内容", "出典"], WIZ_FLOWS)}
+      <WizCards items={WIZ_FLOWS} Fig={FlowFig} />
       <h2 style={{ ...styles.diagramTitle, marginTop: 24 }}>使うとき・使わないとき</h2>
-      {table(["", "場面", "出典"], WIZ_FIT)}
+      <WizCards items={WIZ_FIT} Fig={FitFig} titleColor={(k) => ({ good: "#2E6B3A", bad: "#7A5F12", avoid: "#A33A2E" }[k])} />
     </section>
   );
 }
