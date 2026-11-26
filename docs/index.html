@@ -141,9 +141,9 @@ const NAV_SECTIONS = [
       { label: "タブバー", path: "/components/navigation/nav-bar", built: true },
       { label: "ドロワー/サイドナビ", path: "/components/containment/drawer", built: true },
       { label: "アプリバー", path: "/components/navigation/app-bar", built: true },
+      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
       { label: "タブ", path: "/components/navigation/tabs", built: true },
       { label: "セグメントコントロール", path: "/components/navigation/segmented-control", built: true },
-      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
       { label: "パンくずリスト", path: "/components/navigation/breadcrumb", built: true },
       { label: "ページネーション", path: "/components/navigation/pagination", built: true },
       { label: "ウィザード(ステップ形式の入力)", path: "/components/text-inputs/wizard", built: true },
@@ -913,6 +913,10 @@ const PAGE_INDEX = {
   "label": "アプリバー",
   "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
  },
+ "/components/navigation/tabs-vs-segmented": {
+  "label": "タブとセグメントの使い分け",
+  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
+ },
  "/components/navigation/tabs": {
   "label": "タブ",
   "lead": "横に並んだ見出しを押して、同じ画面の中の内容を切り替えるコンポーネント"
@@ -920,10 +924,6 @@ const PAGE_INDEX = {
  "/components/navigation/segmented-control": {
   "label": "セグメントコントロール",
   "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント"
- },
- "/components/navigation/tabs-vs-segmented": {
-  "label": "タブとセグメントの使い分け",
-  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
  },
  "/components/navigation/breadcrumb": {
   "label": "パンくずリスト",
@@ -13121,9 +13121,9 @@ const TAG_INDEX = [
   {"group": "Navigation", "label": "タブバー", "path": "/components/navigation/nav-bar", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "アプリバー", "path": "/components/navigation/app-bar", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "検索・絞り込み"]},
+  {"group": "Navigation", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
   {"group": "Navigation", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "セグメントコントロール", "path": "/components/navigation/segmented-control", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "ナビゲーション"]},
-  {"group": "Navigation", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
   {"group": "Navigation", "label": "パンくずリスト", "path": "/components/navigation/breadcrumb", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ページネーション", "path": "/components/navigation/pagination", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "情報の整理・一覧"]},
   {"group": "Navigation", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
@@ -17107,24 +17107,6 @@ function SegmentedMock() {
   );
 }
 
-function VisualCompare() {
-  return (
-    <div style={styles.visualCard}>
-      <div style={styles.visualGrid}>
-        <div style={styles.visualItem}>
-          <span style={{ ...styles.visualLabel, color: "#3A4FCF" }}>タブ</span>
-          <TabMock />
-        </div>
-        <div style={styles.visualItem}>
-          <span style={{ ...styles.visualLabel, color: "#2F7D6E" }}>セグメントコントロール</span>
-          <SegmentedMock />
-        </div>
-      </div>
-      <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>だ。つながっていればセグメントコントロール、項目が独立していればタブだ。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意する。</p>
-    </div>
-  );
-}
-
 function CompareTable() {
   return (
     <div style={styles.compareScroll}>
@@ -17132,6 +17114,9 @@ function CompareTable() {
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell }} />
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell, ...styles.compareTabHeader }}>タブ</div>
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell, ...styles.compareSegHeader }}>セグメントコントロール</div>
+        <div style={{ ...styles.compareCell, ...styles.compareLabelCell }}>見た目</div>
+        <div style={{ ...styles.compareCell, ...styles.compareTextCell, display: "flex", justifyContent: "center" }}><TabMock /></div>
+        <div style={{ ...styles.compareCell, ...styles.compareTextCell, display: "flex", justifyContent: "center" }}><SegmentedMock /></div>
         {COMPARE_ROWS.map((row, i) => (
           <React.Fragment key={i}>
             <div style={{ ...styles.compareCell, ...styles.compareLabelCell }}>{row.label}</div>
@@ -17365,14 +17350,12 @@ function NavigationTabsVsSegmentedPage() {
             </p>
           </div>
 
-          <h2 style={styles.diagramTitle}>見た目の比較</h2>
-          <VisualCompare />
-
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>共通点・相違点</h2>
+          <h2 style={styles.diagramTitle}>共通点・相違点</h2>
           <VennDiagram />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表</h2>
           <CompareTable />
+          <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>だ。つながっていればセグメントコントロール、項目が独立していればタブだ。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意する。</p>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>判断フローチャート</h2>
           <DecisionFlow />
@@ -17427,7 +17410,7 @@ const styles = {
   mockCaption: { fontSize: 10, color: "#666D93" },
   vennCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
   flowCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
-  systemGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12, marginBottom: 24 },
+  systemGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 12, marginBottom: 24 },
   systemCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 4, padding: "12px 14px" },
   systemName: { display: "block", fontSize: 12.5, fontWeight: 700, marginBottom: 6 },
   systemText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "0 0 8px" },
@@ -17441,7 +17424,7 @@ const styles = {
   compareSegHeader: { color: "#2F7D6E" },
   compareLabelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", background: "#F8F9FD" },
   compareTextCell: { color: "#2E3457" },
-  exampleGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 10, marginBottom: 24 },
+  exampleGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 10, marginBottom: 24 },
   exampleCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 4, padding: "12px 14px" },
   exampleLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, marginBottom: 6 },
   exampleText: { fontSize: 12, lineHeight: 1.6, color: "#454C78", margin: 0 },
@@ -17506,7 +17489,6 @@ const SOURCES = [
     url: "https://developer.apple.com/design/human-interface-guidelines/tab-views",
     refs: [
       { label: "Tab views", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
-      { label: "Segmented controls(iOS・iPadOSでの代わり)", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
       { label: "参考: Tab bars(アプリ全体の遷移)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
     illustration: () => (
@@ -38779,9 +38761,9 @@ const PAGES = [
   { id: "components-navigation-nav-bar", label: "タブバー", spec: "015", Component: NavigationNavBarPage, path: "/components/navigation/nav-bar", fixed: true },
   { id: "components-containment-drawer", label: "ドロワー/サイドナビ", spec: "016", Component: NavigationDrawerPage, path: "/components/containment/drawer", fixed: true },
   { id: "components-navigation-app-bar", label: "アプリバー", spec: "019", Component: NavigationAppBarPage, path: "/components/navigation/app-bar", fixed: true },
+  { id: "components-navigation-tabs-vs-segmented", label: "タブとセグメントの使い分け", spec: "014", Component: NavigationTabsVsSegmentedPage, path: "/components/navigation/tabs-vs-segmented", fixed: true },
   { id: "components-navigation-tabs", label: "タブ", spec: "013", Component: NavigationTabsPage, path: "/components/navigation/tabs", fixed: true },
   { id: "components-navigation-segmented-control", label: "セグメントコントロール", spec: "011", Component: NavigationSegmentedControlPage, path: "/components/navigation/segmented-control", fixed: true },
-  { id: "components-navigation-tabs-vs-segmented", label: "タブとセグメントの使い分け", spec: "014", Component: NavigationTabsVsSegmentedPage, path: "/components/navigation/tabs-vs-segmented", fixed: true },
   { id: "components-navigation-breadcrumb", label: "パンくずリスト", spec: "017", Component: NavigationBreadcrumbPage, path: "/components/navigation/breadcrumb", fixed: true },
   { id: "components-navigation-pagination", label: "ページネーション", spec: "018", Component: NavigationPaginationPage, path: "/components/navigation/pagination", fixed: true },
   { id: "components-text-inputs-wizard", label: "ウィザード(ステップ形式の入力)", spec: "063", Component: TextInputsWizardPage, path: "/components/text-inputs/wizard", fixed: true },

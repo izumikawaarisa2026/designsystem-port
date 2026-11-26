@@ -67,24 +67,6 @@ function SegmentedMock() {
   );
 }
 
-function VisualCompare() {
-  return (
-    <div style={styles.visualCard}>
-      <div style={styles.visualGrid}>
-        <div style={styles.visualItem}>
-          <span style={{ ...styles.visualLabel, color: "#3A4FCF" }}>タブ</span>
-          <TabMock />
-        </div>
-        <div style={styles.visualItem}>
-          <span style={{ ...styles.visualLabel, color: "#2F7D6E" }}>セグメントコントロール</span>
-          <SegmentedMock />
-        </div>
-      </div>
-      <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>だ。つながっていればセグメントコントロール、項目が独立していればタブだ。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意する。</p>
-    </div>
-  );
-}
-
 function CompareTable() {
   return (
     <div style={styles.compareScroll}>
@@ -92,6 +74,9 @@ function CompareTable() {
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell }} />
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell, ...styles.compareTabHeader }}>タブ</div>
         <div style={{ ...styles.compareCell, ...styles.compareHeaderCell, ...styles.compareSegHeader }}>セグメントコントロール</div>
+        <div style={{ ...styles.compareCell, ...styles.compareLabelCell }}>見た目</div>
+        <div style={{ ...styles.compareCell, ...styles.compareTextCell, display: "flex", justifyContent: "center" }}><TabMock /></div>
+        <div style={{ ...styles.compareCell, ...styles.compareTextCell, display: "flex", justifyContent: "center" }}><SegmentedMock /></div>
         {COMPARE_ROWS.map((row, i) => (
           <React.Fragment key={i}>
             <div style={{ ...styles.compareCell, ...styles.compareLabelCell }}>{row.label}</div>
@@ -325,14 +310,12 @@ export default function NavigationTabsVsSegmentedPage() {
             </p>
           </div>
 
-          <h2 style={styles.diagramTitle}>見た目の比較</h2>
-          <VisualCompare />
-
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>共通点・相違点</h2>
+          <h2 style={styles.diagramTitle}>共通点・相違点</h2>
           <VennDiagram />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>比較表</h2>
           <CompareTable />
+          <p style={styles.diagramNote}>見た目だけで見分ける簡単な手がかりは<strong>「項目同士が1つの帯(track)でつながっているか」</strong>だ。つながっていればセグメントコントロール、項目が独立していればタブだ。ただしこれは複数のUIデザイン解説で見られる一般的な観察であり、4系列いずれかの公式な判定基準ではない点に注意する。</p>
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>判断フローチャート</h2>
           <DecisionFlow />
@@ -387,7 +370,7 @@ const styles = {
   mockCaption: { fontSize: 10, color: "#666D93" },
   vennCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
   flowCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "18px 16px 14px", marginBottom: 22 },
-  systemGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 12, marginBottom: 24 },
+  systemGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 12, marginBottom: 24 },
   systemCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 4, padding: "12px 14px" },
   systemName: { display: "block", fontSize: 12.5, fontWeight: 700, marginBottom: 6 },
   systemText: { fontSize: 11.5, lineHeight: 1.65, color: "#454C78", margin: "0 0 8px" },
@@ -401,7 +384,7 @@ const styles = {
   compareSegHeader: { color: "#2F7D6E" },
   compareLabelCell: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, color: "#565D8A", background: "#F8F9FD" },
   compareTextCell: { color: "#2E3457" },
-  exampleGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 10, marginBottom: 24 },
+  exampleGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))", gap: 10, marginBottom: 24 },
   exampleCard: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderLeft: "3px solid", borderRadius: 4, padding: "12px 14px" },
   exampleLabel: { display: "block", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10.5, fontWeight: 700, marginBottom: 6 },
   exampleText: { fontSize: 12, lineHeight: 1.6, color: "#454C78", margin: 0 },
