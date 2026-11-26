@@ -230,7 +230,7 @@ export default function DesignSystemCompareProto() {
                   <span style={styles.sourceUnit}>{s.unit}</span>
                 </div>
               </div>
-              <p style={styles.sourceStance}>{s.stance}</p>
+              <div style={styles.sourceStance}>{s.stance}</div>
               <div style={styles.exceptionBox}>
                 <span style={styles.exceptionLabel}>例外・許容ケース</span>
                 <p style={styles.exceptionText}>{s.exceptions}</p>

@@ -56,6 +56,9 @@ const SOURCES = [
       { label: "Modality", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
       { label: "Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
+    glossary: [
+      { term: "全画面のモーダルとシート", desc: "Sheetsのページは、複雑で長い作業にはシートの代わりに、iOS・iPadOSの全画面スタイルのモーダルビューを検討するよう勧める。同じページの「非モーダルのシート」は、親のビューを操作できるまま残すシート(メモの書式設定など)のことで、全画面のモーダルとは別。watchOSではシート自体が全画面で出る。" },
+    ],
     confirmedNote: "HIG Modality・Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
@@ -155,23 +158,23 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations",
-    term: "Modal dialog(複数ステップは普通のページ=ウィザードに)",
+    term: "Modal dialog(複数ステップなら専用のページに)",
     color: "#7A4F7E",
-    position: "複数ステップの作業はモーダル(全画面ダイアログも含む)にせず、モーダルではない普通のページ(ウィザード)にすべきという主張",
+    position: <>最初から複数ステップの作業なら、<Hl>モーダルではなく専用のページにする</Hl>という主張(全画面ダイアログに当てはめるのはAI解釈)</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、普通のページにする。ウィザード(ステップ形式の入力)の作り方は、「ウィザード」ページで比較している。</>,
+      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、専用のページにする。ウィザード(ステップ形式の入力)はモーダルのウィンドウに出すことも多いが必須ではなく、モーダルに出すと、背景にある作業に必要な情報が隠れる。ウィザードの作り方は、「ウィザード」ページで比較している。</>,
     scenarios: [
-      "分野の知識が少ない新しい利用者向けのオンボーディング",
-      "たまにしか行わない、複数ステップのセットアップ・設定(日常に繰り返す操作には向かない)",
+      "ウィザードに向く場面: 分野の知識が少ない新しい利用者向けのオンボーディング",
+      "ウィザードに向く場面: たまにしか行わない、複数ステップのセットアップ・設定(日常に繰り返す操作には向かない)",
     ],
     exceptions:
       <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― モーダルで文脈を見失うのを避けるための設計の根拠。",
     useCases: [
-      "複数ステップの複雑な作業は、モーダル(全画面ダイアログも含む)ではなく、普通のページにする",
+      "最初から複数ステップの作業は、モーダルではなく専用のページにする",
       "ステップ形式の作り方は「ウィザード」ページを参照する",
       "途中保存と再開の機能を用意し、日常に繰り返す操作には使わない",
     ],
@@ -341,7 +344,7 @@ export default function ContainmentFullscreenDialogPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

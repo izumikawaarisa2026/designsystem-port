@@ -468,7 +468,7 @@ export default function TokensOverviewPage() {
                 </div>
                 <div style={styles.positionBadge}>{s.summary}</div>
                 <InfoBox label="含まれる主なトピック"><CategoryList items={s.categories} /></InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="アクセシビリティの位置づけ">{s.accessibilityNote}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />

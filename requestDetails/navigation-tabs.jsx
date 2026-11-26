@@ -484,7 +484,7 @@ export default function NavigationTabsPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="タブの数">{s.count}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="構成・配置">{s.structure}</InfoBox>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>

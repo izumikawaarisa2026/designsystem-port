@@ -583,7 +583,7 @@ export default function TextInputsInputValidationPage() {
                 )}
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

@@ -171,13 +171,59 @@ export function negify(node, keyBase = "k") {
   }
   return node;
 }
+/* 基本方針(stance)を、意味のまとまりごとの箇条書きにする(2026-11 ⑩本人最終レビュー)。
+   文章のデータは変えず、表示のときに「。」で文に分け、前の文の続き(ただし・なお・そのため・たとえば など)はまとめる。
+   かっこ「()」「「」」の中の「。」では分けない。まとまりが1つだけなら、元の文章のまま出す */
+const CONT_RE = /^(ただし|なお|そのため|このため|そのうえで|その上で|つまり|これは|これに|これら|この|その|それ|特に|とくに|たとえば|例えば|逆に|代わりに|理由は|ここで|そこで|それでも|そうすれば|一方で|一方、|すなわち)/;
+function stanceTokens(node, out) {
+  if (node == null || node === false || node === true) return out;
+  if (typeof node === "string" || typeof node === "number") { out.push(String(node)); return out; }
+  if (Array.isArray(node)) { node.forEach((n) => stanceTokens(n, out)); return out; }
+  if (React.isValidElement(node)) {
+    // フラグメントと、装飾のない span だけは中に入る。Hl・リンク・「記載なし」・否定の赤字などは1つの塊として扱う
+    if (node.type === React.Fragment || (node.type === "span" && !(node.props && node.props.style))) return stanceTokens(node.props.children, out);
+    out.push(node);
+  }
+  return out;
+}
+const plainText = (n) => (typeof n === "string" ? n : React.isValidElement(n) ? [].concat(n.props.children || []).map(plainText).join("") : Array.isArray(n) ? n.map(plainText).join("") : "");
+export function listifyStance(node, keyBase = "st") {
+  const tokens = stanceTokens(node, []);
+  const sentences = [[]];
+  let depth = 0;
+  tokens.forEach((t) => {
+    if (typeof t !== "string") { sentences[sentences.length - 1].push(t); return; }
+    let buf = "";
+    for (const ch of t) {
+      buf += ch;
+      if (ch === "(" || ch === "\uFF08" || ch === "\u300C") depth++;
+      else if ((ch === ")" || ch === "\uFF09" || ch === "\u300D") && depth > 0) depth--;
+      else if (ch === "。" && depth === 0) { sentences[sentences.length - 1].push(buf); buf = ""; sentences.push([]); }
+    }
+    if (buf) sentences[sentences.length - 1].push(buf);
+  });
+  const clean = sentences.map((sn) => sn.filter((x) => !(typeof x === "string" && !x.trim()))).filter((sn) => sn.length && plainText(sn).trim());
+  const groups = [];
+  clean.forEach((sn) => {
+    const head = plainText(sn).trim();
+    if (groups.length && CONT_RE.test(head) && !/^例外/.test(head)) groups[groups.length - 1].push(...sn);
+    else groups.push([...sn]);
+  });
+  if (groups.length <= 1) return node;
+  return (
+    <ul style={partStyles.stanceList}>
+      {groups.map((g, i) => (<li key={keyBase + "-" + i} style={partStyles.stanceItem}>{g.map((x, j) => (typeof x === "string" ? x : React.cloneElement(x, { key: keyBase + "-" + i + "-" + j })))}</li>))}
+    </ul>
+  );
+}
+
 const NEG_SKIP = new Set(["key", "name", "doc", "color", "url", "refs", "searchHint", "confirmedNote", "illustration", "illustrationNote", "glossary", "items", "extra", "pending", "noDedicatedComponent", "m3NotApplicable", "notApplicable"]);
 export function markNeg(list) {
   (list || []).forEach((s) => {
     Object.keys(s).forEach((k) => {
       if (NEG_SKIP.has(k)) return;
       const v = s[k];
-      if (typeof v === "string" || React.isValidElement(v)) s[k] = negify(v, s.key + "-" + k);
+      if (typeof v === "string" || React.isValidElement(v)) s[k] = k === "stance" ? listifyStance(negify(v, s.key + "-" + k), s.key + "-stl") : negify(v, s.key + "-" + k);
       else if (Array.isArray(v) && v.every((x) => typeof x === "string" || React.isValidElement(x))) s[k] = v.map((x, i) => negify(x, s.key + "-" + k + i));
     });
   });
@@ -422,6 +468,10 @@ const PAGE_INDEX = {
   "label": "モーダルダイアログ",
   "lead": "画面の上に小さな枠を重ねて表示し、確認や選択を求めるコンポーネント"
  },
+ "/components/containment/fullscreen-dialog": {
+  "label": "フルスクリーンダイアログ",
+  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
+ },
  "/components/containment/bottom-sheet": {
   "label": "ボトムシート",
   "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネル"
@@ -429,10 +479,6 @@ const PAGE_INDEX = {
  "/components/containment/side-sheet": {
   "label": "サイドシート",
   "lead": "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネル"
- },
- "/components/containment/fullscreen-dialog": {
-  "label": "フルスクリーンダイアログ",
-  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
  },
  "/components/containment/card": {
   "label": "カード",
@@ -614,6 +660,8 @@ const partStyles = {
   refNote: { fontSize: 10, lineHeight: 1.55, color: "#666D93", margin: "6px 0 0" },
   hl: { fontWeight: 700, color: "#171B36", background: "linear-gradient(transparent 58%, #E2EFC4 58%)" },
   noData: { color: "#666D93" },
+  stanceList: { margin: 0, paddingLeft: "1.15em", listStyle: "disc" },
+  stanceItem: { margin: "0 0 4px", paddingLeft: 2 },
   h2: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   note: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
   splitCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },

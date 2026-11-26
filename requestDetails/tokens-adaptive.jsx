@@ -588,7 +588,7 @@ export default function TokensAdaptivePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="切り替えの基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="切り替えるもの・保つもの">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

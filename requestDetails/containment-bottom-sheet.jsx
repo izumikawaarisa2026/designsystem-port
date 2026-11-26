@@ -115,8 +115,8 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
-    term: "ダイアログ(モーダルの場合。専用の役割なし)",
+    doc: "WCAG 2.5.7 ドラッグ動作(ボトムシート専用の定めはない)",
+    term: <NoData>該当なし(専用の役割・パターンはない。モーダルならダイアログとして扱う)</NoData>,
     color: "#A3821F",
     position: <>専用の役割・パターンはなく、<Hl>モーダルか非モーダルかで当てはめる考え方が変わる</Hl></>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
@@ -137,10 +137,10 @@ const SOURCES = [
       "ドラッグしなくても高さを変えられるようにする(ドラッグハンドルのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html",
     refs: [
-      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
       { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
+      { kind: "apg", label: "APG: Dialog Modal Pattern(モーダルのシートの場合の参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -243,7 +243,7 @@ const MODAL_CHOICE = [
   { fig: "none", t: "シートを使わない", when: "長い作業や、じっくり読む内容", ex: "複数ステップの編集、長い記事", src: "Apple(全画面のモーダルや別のウィンドウを検討)・NN group(短い操作だけに使う)" },
 ];
 const CLOSE_ROWS = [
-  ["ドラッグハンドル(ドラッグハンドル)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(ドラッグハンドル)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
+  ["ドラッグハンドル", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(ドラッグハンドル)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
   ["×・閉じるボタン", "全画面のモーダルのボトムシートには閉じるボタンを出す", "キャンセル(閉じる)は保存せずに閉じ、完了は作業を終えて閉じる。完了だけにせず、キャンセルか戻るを組み合わせる", "ハンドルだけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる"],
   ["そのほかの閉じ方", "項目を選ぶ、後ろ(スクリム)をタップ、下へなぞる、シートのアプリバーの閉じるボタン。Androidの「予測型の戻る」操作", <NoData>記載なし</NoData>, "端末の戻るボタン・戻る操作でも閉じられるようにする"],
   ["重ねない", <NoData>記載なし</NoData>, "一度に出すシートは1枚にする。シートから別のシートを出すなら、先に最初のシートを閉じる", "シートの上にシートを重ねない。ページ間の遷移の代わりに使わない"],
@@ -286,8 +286,9 @@ function BottomSheetGuide() {
       <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>閉じ方 ― ドラッグハンドルと×ボタン</h2>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.bsTable}>
+          <colgroup><col style={{ width: 128 }} /><col /><col /><col /></colgroup>
           <thead><tr>{["", "Google", "Apple", "NN group"].map((h) => (<th key={h} style={styles.bsTh}>{h}</th>))}</tr></thead>
-          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, whiteSpace: "nowrap" } : {}) }}>{c}</td>))}</tr>))}</tbody>
+          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, background: "#F8F9FD" } : {}) }}>{c}</td>))}</tr>))}</tbody>
         </table>
       </div>
       <p style={styles.bsNote}>W3Cにはボトムシート専用の型はない。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作る(比較表のW3C欄)。</p>
@@ -394,7 +395,7 @@ export default function ContainmentBottomSheetPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -486,7 +487,7 @@ const styles = {
   bsLine: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 },
   bsKey: { display: "inline-block", fontSize: 10, fontWeight: 700, color: "#565D8A", background: "#F3F6FA", borderRadius: 3, padding: "0 5px", marginRight: 6 },
   bsSrc: { fontSize: 10, color: "#666D93", marginTop: 4 },
-  bsTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bsTable: { width: "100%", minWidth: 760, tableLayout: "fixed", borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   bsTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   bsTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   bsNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },

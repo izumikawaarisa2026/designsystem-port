@@ -368,7 +368,7 @@ function ButtonTabContent({ tabId }) {
           </div>
           {!tab.hasScale && s.term && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
-          <p style={styles.sourceStance}>{s.stance}</p>
+          <div style={styles.sourceStance}>{s.stance}</div>
           {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
             <span style={styles.exceptionLabel}>例外・許容ケース</span>
             <p style={styles.exceptionText}>{s.exceptions}</p>

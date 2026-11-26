@@ -94,9 +94,9 @@ export const NAV_SECTIONS = [
     items: [
       { label: "オーバーレイの使い分け", path: "/components/containment/overview", built: true },
       { label: "モーダルダイアログ", path: "/components/containment/dialog", built: true },
+      { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
-      { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "カード", path: "/components/containment/card", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
