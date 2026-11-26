@@ -436,6 +436,10 @@ const PAGE_INDEX = {
   "label": "アプリバー",
   "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
  },
+ "/components/navigation/tabs-vs-segmented": {
+  "label": "タブとセグメントの使い分け",
+  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
+ },
  "/components/navigation/tabs": {
   "label": "タブ",
   "lead": "横に並んだ見出しを押して、同じ画面の中の内容を切り替えるコンポーネント"
@@ -443,10 +447,6 @@ const PAGE_INDEX = {
  "/components/navigation/segmented-control": {
   "label": "セグメントコントロール",
   "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント"
- },
- "/components/navigation/tabs-vs-segmented": {
-  "label": "タブとセグメントの使い分け",
-  "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
  },
  "/components/navigation/breadcrumb": {
   "label": "パンくずリスト",

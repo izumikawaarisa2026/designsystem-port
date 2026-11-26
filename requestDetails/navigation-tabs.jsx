@@ -49,7 +49,6 @@ const SOURCES = [
     url: "https://developer.apple.com/design/human-interface-guidelines/tab-views",
     refs: [
       { label: "Tab views", url: "https://developer.apple.com/design/human-interface-guidelines/tab-views" },
-      { label: "Segmented controls(iOS・iPadOSでの代わり)", url: "https://developer.apple.com/design/human-interface-guidelines/segmented-controls" },
       { label: "参考: Tab bars(アプリ全体の遷移)", url: "https://developer.apple.com/design/human-interface-guidelines/tab-bars" },
     ],
     illustration: () => (
