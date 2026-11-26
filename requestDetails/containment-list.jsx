@@ -261,6 +261,137 @@ const KP = [
   { n: 2, t: "並べ替えやすく、場所をとらないのが強み", d: "", who: "NN group" },
 ];
 
+/* リスト項目の中の要素(2026-11 ⑩本人最終レビューで追加。HIG「Lists and tables」、M3「Lists ― Guidelines」の構成要素、NN group「Cards: UI-Component Definition」による) */
+function ItemAnatomy() {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const tag = (x, n, label) => (
+    <g>
+      <circle cx={x} cy="14" r="8" fill="#3C5A73" />
+      <text x={x} y="17.5" fontSize="9.5" fill="#FFFFFF" textAnchor="middle" fontFamily={font} fontWeight="700">{n}</text>
+      <text x={x} y="98" fontSize="10" fill="#454C78" textAnchor="middle" fontFamily={font}>{label}</text>
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 420 108" width="100%" style={{ maxWidth: 520, display: "block", margin: "0 auto" }} role="img" aria-label="リスト項目の先頭・中央・末尾の要素の概念図">
+      <rect x="10" y="30" width="400" height="52" rx="6" fill="#FFFFFF" stroke="#B7BCDA" />
+      <circle cx="42" cy="56" r="15" fill="#D9E4F2" />
+      <text x="42" y="60" fontSize="11" fill="#3C5A73" textAnchor="middle" fontFamily={font} fontWeight="700">A</text>
+      <text x="70" y="52" fontSize="12" fill="#171B36" fontFamily={font} fontWeight="700">見出しの文字</text>
+      <text x="70" y="69" fontSize="10.5" fill="#565D8A" fontFamily={font}>補足の文(1〜2行)</text>
+      <text x="318" y="60" fontSize="11" fill="#454C78" textAnchor="end" fontFamily={font}>¥1,200</text>
+      <rect x="336" y="47" width="18" height="18" rx="3" fill="#3C5A73" />
+      <path d="M340 56 l4 4 l7 -8" stroke="#FFFFFF" strokeWidth="2" fill="none" />
+      <path d="M378 50 l7 6 l-7 6" stroke="#7E86AC" strokeWidth="2" fill="none" />
+      {tag(42, 1, "先頭")}
+      {tag(130, 2, "中央(文字)")}
+      {tag(345, 3, "末尾")}
+    </svg>
+  );
+}
+
+const ANATOMY_ROWS = [
+  {
+    part: "① 先頭",
+    apple: "小さな画像を先頭に置き、短い説明の文を続ける行のスタイルがある",
+    google: "アバター(人や組織は丸などの形)・アイコン(見出しに関係するもの)・画像や動画。見た目の要素を先頭にそろえると、ざっと見やすい",
+    w3c: <NoData>記載なし</NoData>,
+    nn: "リストの1行にも、画像・見出し・要約などを入れてよい",
+  },
+  {
+    part: "② 中央(文字)",
+    apple: "文字は短く簡潔に(切れたり折り返したりしにくくする)。長い内容は見出しだけを並べ、詳細の画面で見せる",
+    google: "見出しの文字は必須(ほかの要素はすべて任意)。補足の文を添えられる",
+    w3c: <NoData>記載なし</NoData>,
+    nn: "どの行でも要素の位置が同じなので、目で追いやすい",
+  },
+  {
+    part: "③ 末尾",
+    apple: "下の階層へ進むなら開示インジケーター(›)。インフォボタンは情報を見せるだけで、階層の移動には使わない。末尾に操作がある表には索引を付けない",
+    google: "補足の文字(価格・件数・日付)・アイコン(状態や操作)・アイコンボタン。ブックマークやメニューなどの補助の操作は末尾に置き、主な操作は先頭と中央の大部分を使う",
+    w3c: "項目の中の操作要素には、ターゲットサイズの基準(2.5.8・例外あり)がかかる",
+    nn: "価格などが毎回同じ位置にあると、項目どうしを比べやすい",
+  },
+  {
+    part: "選択コントロール",
+    apple: "選択肢の一覧では、選んだ行を一瞬強調してからチェックマークを付ける。iOS・iPadOSでは編集モードに入ってから項目を選ぶ",
+    google: "チェックボックス・ラジオボタン・スイッチを先頭か末尾に置く。1つのリスト内では単一選択(ラジオボタン)か複数選択(チェックボックス・スイッチ)のどちらかにする",
+    w3c: "選べる一覧では、どれが選ばれているかを支援技術に伝える(APGのListboxパターン)",
+    nn: <NoData>記載なし</NoData>,
+  },
+  {
+    part: "選んだ状態の見せ方",
+    apple: "階層をたどる一覧は、選んだ行を強調したままにして、たどった道筋を示す",
+    google: "選んだ状態は項目全体にかかる(チェックボックスと項目の両方が選択の見た目になる)。色だけでなく、アイコンなどでも示す",
+    w3c: "色だけで示さない(1.4.1)",
+    nn: <NoData>記載なし</NoData>,
+  },
+];
+
+function ItemElements() {
+  const cols = [["apple", "Apple"], ["google", "Google"], ["w3c", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>リスト項目の中の要素</h2>
+      <p style={styles.secNote}>1つの項目は、先頭・中央(文字)・末尾の3つの場所に分かれる。画像やアバター、選択コントロールをどこに置くかを系列ごとにまとめた(図は概念図)。</p>
+      <div style={{ marginBottom: 12 }}><ItemAnatomy /></div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.secTable}>
+          <thead><tr><th style={styles.secTh}></th>{cols.map(([k, n]) => (<th key={k} style={styles.secTh}>{n}</th>))}</tr></thead>
+          <tbody>{ANATOMY_ROWS.map((r) => (<tr key={r.part}><td style={{ ...styles.secTd, fontWeight: 700, whiteSpace: "nowrap", background: "#F8F9FD" }}>{r.part}</td>{cols.map(([k]) => (<td key={k} style={styles.secTd}>{r[k]}</td>))}</tr>))}</tbody>
+        </table>
+      </div>
+      <p style={styles.secNote}>出典: Apple HIG「<a href="https://developer.apple.com/design/human-interface-guidelines/lists-and-tables" target="_blank" rel="noreferrer" style={styles.secLink}>Lists and tables ↗</a>」、Google M3「<a href="https://m3.material.io/components/lists/guidelines" target="_blank" rel="noreferrer" style={styles.secLink}>Lists ― Guidelines ↗</a>」(Anatomy・Selection controls)、W3C「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" target="_blank" rel="noreferrer" style={styles.secLink}>APG: Listbox ↗</a>」、Nielsen Norman Group「<a href="https://www.nngroup.com/articles/cards-component/" target="_blank" rel="noreferrer" style={styles.secLink}>Cards: UI-Component Definition ↗</a>」。選択コントロールそれぞれの使い分けは<PageLink to="/components/selection/checkbox">チェックボックス</PageLink>・<PageLink to="/components/selection/radio">ラジオボタン</PageLink>・<PageLink to="/components/selection/toggle">トグルスイッチ</PageLink>のページへ。</p>
+    </section>
+  );
+}
+
+/* カードビューとリストビューの長所・短所(2026-11 ⑩本人最終レビューで追加。NN groupの動画「Card View vs. List View」(章: List View / Card View / Conclusion)と、動画が案内する記事「Cards: UI-Component Definition」による) */
+function ViewFig({ k }) {
+  const f = "#7A4F7E";
+  return (
+    <svg width="110" height="66" viewBox="0 0 110 66" aria-hidden="true" style={{ display: "block", margin: "0 auto 6px" }}>
+      <rect x="0.5" y="0.5" width="109" height="65" rx="5" fill="#F8F9FD" stroke="#E1E3F0" />
+      {k === "list" && [8, 22, 36, 50].map((y) => (<g key={y}><rect x="8" y={y} width="10" height="9" rx="2" fill={f} opacity="0.5" /><rect x="22" y={y + 1} width="58" height="7" rx="2" fill={f} opacity="0.25" /><rect x="86" y={y + 1} width="16" height="7" rx="2" fill={f} opacity="0.45" /></g>))}
+      {k === "card" && <g>
+        <rect x="8" y="8" width="44" height="30" rx="4" fill="#FFFFFF" stroke={f} /><rect x="12" y="12" width="36" height="14" rx="2" fill={f} opacity="0.35" /><rect x="12" y="29" width="26" height="5" rx="1.5" fill={f} opacity="0.3" />
+        <rect x="58" y="8" width="44" height="48" rx="4" fill="#FFFFFF" stroke={f} /><rect x="62" y="12" width="36" height="22" rx="2" fill={f} opacity="0.35" /><rect x="62" y="38" width="30" height="5" rx="1.5" fill={f} opacity="0.3" /><rect x="62" y="46" width="20" height="5" rx="1.5" fill={f} opacity="0.3" />
+        <rect x="8" y="42" width="44" height="18" rx="4" fill="#FFFFFF" stroke={f} /><rect x="12" y="47" width="30" height="5" rx="1.5" fill={f} opacity="0.3" />
+      </g>}
+    </svg>
+  );
+}
+
+const VIEW_ROWS = [
+  ["探しやすさ", "◯ 各項目の要素が同じ位置に並び、目で追いやすい。特定の項目を探すのに向く", "△ 大きさや並びがそろわず、目が行ったり来たりする。探すより、眺めて選ぶのに向く"],
+  ["比べやすさ", "◯ 価格などが毎回同じ位置にあり、項目どうしを比べやすい", "△ 項目ごとに中身の並びが違うと、比べにくい"],
+  ["並べ替え", "◯ 並べ替えやすい", "△ 並べ替えても、順番(どれが上位か)が伝わりにくい"],
+  ["場所", "◯ 場所をとらず、スクロールしなくても多くの項目が見える", "△ 1枚が大きく、1画面に入る数が少ない"],
+  ["見た目", "△ 見た目で引きつける力は弱い", "◯ 画像などで目を引き、見た目の魅力が高い"],
+  ["まとまり", "△ 1つの項目の中の情報のまとまりは、余白で示すしかない", "◯ 枠や背景で、関連する情報を1つのまとまりとして見せられる。押せる範囲も広い"],
+  ["向いている中身", "同じ種類の項目(商品・記事・ブログの一覧など)", "種類の違う項目が混ざる一覧(ダッシュボード・SNS・まとめサイトなど)"],
+];
+
+function CardVsListView() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>カードビューとリストビューの長所と短所(Nielsen Norman Group)</h2>
+      <p style={styles.secNote}>同じ一覧を、リストで並べるか、カードで並べるか。NN groupは、リストは並べ替えやすく場所をとらず、カードは見た目で引きつけ、まとまりを作りやすいとまとめている(◯=長所、△=短所)。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.secTable}>
+          <thead><tr>
+            <th style={styles.secTh}></th>
+            <th style={styles.secTh}><ViewFig k="list" />リストビュー</th>
+            <th style={styles.secTh}><ViewFig k="card" />カードビュー</th>
+          </tr></thead>
+          <tbody>{VIEW_ROWS.map((r) => (<tr key={r[0]}><td style={{ ...styles.secTd, fontWeight: 700, whiteSpace: "nowrap", background: "#F8F9FD" }}>{r[0]}</td><td style={{ ...styles.secTd, width: "44%" }}>{r[1]}</td><td style={{ ...styles.secTd, width: "44%" }}>{r[2]}</td></tr>))}</tbody>
+        </table>
+      </div>
+      <div style={styles.secAi}><strong>AI解釈: </strong>探す・比べるのが目的ならリスト、種類の違う項目を眺めて選んでもらうならカード、と<strong>利用者の目的と中身のそろい方</strong>で選ぶ。同じ種類の項目をカードにすると、見た目は今風でも、探しにくく比べにくくなる。</div>
+      <p style={styles.secNote}>出典: Nielsen Norman Groupの動画「<a href="https://www.nngroup.com/videos/card-view-vs-list-view/" target="_blank" rel="noreferrer" style={styles.secLink}>Card View vs. List View ↗</a>」と、動画が案内する記事「<a href="https://www.nngroup.com/articles/cards-component/" target="_blank" rel="noreferrer" style={styles.secLink}>Cards: UI-Component Definition ↗</a>」。カードの並べ方は<PageLink to="/components/containment/card">カード</PageLink>のページへ。</p>
+    </section>
+  );
+}
+
 export default function ContainmentListPage() {
   return (
     <div className="dsp-page" style={styles.page}>
@@ -395,8 +526,10 @@ export default function ContainmentListPage() {
             </div>
           </div>
 
+          <ItemElements />
+          <CardVsListView />
 
-          <RelatedPages paths={["/components/containment/card", "/components/containment/table", "/components/containment/accordion"]} />
+          <RelatedPages paths={["/components/containment/card", "/components/containment/table", "/components/selection/checkbox", "/components/containment/accordion"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -428,6 +561,12 @@ const styles = {
   synthesisLabel: { fontSize: 17, color: "#5A9629", fontWeight: 700, marginBottom: 10, letterSpacing: 0.2 },
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
+  secNote: { fontSize: 12, lineHeight: 1.7, color: "#565D8A", margin: "0 0 12px" },
+  secLink: { color: "#3A4FCF" },
+  secTable: { width: "100%", minWidth: 640, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
+  secTh: { textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#454C78", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", verticalAlign: "bottom" },
+  secTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  secAi: { background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "10px 14px", fontSize: 12, lineHeight: 1.75, color: "#2E3457", margin: "0 0 12px" },
   sourceList: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 40 },
   sourceCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "14px 16px" },
   sourceHeadRow: { display: "flex", justifyContent: "space-between", alignItems: "flex-start" },

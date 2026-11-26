@@ -197,29 +197,61 @@ function AccordionSwatch() {
   );
 }
 
-/* タブとアコーディオンの使い分け(No.054でNN groupの記事から作り、⑩本人最終レビューでApple・Google・W3Cの定義を加えた) */
+/* タブとアコーディオンの使い分け(No.054でNN groupの記事から作り、⑩本人最終レビューで観点×4系列の表に組み直した。各セルは「アコーディオン」「タブ」の順。HIG Disclosure controls・Tab views、M3 Tabs ― Guidelines、APG Accordion・Tabs、NN group「Tabs, Used Right」「Accordions on Desktop」で確認) */
+const A = ({ children }) => <div style={{ marginBottom: 4 }}><span style={styles.tvaTag}>アコーディオン</span>{children}</div>;
+const T = ({ children }) => <div><span style={styles.tvaTag}>タブ</span>{children}</div>;
 const TAB_VS_ACC = [
-  ["見せ方", "縦に積んだ見出しを押して、その下の内容を開閉する", "横に並んだタブで、同じ場所のパネルを切り替える", "W3C(APG)"],
-  ["同時に見られる数", "複数を同時に開ける作りにもできる", "1度に1つのパネルだけ(互いに排他的なペイン)", "W3C(APG)・Apple(Tab views)"],
-  ["系列での扱い", "Appleは開示の三角・ボタン(Disclosure controls)、W3CはAccordionパターン。GoogleのM3には独立したコンポーネントがない", "Appleはタブビュー(Tab views)、Googleはタブ(内容を画面・データセットなどのカテゴリに整理)、W3CはTabsパターン", "Apple・Google・W3C"],
-  ["向いている画面", "モバイル(狭い画面ではタブより使いやすい)", "デスクトップ(閉じたアコーディオンは、ページが空っぽに見えやすい)", "NN group"],
-  ["見出しの長さ", "長めの見出しも使える", "短い見出しがよい(横に並べるため)", "NN group"],
-  ["内容", "FAQのような、短い内容をまとめる", "長い内容や、複雑なレイアウトも扱える", "NN group"],
-  ["見比べる必要", "—", "別のタブの内容を同時に見る必要がないときに使う(見比べるなら切り替えが負担になる)", "NN group"],
+  {
+    k: "位置づけ",
+    apple: <><A>開示の三角・ボタン(Disclosure controls)。詳細を、必要になるまで隠す</A><T>タブビュー(Tab views)。密接に関係する内容の領域を切り替える</T></>,
+    google: <><A><NoData>M3に独立したコンポーネントはない</NoData></A><T>同じ階層にある、関連する内容のまとまりを整理する</T></>,
+    w3c: <><A>縦に積んだ見出しを押して、その下の内容を開閉する</A><T>並んだタブで、同じ場所のパネルを切り替える</T></>,
+    nn: <><A>どちらも内容を折りたたむ方法</A><T>一覧から1つのパネルを選んで見せる</T></>,
+  },
+  {
+    k: "向いている画面",
+    apple: <><A>iOS・iPadOS・macOSで使える</A><T>macOSだけ。iOS・iPadOSには無く、代わりにセグメントコントロールを検討する</T></>,
+    google: <NoData>記載なし</NoData>,
+    w3c: <NoData>記載なし</NoData>,
+    nn: <><A>モバイルに向く(狭い画面ではタブより使いやすい)。デスクトップでは、内容の多いページで、複数の節を同時に見る必要がないときに使う</A><T>デスクトップではタブの方がよい場合がある(閉じたアコーディオンは、ページが空っぽに見えやすい)</T></>,
+  },
+  {
+    k: "見出し(ラベル)",
+    apple: <><A>何が出てくるか分かる、説明的なラベル(例: 詳細オプション)</A><T>名詞か短い名詞句。押す前に中身を予想できるもの</T></>,
+    google: <><T>短く簡潔に。省略は必要なときだけにし、長い見出しにはスクロールできるタブを使う</T></>,
+    w3c: <NoData>記載なし</NoData>,
+    nn: <><A>長めの見出しも使える</A><T>短い見出しがよい(横に並べ、横スクロールを避けるため)</T></>,
+  },
+  {
+    k: "向いている内容",
+    apple: <><A>よく使うものを上に出したまま、詳しい機能を隠す</A><T>互いに関係する内容。各ペインはそれぞれで完結させる</T></>,
+    google: <><T>関連する内容を、はっきり分かれたまとまりに分ける。決まった順で読む内容には使わない</T></>,
+    w3c: <><A>1ページに複数の節があるとき、スクロールを減らすのによく使われる</A></>,
+    nn: <><A>FAQのような短い内容や、各節が独立している内容。ほぼ全部を読む内容や、続けて読む記事には向かない</A><T>長い内容や複雑なレイアウトも扱える。はっきりしたまとまりがあり、まとまりの数が少ないとき</T></>,
+  },
+  {
+    k: "見比べる必要",
+    apple: <><T>ペインは互いに排他的(1度に1つだけ見える)</T></>,
+    google: <NoData>記載なし</NoData>,
+    w3c: <><A>複数を同時に開ける作りも、1つだけ開く作りもある</A><T>1度に1つのパネルだけを見せる</T></>,
+    nn: <>どちらも、複数のまとまりを同時に見比べる必要があるなら避け、全部を1ページに表示する。1つ開くとほかが閉じるアコーディオンは特に比べにくい</>,
+  },
 ];
 
 function TabVsAccordion() {
+  const cols = [["apple", "Apple"], ["google", "Google"], ["w3c", "W3C"], ["nn", "NN group"]];
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>アコーディオンとタブの使い分け</h2>
-      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法だ。画面の広さと内容の長さで選ぶ。</p>
+      <p style={styles.tvaNote}>どちらも内容を折りたたんで、必要な部分だけを見せる方法だ。観点ごとに、各系列がアコーディオンとタブをどう扱っているかを並べた。</p>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.tvaTable}>
-          <thead><tr>{["", "アコーディオン", "タブ", "根拠"].map((h) => (<th key={h} style={styles.tvaTh}>{h}</th>))}</tr></thead>
-          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r[0]}><td style={{ ...styles.tvaTd, fontWeight: 700, whiteSpace: "nowrap" }}>{r[0]}</td><td style={styles.tvaTd}>{r[1]}</td><td style={styles.tvaTd}>{r[2]}</td><td style={{ ...styles.tvaTd, color: "#565D8A", whiteSpace: "nowrap" }}>{r[3]}</td></tr>))}</tbody>
+          <thead><tr><th style={{ ...styles.tvaTh, width: 96 }}></th>{cols.map(([k, n]) => (<th key={k} style={styles.tvaTh}>{n}</th>))}</tr></thead>
+          <tbody>{TAB_VS_ACC.map((r) => (<tr key={r.k}><td style={{ ...styles.tvaTd, fontWeight: 700, background: "#F8F9FD" }}>{r.k}</td>{cols.map(([k]) => (<td key={k} style={styles.tvaTd}>{r[k]}</td>))}</tr>))}</tbody>
         </table>
       </div>
-      <p style={styles.tvaNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」の「Tabs Versus Accordions」と「When to Use Tabs」、W3C APG「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Accordion ↗</a>」「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs ↗</a>」、Apple HIG「<a href="https://developer.apple.com/design/human-interface-guidelines/tab-views" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tab views ↗</a>」「<a href="https://developer.apple.com/design/human-interface-guidelines/disclosure-controls" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Disclosure controls ↗</a>」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>のページ。</p>
+      <div style={styles.tvaAi}><strong>AI解釈: </strong>画面の広さ(モバイルはアコーディオン、デスクトップはタブ)で選ぶとするのはNN groupだけだ。<strong>系列をまたいで確かなのは、複数のまとまりを見比べる内容には、どちらも向かない</strong>こと(NN group)と、タブはまとまりが少なく見出しが短いときに使う(Apple・Google・NN group)ことだ。iPhone・iPadのアプリでは、Appleのタブビューが無いため、同じ場所の切り替えはセグメントコントロール、詳細の開閉は開示コントロールを使う。</div>
+      <p style={styles.tvaNote}>出典: Apple HIG「<a href="https://developer.apple.com/design/human-interface-guidelines/disclosure-controls" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Disclosure controls ↗</a>」「<a href="https://developer.apple.com/design/human-interface-guidelines/tab-views" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tab views ↗</a>」、Google M3「<a href="https://m3.material.io/components/tabs/guidelines" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs ― Guidelines ↗</a>」、W3C APG「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Accordion ↗</a>」「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabs/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs ↗</a>」、Nielsen Norman Group「<a href="https://www.nngroup.com/articles/tabs-used-right/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Tabs, Used Right ↗</a>」(When to Use Tabs・Tabs Versus Accordions)「<a href="https://www.nngroup.com/articles/accordions-on-desktop/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Accordions on Desktop ↗</a>」。タブの詳しい比較は<PageLink to="/components/navigation/tabs">タブ</PageLink>、iOSでの切り替えは<PageLink to="/components/navigation/segmented-control">セグメントコントロール</PageLink>のページへ。</p>
     </section>
   );
 }
@@ -396,7 +428,9 @@ const styles = {
   termLine: { fontSize: 12, color: "#2E3457", marginTop: 8 },
   termLabel: { fontSize: 10.5, fontWeight: 700, color: "#565D8A", marginRight: 8 },
   tvaNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "0 0 10px" },
-  tvaTable: { width: "100%", minWidth: 600, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvaTable: { width: "100%", minWidth: 820, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 10 },
+  tvaTag: { display: "inline-block", fontSize: 9.5, fontWeight: 700, color: "#565D8A", background: "#EEF0F7", borderRadius: 3, padding: "0 5px", marginRight: 5, lineHeight: "16px" },
+  tvaAi: { background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "10px 14px", fontSize: 12, lineHeight: 1.75, color: "#2E3457", margin: "0 0 10px" },
   tvaTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   tvaTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   page: { minHeight: "100vh", background: "#FFFFFF", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", color: "#171B36" },

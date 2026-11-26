@@ -442,6 +442,10 @@ const PAGE_INDEX = {
   "label": "リスト",
   "lead": "同じ種類の項目を縦に並べて、一覧で見せるコンポーネント"
  },
+ "/components/containment/carousel": {
+  "label": "カルーセル",
+  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せるコンポーネント"
+ },
  "/components/containment/table": {
   "label": "表(データテーブル)",
   "lead": "行と列にデータを並べ、項目どうしを比べられるようにするコンポーネント"
@@ -449,10 +453,6 @@ const PAGE_INDEX = {
  "/components/containment/accordion": {
   "label": "アコーディオン(表示コントロール)",
   "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
- },
- "/components/containment/carousel": {
-  "label": "カルーセル",
-  "lead": "同じ場所で、複数の項目を横に送りながら順番に見せるコンポーネント"
  },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",

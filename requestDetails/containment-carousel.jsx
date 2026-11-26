@@ -405,13 +405,13 @@ const DEVICE_ROWS = [
 function DeviceTable() {
   return (
     <div style={styles.devList}>
-      <div className="dsp-desktop-only" style={{ ...styles.devRow, ...styles.devHeadRow }}>
+      <div className="dsp-desktop-only dsp-dev-row" style={{ ...styles.devRow, ...styles.devHeadRow }}>
         <div style={styles.devAspect} />
         <div style={styles.devHead}>SP版(スマートフォン・タッチ)</div>
         <div style={styles.devHead}>PC版(マウス・キーボード)</div>
       </div>
       {DEVICE_ROWS.map((r) => (
-        <div key={r.aspect} style={styles.devRow}>
+        <div key={r.aspect} className="dsp-dev-row" style={styles.devRow}>
           <div style={styles.devAspect}>{r.aspect}</div>
           <div style={styles.devCell}><span style={styles.devWho}>SP</span>{r.sp}</div>
           <div style={styles.devCell}><span style={styles.devWho}>PC</span>{r.pc}</div>
@@ -423,9 +423,9 @@ function DeviceTable() {
 
 /* カルーセルを使う前に: 代わりの選択肢(NN group・Apple) */
 const ALTERNATIVES = [
-  { t: "静的なヒーロー画像", d: "伝えたいことが1つなら、1枚を固定で見せる方が見られやすい", who: "NN group" },
-  { t: "グリッド", d: "同じ階層のページが10を超えるなら、好きな順で選べるグリッドに", who: "Apple" },
-  { t: "ページの中に並べる", d: "重要な内容はカルーセルだけに置かず、情報設計の中にも置く", who: "NN group" },
+  { t: "静的なヒーロー画像", d: "伝えたいことが1つなら、1枚を固定で見せる方が見られやすい", who: "NN group", ref: "Designing Effective Carousels ― Could a Hero Image Be Your Site's Hero?", url: "https://www.nngroup.com/articles/designing-effective-carousels/#toc-could-a-hero-image-be-your-sites-hero-consider-using-a-hero-image-instead-of-a-carousel-4" },
+  { t: "グリッド", d: "同じ階層のページが10を超えるなら、好きな順で選べるグリッドに", who: "Apple", ref: "HIG Page controls", url: "https://developer.apple.com/design/human-interface-guidelines/page-controls" },
+  { t: "ページの中に並べる", d: "重要な内容はカルーセルだけに置かず、情報設計の中にも置く", who: "NN group", ref: "Designing Effective Carousels ― Could a Hero Image Be Your Site's Hero?", url: "https://www.nngroup.com/articles/designing-effective-carousels/#toc-could-a-hero-image-be-your-sites-hero-consider-using-a-hero-image-instead-of-a-carousel-4" },
 ];
 
 function InfoBox({ label, accent, children }) {
@@ -504,7 +504,10 @@ export default function ContainmentCarouselPage() {
         .dsp-inner { max-width: 560px; min-width: 0; margin: 0 auto; padding: 28px 16px 40px; }
         .dsp-mobile-only { display: block; }
         .dsp-desktop-only { display: none; }
+        .dsp-dev-row { display: grid; grid-template-columns: 1fr; }
         @media (min-width: 860px) {
+          .dsp-dev-row { grid-template-columns: 104px 1fr 1fr; }
+          .dsp-dev-row.dsp-desktop-only { display: grid; }
           .dsp-inner { max-width: 980px; padding: 36px 24px 48px; }
           .dsp-mobile-only { display: none; }
           .dsp-desktop-only { display: block; }
@@ -635,7 +638,7 @@ export default function ContainmentCarouselPage() {
                 <div key={a.t} style={styles.altCard}>
                   <div style={styles.altTitle}>{a.t}</div>
                   <div style={styles.altText}>{a.d}</div>
-                  <div style={styles.altWho}>{a.who}</div>
+                  <div style={styles.altWho}>{a.who}: <a href={a.url} target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>{a.ref} ↗</a></div>
                 </div>
               ))}
             </div>
@@ -754,13 +757,13 @@ const styles = {
   endWho: { fontSize: 10, lineHeight: 1.55, color: "#666D93", marginTop: 4 },
   aiNote: { fontSize: 11.5, lineHeight: 1.7, color: "#2E3457", background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "8px 12px", marginTop: 12, borderRadius: "0 3px 3px 0" },
   devList: { display: "flex", flexDirection: "column", border: "1px solid #E1E3F0", borderRadius: 4 },
-  devRow: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "4px 14px", padding: "9px 12px", borderBottom: "1px solid #EEF0F7" },
+  devRow: { gap: "4px 16px", padding: "9px 12px", borderBottom: "1px solid #EEF0F7" },
   devHeadRow: { background: "#F8F9FD" },
   devHead: { fontSize: 11.5, fontWeight: 700, color: "#171B36" },
   devAspect: { fontSize: 12, fontWeight: 700, color: "#171B36" },
   devCell: { fontSize: 11, lineHeight: 1.6, color: "#2E3457" },
   devWho: { display: "inline-block", fontSize: 9, fontWeight: 700, color: "#FFFFFF", background: "#3C5A73", borderRadius: 3, padding: "0 5px", marginRight: 6 },
-  altGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 220px), 1fr))", gap: 10 },
+  altGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10 },
   altCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px", background: "#FFFFFF" },
   altTitle: { fontSize: 12.5, fontWeight: 700, color: "#171B36" },
   altText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginTop: 4 },
