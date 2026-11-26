@@ -199,20 +199,72 @@ function WizardSwatch() {
   );
 }
 
+/* 意見が分かれる点の概念図(⑩本人最終レビューで、論点ごとに違いが分かる図に描き直した) */
+function SplitFig({ k }) {
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  const l = "#D5D9EC";
+  const phone = (c, children, cap) => (
+    <svg width="150" height="96" viewBox="0 0 150 96" aria-hidden="true" style={{ display: "block", margin: "0 auto" }}>
+      <rect x="45" y="2" width="60" height="78" rx="8" fill="#FFFFFF" stroke="#7E86AC" />
+      {children}
+      <text x="75" y="92" fontSize="8.5" textAnchor="middle" fill={c} fontFamily={font}>{cap}</text>
+    </svg>
+  );
+  if (k === "apple-modal") return phone("#C2542A", <>
+    {[12, 20, 28].map((y) => (<rect key={y} x="51" y={y} width="48" height="4" rx="2" fill={l} />))}
+    <rect x="45" y="2" width="60" height="78" rx="8" fill="#171B36" opacity="0.25" />
+    <rect x="48" y="8" width="54" height="69" rx="6" fill="#FFFFFF" stroke="#C2542A" />
+    <text x="54" y="18" fontSize="6.5" fill="#C2542A" fontFamily={font}>キャンセル</text>
+    <text x="75" y="32" fontSize="7" textAnchor="middle" fill="#171B36" fontFamily={font} fontWeight="700">写真を編集</text>
+    <rect x="55" y="38" width="40" height="26" rx="3" fill="#F3E2DA" />
+  </>, "全画面のモーダルで短く");
+  if (k === "nn-page") return phone("#7A4F7E", <>
+    <rect x="51" y="9" width="30" height="4" rx="2" fill="#7A4F7E" />
+    <text x="75" y="24" fontSize="6.5" textAnchor="middle" fill="#7A4F7E" fontFamily={font}>ステップ 2/3</text>
+    {[30, 40, 50].map((y) => (<rect key={y} x="51" y={y} width="48" height="6" rx="2" fill={l} />))}
+    <rect x="70" y="62" width="29" height="10" rx="5" fill="#7A4F7E" /><text x="84.5" y="69.5" fontSize="6" textAnchor="middle" fill="#FFFFFF" fontFamily={font}>次へ</text>
+    <text x="57" y="69.5" fontSize="6" fill="#565D8A" fontFamily={font}>戻る</text>
+  </>, "モーダルにせず普通のページで");
+  const xs = [35, 75, 115];
+  const dot = (x, i, fill, c, txt) => (<g key={i}><circle cx={x} cy="34" r="11" fill={fill} stroke={c} /><text x={x} y="38" fontSize="10" textAnchor="middle" fill={fill === c ? "#FFFFFF" : c} fontWeight="700" fontFamily={font}>{txt}</text></g>);
+  if (k === "google-free") {
+    const c = "#2F7D6E";
+    return (
+      <svg width="150" height="96" viewBox="0 0 150 96" aria-hidden="true" style={{ display: "block", margin: "0 auto" }}>
+        {xs.map((x, i) => dot(x, i, i === 2 ? c : "#FFFFFF", c, i + 1))}
+        <path d="M35 50 C35 70, 115 70, 115 50" stroke={c} strokeWidth="1.5" fill="none" strokeDasharray="3 2" /><path d="M110 54 l5 -4 l3 6" stroke={c} strokeWidth="1.5" fill="none" />
+        <text x="75" y="90" fontSize="8.5" textAnchor="middle" fill={c} fontFamily={font}>どのステップからでも入れる</text>
+      </svg>
+    );
+  }
+  if (k === "nn-order") {
+    const c = "#7A4F7E";
+    return (
+      <svg width="150" height="96" viewBox="0 0 150 96" aria-hidden="true" style={{ display: "block", margin: "0 auto" }}>
+        {[0, 1].map((i) => (<path key={i} d={`M${xs[i] + 12} 34 h16 m-4 -4 l4 4 l-4 4`} stroke={c} strokeWidth="1.5" fill="none" />))}
+        {dot(35, 0, c, c, "✓")}{dot(75, 1, "#FFFFFF", c, 2)}
+        <g><circle cx="115" cy="34" r="11" fill="#F3F6FA" stroke="#B7BCDA" /><rect x="110" y="33" width="10" height="8" rx="1.5" fill="#9EA4C4" /><path d="M112 33 v-3 a3 3 0 0 1 6 0 v3" stroke="#9EA4C4" strokeWidth="1.5" fill="none" /></g>
+        <text x="75" y="64" fontSize="8" textAnchor="middle" fill="#565D8A" fontFamily={font}>前を終えるまで先は選べない</text>
+        <text x="75" y="90" fontSize="8.5" textAnchor="middle" fill={c} fontFamily={font}>決まった順番で進める</text>
+      </svg>
+    );
+  }
+  return null;
+}
 const SPLITS = [
   {
     q: "複数ステップの作業は、モーダルで出してよい?",
     sides: [
-      { figure: <StepMini color="#C2542A" steps={3} current={1} />, who: "Apple", color: "#C2542A", t: "コンテンツの編集のような複数ステップの作業には、全画面のモーダルを検討できる。ただし、モーダルの作業は単純・短く保つ" },
-      { figure: <StepMini color="#7A4F7E" steps={3} current={1} list />, who: "NN group", color: "#7A4F7E", t: "複数ステップのモーダルは、元の作業から離れる時間を延ばすだけ。最初から複数ステップが必要なら、モーダルではない普通のページを割り当てる" },
+      { figure: <SplitFig k="apple-modal" />, who: "Apple", color: "#C2542A", t: "コンテンツの編集のような複数ステップの作業には、全画面のモーダルを検討できる。ただし、モーダルの作業は単純・短く保つ" },
+      { figure: <SplitFig k="nn-page" />, who: "NN group", color: "#7A4F7E", t: "複数ステップのモーダルは、元の作業から離れる時間を延ばすだけ。最初から複数ステップが必要なら、モーダルではない普通のページを割り当てる" },
     ],
     tip: "写真の編集のように、元の画面を見る必要がなく、短く終わる作業なら全画面のモーダルでもよく(Apple)、会員登録や購入のように長く、途中で別の画面を確かめたくなる手順は、普通のページで進める(NN group)と考えると両立する。",
   },
   {
     q: "ステップは、好きな順に進めてよい?",
     sides: [
-      { figure: <StepMini color="#2F7D6E" steps={3} current={2} numbered />, who: "Google(M1)", color: "#2F7D6E", t: "順に終えないと進めない型(linear)と、好きな順に入れられる型(non-linear)の両方を用意している" },
-      { figure: <StepMini color="#7A4F7E" steps={3} current={1} list />, who: "NN group", color: "#7A4F7E", t: "順番をはっきりさせ、前のステップを終えるまで先に進ませない。好きな順に進められる利点が大きいなら、そもそもウィザードに向かない" },
+      { figure: <SplitFig k="google-free" />, who: "Google(M1)", color: "#2F7D6E", t: "順に終えないと進めない型(linear)と、好きな順に入れられる型(non-linear)の両方を用意している" },
+      { figure: <SplitFig k="nn-order" />, who: "NN group", color: "#7A4F7E", t: "順番をはっきりさせ、前のステップを終えるまで先に進ませない。好きな順に進められる利点が大きいなら、そもそもウィザードに向かない" },
     ],
     tip: "前の入力で次の内容が変わる手順は、順に進める形にする(両者とも一致)。順番に意味がない入力なら、ステップに分けずに1つのフォームや、見出しで区切ったページにするほうが、NN groupの考え方に合う。Googleのnon-linearは、現行M3にはないM1の参考情報だ。",
   },
@@ -256,10 +308,10 @@ const WIZ_LOOKS = [
   { k: "t", t: "見出しで示す", d: "見出しやページのタイトルに「ステップ2/4」と入れる。スクリーンリーダーの利用者にもすぐ伝わる", src: "W3C(Multi-page Forms)" },
 ];
 const WIZ_FLOWS = [
-  { k: "linear", t: "順番どおりに進む", d: "前のステップを終えないと次へ進めない", src: "Google(M1 Linear)" },
-  { k: "free", t: "好きな順に進める", d: "どのステップからでも始められる", src: "Google(M1 Non-linear)" },
-  { k: "edit", t: "あとで直せる・直せない", d: "直せるステップは戻って編集できる。直すと完了の妨げになるなら直せないステップにする", src: "Google(M1)" },
-  { k: "opt", t: "任意のステップ", d: "「任意」と示し、飛ばせるようにする", src: "Google(M1)・W3C" },
+  { k: "linear", v: "good", t: "順番どおりに進む", d: "前のステップを終えないと次へ進めない", src: "Google(M1 Linear)", why: "NN groupも、順番をはっきりさせ、前のステップを終える前に先を選ばせないよう勧める" },
+  { k: "free", v: "bad", t: "好きな順に進める", d: "どのステップからでも始められる", src: "Google(M1 Non-linear)", why: "NN groupは勧めない(順番がはっきりしている方が、迷いと覚える負担が減る)。好きな順に進める必要があるなら、ウィザードにしない。用意しているのは旧版のGoogle(M1)だけ" },
+  { k: "edit", v: "cond", t: "あとで直せる・直せない", d: "直せるステップは戻って編集できる。直すと完了の妨げになるなら直せないステップにする", src: "Google(M1)", why: "戻って直せるようにする点はNN groupも同じ(「前へ」のボタンを置く)。直せないステップにするのは旧版のGoogle(M1)だけで、ほかの系列に根拠はない" },
+  { k: "opt", v: "good", t: "任意のステップ", d: "「任意」と示し、飛ばせるようにする", src: "Google(M1)・W3C", why: "" },
 ];
 /* 進み方の概念図 */
 function FlowFig({ k }) {
@@ -303,9 +355,11 @@ function WizCards({ items, Fig, titleColor }) {
       {items.map((w) => (
         <div key={w.k} style={cardBox}>
           <div style={{ display: "flex", justifyContent: "center", marginBottom: 8 }}><Fig k={w.k} /></div>
+          {w.v && <div style={{ marginBottom: 6 }}><span style={{ display: "inline-block", fontSize: 10, fontWeight: 700, padding: "1px 7px", borderRadius: 3, color: "#FFFFFF", background: { good: "#5A9629", bad: "#C0503F", cond: "#A3821F" }[w.v] }}>{{ good: "推奨", bad: "非推奨(NN group)", cond: "条件付き" }[w.v]}</span></div>}
           <div style={{ fontSize: 13, fontWeight: 700, color: titleColor ? titleColor(w.k) : "#171B36", marginBottom: 4 }}>{w.t}</div>
           <div style={{ fontSize: 12, lineHeight: 1.6, color: "#2E3457" }}>{w.d}</div>
           <div style={{ fontSize: 10.5, color: "#666D93", marginTop: 4 }}>{w.src}</div>
+          {w.why && <div style={{ fontSize: 11, lineHeight: 1.6, color: "#454C78", marginTop: 6, paddingTop: 6, borderTop: "1px solid #EEF0F7" }}>{w.why}</div>}
         </div>
       ))}
     </div>
