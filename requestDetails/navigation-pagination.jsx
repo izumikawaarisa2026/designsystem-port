@@ -235,12 +235,50 @@ function PaginationTypesSection() {
   );
 }
 
+/* ページネーション・「もっと見る」ボタン・無限スクロールの使い分け(2026-11 ⑩本人最終レビューで追加。NN group「Infinite Scrolling: When to Use It, When to Avoid It」で確認) */
+function LoadFig({ k }) {
+  const c = "#3C5A73", l = "#D5D9EC";
+  return (
+    <svg width="96" height="80" viewBox="0 0 96 80" aria-hidden="true" style={{ display: "block", margin: "0 auto 6px" }}>
+      <rect x="0.5" y="0.5" width="95" height="79" rx="6" fill="#F8F9FD" stroke="#E1E3F0" />
+      {[8, 20, 32].map((y) => (<rect key={y} x="10" y={y} width="76" height="8" rx="2" fill={l} />))}
+      {k === "page" && <g>{[0, 1, 2, 3].map((i) => (<rect key={i} x={22 + i * 14} y="52" width="10" height="10" rx="2" fill={i === 0 ? c : "#FFFFFF"} stroke={c} />))}<rect x="10" y="70" width="76" height="4" rx="2" fill="#B7BCDA" /></g>}
+      {k === "more" && <g><rect x="26" y="50" width="44" height="13" rx="6.5" fill="#FFFFFF" stroke={c} /><text x="48" y="59" fontSize="7" fill={c} textAnchor="middle">もっと見る</text><rect x="10" y="70" width="76" height="4" rx="2" fill="#B7BCDA" /></g>}
+      {k === "inf" && <g>{[44, 56, 68].map((y, i) => (<rect key={y} x="10" y={y} width="76" height="8" rx="2" fill={l} opacity={1 - i * 0.3} />))}<path d="M48 76 v3 M45 76 l3 3 l3 -3" stroke={c} strokeWidth="1.2" fill="none" /></g>}
+    </svg>
+  );
+}
+const LOAD_COLS = [["page", "ページネーション"], ["more", "「もっと見る」ボタン"], ["inf", "無限スクロール(無限ローディング)"]];
+const LOAD_ROWS = [
+  { k: "読み込み方", page: "ページ番号や「次へ」で、別のまとまりに切り替える", more: "ボタンを押すたびに、続きを一覧の末尾に足す", inf: "下までスクロールすると、続きを自動で足し続ける" },
+  { k: "向いている場面", page: "特定のものを探す、離れた項目を見比べる、上位の数件だけを見る(検索結果など)。商品数がとても多い一覧", more: "次々に眺めたいが、フッターの情報(問い合わせ先・返品の決まりなど)にもたどり着かせたい一覧。通信の遅い環境の人が多いとき", inf: "目的を決めずに、同じ種類の項目を流し見する場面(SNS・ニュース・エンタメ)" },
+  { k: "長所", page: "ページ番号が目印になり、見た項目に戻りやすい。詳細から戻ったときも、1ページ分を探せば済む", more: "フッターに届く。続きがあることがはっきり分かる。最初に読み込む量が少ない", inf: "押す手間がなく、中断されない。戻るときも上へスクロールするだけ" },
+  { k: "短所", page: "次を見るたびに押して待つ手間がある(中断が、別の作業へ移るきっかけになる)", more: "押す手間がある分、見る量が減ることがある", inf: "目印がなく、見た項目に戻りにくい。詳細から戻ると一覧の先頭に戻されることがある。フッターに届かない。読み込みが遅くなりやすい" },
+  { k: "アクセシビリティ", page: <NoData>記事に記載なし</NoData>, more: <NoData>記事に記載なし</NoData>, inf: "キーボードだけの人は、末尾までの移動に時間がかかる。スクリーンリーダーの人は最初のまとまりしか分からないことがある。W3CのAPGには、次々に読み込まれる一覧を支援技術で読み進めるためのFeedパターンがある" },
+];
+function LoadChoice() {
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>ページネーション・「もっと見る」ボタン・無限スクロールの使い分け</h2>
+      <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>長い一覧の続きを見せる方法は3つある。NN groupは、どれかが常に優れているわけではなく、利用者の目的・使う端末・通信環境などで選ぶとしている。</p>
+      <div style={{ overflowX: "auto" }}>
+        <table style={styles.ldTable}>
+          <colgroup><col style={{ width: 112 }} /><col /><col /><col /></colgroup>
+          <thead><tr><th style={styles.ldTh}></th>{LOAD_COLS.map(([k, n]) => (<th key={k} style={styles.ldTh}><LoadFig k={k} />{n}</th>))}</tr></thead>
+          <tbody>{LOAD_ROWS.map((r) => (<tr key={r.k}><td style={{ ...styles.ldTd, fontWeight: 700, background: "#F8F9FD" }}>{r.k}</td>{LOAD_COLS.map(([k]) => (<td key={k} style={styles.ldTd}>{r[k]}</td>))}</tr>))}</tbody>
+        </table>
+      </div>
+      <div style={styles.ldAi}><strong>AI解釈: </strong><strong>探す・比べる一覧はページネーション、眺める一覧は無限スクロール、その中間は「もっと見る」ボタン</strong>と考えると選びやすい。無限スクロールにページ番号の目印を組み込む形もあるが、フッターに届かない問題と読み込みの重さは残る(NN group。新しい形のため、利用者のテストのデータはまだない)。</div>
+      <p style={styles.diagramNote}>出典: Nielsen Norman Group「<a href="https://www.nngroup.com/articles/infinite-scrolling-tips/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>Infinite Scrolling: When to Use It, When to Avoid It ↗</a>」、W3C「<a href="https://www.w3.org/WAI/ARIA/apg/patterns/feed/" target="_blank" rel="noreferrer" style={{ color: "#3A4FCF" }}>APG: Feed ↗</a>」。</p>
+    </section>
+  );
+}
+
 /* タイトル直下の1文と、サマリーの表(目的・役割など) */
 const LEAD = "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント";
 const ABOUT = [
   { k: "目的・役割", v: "多くの結果を一定の数ずつに分け、今どこを見ているかと、ほかのページへの行き方を示す" },
   { k: "よく使われる場面", v: "検索結果、ネットショップの商品一覧、ブログの記事一覧" },
-  { k: "似たコンポーネント", v: <>同じ場所で項目を横に送るのは<PageLink to="/components/containment/carousel">カルーセル</PageLink></> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -286,6 +324,7 @@ export default function NavigationPaginationPage() {
 
 
           <PaginationTypesSection />
+          <LoadChoice />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -423,6 +462,10 @@ const styles = {
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   diagramTitle: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   diagramNote: { fontSize: 11.5, color: "#565D8A", margin: "10px 0 0", lineHeight: 1.6 },
+  ldTable: { width: "100%", minWidth: 720, tableLayout: "fixed", borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457", marginBottom: 12 },
+  ldTh: { textAlign: "center", fontSize: 11.5, fontWeight: 700, color: "#454C78", padding: "8px 10px", borderBottom: "1px solid #E1E3F0", verticalAlign: "bottom" },
+  ldTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
+  ldAi: { background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "10px 14px", fontSize: 12, lineHeight: 1.75, color: "#2E3457", margin: "0 0 10px" },
   typesCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px", marginBottom: 22 },
   typesGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 14, marginBottom: 4 },
   typeItem: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 12px" },
