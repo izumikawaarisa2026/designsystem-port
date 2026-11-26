@@ -516,7 +516,7 @@ export default function CommunicationWidgetPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="大きさの決め方" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目・色の扱い">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="参照ページ(公式)">

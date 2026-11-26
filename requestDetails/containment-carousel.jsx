@@ -575,7 +575,7 @@ export default function ContainmentCarouselPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="枚数・大きさ・時間" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="位置の示し方・操作">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

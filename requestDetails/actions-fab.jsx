@@ -378,7 +378,7 @@ export default function ActionsFabPage() {
                   <span style={styles.exceptionLabel}>ボタンサイズ</span>
                   <p style={styles.exceptionText}>{s.size}</p>
                 </div>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>

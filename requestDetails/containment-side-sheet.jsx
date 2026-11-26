@@ -94,10 +94,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
-    term: "ダイアログ(専用の役割なし)",
+    doc: "サイドシート専用の定めはない(モーダルならAPG Dialog (Modal)パターンを参考に)",
+    term: <NoData>該当なし(専用の役割・パターンはない。モーダルならダイアログとして扱う)</NoData>,
     color: "#A3821F",
-    position: <>モーダルのシートはダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
+    position: <><NoData>サイドシート専用の定めはない。</NoData>モーダルのシートはダイアログとして扱い(AI解釈)、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -305,7 +305,7 @@ export default function ContainmentSideSheetPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

@@ -440,7 +440,7 @@ export default function SelectionCheckboxPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="状態(不定を含む)">{s.states}</InfoBox>
                 <InfoBox label="ほかのコンポーネントとの使い分け">{s.choice}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>

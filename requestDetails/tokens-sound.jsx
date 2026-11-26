@@ -595,7 +595,7 @@ export default function TokensSoundPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="鳴らす・鳴らさない基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="音の種類・作り方">{s.design}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

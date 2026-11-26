@@ -429,7 +429,7 @@ export default function TokensLayoutSpacingPage() {
                 <InfoBox label="余白・グリッドの数値" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="画面幅による切り替え">{s.colorInfo}</InfoBox>
                 <InfoBox label="構造・グループ化">{s.structure}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>

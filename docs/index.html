@@ -154,9 +154,9 @@ const NAV_SECTIONS = [
     items: [
       { label: "オーバーレイの使い分け", path: "/components/containment/overview", built: true },
       { label: "モーダルダイアログ", path: "/components/containment/dialog", built: true },
+      { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
-      { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "カード", path: "/components/containment/card", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
@@ -475,7 +475,7 @@ const styles = {
 return SidebarNav;
 })();
 /* ================= page-parts.jsx ================= */
-const { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, hasRow, negify, markNeg, TAG_LIST, tagAnchor, TagLink, SplitSection, pageLabel, RelatedPages, PageToc } = (function () {
+const { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, hasRow, negify, listifyStance, markNeg, TAG_LIST, tagAnchor, TagLink, SplitSection, pageLabel, RelatedPages, PageToc } = (function () {
 
 /**
  * 各ページで共通に使う部品(③本人レビュー No.001 で決めたページのひな形)。
@@ -648,13 +648,59 @@ function negify(node, keyBase = "k") {
   }
   return node;
 }
+/* 基本方針(stance)を、意味のまとまりごとの箇条書きにする(2026-11 ⑩本人最終レビュー)。
+   文章のデータは変えず、表示のときに「。」で文に分け、前の文の続き(ただし・なお・そのため・たとえば など)はまとめる。
+   かっこ「()」「「」」の中の「。」では分けない。まとまりが1つだけなら、元の文章のまま出す */
+const CONT_RE = /^(ただし|なお|そのため|このため|そのうえで|その上で|つまり|これは|これに|これら|この|その|それ|特に|とくに|たとえば|例えば|逆に|代わりに|理由は|ここで|そこで|それでも|そうすれば|一方で|一方、|すなわち)/;
+function stanceTokens(node, out) {
+  if (node == null || node === false || node === true) return out;
+  if (typeof node === "string" || typeof node === "number") { out.push(String(node)); return out; }
+  if (Array.isArray(node)) { node.forEach((n) => stanceTokens(n, out)); return out; }
+  if (React.isValidElement(node)) {
+    // フラグメントと、装飾のない span だけは中に入る。Hl・リンク・「記載なし」・否定の赤字などは1つの塊として扱う
+    if (node.type === React.Fragment || (node.type === "span" && !(node.props && node.props.style))) return stanceTokens(node.props.children, out);
+    out.push(node);
+  }
+  return out;
+}
+const plainText = (n) => (typeof n === "string" ? n : React.isValidElement(n) ? [].concat(n.props.children || []).map(plainText).join("") : Array.isArray(n) ? n.map(plainText).join("") : "");
+function listifyStance(node, keyBase = "st") {
+  const tokens = stanceTokens(node, []);
+  const sentences = [[]];
+  let depth = 0;
+  tokens.forEach((t) => {
+    if (typeof t !== "string") { sentences[sentences.length - 1].push(t); return; }
+    let buf = "";
+    for (const ch of t) {
+      buf += ch;
+      if (ch === "(" || ch === "\uFF08" || ch === "\u300C") depth++;
+      else if ((ch === ")" || ch === "\uFF09" || ch === "\u300D") && depth > 0) depth--;
+      else if (ch === "。" && depth === 0) { sentences[sentences.length - 1].push(buf); buf = ""; sentences.push([]); }
+    }
+    if (buf) sentences[sentences.length - 1].push(buf);
+  });
+  const clean = sentences.map((sn) => sn.filter((x) => !(typeof x === "string" && !x.trim()))).filter((sn) => sn.length && plainText(sn).trim());
+  const groups = [];
+  clean.forEach((sn) => {
+    const head = plainText(sn).trim();
+    if (groups.length && CONT_RE.test(head) && !/^例外/.test(head)) groups[groups.length - 1].push(...sn);
+    else groups.push([...sn]);
+  });
+  if (groups.length <= 1) return node;
+  return (
+    <ul style={partStyles.stanceList}>
+      {groups.map((g, i) => (<li key={keyBase + "-" + i} style={partStyles.stanceItem}>{g.map((x, j) => (typeof x === "string" ? x : React.cloneElement(x, { key: keyBase + "-" + i + "-" + j })))}</li>))}
+    </ul>
+  );
+}
+
 const NEG_SKIP = new Set(["key", "name", "doc", "color", "url", "refs", "searchHint", "confirmedNote", "illustration", "illustrationNote", "glossary", "items", "extra", "pending", "noDedicatedComponent", "m3NotApplicable", "notApplicable"]);
 function markNeg(list) {
   (list || []).forEach((s) => {
     Object.keys(s).forEach((k) => {
       if (NEG_SKIP.has(k)) return;
       const v = s[k];
-      if (typeof v === "string" || React.isValidElement(v)) s[k] = negify(v, s.key + "-" + k);
+      if (typeof v === "string" || React.isValidElement(v)) s[k] = k === "stance" ? listifyStance(negify(v, s.key + "-" + k), s.key + "-stl") : negify(v, s.key + "-" + k);
       else if (Array.isArray(v) && v.every((x) => typeof x === "string" || React.isValidElement(x))) s[k] = v.map((x, i) => negify(x, s.key + "-" + k + i));
     });
   });
@@ -899,6 +945,10 @@ const PAGE_INDEX = {
   "label": "モーダルダイアログ",
   "lead": "画面の上に小さな枠を重ねて表示し、確認や選択を求めるコンポーネント"
  },
+ "/components/containment/fullscreen-dialog": {
+  "label": "フルスクリーンダイアログ",
+  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
+ },
  "/components/containment/bottom-sheet": {
   "label": "ボトムシート",
   "lead": "画面の下からせり出し、今の画面に関わる追加の情報や操作を見せるパネル"
@@ -906,10 +956,6 @@ const PAGE_INDEX = {
  "/components/containment/side-sheet": {
   "label": "サイドシート",
   "lead": "画面の横から現れ、今の画面に関わる補助の情報や操作を見せるパネル"
- },
- "/components/containment/fullscreen-dialog": {
-  "label": "フルスクリーンダイアログ",
-  "lead": "画面全体を覆って開き、一連の入力や作業を終えてもらうダイアログ"
  },
  "/components/containment/card": {
   "label": "カード",
@@ -1091,6 +1137,8 @@ const partStyles = {
   refNote: { fontSize: 10, lineHeight: 1.55, color: "#666D93", margin: "6px 0 0" },
   hl: { fontWeight: 700, color: "#171B36", background: "linear-gradient(transparent 58%, #E2EFC4 58%)" },
   noData: { color: "#666D93" },
+  stanceList: { margin: 0, paddingLeft: "1.15em", listStyle: "disc" },
+  stanceItem: { margin: "0 0 4px", paddingLeft: 2 },
   h2: { fontSize: 15, fontWeight: 700, margin: "0 0 12px", color: "#171B36" },
   note: { fontSize: 11.5, color: "#666D93", margin: "0 0 10px", lineHeight: 1.6 },
   splitCard: { border: "1px solid #E1E3F0", borderRadius: 6, padding: "12px 14px", background: "#FFFFFF" },
@@ -1103,7 +1151,7 @@ const partStyles = {
   splitTip: { fontSize: 11.5, lineHeight: 1.65, color: "#2E3457", background: "#FAFCEE", borderLeft: "3px solid #5A9629", padding: "6px 10px", marginTop: 10, borderRadius: "0 3px 3px 0" },
 };
 
-return { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, hasRow, negify, markNeg, TAG_LIST, tagAnchor, TagLink, SplitSection, pageLabel, RelatedPages, PageToc };
+return { SummaryCard, KeyPoints, GoodBad, PageLink, W3C_REF_NOTE, RefList, Hl, NoData, hasRow, negify, listifyStance, markNeg, TAG_LIST, tagAnchor, TagLink, SplitSection, pageLabel, RelatedPages, PageToc };
 })();
 /* ================= actions-button.jsx ================= */
 const ActionsButtonPage = (function () {
@@ -1477,7 +1525,7 @@ function ButtonTabContent({ tabId }) {
           </div>
           {!tab.hasScale && s.term && <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>}
           {!tab.hasScale && <div style={styles.positionBadge}>{s.position}</div>}
-          <p style={styles.sourceStance}>{s.stance}</p>
+          <div style={styles.sourceStance}>{s.stance}</div>
           {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
             <span style={styles.exceptionLabel}>例外・許容ケース</span>
             <p style={styles.exceptionText}>{s.exceptions}</p>
@@ -2168,7 +2216,7 @@ function ActionsFabPage() {
                   <span style={styles.exceptionLabel}>ボタンサイズ</span>
                   <p style={styles.exceptionText}>{s.size}</p>
                 </div>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
@@ -2627,7 +2675,7 @@ function ActionsLinkPage() {
                 </div>
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && (<div style={styles.exceptionBox}>
                   <span style={styles.exceptionLabel}>例外・許容ケース</span>
                   <p style={styles.exceptionText}>{s.exceptions}</p>
@@ -3740,7 +3788,7 @@ function CommunicationBadgePage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -4223,7 +4271,7 @@ function CommunicationEmptyStatePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -4670,7 +4718,7 @@ function CommunicationLoadingPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -5751,7 +5799,7 @@ function CommunicationProgressPage() {
                 <InfoBox label="待ち時間による使い分け" accent="#3C5A73">{s.timing}</InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -6287,7 +6335,7 @@ function CommunicationSnackbarPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -6974,7 +7022,7 @@ function CommunicationTooltipPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -7641,7 +7689,7 @@ function CommunicationWidgetPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="大きさの決め方" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目・色の扱い">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
@@ -8164,7 +8212,7 @@ function ContainmentAccordionPage() {
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
-                <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
+                <div style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
@@ -8432,8 +8480,8 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "WAI-ARIA ― Dialog (Modal) Patternとの対比(専用パターンなし) / WCAG 2.5.7",
-    term: "ダイアログ(モーダルの場合。専用の役割なし)",
+    doc: "WCAG 2.5.7 ドラッグ動作(ボトムシート専用の定めはない)",
+    term: <NoData>該当なし(専用の役割・パターンはない。モーダルならダイアログとして扱う)</NoData>,
     color: "#A3821F",
     position: <>専用の役割・パターンはなく、<Hl>モーダルか非モーダルかで当てはめる考え方が変わる</Hl></>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
@@ -8454,10 +8502,10 @@ const SOURCES = [
       "ドラッグしなくても高さを変えられるようにする(ドラッグハンドルのタップで切り替えるなど。2.5.7)",
     ],
     searchHint: "",
-    url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+    url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html",
     refs: [
-      { kind: "apg", label: "APG: Dialog Modal Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
       { kind: "sc", level: "AA", label: "2.5.7 ドラッグ動作", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html" },
+      { kind: "apg", label: "APG: Dialog Modal Pattern(モーダルのシートの場合の参考)", url: "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/" },
     ],
     illustration: () => (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
@@ -8560,7 +8608,7 @@ const MODAL_CHOICE = [
   { fig: "none", t: "シートを使わない", when: "長い作業や、じっくり読む内容", ex: "複数ステップの編集、長い記事", src: "Apple(全画面のモーダルや別のウィンドウを検討)・NN group(短い操作だけに使う)" },
 ];
 const CLOSE_ROWS = [
-  ["ドラッグハンドル(ドラッグハンドル)", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(ドラッグハンドル)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
+  ["ドラッグハンドル", "上部の48dpを高さを変える操作の領域にできる。ドラッグか、選ぶ操作で決まった高さへ切り替えたり閉じたりする。ドラッグできない人のため、選ぶだけで次の高さに切り替わるようにする(キーボード・スイッチでもフォーカスできる)", "上端の小さな横線(ドラッグハンドル)をドラッグすると広がる。止まる高さ(デタント)は、ほぼ全体のlargeと、その半分ほどのmedium", "見落とされやすい。下へなぞる操作は、場所によって通知の画面を開いてしまうなど、あいまいになりやすい"],
   ["×・閉じるボタン", "全画面のモーダルのボトムシートには閉じるボタンを出す", "キャンセル(閉じる)は保存せずに閉じ、完了は作業を終えて閉じる。完了だけにせず、キャンセルか戻るを組み合わせる", "ハンドルだけに頼らず、上部に見える×(または「閉じる」)を置く。スクリーンリーダーやキーボードの利用者にも閉じ方が分かる"],
   ["そのほかの閉じ方", "項目を選ぶ、後ろ(スクリム)をタップ、下へなぞる、シートのアプリバーの閉じるボタン。Androidの「予測型の戻る」操作", <NoData>記載なし</NoData>, "端末の戻るボタン・戻る操作でも閉じられるようにする"],
   ["重ねない", <NoData>記載なし</NoData>, "一度に出すシートは1枚にする。シートから別のシートを出すなら、先に最初のシートを閉じる", "シートの上にシートを重ねない。ページ間の遷移の代わりに使わない"],
@@ -8603,8 +8651,9 @@ function BottomSheetGuide() {
       <h2 style={{ ...styles.diagramTitle, marginTop: 28 }}>閉じ方 ― ドラッグハンドルと×ボタン</h2>
       <div style={{ overflowX: "auto" }}>
         <table style={styles.bsTable}>
+          <colgroup><col style={{ width: 128 }} /><col /><col /><col /></colgroup>
           <thead><tr>{["", "Google", "Apple", "NN group"].map((h) => (<th key={h} style={styles.bsTh}>{h}</th>))}</tr></thead>
-          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, whiteSpace: "nowrap" } : {}) }}>{c}</td>))}</tr>))}</tbody>
+          <tbody>{CLOSE_ROWS.map((r) => (<tr key={r[0]}>{r.map((c, i) => (<td key={i} style={{ ...styles.bsTd, ...(i === 0 ? { fontWeight: 700, background: "#F8F9FD" } : {}) }}>{c}</td>))}</tr>))}</tbody>
         </table>
       </div>
       <p style={styles.bsNote}>W3Cにはボトムシート専用の型はない。モーダルにするならダイアログとして作り、非モーダルなら後ろの操作を妨げないように作る(比較表のW3C欄)。</p>
@@ -8707,7 +8756,7 @@ function ContainmentBottomSheetPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -8799,7 +8848,7 @@ const styles = {
   bsLine: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 },
   bsKey: { display: "inline-block", fontSize: 10, fontWeight: 700, color: "#565D8A", background: "#F3F6FA", borderRadius: 3, padding: "0 5px", marginRight: 6 },
   bsSrc: { fontSize: 10, color: "#666D93", marginTop: 4 },
-  bsTable: { width: "100%", minWidth: 760, borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
+  bsTable: { width: "100%", minWidth: 760, tableLayout: "fixed", borderCollapse: "collapse", fontSize: 11.5, color: "#2E3457" },
   bsTh: { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" },
   bsTd: { padding: "9px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" },
   bsNote: { fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "10px 0 0" },
@@ -9212,7 +9261,7 @@ function ContainmentCardPage() {
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -9931,7 +9980,7 @@ function ContainmentCarouselPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="枚数・大きさ・時間" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="位置の示し方・操作">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -10483,7 +10532,7 @@ function ContainmentDialogPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -10687,6 +10736,9 @@ const SOURCES = [
       { label: "Modality", url: "https://developer.apple.com/design/human-interface-guidelines/modality" },
       { label: "Sheets", url: "https://developer.apple.com/design/human-interface-guidelines/sheets" },
     ],
+    glossary: [
+      { term: "全画面のモーダルとシート", desc: "Sheetsのページは、複雑で長い作業にはシートの代わりに、iOS・iPadOSの全画面スタイルのモーダルビューを検討するよう勧める。同じページの「非モーダルのシート」は、親のビューを操作できるまま残すシート(メモの書式設定など)のことで、全画面のモーダルとは別。watchOSではシート自体が全画面で出る。" },
+    ],
     confirmedNote: "HIG Modality・Sheetsの本文で確認(2026-11)。",
     pending: true,
     illustration: () => (
@@ -10786,23 +10838,23 @@ const SOURCES = [
     key: "nn",
     name: "Nielsen Norman Group",
     doc: "Modal & Nonmodal Dialogs / Wizards: Definition and Design Recommendations",
-    term: "Modal dialog(複数ステップは普通のページ=ウィザードに)",
+    term: "Modal dialog(複数ステップなら専用のページに)",
     color: "#7A4F7E",
-    position: "複数ステップの作業はモーダル(全画面ダイアログも含む)にせず、モーダルではない普通のページ(ウィザード)にすべきという主張",
+    position: <>最初から複数ステップの作業なら、<Hl>モーダルではなく専用のページにする</Hl>という主張(全画面ダイアログに当てはめるのはAI解釈)</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>数値基準なし</NoData>,
     stance:
-      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、普通のページにする。ウィザード(ステップ形式の入力)の作り方は、「ウィザード」ページで比較している。</>,
+      <><Hl>複数ステップのモーダルは、メインの作業から離れている時間を引き延ばすだけ</Hl>。最初から複数ステップなら、専用のページにする。ウィザード(ステップ形式の入力)はモーダルのウィンドウに出すことも多いが必須ではなく、モーダルに出すと、背景にある作業に必要な情報が隠れる。ウィザードの作り方は、「ウィザード」ページで比較している。</>,
     scenarios: [
-      "分野の知識が少ない新しい利用者向けのオンボーディング",
-      "たまにしか行わない、複数ステップのセットアップ・設定(日常に繰り返す操作には向かない)",
+      "ウィザードに向く場面: 分野の知識が少ない新しい利用者向けのオンボーディング",
+      "ウィザードに向く場面: たまにしか行わない、複数ステップのセットアップ・設定(日常に繰り返す操作には向かない)",
     ],
     exceptions:
       <NoData>記載なし</NoData>,
     accessibility:
       "根拠となる原則 ― モーダルで文脈を見失うのを避けるための設計の根拠。",
     useCases: [
-      "複数ステップの複雑な作業は、モーダル(全画面ダイアログも含む)ではなく、普通のページにする",
+      "最初から複数ステップの作業は、モーダルではなく専用のページにする",
       "ステップ形式の作り方は「ウィザード」ページを参照する",
       "途中保存と再開の機能を用意し、日常に繰り返す操作には使わない",
     ],
@@ -10968,7 +11020,7 @@ function ContainmentFullscreenDialogPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -11574,7 +11626,7 @@ function ContainmentListPage() {
                 {s.scenarios && <InfoBox label="推奨される使用シーン" accent="#2F7D6E"><UseCaseList items={s.scenarios} /></InfoBox>}
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -12026,10 +12078,10 @@ const SOURCES = [
   {
     key: "wcag",
     name: "W3C",
-    doc: "APG ― Dialog (Modal)パターン / WCAG 4.1.2",
-    term: "ダイアログ(専用の役割なし)",
+    doc: "サイドシート専用の定めはない(モーダルならAPG Dialog (Modal)パターンを参考に)",
+    term: <NoData>該当なし(専用の役割・パターンはない。モーダルならダイアログとして扱う)</NoData>,
     color: "#A3821F",
-    position: <>モーダルのシートはダイアログとして扱い、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
+    position: <><NoData>サイドシート専用の定めはない。</NoData>モーダルのシートはダイアログとして扱い(AI解釈)、名前とフォーカスの移動を設計する。<Hl>背景を操作できないときだけモーダルと伝える</Hl>。非モーダルのシートは、後ろの操作を妨げない</>,
     size: "専用の数値基準はない。閉じるボタンなどの操作要素には一般のターゲットサイズの基準(WCAG 2.5.8/2.5.5。どちらも例外あり)がかかる。",
     colorInfo: "色の基準はない。フォーカスの表示や境界線には1.4.11(非テキストのコントラスト)がかかり得る。",
     glossary: [
@@ -12233,7 +12285,7 @@ function ContainmentSideSheetPage() {
                 <InfoBox label="推奨される使用シーン" accent="#5A9629"><UseCaseList items={s.scenarios} /></InfoBox>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -12850,7 +12902,7 @@ function ContainmentTablePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ・余白" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見出し・行の見分け方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -13077,9 +13129,9 @@ const TAG_INDEX = [
   {"group": "Navigation", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
   {"group": "Containment", "label": "オーバーレイの使い分け", "path": "/components/containment/overview", "principles": [], "processes": ["設計の原則・使い分け", "段階的に見せる"]},
   {"group": "Containment", "label": "モーダルダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
+  {"group": "Containment", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
-  {"group": "Containment", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
   {"group": "Containment", "label": "カード", "path": "/components/containment/card", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "リスト", "path": "/components/containment/list", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "カルーセル", "path": "/components/containment/carousel", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "見つけやすさ・初めての案内"]},
@@ -14012,7 +14064,7 @@ function NavigationAppBarPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -14450,7 +14502,7 @@ function NavigationBreadcrumbPage() {
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
                 <InfoBox label="色" muted={s.notApplicable}>{s.colorInfo}</InfoBox>
-                <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
+                <div style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
@@ -14995,7 +15047,7 @@ function Comparison({ SOURCES }) {
                   <div style={styles.positionBadge}>{s.position}</div>
                   <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                   <InfoBox label="色">{s.colorInfo}</InfoBox>
-                  <p style={styles.sourceStance}>{s.stance}</p>
+                  <div style={styles.sourceStance}>{s.stance}</div>
                   {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                   <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                   <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -15672,7 +15724,7 @@ function NavigationNavBarPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases.length > 0 && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
@@ -16317,7 +16369,7 @@ function NavigationPaginationPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={{ ...styles.positionBadge, ...(s.notApplicable ? styles.positionBadgeMuted : {}) }}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73" muted={s.notApplicable}>{s.size}</InfoBox>
-                <p style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</p>
+                <div style={{ ...styles.sourceStance, ...(s.notApplicable ? styles.mutedText : {}) }}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース" muted={s.notApplicable}>{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)" muted={s.notApplicable}>{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース" muted={s.notApplicable}><UseCaseList items={s.useCases} muted={s.notApplicable} /></InfoBox>
@@ -16795,7 +16847,7 @@ function NavigationSegmentedControlPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -17842,7 +17894,7 @@ function NavigationTabsPage() {
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="タブの数">{s.count}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="構成・配置">{s.structure}</InfoBox>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
@@ -19671,7 +19723,7 @@ function SelectionCheckboxPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="状態(不定を含む)">{s.states}</InfoBox>
                 <InfoBox label="ほかのコンポーネントとの使い分け">{s.choice}</InfoBox>
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
@@ -20265,7 +20317,7 @@ function SelectionChipsPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 {s.overflow && <InfoBox label="オーバーフロー" accent="#3A4FCF">{s.overflow}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
@@ -21041,7 +21093,7 @@ function SelectionDateTimePickerPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -21669,7 +21721,7 @@ function SelectionMenuPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="長さ・大きさ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="ラベル・項目の見せ方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -22511,7 +22563,7 @@ function SelectionRadioPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="最初の選択">{s.initial}</InfoBox>
                 <InfoBox label="並べ方">{s.layout}</InfoBox>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
@@ -23259,7 +23311,7 @@ function SelectionSelectPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -23988,7 +24040,7 @@ function SelectionSliderPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 {s.icons && <InfoBox label="アイコン" accent="#3A4FCF">{s.icons}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
@@ -24544,7 +24596,7 @@ function SelectionTogglePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -25272,7 +25324,7 @@ function TextInputsInputValidationPage() {
                 )}
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -26222,7 +26274,7 @@ function TextInputsSearchFieldPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -26884,7 +26936,7 @@ function TextInputsTextFieldPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -27378,7 +27430,7 @@ function TextInputsValidationPage() {
                 <div style={styles.termLine}><span style={styles.termLabel}>名称</span>{s.term}</div>
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -28593,7 +28645,7 @@ function TokensAdaptivePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="切り替えの基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="切り替えるもの・保つもの">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -29328,7 +29380,7 @@ function TokensColorPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="コントラスト比" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="配色の仕組み">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -30160,7 +30212,7 @@ function TokensDarkModePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="コントラストの基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="配色の作り方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -30955,7 +31007,7 @@ function TokensElevationPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 {s.size ? <InfoBox label="高さ・素材の段階" accent="#3C5A73">{s.size}</InfoBox> : <SeeBelow />}
                 {s.colorInfo && <InfoBox label="層の分け方とダークでの扱い">{s.colorInfo}</InfoBox>}
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 {s.useCases && <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>}
@@ -31705,7 +31757,7 @@ function TokensIconPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="色">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -32250,7 +32302,7 @@ function TokensInputMethodsPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="ジェスチャーの種類と意味" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="入力手段の扱い">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -32914,7 +32966,7 @@ function TokensInteractionStatesPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="状態の種類" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目の表し方">{s.visual}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -33484,7 +33536,7 @@ function TokensLayoutSpacingPage() {
                 <InfoBox label="余白・グリッドの数値" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="画面幅による切り替え">{s.colorInfo}</InfoBox>
                 <InfoBox label="構造・グループ化">{s.structure}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -34493,7 +34545,7 @@ function TokensMotionPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="時間(duration)の基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="イージング・動きの作り方">{s.easing}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -35167,7 +35219,7 @@ function TokensOverviewPage() {
                 </div>
                 <div style={styles.positionBadge}>{s.summary}</div>
                 <InfoBox label="含まれる主なトピック"><CategoryList items={s.categories} /></InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 <InfoBox label="アクセシビリティの位置づけ">{s.accessibilityNote}</InfoBox>
                 <InfoBox label="参照ページ(公式)">
                   <RefList refs={s.refs} withW3cNote={s.key === "wcag"} />
@@ -35976,7 +36028,7 @@ function TokensShapePage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="角丸の数値" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="形の選び方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -36730,7 +36782,7 @@ function TokensSoundPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="鳴らす・鳴らさない基準" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="音の種類・作り方">{s.design}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -37548,7 +37600,7 @@ function TokensTypographyPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="文字サイズ" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="行送り・字間">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -38346,7 +38398,7 @@ function TokensWritingPage() {
                 <div style={styles.positionBadge}>{s.position}</div>
                 <InfoBox label="数値・長さの目安" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="声・調子・言葉の選び方">{s.colorInfo}</InfoBox>
-                <p style={styles.sourceStance}>{s.stance}</p>
+                <div style={styles.sourceStance}>{s.stance}</div>
                 {hasRow(SOURCES, "exceptions") && <InfoBox label="例外・許容ケース">{s.exceptions}</InfoBox>}
                 <InfoBox label="アクセシビリティ(WCAG基準)">{s.accessibility}</InfoBox>
                 <InfoBox label="ユースケース"><UseCaseList items={s.useCases} /></InfoBox>
@@ -38603,9 +38655,9 @@ const PAGES = [
   { id: "components-text-inputs-wizard", label: "ウィザード(ステップ形式の入力)", spec: "063", Component: TextInputsWizardPage, path: "/components/text-inputs/wizard", fixed: true },
   { id: "components-containment-overview", label: "オーバーレイの使い分け", spec: "064", Component: ContainmentOverviewPage, path: "/components/containment/overview", fixed: true },
   { id: "components-containment-dialog", label: "モーダルダイアログ", spec: "024", Component: ContainmentDialogPage, path: "/components/containment/dialog", fixed: true },
+  { id: "components-containment-fullscreen-dialog", label: "フルスクリーンダイアログ", spec: "031", Component: ContainmentFullscreenDialogPage, path: "/components/containment/fullscreen-dialog", fixed: true },
   { id: "components-containment-bottom-sheet", label: "ボトムシート", spec: "029", Component: ContainmentBottomSheetPage, path: "/components/containment/bottom-sheet", fixed: true },
   { id: "components-containment-side-sheet", label: "サイドシート", spec: "025", Component: ContainmentSideSheetPage, path: "/components/containment/side-sheet", fixed: true },
-  { id: "components-containment-fullscreen-dialog", label: "フルスクリーンダイアログ", spec: "031", Component: ContainmentFullscreenDialogPage, path: "/components/containment/fullscreen-dialog", fixed: true },
   { id: "components-containment-card", label: "カード", spec: "026", Component: ContainmentCardPage, path: "/components/containment/card", fixed: true },
   { id: "components-containment-list", label: "リスト", spec: "027", Component: ContainmentListPage, path: "/components/containment/list", fixed: true },
   { id: "components-containment-carousel", label: "カルーセル", spec: "058", Component: ContainmentCarouselPage, path: "/components/containment/carousel", fixed: true },
