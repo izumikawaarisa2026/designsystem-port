@@ -137,7 +137,7 @@ const SOURCES = [
       { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "mdn", label: "bannerロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/banner_role" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
-      { kind: "sc", level: "A", label: "3.2.6 一貫したヘルプ", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html" },
+      { kind: "sc", level: "A", label: "3.2.6 継続し一貫性のあるヘルプ", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html" },
     ],
     confirmedNote: "3.2.3・3.2.6はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (

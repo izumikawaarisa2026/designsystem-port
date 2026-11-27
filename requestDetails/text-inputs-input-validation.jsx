@@ -147,7 +147,7 @@ const SOURCES = [
       { label: "ARIA19(エラーを読み上げで知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
-      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 入力の重複", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
     ],
     confirmedNote: "ARIA19・Validating Inputチュートリアル・G199はいずれも本文を直接取得して確認済み(2026-09)。3つとも検証タイミング自体を規定するものではなく、通知の仕組みや送信後のフィードバックについての技術である点に注意してください。3.3.7はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -207,7 +207,7 @@ const TIMING_POINTS = [
   { key: "after", name: "送信後", sub: "結果の通知" },
 ];
 
-/* m: "good"=推奨・既定 / "cond"=条件付き / "avoid"=避ける / "none"=言及なし / "unknown"=未確認 */
+/* m: "good"=推奨・基本 / "cond"=条件付き / "avoid"=避ける / "none"=言及なし / "unknown"=未確認 */
 const TIMING_MATRIX = [
   {
     key: "hig", name: "Apple",
@@ -244,7 +244,7 @@ const TIMING_MATRIX = [
     cells: {
       before: { m: "none", t: "言及なし" },
       typing: { m: "avoid", t: "原則は出さない。パスワードの要件チェックリストなどは例外" },
-      blur: { m: "good", t: "既定のタイミング。入力を終えて次の欄へ移った時" },
+      blur: { m: "good", t: "基本のタイミング。入力を終えて次の欄へ移った時" },
       submit: { m: "good", t: "必須項目の未入力は送信を試みた後に示す" },
       after: { m: "cond", t: "再読み込み後もエラーが見つけやすい場所にあるようにする" },
     },
@@ -253,7 +253,7 @@ const TIMING_MATRIX = [
 markNeg(TIMING_MATRIX);
 
 const MARKS = {
-  good: { sym: "◯", label: "推奨・既定", color: "#2F7D6E", bg: "#E6F2EE" },
+  good: { sym: "◯", label: "推奨・基本", color: "#2F7D6E", bg: "#E6F2EE" },
   cond: { sym: "△", label: "条件付き", color: "#A3821F", bg: "#F7F0DC" },
   avoid: { sym: "✕", label: "原則避ける", color: "#C0503F", bg: "#F8E6E2" },
   none: { sym: "―", label: "言及なし", color: "#666D93", bg: "#FFFFFF" },
@@ -340,12 +340,12 @@ const TIMING_DETAILS = [
   },
   {
     key: "blur",
-    name: "③ フィールドを離れた時 ― 既定のタイミング",
+    name: "③ フィールドを離れた時 ― 基本のタイミング",
     demo: <TimingField value="taro@example" state="error" caption="✕「@」の後のドメインを最後まで入力してください" />,
     what: "欄の入力を終えて次の欄へ移った(フォーカスが外れた)時点で検証し、問題があればその欄の近くに表示する。",
     good: "書き終えた内容だけを判定するので、途中で急かさない。フォームの最後まで行かなくても、その場で直せる。",
     care: "何も入力せずにTabキーで通り過ぎただけの欄に、すぐ「必須です」と出すのは早すぎる(NN group)。",
-    who: "NN group(大半の欄の既定)",
+    who: "NN group(大半の欄はこのタイミングで確かめる)",
   },
   {
     key: "submit",
@@ -372,12 +372,14 @@ function TimingDetails() {
     <div style={styles.timingDetailGrid}>
       {TIMING_DETAILS.map((d) => (
         <div key={d.key} style={styles.timingDetailCard}>
-          <div style={styles.timingDetailName}>{d.name}</div>
           <div style={styles.timingDemo}>{d.demo}</div>
+          <div style={styles.timingDetailBody}>
+          <div style={styles.timingDetailName}>{d.name}</div>
           <div style={styles.timingDetailRow}><span style={styles.timingDetailLabel}>何をするか</span><span style={styles.timingDetailText}>{d.what}</span></div>
           <div style={styles.timingDetailRow}><span style={{ ...styles.timingDetailLabel, color: "#2F7D6E" }}>良い点</span><span style={styles.timingDetailText}>{d.good}</span></div>
           <div style={styles.timingDetailRow}><span style={{ ...styles.timingDetailLabel, color: "#C0503F" }}>注意点</span><span style={styles.timingDetailText}>{d.care}</span></div>
           <div style={styles.timingDetailRow}><span style={styles.timingDetailLabel}>どの系列が</span><span style={styles.timingDetailText}>{d.who}</span></div>
+          </div>
         </div>
       ))}
     </div>
@@ -386,7 +388,7 @@ function TimingDetails() {
 
 /* 入力欄の種類ごとの目安(◯/△/✕)。各系列の記述を入力欄の種類で整理し直したもの */
 const FIELD_GUIDE = [
-  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
+  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "入力を終えた時点で確かめる(NN groupが大半の欄に勧めるタイミング)"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
   { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字だけを受け付ける書式にする(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "必須項目の未入力", typing: ["avoid", "入力前から出さない"], blur: ["cond", "何か入力して消した場合など。通り過ぎただけでは出さない"], submit: ["good", "送信を試みた後に示す(NN group)"] },
@@ -460,8 +462,8 @@ function ValidationTimingSwatch() {
       {steps.map((st, i) => (
         <React.Fragment key={st.t}>
           {i > 0 && <span style={{ alignSelf: "center", color: "#9EA4C4", fontSize: 16 }}>→</span>}
-          <div style={{ width: 150 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{st.t}<span style={{ marginLeft: 6, color: st.mark === "◯" ? "#2F7D6E" : "#C0503F" }}>{st.mark === "◯" ? "◯ 確かめる" : "✕ 原則しない"}</span></div>
+          <div style={{ width: 178 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 4, whiteSpace: "nowrap" }}>{st.t}<span style={{ marginLeft: 6, color: st.mark === "◯" ? "#2F7D6E" : "#C0503F" }}>{st.mark === "◯" ? "◯ 確かめる" : "✕ 原則しない"}</span></div>
             <div style={{ border: `1.6px solid ${st.b}`, borderRadius: 5, padding: "5px 8px", fontSize: 11, background: "#FFFFFF", color: st.v ? "#171B36" : "#9EA4C4", minHeight: 26, fontFamily: "'IBM Plex Mono', monospace" }}>{st.v || "メールアドレス"}{st.cur && <span style={{ color: "#3A4FCF" }}>|</span>}</div>
             <div style={{ fontSize: 10, color: st.c, marginTop: 3, lineHeight: 1.4 }}>{st.msg}</div>
           </div>
@@ -725,10 +727,12 @@ const styles = {
   timingRowName: { padding: "10px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", background: "#F8F9FD" },
   timingCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, textAlign: "center" },
   timingCellText: { fontSize: 10.5, lineHeight: 1.5 },
-  timingDetailGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 10, marginBottom: 8 },
-  timingDetailCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 12px" },
+  /* 5つのタイミングの解説はリスト(左にイラスト、右に文)。2026-11-27 ⑩本人最終レビューNo.032 */
+  timingDetailGrid: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 8 },
+  timingDetailCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px", display: "flex", flexWrap: "wrap", gap: "12px 18px", alignItems: "flex-start" },
+  timingDetailBody: { flex: "999 1 300px", minWidth: 0 },
   timingDetailName: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
-  timingDemo: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "12px 10px", marginBottom: 10 },
+  timingDemo: { flex: "1 0 220px", maxWidth: "100%", alignSelf: "stretch", display: "flex", alignItems: "center", background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "12px 10px" },
   timingDetailRow: { display: "grid", gridTemplateColumns: "64px 1fr", gap: 6, marginBottom: 6 },
   timingDetailLabel: { fontSize: 10.5, fontWeight: 700, color: "#454C78" },
   timingDetailText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },

@@ -71,14 +71,14 @@ const SOURCES = [
     progress: <span>最初のステップで<Hl>全部で何ステップあるかを伝え</Hl>、各ステップで進み具合を伝える。ページのtitleと見出しに「ステップ2/4」のように入れる。ステップ数が決まっていれば、手順の一覧(順序付きリスト)で、完了・現在のステップを支援技術にも分かるように示す。</span>,
     order: "任意のステップは分かるようにし、飛ばせるようにする。全体の説明は各ページで繰り返す。",
     interruption: "できれば制限時間を設けない。設ける場合は、延長・調整できるようにする(2.2.1)。",
-    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(冗長な入力)と3.3.2(ラベル又は指示)は「理解可能」、2.2.1(期限調節可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
+    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(入力の重複)と3.3.2(ラベル又は指示)は「理解可能」、2.2.1(期限調節可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
     useCases: [
       "最初に全体のステップ数を伝え、ページの見出しとtitleに「ステップ2/4」を入れる",
       "前のステップで入力した情報は、自動で入れるか選べるようにする(3.3.7)",
     ],
     searchHint: "Indicating progress",
     refs: [
-      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 入力の重複", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
       { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
       { label: "Forms Tutorial ― Multi-page Forms(チュートリアル。要件ではない)", url: "https://www.w3.org/WAI/tutorials/forms/multi-page/" },
@@ -434,7 +434,7 @@ export default function TextInputsWizardPage() {
               共通しているのは、<strong>全体のステップ数と今の位置を示す</strong>ことだ。NN groupはステップの一覧や図で今のステップを強調するよう求め、W3Cは最初に全体の数を伝え、見出しやtitleに「ステップ2/4」と入れることを勧めている。また、<strong>途中で中断しても作業を失わないようにする</strong>ことも、Apple・W3C・NN groupの3系列が触れている(閉じる前の確認・制限時間の延長・途中保存)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの<strong>3.3.7(冗長な入力)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件だ(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれる(「意見が分かれる点」を参照)。
+              W3Cの<strong>3.3.7(入力の重複)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件だ(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれる(「意見が分かれる点」を参照)。
             </p>
           </div>
 

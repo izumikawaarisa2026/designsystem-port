@@ -216,13 +216,13 @@ function GlossaryNote({ items }) {
 
 function ValidationSwatch() {
   return (
-    <div style={{ width: 220, margin: "0 auto", textAlign: "left" }}>
+    <div style={{ width: 268, maxWidth: "100%", margin: "0 auto", textAlign: "left" }}>
       <div style={{ border: "1.6px solid #C0503F", borderRadius: 6, padding: "8px 12px", fontSize: 13, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", background: "#FFFFFF" }}>
         meail@example
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 4 }}>
         <span style={{ color: "#C0503F", fontSize: 12 }}>⚠</span>
-        <span style={{ fontSize: 11, color: "#C0503F", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>メールアドレスの形式が正しくありません</span>
+        <span style={{ fontSize: 11, color: "#C0503F", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", whiteSpace: "nowrap" }}>メールアドレスの形式が正しくありません</span>
       </div>
     </div>
   );
@@ -233,7 +233,7 @@ const LEAD = "入力の間違いを見つけたときに、何が問題でどう
 const ABOUT = [
   { k: "目的・役割", v: "間違いの場所と理由、直し方を伝え、入力をやり直せるようにする" },
   { k: "よく使われる場面", v: "フォームの入力欄の下のエラー文、送信後のエラーのまとめ" },
-  { k: "似たコンポーネント", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
+  { k: "似たコンポーネント", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink>、操作全体の失敗や送信後のまとめは<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>(違いは「エラー表示とステータスメッセージのエラー」)</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -257,6 +257,55 @@ function GoodBadFigure() {
             ]}
             basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラーの修正提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
           />
+  );
+}
+
+/* エラー表示とステータスメッセージのエラーの違い(2026-11-27 ⑩本人最終レビューNo.031) */
+const ERR_VS_STATUS = [
+  ["何についてのエラーか", "1つの入力欄の誤り(書式が違う・必須の欄が空など)", "操作全体の失敗(送信・保存ができなかった、通信が切れたなど)や、送信後の誤りのまとめ(「エラーが2件あります」)"],
+  ["出す場所", "誤りのある入力欄のすぐそば(NN group)", "フォームや画面の上部など、関係する内容のそば"],
+  ["伝える内容", "何が問題で、どう直すか(W3C 3.3.1・3.3.3)", "何が起きたかと、次にすること(直す欄への案内・やり直しなど)"],
+  ["支援技術への伝え方", "誤りのある欄と結び付けて伝え、どの欄の誤りかが分かるようにする(W3C 3.3.1)", "フォーカスを移さずに出すなら、知らせとして読み上げられるようにする(W3C 4.1.3)"],
+  ["消え方", "直すまで残す(NN group)", "直すか閉じるまで残す。数秒で消える通知で出さない(NN group)"],
+];
+
+function ErrorVsStatus() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const red = "#C0503F";
+  const fieldFig = (
+    <div style={{ width: 200, maxWidth: "100%", fontSize: 11 }} role="img" aria-label="入力欄の枠が赤くなり、すぐ下にエラーの文が出ている図">
+      <div style={{ fontWeight: 700, color: "#2E3457", marginBottom: 3 }}>メールアドレス</div>
+      <div style={{ border: "1.6px solid " + red, borderRadius: 4, padding: "5px 8px", color: "#171B36", background: "#FFFFFF" }}>taro.example.com</div>
+      <div style={{ color: red, marginTop: 3 }}>⚠ 「@」が入っていません</div>
+    </div>
+  );
+  const statusFig = (
+    <div style={{ width: 200, maxWidth: "100%", fontSize: 11 }} role="img" aria-label="フォームの上部に、エラーが2件あることを知らせるメッセージが出ている図">
+      <div style={{ border: "1px solid " + red, background: "#FDEDEA", borderRadius: 4, padding: "6px 8px", color: "#8A2E22", marginBottom: 6 }}>
+        <div style={{ fontWeight: 700 }}>× エラーが2件あります</div>
+        <div style={{ textDecoration: "underline" }}>メールアドレス・電話番号</div>
+      </div>
+      <div style={{ height: 8, width: "60%", background: "#E1E3F0", borderRadius: 2, marginBottom: 4 }} />
+      <div style={{ height: 18, border: "1px solid #C9CDE0", borderRadius: 4, background: "#FFFFFF" }} />
+    </div>
+  );
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>エラー表示とステータスメッセージのエラー</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>何についてのエラーか</strong>だ。1つの入力欄の誤りは、その欄のすぐそばにエラー表示を出す。送信できなかった・保存に失敗したなど操作全体の失敗や、送信後に複数の誤りをまとめて知らせるときは、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>を使う。<strong>まとめを出す場合も、各欄のエラー表示は残す</strong>(どの欄をどう直すかは、欄のそばでないと伝わりにくいため。AI解釈)。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 130 }} /><col /><col /></colgroup>
+          <thead><tr>{["", "エラー表示(このページ)", "ステータスメッセージのエラー"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={key}>イメージ</td><td style={td}>{fieldFig}</td><td style={td}>{statusFig}</td></tr>
+            {ERR_VS_STATUS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td><td style={td}>{r[1]}</td><td style={td}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 
@@ -295,6 +344,8 @@ export default function TextInputsValidationPage() {
 
 
           <GoodBadFigure />
+
+          <ErrorVsStatus />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
