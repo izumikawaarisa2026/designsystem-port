@@ -269,6 +269,18 @@ const ERR_VS_STATUS = [
   ["消え方", "直すまで残す(NN group)", "直すか閉じるまで残す。数秒で消える通知で出さない(NN group)"],
 ];
 
+/* どちらを出すか(2026-11-27 チャットでの指示。NN groupとW3Cのページを取得して確認) */
+const WHICH_ERRORS = [
+  ["入力中・欄を離れたときに見つかる、1つの欄の誤り", "欄のそばのエラー表示だけ", "その場で直せる。検証はできるだけ欄ごとに行う(NN group)"],
+  ["送信した後に見つかった誤り(ページを読み込み直す場合を含む)", "両方(上部のまとめ+各欄のエラー表示)", "まとめだけでは、誤りのある欄を探させることになる。欄にたどり着くころには、まとめが画面の外に出ていることもある(NN group)。上部に一覧を出し、各欄にも具体的な説明を付けると使いやすい(W3C: Forms Tutorial)"],
+  ["特定の欄に結び付かない失敗(通信エラー・保存の失敗など)", "ステータスメッセージだけ", "直す欄がないため、何が起きたかと次にすること(やり直しなど)を知らせる(AI解釈)"],
+];
+const WHICH_REFS = [
+  { label: "NN group: 10 Design Guidelines for Reporting Errors in Forms(8. まとめだけで示さない)", url: "https://www.nngroup.com/articles/errors-forms-design-guidelines/#toc-8-dont-use-validation-summaries-as-the-only-indication-of-an-error-9" },
+  { label: "W3C(WAI): Forms Tutorial ― User Notification(Listing errors)", url: "https://www.w3.org/WAI/tutorials/forms/notifications/#listing-errors" },
+  { kind: "sc", level: "A", label: "3.3.1 エラーの特定", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" },
+];
+
 function ErrorVsStatus() {
   const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
   const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
@@ -294,7 +306,7 @@ function ErrorVsStatus() {
   return (
     <section style={{ marginBottom: 40 }}>
       <h2 style={styles.diagramTitle}>エラー表示とステータスメッセージのエラー</h2>
-      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>何についてのエラーか</strong>だ。1つの入力欄の誤りは、その欄のすぐそばにエラー表示を出す。送信できなかった・保存に失敗したなど操作全体の失敗や、送信後に複数の誤りをまとめて知らせるときは、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>を使う。<strong>まとめを出す場合も、各欄のエラー表示は残す</strong>(どの欄をどう直すかは、欄のそばでないと伝わりにくいため。AI解釈)。</p>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>何についてのエラーか</strong>だ。1つの入力欄の誤りは、その欄のすぐそばにエラー表示を出す。送信できなかった・保存に失敗したなど操作全体の失敗や、送信後に複数の誤りをまとめて知らせるときは、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>を使う。<strong>まとめを出す場合も、各欄のエラー表示は残す</strong>(まとめだけでは誤りのある欄を探させることになる。NN group)。両方を出すかどうかの判断は、表の下の「どちらを出すか」にまとめた。</p>
       <div style={{ overflowX: "auto", marginBottom: 6 }}>
         <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
           <colgroup><col style={{ width: 130 }} /><col /><col /></colgroup>
@@ -305,6 +317,20 @@ function ErrorVsStatus() {
           </tbody>
         </table>
       </div>
+
+      <h3 style={{ fontSize: 13.5, fontWeight: 700, color: "#171B36", margin: "22px 0 8px" }}>どちらを出すか ― 両方出すときの判断</h3>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>判断の軸は、<strong>誤りがいつ見つかるか</strong>と、<strong>特定の欄に結び付くか</strong>の2つ。W3C(3.3.1)はどの見せ方も求めず、誤りを文字で伝えることだけを求める。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 560, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: "30%" }} /><col style={{ width: "26%" }} /><col /></colgroup>
+          <thead><tr>{["場面", "出すもの", "理由・根拠"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+          <tbody>
+            {WHICH_ERRORS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td><td style={{ ...td, fontWeight: 700, color: "#171B36" }}>{r[1]}</td><td style={td}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "6px 0 8px" }}>両方出すときのまとめには、エラーの件数と、各欄の名前を書き、その欄へ移れるリンクにする。送信後は、最初の誤りのある欄にフォーカスを移すと便利(W3C: Forms Tutorial。達成基準の要件ではない)。</p>
+      <div style={{ fontSize: 11, color: "#565D8A" }}><RefList refs={WHICH_REFS} /></div>
     </section>
   );
 }
