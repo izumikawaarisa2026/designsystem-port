@@ -19063,9 +19063,9 @@ const GROUPS = [
   { id: "focus", title: "フォーカスとホバー", desc: "今どこを操作しているかが分かり、勝手に動かないこと", items: [
     { n: "2.4.3", name: "フォーカス順序", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html", req: "フォーカスの順番が、意味と操作の流れに沿っている。", why: "キーボードや読み上げで使う人は、フォーカスの順番どおりに内容をたどる。順番が飛ぶと、意味や操作の流れがつかめないため。", design: "見た目の並びと読む順番をそろえる。ダイアログを閉じたら、開いたボタンにフォーカスを戻す。", exc: "", pages: ["/tokens/input-methods"] },
     { n: "2.4.7", name: "フォーカスの可視化", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html", req: "キーボードで操作するとき、フォーカスの位置が見える。", why: "キーボードで操作する人は、フォーカスの位置が見えないと、今どこを操作しているのか分からないため。", design: "フォーカスの表示を消さない。色の変化だけに頼らず、輪郭線などで示すと分かりやすい。", exc: "", pages: ["/components/actions/button", "/tokens/interaction-states"] },
-    { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", why: "フォーカスした先が隠れると、キーボードで操作する人は、今どこにいるのかが分からなくなるため。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
-    { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", why: "一部でも隠れると、フォーカスしたコンポーネントが何かを見分けにくくなる場合があるため。", design: "2.4.11より厳しい水準。", exc: "", pages: ["/tokens/elevation"] },
     { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", why: "細い・薄いフォーカスの表示は、弱視の人や画面から離れて見る人には見つけにくいため。", design: "コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
+    { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", why: "フォーカスした先が隠れると、キーボードで操作する人は、今どこにいるのかが分からなくなるため。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
+    { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", why: "一部でも隠れると、フォーカスしたコンポーネントが何かを見分けにくくなる場合があるため。", design: "固定ヘッダーやバナーに少しでもかかるなら、スクロールの位置を調整するか、重なりそのものをなくす。", exc: "", pages: ["/tokens/elevation"] },
     { n: "3.2.1", name: "フォーカス時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html", req: "フォーカスが当たっただけで、文脈を変えない。", why: "フォーカスを当てるたびに画面が変わると、キーボードや読み上げで使う人は、何が起きたのか分からずに迷うため。", design: "フォーカスしただけで別のページへ遷移する・新しいウィンドウを開く・送信する、といったことを起こさない。", exc: "", pages: ["/components/navigation/tabs", "/components/selection/select"] },
     { n: "1.4.13", name: "ホバー又はフォーカスで表示されるコンテンツ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html", req: "ホバーやフォーカスで出る内容(ツールチップなど)の3つの条件を満たす。", why: "ツールチップなどが周りの内容を隠したり、すぐ消えたりすると、拡大して見る人や読むのに時間がかかる人が、内容を読み取れないため。", design: "①ポインターを動かさずに消せる(Escキーなど)、②内容の上にポインターを移しても消えない、③離れるか消すまで勝手に消えない。", exc: "入力の誤りの表示など、内容がほかの情報を隠さないもの。ブラウザが出すツールチップ。", pages: ["/components/communication/tooltip"] },
   ] },
@@ -19086,7 +19086,7 @@ const GROUPS = [
     { n: "1.3.3", name: "感覚による特性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html", req: "操作の説明を、形・大きさ・位置・音だけに頼らない。", why: "見えない人や位置関係をつかみにくい人は、形・大きさ・位置だけの説明では、どれを指すのか特定できないため。", design: "「右の丸いボタン」ではなく「[送信]ボタン」のように、コンポーネントの名前も書く。", exc: "", pages: ["/tokens/writing"] },
     { n: "2.4.2", name: "ページタイトル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html", req: "ページに、主題や目的を表すタイトルを付ける。", why: "タイトルは読み上げで最初に読まれ、タブや履歴にも出る。中身を読む前に、どのページかを判断できるようにするため。", design: "画面ごとに内容を表すタイトルにする。1つのURLで画面が切り替わる場合も、画面ごとにタイトルを変える。", exc: "", pages: ["/tokens/writing"] },
     { n: "2.4.4", name: "リンクの目的(コンテキスト内)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html", req: "リンクの目的が、リンクの文言か周りの文脈から分かる。", why: "読み上げで使う人は、リンクだけを一覧にして選ぶことがある。「こちら」だけでは、行き先が分からないため。", design: "「こちら」「詳しくはここ」だけのリンクにしない。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link", "/components/navigation/pagination"] },
-    { n: "2.4.9", name: "リンクの目的(リンクのみ)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html", req: "リンクの目的が、リンクの文言だけで分かる。", why: "周りの文を読まなくても、リンクの文言だけで行き先が分かれば、誰にとっても選びやすくなるため。", design: "2.4.4より厳しい水準。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link"] },
+    { n: "2.4.9", name: "リンクの目的(リンクのみ)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html", req: "リンクの目的が、リンクの文言だけで分かる。", why: "周りの文を読まなくても、リンクの文言だけで行き先が分かれば、誰にとっても選びやすくなるため。", design: "周りの文を読まなくても行き先が分かる文言にする(「詳しく」ではなく「料金プランの詳細」)。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link"] },
     { n: "2.4.5", name: "複数の手段", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html", req: "ページにたどり着く方法を2つ以上用意する。", why: "得意な探し方は人によって違うため(検索の方が使いやすい人も、階層をたどる方が分かりやすい人もいる)。", design: "ナビゲーションに加えて、サイト内検索やサイトマップを置く。", exc: "手続きの途中や結果の画面。", pages: ["/components/text-inputs/search-field"] },
     { n: "2.4.6", name: "見出し及びラベル", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html", req: "見出しとラベルが、主題や目的を表す。", why: "内容が分かる見出し・ラベルがあれば、読むのに時間がかかる人や読み上げで使う人も、目的の場所を早く見つけられるため。", design: "見出しやラベルを置くこと自体は求めない。置いたなら、内容が分かる言葉にする(1語でもよい)。", exc: "", pages: ["/tokens/writing"] },
     { n: "2.4.8", name: "現在位置", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/location.html", req: "一連のページの中の今の位置が分かる。", why: "長い手続きや大きいサイトでは、今どこにいるのかを見失いやすいため(特に、記憶や注意に障害がある人)。", design: "パンくずリストやステップの表示などで示す。置けば自動で適合するわけではない。", exc: "", pages: ["/components/navigation/breadcrumb"] },
@@ -19111,6 +19111,21 @@ const GROUPS = [
   ] },
 ];
 
+/* 同じ観点でレベルだけが違う基準は、1枚のカードにまとめる(2026-11-27 チャットでの指示)。並びは低いレベルから。 */
+const FAMILIES = [
+  { title: "ターゲットのサイズ", ns: ["2.5.8", "2.5.5"] },
+  { title: "フォーカスの見え方", ns: ["2.4.7", "2.4.13"] },
+  { title: "隠されないフォーカス", ns: ["2.4.11", "2.4.12"] },
+  { title: "リンクの目的", ns: ["2.4.4", "2.4.9"] },
+];
+const LEVELS = ["A", "AA", "AAA"];
+/* レベルが上がるほど濃くする。文字はどの段階も4.5:1以上 */
+const LEVEL_TONE = {
+  A: { bg: "#FBF3DC", fg: "#7A5F12", bd: "#E2CF95", rail: "#EAD9A6" },
+  AA: { bg: "#EBD48C", fg: "#4F3C06", bd: "#C9A645", rail: "#C9A645" },
+  AAA: { bg: "#7A5F12", fg: "#FFFFFF", bd: "#7A5F12", rail: "#7A5F12" },
+};
+
 const styles = {
   toc: { display: "flex", flexWrap: "wrap", gap: 6, margin: "0 0 26px" },
   tocLink: { fontSize: 12, padding: "5px 10px", borderRadius: 14, background: "#F3F6FA", border: "1px solid #E1E3F0", color: "#2E3457", textDecoration: "none" },
@@ -19123,7 +19138,16 @@ const styles = {
   scHead: { display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "4px 10px", marginBottom: 6 },
   scNum: { fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, fontWeight: 600, color: "#171B36" },
   scName: { fontSize: 14, fontWeight: 700, color: "#171B36" },
-  scLevel: { fontSize: 10, fontWeight: 700, padding: "1px 6px", borderRadius: 3, color: "#7A5F12", background: "#FBF3DC", border: "1px solid #E2CF95", fontFamily: "'IBM Plex Mono', monospace" },
+  scLevel: { fontSize: 10, fontWeight: 700, padding: "1px 6px", borderRadius: 3, fontFamily: "'IBM Plex Mono', monospace" },
+  fam: { border: "1px solid #E1E3F0", borderRadius: 6, marginBottom: 10, background: "#FFFFFF", overflow: "hidden" },
+  famHead: { display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "6px 14px", padding: "10px 14px", background: "#F8F9FD", borderBottom: "1px solid #E1E3F0" },
+  famTitle: { fontSize: 14, fontWeight: 700, color: "#171B36" },
+  famScale: { display: "flex", alignItems: "center", gap: 6, fontSize: 10.5, color: "#565D8A" },
+  famSteps: { display: "flex", gap: 2 },
+  famStep: { width: 44, padding: "2px 0", textAlign: "center", fontSize: 10, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 2 },
+  famStepOff: { background: "transparent", color: "#9EA4C4", border: "1px dashed #D5D9EC" },
+  tier: { display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch", padding: "12px 14px 12px 12px", borderLeftWidth: 5, borderLeftStyle: "solid", scrollMarginTop: 16 },
+  tierSep: { borderTop: "1px dashed #D5D9EC" },
   scReq: { fontSize: 13, lineHeight: 1.7, color: "#171B36", margin: "0 0 6px", fontWeight: 500 },
   scRow: { display: "flex", flexWrap: "wrap", gap: "2px 12px", fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "0 0 4px" },
   scKey: { flex: "0 0 96px", fontWeight: 700, color: "#454C78" },
@@ -19238,16 +19262,21 @@ function ScFig({ n }) {
   return (<svg viewBox="0 0 140 90" width="140" height="90" role="img" aria-label={n + "の概念図"} style={{ display: "block" }}><F /></svg>);
 }
 
-function Criterion({ c }) {
+function LevelBadge({ level }) {
+  const t = LEVEL_TONE[level];
+  return (<span style={{ ...styles.scLevel, color: t.fg, background: t.bg, border: "1px solid " + t.bd }}>レベル{level}</span>);
+}
+
+function CriterionBody({ c }) {
   const pages = c.pages.filter((p) => pageLabel(p));
   return (
-    <div id={"sc-" + c.n.replace(/\./g, "-")} style={styles.sc}>
+    <>
       <div style={styles.scFig}><ScFig n={c.n} /></div>
       <div style={styles.scBody}>
       <div style={styles.scHead}>
         <span style={styles.scNum}>{c.n}</span>
         <span style={styles.scName}>{c.name}</span>
-        <span style={styles.scLevel}>レベル{c.level}</span>
+        <LevelBadge level={c.level} />
         <a href={c.url} target="_blank" rel="noreferrer" style={styles.scOfficial}>公式(Understanding WCAG 2.2) ↗</a>
       </div>
       <p style={styles.scReq}>{c.req}</p>
@@ -19261,8 +19290,59 @@ function Criterion({ c }) {
         </span>
       </div>
       </div>
+    </>
+  );
+}
+
+const scId = (c) => "sc-" + c.n.replace(/\./g, "-");
+
+function Criterion({ c }) {
+  return (<div id={scId(c)} style={styles.sc}><CriterionBody c={c} /></div>);
+}
+
+/* 同じ観点のレベル違いを1枚にまとめたカード。左の帯と見出しの目盛りの濃さでレベルを示す */
+function CriterionFamily({ title, items }) {
+  const has = new Set(items.map((c) => c.level));
+  return (
+    <div style={styles.fam}>
+      <div style={styles.famHead}>
+        <span style={styles.famTitle}>{title}</span>
+        <span style={styles.famScale}>
+          <span>レベル</span>
+          <span style={styles.famSteps}>
+            {LEVELS.map((lv) => {
+              const t = LEVEL_TONE[lv];
+              return (<span key={lv} style={{ ...styles.famStep, ...(has.has(lv) ? { background: t.bg, color: t.fg, border: "1px solid " + t.bd } : styles.famStepOff) }}>{lv}</span>);
+            })}
+          </span>
+          <span>右ほど厳しい</span>
+        </span>
+      </div>
+      {items.map((c, i) => (
+        <div key={c.n} id={scId(c)} style={{ ...styles.tier, borderLeftColor: LEVEL_TONE[c.level].rail, ...(i > 0 ? styles.tierSep : {}) }}>
+          <CriterionBody c={c} />
+        </div>
+      ))}
     </div>
   );
+}
+
+/* グループの基準を、まとめカードと単独カードの並びにする */
+function renderItems(items) {
+  const out = [];
+  const used = new Set();
+  items.forEach((c) => {
+    if (used.has(c.n)) return;
+    const f = FAMILIES.find((fm) => fm.ns.includes(c.n));
+    if (f) {
+      const members = f.ns.map((n) => items.find((x) => x.n === n)).filter(Boolean);
+      members.forEach((m) => used.add(m.n));
+      out.push(<CriterionFamily key={f.title} title={f.title} items={members} />);
+    } else {
+      out.push(<Criterion key={c.n} c={c} />);
+    }
+  });
+  return out;
 }
 
 function WcagCriteriaPage() {
@@ -19289,7 +19369,7 @@ function WcagCriteriaPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.levelNote}>
-            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
+            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。ターゲットのサイズやフォーカスのように、同じ観点でレベルだけが違う基準は1枚のカードにまとめ、レベルが上がるほど左の帯とラベルを濃くしている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
           </div>
 
           <div style={styles.toc}>
@@ -19300,7 +19380,7 @@ function WcagCriteriaPage() {
             <section key={g.id} id={"g-" + g.id} style={styles.group}>
               <h2 style={styles.diagramTitle}>{g.title}</h2>
               <p style={styles.groupDesc}>{g.desc}</p>
-              {g.items.map((c) => (<Criterion key={c.n} c={c} />))}
+              {renderItems(g.items)}
             </section>
           ))}
 
