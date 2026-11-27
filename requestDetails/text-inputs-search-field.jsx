@@ -308,8 +308,8 @@ const SCENES = [
     name: "⑥ クリア・終了",
     desc: "入力を消す、検索を終えて元の画面に戻る",
     cells: {
-      hig: "入力内容はフィールド内のクリアボタンで消す。watchOSは、キャンセルか検索を押すと元の画面に戻る。",
-      material: "戻るアイコンで、フォーカスが外れ、候補・結果が消え、バーが元に戻る。Androidの予測型「戻る」では、スワイプ中に全画面の検索が縮み、前の画面がのぞいて見える。",
+      hig: "クリアボタンは検索フィールドの標準の要素で、入力内容はこれで消す。watchOSは、キャンセルか検索を押すと元の画面に戻る。",
+      material: "フォーカス中は、入力を消すクリアアイコンを出せる(任意)。戻るアイコンで、フォーカスが外れ、候補・結果が消え、バーが元に戻る。Androidの予測型「戻る」では、スワイプ中に全画面の検索が縮み、前の画面がのぞいて見える。",
       wcag: "Escで候補を閉じ、フォーカスを入力欄に戻す。候補が閉じている状態でEscを押したら入力内容を消す、という動作も任意で加えられる。",
       nn: "―(このシーン専用の指針は、確認した記事にはない)。",
     },
@@ -710,7 +710,107 @@ const SPLITS = [
     ],
     tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置く(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいが、押したらすぐ入力できる状態にする(NN group)。",
   },
+  {
+    q: "入力を消すクリアボタンは、いつも付ける?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "付ける。検索アイコン・プレースホルダーと並ぶ、検索フィールドの標準の要素としている" },
+      { who: "Google", color: "#2F7D6E", t: "任意。フォーカス中の検索に、入力を消すクリアアイコンを出せる、としている" },
+    ],
+    tip: "W3C・NN groupは定めていない。入力した語を一度に消せると言い直しが楽なので、入力がある間は出しておくのが無難(AI解釈)。",
+  },
 ];
+
+/* プレースホルダーと入力値(2026-11-27 チャットでの指示。各系列の公式ページを取得して確認) */
+const VALUE_ROWS = [
+  {
+    k: "プレースホルダー(何を書くか)",
+    hig: "何を検索できるかを伝える。検索の範囲や、検索できる内容の種類を示すのにも役立つ",
+    material: "検索できる情報の短い説明(「メッセージを検索」など)",
+    wcag: "入力例や書式の説明を示すもの。ラベルの代わりにはならず、支援技術もラベルとして扱わない",
+    nn: "欄の中の補足のヒント。ラベルの代わりにしない。ただし検索欄のような1〜2項目の簡単なフォームでは、消えても記憶の負担は小さい",
+  },
+  {
+    k: "プレースホルダーの色",
+    hig: null,
+    material: null,
+    wcag: "既定の薄い色は、コントラストの最低基準を満たさないことが多い。満たす色にする",
+    nn: "既定の薄い灰色は、多くの背景でコントラストが足りない",
+  },
+  {
+    k: "入力した値",
+    hig: "できれば入力と同時に検索を始め、結果を絞り込み続ける",
+    material: "入力を始めると、ヒントは入力した文字に置き換わる。結果を出した後も、入力した文字はバーに見えたまま残す(フォーカスは外す)",
+    wcag: null,
+    nn: "よくある検索語が収まる幅にする(固定幅なら27文字分以上)。入力した語を見て、綴りを直せるようにする",
+  },
+  {
+    k: "クリアボタン",
+    hig: "検索フィールドの標準の要素",
+    material: "任意。フォーカス中に出せる",
+    wcag: null,
+    nn: null,
+  },
+];
+const VALUE_REFS = [
+  { label: "Apple: Search fields ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices" },
+  { label: "Google: Search ― Guidelines", url: "https://m3.material.io/components/search/guidelines" },
+  { label: "W3C(WAI): Form Instructions ― Placeholder text", url: "https://www.w3.org/WAI/tutorials/forms/instructions/#placeholder-text" },
+  { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+  { label: "NN group: Placeholders in Form Fields Are Harmful", url: "https://www.nngroup.com/articles/form-design-placeholders/#toc-labels-and-placeholders-1" },
+  { label: "NN group: The Magnifying-Glass Icon in Search Design", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
+];
+
+function ValueStates() {
+  const box = (content, color, border, clear) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, border: "1.6px solid " + border, borderRadius: 18, padding: "6px 10px", background: "#FFFFFF", fontSize: 12 }}>
+      <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="#565D8A" strokeWidth="1.8" /><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#565D8A" strokeWidth="1.8" strokeLinecap="round" /></svg>
+      <span style={{ flex: 1, color, whiteSpace: "nowrap", overflow: "hidden" }}>{content}</span>
+      {clear && <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#9EA4C4", color: "#FFFFFF", fontSize: 9, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✕</span>}
+    </div>
+  );
+  const states = [
+    { t: "入力前", d: "プレースホルダーで、何を検索できるかを示す", el: box("メッセージを検索", "#666D93", "#B7BCDA", false) },
+    { t: "入力中", d: "プレースホルダーは消え、入力した値が入る。クリアボタンで一度に消せる", el: box(<>週末の予定<span style={{ color: "#3A4FCF" }}>|</span></>, "#171B36", "#3A4FCF", true) },
+    { t: "結果の表示中", d: "入力した値は欄に残し、見直し・直しができるようにする(Google)", el: box("週末の予定", "#171B36", "#B7BCDA", true) },
+  ];
+  return (
+    <div role="img" aria-label="入力前はプレースホルダー、入力中は入力した値とクリアボタン、結果の表示中も入力した値が残る、という3つの状態の図" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10, background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 12, margin: "0 0 12px" }}>
+      {states.map((st) => (
+        <div key={st.t}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 5 }}>{st.t}</div>
+          {st.el}
+          <div style={{ fontSize: 10.5, lineHeight: 1.5, color: "#565D8A", marginTop: 5 }}>{st.d}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ValueSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const cols = [["hig", "Apple"], ["material", "Google"], ["wcag", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>プレースホルダーと入力値</h2>
+      <p style={styles.diagramNote}>プレースホルダーは<strong>何を検索できるかのヒント</strong>で、入力を始めると消える。<strong>ラベルの代わりにはならない</strong>(W3C・NN group)。入力した値は、結果を出した後も欄に残す(Google)。入力を一度に消すクリアボタンは、Appleでは標準の要素、Googleでは任意だ(「意見が分かれる点」を参照)。</p>
+      <ValueStates />
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 128 }} /><col /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{cols.map(([c, n]) => (<th key={c} style={th}>{n}</th>))}</tr></thead>
+          <tbody>
+            {VALUE_ROWS.map((r) => (
+              <tr key={r.k}><td style={key}>{r.k}</td>{cols.map(([c]) => (<td key={c} style={td}>{r[c] || <NoData>記載なし</NoData>}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={VALUE_REFS} /></div>
+    </section>
+  );
+}
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
@@ -863,6 +963,8 @@ export default function TextInputsSearchFieldPage() {
               絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めている。<strong>既定を広い範囲にするよう明記しているのはApple</strong>だ(スコープバーの既定)。ほかの系列も、絞り込みを後から加える形をとっており、この考え方と矛盾しない。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届く。
             </p>
           </div>
+
+          <ValueSection />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>虫眼鏡アイコンの位置と挙動</h2>
           <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較する。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)だ。</p>

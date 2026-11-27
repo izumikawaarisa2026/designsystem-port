@@ -437,12 +437,12 @@ export default function TextInputsTextFieldPage() {
           <SummaryCard keyPoints={KP}
             image={<><div style={styles.swatchPairRow}>
               <div style={styles.swatchPairItem}>
-                <TextFieldSwatch />
                 <div style={styles.swatchPairCaption}>① テキストフィールド(単一行)</div>
+                <TextFieldSwatch />
               </div>
               <div style={styles.swatchPairItem}>
-                <TextareaSwatch />
                 <div style={styles.swatchPairCaption}>② テキストエリア(複数行)</div>
+                <TextareaSwatch />
               </div>
             </div></>}
             imageNote={<>ラベル・入力欄・補足情報(サポートテキスト/エラーテキスト)の3層構造は、単一行・複数行のどちらにも、AppleとGoogleに共通して見られる(W3C・NN groupは見た目の構造を定めていない)。</>}

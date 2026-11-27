@@ -13807,7 +13807,7 @@ const SOURCES = [
       { kind: "apg", label: "APG: Landmark Regions", url: "https://www.w3.org/WAI/ARIA/apg/practices/landmark-regions/" },
       { kind: "mdn", label: "bannerロール", url: "https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/banner_role" },
       { kind: "sc", level: "AA", label: "3.2.3 一貫したナビゲーション", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html" },
-      { kind: "sc", level: "A", label: "3.2.6 一貫したヘルプ", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html" },
+      { kind: "sc", level: "A", label: "3.2.6 継続し一貫性のあるヘルプ", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html" },
     ],
     confirmedNote: "3.2.3・3.2.6はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -19032,7 +19032,7 @@ const WcagCriteriaPage = (function () {
  * 2026-11 ⑩: 各ページの参照リンクに付けていた「このサイトの解説」(このページの各基準 #sc-2-5-8 などへのリンク)は、本人の指示で外した。
  * 「関わるページ」は、各ページの参照リンク(達成基準)から集めた一覧。
  * 「なぜ必要か」(why)は、Understanding WCAG 2.2の Intent・Benefits をもとに、誰がどう困るかを1〜2文で言い換えたもの(2026-11-27 チャットでの指示で追加)。
- * 達成基準の名前はWAICのWCAG 2.2の訳。説明はUnderstanding WCAG 2.2をもとにした要約・言い換え。
+ * 達成基準の名前はWAICのWCAG 2.2の訳。ただし3.3.7(WAIC: 冗長な入力)は「入力の重複」、3.2.6(WAIC: 一貫したヘルプ)は「継続し一貫性のあるヘルプ」と、分かりやすさのため言い換えた(2026-11-27 チャットでの指示)。説明はUnderstanding WCAG 2.2をもとにした要約・言い換え。
  */
 
 const GROUPS = [
@@ -19094,7 +19094,7 @@ const GROUPS = [
     { n: "3.1.5", name: "読解レベル", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html", req: "難しい文には、補足か易しい版を用意する。", why: "読解に障害がある人や、その言語に慣れていない人でも、内容を理解できるようにするため。", design: "前期中等教育(9年の学校教育)を超える読解力が要る文が対象。", exc: "固有名詞や題名。", pages: ["/tokens/writing"] },
     { n: "3.2.3", name: "一貫したナビゲーション", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html", req: "複数のページで繰り返すナビゲーションを、いつも同じ順番で並べる。", why: "並びが同じなら、場所を覚えて使える。ページごとに変わると、拡大して見る人・読み上げで使う人・認知に障害がある人は、探し直しになるため。", design: "ヘッダーやサイドナビの項目の順番をページごとに変えない。", exc: "利用者が自分で並びを変えた場合。", pages: ["/components/containment/drawer", "/components/navigation/app-bar", "/components/navigation/nav-bar"] },
     { n: "3.2.4", name: "一貫した識別性", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html", req: "同じ働きのコンポーネントを、ページをまたいで一貫して識別できる。", why: "同じ働きのものが同じ名前なら、一度覚えれば使い回せる。ページごとに違うと、別の機能だと思われやすいため。", design: "共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ名前を付ける。", exc: "文脈に合わせた小さな違い(「前のページ」など)。", pages: ["/components/actions/link", "/tokens/icon"] },
-    { n: "3.2.6", name: "一貫したヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", why: "困ったときに、助けを探す手間を減らすため。特に認知に障害がある人は、場所が変わるとヘルプを見つけにくい。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
+    { n: "3.2.6", name: "継続し一貫性のあるヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", why: "困ったときに、助けを探す手間を減らすため。特に認知に障害がある人は、場所が変わるとヘルプを見つけにくい。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
   ] },
   { id: "input", title: "入力とエラー", desc: "入力しやすく、誤りに気づいて直せること", items: [
     { n: "1.3.5", name: "入力目的の特定", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html", req: "入力欄の目的(名前・メールアドレスなど)を判別できるようにする。", why: "入力欄の目的が機械に分かれば、自動入力などで入力を助けられる。記憶や文字の入力に負担がある人の手間が減るため。", design: "ブラウザの自動入力が効くようにし、入力の手間を減らす。", exc: "", pages: ["/components/text-inputs/text-field"] },
@@ -19103,7 +19103,7 @@ const GROUPS = [
     { n: "3.3.2", name: "ラベル又は指示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html", req: "入力が必要なところに、ラベルか説明を用意する。", why: "何を入力すればよいかが分からないと、誤りや入力のやり直しが増えるため(特に認知に障害がある人)。", design: "プレースホルダーだけをラベルにしない。書式や必須かどうかも示す。説明を増やしすぎない。", exc: "", pages: ["/components/text-inputs/text-field", "/components/text-inputs/wizard", "/tokens/writing"] },
     { n: "3.3.3", name: "エラーの修正提案", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html", req: "誤りの直し方が分かっていれば、訂正案を示す。", why: "直し方が分からないと、先へ進めなくなる人がいるため(特に学習・認知に障害がある人)。", design: "「8文字以上で入力してください」のように具体的に書く。", exc: "セキュリティや目的を損なう場合(パスワードなど)。", pages: ["/components/text-inputs/validation"] },
     { n: "3.3.4", name: "誤り防止(法的・金融・データ)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html", req: "法的・金融的な確約、データの変更・削除、試験の送信で、誤りを防ぐ手段を用意する。", why: "法律やお金に関わる手続き、データの削除は、誤ると取り返しがつかないことがあるため。入力の誤りに気づきにくい人もいる。", design: "取り消せる・検査して直す機会を与える・送信前に確認できる、のどれかを備える。", exc: "対象のページだけにかかる。", pages: ["/components/text-inputs/validation"] },
-    { n: "3.3.7", name: "冗長な入力", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", why: "同じ情報の入力を繰り返すのは、記憶や入力に負担がある人には大きな手間で、誤りも増えるため。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
+    { n: "3.3.7", name: "入力の重複", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", why: "同じ情報の入力を繰り返すのは、記憶や入力に負担がある人には大きな手間で、誤りも増えるため。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
   ] },
   { id: "assist", title: "支援技術への伝え方", desc: "見た目と同じことを、読み上げなどにも伝える", items: [
     { n: "4.1.2", name: "名前(name)・役割(role)・値(value)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html", req: "コンポーネントの名前・役割・状態を、支援技術が取得できるようにする。", why: "支援技術は、コンポーネントの名前・役割・状態を受け取って利用者に伝える。伝わらないと、それが何か・押せるか・今どの状態かが分からないため。", design: "ボタンが押されているか、メニューが開いているか、選択中かなどの状態も伝える。ブラウザ標準のコンポーネントなら多くは自動で伝わり、独自に作ったコンポーネントは配慮が要る。", exc: "", pages: ["/components/actions/button", "/components/communication/badge", "/components/containment/side-sheet", "/components/navigation/segmented-control", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/components/text-inputs/text-field", "/tokens/icon", "/tokens/interaction-states"] },
@@ -19121,9 +19121,9 @@ const FAMILIES = [
 const LEVELS = ["A", "AA", "AAA"];
 /* レベルが上がるほど濃くする。文字はどの段階も4.5:1以上 */
 const LEVEL_TONE = {
-  A: { bg: "#FBF3DC", fg: "#7A5F12", bd: "#E2CF95", rail: "#EAD9A6" },
-  AA: { bg: "#EBD48C", fg: "#4F3C06", bd: "#C9A645", rail: "#C9A645" },
-  AAA: { bg: "#7A5F12", fg: "#FFFFFF", bd: "#7A5F12", rail: "#7A5F12" },
+  A: { bg: "#FBF3DC", fg: "#7A5F12", bd: "#E2CF95" },
+  AA: { bg: "#EBD48C", fg: "#4F3C06", bd: "#C9A645" },
+  AAA: { bg: "#7A5F12", fg: "#FFFFFF", bd: "#7A5F12" },
 };
 
 const styles = {
@@ -19146,7 +19146,7 @@ const styles = {
   famSteps: { display: "flex", gap: 2 },
   famStep: { width: 44, padding: "2px 0", textAlign: "center", fontSize: 10, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 2 },
   famStepOff: { background: "transparent", color: "#9EA4C4", border: "1px dashed #D5D9EC" },
-  tier: { display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch", padding: "12px 14px 12px 12px", borderLeftWidth: 5, borderLeftStyle: "solid", scrollMarginTop: 16 },
+  tier: { display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch", padding: "12px 14px", scrollMarginTop: 16 },
   tierSep: { borderTop: "1px dashed #D5D9EC" },
   scReq: { fontSize: 13, lineHeight: 1.7, color: "#171B36", margin: "0 0 6px", fontWeight: 500 },
   scRow: { display: "flex", flexWrap: "wrap", gap: "2px 12px", fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "0 0 4px" },
@@ -19300,7 +19300,7 @@ function Criterion({ c }) {
   return (<div id={scId(c)} style={styles.sc}><CriterionBody c={c} /></div>);
 }
 
-/* 同じ観点のレベル違いを1枚にまとめたカード。左の帯と見出しの目盛りの濃さでレベルを示す */
+/* 同じ観点のレベル違いを1枚にまとめたカード。見出しの目盛りとラベルの濃さでレベルを示す(左の色の帯は2026-11-27に不要として外した) */
 function CriterionFamily({ title, items }) {
   const has = new Set(items.map((c) => c.level));
   return (
@@ -19319,7 +19319,7 @@ function CriterionFamily({ title, items }) {
         </span>
       </div>
       {items.map((c, i) => (
-        <div key={c.n} id={scId(c)} style={{ ...styles.tier, borderLeftColor: LEVEL_TONE[c.level].rail, ...(i > 0 ? styles.tierSep : {}) }}>
+        <div key={c.n} id={scId(c)} style={{ ...styles.tier, ...(i > 0 ? styles.tierSep : {}) }}>
           <CriterionBody c={c} />
         </div>
       ))}
@@ -19369,7 +19369,7 @@ function WcagCriteriaPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.levelNote}>
-            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。ターゲットのサイズやフォーカスのように、同じ観点でレベルだけが違う基準は1枚のカードにまとめ、レベルが上がるほど左の帯とラベルを濃くしている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
+            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。ターゲットのサイズやフォーカスのように、同じ観点でレベルだけが違う基準は1枚のカードにまとめ、レベルが上がるほどラベルを濃くしている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
           </div>
 
           <div style={styles.toc}>
@@ -25010,7 +25010,7 @@ const SOURCES = [
       { label: "ARIA19(エラーを読み上げで知らせる技法)", url: "https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA19" },
       { label: "Validating Input(WAIチュートリアル)", url: "https://www.w3.org/WAI/tutorials/forms/validation/" },
       { label: "G199 送信成功のフィードバック", url: "https://www.w3.org/WAI/WCAG22/Techniques/general/G199" },
-      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 入力の重複", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
     ],
     confirmedNote: "ARIA19・Validating Inputチュートリアル・G199はいずれも本文を直接取得して確認済み(2026-09)。3つとも検証タイミング自体を規定するものではなく、通知の仕組みや送信後のフィードバックについての技術である点に注意してください。3.3.7はUnderstandingページの本文を直接取得して確認済み(2026-10追記)。",
     illustration: () => (
@@ -25070,7 +25070,7 @@ const TIMING_POINTS = [
   { key: "after", name: "送信後", sub: "結果の通知" },
 ];
 
-/* m: "good"=推奨・既定 / "cond"=条件付き / "avoid"=避ける / "none"=言及なし / "unknown"=未確認 */
+/* m: "good"=推奨・基本 / "cond"=条件付き / "avoid"=避ける / "none"=言及なし / "unknown"=未確認 */
 const TIMING_MATRIX = [
   {
     key: "hig", name: "Apple",
@@ -25107,7 +25107,7 @@ const TIMING_MATRIX = [
     cells: {
       before: { m: "none", t: "言及なし" },
       typing: { m: "avoid", t: "原則は出さない。パスワードの要件チェックリストなどは例外" },
-      blur: { m: "good", t: "既定のタイミング。入力を終えて次の欄へ移った時" },
+      blur: { m: "good", t: "基本のタイミング。入力を終えて次の欄へ移った時" },
       submit: { m: "good", t: "必須項目の未入力は送信を試みた後に示す" },
       after: { m: "cond", t: "再読み込み後もエラーが見つけやすい場所にあるようにする" },
     },
@@ -25116,7 +25116,7 @@ const TIMING_MATRIX = [
 markNeg(TIMING_MATRIX);
 
 const MARKS = {
-  good: { sym: "◯", label: "推奨・既定", color: "#2F7D6E", bg: "#E6F2EE" },
+  good: { sym: "◯", label: "推奨・基本", color: "#2F7D6E", bg: "#E6F2EE" },
   cond: { sym: "△", label: "条件付き", color: "#A3821F", bg: "#F7F0DC" },
   avoid: { sym: "✕", label: "原則避ける", color: "#C0503F", bg: "#F8E6E2" },
   none: { sym: "―", label: "言及なし", color: "#666D93", bg: "#FFFFFF" },
@@ -25203,12 +25203,12 @@ const TIMING_DETAILS = [
   },
   {
     key: "blur",
-    name: "③ フィールドを離れた時 ― 既定のタイミング",
+    name: "③ フィールドを離れた時 ― 基本のタイミング",
     demo: <TimingField value="taro@example" state="error" caption="✕「@」の後のドメインを最後まで入力してください" />,
     what: "欄の入力を終えて次の欄へ移った(フォーカスが外れた)時点で検証し、問題があればその欄の近くに表示する。",
     good: "書き終えた内容だけを判定するので、途中で急かさない。フォームの最後まで行かなくても、その場で直せる。",
     care: "何も入力せずにTabキーで通り過ぎただけの欄に、すぐ「必須です」と出すのは早すぎる(NN group)。",
-    who: "NN group(大半の欄の既定)",
+    who: "NN group(大半の欄はこのタイミングで確かめる)",
   },
   {
     key: "submit",
@@ -25235,12 +25235,14 @@ function TimingDetails() {
     <div style={styles.timingDetailGrid}>
       {TIMING_DETAILS.map((d) => (
         <div key={d.key} style={styles.timingDetailCard}>
-          <div style={styles.timingDetailName}>{d.name}</div>
           <div style={styles.timingDemo}>{d.demo}</div>
+          <div style={styles.timingDetailBody}>
+          <div style={styles.timingDetailName}>{d.name}</div>
           <div style={styles.timingDetailRow}><span style={styles.timingDetailLabel}>何をするか</span><span style={styles.timingDetailText}>{d.what}</span></div>
           <div style={styles.timingDetailRow}><span style={{ ...styles.timingDetailLabel, color: "#2F7D6E" }}>良い点</span><span style={styles.timingDetailText}>{d.good}</span></div>
           <div style={styles.timingDetailRow}><span style={{ ...styles.timingDetailLabel, color: "#C0503F" }}>注意点</span><span style={styles.timingDetailText}>{d.care}</span></div>
           <div style={styles.timingDetailRow}><span style={styles.timingDetailLabel}>どの系列が</span><span style={styles.timingDetailText}>{d.who}</span></div>
+          </div>
         </div>
       ))}
     </div>
@@ -25249,7 +25251,7 @@ function TimingDetails() {
 
 /* 入力欄の種類ごとの目安(◯/△/✕)。各系列の記述を入力欄の種類で整理し直したもの */
 const FIELD_GUIDE = [
-  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "NN groupの既定"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
+  { field: "メールアドレス・電話番号など書式が決まった欄", typing: ["avoid", "途中は必ず不正な形式になる"], blur: ["good", "入力を終えた時点で確かめる(NN groupが大半の欄に勧めるタイミング)"], submit: ["cond", "離脱時に見逃した分の最終確認"] },
   { field: "パスワード・ユーザー名の作成", typing: ["good", "要件チェックリストで満たした条件を示す(NN group)"], blur: ["good", "入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "数字だけの欄(金額・数量など)", typing: ["good", "数字だけを受け付ける書式にする(Apple)"], blur: ["cond", "書式が決まった欄と同じく、入力を終えた時点で確認"], submit: ["cond", "最終確認"] },
   { field: "必須項目の未入力", typing: ["avoid", "入力前から出さない"], blur: ["cond", "何か入力して消した場合など。通り過ぎただけでは出さない"], submit: ["good", "送信を試みた後に示す(NN group)"] },
@@ -25323,8 +25325,8 @@ function ValidationTimingSwatch() {
       {steps.map((st, i) => (
         <React.Fragment key={st.t}>
           {i > 0 && <span style={{ alignSelf: "center", color: "#9EA4C4", fontSize: 16 }}>→</span>}
-          <div style={{ width: 150 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 4 }}>{st.t}<span style={{ marginLeft: 6, color: st.mark === "◯" ? "#2F7D6E" : "#C0503F" }}>{st.mark === "◯" ? "◯ 確かめる" : "✕ 原則しない"}</span></div>
+          <div style={{ width: 178 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 4, whiteSpace: "nowrap" }}>{st.t}<span style={{ marginLeft: 6, color: st.mark === "◯" ? "#2F7D6E" : "#C0503F" }}>{st.mark === "◯" ? "◯ 確かめる" : "✕ 原則しない"}</span></div>
             <div style={{ border: `1.6px solid ${st.b}`, borderRadius: 5, padding: "5px 8px", fontSize: 11, background: "#FFFFFF", color: st.v ? "#171B36" : "#9EA4C4", minHeight: 26, fontFamily: "'IBM Plex Mono', monospace" }}>{st.v || "メールアドレス"}{st.cur && <span style={{ color: "#3A4FCF" }}>|</span>}</div>
             <div style={{ fontSize: 10, color: st.c, marginTop: 3, lineHeight: 1.4 }}>{st.msg}</div>
           </div>
@@ -25584,10 +25586,12 @@ const styles = {
   timingRowName: { padding: "10px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", background: "#F8F9FD" },
   timingCell: { padding: "8px 8px", borderRight: "1px solid #E1E3F0", borderBottom: "1px solid #E1E3F0", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, textAlign: "center" },
   timingCellText: { fontSize: 10.5, lineHeight: 1.5 },
-  timingDetailGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: 10, marginBottom: 8 },
-  timingDetailCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px 14px 12px" },
+  /* 5つのタイミングの解説はリスト(左にイラスト、右に文)。2026-11-27 ⑩本人最終レビューNo.032 */
+  timingDetailGrid: { display: "flex", flexDirection: "column", gap: 10, marginBottom: 8 },
+  timingDetailCard: { background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 6, padding: "14px", display: "flex", flexWrap: "wrap", gap: "12px 18px", alignItems: "flex-start" },
+  timingDetailBody: { flex: "999 1 300px", minWidth: 0 },
   timingDetailName: { fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 10 },
-  timingDemo: { background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "12px 10px", marginBottom: 10 },
+  timingDemo: { flex: "1 0 220px", maxWidth: "100%", alignSelf: "stretch", display: "flex", alignItems: "center", background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: "12px 10px" },
   timingDetailRow: { display: "grid", gridTemplateColumns: "64px 1fr", gap: 6, marginBottom: 6 },
   timingDetailLabel: { fontSize: 10.5, fontWeight: 700, color: "#454C78" },
   timingDetailText: { fontSize: 11.5, lineHeight: 1.6, color: "#2E3457" },
@@ -25915,8 +25919,8 @@ const SCENES = [
     name: "⑥ クリア・終了",
     desc: "入力を消す、検索を終えて元の画面に戻る",
     cells: {
-      hig: "入力内容はフィールド内のクリアボタンで消す。watchOSは、キャンセルか検索を押すと元の画面に戻る。",
-      material: "戻るアイコンで、フォーカスが外れ、候補・結果が消え、バーが元に戻る。Androidの予測型「戻る」では、スワイプ中に全画面の検索が縮み、前の画面がのぞいて見える。",
+      hig: "クリアボタンは検索フィールドの標準の要素で、入力内容はこれで消す。watchOSは、キャンセルか検索を押すと元の画面に戻る。",
+      material: "フォーカス中は、入力を消すクリアアイコンを出せる(任意)。戻るアイコンで、フォーカスが外れ、候補・結果が消え、バーが元に戻る。Androidの予測型「戻る」では、スワイプ中に全画面の検索が縮み、前の画面がのぞいて見える。",
       wcag: "Escで候補を閉じ、フォーカスを入力欄に戻す。候補が閉じている状態でEscを押したら入力内容を消す、という動作も任意で加えられる。",
       nn: "―(このシーン専用の指針は、確認した記事にはない)。",
     },
@@ -26317,7 +26321,107 @@ const SPLITS = [
     ],
     tip: "検索がそのアプリやサイトの主な使い方なら、欄を開いたまま置く(NN group・Googleの検索バー)。補助的な機能ならアイコンだけでもよいが、押したらすぐ入力できる状態にする(NN group)。",
   },
+  {
+    q: "入力を消すクリアボタンは、いつも付ける?",
+    sides: [
+      { who: "Apple", color: "#C2542A", t: "付ける。検索アイコン・プレースホルダーと並ぶ、検索フィールドの標準の要素としている" },
+      { who: "Google", color: "#2F7D6E", t: "任意。フォーカス中の検索に、入力を消すクリアアイコンを出せる、としている" },
+    ],
+    tip: "W3C・NN groupは定めていない。入力した語を一度に消せると言い直しが楽なので、入力がある間は出しておくのが無難(AI解釈)。",
+  },
 ];
+
+/* プレースホルダーと入力値(2026-11-27 チャットでの指示。各系列の公式ページを取得して確認) */
+const VALUE_ROWS = [
+  {
+    k: "プレースホルダー(何を書くか)",
+    hig: "何を検索できるかを伝える。検索の範囲や、検索できる内容の種類を示すのにも役立つ",
+    material: "検索できる情報の短い説明(「メッセージを検索」など)",
+    wcag: "入力例や書式の説明を示すもの。ラベルの代わりにはならず、支援技術もラベルとして扱わない",
+    nn: "欄の中の補足のヒント。ラベルの代わりにしない。ただし検索欄のような1〜2項目の簡単なフォームでは、消えても記憶の負担は小さい",
+  },
+  {
+    k: "プレースホルダーの色",
+    hig: null,
+    material: null,
+    wcag: "既定の薄い色は、コントラストの最低基準を満たさないことが多い。満たす色にする",
+    nn: "既定の薄い灰色は、多くの背景でコントラストが足りない",
+  },
+  {
+    k: "入力した値",
+    hig: "できれば入力と同時に検索を始め、結果を絞り込み続ける",
+    material: "入力を始めると、ヒントは入力した文字に置き換わる。結果を出した後も、入力した文字はバーに見えたまま残す(フォーカスは外す)",
+    wcag: null,
+    nn: "よくある検索語が収まる幅にする(固定幅なら27文字分以上)。入力した語を見て、綴りを直せるようにする",
+  },
+  {
+    k: "クリアボタン",
+    hig: "検索フィールドの標準の要素",
+    material: "任意。フォーカス中に出せる",
+    wcag: null,
+    nn: null,
+  },
+];
+const VALUE_REFS = [
+  { label: "Apple: Search fields ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Best-practices" },
+  { label: "Google: Search ― Guidelines", url: "https://m3.material.io/components/search/guidelines" },
+  { label: "W3C(WAI): Form Instructions ― Placeholder text", url: "https://www.w3.org/WAI/tutorials/forms/instructions/#placeholder-text" },
+  { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+  { label: "NN group: Placeholders in Form Fields Are Harmful", url: "https://www.nngroup.com/articles/form-design-placeholders/#toc-labels-and-placeholders-1" },
+  { label: "NN group: The Magnifying-Glass Icon in Search Design", url: "https://www.nngroup.com/articles/magnifying-glass-icon/#toc-recommendations-for-designing-with-the-magnifying-glass-icon-4" },
+];
+
+function ValueStates() {
+  const box = (content, color, border, clear) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 6, border: "1.6px solid " + border, borderRadius: 18, padding: "6px 10px", background: "#FFFFFF", fontSize: 12 }}>
+      <svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="#565D8A" strokeWidth="1.8" /><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="#565D8A" strokeWidth="1.8" strokeLinecap="round" /></svg>
+      <span style={{ flex: 1, color, whiteSpace: "nowrap", overflow: "hidden" }}>{content}</span>
+      {clear && <span style={{ width: 16, height: 16, borderRadius: "50%", background: "#9EA4C4", color: "#FFFFFF", fontSize: 9, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✕</span>}
+    </div>
+  );
+  const states = [
+    { t: "入力前", d: "プレースホルダーで、何を検索できるかを示す", el: box("メッセージを検索", "#666D93", "#B7BCDA", false) },
+    { t: "入力中", d: "プレースホルダーは消え、入力した値が入る。クリアボタンで一度に消せる", el: box(<>週末の予定<span style={{ color: "#3A4FCF" }}>|</span></>, "#171B36", "#3A4FCF", true) },
+    { t: "結果の表示中", d: "入力した値は欄に残し、見直し・直しができるようにする(Google)", el: box("週末の予定", "#171B36", "#B7BCDA", true) },
+  ];
+  return (
+    <div role="img" aria-label="入力前はプレースホルダー、入力中は入力した値とクリアボタン、結果の表示中も入力した値が残る、という3つの状態の図" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))", gap: 10, background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 12, margin: "0 0 12px" }}>
+      {states.map((st) => (
+        <div key={st.t}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "#171B36", marginBottom: 5 }}>{st.t}</div>
+          {st.el}
+          <div style={{ fontSize: 10.5, lineHeight: 1.5, color: "#565D8A", marginTop: 5 }}>{st.d}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ValueSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const cols = [["hig", "Apple"], ["material", "Google"], ["wcag", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>プレースホルダーと入力値</h2>
+      <p style={styles.diagramNote}>プレースホルダーは<strong>何を検索できるかのヒント</strong>で、入力を始めると消える。<strong>ラベルの代わりにはならない</strong>(W3C・NN group)。入力した値は、結果を出した後も欄に残す(Google)。入力を一度に消すクリアボタンは、Appleでは標準の要素、Googleでは任意だ(「意見が分かれる点」を参照)。</p>
+      <ValueStates />
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 128 }} /><col /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{cols.map(([c, n]) => (<th key={c} style={th}>{n}</th>))}</tr></thead>
+          <tbody>
+            {VALUE_ROWS.map((r) => (
+              <tr key={r.k}><td style={key}>{r.k}</td>{cols.map(([c]) => (<td key={c} style={td}>{r[c] || <NoData>記載なし</NoData>}</td>))}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={VALUE_REFS} /></div>
+    </section>
+  );
+}
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
@@ -26466,6 +26570,8 @@ function TextInputsSearchFieldPage() {
               絞り込みでは、Appleがスコープバーとトークン、Googleがフィルターチップと分類ラベルを使い、NN groupは候補の中に範囲(カテゴリ)を表示するよう勧めている。<strong>既定を広い範囲にするよう明記しているのはApple</strong>だ(スコープバーの既定)。ほかの系列も、絞り込みを後から加える形をとっており、この考え方と矛盾しない。実装では、候補のリストをW3Cのコンボボックスのパターンで組み、結果の件数をステータスメッセージ(4.1.3)で伝えると、支援技術の利用者にも同じ流れが届く。
             </p>
           </div>
+
+          <ValueSection />
 
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>虫眼鏡アイコンの位置と挙動</h2>
           <p style={styles.diagramNote}>検索の入り口としての位置づけだけでなく、虫眼鏡アイコン自体を「どこに置き、どう動かすか」を4系列で比較する。図は各系列の記述をもとにした概念図で、上が操作前、下が操作後(フォーカス・タップの後)だ。</p>
@@ -27001,12 +27107,12 @@ function TextInputsTextFieldPage() {
           <SummaryCard keyPoints={KP}
             image={<><div style={styles.swatchPairRow}>
               <div style={styles.swatchPairItem}>
-                <TextFieldSwatch />
                 <div style={styles.swatchPairCaption}>① テキストフィールド(単一行)</div>
+                <TextFieldSwatch />
               </div>
               <div style={styles.swatchPairItem}>
-                <TextareaSwatch />
                 <div style={styles.swatchPairCaption}>② テキストエリア(複数行)</div>
+                <TextareaSwatch />
               </div>
             </div></>}
             imageNote={<>ラベル・入力欄・補足情報(サポートテキスト/エラーテキスト)の3層構造は、単一行・複数行のどちらにも、AppleとGoogleに共通して見られる(W3C・NN groupは見た目の構造を定めていない)。</>}
@@ -27438,13 +27544,13 @@ function GlossaryNote({ items }) {
 
 function ValidationSwatch() {
   return (
-    <div style={{ width: 220, margin: "0 auto", textAlign: "left" }}>
+    <div style={{ width: 268, maxWidth: "100%", margin: "0 auto", textAlign: "left" }}>
       <div style={{ border: "1.6px solid #C0503F", borderRadius: 6, padding: "8px 12px", fontSize: 13, color: "#171B36", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", background: "#FFFFFF" }}>
         meail@example
       </div>
       <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 4 }}>
         <span style={{ color: "#C0503F", fontSize: 12 }}>⚠</span>
-        <span style={{ fontSize: 11, color: "#C0503F", fontFamily: "'Jost', 'Noto Sans JP', sans-serif" }}>メールアドレスの形式が正しくありません</span>
+        <span style={{ fontSize: 11, color: "#C0503F", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", whiteSpace: "nowrap" }}>メールアドレスの形式が正しくありません</span>
       </div>
     </div>
   );
@@ -27455,7 +27561,7 @@ const LEAD = "入力の間違いを見つけたときに、何が問題でどう
 const ABOUT = [
   { k: "目的・役割", v: "間違いの場所と理由、直し方を伝え、入力をやり直せるようにする" },
   { k: "よく使われる場面", v: "フォームの入力欄の下のエラー文、送信後のエラーのまとめ" },
-  { k: "似たコンポーネント", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink></> },
+  { k: "似たコンポーネント", v: <>いつ検証するか(入力中・欄を離れたとき・送信時)は<PageLink to="/components/text-inputs/input-validation">バリデーション</PageLink>、操作全体の失敗や送信後のまとめは<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>(違いは「エラー表示とステータスメッセージのエラー」)</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -27479,6 +27585,55 @@ function GoodBadFigure() {
             ]}
             basis="W3C 3.3.1(エラーの特定・A)・3.3.3(エラーの修正提案・AA)・1.4.1(色だけで伝えない)、Apple・Google(アイコンと文を併用)、NN group(利用者を責めず、具体的な直し方を示し、入力を残す)。"
           />
+  );
+}
+
+/* エラー表示とステータスメッセージのエラーの違い(2026-11-27 ⑩本人最終レビューNo.031) */
+const ERR_VS_STATUS = [
+  ["何についてのエラーか", "1つの入力欄の誤り(書式が違う・必須の欄が空など)", "操作全体の失敗(送信・保存ができなかった、通信が切れたなど)や、送信後の誤りのまとめ(「エラーが2件あります」)"],
+  ["出す場所", "誤りのある入力欄のすぐそば(NN group)", "フォームや画面の上部など、関係する内容のそば"],
+  ["伝える内容", "何が問題で、どう直すか(W3C 3.3.1・3.3.3)", "何が起きたかと、次にすること(直す欄への案内・やり直しなど)"],
+  ["支援技術への伝え方", "誤りのある欄と結び付けて伝え、どの欄の誤りかが分かるようにする(W3C 3.3.1)", "フォーカスを移さずに出すなら、知らせとして読み上げられるようにする(W3C 4.1.3)"],
+  ["消え方", "直すまで残す(NN group)", "直すか閉じるまで残す。数秒で消える通知で出さない(NN group)"],
+];
+
+function ErrorVsStatus() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const red = "#C0503F";
+  const fieldFig = (
+    <div style={{ width: 200, maxWidth: "100%", fontSize: 11 }} role="img" aria-label="入力欄の枠が赤くなり、すぐ下にエラーの文が出ている図">
+      <div style={{ fontWeight: 700, color: "#2E3457", marginBottom: 3 }}>メールアドレス</div>
+      <div style={{ border: "1.6px solid " + red, borderRadius: 4, padding: "5px 8px", color: "#171B36", background: "#FFFFFF" }}>taro.example.com</div>
+      <div style={{ color: red, marginTop: 3 }}>⚠ 「@」が入っていません</div>
+    </div>
+  );
+  const statusFig = (
+    <div style={{ width: 200, maxWidth: "100%", fontSize: 11 }} role="img" aria-label="フォームの上部に、エラーが2件あることを知らせるメッセージが出ている図">
+      <div style={{ border: "1px solid " + red, background: "#FDEDEA", borderRadius: 4, padding: "6px 8px", color: "#8A2E22", marginBottom: 6 }}>
+        <div style={{ fontWeight: 700 }}>× エラーが2件あります</div>
+        <div style={{ textDecoration: "underline" }}>メールアドレス・電話番号</div>
+      </div>
+      <div style={{ height: 8, width: "60%", background: "#E1E3F0", borderRadius: 2, marginBottom: 4 }} />
+      <div style={{ height: 18, border: "1px solid #C9CDE0", borderRadius: 4, background: "#FFFFFF" }} />
+    </div>
+  );
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <h2 style={styles.diagramTitle}>エラー表示とステータスメッセージのエラー</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#2E3457", margin: "0 0 10px" }}>違いは、<strong>何についてのエラーか</strong>だ。1つの入力欄の誤りは、その欄のすぐそばにエラー表示を出す。送信できなかった・保存に失敗したなど操作全体の失敗や、送信後に複数の誤りをまとめて知らせるときは、<PageLink to="/components/communication/alert">ステータスメッセージ</PageLink>を使う。<strong>まとめを出す場合も、各欄のエラー表示は残す</strong>(どの欄をどう直すかは、欄のそばでないと伝わりにくいため。AI解釈)。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 130 }} /><col /><col /></colgroup>
+          <thead><tr>{["", "エラー表示(このページ)", "ステータスメッセージのエラー"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={key}>イメージ</td><td style={td}>{fieldFig}</td><td style={td}>{statusFig}</td></tr>
+            {ERR_VS_STATUS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td><td style={td}>{r[1]}</td><td style={td}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   );
 }
 
@@ -27513,6 +27668,8 @@ function TextInputsValidationPage() {
 
 
           <GoodBadFigure />
+
+          <ErrorVsStatus />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -27764,14 +27921,14 @@ const SOURCES = [
     progress: <span>最初のステップで<Hl>全部で何ステップあるかを伝え</Hl>、各ステップで進み具合を伝える。ページのtitleと見出しに「ステップ2/4」のように入れる。ステップ数が決まっていれば、手順の一覧(順序付きリスト)で、完了・現在のステップを支援技術にも分かるように示す。</span>,
     order: "任意のステップは分かるようにし、飛ばせるようにする。全体の説明は各ページで繰り返す。",
     interruption: "できれば制限時間を設けない。設ける場合は、延長・調整できるようにする(2.2.1)。",
-    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(冗長な入力)と3.3.2(ラベル又は指示)は「理解可能」、2.2.1(期限調節可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
+    accessibility: "理解可能(Understandable)・操作可能(Operable) ― 3.3.7(入力の重複)と3.3.2(ラベル又は指示)は「理解可能」、2.2.1(期限調節可能)は「操作可能」、手順の一覧の構造(1.3.1)は「知覚可能」に対応する。",
     useCases: [
       "最初に全体のステップ数を伝え、ページの見出しとtitleに「ステップ2/4」を入れる",
       "前のステップで入力した情報は、自動で入れるか選べるようにする(3.3.7)",
     ],
     searchHint: "Indicating progress",
     refs: [
-      { kind: "sc", level: "A", label: "3.3.7 冗長な入力", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
+      { kind: "sc", level: "A", label: "3.3.7 入力の重複", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html" },
       { kind: "sc", level: "A", label: "2.2.1 期限調節可能", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html" },
       { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
       { label: "Forms Tutorial ― Multi-page Forms(チュートリアル。要件ではない)", url: "https://www.w3.org/WAI/tutorials/forms/multi-page/" },
@@ -28123,7 +28280,7 @@ function TextInputsWizardPage() {
               共通しているのは、<strong>全体のステップ数と今の位置を示す</strong>ことだ。NN groupはステップの一覧や図で今のステップを強調するよう求め、W3Cは最初に全体の数を伝え、見出しやtitleに「ステップ2/4」と入れることを勧めている。また、<strong>途中で中断しても作業を失わないようにする</strong>ことも、Apple・W3C・NN groupの3系列が触れている(閉じる前の確認・制限時間の延長・途中保存)。
             </p>
             <p style={styles.synthesisText}>
-              W3Cの<strong>3.3.7(冗長な入力)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件だ(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれる(「意見が分かれる点」を参照)。
+              W3Cの<strong>3.3.7(入力の重複)</strong>は、同じ手続きの中で前に入力した情報をもう一度入力させないことを求める、ウィザードに直接関わる要件だ(例外あり)。モーダルで出すかどうかと、好きな順に進めてよいかは、系列で意見が分かれる(「意見が分かれる点」を参照)。
             </p>
           </div>
 

@@ -8,7 +8,7 @@ import { TagLink, SummaryCard, PageLink, RelatedPages, pageLabel } from "./page-
  * 2026-11 ⑩: 各ページの参照リンクに付けていた「このサイトの解説」(このページの各基準 #sc-2-5-8 などへのリンク)は、本人の指示で外した。
  * 「関わるページ」は、各ページの参照リンク(達成基準)から集めた一覧。
  * 「なぜ必要か」(why)は、Understanding WCAG 2.2の Intent・Benefits をもとに、誰がどう困るかを1〜2文で言い換えたもの(2026-11-27 チャットでの指示で追加)。
- * 達成基準の名前はWAICのWCAG 2.2の訳。説明はUnderstanding WCAG 2.2をもとにした要約・言い換え。
+ * 達成基準の名前はWAICのWCAG 2.2の訳。ただし3.3.7(WAIC: 冗長な入力)は「入力の重複」、3.2.6(WAIC: 一貫したヘルプ)は「継続し一貫性のあるヘルプ」と、分かりやすさのため言い換えた(2026-11-27 チャットでの指示)。説明はUnderstanding WCAG 2.2をもとにした要約・言い換え。
  */
 
 const GROUPS = [
@@ -70,7 +70,7 @@ const GROUPS = [
     { n: "3.1.5", name: "読解レベル", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html", req: "難しい文には、補足か易しい版を用意する。", why: "読解に障害がある人や、その言語に慣れていない人でも、内容を理解できるようにするため。", design: "前期中等教育(9年の学校教育)を超える読解力が要る文が対象。", exc: "固有名詞や題名。", pages: ["/tokens/writing"] },
     { n: "3.2.3", name: "一貫したナビゲーション", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html", req: "複数のページで繰り返すナビゲーションを、いつも同じ順番で並べる。", why: "並びが同じなら、場所を覚えて使える。ページごとに変わると、拡大して見る人・読み上げで使う人・認知に障害がある人は、探し直しになるため。", design: "ヘッダーやサイドナビの項目の順番をページごとに変えない。", exc: "利用者が自分で並びを変えた場合。", pages: ["/components/containment/drawer", "/components/navigation/app-bar", "/components/navigation/nav-bar"] },
     { n: "3.2.4", name: "一貫した識別性", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html", req: "同じ働きのコンポーネントを、ページをまたいで一貫して識別できる。", why: "同じ働きのものが同じ名前なら、一度覚えれば使い回せる。ページごとに違うと、別の機能だと思われやすいため。", design: "共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ名前を付ける。", exc: "文脈に合わせた小さな違い(「前のページ」など)。", pages: ["/components/actions/link", "/tokens/icon"] },
-    { n: "3.2.6", name: "一貫したヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", why: "困ったときに、助けを探す手間を減らすため。特に認知に障害がある人は、場所が変わるとヘルプを見つけにくい。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
+    { n: "3.2.6", name: "継続し一貫性のあるヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", why: "困ったときに、助けを探す手間を減らすため。特に認知に障害がある人は、場所が変わるとヘルプを見つけにくい。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
   ] },
   { id: "input", title: "入力とエラー", desc: "入力しやすく、誤りに気づいて直せること", items: [
     { n: "1.3.5", name: "入力目的の特定", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html", req: "入力欄の目的(名前・メールアドレスなど)を判別できるようにする。", why: "入力欄の目的が機械に分かれば、自動入力などで入力を助けられる。記憶や文字の入力に負担がある人の手間が減るため。", design: "ブラウザの自動入力が効くようにし、入力の手間を減らす。", exc: "", pages: ["/components/text-inputs/text-field"] },
@@ -79,7 +79,7 @@ const GROUPS = [
     { n: "3.3.2", name: "ラベル又は指示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html", req: "入力が必要なところに、ラベルか説明を用意する。", why: "何を入力すればよいかが分からないと、誤りや入力のやり直しが増えるため(特に認知に障害がある人)。", design: "プレースホルダーだけをラベルにしない。書式や必須かどうかも示す。説明を増やしすぎない。", exc: "", pages: ["/components/text-inputs/text-field", "/components/text-inputs/wizard", "/tokens/writing"] },
     { n: "3.3.3", name: "エラーの修正提案", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html", req: "誤りの直し方が分かっていれば、訂正案を示す。", why: "直し方が分からないと、先へ進めなくなる人がいるため(特に学習・認知に障害がある人)。", design: "「8文字以上で入力してください」のように具体的に書く。", exc: "セキュリティや目的を損なう場合(パスワードなど)。", pages: ["/components/text-inputs/validation"] },
     { n: "3.3.4", name: "誤り防止(法的・金融・データ)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html", req: "法的・金融的な確約、データの変更・削除、試験の送信で、誤りを防ぐ手段を用意する。", why: "法律やお金に関わる手続き、データの削除は、誤ると取り返しがつかないことがあるため。入力の誤りに気づきにくい人もいる。", design: "取り消せる・検査して直す機会を与える・送信前に確認できる、のどれかを備える。", exc: "対象のページだけにかかる。", pages: ["/components/text-inputs/validation"] },
-    { n: "3.3.7", name: "冗長な入力", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", why: "同じ情報の入力を繰り返すのは、記憶や入力に負担がある人には大きな手間で、誤りも増えるため。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
+    { n: "3.3.7", name: "入力の重複", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", why: "同じ情報の入力を繰り返すのは、記憶や入力に負担がある人には大きな手間で、誤りも増えるため。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
   ] },
   { id: "assist", title: "支援技術への伝え方", desc: "見た目と同じことを、読み上げなどにも伝える", items: [
     { n: "4.1.2", name: "名前(name)・役割(role)・値(value)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html", req: "コンポーネントの名前・役割・状態を、支援技術が取得できるようにする。", why: "支援技術は、コンポーネントの名前・役割・状態を受け取って利用者に伝える。伝わらないと、それが何か・押せるか・今どの状態かが分からないため。", design: "ボタンが押されているか、メニューが開いているか、選択中かなどの状態も伝える。ブラウザ標準のコンポーネントなら多くは自動で伝わり、独自に作ったコンポーネントは配慮が要る。", exc: "", pages: ["/components/actions/button", "/components/communication/badge", "/components/containment/side-sheet", "/components/navigation/segmented-control", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/components/text-inputs/text-field", "/tokens/icon", "/tokens/interaction-states"] },
@@ -97,9 +97,9 @@ const FAMILIES = [
 const LEVELS = ["A", "AA", "AAA"];
 /* レベルが上がるほど濃くする。文字はどの段階も4.5:1以上 */
 const LEVEL_TONE = {
-  A: { bg: "#FBF3DC", fg: "#7A5F12", bd: "#E2CF95", rail: "#EAD9A6" },
-  AA: { bg: "#EBD48C", fg: "#4F3C06", bd: "#C9A645", rail: "#C9A645" },
-  AAA: { bg: "#7A5F12", fg: "#FFFFFF", bd: "#7A5F12", rail: "#7A5F12" },
+  A: { bg: "#FBF3DC", fg: "#7A5F12", bd: "#E2CF95" },
+  AA: { bg: "#EBD48C", fg: "#4F3C06", bd: "#C9A645" },
+  AAA: { bg: "#7A5F12", fg: "#FFFFFF", bd: "#7A5F12" },
 };
 
 const styles = {
@@ -122,7 +122,7 @@ const styles = {
   famSteps: { display: "flex", gap: 2 },
   famStep: { width: 44, padding: "2px 0", textAlign: "center", fontSize: 10, fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 2 },
   famStepOff: { background: "transparent", color: "#9EA4C4", border: "1px dashed #D5D9EC" },
-  tier: { display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch", padding: "12px 14px 12px 12px", borderLeftWidth: 5, borderLeftStyle: "solid", scrollMarginTop: 16 },
+  tier: { display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "stretch", padding: "12px 14px", scrollMarginTop: 16 },
   tierSep: { borderTop: "1px dashed #D5D9EC" },
   scReq: { fontSize: 13, lineHeight: 1.7, color: "#171B36", margin: "0 0 6px", fontWeight: 500 },
   scRow: { display: "flex", flexWrap: "wrap", gap: "2px 12px", fontSize: 12, lineHeight: 1.7, color: "#2E3457", margin: "0 0 4px" },
@@ -276,7 +276,7 @@ function Criterion({ c }) {
   return (<div id={scId(c)} style={styles.sc}><CriterionBody c={c} /></div>);
 }
 
-/* 同じ観点のレベル違いを1枚にまとめたカード。左の帯と見出しの目盛りの濃さでレベルを示す */
+/* 同じ観点のレベル違いを1枚にまとめたカード。見出しの目盛りとラベルの濃さでレベルを示す(左の色の帯は2026-11-27に不要として外した) */
 function CriterionFamily({ title, items }) {
   const has = new Set(items.map((c) => c.level));
   return (
@@ -295,7 +295,7 @@ function CriterionFamily({ title, items }) {
         </span>
       </div>
       {items.map((c, i) => (
-        <div key={c.n} id={scId(c)} style={{ ...styles.tier, borderLeftColor: LEVEL_TONE[c.level].rail, ...(i > 0 ? styles.tierSep : {}) }}>
+        <div key={c.n} id={scId(c)} style={{ ...styles.tier, ...(i > 0 ? styles.tierSep : {}) }}>
           <CriterionBody c={c} />
         </div>
       ))}
@@ -345,7 +345,7 @@ export default function WcagCriteriaPage() {
           <SummaryCard lead={LEAD} rows={ABOUT} />
 
           <div style={styles.levelNote}>
-            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。ターゲットのサイズやフォーカスのように、同じ観点でレベルだけが違う基準は1枚のカードにまとめ、レベルが上がるほど左の帯とラベルを濃くしている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
+            レベルは<strong>A(最低限)・AA(一般的な目標)・AAA(より高い水準)</strong>の3段階。多くのガイドラインや調達の要件はAAを参照する(求められるレベルは、地域の法律や契約などで変わる)。このページでは目標になりやすいA・AAを中心に、各ページで触れているAAAも載せている。ターゲットのサイズやフォーカスのように、同じ観点でレベルだけが違う基準は1枚のカードにまとめ、レベルが上がるほどラベルを濃くしている。説明はW3Cの解説書(Understanding WCAG 2.2)をもとにした要約で、正確な条件はリンク先で確かめる。
           </div>
 
           <div style={styles.toc}>
