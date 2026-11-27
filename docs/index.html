@@ -141,27 +141,38 @@ const NAV_SECTIONS = [
       { label: "タブバー", path: "/components/navigation/nav-bar", built: true },
       { label: "ドロワー/サイドナビ", path: "/components/containment/drawer", built: true },
       { label: "アプリバー", path: "/components/navigation/app-bar", built: true },
-      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
-      { label: "タブ", path: "/components/navigation/tabs", built: true },
-      { label: "セグメントコントロール", path: "/components/navigation/segmented-control", built: true },
       { label: "パンくずリスト", path: "/components/navigation/breadcrumb", built: true },
       { label: "ページネーション", path: "/components/navigation/pagination", built: true },
       { label: "ウィザード(ステップ形式の入力)", path: "/components/text-inputs/wizard", built: true },
     ],
   },
+  /* 2026-11-26 ⑩本人最終レビュー: 使う目的で分け直した(Navigation=画面・場所を移る / Switching=同じ画面の中で見せ方を変える / Overlay=今の画面の上に重ねて出す / Containment=まとめて並べて見せる / Communication=状態を伝える)。URLは変えていない */
   {
-    title: "Containment",
+    title: "Switching",
+    items: [
+      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
+      { label: "タブ", path: "/components/navigation/tabs", built: true },
+      { label: "セグメントコントロール", path: "/components/navigation/segmented-control", built: true },
+      { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
+    ],
+  },
+  {
+    title: "Overlay",
     items: [
       { label: "オーバーレイの使い分け", path: "/components/containment/overview", built: true },
       { label: "モーダルダイアログ", path: "/components/containment/dialog", built: true },
       { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
+    ],
+  },
+  {
+    title: "Containment",
+    items: [
       { label: "カード", path: "/components/containment/card", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
-      { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
     ],
   },
   {
@@ -913,6 +924,18 @@ const PAGE_INDEX = {
   "label": "アプリバー",
   "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
  },
+ "/components/navigation/breadcrumb": {
+  "label": "パンくずリスト",
+  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並び"
+ },
+ "/components/navigation/pagination": {
+  "label": "ページネーション",
+  "lead": "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント"
+ },
+ "/components/text-inputs/wizard": {
+  "label": "ウィザード(ステップ形式の入力)",
+  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ },
  "/components/navigation/tabs-vs-segmented": {
   "label": "タブとセグメントの使い分け",
   "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
@@ -925,17 +948,9 @@ const PAGE_INDEX = {
   "label": "セグメントコントロール",
   "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント"
  },
- "/components/navigation/breadcrumb": {
-  "label": "パンくずリスト",
-  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並び"
- },
- "/components/navigation/pagination": {
-  "label": "ページネーション",
-  "lead": "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント"
- },
- "/components/text-inputs/wizard": {
-  "label": "ウィザード(ステップ形式の入力)",
-  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ "/components/containment/accordion": {
+  "label": "アコーディオン(表示コントロール)",
+  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
  },
  "/components/containment/overview": {
   "label": "オーバーレイの使い分け",
@@ -972,10 +987,6 @@ const PAGE_INDEX = {
  "/components/containment/table": {
   "label": "表(データテーブル)",
   "lead": "行と列にデータを並べ、項目どうしを比べられるようにするコンポーネント"
- },
- "/components/containment/accordion": {
-  "label": "アコーディオン(表示コントロール)",
-  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
  },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",
@@ -13121,22 +13132,22 @@ const TAG_INDEX = [
   {"group": "Navigation", "label": "タブバー", "path": "/components/navigation/nav-bar", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ドロワー/サイドナビ", "path": "/components/containment/drawer", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "アプリバー", "path": "/components/navigation/app-bar", "principles": ["知覚可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "検索・絞り込み"]},
-  {"group": "Navigation", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
-  {"group": "Navigation", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
-  {"group": "Navigation", "label": "セグメントコントロール", "path": "/components/navigation/segmented-control", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "ナビゲーション"]},
   {"group": "Navigation", "label": "パンくずリスト", "path": "/components/navigation/breadcrumb", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
   {"group": "Navigation", "label": "ページネーション", "path": "/components/navigation/pagination", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション", "情報の整理・一覧"]},
   {"group": "Navigation", "label": "ウィザード(ステップ形式の入力)", "path": "/components/text-inputs/wizard", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム", "段階的に見せる"]},
-  {"group": "Containment", "label": "オーバーレイの使い分け", "path": "/components/containment/overview", "principles": [], "processes": ["設計の原則・使い分け", "段階的に見せる"]},
-  {"group": "Containment", "label": "モーダルダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
-  {"group": "Containment", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
-  {"group": "Containment", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
-  {"group": "Containment", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
+  {"group": "Switching", "label": "タブとセグメントの使い分け", "path": "/components/navigation/tabs-vs-segmented", "principles": [], "processes": ["設計の原則・使い分け", "ナビゲーション", "選択・切り替え"]},
+  {"group": "Switching", "label": "タブ", "path": "/components/navigation/tabs", "principles": ["操作可能(POUR)", "理解可能(POUR)", "堅牢(POUR)"], "processes": ["ナビゲーション"]},
+  {"group": "Switching", "label": "セグメントコントロール", "path": "/components/navigation/segmented-control", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["選択・切り替え", "ナビゲーション"]},
+  {"group": "Switching", "label": "アコーディオン(表示コントロール)", "path": "/components/containment/accordion", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["情報の整理・一覧", "段階的に見せる"]},
+  {"group": "Overlay", "label": "オーバーレイの使い分け", "path": "/components/containment/overview", "principles": [], "processes": ["設計の原則・使い分け", "段階的に見せる"]},
+  {"group": "Overlay", "label": "モーダルダイアログ", "path": "/components/containment/dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["エラー・確認"]},
+  {"group": "Overlay", "label": "フルスクリーンダイアログ", "path": "/components/containment/fullscreen-dialog", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["入力・フォーム"]},
+  {"group": "Overlay", "label": "ボトムシート", "path": "/components/containment/bottom-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)"], "processes": ["段階的に見せる"]},
+  {"group": "Overlay", "label": "サイドシート", "path": "/components/containment/side-sheet", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["段階的に見せる"]},
   {"group": "Containment", "label": "カード", "path": "/components/containment/card", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "リスト", "path": "/components/containment/list", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧"]},
   {"group": "Containment", "label": "カルーセル", "path": "/components/containment/carousel", "principles": ["操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "見つけやすさ・初めての案内"]},
   {"group": "Containment", "label": "表(データテーブル)", "path": "/components/containment/table", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["情報の整理・一覧", "検索・絞り込み"]},
-  {"group": "Containment", "label": "アコーディオン(表示コントロール)", "path": "/components/containment/accordion", "principles": ["操作可能(POUR)", "理解可能(POUR)"], "processes": ["情報の整理・一覧", "段階的に見せる"]},
   {"group": "Communication", "label": "情報伝達の使い分け", "path": "/components/communication/overview", "principles": [], "processes": ["設計の原則・使い分け", "通知・状態表示"]},
   {"group": "Communication", "label": "ステータスメッセージ", "path": "/components/communication/alert", "principles": ["知覚可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
   {"group": "Communication", "label": "スナックバー(トースト)", "path": "/components/communication/snackbar", "principles": ["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"], "processes": ["通知・状態表示", "エラー・確認"]},
@@ -19020,82 +19031,83 @@ const WcagCriteriaPage = (function () {
  * 各ページの比較やW3Cの欄に出てくる達成基準(2.5.8・1.4.11など)を、デザインで気をつけることに絞って1か所にまとめる。
  * 2026-11 ⑩: 各ページの参照リンクに付けていた「このサイトの解説」(このページの各基準 #sc-2-5-8 などへのリンク)は、本人の指示で外した。
  * 「関わるページ」は、各ページの参照リンク(達成基準)から集めた一覧。
+ * 「なぜ必要か」(why)は、Understanding WCAG 2.2の Intent・Benefits をもとに、誰がどう困るかを1〜2文で言い換えたもの(2026-11-27 チャットでの指示で追加)。
  * 達成基準の名前はWAICのWCAG 2.2の訳。説明はUnderstanding WCAG 2.2をもとにした要約・言い換え。
  */
 
 const GROUPS = [
   { id: "color", title: "色とコントラスト", desc: "色の使い方と、文字・コンポーネントの見分けやすさ", items: [
-    { n: "1.4.1", name: "色の用途", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html", req: "色だけで情報を伝えない。", design: "エラー・必須・選択中・リンクなどは、色に加えてアイコン・文字・下線・形でも示す。色だけでリンクを区別するなら、周りの文字と3:1以上の明度差が要る。", exc: "色の違いに意味がない装飾は対象外。", pages: ["/components/actions/link", "/components/communication/alert", "/components/communication/badge", "/components/selection/checkbox", "/components/selection/chips", "/components/text-inputs/validation", "/tokens/color"] },
-    { n: "1.4.3", name: "コントラスト(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html", req: "文字と背景のコントラスト比を確保する。", design: "通常の文字は4.5:1以上、大きな文字(18pt以上、または14pt以上の太字。Webでおよそ24px/18.66px)は3:1以上。四捨五入しない(4.499:1は不合格)。ライト・ダークの両方で確かめる。", exc: "無効なコンポーネント、純粋な装飾、見えない文字、ロゴの文字。", pages: ["/components/communication/badge", "/tokens/color", "/tokens/dark-mode"] },
-    { n: "1.4.11", name: "非テキストのコントラスト", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html", req: "コンポーネントの境界・状態の見た目と、意味のある図にコントラストを確保する。", design: "ボタンや入力欄の枠、チェックの印、フォーカスの表示、選択状態を示す印、アイコンなどは、隣り合う色と3:1以上。文字やアイコンでコンポーネントだと分かるなら、枠そのものは必須ではない。状態どうしの差を3:1にする必要はない。", exc: "無効なコンポーネント、ブラウザ標準の見た目を変えていないコンポーネント、ロゴ・写真など見た目そのものが情報のもの。", pages: ["/components/actions/button", "/components/communication/alert", "/components/communication/badge", "/components/navigation/app-bar", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/toggle", "/tokens/color", "/tokens/elevation", "/tokens/icon", "/tokens/interaction-states", "/tokens/shape"] },
-    { n: "1.4.8", name: "視覚的提示", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html", req: "文章の見せ方を利用者が調整できる。", design: "前景色と背景色を選べる、1行は80文字(日本語40文字)以内にできる、両端揃えにしない、行間1.5倍以上・段落間はそれ以上、200%に拡大しても横スクロールせずに読める。", exc: "AAAのため、多くのサイトの目標(AA)には含まれない。", pages: ["/tokens/dark-mode", "/tokens/typography"] },
+    { n: "1.4.1", name: "色の用途", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html", req: "色だけで情報を伝えない。", why: "色の見分けがつきにくい人や、白黒の画面・強い外光のもとで見る人には、色の違いが伝わらないため。", design: "エラー・必須・選択中・リンクなどは、色に加えてアイコン・文字・下線・形でも示す。色だけでリンクを区別するなら、周りの文字と3:1以上の明度差が要る。", exc: "色の違いに意味がない装飾は対象外。", pages: ["/components/actions/link", "/components/communication/alert", "/components/communication/badge", "/components/selection/checkbox", "/components/selection/chips", "/components/text-inputs/validation", "/tokens/color"] },
+    { n: "1.4.3", name: "コントラスト(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html", req: "文字と背景のコントラスト比を確保する。", why: "弱視の人や、年齢とともに見えにくくなった人、色を見分けにくい人でも文字を読めるようにするため。", design: "通常の文字は4.5:1以上、大きな文字(18pt以上、または14pt以上の太字。Webでおよそ24px/18.66px)は3:1以上。四捨五入しない(4.499:1は不合格)。ライト・ダークの両方で確かめる。", exc: "無効なコンポーネント、純粋な装飾、見えない文字、ロゴの文字。", pages: ["/components/communication/badge", "/tokens/color", "/tokens/dark-mode"] },
+    { n: "1.4.11", name: "非テキストのコントラスト", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html", req: "コンポーネントの境界・状態の見た目と、意味のある図にコントラストを確保する。", why: "コンポーネントの境界や状態が見分けられないと、弱視の人などは、どこを押せるか・今どの状態かが分からないため。", design: "ボタンや入力欄の枠、チェックの印、フォーカスの表示、選択状態を示す印、アイコンなどは、隣り合う色と3:1以上。文字やアイコンでコンポーネントだと分かるなら、枠そのものは必須ではない。状態どうしの差を3:1にする必要はない。", exc: "無効なコンポーネント、ブラウザ標準の見た目を変えていないコンポーネント、ロゴ・写真など見た目そのものが情報のもの。", pages: ["/components/actions/button", "/components/communication/alert", "/components/communication/badge", "/components/navigation/app-bar", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/toggle", "/tokens/color", "/tokens/elevation", "/tokens/icon", "/tokens/interaction-states", "/tokens/shape"] },
+    { n: "1.4.8", name: "視覚的提示", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/visual-presentation.html", req: "文章の見せ方を利用者が調整できる。", why: "読字障害・弱視・認知の障害がある人は、行が長い・行間が狭い・色の組み合わせが合わないと、文章を追いにくいため。", design: "前景色と背景色を選べる、1行は80文字(日本語40文字)以内にできる、両端揃えにしない、行間1.5倍以上・段落間はそれ以上、200%に拡大しても横スクロールせずに読める。", exc: "AAAのため、多くのサイトの目標(AA)には含まれない。", pages: ["/tokens/dark-mode", "/tokens/typography"] },
   ] },
   { id: "text", title: "文字とレイアウト", desc: "拡大・狭い幅・向きの変化で崩れないこと", items: [
-    { n: "1.4.4", name: "テキストのサイズ変更", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html", req: "文字を200%まで拡大しても内容と機能が失われない。", design: "固定の高さに文字を押し込めない。拡大で文字が切れたり重なったりしないかを確かめる。ページ全体のズームで満たしてもよい。", exc: "字幕と文字画像。", pages: ["/components/text-inputs/text-field", "/tokens/typography"] },
-    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320 CSS px相当でも、縦横2方向のスクロールなしで読める。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
-    { n: "1.4.12", name: "テキストの間隔", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html", req: "利用者が文字の間隔を広げても崩れない。", design: "行の高さ1.5倍・段落の後2倍・字間0.12倍・単語間隔0.16倍に広げても、文字が切れたり重なったりしない。この値をデザインの初期値にする必要はない。", exc: "その言語でもともと使わない間隔(単語の間にスペースがない言語の単語間隔など)。", pages: ["/tokens/typography"] },
-    { n: "1.3.4", name: "向き(orientation)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html", req: "画面の向きを縦・横の一方に固定しない。", design: "端末を固定して使う人(車いすのアームなど)は回転させられない。縦向き・横向きのどちらでも使えるようにする。", exc: "小切手・ピアノのアプリ・VRなど、特定の向きが欠かせないもの。", pages: ["/tokens/adaptive"] },
-    { n: "1.3.1", name: "情報及び関係性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html", req: "見た目で伝えている構造や関係を、構造としても伝える。", design: "見出し・リスト・表の見出しとデータの関係・余白でまとめたグループなどを、見た目だけでなく構造でも示す。余白だけのまとまりは読み上げでは伝わらない。", exc: "", pages: ["/components/containment/list", "/components/containment/table", "/components/text-inputs/text-field", "/tokens/layout-spacing"] },
+    { n: "1.4.4", name: "テキストのサイズ変更", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html", req: "文字を200%まで拡大しても内容と機能が失われない。", why: "弱視の人など、文字を大きくして読む人が、内容や機能を失わずに使えるようにするため。", design: "固定の高さに文字を押し込めない。拡大で文字が切れたり重なったりしないかを確かめる。ページ全体のズームで満たしてもよい。", exc: "字幕と文字画像。", pages: ["/components/text-inputs/text-field", "/tokens/typography"] },
+    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320 CSS px相当でも、縦横2方向のスクロールなしで読める。", why: "拡大して読む人は、1行ごとに横へスクロールすると、どこを読んでいたかを見失いやすいため。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
+    { n: "1.4.12", name: "テキストの間隔", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html", req: "利用者が文字の間隔を広げても崩れない。", why: "読字障害や弱視の人などは、文字の間隔を広げると読みやすくなる。その設定で表示が崩れると、かえって読めなくなるため。", design: "行の高さ1.5倍・段落の後2倍・字間0.12倍・単語間隔0.16倍に広げても、文字が切れたり重なったりしない。この値をデザインの初期値にする必要はない。", exc: "その言語でもともと使わない間隔(単語の間にスペースがない言語の単語間隔など)。", pages: ["/tokens/typography"] },
+    { n: "1.3.4", name: "向き(orientation)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html", req: "画面の向きを縦・横の一方に固定しない。", why: "端末を車いすなどに固定して使う人は、画面を回転させられないため。", design: "縦向き・横向きのどちらでも使えるようにする。", exc: "小切手・ピアノのアプリ・VRなど、特定の向きが欠かせないもの。", pages: ["/tokens/adaptive"] },
+    { n: "1.3.1", name: "情報及び関係性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html", req: "見た目で伝えている構造や関係を、構造としても伝える。", why: "読み上げで使う人には、見出しの大きさや余白によるまとまりといった、見た目の手がかりが伝わらないため。", design: "見出し・リスト・表の見出しとデータの関係・余白でまとめたグループなどを、見た目だけでなく構造でも示す。余白だけのまとまりは読み上げでは伝わらない。", exc: "", pages: ["/components/containment/list", "/components/containment/table", "/components/text-inputs/text-field", "/tokens/layout-spacing"] },
   ] },
   { id: "target", title: "押せる範囲と入力の方法", desc: "指・ポインター・キーボードなど、入力の手段ごとの決まり", items: [
-    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24 CSS px以上にする(例外あり)。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
-    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44 CSS px以上にする。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
-    { n: "2.5.1", name: "ポインタジェスチャ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html", req: "2本指以上や軌跡で決まる操作に、1本指で軌跡のない代わりを用意する。", design: "ピンチでの拡大には+/−のボタン、スワイプでの送りには前へ・次へのボタンなど。", exc: "軌跡そのものが欠かせない操作(手書きの署名など)。", pages: ["/tokens/input-methods"] },
-    { n: "2.5.2", name: "ポインタキャンセル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html", req: "押した瞬間ではなく、離したときに実行する。", design: "誤って触れても、指をボタンの外へずらして離せば取り消せるようにする。", exc: "キーボードやピアノの鍵盤をまねるなど、押した瞬間の実行が欠かせないもの。", pages: ["/tokens/input-methods"] },
-    { n: "2.5.4", name: "動きによる起動", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html", req: "端末を振る・傾けるなどの動きで行う機能に、画面上の代わりと、動きを切る手段を用意する。", design: "「振って元に戻す」には取り消しボタンも置き、動きへの反応を無効にできるようにする。", exc: "OSのアクセシビリティ機能など、支援の仕組みで動きを使う場合。", pages: ["/tokens/input-methods"] },
-    { n: "2.5.7", name: "ドラッグ動作", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html", req: "ドラッグで行う機能に、ドラッグしない1本指の代わりを用意する。", design: "スライダーは溝を押した位置へつまみを移す、並べ替えはメニューから選べる、シートの高さはグラバーを押して切り替える、など。", exc: "ドラッグが欠かせない場合、ブラウザが決めていて変えていないドラッグ。", pages: ["/components/containment/bottom-sheet", "/components/selection/slider", "/tokens/input-methods"] },
-    { n: "2.5.6", name: "入力メカニズムの共存", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/concurrent-input-mechanisms.html", req: "使える入力手段(タッチ・マウス・キーボードなど)をコンテンツ側で制限しない。", design: "タッチの端末でもマウスやキーボードを使えるようにする。", exc: "セキュリティや必要不可欠な場合。", pages: ["/tokens/input-methods"] },
-    { n: "2.1.1", name: "キーボード", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html", req: "すべての機能をキーボードで操作できる。", design: "ポインター前提になりやすいスライダー・ドラッグ・メニューなども、キーボードで操作できるようにする。", exc: "手書きなど、軌跡そのものが欠かせない入力。", pages: ["/components/navigation/tabs", "/components/selection/chips", "/components/selection/select", "/components/selection/slider", "/tokens/input-methods"] },
-    { n: "2.1.2", name: "キーボードトラップなし", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html", req: "キーボードのフォーカスが抜け出せなくならない。", design: "ダイアログなどでフォーカスを閉じ込める場合も、Escキーなどで閉じて外に戻れるようにする。", exc: "", pages: ["/tokens/input-methods"] },
+    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24 CSS px以上にする(例外あり)。", why: "手の震えがある人や指の動きが不自由な人は、小さい対象を正確に押せず、隣の対象を押し間違えやすいため。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
+    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44 CSS px以上にする。", why: "手の震えや指の動きに不自由がある人に加えて、移動中や片手での操作など、誰でも押し間違えやすい場面でも確実に押せるようにするため。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
+    { n: "2.5.1", name: "ポインタジェスチャ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html", req: "2本指以上や軌跡で決まる操作に、1本指で軌跡のない代わりを用意する。", why: "複数の指を同時に使う操作や、決まった軌跡を描く操作は、指の動きが不自由な人や、口にくわえる棒・頭の動きで操作する道具を使う人には難しいため。", design: "ピンチでの拡大には+/−のボタン、スワイプでの送りには前へ・次へのボタンなど。", exc: "軌跡そのものが欠かせない操作(手書きの署名など)。", pages: ["/tokens/input-methods"] },
+    { n: "2.5.2", name: "ポインタキャンセル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html", req: "押した瞬間ではなく、離したときに実行する。", why: "押した瞬間に実行すると、手の震えなどで誤って触れたときに、取り消す機会がないため。", design: "誤って触れても、指をボタンの外へずらして離せば取り消せるようにする。", exc: "キーボードやピアノの鍵盤をまねるなど、押した瞬間の実行が欠かせないもの。", pages: ["/tokens/input-methods"] },
+    { n: "2.5.4", name: "動きによる起動", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html", req: "端末を振る・傾けるなどの動きで行う機能に、画面上の代わりと、動きを切る手段を用意する。", why: "端末を振る・傾ける操作は、体の動きが不自由な人や端末を固定している人にはできないため。意図しない動きで誤って実行されることも防ぐ。", design: "「振って元に戻す」には取り消しボタンも置き、動きへの反応を無効にできるようにする。", exc: "OSのアクセシビリティ機能など、支援の仕組みで動きを使う場合。", pages: ["/tokens/input-methods"] },
+    { n: "2.5.7", name: "ドラッグ動作", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/dragging-movements.html", req: "ドラッグで行う機能に、ドラッグしない1本指の代わりを用意する。", why: "ドラッグは押したまま正確に動かし続ける操作で、手の動きが不自由な人や、頭の動き・視線で操作する道具を使う人には難しいため。", design: "スライダーは溝を押した位置へつまみを移す、並べ替えはメニューから選べる、シートの高さはグラバーを押して切り替える、など。", exc: "ドラッグが欠かせない場合、ブラウザが決めていて変えていないドラッグ。", pages: ["/components/containment/bottom-sheet", "/components/selection/slider", "/tokens/input-methods"] },
+    { n: "2.5.6", name: "入力メカニズムの共存", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/concurrent-input-mechanisms.html", req: "使える入力手段(タッチ・マウス・キーボードなど)をコンテンツ側で制限しない。", why: "使いやすい入力手段は人によって違い、同じ人でも場面で切り替えるため(タブレットにキーボードをつなぐ、など)。", design: "タッチの端末でもマウスやキーボードを使えるようにする。", exc: "セキュリティや必要不可欠な場合。", pages: ["/tokens/input-methods"] },
+    { n: "2.1.1", name: "キーボード", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html", req: "すべての機能をキーボードで操作できる。", why: "画面を見ずに使う人や、手の動きが不自由でマウスを使えない人は、キーボードか、キーボードの代わりになる装置(スイッチ・音声入力など)で操作するため。", design: "ポインター前提になりやすいスライダー・ドラッグ・メニューなども、キーボードで操作できるようにする。", exc: "手書きなど、軌跡そのものが欠かせない入力。", pages: ["/components/navigation/tabs", "/components/selection/chips", "/components/selection/select", "/components/selection/slider", "/tokens/input-methods"] },
+    { n: "2.1.2", name: "キーボードトラップなし", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html", req: "キーボードのフォーカスが抜け出せなくならない。", why: "キーボードだけで使う人は、フォーカスが抜け出せなくなると、そこから先のページを使えなくなるため。", design: "ダイアログなどでフォーカスを閉じ込める場合も、Escキーなどで閉じて外に戻れるようにする。", exc: "", pages: ["/tokens/input-methods"] },
   ] },
   { id: "focus", title: "フォーカスとホバー", desc: "今どこを操作しているかが分かり、勝手に動かないこと", items: [
-    { n: "2.4.3", name: "フォーカス順序", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html", req: "フォーカスの順番が、意味と操作の流れに沿っている。", design: "見た目の並びと読む順番をそろえる。ダイアログを閉じたら、開いたボタンにフォーカスを戻す。", exc: "", pages: ["/tokens/input-methods"] },
-    { n: "2.4.7", name: "フォーカスの可視化", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html", req: "キーボードで操作するとき、フォーカスの位置が見える。", design: "フォーカスの表示を消さない。色の変化だけに頼らず、輪郭線などで示すと分かりやすい。", exc: "", pages: ["/components/actions/button", "/tokens/interaction-states"] },
-    { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
-    { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", design: "2.4.11より厳しい水準。", exc: "", pages: ["/tokens/elevation"] },
-    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", design: "コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
-    { n: "3.2.1", name: "フォーカス時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html", req: "フォーカスが当たっただけで、文脈を変えない。", design: "フォーカスしただけで別のページへ遷移する・新しいウィンドウを開く・送信する、といったことを起こさない。", exc: "", pages: ["/components/navigation/tabs", "/components/selection/select"] },
-    { n: "1.4.13", name: "ホバー又はフォーカスで表示されるコンテンツ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html", req: "ホバーやフォーカスで出る内容(ツールチップなど)の3つの条件を満たす。", design: "①ポインターを動かさずに消せる(Escキーなど)、②内容の上にポインターを移しても消えない、③離れるか消すまで勝手に消えない。", exc: "入力の誤りの表示など、内容がほかの情報を隠さないもの。ブラウザが出すツールチップ。", pages: ["/components/communication/tooltip"] },
+    { n: "2.4.3", name: "フォーカス順序", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html", req: "フォーカスの順番が、意味と操作の流れに沿っている。", why: "キーボードや読み上げで使う人は、フォーカスの順番どおりに内容をたどる。順番が飛ぶと、意味や操作の流れがつかめないため。", design: "見た目の並びと読む順番をそろえる。ダイアログを閉じたら、開いたボタンにフォーカスを戻す。", exc: "", pages: ["/tokens/input-methods"] },
+    { n: "2.4.7", name: "フォーカスの可視化", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html", req: "キーボードで操作するとき、フォーカスの位置が見える。", why: "キーボードで操作する人は、フォーカスの位置が見えないと、今どこを操作しているのか分からないため。", design: "フォーカスの表示を消さない。色の変化だけに頼らず、輪郭線などで示すと分かりやすい。", exc: "", pages: ["/components/actions/button", "/tokens/interaction-states"] },
+    { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", why: "フォーカスした先が隠れると、キーボードで操作する人は、今どこにいるのかが分からなくなるため。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
+    { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", why: "一部でも隠れると、フォーカスしたコンポーネントが何かを見分けにくくなる場合があるため。", design: "2.4.11より厳しい水準。", exc: "", pages: ["/tokens/elevation"] },
+    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", why: "細い・薄いフォーカスの表示は、弱視の人や画面から離れて見る人には見つけにくいため。", design: "コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
+    { n: "3.2.1", name: "フォーカス時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html", req: "フォーカスが当たっただけで、文脈を変えない。", why: "フォーカスを当てるたびに画面が変わると、キーボードや読み上げで使う人は、何が起きたのか分からずに迷うため。", design: "フォーカスしただけで別のページへ遷移する・新しいウィンドウを開く・送信する、といったことを起こさない。", exc: "", pages: ["/components/navigation/tabs", "/components/selection/select"] },
+    { n: "1.4.13", name: "ホバー又はフォーカスで表示されるコンテンツ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html", req: "ホバーやフォーカスで出る内容(ツールチップなど)の3つの条件を満たす。", why: "ツールチップなどが周りの内容を隠したり、すぐ消えたりすると、拡大して見る人や読むのに時間がかかる人が、内容を読み取れないため。", design: "①ポインターを動かさずに消せる(Escキーなど)、②内容の上にポインターを移しても消えない、③離れるか消すまで勝手に消えない。", exc: "入力の誤りの表示など、内容がほかの情報を隠さないもの。ブラウザが出すツールチップ。", pages: ["/components/communication/tooltip"] },
   ] },
   { id: "motion", title: "動きと時間", desc: "動きで人を傷つけない、時間で追い立てない", items: [
-    { n: "2.2.1", name: "期限調節可能", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html", req: "時間制限を延長・解除できるようにする。", design: "「元に戻す」などの操作を持つ通知を時間で消すと、操作が間に合わない人がいる。時間で消さないか、延長・解除できるようにする。", exc: "リアルタイムの競りなど、時間制限が欠かせないもの。20時間を超える制限。", pages: ["/components/communication/snackbar", "/components/text-inputs/wizard"] },
-    { n: "2.2.2", name: "一時停止・停止・非表示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html", req: "自動で始まり5秒を超えて続く動き・点滅・スクロールを止められる。", design: "自動で回るカルーセルには停止ボタンを置く。自動で更新される情報も止めたり隠したりできるようにする。", exc: "動きが欠かせない場合。", pages: ["/components/containment/carousel", "/tokens/motion"] },
-    { n: "2.3.1", name: "3回の閃光、又は閾値以下", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html", req: "1秒間に3回を超えて点滅させない。", design: "光の点滅は光過敏性発作の原因になる。", exc: "点滅の明るさや面積が閾値以下の場合。", pages: ["/tokens/motion"] },
-    { n: "2.3.3", name: "インタラクションによるアニメーション", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html", req: "操作をきっかけに起きる動きを、無効にできる。", design: "視差スクロールなど装飾の動きは、OS・ブラウザの「動きを減らす」設定に従って止める。", exc: "機能や情報に欠かせない動き。", pages: ["/tokens/motion"] },
+    { n: "2.2.1", name: "期限調節可能", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html", req: "時間制限を延長・解除できるようにする。", why: "読む・操作するのに時間がかかる人(視覚・運動・認知の障害がある人など)は、制限時間の中で終えられないことがあるため。", design: "「元に戻す」などの操作を持つ通知を時間で消すと、操作が間に合わない人がいる。時間で消さないか、延長・解除できるようにする。", exc: "リアルタイムの競りなど、時間制限が欠かせないもの。20時間を超える制限。", pages: ["/components/communication/snackbar", "/components/text-inputs/wizard"] },
+    { n: "2.2.2", name: "一時停止・停止・非表示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html", req: "自動で始まり5秒を超えて続く動き・点滅・スクロールを止められる。", why: "動く・変わる内容は注意をそらし、集中しにくい人が読むのを妨げる。読むのに時間がかかる人は、動いている間に読み終えられないため。", design: "自動で回るカルーセルには停止ボタンを置く。自動で更新される情報も止めたり隠したりできるようにする。", exc: "動きが欠かせない場合。", pages: ["/components/containment/carousel", "/tokens/motion"] },
+    { n: "2.3.1", name: "3回の閃光、又は閾値以下", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/three-flashes-or-below-threshold.html", req: "1秒間に3回を超えて点滅させない。", why: "光の点滅は、光過敏性てんかんの人に発作を起こすことがあるため。", design: "注意を引くための点滅は避け、色の変化やアイコンなど点滅しない方法で示す。", exc: "点滅の明るさや面積が閾値以下の場合。", pages: ["/tokens/motion"] },
+    { n: "2.3.3", name: "インタラクションによるアニメーション", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/animation-from-interactions.html", req: "操作をきっかけに起きる動きを、無効にできる。", why: "前庭障害がある人などは、画面の大きな動きで、めまいや吐き気を起こすことがあるため。", design: "視差スクロールなど装飾の動きは、OS・ブラウザの「動きを減らす」設定に従って止める。", exc: "機能や情報に欠かせない動き。", pages: ["/tokens/motion"] },
   ] },
   { id: "sound", title: "音と映像", desc: "音を止められ、音だけで伝えない", items: [
-    { n: "1.4.2", name: "音声の制御", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html", req: "自動で3秒を超えて鳴る音を、止めるか個別に音量を調整できる。", design: "自動再生の音は避け、鳴らすなら停止の手段をすぐ見つかる場所に置く。", exc: "3秒以内に終わる音。", pages: ["/tokens/sound"] },
-    { n: "1.4.7", name: "背景音の小さい又はない音声", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html", req: "録音した音声が中心の内容で、背景音をなくす・切れる・20dB以上小さくする。", design: "ナレーションに背景音楽を重ねるなら十分に小さくする。", exc: "音声CAPTCHA・音声ロゴ・歌など。", pages: ["/tokens/sound"] },
-    { n: "1.2.1", name: "音声だけ及び映像だけ(収録済み)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html", req: "録音した音声だけ・映像だけの内容に、代わりを用意する。", design: "音声だけなら書き起こし、映像だけなら書き起こしか音声の説明を用意する。", exc: "代わりのメディアであることが明らかなもの。", pages: ["/tokens/sound"] },
-    { n: "1.2.2", name: "キャプション(収録済)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html", req: "録音した映像の音声に字幕を付ける。", design: "会話や重要な音を字幕で伝える。", exc: "", pages: ["/tokens/sound"] },
+    { n: "1.4.2", name: "音声の制御", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-control.html", req: "自動で3秒を超えて鳴る音を、止めるか個別に音量を調整できる。", why: "ページの音が鳴っていると、読み上げで使う人は、読み上げの声が聞き取れなくなるため。", design: "自動再生の音は避け、鳴らすなら停止の手段をすぐ見つかる場所に置く。", exc: "3秒以内に終わる音。", pages: ["/tokens/sound"] },
+    { n: "1.4.7", name: "背景音の小さい又はない音声", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/low-or-no-background-audio.html", req: "録音した音声が中心の内容で、背景音をなくす・切れる・20dB以上小さくする。", why: "聞こえにくい人は、背景音があると話し声を聞き分けにくいため。", design: "ナレーションに背景音楽を重ねるなら十分に小さくする。", exc: "音声CAPTCHA・音声ロゴ・歌など。", pages: ["/tokens/sound"] },
+    { n: "1.2.1", name: "音声だけ及び映像だけ(収録済み)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html", req: "録音した音声だけ・映像だけの内容に、代わりを用意する。", why: "聞こえない人は音声の内容を、見えない人は映像の内容を受け取れないため。", design: "音声だけなら書き起こし、映像だけなら書き起こしか音声の説明を用意する。", exc: "代わりのメディアであることが明らかなもの。", pages: ["/tokens/sound"] },
+    { n: "1.2.2", name: "キャプション(収録済)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html", req: "録音した映像の音声に字幕を付ける。", why: "聞こえない・聞こえにくい人が、会話や重要な音の内容を受け取れるようにするため。", design: "会話や重要な音を字幕で伝える。", exc: "", pages: ["/tokens/sound"] },
   ] },
   { id: "words", title: "文言・ラベル・ナビゲーション", desc: "何のためのコンポーネントか、今どこにいるかを言葉で伝える", items: [
-    { n: "1.1.1", name: "非テキストコンテンツ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html", req: "意味のある画像やアイコンに、文字の代わりを用意する。", design: "操作のアイコンには、見た目ではなく目的の名前を付ける(「虫めがね」ではなく「検索」)。飾りの画像は読み上げない。", exc: "装飾だけの画像。", pages: ["/tokens/icon"] },
-    { n: "1.3.3", name: "感覚による特性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html", req: "操作の説明を、形・大きさ・位置・音だけに頼らない。", design: "「右の丸いボタン」ではなく「[送信]ボタン」のように、コンポーネントの名前も書く。", exc: "", pages: ["/tokens/writing"] },
-    { n: "2.4.2", name: "ページタイトル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html", req: "ページに、主題や目的を表すタイトルを付ける。", design: "画面ごとに内容を表すタイトルにする。1つのURLで画面が切り替わる場合も、画面ごとにタイトルを変える。", exc: "", pages: ["/tokens/writing"] },
-    { n: "2.4.4", name: "リンクの目的(コンテキスト内)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html", req: "リンクの目的が、リンクの文言か周りの文脈から分かる。", design: "「こちら」「詳しくはここ」だけのリンクにしない。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link", "/components/navigation/pagination"] },
-    { n: "2.4.9", name: "リンクの目的(リンクのみ)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html", req: "リンクの目的が、リンクの文言だけで分かる。", design: "2.4.4より厳しい水準。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link"] },
-    { n: "2.4.5", name: "複数の手段", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html", req: "ページにたどり着く方法を2つ以上用意する。", design: "ナビゲーションに加えて、サイト内検索やサイトマップを置く。", exc: "手続きの途中や結果の画面。", pages: ["/components/text-inputs/search-field"] },
-    { n: "2.4.6", name: "見出し及びラベル", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html", req: "見出しとラベルが、主題や目的を表す。", design: "見出しやラベルを置くこと自体は求めない。置いたなら、内容が分かる言葉にする(1語でもよい)。", exc: "", pages: ["/tokens/writing"] },
-    { n: "2.4.8", name: "現在位置", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/location.html", req: "一連のページの中の今の位置が分かる。", design: "パンくずリストやステップの表示などで示す。置けば自動で適合するわけではない。", exc: "", pages: ["/components/navigation/breadcrumb"] },
-    { n: "2.5.3", name: "ラベルを含む名前", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html", req: "見えるラベルの言葉を、支援技術向けの名前にも含める。", design: "食い違うと、音声入力でラベルの言葉を言っても反応しない。", exc: "", pages: ["/tokens/icon"] },
-    { n: "3.1.5", name: "読解レベル", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html", req: "難しい文には、補足か易しい版を用意する。", design: "前期中等教育(9年の学校教育)を超える読解力が要る文が対象。", exc: "固有名詞や題名。", pages: ["/tokens/writing"] },
-    { n: "3.2.3", name: "一貫したナビゲーション", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html", req: "複数のページで繰り返すナビゲーションを、いつも同じ順番で並べる。", design: "ヘッダーやサイドナビの項目の順番をページごとに変えない。", exc: "利用者が自分で並びを変えた場合。", pages: ["/components/containment/drawer", "/components/navigation/app-bar", "/components/navigation/nav-bar"] },
-    { n: "3.2.4", name: "一貫した識別性", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html", req: "同じ働きのコンポーネントを、ページをまたいで一貫して識別できる。", design: "共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ名前を付ける。", exc: "文脈に合わせた小さな違い(「前のページ」など)。", pages: ["/components/actions/link", "/tokens/icon"] },
-    { n: "3.2.6", name: "一貫したヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
+    { n: "1.1.1", name: "非テキストコンテンツ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-content.html", req: "意味のある画像やアイコンに、文字の代わりを用意する。", why: "読み上げで使う人には、画像やアイコンの意味がそのままでは伝わらないため。文字にしておけば、読み上げ・点字・拡大などの形に変えられる。", design: "操作のアイコンには、見た目ではなく目的の名前を付ける(「虫めがね」ではなく「検索」)。飾りの画像は読み上げない。", exc: "装飾だけの画像。", pages: ["/tokens/icon"] },
+    { n: "1.3.3", name: "感覚による特性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/sensory-characteristics.html", req: "操作の説明を、形・大きさ・位置・音だけに頼らない。", why: "見えない人や位置関係をつかみにくい人は、形・大きさ・位置だけの説明では、どれを指すのか特定できないため。", design: "「右の丸いボタン」ではなく「[送信]ボタン」のように、コンポーネントの名前も書く。", exc: "", pages: ["/tokens/writing"] },
+    { n: "2.4.2", name: "ページタイトル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/page-titled.html", req: "ページに、主題や目的を表すタイトルを付ける。", why: "タイトルは読み上げで最初に読まれ、タブや履歴にも出る。中身を読む前に、どのページかを判断できるようにするため。", design: "画面ごとに内容を表すタイトルにする。1つのURLで画面が切り替わる場合も、画面ごとにタイトルを変える。", exc: "", pages: ["/tokens/writing"] },
+    { n: "2.4.4", name: "リンクの目的(コンテキスト内)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-in-context.html", req: "リンクの目的が、リンクの文言か周りの文脈から分かる。", why: "読み上げで使う人は、リンクだけを一覧にして選ぶことがある。「こちら」だけでは、行き先が分からないため。", design: "「こちら」「詳しくはここ」だけのリンクにしない。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link", "/components/navigation/pagination"] },
+    { n: "2.4.9", name: "リンクの目的(リンクのみ)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/link-purpose-link-only.html", req: "リンクの目的が、リンクの文言だけで分かる。", why: "周りの文を読まなくても、リンクの文言だけで行き先が分かれば、誰にとっても選びやすくなるため。", design: "2.4.4より厳しい水準。", exc: "誰にとっても目的が分からないリンク。", pages: ["/components/actions/link"] },
+    { n: "2.4.5", name: "複数の手段", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/multiple-ways.html", req: "ページにたどり着く方法を2つ以上用意する。", why: "得意な探し方は人によって違うため(検索の方が使いやすい人も、階層をたどる方が分かりやすい人もいる)。", design: "ナビゲーションに加えて、サイト内検索やサイトマップを置く。", exc: "手続きの途中や結果の画面。", pages: ["/components/text-inputs/search-field"] },
+    { n: "2.4.6", name: "見出し及びラベル", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/headings-and-labels.html", req: "見出しとラベルが、主題や目的を表す。", why: "内容が分かる見出し・ラベルがあれば、読むのに時間がかかる人や読み上げで使う人も、目的の場所を早く見つけられるため。", design: "見出しやラベルを置くこと自体は求めない。置いたなら、内容が分かる言葉にする(1語でもよい)。", exc: "", pages: ["/tokens/writing"] },
+    { n: "2.4.8", name: "現在位置", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/location.html", req: "一連のページの中の今の位置が分かる。", why: "長い手続きや大きいサイトでは、今どこにいるのかを見失いやすいため(特に、記憶や注意に障害がある人)。", design: "パンくずリストやステップの表示などで示す。置けば自動で適合するわけではない。", exc: "", pages: ["/components/navigation/breadcrumb"] },
+    { n: "2.5.3", name: "ラベルを含む名前", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html", req: "見えるラベルの言葉を、支援技術向けの名前にも含める。", why: "音声入力で使う人は、見えるラベルの言葉を言って操作する。その言葉が名前に含まれていないと反応しないため。", design: "見えるラベルの言葉をそのまま、できれば名前の先頭に入れる(「送信」と書いたボタンの名前を「フォームを送る」にしない)。", exc: "", pages: ["/tokens/icon"] },
+    { n: "3.1.5", name: "読解レベル", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reading-level.html", req: "難しい文には、補足か易しい版を用意する。", why: "読解に障害がある人や、その言語に慣れていない人でも、内容を理解できるようにするため。", design: "前期中等教育(9年の学校教育)を超える読解力が要る文が対象。", exc: "固有名詞や題名。", pages: ["/tokens/writing"] },
+    { n: "3.2.3", name: "一貫したナビゲーション", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html", req: "複数のページで繰り返すナビゲーションを、いつも同じ順番で並べる。", why: "並びが同じなら、場所を覚えて使える。ページごとに変わると、拡大して見る人・読み上げで使う人・認知に障害がある人は、探し直しになるため。", design: "ヘッダーやサイドナビの項目の順番をページごとに変えない。", exc: "利用者が自分で並びを変えた場合。", pages: ["/components/containment/drawer", "/components/navigation/app-bar", "/components/navigation/nav-bar"] },
+    { n: "3.2.4", name: "一貫した識別性", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html", req: "同じ働きのコンポーネントを、ページをまたいで一貫して識別できる。", why: "同じ働きのものが同じ名前なら、一度覚えれば使い回せる。ページごとに違うと、別の機能だと思われやすいため。", design: "共通の検索・アカウントなどのアイコンボタンには、どのページでも同じ名前を付ける。", exc: "文脈に合わせた小さな違い(「前のページ」など)。", pages: ["/components/actions/link", "/tokens/icon"] },
+    { n: "3.2.6", name: "一貫したヘルプ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html", req: "問い合わせ先・FAQなどのヘルプを、ページをまたいで同じ位置に置く。", why: "困ったときに、助けを探す手間を減らすため。特に認知に障害がある人は、場所が変わるとヘルプを見つけにくい。", design: "ヘルプを置くこと自体は求めない。置くなら同じ順番の位置にする。", exc: "利用者が自分で変えた場合。", pages: ["/components/navigation/app-bar"] },
   ] },
   { id: "input", title: "入力とエラー", desc: "入力しやすく、誤りに気づいて直せること", items: [
-    { n: "1.3.5", name: "入力目的の特定", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html", req: "入力欄の目的(名前・メールアドレスなど)を判別できるようにする。", design: "ブラウザの自動入力が効くようにし、入力の手間を減らす。", exc: "", pages: ["/components/text-inputs/text-field"] },
-    { n: "3.2.2", name: "入力時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html", req: "設定を変えただけで、事前の説明なしに文脈を変えない。", design: "プルダウンで選んだだけで遷移・送信しない。実行は「移動」「送信」ボタンで行う。スイッチの切り替えで画面を変えるなら事前に知らせる。", exc: "事前に知らせている場合。", pages: ["/components/selection/select", "/components/selection/toggle"] },
-    { n: "3.3.1", name: "エラーの特定", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html", req: "入力の誤りを自動で見つけたら、その項目を特定し、文字で説明する。", design: "色や枠の変化だけでなく、どの欄がどう誤っているかを文字で示す。", exc: "", pages: ["/components/communication/alert", "/components/text-inputs/validation"] },
-    { n: "3.3.2", name: "ラベル又は指示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html", req: "入力が必要なところに、ラベルか説明を用意する。", design: "プレースホルダーだけをラベルにしない。書式や必須かどうかも示す。説明を増やしすぎない。", exc: "", pages: ["/components/text-inputs/text-field", "/components/text-inputs/wizard", "/tokens/writing"] },
-    { n: "3.3.3", name: "エラーの修正提案", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html", req: "誤りの直し方が分かっていれば、訂正案を示す。", design: "「8文字以上で入力してください」のように具体的に書く。", exc: "セキュリティや目的を損なう場合(パスワードなど)。", pages: ["/components/text-inputs/validation"] },
-    { n: "3.3.4", name: "誤り防止(法的・金融・データ)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html", req: "法的・金融的な確約、データの変更・削除、試験の送信で、誤りを防ぐ手段を用意する。", design: "取り消せる・検査して直す機会を与える・送信前に確認できる、のどれかを備える。", exc: "対象のページだけにかかる。", pages: ["/components/text-inputs/validation"] },
-    { n: "3.3.7", name: "冗長な入力", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
+    { n: "1.3.5", name: "入力目的の特定", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/identify-input-purpose.html", req: "入力欄の目的(名前・メールアドレスなど)を判別できるようにする。", why: "入力欄の目的が機械に分かれば、自動入力などで入力を助けられる。記憶や文字の入力に負担がある人の手間が減るため。", design: "ブラウザの自動入力が効くようにし、入力の手間を減らす。", exc: "", pages: ["/components/text-inputs/text-field"] },
+    { n: "3.2.2", name: "入力時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-input.html", req: "設定を変えただけで、事前の説明なしに文脈を変えない。", why: "予期しない遷移や送信は、見えない人や認知に障害がある人を混乱させ、意図しない操作につながるため。", design: "プルダウンで選んだだけで遷移・送信しない。実行は「移動」「送信」ボタンで行う。スイッチの切り替えで画面を変えるなら事前に知らせる。", exc: "事前に知らせている場合。", pages: ["/components/selection/select", "/components/selection/toggle"] },
+    { n: "3.3.1", name: "エラーの特定", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html", req: "入力の誤りを自動で見つけたら、その項目を特定し、文字で説明する。", why: "色や枠の変化だけでは、見えない人や色を見分けにくい人に誤りが伝わらないため。どこがどう誤っているかが分からないと直せない。", design: "色や枠の変化だけでなく、どの欄がどう誤っているかを文字で示す。", exc: "", pages: ["/components/communication/alert", "/components/text-inputs/validation"] },
+    { n: "3.3.2", name: "ラベル又は指示", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html", req: "入力が必要なところに、ラベルか説明を用意する。", why: "何を入力すればよいかが分からないと、誤りや入力のやり直しが増えるため(特に認知に障害がある人)。", design: "プレースホルダーだけをラベルにしない。書式や必須かどうかも示す。説明を増やしすぎない。", exc: "", pages: ["/components/text-inputs/text-field", "/components/text-inputs/wizard", "/tokens/writing"] },
+    { n: "3.3.3", name: "エラーの修正提案", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-suggestion.html", req: "誤りの直し方が分かっていれば、訂正案を示す。", why: "直し方が分からないと、先へ進めなくなる人がいるため(特に学習・認知に障害がある人)。", design: "「8文字以上で入力してください」のように具体的に書く。", exc: "セキュリティや目的を損なう場合(パスワードなど)。", pages: ["/components/text-inputs/validation"] },
+    { n: "3.3.4", name: "誤り防止(法的・金融・データ)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/error-prevention-legal-financial-data.html", req: "法的・金融的な確約、データの変更・削除、試験の送信で、誤りを防ぐ手段を用意する。", why: "法律やお金に関わる手続き、データの削除は、誤ると取り返しがつかないことがあるため。入力の誤りに気づきにくい人もいる。", design: "取り消せる・検査して直す機会を与える・送信前に確認できる、のどれかを備える。", exc: "対象のページだけにかかる。", pages: ["/components/text-inputs/validation"] },
+    { n: "3.3.7", name: "冗長な入力", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/redundant-entry.html", req: "同じ手続きの中で、前に入力した情報をもう一度入力させない。", why: "同じ情報の入力を繰り返すのは、記憶や入力に負担がある人には大きな手間で、誤りも増えるため。", design: "自動で入れておくか選べるようにする(「配送先と同じ」のチェックなど)。エラーで戻しても入力を消さない。", exc: "セキュリティ上の再入力、入れ直すこと自体が目的の場合、前の情報が無効になった場合。", pages: ["/components/text-inputs/input-validation", "/components/text-inputs/wizard"] },
   ] },
   { id: "assist", title: "支援技術への伝え方", desc: "見た目と同じことを、読み上げなどにも伝える", items: [
-    { n: "4.1.2", name: "名前(name)・役割(role)・値(value)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html", req: "コンポーネントの名前・役割・状態を、支援技術が取得できるようにする。", design: "ボタンが押されているか、メニューが開いているか、選択中かなどの状態も伝える。ブラウザ標準のコンポーネントなら多くは自動で伝わり、独自に作ったコンポーネントは配慮が要る。", exc: "", pages: ["/components/actions/button", "/components/communication/badge", "/components/containment/side-sheet", "/components/navigation/segmented-control", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/components/text-inputs/text-field", "/tokens/icon", "/tokens/interaction-states"] },
-    { n: "4.1.3", name: "ステータスメッセージ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html", req: "フォーカスを移さずに出る知らせを、支援技術にも伝える。", design: "「保存しました」「5件見つかりました」などは、控えめな知らせとして読み上げられるようにする。緊急の警告は割り込んで読み上げる。", exc: "", pages: ["/components/communication/alert", "/components/communication/empty-state", "/components/communication/progress", "/components/communication/snackbar"] },
+    { n: "4.1.2", name: "名前(name)・役割(role)・値(value)", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html", req: "コンポーネントの名前・役割・状態を、支援技術が取得できるようにする。", why: "支援技術は、コンポーネントの名前・役割・状態を受け取って利用者に伝える。伝わらないと、それが何か・押せるか・今どの状態かが分からないため。", design: "ボタンが押されているか、メニューが開いているか、選択中かなどの状態も伝える。ブラウザ標準のコンポーネントなら多くは自動で伝わり、独自に作ったコンポーネントは配慮が要る。", exc: "", pages: ["/components/actions/button", "/components/communication/badge", "/components/containment/side-sheet", "/components/navigation/segmented-control", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/chips", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/components/text-inputs/text-field", "/tokens/icon", "/tokens/interaction-states"] },
+    { n: "4.1.3", name: "ステータスメッセージ", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html", req: "フォーカスを移さずに出る知らせを、支援技術にも伝える。", why: "見えている人は画面の変化で知らせに気づけるが、読み上げで使う人は、知らせが読み上げられないと気づけないため。", design: "「保存しました」「5件見つかりました」などは、控えめな知らせとして読み上げられるようにする。緊急の警告は割り込んで読み上げる。", exc: "", pages: ["/components/communication/alert", "/components/communication/empty-state", "/components/communication/progress", "/components/communication/snackbar"] },
   ] },
 ];
 
@@ -19156,8 +19168,8 @@ const styles = {
 
 const LEAD = "各ページに出てくるWCAGの達成基準を、デザインで気をつけることに絞ってまとめた一覧";
 const ABOUT = [
-  { k: "目的・役割", v: "「2.5.8」「1.4.11」のような番号だけでは分かりにくい達成基準を、何を求めるか・デザインの要点・例外で引けるようにする" },
-  { k: "使い方", v: "基準ごとに、何を求めるか・デザインの要点・主な例外と、その基準が関わるページへのリンクを並べている" },
+  { k: "目的・役割", v: "「2.5.8」「1.4.11」のような番号だけでは分かりにくい達成基準を、何を求めるか・なぜ必要か・デザインの要点・例外で引けるようにする" },
+  { k: "使い方", v: "基準ごとに、何を求めるか・なぜ必要か・デザインの要点・主な例外と、その基準が関わるページへのリンクを並べている" },
   { k: "関連するページ", v: <>WCAGの4原則(POUR)と各系列のアクセシビリティの考え方は<PageLink to="/principles/accessibility">アクセシビリティ</PageLink></> },
 ];
 
@@ -19239,6 +19251,7 @@ function Criterion({ c }) {
         <a href={c.url} target="_blank" rel="noreferrer" style={styles.scOfficial}>公式(Understanding WCAG 2.2) ↗</a>
       </div>
       <p style={styles.scReq}>{c.req}</p>
+      {c.why && <div style={styles.scRow}><span style={styles.scKey}>なぜ必要か</span><span style={styles.scVal}>{c.why}</span></div>}
       <div style={styles.scRow}><span style={styles.scKey}>デザインの要点</span><span style={styles.scVal}>{c.design}</span></div>
       {c.exc && <div style={styles.scRow}><span style={styles.scKey}>主な例外</span><span style={styles.scVal}>{c.exc}</span></div>}
       <div style={styles.scRow}>
@@ -38761,12 +38774,13 @@ const PAGES = [
   { id: "components-navigation-nav-bar", label: "タブバー", spec: "015", Component: NavigationNavBarPage, path: "/components/navigation/nav-bar", fixed: true },
   { id: "components-containment-drawer", label: "ドロワー/サイドナビ", spec: "016", Component: NavigationDrawerPage, path: "/components/containment/drawer", fixed: true },
   { id: "components-navigation-app-bar", label: "アプリバー", spec: "019", Component: NavigationAppBarPage, path: "/components/navigation/app-bar", fixed: true },
-  { id: "components-navigation-tabs-vs-segmented", label: "タブとセグメントの使い分け", spec: "014", Component: NavigationTabsVsSegmentedPage, path: "/components/navigation/tabs-vs-segmented", fixed: true },
-  { id: "components-navigation-tabs", label: "タブ", spec: "013", Component: NavigationTabsPage, path: "/components/navigation/tabs", fixed: true },
-  { id: "components-navigation-segmented-control", label: "セグメントコントロール", spec: "011", Component: NavigationSegmentedControlPage, path: "/components/navigation/segmented-control", fixed: true },
   { id: "components-navigation-breadcrumb", label: "パンくずリスト", spec: "017", Component: NavigationBreadcrumbPage, path: "/components/navigation/breadcrumb", fixed: true },
   { id: "components-navigation-pagination", label: "ページネーション", spec: "018", Component: NavigationPaginationPage, path: "/components/navigation/pagination", fixed: true },
   { id: "components-text-inputs-wizard", label: "ウィザード(ステップ形式の入力)", spec: "063", Component: TextInputsWizardPage, path: "/components/text-inputs/wizard", fixed: true },
+  { id: "components-navigation-tabs-vs-segmented", label: "タブとセグメントの使い分け", spec: "014", Component: NavigationTabsVsSegmentedPage, path: "/components/navigation/tabs-vs-segmented", fixed: true },
+  { id: "components-navigation-tabs", label: "タブ", spec: "013", Component: NavigationTabsPage, path: "/components/navigation/tabs", fixed: true },
+  { id: "components-navigation-segmented-control", label: "セグメントコントロール", spec: "011", Component: NavigationSegmentedControlPage, path: "/components/navigation/segmented-control", fixed: true },
+  { id: "components-containment-accordion", label: "アコーディオン(表示コントロール)", spec: "028", Component: ContainmentAccordionPage, path: "/components/containment/accordion", fixed: true },
   { id: "components-containment-overview", label: "オーバーレイの使い分け", spec: "064", Component: ContainmentOverviewPage, path: "/components/containment/overview", fixed: true },
   { id: "components-containment-dialog", label: "モーダルダイアログ", spec: "024", Component: ContainmentDialogPage, path: "/components/containment/dialog", fixed: true },
   { id: "components-containment-fullscreen-dialog", label: "フルスクリーンダイアログ", spec: "031", Component: ContainmentFullscreenDialogPage, path: "/components/containment/fullscreen-dialog", fixed: true },
@@ -38776,7 +38790,6 @@ const PAGES = [
   { id: "components-containment-list", label: "リスト", spec: "027", Component: ContainmentListPage, path: "/components/containment/list", fixed: true },
   { id: "components-containment-carousel", label: "カルーセル", spec: "058", Component: ContainmentCarouselPage, path: "/components/containment/carousel", fixed: true },
   { id: "components-containment-table", label: "表(データテーブル)", spec: "057", Component: ContainmentTablePage, path: "/components/containment/table", fixed: true },
-  { id: "components-containment-accordion", label: "アコーディオン(表示コントロール)", spec: "028", Component: ContainmentAccordionPage, path: "/components/containment/accordion", fixed: true },
   { id: "components-communication-overview", label: "情報伝達の使い分け", spec: "034", Component: CommunicationOverviewPage, path: "/components/communication/overview", fixed: true },
   { id: "components-communication-alert", label: "ステータスメッセージ", spec: "033", Component: CommunicationStatusMessagePage, path: "/components/communication/alert", fixed: true },
   { id: "components-communication-snackbar", label: "スナックバー(トースト)", spec: "030", Component: CommunicationSnackbarPage, path: "/components/communication/snackbar", fixed: true },

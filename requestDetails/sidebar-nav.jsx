@@ -81,27 +81,38 @@ export const NAV_SECTIONS = [
       { label: "タブバー", path: "/components/navigation/nav-bar", built: true },
       { label: "ドロワー/サイドナビ", path: "/components/containment/drawer", built: true },
       { label: "アプリバー", path: "/components/navigation/app-bar", built: true },
-      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
-      { label: "タブ", path: "/components/navigation/tabs", built: true },
-      { label: "セグメントコントロール", path: "/components/navigation/segmented-control", built: true },
       { label: "パンくずリスト", path: "/components/navigation/breadcrumb", built: true },
       { label: "ページネーション", path: "/components/navigation/pagination", built: true },
       { label: "ウィザード(ステップ形式の入力)", path: "/components/text-inputs/wizard", built: true },
     ],
   },
+  /* 2026-11-26 ⑩本人最終レビュー: 使う目的で分け直した(Navigation=画面・場所を移る / Switching=同じ画面の中で見せ方を変える / Overlay=今の画面の上に重ねて出す / Containment=まとめて並べて見せる / Communication=状態を伝える)。URLは変えていない */
   {
-    title: "Containment",
+    title: "Switching",
+    items: [
+      { label: "タブとセグメントの使い分け", path: "/components/navigation/tabs-vs-segmented", built: true },
+      { label: "タブ", path: "/components/navigation/tabs", built: true },
+      { label: "セグメントコントロール", path: "/components/navigation/segmented-control", built: true },
+      { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
+    ],
+  },
+  {
+    title: "Overlay",
     items: [
       { label: "オーバーレイの使い分け", path: "/components/containment/overview", built: true },
       { label: "モーダルダイアログ", path: "/components/containment/dialog", built: true },
       { label: "フルスクリーンダイアログ", path: "/components/containment/fullscreen-dialog", built: true },
       { label: "ボトムシート", path: "/components/containment/bottom-sheet", built: true },
       { label: "サイドシート", path: "/components/containment/side-sheet", built: true },
+    ],
+  },
+  {
+    title: "Containment",
+    items: [
       { label: "カード", path: "/components/containment/card", built: true },
       { label: "リスト", path: "/components/containment/list", built: true },
       { label: "カルーセル", path: "/components/containment/carousel", built: true },
       { label: "表(データテーブル)", path: "/components/containment/table", built: true },
-      { label: "アコーディオン(表示コントロール)", path: "/components/containment/accordion", built: true },
     ],
   },
   {
