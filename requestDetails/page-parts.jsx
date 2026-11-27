@@ -436,6 +436,18 @@ const PAGE_INDEX = {
   "label": "アプリバー",
   "lead": "画面の上部に置き、画面の名前・戻る操作・関連する操作をまとめるバー"
  },
+ "/components/navigation/breadcrumb": {
+  "label": "パンくずリスト",
+  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並び"
+ },
+ "/components/navigation/pagination": {
+  "label": "ページネーション",
+  "lead": "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント"
+ },
+ "/components/text-inputs/wizard": {
+  "label": "ウィザード(ステップ形式の入力)",
+  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ },
  "/components/navigation/tabs-vs-segmented": {
   "label": "タブとセグメントの使い分け",
   "lead": "見た目が似ているタブとセグメントコントロールを、「選ぶと何が起きるか」で使い分けるためのページ"
@@ -448,17 +460,9 @@ const PAGE_INDEX = {
   "label": "セグメントコントロール",
   "lead": "ボタンを横につなげて並べ、同じ場所の表示の仕方を切り替えるコンポーネント"
  },
- "/components/navigation/breadcrumb": {
-  "label": "パンくずリスト",
-  "lead": "サイトの階層の中で今いる場所を、上の階層からの道筋で示すリンクの並び"
- },
- "/components/navigation/pagination": {
-  "label": "ページネーション",
-  "lead": "長い一覧をページに分け、ページ番号などで遷移できるようにするコンポーネント"
- },
- "/components/text-inputs/wizard": {
-  "label": "ウィザード(ステップ形式の入力)",
-  "lead": "入力の手順をいくつかのステップに分け、1つずつ順に進めてもらう形式"
+ "/components/containment/accordion": {
+  "label": "アコーディオン(表示コントロール)",
+  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
  },
  "/components/containment/overview": {
   "label": "オーバーレイの使い分け",
@@ -495,10 +499,6 @@ const PAGE_INDEX = {
  "/components/containment/table": {
   "label": "表(データテーブル)",
   "lead": "行と列にデータを並べ、項目どうしを比べられるようにするコンポーネント"
- },
- "/components/containment/accordion": {
-  "label": "アコーディオン(表示コントロール)",
-  "lead": "見出しを押すと、その下の内容を開いたり閉じたりできるコンポーネント"
  },
  "/components/communication/overview": {
   "label": "情報伝達の使い分け",

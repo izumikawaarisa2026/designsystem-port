@@ -1,5 +1,7 @@
 # デザインシステム比較サイト ― 全ページ構成
 
+> **2026-11-26 ⑩本人最終レビューでサイドバーのグループを分け直した。** 現行のM3の公式サイトはMaterial Designの伝統的な6分類を使っていないため、使う目的で8つに分けた: Actions / Selection / Text inputs / Navigation(画面・場所を移る: Navigationの選び方・タブバー・ドロワー/サイドナビ・アプリバー・パンくずリスト・ページネーション・ウィザード) / Switching(同じ画面の中で見せ方を変える: タブとセグメントの使い分け・タブ・セグメントコントロール・アコーディオン) / Overlay(今の画面の上に重ねて出す: オーバーレイの使い分け・モーダルダイアログ・フルスクリーンダイアログ・ボトムシート・サイドシート) / Containment(まとめて並べて見せる: カード・リスト・カルーセル・表) / Communication(状態を伝える: 情報伝達の使い分け〜ウィジェット)。URLは変えていない。以下の表と内訳は、分け直す前の6分類のまま残している(各ページの経緯の記録のため)。サイドバーの並びの正本は `sidebar-nav.jsx`。
+
 比較対象4系列: Apple(HIG) / Google(Material Design 3) / W3C(WCAG) / Nielsen Norman Group
 
 構成の並び順・グルーピングは、主要参照元であるHIGとMaterial Design 3の実際のドキュメント構成(Foundations→Components)に合わせて整理。コンポーネントの分類はMaterial Designの伝統的な6分類(Actions/Selection/Text inputs/Navigation/Containment/Communication)を採用。デジタル庁デザインシステム・LINE Design System・Shopify Polaris(検討時にSpotifyの参考として挙がったもの)の構成も、判断に迷う項目の置き場所を決める際の補助的な参考にした。
