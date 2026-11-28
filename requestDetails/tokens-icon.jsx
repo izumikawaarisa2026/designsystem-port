@@ -111,7 +111,7 @@ const SOURCES = [
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
     position: "意味を持つアイコンに代わりの文字(A)、アイコンだけの操作に支援技術へ伝わる名前(A)、3:1のコントラスト(AA)を求める",
-    size: <span>アイコン専用の基準はない。押せるなら24×24 CSS px以上(2.5.8・AA、例外あり)、44×44(2.5.5・AAA、例外あり)。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>。</span>,
+    size: <span>アイコン専用の基準はない。押せるなら24×24px以上(2.5.8・AA、例外あり)、44×44(2.5.5・AAA、例外あり)。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>。</span>,
     colorInfo: <>意味を伝えるアイコンは<Hl>隣の色と3:1以上</Hl>(1.4.11)。</>,
     glossary: [
       { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える文字以外のコンテンツに、同じ目的を果たす文字の代替を用意すること。" },

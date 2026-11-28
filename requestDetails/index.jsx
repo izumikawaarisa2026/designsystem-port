@@ -125,8 +125,8 @@ export default function IndexPage() {
                   </div>
                 ))}
               </div>
-              <h3 style={styles.h3}>単位の関係(pt・dp・CSS px)</h3>
-              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。ただし<strong>定義と基準の密度がそれぞれ違うため、数値をそのまま換算できる単位ではありません</strong>。スマートフォンの画面では、1pt・1dp・1 CSS pxがおおむね近い大きさで描かれるので、このサイトでは<strong>おおよその大きさを並べて比べる目安</strong>として扱います(AI解釈)。</p>
+              <h3 style={styles.h3}>単位の関係(pt・dp・px)</h3>
+              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。ただし<strong>定義と基準の密度がそれぞれ違うため、数値をそのまま換算できる単位ではありません</strong>。スマートフォンの画面では、1pt・1dp・1pxがおおむね近い大きさで描かれるので、このサイトでは<strong>おおよその大きさを並べて比べる目安</strong>として扱います(AI解釈)。</p>
               <div style={{ overflowX: "auto", marginBottom: 8 }}>
                 <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12.5, color: "#2E3457" }}>
                   <thead><tr>{["単位", "使う系列", "基準", "実際のピクセルとの関係", "出典"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
@@ -134,7 +134,7 @@ export default function IndexPage() {
                     {[
                       ["pt(ポイント)", "Apple", "@1xの画面で1pt=1ピクセル", "@2xの画面では2ピクセル、@3xでは3ピクセル", ["HIG Images ― Resolution", "https://developer.apple.com/design/human-interface-guidelines/images#Resolution"]],
                       ["dp(密度非依存ピクセル)", "Google(Android)", "160dpiの画面(基準の密度)の1ピクセルにほぼ等しい", "密度に合わせてAndroidが実際のピクセル数に換算する", ["Android Developers ― Use density-independent pixels", "https://developer.android.com/training/multiscreen/screendensities#TaskUseDP"]],
-                      ["CSS px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
+                      ["px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1pxが複数の実際のピクセルで描かれる(このサイトでは単に「px」と書く)", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
                     ].map((r) => (
                       <tr key={r[0]}>
                         <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", fontWeight: 700, whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td>
@@ -145,12 +145,12 @@ export default function IndexPage() {
                   </tbody>
                 </table>
               </div>
-              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24 CSS px(W3C)は、おおよその大きさとして並べて比べられます。厳密な換算ではないので、実際に作るときは各系列の単位のまま確かめてください。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
+              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24px(W3C)は、おおよその大きさとして並べて比べられます。厳密な換算ではないので、実際に作るときは各系列の単位のまま確かめてください。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
 
               <h3 style={styles.h3}>用語メモ</h3>
               <div style={styles.guideGrid}>
                 {[
-                  ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
+                  ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24px・約18.66px。Appleの18pt(画面の論理単位)とは別の単位。"],
                   ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=多くのガイドラインや調達の要件が参照する水準(求められるレベルは、地域の法律や契約などで変わる)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
                   ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、コンポーネントの作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
                   ["W3Cの参照ページのバッジ", "「達成基準 A/AA/AAA」=WCAGに適合するために満たす要件とそのレベル。「参考例 APG」=実装の参考例(適合の要件ではない)。「解説 MDN」=Mozillaによる解説(W3Cの文書ではない補足)。"],
