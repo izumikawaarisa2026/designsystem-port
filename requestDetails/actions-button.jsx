@@ -365,13 +365,64 @@ const SPECIAL_BTN_REFS = [
 ];
 const WHO_COLOR = { Apple: "#C2542A", Google: "#2F7D6E", W3C: "#A3821F", "NN group": "#7A4F7E" };
 
-function SpecialButtons() {
+/* 通常のボタンの種類・優先度(2026-11-28 チャットでの指示で、特別な役割のボタンと同じカードの形にまとめた。Apple HIG Buttons(Style)、Material Components for Android(Buttons)、NN group、W3C 1.4.11で確認) */
+const NORMAL_BUTTONS = [
+  {
+    name: "最も目立たせるボタン(主な操作)",
+    fig: { label: "保存", style: { background: "#3A4FCF", color: "#FFFFFF" } },
+    rules: [
+      ["Apple", "最も選ばれやすい操作に、目立つスタイル(背景にアクセントカラー)を使う。目立つボタンは1画面に1〜2個まで"],
+      ["Google", "Filled。FABの次に目立つ。「保存」「参加する」「確定」のように、流れを終える・先へ進める操作に使う"],
+      ["NN group", "主な操作には専用の色を確保し、ほかの操作と見分けられるようにする"],
+    ],
+  },
+  {
+    name: "少し控えめな主な操作",
+    fig: { label: "次へ", style: { background: "#DDE3FA", color: "#1E2A8A" } },
+    rules: [
+      ["Google", "Filled tonal。背景が薄く、Filledより目立たない。流れを終える・先へ進める操作だが、そこまで強調しなくてよいときに使う"],
+    ],
+  },
+  {
+    name: "副次的なボタン",
+    fig: { label: "カートに追加", style: { background: "transparent", color: "#3A4FCF", border: "1px solid #3A4FCF" } },
+    rules: [
+      ["Apple", "複数の選択肢を並べるとき、選ばれやすいものを目立つスタイルにし、残りは控えめなスタイルにする。差は大きさではなくスタイルで付け、大きさはそろえる"],
+      ["Google", "Outlined。注意は引きたいが主ではない操作(「すべて表示」「カートに追加」)や、考え直す・流れから抜ける操作に使う。Filledと組み合わせて副次的な操作を示す"],
+    ],
+  },
+  {
+    name: "いちばん控えめなボタン",
+    fig: { label: "詳しく見る", style: { background: "transparent", color: "#3A4FCF", padding: "5px 4px" } },
+    rules: [
+      ["Google", "Text。目立たないので、強調の低い操作に使う(いくつもの選択肢を並べるときなど)"],
+    ],
+  },
+  {
+    name: "背景から浮かせるボタン",
+    fig: { label: "共有", style: { background: "#FFFFFF", color: "#3A4FCF", boxShadow: "0 2px 4px rgba(23,27,54,0.25)" } },
+    rules: [
+      ["Google", "Elevated。影の付いたOutlinedで、模様のある背景から分けて見せる必要があるときだけに使う(影が増えすぎないように)"],
+    ],
+  },
+];
+const NORMAL_BTN_NOTE = "どの種類も、ボタンだと分かる境界や状態を背景と3:1以上で見分けられるようにする(W3C 1.4.11)。文字だけのボタンは、文字に4.5:1(1.4.3)がかかる。";
+const NORMAL_BTN_REFS = [
+  { label: "Apple: Buttons ― Style", url: "https://developer.apple.com/design/human-interface-guidelines/buttons#Style" },
+  { label: "Google: Buttons ― Guidelines", url: "https://m3.material.io/components/buttons/guidelines" },
+  { label: "Google: Material Components for Android ― Buttons(GitHub。各種類の使いどころ)", url: "https://github.com/material-components/material-components-android/blob/master/docs/components/CommonButton.md" },
+  { label: "NN group: Similarity Principle in Visual Design", url: "https://www.nngroup.com/articles/gestalt-similarity/" },
+  { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
+];
+
+/* ボタンの種類のカード(左に見本、右に系列ごとの決まり)。通常の種類と特別な役割の両方で使う */
+function ButtonCards({ title, intro, items, note, refs }) {
   return (
     <section style={{ marginBottom: 32 }}>
-      <h2 style={styles.diagramTitle}>特別な役割のボタン</h2>
-      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>見た目の優先度とは別に、<strong>決まった役割を持つボタン</strong>には、名前・置き場所・見た目の決まりがある。役割で分けているのはAppleで(Normal・Primary・Cancel・Destructive)、Google・NN group・W3Cは、ダイアログや確認の場面で決まりを持つ。記載のない系列は省いた。</p>
+      <h2 style={styles.diagramTitle}>{title}</h2>
+      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>{intro}</p>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {SPECIAL_BUTTONS.map((b) => (
+        {items.map((b) => (
           <div key={b.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
             <div style={{ flex: "1 0 170px", maxWidth: 220 }}>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 8 }}>{b.name}</div>
@@ -387,9 +438,33 @@ function SpecialButtons() {
           </div>
         ))}
       </div>
-      <p style={{ fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "8px 0" }}>並べ方(確定とキャンセルのどちらを右に置くか)は、系列で答えが分かれる(上の「意見が分かれる点」)。</p>
-      <div style={{ fontSize: 11, color: "#565D8A" }}><RefList refs={SPECIAL_BTN_REFS} /></div>
+      {note && <p style={{ fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "8px 0" }}>{note}</p>}
+      <div style={{ fontSize: 11, color: "#565D8A" }}><RefList refs={refs} /></div>
     </section>
+  );
+}
+
+function NormalButtons() {
+  return (
+    <ButtonCards
+      title="通常のボタンの種類・優先度"
+      intro={<>画面の中で<strong>どれだけ目立たせるか</strong>で選ぶ。5段階で分けているのはGoogle(Filled・Filled tonal・Outlined・Text・Elevated)で、Appleは「目立つスタイル/控えめなスタイル」の差、NN groupは主な操作に専用の色を当てることを求める。記載のない系列は省いた。</>}
+      items={NORMAL_BUTTONS}
+      note={NORMAL_BTN_NOTE}
+      refs={NORMAL_BTN_REFS}
+    />
+  );
+}
+
+function SpecialButtons() {
+  return (
+    <ButtonCards
+      title="特別な役割のボタン"
+      intro={<>見た目の優先度とは別に、<strong>決まった役割を持つボタン</strong>には、名前・置き場所・見た目の決まりがある。役割で分けているのはAppleで(Normal・Primary・Cancel・Destructive)、Google・NN group・W3Cは、ダイアログや確認の場面で決まりを持つ。記載のない系列は省いた。</>}
+      items={SPECIAL_BUTTONS}
+      note="並べ方(確定とキャンセルのどちらを右に置くか)は、系列で答えが分かれる(上の「意見が分かれる点」)。"
+      refs={SPECIAL_BTN_REFS}
+    />
   );
 }
 
@@ -428,6 +503,8 @@ export default function ActionsButtonPage() {
           />
 
           <SplitSection splits={SPLITS} />
+
+          <NormalButtons />
 
           <SpecialButtons />
 
