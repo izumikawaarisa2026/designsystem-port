@@ -321,15 +321,28 @@ const KP = [
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+/* 良い例・悪い例(2026-11-28 ⑩本人最終レビューNo.022: 「並べ方」は系列で答えが分かれる(意見が分かれる点)ため、4系列が一致する「1つだけ選ばせるとき」に差し替えた) */
 function GoodBadFigure() {
+  const radio = (on) => (
+    <span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{on && <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} />}</span>
+  );
+  const check = (on) => (
+    <span style={{ width: 16, height: 16, borderRadius: 3, border: "2px solid #3A4FCF", background: on ? "#3A4FCF" : "#FFFFFF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#FFFFFF", fontSize: 11, lineHeight: 1 }}>{on && "✓"}</span>
+  );
+  const list = (mark, states) => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start", fontSize: 12, color: "#2E3457" }}>
+      <span style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>配送方法</span>
+      {["通常配送", "お急ぎ便", "店舗受け取り"].map((t, i) => (<span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{mark(states[i])}{t}</span>))}
+    </div>
+  );
   return (
     <GoodBad
-            title="良い例・悪い例 ― 並べ方"
+            title="良い例・悪い例 ― 1つだけ選ばせるとき"
             items={[
-              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "選択肢を縦に1行1つで並べ、すべて見える。どの丸がどのラベルか迷わない。" },
-              { kind: "bad", fig: <div style={{ display: "flex", flexWrap: "nowrap", gap: 4, whiteSpace: "nowrap", fontSize: 12 }}><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>毎日配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>週に1回まとめて配送する</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>配送しない</span></span></div>, text: "長さの違うラベルを横に詰めて並べると、丸がどちらのラベルのものか分かりにくい。" },
+              { kind: "good", fig: list(radio, [false, true, false]), text: "丸いラジオボタンなので、1つだけ選ぶ項目だと見て分かる。別の項目を選ぶと、前の選択は外れる。" },
+              { kind: "bad", fig: list(check, [true, true, false]), text: "1つしか選べないのに四角いチェックボックスにすると、複数選べるように見え、実際に2つ選べてしまう。" },
             ]}
-            basis="Google(縦に1行1つが基本)、NN group(縦に並べ、すべての選択肢を常に見せる)。"
+            basis="Apple(2つ以上から1つだけ選ばせるならラジオボタン)、Google(1つだけ選ぶにはラジオボタン、複数ならチェックボックス)、NN group(相互に排他的な選択肢にはラジオボタン)。W3Cも、1つだけ選ぶグループと複数選べるグループを別の役割として伝える。"
           />
   );
 }

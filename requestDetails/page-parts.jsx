@@ -285,6 +285,7 @@ export function SplitSection({ title, splits }) {
               ))}
             </div>
             <div style={partStyles.splitTip}><strong>AI解釈: </strong>{s.tip}</div>
+            {s.refs && <div style={{ fontSize: 11, color: "#565D8A", marginTop: 8 }}><span style={{ fontWeight: 700, marginRight: 6 }}>この論点の出典</span><RefList refs={s.refs} /></div>}
           </div>
         ))}
       </div>

@@ -18,7 +18,7 @@ import { TagLink, SummaryCard, PageLink, RelatedPages } from "./page-parts";
  *
  * セレクト(プルダウン)は「Selection」の6コンポーネント目として比較対象に含めている(専用ページは作成済み)。
  * 2026-10-05、Selectionに後から加わった「セレクトの種類」「メニュー」「日付/タイムピッカー」への案内を
- * 「このカテゴリのほかのページ」として追加した(判断フローの6コンポーネントとは役割が異なるため、フローには含めない)。
+ * 「このカテゴリのほかのページ」として追加した(2026-11-28 ⑩本人最終レビューNo.020で不要として節ごと外した。判断フローの6コンポーネントとは役割が異なるため、フローには含めない)。
  */
 
 const CARDS = [
@@ -70,13 +70,6 @@ const CARDS = [
   },
 ];
 
-/* このカテゴリのほかのページ(表の6コンポーネントとは役割が違うもの) */
-const OTHERS = [
-  { name: "セレクトの種類", path: "/components/selection/select-patterns", text: "ホイールピッカーなど、プルダウン以外で1つを選ぶ形の一覧" },
-  { name: "メニュー", path: "/components/selection/menu", text: "値ではなく、操作(命令)を一覧から選ぶ。選んだ値を表示し続けたいならセレクト(プルダウン)" },
-  { name: "日付/タイムピッカー", path: "/components/selection/date-time-picker", text: "日付・時刻という決まった形の値を選ぶ。生年月日のように遠い日付は入力欄の方が速いことも" },
-  { name: "セグメントコントロール", path: "/components/navigation/segmented-control", text: "少ない選択肢から1つを選び、同じ場所の見え方をすぐ切り替える(表示形式の切り替えなど)" },
-];
 
 const styles = {
   useTable: { width: "100%", minWidth: 720, borderCollapse: "collapse", fontSize: 12, color: "#2E3457" },
@@ -185,11 +178,19 @@ function UseTable() {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       {USE_COLS.map((c) => (
-        <div key={c.k} style={{ display: "grid", gridTemplateColumns: "minmax(0, 200px) 1fr", gap: 10, alignItems: "start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
-          <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36" }}>{c.t}</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["◯"], width: 84, flexShrink: 0, paddingTop: 4 }}>◯ 向いている</span>{pick(c, "◯")}</div>
-            {pick(c, "△").length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR["△"], width: 84, flexShrink: 0, paddingTop: 4 }}>△ 場合による</span>{pick(c, "△")}</div>}
+        <div key={c.k} style={{ display: "flex", flexWrap: "wrap", gap: "8px 14px", alignItems: "flex-start", border: "1px solid #E1E3F0", borderRadius: 6, padding: "10px 12px" }}>
+          <div style={{ flex: "1 1 160px", maxWidth: 220, fontSize: 13, fontWeight: 700, color: "#171B36", lineHeight: 1.5 }}>{c.t}</div>
+          <div style={{ flex: "999 1 300px", minWidth: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+            {["◯", "△"].map((m) => {
+              const items = pick(c, m);
+              if (!items.length) return null;
+              return (
+                <div key={m} style={{ display: "grid", gridTemplateColumns: "84px minmax(0, 1fr)", gap: 8, alignItems: "start" }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: MARK_COLOR[m], paddingTop: 5 }}>{m === "◯" ? "◯ 向いている" : "△ 場合による"}</span>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "stretch" }}>{items}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}
@@ -244,17 +245,6 @@ export default function SelectionOverviewPage() {
           <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>したいことから選ぶ</h2>
           <UseTable />
           <p style={styles.diagramNote}>まず今したいことの行を見て、「◯ 向いている」のコンポーネントから選ぶ。「△ 場合による」は、添えた条件に合うときに使える。チップのように使い方で役割が変わるコンポーネントがあるため、はい/いいえで分ける図ではなく表にしている。この表は、各コンポーネントのページの内容をまとめた独自の整理。数値基準・アクセシビリティの詳細は、上のカードから各ページを参照。</p>
-
-          <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>このカテゴリのほかのページ</h2>
-          <p style={{ ...styles.diagramNote, margin: "0 0 12px" }}>表の6つのコンポーネントとは役割が少し違う、Selectionのページ。</p>
-          <div style={styles.othersGrid}>
-            {OTHERS.map((o) => (
-              <a key={o.path} href={o.path} style={styles.otherCard}>
-                <div style={styles.otherName}>{o.name} ↗</div>
-                <div style={styles.otherText}>{o.text}</div>
-              </a>
-            ))}
-          </div>
 
           <RelatedPages paths={["/components/selection/select-patterns", "/components/navigation/tabs-vs-segmented", "/components/containment/overview", "/components/communication/overview"]} />
 
