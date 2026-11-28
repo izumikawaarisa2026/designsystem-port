@@ -58,7 +58,7 @@ const SOURCES = [
     name: "W3C",
     doc: "WCAG 2.5.5 / 2.5.8",
     value: "24〜44",
-    unit: "CSS px",
+    unit: "px",
     diagramColor: "#A3821F",
     stance:
       "レベルAA(2.5.8)は24×24px以上を基本とし、足りない場合は周りの間隔で補えるとする。より厳格なレベルAAA(2.5.5)では44×44pxを求める、と段階的に基準を分けている。",

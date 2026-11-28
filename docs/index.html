@@ -1217,7 +1217,7 @@ const TAB_ACCESSIBILITY = [
     name: "W3C",
     doc: "WCAG 2.5.5 / 2.5.8",
     value: "24〜44",
-    unit: "CSS px",
+    unit: "px",
     stance:
       <><Hl>24×24px以上</Hl>(2.5.8・AA)。足りなければ周りの間隔で補える。AAA(2.5.5)は44×44px。</>,
     exceptions:
@@ -1494,9 +1494,9 @@ function RangeScale({ scale }) {
 
 const SYNTHESIS = {
   a11y: [
-    <>Appleは既定44×44pt・<strong>最小28×28pt</strong>(iOS/iPadOS)の2段階を示し、枠のある要素のまわりに約12ptの余白を勧める。W3Cの2.5.8も、24×24 CSS pxに足りない分を周りの間隔で補う例外を持つ。<strong>大きさが足りない分を間隔で補う考え方は、Apple・W3Cに共通</strong>する。</>,
-    <>数値に24〜48という幅があるのは、<strong>最低ライン(W3C 2.5.8・AA)</strong>と、<strong>快適に押せる目安(Apple 44pt・Google 48dp・W3C 2.5.5のAAA 44 CSS px・NN groupの約1cm四方)</strong>という、違う問いに答えているため。</>,
-    <>主なボタンは<strong>44pt(Apple)・48dp(Google)を基準</strong>にする。密な画面で縮めるときの最低ラインは、<strong>W3C 2.5.8の24×24 CSS px(AA・例外あり)</strong>。それより小さくするなら、中心に描いた直径24 CSS pxの円が隣と重ならない<strong>間隔を空ける</strong>。</>,
+    <>Appleは既定44×44pt・<strong>最小28×28pt</strong>(iOS/iPadOS)の2段階を示し、枠のある要素のまわりに約12ptの余白を勧める。W3Cの2.5.8も、24×24pxに足りない分を周りの間隔で補う例外を持つ。<strong>大きさが足りない分を間隔で補う考え方は、Apple・W3Cに共通</strong>する。</>,
+    <>数値に24〜48という幅があるのは、<strong>最低ライン(W3C 2.5.8・AA)</strong>と、<strong>快適に押せる目安(Apple 44pt・Google 48dp・W3C 2.5.5のAAA 44px・NN groupの約1cm四方)</strong>という、違う問いに答えているため。</>,
+    <>主なボタンは<strong>44pt(Apple)・48dp(Google)を基準</strong>にする。密な画面で縮めるときの最低ラインは、<strong>W3C 2.5.8の24×24px(AA・例外あり)</strong>。それより小さくするなら、中心に描いた直径24pxの円が隣と重ならない<strong>間隔を空ける</strong>。</>,
   ],
   styles: [
     <>ボタンを「種類」で分ける発想はAppleとGoogleに共通しているが、<strong>分け方の軸が違う</strong>。Appleは「何のための操作か」という意味(Role)、Googleは「どれだけ目立たせるか」という優先度(emphasis)で分類している。</>,
@@ -1666,17 +1666,17 @@ const SPLITS = [
     sides: [
       { who: "Apple", color: "#C2542A", t: "既定44×44pt・最小28×28pt(iOS・iPadOS)。足りない分は周りの余白(枠のあるコンポーネントで約12pt)で補う" },
       { who: "Google", color: "#2F7D6E", t: "48×48dp。見た目が小さくても、押せる範囲は48dpを確保する" },
-      { who: "W3C", color: "#A3821F", t: "24×24 CSS px(2.5.8・AA)/44×44 CSS px(2.5.5・AAA)。どちらも例外あり。小さい場合は、中心の直径24 CSS pxの円が隣と重ならない間隔で補える" },
+      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり。小さい場合は、中心の直径24pxの円が隣と重ならない間隔で補える" },
       { who: "NN group", color: "#7A4F7E", t: "数値基準ではなく目安として約1cm四方" },
     ],
-    tip: "24 CSS px(W3CのAA)は「最低ライン」、44pt(Apple)・48dp(Google)・44 CSS px(W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44pt・48dpを基準にし、密な画面で24 CSS pxより小さくするなら、周りに十分な間隔を空ける(2.5.8・例外あり。詳しくは下の「押せる範囲の大きさ」)。",
+    tip: "24px(W3CのAA)は「最低ライン」、44pt(Apple)・48dp(Google)・44px(W3CのAAA)は「快適に押せる目安」と、答えている問いが違う。主なボタンは44pt・48dpを基準にし、密な画面で24pxより小さくするなら、周りに十分な間隔を空ける(2.5.8・例外あり。詳しくは下の「押せる範囲の大きさ」)。",
   },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "主なボタンの押せる範囲は44pt・48dp", d: "Apple 44×44pt、Google 48×48dp", who: "Apple・Google" },
-  { n: 2, t: "24 CSS px未満にするなら、周りに間隔を空ける", d: "24×24 CSS pxが最低ライン。足りない分は周りの間隔で補える(例外あり)", who: "W3C 2.5.8" },
+  { n: 2, t: "24px未満にするなら、周りに間隔を空ける", d: "24×24pxが最低ライン。足りない分は周りの間隔で補える(例外あり)", who: "W3C 2.5.8" },
   { n: 3, t: "まず操作の意味を決め、次に目立たせ方を選ぶ", d: "役割(Apple)と優先度(Google)は両立する", who: "AI解釈" },
   { n: 4, t: "削除のような操作は目立たせすぎない", d: "選ばれやすくても目立つ見た目にしない", who: "Apple" },
   { n: 5, t: "主な操作と副次的な操作を見分けられるように", d: "主な操作に専用の色を当てる", who: "NN group" },
@@ -1695,7 +1695,7 @@ function GoodBadFigure() {
           {[76, 100, 124].map((x) => (<g key={x}><rect x={x - 24} y="11" width="48" height="48" fill="none" stroke="#C0503F" strokeDasharray="4 3" /><rect x={x - 11} y="24" width="22" height="22" rx="5" fill="#3A4FCF" /></g>))}
         </svg><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さいボタンが余白なしで並び、押せる範囲が重なる。押し間違えやすい。" },
           ]}
-          basis="Apple(既定44×44pt。足りない分は周りの余白で補う)、Google(48×48dp)、W3C 2.5.8(24×24 CSS px・AA。例外あり。小さい場合は、中心に描いた直径24pxの円が隣と重ならない間隔で補える)。"
+          basis="Apple(既定44×44pt。足りない分は周りの余白で補う)、Google(48×48dp)、W3C 2.5.8(24×24px・AA。例外あり。小さい場合は、中心に描いた直径24pxの円が隣と重ならない間隔で補える)。"
         />
   );
 }
@@ -1932,7 +1932,7 @@ const SOURCES = [
     position: "ボタンと同じ一般の基準を適用",
     size: "―(FAB固有の規定なし。一般の基準はアクセシビリティの欄を参照)",
     stance:
-      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24 CSS px以上、レベルAAA(2.5.5)は44×44 CSS pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。例外: 2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。</>,
+      <>WCAGはボタンの形や配置(浮いているか)を区別せず、押せる要素すべてに同じターゲットサイズの基準を適用する。<Hl>レベルAA(2.5.8)は24×24px以上、レベルAAA(2.5.5)は44×44pxを求める</Hl>(どちらも例外あり。詳細は「ボタン」ページ参照)。例外: 2.5.8(AA)の例外は5つ: ①間隔(24px未満なら、中心に描いた直径24pxの円が隣と重ならない)、②同じ機能の十分な大きさの代替がある、③文中のリンクなど、④ユーザーエージェントが大きさを決めている、⑤その大きさや配置に意味があり欠かせない。2.5.5(AAA)にも例外がある。FAB特有の規定はない。</>,
     exceptions:
       <NoData>記載なし</NoData>,
     pourDetail: "操作可能(Operable) ― 入力方法(2.5)の達成基準。",
@@ -2154,7 +2154,7 @@ const SPLITS = [
       { who: "Google", color: "#2F7D6E", t: "FAB 56dp・中サイズ 80dp(最も推奨)・大サイズ 96dp" },
       { who: "W3C", color: "#A3821F", t: "ボタンと同じ基準。24×24px(2.5.8・AA)/44×44px(2.5.5・AAA)。どちらも例外あり" },
     ],
-    tip: "Googleのいちばん小さいFAB(56dp)は、W3CのAA(24 CSS px)・AAA(44 CSS px)よりおおよそ大きい。ただしdpとCSS pxは別の単位なので、Webで作るときは実際のCSS pxで確かめる。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
+    tip: "Googleのいちばん小さいFAB(56dp)は、W3CのAA(24px)・AAA(44px)よりおおよそ大きい。ただしdpとpxは別の単位なので、Webで作るときは実際のpxで確かめる。FABは画面の内容に重なるので、大きくするほど下の内容を隠す点にも気をつける(重なりについては「エレベーション」ページ)。",
   },
 ];
 
@@ -2208,7 +2208,7 @@ function ActionsFabPage() {
               <strong>AppleにはFABに当たるコンポーネントがない</strong>。
             </p>
             <p style={styles.synthesisText}>
-              WCAGは形状を区別せず、<strong>ボタンと同じ押せる範囲の基準(AA 24×24 CSS px / AAA 44×44 CSS px。どちらも例外あり)</strong>がそのまま当てはまる。GoogleのFABの寸法(56dpなど)はdpで決められた値なので、Webで作るときはCSS pxで別に確かめる。
+              WCAGは形状を区別せず、<strong>ボタンと同じ押せる範囲の基準(AA 24×24px / AAA 44×44px。どちらも例外あり)</strong>がそのまま当てはまる。GoogleのFABの寸法(56dpなど)はdpで決められた値なので、Webで作るときはpxで別に確かめる。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -7330,7 +7330,7 @@ const WIDGET_RULES = [
   { k: "一目で分かる量にし、途中で切らない", t: "情報を詰め込みすぎない。見出しや文を省略せず、最小サイズでも要点が伝わるようにする", who: "Apple・NN group" },
   { k: "古い情報を出さない", t: "リアルタイムには更新されないため、必要なら最終更新の時刻を示す。操作したら内容を更新する", who: "Apple・Google" },
   { k: "置かれる場所になじませる", t: "マスを端まで埋め、テーマの色・ライト/ダーク・システムの角丸に合わせる。表示モードが変わっても意味が伝わるようにする", who: "Apple・Google" },
-  { k: "読める・押せる", t: "文字は一般に11pt以上(Apple)、押せる範囲は48×48dp(Google)、コントラストを確保し色だけに頼らない(W3C)。pt・dpとWebのCSS pxは別の単位", who: "Apple・Google・W3C" },
+  { k: "読める・押せる", t: "文字は一般に11pt以上(Apple)、押せる範囲は48×48dp(Google)、コントラストを確保し色だけに頼らない(W3C)。pt・dpとWebのpxは別の単位", who: "Apple・Google・W3C" },
 ];
 
 const WIDGET_SCENES = ["天気(今の気温と予報)", "ニュースの見出し", "メールなどの一覧(コレクション型)", "検索バー(Androidの4×1)", "写真を全面に見せる", "ボタン・トグルでの簡単な操作", "ロック画面(時計の上の1行・下の円形/長方形)", "StandBy", "Macのデスクトップ", "Apple Watch"];
@@ -13533,8 +13533,8 @@ function IndexPage() {
                   </div>
                 ))}
               </div>
-              <h3 style={styles.h3}>単位の関係(pt・dp・CSS px)</h3>
-              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。ただし<strong>定義と基準の密度がそれぞれ違うため、数値をそのまま換算できる単位ではありません</strong>。スマートフォンの画面では、1pt・1dp・1 CSS pxがおおむね近い大きさで描かれるので、このサイトでは<strong>おおよその大きさを並べて比べる目安</strong>として扱います(AI解釈)。</p>
+              <h3 style={styles.h3}>単位の関係(pt・dp・px)</h3>
+              <p style={styles.p}>3つとも、画面の細かさ(密度)に左右されない「論理的な単位」です。ただし<strong>定義と基準の密度がそれぞれ違うため、数値をそのまま換算できる単位ではありません</strong>。スマートフォンの画面では、1pt・1dp・1pxがおおむね近い大きさで描かれるので、このサイトでは<strong>おおよその大きさを並べて比べる目安</strong>として扱います(AI解釈)。</p>
               <div style={{ overflowX: "auto", marginBottom: 8 }}>
                 <table style={{ width: "100%", minWidth: 520, borderCollapse: "collapse", fontSize: 12.5, color: "#2E3457" }}>
                   <thead><tr>{["単位", "使う系列", "基準", "実際のピクセルとの関係", "出典"].map((h) => (<th key={h} style={{ textAlign: "left", fontSize: 11.5, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" }}>{h}</th>))}</tr></thead>
@@ -13542,7 +13542,7 @@ function IndexPage() {
                     {[
                       ["pt(ポイント)", "Apple", "@1xの画面で1pt=1ピクセル", "@2xの画面では2ピクセル、@3xでは3ピクセル", ["HIG Images ― Resolution", "https://developer.apple.com/design/human-interface-guidelines/images#Resolution"]],
                       ["dp(密度非依存ピクセル)", "Google(Android)", "160dpiの画面(基準の密度)の1ピクセルにほぼ等しい", "密度に合わせてAndroidが実際のピクセル数に換算する", ["Android Developers ― Use density-independent pixels", "https://developer.android.com/training/multiscreen/screendensities#TaskUseDP"]],
-                      ["CSS px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1 CSS pxが複数の実際のピクセルで描かれる", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
+                      ["px(CSSピクセル)", "W3C(Web)", "参照ピクセル(約96dpiの画面を、腕を伸ばした距離で見たときの1ピクセルの見え方)", "高精細な画面では、1pxが複数の実際のピクセルで描かれる(このサイトでは単に「px」と書く)", ["CSS Values and Units ― Absolute lengths", "https://www.w3.org/TR/css-values-4/#absolute-lengths"]],
                     ].map((r) => (
                       <tr key={r[0]}>
                         <td style={{ padding: "8px 10px", borderBottom: "1px solid #EEF0F7", fontWeight: 700, whiteSpace: "nowrap", verticalAlign: "top" }}>{r[0]}</td>
@@ -13553,12 +13553,12 @@ function IndexPage() {
                   </tbody>
                 </table>
               </div>
-              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24 CSS px(W3C)は、おおよその大きさとして並べて比べられます。厳密な換算ではないので、実際に作るときは各系列の単位のまま確かめてください。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
+              <p style={styles.p}>このため、44pt(Apple)・48dp(Google)・24px(W3C)は、おおよその大きさとして並べて比べられます。厳密な換算ではないので、実際に作るときは各系列の単位のまま確かめてください。NN groupは、多くの場合こうした単位の数値基準を持ちません。</p>
 
               <h3 style={styles.h3}>用語メモ</h3>
               <div style={styles.guideGrid}>
                 {[
-                  ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24 CSS px・約18.66 CSS px。Appleの18pt(画面の論理単位)とは別の単位。"],
+                  ["WCAGの文字サイズ(18pt・14pt)", "WCAGの「大きな文字」の18pt・14pt(太字)は印刷の単位で、Webではそれぞれおよそ24px・約18.66px。Appleの18pt(画面の論理単位)とは別の単位。"],
                   ["WCAGのレベル(A・AA・AAA)", "達成基準ごとの適合レベル。A=最低限、AA=多くのガイドラインや調達の要件が参照する水準(求められるレベルは、地域の法律や契約などで変わる)、AAA=より高い水準。番号の先頭の数字は原則(1=知覚可能・2=操作可能・3=理解可能・4=堅牢)。"],
                   ["APG(ARIA Authoring Practices Guide)", "W3Cが公開している、コンポーネントの作り方(キー操作やARIAの使い方)の参考例集。WCAGのような適合の基準ではない。"],
                   ["W3Cの参照ページのバッジ", "「達成基準 A/AA/AAA」=WCAGに適合するために満たす要件とそのレベル。「参考例 APG」=実装の参考例(適合の要件ではない)。「解説 MDN」=Mozillaによる解説(W3Cの文書ではない補足)。"],
@@ -14727,7 +14727,7 @@ const DRAWER_SOURCES = [
     position:
       <>コンパクト・中サイズの画面で、ボタンを押して一時的に開くドロワー。スクリムで後ろの画面を覆う(Modal)。<Hl>5つ以上の主な行き先、または2階層を超える場合に使う</Hl></>,
     size:
-      <span>コンパクト・中サイズのブレークポイントではModal(またはタブバー/ナビゲーションレールへの置き換え)を使う。Webでは画面幅が320 CSS px未満なら、タブバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
+      <span>コンパクト・中サイズのブレークポイントではModal(またはタブバー/ナビゲーションレールへの置き換え)を使う。Webでは画面幅が320px未満なら、タブバーに置き換える。ドロワーの幅は360dp(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はデザイントークンで実装する。選択中の行き先は塗りのアイコン、未選択は枠線のアイコンで区別し、アクティブインジケーター(背景の図形)で今のページを示す。ドロワーの幅は360dp、インジケーターは高さ56dp・Secondary container・角丸Full、モーダルの容器はSurface container low・影Level 1(Jetpack ComposeのNavigationDrawerTokens)。</span>,
     glossary: [
@@ -14773,7 +14773,7 @@ const DRAWER_SOURCES = [
     position:
       <>「ドロワー」専用の型はなく、後ろを操作できなくするドロワーは、<Hl>ダイアログ(モーダル)として作る</Hl></>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、閉じるボタンや選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
@@ -14928,7 +14928,7 @@ const RAIL_SOURCES = [
     term: "ナビゲーション領域(WAI-ARIAの役割)",
     color: "#A3821F",
     position: "常に表示するサイドナビは、ナビゲーションの領域(目印)として示す",
-    size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり)。",
+    size: "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり)。",
     colorInfo: "1.4.11(非テキストのコントラスト)により、選択状態を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
       { term: "3.2.3 Consistent Navigation・レベルAA", desc: "複数のページで繰り返し出るナビゲーションを、いつも同じ順番で並べること。利用者が自分で並びを変えた場合は除く。" },
@@ -15469,7 +15469,7 @@ const SOURCES = [
     color: "#A3821F",
     position: <>ナビゲーションのリンクのまとまりを、<Hl>1つの領域(目印)として支援技術に伝える</Hl></>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中の項目を示す見た目は3:1以上のコントラスト比にする。",
     glossary: [
@@ -17529,7 +17529,7 @@ const SOURCES = [
     count:
       <span><Hl>固定タブは一度に4個までを推奨し、5個以上は容器が窮屈になる</Hl>。多いときはスクロールできるタブにし、最初のタブを端から52dp離して、スクロールできることを示す。</span>,
     size:
-      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。押せる範囲は48×48 CSS px以上(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。タブの高さ(48dp)とは別の値。既定で高密度の設定を適用せず(押せる範囲が48×48 CSS pxを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48 CSS px以上に保つ。",
+      "タブの高さは48dp(アイコンとラベルを並べると64dp)、選んだタブの下線(インジケーター)の太さは3dp(Jetpack Composeのトークン)。押せる範囲は48×48px以上(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。タブの高さ(48dp)とは別の値。既定で高密度の設定を適用せず(押せる範囲が48×48pxを下回るため)、高密度のレイアウトを選ぶ場合も各要素を48×48px以上に保つ。",
     colorInfo:
       <span>選んだタブは、文字とアイコンの下線と色の変化で区別する。</span>,
     glossary: [
@@ -17541,7 +17541,7 @@ const SOURCES = [
     exceptions:
       <NoData>記載なし</NoData>,
     accessibility:
-      "操作可能(Operable) ― 押せる範囲を48×48 CSS px以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
+      "操作可能(Operable) ― 押せる範囲を48×48px以上にし(「サイズ」を参照)、アイコンだけで文字のないタブには読み上げ用のラベルを付ける。",
     useCases: [
       "同じ階層の関連する内容をカテゴリにまとめる(順に読む内容には使わない)",
       "階層が複数要るなら、プライマリ+セカンダリの2段にする",
@@ -17577,7 +17577,7 @@ const SOURCES = [
     count:
       <NoData>記載なし</NoData>,
     size:
-      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択中のタブを示す下線や背景などは3:1以上のコントラスト比にする。",
     glossary: [
@@ -19044,14 +19044,14 @@ const GROUPS = [
   ] },
   { id: "text", title: "文字とレイアウト", desc: "拡大・狭い幅・向きの変化で崩れないこと", items: [
     { n: "1.4.4", name: "テキストのサイズ変更", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/resize-text.html", req: "文字を200%まで拡大しても内容と機能が失われない。", why: "弱視の人など、文字を大きくして読む人が、内容や機能を失わずに使えるようにするため。", design: "固定の高さに文字を押し込めない。拡大で文字が切れたり重なったりしないかを確かめる。ページ全体のズームで満たしてもよい。", exc: "字幕と文字画像。", pages: ["/components/text-inputs/text-field", "/tokens/typography"] },
-    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320 CSS px相当でも、縦横2方向のスクロールなしで読める。", why: "拡大して読む人は、1行ごとに横へスクロールすると、どこを読んでいたかを見失いやすいため。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
+    { n: "1.4.10", name: "リフロー", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html", req: "幅320px相当でも、縦横2方向のスクロールなしで読める。", why: "拡大して読む人は、1行ごとに横へスクロールすると、どこを読んでいたかを見失いやすいため。", design: "幅1280pxを400%に拡大した状態に当たる。狭い幅では1列に組み替える(横に並んだものは縦に積む)。", exc: "データ表・地図・図・動画・ゲームなど、2次元の配置が欠かせない部分。", pages: ["/components/text-inputs/text-field", "/tokens/adaptive", "/tokens/layout-spacing"] },
     { n: "1.4.12", name: "テキストの間隔", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html", req: "利用者が文字の間隔を広げても崩れない。", why: "読字障害や弱視の人などは、文字の間隔を広げると読みやすくなる。その設定で表示が崩れると、かえって読めなくなるため。", design: "行の高さ1.5倍・段落の後2倍・字間0.12倍・単語間隔0.16倍に広げても、文字が切れたり重なったりしない。この値をデザインの初期値にする必要はない。", exc: "その言語でもともと使わない間隔(単語の間にスペースがない言語の単語間隔など)。", pages: ["/tokens/typography"] },
     { n: "1.3.4", name: "向き(orientation)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/orientation.html", req: "画面の向きを縦・横の一方に固定しない。", why: "端末を車いすなどに固定して使う人は、画面を回転させられないため。", design: "縦向き・横向きのどちらでも使えるようにする。", exc: "小切手・ピアノのアプリ・VRなど、特定の向きが欠かせないもの。", pages: ["/tokens/adaptive"] },
     { n: "1.3.1", name: "情報及び関係性", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/info-and-relationships.html", req: "見た目で伝えている構造や関係を、構造としても伝える。", why: "読み上げで使う人には、見出しの大きさや余白によるまとまりといった、見た目の手がかりが伝わらないため。", design: "見出し・リスト・表の見出しとデータの関係・余白でまとめたグループなどを、見た目だけでなく構造でも示す。余白だけのまとまりは読み上げでは伝わらない。", exc: "", pages: ["/components/containment/list", "/components/containment/table", "/components/text-inputs/text-field", "/tokens/layout-spacing"] },
   ] },
   { id: "target", title: "押せる範囲と入力の方法", desc: "指・ポインター・キーボードなど、入力の手段ごとの決まり", items: [
-    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24 CSS px以上にする(例外あり)。", why: "手の震えがある人や指の動きが不自由な人は、小さい対象を正確に押せず、隣の対象を押し間違えやすいため。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
-    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44 CSS px以上にする。", why: "手の震えや指の動きに不自由がある人に加えて、移動中や片手での操作など、誰でも押し間違えやすい場面でも確実に押せるようにするため。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
+    { n: "2.5.8", name: "ターゲットのサイズ(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html", req: "押す対象を24×24px以上にする(例外あり)。", why: "手の震えがある人や指の動きが不自由な人は、小さい対象を正確に押せず、隣の対象を押し間違えやすいため。", design: "小さい場合は、各対象の中心に直径24pxの円を置いて、ほかの対象やその円と重ならない間隔があれば適合する。角丸が大きく内側に24px四方が収まらない対象は「小さい対象」として扱う。", exc: "5つ: ①間隔(上の円の条件)、②同じ機能の十分な大きさの代わりがある、③文中のリンクなど文章の行の中にある、④ブラウザが大きさを決めていて変えていない、⑤その大きさや配置が欠かせない(地図のピンなど)。", pages: ["/components/actions/button", "/components/actions/fab", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio", "/components/selection/select", "/components/selection/slider", "/components/selection/toggle", "/tokens/layout-spacing", "/tokens/shape"] },
+    { n: "2.5.5", name: "ターゲットのサイズ(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html", req: "押す対象を44×44px以上にする。", why: "手の震えや指の動きに不自由がある人に加えて、移動中や片手での操作など、誰でも押し間違えやすい場面でも確実に押せるようにするため。", design: "Appleの44pt、Googleの48dpに近い、より高い水準。主要なボタンの目安にしやすい。", exc: "②〜⑤と同じ種類の例外がある(2.5.8の間隔の例外はない)。", pages: ["/components/actions/button", "/components/navigation/nav-bar", "/components/navigation/tabs", "/components/selection/checkbox", "/components/selection/radio"] },
     { n: "2.5.1", name: "ポインタジェスチャ", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-gestures.html", req: "2本指以上や軌跡で決まる操作に、1本指で軌跡のない代わりを用意する。", why: "複数の指を同時に使う操作や、決まった軌跡を描く操作は、指の動きが不自由な人や、口にくわえる棒・頭の動きで操作する道具を使う人には難しいため。", design: "ピンチでの拡大には+/−のボタン、スワイプでの送りには前へ・次へのボタンなど。", exc: "軌跡そのものが欠かせない操作(手書きの署名など)。", pages: ["/tokens/input-methods"] },
     { n: "2.5.2", name: "ポインタキャンセル", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/pointer-cancellation.html", req: "押した瞬間ではなく、離したときに実行する。", why: "押した瞬間に実行すると、手の震えなどで誤って触れたときに、取り消す機会がないため。", design: "誤って触れても、指をボタンの外へずらして離せば取り消せるようにする。", exc: "キーボードやピアノの鍵盤をまねるなど、押した瞬間の実行が欠かせないもの。", pages: ["/tokens/input-methods"] },
     { n: "2.5.4", name: "動きによる起動", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/motion-actuation.html", req: "端末を振る・傾けるなどの動きで行う機能に、画面上の代わりと、動きを切る手段を用意する。", why: "端末を振る・傾ける操作は、体の動きが不自由な人や端末を固定している人にはできないため。意図しない動きで誤って実行されることも防ぐ。", design: "「振って元に戻す」には取り消しボタンも置き、動きへの反応を無効にできるようにする。", exc: "OSのアクセシビリティ機能など、支援の仕組みで動きを使う場合。", pages: ["/tokens/input-methods"] },
@@ -19063,7 +19063,7 @@ const GROUPS = [
   { id: "focus", title: "フォーカスとホバー", desc: "今どこを操作しているかが分かり、勝手に動かないこと", items: [
     { n: "2.4.3", name: "フォーカス順序", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html", req: "フォーカスの順番が、意味と操作の流れに沿っている。", why: "キーボードや読み上げで使う人は、フォーカスの順番どおりに内容をたどる。順番が飛ぶと、意味や操作の流れがつかめないため。", design: "見た目の並びと読む順番をそろえる。ダイアログを閉じたら、開いたボタンにフォーカスを戻す。", exc: "", pages: ["/tokens/input-methods"] },
     { n: "2.4.7", name: "フォーカスの可視化", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html", req: "キーボードで操作するとき、フォーカスの位置が見える。", why: "キーボードで操作する人は、フォーカスの位置が見えないと、今どこを操作しているのか分からないため。", design: "フォーカスの表示を消さない。色の変化だけに頼らず、輪郭線などで示すと分かりやすい。", exc: "", pages: ["/components/actions/button", "/tokens/interaction-states"] },
-    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", why: "細い・薄いフォーカスの表示は、弱視の人や画面から離れて見る人には見つけにくいため。", design: "コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
+    { n: "2.4.13", name: "フォーカスの外観", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-appearance.html", req: "フォーカスの表示を十分な大きさとコントラストにする。", why: "細い・薄いフォーカスの表示は、弱視の人や画面から離れて見る人には見つけにくいため。", design: "コンポーネントの周りを2pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化をつける。", exc: "ブラウザが決めていて作者が調整できないフォーカス表示。", pages: ["/tokens/interaction-states"] },
     { n: "2.4.11", name: "隠されないフォーカス(最低限)", level: "AA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html", req: "フォーカスしたコンポーネントが、固定ヘッダーやバナーなど作者が作った重なりで完全に隠れない。", why: "フォーカスした先が隠れると、キーボードで操作する人は、今どこにいるのかが分からなくなるため。", design: "上部の固定ヘッダーや下部のCookieバナーの下にフォーカスが入り込まないよう、スクロールの位置を調整する。", exc: "利用者が自分で開いた内容で、フォーカスを移さずに閉じられるもの。", pages: ["/tokens/elevation"] },
     { n: "2.4.12", name: "隠されないフォーカス(高度)", level: "AAA", url: "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-enhanced.html", req: "フォーカスしたコンポーネントが、一部も隠れない。", why: "一部でも隠れると、フォーカスしたコンポーネントが何かを見分けにくくなる場合があるため。", design: "固定ヘッダーやバナーに少しでもかかるなら、スクロールの位置を調整するか、重なりそのものをなくす。", exc: "", pages: ["/tokens/elevation"] },
     { n: "3.2.1", name: "フォーカス時", level: "A", url: "https://www.w3.org/WAI/WCAG22/Understanding/on-focus.html", req: "フォーカスが当たっただけで、文脈を変えない。", why: "フォーカスを当てるたびに画面が変わると、キーボードや読み上げで使う人は、何が起きたのか分からずに迷うため。", design: "フォーカスしただけで別のページへ遷移する・新しいウィンドウを開く・送信する、といったことを起こさない。", exc: "", pages: ["/components/navigation/tabs", "/components/selection/select"] },
@@ -19475,7 +19475,7 @@ const SOURCES = [
     states:
       <span>親チェックボックスは<Hl>「選択済み」「未選択」「未確定(indeterminate)」の3状態</Hl>を持つ。子の一部だけが選択されていると親は未確定になり、未確定の親を選ぶとすべての子が選択される。</span>,
     size:
-      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48 CSS px</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
+      <span>既定で高密度の設定を適用しない。<Hl>推奨の押せる範囲は48×48px</Hl>(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。高密度のレイアウトを選べるようにする場合も、各要素を48×48px以上に戻せるようにする。四角は18×18dp・枠線2dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。</span>,
     colorInfo:
       <span>色の値はカラーロールに対応する<Hl>デザイントークンを通じて実装</Hl>する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。</span>,
     glossary: [
@@ -19524,7 +19524,7 @@ const SOURCES = [
     states:
       <span>4.1.2により、<Hl>状態(オン・オフ・不定)</Hl>が支援技術に伝わる必要がある。</span>,
     size:
-      <span>専用の数値基準はなく、WCAG 2.2で加わった一般のターゲットサイズの基準がかかる。<Hl>2.5.8(レベルAA)は最低24×24 CSS px</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44 CSS px</Hl>(どちらも例外あり。詳しくは「ボタン」ページ)。押せる要素全般の基準で、チェックボックス固有ではない。</span>,
+      <span>専用の数値基準はなく、WCAG 2.2で加わった一般のターゲットサイズの基準がかかる。<Hl>2.5.8(レベルAA)は最低24×24px</Hl>、<Hl>2.5.5(レベルAAA、拡張基準)は44×44px</Hl>(どちらも例外あり。詳しくは「ボタン」ページ)。押せる要素全般の基準で、チェックボックス固有ではない。</span>,
     colorInfo:
       <span>1.4.11(非テキストのコントラスト、レベルAA)により、境界線や状態を示す見た目は、隣の色と3:1以上にする。1.4.1(色の用途、レベルA)により、<Hl>色だけで選択状態を示さない</Hl>。</span>,
     stance:
@@ -19684,11 +19684,11 @@ const SPLITS = [
       </>
     ),
     sides: [
-      { who: "Google", color: "#2F7D6E", t: "48×48 CSS pxを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
-      { who: "W3C", color: "#A3821F", t: "24×24 CSS px(2.5.8・レベルAA)/44×44 CSS px(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
+      { who: "Google", color: "#2F7D6E", t: "48×48pxを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
+      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・レベルAA)/44×44px(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
       { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
     ],
-    tip: "ラベルも含めた押せる範囲を48×48 CSS px以上にしておけば、Googleの基準を満たし、W3Cの24 CSS px(AA)・44 CSS px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
+    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
   },
 ];
 
@@ -19751,7 +19751,7 @@ function SizeRangeScale() {
 const KP = [
   { n: 1, t: "いくつでも選べるときに使う", d: "1つだけ選ぶならラジオボタン", who: "Apple・Google・W3C・NN group" },
   { n: 2, t: "確定のタイミングを1つの画面でそろえる", d: "保存ボタンで確定するか、押してすぐ反映するか(絞り込みなど)を画面の中で混ぜない。すぐ反映する設定はスイッチも検討", who: "AI解釈" },
-  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48 CSS px以上にする", who: "Google・NN group" },
+  { n: 3, t: "ラベルも押せるようにする", d: "ラベルを含めて48×48px以上にする", who: "Google・NN group" },
   { n: 4, t: "子の項目が一部だけ選ばれているとき、親のチェックボックスは「―」の印で示す", d: "この状態を「不定」と呼ぶ。全部選ばれていれば✓、1つもなければ空", who: "Apple・Google・NN group" },
   { n: 5, t: "縦に1行1つずつ並べる", d: "横に並べるなら、どのラベルがどの箱か分かる間隔を空ける", who: "NN group" },
 ];
@@ -19765,7 +19765,7 @@ function GoodBadFigure() {
               { kind: "good", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 14px", border: "1.5px dashed #2F7D6E", borderRadius: 4 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "四角とラベルの全体が押せる範囲(点線)。ラベルを押しても選べる。" },
               { kind: "bad", fig: <><span style={{ display: "inline-flex", alignItems: "center", gap: 8 }}><span style={{ display: "inline-flex", padding: 2, border: "1.5px dashed #C0503F", borderRadius: 3 }}><span style={{ width: 18, height: 18, borderRadius: 3, border: "2px solid #3A4FCF", background: "#3A4FCF", color: "#FFFFFF", fontSize: 12, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>✓</span></span><span style={{ fontSize: 13, color: "#2E3457" }}>お知らせメールを受け取る</span></span><span style={{ fontSize: 11, color: "#454C78", fontFamily: "'IBM Plex Mono', monospace" }}>点線=押せる範囲(概念図)</span></>, text: "小さい四角だけが押せる。ラベルを押しても選べず、押し損ねやすい。" },
             ]}
-            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48 CSS px)、W3C 2.5.8(24 CSS px・AA)・2.5.5(44 CSS px・AAA。どちらも例外あり)。"
+            basis="Google・NN group(ラベルを押して選べるようにする)、Google(48×48px)、W3C 2.5.8(24px・AA)・2.5.5(44px・AAA。どちらも例外あり)。"
           />
   );
 }
@@ -19815,7 +19815,7 @@ function SelectionCheckboxPage() {
               Groupの3系列が明確に言及しており、階層を持つ設定で一部の子項目だけが選択されているときに使われる。
             </p>
             <p style={styles.synthesisText}>
-              サイズは系列によって基準が違う(Googleは48 CSS px、W3Cは24・44 CSS px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
+              サイズは系列によって基準が違う(Googleは48px、W3Cは24・44px、Apple・NN groupは数値なし。詳しくは「意見が分かれる点」)。なお、Appleのチェックボックスは<strong>macOS向けのコンポーネント</strong>で、iOS/iPadOSには標準のチェックボックスがない。
             </p>
             <p style={styles.synthesisText}>
               色については、Googleがデザイントークンを介した具体的な実装方法を示す一方、Apple・W3Cの2系列は「色だけに頼らず、形状やコントラストで状態を伝える」という考え方で共通している。
@@ -20338,7 +20338,7 @@ function SizeInfographic() {
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>0〜60を共通スケール(dp・CSS pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)と押せる範囲(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
+      <p style={styles.diagramNote}>0〜60を共通スケール(dp・pxを同じ目盛りに並べた目安。単位の違いはトップの「用語メモ」を参照)とした目安だ(赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく信号色)。Googleは見た目のコンテナ高さ(32dp)と押せる範囲(48dp)を分けている点が特徴的だ。Apple・Nielsen Norman Groupは数値基準を明言していないため、スケール上にマーカーはない。帯の信号色(赤/黄/緑)は、下記の凡例で使う4系列の識別色とは別の配色を使っており、両者の意味を混同しないようにしている。</p>
     </div>
   );
 }
@@ -22343,7 +22343,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "リストから1つを選ぶためのコントロール。5個以下の選択肢に向く",
     size:
-      "推奨の押せる範囲は48×48 CSS px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSS pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48px以上に戻せるようにする。円は20×20dp、押したときなどに出る状態レイヤーは直径40dpの円(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -22386,7 +22386,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "状態と「1つだけ選べること」を支援技術に正しく伝える",
     size:
-      "専用の数値基準はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用の数値基準はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、選択を示す塗った円などは、周りと3:1以上にする。1.4.1により、色だけで選択状態を示さない。",
     stance:
@@ -22540,7 +22540,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
+    { name: "Google", color: "#2F7D6E", note: "48px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(すべての選択肢を可視状態に保つ指針)" },
   ];
@@ -22659,7 +22659,7 @@ function SelectionRadioPage() {
               <strong>既定で1つを選んでおくか</strong>と<strong>横に並べてよいか</strong>は系列で答えが分かれる(上の「意見が分かれる点」)。Googleは<strong>選択肢が5個以下</strong>という目安を持ち、多いときや場所を節約したいときはドロップダウンを検討できるとしている(ただし操作の手間は増える)。
             </p>
             <p style={styles.synthesisText}>
-              サイズについては、<strong>Googleも「既定で48×48 CSS pxを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24 CSS px(AA)/44×44 CSS px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
+              サイズについては、<strong>Googleも「既定で48×48pxを下回らせない」という具体的な数値</strong>を持っており、チェックボックスと同じ考え方だ。WCAGはコンポーネントの種類を問わず、24×24px(AA)/44×44px(AAA)のターゲットサイズ(どちらも例外あり)と、非テキストのコントラスト(1.4.11)を一般基準として要求している。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -23688,7 +23688,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "キーボードで操作できることを求める(レベルA)",
     size:
-      "専用のサイズの規定はない。WCAG 2.2のターゲットサイズの基準(2.5.8・レベルAAは24×24 CSS px、2.5.5・レベルAAAは44×44 CSS px。どちらも例外あり)では、位置で値を選ぶコンポーネントは、つまみだけでなく全体を1つのターゲットとして扱う(Understanding 2.5.8の注記にスライダーの例がある)。",
+      "専用のサイズの規定はない。WCAG 2.2のターゲットサイズの基準(2.5.8・レベルAAは24×24px、2.5.5・レベルAAAは44×44px。どちらも例外あり)では、位置で値を選ぶコンポーネントは、つまみだけでなく全体を1つのターゲットとして扱う(Understanding 2.5.8の注記にスライダーの例がある)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの境界は周りと3:1以上にする。",
     stance:
@@ -24073,10 +24073,10 @@ const SPLITS = [
     figure: <SizeInfographic />,
     sides: [
       { who: "Google", color: "#2F7D6E", t: "つまみの既定の押せる範囲は48dp" },
-      { who: "W3C", color: "#A3821F", t: "24×24 CSS px以上(2.5.8・AA)、より高い水準では44×44 CSS px以上(2.5.5・AAA)。どちらも例外あり" },
+      { who: "W3C", color: "#A3821F", t: "24×24px以上(2.5.8・AA)、より高い水準では44×44px以上(2.5.5・AAA)。どちらも例外あり" },
       { who: "Apple・NN group", color: "#C2542A", t: "スライダーとしての数値はない" },
     ],
-    tip: "つまみの押せる範囲をGoogleの既定(48dp)前後にしておけば、W3CのAA(24 CSS px)・AAA(44 CSS px)にもおおむね届く。",
+    tip: "つまみの押せる範囲をGoogleの既定(48dp)前後にしておけば、W3CのAA(24px)・AAA(44px)にもおおむね届く。",
   },
 ];
 
@@ -24388,7 +24388,7 @@ const SOURCES = [
     color: "#2F7D6E",
     position: "独立した設定をすぐオン/オフするためのコントロール(月額/年額のような相反する2択の切り替えには使わない)",
     size:
-      "推奨の押せる範囲は48×48 CSS px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48 CSS pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48 CSS px以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
+      "推奨の押せる範囲は48×48px(M3のこのコンポーネントの説明での表記。M3のほかの箇所はdpで表す。単位の違いはトップの「単位の関係」を参照)。既定で高密度の設定を適用しない(押せる範囲が48×48pxを下回るため)。高密度のレイアウトを選べるようにする場合も、各要素を48×48px以上に戻せるようにする。トラックは52×32dp(枠線2dp)、つまみはオフ16dp・オン24dp・押している間28dp、状態レイヤーは直径40dp(Jetpack Composeのトークン)。",
     colorInfo:
       "色の値はカラーロールに対応するデザイントークンで実装する。隣のラベルの色は、操作中かどうかにかかわらず、サーフェス上のカラーロールを使う。",
     glossary: [
@@ -24429,7 +24429,7 @@ const SOURCES = [
     color: "#A3821F",
     position: "形を問わず、状態を支援技術に正しく伝える",
     size:
-      "専用のサイズの規定はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24 CSS px以上、2.5.5(レベルAAA)は44×44 CSS px(どちらも例外あり。詳しくは「ボタン」ページ)。",
+      "専用のサイズの規定はなく、WCAG 2.2の一般のターゲットサイズの基準がかかる。2.5.8(レベルAA)は24×24px以上、2.5.5(レベルAAA)は44×44px(どちらも例外あり。詳しくは「ボタン」ページ)。",
     colorInfo:
       "1.4.11(非テキストのコントラスト)により、トラックやつまみの境界と状態は周りと3:1以上にする。1.4.1により、色だけでオン・オフを示さない。",
     glossary: [
@@ -24584,7 +24584,7 @@ function SizeRangeScale() {
 function SizeInfographic() {
   const legend = [
     { name: "Apple", color: "#C2542A", note: "数値なし(コントロールサイズに応じてシステムが自動決定)" },
-    { name: "Google", color: "#2F7D6E", note: "48 CSS px(既定の押せる範囲)" },
+    { name: "Google", color: "#2F7D6E", note: "48px(既定の押せる範囲)" },
     { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
     { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(即時反映という挙動の違いに基づく指針)" },
   ];
@@ -24692,7 +24692,7 @@ function SelectionTogglePage() {
               トグルスイッチは、<strong>オン・オフの2つの状態を切り替える</strong>。GoogleとNN groupは、<strong>押したらすぐ反映する</strong>点をチェックボックスとの違いにしている(上の「意見が分かれる点」)。Googleは、月額/年額のような相反する2つの選択肢には、スイッチではなくボタングループを使うとする。
             </p>
             <p style={styles.synthesisText}>
-              数値は、Appleは示さず、<strong>Googleは押せる範囲を48×48 CSS px以上</strong>とする(M3のこのコンポーネントの説明での表記。チェックボックス・ラジオボタンと同じ考え方)。<strong>W3Cはコンポーネントの種類を問わず、押せる範囲24×24 CSS px(AA)・44×44 CSS px(AAA。どちらも例外あり)</strong>と、非テキストのコントラスト(1.4.11)を求める。名前・役割・状態を支援技術に伝えることも要る(4.1.2)。
+              数値は、Appleは示さず、<strong>Googleは押せる範囲を48×48px以上</strong>とする(M3のこのコンポーネントの説明での表記。チェックボックス・ラジオボタンと同じ考え方)。<strong>W3Cはコンポーネントの種類を問わず、押せる範囲24×24px(AA)・44×44px(AAA。どちらも例外あり)</strong>と、非テキストのコントラスト(1.4.11)を求める。名前・役割・状態を支援技術に伝えることも要る(4.1.2)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -28461,7 +28461,7 @@ const TokensAdaptivePage = (function () {
  * (タブバー → ナビゲーションレール)とペインの数(1ペイン → 2ペイン)を切り替える
  * 「カノニカルレイアウト」を3種類用意している。Appleは境界値を示さず、「機能は変えず、見える量と
  * ナビゲーションの形(タブバー → サイドバー)だけを変える」という原則を示す。W3Cは広さそのものではなく、
- * 狭くしても(320 CSS px)・向きを変えても情報と機能が失われないことを求め、NN groupはWebの
+ * 狭くしても(320px)・向きを変えても情報と機能が失われないことを求め、NN groupはWebの
  * ブレークポイントの目安(500/1200/1400px)と、切り替えで起きる典型的な変化を示す。
  * 余白の値やウィンドウサイズクラスの境界値そのものは「レイアウト・スペーシング」ページで扱う。
  *
@@ -28536,10 +28536,10 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 1.3.4 Orientation",
     color: "#A3821F",
     position: <>どの広さで何に切り替えるかは定めず、<Hl>「狭くしても・向きを変えても、情報と機能が失われないこと」</Hl>を求める</>,
-    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320 CSS px相当、横にスクロールする内容は高さ256 CSS px相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
+    size: "1.4.10(レベルAA): 縦にスクロールする内容は幅320px相当、横にスクロールする内容は高さ256px相当で、情報や機能を失わず、縦横2方向のスクロールなしで表示できること。320pxは、幅1280pxの画面を400%に拡大した状態にあたる。1.3.4(レベルAA): 表示と操作を縦向き・横向きのどちらか一方に限定しないこと。",
     colorInfo: "見た目の切り替え方は自由。求めるのは結果で、拡大して幅が狭くなったら1列に組み替わり、横スクロールせずに読めること。向きは、利用者が好む向きで表示できるようにする。",
     glossary: [
-      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSS px相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
+      { term: "1.4.10 Reflow・レベルAA", desc: "幅320px相当まで狭めても、2方向のスクロールなしで読めること。2次元の配置が要る部分は例外。" },
       { term: "1.3.4 Orientation・レベルAA", desc: "表示と操作を縦・横のどちらかに固定しないこと。特定の向きが欠かせない場合は例外。" },
     ],
     stance:
@@ -28651,7 +28651,7 @@ const ADAPT_ROWS = [
   {
     key: "wcag", name: "W3C", color: "#A3821F",
     cells: [
-      { wire: { nav: "none", cols: [1] }, text: "幅320 CSS px相当でも、横スクロールなしで情報・機能を失わない(1.4.10)" },
+      { wire: { nav: "none", cols: [1] }, text: "幅320px相当でも、横スクロールなしで情報・機能を失わない(1.4.10)" },
       { wire: null, text: "広さごとの見せ方の規定なし。縦・横どちらの向きにも固定しない(1.3.4)" },
       { wire: null, text: "広さごとの見せ方の規定なし" },
     ],
@@ -28704,7 +28704,7 @@ const CHANGE_OK = [
 const CHANGE_NG = [
   { t: "使える機能", d: "広さによって機能そのものを変えない(見える量だけを変える)", who: "Apple" },
   { t: "今の状態", d: "選択中の項目・開いている詳細を、広さが変わっても保つ", who: "Google" },
-  { t: "情報と機能(拡大・狭い幅)", d: "320 CSS px相当でも、情報と機能を失わない", who: "W3C" },
+  { t: "情報と機能(拡大・狭い幅)", d: "320px相当でも、情報と機能を失わない", who: "W3C" },
   { t: "重要な情報・操作の見つけやすさ", d: "列を積み直しても、主な行動ボタンや必要な情報が埋もれない", who: "NN group" },
   { t: "プラットフォームらしさ", d: "リサイズしても、その端末で見慣れたレイアウトのままにする", who: "Apple" },
 ];
@@ -29011,7 +29011,7 @@ function TokensAdaptivePage() {
           <div style={styles.synthesisBox}>
             <div style={styles.synthesisLabel}>AI解釈 ― 総括</div>
             <p style={styles.synthesisText}>
-              広さが変わっても、<strong>内容と機能は同じに保ち、見せ方だけを組み替える</strong>(Apple・W3C)。Appleは「広さで機能を変えない」とし、W3Cは幅320 CSS px相当まで狭めても情報と機能を失わないことを求める(1.4.10)。
+              広さが変わっても、<strong>内容と機能は同じに保ち、見せ方だけを組み替える</strong>(Apple・W3C)。Appleは「広さで機能を変えない」とし、W3Cは幅320px相当まで狭めても情報と機能を失わないことを求める(1.4.10)。
             </p>
             <p style={styles.synthesisText}>
               組み替え方を最も具体的に決めているのはGoogleだ。狭い画面(Compact)は<strong>タブバー</strong>、それより広ければ<strong>ナビゲーションレール</strong>にし(Jetpack Composeの既定)、3つのカノニカルレイアウト(<strong>リスト・詳細/フィード/補助ペイン</strong>)で列の数まで示す。広さが変わっても、選択中の項目や開いている詳細は保つ。
@@ -29020,7 +29020,7 @@ function TokensAdaptivePage() {
               Appleは境界値を示さず、<strong>サイズクラス(compact/regular)</strong>で判断する。広い画面ではタブバーをサイドバーに切り替え、スプリットビューで2〜3列にするなど、Googleと同じ方向だ。NN groupはWebのブレークポイントの目安(500・1200・1400px)を挙げ、実際は2〜3個で足りるとする。
             </p>
             <p style={styles.synthesisText}>
-              <strong>実務では、Googleの型で組み替え方を決め、幅320 CSS pxと縦横両方の向きで、情報と機能が残るかを確かめる</strong>(AI解釈)。
+              <strong>実務では、Googleの型で組み替え方を決め、幅320pxと縦横両方の向きで、情報と機能が残るかを確かめる</strong>(AI解釈)。
             </p>
           </div>
           <div className="dsp-mobile-only" style={styles.sourceList}>
@@ -31708,7 +31708,7 @@ const SOURCES = [
     doc: "WCAG 1.1.1 Non-text Content / 4.1.2 Name, Role, Value / 1.4.11 Non-text Contrast / 3.2.4 / 2.5.3",
     color: "#A3821F",
     position: "意味を持つアイコンに代わりの文字(A)、アイコンだけの操作に支援技術へ伝わる名前(A)、3:1のコントラスト(AA)を求める",
-    size: <span>アイコン専用の基準はない。押せるなら24×24 CSS px以上(2.5.8・AA、例外あり)、44×44(2.5.5・AAA、例外あり)。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>。</span>,
+    size: <span>アイコン専用の基準はない。押せるなら24×24px以上(2.5.8・AA、例外あり)、44×44(2.5.5・AAA、例外あり)。詳しくは<PageLink to="/components/actions/button">ボタン</PageLink>。</span>,
     colorInfo: <>意味を伝えるアイコンは<Hl>隣の色と3:1以上</Hl>(1.4.11)。</>,
     glossary: [
       { term: "1.1.1 Non-text Content(レベルA)", desc: "意味を伝える文字以外のコンテンツに、同じ目的を果たす文字の代替を用意すること。" },
@@ -32949,12 +32949,12 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: <>状態の種類や見た目は定めず、<Hl>「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」</Hl>を求める</>,
-    size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2 CSS pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
+    size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
     visual: "見た目の作り方は自由。ただし選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする。隣り合って表示されない状態どうしの色の変化は3:1でなくてよい(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UIコンポーネントと状態を見分けるための見た目と、意味のある図形に、隣の色との3:1以上のコントラストを求める。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボード操作で、どこにフォーカスがあるかが見えること。実務の目標(AA)。" },
-      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくしたもの。大きさは2 CSS pxの外周相当以上、表示前後の変化は3:1以上。" },
+      { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくしたもの。大きさは2pxの外周相当以上、表示前後の変化は3:1以上。" },
       { term: "4.1.2 Name, Role, Value・レベルA", desc: "UIコンポーネントの名前・役割と状態・値をプログラムで判別でき、変化が支援技術に通知されること。" },
     ],
     stance:
@@ -33055,7 +33055,7 @@ function StateSwatch() {
 const STATE_ROWS = [
   { key: "enabled", label: "有効(通常)", num: "重ね色 0%", cells: [{ mark: "△", note: "標準のコントロールに組み込み(共通の定義なし)" }, { mark: "◯", note: "Enabled(重ね色なし)" }, { mark: "△", note: "コンポーネントを見分ける境界は隣の色と3:1以上(1.4.11)" }, { mark: "◯", note: "高コントラストで読みやすく" }] },
   { key: "hover", label: "ホバー", num: "+8%", cells: [{ mark: "◯", note: "iPadOS: ポインタのhighlight・lift・hoverの3効果" }, { mark: "◯", note: "文字色を8%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "150〜200ms待ってから表示・背景をわずかに暗く・カーソルを手の形に" }] },
-  { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる。Webの実装(Material Web)では太さ3pxの輪郭線(フォーカスリング)も出す" }, { mark: "◯", note: "フォーカスが見えること(2.4.7・AA)。AAAの2.4.13は2 CSS px相当の外周以上・前後の変化3:1以上とさらに厳しい" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
+  { key: "focus", label: "フォーカス", num: "+10%・輪郭", cells: [{ mark: "◯", note: "入力欄はリング、リストは行のハイライト(iOS・watchOSはフォーカスなし)" }, { mark: "◯", note: "文字色を10%重ねる。Webの実装(Material Web)では太さ3pxの輪郭線(フォーカスリング)も出す" }, { mark: "◯", note: "フォーカスが見えること(2.4.7・AA)。AAAの2.4.13は2px相当の外周以上・前後の変化3:1以上とさらに厳しい" }, { mark: "◯", note: "色だけでなく輪郭線で・100〜150ms以内" }] },
   { key: "press", label: "プレス", num: "+10%", cells: [{ mark: "◯", note: "独自ボタンにも必須" }, { mark: "◯", note: "文字色を10%重ねる" }, { mark: "―", note: "" }, { mark: "◯", note: "100〜150ms以内に反応を表示" }] },
   { key: "selected", label: "選択", num: "オン/オフ", cells: [{ mark: "―", note: "" }, { mark: "△", note: "M2で定義(Selected・Activated)。選択とホバーが重なれば両方を示す" }, { mark: "◯", note: "状態を示す印や枠は隣の色と3:1(1.4.11)+状態を支援技術へ(4.1.2)" }, { mark: "△", note: "ボタンではなく、チェックボックス・ラジオの状態" }] },
   { key: "drag", label: "ドラッグ", num: "+16%・影", cells: [{ mark: "―", note: "" }, { mark: "◯", note: "文字色を16%重ねる(影と組み合わせることも)" }, { mark: "―", note: "" }, { mark: "―", note: "" }] },
@@ -33587,12 +33587,12 @@ const SOURCES = [
     doc: "WCAG 1.4.10 Reflow / 2.5.8 Target Size (Minimum) / 1.3.1 Info and Relationships",
     color: "#A3821F",
     position: "余白やグリッドの値は定めず、狭い幅でも読めること・押す対象の間隔・まとまりを構造でも伝えることを求める",
-    size: <><Hl>幅320 CSS pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。データの表・地図など、2方向の配置が意味に必要な内容は例外。押す対象は24×24 CSS px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
+    size: <><Hl>幅320pxでも2方向のスクロールなしで読める</Hl>こと(1.4.10・AA。1280pxを400%に拡大した幅)。データの表・地図など、2方向の配置が意味に必要な内容は例外。押す対象は24×24px以上か、中心どうしを24px以上離す(2.5.8・AA、例外あり)。</>,
     colorInfo: <NoData>幅ごとの決まりはない</NoData>,
     structure: <>1.3.1(A): <Hl>余白でまとめたグループは、構造でも支援技術に伝える</Hl>(余白だけでは読み上げで伝わらない)。</>,
     glossary: [
-      { term: "1.4.10 Reflow・レベルAA", desc: "幅320 CSS px相当まで狭めても、縦横両方向のスクロールなしで読めること。地図・図表・データ表など2次元の配置が要る部分は例外。" },
-      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSS px以上にするか、小さいなら周りに十分な間隔を取ること。文中のリンクなどは例外。" },
+      { term: "1.4.10 Reflow・レベルAA", desc: "幅320px相当まで狭めても、縦横両方向のスクロールなしで読めること。地図・図表・データ表など2次元の配置が要る部分は例外。" },
+      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24px以上にするか、小さいなら周りに十分な間隔を取ること。文中のリンクなどは例外。" },
       { term: "1.3.1 Info and Relationships・レベルA", desc: "見た目で表している構造や関係を、見出し・リスト・グループなどのマークアップでも表すこと。" },
     ],
     stance:
@@ -33860,7 +33860,7 @@ const ABOUT = [
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
   { n: 1, t: "余白でまとまりを作る", d: "関係のある要素は近づけ、別のグループは間を広げる", who: "NN group" },
-  { n: 2, t: "狭めても読めるようにする", d: "幅320 CSS pxまで狭めても内容を読める(データの表・地図などは例外)", who: "W3C 1.4.10" },
+  { n: 2, t: "狭めても読めるようにする", d: "幅320pxまで狭めても内容を読める(データの表・地図などは例外)", who: "W3C 1.4.10" },
   { n: 3, t: "切り替える幅の目安", d: "600・840・1200・1600dp(端末ではなく使える広さで切り替える。詳しくは「レスポンシブデザイン」)", who: "Google。Appleは境界値を示さない" },
 ];
 
@@ -33896,9 +33896,9 @@ function TokensLayoutSpacingPage() {
 
 
           <div style={{ marginBottom: 22 }}>
-            <h2 style={styles.diagramTitle}>四系列比較図 ― レイアウトを切り替える幅の境界(dp / CSS px)</h2>
+            <h2 style={styles.diagramTitle}>四系列比較図 ― レイアウトを切り替える幅の境界(dp / px)</h2>
             <BreakpointChart />
-            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分だ。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値だ。単位(dp・pt・CSS px)は厳密には異なるが、いずれも画面の密度に依存しない論理的な単位だ。</p>
+            <p style={styles.chartNote}>Googleの帯はウィンドウサイズクラス(幅)の区分だ。W3Cの320pxはレイアウトの境界ではなく、この幅でも内容を読めることを求める値だ。単位(dp・pt・px)は厳密には異なるが、いずれも画面の密度に依存しない論理的な単位だ。</p>
           </div>
 
           <LayoutVisuals />
@@ -35868,7 +35868,7 @@ const SOURCES = [
     colorInfo: <>形の決まりはない。<Hl>境界だけが手がかりなら3:1</Hl>(1.4.11・AA)。</>,
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "コンポーネントや状態を見分けるのに必要な見た目と、図の理解に必要な部分に、隣の色と3:1以上を求める。" },
-      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24 CSS px以上にするか、周りに十分な間隔を取ること。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
+      { term: "2.5.8 Target Size (Minimum)・レベルAA", desc: "押す対象を24×24px以上にするか、周りに十分な間隔を取ること。角丸で内側に24px四方が収まらない対象は小さい対象として扱う。" },
     ],
     stance:
       <><Hl>角丸か四角かは問わない</Hl>。問うのは操作できると見分けられるか。枠のない文字だけのボタンも、文字で分かれば適合する。</>,
