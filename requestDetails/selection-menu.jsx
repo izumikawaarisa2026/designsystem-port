@@ -384,76 +384,6 @@ function KindFig({ i }) {
   );
 }
 
-/* プルダウン・メニュー・リストボックスの違い(2026-11-28 ⑩本人最終レビューNo.026) */
-const DIFF_COLS = ["プルダウン(セレクト)", "メニュー", "リストボックス"];
-const DIFF_ROWS = [
-  ["何を選ぶか", "値(配送方法・都道府県など)", "命令(コピー・削除・並べ替えなど)", "値"],
-  ["選択肢の見え方", "開くまで隠れている", "開くまで隠れている", "折りたたまず、いつも見えている(NN group)"],
-  ["選んだ後", "選んだ値が欄に表示され続ける(Apple・Google)", "その命令がすぐ実行され、メニューは閉じる", "一覧は開いたまま、選んだ項目が強調される"],
-  ["選べる数", "1つ", "―(命令を1つ実行する)", "1つ、または複数"],
-  ["向く場面", "フォームで値を選ぶ。場所を節約したい(NN group: フォームの入力や属性の選択向き)", "画面に常に置くほどではない操作をまとめる(NN group: ナビゲーションや命令の一覧向き)", "選択肢をすぐ見比べたい。複数を選ばせたい"],
-  ["W3Cの参考例(APG)", "Select-Only Combobox(ブラウザ標準のプルダウンなら不要)", "Menu Button・Menubar", "Listbox"],
-];
-const DIFF_REFS = [
-  { label: "NN group: Dropdowns: Design Guidelines(ドロップダウンボックスとドロップダウンメニュー)", url: "https://www.nngroup.com/articles/drop-down-menus/" },
-  { label: "NN group: Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
-  { label: "Apple: Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
-  { label: "Apple: Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
-  { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
-  { kind: "apg", label: "APG: Listbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
-  { kind: "apg", label: "APG: Select-Only Combobox", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
-];
-
-function DiffFig({ k }) {
-  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
-  if (k === 0) return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="欄に選んだ値が表示されたプルダウン">
-      <rect x="2" y="6" width="112" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
-      <text x="9" y="19.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text><text x="106" y="19.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
-      <text x="2" y="44" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が残る</text>
-    </svg>
-  );
-  if (k === 1) return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="その他のボタンから、コピー・削除の命令が並ぶメニューが開いている図">
-      <rect x="2" y="4" width="20" height="16" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
-      <text x="12" y="15" fontSize="9" fill="#3A4FCF" textAnchor="middle" fontFamily={KF}>…</text>
-      <rect x="2" y="23" width="80" height="34" rx="4" {...box} />
-      <text x="9" y="36" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text>
-      <text x="9" y="50" fontSize="8" fill="#C0503F" fontFamily={KF}>削除</text>
-    </svg>
-  );
-  return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="いつも開いている一覧の中で、1つの項目が強調されているリストボックス">
-      <rect x="2" y="2" width="112" height="54" rx="4" {...box} />
-      <rect x="4" y="18" width="108" height="16" fill="#EEF1FA" />
-      {["北海道", "東北", "関東"].map((t, j) => (<text key={t} x="10" y={14 + j * 16} fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
-    </svg>
-  );
-}
-
-function DiffSection() {
-  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
-  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
-  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
-  return (
-    <section style={styles.ruleSection}>
-      <h2 style={styles.diagramTitle}>プルダウン・メニュー・リストボックスの違い</h2>
-      <p style={styles.diagramNote}>見た目が似ていても、<strong>値を選ぶのか(プルダウン・リストボックス)、命令を実行するのか(メニュー)</strong>で役割が違う。値を選ぶ2つは、<strong>選択肢が開くまで隠れているか、いつも見えているか</strong>で分かれる。各系列の説明をまとめた整理で、出典の系列を括弧で示した。</p>
-      <div style={{ overflowX: "auto", marginBottom: 6 }}>
-        <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 120 }} /><col /><col /><col /></colgroup>
-          <thead><tr><th style={th}></th>{DIFF_COLS.map((c) => (<th key={c} style={th}>{c}</th>))}</tr></thead>
-          <tbody>
-            <tr><td style={key}>イメージ</td>{[0, 1, 2].map((k) => (<td key={k} style={td}><DiffFig k={k} /></td>))}</tr>
-            {DIFF_ROWS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td>{r.slice(1).map((v, i) => (<td key={i} style={td}>{v}</td>))}</tr>))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={DIFF_REFS} /></div>
-    </section>
-  );
-}
-
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -488,7 +418,7 @@ const LEAD = "ボタンなどを押すと開き、その場で実行できる操
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
-  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(違いは「プルダウン・メニュー・リストボックスの違い」)</> },
+  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(違いはセレクトのページの「プルダウン・メニュー・リストボックスの違い」)</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -547,7 +477,7 @@ export default function SelectionMenuPage() {
             </div>
           </section>
 
-          <DiffSection />
+          <p style={{ ...styles.diagramNote, margin: "-6px 0 22px" }}>プルダウン(セレクト)・リストボックスとの違いは、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>の「プルダウン・メニュー・リストボックスの違い」にまとめた。</p>
 
           <SplitSection splits={SPLITS} />
 

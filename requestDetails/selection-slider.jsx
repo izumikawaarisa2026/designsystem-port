@@ -242,30 +242,6 @@ function SizeRangeScale() {
   );
 }
 
-function SizeInfographic() {
-  const legend = [
-    { name: "Apple", color: "#C2542A", note: "数値なし(見た目は自由にカスタマイズ可)" },
-    { name: "Google", color: "#2F7D6E", note: "48dp(つまみの既定の押せる範囲)" },
-    { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
-    { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(正確な値には不向きという使いどころの指針)" },
-  ];
-  return (
-    <div style={styles.infographicCard}>
-      <span style={styles.swatchLabel}>サイズの比較</span>
-      <SizeRangeScale />
-      <div style={styles.infographicLegend}>
-        {legend.map((l) => (
-          <div key={l.name} style={styles.infographicLegendRow}>
-            <span style={{ ...styles.infographicDot, background: l.color }} />
-            <span style={styles.infographicLegendName}>{l.name}</span>
-            <span style={styles.infographicLegendNote}>{l.note}</span>
-          </div>
-        ))}
-      </div>
-      <p style={styles.diagramNote}>0〜60を共通スケールにした目安。赤=非推奨/黄=条件付き/緑=推奨の帯はWCAGのターゲットサイズの基準によるもので、系列の色とは別。Apple・NN groupは数値基準がないためマーカーはない。</p>
-    </div>
-  );
-}
 
 function SliderSwatch() {
   return (
@@ -499,7 +475,13 @@ const SPLITS = [
   },
   {
     q: "つまみの押せる範囲は、どのくらいの大きさにする?",
-    figure: <SizeInfographic />,
+    /* 2026-11-28 ⑩本人最終レビューNo.028: 枠付きの図(SizeInfographic)が論点の中で二重の枠になり崩れていたため、目盛りと1行の説明だけにした */
+    figure: (
+      <>
+        <SizeRangeScale />
+        <p style={{ fontSize: 11, color: "#666D93", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60を共通スケールにした目安。24・44=W3C(AA・AAA。px)、48=Google(dp)。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズの基準による</p>
+      </>
+    ),
     sides: [
       { who: "Google", color: "#2F7D6E", t: "つまみの既定の押せる範囲は48dp" },
       { who: "W3C", color: "#A3821F", t: "24×24px以上(2.5.8・AA)、より高い水準では44×44px以上(2.5.5・AAA)。どちらも例外あり" },
@@ -516,6 +498,69 @@ const KP = [
   { n: 3, t: "つまみの押せる範囲は48dp前後", d: "", who: "Google" },
   { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
+
+/* ステッパー(2026-11-28 ⑩本人最終レビューNo.028。Apple HIG Steppers・NN group Design Guidelines for Input Steppers・APG Spinbutton を取得して確認。M3のコンポーネント一覧にはない) */
+const STEPPER_ROWS = [
+  { k: "どんなものか", hig: "値を少しずつ増減する2つのボタン。値は表示しないので、今の値を出す欄の隣に置き、どの値が変わるかを分かるようにする", material: null, wcag: "決まった範囲の中の値に絞る入力。今の値を出す欄・増やすボタン・減らすボタンの3つでできることが多い", nn: "数値を少しずつ増減する、2つに分かれたコントロール" },
+  { k: "向く場面", hig: "数回の操作で済む小さな変更。値が大きく変わりそうなら入力欄を添える(印刷の部数など)", material: null, wcag: null, nn: "よく選ばれる値が決まっていて、変える量が小さいとき(人数など)。値の幅が大きいもの、連続した値で正確さが大事なものには使わない" },
+  { k: "刻み", hig: "範囲が広いなら、macOSではShiftを押しながら大きく(既定の10倍など)変えられるようにする", material: null, wcag: "範囲が広いなら、小さい刻みと大きい刻みの両方で変えられるようにしてよい", nn: "1回押すと1単位が基本。作業の分析で必要なら別の刻みにする" },
+  { k: "直接の入力", hig: "具体的な値を入れたい人のため、入力欄を併設する", material: null, wcag: "値を出す欄で、直接編集できることが多い", nn: "数字を直接打てる欄を添える。長押しで続けて増減できるようにする" },
+  { k: "上限・下限", hig: null, material: null, wcag: "最小・最大の値を支援技術にも伝える。範囲外の値は受け付けないか、範囲外だと伝える", nn: "上限・下限があれば示す(例: 上限で+を薄くする)" },
+];
+const STEPPER_REFS = [
+  { label: "Apple: Steppers ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/steppers#Best-practices" },
+  { label: "NN group: Design Guidelines for Input Steppers", url: "https://www.nngroup.com/articles/input-steppers/#toc-stepper-design-guidelines-4" },
+  { kind: "apg", label: "APG: Spinbutton Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/#aboutthispattern" },
+];
+
+function StepperFig() {
+  const F = "Jost, Noto Sans JP";
+  const stepper = (x, val, maxed) => (
+    <g>
+      <rect x={x} y="22" width="30" height="28" rx="6" fill="#FFFFFF" stroke="#9EA4C4" strokeWidth="1.2" />
+      <text x={x + 15} y="41" fontSize="15" fill="#3A4FCF" textAnchor="middle" fontFamily={F}>−</text>
+      <rect x={x + 34} y="22" width="40" height="28" rx="4" fill="#FFFFFF" stroke="#C9CDE0" />
+      <text x={x + 54} y="41" fontSize="12" fill="#171B36" textAnchor="middle" fontFamily={F}>{val}</text>
+      <rect x={x + 78} y="22" width="30" height="28" rx="6" fill={maxed ? "#F3F6FA" : "#FFFFFF"} stroke={maxed ? "#D5D9EC" : "#9EA4C4"} strokeWidth="1.2" />
+      <text x={x + 93} y="41" fontSize="15" fill={maxed ? "#B7BCDA" : "#3A4FCF"} textAnchor="middle" fontFamily={F}>+</text>
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 300 70" width="300" height="70" role="img" aria-label="大人の人数を−と+で1ずつ変えるステッパー。上限の9人では+が薄くなっている">
+      <text x="4" y="14" fontSize="9" fill="#2E3457" fontWeight="700" fontFamily={F}>大人(1〜9人)</text>
+      {stepper(4, "2", false)}
+      <text x="4" y="64" fontSize="8" fill="#565D8A" fontFamily={F}>1回押すと1人。数字も直接打てる</text>
+      <text x="160" y="14" fontSize="9" fill="#2E3457" fontWeight="700" fontFamily={F}>上限に達したとき</text>
+      {stepper(160, "9", true)}
+      <text x="160" y="64" fontSize="8" fill="#565D8A" fontFamily={F}>+を薄くして上限を示す</text>
+    </svg>
+  );
+}
+
+function StepperSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const cols = [["hig", "Apple"], ["material", "Google"], ["wcag", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>ステッパー</h2>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "0 0 10px", lineHeight: 1.6 }}>スライダーの代わりや横に置く、−/+で値を少しずつ変えるコンポーネント。<strong>小さな変更に向き、大きく変える値や正確さが大事な連続した値には向かない</strong>(Apple・NN group)。刻みは1回1単位が基本で、数字を直接打てる欄を添える(NN group)。Googleのコンポーネント一覧には、ステッパーはない。図は概念図。</p>
+      <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 10, marginBottom: 10, overflowX: "auto" }}><StepperFig /></div>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 110 }} /><col /><col style={{ width: 90 }} /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{cols.map(([c, n]) => (<th key={c} style={th}>{n}</th>))}</tr></thead>
+          <tbody>
+            {STEPPER_ROWS.map((r) => (<tr key={r.k}><td style={key}>{r.k}</td>{cols.map(([c]) => (<td key={c} style={td}>{r[c] || <NoData>{c === "material" ? "コンポーネントなし" : "記載なし"}</NoData>}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ fontSize: 11.5, color: "#454C78", margin: "6px 0 8px", lineHeight: 1.65 }}><strong>見た目・大きさ(NN groupだけが定める)</strong>: −/+ か上下の矢印で示す。パソコンでもスマートフォンでも大きなボタンにする(タッチは1cm四方以上)。縦より横に並べる(縦は窮屈になりやすい)。</p>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={STEPPER_REFS} /></div>
+    </section>
+  );
+}
 
 export default function SelectionSliderPage() {
   return (
@@ -657,6 +702,8 @@ export default function SelectionSliderPage() {
             </div>
           </div>
 
+
+          <StepperSection />
 
           <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 
