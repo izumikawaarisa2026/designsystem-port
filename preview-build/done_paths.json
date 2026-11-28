@@ -63,5 +63,6 @@
   "/components/communication/loading",
   "/components/text-inputs/wizard",
   "/components/containment/overview",
-  "/principles/wcag-criteria"
+  "/principles/wcag-criteria",
+  "/tokens/target-size"
 ]

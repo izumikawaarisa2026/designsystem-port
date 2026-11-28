@@ -97,7 +97,7 @@ const SOURCES = [
     stance:
       <><Hl>余白の大きさや列数は指定しない</Hl>。結果としての使いやすさ(狭い幅で組み替わる・近づけすぎない・構造でも伝える)を求める。</>,
     exceptions:
-      "1.4.10は、地図・図・動画・ゲーム・データ表など2次元の配置が欠かせない部分を除外。2.5.8の例外は5つ(詳しくはボタンのページ)。",
+      "1.4.10は、地図・図・動画・ゲーム・データ表など2次元の配置が欠かせない部分を除外。2.5.8の例外は5つ(詳しくは「押せる範囲(ターゲットサイズ)」ページ)。",
     accessibility: "知覚可能(1.4.10・1.3.1)・操作可能(2.5.8)。",
     useCases: [
       "幅320pxで横スクロールが出ないか確かめる",
@@ -149,8 +149,8 @@ function ProximitySwatch() {
   return (
     <svg viewBox="0 0 280 90" width="100%" style={{ maxWidth: 360, display: "block", margin: "0 auto" }} role="img" aria-label="余白の違いによるグループ化の例">
       {g1}{g2}
-      <text x="45" y="84" fontSize="9.5" fill="#565D8A" textAnchor="middle" fontFamily="'Jost', 'Noto Sans JP', sans-serif">均等な間隔 → 1つのまとまり</text>
-      <text x="211" y="84" fontSize="9.5" fill="#565D8A" textAnchor="middle" fontFamily="'Jost', 'Noto Sans JP', sans-serif">間を広げる → 2つのグループ</text>
+      <text x="4" y="84" fontSize="9.5" fill="#565D8A" fontFamily="'Jost', 'Noto Sans JP', sans-serif">均等な間隔 → 1つのまとまり</text>
+      <text x="150" y="84" fontSize="9.5" fill="#565D8A" fontFamily="'Jost', 'Noto Sans JP', sans-serif">間を広げる → 2つのグループ</text>
     </svg>
   );
 }
@@ -319,6 +319,87 @@ function LayoutVisuals() {
   );
 }
 
+/* 余白(パディング)の決まり(2026-11-28 ⑩本人最終レビューNo.012。M3 Cards・Dialogs・Lists Specs、Applying layout(Compact)、Apple HIG Layoutを取得して確認) */
+const PAD_ROWS = [
+  { k: "画面の端の余白(マージン)", hig: "数値は示さない。システムが決めるマージンとレイアウトガイドに従い、内容をセーフエリアの内側に置く", material: "Compactの幅は16dp、それ以外は24dp。ルーラーで少し広げたり狭めたりできる", wcag: null, nn: null },
+  { k: "要素どうしの間隔", hig: "関連する項目を、余白・容器の形・区切り線でまとめる", material: "関係するものは近く、関係のないものとは余白で分ける。似た要素は同じ間隔にそろえる。ペインの間は24dp", wcag: "押す対象どうしは、小さいなら中心から24pxの円が重ならない間隔を取る(2.5.8・例外あり)", nn: "関連する要素は近く、関係のない要素は離す(グループの中の間隔<グループどうしの間隔)" },
+];
+const PAD_GOOGLE = [
+  ["カード", "左右16dp", "カードどうしは8dp以下"],
+  ["ダイアログ", "上下左右24dp", "タイトルと本文16dp、本文と操作24dp、ボタンどうし8dp"],
+  ["全画面ダイアログ", "上・左右24dp", "要素どうし8dp"],
+  ["リストの項目", "左16dp・右24dp", "先頭の要素と文字の間16dp。区切り線は左16dp・右24dp内側に寄せる"],
+];
+const PAD_REFS = [
+  { label: "Apple: Layout ― Guides and safe areas", url: "https://developer.apple.com/design/human-interface-guidelines/layout#Guides-and-safe-areas" },
+  { label: "Google: Applying layout ― Compact", url: "https://m3.material.io/foundations/layout/applying-layout/compact" },
+  { label: "Google: Spacing", url: "https://m3.material.io/foundations/layout/grids-spacing/spacing" },
+  { label: "Google: Cards ― Specs", url: "https://m3.material.io/components/cards/specs" },
+  { label: "Google: Dialogs ― Specs", url: "https://m3.material.io/components/dialogs/specs" },
+  { label: "Google: Lists ― Specs", url: "https://m3.material.io/components/lists/specs" },
+  { label: "NN group: Proximity Principle in Visual Design", url: "https://www.nngroup.com/articles/gestalt-proximity/" },
+];
+
+function PaddingFig() {
+  const F = "Jost, Noto Sans JP";
+  const dim = (x1, y1, x2, y2, t, tx, ty) => (<g><line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#C2542A" strokeWidth="1" /><text x={tx} y={ty} fontSize="7.5" fill="#C2542A" fontFamily={F}>{t}</text></g>);
+  return (
+    <svg viewBox="0 0 330 170" width="100%" style={{ maxWidth: 460, display: "block" }} role="img" aria-label="スマートフォンの画面の左右に16dpのマージン、カードの内側に左右16dp、カードどうしの間に8dp。ダイアログの内側は上下左右24dp">
+      <rect x="4" y="4" width="140" height="162" rx="12" fill="#FFFFFF" stroke="#9EA4C4" />
+      <rect x="20" y="22" width="108" height="56" rx="8" fill="#F3F6FA" stroke="#C9CDE0" />
+      <rect x="36" y="34" width="60" height="7" rx="2" fill="#9EA4C4" /><rect x="36" y="48" width="76" height="5" rx="2" fill="#C9CDE0" /><rect x="36" y="58" width="64" height="5" rx="2" fill="#C9CDE0" />
+      <rect x="20" y="86" width="108" height="56" rx="8" fill="#F3F6FA" stroke="#C9CDE0" />
+      {dim(4, 150, 20, 150, "16", 6, 160)}
+      {dim(20, 30, 36, 30, "16", 22, 28)}
+      {dim(74, 78, 74, 86, "8", 77, 84.5)}
+      <text x="74" y="104" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>画面端16dp・カード内16dp</text>
+      <text x="74" y="114" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>カードの間8dp以下</text>
+      <rect x="170" y="30" width="154" height="110" rx="16" fill="#FFFFFF" stroke="#9EA4C4" />
+      <rect x="194" y="54" width="70" height="8" rx="2" fill="#9EA4C4" /><rect x="194" y="78" width="106" height="5" rx="2" fill="#C9CDE0" /><rect x="194" y="88" width="90" height="5" rx="2" fill="#C9CDE0" />
+      <rect x="246" y="104" width="24" height="12" rx="6" fill="#E1E3F0" /><rect x="276" y="104" width="24" height="12" rx="6" fill="#3A4FCF" />
+      {dim(170, 46, 194, 46, "24", 175, 44)}
+      {dim(300, 116, 324, 116, "24", 305, 126)}
+      {dim(200, 62, 200, 78, "16", 203, 73)}
+      <text x="247" y="22" fontSize="8" fill="#2E3457" textAnchor="middle" fontWeight="700" fontFamily={F}>ダイアログ(内側24dp)</text>
+    </svg>
+  );
+}
+
+function PaddingSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const cols = [["hig", "Apple"], ["material", "Google"], ["wcag", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>余白(パディング)の決まり</h2>
+      <p style={styles.lvNote}>画面の端・コンポーネントの内側・要素どうしの余白を比べる。<strong>数値を決めているのはGoogleだけ</strong>で、Appleはシステムのマージンに任せ、W3CとNN groupは間隔の考え方(押し間違えない・まとまりを作る)を示す。図は概念図。</p>
+      <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 10, margin: "10px 0" }}><PaddingFig /></div>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 130 }} /><col /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{cols.map(([c, n]) => (<th key={c} style={th}>{n}</th>))}</tr></thead>
+          <tbody>
+            {PAD_ROWS.map((r) => (<tr key={r.k}><td style={key}>{r.k}</td>{cols.map(([c]) => (<td key={c} style={td}>{r[c] || <NoData>記載なし</NoData>}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <h3 style={styles.lvSub}>Google ― コンポーネントの内側の余白(dp)</h3>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "0 0 8px", lineHeight: 1.6 }}>コンポーネントの内側の余白は、Googleだけが数値で決めている(Apple・W3C・NN groupは記載なし)。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 480, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 130 }} /><col style={{ width: 150 }} /><col /></colgroup>
+          <thead><tr>{["コンポーネント", "内側の余白", "中の要素どうし"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+          <tbody>
+            {PAD_GOOGLE.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td><td style={td}>{r[1]}</td><td style={td}>{r[2]}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={PAD_REFS} /></div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -405,6 +486,8 @@ export default function TokensLayoutSpacingPage() {
           </div>
 
           <LayoutVisuals />
+
+          <PaddingSection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>

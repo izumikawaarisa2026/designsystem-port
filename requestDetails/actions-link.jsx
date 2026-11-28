@@ -36,7 +36,7 @@ const SOURCES = [
     colorCue: { mark: "○", note: "推奨(下線やアイコンなど視覚的な手がかりを追加)" },
     wordingCue: { mark: "○", note: "推奨(具体的な行き先を示す文言。数値基準はなし)" },
     visitedCue: { mark: "―", note: "明記なし" },
-    tapArea: { mark: "○", note: "既定44×44pt・最小28×28pt(iOS/iPadOS。操作できる要素全般の原則で、リンク専用の記載はない。ボタンのページと同じ)" },
+    tapArea: { mark: "○", note: "既定44×44pt・最小28×28pt(iOS/iPadOS。操作できる要素全般の原則で、リンク専用の記載はない。「押せる範囲(ターゲットサイズ)」ページと同じ)" },
     illustration: () => (
       <span style={{ color: "#2F6FED", fontWeight: 600, fontSize: 12 }}>詳しく見る</span>
     ),
@@ -93,7 +93,7 @@ const SOURCES = [
     colorCue: { mark: "○", note: "必須: 色だけで見分けさせない。色だけで区別するなら、周りの文字とのコントラスト比3:1以上が必要(1.4.1の達成方法G183)。いちばん確実なのは下線" },
     wordingCue: { mark: "△", note: "AA=周囲の文脈込みでOK / AAA=リンク単体で目的が分かる文言が必須" },
     visitedCue: { mark: "―", note: "直接の基準なし" },
-    tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。文中のリンクは例外(ほかにも例外あり。ボタンのページを参照)" },
+    tapArea: { mark: "△", note: "24×24px(AA)/44×44px(AAA)。文中のリンクは例外(ほかにも例外あり。「押せる範囲(ターゲットサイズ)」ページを参照)" },
     illustration: () => (
       <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>

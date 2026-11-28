@@ -36,6 +36,7 @@ export const NAV_SECTIONS = [
       { label: "文章・UXライティング", path: "/tokens/writing", built: true },
       { label: "アイコン", path: "/tokens/icon", built: true },
       { label: "レイアウト・スペーシング", path: "/tokens/layout-spacing", built: true },
+      { label: "押せる範囲(ターゲットサイズ)", path: "/tokens/target-size", built: true },
       { label: "レスポンシブデザイン", path: "/tokens/adaptive", built: true },
       { label: "シェイプ・コーナーラジウス", path: "/tokens/shape", built: true },
       { label: "エレベーション・階層表現", path: "/tokens/elevation", built: true },
