@@ -42,7 +42,6 @@ const SOURCES = [
     url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes",
     refs: [
       { label: "Toggles ― Checkboxes", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes" },
-      { label: "Toggles ― Switches(macOSのスイッチとの使い分け)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches" },
       { label: "Toggles ― Radio buttons(1つの設定のオン・オフにはチェックボックス)", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Radio-buttons" },
     ],
     illustration: () => (
@@ -90,10 +89,9 @@ const SOURCES = [
     searchHint: "",
     url: "https://m3.material.io/components/checkbox/guidelines",
     refs: [
-      { label: "Checkbox ― Guidelines(使用法)", url: "https://m3.material.io/components/checkbox/guidelines" },
+      { label: "Checkbox ― Guidelines(使用法・スイッチではなくチェックボックスを使う場面)", url: "https://m3.material.io/components/checkbox/guidelines" },
       { label: "Checkbox ― Accessibility", url: "https://m3.material.io/components/checkbox/accessibility" },
       { label: "Checkbox ― Specs(数値)", url: "https://m3.material.io/components/checkbox/specs" },
-      { label: "Switch ― Guidelines(スイッチとの使い分け)", url: "https://m3.material.io/components/switch/guidelines" },
     ],
     confirmedNote: "使用法・行動・ユースケース・インタラクションとスタイル・アクセシビリティラベルの各セクションは2026-09時点で確認済み。正方形の見た目サイズ(dp)やカラートークン名などのspecs数値は未確認。",
     illustration: () => (
@@ -181,7 +179,6 @@ const SOURCES = [
     url: "https://www.nngroup.com/articles/checkboxes-design-guidelines/",
     refs: [
       { label: "Checkboxes: Design Guidelines", url: "https://www.nngroup.com/articles/checkboxes-design-guidelines/" },
-      { label: "Toggle-Switch Guidelines(スイッチとの使い分け)", url: "https://www.nngroup.com/articles/toggle-switch-guidelines/" },
     ],
     illustration: () => (
       <svg width="26" height="26" viewBox="0 0 26 26">
@@ -261,6 +258,11 @@ const SPLITS = [
       { figure: <MiniIcon kind="switch" />, who: "NN group", color: "#7A4F7E", t: "すぐに反映するならスイッチ。保存・送信ボタンを押して確定する場面では、スイッチではなく単独のチェックボックスにする" },
     ],
     tip: "「押した瞬間に反映されるか」で分けると、3系列の考え方がほぼ両立する。保存ボタンで確定するフォームの中ではチェックボックス(3系列とも問題なし)、すぐに反映する設定はスマートフォンならスイッチ、macOSやデスクトップのWebならチェックボックスでもよい、という使い分けだ。Googleは「チェックボックスでもすぐ反映」とする点だけがNN groupと逆なので、1つの画面の中で、保存で確定するものと即時反映するものを混ぜないようにする(絞り込みの条件のように、全部が即時反映ならチェックボックスでよい)。",
+    refs: [
+      { label: "Apple: Toggles ― Switches", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Switches" },
+      { label: "Google: Switch ― Guidelines", url: "https://m3.material.io/components/switch/guidelines" },
+      { label: "NN group: Toggle-Switch Guidelines", url: "https://www.nngroup.com/articles/toggle-switch-guidelines/" },
+    ],
   },
   {
     q: "不定(一部だけ選択)の親チェックボックスを押したら?",
@@ -313,6 +315,118 @@ function CheckboxSwatch() {
         </div>
       ))}
     </div>
+  );
+}
+
+/* 「すべて選択」「その他」「どれもない」の項目(2026-11-28 ⑩本人最終レビューNo.021。各系列のページを取得して確認) */
+const SPECIAL_ITEMS = [
+  {
+    name: "すべて選択(親のチェックボックス)",
+    when: "多くの人が全部を選びそうな一覧に置く(NN group)。たくさんの項目を選ぶ手間を減らすためのもの(Google)",
+    how: "押すと子をすべて選択・解除する。子の一部だけが選ばれているときは不定(―)で示し、不定の親を押すとすべて選択する(Apple・Google・NN group)",
+    add: "あとから子の項目が増えたら、親の表示は子の状態に合わせ直す(全部選択済みの一覧に未選択の項目が加われば不定になる)。増えた項目を勝手に選択済みにしない(AI解釈。親は子の状態をそのまま表す、という3系列の決まりから)",
+  },
+  {
+    name: "その他",
+    when: "選択肢を出し尽くせないときに置く。入力欄を添える(NN group。ラジオボタンの記事での指針)",
+    how: "選ぶと入力欄に書けるようにする。入力欄には何を書くかが分かるラベルを付ける(W3C 3.3.2)",
+    add: "選択を外したら、入力した内容は送らない。消さずに残しておけば、選び直したときに書き直さずに済む(AI解釈)",
+  },
+  {
+    name: "どれもない・あてはまらない",
+    when: "「何も選ばない」ことにも意味があり、空のままと区別したいときに置く(NN group。ラジオボタンの記事での指針。チェックボックスはもともと何も選ばない状態から始まる)",
+    how: "選んだら、ほかの項目の選択を外す。ほかの項目を選んだら、こちらを外す(AI解釈)",
+    add: "項目どうしが連動して変わることを、ラベルや説明で前もって伝える(AI解釈。予期しない変化を避ける W3C 3.2.2 の考え方)",
+  },
+];
+const SPECIAL_REFS = [
+  { label: "NN group: Checkboxes: Design Guidelines(Nested Checkbox Lists)", url: "https://www.nngroup.com/articles/checkboxes-design-guidelines/" },
+  { label: "NN group: Checkboxes vs. Radio Buttons(Additional Guidelines)", url: "https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/#toc-additional-guidelines-2" },
+  { label: "Google: Checkbox ― Guidelines(親と子のチェックボックス)", url: "https://m3.material.io/components/checkbox/guidelines" },
+  { label: "Apple: Toggles ― Checkboxes", url: "https://developer.apple.com/design/human-interface-guidelines/toggles#Checkboxes" },
+  { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
+];
+
+function SpecialItems() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>「すべて選択」「その他」「どれもない」の項目</h2>
+      <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 130 }} /><col /><col /><col /></colgroup>
+          <thead><tr>{["項目", "入れるとき", "動き", "追加・変更したとき"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
+          <tbody>
+            {SPECIAL_ITEMS.map((r) => (<tr key={r.name}><td style={key}>{r.name}</td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={SPECIAL_REFS} /></div>
+    </section>
+  );
+}
+
+/* 親子のチェックボックスとアコーディオンの連動(2026-11-28 ⑩本人最終レビューNo.021。4系列とも定めていないため、全体がAI解釈) */
+const NEST_RULES = [
+  ["チェックボックスと開閉を分ける", "親のチェックボックスを押したら選択だけ、見出しの文字や開閉の印(シェブロン)を押したら開閉だけにする。1回の操作で両方が起きると、選ぶつもりで開いてしまう"],
+  ["閉じていても状態が分かる", "閉じた親にも、選択済み・未選択・不定(―)をそのまま表示する。「2/4件」のように選んだ数を添えると、開かなくても中身が分かる"],
+  ["親を選んでも勝手に開かない", "親でまとめて選択・解除しても、開閉はそのままにする。中を確かめたい人だけが開く"],
+  ["閉じても子の選択は残す", "閉じるのは見せ方を変えるだけで、選択は消さない"],
+  ["2つの状態を支援技術に伝える", "親は「選択の状態(不定を含む)」と「開いているか閉じているか」の2つを持つ。両方が伝わるようにする(W3C 4.1.2の考え方)"],
+];
+
+function NestedAccordionFigure() {
+  const box = (state, x, y) => (
+    <g>
+      <rect x={x} y={y} width="14" height="14" rx="3" fill={state === "off" ? "#FFFFFF" : "#3A4FCF"} stroke={state === "off" ? "#9EA4C4" : "#3A4FCF"} strokeWidth="1.6" />
+      {state === "on" && <path d={`M${x + 3.5} ${y + 7.5}l2.5 2.5 4.5-5`} fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />}
+      {state === "mixed" && <line x1={x + 3.5} y1={y + 7} x2={x + 10.5} y2={y + 7} stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" />}
+    </g>
+  );
+  const font = "'Jost', 'Noto Sans JP', sans-serif";
+  return (
+    <svg viewBox="0 0 520 150" width="100%" style={{ display: "block", maxWidth: 560 }} role="img" aria-label="閉じた親は不定の印と「2/4件」を表示し、開閉の印は右端に分かれている。開いた親の下に4つの子があり、2つが選択済み">
+      <text x="10" y="14" fontSize="10" fill="#565D8A" fontFamily={font}>閉じているとき</text>
+      <rect x="10" y="22" width="230" height="34" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      {box("mixed", 22, 32)}
+      <text x="44" y="43" fontSize="12" fill="#171B36" fontWeight="700" fontFamily={font}>通知</text>
+      <text x="76" y="43" fontSize="10" fill="#565D8A" fontFamily={font}>2/4件</text>
+      <rect x="196" y="26" width="38" height="26" rx="5" fill="#F3F6FA" />
+      <path d="M209 35l6 6 6-6" fill="none" stroke="#454C78" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="22" y="74" fontSize="9" fill="#2F7D6E" fontFamily={font}>□ 押す → 選択だけ</text>
+      <text x="150" y="74" fontSize="9" fill="#3A4FCF" fontFamily={font}>⌄ 押す → 開閉だけ</text>
+      <text x="270" y="14" fontSize="10" fill="#565D8A" fontFamily={font}>開いているとき</text>
+      <rect x="270" y="22" width="240" height="122" rx="6" fill="#FFFFFF" stroke="#E1E3F0" />
+      {box("mixed", 282, 32)}
+      <text x="304" y="43" fontSize="12" fill="#171B36" fontWeight="700" fontFamily={font}>通知</text>
+      <text x="336" y="43" fontSize="10" fill="#565D8A" fontFamily={font}>2/4件</text>
+      <rect x="466" y="26" width="38" height="26" rx="5" fill="#F3F6FA" />
+      <path d="M479 42l6-6 6 6" fill="none" stroke="#454C78" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      {[["on", "メール"], ["on", "プッシュ通知"], ["off", "SMS"], ["off", "電話"]].map(([st, t], i) => (
+        <g key={t}>{box(st, 304, 62 + i * 20)}<text x="326" y={73 + i * 20} fontSize="11" fill="#2E3457" fontFamily={font}>{t}</text></g>
+      ))}
+    </svg>
+  );
+}
+
+function NestedAccordion() {
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>親子のチェックボックスとアコーディオン</h2>
+      <p style={styles.diagramNote}>子の多いグループを、親のチェックボックスごと開閉できるようにするときの連動のさせ方。<strong>4系列とも、親子のチェックボックスをアコーディオンで畳む場合の決まりは持たない</strong>ため、ここは親子の状態の決まり(Apple・Google・NN group)と<PageLink to="/components/containment/accordion">アコーディオン</PageLink>の考え方を組み合わせたAI解釈。図は概念図。</p>
+      <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 12, marginBottom: 10 }}><NestedAccordionFigure /></div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {NEST_RULES.map(([t, d], i) => (
+          <div key={t} style={{ display: "grid", gridTemplateColumns: "22px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457" }}>
+            <span style={{ width: 20, height: 20, borderRadius: "50%", background: "#E1E3F0", color: "#171B36", fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center" }}>{i + 1}</span>
+            <span><strong style={{ color: "#171B36" }}>{t}</strong> ― {d}</span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -503,6 +617,9 @@ export default function SelectionCheckboxPage() {
               </div>
             </div>
           </div>
+
+          <SpecialItems />
+          <NestedAccordion />
 
           <RelatedPages paths={["/components/selection/overview", "/components/selection/radio", "/components/selection/toggle", "/components/selection/chips"]} />
 

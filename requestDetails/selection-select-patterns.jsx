@@ -69,15 +69,22 @@ const PATTERNS = [
   {
     name: "コンボボックス(入力+絞り込み)",
     system: "Google(Exposed dropdown menuの入力対応版)・WAI-ARIA(Comboboxパターン)",
-    desc: "入力部と、それに対応するポップアップ(選択肢の一覧)を組み合わせたコンポーネント。文字を入力できる型(editable)と入力できない型(select-only)があり、入力に応じて候補を絞り込む実装もできる(APGのComboboxパターンには、絞り込まない型の例もある)。選択肢が非常に多い場合は、入力で絞り込めるとプルダウンより素早く目的の項目へたどり着ける。",
+    desc: "文字を入力する欄と、選択肢の一覧を組み合わせたもの。文字を入れると、その文字を含む候補に一覧が絞り込まれ、そこから選んで決める。選択肢がとても多くても、数文字打てば目的の項目にすぐたどり着ける。入力できず選ぶだけの型もあり、見た目はプルダウンとほぼ同じになる(APG)。",
     when: "選択肢の数が多く、都道府県・国名のようにユーザーがタイピングで絞り込める場面",
     link: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/",
     linkLabel: "APG: Comboboxパターン(参考例) ↗",
+    /* 2026-11-28 ⑩本人最終レビューNo.024: 入力欄だけだった図を、入力した文字で候補が絞り込まれる様子が分かる図に */
     illustration: () => (
-      <svg width="70" height="24" viewBox="0 0 70 24">
-        <rect x="1" y="1" width="68" height="22" rx="4" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.6" />
-        <text x="8" y="15" fontSize="8" fill="#3A4FCF" fontFamily="Jost, Noto Sans JP">東京|</text>
-        <line x1="24" y1="7" x2="24" y2="17" stroke="#3A4FCF" strokeWidth="1" />
+      <svg width="130" height="62" viewBox="0 0 130 62" role="img" aria-label="入力欄に「京」と入れると、下の一覧が東京都と京都府に絞り込まれている図">
+        <rect x="1" y="1" width="128" height="20" rx="4" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.6" />
+        <text x="8" y="15" fontSize="9" fill="#171B36" fontFamily="Jost, Noto Sans JP">京</text>
+        <line x1="19" y1="6" x2="19" y2="16" stroke="#3A4FCF" strokeWidth="1" />
+        <path d="M114 9l4 4 4-4" fill="none" stroke="#3A4FCF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="1" y="24" width="128" height="37" rx="4" fill="#FFFFFF" stroke="#C9CDE0" strokeWidth="1" />
+        <rect x="3" y="26" width="124" height="16" rx="2" fill="#EEF1FA" />
+        <text x="9" y="37.5" fontSize="9" fill="#171B36" fontFamily="Jost, Noto Sans JP">東<tspan fontWeight="700" fill="#3A4FCF">京</tspan>都</text>
+        <text x="9" y="55" fontSize="9" fill="#171B36" fontFamily="Jost, Noto Sans JP"><tspan fontWeight="700" fill="#3A4FCF">京</tspan>都府</text>
+        <text x="122" y="37.5" fontSize="7" fill="#565D8A" textAnchor="end" fontFamily="Jost, Noto Sans JP">候補2件</text>
       </svg>
     ),
   },
@@ -243,7 +250,7 @@ const styles = {
   synthesisText: { fontSize: 13.5, lineHeight: 1.85, color: "#171B36", margin: "0 0 10px" },
   cardGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14, marginBottom: 24 },
   card: { background: "#F8F9FD", border: "1px solid #E1E3F0", borderRadius: 6, padding: "16px 16px 14px" },
-  cardIllustration: { marginBottom: 10, height: 40, display: "flex", alignItems: "center" },
+  cardIllustration: { marginBottom: 10, height: 64, display: "flex", alignItems: "center" },
   cardName: { fontSize: 14, fontWeight: 700, color: "#171B36", marginBottom: 3 },
   cardSystem: { fontSize: 10.5, color: "#666D93", marginBottom: 8 },
   cardDesc: { fontSize: 12, lineHeight: 1.65, color: "#454C78", margin: "0 0 10px" },
