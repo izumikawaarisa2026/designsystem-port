@@ -321,31 +321,7 @@ const KP = [
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
-/* 良い例・悪い例(2026-11-28 ⑩本人最終レビューNo.022: 「並べ方」は系列で答えが分かれる(意見が分かれる点)ため、4系列が一致する「1つだけ選ばせるとき」に差し替えた) */
-function GoodBadFigure() {
-  const radio = (on) => (
-    <span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{on && <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} />}</span>
-  );
-  const check = (on) => (
-    <span style={{ width: 16, height: 16, borderRadius: 3, border: "2px solid #3A4FCF", background: on ? "#3A4FCF" : "#FFFFFF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#FFFFFF", fontSize: 11, lineHeight: 1 }}>{on && "✓"}</span>
-  );
-  const list = (mark, states) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start", fontSize: 12, color: "#2E3457" }}>
-      <span style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>配送方法</span>
-      {["通常配送", "お急ぎ便", "店舗受け取り"].map((t, i) => (<span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{mark(states[i])}{t}</span>))}
-    </div>
-  );
-  return (
-    <GoodBad
-            title="良い例・悪い例 ― 1つだけ選ばせるとき"
-            items={[
-              { kind: "good", fig: list(radio, [false, true, false]), text: "丸いラジオボタンなので、1つだけ選ぶ項目だと見て分かる。別の項目を選ぶと、前の選択は外れる。" },
-              { kind: "bad", fig: list(check, [true, true, false]), text: "1つしか選べないのに四角いチェックボックスにすると、複数選べるように見え、実際に2つ選べてしまう。" },
-            ]}
-            basis="Apple(2つ以上から1つだけ選ばせるならラジオボタン)、Google(1つだけ選ぶにはラジオボタン、複数ならチェックボックス)、NN group(相互に排他的な選択肢にはラジオボタン)。W3Cも、1つだけ選ぶグループと複数選べるグループを別の役割として伝える。"
-          />
-  );
-}
+/* 良い例・悪い例は、2026-11-28 ⑩本人最終レビュー(チャットでの指示)で不要として外した */
 
 export default function SelectionRadioPage() {
   return (
@@ -380,7 +356,6 @@ export default function SelectionRadioPage() {
           />
 
           <SplitSection splits={SPLITS} />
-          <GoodBadFigure />
 
 
 
