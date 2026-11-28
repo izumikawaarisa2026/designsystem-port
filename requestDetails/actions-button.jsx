@@ -304,6 +304,7 @@ const KP = [
 const SPECIAL_BUTTONS = [
   {
     name: "主ボタン(既定のボタン)",
+    names: [["Apple", "Primary"], ["NN group", "既定のボタン"]],
     fig: { label: "保存", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "最も選ばれやすいボタンに「Primary」の役割を付け、目立つ見た目にする。目立つボタンは1画面に1〜2個まで"],
@@ -313,6 +314,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "キャンセル",
+    names: [["Apple", "Cancel"], ["Google", "取りやめる操作(dismissive)"]],
     fig: { label: "キャンセル", style: { background: "transparent", color: "#3A4FCF", border: "1px solid #9EA4C4" } },
     rules: [
       ["Apple", "操作を取りやめるボタンの名前は必ず「キャンセル」にする。既定のボタンにしない。行の先頭側(左)、縦に積むなら下に置く"],
@@ -322,6 +324,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "削除などの破壊的なボタン",
+    names: [["Apple", "Destructive"]],
     fig: { label: "削除", style: { background: "transparent", color: "#C0503F", border: "1px solid #C0503F" } },
     rules: [
       ["Apple", "データを失う操作には「Destructive」の役割(システムの赤)。主ボタンにしない。添えるキャンセルで、安全に避けられるようにする。利用者が自分で選んだ削除の確認では、破壊的な見た目にしなくてよい"],
@@ -331,6 +334,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "閉じる(×)",
+    names: [["Google", "閉じる(close)のアイコンボタン"]],
     fig: { label: "×", style: { background: "transparent", color: "#2E3457", border: "1px solid #9EA4C4", padding: "5px 9px" } },
     rules: [
       ["Google", "全画面ダイアログの閉じる操作は、×のアイコンボタンだけにする。保存せずに閉じるときは、変更を捨ててよいかを確認する"],
@@ -339,6 +343,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "OK",
+    names: [["Apple", "OK(知らせるアラートだけ)"]],
     fig: { label: "OK", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "OKを使うのは、知らせるだけのアラートでの了承に限る。それ以外は「消去」「変換」のように、押した結果を表す動詞にする"],
@@ -347,6 +352,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "リセット(入力を消す)",
+    names: [["NN group", "Reset"]],
     fig: { label: "リセット", style: { background: "transparent", color: "#565D8A", border: "1px dashed #9EA4C4" } },
     rules: [
       ["NN group", "Webのフォームには、ほぼ置かない(送信のつもりで押して、入力を失う)。同じフォームを何度も入力する場合や、既定値に戻す場合は例外"],
@@ -368,41 +374,46 @@ const WHO_COLOR = { Apple: "#C2542A", Google: "#2F7D6E", W3C: "#A3821F", "NN gro
 /* 通常のボタンの種類・優先度(2026-11-28 チャットでの指示で、特別な役割のボタンと同じカードの形にまとめた。Apple HIG Buttons(Style)、Material Components for Android(Buttons)、NN group、W3C 1.4.11で確認) */
 const NORMAL_BUTTONS = [
   {
+    name: "背景から浮かせるボタン",
+    names: [["Google", "Elevated"]],
+    fig: { label: "共有", style: { background: "#FFFFFF", color: "#3A4FCF", boxShadow: "0 2px 5px rgba(23,27,54,0.28)" } },
+    rules: [
+      ["Google", "影の付いたOutlined。公式の並びでは最も目立つが、影が増えすぎないよう、模様のある背景から分けて見せる必要があるときだけに使う"],
+    ],
+  },
+  {
     name: "最も目立たせるボタン(主な操作)",
+    names: [["Google", "Filled"], ["Apple", "目立つスタイル(prominent)"], ["NN group", "Primary"]],
     fig: { label: "保存", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "最も選ばれやすい操作に、目立つスタイル(背景にアクセントカラー)を使う。目立つボタンは1画面に1〜2個まで"],
-      ["Google", "Filled。FABの次に目立つ。「保存」「参加する」「確定」のように、流れを終える・先へ進める操作に使う"],
+      ["Google", "FABの次に目立つ。「保存」「参加する」「確定」のように、流れを終える・先へ進める操作に使う"],
       ["NN group", "主な操作には専用の色を確保し、ほかの操作と見分けられるようにする"],
     ],
   },
   {
     name: "少し控えめな主な操作",
+    names: [["Google", "Filled tonal"]],
     fig: { label: "次へ", style: { background: "#DDE3FA", color: "#1E2A8A" } },
     rules: [
-      ["Google", "Filled tonal。背景が薄く、Filledより目立たない。流れを終える・先へ進める操作だが、そこまで強調しなくてよいときに使う"],
+      ["Google", "背景が薄く、Filledより目立たない。流れを終える・先へ進める操作だが、そこまで強調しなくてよいときに使う"],
     ],
   },
   {
     name: "副次的なボタン",
+    names: [["Google", "Outlined"], ["Apple", "控えめなスタイル"], ["NN group", "Secondary"]],
     fig: { label: "カートに追加", style: { background: "transparent", color: "#3A4FCF", border: "1px solid #3A4FCF" } },
     rules: [
       ["Apple", "複数の選択肢を並べるとき、選ばれやすいものを目立つスタイルにし、残りは控えめなスタイルにする。差は大きさではなくスタイルで付け、大きさはそろえる"],
-      ["Google", "Outlined。注意は引きたいが主ではない操作(「すべて表示」「カートに追加」)や、考え直す・流れから抜ける操作に使う。Filledと組み合わせて副次的な操作を示す"],
+      ["Google", "注意は引きたいが主ではない操作(「すべて表示」「カートに追加」)や、考え直す・流れから抜ける操作に使う。Filledと組み合わせて副次的な操作を示す"],
     ],
   },
   {
     name: "いちばん控えめなボタン",
-    fig: { label: "詳しく見る", style: { background: "transparent", color: "#3A4FCF", padding: "5px 4px" } },
+    names: [["Google", "Text"]],
+    fig: { label: "詳しく見る", style: { background: "transparent", color: "#3A4FCF", padding: "7px 6px" } },
     rules: [
-      ["Google", "Text。目立たないので、強調の低い操作に使う(いくつもの選択肢を並べるときなど)"],
-    ],
-  },
-  {
-    name: "背景から浮かせるボタン",
-    fig: { label: "共有", style: { background: "#FFFFFF", color: "#3A4FCF", boxShadow: "0 2px 4px rgba(23,27,54,0.25)" } },
-    rules: [
-      ["Google", "Elevated。影の付いたOutlinedで、模様のある背景から分けて見せる必要があるときだけに使う(影が増えすぎないように)"],
+      ["Google", "目立たないので、強調の低い操作に使う(いくつもの選択肢を並べるときなど)"],
     ],
   },
 ];
@@ -415,30 +426,43 @@ const NORMAL_BTN_REFS = [
   { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
 ];
 
-/* ボタンの種類のカード(左に見本、右に系列ごとの決まり)。通常の種類と特別な役割の両方で使う */
-function ButtonCards({ title, intro, items, note, refs }) {
+/* ボタンの種類のカード。通常の種類と特別な役割の両方で使う(2026-11-28 チャットでの指示で、読みやすさのためデザインを見直した: 見出しの帯・名前のバッジ・系列のラベル・行の区切り) */
+const WHO_BG = { Apple: "#FBEDE7", Google: "#E4F0EC", W3C: "#F6EFD9", "NN group": "#F1E8F2" };
+function WhoTag({ who }) {
+  return (<span style={{ display: "inline-block", minWidth: 64, textAlign: "center", fontSize: 10.5, fontWeight: 700, color: WHO_COLOR[who], background: WHO_BG[who], borderRadius: 10, padding: "2px 8px", lineHeight: 1.5 }}>{who}</span>);
+}
+function ButtonCards({ title, intro, items, note, refs, numbered }) {
   return (
-    <section style={{ marginBottom: 32 }}>
+    <section style={{ marginBottom: 36 }}>
       <h2 style={styles.diagramTitle}>{title}</h2>
-      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>{intro}</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {items.map((b) => (
-          <div key={b.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
-            <div style={{ flex: "1 0 170px", maxWidth: 220 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 8 }}>{b.name}</div>
-              <div style={{ background: "#F8F9FD", borderRadius: 6, padding: 10, display: "flex", justifyContent: "center" }}><MiniButton label={b.fig.label} style={b.fig.style} /></div>
-            </div>
-            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
-              {b.rules.map(([who, t]) => (
-                <div key={who} style={{ display: "grid", gridTemplateColumns: "72px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 5 }}>
-                  <span style={{ fontWeight: 700, color: WHO_COLOR[who], fontSize: 11 }}>{who}</span><span>{t}</span>
-                </div>
+      <p style={{ fontSize: 13, lineHeight: 1.75, color: "#2E3457", margin: "-4px 0 14px" }}>{intro}</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        {items.map((b, i) => (
+          <div key={b.name} style={{ border: "1px solid #E1E3F0", borderRadius: 8, background: "#FFFFFF", overflow: "hidden" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 10px", padding: "10px 14px", background: "#F8F9FD", borderBottom: "1px solid #E1E3F0" }}>
+              {numbered && <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#171B36", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</span>}
+              <span style={{ fontSize: 14.5, fontWeight: 700, color: "#171B36" }}>{b.name}</span>
+              {b.names && b.names.map(([who, n]) => (
+                <span key={who + n} style={{ fontSize: 11, color: "#2E3457", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "1px 7px" }}><span style={{ color: WHO_COLOR[who], fontWeight: 700 }}>{who}</span> {n}</span>
               ))}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 18px", padding: 14 }}>
+              <div style={{ flex: "0 0 150px", maxWidth: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#F3F6FA", borderRadius: 6, minHeight: 64 }}>
+                <span style={{ display: "inline-block", fontSize: 13, fontWeight: 600, padding: "8px 18px", borderRadius: 20, whiteSpace: "nowrap", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", ...b.fig.style }}>{b.fig.label}</span>
+              </div>
+              <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+                {b.rules.map(([who, t], j) => (
+                  <div key={who} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0", borderTop: j > 0 ? "1px dashed #E1E3F0" : "none" }}>
+                    <WhoTag who={who} />
+                    <span style={{ fontSize: 12.5, lineHeight: 1.75, color: "#2E3457", flex: 1, minWidth: 0 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
       </div>
-      {note && <p style={{ fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "8px 0" }}>{note}</p>}
+      {note && <p style={{ fontSize: 12, lineHeight: 1.7, color: "#454C78", margin: "12px 0 8px", padding: "8px 12px", background: "#F8F9FD", borderRadius: 6 }}>{note}</p>}
       <div style={{ fontSize: 11, color: "#565D8A" }}><RefList refs={refs} /></div>
     </section>
   );
@@ -448,8 +472,9 @@ function NormalButtons() {
   return (
     <ButtonCards
       title="通常のボタンの種類・優先度"
-      intro={<>画面の中で<strong>どれだけ目立たせるか</strong>で選ぶ。5段階で分けているのはGoogle(Filled・Filled tonal・Outlined・Text・Elevated)で、Appleは「目立つスタイル/控えめなスタイル」の差、NN groupは主な操作に専用の色を当てることを求める。記載のない系列は省いた。</>}
+      intro={<>画面の中で<strong>どれだけ目立たせるか</strong>で選ぶ。番号は<strong>Googleの公式の並び(目立つ順)</strong>で、Elevated → Filled → Filled tonal → Outlined → Text。ただしElevatedは模様のある背景のときだけ使うので、<strong>ふだん主な操作に使うのはFilled</strong>。Appleは「目立つスタイル/控えめなスタイル」の差、NN groupは主な操作に専用の色を当てることを求める。記載のない系列は省いた。</>}
       items={NORMAL_BUTTONS}
+      numbered
       note={NORMAL_BTN_NOTE}
       refs={NORMAL_BTN_REFS}
     />

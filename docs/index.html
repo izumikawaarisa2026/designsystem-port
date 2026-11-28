@@ -1477,6 +1477,7 @@ const KP = [
 const SPECIAL_BUTTONS = [
   {
     name: "主ボタン(既定のボタン)",
+    names: [["Apple", "Primary"], ["NN group", "既定のボタン"]],
     fig: { label: "保存", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "最も選ばれやすいボタンに「Primary」の役割を付け、目立つ見た目にする。目立つボタンは1画面に1〜2個まで"],
@@ -1486,6 +1487,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "キャンセル",
+    names: [["Apple", "Cancel"], ["Google", "取りやめる操作(dismissive)"]],
     fig: { label: "キャンセル", style: { background: "transparent", color: "#3A4FCF", border: "1px solid #9EA4C4" } },
     rules: [
       ["Apple", "操作を取りやめるボタンの名前は必ず「キャンセル」にする。既定のボタンにしない。行の先頭側(左)、縦に積むなら下に置く"],
@@ -1495,6 +1497,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "削除などの破壊的なボタン",
+    names: [["Apple", "Destructive"]],
     fig: { label: "削除", style: { background: "transparent", color: "#C0503F", border: "1px solid #C0503F" } },
     rules: [
       ["Apple", "データを失う操作には「Destructive」の役割(システムの赤)。主ボタンにしない。添えるキャンセルで、安全に避けられるようにする。利用者が自分で選んだ削除の確認では、破壊的な見た目にしなくてよい"],
@@ -1504,6 +1507,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "閉じる(×)",
+    names: [["Google", "閉じる(close)のアイコンボタン"]],
     fig: { label: "×", style: { background: "transparent", color: "#2E3457", border: "1px solid #9EA4C4", padding: "5px 9px" } },
     rules: [
       ["Google", "全画面ダイアログの閉じる操作は、×のアイコンボタンだけにする。保存せずに閉じるときは、変更を捨ててよいかを確認する"],
@@ -1512,6 +1516,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "OK",
+    names: [["Apple", "OK(知らせるアラートだけ)"]],
     fig: { label: "OK", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "OKを使うのは、知らせるだけのアラートでの了承に限る。それ以外は「消去」「変換」のように、押した結果を表す動詞にする"],
@@ -1520,6 +1525,7 @@ const SPECIAL_BUTTONS = [
   },
   {
     name: "リセット(入力を消す)",
+    names: [["NN group", "Reset"]],
     fig: { label: "リセット", style: { background: "transparent", color: "#565D8A", border: "1px dashed #9EA4C4" } },
     rules: [
       ["NN group", "Webのフォームには、ほぼ置かない(送信のつもりで押して、入力を失う)。同じフォームを何度も入力する場合や、既定値に戻す場合は例外"],
@@ -1541,41 +1547,46 @@ const WHO_COLOR = { Apple: "#C2542A", Google: "#2F7D6E", W3C: "#A3821F", "NN gro
 /* 通常のボタンの種類・優先度(2026-11-28 チャットでの指示で、特別な役割のボタンと同じカードの形にまとめた。Apple HIG Buttons(Style)、Material Components for Android(Buttons)、NN group、W3C 1.4.11で確認) */
 const NORMAL_BUTTONS = [
   {
+    name: "背景から浮かせるボタン",
+    names: [["Google", "Elevated"]],
+    fig: { label: "共有", style: { background: "#FFFFFF", color: "#3A4FCF", boxShadow: "0 2px 5px rgba(23,27,54,0.28)" } },
+    rules: [
+      ["Google", "影の付いたOutlined。公式の並びでは最も目立つが、影が増えすぎないよう、模様のある背景から分けて見せる必要があるときだけに使う"],
+    ],
+  },
+  {
     name: "最も目立たせるボタン(主な操作)",
+    names: [["Google", "Filled"], ["Apple", "目立つスタイル(prominent)"], ["NN group", "Primary"]],
     fig: { label: "保存", style: { background: "#3A4FCF", color: "#FFFFFF" } },
     rules: [
       ["Apple", "最も選ばれやすい操作に、目立つスタイル(背景にアクセントカラー)を使う。目立つボタンは1画面に1〜2個まで"],
-      ["Google", "Filled。FABの次に目立つ。「保存」「参加する」「確定」のように、流れを終える・先へ進める操作に使う"],
+      ["Google", "FABの次に目立つ。「保存」「参加する」「確定」のように、流れを終える・先へ進める操作に使う"],
       ["NN group", "主な操作には専用の色を確保し、ほかの操作と見分けられるようにする"],
     ],
   },
   {
     name: "少し控えめな主な操作",
+    names: [["Google", "Filled tonal"]],
     fig: { label: "次へ", style: { background: "#DDE3FA", color: "#1E2A8A" } },
     rules: [
-      ["Google", "Filled tonal。背景が薄く、Filledより目立たない。流れを終える・先へ進める操作だが、そこまで強調しなくてよいときに使う"],
+      ["Google", "背景が薄く、Filledより目立たない。流れを終える・先へ進める操作だが、そこまで強調しなくてよいときに使う"],
     ],
   },
   {
     name: "副次的なボタン",
+    names: [["Google", "Outlined"], ["Apple", "控えめなスタイル"], ["NN group", "Secondary"]],
     fig: { label: "カートに追加", style: { background: "transparent", color: "#3A4FCF", border: "1px solid #3A4FCF" } },
     rules: [
       ["Apple", "複数の選択肢を並べるとき、選ばれやすいものを目立つスタイルにし、残りは控えめなスタイルにする。差は大きさではなくスタイルで付け、大きさはそろえる"],
-      ["Google", "Outlined。注意は引きたいが主ではない操作(「すべて表示」「カートに追加」)や、考え直す・流れから抜ける操作に使う。Filledと組み合わせて副次的な操作を示す"],
+      ["Google", "注意は引きたいが主ではない操作(「すべて表示」「カートに追加」)や、考え直す・流れから抜ける操作に使う。Filledと組み合わせて副次的な操作を示す"],
     ],
   },
   {
     name: "いちばん控えめなボタン",
-    fig: { label: "詳しく見る", style: { background: "transparent", color: "#3A4FCF", padding: "5px 4px" } },
+    names: [["Google", "Text"]],
+    fig: { label: "詳しく見る", style: { background: "transparent", color: "#3A4FCF", padding: "7px 6px" } },
     rules: [
-      ["Google", "Text。目立たないので、強調の低い操作に使う(いくつもの選択肢を並べるときなど)"],
-    ],
-  },
-  {
-    name: "背景から浮かせるボタン",
-    fig: { label: "共有", style: { background: "#FFFFFF", color: "#3A4FCF", boxShadow: "0 2px 4px rgba(23,27,54,0.25)" } },
-    rules: [
-      ["Google", "Elevated。影の付いたOutlinedで、模様のある背景から分けて見せる必要があるときだけに使う(影が増えすぎないように)"],
+      ["Google", "目立たないので、強調の低い操作に使う(いくつもの選択肢を並べるときなど)"],
     ],
   },
 ];
@@ -1588,30 +1599,43 @@ const NORMAL_BTN_REFS = [
   { kind: "sc", level: "AA", label: "1.4.11 非テキストのコントラスト", url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" },
 ];
 
-/* ボタンの種類のカード(左に見本、右に系列ごとの決まり)。通常の種類と特別な役割の両方で使う */
-function ButtonCards({ title, intro, items, note, refs }) {
+/* ボタンの種類のカード。通常の種類と特別な役割の両方で使う(2026-11-28 チャットでの指示で、読みやすさのためデザインを見直した: 見出しの帯・名前のバッジ・系列のラベル・行の区切り) */
+const WHO_BG = { Apple: "#FBEDE7", Google: "#E4F0EC", W3C: "#F6EFD9", "NN group": "#F1E8F2" };
+function WhoTag({ who }) {
+  return (<span style={{ display: "inline-block", minWidth: 64, textAlign: "center", fontSize: 10.5, fontWeight: 700, color: WHO_COLOR[who], background: WHO_BG[who], borderRadius: 10, padding: "2px 8px", lineHeight: 1.5 }}>{who}</span>);
+}
+function ButtonCards({ title, intro, items, note, refs, numbered }) {
   return (
-    <section style={{ marginBottom: 32 }}>
+    <section style={{ marginBottom: 36 }}>
       <h2 style={styles.diagramTitle}>{title}</h2>
-      <p style={{ fontSize: 12.5, lineHeight: 1.7, color: "#454C78", margin: "-4px 0 12px" }}>{intro}</p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        {items.map((b) => (
-          <div key={b.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
-            <div style={{ flex: "1 0 170px", maxWidth: 220 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 8 }}>{b.name}</div>
-              <div style={{ background: "#F8F9FD", borderRadius: 6, padding: 10, display: "flex", justifyContent: "center" }}><MiniButton label={b.fig.label} style={b.fig.style} /></div>
-            </div>
-            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
-              {b.rules.map(([who, t]) => (
-                <div key={who} style={{ display: "grid", gridTemplateColumns: "72px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 5 }}>
-                  <span style={{ fontWeight: 700, color: WHO_COLOR[who], fontSize: 11 }}>{who}</span><span>{t}</span>
-                </div>
+      <p style={{ fontSize: 13, lineHeight: 1.75, color: "#2E3457", margin: "-4px 0 14px" }}>{intro}</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+        {items.map((b, i) => (
+          <div key={b.name} style={{ border: "1px solid #E1E3F0", borderRadius: 8, background: "#FFFFFF", overflow: "hidden" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "6px 10px", padding: "10px 14px", background: "#F8F9FD", borderBottom: "1px solid #E1E3F0" }}>
+              {numbered && <span style={{ width: 22, height: 22, borderRadius: "50%", background: "#171B36", color: "#FFFFFF", fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</span>}
+              <span style={{ fontSize: 14.5, fontWeight: 700, color: "#171B36" }}>{b.name}</span>
+              {b.names && b.names.map(([who, n]) => (
+                <span key={who + n} style={{ fontSize: 11, color: "#2E3457", background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: "1px 7px" }}><span style={{ color: WHO_COLOR[who], fontWeight: 700 }}>{who}</span> {n}</span>
               ))}
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 18px", padding: 14 }}>
+              <div style={{ flex: "0 0 150px", maxWidth: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#F3F6FA", borderRadius: 6, minHeight: 64 }}>
+                <span style={{ display: "inline-block", fontSize: 13, fontWeight: 600, padding: "8px 18px", borderRadius: 20, whiteSpace: "nowrap", fontFamily: "'Jost', 'Noto Sans JP', sans-serif", ...b.fig.style }}>{b.fig.label}</span>
+              </div>
+              <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+                {b.rules.map(([who, t], j) => (
+                  <div key={who} style={{ display: "flex", gap: 10, alignItems: "flex-start", padding: "7px 0", borderTop: j > 0 ? "1px dashed #E1E3F0" : "none" }}>
+                    <WhoTag who={who} />
+                    <span style={{ fontSize: 12.5, lineHeight: 1.75, color: "#2E3457", flex: 1, minWidth: 0 }}>{t}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         ))}
       </div>
-      {note && <p style={{ fontSize: 11.5, lineHeight: 1.65, color: "#565D8A", margin: "8px 0" }}>{note}</p>}
+      {note && <p style={{ fontSize: 12, lineHeight: 1.7, color: "#454C78", margin: "12px 0 8px", padding: "8px 12px", background: "#F8F9FD", borderRadius: 6 }}>{note}</p>}
       <div style={{ fontSize: 11, color: "#565D8A" }}><RefList refs={refs} /></div>
     </section>
   );
@@ -1621,8 +1645,9 @@ function NormalButtons() {
   return (
     <ButtonCards
       title="通常のボタンの種類・優先度"
-      intro={<>画面の中で<strong>どれだけ目立たせるか</strong>で選ぶ。5段階で分けているのはGoogle(Filled・Filled tonal・Outlined・Text・Elevated)で、Appleは「目立つスタイル/控えめなスタイル」の差、NN groupは主な操作に専用の色を当てることを求める。記載のない系列は省いた。</>}
+      intro={<>画面の中で<strong>どれだけ目立たせるか</strong>で選ぶ。番号は<strong>Googleの公式の並び(目立つ順)</strong>で、Elevated → Filled → Filled tonal → Outlined → Text。ただしElevatedは模様のある背景のときだけ使うので、<strong>ふだん主な操作に使うのはFilled</strong>。Appleは「目立つスタイル/控えめなスタイル」の差、NN groupは主な操作に専用の色を当てることを求める。記載のない系列は省いた。</>}
       items={NORMAL_BUTTONS}
+      numbered
       note={NORMAL_BTN_NOTE}
       refs={NORMAL_BTN_REFS}
     />
@@ -33143,17 +33168,13 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Buttons / Focus and selection / Pointing devices",
     color: "#C2542A",
     position: <>状態の見た目はシステムのコンポーネントに組み込まれ、<Hl>標準の効果に任せるのが基本</Hl>。状態の種類はプラットフォームと入力方法ごとに定める</>,
-    size: "共通の一覧はなく、プラットフォームごとに定める。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意する。iOS・iPadOSでは、すぐ終わらない処理のあいだ、ボタンの中にインジケーターを出し、ラベルを変えられる(「購入」→「購入中…」)。",
-    visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分ける。",
-    stance:
-      "システムの効果はAppleのデバイスに合わせて調整されていて、一貫性と予測しやすさが得られるため、独自のフォーカス効果は本当に必要な場合だけにする。利用者の操作なしにフォーカスを移動させない。",
-    exceptions:
-      "iOSとwatchOSには、フォーカスの仕組みがない。iPadOS・macOSのフルキーボードアクセスでは、ボタンやスライダーなどのコントロールにはシステムがフォーカスを届けるため、アプリが対応させるのは、リスト項目・テキストフィールド・検索フィールドなどの内容の要素だけでよい。",
-    accessibility:
-      "知覚可能・操作可能(Perceivable/Operable) ― 押した状態がないボタンは反応していないように感じられ、入力が受け付けられたか分からない。フォーカスの見た目は、キーボード・リモコン・ゲームコントローラーで操作する人が、いまどこにいるかを知る手がかり。",
+    size: "共通の一覧はなく、プラットフォームと入力方法ごとに定める。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには押した状態を必ず用意する。iOS・iPadOSでは、処理中にボタンの中へインジケーターを出し、ラベルを変えられる(「購入」→「購入中…」)。",
+    visual: "iPadOS・macOSのフォーカスは、入力欄・検索欄はリング、リストは行全体のハイライトで示す。",
+    stance: "システムの効果は一貫していて予測しやすいため、独自のフォーカス効果は本当に必要なときだけにする。利用者の操作なしにフォーカスを動かさない。",
+    exceptions: "iOS・watchOSにはフォーカスの仕組みがない。フルキーボードアクセスでは、コントロールにはシステムがフォーカスを届けるので、アプリが対応するのは内容の要素(リスト項目・入力欄など)だけでよい。",
+    accessibility: "知覚可能・操作可能 ― 押した状態がないと、入力が受け付けられたか分からない。フォーカスの見た目は、キーボードなどで操作する人の現在地の手がかり。",
     useCases: [
       "独自のボタンにも、押した状態を必ず用意する",
-      "入力欄はフォーカスリング、リストは行のハイライトで示す",
       "独自のフォーカス効果は避け、システムの効果を使う",
     ],
     searchHint: "",
@@ -33171,19 +33192,15 @@ const SOURCES = [
     doc: "Material Design 3 ― Interaction states(State layers)",
     color: "#2F7D6E",
     position: <>状態を「ステートレイヤー」という半透明の重ね色で表し、<Hl>状態ごとの不透明度をトークンで数値化</Hl></>,
-    size: "M3のトークンでは、ホバー・フォーカス・プレス・ドラッグの4つの操作状態にステートレイヤーを定義し、これに有効(Enabled)・無効(Disabled)が加わる。旧版のM2は、選択(Selected)・アクティブ(Activated)・オン/オフ・エラーを含む11の状態を挙げていた。",
-    visual: "ステートレイヤーは、文字やアイコンと同じ色を半透明で重ねる。不透明度は、ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効状態は、文字とアイコンを38%、塗りの容器を10%の不透明度で表す(Jetpack Composeのトークン定義)。M2では、ステートレイヤーは同時に1つだけ出し、影(エレベーション)・色・アイコンの変化と組み合わせることもあった。",
-    stance:
-      "状態は、互いに、また周りのレイアウトとはっきり見分けられるようにしつつ、見た目を変えすぎず、すべてのコンポーネントで一貫させる。選択とホバーのように状態が重なったら、両方を示す。M2では、不透明度を文字と背景の組み合わせごとに調整し、見やすさとコントラストを確保していた(例: 白い背景ではホバー4%・フォーカス12%、紫の背景ではホバー8%・フォーカス24%)。ホバーは内容の邪魔にならないよう低く、フォーカスはほかに手がかりがないため高くする。",
+    size: "ホバー・フォーカス・プレス・ドラッグの4つにステートレイヤーを定義し、有効・無効を加える。旧版のM2は、選択・アクティブ・オン/オフ・エラーを含む11の状態を挙げていた。",
+    visual: "文字やアイコンと同じ色を半透明で重ねる。ホバー8%・フォーカス10%・プレス10%・ドラッグ16%。無効は文字・アイコン38%、塗りの容器10%(Jetpack Composeのトークン定義)。",
+    stance: "状態どうしと周りをはっきり見分けられるようにしつつ、見た目を変えすぎず、全コンポーネントで一貫させる。選択とホバーのように重なったら両方を示す。M2では、ホバーは控えめに、フォーカスはほかに手がかりがないので強めにし、背景ごとに不透明度を変えていた(白い背景はホバー4%・フォーカス12%、紫の背景はホバー8%・フォーカス24%)。",
     exceptions:
       <NoData>記載なし</NoData>,
-    accessibility:
-      "知覚可能(Perceivable) ― 無効状態は38%の不透明度で表し、操作できないことを伝える。WCAGの1.4.11は無効なコンポーネントをコントラストの要件から外しているため、矛盾しない。",
+    accessibility: "知覚可能 ― 無効は38%で、操作できないことを伝える。WCAG 1.4.11は無効なコンポーネントを対象外にしているので矛盾しない。",
     useCases: [
-      "ホバー・フォーカス・プレスは、文字色と同じ色を半透明で重ねて表す",
-      "無効状態は、文字・アイコン38%、容器10%の不透明度にする",
-      "Webの実装(Material Web)では、フォーカスを重ね色に加えて太さ3px・外側2pxの輪郭線(フォーカスリング)でも示す",
-      "状態が重なるときも、選択などの表示は消さずに残す",
+      "ホバー・フォーカス・プレスは、文字色と同じ色を半透明で重ねる",
+      "Web(Material Web)では、フォーカスに太さ3px・外側2pxの輪郭線も出す",
     ],
     searchHint: "",
     url: "https://m3.material.io/foundations/interaction/states/state-layers",
@@ -33201,23 +33218,21 @@ const SOURCES = [
     doc: "WCAG 1.4.11 Non-text Contrast / 2.4.7 Focus Visible / 2.4.13 Focus Appearance / 4.1.2 Name, Role, Value",
     color: "#A3821F",
     position: <>状態の種類や見た目は定めず、<Hl>「状態を見分けられるコントラスト」と「状態を支援技術に伝えること」</Hl>を求める</>,
-    size: "コンポーネントと状態を見分けるのに必要な見た目(枠線・チェックの印など)は、隣り合う色に対して3:1以上(1.4.11・レベルAA)。ホバー・押下など状態どうしの差を3:1にすることまでは求めない。フォーカスは別の基準で、実務の目標(AA)はフォーカスの可視化(2.4.7)と、フォーカスしたコンポーネントがほかの内容に隠れないこと(2.4.11)。さらに厳しい2.4.13(レベルAAA)は、フォーカスの表示が、コンポーネントの周りを2pxの太さで囲んだ面積以上で、フォーカスの前後の同じピクセルどうしで3:1以上の変化があること。",
-    visual: "見た目の作り方は自由。ただし選択・オン/オフなどの状態を示す見た目(印や枠線)は、隣り合う色と3:1以上にする。隣り合って表示されない状態どうしの色の変化は3:1でなくてよい(Understanding 1.4.11)。見た目とは別に、利用者が変えられる状態(チェック・展開・選択など)は、プログラムで判別・設定でき、変化が支援技術に通知されること(4.1.2・レベルA)。",
+    size: "状態を見分ける見た目(枠線・チェックの印など)は、隣の色と3:1以上(1.4.11・AA)。状態どうしの差を3:1にする必要はない。フォーカスは、見えること(2.4.7・AA)と、ほかの内容に隠れないこと(2.4.11・AA)。AAAの2.4.13は、2pxの太さで囲んだ面積以上で、前後の変化3:1以上。",
+    visual: "見た目の作り方は自由。チェック・展開・選択などの状態は、支援技術から判別・設定でき、変化が伝わること(4.1.2・A)。",
     glossary: [
       { term: "1.4.11 Non-text Contrast・レベルAA", desc: "UIコンポーネントと状態を見分けるための見た目と、意味のある図形に、隣の色との3:1以上のコントラストを求める。" },
       { term: "2.4.7 Focus Visible・レベルAA", desc: "キーボード操作で、どこにフォーカスがあるかが見えること。実務の目標(AA)。" },
       { term: "2.4.13 Focus Appearance・レベルAAA", desc: "2.4.7のフォーカス表示の大きさとコントラストを、さらに厳しくしたもの。大きさは2pxの外周相当以上、表示前後の変化は3:1以上。" },
       { term: "4.1.2 Name, Role, Value・レベルA", desc: "UIコンポーネントの名前・役割と状態・値をプログラムで判別でき、変化が支援技術に通知されること。" },
     ],
-    stance:
-      "中程度のロービジョンの人でも見分けられるよう、大きな文字と同じ3:1を求める。3:1はしきい値で、2.999:1を四捨五入して合格にはできない。キーボードの移動順序(2.4.3)は「入力方法・ジェスチャー」ページの「入力手段ごとの対応」のキーボードの行を参照。フォーカスの可視化(2.4.7)はこのページで扱う。",
-    exceptions:
-      "無効(inactive)なコンポーネントと、ブラウザ標準の見た目を作者が変えていないコンポーネントは、コントラストの要件の対象外。2.4.13(レベルAAA)も、フォーカス表示をブラウザが決めていて作者が調整できない場合などは除外。",
-    accessibility: "知覚可能・操作可能・堅牢(Perceivable/Operable/Robust) ― 1.4.11は「知覚可能」、2.4.7・2.4.13は「操作可能」、4.1.2は「堅牢」。目に見える状態と、支援技術に伝わる状態の両方をそろえる。",
+    stance: "中程度のロービジョンの人でも見分けられるよう、大きな文字と同じ3:1を求める。3:1はしきい値で、2.999:1を四捨五入して合格にはできない。",
+    exceptions: "無効なコンポーネントと、ブラウザ標準の見た目を変えていないコンポーネントは対象外。2.4.13も、ブラウザが決めていて作者が調整できないフォーカス表示などは除く。",
+    accessibility: "知覚可能・操作可能・堅牢 ― 1.4.11は知覚可能、2.4.7・2.4.13は操作可能、4.1.2は堅牢。",
     useCases: [
-      "選択・オン/オフなど状態を示す見た目(チェックの印・枠など)を、隣の色に対して3:1以上にする(ホバー・押下など状態どうしの差を3:1にする必要はない)",
-      "フォーカスがどこにあるかを必ず見えるようにする(2.4.7・AA)。より高い水準(2.4.13・AAA)を目指すなら、2px相当以上の太さで3:1以上の変化をつける",
-      "押されているか・開いているかなどの状態を、支援技術に伝える",
+      "状態を示す印や枠を、隣の色と3:1以上にする",
+      "フォーカスの位置を必ず見えるようにする(2.4.7)",
+      "押されているか・開いているかを支援技術に伝える",
     ],
     searchHint: "Inactive User Interface Components",
     url: "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html#success-criterion",
@@ -33235,17 +33250,15 @@ const SOURCES = [
     doc: "Button States: Communicate Interaction",
     color: "#7A4F7E",
     position: <>ボタンの状態を、デザインシステムに入れる基本セットとして整理し、<Hl>表示までの時間の目安も示す</Hl>(適合基準ではない)</>,
-    size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態。表示の目安は、ホバーが約150〜200msの遅延(マウスが通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内。",
-    visual: "有効はコントラストが高く読みやすく、無効はグレーなど彩度を落とした低いコントラスト(ただし読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に。フォーカスは色の変化だけでなく輪郭線(アウトライン)で示すことを強く勧める。読み込み中はラベルの左にスピナー。選択はチェックボックスやラジオボタンの状態で、ボタンのプレスとは別物。",
-    stance:
-      "押せるのか、押したことが伝わったのかが分からないと、利用者は戸惑い、何度も押す。状態は小さな手がかりで伝えるため、実際の利用者で見分けられるかテストする。ホバーは、マウスを使わない利用者(スマートフォンなど)には見えない。無効なボタンも、タブでフォーカスできるまま「無効」と支援技術に伝えれば、スクリーンリーダーで存在と状態が分かる。",
+    size: "基本の5状態(有効・無効・ホバー・フォーカス・プレス)に、読み込み中と選択を加えた7状態。ホバーは約150〜200ms待ってから(通り過ぎただけで反応しないように)、フォーカスとプレスは100〜150ms以内に表示する。",
+    visual: "有効は高いコントラスト、無効は彩度を落とした低いコントラスト(読める程度)、ホバーは背景をわずかに暗くしてカーソルを手の形に、フォーカスは色だけでなく輪郭線で、読み込み中はラベルの左にスピナー。選択はチェックボックスなどの状態で、プレスとは別物。",
+    stance: "押せるのか、押したことが伝わったのかが分からないと、何度も押してしまう。手がかりは小さいので、実際の利用者で見分けられるかテストする。ホバーはタッチでは見えない。無効なボタンも、フォーカスできるまま「無効」と伝えれば、スクリーンリーダーで存在が分かる。",
     exceptions:
       <NoData>記載なし</NoData>,
-    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察にもとづく設計の根拠。フォーカスを色だけで示すと、視覚に障害のある人には伝わらない場合がある。",
+    accessibility: "根拠となる原則 ― 適合区分ではなく、ユーザビリティの観察にもとづく。フォーカスを色だけで示すと、伝わらない人がいる。",
     useCases: [
-      "ホバーには150〜200msの遅延を入れる",
-      "プレスのフィードバックは100〜150ms以内に表示する",
-      "フォーカスは輪郭線で示し、色の変化だけに頼らない",
+      "ホバーは150〜200ms待ってから表示する",
+      "フォーカスは輪郭線で示し、色だけに頼らない",
     ],
     searchHint: "Focus State",
     url: "https://www.nngroup.com/articles/button-states-communicate-interaction/#toc-button-states-explained-1",
@@ -33407,6 +33420,23 @@ function CellMini({ k, sys }) {
     default: return null;
   }
   return <svg viewBox="0 0 96 34" width="128" height="45" style={{ display: "block", margin: "2px 0" }} role="img" aria-label={`${k}の状態の例(${sys})`}>{body}</svg>;
+}
+
+/* 四系列デザインシステム比較の「イメージ」の行(2026-11-28 チャットでの指示)。その系列が定めている状態を、上の比較図のセルと同じ図で並べる */
+const STRIP = { hig: ["apple", ["hover", "focus", "press", "disabled"]], material: ["google", ["hover", "focus", "press", "drag", "disabled"]], wcag: ["wcag", ["enabled", "focus", "selected", "disabled"]], nn: ["nn", ["hover", "focus", "press", "disabled", "loading"]] };
+const STATE_LABEL = Object.fromEntries(STATE_ROWS.map((r) => [r.key, r.label]));
+function StateStrip({ srcKey }) {
+  const [sys, keys] = STRIP[srcKey];
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(112px, 1fr))", gap: "6px 8px", width: "100%" }}>
+      {keys.map((k) => (
+        <div key={k} style={{ background: "#F8F9FD", borderRadius: 4, padding: "4px 4px 2px" }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: "#454C78" }}>{STATE_LABEL[k]}</div>
+          <div style={{ transform: "scale(0.78)", transformOrigin: "left top", height: 36 }}><CellMini k={k} sys={sys} /></div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function StateMatrix() {
@@ -33606,6 +33636,7 @@ function TokensInteractionStatesPage() {
                   </div>
                 </div>
                 <div style={styles.positionBadge}>{s.position}</div>
+                <div style={{ margin: "8px 0" }}><StateStrip srcKey={s.key} /></div>
                 <InfoBox label="状態の種類" accent="#3C5A73">{s.size}</InfoBox>
                 <InfoBox label="見た目の表し方">{s.visual}</InfoBox>
                 <div style={styles.sourceStance}>{s.stance}</div>
@@ -33635,6 +33666,8 @@ function TokensInteractionStatesPage() {
                 ))}
                 <div style={styles.labelCell}>位置づけ</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.position}</div>))}
+                <div style={styles.labelCell}>イメージ(定めている状態)</div>
+                {SOURCES.map((s) => (<div key={s.key} style={styles.cell}><StateStrip srcKey={s.key} /></div>))}
                 <div style={styles.labelCell}>状態の種類</div>
                 {SOURCES.map((s) => (<div key={s.key} style={{ ...styles.cell, ...styles.textCell }}>{s.size}</div>))}
                 <div style={styles.labelCell}>見た目の表し方</div>
