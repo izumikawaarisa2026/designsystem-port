@@ -38,6 +38,7 @@
 | 11 | サウンド(音フィードバック) | ✅ 完成済み(2026-10、SPEC No.050)。GoogleはM3に音のページがなく、Material Design 2のSoundページ(ページデータで本文確認)を掲載。参考として触覚(ハプティクス)のApple・Android比較を併載 |
 | 12 | インタラクション状態(ホバー・フォーカス・プレス) | ✅ 完成済み(2026-10、SPEC No.051)。Googleの不透明度はJetpack ComposeのStateTokens(v0_210)、状態の原則はM2のページデータで確認。キーボードの移動順序・2.4.7は「キーボードナビゲーション」ページへ回す |
 | 13 | レスポンシブデザイン(2026-11に「アダプティブ/レスポンシブデザイン」から改名) | ✅ 完成済み(2026-10、SPEC No.052、/tokens/adaptive)。Apple(HIG Layout・Tab bars・Split views)はページデータ、Google(カノニカルレイアウト・アダプティブナビゲーション)はAndroid Developersの本文、W3C(1.4.10・1.3.4)・NN group(Breakpoints in Responsive Design)は本文で確認。境界値・余白は「レイアウト・スペーシング」ページで扱う |
+| 13.5 | 押せる範囲(ターゲットサイズ) | ✅ 完成済み(2026-11-28、SPEC No.047.5、/tokens/target-size)。⑩本人最終レビューNo.016で、ボタンのページのタブ「押せる範囲の大きさ」を独立させた(サイドバーではレイアウト・スペーシングの次)。数値・文章はボタンのページのものをそのまま移した。2.5.8の例外の詳しい説明はこのページにそろえる |
 | 14 | 入力方法・ジェスチャー | ✅ 完成済み(2026-10、SPEC No.053、/tokens/input-methods)。Apple(HIG Gestures・Pointing devices)はページデータ、GoogleはM2のGesturesのページデータとAndroid Developersの本文、W3C(2.5.1・2.5.2・2.5.4・2.5.6・2.5.7)・NN group(Contextual Swipe)は本文で確認 |
 | 15 | キーボードナビゲーション・フォーカス順序 | ✅ 完成済み(2026-10、SPEC No.054、/tokens/keyboard-navigation)。Apple(HIG Keyboards・Focus and selection)はページデータ、GoogleはM3に専用ページがなくAndroid Developers(Focus in Compose)の本文、W3C(2.1.1・2.1.2・2.1.4・2.4.1・2.4.3・2.4.7、APG)・NN group(Keyboard-Only Navigation)は本文で確認 |
 
@@ -50,7 +51,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 ### Actions ― 操作を起こす(3)
 | # | ページ | 状態 |
 |---|---|---|
-| 1 | ボタン | ✅ 完成済み(タップ領域テーマ) |
+| 1 | ボタン | ✅ 完成済み。2026-11-28 ⑩No.016で、押せる範囲の大きさは「押せる範囲(ターゲットサイズ)」へ、状態は「インタラクション状態」へ移し、種類・優先度・特別な役割のボタン(主ボタン・キャンセル・破壊的・閉じる・OK・リセット)を扱う |
 | 2 | フローティングアクションボタン | ✅ 完成済み |
 | 3 | リンク | ✅ 完成済み |
 
@@ -131,7 +132,7 @@ Material Designの伝統的な6分類(Actions / Selection / Text inputs / Naviga
 
 ## 合計
 
-**思想レイヤー 3 + トークン/ファウンデーションレイヤー 13 + コンポーネントレイヤー 47 + 横断ビュー 1 = 64ページ**(トップページ `index.jsx` を含めると65ページ。2026-11 ⑩でトーストをスナックバーに統合した時点)
+**思想レイヤー 3 + トークン/ファウンデーションレイヤー 14 + コンポーネントレイヤー 47 + 横断ビュー 1 = 65ページ**(トップページ `index.jsx` を含めると66ページ。2026-11-28 ⑩で「押せる範囲(ターゲットサイズ)」をボタンのページから独立させた時点)
 
 コンポーネントレイヤーの内訳: Actions 4 / Selection 10 / Text inputs 4 / Navigation 10 / Containment 10 / Communication 10。
 

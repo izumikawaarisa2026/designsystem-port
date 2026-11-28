@@ -31,7 +31,7 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Buttons / Focus and selection / Pointing devices",
     color: "#C2542A",
     position: <>状態の見た目はシステムのコンポーネントに組み込まれ、<Hl>標準の効果に任せるのが基本</Hl>。状態の種類はプラットフォームと入力方法ごとに定める</>,
-    size: "共通の一覧はなく、プラットフォームごとに定める。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意する。",
+    size: "共通の一覧はなく、プラットフォームごとに定める。iPadOSのポインタにはhighlight・lift・hoverの3つの効果がある。独自のボタンには、押した状態(press state)を必ず用意する。iOS・iPadOSでは、すぐ終わらない処理のあいだ、ボタンの中にインジケーターを出し、ラベルを変えられる(「購入」→「購入中…」)。",
     visual: "iPadOS・macOSでは、フォーカスをリング(halo)かハイライトで示し、テキストフィールドや検索フィールドにはフォーカスリング、リストやコレクションには行全体のハイライトを使い分ける。",
     stance:
       "システムの効果はAppleのデバイスに合わせて調整されていて、一貫性と予測しやすさが得られるため、独自のフォーカス効果は本当に必要な場合だけにする。利用者の操作なしにフォーカスを移動させない。",
