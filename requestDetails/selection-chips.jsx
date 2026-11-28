@@ -41,24 +41,18 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
     term: "Token field(macOS)。Chipという名前のコンポーネントはない",
     color: "#C2542A",
-    position: <><NoData>「Chip」はない</NoData>。近いのはmacOSの<Hl>トークンフィールド</Hl></>,
+    position: <><NoData>「Chip」はない</NoData>(近いmacOSのトークンフィールドは、別のコンポーネントとして下の「トークンフィールド(Apple)」で扱う)</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>入力したテキストを、選んで操作できる「トークン」に変えるテキストフィールド。Googleのインプットチップに近い。</>,
-    exceptions:
-      <>macOS向けで、iOS/iPadOSの記載はない(検索のトークンは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページ)。</>,
+      <><NoData>記載なし</NoData>(チップに当たるコンポーネントはない)。</>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "メール作成画面の宛先(To/Cc)欄など、入力した項目をトークンとして表示する",
-      "iOSなどの検索で、検索語をトークン(選んで編集でき、続く検索語の絞り込みになる印)として表示する(Search fieldsの「Scope bars and tokens」)",
-      "入力された情報をひとまとまりの単位として選択・削除できるようにする",
-    ],
-    searchHint: "converts the text",
+    useCases: [<NoData>記載なし</NoData>],
+    searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/token-fields",
     refs: [
-      { label: "Token Fields(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
-      { label: "Search fields ― Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
+      { label: "Token Fields(macOS。チップではない近いコンポーネント)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -162,14 +156,15 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <><NoData>該当なし</NoData>。参考: メールの宛先を1件ずつ分けて1回で消せる「トークン」の使い方に触れる。</>,
+      <><NoData>チップを主題にした記事はない</NoData>。コンポーネントの一覧で「トークン(チップ)」を、メールの宛先を1件ずつ分けて1回で消せるもの、詳細検索やタグで語を区切るものと紹介する。絞り込みは、探りながら選ぶ人には押してすぐ反映し、条件を決めてから見たい人には「適用」ボタンを置く。</>,
     exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    url: "https://www.nngroup.com/articles/front-end-style-guides/",
+    url: "https://www.nngroup.com/articles/front-end-style-guides/#toc-25-common-ui-components-included-in-front-end-style-guides-6",
     refs: [
-      { label: "参考: Front-End Style Guides", url: "https://www.nngroup.com/articles/front-end-style-guides/" },
+      { label: "Front-End Style Guides(コンポーネント一覧の25番目「Tokens, also known as chips」の項)", url: "https://www.nngroup.com/articles/front-end-style-guides/#toc-25-common-ui-components-included-in-front-end-style-guides-6" },
+      { label: "User Intent Affects Filter Design(絞り込みを押してすぐ反映するか、適用ボタンで反映するか)", url: "https://www.nngroup.com/articles/applying-filters/#toc-when-to-apply-the-filters-2" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -247,70 +242,149 @@ function ChipSwatch() {
   );
 }
 
+/* チップの種類とユースケース(2026-11-28 ⑩本人最終レビューNo.027で詳しくした。M3 Chips ― Guidelinesを取得して確認) */
 const CHIP_TYPES = [
   {
     name: "アシストチップ",
-    desc: "コンテンツに関連する動作(アクション)をその場で実行するチップ。タップすると即座に処理が実行される。例: メール本文の日時に反応して表示される「予定に追加」チップ。",
-    example: "予定に追加",
-    leading: "+",
+    purpose: "内容に関係する操作を、その場で実行する(アシスタントに頼んだように)",
+    timing: "押すとすぐ実行する。必要ならダイアログや全画面に変わる",
+    state: "選択状態は持たない。実行後は文言で結果を示す(「追加」→「追加済み」)。進み具合も表示できる",
+    remove: "―",
+    place: "主な内容の下(カードの下や画面の下部)。動詞で始める",
+    example: "メール本文の日時の下の「予定に追加」",
   },
   {
     name: "フィルタチップ",
-    desc: "コンテンツを絞り込む(フィルタリングする)ためのチップ。タップすると選択状態(チェックマーク)がオン/オフに切り替わり、一覧の表示内容が変わる。例: ECサイトの商品一覧を「在庫あり」の商品だけに絞り込む。M2の「Choiceチップ」はこれに統合された。",
-    example: "在庫あり",
-    filled: true,
+    purpose: "一覧や検索結果を絞り込む。チェックボックスやセグメントボタンの代わりになる",
+    timing: "押すと選択・解除が切り替わる(反映のタイミングは、下の注を参照)",
+    state: "選択中は先頭にチェックマークが付く。複数選べるのが基本で、1つだけ選ぶ設定もできる(1つの画面で混ぜない)",
+    remove: "もう一度押して解除。広い画面では末尾の✕で外したり、メニューを開いたりできる",
+    place: "検索欄の下。多いときはサイドシートにまとめる。2行を超えるなら横スクロール。含めるものを名詞で書く(「画像を除く」のような否定は避ける)",
+    example: "商品一覧の「在庫あり」「送料無料」",
   },
   {
     name: "インプットチップ",
-    desc: "ユーザーが入力した情報を表すチップ。あとから選択・削除(✕)できる単位として扱われる。例: メール作成画面の宛先欄に入力した「田中 太郎」という宛先。",
-    example: "田中 太郎",
-    closable: true,
+    purpose: "人が入力した情報を、1つずつのまとまりにして見せる",
+    timing: "入力した文字が確定すると、チップに変わる",
+    state: "選択状態は持たない。押すと編集でき、編集中は文字に戻る",
+    remove: "末尾の✕(必須)で外す。並べ替えや、別の欄への移動もできる",
+    place: "入力欄の中のカーソルの位置、縦のリスト、横にスクロールする列",
+    example: "メールの宛先欄の「田中 太郎」",
   },
   {
     name: "サジェスチョンチップ",
-    desc: "製品(システム)側が動的に生成した提案を表すチップ。タップするとその内容がそのまま入力される。例: メッセージアプリが自動生成する「了解です!」という返信候補。",
-    example: "了解です!",
-    leading: "✨",
+    purpose: "製品が出した候補で、したいことを絞り込む手助けをする",
+    timing: "押すと、その内容が入力・送信されたり、検索が始まったりする",
+    state: "選択状態は持たない",
+    remove: "―",
+    place: "横に1列に並べ、あふれたら折り返す(1行の欄なら横スクロール)。名詞か短い句で",
+    example: "チャットの返信候補「了解です」",
   },
 ];
+const CHIP_COMMON = "どの種類も: 1つだけで出さず、まとまりで並べる。ラベルは20文字以内。チップどうしは8dp以上空け、押せる範囲は48dp以上。次へ・前へのような主な操作はボタンにする。";
+
+/* 種類ごとの図(押す前 → 押した後。概念図) */
+function ChipTypeFig({ i }) {
+  const F = "Jost, Noto Sans JP";
+  const chip = (x, y, w, label, o = {}) => (
+    <g>
+      <rect x={x} y={y} width={w} height="20" rx="6" fill={o.sel ? "#DDE3FA" : "#FFFFFF"} stroke={o.sel ? "#3A4FCF" : "#9EA4C4"} strokeWidth="1.2" />
+      {o.check && <path d={`M${x + 7} ${y + 10.5}l2.5 2.5 5-5.5`} fill="none" stroke="#3A4FCF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />}
+      {o.lead && <text x={x + 7} y={y + 13.5} fontSize="9" fill="#3A4FCF" fontFamily={F}>{o.lead}</text>}
+      <text x={x + (o.check || o.lead ? 19 : 8)} y={y + 13.5} fontSize="8.5" fill={o.sel ? "#1E2A8A" : "#2E3457"} fontWeight={o.sel ? 700 : 400} fontFamily={F}>{label}</text>
+      {o.close && <text x={x + w - 9} y={y + 13.5} fontSize="8" fill="#565D8A" textAnchor="middle" fontFamily={F}>✕</text>}
+    </g>
+  );
+  const arrow = (<g><path d="M118 32h14" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M129 28l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /><text x="125" y="22" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>押す</text></g>);
+  const cap = (x, t) => (<text x={x} y="62" fontSize="7.5" fill="#565D8A" fontFamily={F}>{t}</text>);
+  if (i === 0) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="「予定に追加」を押すと、文言が「追加済み」に変わる図">
+      <rect x="4" y="4" width="108" height="14" rx="2" fill="#F3F6FA" /><text x="8" y="14" fontSize="7.5" fill="#565D8A" fontFamily={F}>5月10日 14時に打ち合わせ</text>
+      {chip(4, 22, 76, "予定に追加", { lead: "+" })}{cap(4, "その場の操作")}
+      {arrow}
+      {chip(140, 22, 76, "追加済み", { check: true })}{cap(140, "結果を文言で示す")}
+    </svg>
+  );
+  if (i === 1) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="「在庫あり」を押すと選択中になり、先頭にチェックマークが付く図">
+      {chip(4, 22, 56, "在庫あり")}{chip(62, 22, 50, "新品")}{cap(4, "未選択")}
+      {arrow}
+      {chip(140, 22, 68, "在庫あり", { sel: true, check: true })}{chip(210, 22, 38, "新品")}{cap(140, "選択中=チェックマーク")}
+    </svg>
+  );
+  if (i === 2) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="宛先欄に入力した名前が確定するとチップに変わり、末尾の✕で外せる図">
+      <rect x="4" y="22" width="108" height="20" rx="3" fill="#FFFFFF" stroke="#C9CDE0" /><text x="9" y="35.5" fontSize="8.5" fill="#171B36" fontFamily={F}>宛先: 田中 太郎|</text>{cap(4, "入力中の文字")}
+      <g><path d="M118 32h14" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M129 28l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /><text x="125" y="22" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>確定</text></g>
+      <rect x="140" y="22" width="108" height="20" rx="3" fill="#FFFFFF" stroke="#C9CDE0" />{chip(143, 22, 68, "田中 太郎", { close: true })}{cap(140, "チップに変わり、✕で外せる")}
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="届いたメッセージの下に返信候補のチップが並び、押すとそのまま送られる図">
+      <rect x="4" y="2" width="80" height="16" rx="8" fill="#F3F6FA" /><text x="10" y="13" fontSize="7.5" fill="#2E3457" fontFamily={F}>明日10時でいい?</text>
+      {chip(4, 22, 52, "了解です")}{chip(58, 22, 54, "変えたい")}{cap(4, "製品が出した候補")}
+      {arrow}
+      <rect x="168" y="22" width="80" height="18" rx="9" fill="#3A4FCF" /><text x="178" y="34" fontSize="8" fill="#FFFFFF" fontFamily={F}>了解です</text>{cap(140, "そのまま送られる")}
+    </svg>
+  );
+}
 
 function ChipTypesSection() {
+  const rows = [["用途", "purpose"], ["押したとき", "timing"], ["選択中の見た目", "state"], ["外す・直す", "remove"], ["置き場所・書き方", "place"], ["例", "example"]];
   return (
     <div style={styles.typesCard}>
       <h2 style={styles.diagramTitle}>チップの種類とユースケース</h2>
-      <div style={styles.typesGrid}>
-        {CHIP_TYPES.map((t) => (
-          <div key={t.name} style={styles.typeItem}>
-            <div style={styles.typeIllustration}>
-              <div
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 5,
-                  padding: "6px 14px", borderRadius: 8, whiteSpace: "nowrap",
-                  background: t.filled ? "#3A4FCF" : "#FFFFFF",
-                  border: `1.6px solid ${t.filled ? "#3A4FCF" : "#9EA4C4"}`,
-                  color: t.filled ? "#FFFFFF" : "#454C78",
-                  fontSize: 12, fontFamily: "'Jost', 'Noto Sans JP', sans-serif",
-                }}
-              >
-                {t.filled && (
-                  <svg width="11" height="11" viewBox="0 0 12 12" style={{ flexShrink: 0 }}>
-                    <path d="M2 6.2l2.6 2.6L10 3" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-                {t.leading && !t.filled && <span style={{ fontSize: 10.5, opacity: 0.75 }}>{t.leading}</span>}
-                {t.example}
-                {t.closable && <span style={{ fontSize: 10, opacity: 0.6, marginLeft: 1 }}>✕</span>}
-              </div>
+      <p style={styles.diagramNote}>Googleは、<strong>操作か絞り込みか</strong>(アシスト/フィルタ)と、<strong>製品が出したものか人が入力したものか</strong>(サジェスチョン/インプット)の2つの問いで種類を選ぶとする。図は押す前と押した後の概念図。</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {CHIP_TYPES.map((t, i) => (
+          <div key={t.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
+            <div style={{ flex: "1 0 250px", maxWidth: "100%" }}>
+              <div style={styles.typeName}>{t.name}</div>
+              <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 8, overflowX: "auto" }}><ChipTypeFig i={i} /></div>
             </div>
-            <div style={styles.typeName}>{t.name}</div>
-            <p style={styles.typeDesc}>{t.desc}</p>
+            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+              {rows.map(([k, f]) => (
+                <div key={f} style={{ display: "grid", gridTemplateColumns: "96px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 }}>
+                  <span style={{ fontWeight: 700, color: "#454C78", fontSize: 11 }}>{k}</span><span>{t[f]}</span>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>
-        種類の選び分けは、Googleの公式ページにある2つの問いに沿っている: 「そのチップは動作を表すか、それとも結果を絞り込むか?」(アシスト⇔フィルタ)、「そのコンテンツは製品が生成したものか、それとも人が入力したものか?」(サジェスチョン⇔インプット)。なおM2からM3への変更で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分割され、旧「チョイスチップ」はフィルタチップの一種として統合されている。
-      </p>
+      <p style={{ ...styles.diagramNote, marginTop: 10 }}>{CHIP_COMMON}(Google)</p>
+      <p style={styles.diagramNote}><strong>フィルタチップの反映のタイミング</strong>: Googleは決めていない。NN groupは、探りながら選ぶ人には押してすぐ結果を変え、条件をそろえてから見たい人には「適用」ボタンを置くとする。</p>
+      <p style={styles.diagramNote}>なおM2からM3で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分かれ、旧「チョイスチップ」はフィルタチップにまとめられた。</p>
     </div>
+  );
+}
+
+/* Appleのトークンフィールド(チップとは別のコンポーネント。2026-11-28 ⑩本人最終レビューNo.027で、比較から分けてここに置いた) */
+function TokenFieldSection() {
+  const F = "Jost, Noto Sans JP";
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>トークンフィールド(Apple)</h2>
+      <p style={styles.diagramNote}>Appleにチップはないが、macOSには、入力した文字を<strong>選んで操作できる「トークン」に変えるテキストフィールド</strong>がある。チップのように選んだり外したりするコンポーネントではなく、<strong>あくまで入力欄</strong>で、Googleのインプットチップを入力欄に入れた形に近い。図は概念図。</p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12 }}>
+        <svg viewBox="0 0 250 46" width="250" height="46" role="img" aria-label="宛先の入力欄の中に、田中 太郎と佐藤 花子のトークンが並び、続けて文字を入力している図">
+          <text x="2" y="10" fontSize="8" fill="#565D8A" fontFamily={F}>宛先:</text>
+          <rect x="2" y="14" width="246" height="26" rx="4" fill="#FFFFFF" stroke="#9EA4C4" />
+          <rect x="8" y="19" width="56" height="16" rx="8" fill="#DDE3FA" /><text x="15" y="30.5" fontSize="8" fill="#1E2A8A" fontFamily={F}>田中 太郎</text>
+          <rect x="68" y="19" width="56" height="16" rx="8" fill="#DDE3FA" /><text x="75" y="30.5" fontSize="8" fill="#1E2A8A" fontFamily={F}>佐藤 花子</text>
+          <text x="130" y="30.5" fontSize="8.5" fill="#171B36" fontFamily={F}>suz|</text>
+        </svg>
+        <ul style={{ flex: "999 1 300px", margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#2E3457" }}>
+          <li>メールの宛先(To・Cc)欄のように、入力した項目を1つずつのトークンとして見せる(Apple: Token Fields)</li>
+          <li>macOS向け。iOS・iPadOSの検索フィールドには、検索語を選んで編集できる「トークン」として示し、続く語の絞り込みに使う仕組みがある(Apple: Search fields。詳しくは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>)</li>
+          <li>NN groupも、宛先を1件ずつ分けて1回で消せる「トークン(チップ)」を紹介している</li>
+        </ul>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={[
+        { label: "Apple: Token Fields(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
+        { label: "Apple: Search fields ― Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
+      ]} /></div>
+    </section>
   );
 }
 
@@ -379,7 +453,7 @@ const SPLITS = [
     q: "チップは何に使う?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "4つの用途に使う。操作の手助け(アシスト)・絞り込み(フィルタ)・入力した値の表示(インプット)・候補の提示(サジェスチョン)。ただし次へ・前へのような主な操作はボタンにする" },
-      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途のコンポーネントはない" },
+      { who: "Apple", color: "#C2542A", t: "チップに当たるコンポーネントはない。近いのは、入力した文字をまとまり(トークン)に変えるmacOSの入力欄(下の「トークンフィールド(Apple)」)" },
       { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
     ],
     tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけだ。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準のコンポーネント(セグメントコントロールやメニュー)で作れないかも検討する。",
@@ -529,7 +603,9 @@ export default function SelectionChipsPage() {
 
           <SizeInfographic />
 
-          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/text-inputs/search-field"]} />
+          <TokenFieldSection />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}

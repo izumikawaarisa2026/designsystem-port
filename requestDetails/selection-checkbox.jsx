@@ -332,63 +332,84 @@ const SPECIAL_REFS = [
   { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
 ];
 
-/* 特別な項目の図(2026-11-28 チャットでの指示。概念図) */
+/* 特別な項目の図(押す前 → 押した後。2026-11-28 チャットでの指示で、変化が分かるように描き直した。概念図) */
 function SpecialFig({ i }) {
   const F = "Jost, Noto Sans JP";
-  const cb = (x, y, st) => (
+  const cb = (x, y, st, hl) => (
     <g>
+      {hl && <rect x={x - 3} y={y - 3} width="17" height="17" rx="4" fill="none" stroke="#C2542A" strokeWidth="1.4" strokeDasharray="2 2" />}
       <rect x={x} y={y} width="11" height="11" rx="2.5" fill={st === "off" ? "#FFFFFF" : "#3A4FCF"} stroke={st === "off" ? "#9EA4C4" : "#3A4FCF"} strokeWidth="1.4" />
       {st === "on" && <path d={`M${x + 2.5} ${y + 5.8}l2.2 2.2 3.8-4.4`} fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
       {st === "mixed" && <line x1={x + 2.8} y1={y + 5.5} x2={x + 8.2} y2={y + 5.5} stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />}
     </g>
   );
-  const t = (x, y, s, c) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontFamily={F}>{s}</text>);
+  const t = (x, y, s, c, w) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontWeight={w || 400} fontFamily={F}>{s}</text>);
+  const head = (x, s) => (<text x={x} y="9" fontSize="7.5" fill="#565D8A" fontFamily={F}>{s}</text>);
+  const arrow = (<g><path d="M112 44h16" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M125 40l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /></g>);
+  const list = (x, sts, labels, opts = {}) => labels.map((l, j) => (
+    <g key={l}>{cb(x + (opts.indent && j > 0 ? 12 : 0), 16 + j * 16, sts[j], opts.hl === j)}{t(x + (opts.indent && j > 0 ? 28 : 16), 25 + j * 16, l, j === 0 && opts.bold ? "#171B36" : undefined, j === 0 && opts.bold ? 700 : 400)}</g>
+  ));
   if (i === 0) return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「すべて」が不定の印になり、その下の3つのうち2つが選択されている図">
-      {cb(2, 2, "mixed")}{t(18, 11, "すべて", "#171B36")}
-      {cb(14, 20, "on")}{t(30, 29, "メール")}
-      {cb(14, 36, "on")}{t(30, 45, "プッシュ通知")}
-      {cb(14, 52, "off")}{t(30, 61, "SMS")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="押す前は「すべて」が不定で子の一部だけが選択済み。「すべて」を押すと、子がすべて選択済みになる">
+      {head(2, "押す前: 一部だけ選択 → 親は不定(―)")}
+      {list(2, ["mixed", "on", "on", "off"], ["すべて", "メール", "プッシュ通知", "SMS"], { indent: true, bold: true, hl: 0 })}
+      {arrow}
+      {head(136, "「すべて」を押した後")}
+      {list(136, ["on", "on", "on", "on"], ["すべて", "メール", "プッシュ通知", "SMS"], { indent: true, bold: true })}
     </svg>
   );
   if (i === 1) return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「その他」を選ぶと、横の入力欄に書けるようになっている図">
-      {cb(2, 2, "off")}{t(18, 11, "書籍")}
-      {cb(2, 20, "off")}{t(18, 29, "雑誌")}
-      {cb(2, 38, "on")}{t(18, 47, "その他")}
-      <rect x="48" y="36" width="70" height="15" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
-      {t(53, 46.5, "漫画|", "#171B36")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="「その他」を選ぶと、横に入力欄が現れて書けるようになる">
+      {head(2, "押す前")}
+      {list(2, ["off", "off", "off"], ["書籍", "雑誌", "その他"], { hl: 2 })}
+      {arrow}
+      {head(136, "「その他」を選んだ後")}
+      {list(136, ["off", "off", "on"], ["書籍", "雑誌", "その他"])}
+      <rect x="182" y="47" width="64" height="16" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
+      {t(186, 58, "漫画|")}
+      <text x="182" y="76" fontSize="7" fill="#565D8A" fontFamily={F}>入力欄に書けるようになる</text>
     </svg>
   );
   return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「どれもない」を選ぶと、ほかの項目の選択が外れる図">
-      {cb(2, 2, "off")}{t(18, 11, "花粉")}
-      {cb(2, 18, "off")}{t(18, 27, "食べ物")}
-      <line x1="2" y1="36" x2="110" y2="36" stroke="#E1E3F0" />
-      {cb(2, 42, "on")}{t(18, 51, "どれもない")}
-      {t(2, 64, "→ ほかの選択は外れる", "#565D8A")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="花粉と食べ物が選ばれた状態で「どれもない」を選ぶと、花粉と食べ物の選択が外れる">
+      {head(2, "押す前: 2つ選択済み")}
+      {cb(2, 16, "on")}{t(18, 25, "花粉")}{cb(2, 32, "on")}{t(18, 41, "食べ物")}
+      <line x1="2" y1="52" x2="104" y2="52" stroke="#E1E3F0" />
+      {cb(2, 58, "off", true)}{t(18, 67, "どれもない")}
+      {arrow}
+      {head(136, "「どれもない」を選んだ後")}
+      {cb(136, 16, "off")}{t(152, 25, "花粉")}{cb(136, 32, "off")}{t(152, 41, "食べ物")}
+      <line x1="136" y1="52" x2="246" y2="52" stroke="#E1E3F0" />
+      {cb(136, 58, "on")}{t(152, 67, "どれもない")}
+      <text x="136" y="81" fontSize="7" fill="#565D8A" fontFamily={F}>ほかの選択は外れる</text>
     </svg>
   );
 }
 
 function SpecialItems() {
-  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
-  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
-  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const rows = [["入れるとき", "when"], ["動き", "how"], ["追加・変更したとき", "add"]];
   return (
     <section style={{ marginBottom: 32 }}>
       <h2 style={styles.diagramTitle}>「すべて選択」「その他」「どれもない」の項目</h2>
-      <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。</p>
-      <div style={{ overflowX: "auto", marginBottom: 6 }}>
-        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 150 }} /><col /><col /><col /></colgroup>
-          <thead><tr>{["項目", "入れるとき", "動き", "追加・変更したとき"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
-          <tbody>
-            {SPECIAL_ITEMS.map((r, i) => (<tr key={r.name}><td style={key}>{r.name}<div style={{ marginTop: 8, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: 4, display: "inline-block" }}><SpecialFig i={i} /></div></td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
-          </tbody>
-        </table>
+      <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。図は押す前と押した後の概念図で、点線の枠が押す項目。</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {SPECIAL_ITEMS.map((r, i) => (
+          <div key={r.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
+            <div style={{ flex: "1 0 250px", maxWidth: "100%" }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 6 }}>{r.name}</div>
+              <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 8, overflowX: "auto" }}><SpecialFig i={i} /></div>
+            </div>
+            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+              {rows.map(([k, f]) => (
+                <div key={f} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 6 }}>
+                  <span style={{ fontWeight: 700, color: "#454C78", fontSize: 11 }}>{k}</span><span>{r[f]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={SPECIAL_REFS} /></div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 8 }}><RefList refs={SPECIAL_REFS} /></div>
     </section>
   );
 }

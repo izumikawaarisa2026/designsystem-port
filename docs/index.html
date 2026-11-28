@@ -19738,63 +19738,84 @@ const SPECIAL_REFS = [
   { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
 ];
 
-/* 特別な項目の図(2026-11-28 チャットでの指示。概念図) */
+/* 特別な項目の図(押す前 → 押した後。2026-11-28 チャットでの指示で、変化が分かるように描き直した。概念図) */
 function SpecialFig({ i }) {
   const F = "Jost, Noto Sans JP";
-  const cb = (x, y, st) => (
+  const cb = (x, y, st, hl) => (
     <g>
+      {hl && <rect x={x - 3} y={y - 3} width="17" height="17" rx="4" fill="none" stroke="#C2542A" strokeWidth="1.4" strokeDasharray="2 2" />}
       <rect x={x} y={y} width="11" height="11" rx="2.5" fill={st === "off" ? "#FFFFFF" : "#3A4FCF"} stroke={st === "off" ? "#9EA4C4" : "#3A4FCF"} strokeWidth="1.4" />
       {st === "on" && <path d={`M${x + 2.5} ${y + 5.8}l2.2 2.2 3.8-4.4`} fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
       {st === "mixed" && <line x1={x + 2.8} y1={y + 5.5} x2={x + 8.2} y2={y + 5.5} stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />}
     </g>
   );
-  const t = (x, y, s, c) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontFamily={F}>{s}</text>);
+  const t = (x, y, s, c, w) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontWeight={w || 400} fontFamily={F}>{s}</text>);
+  const head = (x, s) => (<text x={x} y="9" fontSize="7.5" fill="#565D8A" fontFamily={F}>{s}</text>);
+  const arrow = (<g><path d="M112 44h16" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M125 40l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /></g>);
+  const list = (x, sts, labels, opts = {}) => labels.map((l, j) => (
+    <g key={l}>{cb(x + (opts.indent && j > 0 ? 12 : 0), 16 + j * 16, sts[j], opts.hl === j)}{t(x + (opts.indent && j > 0 ? 28 : 16), 25 + j * 16, l, j === 0 && opts.bold ? "#171B36" : undefined, j === 0 && opts.bold ? 700 : 400)}</g>
+  ));
   if (i === 0) return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「すべて」が不定の印になり、その下の3つのうち2つが選択されている図">
-      {cb(2, 2, "mixed")}{t(18, 11, "すべて", "#171B36")}
-      {cb(14, 20, "on")}{t(30, 29, "メール")}
-      {cb(14, 36, "on")}{t(30, 45, "プッシュ通知")}
-      {cb(14, 52, "off")}{t(30, 61, "SMS")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="押す前は「すべて」が不定で子の一部だけが選択済み。「すべて」を押すと、子がすべて選択済みになる">
+      {head(2, "押す前: 一部だけ選択 → 親は不定(―)")}
+      {list(2, ["mixed", "on", "on", "off"], ["すべて", "メール", "プッシュ通知", "SMS"], { indent: true, bold: true, hl: 0 })}
+      {arrow}
+      {head(136, "「すべて」を押した後")}
+      {list(136, ["on", "on", "on", "on"], ["すべて", "メール", "プッシュ通知", "SMS"], { indent: true, bold: true })}
     </svg>
   );
   if (i === 1) return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「その他」を選ぶと、横の入力欄に書けるようになっている図">
-      {cb(2, 2, "off")}{t(18, 11, "書籍")}
-      {cb(2, 20, "off")}{t(18, 29, "雑誌")}
-      {cb(2, 38, "on")}{t(18, 47, "その他")}
-      <rect x="48" y="36" width="70" height="15" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
-      {t(53, 46.5, "漫画|", "#171B36")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="「その他」を選ぶと、横に入力欄が現れて書けるようになる">
+      {head(2, "押す前")}
+      {list(2, ["off", "off", "off"], ["書籍", "雑誌", "その他"], { hl: 2 })}
+      {arrow}
+      {head(136, "「その他」を選んだ後")}
+      {list(136, ["off", "off", "on"], ["書籍", "雑誌", "その他"])}
+      <rect x="182" y="47" width="64" height="16" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
+      {t(186, 58, "漫画|")}
+      <text x="182" y="76" fontSize="7" fill="#565D8A" fontFamily={F}>入力欄に書けるようになる</text>
     </svg>
   );
   return (
-    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「どれもない」を選ぶと、ほかの項目の選択が外れる図">
-      {cb(2, 2, "off")}{t(18, 11, "花粉")}
-      {cb(2, 18, "off")}{t(18, 27, "食べ物")}
-      <line x1="2" y1="36" x2="110" y2="36" stroke="#E1E3F0" />
-      {cb(2, 42, "on")}{t(18, 51, "どれもない")}
-      {t(2, 64, "→ ほかの選択は外れる", "#565D8A")}
+    <svg viewBox="0 0 250 84" width="250" height="84" role="img" aria-label="花粉と食べ物が選ばれた状態で「どれもない」を選ぶと、花粉と食べ物の選択が外れる">
+      {head(2, "押す前: 2つ選択済み")}
+      {cb(2, 16, "on")}{t(18, 25, "花粉")}{cb(2, 32, "on")}{t(18, 41, "食べ物")}
+      <line x1="2" y1="52" x2="104" y2="52" stroke="#E1E3F0" />
+      {cb(2, 58, "off", true)}{t(18, 67, "どれもない")}
+      {arrow}
+      {head(136, "「どれもない」を選んだ後")}
+      {cb(136, 16, "off")}{t(152, 25, "花粉")}{cb(136, 32, "off")}{t(152, 41, "食べ物")}
+      <line x1="136" y1="52" x2="246" y2="52" stroke="#E1E3F0" />
+      {cb(136, 58, "on")}{t(152, 67, "どれもない")}
+      <text x="136" y="81" fontSize="7" fill="#565D8A" fontFamily={F}>ほかの選択は外れる</text>
     </svg>
   );
 }
 
 function SpecialItems() {
-  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
-  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
-  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const rows = [["入れるとき", "when"], ["動き", "how"], ["追加・変更したとき", "add"]];
   return (
     <section style={{ marginBottom: 32 }}>
       <h2 style={styles.diagramTitle}>「すべて選択」「その他」「どれもない」の項目</h2>
-      <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。</p>
-      <div style={{ overflowX: "auto", marginBottom: 6 }}>
-        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 150 }} /><col /><col /><col /></colgroup>
-          <thead><tr>{["項目", "入れるとき", "動き", "追加・変更したとき"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
-          <tbody>
-            {SPECIAL_ITEMS.map((r, i) => (<tr key={r.name}><td style={key}>{r.name}<div style={{ marginTop: 8, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: 4, display: "inline-block" }}><SpecialFig i={i} /></div></td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
-          </tbody>
-        </table>
+      <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。図は押す前と押した後の概念図で、点線の枠が押す項目。</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {SPECIAL_ITEMS.map((r, i) => (
+          <div key={r.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
+            <div style={{ flex: "1 0 250px", maxWidth: "100%" }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#171B36", marginBottom: 6 }}>{r.name}</div>
+              <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 8, overflowX: "auto" }}><SpecialFig i={i} /></div>
+            </div>
+            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+              {rows.map(([k, f]) => (
+                <div key={f} style={{ display: "grid", gridTemplateColumns: "110px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 6 }}>
+                  <span style={{ fontWeight: 700, color: "#454C78", fontSize: 11 }}>{k}</span><span>{r[f]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={SPECIAL_REFS} /></div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 8 }}><RefList refs={SPECIAL_REFS} /></div>
     </section>
   );
 }
@@ -20137,24 +20158,18 @@ const SOURCES = [
     doc: "Human Interface Guidelines ― Token Fields(macOS)",
     term: "Token field(macOS)。Chipという名前のコンポーネントはない",
     color: "#C2542A",
-    position: <><NoData>「Chip」はない</NoData>。近いのはmacOSの<Hl>トークンフィールド</Hl></>,
+    position: <><NoData>「Chip」はない</NoData>(近いmacOSのトークンフィールドは、別のコンポーネントとして下の「トークンフィールド(Apple)」で扱う)</>,
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <>入力したテキストを、選んで操作できる「トークン」に変えるテキストフィールド。Googleのインプットチップに近い。</>,
-    exceptions:
-      <>macOS向けで、iOS/iPadOSの記載はない(検索のトークンは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>のページ)。</>,
+      <><NoData>記載なし</NoData>(チップに当たるコンポーネントはない)。</>,
+    exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
-    useCases: [
-      "メール作成画面の宛先(To/Cc)欄など、入力した項目をトークンとして表示する",
-      "iOSなどの検索で、検索語をトークン(選んで編集でき、続く検索語の絞り込みになる印)として表示する(Search fieldsの「Scope bars and tokens」)",
-      "入力された情報をひとまとまりの単位として選択・削除できるようにする",
-    ],
-    searchHint: "converts the text",
+    useCases: [<NoData>記載なし</NoData>],
+    searchHint: "",
     url: "https://developer.apple.com/design/human-interface-guidelines/token-fields",
     refs: [
-      { label: "Token Fields(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
-      { label: "Search fields ― Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
+      { label: "Token Fields(macOS。チップではない近いコンポーネント)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -20258,14 +20273,15 @@ const SOURCES = [
     size: <NoData>数値基準なし</NoData>,
     colorInfo: <NoData>記載なし</NoData>,
     stance:
-      <><NoData>該当なし</NoData>。参考: メールの宛先を1件ずつ分けて1回で消せる「トークン」の使い方に触れる。</>,
+      <><NoData>チップを主題にした記事はない</NoData>。コンポーネントの一覧で「トークン(チップ)」を、メールの宛先を1件ずつ分けて1回で消せるもの、詳細検索やタグで語を区切るものと紹介する。絞り込みは、探りながら選ぶ人には押してすぐ反映し、条件を決めてから見たい人には「適用」ボタンを置く。</>,
     exceptions: <NoData>記載なし</NoData>,
     accessibility: <NoData>記載なし</NoData>,
     useCases: [<NoData>該当なし</NoData>],
     searchHint: "",
-    url: "https://www.nngroup.com/articles/front-end-style-guides/",
+    url: "https://www.nngroup.com/articles/front-end-style-guides/#toc-25-common-ui-components-included-in-front-end-style-guides-6",
     refs: [
-      { label: "参考: Front-End Style Guides", url: "https://www.nngroup.com/articles/front-end-style-guides/" },
+      { label: "Front-End Style Guides(コンポーネント一覧の25番目「Tokens, also known as chips」の項)", url: "https://www.nngroup.com/articles/front-end-style-guides/#toc-25-common-ui-components-included-in-front-end-style-guides-6" },
+      { label: "User Intent Affects Filter Design(絞り込みを押してすぐ反映するか、適用ボタンで反映するか)", url: "https://www.nngroup.com/articles/applying-filters/#toc-when-to-apply-the-filters-2" },
     ],
     illustration: () => (
       <svg width="70" height="24" viewBox="0 0 70 24">
@@ -20343,70 +20359,149 @@ function ChipSwatch() {
   );
 }
 
+/* チップの種類とユースケース(2026-11-28 ⑩本人最終レビューNo.027で詳しくした。M3 Chips ― Guidelinesを取得して確認) */
 const CHIP_TYPES = [
   {
     name: "アシストチップ",
-    desc: "コンテンツに関連する動作(アクション)をその場で実行するチップ。タップすると即座に処理が実行される。例: メール本文の日時に反応して表示される「予定に追加」チップ。",
-    example: "予定に追加",
-    leading: "+",
+    purpose: "内容に関係する操作を、その場で実行する(アシスタントに頼んだように)",
+    timing: "押すとすぐ実行する。必要ならダイアログや全画面に変わる",
+    state: "選択状態は持たない。実行後は文言で結果を示す(「追加」→「追加済み」)。進み具合も表示できる",
+    remove: "―",
+    place: "主な内容の下(カードの下や画面の下部)。動詞で始める",
+    example: "メール本文の日時の下の「予定に追加」",
   },
   {
     name: "フィルタチップ",
-    desc: "コンテンツを絞り込む(フィルタリングする)ためのチップ。タップすると選択状態(チェックマーク)がオン/オフに切り替わり、一覧の表示内容が変わる。例: ECサイトの商品一覧を「在庫あり」の商品だけに絞り込む。M2の「Choiceチップ」はこれに統合された。",
-    example: "在庫あり",
-    filled: true,
+    purpose: "一覧や検索結果を絞り込む。チェックボックスやセグメントボタンの代わりになる",
+    timing: "押すと選択・解除が切り替わる(反映のタイミングは、下の注を参照)",
+    state: "選択中は先頭にチェックマークが付く。複数選べるのが基本で、1つだけ選ぶ設定もできる(1つの画面で混ぜない)",
+    remove: "もう一度押して解除。広い画面では末尾の✕で外したり、メニューを開いたりできる",
+    place: "検索欄の下。多いときはサイドシートにまとめる。2行を超えるなら横スクロール。含めるものを名詞で書く(「画像を除く」のような否定は避ける)",
+    example: "商品一覧の「在庫あり」「送料無料」",
   },
   {
     name: "インプットチップ",
-    desc: "ユーザーが入力した情報を表すチップ。あとから選択・削除(✕)できる単位として扱われる。例: メール作成画面の宛先欄に入力した「田中 太郎」という宛先。",
-    example: "田中 太郎",
-    closable: true,
+    purpose: "人が入力した情報を、1つずつのまとまりにして見せる",
+    timing: "入力した文字が確定すると、チップに変わる",
+    state: "選択状態は持たない。押すと編集でき、編集中は文字に戻る",
+    remove: "末尾の✕(必須)で外す。並べ替えや、別の欄への移動もできる",
+    place: "入力欄の中のカーソルの位置、縦のリスト、横にスクロールする列",
+    example: "メールの宛先欄の「田中 太郎」",
   },
   {
     name: "サジェスチョンチップ",
-    desc: "製品(システム)側が動的に生成した提案を表すチップ。タップするとその内容がそのまま入力される。例: メッセージアプリが自動生成する「了解です!」という返信候補。",
-    example: "了解です!",
-    leading: "✨",
+    purpose: "製品が出した候補で、したいことを絞り込む手助けをする",
+    timing: "押すと、その内容が入力・送信されたり、検索が始まったりする",
+    state: "選択状態は持たない",
+    remove: "―",
+    place: "横に1列に並べ、あふれたら折り返す(1行の欄なら横スクロール)。名詞か短い句で",
+    example: "チャットの返信候補「了解です」",
   },
 ];
+const CHIP_COMMON = "どの種類も: 1つだけで出さず、まとまりで並べる。ラベルは20文字以内。チップどうしは8dp以上空け、押せる範囲は48dp以上。次へ・前へのような主な操作はボタンにする。";
+
+/* 種類ごとの図(押す前 → 押した後。概念図) */
+function ChipTypeFig({ i }) {
+  const F = "Jost, Noto Sans JP";
+  const chip = (x, y, w, label, o = {}) => (
+    <g>
+      <rect x={x} y={y} width={w} height="20" rx="6" fill={o.sel ? "#DDE3FA" : "#FFFFFF"} stroke={o.sel ? "#3A4FCF" : "#9EA4C4"} strokeWidth="1.2" />
+      {o.check && <path d={`M${x + 7} ${y + 10.5}l2.5 2.5 5-5.5`} fill="none" stroke="#3A4FCF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />}
+      {o.lead && <text x={x + 7} y={y + 13.5} fontSize="9" fill="#3A4FCF" fontFamily={F}>{o.lead}</text>}
+      <text x={x + (o.check || o.lead ? 19 : 8)} y={y + 13.5} fontSize="8.5" fill={o.sel ? "#1E2A8A" : "#2E3457"} fontWeight={o.sel ? 700 : 400} fontFamily={F}>{label}</text>
+      {o.close && <text x={x + w - 9} y={y + 13.5} fontSize="8" fill="#565D8A" textAnchor="middle" fontFamily={F}>✕</text>}
+    </g>
+  );
+  const arrow = (<g><path d="M118 32h14" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M129 28l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /><text x="125" y="22" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>押す</text></g>);
+  const cap = (x, t) => (<text x={x} y="62" fontSize="7.5" fill="#565D8A" fontFamily={F}>{t}</text>);
+  if (i === 0) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="「予定に追加」を押すと、文言が「追加済み」に変わる図">
+      <rect x="4" y="4" width="108" height="14" rx="2" fill="#F3F6FA" /><text x="8" y="14" fontSize="7.5" fill="#565D8A" fontFamily={F}>5月10日 14時に打ち合わせ</text>
+      {chip(4, 22, 76, "予定に追加", { lead: "+" })}{cap(4, "その場の操作")}
+      {arrow}
+      {chip(140, 22, 76, "追加済み", { check: true })}{cap(140, "結果を文言で示す")}
+    </svg>
+  );
+  if (i === 1) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="「在庫あり」を押すと選択中になり、先頭にチェックマークが付く図">
+      {chip(4, 22, 56, "在庫あり")}{chip(62, 22, 50, "新品")}{cap(4, "未選択")}
+      {arrow}
+      {chip(140, 22, 68, "在庫あり", { sel: true, check: true })}{chip(210, 22, 38, "新品")}{cap(140, "選択中=チェックマーク")}
+    </svg>
+  );
+  if (i === 2) return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="宛先欄に入力した名前が確定するとチップに変わり、末尾の✕で外せる図">
+      <rect x="4" y="22" width="108" height="20" rx="3" fill="#FFFFFF" stroke="#C9CDE0" /><text x="9" y="35.5" fontSize="8.5" fill="#171B36" fontFamily={F}>宛先: 田中 太郎|</text>{cap(4, "入力中の文字")}
+      <g><path d="M118 32h14" stroke="#9EA4C4" strokeWidth="1.4" /><path d="M129 28l4 4-4 4" fill="none" stroke="#9EA4C4" strokeWidth="1.4" /><text x="125" y="22" fontSize="7" fill="#565D8A" textAnchor="middle" fontFamily={F}>確定</text></g>
+      <rect x="140" y="22" width="108" height="20" rx="3" fill="#FFFFFF" stroke="#C9CDE0" />{chip(143, 22, 68, "田中 太郎", { close: true })}{cap(140, "チップに変わり、✕で外せる")}
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 250 66" width="250" height="66" role="img" aria-label="届いたメッセージの下に返信候補のチップが並び、押すとそのまま送られる図">
+      <rect x="4" y="2" width="80" height="16" rx="8" fill="#F3F6FA" /><text x="10" y="13" fontSize="7.5" fill="#2E3457" fontFamily={F}>明日10時でいい?</text>
+      {chip(4, 22, 52, "了解です")}{chip(58, 22, 54, "変えたい")}{cap(4, "製品が出した候補")}
+      {arrow}
+      <rect x="168" y="22" width="80" height="18" rx="9" fill="#3A4FCF" /><text x="178" y="34" fontSize="8" fill="#FFFFFF" fontFamily={F}>了解です</text>{cap(140, "そのまま送られる")}
+    </svg>
+  );
+}
 
 function ChipTypesSection() {
+  const rows = [["用途", "purpose"], ["押したとき", "timing"], ["選択中の見た目", "state"], ["外す・直す", "remove"], ["置き場所・書き方", "place"], ["例", "example"]];
   return (
     <div style={styles.typesCard}>
       <h2 style={styles.diagramTitle}>チップの種類とユースケース</h2>
-      <div style={styles.typesGrid}>
-        {CHIP_TYPES.map((t) => (
-          <div key={t.name} style={styles.typeItem}>
-            <div style={styles.typeIllustration}>
-              <div
-                style={{
-                  display: "inline-flex", alignItems: "center", gap: 5,
-                  padding: "6px 14px", borderRadius: 8, whiteSpace: "nowrap",
-                  background: t.filled ? "#3A4FCF" : "#FFFFFF",
-                  border: `1.6px solid ${t.filled ? "#3A4FCF" : "#9EA4C4"}`,
-                  color: t.filled ? "#FFFFFF" : "#454C78",
-                  fontSize: 12, fontFamily: "'Jost', 'Noto Sans JP', sans-serif",
-                }}
-              >
-                {t.filled && (
-                  <svg width="11" height="11" viewBox="0 0 12 12" style={{ flexShrink: 0 }}>
-                    <path d="M2 6.2l2.6 2.6L10 3" fill="none" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                )}
-                {t.leading && !t.filled && <span style={{ fontSize: 10.5, opacity: 0.75 }}>{t.leading}</span>}
-                {t.example}
-                {t.closable && <span style={{ fontSize: 10, opacity: 0.6, marginLeft: 1 }}>✕</span>}
-              </div>
+      <p style={styles.diagramNote}>Googleは、<strong>操作か絞り込みか</strong>(アシスト/フィルタ)と、<strong>製品が出したものか人が入力したものか</strong>(サジェスチョン/インプット)の2つの問いで種類を選ぶとする。図は押す前と押した後の概念図。</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        {CHIP_TYPES.map((t, i) => (
+          <div key={t.name} style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12, background: "#FFFFFF" }}>
+            <div style={{ flex: "1 0 250px", maxWidth: "100%" }}>
+              <div style={styles.typeName}>{t.name}</div>
+              <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 8, overflowX: "auto" }}><ChipTypeFig i={i} /></div>
             </div>
-            <div style={styles.typeName}>{t.name}</div>
-            <p style={styles.typeDesc}>{t.desc}</p>
+            <div style={{ flex: "999 1 320px", minWidth: 0 }}>
+              {rows.map(([k, f]) => (
+                <div key={f} style={{ display: "grid", gridTemplateColumns: "96px minmax(0, 1fr)", gap: 8, fontSize: 12, lineHeight: 1.6, color: "#2E3457", marginBottom: 4 }}>
+                  <span style={{ fontWeight: 700, color: "#454C78", fontSize: 11 }}>{k}</span><span>{t[f]}</span>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>
-      <p style={styles.diagramNote}>
-        種類の選び分けは、Googleの公式ページにある2つの問いに沿っている: 「そのチップは動作を表すか、それとも結果を絞り込むか?」(アシスト⇔フィルタ)、「そのコンテンツは製品が生成したものか、それとも人が入力したものか?」(サジェスチョン⇔インプット)。なおM2からM3への変更で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分割され、旧「チョイスチップ」はフィルタチップの一種として統合されている。
-      </p>
+      <p style={{ ...styles.diagramNote, marginTop: 10 }}>{CHIP_COMMON}(Google)</p>
+      <p style={styles.diagramNote}><strong>フィルタチップの反映のタイミング</strong>: Googleは決めていない。NN groupは、探りながら選ぶ人には押してすぐ結果を変え、条件をそろえてから見たい人には「適用」ボタンを置くとする。</p>
+      <p style={styles.diagramNote}>なおM2からM3で、旧「アクションチップ」はアシストチップとサジェスチョンチップに分かれ、旧「チョイスチップ」はフィルタチップにまとめられた。</p>
     </div>
+  );
+}
+
+/* Appleのトークンフィールド(チップとは別のコンポーネント。2026-11-28 ⑩本人最終レビューNo.027で、比較から分けてここに置いた) */
+function TokenFieldSection() {
+  const F = "Jost, Noto Sans JP";
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>トークンフィールド(Apple)</h2>
+      <p style={styles.diagramNote}>Appleにチップはないが、macOSには、入力した文字を<strong>選んで操作できる「トークン」に変えるテキストフィールド</strong>がある。チップのように選んだり外したりするコンポーネントではなく、<strong>あくまで入力欄</strong>で、Googleのインプットチップを入力欄に入れた形に近い。図は概念図。</p>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 16px", alignItems: "center", border: "1px solid #E1E3F0", borderRadius: 6, padding: 12 }}>
+        <svg viewBox="0 0 250 46" width="250" height="46" role="img" aria-label="宛先の入力欄の中に、田中 太郎と佐藤 花子のトークンが並び、続けて文字を入力している図">
+          <text x="2" y="10" fontSize="8" fill="#565D8A" fontFamily={F}>宛先:</text>
+          <rect x="2" y="14" width="246" height="26" rx="4" fill="#FFFFFF" stroke="#9EA4C4" />
+          <rect x="8" y="19" width="56" height="16" rx="8" fill="#DDE3FA" /><text x="15" y="30.5" fontSize="8" fill="#1E2A8A" fontFamily={F}>田中 太郎</text>
+          <rect x="68" y="19" width="56" height="16" rx="8" fill="#DDE3FA" /><text x="75" y="30.5" fontSize="8" fill="#1E2A8A" fontFamily={F}>佐藤 花子</text>
+          <text x="130" y="30.5" fontSize="8.5" fill="#171B36" fontFamily={F}>suz|</text>
+        </svg>
+        <ul style={{ flex: "999 1 300px", margin: 0, paddingLeft: 18, fontSize: 12, lineHeight: 1.7, color: "#2E3457" }}>
+          <li>メールの宛先(To・Cc)欄のように、入力した項目を1つずつのトークンとして見せる(Apple: Token Fields)</li>
+          <li>macOS向け。iOS・iPadOSの検索フィールドには、検索語を選んで編集できる「トークン」として示し、続く語の絞り込みに使う仕組みがある(Apple: Search fields。詳しくは<PageLink to="/components/text-inputs/search-field">検索フィールド</PageLink>)</li>
+          <li>NN groupも、宛先を1件ずつ分けて1回で消せる「トークン(チップ)」を紹介している</li>
+        </ul>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={[
+        { label: "Apple: Token Fields(macOS)", url: "https://developer.apple.com/design/human-interface-guidelines/token-fields" },
+        { label: "Apple: Search fields ― Scope bars and tokens", url: "https://developer.apple.com/design/human-interface-guidelines/search-fields#Scope-bars-and-tokens" },
+      ]} /></div>
+    </section>
   );
 }
 
@@ -20475,7 +20570,7 @@ const SPLITS = [
     q: "チップは何に使う?",
     sides: [
       { who: "Google", color: "#2F7D6E", t: "4つの用途に使う。操作の手助け(アシスト)・絞り込み(フィルタ)・入力した値の表示(インプット)・候補の提示(サジェスチョン)。ただし次へ・前へのような主な操作はボタンにする" },
-      { who: "Apple(macOS)", color: "#C2542A", t: "入力した文字をまとまり(トークン)に変える入力欄だけ。絞り込みや候補の用途のコンポーネントはない" },
+      { who: "Apple", color: "#C2542A", t: "チップに当たるコンポーネントはない。近いのは、入力した文字をまとまり(トークン)に変えるmacOSの入力欄(下の「トークンフィールド(Apple)」)" },
       { who: "NN group", color: "#7A4F7E", t: "専用の記事はない。メールの宛先を1件ずつ分けて1回で消せるようにする、詳細検索やタグに使う、という使い方の紹介にとどまる" },
     ],
     tip: "3系列に共通するのは「入力した値をまとまりで見せる」使い方だけだ。絞り込みや候補にチップを使うのはGoogleの考え方なので、iOS・macOSのアプリでは、同じ用途を標準のコンポーネント(セグメントコントロールやメニュー)で作れないかも検討する。",
@@ -20621,7 +20716,9 @@ function SelectionChipsPage() {
 
           <SizeInfographic />
 
-          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/text-inputs/search-field"]} />
+          <TokenFieldSection />
+
+          <RelatedPages paths={["/components/selection/overview", "/components/selection/checkbox", "/components/actions/button", "/components/navigation/segmented-control"]} />
 
           <div style={styles.tagsRow}>
             {["知覚可能(POUR)", "操作可能(POUR)", "堅牢(POUR)"].map((t) => (<TagLink key={t} t={t} style={styles.tagPrinciple} />))}
@@ -21874,76 +21971,6 @@ function KindFig({ i }) {
   );
 }
 
-/* プルダウン・メニュー・リストボックスの違い(2026-11-28 ⑩本人最終レビューNo.026) */
-const DIFF_COLS = ["プルダウン(セレクト)", "メニュー", "リストボックス"];
-const DIFF_ROWS = [
-  ["何を選ぶか", "値(配送方法・都道府県など)", "命令(コピー・削除・並べ替えなど)", "値"],
-  ["選択肢の見え方", "開くまで隠れている", "開くまで隠れている", "折りたたまず、いつも見えている(NN group)"],
-  ["選んだ後", "選んだ値が欄に表示され続ける(Apple・Google)", "その命令がすぐ実行され、メニューは閉じる", "一覧は開いたまま、選んだ項目が強調される"],
-  ["選べる数", "1つ", "―(命令を1つ実行する)", "1つ、または複数"],
-  ["向く場面", "フォームで値を選ぶ。場所を節約したい(NN group: フォームの入力や属性の選択向き)", "画面に常に置くほどではない操作をまとめる(NN group: ナビゲーションや命令の一覧向き)", "選択肢をすぐ見比べたい。複数を選ばせたい"],
-  ["W3Cの参考例(APG)", "Select-Only Combobox(ブラウザ標準のプルダウンなら不要)", "Menu Button・Menubar", "Listbox"],
-];
-const DIFF_REFS = [
-  { label: "NN group: Dropdowns: Design Guidelines(ドロップダウンボックスとドロップダウンメニュー)", url: "https://www.nngroup.com/articles/drop-down-menus/" },
-  { label: "NN group: Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
-  { label: "Apple: Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
-  { label: "Apple: Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
-  { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
-  { kind: "apg", label: "APG: Listbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
-  { kind: "apg", label: "APG: Select-Only Combobox", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
-];
-
-function DiffFig({ k }) {
-  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
-  if (k === 0) return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="欄に選んだ値が表示されたプルダウン">
-      <rect x="2" y="6" width="112" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
-      <text x="9" y="19.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text><text x="106" y="19.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
-      <text x="2" y="44" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が残る</text>
-    </svg>
-  );
-  if (k === 1) return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="その他のボタンから、コピー・削除の命令が並ぶメニューが開いている図">
-      <rect x="2" y="4" width="20" height="16" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
-      <text x="12" y="15" fontSize="9" fill="#3A4FCF" textAnchor="middle" fontFamily={KF}>…</text>
-      <rect x="2" y="23" width="80" height="34" rx="4" {...box} />
-      <text x="9" y="36" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text>
-      <text x="9" y="50" fontSize="8" fill="#C0503F" fontFamily={KF}>削除</text>
-    </svg>
-  );
-  return (
-    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="いつも開いている一覧の中で、1つの項目が強調されているリストボックス">
-      <rect x="2" y="2" width="112" height="54" rx="4" {...box} />
-      <rect x="4" y="18" width="108" height="16" fill="#EEF1FA" />
-      {["北海道", "東北", "関東"].map((t, j) => (<text key={t} x="10" y={14 + j * 16} fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
-    </svg>
-  );
-}
-
-function DiffSection() {
-  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
-  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
-  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
-  return (
-    <section style={styles.ruleSection}>
-      <h2 style={styles.diagramTitle}>プルダウン・メニュー・リストボックスの違い</h2>
-      <p style={styles.diagramNote}>見た目が似ていても、<strong>値を選ぶのか(プルダウン・リストボックス)、命令を実行するのか(メニュー)</strong>で役割が違う。値を選ぶ2つは、<strong>選択肢が開くまで隠れているか、いつも見えているか</strong>で分かれる。各系列の説明をまとめた整理で、出典の系列を括弧で示した。</p>
-      <div style={{ overflowX: "auto", marginBottom: 6 }}>
-        <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 120 }} /><col /><col /><col /></colgroup>
-          <thead><tr><th style={th}></th>{DIFF_COLS.map((c) => (<th key={c} style={th}>{c}</th>))}</tr></thead>
-          <tbody>
-            <tr><td style={key}>イメージ</td>{[0, 1, 2].map((k) => (<td key={k} style={td}><DiffFig k={k} /></td>))}</tr>
-            {DIFF_ROWS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td>{r.slice(1).map((v, i) => (<td key={i} style={td}>{v}</td>))}</tr>))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={DIFF_REFS} /></div>
-    </section>
-  );
-}
-
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -21978,7 +22005,7 @@ const LEAD = "ボタンなどを押すと開き、その場で実行できる操
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
-  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(違いは「プルダウン・メニュー・リストボックスの違い」)</> },
+  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(違いはセレクトのページの「プルダウン・メニュー・リストボックスの違い」)</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -22033,7 +22060,7 @@ function SelectionMenuPage() {
             </div>
           </section>
 
-          <DiffSection />
+          <p style={{ ...styles.diagramNote, margin: "-6px 0 22px" }}>プルダウン(セレクト)・リストボックスとの違いは、<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>の「プルダウン・メニュー・リストボックスの違い」にまとめた。</p>
 
           <SplitSection splits={SPLITS} />
 
@@ -23542,7 +23569,7 @@ const LEAD = "押すと選択肢の一覧が開き、その中から値を選ぶ
 const ABOUT = [
   { k: "目的・役割", v: "選択肢が多いときに場所をとらずに置き、選んだ値を表示し続ける" },
   { k: "よく使われる場面", v: "都道府県・国の選択、並べ替えの順番、フォームの選択項目" },
-  { k: "似たコンポーネント", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink></> },
+  { k: "似たコンポーネント", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink>(違いは下の「プルダウン・メニュー・リストボックスの違い」)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -23565,23 +23592,76 @@ const KP = [
   { n: 3, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
 ];
 
-/* 良い例・悪い例の図(2026-11-28 ⑩本人最終レビューNo.025: 良い例がラジオボタンでセレクトの例になっていなかったため、両方セレクトの「ラベル」の例に差し替えた。図は概念図) */
-function GoodBadFigure() {
-  const field = (text, muted, open) => (
-    <span style={{ width: 210, display: "flex", justifyContent: "space-between", alignItems: "center", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: muted ? "#666D93" : "#171B36", background: "#FFFFFF" }}>{text}<span aria-hidden="true" style={{ color: "#565D8A" }}>{open ? "▴" : "▾"}</span></span>
+/* 良い例・悪い例は、2026-11-28 ⑩本人最終レビュー(チャットでの指示)で不要として外した */
+
+/* プルダウン・メニュー・リストボックスの違い(2026-11-28 ⑩本人最終レビューNo.026。チャットでの指示でメニューのページからこちらへ移した) */
+const KF = "Jost, Noto Sans JP";
+const DIFF_COLS = ["プルダウン(セレクト)", "メニュー", "リストボックス"];
+const DIFF_ROWS = [
+  ["何を選ぶか", "値(配送方法・都道府県など)", "命令(コピー・削除・並べ替えなど)", "値"],
+  ["選択肢の見え方", "開くまで隠れている", "開くまで隠れている", "折りたたまず、いつも見えている(NN group)"],
+  ["選んだ後", "選んだ値が欄に表示され続ける(Apple・Google)", "その命令がすぐ実行され、メニューは閉じる", "一覧は開いたまま、選んだ項目が強調される"],
+  ["選べる数", "1つ", "―(命令を1つ実行する)", "1つ、または複数"],
+  ["向く場面", "フォームで値を選ぶ。場所を節約したい(NN group: フォームの入力や属性の選択向き)", "画面に常に置くほどではない操作をまとめる(NN group: ナビゲーションや命令の一覧向き)", "選択肢をすぐ見比べたい。複数を選ばせたい"],
+  ["W3Cの参考例(APG)", "Select-Only Combobox(ブラウザ標準のプルダウンなら不要)", "Menu Button・Menubar", "Listbox"],
+];
+const DIFF_REFS = [
+  { label: "NN group: Dropdowns: Design Guidelines(ドロップダウンボックスとドロップダウンメニュー)", url: "https://www.nngroup.com/articles/drop-down-menus/" },
+  { label: "NN group: Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
+  { label: "Apple: Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+  { label: "Apple: Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
+  { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+  { kind: "apg", label: "APG: Listbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+  { kind: "apg", label: "APG: Select-Only Combobox", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+];
+
+function DiffFig({ k }) {
+  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
+  if (k === 0) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="欄に選んだ値が表示されたプルダウン">
+      <rect x="2" y="6" width="112" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
+      <text x="9" y="19.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text><text x="106" y="19.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
+      <text x="2" y="44" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が残る</text>
+    </svg>
   );
-  const col = (children) => (<div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>{children}</div>);
-  const label = (t) => (<span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>{t}</span>);
-  const step = (t) => (<span style={{ fontSize: 10.5, color: "#565D8A", marginTop: 4 }}>{t}</span>);
+  if (k === 1) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="その他のボタンから、コピー・削除の命令が並ぶメニューが開いている図">
+      <rect x="2" y="4" width="20" height="16" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
+      <text x="12" y="15" fontSize="9" fill="#3A4FCF" textAnchor="middle" fontFamily={KF}>…</text>
+      <rect x="2" y="23" width="80" height="34" rx="4" {...box} />
+      <text x="9" y="36" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text>
+      <text x="9" y="50" fontSize="8" fill="#C0503F" fontFamily={KF}>削除</text>
+    </svg>
+  );
   return (
-    <GoodBad
-            title="良い例・悪い例 ― ラベル"
-            items={[
-              { kind: "good", fig: col(<>{step("選ぶ前")}{label("配送方法")}{field("選択してください", true)}{step("選んだ後")}{label("配送方法")}{field("お急ぎ便", false)}</>), text: "ラベルが欄の外にあり、選んだ後も何の欄か分かる。欄には今選んでいる値が出る。" },
-              { kind: "bad", fig: col(<>{step("選ぶ前")}{field("配送方法を選択", true)}{step("選んだ後")}{field("お急ぎ便", false)}</>), text: "欄の中の最初の文字をラベルの代わりにしている。選ぶと消え、何を選んだ欄なのか分からなくなる。" },
-            ]}
-            basis="W3C 3.3.2(入力欄にラベルか説明を用意する)、Apple(開かなくても選択肢を予測できる説明的なラベルを付け、選んだ内容をボタンに表示する)、NN group(開いている間も、何を選んでいるかを思い出せるようラベルを見せておく)。"
-          />
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="いつも開いている一覧の中で、1つの項目が強調されているリストボックス">
+      <rect x="2" y="2" width="112" height="54" rx="4" {...box} />
+      <rect x="4" y="18" width="108" height="16" fill="#EEF1FA" />
+      {["北海道", "東北", "関東"].map((t, j) => (<text key={t} x="10" y={14 + j * 16} fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
+    </svg>
+  );
+}
+
+function DiffSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>プルダウン・メニュー・リストボックスの違い</h2>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "0 0 10px", lineHeight: 1.6 }}>見た目が似ていても、<strong>値を選ぶのか(プルダウン・リストボックス)、命令を実行するのか(メニュー)</strong>で役割が違う。値を選ぶ2つは、<strong>選択肢が開くまで隠れているか、いつも見えているか</strong>で分かれる。各系列の説明をまとめた整理で、出典の系列を括弧で示した。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 120 }} /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{DIFF_COLS.map((c) => (<th key={c} style={th}>{c}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={key}>イメージ</td>{[0, 1, 2].map((k) => (<td key={k} style={td}><DiffFig k={k} /></td>))}</tr>
+            {DIFF_ROWS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td>{r.slice(1).map((v, i) => (<td key={i} style={td}>{v}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={DIFF_REFS} /></div>
+    </section>
   );
 }
 
@@ -23613,12 +23693,13 @@ function SelectionSelectPage() {
             rows={ABOUT}
           />
 
-          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
 
 
+
+          <DiffSection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -24036,30 +24117,6 @@ function SizeRangeScale() {
   );
 }
 
-function SizeInfographic() {
-  const legend = [
-    { name: "Apple", color: "#C2542A", note: "数値なし(見た目は自由にカスタマイズ可)" },
-    { name: "Google", color: "#2F7D6E", note: "48dp(つまみの既定の押せる範囲)" },
-    { name: "W3C", color: "#A3821F", note: "24px(AA)/44px(AAA)。どちらも例外あり" },
-    { name: "Nielsen Norman Group", color: "#7A4F7E", note: "数値なし(正確な値には不向きという使いどころの指針)" },
-  ];
-  return (
-    <div style={styles.infographicCard}>
-      <span style={styles.swatchLabel}>サイズの比較</span>
-      <SizeRangeScale />
-      <div style={styles.infographicLegend}>
-        {legend.map((l) => (
-          <div key={l.name} style={styles.infographicLegendRow}>
-            <span style={{ ...styles.infographicDot, background: l.color }} />
-            <span style={styles.infographicLegendName}>{l.name}</span>
-            <span style={styles.infographicLegendNote}>{l.note}</span>
-          </div>
-        ))}
-      </div>
-      <p style={styles.diagramNote}>0〜60を共通スケールにした目安。赤=非推奨/黄=条件付き/緑=推奨の帯はWCAGのターゲットサイズの基準によるもので、系列の色とは別。Apple・NN groupは数値基準がないためマーカーはない。</p>
-    </div>
-  );
-}
 
 function SliderSwatch() {
   return (
@@ -24293,7 +24350,13 @@ const SPLITS = [
   },
   {
     q: "つまみの押せる範囲は、どのくらいの大きさにする?",
-    figure: <SizeInfographic />,
+    /* 2026-11-28 ⑩本人最終レビューNo.028: 枠付きの図(SizeInfographic)が論点の中で二重の枠になり崩れていたため、目盛りと1行の説明だけにした */
+    figure: (
+      <>
+        <SizeRangeScale />
+        <p style={{ fontSize: 11, color: "#666D93", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60を共通スケールにした目安。24・44=W3C(AA・AAA。px)、48=Google(dp)。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズの基準による</p>
+      </>
+    ),
     sides: [
       { who: "Google", color: "#2F7D6E", t: "つまみの既定の押せる範囲は48dp" },
       { who: "W3C", color: "#A3821F", t: "24×24px以上(2.5.8・AA)、より高い水準では44×44px以上(2.5.5・AAA)。どちらも例外あり" },
@@ -24310,6 +24373,69 @@ const KP = [
   { n: 3, t: "つまみの押せる範囲は48dp前後", d: "", who: "Google" },
   { n: 4, t: "今の値を、つまみの近くか入力欄で見せる", d: "指で隠れないよう、つまみの下には置かない", who: "Google・Apple・NN group" }
 ];
+
+/* ステッパー(2026-11-28 ⑩本人最終レビューNo.028。Apple HIG Steppers・NN group Design Guidelines for Input Steppers・APG Spinbutton を取得して確認。M3のコンポーネント一覧にはない) */
+const STEPPER_ROWS = [
+  { k: "どんなものか", hig: "値を少しずつ増減する2つのボタン。値は表示しないので、今の値を出す欄の隣に置き、どの値が変わるかを分かるようにする", material: null, wcag: "決まった範囲の中の値に絞る入力。今の値を出す欄・増やすボタン・減らすボタンの3つでできることが多い", nn: "数値を少しずつ増減する、2つに分かれたコントロール" },
+  { k: "向く場面", hig: "数回の操作で済む小さな変更。値が大きく変わりそうなら入力欄を添える(印刷の部数など)", material: null, wcag: null, nn: "よく選ばれる値が決まっていて、変える量が小さいとき(人数など)。値の幅が大きいもの、連続した値で正確さが大事なものには使わない" },
+  { k: "刻み", hig: "範囲が広いなら、macOSではShiftを押しながら大きく(既定の10倍など)変えられるようにする", material: null, wcag: "範囲が広いなら、小さい刻みと大きい刻みの両方で変えられるようにしてよい", nn: "1回押すと1単位が基本。作業の分析で必要なら別の刻みにする" },
+  { k: "直接の入力", hig: "具体的な値を入れたい人のため、入力欄を併設する", material: null, wcag: "値を出す欄で、直接編集できることが多い", nn: "数字を直接打てる欄を添える。長押しで続けて増減できるようにする" },
+  { k: "上限・下限", hig: null, material: null, wcag: "最小・最大の値を支援技術にも伝える。範囲外の値は受け付けないか、範囲外だと伝える", nn: "上限・下限があれば示す(例: 上限で+を薄くする)" },
+];
+const STEPPER_REFS = [
+  { label: "Apple: Steppers ― Best practices", url: "https://developer.apple.com/design/human-interface-guidelines/steppers#Best-practices" },
+  { label: "NN group: Design Guidelines for Input Steppers", url: "https://www.nngroup.com/articles/input-steppers/#toc-stepper-design-guidelines-4" },
+  { kind: "apg", label: "APG: Spinbutton Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/spinbutton/#aboutthispattern" },
+];
+
+function StepperFig() {
+  const F = "Jost, Noto Sans JP";
+  const stepper = (x, val, maxed) => (
+    <g>
+      <rect x={x} y="22" width="30" height="28" rx="6" fill="#FFFFFF" stroke="#9EA4C4" strokeWidth="1.2" />
+      <text x={x + 15} y="41" fontSize="15" fill="#3A4FCF" textAnchor="middle" fontFamily={F}>−</text>
+      <rect x={x + 34} y="22" width="40" height="28" rx="4" fill="#FFFFFF" stroke="#C9CDE0" />
+      <text x={x + 54} y="41" fontSize="12" fill="#171B36" textAnchor="middle" fontFamily={F}>{val}</text>
+      <rect x={x + 78} y="22" width="30" height="28" rx="6" fill={maxed ? "#F3F6FA" : "#FFFFFF"} stroke={maxed ? "#D5D9EC" : "#9EA4C4"} strokeWidth="1.2" />
+      <text x={x + 93} y="41" fontSize="15" fill={maxed ? "#B7BCDA" : "#3A4FCF"} textAnchor="middle" fontFamily={F}>+</text>
+    </g>
+  );
+  return (
+    <svg viewBox="0 0 300 70" width="300" height="70" role="img" aria-label="大人の人数を−と+で1ずつ変えるステッパー。上限の9人では+が薄くなっている">
+      <text x="4" y="14" fontSize="9" fill="#2E3457" fontWeight="700" fontFamily={F}>大人(1〜9人)</text>
+      {stepper(4, "2", false)}
+      <text x="4" y="64" fontSize="8" fill="#565D8A" fontFamily={F}>1回押すと1人。数字も直接打てる</text>
+      <text x="160" y="14" fontSize="9" fill="#2E3457" fontWeight="700" fontFamily={F}>上限に達したとき</text>
+      {stepper(160, "9", true)}
+      <text x="160" y="64" fontSize="8" fill="#565D8A" fontFamily={F}>+を薄くして上限を示す</text>
+    </svg>
+  );
+}
+
+function StepperSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  const cols = [["hig", "Apple"], ["material", "Google"], ["wcag", "W3C"], ["nn", "NN group"]];
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>ステッパー</h2>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "0 0 10px", lineHeight: 1.6 }}>スライダーの代わりや横に置く、−/+で値を少しずつ変えるコンポーネント。<strong>小さな変更に向き、大きく変える値や正確さが大事な連続した値には向かない</strong>(Apple・NN group)。刻みは1回1単位が基本で、数字を直接打てる欄を添える(NN group)。Googleのコンポーネント一覧には、ステッパーはない。図は概念図。</p>
+      <div style={{ background: "#F8F9FD", border: "1px dashed #D5D9EC", borderRadius: 6, padding: 10, marginBottom: 10, overflowX: "auto" }}><StepperFig /></div>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 110 }} /><col /><col style={{ width: 90 }} /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{cols.map(([c, n]) => (<th key={c} style={th}>{n}</th>))}</tr></thead>
+          <tbody>
+            {STEPPER_ROWS.map((r) => (<tr key={r.k}><td style={key}>{r.k}</td>{cols.map(([c]) => (<td key={c} style={td}>{r[c] || <NoData>{c === "material" ? "コンポーネントなし" : "記載なし"}</NoData>}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <p style={{ fontSize: 11.5, color: "#454C78", margin: "6px 0 8px", lineHeight: 1.65 }}><strong>見た目・大きさ(NN groupだけが定める)</strong>: −/+ か上下の矢印で示す。パソコンでもスマートフォンでも大きなボタンにする(タッチは1cm四方以上)。縦より横に並べる(縦は窮屈になりやすい)。</p>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={STEPPER_REFS} /></div>
+    </section>
+  );
+}
 
 function SelectionSliderPage() {
   return (
@@ -24447,6 +24573,8 @@ function SelectionSliderPage() {
             </div>
           </div>
 
+
+          <StepperSection />
 
           <RelatedPages paths={["/components/selection/overview", "/tokens/input-methods", "/components/text-inputs/text-field"]} />
 

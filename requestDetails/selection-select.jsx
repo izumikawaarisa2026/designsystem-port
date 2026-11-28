@@ -231,7 +231,7 @@ const LEAD = "押すと選択肢の一覧が開き、その中から値を選ぶ
 const ABOUT = [
   { k: "目的・役割", v: "選択肢が多いときに場所をとらずに置き、選んだ値を表示し続ける" },
   { k: "よく使われる場面", v: "都道府県・国の選択、並べ替えの順番、フォームの選択項目" },
-  { k: "似たコンポーネント", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink></> },
+  { k: "似たコンポーネント", v: <>選択肢が少なく、すべて見せたいなら<PageLink to="/components/selection/radio">ラジオボタン</PageLink>、操作(命令)の一覧を出すなら<PageLink to="/components/selection/menu">メニュー</PageLink>(違いは下の「プルダウン・メニュー・リストボックスの違い」)</> },
 ];
 
 /* 意見が分かれる点 */
@@ -254,23 +254,76 @@ const KP = [
   { n: 3, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
 ];
 
-/* 良い例・悪い例の図(2026-11-28 ⑩本人最終レビューNo.025: 良い例がラジオボタンでセレクトの例になっていなかったため、両方セレクトの「ラベル」の例に差し替えた。図は概念図) */
-function GoodBadFigure() {
-  const field = (text, muted, open) => (
-    <span style={{ width: 210, display: "flex", justifyContent: "space-between", alignItems: "center", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: muted ? "#666D93" : "#171B36", background: "#FFFFFF" }}>{text}<span aria-hidden="true" style={{ color: "#565D8A" }}>{open ? "▴" : "▾"}</span></span>
+/* 良い例・悪い例は、2026-11-28 ⑩本人最終レビュー(チャットでの指示)で不要として外した */
+
+/* プルダウン・メニュー・リストボックスの違い(2026-11-28 ⑩本人最終レビューNo.026。チャットでの指示でメニューのページからこちらへ移した) */
+const KF = "Jost, Noto Sans JP";
+const DIFF_COLS = ["プルダウン(セレクト)", "メニュー", "リストボックス"];
+const DIFF_ROWS = [
+  ["何を選ぶか", "値(配送方法・都道府県など)", "命令(コピー・削除・並べ替えなど)", "値"],
+  ["選択肢の見え方", "開くまで隠れている", "開くまで隠れている", "折りたたまず、いつも見えている(NN group)"],
+  ["選んだ後", "選んだ値が欄に表示され続ける(Apple・Google)", "その命令がすぐ実行され、メニューは閉じる", "一覧は開いたまま、選んだ項目が強調される"],
+  ["選べる数", "1つ", "―(命令を1つ実行する)", "1つ、または複数"],
+  ["向く場面", "フォームで値を選ぶ。場所を節約したい(NN group: フォームの入力や属性の選択向き)", "画面に常に置くほどではない操作をまとめる(NN group: ナビゲーションや命令の一覧向き)", "選択肢をすぐ見比べたい。複数を選ばせたい"],
+  ["W3Cの参考例(APG)", "Select-Only Combobox(ブラウザ標準のプルダウンなら不要)", "Menu Button・Menubar", "Listbox"],
+];
+const DIFF_REFS = [
+  { label: "NN group: Dropdowns: Design Guidelines(ドロップダウンボックスとドロップダウンメニュー)", url: "https://www.nngroup.com/articles/drop-down-menus/" },
+  { label: "NN group: Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
+  { label: "Apple: Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+  { label: "Apple: Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
+  { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+  { kind: "apg", label: "APG: Listbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+  { kind: "apg", label: "APG: Select-Only Combobox", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+];
+
+function DiffFig({ k }) {
+  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
+  if (k === 0) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="欄に選んだ値が表示されたプルダウン">
+      <rect x="2" y="6" width="112" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
+      <text x="9" y="19.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text><text x="106" y="19.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
+      <text x="2" y="44" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が残る</text>
+    </svg>
   );
-  const col = (children) => (<div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>{children}</div>);
-  const label = (t) => (<span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>{t}</span>);
-  const step = (t) => (<span style={{ fontSize: 10.5, color: "#565D8A", marginTop: 4 }}>{t}</span>);
+  if (k === 1) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="その他のボタンから、コピー・削除の命令が並ぶメニューが開いている図">
+      <rect x="2" y="4" width="20" height="16" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
+      <text x="12" y="15" fontSize="9" fill="#3A4FCF" textAnchor="middle" fontFamily={KF}>…</text>
+      <rect x="2" y="23" width="80" height="34" rx="4" {...box} />
+      <text x="9" y="36" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text>
+      <text x="9" y="50" fontSize="8" fill="#C0503F" fontFamily={KF}>削除</text>
+    </svg>
+  );
   return (
-    <GoodBad
-            title="良い例・悪い例 ― ラベル"
-            items={[
-              { kind: "good", fig: col(<>{step("選ぶ前")}{label("配送方法")}{field("選択してください", true)}{step("選んだ後")}{label("配送方法")}{field("お急ぎ便", false)}</>), text: "ラベルが欄の外にあり、選んだ後も何の欄か分かる。欄には今選んでいる値が出る。" },
-              { kind: "bad", fig: col(<>{step("選ぶ前")}{field("配送方法を選択", true)}{step("選んだ後")}{field("お急ぎ便", false)}</>), text: "欄の中の最初の文字をラベルの代わりにしている。選ぶと消え、何を選んだ欄なのか分からなくなる。" },
-            ]}
-            basis="W3C 3.3.2(入力欄にラベルか説明を用意する)、Apple(開かなくても選択肢を予測できる説明的なラベルを付け、選んだ内容をボタンに表示する)、NN group(開いている間も、何を選んでいるかを思い出せるようラベルを見せておく)。"
-          />
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="いつも開いている一覧の中で、1つの項目が強調されているリストボックス">
+      <rect x="2" y="2" width="112" height="54" rx="4" {...box} />
+      <rect x="4" y="18" width="108" height="16" fill="#EEF1FA" />
+      {["北海道", "東北", "関東"].map((t, j) => (<text key={t} x="10" y={14 + j * 16} fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
+    </svg>
+  );
+}
+
+function DiffSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  return (
+    <section style={{ marginBottom: 32 }}>
+      <h2 style={styles.diagramTitle}>プルダウン・メニュー・リストボックスの違い</h2>
+      <p style={{ fontSize: 11.5, color: "#565D8A", margin: "0 0 10px", lineHeight: 1.6 }}>見た目が似ていても、<strong>値を選ぶのか(プルダウン・リストボックス)、命令を実行するのか(メニュー)</strong>で役割が違う。値を選ぶ2つは、<strong>選択肢が開くまで隠れているか、いつも見えているか</strong>で分かれる。各系列の説明をまとめた整理で、出典の系列を括弧で示した。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 120 }} /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{DIFF_COLS.map((c) => (<th key={c} style={th}>{c}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={key}>イメージ</td>{[0, 1, 2].map((k) => (<td key={k} style={td}><DiffFig k={k} /></td>))}</tr>
+            {DIFF_ROWS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td>{r.slice(1).map((v, i) => (<td key={i} style={td}>{v}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={DIFF_REFS} /></div>
+    </section>
   );
 }
 
@@ -306,12 +359,13 @@ export default function SelectionSelectPage() {
             rows={ABOUT}
           />
 
-          <GoodBadFigure />
 
           <SplitSection splits={SPLITS} />
 
 
 
+
+          <DiffSection />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
