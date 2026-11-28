@@ -254,16 +254,22 @@ const KP = [
   { n: 3, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
 ];
 
-/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+/* 良い例・悪い例の図(2026-11-28 ⑩本人最終レビューNo.025: 良い例がラジオボタンでセレクトの例になっていなかったため、両方セレクトの「ラベル」の例に差し替えた。図は概念図) */
 function GoodBadFigure() {
+  const field = (text, muted, open) => (
+    <span style={{ width: 210, display: "flex", justifyContent: "space-between", alignItems: "center", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: muted ? "#666D93" : "#171B36", background: "#FFFFFF" }}>{text}<span aria-hidden="true" style={{ color: "#565D8A" }}>{open ? "▴" : "▾"}</span></span>
+  );
+  const col = (children) => (<div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>{children}</div>);
+  const label = (t) => (<span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>{t}</span>);
+  const step = (t) => (<span style={{ fontSize: 10.5, color: "#565D8A", marginTop: 4 }}>{t}</span>);
   return (
     <GoodBad
-            title="良い例・悪い例 ― 選択肢が少ないとき"
+            title="良い例・悪い例 ― ラベル"
             items={[
-              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>通常配送</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>お急ぎ便</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>店舗で受け取る</span></span></div>, text: "選択肢が少ないときは、ラジオボタンですべて見せる。開かなくても比べられる。" },
-              { kind: "bad", fig: <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ width: 200, display: "flex", justifyContent: "space-between", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: "#2E3457" }}>選択してください<span aria-hidden="true">▾</span></span></div>, text: "数個しかない選択肢をセレクトの中に隠すと、開くまで何があるか分からない。" },
+              { kind: "good", fig: col(<>{step("選ぶ前")}{label("配送方法")}{field("選択してください", true)}{step("選んだ後")}{label("配送方法")}{field("お急ぎ便", false)}</>), text: "ラベルが欄の外にあり、選んだ後も何の欄か分かる。欄には今選んでいる値が出る。" },
+              { kind: "bad", fig: col(<>{step("選ぶ前")}{field("配送方法を選択", true)}{step("選んだ後")}{field("お急ぎ便", false)}</>), text: "欄の中の最初の文字をラベルの代わりにしている。選ぶと消え、何を選んだ欄なのか分からなくなる。" },
             ]}
-            basis="このページのサマリー(選択肢が少なく、すべて見せたいならラジオボタン)と「意見が分かれる点」のAI解釈(5つ以下で場所に余裕があればラジオボタン)。"
+            basis="W3C 3.3.2(入力欄にラベルか説明を用意する)、Apple(開かなくても選択肢を予測できる説明的なラベルを付け、選んだ内容をボタンに表示する)、NN group(開いている間も、何を選んでいるかを思い出せるようラベルを見せておく)。"
           />
   );
 }

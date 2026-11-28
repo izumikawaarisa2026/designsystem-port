@@ -272,21 +272,6 @@ const SPLITS = [
     ],
     tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法だ。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げる。APGは実装の参考例で、適合の要件ではない。Appleは、親の状態の表示(不定のときはダッシュ)は定めているが、押したときの動きは書いていない。",
   },
-  {
-    q: "押せる範囲(押せる範囲)は、どれくらいの大きさが必要?",
-    figure: (
-      <>
-        <SizeRangeScale />
-        <p style={{ fontSize: 11, color: "#666D93", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60pxを共通スケールにした目安。24・44=W3C(AA・AAA)、48=Google。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく</p>
-      </>
-    ),
-    sides: [
-      { who: "Google", color: "#2F7D6E", t: "48×48pxを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
-      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・レベルAA)/44×44px(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
-      { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
-    ],
-    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
-  },
 ];
 
 /* この部品について(冒頭の説明) */
@@ -347,20 +332,59 @@ const SPECIAL_REFS = [
   { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
 ];
 
+/* 特別な項目の図(2026-11-28 チャットでの指示。概念図) */
+function SpecialFig({ i }) {
+  const F = "Jost, Noto Sans JP";
+  const cb = (x, y, st) => (
+    <g>
+      <rect x={x} y={y} width="11" height="11" rx="2.5" fill={st === "off" ? "#FFFFFF" : "#3A4FCF"} stroke={st === "off" ? "#9EA4C4" : "#3A4FCF"} strokeWidth="1.4" />
+      {st === "on" && <path d={`M${x + 2.5} ${y + 5.8}l2.2 2.2 3.8-4.4`} fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+      {st === "mixed" && <line x1={x + 2.8} y1={y + 5.5} x2={x + 8.2} y2={y + 5.5} stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />}
+    </g>
+  );
+  const t = (x, y, s, c) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontFamily={F}>{s}</text>);
+  if (i === 0) return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「すべて」が不定の印になり、その下の3つのうち2つが選択されている図">
+      {cb(2, 2, "mixed")}{t(18, 11, "すべて", "#171B36")}
+      {cb(14, 20, "on")}{t(30, 29, "メール")}
+      {cb(14, 36, "on")}{t(30, 45, "プッシュ通知")}
+      {cb(14, 52, "off")}{t(30, 61, "SMS")}
+    </svg>
+  );
+  if (i === 1) return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「その他」を選ぶと、横の入力欄に書けるようになっている図">
+      {cb(2, 2, "off")}{t(18, 11, "書籍")}
+      {cb(2, 20, "off")}{t(18, 29, "雑誌")}
+      {cb(2, 38, "on")}{t(18, 47, "その他")}
+      <rect x="48" y="36" width="70" height="15" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
+      {t(53, 46.5, "漫画|", "#171B36")}
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「どれもない」を選ぶと、ほかの項目の選択が外れる図">
+      {cb(2, 2, "off")}{t(18, 11, "花粉")}
+      {cb(2, 18, "off")}{t(18, 27, "食べ物")}
+      <line x1="2" y1="36" x2="110" y2="36" stroke="#E1E3F0" />
+      {cb(2, 42, "on")}{t(18, 51, "どれもない")}
+      {t(2, 64, "→ ほかの選択は外れる", "#565D8A")}
+    </svg>
+  );
+}
+
 function SpecialItems() {
   const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
   const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
   const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
   return (
     <section style={{ marginBottom: 32 }}>
-      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>「すべて選択」「その他」「どれもない」の項目</h2>
+      <h2 style={styles.diagramTitle}>「すべて選択」「その他」「どれもない」の項目</h2>
       <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。</p>
       <div style={{ overflowX: "auto", marginBottom: 6 }}>
         <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 130 }} /><col /><col /><col /></colgroup>
+          <colgroup><col style={{ width: 150 }} /><col /><col /><col /></colgroup>
           <thead><tr>{["項目", "入れるとき", "動き", "追加・変更したとき"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
           <tbody>
-            {SPECIAL_ITEMS.map((r) => (<tr key={r.name}><td style={key}>{r.name}</td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
+            {SPECIAL_ITEMS.map((r, i) => (<tr key={r.name}><td style={key}>{r.name}<div style={{ marginTop: 8, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: 4, display: "inline-block" }}><SpecialFig i={i} /></div></td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
           </tbody>
         </table>
       </div>
@@ -430,31 +454,6 @@ function NestedAccordion() {
   );
 }
 
-const SIZE_BAND_COLOR = { ng: { fill: "#F7E4E1", stroke: "#C0503F" }, caution: { fill: "#FBF0D9", stroke: "#A97A1A" }, ok: { fill: "#E4F0EC", stroke: "#2F7D6E" } };
-const SIZE_SCALE = {
-  bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }],
-  markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }, { at: 48, label: "48" }],
-};
-
-function SizeRangeScale() {
-  const domainMax = 60;
-  const w = 280;
-  const x = (v) => (v / domainMax) * w;
-  return (
-    <svg viewBox={`0 0 ${w} 44`} style={{ width: "100%", maxWidth: 320, height: "auto", display: "block", margin: "0 auto" }}>
-      {SIZE_SCALE.bands.map((b, i) => (
-        <rect key={i} x={x(b.from)} y={4} width={x(b.to) - x(b.from)} height={14} fill={SIZE_BAND_COLOR[b.type].fill} stroke={SIZE_BAND_COLOR[b.type].stroke} strokeWidth="1" />
-      ))}
-      {SIZE_SCALE.markers.map((m, i) => (
-        <g key={i}>
-          <line x1={x(m.at)} y1={1} x2={x(m.at)} y2={20} stroke="#171B36" strokeWidth="1.4" />
-          <circle cx={x(m.at)} cy={1} r="2" fill="#171B36" />
-          <text x={x(m.at)} y={34} fontSize="9" fontFamily="IBM Plex Mono" fill="#171B36" textAnchor="middle" fontWeight="600">{m.label}</text>
-        </g>
-      ))}
-    </svg>
-  );
-}
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
@@ -515,6 +514,8 @@ export default function SelectionCheckboxPage() {
           <SplitSection splits={SPLITS} />
           <GoodBadFigure />
 
+
+          <SpecialItems />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -618,7 +619,6 @@ export default function SelectionCheckboxPage() {
             </div>
           </div>
 
-          <SpecialItems />
           <NestedAccordion />
 
           <RelatedPages paths={["/components/selection/overview", "/components/selection/radio", "/components/selection/toggle", "/components/selection/chips"]} />

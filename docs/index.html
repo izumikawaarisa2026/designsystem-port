@@ -19678,21 +19678,6 @@ const SPLITS = [
     ],
     tip: "基本はGoogle・NN groupの「すべて選択」にそろえるのが分かりやすい方法だ。選び直しに手間がかかる一覧(数十件の宛先など)では、APGの例のように一部だけ選んだ状態に戻せると、うっかり押したときの損失を防げる。APGは実装の参考例で、適合の要件ではない。Appleは、親の状態の表示(不定のときはダッシュ)は定めているが、押したときの動きは書いていない。",
   },
-  {
-    q: "押せる範囲(押せる範囲)は、どれくらいの大きさが必要?",
-    figure: (
-      <>
-        <SizeRangeScale />
-        <p style={{ fontSize: 11, color: "#666D93", margin: "8px 0 0", lineHeight: 1.6 }}>0〜60pxを共通スケールにした目安。24・44=W3C(AA・AAA)、48=Google。赤=非推奨/黄=条件付き/緑=推奨の帯は、WCAGのターゲットサイズ基準に基づく</p>
-      </>
-    ),
-    sides: [
-      { who: "Google", color: "#2F7D6E", t: "48×48pxを下回らせない。チェックボックスに、既定で高密度の設定を当てない" },
-      { who: "W3C", color: "#A3821F", t: "24×24px(2.5.8・レベルAA)/44×44px(2.5.5・レベルAAA)。どちらも例外あり。チェックボックス専用ではなく、押せる要素すべてに当てはまる基準" },
-      { who: "Apple・NN group", color: "#C2542A", t: "数値の基準はない。Appleはシステムが大きさを自動で決める(macOSのコンポーネント)。NN groupは、横のラベルも押せる範囲に含めるよう勧める" },
-    ],
-    tip: "ラベルも含めた押せる範囲を48×48px以上にしておけば、Googleの基準を満たし、W3Cの24px(AA)・44px(AAA)にも届く。四角そのものは小さくても、ラベルを押して選べるようにすれば範囲を広げられる(Google・NN groupが勧める方法)。",
-  },
 ];
 
 /* この部品について(冒頭の説明) */
@@ -19753,20 +19738,59 @@ const SPECIAL_REFS = [
   { kind: "sc", level: "A", label: "3.3.2 ラベル又は指示", url: "https://www.w3.org/WAI/WCAG22/Understanding/labels-or-instructions.html" },
 ];
 
+/* 特別な項目の図(2026-11-28 チャットでの指示。概念図) */
+function SpecialFig({ i }) {
+  const F = "Jost, Noto Sans JP";
+  const cb = (x, y, st) => (
+    <g>
+      <rect x={x} y={y} width="11" height="11" rx="2.5" fill={st === "off" ? "#FFFFFF" : "#3A4FCF"} stroke={st === "off" ? "#9EA4C4" : "#3A4FCF"} strokeWidth="1.4" />
+      {st === "on" && <path d={`M${x + 2.5} ${y + 5.8}l2.2 2.2 3.8-4.4`} fill="none" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+      {st === "mixed" && <line x1={x + 2.8} y1={y + 5.5} x2={x + 8.2} y2={y + 5.5} stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />}
+    </g>
+  );
+  const t = (x, y, s, c) => (<text x={x} y={y} fontSize="8.5" fill={c || "#171B36"} fontFamily={F}>{s}</text>);
+  if (i === 0) return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「すべて」が不定の印になり、その下の3つのうち2つが選択されている図">
+      {cb(2, 2, "mixed")}{t(18, 11, "すべて", "#171B36")}
+      {cb(14, 20, "on")}{t(30, 29, "メール")}
+      {cb(14, 36, "on")}{t(30, 45, "プッシュ通知")}
+      {cb(14, 52, "off")}{t(30, 61, "SMS")}
+    </svg>
+  );
+  if (i === 1) return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「その他」を選ぶと、横の入力欄に書けるようになっている図">
+      {cb(2, 2, "off")}{t(18, 11, "書籍")}
+      {cb(2, 20, "off")}{t(18, 29, "雑誌")}
+      {cb(2, 38, "on")}{t(18, 47, "その他")}
+      <rect x="48" y="36" width="70" height="15" rx="3" fill="#FFFFFF" stroke="#3A4FCF" strokeWidth="1.2" />
+      {t(53, 46.5, "漫画|", "#171B36")}
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 120 66" width="120" height="66" role="img" aria-label="「どれもない」を選ぶと、ほかの項目の選択が外れる図">
+      {cb(2, 2, "off")}{t(18, 11, "花粉")}
+      {cb(2, 18, "off")}{t(18, 27, "食べ物")}
+      <line x1="2" y1="36" x2="110" y2="36" stroke="#E1E3F0" />
+      {cb(2, 42, "on")}{t(18, 51, "どれもない")}
+      {t(2, 64, "→ ほかの選択は外れる", "#565D8A")}
+    </svg>
+  );
+}
+
 function SpecialItems() {
   const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
   const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
   const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
   return (
     <section style={{ marginBottom: 32 }}>
-      <h2 style={{ ...styles.diagramTitle, marginTop: 26 }}>「すべて選択」「その他」「どれもない」の項目</h2>
+      <h2 style={styles.diagramTitle}>「すべて選択」「その他」「どれもない」の項目</h2>
       <p style={styles.diagramNote}>一覧に特別な項目を足すかどうかと、足したときの動き。<strong>Apple・Google・NN groupが定めているのは「すべて選択」(親のチェックボックス)の動きまで</strong>(W3Cは、APGの例で親の動きを示している)で、「その他」「どれもない」はNN groupのラジオボタンの記事に指針がある。それ以外はAI解釈で、そう明記した。</p>
       <div style={{ overflowX: "auto", marginBottom: 6 }}>
         <table style={{ width: "100%", minWidth: 680, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
-          <colgroup><col style={{ width: 130 }} /><col /><col /><col /></colgroup>
+          <colgroup><col style={{ width: 150 }} /><col /><col /><col /></colgroup>
           <thead><tr>{["項目", "入れるとき", "動き", "追加・変更したとき"].map((h) => (<th key={h} style={th}>{h}</th>))}</tr></thead>
           <tbody>
-            {SPECIAL_ITEMS.map((r) => (<tr key={r.name}><td style={key}>{r.name}</td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
+            {SPECIAL_ITEMS.map((r, i) => (<tr key={r.name}><td style={key}>{r.name}<div style={{ marginTop: 8, background: "#FFFFFF", border: "1px solid #E1E3F0", borderRadius: 4, padding: 4, display: "inline-block" }}><SpecialFig i={i} /></div></td><td style={td}>{r.when}</td><td style={td}>{r.how}</td><td style={td}>{r.add}</td></tr>))}
           </tbody>
         </table>
       </div>
@@ -19836,31 +19860,6 @@ function NestedAccordion() {
   );
 }
 
-const SIZE_BAND_COLOR = { ng: { fill: "#F7E4E1", stroke: "#C0503F" }, caution: { fill: "#FBF0D9", stroke: "#A97A1A" }, ok: { fill: "#E4F0EC", stroke: "#2F7D6E" } };
-const SIZE_SCALE = {
-  bands: [{ from: 0, to: 24, type: "ng" }, { from: 24, to: 44, type: "caution" }, { from: 44, to: 60, type: "ok" }],
-  markers: [{ at: 24, label: "24" }, { at: 44, label: "44" }, { at: 48, label: "48" }],
-};
-
-function SizeRangeScale() {
-  const domainMax = 60;
-  const w = 280;
-  const x = (v) => (v / domainMax) * w;
-  return (
-    <svg viewBox={`0 0 ${w} 44`} style={{ width: "100%", maxWidth: 320, height: "auto", display: "block", margin: "0 auto" }}>
-      {SIZE_SCALE.bands.map((b, i) => (
-        <rect key={i} x={x(b.from)} y={4} width={x(b.to) - x(b.from)} height={14} fill={SIZE_BAND_COLOR[b.type].fill} stroke={SIZE_BAND_COLOR[b.type].stroke} strokeWidth="1" />
-      ))}
-      {SIZE_SCALE.markers.map((m, i) => (
-        <g key={i}>
-          <line x1={x(m.at)} y1={1} x2={x(m.at)} y2={20} stroke="#171B36" strokeWidth="1.4" />
-          <circle cx={x(m.at)} cy={1} r="2" fill="#171B36" />
-          <text x={x(m.at)} y={34} fontSize="9" fontFamily="IBM Plex Mono" fill="#171B36" textAnchor="middle" fontWeight="600">{m.label}</text>
-        </g>
-      ))}
-    </svg>
-  );
-}
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
 const KP = [
@@ -19917,6 +19916,8 @@ function SelectionCheckboxPage() {
           <SplitSection splits={SPLITS} />
           <GoodBadFigure />
 
+
+          <SpecialItems />
 
           <h2 style={styles.diagramTitle}>四系列デザインシステム比較</h2>
           <div style={styles.synthesisBox}>
@@ -20020,7 +20021,6 @@ function SelectionCheckboxPage() {
             </div>
           </div>
 
-          <SpecialItems />
           <NestedAccordion />
 
           <RelatedPages paths={["/components/selection/overview", "/components/selection/radio", "/components/selection/toggle", "/components/selection/chips"]} />
@@ -21833,6 +21833,117 @@ const KINDS = [
   { name: "ポップアップボタン/エクスポーズドドロップダウン", use: "命令ではなく、排他的な選択肢から値を選ぶ。選んだ値を表示し続ける(→「セレクト」ページ)", who: "Apple・Google" },
 ];
 
+/* メニューの種類の図(2026-11-28 ⑩本人最終レビューNo.026。概念図) */
+const KF = "Jost, Noto Sans JP";
+function KindFig({ i }) {
+  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
+  if (i === 0) return (
+    <svg viewBox="0 0 150 70" width="150" height="70" role="img" aria-label="「並べ替え」ボタンの下に、名前順・日付順・サイズ順のメニューが開いている図">
+      <rect x="4" y="4" width="70" height="18" rx="9" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
+      <text x="13" y="16.5" fontSize="8.5" fill="#3A4FCF" fontFamily={KF}>並べ替え ▾</text>
+      <rect x="4" y="26" width="90" height="42" rx="4" {...box} />
+      {["名前順", "日付順", "サイズ順"].map((t, j) => (<text key={t} x="12" y={38 + j * 12} fontSize="8" fill="#171B36" fontFamily={KF}>{t}</text>))}
+    </svg>
+  );
+  if (i === 1) return (
+    <svg viewBox="0 0 150 70" width="150" height="70" role="img" aria-label="選んだファイルの上で右クリックし、その場にコピー・名前を変更・削除のメニューが出ている図">
+      <rect x="4" y="8" width="52" height="40" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
+      <text x="12" y="31" fontSize="8" fill="#3A4FCF" fontFamily={KF}>写真.jpg</text>
+      <path d="M44 34l0 11 3-3 2 5 2-1-2-5 4 0z" fill="#171B36" />
+      <rect x="58" y="22" width="88" height="44" rx="4" {...box} />
+      {["コピー", "名前を変更", "削除"].map((t, j) => (<text key={t} x="66" y={34 + j * 12} fontSize="8" fill={j === 2 ? "#C0503F" : "#171B36"} fontFamily={KF}>{t}</text>))}
+    </svg>
+  );
+  if (i === 2) return (
+    <svg viewBox="0 0 150 70" width="150" height="70" role="img" aria-label="画面上部にファイル・編集・表示のメニューバーが並び、編集の下に取り消す・コピーと、ショートカットが表示されている図">
+      <rect x="2" y="4" width="146" height="14" fill="#F3F6FA" />
+      {["ファイル", "編集", "表示"].map((t, j) => (<text key={t} x={8 + j * 36} y="14" fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
+      <rect x="40" y="20" width="96" height="34" rx="4" {...box} />
+      <text x="47" y="32" fontSize="8" fill="#171B36" fontFamily={KF}>取り消す</text><text x="130" y="32" fontSize="7.5" fill="#666D93" textAnchor="end" fontFamily={KF}>⌘Z</text>
+      <text x="47" y="46" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text><text x="130" y="46" fontSize="7.5" fill="#666D93" textAnchor="end" fontFamily={KF}>⌘C</text>
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 150 70" width="150" height="70" role="img" aria-label="「配送方法」の欄に、選んだ値「お急ぎ便」が表示され続けている図">
+      <text x="4" y="12" fontSize="8" fill="#2E3457" fontWeight="700" fontFamily={KF}>配送方法</text>
+      <rect x="4" y="17" width="110" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
+      <text x="11" y="30.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text>
+      <text x="106" y="30.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
+      <text x="4" y="54" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が欄に残る</text>
+    </svg>
+  );
+}
+
+/* プルダウン・メニュー・リストボックスの違い(2026-11-28 ⑩本人最終レビューNo.026) */
+const DIFF_COLS = ["プルダウン(セレクト)", "メニュー", "リストボックス"];
+const DIFF_ROWS = [
+  ["何を選ぶか", "値(配送方法・都道府県など)", "命令(コピー・削除・並べ替えなど)", "値"],
+  ["選択肢の見え方", "開くまで隠れている", "開くまで隠れている", "折りたたまず、いつも見えている(NN group)"],
+  ["選んだ後", "選んだ値が欄に表示され続ける(Apple・Google)", "その命令がすぐ実行され、メニューは閉じる", "一覧は開いたまま、選んだ項目が強調される"],
+  ["選べる数", "1つ", "―(命令を1つ実行する)", "1つ、または複数"],
+  ["向く場面", "フォームで値を選ぶ。場所を節約したい(NN group: フォームの入力や属性の選択向き)", "画面に常に置くほどではない操作をまとめる(NN group: ナビゲーションや命令の一覧向き)", "選択肢をすぐ見比べたい。複数を選ばせたい"],
+  ["W3Cの参考例(APG)", "Select-Only Combobox(ブラウザ標準のプルダウンなら不要)", "Menu Button・Menubar", "Listbox"],
+];
+const DIFF_REFS = [
+  { label: "NN group: Dropdowns: Design Guidelines(ドロップダウンボックスとドロップダウンメニュー)", url: "https://www.nngroup.com/articles/drop-down-menus/" },
+  { label: "NN group: Listboxes vs. Dropdown Lists", url: "https://www.nngroup.com/articles/listbox-dropdown/" },
+  { label: "Apple: Pop-up buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pop-up-buttons" },
+  { label: "Apple: Pull-down buttons", url: "https://developer.apple.com/design/human-interface-guidelines/pull-down-buttons" },
+  { kind: "apg", label: "APG: Menu Button Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/" },
+  { kind: "apg", label: "APG: Listbox Pattern", url: "https://www.w3.org/WAI/ARIA/apg/patterns/listbox/" },
+  { kind: "apg", label: "APG: Select-Only Combobox", url: "https://www.w3.org/WAI/ARIA/apg/patterns/combobox/examples/combobox-select-only/" },
+];
+
+function DiffFig({ k }) {
+  const box = { fill: "#FFFFFF", stroke: "#C9CDE0", strokeWidth: 1 };
+  if (k === 0) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="欄に選んだ値が表示されたプルダウン">
+      <rect x="2" y="6" width="112" height="20" rx="4" fill="#FFFFFF" stroke="#8E93B5" strokeWidth="1.2" />
+      <text x="9" y="19.5" fontSize="8.5" fill="#171B36" fontFamily={KF}>お急ぎ便</text><text x="106" y="19.5" fontSize="8" fill="#565D8A" textAnchor="end" fontFamily={KF}>▾</text>
+      <text x="2" y="44" fontSize="7.5" fill="#565D8A" fontFamily={KF}>選んだ値が残る</text>
+    </svg>
+  );
+  if (k === 1) return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="その他のボタンから、コピー・削除の命令が並ぶメニューが開いている図">
+      <rect x="2" y="4" width="20" height="16" rx="4" fill="#EEF1FA" stroke="#3A4FCF" strokeWidth="1.2" />
+      <text x="12" y="15" fontSize="9" fill="#3A4FCF" textAnchor="middle" fontFamily={KF}>…</text>
+      <rect x="2" y="23" width="80" height="34" rx="4" {...box} />
+      <text x="9" y="36" fontSize="8" fill="#171B36" fontFamily={KF}>コピー</text>
+      <text x="9" y="50" fontSize="8" fill="#C0503F" fontFamily={KF}>削除</text>
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 120 60" width="120" height="60" role="img" aria-label="いつも開いている一覧の中で、1つの項目が強調されているリストボックス">
+      <rect x="2" y="2" width="112" height="54" rx="4" {...box} />
+      <rect x="4" y="18" width="108" height="16" fill="#EEF1FA" />
+      {["北海道", "東北", "関東"].map((t, j) => (<text key={t} x="10" y={14 + j * 16} fontSize="8" fill={j === 1 ? "#3A4FCF" : "#171B36"} fontWeight={j === 1 ? 700 : 400} fontFamily={KF}>{t}</text>))}
+    </svg>
+  );
+}
+
+function DiffSection() {
+  const th = { textAlign: "left", fontSize: 11, fontWeight: 700, color: "#565D8A", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #E1E3F0" };
+  const key = { fontWeight: 700, color: "#454C78", background: "#F8F9FD", padding: "8px 10px", borderBottom: "1px solid #EEF0F7", verticalAlign: "top" };
+  const td = { padding: "8px 10px", borderBottom: "1px solid #EEF0F7", lineHeight: 1.6, verticalAlign: "top" };
+  return (
+    <section style={styles.ruleSection}>
+      <h2 style={styles.diagramTitle}>プルダウン・メニュー・リストボックスの違い</h2>
+      <p style={styles.diagramNote}>見た目が似ていても、<strong>値を選ぶのか(プルダウン・リストボックス)、命令を実行するのか(メニュー)</strong>で役割が違う。値を選ぶ2つは、<strong>選択肢が開くまで隠れているか、いつも見えているか</strong>で分かれる。各系列の説明をまとめた整理で、出典の系列を括弧で示した。</p>
+      <div style={{ overflowX: "auto", marginBottom: 6 }}>
+        <table style={{ width: "100%", minWidth: 640, borderCollapse: "collapse", tableLayout: "fixed", fontSize: 12, color: "#2E3457" }}>
+          <colgroup><col style={{ width: 120 }} /><col /><col /><col /></colgroup>
+          <thead><tr><th style={th}></th>{DIFF_COLS.map((c) => (<th key={c} style={th}>{c}</th>))}</tr></thead>
+          <tbody>
+            <tr><td style={key}>イメージ</td>{[0, 1, 2].map((k) => (<td key={k} style={td}><DiffFig k={k} /></td>))}</tr>
+            {DIFF_ROWS.map((r) => (<tr key={r[0]}><td style={key}>{r[0]}</td>{r.slice(1).map((v, i) => (<td key={i} style={td}>{v}</td>))}</tr>))}
+          </tbody>
+        </table>
+      </div>
+      <div style={{ fontSize: 11, color: "#565D8A", marginTop: 6 }}><RefList refs={DIFF_REFS} /></div>
+    </section>
+  );
+}
+
 function InfoBox({ label, accent, children }) {
   return (
     <div style={{ ...styles.infoBox, ...(accent ? { borderLeftColor: accent } : {}) }}>
@@ -21867,7 +21978,7 @@ const LEAD = "ボタンなどを押すと開き、その場で実行できる操
 const ABOUT = [
   { k: "目的・役割", v: "画面に常に置くほどではない操作を、必要なときだけ一覧で出す" },
   { k: "よく使われる場面", v: "「…」ボタンのその他の操作、右クリックのメニュー、アプリのメニューバー" },
-  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink></> },
+  { k: "似たコンポーネント", v: <>値を選んで表示し続けるなら<PageLink to="/components/selection/select">セレクト(プルダウン)</PageLink>(違いは「プルダウン・メニュー・リストボックスの違い」)</> },
 ];
 
 /* まず押さえる要点(2026-11 ⑦本人レビュー。レビュー表M列の案。根拠が「AI解釈」のものはこのサイトの解釈) */
@@ -21911,8 +22022,9 @@ function SelectionMenuPage() {
             <h2 style={styles.diagramTitle}>メニューの種類と使い分け</h2>
             <p style={styles.diagramNote}>命令を選ぶのか、値を選ぶのかでコンポーネントが変わる。下の名前は根拠にした系列だ。</p>
             <div style={styles.kindGrid}>
-              {KINDS.map((k) => (
+              {KINDS.map((k, i) => (
                 <div key={k.name} style={styles.kindCard}>
+                  <div style={{ background: "#F8F9FD", borderRadius: 4, padding: 6, marginBottom: 8, display: "flex", justifyContent: "center" }}><KindFig i={i} /></div>
                   <div style={styles.kindName}>{k.name}</div>
                   <div style={styles.kindUse}>{k.use}</div>
                   <div style={styles.kindWho}>{k.who}</div>
@@ -21920,6 +22032,8 @@ function SelectionMenuPage() {
               ))}
             </div>
           </section>
+
+          <DiffSection />
 
           <SplitSection splits={SPLITS} />
 
@@ -22708,31 +22822,7 @@ const KP = [
 ];
 
 /* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
-/* 良い例・悪い例(2026-11-28 ⑩本人最終レビューNo.022: 「並べ方」は系列で答えが分かれる(意見が分かれる点)ため、4系列が一致する「1つだけ選ばせるとき」に差し替えた) */
-function GoodBadFigure() {
-  const radio = (on) => (
-    <span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{on && <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} />}</span>
-  );
-  const check = (on) => (
-    <span style={{ width: 16, height: 16, borderRadius: 3, border: "2px solid #3A4FCF", background: on ? "#3A4FCF" : "#FFFFFF", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#FFFFFF", fontSize: 11, lineHeight: 1 }}>{on && "✓"}</span>
-  );
-  const list = (mark, states) => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start", fontSize: 12, color: "#2E3457" }}>
-      <span style={{ fontSize: 12, fontWeight: 700, color: "#171B36" }}>配送方法</span>
-      {["通常配送", "お急ぎ便", "店舗受け取り"].map((t, i) => (<span key={t} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>{mark(states[i])}{t}</span>))}
-    </div>
-  );
-  return (
-    <GoodBad
-            title="良い例・悪い例 ― 1つだけ選ばせるとき"
-            items={[
-              { kind: "good", fig: list(radio, [false, true, false]), text: "丸いラジオボタンなので、1つだけ選ぶ項目だと見て分かる。別の項目を選ぶと、前の選択は外れる。" },
-              { kind: "bad", fig: list(check, [true, true, false]), text: "1つしか選べないのに四角いチェックボックスにすると、複数選べるように見え、実際に2つ選べてしまう。" },
-            ]}
-            basis="Apple(2つ以上から1つだけ選ばせるならラジオボタン)、Google(1つだけ選ぶにはラジオボタン、複数ならチェックボックス)、NN group(相互に排他的な選択肢にはラジオボタン)。W3Cも、1つだけ選ぶグループと複数選べるグループを別の役割として伝える。"
-          />
-  );
-}
+/* 良い例・悪い例は、2026-11-28 ⑩本人最終レビュー(チャットでの指示)で不要として外した */
 
 function SelectionRadioPage() {
   return (
@@ -22763,7 +22853,6 @@ function SelectionRadioPage() {
           />
 
           <SplitSection splits={SPLITS} />
-          <GoodBadFigure />
 
 
 
@@ -23476,16 +23565,22 @@ const KP = [
   { n: 3, t: "入力のほうが速い情報には使わない", d: "生年月日のように覚えている情報など", who: "NN group" },
 ];
 
-/* 良い例・悪い例の図(2026-11 ⑦本人レビュー。レビュー表M列の案。図は概念図) */
+/* 良い例・悪い例の図(2026-11-28 ⑩本人最終レビューNo.025: 良い例がラジオボタンでセレクトの例になっていなかったため、両方セレクトの「ラベル」の例に差し替えた。図は概念図) */
 function GoodBadFigure() {
+  const field = (text, muted, open) => (
+    <span style={{ width: 210, display: "flex", justifyContent: "space-between", alignItems: "center", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: muted ? "#666D93" : "#171B36", background: "#FFFFFF" }}>{text}<span aria-hidden="true" style={{ color: "#565D8A" }}>{open ? "▴" : "▾"}</span></span>
+  );
+  const col = (children) => (<div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}>{children}</div>);
+  const label = (t) => (<span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>{t}</span>);
+  const step = (t) => (<span style={{ fontSize: 10.5, color: "#565D8A", marginTop: 4 }}>{t}</span>);
   return (
     <GoodBad
-            title="良い例・悪い例 ― 選択肢が少ないとき"
+            title="良い例・悪い例 ― ラベル"
             items={[
-              { kind: "good", fig: <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}><span style={{ width: 8, height: 8, borderRadius: "50%", background: "#3A4FCF" }} /></span><span style={{ fontSize: 13, color: "#2E3457" }}>通常配送</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>お急ぎ便</span></span><span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 16, height: 16, borderRadius: "50%", border: "2px solid #3A4FCF", display: "inline-flex", alignItems: "center", justifyContent: "center" }}></span><span style={{ fontSize: 13, color: "#2E3457" }}>店舗で受け取る</span></span></div>, text: "選択肢が少ないときは、ラジオボタンですべて見せる。開かなくても比べられる。" },
-              { kind: "bad", fig: <div style={{ display: "flex", flexDirection: "column", gap: 6, alignItems: "flex-start" }}><span style={{ fontSize: 12, fontWeight: 700, color: "#2E3457" }}>配送方法</span><span style={{ width: 200, display: "flex", justifyContent: "space-between", border: "1.5px solid #8E93B5", borderRadius: 4, padding: "6px 10px", fontSize: 13, color: "#2E3457" }}>選択してください<span aria-hidden="true">▾</span></span></div>, text: "数個しかない選択肢をセレクトの中に隠すと、開くまで何があるか分からない。" },
+              { kind: "good", fig: col(<>{step("選ぶ前")}{label("配送方法")}{field("選択してください", true)}{step("選んだ後")}{label("配送方法")}{field("お急ぎ便", false)}</>), text: "ラベルが欄の外にあり、選んだ後も何の欄か分かる。欄には今選んでいる値が出る。" },
+              { kind: "bad", fig: col(<>{step("選ぶ前")}{field("配送方法を選択", true)}{step("選んだ後")}{field("お急ぎ便", false)}</>), text: "欄の中の最初の文字をラベルの代わりにしている。選ぶと消え、何を選んだ欄なのか分からなくなる。" },
             ]}
-            basis="このページのサマリー(選択肢が少なく、すべて見せたいならラジオボタン)と「意見が分かれる点」のAI解釈(5つ以下で場所に余裕があればラジオボタン)。"
+            basis="W3C 3.3.2(入力欄にラベルか説明を用意する)、Apple(開かなくても選択肢を予測できる説明的なラベルを付け、選んだ内容をボタンに表示する)、NN group(開いている間も、何を選んでいるかを思い出せるようラベルを見せておく)。"
           />
   );
 }
